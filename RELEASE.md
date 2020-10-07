@@ -91,6 +91,8 @@ Below is a list of PSoC 6 part numbers obsoleted in psoc6pdl release-v1.6.0, wit
 
 ## Known Issues
 
+Using the 'routed' option for the SAR common negative input for single-ended channels, in the device configurator the SAR ADC 0 instance should be named 'SAR0' and SAR ADC 1 instance should be named 'SAR1' for proper code generation.
+
 ## Defect Fixes
 
 A non-blocking flash write initiated by the Cortex-M4 application failed to complete because the Cortex-M0+ CPU is in deep sleep mode. The issue is fixed in the PSoC 6 Cortex M0+ prebuilt image (psoc6cm0p). Update existing applications to use this new image. Please refer to the Changelog section of the SysPm driver for more details.
