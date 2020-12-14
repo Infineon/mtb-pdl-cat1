@@ -7,7 +7,16 @@ var group__group__smif__data__structures__memslot =
       [ "mode", "structcy__stc__smif__mem__cmd__t.html#a1933492ca1e86dd877868c9020af4412", null ],
       [ "modeWidth", "structcy__stc__smif__mem__cmd__t.html#a01766309d9ff04dd5555758776600be3", null ],
       [ "dummyCycles", "structcy__stc__smif__mem__cmd__t.html#abb0e73fe83948a117e3f1301c258d1d1", null ],
-      [ "dataWidth", "structcy__stc__smif__mem__cmd__t.html#a5a240edc3870586228a47dcc9cfca6ee", null ]
+      [ "dataWidth", "structcy__stc__smif__mem__cmd__t.html#a5a240edc3870586228a47dcc9cfca6ee", null ],
+      [ "dataRate", "structcy__stc__smif__mem__cmd__t.html#a9bbce9baffabb885847bb64b5ee63d02", null ],
+      [ "dummyCyclesPresence", "structcy__stc__smif__mem__cmd__t.html#ab8abfc1c375bb96317c483c8e4f303cf", null ],
+      [ "modePresence", "structcy__stc__smif__mem__cmd__t.html#a354d50c480b6f4811a349c3a4221e2c7", null ],
+      [ "modeH", "structcy__stc__smif__mem__cmd__t.html#ad11bb0828104e665195ec369884e5023", null ],
+      [ "modeRate", "structcy__stc__smif__mem__cmd__t.html#a25cfb9111ccfd17478828ae6173ee8f5", null ],
+      [ "addrRate", "structcy__stc__smif__mem__cmd__t.html#ac46bf87f8daae2bae3e57330d60179c1", null ],
+      [ "cmdPresence", "structcy__stc__smif__mem__cmd__t.html#ae53c447d9bd2cdc84e3b0b7e7c0a8ead", null ],
+      [ "commandH", "structcy__stc__smif__mem__cmd__t.html#a35154a65f52742c8e937d6f24948f69d", null ],
+      [ "cmdRate", "structcy__stc__smif__mem__cmd__t.html#a5546688bed04b059f8ec1c80a7a5b28d", null ]
     ] ],
     [ "cy_stc_smif_hybrid_region_info_t", "structcy__stc__smif__hybrid__region__info__t.html", [
       [ "regionAddress", "structcy__stc__smif__hybrid__region__info__t.html#aced799769c060352abbbbff1603c00d5", null ],

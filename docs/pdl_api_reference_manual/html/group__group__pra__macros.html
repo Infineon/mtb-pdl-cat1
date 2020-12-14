@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Macros</title>
+<title>MTB CAT1 Peripheral driver library: Macros</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('group__group__pra__macros.html','');})
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga0b5bfc5991a5627c539970d0eadfab6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__macros.html#ga0b5bfc5991a5627c539970d0eadfab6d">CY_PRA_REG32_CLR_SET</a>(regIndex,  field,  value)</td></tr>
+<tr class="memitem:ga0b5bfc5991a5627c539970d0eadfab6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__macros.html#ga0b5bfc5991a5627c539970d0eadfab6d">CY_PRA_REG32_CLR_SET</a>(regIndex,  field,  value)&#160;&#160;&#160;(void)<a class="el" href="group__group__pra__functions.html#ga0a1b71a4d148280527ca98aba144a6f4">Cy_PRA_SendCmd</a>(CY_PRA_MSG_TYPE_REG32_CLR_SET, (regIndex), ((uint32_t)(~(field ## _Msk))), (_VAL2FLD(field, (value))))</td></tr>
 <tr class="memdesc:ga0b5bfc5991a5627c539970d0eadfab6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides get-clear-modify-write operations with a name field and value and writes a resulting value to the 32-bit register.  <a href="#ga0b5bfc5991a5627c539970d0eadfab6d">More...</a><br /></td></tr>
 <tr class="separator:ga0b5bfc5991a5627c539970d0eadfab6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5ce9fb4d14bcb5785633ae9c85e2df30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__macros.html#ga5ce9fb4d14bcb5785633ae9c85e2df30">CY_PRA_REG32_SET</a>(regIndex,  value)&#160;&#160;&#160;(void)<a class="el" href="group__group__pra__functions.html#ga0a1b71a4d148280527ca98aba144a6f4">Cy_PRA_SendCmd</a>(CY_PRA_MSG_TYPE_REG32_SET, (regIndex), (value), 0UL)</td></tr>
@@ -115,6 +115,18 @@ Macros</h2></td></tr>
 <tr class="memitem:ga98cc2cf17d3299053c6598e437518ab1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__macros.html#ga98cc2cf17d3299053c6598e437518ab1">CY_PRA_FUNCTION_CALL_VOID_VOID</a>(msgType,  funcIndex)&#160;&#160;&#160;(void)<a class="el" href="group__group__pra__functions.html#ga0a1b71a4d148280527ca98aba144a6f4">Cy_PRA_SendCmd</a>((msgType), (funcIndex), 0UL, 0UL)</td></tr>
 <tr class="memdesc:ga98cc2cf17d3299053c6598e437518ab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the specified function without a parameter and returns void.  <a href="#ga98cc2cf17d3299053c6598e437518ab1">More...</a><br /></td></tr>
 <tr class="separator:ga98cc2cf17d3299053c6598e437518ab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1d80b007872bb0d1b2d03b803ee6b81b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__macros.html#ga1d80b007872bb0d1b2d03b803ee6b81b">CY_PRA_GET_PIN_PROT_TYPE</a>(base,  pinNum)&#160;&#160;&#160;<a class="el" href="group__group__pra__functions.html#gabf68486fc4060570c7a339614bb634d8">Cy_PRA_GetPinProtType</a>(base, pinNum)</td></tr>
+<tr class="memdesc:ga1d80b007872bb0d1b2d03b803ee6b81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the PORT and PIN number with secure PIN list and returns PIN protection type.  <a href="#ga1d80b007872bb0d1b2d03b803ee6b81b">More...</a><br /></td></tr>
+<tr class="separator:ga1d80b007872bb0d1b2d03b803ee6b81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga63fe5ccec7cac90e919b10356109f650"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__macros.html#ga63fe5ccec7cac90e919b10356109f650">CY_PRA_IS_PORT_SECURE</a>(base)&#160;&#160;&#160;<a class="el" href="group__group__pra__functions.html#ga92699262d8e1654b7f9c6a48b658997d">Cy_PRA_IsPortSecure</a>(base)</td></tr>
+<tr class="memdesc:ga63fe5ccec7cac90e919b10356109f650"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the PORT with secure PIN list and returns PORT protection status.  <a href="#ga63fe5ccec7cac90e919b10356109f650">More...</a><br /></td></tr>
+<tr class="separator:ga63fe5ccec7cac90e919b10356109f650"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab940cb3aaf5fa67f9e557cc962821ee3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__macros.html#gab940cb3aaf5fa67f9e557cc962821ee3">CY_PRA_GET_PORT_REG_INDEX</a>(base,  subIndex)&#160;&#160;&#160;<a class="el" href="group__group__pra__functions.html#ga75141de8e5b3bf6600dc800b66128af6">Cy_PRA_GetPortRegIndex</a>(base, subIndex)</td></tr>
+<tr class="memdesc:gab940cb3aaf5fa67f9e557cc962821ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the PORT and PIN number with secure PIN list and returns PORT index.  <a href="#gab940cb3aaf5fa67f9e557cc962821ee3">More...</a><br /></td></tr>
+<tr class="separator:gab940cb3aaf5fa67f9e557cc962821ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga83fb16d9d89322be1a9f69330e440c5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__macros.html#ga83fb16d9d89322be1a9f69330e440c5d">CY_PRA_GET_HSIOM_REG_INDEX</a>(base,  subIndex)&#160;&#160;&#160;<a class="el" href="group__group__pra__functions.html#ga5850ddafe9e4383265d32842f6124854">Cy_PRA_GetHsiomRegIndex</a>(base, subIndex)</td></tr>
+<tr class="memdesc:ga83fb16d9d89322be1a9f69330e440c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the PORT with secure PIN list and returns HSIOM port index.  <a href="#ga83fb16d9d89322be1a9f69330e440c5d">More...</a><br /></td></tr>
+<tr class="separator:ga83fb16d9d89322be1a9f69330e440c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ga0b5bfc5991a5627c539970d0eadfab6d"></a>
@@ -144,12 +156,11 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td>&#160;&#160;&#160;(void)<a class="el" href="group__group__pra__functions.html#ga0a1b71a4d148280527ca98aba144a6f4">Cy_PRA_SendCmd</a>(CY_PRA_MSG_TYPE_REG32_CLR_SET, (regIndex), ((uint32_t)(~(field ## _Msk))), (_VAL2FLD(field, (value))))</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(void)<a class="code" href="group__group__pra__functions.html#ga0a1b71a4d148280527ca98aba144a6f4">Cy_PRA_SendCmd</a>(CY_PRA_MSG_TYPE_REG32_CLR_SET, \</div><div class="line">                              (regIndex), \</div><div class="line">                              ((uint32_t)(~(field ## _Msk))), \</div><div class="line">                              (_VAL2FLD(field, \</div><div class="line">                              (value))))</div><div class="ttc" id="group__group__pra__functions_html_ga0a1b71a4d148280527ca98aba144a6f4"><div class="ttname"><a href="group__group__pra__functions.html#ga0a1b71a4d148280527ca98aba144a6f4">Cy_PRA_SendCmd</a></div><div class="ttdeci">cy_en_pra_status_t Cy_PRA_SendCmd(uint16_t cmd, uint16_t regIndex, uint32_t clearMask, uint32_t setMask)</div><div class="ttdoc">Takes the parameters, passes them to the secure Cortex-M0+ via IPC, waits for Cortex-M0+ to finish an...</div><div class="ttdef"><b>Definition:</b> cy_pra.c:1794</div></div>
-</div><!-- fragment -->
+
 <p>Provides get-clear-modify-write operations with a name field and value and writes a resulting value to the 32-bit register. </p>
 <dl class="section note"><dt>Note</dt><dd>An attempt to access not-supported registers (not secure and not listed in the TRM) results in an error. The list of the registers that can be accessed by the PRA driver directly is defined in the cy_pra.h file with the CY_PRA_INDX_ prefix.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -393,13 +404,154 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="ga1d80b007872bb0d1b2d03b803ee6b81b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1d80b007872bb0d1b2d03b803ee6b81b">&#9670;&nbsp;</a></span>CY_PRA_GET_PIN_PROT_TYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_PRA_GET_PIN_PROT_TYPE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">base, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pinNum&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__group__pra__functions.html#gabf68486fc4060570c7a339614bb634d8">Cy_PRA_GetPinProtType</a>(base, pinNum)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compares the PORT and PIN number with secure PIN list and returns PIN protection type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>GPIO Port address</td></tr>
+    <tr><td class="paramname">pinNum</td><td>GPIO PIN number</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The categories of PIN. </dd></dl>
+
+</div>
+</div>
+<a id="ga63fe5ccec7cac90e919b10356109f650"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga63fe5ccec7cac90e919b10356109f650">&#9670;&nbsp;</a></span>CY_PRA_IS_PORT_SECURE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_PRA_IS_PORT_SECURE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">base</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__group__pra__functions.html#ga92699262d8e1654b7f9c6a48b658997d">Cy_PRA_IsPortSecure</a>(base)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compares the PORT with secure PIN list and returns PORT protection status. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>GPIO Port address</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if port is secure otherwise false. </dd></dl>
+
+</div>
+</div>
+<a id="gab940cb3aaf5fa67f9e557cc962821ee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab940cb3aaf5fa67f9e557cc962821ee3">&#9670;&nbsp;</a></span>CY_PRA_GET_PORT_REG_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_PRA_GET_PORT_REG_INDEX</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">base, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">subIndex&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__group__pra__functions.html#ga75141de8e5b3bf6600dc800b66128af6">Cy_PRA_GetPortRegIndex</a>(base, subIndex)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compares the PORT and PIN number with secure PIN list and returns PORT index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>GPIO Port address</td></tr>
+    <tr><td class="paramname">subIndex</td><td>register index of GPIO PORT</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>PRA GPIO PORT register index </dd></dl>
+
+</div>
+</div>
+<a id="ga83fb16d9d89322be1a9f69330e440c5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga83fb16d9d89322be1a9f69330e440c5d">&#9670;&nbsp;</a></span>CY_PRA_GET_HSIOM_REG_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_PRA_GET_HSIOM_REG_INDEX</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">base, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">subIndex&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__group__pra__functions.html#ga5850ddafe9e4383265d32842f6124854">Cy_PRA_GetHsiomRegIndex</a>(base, subIndex)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compares the PORT with secure PIN list and returns HSIOM port index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>GPIO Port address</td></tr>
+    <tr><td class="paramname">subIndex</td><td>register index of HSIOM PORT</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>PRA HSIOM PORT register index </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

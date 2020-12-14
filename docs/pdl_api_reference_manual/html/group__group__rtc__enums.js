@@ -35,5 +35,12 @@ var group__group__rtc__enums =
     [ "cy_en_rtc_alarm_enable_t", "group__group__rtc__enums.html#ga813b21db7e39f0af025d70c38dbd1a0e", [
       [ "CY_RTC_ALARM_DISABLE", "group__group__rtc__enums.html#gga813b21db7e39f0af025d70c38dbd1a0ea005c967377909e0c8c92bbcdc3c161bf", null ],
       [ "CY_RTC_ALARM_ENABLE", "group__group__rtc__enums.html#gga813b21db7e39f0af025d70c38dbd1a0ea12ed08320d23dfe654f029d34972539b", null ]
+    ] ],
+    [ "cy_rtc_clk_select_sources_t", "group__group__rtc__enums.html#ga80121694c2c29336d673a1c401725310", [
+      [ "CY_RTC_CLK_SELECT_WCO", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a93b4396c0bab2d5e25228c8ffe53bc8c", null ],
+      [ "CY_RTC_CLK_SELECT_ALTBAK", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a261ab8c2da0f1d1f5a38729fea0cc7e1", null ],
+      [ "CY_RTC_CLK_SELECT_ILO", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a1f71ed937334fcebc3edca826cacbda6", null ],
+      [ "CY_RTC_CLK_SELECT_LPECO_PRESCALER", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a6ba43c7552d0a1b0867f5200a519f1a2", null ],
+      [ "CY_RTC_CLK_SELECT_PILO", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a6bc54987a5d16de34245545744294a67", null ]
     ] ]
 ];

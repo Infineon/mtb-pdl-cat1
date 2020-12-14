@@ -18,7 +18,10 @@ var group__group__smif__data__structures =
       [ "transferStatus", "structcy__stc__smif__context__t.html#afb2aab2415d3a0122d5321a58ca0b942", null ],
       [ "txCompleteCb", "structcy__stc__smif__context__t.html#a71a18df866cf403b715696915290a8d0", null ],
       [ "rxCompleteCb", "structcy__stc__smif__context__t.html#ab9a4c6932ab197e3d62ebc0b253200f5", null ],
-      [ "timeout", "structcy__stc__smif__context__t.html#ab5ea1c5ff56657fbff10620e7a8e37aa", null ]
+      [ "timeout", "structcy__stc__smif__context__t.html#ab5ea1c5ff56657fbff10620e7a8e37aa", null ],
+      [ "preCmdDataRate", "structcy__stc__smif__context__t.html#a03f1548bb9f885d5fdb0c70c5501b4cb", null ],
+      [ "preCmdWidth", "structcy__stc__smif__context__t.html#a0a30a597f16545936e7970359aa6d1dc", null ],
+      [ "preXIPDataRate", "structcy__stc__smif__context__t.html#a25f3b43821e3f1a90d9f40a3efd59bad", null ]
     ] ],
     [ "cy_smif_event_cb_t", "group__group__smif__data__structures.html#ga13688dde62e8977a11ab69cf6b2c39b5", null ]
 ];

@@ -10,6 +10,8 @@ var group__group__ipc__functions =
     [ "Cy_IPC_Drv_GetLockStatus", "group__group__ipc__functions.html#gaa178a606ff01af93d7545c7e3a25c648", null ],
     [ "Cy_IPC_Drv_SendMsgWord", "group__group__ipc__functions.html#ga60f75f0403a88420eb1268f54b21ed27", null ],
     [ "Cy_IPC_Drv_ReadMsgWord", "group__group__ipc__functions.html#gadf7235959bc77bc9d71f6660e315741a", null ],
+    [ "Cy_IPC_Drv_SendMsgDWord", "group__group__ipc__functions.html#ga7726debfaa087fcf9b4fdfe0ab93a0cb", null ],
+    [ "Cy_IPC_Drv_ReadMsgDWord", "group__group__ipc__functions.html#ga169756dae596703caf8aa0479f95c917", null ],
     [ "Cy_IPC_Drv_SendMsgPtr", "group__group__ipc__functions.html#gab9e1b6079cd81d9b918b354d9437744d", null ],
     [ "Cy_IPC_Drv_ReadMsgPtr", "group__group__ipc__functions.html#ga2641f60d4f3147aaea537d4c66d2b3a1", null ],
     [ "Cy_IPC_Drv_SetInterruptMask", "group__group__ipc__functions.html#ga6e910b181ed0ef66a0fa9a2cc9afa105", null ],

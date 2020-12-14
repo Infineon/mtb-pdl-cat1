@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Getting Started</title>
+<title>MTB CAT1 Peripheral driver library: Getting Started</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('page_getting_started.html','');});
 </div>
 <p> The header file contains similar definitions for each peripheral.</p>
 <p><b>Configuration Structure:</b> Each peripheral instance is configurable. Modify values in a PDL configuration structure to change behavior to fit design requirements. The PDL then manages register access using the base hardware address.</p>
-<p><b>Context Structure:</b> A PDL driver may require memory to perform operations. A driver does not allocate memory for this purpose. Firmware allocates the required memory by declaring an instance of a context structure. The address of this variable is passed in function calls. The PDL defines all necessary context structures.</p>
+<p><b>Context Structure:</b> A PDL driver may require memory to peform operations. A driver does not allocate memory for this purpose. Firmware allocates the required memory by declaring an instance of a context structure. The address of this variable is passed in function calls. The PDL defines all necessary context structures.</p>
 <p>The PDL manages the contents of the context variable. <em>Firmware does not read or write the values of the fields in a context variable.</em> In effect, firmware provides a scratch pad in memory for the PDL driver to do its work. Firmware must ensure that a context variable remains in scope when in use. Typically a context variable is declared as static, or as a global variable.</p>
 <p>Many PDL API function calls require a parameter representing one or more of these three concepts. The precise details vary per peripheral, but the design is consistent. There are three commonly-named parameters in the PDL, used to support this design.</p>
 <center>Common PDL Parameters</center><table class="doxtable">
@@ -215,7 +215,7 @@ $(document).ready(function(){initNavTree('page_getting_started.html','');});
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

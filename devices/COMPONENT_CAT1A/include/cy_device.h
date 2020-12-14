@@ -179,6 +179,9 @@ typedef struct
     uint16_t cpussRam0Ctl0;
     uint16_t cpussRam1Ctl0;
     uint16_t cpussRam2Ctl0;
+    uint16_t cpussRam0PwrCtl;
+    uint16_t cpussRam1PwrCtl;
+    uint16_t cpussRam2PwrCtl;
 
     /* IPC registers */
     uint16_t ipcStructSize;
@@ -410,6 +413,9 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define CPUSS_RAM0_CTL0                     (*(volatile uint32_t *) (cy_device->cpussBase + cy_device->cpussRam0Ctl0))
 #define CPUSS_RAM1_CTL0                     (*(volatile uint32_t *) (cy_device->cpussBase + cy_device->cpussRam1Ctl0))
 #define CPUSS_RAM2_CTL0                     (*(volatile uint32_t *) (cy_device->cpussBase + cy_device->cpussRam2Ctl0))
+#define CPUSS_RAM0_PWR_CTL(macroIdx)        (((volatile uint32_t *) (cy_device->cpussBase + cy_device->cpussRam0PwrCtl))[(macroIdx)])
+#define CPUSS_RAM1_PWR_CTL                  (*(volatile uint32_t *) (cy_device->cpussBase + cy_device->cpussRam1PwrCtl))
+#define CPUSS_RAM2_PWR_CTL                  (*(volatile uint32_t *) (cy_device->cpussBase + cy_device->cpussRam2PwrCtl))
 
 #define CPUSS_CM0_NMI_CTL(nmi)              (((volatile uint32_t *) (cy_device->cpussBase + cy_device->cpussCm0NmiCtlOffset))[(nmi)])
 #define CPUSS_CM4_NMI_CTL(nmi)              (((volatile uint32_t *) (cy_device->cpussBase + cy_device->cpussCm4NmiCtlOffset))[(nmi)])
@@ -420,6 +426,8 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 /* used in V2 code only */
 #define CPUSS_CM0_SYSTEM_INT_CTL            (((CPUSS_V2_Type *)(cy_device->cpussBase))->CM0_SYSTEM_INT_CTL)
 #define CPUSS_CM0_INT_STATUS                ((volatile const uint32_t *) &(((CPUSS_V2_Type *)(cy_device->cpussBase))->CM0_INT0_STATUS))
+
+#define CPUSS_SRAM_COUNT                    (1u + CPUSS_RAMC1_PRESENT + CPUSS_RAMC2_PRESENT)
 
 /* ARM core registers */
 #define SYSTICK_CTRL                        (((SysTick_Type *)SysTick)->CTRL)
@@ -976,6 +984,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define REG_IPC_INTR_STRUCT_INTR_MASKED(base)  (((IPC_INTR_STRUCT_Type*)(base))->INTR_MASKED)
 
 #define CY_IPC_STRUCT_PTR(ipcIndex)            ((IPC_STRUCT_Type*)(cy_device->ipcBase + (cy_device->ipcStructSize * (ipcIndex))))
+#define CY_IPC_INTR_STRUCT_PTR(ipcIntrIndex)   &(((IPC_Type *)cy_device->ipcBase)->INTR_STRUCT[ipcIntrIndex])
 
 #define CY_IPC_CHANNELS                        (uint32_t)(cy_device->cpussIpcNr)
 #define CY_IPC_INTERRUPTS                      (uint32_t)(cy_device->cpussIpcIrqNr)

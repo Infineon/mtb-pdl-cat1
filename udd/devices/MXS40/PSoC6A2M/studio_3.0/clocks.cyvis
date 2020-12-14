@@ -86,15 +86,15 @@
     <Annotation shapeName="Shape_820" zorder="200">
       <Location x="809.9998" y="347.9999" />
       <Size width="84.00006" height="12" />
-      <Text>Quad SPI
-SDHC1</Text>
+      <Text><![CDATA[`${(hasBlock("smif[0]") && hasBlock("sdhc[1]")) ? "Quad SPI
+SDHC1" : (hasBlock("smif[0]")) ? "Quad SPI" : (hasBlock("sdhc[1]")) ? "SDHC1" : ""}`]]></Text>
       <Vertical value="false" />
       <Fill>
         <SolidBrush color="128, 128, 128" />
       </Fill>
       <Font value="Microsoft Sans Serif, 8pt" />
       <TextAlignment value="MiddleLeft" />
-      <ShapeTags>wl:smif[0]</ShapeTags>
+      <ShapeTags>wl:smif[0], wl:sdhc[1]</ShapeTags>
     </Annotation>
     <Annotation shapeName="Shape_822" zorder="205">
       <Location x="809.9998" y="383.9999" />
@@ -1543,7 +1543,7 @@ SDHC1</Text>
     <Wire shapeName="Shape_1231" zorder="198" effectiveName="Net_2033" type="Digital">
       <Point1 x="576" y="354" />
       <Point2 x="810" y="354" />
-      <ShapeTags>wl:smif[0]</ShapeTags>
+      <ShapeTags>wl:smif[0], wl:sdhc[1]</ShapeTags>
     </Wire>
     <Wire shapeName="Shape_1232" zorder="213" effectiveName="Net_2553" type="Digital">
       <Point1 x="576" y="462" />
@@ -1849,6 +1849,7 @@ SDHC1</Text>
     <Wire shapeName="Shape_1801" zorder="208" effectiveName="Net_2053" type="Digital">
       <Point1 x="576" y="426" />
       <Point2 x="810" y="426" />
+      <ShapeTags>wl:sdhc[0]</ShapeTags>
     </Wire>
     <Annotation shapeName="Shape_1802" zorder="210">
       <Location x="809.9998" y="419.9999" />
@@ -1860,6 +1861,7 @@ SDHC1</Text>
       </Fill>
       <Font value="Microsoft Sans Serif, 8pt" />
       <TextAlignment value="MiddleLeft" />
+      <ShapeTags>wl:sdhc[0]</ShapeTags>
     </Annotation>
     <Wire shapeName="Shape_1857" zorder="169" effectiveName="Net_3985[1]" type="Digital">
       <Point1 x="468" y="372" />

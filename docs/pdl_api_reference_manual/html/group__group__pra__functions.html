@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Functions</title>
+<title>MTB CAT1 Peripheral driver library: Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -96,6 +96,20 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0a1b71a4d148280527ca98aba144a6f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__functions.html#ga0a1b71a4d148280527ca98aba144a6f4">Cy_PRA_SendCmd</a> (uint16_t cmd, uint16_t regIndex, uint32_t clearMask, uint32_t setMask)</td></tr>
 <tr class="memdesc:ga0a1b71a4d148280527ca98aba144a6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes the parameters, passes them to the secure Cortex-M0+ via IPC, waits for Cortex-M0+ to finish and reports the status.  <a href="#ga0a1b71a4d148280527ca98aba144a6f4">More...</a><br /></td></tr>
 <tr class="separator:ga0a1b71a4d148280527ca98aba144a6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf68486fc4060570c7a339614bb634d8"><td class="memItemLeft" align="right" valign="top"><a id="gabf68486fc4060570c7a339614bb634d8"></a>
+<a class="el" href="group__group__pra__enums.html#ga4bba00f66cd6cd54eb589cd25ed700d6">cy_en_pra_pin_prot_type_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__functions.html#gabf68486fc4060570c7a339614bb634d8">Cy_PRA_GetPinProtType</a> (<a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *base, uint32_t pinNum)</td></tr>
+<tr class="memdesc:gabf68486fc4060570c7a339614bb634d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the matching PORT and PIN number from External clock secure PIN list and returns protection status of the PIN. <br /></td></tr>
+<tr class="separator:gabf68486fc4060570c7a339614bb634d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga92699262d8e1654b7f9c6a48b658997d"><td class="memItemLeft" align="right" valign="top"><a id="ga92699262d8e1654b7f9c6a48b658997d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__functions.html#ga92699262d8e1654b7f9c6a48b658997d">Cy_PRA_IsPortSecure</a> (<a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *base)</td></tr>
+<tr class="memdesc:ga92699262d8e1654b7f9c6a48b658997d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the matching PORT from External clock secure PIN list and returns protection status of the PORT. <br /></td></tr>
+<tr class="separator:ga92699262d8e1654b7f9c6a48b658997d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga75141de8e5b3bf6600dc800b66128af6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__functions.html#ga75141de8e5b3bf6600dc800b66128af6">Cy_PRA_GetPortRegIndex</a> (<a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *base, uint16_t subIndex)</td></tr>
+<tr class="memdesc:ga75141de8e5b3bf6600dc800b66128af6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the matching PORT and PIN number from External clock secure PIN list and returns port address index.  <a href="#ga75141de8e5b3bf6600dc800b66128af6">More...</a><br /></td></tr>
+<tr class="separator:ga75141de8e5b3bf6600dc800b66128af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5850ddafe9e4383265d32842f6124854"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__functions.html#ga5850ddafe9e4383265d32842f6124854">Cy_PRA_GetHsiomRegIndex</a> (<a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *base, uint16_t subIndex)</td></tr>
+<tr class="memdesc:ga5850ddafe9e4383265d32842f6124854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the matching PORT address from External clock secure PIN list and returns HSIOM port address index.  <a href="#ga5850ddafe9e4383265d32842f6124854">More...</a><br /></td></tr>
+<tr class="separator:ga5850ddafe9e4383265d32842f6124854"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9eb129562cf959674d91dc11d37c374a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__functions.html#ga9eb129562cf959674d91dc11d37c374a">Cy_PRA_SystemConfig</a> (const <a class="el" href="structcy__stc__pra__system__config__t.html">cy_stc_pra_system_config_t</a> *devConfig)</td></tr>
 <tr class="memdesc:ga9eb129562cf959674d91dc11d37c374a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates <a class="el" href="structcy__stc__pra__system__config__t.html">cy_stc_pra_system_config_t</a> and applies the provided settings.  <a href="#ga9eb129562cf959674d91dc11d37c374a">More...</a><br /></td></tr>
 <tr class="separator:ga9eb129562cf959674d91dc11d37c374a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +193,66 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga75141de8e5b3bf6600dc800b66128af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga75141de8e5b3bf6600dc800b66128af6">&#9670;&nbsp;</a></span>Cy_PRA_GetPortRegIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Cy_PRA_GetPortRegIndex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>subIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the matching PORT and PIN number from External clock secure PIN list and returns port address index. </p>
+
+</div>
+</div>
+<a id="ga5850ddafe9e4383265d32842f6124854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5850ddafe9e4383265d32842f6124854">&#9670;&nbsp;</a></span>Cy_PRA_GetHsiomRegIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Cy_PRA_GetHsiomRegIndex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>subIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the matching PORT address from External clock secure PIN list and returns HSIOM port address index. </p>
+
+</div>
+</div>
 <a id="ga9eb129562cf959674d91dc11d37c374a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga9eb129562cf959674d91dc11d37c374a">&#9670;&nbsp;</a></span>Cy_PRA_SystemConfig()</h2>
 
@@ -213,7 +287,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

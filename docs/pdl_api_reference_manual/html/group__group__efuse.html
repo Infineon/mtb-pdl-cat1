@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: eFuse        (Electronic Fuses)</title>
+<title>MTB CAT1 Peripheral driver library: eFuse        (Electronic Fuses)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -89,15 +89,17 @@ $(document).ready(function(){initNavTree('group__group__efuse.html','');});
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
 <p>Electronic Fuses (eFuses) are non-volatile memory where each bit is one-time programmable (OTP). </p>
 <p>The functions and other declarations used in this driver are in cy_efuse.h. You can include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
-<p>The eFuse driver enables reading the state of any bit. The eFuse driver does not support writing to eFuse memory. Writing an eFuse bit is typically done by a production programmer.</p>
-<p>One eFuse macro consists of 256 bits (32 * 8). PSoC devices have up to 16 eFuse macros; consult the device-specific datasheet to determine how many macros a device has. These are implemented as a regular Advanced High-performance Bus (AHB) peripheral with the following characteristics:</p><ul>
+<p>The eFuse driver enables reading the state of any bit.</p><ul>
+<li>CAT1A devices does not support writing to eFuse memory. Writing an eFuse bit is typically done by a production programmer. Fuses are programmed via the PSoC Programmer tool that parses the hex file and extracts the necessary information; the fuse data must be located at the dedicated section in the hex file. For more details see <a href="http://www.cypress.com/documentation/programming-specifications/psoc-6-programming-specifications">PSoC 6 Programming Specifications</a></li>
+<li>CAT1B devices support writing to eFuse memory.</li>
+</ul>
+<p>One eFuse macro consists of 256 bits (32 * 8). Consult the device-specific datasheet to determine how many macros a device has. These are implemented as a regular Advanced High-performance Bus (AHB) peripheral with the following characteristics:</p><ul>
 <li>eFuses are used to control the device life-cycle stage (NORMAL, SECURE, and SECURE_WITH_DEBUG) and the protection settings;</li>
 <li>eFuse memory can be programmed (eFuse bit value changed from '0' to '1') only once; if an eFuse bit is blown, it cannot be cleared again;</li>
-<li>fuses are programmed via the PSoC Programmer tool that parses the hex file and extracts the necessary information; the fuse data must be located at the dedicated section in the hex file. For more details see <a href="http://www.cypress.com/documentation/programming-specifications/psoc-6-programming-specifications">PSoC 6 Programming Specifications</a></li>
 </ul>
 <h1><a class="anchor" id="group_efuse_configuration"></a>
 Configuration Considerations</h1>
-<p>The eFuse driver provides the simplest way to read eFuse memory. No configuration is needed.</p>
+<p>The eFuse driver provides the simplest way to read and write eFuse memory. No configuration is needed.</p>
 <h1><a class="anchor" id="group_efuse_more_information"></a>
 More Information</h1>
 <p>Refer to the technical reference manual (TRM) and the device datasheet.</p>
@@ -106,6 +108,20 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.0 </td><td>Added the following functions: <a class="el" href="group__group__efuse__functions.html#ga06a4ae2e9113c195ff77f1dc820b25e7">Cy_EFUSE_Init</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga28ecc1dcdb968e053a958cca635e9461">Cy_EFUSE_DeInit</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga4c007af8fdfc8f7179abad616e88cae2">Cy_EFUSE_Enable</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga0aa04dbc5db609a8cc641c45c3cd79e7">Cy_EFUSE_Disable</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga0dd2f9a26afa1c75420318c09a7f53fb">Cy_EFUSE_WriteBit</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga52ffd7cf26fba5e7786187b8627665b9">Cy_EFUSE_WriteByte</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga15f9240bfa808040e6104c864c57e2c7">Cy_EFUSE_WriteWord</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga8d99433f456f0504334af8ab56e3cc91">Cy_EFUSE_WriteWordArray</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga6484736ef7054535e2b22dab58a9d704">Cy_EFUSE_ReadByte</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#gaebe9c2648cd8b31bdb5721c802b4b4b3">Cy_EFUSE_ReadWord</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#gac5f241d89e5dd02359c5e1f5718b8c96">Cy_EFUSE_ReadWordArray</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#gac5cbe37853fb807ac5d273e6c64c245a">Cy_EFUSE_WriteBootRow</a>,<br />
+ <a class="el" href="group__group__efuse__functions.html#ga02f92f6205a852095d903d1d66e54a23">Cy_EFUSE_ReadBootRow</a>. </td><td>New driver APIs support for CAT1B devices.  </td></tr>
 <tr>
 <td>1.10.4 </td><td>Minor documentation updates. </td><td>Removed MISRA 2004 compliance details and verified MISRA 2012 complaince.  </td></tr>
 <tr>
@@ -137,7 +153,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

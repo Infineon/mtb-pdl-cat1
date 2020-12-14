@@ -1,7 +1,7 @@
 var group__group__sysclk__wco__funcs =
 [
-    [ "Cy_SysClk_WcoEnable", "group__group__sysclk__wco__funcs.html#gac7a1668667e226fd74f782d965b9cd1d", null ],
-    [ "Cy_SysClk_WcoOkay", "group__group__sysclk__wco__funcs.html#ga566c56a125f99d63b8f39f24e11bc1f9", null ],
-    [ "Cy_SysClk_WcoDisable", "group__group__sysclk__wco__funcs.html#ga855b936e5f17dc77abd2c44ec0660e2a", null ],
-    [ "Cy_SysClk_WcoBypass", "group__group__sysclk__wco__funcs.html#ga7a650a941c2974a9e9298e3e3a6217c1", null ]
+    [ "Cy_SysClk_WcoEnable", "group__group__sysclk__wco__funcs.html#gaca35f4a96f042a9c84df82083277c41f", null ],
+    [ "Cy_SysClk_WcoOkay", "group__group__sysclk__wco__funcs.html#ga9e8ae5164397bf3bd0374d957405b9cf", null ],
+    [ "Cy_SysClk_WcoDisable", "group__group__sysclk__wco__funcs.html#ga0990b94c499652b8f5c2dd1cf6abf95e", null ],
+    [ "Cy_SysClk_WcoBypass", "group__group__sysclk__wco__funcs.html#gaf254b104b1e1020545103779a573da17", null ]
 ];

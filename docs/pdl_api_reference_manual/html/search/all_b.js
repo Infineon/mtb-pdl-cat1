@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['list_20of_20devices',['List of Devices',['../device_index_page.html',1,'']]],
   ['low_20power_20callback',['Low Power Callback',['../group__group__ctdac__functions__syspm__callback.html',1,'']]],
   ['low_20power_20callback',['Low Power Callback',['../group__group__i2s__functions__syspm__callback.html',1,'']]],
   ['lpcomp_20_20_20_20_20_20_20_28low_20power_20comparator_29',['LPComp       (Low Power Comparator)',['../group__group__lpcomp.html',1,'']]],

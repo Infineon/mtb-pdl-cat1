@@ -22,6 +22,7 @@ var group__group__scb__uart__data__structures =
       [ "rtsRxFifoLevel", "structcy__stc__scb__uart__config__t.html#a04b3320e809245b5b6736a4dbba1e9cd", null ],
       [ "rtsPolarity", "structcy__stc__scb__uart__config__t.html#aef45f44278f9c550d9b0be95e505bd3e", null ],
       [ "breakWidth", "structcy__stc__scb__uart__config__t.html#a923970897f4434aadda6bee185a2367d", null ],
+      [ "breaklevel", "structcy__stc__scb__uart__config__t.html#abca36ee02b4004875fdb71f271de6e1b", null ],
       [ "rxFifoTriggerLevel", "structcy__stc__scb__uart__config__t.html#a597786d939a3002a980e150cb65c8311", null ],
       [ "rxFifoIntEnableMask", "structcy__stc__scb__uart__config__t.html#a2ad10b825a71d9ba1b6bb1a576c4ae11", null ],
       [ "txFifoTriggerLevel", "structcy__stc__scb__uart__config__t.html#a2a061c925fe7610533730fa206d7d9c2", null ],

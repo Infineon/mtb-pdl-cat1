@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: SysClk       (System Clock)</title>
+<title>MTB CAT1 Peripheral driver library: SysClk       (System Clock)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -116,6 +116,8 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.10 </td><td>Support for CM33. </td><td>New devices support.  </td></tr>
+<tr>
 <td rowspan="2">3.0 </td><td>The behavior of <a class="el" href="group__group__sysclk__eco__funcs.html#gaadd2986e0b77ab0a714e4127ef1693f6">Cy_SysClk_EcoEnable</a> and <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> is changed - these functions disable the resource in case of enabling failure (timeout). </td><td>Usability enhancement.  </td></tr>
 <tr>
 <td>The implementation of <a class="el" href="group__group__sysclk__path__src__funcs.html#gab1c9f683f870696d41786c3df1eb331b">Cy_SysClk_ClkPathGetSource</a>, <a class="el" href="group__group__sysclk__fll__funcs.html#gad9d9c36d022475746375bddaba2b2065">Cy_SysClk_FllConfigure</a>, <a class="el" href="group__group__sysclk__fll__funcs.html#ga8e8ceae09a6a3e825c3ab9cea5561eed">Cy_SysClk_FllGetConfiguration</a>, <a class="el" href="group__group__sysclk__pll__funcs.html#gac5c498137bf7012e8e0f8b8e0dfba1f0">Cy_SysClk_PllConfigure</a> and <a class="el" href="group__group__sysclk__calclk__funcs.html#ga979f2ef437908618291bf3a935488412">Cy_SysClk_ClkMeasurementCountersGetFreq</a> is updated in accordance to the MISRA 2012 requirements. No behavioral changes. </td><td>MISRA 2012 compliance.  </td></tr>
@@ -123,25 +125,25 @@ Changelog</h1>
 <td>2.20.1 </td><td>Updated source code comments. </td><td>Documentation update.  </td></tr>
 <tr>
 <td rowspan="3">2.20 </td><td><p class="starttd">Added the assertion mechanism to the following functions:</p><ul>
-<li><a class="el" href="group__group__sysclk__eco__funcs.html#ga98f834769978ac5618322721f6c2fa00" title="Disables the external crystal oscillator (ECO). ">Cy_SysClk_EcoDisable()</a></li>
-<li><a class="el" href="group__group__sysclk__ilo__funcs.html#gaabb2612adc103562da7d6dc451a33caa" title="Enables the ILO. ">Cy_SysClk_IloEnable()</a></li>
-<li><a class="el" href="group__group__sysclk__ilo__funcs.html#gab8d32f79b480829d5193ba0c1741bc07" title="Controls whether the ILO stays on during a hibernate, or through an XRES or brown-out detect (BOD) ev...">Cy_SysClk_IloHibernateOn()</a></li>
-<li><a class="el" href="group__group__sysclk__pilo__funcs.html#ga4a6570666d4462b97d86e05f4e9fd492" title="Enables the PILO. ">Cy_SysClk_PiloEnable()</a></li>
-<li><a class="el" href="group__group__sysclk__pilo__funcs.html#ga954f6432534797a063e1485f50d6db79" title="Disables the PILO. ">Cy_SysClk_PiloDisable()</a></li>
-<li><a class="el" href="group__group__sysclk__wco__funcs.html#ga855b936e5f17dc77abd2c44ec0660e2a" title="Disables the WCO. ">Cy_SysClk_WcoDisable()</a></li>
-<li><a class="el" href="group__group__sysclk__wco__funcs.html#ga7a650a941c2974a9e9298e3e3a6217c1" title="Sets whether the WCO is bypassed or not. ">Cy_SysClk_WcoBypass()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__fast__funcs.html#gaf1a9a3464a376ec2ef15619c5e16372e" title="Sets the clock divider for the fast clock, which sources the main processor. ">Cy_SysClk_ClkFastSetDivider()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__peri__funcs.html#ga43eae2e50299c3fe43d3fa9f0442af20" title="Sets the clock divider for the peripheral clock tree. ">Cy_SysClk_ClkPeriSetDivider()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__lf__funcs.html#ga4d8aaf9e391eafb90aa8897d95525eb4" title="Sets the source for the low frequency clock(clkLf). ">Cy_SysClk_ClkLfSetSource()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga57d72bc029cd9d5b7d85b7fb79c721a3" title="Sets the source for the timer clock (clk_timer). ">Cy_SysClk_ClkTimerSetSource()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga35c57655122dc43321c946cb9850e7ba" title="Sets the divider for the timer clock (clk_timer). ">Cy_SysClk_ClkTimerSetDivider()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga659f6724d8f2dfd161eac34d917d8bbd" title="Enables the timer clock (clk_timer). ">Cy_SysClk_ClkTimerEnable()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga53a3b997b56368bc2e05d2fb4c91d24a" title="Disables the timer clock (clk_timer). ">Cy_SysClk_ClkTimerDisable()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga9fbaf9986d5413d5bb14db80f75ccc63" title="Sets the source for the pump clock (clk_pump). ">Cy_SysClk_ClkPumpSetSource()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga62b3f0a129cc361f11d39ec476d5d662" title="Sets the divider of the pump clock (clk_pump). ">Cy_SysClk_ClkPumpSetDivider()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__pump__funcs.html#gabe269c0ae478e843f436300e17d73f80" title="Enables the pump clock (clk_pump). ">Cy_SysClk_ClkPumpEnable()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga06b0c10e1854e3368a025b620e4a2433" title="Disables the pump clock (clk_pump). ">Cy_SysClk_ClkPumpDisable()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__bak__funcs.html#ga09031ac63142fe0837f87fb5dabea7a5" title="Sets the source for the backup domain clock (clk_bak). ">Cy_SysClk_ClkBakSetSource()</a></li>
+<li><a class="el" href="group__group__sysclk__eco__funcs.html#gab97a44bef89cdc85e5bcdc80098c1cef" title="Disables the external crystal oscillator (ECO). ">Cy_SysClk_EcoDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__ilo__funcs.html#gad07e09e072e4cd87baa319711d0549b5" title="Enables the ILO. ">Cy_SysClk_IloEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__ilo__funcs.html#gaece6af6547fbec8defb4defd1b10af1a" title="Controls whether the ILO stays on during a hibernate, or through an XRES or brown-out detect (BOD) ev...">Cy_SysClk_IloHibernateOn()</a></li>
+<li><a class="el" href="group__group__sysclk__pilo__funcs.html#ga92e44b1390d7cabf2c597c45a5fdd309" title="Enables the PILO. ">Cy_SysClk_PiloEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__pilo__funcs.html#gaf73c2da9e8676f8b4cdfcd1f95e839f9" title="Disables the PILO. ">Cy_SysClk_PiloDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__wco__funcs.html#ga0990b94c499652b8f5c2dd1cf6abf95e" title="Disables the WCO. ">Cy_SysClk_WcoDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__wco__funcs.html#gaf254b104b1e1020545103779a573da17" title="Sets whether the WCO is bypassed or not. ">Cy_SysClk_WcoBypass()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga05a3e0e120574d1205c2b2f9861dc733" title="Sets the clock divider for the fast clock, which sources the main processor. ">Cy_SysClk_ClkFastSetDivider()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f" title="Sets the clock divider for the peripheral clock tree. ">Cy_SysClk_ClkPeriSetDivider()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054" title="Sets the source for the low frequency clock(clkLf). ">Cy_SysClk_ClkLfSetSource()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829" title="Sets the source for the timer clock (clk_timer). ">Cy_SysClk_ClkTimerSetSource()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga47723df14931fa6403b7d3948dec3857" title="Sets the divider for the timer clock (clk_timer). ">Cy_SysClk_ClkTimerSetDivider()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga3c024720aee53bd450eb68377a35bbf6" title="Enables the timer clock (clk_timer). ">Cy_SysClk_ClkTimerEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#gaa442df3e80e5c2dc763508731b155876" title="Disables the timer clock (clk_timer). ">Cy_SysClk_ClkTimerDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga14876f9c0e98b283defb6883fff0d906" title="Sets the source for the pump clock (clk_pump). ">Cy_SysClk_ClkPumpSetSource()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga8d55fc79d235c3918ecb20b953afdb99" title="Sets the divider of the pump clock (clk_pump). ">Cy_SysClk_ClkPumpSetDivider()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga0249934e0fd1d05a25f7565a8c5b6cde" title="Enables the pump clock (clk_pump). ">Cy_SysClk_ClkPumpEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga70d97ab2865f7705619ce7369baee81f" title="Disables the pump clock (clk_pump). ">Cy_SysClk_ClkPumpDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__bak__funcs.html#gab72e0702bafe7df920708eacefdb40dd" title="Sets the source for the backup domain clock (clk_bak). ">Cy_SysClk_ClkBakSetSource()</a></li>
 </ul>
 <p class="endtd">Now, the functions described above halt in assertion when a PRA request returns not successful operation. This change is applicable only for the PSoC 64 family devices.  </p>
 </td><td>Enhancements for the debugging process.  </td></tr>
@@ -171,10 +173,10 @@ Changelog</h1>
 </td><td>Enhanced the ECO performance for high-noise conditions that result from simultaneous switching of GPIOs and/or high switching activity on the chip.  </td></tr>
 <tr>
 <td>1.60 </td><td>Added the following functions: <a class="el" href="group__group__sysclk__ext__funcs.html#ga164b8c0287b292af7bdab5e216831b9b">Cy_SysClk_ExtClkGetFrequency</a>, <a class="el" href="group__group__sysclk__eco__funcs.html#ga392db1f8d8504409017a3fedb95b8ee2">Cy_SysClk_EcoGetFrequency</a>,<br />
- <a class="el" href="group__group__sysclk__path__src__funcs.html#ga1256c8a7290cecf2b9553a1df582e797">Cy_SysClk_ClkPathMuxGetFrequency</a>, <a class="el" href="group__group__sysclk__path__src__funcs.html#ga54c618c89782d227fb8f292d1dc15625">Cy_SysClk_ClkPathGetFrequency</a>, <a class="el" href="group__group__sysclk__ilo__funcs.html#ga544c284171c68dc5ef48bd24d2575952">Cy_SysClk_IloIsEnabled</a>.<br />
- <a class="el" href="group__group__sysclk__pilo__funcs.html#ga5884a1be24c8d6680c80f4f857d31bb2">Cy_SysClk_PiloIsEnabled</a>, <a class="el" href="group__group__sysclk__alt__hf__funcs.html#gadc2dc91fa1f0686395f5a5e6059a1c27">Cy_SysClk_AltHfGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga90af05d8e5639f9b6222951ec078b179">Cy_SysClk_ClkHfIsEnabled</a>,<br />
- <a class="el" href="group__group__sysclk__clk__timer__funcs.html#gac279297ec60963b2d56058dbce3fd9cc">Cy_SysClk_ClkTimerIsEnabled</a>, <a class="el" href="group__group__sysclk__clk__timer__funcs.html#gaa9fa2ca0beada63a72bdc86dae9e5896">Cy_SysClk_ClkTimerGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__pump__funcs.html#gaac3ebeb3a6f959124d31fedf9f8966a2">Cy_SysClk_ClkPumpIsEnabled</a> and<br />
- <a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga002dc7aa774e9c51822de31c444bcbbb">Cy_SysClk_ClkPumpGetFrequency</a>. </td><td>API enhancement.  </td></tr>
+ <a class="el" href="group__group__sysclk__path__src__funcs.html#ga1256c8a7290cecf2b9553a1df582e797">Cy_SysClk_ClkPathMuxGetFrequency</a>, <a class="el" href="group__group__sysclk__path__src__funcs.html#ga54c618c89782d227fb8f292d1dc15625">Cy_SysClk_ClkPathGetFrequency</a>, <a class="el" href="group__group__sysclk__ilo__funcs.html#gae2af369242a12431544f998445a1e163">Cy_SysClk_IloIsEnabled</a>.<br />
+ <a class="el" href="group__group__sysclk__pilo__funcs.html#gad1f5cd3318276616c1e0553f868142d2">Cy_SysClk_PiloIsEnabled</a>, <a class="el" href="group__group__sysclk__alt__hf__funcs.html#gaf948bdd0d4b0fbf2774642db55eea712">Cy_SysClk_AltHfGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga47252e1861afb4664f43c2e0a5e38055">Cy_SysClk_ClkHfIsEnabled</a>,<br />
+ <a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga34ffff27beaafa7a391f2aac5cf38bfd">Cy_SysClk_ClkTimerIsEnabled</a>, <a class="el" href="group__group__sysclk__clk__timer__funcs.html#gaa9fa2ca0beada63a72bdc86dae9e5896">Cy_SysClk_ClkTimerGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__pump__funcs.html#gacd99d1c6e448c715e50e99462b6fe923">Cy_SysClk_ClkPumpIsEnabled</a> and<br />
+ <a class="el" href="group__group__sysclk__clk__pump__funcs.html#ga3115e52203b8ac7c74a0bedc0083b925">Cy_SysClk_ClkPumpGetFrequency</a>. </td><td>API enhancement.  </td></tr>
 <tr>
 <td>1.50 </td><td><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a> is updated to reuse the <a class="el" href="group__group__system__config__globals.html#gad6c61e43c7d81802c759a8f0046bdc12">cy_BleEcoClockFreqHz</a> global system variable. </td><td>API enhancement.  </td></tr>
 <tr>
@@ -185,20 +187,20 @@ Changelog</h1>
 <td rowspan="4">1.40 </td><td>Updated the following functions implementation: <a class="el" href="group__group__sysclk__pll__funcs.html#gac5c498137bf7012e8e0f8b8e0dfba1f0">Cy_SysClk_PllConfigure</a> and <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a>. </td><td>Fixed the <a class="el" href="group__group__sysclk__pll__funcs.html#gac5c498137bf7012e8e0f8b8e0dfba1f0">Cy_SysClk_PllConfigure</a> API function behaviour when it is called with a bypass mode, <br />
  Fixed the <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> API function behaviour when it is called with a zero timeout.   </td></tr>
 <tr>
-<td>Added the following functions: <a class="el" href="group__group__sysclk__mf__funcs.html#ga03fe8fcf693221a4ad150a2f3e9fcce4">Cy_SysClk_MfoEnable</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga1cb222d86b4698726363ea2d0738e1e0">Cy_SysClk_MfoIsEnabled</a>,<br />
- <a class="el" href="group__group__sysclk__mf__funcs.html#gac76c0197d17dfc0e822a8b556ecf4560">Cy_SysClk_MfoDisable</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga27962298db8338018645f00e827a3f6d">Cy_SysClk_ClkMfEnable</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga8e3f1571fd13511e9f05be33afd86a4c">Cy_SysClk_ClkMfIsEnabled</a>,<br />
- <a class="el" href="group__group__sysclk__mf__funcs.html#gaf773404ad70105aaad85d444c771ea64">Cy_SysClk_ClkMfDisable</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga6e334afa97fdbf051ab4dd74375f51dd">Cy_SysClk_ClkMfGetDivider</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga8d7b2b4f121d2cdee14f8ff4dc14fbd0">Cy_SysClk_ClkMfSetDivider</a>,<br />
-. <a class="el" href="group__group__sysclk__mf__funcs.html#ga1bd2d0b78f50ccf2402e7f8bfc7bbfb7">Cy_SysClk_ClkMfGetFrequency</a> </td><td>New device support.  </td></tr>
+<td>Added the following functions: <a class="el" href="group__group__sysclk__mf__funcs.html#ga283d5413436f7a9f05b24d52ac2026be">Cy_SysClk_MfoEnable</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga1dd74d05d2b8b2d0b5ef588a304c2a66">Cy_SysClk_MfoIsEnabled</a>,<br />
+ <a class="el" href="group__group__sysclk__mf__funcs.html#gaf8ca8fc33fc99fd7c7af45048ff3e17e">Cy_SysClk_MfoDisable</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga195a613b088f27c5d7667a6fecb0bbbc">Cy_SysClk_ClkMfEnable</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#gab27fbf5f4e7b9856014fbf7c59eff78b">Cy_SysClk_ClkMfIsEnabled</a>,<br />
+ <a class="el" href="group__group__sysclk__mf__funcs.html#ga8cc7f7635c71f5ea4da74950bc6521a4">Cy_SysClk_ClkMfDisable</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga420525301a89c8f5f45c97a0fb37ea6f">Cy_SysClk_ClkMfGetDivider</a>, <a class="el" href="group__group__sysclk__mf__funcs.html#ga54c1e75dcdea293cdfd2662ceffa26e0">Cy_SysClk_ClkMfSetDivider</a>,<br />
+. <a class="el" href="group__group__sysclk__mf__funcs.html#gaf917222c5e1a0bb3dc2f7d398dcff05c">Cy_SysClk_ClkMfGetFrequency</a> </td><td>New device support.  </td></tr>
 <tr>
-<td>Added the following new API functions <a class="el" href="group__group__sysclk__fll__funcs.html#ga005ceb7b4ba7267ad2eaf7b2f3bce687">Cy_SysClk_FllIsEnabled</a>, <a class="el" href="group__group__sysclk__pll__funcs.html#ga43d5c55ce77796f41b1f9d55626e381c">Cy_SysClk_PllIsEnabled</a>,<br />
- <a class="el" href="group__group__sysclk__ext__funcs.html#gad4b77c61d47878007b5c50e3baf13e51">Cy_SysClk_ExtClkSetFrequency</a>, <a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga1d73104a4b46ede910f7b1d75875b8ec">Cy_SysClk_ClkFastGetFrequency</a>,<br />
- <a class="el" href="group__group__sysclk__clk__peri__funcs.html#ga6ba76776507e1f3cadcf693c19710f44">Cy_SysClk_ClkPeriGetFrequency</a> and <a class="el" href="group__group__sysclk__clk__slow__funcs.html#gaca16e734419a0c8c11830e774877342d">Cy_SysClk_ClkSlowGetFrequency</a> </td><td>Enhancement based on usability feedback  </td></tr>
+<td>Added the following new API functions <a class="el" href="group__group__sysclk__fll__funcs.html#gab266867b8e4f71d58467c33c53f6f0e2">Cy_SysClk_FllIsEnabled</a>, <a class="el" href="group__group__sysclk__pll__funcs.html#gae3ee5e192525df92ea07b32a3eb3d295">Cy_SysClk_PllIsEnabled</a>,<br />
+ <a class="el" href="group__group__sysclk__ext__funcs.html#gad4b77c61d47878007b5c50e3baf13e51">Cy_SysClk_ExtClkSetFrequency</a>, <a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga2fd7d9e080181356a1e6a5a72d948119">Cy_SysClk_ClkFastGetFrequency</a>,<br />
+ <a class="el" href="group__group__sysclk__clk__peri__funcs.html#ga8db0b9f751e98d8b19054e0879f965c4">Cy_SysClk_ClkPeriGetFrequency</a> and <a class="el" href="group__group__sysclk__clk__slow__funcs.html#ga7ca0c247dee5e69b25f173240db9ed53">Cy_SysClk_ClkSlowGetFrequency</a> </td><td>Enhancement based on usability feedback  </td></tr>
 <tr>
 <td>Deprecated the following macros: CY_SYSCLK_DIV_ROUND and CY_SYSCLK_DIV_ROUNDUP </td><td>Macros were moved into <a class="el" href="group__group__syslib.html">SysLib (System Library)</a>  </td></tr>
 <tr>
 <td rowspan="2">1.30 </td><td>Updated the following functions implementation: <a class="el" href="group__group__sysclk__eco__funcs.html#ga9d94ac55503404a0bdaf017fe33ecdbd">Cy_SysClk_EcoConfigure</a> and <a class="el" href="group__group__sysclk__fll__funcs.html#gad9d9c36d022475746375bddaba2b2065">Cy_SysClk_FllConfigure</a>. </td><td>Math library dependency is removed, the floating-point math is replaced with integer math.  </td></tr>
 <tr>
-<td>Updated the following functions implementation: <a class="el" href="group__group__sysclk__eco__funcs.html#gaadd2986e0b77ab0a714e4127ef1693f6">Cy_SysClk_EcoEnable</a>, <a class="el" href="group__group__sysclk__eco__funcs.html#ga68a1d35d52544f4bb5f51cdf21d57f7b">Cy_SysClk_EcoGetStatus</a>, <a class="el" href="group__group__sysclk__fll__funcs.html#ga8e8ceae09a6a3e825c3ab9cea5561eed">Cy_SysClk_FllGetConfiguration</a> <br />
+<td>Updated the following functions implementation: <a class="el" href="group__group__sysclk__eco__funcs.html#gaadd2986e0b77ab0a714e4127ef1693f6">Cy_SysClk_EcoEnable</a>, <a class="el" href="group__group__sysclk__eco__funcs.html#ga55bbf5f409d57259aff005b29be026e0">Cy_SysClk_EcoGetStatus</a>, <a class="el" href="group__group__sysclk__fll__funcs.html#ga8e8ceae09a6a3e825c3ab9cea5561eed">Cy_SysClk_FllGetConfiguration</a> <br />
  and <a class="el" href="group__group__sysclk__pm__funcs.html#ga34bd0e837cdf7d0953a7e0f5219905b5">Cy_SysClk_DeepSleepCallback</a>. <br />
  The <a class="el" href="group__group__sysclk__pm__funcs.html#ga34bd0e837cdf7d0953a7e0f5219905b5">Cy_SysClk_DeepSleepCallback</a> now implements all four SysPm callback modes <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a>. <br />
  The actions that were done in <a class="el" href="group__group__syspm__data__enumerates.html#ggae06cd8869fe61d709ad6145ca9f3cd63ab7ec706d80b347433d0063f2a8115784">CY_SYSPM_CHECK_READY</a> case are moved to <a class="el" href="group__group__syspm__data__enumerates.html#ggae06cd8869fe61d709ad6145ca9f3cd63a7d302375276b3b5f250a8208c999b558">CY_SYSPM_BEFORE_TRANSITION</a>. <br />
@@ -206,7 +208,7 @@ Changelog</h1>
 <tr>
 <td rowspan="4">1.20 </td><td>Flattened the organization of the driver source code into the single source directory and the single include directory.  </td><td>Driver library directory-structure simplification.  </td></tr>
 <tr>
-<td>Updated <a class="el" href="group__group__sysclk__fll__funcs.html#ga219934b4636182f2bcaaac613b79a66f">Cy_SysClk_FllLocked</a> function description </td><td>The SRSS_ver1 HW details clarification  </td></tr>
+<td>Updated <a class="el" href="group__group__sysclk__fll__funcs.html#ga3227d4ab9e531127a7cc7bd27c49a499">Cy_SysClk_FllLocked</a> function description </td><td>The SRSS_ver1 HW details clarification  </td></tr>
 <tr>
 <td>Removed the following functions:<ul>
 <li>Cy_SysClk_FllLostLock</li>
@@ -228,7 +230,7 @@ Changelog</h1>
 <tr>
 <td rowspan="5">1.10 </td><td>Updated FLL parameter calculation </td><td>Support low frequency sources  </td></tr>
 <tr>
-<td>Added <a class="el" href="group__group__sysclk__pilo__funcs.html#ga3ad33424ef17a1ee78ce67e12273d763" title="Sets the PILO trim bits, which adjusts the PILO frequency. ">Cy_SysClk_PiloSetTrim()</a> and Cy_SysclkPiloGetTrim() functions </td><td>Support PILO manual trims  </td></tr>
+<td>Added <a class="el" href="group__group__sysclk__pilo__funcs.html#gad609f2077dfc69a271fb94cba111ad42" title="Sets the PILO trim bits, which adjusts the PILO frequency. ">Cy_SysClk_PiloSetTrim()</a> and Cy_SysclkPiloGetTrim() functions </td><td>Support PILO manual trims  </td></tr>
 <tr>
 <td>Made Cy_SysClk_FllLostLock() function dependent on SRSS v1 </td><td>Feature is not supported in SRSS v1  </td></tr>
 <tr>
@@ -318,7 +320,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

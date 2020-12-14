@@ -7,6 +7,7 @@ var searchData=
   ['adcctl',['adcCtl',['../structcy__stc__csd__config__t.html#a11549e04d6946461c2e44645e8a96cf8',1,'cy_stc_csd_config_t']]],
   ['adcres',['adcRes',['../structcy__stc__csd__config__t.html#a2d0daac77be320ca004a77d0e95f09b7',1,'cy_stc_csd_config_t']]],
   ['address',['address',['../structcy__stc__mpu__cfg__t.html#abc08a263e780837850958090e6163c2c',1,'cy_stc_mpu_cfg_t::address()'],['../structcy__stc__smpu__cfg__t.html#ab5c10f0e5caa0b98ea5a77e963083278',1,'cy_stc_smpu_cfg_t::address()'],['../structcy__stc__ppu__prog__cfg__t.html#a4e4be32414098c2065ad67ee2e225176',1,'cy_stc_ppu_prog_cfg_t::address()'],['../structcy__stc__sd__host__write__read__config__t.html#abf986be07c8a00aa8e5394bf8f07f75b',1,'cy_stc_sd_host_write_read_config_t::address()']]],
+  ['addrrate',['addrRate',['../structcy__stc__smif__mem__cmd__t.html#ac46bf87f8daae2bae3e57330d60179c1',1,'cy_stc_smif_mem_cmd_t']]],
   ['addrwidth',['addrWidth',['../structcy__stc__smif__mem__cmd__t.html#a23d95eaa05bd12e4cbb416e1f07af5d7',1,'cy_stc_smif_mem_cmd_t']]],
   ['algo',['algo',['../structcy__stc__crypto__ecc__dp__type.html#a21a15ceafa7b448925b7239872aad5a9',1,'cy_stc_crypto_ecc_dp_type']]],
   ['allocbuffer',['allocBuffer',['../structcy__stc__usb__dev__ep__config__t.html#a5ba21ba730ec10df131e46e469b4aee9',1,'cy_stc_usb_dev_ep_config_t']]],

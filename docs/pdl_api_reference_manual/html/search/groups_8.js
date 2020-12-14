@@ -11,6 +11,7 @@ var searchData=
   ['i2s_20_20_20_20_20_20_20_20_20_20_28inter_2dic_20sound_29',['I2S          (Inter-IC Sound)',['../group__group__i2s.html',1,'']]],
   ['interrupt_20masks',['Interrupt Masks',['../group__group__i2s__macros__interrupt__masks.html',1,'']]],
   ['ipc_20_20_20_20_20_20_20_20_20_20_28inter_20process_20communication_29',['IPC          (Inter Process Communication)',['../group__group__ipc.html',1,'']]],
+  ['ipc_20bluetooth_20sub_2dsystem_20layer_20_28ipc_5fbtss_29',['IPC bluetooth sub-system layer (IPC_BTSS)',['../group__group__ipc__bt.html',1,'']]],
   ['ipc_20driver_20layer_20_28ipc_5fdrv_29',['IPC driver layer (IPC_DRV)',['../group__group__ipc__drv.html',1,'']]],
   ['ipc_20pipes_20layer_20_28ipc_5fpipe_29',['IPC pipes layer (IPC_PIPE)',['../group__group__ipc__pipe.html',1,'']]],
   ['ipc_20semaphores_20layer_20_28ipc_5fsema_29',['IPC semaphores layer (IPC_SEMA)',['../group__group__ipc__sema.html',1,'']]],

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Shift Register (TCPWM)</title>
+<title>MTB CAT1 Peripheral driver library: Shift Register (TCPWM)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -118,7 +118,7 @@ Configure Shift Register</h2>
 Assign and Configure Pins</h2>
 <p>The dedicated TCPWM pins can be used. The HSIOM register must be configured to connect the block to the pins. Use the <a class="el" href="group__group__gpio.html">GPIO (General Purpose Input Output)</a> driver API to do that. </p><div class="fragment"><div class="line">    <span class="comment">/* Scenario: </span></div><div class="line"><span class="comment">     * Configure P0[4] as Shift Register Line Output.</span></div><div class="line"><span class="comment">     * Configure P0[5] as Shift Register Line Compliment Output.</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <a class="code" href="group__group__gpio__functions__init.html#gaf57c501727276013d3e8974a9fb7d0a7">Cy_GPIO_Pin_FastInit</a>(GPIO_PRT0, 4UL, <a class="code" href="group__group__gpio__drive_modes.html#gacebd8bea6222d742bdfbfd86dabab940">CY_GPIO_DM_STRONG_IN_OFF</a>, 0UL, P0_4_TCPWM0_LINE2);</div><div class="line">    <a class="code" href="group__group__gpio__functions__init.html#gaf57c501727276013d3e8974a9fb7d0a7">Cy_GPIO_Pin_FastInit</a>(GPIO_PRT0, 5UL, <a class="code" href="group__group__gpio__drive_modes.html#gacebd8bea6222d742bdfbfd86dabab940">CY_GPIO_DM_STRONG_IN_OFF</a>, 0UL, P0_5_TCPWM0_LINE_COMPL2);</div><div class="line"></div></div><!-- fragment --> <h2><a class="anchor" id="group_tcpwm_shiftreg_clock"></a>
 Assign Clock Divider</h2>
-<p>The clock source must be connected for proper operation. Any of the peripheral clock dividers could be used. Use the <a class="el" href="group__group__sysclk.html">SysClk (System Clock)</a> driver API to do that. </p><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Assign the first 8-bit peripheral clock divider with</span></div><div class="line"><span class="comment">     * divide ratio = 100 to TCPWM0 block:</span></div><div class="line"><span class="comment">     */</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__sysclk__clk__peripheral__funcs.html#gacb66324e3191006f6d1cee8b29238fb2">Cy_SysClk_PeriphAssignDivider</a>(PCLK_TCPWM0_CLOCKS0, <a class="code" href="group__group__sysclk__clk__peripheral__enums.html#gga06138349be16d91fd5d00ded2f4592b8ad2299deae6e36a070de5a60368b319ad">CY_SYSCLK_DIV_8_BIT</a>, 0UL);</div><div class="line">    <a class="code" href="group__group__sysclk__clk__peripheral__funcs.html#gac67931844e6ec06b5ff88f4f3119e127">Cy_SysClk_PeriphSetDivider</a>(<a class="code" href="group__group__sysclk__clk__peripheral__enums.html#gga06138349be16d91fd5d00ded2f4592b8ad2299deae6e36a070de5a60368b319ad">CY_SYSCLK_DIV_8_BIT</a>, 0UL, 99UL);</div><div class="line">    <a class="code" href="group__group__sysclk__clk__peripheral__funcs.html#ga8c626f11b583d8296516bbcf4a22f98e">Cy_SysClk_PeriphEnableDivider</a>(<a class="code" href="group__group__sysclk__clk__peripheral__enums.html#gga06138349be16d91fd5d00ded2f4592b8ad2299deae6e36a070de5a60368b319ad">CY_SYSCLK_DIV_8_BIT</a>, 0UL);</div></div><!-- fragment --> <h2><a class="anchor" id="group_tcpwm_shiftreg_enable"></a>
+<p>The clock source must be connected for proper operation. Any of the peripheral clock dividers could be used. Use the <a class="el" href="group__group__sysclk.html">SysClk (System Clock)</a> driver API to do that. </p><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Assign the first 8-bit peripheral clock divider with</span></div><div class="line"><span class="comment">     * divide ratio = 100 to TCPWM0 block:</span></div><div class="line"><span class="comment">     */</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__sysclk__clk__peripheral__funcs.html#ga2f480c53ecec720ceed823b2692f1698">Cy_SysClk_PeriphAssignDivider</a>(PCLK_TCPWM0_CLOCKS0, <a class="code" href="group__group__sysclk__clk__peripheral__enums.html#gga06138349be16d91fd5d00ded2f4592b8ad2299deae6e36a070de5a60368b319ad">CY_SYSCLK_DIV_8_BIT</a>, 0UL);</div><div class="line">    <a class="code" href="group__group__sysclk__clk__peripheral__funcs.html#gae7042898b1b6835673182e462be6976e">Cy_SysClk_PeriphSetDivider</a>(<a class="code" href="group__group__sysclk__clk__peripheral__enums.html#gga06138349be16d91fd5d00ded2f4592b8ad2299deae6e36a070de5a60368b319ad">CY_SYSCLK_DIV_8_BIT</a>, 0UL, 99UL);</div><div class="line">    <a class="code" href="group__group__sysclk__clk__peripheral__funcs.html#ga0725e2b222edc601b7d3f56d86d4ff75">Cy_SysClk_PeriphEnableDivider</a>(<a class="code" href="group__group__sysclk__clk__peripheral__enums.html#gga06138349be16d91fd5d00ded2f4592b8ad2299deae6e36a070de5a60368b319ad">CY_SYSCLK_DIV_8_BIT</a>, 0UL);</div></div><!-- fragment --> <h2><a class="anchor" id="group_tcpwm_shiftreg_enable"></a>
 Enable Shift Register</h2>
 <p>Shift Register has to be enabled before starting</p>
 <div class="fragment"><div class="line">    <span class="comment">/* Scenario: Enable Shift Register */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_SHIFTREG_NUM   (0UL)</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__tcpwm__functions__shiftreg.html#ga66d1c366130d20469af69a2d41016727">Cy_TCPWM_ShiftReg_Enable</a>(TCPWM0, MY_TCPWM_SHIFTREG_NUM);</div></div><!-- fragment --> <h2><a class="anchor" id="group_tcpwm_shiftreg_start"></a>
@@ -140,7 +140,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

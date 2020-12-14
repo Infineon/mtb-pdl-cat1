@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Enumerated Types</title>
+<title>MTB CAT1 Peripheral driver library: Enumerated Types</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -260,6 +260,28 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gae06cd8869fe61d709ad6145ca9f3cd63"><td class="mdescLeft">&#160;</td><td class="mdescRight">This enumeration specifies the associated callback mode.  <a href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gae06cd8869fe61d709ad6145ca9f3cd63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga681ab279dc7009abfcdf75af3b6ee48f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__data__enumerates.html#ga681ab279dc7009abfcdf75af3b6ee48f">cy_en_syspm_sram_index_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga681ab279dc7009abfcdf75af3b6ee48faf762a273265d71269a1782147dd8f522">CY_SYSPM_SRAM0_MEMORY</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga681ab279dc7009abfcdf75af3b6ee48faf65729dd7376041e00283483ce0b3084">CY_SYSPM_SRAM1_MEMORY</a> = 1U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga681ab279dc7009abfcdf75af3b6ee48fa30562f760c7b23e61921b7de1937b1bc">CY_SYSPM_SRAM2_MEMORY</a> = 2U
+<br />
+ }<tr class="memdesc:ga681ab279dc7009abfcdf75af3b6ee48f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This enumeration is used to select a particular SRAM.  <a href="group__group__syspm__data__enumerates.html#ga681ab279dc7009abfcdf75af3b6ee48f">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga681ab279dc7009abfcdf75af3b6ee48f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d90d8779ef4bda0c99d42ef42eab23d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__data__enumerates.html#ga9d90d8779ef4bda0c99d42ef42eab23d">cy_en_syspm_sram_pwr_mode_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga9d90d8779ef4bda0c99d42ef42eab23da6dc84385fc5f0aa8c7466d2967e16892">CY_SYSPM_SRAM_PWR_MODE_OFF</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga9d90d8779ef4bda0c99d42ef42eab23dab94e1eb79ebaed95f3af628bda441b64">CY_SYSPM_SRAM_PWR_MODE_INVALID</a> = 1U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga9d90d8779ef4bda0c99d42ef42eab23dadaad008b8249945eeb5a515d4f6e3bb2">CY_SYSPM_SRAM_PWR_MODE_RET</a> = 2U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga9d90d8779ef4bda0c99d42ef42eab23da42541ffe65f1cf54288e48047972e859">CY_SYSPM_SRAM_PWR_MODE_ON</a> = 3U
+<br />
+ }<tr class="memdesc:ga9d90d8779ef4bda0c99d42ef42eab23d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This enumeration is used to select a particular SRAM Power Mode.  <a href="group__group__syspm__data__enumerates.html#ga9d90d8779ef4bda0c99d42ef42eab23d">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga9d90d8779ef4bda0c99d42ef42eab23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ga601b1cb722cb091133caf33d8ab235ca"></a>
@@ -648,13 +670,64 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="ga681ab279dc7009abfcdf75af3b6ee48f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga681ab279dc7009abfcdf75af3b6ee48f">&#9670;&nbsp;</a></span>cy_en_syspm_sram_index_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__syspm__data__enumerates.html#ga681ab279dc7009abfcdf75af3b6ee48f">cy_en_syspm_sram_index_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This enumeration is used to select a particular SRAM. </p>
+<dl class="section note"><dt>Note</dt><dd>This macro is available for CAT1A devices. </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga681ab279dc7009abfcdf75af3b6ee48faf762a273265d71269a1782147dd8f522"></a>CY_SYSPM_SRAM0_MEMORY&#160;</td><td class="fielddoc"><p>SRAM0 Memory Area. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga681ab279dc7009abfcdf75af3b6ee48faf65729dd7376041e00283483ce0b3084"></a>CY_SYSPM_SRAM1_MEMORY&#160;</td><td class="fielddoc"><p>SRAM1 Memory Area. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga681ab279dc7009abfcdf75af3b6ee48fa30562f760c7b23e61921b7de1937b1bc"></a>CY_SYSPM_SRAM2_MEMORY&#160;</td><td class="fielddoc"><p>SRAM2 Memory Area. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga9d90d8779ef4bda0c99d42ef42eab23d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d90d8779ef4bda0c99d42ef42eab23d">&#9670;&nbsp;</a></span>cy_en_syspm_sram_pwr_mode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__syspm__data__enumerates.html#ga9d90d8779ef4bda0c99d42ef42eab23d">cy_en_syspm_sram_pwr_mode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This enumeration is used to select a particular SRAM Power Mode. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga9d90d8779ef4bda0c99d42ef42eab23da6dc84385fc5f0aa8c7466d2967e16892"></a>CY_SYSPM_SRAM_PWR_MODE_OFF&#160;</td><td class="fielddoc"><p>SRAM Power Mode OFF. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9d90d8779ef4bda0c99d42ef42eab23dab94e1eb79ebaed95f3af628bda441b64"></a>CY_SYSPM_SRAM_PWR_MODE_INVALID&#160;</td><td class="fielddoc"><p>Invalid SRAM Power Mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9d90d8779ef4bda0c99d42ef42eab23dadaad008b8249945eeb5a515d4f6e3bb2"></a>CY_SYSPM_SRAM_PWR_MODE_RET&#160;</td><td class="fielddoc"><p>SRAM Power Mode RET. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9d90d8779ef4bda0c99d42ef42eab23da42541ffe65f1cf54288e48047972e859"></a>CY_SYSPM_SRAM_PWR_MODE_ON&#160;</td><td class="fielddoc"><p>SRAM Power Mode ON. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

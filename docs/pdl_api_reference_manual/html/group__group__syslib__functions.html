@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Functions</title>
+<title>MTB CAT1 Peripheral driver library: Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -108,6 +108,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga1691f4df41994e7ed9c30ec6495d925f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#ga1691f4df41994e7ed9c30ec6495d925f">Cy_SysLib_ClearFlashCacheAndBuffer</a> (void)</td></tr>
 <tr class="memdesc:ga1691f4df41994e7ed9c30ec6495d925f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function invalidates the flash cache and buffer.  <a href="#ga1691f4df41994e7ed9c30ec6495d925f">More...</a><br /></td></tr>
 <tr class="separator:ga1691f4df41994e7ed9c30ec6495d925f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">Cy_SysLib_GetUniqueId</a> (void)</td></tr>
+<tr class="memdesc:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the silicon unique ID.  <a href="#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">More...</a><br /></td></tr>
+<tr class="separator:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc7497a4146c1881fe54b655b4324297"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gadc7497a4146c1881fe54b655b4324297">Cy_SysLib_SoftResetCM4</a> (void)</td></tr>
+<tr class="memdesc:gadc7497a4146c1881fe54b655b4324297"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs a CM4 Core software reset using the CM4_PWR_CTL register.  <a href="#gadc7497a4146c1881fe54b655b4324297">More...</a><br /></td></tr>
+<tr class="separator:gadc7497a4146c1881fe54b655b4324297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadb2c8e123ba3a0376a14871e58230321"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syslib__enumerated__types.html#ga97d0b049220b931606e2ae2e144994e1">cy_en_syslib_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gadb2c8e123ba3a0376a14871e58230321">Cy_SysLib_ResetBackupDomain</a> (void)</td></tr>
 <tr class="memdesc:gadb2c8e123ba3a0376a14871e58230321"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets the backup domain power to avoid the ILO glitch.  <a href="#gadb2c8e123ba3a0376a14871e58230321">More...</a><br /></td></tr>
 <tr class="separator:gadb2c8e123ba3a0376a14871e58230321"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,12 +123,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gaebb4e952584f0c428f58f7b4dbd3ceff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gaebb4e952584f0c428f58f7b4dbd3ceff">Cy_SysLib_ClearResetReason</a> (void)</td></tr>
 <tr class="memdesc:gaebb4e952584f0c428f58f7b4dbd3ceff"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the values of RES_CAUSE and RES_CAUSE2.  <a href="#gaebb4e952584f0c428f58f7b4dbd3ceff">More...</a><br /></td></tr>
 <tr class="separator:gaebb4e952584f0c428f58f7b4dbd3ceff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">Cy_SysLib_GetUniqueId</a> (void)</td></tr>
-<tr class="memdesc:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the silicon unique ID.  <a href="#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">More...</a><br /></td></tr>
-<tr class="separator:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc7497a4146c1881fe54b655b4324297"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gadc7497a4146c1881fe54b655b4324297">Cy_SysLib_SoftResetCM4</a> (void)</td></tr>
-<tr class="memdesc:gadc7497a4146c1881fe54b655b4324297"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs a CM4 Core software reset using the CM4_PWR_CTL register.  <a href="#gadc7497a4146c1881fe54b655b4324297">More...</a><br /></td></tr>
-<tr class="separator:gadc7497a4146c1881fe54b655b4324297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5c11de4d75e326dfc00938d95c957fd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#ga5c11de4d75e326dfc00938d95c957fd4">Cy_SysLib_FaultHandler</a> (uint32_t const *faultStackAddr)</td></tr>
 <tr class="memdesc:ga5c11de4d75e326dfc00938d95c957fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stores the ARM Cortex registers into a non-zero init area for debugging.  <a href="#ga5c11de4d75e326dfc00938d95c957fd4">More...</a><br /></td></tr>
 <tr class="separator:ga5c11de4d75e326dfc00938d95c957fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -311,7 +311,60 @@ This function has the WEAK option, so the user can redefine the function for a c
 
 <p>This function invalidates the flash cache and buffer. </p>
 <p>It ensures the valid data is read from flash instead of using outdated data from the cache. The caches' LRU structure is also reset to their default state.</p>
-<dl class="section note"><dt>Note</dt><dd>The operation takes a maximum of three clock cycles on the slowest of the clk_slow and clk_fast clocks. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The operation takes a maximum of three clock cycles on the slowest of the clk_slow and clk_fast clocks.</dd>
+<dd>
+This API is available for devices having M4CPUSS IP. </dd></dl>
+
+</div>
+</div>
+<a id="gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">&#9670;&nbsp;</a></span>Cy_SysLib_GetUniqueId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t Cy_SysLib_GetUniqueId </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the silicon unique ID. </p>
+<p>The ID includes Die lot[3]#, Die Wafer#, Die X, Die Y, Die Sort#, Die Minor and Die Year.</p>
+<dl class="section return"><dt>Returns</dt><dd>A combined 64-bit unique ID. [63:57] - DIE_YEAR [56:56] - DIE_MINOR [55:48] - DIE_SORT [47:40] - DIE_Y [39:32] - DIE_X [31:24] - DIE_WAFER [23:16] - DIE_LOT[2] [15: 8] - DIE_LOT[1] [ 7: 0] - DIE_LOT[0]</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for devices having M4CPUSS IP. </dd></dl>
+
+</div>
+</div>
+<a id="gadc7497a4146c1881fe54b655b4324297"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc7497a4146c1881fe54b655b4324297">&#9670;&nbsp;</a></span>Cy_SysLib_SoftResetCM4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysLib_SoftResetCM4 </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function performs a CM4 Core software reset using the CM4_PWR_CTL register. </p>
+<p>The register is accessed by CM0 Core by using a command transferred to SROM API through the IPC channel. When the command is sent, the API waits for the IPC channel release.</p>
+<dl class="section note"><dt>Note</dt><dd>This function should be called only when the CM4 core is in Deep Sleep mode. </dd>
+<dd>
+This function will not reset CM0+ Core. </dd>
+<dd>
+This function waits for an IPC channel release state.</dd>
+<dd>
+This API is available for devices having M4CPUSS IP. </dd></dl>
 
 </div>
 </div>
@@ -355,33 +408,37 @@ This function has the WEAK option, so the user can redefine the function for a c
 </div><div class="memdoc">
 
 <p>The function returns the cause for the latest reset(s) that occurred in the system. </p>
-<p>The reset causes include an HFCLK error, system faults, and device reset on a wakeup from Hibernate mode. The return results are consolidated reset causes from reading RES_CAUSE and PWR_HIBERNATE token registers.</p>
-<dl class="section return"><dt>Returns</dt><dd>The cause of a system reset.</dd></dl>
+<p>The reset causes include system faults and device reset on a wakeup from Hibernate mode. For M33SYSCPUSS IP, the reset causes also include an HFCLK error. The return results are consolidated reset causes from reading RES_CAUSE, RES_CAUSE2 and PWR_HIBERNATE token registers.</p>
+<dl class="section return"><dt>Returns</dt><dd>The cause of a system reset. Return values to be checked as per the CPUSS IP of the device.</dd></dl>
 <table class="doxtable">
 <tr>
-<th>Name </th><th>Value  </th></tr>
+<th>Name in M4CPUSS IP </th><th>Name in M33SYSCPUSS IP </th><th>Value  </th></tr>
 <tr>
-<td>CY_SYSLIB_RESET_HWWDT </td><td>0x00001 (bit0) </td></tr>
+<td>CY_SYSLIB_RESET_HWWDT </td><td>CY_SYSLIB_RESET_HWWDT </td><td>0x00001 (bit0) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_ACT_FAULT </td><td>0x00002 (bit1) </td></tr>
+<td>CY_SYSLIB_RESET_ACT_FAULT </td><td>CY_SYSLIB_RESET_ACT_FAULT </td><td>0x00002 (bit1) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_DPSLP_FAULT </td><td>0x00004 (bit2) </td></tr>
+<td>CY_SYSLIB_RESET_DPSLP_FAULT </td><td>CY_SYSLIB_RESET_DPSLP_FAULT </td><td>0x00004 (bit2) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_CSV_WCO_LOSS </td><td>0x00008 (bit3) </td></tr>
+<td>CY_SYSLIB_RESET_TC_DBGRESET </td><td>CY_SYSLIB_RESET_CSV_WCO_LOSS </td><td>0x00008 (bit3) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SOFT </td><td>0x00010 (bit4) </td></tr>
+<td>CY_SYSLIB_RESET_SOFT </td><td>CY_SYSLIB_RESET_SOFT </td><td>0x00010 (bit4) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SWWDT0 </td><td>0x00020 (bit5) </td></tr>
+<td>CY_SYSLIB_RESET_SWWDT0 </td><td>CY_SYSLIB_RESET_SWWDT0 </td><td>0x00020 (bit5) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SWWDT1 </td><td>0x00040 (bit6) </td></tr>
+<td>CY_SYSLIB_RESET_SWWDT1 </td><td>CY_SYSLIB_RESET_SWWDT1 </td><td>0x00040 (bit6) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SWWDT2 </td><td>0x00080 (bit7) </td></tr>
+<td>CY_SYSLIB_RESET_SWWDT2 </td><td>CY_SYSLIB_RESET_SWWDT2 </td><td>0x00080 (bit7) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SWWDT3 </td><td>0x00100 (bit8) </td></tr>
+<td>CY_SYSLIB_RESET_SWWDT3 </td><td>CY_SYSLIB_RESET_SWWDT3 </td><td>0x00100 (bit8) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>0x40000 (bit18) </td></tr>
+<td></td><td>CY_SYSLIB_RESET_HFCLK_LOSS </td><td>0x10000 (bit16) </td></tr>
+<tr>
+<td></td><td>CY_SYSLIB_RESET_HFCLK_ERR </td><td>0x20000 (bit17) </td></tr>
+<tr>
+<td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>0x40000 (bit18) </td></tr>
 </table>
-<dl class="section note"><dt>Note</dt><dd>CY_SYSLIB_RESET_CSV_WCO_LOSS cause of a system reset available only if WCO CSV present in the device. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This not is available for devices having M33SYSCPUSS IP CY_SYSLIB_RESET_CSV_WCO_LOSS, CY_SYSLIB_RESET_HFCLK_LOSS and CY_SYSLIB_RESET_HFCLK_ERR causes of a system reset available only if WCO CSV present in the device. </dd></dl>
 
 </div>
 </div>
@@ -403,54 +460,6 @@ This function has the WEAK option, so the user can redefine the function for a c
 
 <p>This function clears the values of RES_CAUSE and RES_CAUSE2. </p>
 <p>Also it clears PWR_HIBERNATE token, which indicates reset event on waking up from HIBERNATE. </p>
-
-</div>
-</div>
-<a id="gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">&#9670;&nbsp;</a></span>Cy_SysLib_GetUniqueId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64_t Cy_SysLib_GetUniqueId </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function returns the silicon unique ID. </p>
-<p>The ID includes Die lot[3]#, Die Wafer#, Die X, Die Y, Die Sort#, Die Minor and Die Year.</p>
-<dl class="section return"><dt>Returns</dt><dd>A combined 64-bit unique ID. [63:57] - DIE_YEAR [56:56] - DIE_MINOR [55:48] - DIE_SORT [47:40] - DIE_Y [39:32] - DIE_X [31:24] - DIE_WAFER [23:16] - DIE_LOT[2] [15: 8] - DIE_LOT[1] [ 7: 0] - DIE_LOT[0] </dd></dl>
-
-</div>
-</div>
-<a id="gadc7497a4146c1881fe54b655b4324297"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadc7497a4146c1881fe54b655b4324297">&#9670;&nbsp;</a></span>Cy_SysLib_SoftResetCM4()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Cy_SysLib_SoftResetCM4 </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function performs a CM4 Core software reset using the CM4_PWR_CTL register. </p>
-<p>The register is accessed by CM0 Core by using a command transferred to SROM API through the IPC channel. When the command is sent, the API waits for the IPC channel release.</p>
-<dl class="section note"><dt>Note</dt><dd>This function should be called only when the CM4 core is in Deep Sleep mode. </dd>
-<dd>
-This function will not reset CM0+ Core. </dd>
-<dd>
-This function waits for an IPC channel release state. </dd></dl>
 
 </div>
 </div>
@@ -608,7 +617,7 @@ The CY_ARM_FAULT_DEBUG macro defines if the Fault Handler is enabled. By default
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

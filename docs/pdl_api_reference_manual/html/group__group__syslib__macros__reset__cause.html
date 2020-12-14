@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Reset cause</title>
+<title>MTB CAT1 Peripheral driver library: Reset cause</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -115,6 +115,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gabb8cdf49ff0e9fd12f7f8c9a8cde6d52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__macros__reset__cause.html#gabb8cdf49ff0e9fd12f7f8c9a8cde6d52">CY_SYSLIB_RESET_SWWDT3</a>&#160;&#160;&#160;(0x0100U)</td></tr>
 <tr class="memdesc:gabb8cdf49ff0e9fd12f7f8c9a8cde6d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Multi-Counter Watchdog timer #3 reset has occurred since the last power cycle.  <a href="#gabb8cdf49ff0e9fd12f7f8c9a8cde6d52">More...</a><br /></td></tr>
 <tr class="separator:gabb8cdf49ff0e9fd12f7f8c9a8cde6d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0d320f6610ee7f457bfd8798c2da91ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__macros__reset__cause.html#ga0d320f6610ee7f457bfd8798c2da91ca">CY_SYSLIB_RESET_CSV_LOSS_WAKEUP</a>&#160;&#160;&#160;(0x10000UL)</td></tr>
+<tr class="memdesc:ga0d320f6610ee7f457bfd8798c2da91ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reset has occured on a loss of high-frequency clock.  <a href="#ga0d320f6610ee7f457bfd8798c2da91ca">More...</a><br /></td></tr>
+<tr class="separator:ga0d320f6610ee7f457bfd8798c2da91ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e13f4eb0894bab7da23ff11e7bc5b35"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__macros__reset__cause.html#ga1e13f4eb0894bab7da23ff11e7bc5b35">CY_SYSLIB_RESET_CSV_ERROR_WAKEUP</a>&#160;&#160;&#160;(0x20000UL)</td></tr>
+<tr class="memdesc:ga1e13f4eb0894bab7da23ff11e7bc5b35"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reset has occured due to frequency error of high-frequency clock.  <a href="#ga1e13f4eb0894bab7da23ff11e7bc5b35">More...</a><br /></td></tr>
+<tr class="separator:ga1e13f4eb0894bab7da23ff11e7bc5b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad30b17c4bd7e48fd4628d4ee56cace84"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__macros__reset__cause.html#gad30b17c4bd7e48fd4628d4ee56cace84">CY_SYSLIB_RESET_HIB_WAKEUP</a>&#160;&#160;&#160;(0x40000UL)</td></tr>
 <tr class="memdesc:gad30b17c4bd7e48fd4628d4ee56cace84"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reset has occurred on a wakeup from Hibernate power mode.  <a href="#gad30b17c4bd7e48fd4628d4ee56cace84">More...</a><br /></td></tr>
 <tr class="separator:gad30b17c4bd7e48fd4628d4ee56cace84"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -249,6 +255,38 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="ga0d320f6610ee7f457bfd8798c2da91ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0d320f6610ee7f457bfd8798c2da91ca">&#9670;&nbsp;</a></span>CY_SYSLIB_RESET_CSV_LOSS_WAKEUP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SYSLIB_RESET_CSV_LOSS_WAKEUP&#160;&#160;&#160;(0x10000UL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The reset has occured on a loss of high-frequency clock. </p>
+
+</div>
+</div>
+<a id="ga1e13f4eb0894bab7da23ff11e7bc5b35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e13f4eb0894bab7da23ff11e7bc5b35">&#9670;&nbsp;</a></span>CY_SYSLIB_RESET_CSV_ERROR_WAKEUP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SYSLIB_RESET_CSV_ERROR_WAKEUP&#160;&#160;&#160;(0x20000UL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The reset has occured due to frequency error of high-frequency clock. </p>
+
+</div>
+</div>
 <a id="gad30b17c4bd7e48fd4628d4ee56cace84"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad30b17c4bd7e48fd4628d4ee56cace84">&#9670;&nbsp;</a></span>CY_SYSLIB_RESET_HIB_WAKEUP</h2>
 
@@ -271,7 +309,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

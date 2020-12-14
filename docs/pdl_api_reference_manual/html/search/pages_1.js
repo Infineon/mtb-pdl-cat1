@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['emwin_20overview',['emWin Overview',['../page_emwin_overview.html',1,'']]]
+  ['device_20catalog',['Device Catalog',['../device_catalog.html',1,'']]]
 ];

@@ -1556,9 +1556,9 @@
     </Signal>
     <Signal name="Net_2743[3:0]" type="Digital" terminalCount="12">
       <Terminal name="LF_CLK_MUX.a_0" type="Instance Digital Output" />
-      <Terminal name="IMO_1.a_14" type="Instance Digital Output" />
       <Terminal name="EXTCLK_1.a_14" type="Instance Digital Output" />
       <Terminal name="ECO_1.a_14" type="Instance Digital Output" />
+      <Terminal name="IMO_1.a_14" type="Instance Digital Output" />
       <Terminal name="PATH_MUX0_1.b_22" type="Instance Digital Input" />
       <Terminal name="PATH_MUX1_1.b_22" type="Instance Digital Input" />
       <Terminal name="PATH_MUX2_1.b_22" type="Instance Digital Input" />
@@ -2058,11 +2058,11 @@
       <Terminal name="CLK_PUMP_1.b_17" type="Instance Digital Input" />
       <Terminal name="CLK_HF1_1.b_17" type="Instance Digital Input" />
       <Terminal name="CLK_HF0_1.b_17" type="Instance Digital Input" />
-      <Terminal name="arc_bridge_2.o" type="Instance Digital Output" />
-      <Terminal name="arc_bridge_8.o" type="Instance Digital Output" />
       <Terminal name="arc_bridge_3.o" type="Instance Digital Output" />
       <Terminal name="arc_bridge_7.o" type="Instance Digital Output" />
+      <Terminal name="arc_bridge_2.o" type="Instance Digital Output" />
       <Terminal name="arc_bridge_9.o" type="Instance Digital Output" />
+      <Terminal name="arc_bridge_8.o" type="Instance Digital Output" />
     </Signal>
     <Signal name="Net_3993" type="Digital" terminalCount="2">
       <Terminal name="CLK_LF_2.a_3" type="Instance Digital Output" />

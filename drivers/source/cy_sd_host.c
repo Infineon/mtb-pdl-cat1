@@ -1,6 +1,6 @@
 /*******************************************************************************
 * \file cy_sd_host.c
-* \version 1.60
+* \version 1.70
 *
 * \brief
 *  This file provides the driver code to the API for the SD Host Controller
@@ -23,11 +23,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *******************************************************************************/
+
+#include "cy_device.h"
+
+#if defined (CY_IP_MXSDHC)
+
 #include "cy_sd_host.h"
 #include <string.h>
 #include <stdlib.h>
-
-#ifdef CY_IP_MXSDHC
 
 #if defined(__cplusplus)
 extern "C" {
@@ -669,6 +672,7 @@ cy_en_sd_host_status_t Cy_SD_Host_InitCard(SDHC_Type *base,
 
                 /* Clear the insert event */
                 Cy_SD_Host_NormalReset(base);
+                Cy_SysLib_Delay(1);
 
                 /* Send CMD5 to get IO OCR */
                 ret = Cy_SD_Host_IoOcr(base,
@@ -1961,6 +1965,7 @@ static cy_en_sd_host_status_t Cy_SD_Host_OpsGoIdle(SDHC_Type *base)
 static cy_en_sd_host_status_t Cy_SD_Host_OpsVoltageSwitch(SDHC_Type *base,
                                                           cy_stc_sd_host_context_t const *context)
 {
+    (void) context;
     cy_en_sd_host_status_t      ret;
     cy_stc_sd_host_cmd_config_t cmd;
     uint32_t                    pState;
@@ -1985,7 +1990,7 @@ static cy_en_sd_host_status_t Cy_SD_Host_OpsVoltageSwitch(SDHC_Type *base,
 
     Cy_SysLib_DelayUs(CY_SD_HOST_NCC_MIN_US);
 
-    if ((CY_SD_HOST_SUCCESS == ret) && (CY_SD_HOST_SDIO != context->cardType))
+    if (CY_SD_HOST_SUCCESS == ret)
     {
         /* Disable providing the SD Clock. */
         Cy_SD_Host_DisableSdClk(base);
@@ -2965,7 +2970,7 @@ cy_en_sd_host_status_t  Cy_SD_Host_AbortTransfer(SDHC_Type *base,
             {
                 return ret;
             }
-
+            
             Cy_SysLib_DelayUs(CY_SD_HOST_NCC_MIN_US);
 
             /* Get R1 */
@@ -3013,7 +3018,7 @@ cy_en_sd_host_status_t  Cy_SD_Host_AbortTransfer(SDHC_Type *base,
                     (void)Cy_SD_Host_GetResponse(base, (uint32_t *)&response, false);
 
                     /* Check if the card is in the transition state. */
-                    if ((CY_SD_HOST_CARD_TRAN << CY_SD_HOST_CMD13_CURRENT_STATE) !=
+                    if ((CY_SD_HOST_CARD_TRAN << CY_SD_HOST_CMD13_CURRENT_STATE) != 
                         (response & CY_SD_HOST_CMD13_CURRENT_STATE_MSK))
                     {
                        ret = CY_SD_HOST_ERROR;
@@ -4993,6 +4998,50 @@ cy_en_syspm_status_t Cy_SD_Host_DeepSleepCallback(cy_stc_syspm_callback_params_t
 
     return (ret);
 }
+
+/*******************************************************************************
+* Function Name: Cy_SD_Host_GetBlockCount
+****************************************************************************//**
+*
+*  Returns the Block count in SD/eMMC Card.
+*
+* \param *base
+*     The SD host registers structure pointer.
+*
+* \param *block_count
+*     The pointer to store the block_count.
+*
+* \param context
+* The pointer to the context structure \ref cy_stc_sd_host_context_t allocated
+* by the user. The structure is used during the SD host operation for internal
+* configuration and data retention. The user must not modify anything
+* in this structure.
+*
+* \return \ref cy_en_sd_host_status_t
+*
+*******************************************************************************/
+cy_en_sd_host_status_t Cy_SD_Host_GetBlockCount(SDHC_Type *base,
+                                         uint32_t *block_count,
+                                         cy_stc_sd_host_context_t *context)
+{
+    cy_en_sd_host_status_t ret = CY_SD_HOST_SUCCESS;
+
+    /* Check for the NULL pointer */
+    if ((NULL != base) && (NULL != block_count) && (NULL != context))
+    {
+        if ((CY_SD_HOST_SD == context->cardType) || (CY_SD_HOST_EMMC == context->cardType))
+        {
+            *block_count = context->maxSectorNum;
+        }
+    }
+    else
+    {
+        ret = CY_SD_HOST_ERROR_INVALID_PARAMETER;
+    }
+
+    return ret;
+}
+
 
 CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.1');
 

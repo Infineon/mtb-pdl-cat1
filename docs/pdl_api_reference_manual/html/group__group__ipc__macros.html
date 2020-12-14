@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Macros</title>
+<title>MTB CAT1 Peripheral driver library: Macros</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -96,7 +96,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga525c527870fec94c07c6419f3e541192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver major version. <br /></td></tr>
 <tr class="separator:ga525c527870fec94c07c6419f3e541192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadf29ee0e1c3166e54195273ac9e7aaff"><td class="memItemLeft" align="right" valign="top"><a id="gadf29ee0e1c3166e54195273ac9e7aaff"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__macros.html#gadf29ee0e1c3166e54195273ac9e7aaff">CY_IPC_DRV_VERSION_MINOR</a>&#160;&#160;&#160;50</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__macros.html#gadf29ee0e1c3166e54195273ac9e7aaff">CY_IPC_DRV_VERSION_MINOR</a>&#160;&#160;&#160;60</td></tr>
 <tr class="memdesc:gadf29ee0e1c3166e54195273ac9e7aaff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver minor version. <br /></td></tr>
 <tr class="separator:gadf29ee0e1c3166e54195273ac9e7aaff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8c02b33010a796cc0d610491bda52827"><td class="memItemLeft" align="right" valign="top"><a id="ga8c02b33010a796cc0d610491bda52827"></a>
@@ -108,15 +108,15 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga1a1b16b5fe845ba0b2829fd253b5ff72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software PDL driver ID for IPC. <br /></td></tr>
 <tr class="separator:ga1a1b16b5fe845ba0b2829fd253b5ff72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaca94e95050e9f6ad972c8d9fe3de70d0"><td class="memItemLeft" align="right" valign="top"><a id="gaca94e95050e9f6ad972c8d9fe3de70d0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__macros.html#gaca94e95050e9f6ad972c8d9fe3de70d0">CY_IPC_ID_INFO</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__ipc__macros.html#ga1a1b16b5fe845ba0b2829fd253b5ff72">CY_IPC_ID</a> | <a class="el" href="group__group__syslib__macros__status__codes.html#ga0ba3882d87b982ff4358b6f0b7a95556">CY_PDL_STATUS_INFO</a> )</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__macros.html#gaca94e95050e9f6ad972c8d9fe3de70d0">CY_IPC_ID_INFO</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__ipc__macros.html#ga1a1b16b5fe845ba0b2829fd253b5ff72">CY_IPC_ID</a> | CY_PDL_STATUS_INFO )</td></tr>
 <tr class="memdesc:gaca94e95050e9f6ad972c8d9fe3de70d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return prefix for IPC driver function status codes. <br /></td></tr>
 <tr class="separator:gaca94e95050e9f6ad972c8d9fe3de70d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3dd639f2edc5ca00b5547a32d3ad57de"><td class="memItemLeft" align="right" valign="top"><a id="ga3dd639f2edc5ca00b5547a32d3ad57de"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__macros.html#ga3dd639f2edc5ca00b5547a32d3ad57de">CY_IPC_ID_WARNING</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__ipc__macros.html#ga1a1b16b5fe845ba0b2829fd253b5ff72">CY_IPC_ID</a> | <a class="el" href="group__group__syslib__macros__status__codes.html#gaa58a2f0e42403136f010e7982e6e5b7f">CY_PDL_STATUS_WARNING</a>)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__macros.html#ga3dd639f2edc5ca00b5547a32d3ad57de">CY_IPC_ID_WARNING</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__ipc__macros.html#ga1a1b16b5fe845ba0b2829fd253b5ff72">CY_IPC_ID</a> | CY_PDL_STATUS_WARNING)</td></tr>
 <tr class="memdesc:ga3dd639f2edc5ca00b5547a32d3ad57de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return prefix for IPC driver function warning return values. <br /></td></tr>
 <tr class="separator:ga3dd639f2edc5ca00b5547a32d3ad57de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3f7a70ed9127495bf0fa4ba8135c49ba"><td class="memItemLeft" align="right" valign="top"><a id="ga3f7a70ed9127495bf0fa4ba8135c49ba"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__macros.html#ga3f7a70ed9127495bf0fa4ba8135c49ba">CY_IPC_ID_ERROR</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__ipc__macros.html#ga1a1b16b5fe845ba0b2829fd253b5ff72">CY_IPC_ID</a> | <a class="el" href="group__group__syslib__macros__status__codes.html#gaea5a4ae400ef551a3ef0b15a13ba8070">CY_PDL_STATUS_ERROR</a>)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__macros.html#ga3f7a70ed9127495bf0fa4ba8135c49ba">CY_IPC_ID_ERROR</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__ipc__macros.html#ga1a1b16b5fe845ba0b2829fd253b5ff72">CY_IPC_ID</a> | CY_PDL_STATUS_ERROR)</td></tr>
 <tr class="memdesc:ga3f7a70ed9127495bf0fa4ba8135c49ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return prefix for IPC driver function error return values. <br /></td></tr>
 <tr class="separator:ga3f7a70ed9127495bf0fa4ba8135c49ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf63abff7189f0e7a9d95967d3da620fe"><td class="memItemLeft" align="right" valign="top"><a id="gaf63abff7189f0e7a9d95967d3da620fe"></a>
@@ -130,7 +130,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

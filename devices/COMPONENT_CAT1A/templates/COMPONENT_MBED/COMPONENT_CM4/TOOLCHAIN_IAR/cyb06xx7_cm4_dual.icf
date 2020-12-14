@@ -127,7 +127,7 @@ define symbol __ICFEDIT_region_IROM2_end__   = 0x14007FFF;
 /* The following symbols define device specific memory regions and must not be changed. */
 /* Supervisory FLASH - User Data */
 define symbol __ICFEDIT_region_IROM3_start__ = 0x16000800;
-define symbol __ICFEDIT_region_IROM3_end__   = 0x160007FF;
+define symbol __ICFEDIT_region_IROM3_end__   = 0x16000FFF;
 
 /* Supervisory FLASH - Normal Access Restrictions (NAR) */
 define symbol __ICFEDIT_region_IROM4_start__ = 0x16001A00;

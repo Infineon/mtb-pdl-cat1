@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: SysTick      (ARM System Timer)</title>
+<title>MTB CAT1 Peripheral driver library: SysTick      (ARM System Timer)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('group__group__arm__system__timer.html'
 <h1><a class="anchor" id="group_systick_configuration"></a>
 Configuration Considerations</h1>
 <p>The <a class="el" href="group__group__systick__functions.html#gac600820b0201e4ad5a171e97f7642c62">Cy_SysTick_Init()</a> performs all required driver's initialization and enables the timer. The function accepts two parameters: clock source <a class="el" href="group__group__systick__data__structures.html#ga466b1e8fe4278011eab77a691ce2b8f9">cy_en_systick_clock_source_t</a> and the timer interval. You must ensure the selected clock source for SysTick is enabled. The callbacks can be registered/unregistered any time after <a class="el" href="group__group__systick__functions.html#gac600820b0201e4ad5a171e97f7642c62">Cy_SysTick_Init()</a> by calling <a class="el" href="group__group__systick__functions.html#gac20a2349069c5268c6e3f05c6777b9c9">Cy_SysTick_SetCallback()</a>.</p>
-<p>Changing the SysTick clock source and/or its frequency will change the interrupt interval and therefore <a class="el" href="group__group__systick__functions.html#ga55c016caf7558ec00f1e8cd3d77e36da">Cy_SysTick_SetReload()</a> should be called to compensate for this change.</p>
+<p>Changing the SysTick clock source and/or its frequency will change the interrupt interval and therefore <a class="el" href="group__group__systick__functions.html#ga1825a0f6b0f66b0219f4940003e35ca7">Cy_SysTick_SetReload()</a> should be called to compensate for this change.</p>
 <h1><a class="anchor" id="group_systick_more_information"></a>
 More Information</h1>
 <p>Refer to the SysTick section of the ARM reference guide for complete details on the registers and their use. See also the "CPU Subsystem (CPUSS)" chapter of the device technical reference manual (TRM).</p>
@@ -103,6 +103,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>1.40 </td><td>Support for CM33. </td><td>New devices support.  </td></tr>
 <tr>
 <td rowspan="2">1.30 </td><td>Added function parameter checks. </td><td>Improved the debugging capability.  </td></tr>
 <tr>
@@ -138,7 +140,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

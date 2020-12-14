@@ -129,7 +129,7 @@
       <Entry name="Vref" value="CY_SAR_NEG_SEL_VREF" visible="true" />
     </ParamChoice>
     
-    <ParamString id="vneg_select_string" name="vneg_select_string" group="Internal" default="(uint32_t)`${((vneg_select eq CY_SAR_NEG_SEL_VSSA_KELVIN) || (vneg_select eq CY_SAR_NEG_SEL_VREF)) ? vneg_select : INST_NAME . &quot;_NEG_SEL&quot;}`" visible="`${debug}`" editable="false" desc="" />
+    <ParamString id="vneg_select_string" name="vneg_select_string" group="Internal" default="(uint32_t)`${((vneg_select eq CY_SAR_NEG_SEL_VSSA_KELVIN) || (vneg_select eq CY_SAR_NEG_SEL_VREF)) ? vneg_select : &quot;SAR&quot; . inst . &quot;_NEG_SEL&quot;}`" visible="`${debug}`" editable="false" desc="" />
     
     <ParamRange id="sample_rate" name="Target Scan Rate (sps)" group="General" default="20000" min="0" max="`${verGt1 ? 2000000 : 1000000}`" resolution="1" visible="true" editable="true" desc="Desired rate in which all channels are scanned" />
 

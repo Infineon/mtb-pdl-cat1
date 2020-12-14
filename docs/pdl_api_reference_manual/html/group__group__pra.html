@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: PRA          (Protected Register Access)</title>
+<title>MTB CAT1 Peripheral driver library: PRA          (Protected Register Access)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -124,10 +124,23 @@ Basic Operation</h1>
 <h1><a class="anchor" id="group_pra_device_config"></a>
 Device Configuration</h1>
 <p>For PSoC 64 device, device configuration (like system clock settings and power modes) is applied on the secure Cortex-M0+. The device configuration structure <a class="el" href="structcy__stc__pra__system__config__t.html">cy_stc_pra_system_config_t</a> is initialized with Device Configurator and passed to the secure Cortex-M0+ for validation and register the update in the cybsp_init() function.</p>
-<dl class="section warning"><dt>Warning</dt><dd>The external clocks (ECO, ALTHF, WCO, and EXTCLK) are not allowed to source CLK_HF0 (clocks both Cortex-M0+ and Cortex-M4 CPUs) in order to prevent clock tampering. The external clock support for CLK_HF0 feature is planned to be added and validated via secure policy statements in the future releases.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The internal low-frequency clocks (ILO and PILO) are not allowed to source the CLK_HF0 directly and through PLL or FLL.</dd>
+<dl class="section note"><dt>Note</dt><dd>The external clocks (ECO, WCO, and EXTCLK) require additional configuration to be allowed to source CLK_HF0 (clocks both Cortex-M0+ and Cortex-M4 CPUs) in order to prevent clock tampering. See <a class="el" href="group__group__pra.html#group_pra_external_clocks">External Clock Sources</a> for details.</dd>
+<dd>
+The ALTHF (BLE ECO) is not allowed to source CLK_HF0 (clocks both Cortex-M0+ and Cortex-M4 CPUs) in order to prevent clock tampering.</dd>
+<dd>
+The internal low-frequency clocks (ILO and PILO) are not allowed to source the CLK_HF0 directly and through PLL or FLL.</dd>
 <dd>
 The clock source for Cortex-M4 SysTick cannot be configured with the Device Configurator. Enabling CLK_ALT_SYS_TICK will result in a compilation error. SysTick still can be configured in run-time with some limitations. For more details, refer to <a class="el" href="group__group__systick__functions.html#gaa8a72d8a278e4a3a970b4c4a021f3647">Cy_SysTick_SetClockSource()</a> in <a class="el" href="group__group__arm__system__timer.html">SysTick (ARM System Timer)</a>.</dd></dl>
+<h1><a class="anchor" id="group_pra_external_clocks"></a>
+External Clock Sources</h1>
+<p>The PSoC 64 devices must be provisioned with the external clocks (ECO, WCO, and EXTCLK) configuration before routing these clocks to CLK_HF0. To do that, update the JSON file (delivered with CySecureTools) with the "extclk" node in the custom data section as shown below. The configuration fields in the JSON file match the fields in the Device Configurator.</p>
+<p>For more details, refer to the PSoC 64 Secure MCU Secure Boot SDK User Guide.</p>
+<div class="fragment"><div class="line">For EXTCLK:</div><div class="line">    &quot;custom_data_sections&quot;: [&quot;extclk&quot;],</div><div class="line">    &quot;extclk&quot;: {</div><div class="line">            &quot;extClkEnable&quot;: 1,</div><div class="line">            &quot;extClkFreqHz&quot;: 24000000,</div><div class="line">            &quot;extClkPort&quot;: 0,</div><div class="line">            &quot;extClkPinNum&quot;: 0,</div><div class="line">            &quot;extClkHsiom&quot;: 0</div><div class="line">    }</div><div class="line"></div><div class="line">For ECO:</div><div class="line">    &quot;custom_data_sections&quot;: [&quot;extclk&quot;],</div><div class="line">    &quot;extclk&quot;: {</div><div class="line">            &quot;ecoEnable&quot;: 1,</div><div class="line">            &quot;ecoFreqHz&quot;: 24000000,</div><div class="line">            &quot;ecoLoad&quot;: 18,</div><div class="line">            &quot;ecoEsr&quot;: 50,</div><div class="line">            &quot;ecoDriveLevel&quot;: 100,</div><div class="line">            &quot;ecoInPort&quot;: 12,</div><div class="line">            &quot;ecoOutPort&quot;: 12,</div><div class="line">            &quot;ecoInPinNum&quot;: 6,</div><div class="line">            &quot;ecoOutPinNum&quot;: 7,</div><div class="line">    }</div><div class="line"></div><div class="line">For WCO:</div><div class="line">    &quot;custom_data_sections&quot;: [&quot;extclk&quot;],</div><div class="line">    &quot;extclk&quot;: {</div><div class="line">            &quot;wcoEnable&quot;: 1,</div><div class="line">            &quot;bypassEnable&quot;: 0</div><div class="line">            &quot;wcoInPort&quot;: 0,</div><div class="line">            &quot;wcoOutPort&quot;: 0,</div><div class="line">            &quot;wcoInPinNum&quot;: 0,</div><div class="line">            &quot;wcoOutPinNum&quot;: 1</div><div class="line">    }</div></div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The same "extclk" section is used for all external clocks. If more than one external clock source is required, please append its parameters.</dd></dl>
+<h1><a class="anchor" id="group_pra_sram_power_config"></a>
+SRAM Power Mode Configurations</h1>
+<p>The PSoC 64 devices must be provisioned with the SRAM power mode configuration to protects secure core memory. To do that, update the JSON file (delivered with CySecureTools) with the "srampwrmode" node in the custom data section as shown below.</p>
+<p>For more details, refer to the PSoC 64 Secure MCU Secure Boot SDK User Guide.</p>
+<div class="fragment"><div class="line">&quot;custom_data_sections&quot;: [&quot;srampwrmode&quot;],</div><div class="line">&quot;sram0&quot;: [</div><div class="line">    {</div><div class="line">        &quot;macroNum&quot;: 1,      // bits 0</div><div class="line">        &quot;powerMode&quot;: 6,     // bit 2 = ON, bit 1 = RETAIN, bit 0 = OFF</div><div class="line">    },</div><div class="line">    {</div><div class="line">        &quot;macroNum&quot;: 2,      // bits 1</div><div class="line">        &quot;powerMode&quot;: 1,     // bit 2 = ON, bit 1 = RETAIN, bit 0 = OFF</div><div class="line">    },</div><div class="line">    {</div><div class="line">        &quot;macroNum&quot;: 65532,  // bits [15-2] = 0xFFFC</div><div class="line">        &quot;powerMode&quot;: 7,     // bit 2 = ON, bit 1 = RETAIN, bit 0 = OFF</div><div class="line">    }</div><div class="line">],</div><div class="line">&quot;sram1&quot;: [</div><div class="line">    {</div><div class="line">        &quot;macroNum&quot;: 1,      // bit 0</div><div class="line">        &quot;powerMode&quot;: 7,     // bit 2 = ON, bit 1 = RETAIN, bit 0 = OFF</div><div class="line">    }</div><div class="line">],</div><div class="line">&quot;sram2&quot;: [</div><div class="line">    {</div><div class="line">        &quot;macroNum&quot;: 1,      // bit 0</div><div class="line">        &quot;powerMode&quot;: 7,     // bit 2 = ON, bit 1 = RETAIN, bit 0 = OFF</div><div class="line">    }</div><div class="line">]</div></div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>If a particular configuration(either SRAM or macro section) is not present in the policy file but available in the device then SRAM MACRO can be allowed to be modified to any of power modes (ON, RETAIN and OFF).</dd></dl>
 <h1><a class="anchor" id="group_pra_standalone"></a>
 Using without BSPs</h1>
 <p>If PDL is used in Standalone mode without Board Support Package (BSP), do the following:</p><ul>
@@ -142,6 +155,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.20 </td><td>Allowing external clocks (EXT_CLK, ECO and WCO) can be source to secure core. Provide interface for validating and configuring SRAM power modes. </td><td>External clock support and SRAM power mode configuration support.  </td></tr>
 <tr>
 <td rowspan="3">2.10 </td><td>Removed include of cy_gpio.h from the driver's c source files. Added some source code comments. </td><td>Source code cleanup.  </td></tr>
 <tr>
@@ -181,7 +196,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

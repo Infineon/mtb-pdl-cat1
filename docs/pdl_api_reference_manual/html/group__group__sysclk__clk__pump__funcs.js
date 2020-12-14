@@ -1,11 +1,11 @@
 var group__group__sysclk__clk__pump__funcs =
 [
-    [ "Cy_SysClk_ClkPumpSetSource", "group__group__sysclk__clk__pump__funcs.html#ga9fbaf9986d5413d5bb14db80f75ccc63", null ],
-    [ "Cy_SysClk_ClkPumpGetSource", "group__group__sysclk__clk__pump__funcs.html#ga5aec849c0a320944792ece6dd02ad91a", null ],
-    [ "Cy_SysClk_ClkPumpSetDivider", "group__group__sysclk__clk__pump__funcs.html#ga62b3f0a129cc361f11d39ec476d5d662", null ],
-    [ "Cy_SysClk_ClkPumpGetDivider", "group__group__sysclk__clk__pump__funcs.html#ga92698488e7a874bef3bec88c8da687e1", null ],
-    [ "Cy_SysClk_ClkPumpEnable", "group__group__sysclk__clk__pump__funcs.html#gabe269c0ae478e843f436300e17d73f80", null ],
-    [ "Cy_SysClk_ClkPumpIsEnabled", "group__group__sysclk__clk__pump__funcs.html#gaac3ebeb3a6f959124d31fedf9f8966a2", null ],
-    [ "Cy_SysClk_ClkPumpDisable", "group__group__sysclk__clk__pump__funcs.html#ga06b0c10e1854e3368a025b620e4a2433", null ],
-    [ "Cy_SysClk_ClkPumpGetFrequency", "group__group__sysclk__clk__pump__funcs.html#ga002dc7aa774e9c51822de31c444bcbbb", null ]
+    [ "Cy_SysClk_ClkPumpSetSource", "group__group__sysclk__clk__pump__funcs.html#ga14876f9c0e98b283defb6883fff0d906", null ],
+    [ "Cy_SysClk_ClkPumpGetSource", "group__group__sysclk__clk__pump__funcs.html#ga2428b1aa8d09aa27227185aef9d6945a", null ],
+    [ "Cy_SysClk_ClkPumpSetDivider", "group__group__sysclk__clk__pump__funcs.html#ga8d55fc79d235c3918ecb20b953afdb99", null ],
+    [ "Cy_SysClk_ClkPumpGetDivider", "group__group__sysclk__clk__pump__funcs.html#ga252f8d2a95f5f381e03360c4b6b012ef", null ],
+    [ "Cy_SysClk_ClkPumpEnable", "group__group__sysclk__clk__pump__funcs.html#ga0249934e0fd1d05a25f7565a8c5b6cde", null ],
+    [ "Cy_SysClk_ClkPumpIsEnabled", "group__group__sysclk__clk__pump__funcs.html#gacd99d1c6e448c715e50e99462b6fe923", null ],
+    [ "Cy_SysClk_ClkPumpDisable", "group__group__sysclk__clk__pump__funcs.html#ga70d97ab2865f7705619ce7369baee81f", null ],
+    [ "Cy_SysClk_ClkPumpGetFrequency", "group__group__sysclk__clk__pump__funcs.html#ga3115e52203b8ac7c74a0bedc0083b925", null ]
 ];

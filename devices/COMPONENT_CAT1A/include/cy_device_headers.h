@@ -330,6 +330,8 @@
     #include "cy8c6144azi_s4f12.h"
 #elif defined (CY8C6144LQI_S4F12)
     #include "cy8c6144lqi_s4f12.h"
+#elif defined (CY_DEVICE_UUT)
+    #include "cy_device_uut.h"
 #else
     #include "cy_device_common.h"
 #endif

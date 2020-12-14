@@ -8,7 +8,7 @@ var group__group__sysint__functions =
     [ "Cy_SysInt_GetNvicConnection", "group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932", null ],
     [ "Cy_SysInt_GetInterruptActive", "group__group__sysint__functions.html#ga9e42b44b1946290e12f25ff5042f1fc0", null ],
     [ "Cy_SysInt_DisconnectInterruptSource", "group__group__sysint__functions.html#ga7be24fe4952cebbba78e612463981287", null ],
-    [ "Cy_SysInt_SetNmiSource", "group__group__sysint__functions.html#ga82208c7a076f5f0f750986e84c3d5df0", null ],
-    [ "Cy_SysInt_GetNmiSource", "group__group__sysint__functions.html#gabb19f0ef37e4b807fc33bd446a185b83", null ],
-    [ "Cy_SysInt_SoftwareTrig", "group__group__sysint__functions.html#ga61649b025d228f5f2db2e65e5b10e2c6", null ]
+    [ "Cy_SysInt_SetNmiSource", "group__group__sysint__functions.html#ga7408282c7e26c82dcf6fe0949c393dcf", null ],
+    [ "Cy_SysInt_GetNmiSource", "group__group__sysint__functions.html#gac6f71ee79199c4da9f084985e2bbbb7d", null ],
+    [ "Cy_SysInt_SoftwareTrig", "group__group__sysint__functions.html#gab2c1e70c5151e021f2e7283408617acd", null ]
 ];

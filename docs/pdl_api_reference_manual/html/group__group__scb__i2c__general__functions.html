@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: General</title>
+<title>MTB CAT1 Peripheral driver library: General</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -173,7 +173,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__scb__i2c__enums.html#gaf621eb0719ad9ad7178d02268575b247">cy_en_scb_i2c_status_t</a></dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Ensure that the SCB block is disabled before calling this function. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If SCB is already enabled, ensure that the SCB block is disabled <a class="el" href="group__group__scb__i2c__general__functions.html#ga914462cc121171d82335036e65d6ea78">Cy_SCB_I2C_Disable</a> before calling this function. </dd></dl>
 
 </div>
 </div>
@@ -200,7 +200,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Ensure that the SCB block is disabled before calling this function. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Ensure that the SCB block is disabled <a class="el" href="group__group__scb__i2c__general__functions.html#ga914462cc121171d82335036e65d6ea78">Cy_SCB_I2C_Disable</a> before calling this function. </dd></dl>
 
 </div>
 </div>
@@ -227,6 +227,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Ensure SCB is initialized with <a class="el" href="group__group__scb__i2c__general__functions.html#ga91fbfb16a78c014fd88681b83544c2f7">Cy_SCB_I2C_Init</a> before calling this function </dd></dl>
 
 </div>
 </div>
@@ -596,7 +597,7 @@ For slave mode when zero value is returned the clk_scb is out of valid range. </
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

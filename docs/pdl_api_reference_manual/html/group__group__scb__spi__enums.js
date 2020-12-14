@@ -30,5 +30,10 @@ var group__group__scb__spi__enums =
     [ "cy_en_scb_spi_polarity_t", "group__group__scb__spi__enums.html#gac1d52a37938101b62b908fb4263d98a2", [
       [ "CY_SCB_SPI_ACTIVE_LOW", "group__group__scb__spi__enums.html#ggac1d52a37938101b62b908fb4263d98a2ab36d0ae32e47bb37ec614d9bc58b7198", null ],
       [ "CY_SCB_SPI_ACTIVE_HIGH", "group__group__scb__spi__enums.html#ggac1d52a37938101b62b908fb4263d98a2af3a855a8dbc2b78dc411c2028cd463e6", null ]
+    ] ],
+    [ "cy_en_scb_spi_parity_t", "group__group__scb__spi__enums.html#gaf244ff9c484db24f4935bfec1a397383", [
+      [ "CY_SCB_SPI_PARITY_NONE", "group__group__scb__spi__enums.html#ggaf244ff9c484db24f4935bfec1a397383a1c90bd40f7c24c1bd2ea9c17d2e58507", null ],
+      [ "CY_SCB_SPI_PARITY_EVEN", "group__group__scb__spi__enums.html#ggaf244ff9c484db24f4935bfec1a397383abefc29b5d1d490c55c01986bc1c5ca87", null ],
+      [ "CY_SCB_SPI_PARITY_ODD", "group__group__scb__spi__enums.html#ggaf244ff9c484db24f4935bfec1a397383a5a0ec7085b80534f229f6e101f44b260", null ]
     ] ]
 ];

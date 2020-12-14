@@ -4482,9 +4482,6 @@
       <Terminal name="cy_shapetag_disconnect_19.a" type="Instance Analog InOut" />
       <Terminal name="cy_all_shapetag_disconnect_10.a" type="Instance Analog InOut" />
     </Signal>
-    <Signal name="Net_213" type="Analog" terminalCount="1">
-      <Terminal name="PASS0_CTDAC0.ctdvoutsw" type="Instance Analog InOut" />
-    </Signal>
     <Signal name="p5_6" type="" terminalCount="0" />
     <Signal name="p5_7" type="" terminalCount="0" />
     <Signal name="p6_2" type="" terminalCount="0" />
@@ -4539,6 +4536,9 @@
     </Signal>
     <Signal name="pass0_ctb0_oa_vplus_int0" type="" terminalCount="0" />
     <Signal name="pass0_ctb0_samplein0" type="" terminalCount="0" />
+    <Signal name="pass0_ctb_pads6" type="Analog" terminalCount="1">
+      <Terminal name="PASS0_CTDAC0.ctdvoutsw" type="Instance Analog InOut" />
+    </Signal>
     <Signal name="pass0_ctdrefdrive0" type="Analog" terminalCount="1">
       <Terminal name="PASS0_CTDAC0.ctdrefdrive" type="Instance Analog InOut" />
     </Signal>

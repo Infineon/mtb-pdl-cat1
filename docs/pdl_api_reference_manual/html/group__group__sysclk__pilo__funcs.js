@@ -1,8 +1,8 @@
 var group__group__sysclk__pilo__funcs =
 [
-    [ "Cy_SysClk_PiloEnable", "group__group__sysclk__pilo__funcs.html#ga4a6570666d4462b97d86e05f4e9fd492", null ],
-    [ "Cy_SysClk_PiloIsEnabled", "group__group__sysclk__pilo__funcs.html#ga5884a1be24c8d6680c80f4f857d31bb2", null ],
-    [ "Cy_SysClk_PiloDisable", "group__group__sysclk__pilo__funcs.html#ga954f6432534797a063e1485f50d6db79", null ],
-    [ "Cy_SysClk_PiloSetTrim", "group__group__sysclk__pilo__funcs.html#ga3ad33424ef17a1ee78ce67e12273d763", null ],
-    [ "Cy_SysClk_PiloGetTrim", "group__group__sysclk__pilo__funcs.html#ga5847234c409635c28170eb61eb5ae20a", null ]
+    [ "Cy_SysClk_PiloEnable", "group__group__sysclk__pilo__funcs.html#ga92e44b1390d7cabf2c597c45a5fdd309", null ],
+    [ "Cy_SysClk_PiloIsEnabled", "group__group__sysclk__pilo__funcs.html#gad1f5cd3318276616c1e0553f868142d2", null ],
+    [ "Cy_SysClk_PiloDisable", "group__group__sysclk__pilo__funcs.html#gaf73c2da9e8676f8b4cdfcd1f95e839f9", null ],
+    [ "Cy_SysClk_PiloSetTrim", "group__group__sysclk__pilo__funcs.html#gad609f2077dfc69a271fb94cba111ad42", null ],
+    [ "Cy_SysClk_PiloGetTrim", "group__group__sysclk__pilo__funcs.html#ga608ccc641bfd0b816ef8dc9d58c6f738", null ]
 ];

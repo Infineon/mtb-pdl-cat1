@@ -1,11 +1,11 @@
 var group__group__sysclk__clk__timer__funcs =
 [
-    [ "Cy_SysClk_ClkTimerSetSource", "group__group__sysclk__clk__timer__funcs.html#ga57d72bc029cd9d5b7d85b7fb79c721a3", null ],
-    [ "Cy_SysClk_ClkTimerGetSource", "group__group__sysclk__clk__timer__funcs.html#ga7a828c7cf527aa7d693b2e4ca866be1c", null ],
-    [ "Cy_SysClk_ClkTimerSetDivider", "group__group__sysclk__clk__timer__funcs.html#ga35c57655122dc43321c946cb9850e7ba", null ],
-    [ "Cy_SysClk_ClkTimerGetDivider", "group__group__sysclk__clk__timer__funcs.html#gaee6f41bec28095d9e2109c0881932814", null ],
-    [ "Cy_SysClk_ClkTimerEnable", "group__group__sysclk__clk__timer__funcs.html#ga659f6724d8f2dfd161eac34d917d8bbd", null ],
-    [ "Cy_SysClk_ClkTimerIsEnabled", "group__group__sysclk__clk__timer__funcs.html#gac279297ec60963b2d56058dbce3fd9cc", null ],
-    [ "Cy_SysClk_ClkTimerDisable", "group__group__sysclk__clk__timer__funcs.html#ga53a3b997b56368bc2e05d2fb4c91d24a", null ],
+    [ "Cy_SysClk_ClkTimerSetSource", "group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829", null ],
+    [ "Cy_SysClk_ClkTimerGetSource", "group__group__sysclk__clk__timer__funcs.html#ga11eae81c891454917909bea5de9bc9a7", null ],
+    [ "Cy_SysClk_ClkTimerSetDivider", "group__group__sysclk__clk__timer__funcs.html#ga47723df14931fa6403b7d3948dec3857", null ],
+    [ "Cy_SysClk_ClkTimerGetDivider", "group__group__sysclk__clk__timer__funcs.html#ga37599d3c7ed1d0433565e4ce66351bcc", null ],
+    [ "Cy_SysClk_ClkTimerEnable", "group__group__sysclk__clk__timer__funcs.html#ga3c024720aee53bd450eb68377a35bbf6", null ],
+    [ "Cy_SysClk_ClkTimerIsEnabled", "group__group__sysclk__clk__timer__funcs.html#ga34ffff27beaafa7a391f2aac5cf38bfd", null ],
+    [ "Cy_SysClk_ClkTimerDisable", "group__group__sysclk__clk__timer__funcs.html#gaa442df3e80e5c2dc763508731b155876", null ],
     [ "Cy_SysClk_ClkTimerGetFrequency", "group__group__sysclk__clk__timer__funcs.html#gaa9fa2ca0beada63a72bdc86dae9e5896", null ]
 ];

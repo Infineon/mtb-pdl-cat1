@@ -43,5 +43,6 @@ var group__group__sd__host__low__level__functions =
     [ "Cy_SD_Host_GetPresentState", "group__group__sd__host__low__level__functions.html#gaf3571becec1bbf64c3ba0fae36fe65fc", null ],
     [ "Cy_SD_Host_IsCardConnected", "group__group__sd__host__low__level__functions.html#gafc789757b3705982647dae009225d149", null ],
     [ "Cy_SD_Host_SoftwareReset", "group__group__sd__host__low__level__functions.html#ga602f69704f064f99daf947c1af04318b", null ],
-    [ "Cy_SD_Host_DeepSleepCallback", "group__group__sd__host__low__level__functions.html#ga06ae777b53c8bcc0eeab12a7302af3be", null ]
+    [ "Cy_SD_Host_DeepSleepCallback", "group__group__sd__host__low__level__functions.html#ga06ae777b53c8bcc0eeab12a7302af3be", null ],
+    [ "Cy_SD_Host_GetBlockCount", "group__group__sd__host__low__level__functions.html#ga6f59baa83f0e65ea417e755fe6a105e3", null ]
 ];

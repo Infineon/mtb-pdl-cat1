@@ -8,5 +8,7 @@ var group__group__syslib__macros__reset__cause =
     [ "CY_SYSLIB_RESET_SWWDT1", "group__group__syslib__macros__reset__cause.html#ga07916f36b0a552bb53f5dd507fd464ea", null ],
     [ "CY_SYSLIB_RESET_SWWDT2", "group__group__syslib__macros__reset__cause.html#ga37988ee67e1330dd35382c557497b24e", null ],
     [ "CY_SYSLIB_RESET_SWWDT3", "group__group__syslib__macros__reset__cause.html#gabb8cdf49ff0e9fd12f7f8c9a8cde6d52", null ],
+    [ "CY_SYSLIB_RESET_CSV_LOSS_WAKEUP", "group__group__syslib__macros__reset__cause.html#ga0d320f6610ee7f457bfd8798c2da91ca", null ],
+    [ "CY_SYSLIB_RESET_CSV_ERROR_WAKEUP", "group__group__syslib__macros__reset__cause.html#ga1e13f4eb0894bab7da23ff11e7bc5b35", null ],
     [ "CY_SYSLIB_RESET_HIB_WAKEUP", "group__group__syslib__macros__reset__cause.html#gad30b17c4bd7e48fd4628d4ee56cace84", null ]
 ];

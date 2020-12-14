@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Enumerated Types</title>
+<title>MTB CAT1 Peripheral driver library: Enumerated Types</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -119,6 +119,12 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a1a57853c42a3405d9937f3ca31fb7c0f">CY_PRA_STATUS_INVALID_PARAM_WCO</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xFEAU, 
 <br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5ada46a040a356fc99f2411afec71bb5f6">CY_PRA_STATUS_INVALID_ECO_PROVISION</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xFE9U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a1073d66037e11e6b807e6ca371dc56da">CY_PRA_STATUS_INVALID_EXTCLK_PROVISION</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xFE8U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a6d67bdb768c119ee2c03423eb4ab7ea5">CY_PRA_STATUS_INVALID_WCO_PROVISION</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xFE7U, 
+<br />
 &#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5af68e043ca27ec8b840200a3a86175cf0">CY_PRA_STATUS_INVALID_PARAM_PATHMUX0</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xFDFU, 
 <br />
 &#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5acab5e56ce049808f2e494ff32e777087">CY_PRA_STATUS_INVALID_PARAM_PATHMUX1</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xFDEU, 
@@ -183,6 +189,12 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a5b682f2c853090b9b899a8c06d19c712">CY_PRA_STATUS_ERROR_PROCESSING_ECO_ENABLED</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xF59U, 
 <br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a675df3317e1630432e1882a5e5b82ead">CY_PRA_STATUS_ERROR_PROCESSING_ECO_PROVISION</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xF58U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a01fc2c4e8849dadf1acedf8c766e097d">CY_PRA_STATUS_ERROR_PROCESSING_EXTCLK_PROVISION</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xF57U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5ac3696d66141930fdc0520d018b496b42">CY_PRA_STATUS_ERROR_PROCESSING_WCO_PROVISION</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xF56U, 
+<br />
 &#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a5203e2a19e22260fd6865bed4754622d">CY_PRA_STATUS_ERROR_PROCESSING_PATHMUX0</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xF4FU, 
 <br />
 &#160;&#160;<a class="el" href="group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a10ef3078ad2910976588ad67ce4c74e0">CY_PRA_STATUS_ERROR_PROCESSING_PATHMUX1</a> = CY_PRA_ID | CY_PDL_STATUS_ERROR | 0xF4EU, 
@@ -236,6 +248,16 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga60be13e12e82986f8c0d6c6a6d4f12c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status definitions of the PRA function return values.  <a href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga60be13e12e82986f8c0d6c6a6d4f12c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4bba00f66cd6cd54eb589cd25ed700d6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__pra__enums.html#ga4bba00f66cd6cd54eb589cd25ed700d6">cy_en_pra_pin_prot_type_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga4bba00f66cd6cd54eb589cd25ed700d6a9802b3efacd210a545be9c15350ab8c3">CY_PRA_PIN_SECURE</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga4bba00f66cd6cd54eb589cd25ed700d6abd297cacbefc70c1a3e48a679bce4ddc">CY_PRA_PIN_SECURE_UNCONSTRAINED</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__group__pra__enums.html#gga4bba00f66cd6cd54eb589cd25ed700d6a9a447d67e83dfc81a7079a1da26df73f">CY_PRA_PIN_SECURE_NONE</a>
+<br />
+ }<tr class="memdesc:ga4bba00f66cd6cd54eb589cd25ed700d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO PIN protection type.  <a href="group__group__pra__enums.html#ga4bba00f66cd6cd54eb589cd25ed700d6">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga4bba00f66cd6cd54eb589cd25ed700d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ga60be13e12e82986f8c0d6c6a6d4f12c5"></a>
@@ -279,6 +301,12 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5ac029db6e6da5c1a424e9e6fc50e08171"></a>CY_PRA_STATUS_INVALID_PARAM_PILO&#160;</td><td class="fielddoc"><p>Returns Error while validating the CLK_PILO parameters. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5a1a57853c42a3405d9937f3ca31fb7c0f"></a>CY_PRA_STATUS_INVALID_PARAM_WCO&#160;</td><td class="fielddoc"><p>Returns Error while validating the CLK_WCO parameters. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5ada46a040a356fc99f2411afec71bb5f6"></a>CY_PRA_STATUS_INVALID_ECO_PROVISION&#160;</td><td class="fielddoc"><p>Returns Error while validating the provisioned CLK_ECO policy. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5a1073d66037e11e6b807e6ca371dc56da"></a>CY_PRA_STATUS_INVALID_EXTCLK_PROVISION&#160;</td><td class="fielddoc"><p>Returns Error while validating the provisioned CLK_EXT policy. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5a6d67bdb768c119ee2c03423eb4ab7ea5"></a>CY_PRA_STATUS_INVALID_WCO_PROVISION&#160;</td><td class="fielddoc"><p>Returns Error while validating the provisioned CLK_WCO policy. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5af68e043ca27ec8b840200a3a86175cf0"></a>CY_PRA_STATUS_INVALID_PARAM_PATHMUX0&#160;</td><td class="fielddoc"><p>Returns Error while validating PATH_MUX0. </p>
 </td></tr>
@@ -344,6 +372,12 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5a5b682f2c853090b9b899a8c06d19c712"></a>CY_PRA_STATUS_ERROR_PROCESSING_ECO_ENABLED&#160;</td><td class="fielddoc"><p>Returns Error while enabling CLK_ECO. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5a675df3317e1630432e1882a5e5b82ead"></a>CY_PRA_STATUS_ERROR_PROCESSING_ECO_PROVISION&#160;</td><td class="fielddoc"><p>Returns Error if failed to process the provisioned CLK_ECO policy. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5a01fc2c4e8849dadf1acedf8c766e097d"></a>CY_PRA_STATUS_ERROR_PROCESSING_EXTCLK_PROVISION&#160;</td><td class="fielddoc"><p>Returns Error if failed to process the provisioned CLK_EXT policy. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5ac3696d66141930fdc0520d018b496b42"></a>CY_PRA_STATUS_ERROR_PROCESSING_WCO_PROVISION&#160;</td><td class="fielddoc"><p>Returns Error if failed to process the provisioned CLK_WCO policy. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5a5203e2a19e22260fd6865bed4754622d"></a>CY_PRA_STATUS_ERROR_PROCESSING_PATHMUX0&#160;</td><td class="fielddoc"><p>Returns Error while setting PATH_MUX0. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga60be13e12e82986f8c0d6c6a6d4f12c5a10ef3078ad2910976588ad67ce4c74e0"></a>CY_PRA_STATUS_ERROR_PROCESSING_PATHMUX1&#160;</td><td class="fielddoc"><p>Returns Error while setting PATH_MUX1. </p>
@@ -398,13 +432,39 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="ga4bba00f66cd6cd54eb589cd25ed700d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4bba00f66cd6cd54eb589cd25ed700d6">&#9670;&nbsp;</a></span>cy_en_pra_pin_prot_type_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__pra__enums.html#ga4bba00f66cd6cd54eb589cd25ed700d6">cy_en_pra_pin_prot_type_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GPIO PIN protection type. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga4bba00f66cd6cd54eb589cd25ed700d6a9802b3efacd210a545be9c15350ab8c3"></a>CY_PRA_PIN_SECURE&#160;</td><td class="fielddoc"><p>Is a secure PIN. </p>
+<p>Can't be updated from CM4 application through register level PRA policy. This PIN can only be updated through service-level policy </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4bba00f66cd6cd54eb589cd25ed700d6abd297cacbefc70c1a3e48a679bce4ddc"></a>CY_PRA_PIN_SECURE_UNCONSTRAINED&#160;</td><td class="fielddoc"><p>Is a secure PIN. </p>
+<p>Can be updated from CM4 application through register level PRA policy </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4bba00f66cd6cd54eb589cd25ed700d6a9a447d67e83dfc81a7079a1da26df73f"></a>CY_PRA_PIN_SECURE_NONE&#160;</td><td class="fielddoc"><p>Not a secure PIN. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

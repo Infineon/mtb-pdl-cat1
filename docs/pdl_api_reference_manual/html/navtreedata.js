@@ -1,7 +1,7 @@
 var NAVTREE =
 [
-  [ "PSoC 6 Peripheral Driver Library", "index.html", [
-    [ "Introducing PSoC 6", "page_introducing_psoc_6.html", null ],
+  [ "MTB CAT1 Peripheral driver library", "index.html", [
+    [ "Introducing MTB CAT1A", "page_introducing_mtb_cat1a.html", null ],
     [ "Getting started", "page_getting_started.html", null ],
     [ "PDL API Reference", "modules.html", "modules" ],
     [ "Online Documentation", "usergroup0.html", [
@@ -9,37 +9,42 @@ var NAVTREE =
       [ "CMSIS Documentation", "^https://www.keil.com/pack/doc/CMSIS/General/html/index.html", null ]
     ] ],
     [ "Additional Resources", "page_cypress_resources.html", null ],
-    [ "MISRA-C:2012 Compliance", "page_misra.html", null ]
+    [ "MISRA-C:2012 Compliance", "page_misra.html", null ],
+    [ "Device Catalog", "usergroup1.html", [
+      [ "CAT1A Devices", "device_index_page.html", null ],
+      [ "Device Details", "device_catalog.html", null ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"group__group__arm__system__timer.html",
-"group__group__crypto__cli__functions.html#ga5a6972d7cac1b2af39017c3b814100df",
-"group__group__csd__reg__const.html#ga3042034d016a611fbbfaa89c444d5eeb",
-"group__group__ctdac__functions__basic.html#gaa327e33f705cc55c86c9e4415d28b9ff",
-"group__group__dmac__macros.html#ga48afe1ddf28811888017868e3f19f163",
-"group__group__i2s__functions.html#ga4ed92a2c26187bfa03b01d72ab8d06e6",
-"group__group__lvd__functions.html#ga855b38a29ad7ce794e38f09e546f14c4",
-"group__group__profile__enums.html#ggaf4167388440a79a2671d7c1bea86785ca1e37f3a78d1d64e950d826d26793cb98",
-"group__group__rtc__dst__functions.html",
-"group__group__sar__functions__basic.html#ga859687d40491a053c7fd8d489244f2ac",
-"group__group__scb__common__macros__master__intr.html#ga000c649a03e9ddf9bcd048ed66924347",
-"group__group__scb__spi__macros__callback__events.html",
-"group__group__sd__host__interrupt__functions.html#ga5c270e93c46e95a15a680f4ceb58a77e",
-"group__group__seglcd__functions__frame.html#gadf8be6669270e3846e4922fa464ff9b5",
-"group__group__smif__functions__syspm__callback.html#ga89e417482a719f6fd6b4d4ff11f6e1f6",
-"group__group__sysanalog__enums.html#gga0aadb061d882d9a964dff3729322cf12ac3b1263aa8889f21a72a8ec9d21066b2",
-"group__group__sysclk__fll__enums.html#ggac8760ee841ca24255c9a4fee494b79aaa8b869d6fc9950701b3664b5c6337dd1b",
-"group__group__syspm__data__enumerates.html#gga369b76c2e602edf09ede9f8f804e066eacc5b659a29fd73bbd1493d177e1df779",
-"group__group__tcpwm__functions__common.html#ga8a8b31f18ff10c45b7eacfe9d1c25ddd",
-"group__group__tcpwm__shiftreg__clk__prescalers.html#ga41b5ab1dbf4e9e616dec9b7583da7a9e",
-"group__group__usbfs__dev__hal__functions__ep0__service.html",
-"structcy__stc__ctb__config__t.html#af03556c02f77cfe5b8f0298f9da468d1",
-"structcy__stc__mcwdt__config__t.html#a8a85bf2e1ee7c1e0b65b993f9876644a",
-"structcy__stc__sar__config__t.html#a554c4f772d120ca67427c314ed713c00",
-"structcy__stc__smif__mem__device__cfg__t.html#a94531399701237a6c42b7ae8098f9c83"
+"device_catalog.html",
+"group__group__crypto__cli__functions.html#ga516a14dbdb8e2bd757311017e5a7cf20",
+"group__group__csd__reg__const.html#ga1731f7308cf733bb2d39ea42caa6a1f3",
+"group__group__ctdac__functions__basic.html#ga4356463f9bf1c69c2afdfca69a60b850",
+"group__group__dmac__macros.html#ga29976300e555419faef59be5a73e4887",
+"group__group__i2s__enums.html#gga265f4e0f0d40f96b383a91aab3215f79a4ac9c0b6c81f4ceb4fa17f83ff96e912",
+"group__group__lvd__enums.html#gga4eaeaadf154cb3cbc9af0b4abcd56f62a673335b41bfdcea7488f41bf329fd670",
+"group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5add3a81d2e1c2a48a88fce76eba21f7e8",
+"group__group__prot__functions__smpu.html#ga1152bf9c8a08744825b62d7d3ddad10d",
+"group__group__sar__enums.html",
+"group__group__scb__common__functions.html#ga65d298c978eb0efa15c61663c7ff4b31",
+"group__group__scb__spi__enums.html#gga65ae7c131e5e5cae3327aeb6ac870488a257bc8b4d7ee69e7ed1e1b8858e980b7",
+"group__group__sd__host__enums.html#gga7ad8f8d10a3666dad81691490d4b6ee9a096028524e20701153378d62033db9b2",
+"group__group__sd__host__macros__present__status.html#ga3e993b7820020086178014429479844f",
+"group__group__smartio__macros.html",
+"group__group__smif__macros__sfdp.html#ga82eb3748849d5725786fd04fac230297",
+"group__group__sysclk__clk__peripheral__enums.html#ga06138349be16d91fd5d00ded2f4592b8",
+"group__group__syslib__functions.html#ga5c11de4d75e326dfc00938d95c957fd4",
+"group__group__syspm__skip__callback__modes.html#gadf838d7b7d5da099b8d284a2cd0185db",
+"group__group__tcpwm__interrupt__sources.html#gaa7435839c36b6a530452725e9ee2226f",
+"group__group__usbfs__dev__drv__enums.html#gga460ea6ba6179dd6fad514ba26c982e92abd413f93f3d4d26de5a92a590634b108",
+"structcy__stc__canfd__t0__t.html#a8b91eed625d7f5e21119d3dc8e85d3fa",
+"structcy__stc__fll__manual__config__t.html",
+"structcy__stc__pra__system__config__t.html#a9389baf5842464fe02e34ce1743d56ea",
+"structcy__stc__sd__host__sd__card__config__t.html#a100a6eaaadfd0c1736c8d3331a0f3d8b",
+"structcy__stc__tcpwm__shiftreg__config__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

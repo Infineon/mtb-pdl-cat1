@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['resources',['Resources',['../page_cypress_resources.html',1,'']]],
-  ['rtos_20integration',['RTOS Integration',['../page_rtos_int.html',1,'']]]
+  ['list_20of_20devices',['List of Devices',['../device_index_page.html',1,'']]]
 ];

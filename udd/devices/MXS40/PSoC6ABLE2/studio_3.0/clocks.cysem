@@ -191,7 +191,7 @@
         <Value>1</Value>
       </Parameter>
       <Parameter name="ToolTip">
-        <Value>Alternate High Frequency Clock: A high speed clock input provided by a subsystem ({0}) outside the clocking system. This clock is stopped in the deep sleep and hibernate power modes.</Value>
+        <Value>Alternate High Frequency Clock: A high speed clock input provided by a subsystem outside the clocking system. This clock is stopped in the deep sleep and hibernate power modes.</Value>
       </Parameter>
     </Instance>
     <Instance guid="352a0f61-7eb9-48c3-af15-253e15db2791" name="CLK_ALT_SYS_TICK" component="clock_side_tall">
@@ -1718,17 +1718,17 @@
     </Signal>
     <Signal name="Net_2490[3:0]" type="Digital" terminalCount="12">
       <Terminal name="LF_CLK_MUX.a_0" type="Instance Digital Output" />
-      <Terminal name="ALTHF.a_14" type="Instance Digital Output" />
-      <Terminal name="EXTCLK.a_14" type="Instance Digital Output" />
       <Terminal name="ECO.a_14" type="Instance Digital Output" />
       <Terminal name="IMO.a_14" type="Instance Digital Output" />
+      <Terminal name="ALTHF.a_14" type="Instance Digital Output" />
+      <Terminal name="EXTCLK.a_14" type="Instance Digital Output" />
       <Terminal name="PATH_MUX4.b_22" type="Instance Digital Input" />
       <Terminal name="PATH_MUX2.b_22" type="Instance Digital Input" />
       <Terminal name="PATH_MUX0.b_22" type="Instance Digital Input" />
       <Terminal name="PATH_MUX1.b_22" type="Instance Digital Input" />
       <Terminal name="PATH_MUX3.b_22" type="Instance Digital Input" />
-      <Terminal name="arc_bridge_4.i" type="Instance Digital Input" />
       <Terminal name="arc_bridge_5.i" type="Instance Digital Input" />
+      <Terminal name="arc_bridge_4.i" type="Instance Digital Input" />
     </Signal>
     <Signal name="Net_2495" type="Digital" terminalCount="3">
       <Terminal name="CLK_TIMER.b_16" type="Instance Digital Input" />

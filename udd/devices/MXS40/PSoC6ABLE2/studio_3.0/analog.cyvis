@@ -9745,6 +9745,7 @@
           <Size width="72" height="12" />
           <Text>TEMP0</Text>
           <Vertical value="false" />
+          <Expression>TEMP`=$Index`</Expression>
           <Fill>
             <SolidBrush color="0, 0, 0" />
           </Fill>
@@ -10963,7 +10964,6 @@
     <Wire shapeName="Shape_3958" zorder="998" effectiveName="pass0_ctb0_oa_vplus1" type="Analog">
       <Point1 x="468" y="114" />
       <Point2 x="468" y="246" />
-      <ShapeTags>wl:pass[0].ctb[0].oa[1]</ShapeTags>
     </Wire>
     <Instance shapeName="Shape_3966" zorder="1019" guid="e9161ad5-6bd4-4d08-8593-6a25fb93543b" name="PASS0_CTB0_D82" component="swh">
       <Location x="480" y="384" />

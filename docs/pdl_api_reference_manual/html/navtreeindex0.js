@@ -1,5 +1,7 @@
 var NAVTREEINDEX0 =
 {
+"device_catalog.html":[6,1],
+"device_index_page.html":[6,0],
 "group__group__arm__system__timer.html":[2,33],
 "group__group__ble__clk.html":[2,0],
 "group__group__ble__clk__data__type.html":[2,0,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "group__group__crypto__cli__functions.html#ga093ac7a4aa184e35f840363b7e2e55c7":[2,2,0,1,0,7],
 "group__group__crypto__cli__functions.html#ga1f6950833770e1f2b932f089fcd126b2":[2,2,0,1,0,18],
 "group__group__crypto__cli__functions.html#ga3c78c11d34fa63664275a7df5b35062c":[2,2,0,1,0,21],
-"group__group__crypto__cli__functions.html#ga50ce97ec1e079773c7ea32f4f94c7db3":[2,2,0,1,0,16],
-"group__group__crypto__cli__functions.html#ga516a14dbdb8e2bd757311017e5a7cf20":[2,2,0,1,0,29],
-"group__group__crypto__cli__functions.html#ga5936961e6910bfe13dc643b418abbc51":[2,2,0,1,0,1]
+"group__group__crypto__cli__functions.html#ga50ce97ec1e079773c7ea32f4f94c7db3":[2,2,0,1,0,16]
 };

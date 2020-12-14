@@ -15,6 +15,9 @@ var group__group__pra__enums =
       [ "CY_PRA_STATUS_INVALID_PARAM_ILO", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5adf712b3afcb7bc3c82ca543c3d610b1b", null ],
       [ "CY_PRA_STATUS_INVALID_PARAM_PILO", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5ac029db6e6da5c1a424e9e6fc50e08171", null ],
       [ "CY_PRA_STATUS_INVALID_PARAM_WCO", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a1a57853c42a3405d9937f3ca31fb7c0f", null ],
+      [ "CY_PRA_STATUS_INVALID_ECO_PROVISION", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5ada46a040a356fc99f2411afec71bb5f6", null ],
+      [ "CY_PRA_STATUS_INVALID_EXTCLK_PROVISION", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a1073d66037e11e6b807e6ca371dc56da", null ],
+      [ "CY_PRA_STATUS_INVALID_WCO_PROVISION", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a6d67bdb768c119ee2c03423eb4ab7ea5", null ],
       [ "CY_PRA_STATUS_INVALID_PARAM_PATHMUX0", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5af68e043ca27ec8b840200a3a86175cf0", null ],
       [ "CY_PRA_STATUS_INVALID_PARAM_PATHMUX1", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5acab5e56ce049808f2e494ff32e777087", null ],
       [ "CY_PRA_STATUS_INVALID_PARAM_PATHMUX2", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5ac7068ab30d5ae194cec964bdf3319cf0", null ],
@@ -47,6 +50,9 @@ var group__group__pra__enums =
       [ "CY_PRA_STATUS_ERROR_PROCESSING_PILO", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a7faab6a1611490524b5d18d85216942d", null ],
       [ "CY_PRA_STATUS_ERROR_PROCESSING_WCO", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5ae40142626c457d11522f889d91b616ca", null ],
       [ "CY_PRA_STATUS_ERROR_PROCESSING_ECO_ENABLED", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a5b682f2c853090b9b899a8c06d19c712", null ],
+      [ "CY_PRA_STATUS_ERROR_PROCESSING_ECO_PROVISION", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a675df3317e1630432e1882a5e5b82ead", null ],
+      [ "CY_PRA_STATUS_ERROR_PROCESSING_EXTCLK_PROVISION", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a01fc2c4e8849dadf1acedf8c766e097d", null ],
+      [ "CY_PRA_STATUS_ERROR_PROCESSING_WCO_PROVISION", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5ac3696d66141930fdc0520d018b496b42", null ],
       [ "CY_PRA_STATUS_ERROR_PROCESSING_PATHMUX0", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a5203e2a19e22260fd6865bed4754622d", null ],
       [ "CY_PRA_STATUS_ERROR_PROCESSING_PATHMUX1", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a10ef3078ad2910976588ad67ce4c74e0", null ],
       [ "CY_PRA_STATUS_ERROR_PROCESSING_PATHMUX2", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5ad212f017541d31ee9f69a0385a1d96d9", null ],
@@ -72,5 +78,10 @@ var group__group__pra__enums =
       [ "CY_PRA_STATUS_ERROR_PROCESSING_CLKSLOW", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a16a2dfa49a7750ad7869f422e1907968", null ],
       [ "CY_PRA_STATUS_ERROR_PROCESSING_SYSTICK", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5a987e822a80505003748dcf7f1489ae12", null ],
       [ "CY_PRA_STATUS_ERROR_PROCESSING_CLKTIMER", "group__group__pra__enums.html#gga60be13e12e82986f8c0d6c6a6d4f12c5afec8299a8a160152997523c9e3e9434c", null ]
+    ] ],
+    [ "cy_en_pra_pin_prot_type_t", "group__group__pra__enums.html#ga4bba00f66cd6cd54eb589cd25ed700d6", [
+      [ "CY_PRA_PIN_SECURE", "group__group__pra__enums.html#gga4bba00f66cd6cd54eb589cd25ed700d6a9802b3efacd210a545be9c15350ab8c3", null ],
+      [ "CY_PRA_PIN_SECURE_UNCONSTRAINED", "group__group__pra__enums.html#gga4bba00f66cd6cd54eb589cd25ed700d6abd297cacbefc70c1a3e48a679bce4ddc", null ],
+      [ "CY_PRA_PIN_SECURE_NONE", "group__group__pra__enums.html#gga4bba00f66cd6cd54eb589cd25ed700d6a9a447d67e83dfc81a7079a1da26df73f", null ]
     ] ]
 ];

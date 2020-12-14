@@ -8,6 +8,7 @@ var searchData=
   ['bitrate',['bitrate',['../structcy__stc__canfd__config__t.html#a4f9e70770fabc4e2f30fe3afb1e5bdbc',1,'cy_stc_canfd_config_t']]],
   ['blockevent',['blockEvent',['../structcy__stc__smif__config__t.html#aa6fcae8a59c000ef79d71de06695b659',1,'cy_stc_smif_config_t']]],
   ['blocksize',['blockSize',['../structcy__stc__sd__host__data__config__t.html#ae1cac2445bb6f9be1b0ede804e793f73',1,'cy_stc_sd_host_data_config_t']]],
+  ['breaklevel',['breaklevel',['../structcy__stc__scb__uart__config__t.html#abca36ee02b4004875fdb71f271de6e1b',1,'cy_stc_scb_uart_config_t']]],
   ['breakwidth',['breakWidth',['../structcy__stc__scb__uart__config__t.html#a923970897f4434aadda6bee185a2367d',1,'cy_stc_scb_uart_config_t']]],
   ['brs',['brs',['../structcy__stc__canfd__r1__t.html#ac30d64c756b0e2d8d5a71286d8d9c822',1,'cy_stc_canfd_r1_t::brs()'],['../structcy__stc__canfd__t1__t.html#a1575c20946ae223fff0be79d15e65e00',1,'cy_stc_canfd_t1_t::brs()']]],
   ['buckvoltage',['buckVoltage',['../structcy__stc__pra__system__config__t.html#a449bd7d8fe6e4bf2f1e353ce2eff25bd',1,'cy_stc_pra_system_config_t']]],

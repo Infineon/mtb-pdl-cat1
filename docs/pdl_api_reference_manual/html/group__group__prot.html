@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Prot         (Protection Unit)</title>
+<title>MTB CAT1 Peripheral driver library: Prot         (Protection Unit)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -198,6 +198,8 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.60 </td><td>Modified <a class="el" href="group__group__prot__functions__ppu__prog__v2.html#gaa20aec5caa83d665c5a2afe241b6c69e">Cy_Prot_ConfigPpuProgMasterAtt()</a> &amp; <a class="el" href="group__group__prot__functions__ppu__fixed__v2.html#gacc7dadd726bd53886aedfbfa1014ae9e">Cy_Prot_ConfigPpuFixedMasterAtt()</a> functions to ignore unavailable protection context. </td><td>Defect fix.  </td></tr>
+<tr>
 <td rowspan="3">1.50 </td><td>Updated implementation of the <a class="el" href="group__group__prot__functions__ppu__prog__v2.html#gaa20aec5caa83d665c5a2afe241b6c69e">Cy_Prot_ConfigPpuProgMasterAtt()</a>, <a class="el" href="group__group__prot__functions__ppu__prog__v2.html#ga7941e969542970aedcb056f554b5383b">Cy_Prot_ConfigPpuProgSlaveAtt()</a>, <a class="el" href="group__group__prot__functions__ppu__fixed__v2.html#gacc7dadd726bd53886aedfbfa1014ae9e">Cy_Prot_ConfigPpuFixedMasterAtt()</a>, and <a class="el" href="group__group__prot__functions__ppu__fixed__v2.html#ga6112f6eba93e5db763e8dc571a91740a">Cy_Prot_ConfigPpuFixedSlaveAtt()</a> to start registers update from the higher-numbered PCs in order to prevent lockup for the case when registers are configured to read-only. </td><td>Defect fix.  </td></tr>
 <tr>
 <td>Added macros for memory region size setting in <a class="el" href="group__group__prot__enums.html#gaad39ed0d259460f717edfe9d08fc005f">cy_en_prot_size_t</a> initialization. </td><td>The macros can be useful for the pre-processor checks.  </td></tr>
@@ -259,7 +261,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: RTC          (Real-Time Clock)</title>
+<title>MTB CAT1 Peripheral driver library: RTC          (Real-Time Clock)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('group__group__rtc.html','');});
 <li>Automatic leap year compensation.</li>
 <li>Option to drive the RTC by an external 50 Hz or 60 Hz clock source</li>
 </ul>
-<p>The RTC driver provides access to the HW real-time clock. The HW RTC is located in the Backup domain. You need to choose the clock source for the Backup domain using the <a class="el" href="group__group__sysclk__clk__bak__funcs.html#ga09031ac63142fe0837f87fb5dabea7a5" title="Sets the source for the backup domain clock (clk_bak). ">Cy_SysClk_ClkBakSetSource()</a> function. If the clock for the Backup domain is set and enabled, the RTC automatically starts counting.</p>
+<p>The RTC driver provides access to the HW real-time clock. The HW RTC is located in the Backup domain. You need to choose the clock source for the Backup domain using the <a class="el" href="group__group__sysclk__clk__bak__funcs.html#gab72e0702bafe7df920708eacefdb40dd" title="Sets the source for the backup domain clock (clk_bak). ">Cy_SysClk_ClkBakSetSource()</a> function. If the clock for the Backup domain is set and enabled, the RTC automatically starts counting.</p>
 <p>The RTC driver keeps track of second, minute, hour, day of the week, day of the month, month, and year.</p>
 <p>DST may be enabled and supports any start and end date. The start and end dates can be a fixed date (like 24 March) or a relative date (like the second Sunday in March).</p>
 <p>The RTC has two alarms that you can configure to generate an interrupt. You specify the match value for the time when you want the alarm to occur. Your interrupt handler then handles the response. The alarm flexibility supports periodic alarms (such as every minute), or a single alarm (13:45 on 28 September, 2043).</p>
@@ -163,13 +163,15 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>2.50 </td><td>Removed the calls that convert among BCD and Binary. </td><td>RTC encoding changed from BCD to Binary.  </td></tr>
+<tr>
 <td>2.40 </td><td>Fixed/Documented MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
 <tr>
 <td>2.30.1 </td><td>Minor documentation updates. </td><td>Documentation enhancement.  </td></tr>
 <tr>
 <td>2.30 </td><td><ul>
-<li>Corrected the <a class="el" href="group__group__rtc__low__level__functions.html#gae2d29ebc8c658ccfefcc2389d26d6bec" title="A low-level DST function returns the current DST status using given time information. ">Cy_RTC_GetDstStatus()</a> and <a class="el" href="group__group__rtc__low__level__functions.html#ga37374ecb34a430c3735ef9ba585681b1" title="A low-level DST function sets ALARM2 for a next DST event. ">Cy_RTC_SetNextDstTime()</a> documentation.</li>
-<li>Fixed the <a class="el" href="group__group__rtc__low__level__functions.html#gae2d29ebc8c658ccfefcc2389d26d6bec" title="A low-level DST function returns the current DST status using given time information. ">Cy_RTC_GetDstStatus()</a> behaviour in the 'an hour before/after the DST stop event' period.  </li>
+<li>Corrected the <a class="el" href="group__group__rtc__dst__functions.html#gae2d29ebc8c658ccfefcc2389d26d6bec" title="A low-level DST function returns the current DST status using given time information. ">Cy_RTC_GetDstStatus()</a> and <a class="el" href="group__group__rtc__dst__functions.html#ga37374ecb34a430c3735ef9ba585681b1" title="A low-level DST function sets ALARM2 for a next DST event. ">Cy_RTC_SetNextDstTime()</a> documentation.</li>
+<li>Fixed the <a class="el" href="group__group__rtc__dst__functions.html#gae2d29ebc8c658ccfefcc2389d26d6bec" title="A low-level DST function returns the current DST status using given time information. ">Cy_RTC_GetDstStatus()</a> behaviour in the 'an hour before/after the DST stop event' period.  </li>
 </ul>
 </td><td><ul>
 <li>Collateral Review: user experience enhancement.</li>
@@ -186,12 +188,12 @@ Changelog</h1>
 <td>Documentation update. </td><td>Documentation enhancement.  </td></tr>
 <tr>
 <td>2.10 </td><td><ul>
-<li>Corrected <a class="el" href="group__group__rtc__general__functions.html#ga2f2ba9ba2a8e6434242134a1c1a55949" title="Sets the time and date values into the RTC_TIME and RTC_DATE registers using direct time parameters...">Cy_RTC_SetDateAndTimeDirect()</a>, <a class="el" href="group__group__rtc__low__level__functions.html#ga37374ecb34a430c3735ef9ba585681b1" title="A low-level DST function sets ALARM2 for a next DST event. ">Cy_RTC_SetNextDstTime()</a> function.</li>
+<li>Corrected <a class="el" href="group__group__rtc__general__functions.html#ga2f2ba9ba2a8e6434242134a1c1a55949" title="Sets the time and date values into the RTC_TIME and RTC_DATE registers using direct time parameters...">Cy_RTC_SetDateAndTimeDirect()</a>, <a class="el" href="group__group__rtc__dst__functions.html#ga37374ecb34a430c3735ef9ba585681b1" title="A low-level DST function sets ALARM2 for a next DST event. ">Cy_RTC_SetNextDstTime()</a> function.</li>
 <li>Corrected internal macro.</li>
 <li>Documentation updates.  </li>
 </ul>
 </td><td><ul>
-<li>Incorrect behavior of <a class="el" href="group__group__rtc__general__functions.html#ga2f2ba9ba2a8e6434242134a1c1a55949">Cy_RTC_SetDateAndTimeDirect()</a> and <a class="el" href="group__group__rtc__low__level__functions.html#ga37374ecb34a430c3735ef9ba585681b1">Cy_RTC_SetNextDstTime()</a> work in debug mode.</li>
+<li>Incorrect behavior of <a class="el" href="group__group__rtc__general__functions.html#ga2f2ba9ba2a8e6434242134a1c1a55949">Cy_RTC_SetDateAndTimeDirect()</a> and <a class="el" href="group__group__rtc__dst__functions.html#ga37374ecb34a430c3735ef9ba585681b1">Cy_RTC_SetNextDstTime()</a> work in debug mode.</li>
 <li>Debug assert correction in <a class="el" href="group__group__rtc__low__level__functions.html#gaefa2dfda62dd0bd93a020a5f3f109f55">Cy_RTC_ConvertDayOfWeek</a>, <a class="el" href="group__group__rtc__low__level__functions.html#ga7d79a94b5b584d933b012f11d34ac29e">Cy_RTC_IsLeapYear</a>, <a class="el" href="group__group__rtc__low__level__functions.html#gaca23246d1ae0e7e6442215ef3d8ca068">Cy_RTC_DaysInMonth</a>.   </li>
 </ul>
 </td></tr>
@@ -224,7 +226,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

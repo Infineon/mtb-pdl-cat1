@@ -6,6 +6,7 @@ var searchData=
   ['data_5farea_5ff',['data_area_f',['../structcy__stc__canfd__rx__buffer__t.html#a0db6cdd9b30082a0639b997703f2aec1',1,'cy_stc_canfd_rx_buffer_t::data_area_f()'],['../structcy__stc__canfd__tx__buffer__t.html#a5ea9b11312a86308081d1afbb7774b30',1,'cy_stc_canfd_tx_buffer_t::data_area_f()']]],
   ['dataprefetch',['dataPrefetch',['../structcy__stc__dmac__descriptor__config__t.html#a642fe60a0744a3721c1b20005a8a9870',1,'cy_stc_dmac_descriptor_config_t']]],
   ['datapresent',['dataPresent',['../structcy__stc__sd__host__cmd__config__t.html#a7dd581c8b87c708d1cea25ee455ad79a',1,'cy_stc_sd_host_cmd_config_t']]],
+  ['datarate',['dataRate',['../structcy__stc__smif__mem__cmd__t.html#a9bbce9baffabb885847bb64b5ee63d02',1,'cy_stc_smif_mem_cmd_t']]],
   ['datareg',['dataReg',['../structcy__stc__smartio__ducfg__t.html#a06091267580643c60580376bd1524451',1,'cy_stc_smartio_ducfg_t']]],
   ['datareverse',['dataReverse',['../structcy__stc__dma__crc__config__t.html#acc5d2168ecef8a82b46614f861f0985c',1,'cy_stc_dma_crc_config_t']]],
   ['dataselect',['dataSelect',['../structcy__stc__smif__mem__config__t.html#afd4726ab3b952fa7b320899f496e1d17',1,'cy_stc_smif_mem_config_t']]],
@@ -42,7 +43,7 @@ var searchData=
   ['drivemode',['driveMode',['../structcy__stc__gpio__pin__config__t.html#a6f1ce86e05635f3d78fb4727d907d0aa',1,'cy_stc_gpio_pin_config_t']]],
   ['drivesel',['driveSel',['../structcy__stc__gpio__pin__config__t.html#a084319c0dbc75d9204c93af3fbcf98eb',1,'cy_stc_gpio_pin_config_t']]],
   ['droponframeerror',['dropOnFrameError',['../structcy__stc__scb__uart__config__t.html#a9601c46e2d7125724893590bc88f38c2',1,'cy_stc_scb_uart_config_t']]],
-  ['droponparityerror',['dropOnParityError',['../structcy__stc__scb__uart__config__t.html#a3d815bb37e49de4d14869223229f8f54',1,'cy_stc_scb_uart_config_t']]],
+  ['droponparityerror',['dropOnParityError',['../structcy__stc__scb__spi__config__t.html#a84e4e677ad6df72ecb60a3d399be79b3',1,'cy_stc_scb_spi_config_t::dropOnParityError()'],['../structcy__stc__scb__uart__config__t.html#a3d815bb37e49de4d14869223229f8f54',1,'cy_stc_scb_uart_config_t::dropOnParityError()']]],
   ['dsclkdivider',['dsClkdivider',['../structcy__stc__sysanalog__deep__sleep__config__t.html#adbd49c009abf856cd0c271a87f0d2004',1,'cy_stc_sysanalog_deep_sleep_config_t']]],
   ['dsclksource',['dsClkSource',['../structcy__stc__sysanalog__deep__sleep__config__t.html#aaf94b94ad68f0a10ba67ac54f374ab6e',1,'cy_stc_sysanalog_deep_sleep_config_t']]],
   ['dst',['dst',['../structcy__stc__dma__descriptor__t.html#ac19aa103094426c66c12a8680df33460',1,'cy_stc_dma_descriptor_t::dst()'],['../structcy__stc__dmac__descriptor__t.html#ad086ce666ce79d784fd25846dbce48d8',1,'cy_stc_dmac_descriptor_t::dst()']]],
@@ -52,5 +53,6 @@ var searchData=
   ['dstyincrement',['dstYincrement',['../structcy__stc__dma__descriptor__config__t.html#afb2f61e8c6c07c5dde46b9a3407f526b',1,'cy_stc_dma_descriptor_config_t::dstYincrement()'],['../structcy__stc__dmac__descriptor__config__t.html#a0d7425723f735c43d9f9c3d5add46051',1,'cy_stc_dmac_descriptor_config_t::dstYincrement()']]],
   ['dualquadslots',['dualQuadSlots',['../structcy__stc__smif__mem__config__t.html#ad85fa341a6d7c5fe4663e2c50217ca38',1,'cy_stc_smif_mem_config_t']]],
   ['ducfg',['duCfg',['../structcy__stc__smartio__config__t.html#aa0f8f1f60e5713c1af42d01ace046f04',1,'cy_stc_smartio_config_t']]],
-  ['dummycycles',['dummyCycles',['../structcy__stc__smif__mem__cmd__t.html#abb0e73fe83948a117e3f1301c258d1d1',1,'cy_stc_smif_mem_cmd_t']]]
+  ['dummycycles',['dummyCycles',['../structcy__stc__smif__mem__cmd__t.html#abb0e73fe83948a117e3f1301c258d1d1',1,'cy_stc_smif_mem_cmd_t']]],
+  ['dummycyclespresence',['dummyCyclesPresence',['../structcy__stc__smif__mem__cmd__t.html#ab8abfc1c375bb96317c483c8e4f303cf',1,'cy_stc_smif_mem_cmd_t']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Internal Low-Speed Oscillator (ILO)</title>
+<title>MTB CAT1 Peripheral driver library: Internal Low-Speed Oscillator (ILO)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('group__group__sysclk__ilo.html','');})
 <p>The ILO is relatively low power and low accuracy. It is available in all power modes and can be used as a source for the Backup domain clock. </p><div class="image">
 <img src="sysclk_backup.png" alt="sysclk_backup.png"/>
 </div>
-<p>To ensure the ILO remains active in Hibernate mode, and across power-on-reset (POR) or brown out detect (BOD), firmware must call <a class="el" href="group__group__sysclk__ilo__funcs.html#gab8d32f79b480829d5193ba0c1741bc07" title="Controls whether the ILO stays on during a hibernate, or through an XRES or brown-out detect (BOD) ev...">Cy_SysClk_IloHibernateOn()</a>.</p>
+<p>To ensure the ILO remains active in Hibernate mode, and across power-on-reset (POR) or brown out detect (BOD), firmware must call <a class="el" href="group__group__sysclk__ilo__funcs.html#gaece6af6547fbec8defb4defd1b10af1a" title="Controls whether the ILO stays on during a hibernate, or through an XRES or brown-out detect (BOD) ev...">Cy_SysClk_IloHibernateOn()</a>.</p>
 <p>Additionally, the ILO clock can be trimmed to +/- 1.5% of nominal frequency using a higher precision clock source. Use the <a class="el" href="group__group__sysclk__calclk.html">Clock Measurement</a> API to measure the current ILO frequency before trimming.</p>
 <dl class="section note"><dt>Note</dt><dd>The ILO is always the source clock for the <a class="el" href="group__group__wdt.html">WDT (Watchdog Timer)</a>. Therefore:<ul>
 <li>The WDT must be unlocked when making an ILO function call in the PDL</li>
@@ -110,7 +110,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

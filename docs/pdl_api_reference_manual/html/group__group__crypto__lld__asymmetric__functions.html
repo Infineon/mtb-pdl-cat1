@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Functions</title>
+<title>MTB CAT1 Peripheral driver library: Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -98,6 +98,15 @@ typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gae8aee459272ad30568e9c13a4c5dc729"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae8aee459272ad30568e9c13a4c5dc729">Cy_Crypto_Core_Rsa_Verify</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> *verResult, <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a> digestType, uint8_t const *digest, uint8_t const *decryptedSignature, uint32_t decryptedSignatureLength)</td></tr>
+<tr class="memdesc:gae8aee459272ad30568e9c13a4c5dc729"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA verification with checks for content, paddings and signature format.  <a href="#gae8aee459272ad30568e9c13a4c5dc729">More...</a><br /></td></tr>
+<tr class="separator:gae8aee459272ad30568e9c13a4c5dc729"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae83f35c8c5a35e9b7321ada249d40d95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae83f35c8c5a35e9b7321ada249d40d95">Cy_Crypto_Core_Rsa_Proc</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *key, uint8_t const *message, uint32_t messageSize, uint8_t *processedMessage)</td></tr>
+<tr class="memdesc:gae83f35c8c5a35e9b7321ada249d40d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA process algorithm based on the Montgomery algorithm using Barrett reduction.  <a href="#gae83f35c8c5a35e9b7321ada249d40d95">More...</a><br /></td></tr>
+<tr class="separator:gae83f35c8c5a35e9b7321ada249d40d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga0a60b217ca4b355bc1fcafc2e1478368">Cy_Crypto_Core_Rsa_Coef</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *key)</td></tr>
+<tr class="memdesc:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculation constant coefficients to to speed-up Montgomery algorithm.  <a href="#ga0a60b217ca4b355bc1fcafc2e1478368">More...</a><br /></td></tr>
+<tr class="separator:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga85493f9431e34316b21d3f29dae4ac4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga85493f9431e34316b21d3f29dae4ac4b">Cy_Crypto_Core_ECC_MakeKeyPair</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *key, <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a> GetRandomDataFunc, void *randomDataInfo)</td></tr>
 <tr class="memdesc:ga85493f9431e34316b21d3f29dae4ac4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new ECC key pair.  <a href="#ga85493f9431e34316b21d3f29dae4ac4b">More...</a><br /></td></tr>
 <tr class="separator:ga85493f9431e34316b21d3f29dae4ac4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,17 +125,175 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3339d6b9fad08c824ef9d94d0234e903"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga3339d6b9fad08c824ef9d94d0234e903">Cy_Crypto_Core_EC_NistP_PointMultiplication</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, const uint8_t *ecpGX, const uint8_t *ecpGY, const uint8_t *ecpD, uint8_t *ecpQX, uint8_t *ecpQY)</td></tr>
 <tr class="memdesc:ga3339d6b9fad08c824ef9d94d0234e903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elliptic curve point multiplication in GF(p).  <a href="#ga3339d6b9fad08c824ef9d94d0234e903">More...</a><br /></td></tr>
 <tr class="separator:ga3339d6b9fad08c824ef9d94d0234e903"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae8aee459272ad30568e9c13a4c5dc729"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae8aee459272ad30568e9c13a4c5dc729">Cy_Crypto_Core_Rsa_Verify</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> *verResult, <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a> digestType, uint8_t const *digest, uint8_t const *decryptedSignature, uint32_t decryptedSignatureLength)</td></tr>
-<tr class="memdesc:gae8aee459272ad30568e9c13a4c5dc729"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA verification with checks for content, paddings and signature format.  <a href="#gae8aee459272ad30568e9c13a4c5dc729">More...</a><br /></td></tr>
-<tr class="separator:gae8aee459272ad30568e9c13a4c5dc729"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae83f35c8c5a35e9b7321ada249d40d95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae83f35c8c5a35e9b7321ada249d40d95">Cy_Crypto_Core_Rsa_Proc</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *key, uint8_t const *message, uint32_t messageSize, uint8_t *processedMessage)</td></tr>
-<tr class="memdesc:gae83f35c8c5a35e9b7321ada249d40d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA process algorithm based on the Montgomery algorithm using Barrett reduction.  <a href="#gae83f35c8c5a35e9b7321ada249d40d95">More...</a><br /></td></tr>
-<tr class="separator:gae83f35c8c5a35e9b7321ada249d40d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga0a60b217ca4b355bc1fcafc2e1478368">Cy_Crypto_Core_Rsa_Coef</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *key)</td></tr>
-<tr class="memdesc:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculation constant coefficients to to speed-up Montgomery algorithm.  <a href="#ga0a60b217ca4b355bc1fcafc2e1478368">More...</a><br /></td></tr>
-<tr class="separator:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gae8aee459272ad30568e9c13a4c5dc729"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8aee459272ad30568e9c13a4c5dc729">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Rsa_Verify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Rsa_Verify </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> *&#160;</td>
+          <td class="paramname"><em>verResult</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a>&#160;</td>
+          <td class="paramname"><em>digestType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>digest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>decryptedSignature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>decryptedSignatureLength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RSA verification with checks for content, paddings and signature format. </p>
+<p>SHA digest of the message and decrypted message should be calculated before. Supports only PKCS1-v1_5 format, inside of this format supported padding using only SHA, cases with MD2 and MD5 are not supported. PKCS1-v1_5 described here, page 31: <a href="http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf">http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf</a></p>
+<p>Returns the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">verResult</td><td>The pointer to the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</td></tr>
+    <tr><td class="paramname">digestType</td><td>SHA mode used for hash calculation <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a>.</td></tr>
+    <tr><td class="paramname">digest</td><td>The pointer to the hash of the message whose signature is to be verified.</td></tr>
+    <tr><td class="paramname">decryptedSignature</td><td>The pointer to the decrypted signature to be verified.</td></tr>
+    <tr><td class="paramname">decryptedSignatureLength</td><td>The length of the decrypted signature to be verified (in bytes)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="gae83f35c8c5a35e9b7321ada249d40d95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae83f35c8c5a35e9b7321ada249d40d95">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Rsa_Proc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Rsa_Proc </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>messageSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>processedMessage</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RSA process algorithm based on the Montgomery algorithm using Barrett reduction. </p>
+<p><a href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29">https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">key</td><td>The pointer to the <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> structure that stores public key.</td></tr>
+    <tr><td class="paramname">message</td><td>The pointer to the message to be processed.</td></tr>
+    <tr><td class="paramname">messageSize</td><td>The length of the message to be processed.</td></tr>
+    <tr><td class="paramname">processedMessage</td><td>The pointer to processed message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga0a60b217ca4b355bc1fcafc2e1478368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0a60b217ca4b355bc1fcafc2e1478368">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Rsa_Coef()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Rsa_Coef </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculation constant coefficients to to speed-up Montgomery algorithm. </p>
+<p>These coefficients are: coefficient for Barrett reduction, binary inverse of the modulo, result of (2^moduloLength mod modulo)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">key</td><td>The pointer to the <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> structure that stores a public key.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga85493f9431e34316b21d3f29dae4ac4b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga85493f9431e34316b21d3f29dae4ac4b">&#9670;&nbsp;</a></span>Cy_Crypto_Core_ECC_MakeKeyPair()</h2>
 
@@ -502,180 +669,13 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gae8aee459272ad30568e9c13a4c5dc729"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae8aee459272ad30568e9c13a4c5dc729">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Rsa_Verify()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Rsa_Verify </td>
-          <td>(</td>
-          <td class="paramtype">CRYPTO_Type *&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> *&#160;</td>
-          <td class="paramname"><em>verResult</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a>&#160;</td>
-          <td class="paramname"><em>digestType</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t const *&#160;</td>
-          <td class="paramname"><em>digest</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t const *&#160;</td>
-          <td class="paramname"><em>decryptedSignature</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>decryptedSignatureLength</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>RSA verification with checks for content, paddings and signature format. </p>
-<p>SHA digest of the message and decrypted message should be calculated before. Supports only PKCS1-v1_5 format, inside of this format supported padding using only SHA, cases with MD2 and MD5 are not supported. PKCS1-v1_5 described here, page 31: <a href="http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf">http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf</a></p>
-<p>Returns the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
-    <tr><td class="paramname">verResult</td><td>The pointer to the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</td></tr>
-    <tr><td class="paramname">digestType</td><td>SHA mode used for hash calculation <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a>.</td></tr>
-    <tr><td class="paramname">digest</td><td>The pointer to the hash of the message whose signature is to be verified.</td></tr>
-    <tr><td class="paramname">decryptedSignature</td><td>The pointer to the decrypted signature to be verified.</td></tr>
-    <tr><td class="paramname">decryptedSignatureLength</td><td>The length of the decrypted signature to be verified (in bytes)</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
-
-</div>
-</div>
-<a id="gae83f35c8c5a35e9b7321ada249d40d95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae83f35c8c5a35e9b7321ada249d40d95">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Rsa_Proc()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Rsa_Proc </td>
-          <td>(</td>
-          <td class="paramtype">CRYPTO_Type *&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t const *&#160;</td>
-          <td class="paramname"><em>message</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>messageSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>processedMessage</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>RSA process algorithm based on the Montgomery algorithm using Barrett reduction. </p>
-<p><a href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29">https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29</a></p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
-    <tr><td class="paramname">key</td><td>The pointer to the <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> structure that stores public key.</td></tr>
-    <tr><td class="paramname">message</td><td>The pointer to the message to be processed.</td></tr>
-    <tr><td class="paramname">messageSize</td><td>The length of the message to be processed.</td></tr>
-    <tr><td class="paramname">processedMessage</td><td>The pointer to processed message.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
-
-</div>
-</div>
-<a id="ga0a60b217ca4b355bc1fcafc2e1478368"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0a60b217ca4b355bc1fcafc2e1478368">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Rsa_Coef()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Rsa_Coef </td>
-          <td>(</td>
-          <td class="paramtype">CRYPTO_Type *&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculation constant coefficients to to speed-up Montgomery algorithm. </p>
-<p>These coefficients are: coefficient for Barrett reduction, binary inverse of the modulo, result of (2^moduloLength mod modulo)</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
-    <tr><td class="paramname">key</td><td>The pointer to the <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> structure that stores a public key.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

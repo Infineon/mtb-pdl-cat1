@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: cy_stc_scb_spi_config_t Struct Reference</title>
+<title>MTB CAT1 Peripheral driver library: cy_stc_scb_spi_config_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -103,6 +103,12 @@ Data Fields</h2></td></tr>
 <a class="el" href="group__group__scb__spi__enums.html#gab34eae51343cebfec7c447a573cdf0ba">cy_en_scb_spi_sclk_mode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#a7de07d4e2900e6773c541632fecfe611">sclkMode</a></td></tr>
 <tr class="memdesc:a7de07d4e2900e6773c541632fecfe611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the SCLK operation for Motorola sub-mode, ignored for all other submodes. <br /></td></tr>
 <tr class="separator:a7de07d4e2900e6773c541632fecfe611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49f106ff0d3a5772ff90dd07629ead46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__scb__spi__enums.html#gaf244ff9c484db24f4935bfec1a397383">cy_en_scb_spi_parity_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#a49f106ff0d3a5772ff90dd07629ead46">parity</a></td></tr>
+<tr class="memdesc:a49f106ff0d3a5772ff90dd07629ead46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the SPI parity.  <a href="#a49f106ff0d3a5772ff90dd07629ead46">More...</a><br /></td></tr>
+<tr class="separator:a49f106ff0d3a5772ff90dd07629ead46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84e4e677ad6df72ecb60a3d399be79b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#a84e4e677ad6df72ecb60a3d399be79b3">dropOnParityError</a></td></tr>
+<tr class="memdesc:a84e4e677ad6df72ecb60a3d399be79b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the hardware to drop data in the RX FIFO when a parity error is detected.  <a href="#a84e4e677ad6df72ecb60a3d399be79b3">More...</a><br /></td></tr>
+<tr class="separator:a84e4e677ad6df72ecb60a3d399be79b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6a475cbca4d11fc3c339007694e33c4"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#ac6a475cbca4d11fc3c339007694e33c4">oversample</a></td></tr>
 <tr class="memdesc:ac6a475cbca4d11fc3c339007694e33c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oversample factor for SPI.  <a href="#ac6a475cbca4d11fc3c339007694e33c4">More...</a><br /></td></tr>
 <tr class="separator:ac6a475cbca4d11fc3c339007694e33c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +141,15 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 <tr class="memitem:a53fea8be8ff446f4cdbfba9be4d07948"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#a53fea8be8ff446f4cdbfba9be4d07948">ssPolarity</a></td></tr>
 <tr class="memdesc:a53fea8be8ff446f4cdbfba9be4d07948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets active polarity of each SS line.  <a href="#a53fea8be8ff446f4cdbfba9be4d07948">More...</a><br /></td></tr>
 <tr class="separator:a53fea8be8ff446f4cdbfba9be4d07948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad34edde1bbeb56c4aa6c8a4449887897"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#ad34edde1bbeb56c4aa6c8a4449887897">ssSetupDelay</a></td></tr>
+<tr class="memdesc:ad34edde1bbeb56c4aa6c8a4449887897"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the SPI SELECT setup delay (between SELECT activation and SPI clock).  <a href="#ad34edde1bbeb56c4aa6c8a4449887897">More...</a><br /></td></tr>
+<tr class="separator:ad34edde1bbeb56c4aa6c8a4449887897"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3ac7c7f20e280f4eb0a433bd0a5c0ca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#ae3ac7c7f20e280f4eb0a433bd0a5c0ca">ssHoldDelay</a></td></tr>
+<tr class="memdesc:ae3ac7c7f20e280f4eb0a433bd0a5c0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the SPI SELECT hold delay (between SPI clock and SELECT deactivation).  <a href="#ae3ac7c7f20e280f4eb0a433bd0a5c0ca">More...</a><br /></td></tr>
+<tr class="separator:ae3ac7c7f20e280f4eb0a433bd0a5c0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade78bd095cdc2abc90389b653f072e94"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#ade78bd095cdc2abc90389b653f072e94">ssInterFrameDelay</a></td></tr>
+<tr class="memdesc:ade78bd095cdc2abc90389b653f072e94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the SPI SELECT inter-dataframe delay (between SELECT deactivation and SELECT activation).  <a href="#ade78bd095cdc2abc90389b653f072e94">More...</a><br /></td></tr>
+<tr class="separator:ade78bd095cdc2abc90389b653f072e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bd8054ad4eb5abac5e4e2d77f305a18"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__spi__config__t.html#a8bd8054ad4eb5abac5e4e2d77f305a18">enableWakeFromSleep</a></td></tr>
 <tr class="memdesc:a8bd8054ad4eb5abac5e4e2d77f305a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">When set, the slave will wake the device when the slave select line becomes active.  <a href="#a8bd8054ad4eb5abac5e4e2d77f305a18">More...</a><br /></td></tr>
 <tr class="separator:a8bd8054ad4eb5abac5e4e2d77f305a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,6 +173,40 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="separator:aacc86dbc09c7ca10d87a97938d4bb4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
+<a id="a49f106ff0d3a5772ff90dd07629ead46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49f106ff0d3a5772ff90dd07629ead46">&#9670;&nbsp;</a></span>parity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__scb__spi__enums.html#gaf244ff9c484db24f4935bfec1a397383">cy_en_scb_spi_parity_t</a> cy_stc_scb_spi_config_t::parity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures the SPI parity. </p>
+<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="a84e4e677ad6df72ecb60a3d399be79b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84e4e677ad6df72ecb60a3d399be79b3">&#9670;&nbsp;</a></span>dropOnParityError</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_scb_spi_config_t::dropOnParityError</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the hardware to drop data in the RX FIFO when a parity error is detected. </p>
+<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
 <a id="ac6a475cbca4d11fc3c339007694e33c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6a475cbca4d11fc3c339007694e33c4">&#9670;&nbsp;</a></span>oversample</h2>
 
@@ -229,6 +278,57 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 
 </div>
 </div>
+<a id="ad34edde1bbeb56c4aa6c8a4449887897"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad34edde1bbeb56c4aa6c8a4449887897">&#9670;&nbsp;</a></span>ssSetupDelay</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_scb_spi_config_t::ssSetupDelay</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates the SPI SELECT setup delay (between SELECT activation and SPI clock). </p>
+<p>'0': With this setting the same timing is generated as in SCB v1 block. CPHA=0: 0.75 SPI clock cycles CPHA=1: 0.25 SPI clock cycles '1': With this setting an additional delay of 1 SPI clock cycle is generated. CPHA=0: 1.75 SPI clock cycles CPHA=1: 1.25 SPI clock cycles Only applies in SPI MOTOROLA submode and when SCLK_CONTINUOUS=0 </p><dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ae3ac7c7f20e280f4eb0a433bd0a5c0ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3ac7c7f20e280f4eb0a433bd0a5c0ca">&#9670;&nbsp;</a></span>ssHoldDelay</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_scb_spi_config_t::ssHoldDelay</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates the SPI SELECT hold delay (between SPI clock and SELECT deactivation). </p>
+<p>'0': With this setting the same timing is generated as in CAT1A devices. CPHA=0: 0.75 SPI clock cycles CPHA=1: 0.25 SPI clock cycles '1': With this setting an additional delay of 1 SPI clock cycle is generated. CPHA=0: 1.75 SPI clock cycles CPHA=1: 1.25 SPI clock cycles Only applies in SPI MOTOROLA submode and when SCLK_CONTINUOUS=0 </p><dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ade78bd095cdc2abc90389b653f072e94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade78bd095cdc2abc90389b653f072e94">&#9670;&nbsp;</a></span>ssInterFrameDelay</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_scb_spi_config_t::ssInterFrameDelay</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates the SPI SELECT inter-dataframe delay (between SELECT deactivation and SELECT activation). </p>
+<p>'0': With this setting the same timing is generated as in CAT1A devices. CPHA=0: 0.75 SPI clock cycles CPHA=1: 0.25 SPI clock cycles '1': With this setting an additional delay of 1 SPI clock cycle is generated. CPHA=0: 1.75 SPI clock cycles CPHA=1: 1.25 SPI clock cycles Only applies in SPI MOTOROLA submode and when SCLK_CONTINUOUS=0 </p><dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
 <a id="a8bd8054ad4eb5abac5e4e2d77f305a18"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bd8054ad4eb5abac5e4e2d77f305a18">&#9670;&nbsp;</a></span>enableWakeFromSleep</h2>
 
@@ -286,7 +386,7 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

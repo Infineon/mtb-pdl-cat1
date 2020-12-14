@@ -16,5 +16,17 @@ var group__group__scb__uart__low__level__functions =
     [ "Cy_SCB_UART_IsTxComplete", "group__group__scb__uart__low__level__functions.html#ga81aff78dcdc266d6cac81e714afef6c3", null ],
     [ "Cy_SCB_UART_GetNumInRxFifo", "group__group__scb__uart__low__level__functions.html#gabc4b66b875dbc70d52adf19170d3a530", null ],
     [ "Cy_SCB_UART_ClearRxFifo", "group__group__scb__uart__low__level__functions.html#ga87d8e77bc0b4932906b9769ccfaff4de", null ],
-    [ "Cy_SCB_UART_ClearTxFifo", "group__group__scb__uart__low__level__functions.html#gadbe05205dc0a6035395c7738b0de0dcc", null ]
+    [ "Cy_SCB_UART_ClearTxFifo", "group__group__scb__uart__low__level__functions.html#gadbe05205dc0a6035395c7738b0de0dcc", null ],
+    [ "Cy_SCB_UART_GetOverSample", "group__group__scb__uart__low__level__functions.html#ga6198ae1a865423d022a52b60f0589640", null ],
+    [ "Cy_SCB_UART_SetOverSample", "group__group__scb__uart__low__level__functions.html#ga953a2e5de2843bec5149214fbbf8d866", null ],
+    [ "Cy_SCB_UART_GetDataWidth", "group__group__scb__uart__low__level__functions.html#ga0e78bbf1f988c83e4b854913165c522a", null ],
+    [ "Cy_SCB_UART_SetDataWidth", "group__group__scb__uart__low__level__functions.html#ga0168b95a1eef359b3bd9d656dc58eada", null ],
+    [ "Cy_SCB_UART_GetParity", "group__group__scb__uart__low__level__functions.html#gaefd348e5429248635e3513d38b093ca2", null ],
+    [ "Cy_SCB_UART_SetParity", "group__group__scb__uart__low__level__functions.html#gadba2318f8135a722f861c61e299cf955", null ],
+    [ "Cy_SCB_UART_GetStopBits", "group__group__scb__uart__low__level__functions.html#gaafd878e3e54925cf1d10ca38f2a89e11", null ],
+    [ "Cy_SCB_UART_SetStopBits", "group__group__scb__uart__low__level__functions.html#ga1a74d57246b3f64b61514d352479fbe4", null ],
+    [ "Cy_SCB_UART_GetDropOnParityError", "group__group__scb__uart__low__level__functions.html#ga479378d045a9d97d279ff24667661995", null ],
+    [ "Cy_SCB_UART_SetDropOnParityError", "group__group__scb__uart__low__level__functions.html#ga7c6796283644936b5501085bdb5981b9", null ],
+    [ "Cy_SCB_UART_GetEnableMsbFirst", "group__group__scb__uart__low__level__functions.html#gaaf655f8c8143c4f0f98c3dadf34091ff", null ],
+    [ "Cy_SCB_UART_SetEnableMsbFirst", "group__group__scb__uart__low__level__functions.html#gaeb5f34c160e5ddccb9bde86b6400e6ca", null ]
 ];

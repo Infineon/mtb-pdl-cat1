@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Functions</title>
+<title>MTB CAT1 Peripheral driver library: Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -99,15 +99,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gaed0da3eeb7d2217581b1946ce102f0ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__csd__enums.html#ga6cde526987c66fff895f48902589f979">cy_en_csd_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__csd__functions.html#gaed0da3eeb7d2217581b1946ce102f0ae">Cy_CSD_Configure</a> (CSD_Type *base, const <a class="el" href="structcy__stc__csd__config__t.html">cy_stc_csd_config_t</a> *config, <a class="el" href="group__group__csd__enums.html#ga281a1b4a5cddb0bee365a7835985ccba">cy_en_csd_key_t</a> key, const <a class="el" href="structcy__stc__csd__context__t.html">cy_stc_csd_context_t</a> *context)</td></tr>
 <tr class="memdesc:gaed0da3eeb7d2217581b1946ce102f0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets configuration of all CSD HW block registers at once.  <a href="#gaed0da3eeb7d2217581b1946ce102f0ae">More...</a><br /></td></tr>
 <tr class="separator:gaed0da3eeb7d2217581b1946ce102f0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7685ad3c3b00b1c77bf67b03f944752f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__csd__functions.html#ga7685ad3c3b00b1c77bf67b03f944752f">Cy_CSD_GetVrefTrim</a> (uint32_t referenceVoltage)</td></tr>
+<tr class="memdesc:ga7685ad3c3b00b1c77bf67b03f944752f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjusts the provided reference voltage based on factory trimmed SFALSH Vref trim registers.  <a href="#ga7685ad3c3b00b1c77bf67b03f944752f">More...</a><br /></td></tr>
+<tr class="separator:ga7685ad3c3b00b1c77bf67b03f944752f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafc4c25c2faefdfb3f3fdcf070b645c13"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__csd__enums.html#ga281a1b4a5cddb0bee365a7835985ccba">cy_en_csd_key_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__csd__functions.html#gafc4c25c2faefdfb3f3fdcf070b645c13">Cy_CSD_GetLockStatus</a> (const CSD_Type *base, const <a class="el" href="structcy__stc__csd__context__t.html">cy_stc_csd_context_t</a> *context)</td></tr>
 <tr class="memdesc:gafc4c25c2faefdfb3f3fdcf070b645c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies whether the specified CSD HW block is acquired and locked by a higher-level firmware.  <a href="#gafc4c25c2faefdfb3f3fdcf070b645c13">More...</a><br /></td></tr>
 <tr class="separator:gafc4c25c2faefdfb3f3fdcf070b645c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab3e991dec9a467c332da3f904bdf5acc"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__csd__enums.html#ga6cde526987c66fff895f48902589f979">cy_en_csd_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__csd__functions.html#gab3e991dec9a467c332da3f904bdf5acc">Cy_CSD_GetConversionStatus</a> (const CSD_Type *base, const <a class="el" href="structcy__stc__csd__context__t.html">cy_stc_csd_context_t</a> *context)</td></tr>
 <tr class="memdesc:gab3e991dec9a467c332da3f904bdf5acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies whether the specified CSD HW block is busy (performing scan or conversion).  <a href="#gab3e991dec9a467c332da3f904bdf5acc">More...</a><br /></td></tr>
 <tr class="separator:gab3e991dec9a467c332da3f904bdf5acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7685ad3c3b00b1c77bf67b03f944752f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__csd__functions.html#ga7685ad3c3b00b1c77bf67b03f944752f">Cy_CSD_GetVrefTrim</a> (uint32_t referenceVoltage)</td></tr>
-<tr class="memdesc:ga7685ad3c3b00b1c77bf67b03f944752f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjusts the provided reference voltage based on factory trimmed SFALSH Vref trim registers.  <a href="#ga7685ad3c3b00b1c77bf67b03f944752f">More...</a><br /></td></tr>
-<tr class="separator:ga7685ad3c3b00b1c77bf67b03f944752f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga34f48f5162adea39ed451877893a1552"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__csd__functions.html#ga34f48f5162adea39ed451877893a1552">Cy_CSD_ReadReg</a> (const CSD_Type *base, uint32_t offset)</td></tr>
 <tr class="memdesc:ga34f48f5162adea39ed451877893a1552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads value from the specified the CSD HW block register.  <a href="#ga34f48f5162adea39ed451877893a1552">More...</a><br /></td></tr>
 <tr class="separator:ga34f48f5162adea39ed451877893a1552"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -278,6 +278,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga7685ad3c3b00b1c77bf67b03f944752f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7685ad3c3b00b1c77bf67b03f944752f">&#9670;&nbsp;</a></span>Cy_CSD_GetVrefTrim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_CSD_GetVrefTrim </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>referenceVoltage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adjusts the provided reference voltage based on factory trimmed SFALSH Vref trim registers. </p>
+<p>This function is mainly used by CSDADC middleware only to get the most accurate reference voltage possible.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">referenceVoltage</td><td>The reference voltage to trim.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a trimmed reference voltage. </dd></dl>
+
+</div>
+</div>
 <a id="gafc4c25c2faefdfb3f3fdcf070b645c13"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gafc4c25c2faefdfb3f3fdcf070b645c13">&#9670;&nbsp;</a></span>Cy_CSD_GetLockStatus()</h2>
 
@@ -354,34 +382,6 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Returns status code. See <a class="el" href="group__group__csd__enums.html#ga6cde526987c66fff895f48902589f979">cy_en_csd_status_t</a>.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
 <div class="fragment"><div class="line">    </div><div class="line">    <a class="code" href="group__group__csd__enums.html#ga6cde526987c66fff895f48902589f979">cy_en_csd_status_t</a> status;</div><div class="line">    </div><div class="line">    status = <a class="code" href="group__group__csd__functions.html#gab3e991dec9a467c332da3f904bdf5acc">Cy_CSD_GetConversionStatus</a>(CSD0, &amp;csdContext);</div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__csd__enums.html#gga6cde526987c66fff895f48902589f979a0899108469f2574d39e14fa3262aec11">CY_CSD_BUSY</a> == status)</div><div class="line">    {</div><div class="line">        <span class="comment">/* The CSD block is performing a conversion */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* The CSD block is not busy and a new conversion could be started */</span></div><div class="line">    }</div><div class="line">    </div></div><!-- fragment -->
-</div>
-</div>
-<a id="ga7685ad3c3b00b1c77bf67b03f944752f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7685ad3c3b00b1c77bf67b03f944752f">&#9670;&nbsp;</a></span>Cy_CSD_GetVrefTrim()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t Cy_CSD_GetVrefTrim </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>referenceVoltage</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adjusts the provided reference voltage based on factory trimmed SFALSH Vref trim registers. </p>
-<p>This function is mainly used by CSDADC middleware only to get the most accurate reference voltage possible.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">referenceVoltage</td><td>The reference voltage to trim.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns a trimmed reference voltage. </dd></dl>
-
 </div>
 </div>
 <a id="ga34f48f5162adea39ed451877893a1552"></a>
@@ -611,7 +611,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

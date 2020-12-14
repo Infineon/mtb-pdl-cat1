@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Enumerated Types</title>
+<title>MTB CAT1 Peripheral driver library: Enumerated Types</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -162,6 +162,20 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga813b21db7e39f0af025d70c38dbd1a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration to enable/disable the RTC alarm on match with required value.  <a href="group__group__rtc__enums.html#ga813b21db7e39f0af025d70c38dbd1a0e">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga813b21db7e39f0af025d70c38dbd1a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga80121694c2c29336d673a1c401725310"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__enums.html#ga80121694c2c29336d673a1c401725310">cy_rtc_clk_select_sources_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a93b4396c0bab2d5e25228c8ffe53bc8c">CY_RTC_CLK_SELECT_WCO</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a261ab8c2da0f1d1f5a38729fea0cc7e1">CY_RTC_CLK_SELECT_ALTBAK</a> = 1U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a1f71ed937334fcebc3edca826cacbda6">CY_RTC_CLK_SELECT_ILO</a> = 2U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a6ba43c7552d0a1b0867f5200a519f1a2">CY_RTC_CLK_SELECT_LPECO_PRESCALER</a> = 3U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a6bc54987a5d16de34245545744294a67">CY_RTC_CLK_SELECT_PILO</a> = 4U
+<br />
+ }<tr class="memdesc:ga80121694c2c29336d673a1c401725310"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration to list all the clock sources for RTC.  <a href="group__group__rtc__enums.html#ga80121694c2c29336d673a1c401725310">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga80121694c2c29336d673a1c401725310"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ga45a1b113f07f81bc369d7bf9da75eaae"></a>
@@ -348,13 +362,41 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="ga80121694c2c29336d673a1c401725310"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga80121694c2c29336d673a1c401725310">&#9670;&nbsp;</a></span>cy_rtc_clk_select_sources_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__rtc__enums.html#ga80121694c2c29336d673a1c401725310">cy_rtc_clk_select_sources_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration to list all the clock sources for RTC. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga80121694c2c29336d673a1c401725310a93b4396c0bab2d5e25228c8ffe53bc8c"></a>CY_RTC_CLK_SELECT_WCO&#160;</td><td class="fielddoc"><p>Select WCO as input to RTC. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga80121694c2c29336d673a1c401725310a261ab8c2da0f1d1f5a38729fea0cc7e1"></a>CY_RTC_CLK_SELECT_ALTBAK&#160;</td><td class="fielddoc"><p>Select ALTBAK as input to RTC. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga80121694c2c29336d673a1c401725310a1f71ed937334fcebc3edca826cacbda6"></a>CY_RTC_CLK_SELECT_ILO&#160;</td><td class="fielddoc"><p>Select ILO as input to RTC. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga80121694c2c29336d673a1c401725310a6ba43c7552d0a1b0867f5200a519f1a2"></a>CY_RTC_CLK_SELECT_LPECO_PRESCALER&#160;</td><td class="fielddoc"><p>Select LPECO_PRESCALER as input to RTC. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga80121694c2c29336d673a1c401725310a6bc54987a5d16de34245545744294a67"></a>CY_RTC_CLK_SELECT_PILO&#160;</td><td class="fielddoc"><p>Select PILO as input to RTC. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

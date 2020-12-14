@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: cy_stc_smif_context_t Struct Reference</title>
+<title>MTB CAT1 Peripheral driver library: cy_stc_smif_context_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -128,6 +128,15 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="memitem:ab5ea1c5ff56657fbff10620e7a8e37aa"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__context__t.html#ab5ea1c5ff56657fbff10620e7a8e37aa">timeout</a></td></tr>
 <tr class="memdesc:ab5ea1c5ff56657fbff10620e7a8e37aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">The timeout in microseconds for the blocking functions.  <a href="#ab5ea1c5ff56657fbff10620e7a8e37aa">More...</a><br /></td></tr>
 <tr class="separator:ab5ea1c5ff56657fbff10620e7a8e37aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03f1548bb9f885d5fdb0c70c5501b4cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga6673e9fe92675ceaddadeb41e31a5821">cy_en_smif_data_rate_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__context__t.html#a03f1548bb9f885d5fdb0c70c5501b4cb">preCmdDataRate</a></td></tr>
+<tr class="memdesc:a03f1548bb9f885d5fdb0c70c5501b4cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">preferred command data rate  <a href="#a03f1548bb9f885d5fdb0c70c5501b4cb">More...</a><br /></td></tr>
+<tr class="separator:a03f1548bb9f885d5fdb0c70c5501b4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a30a597f16545936e7970359aa6d1dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#gab71e4b1f4c80b3e8c82dd85570415e44">cy_en_smif_txfr_width_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__context__t.html#a0a30a597f16545936e7970359aa6d1dc">preCmdWidth</a></td></tr>
+<tr class="memdesc:a0a30a597f16545936e7970359aa6d1dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">preferred command data rate  <a href="#a0a30a597f16545936e7970359aa6d1dc">More...</a><br /></td></tr>
+<tr class="separator:a0a30a597f16545936e7970359aa6d1dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f3b43821e3f1a90d9f40a3efd59bad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga6673e9fe92675ceaddadeb41e31a5821">cy_en_smif_data_rate_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__context__t.html#a25f3b43821e3f1a90d9f40a3efd59bad">preXIPDataRate</a></td></tr>
+<tr class="memdesc:a25f3b43821e3f1a90d9f40a3efd59bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">preferred XIP data rate  <a href="#a25f3b43821e3f1a90d9f40a3efd59bad">More...</a><br /></td></tr>
+<tr class="separator:a25f3b43821e3f1a90d9f40a3efd59bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a188f98b4786f86ba5786265c9ea3d850"></a>
@@ -198,13 +207,64 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 
 </div>
 </div>
+<a id="a03f1548bb9f885d5fdb0c70c5501b4cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03f1548bb9f885d5fdb0c70c5501b4cb">&#9670;&nbsp;</a></span>preCmdDataRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga6673e9fe92675ceaddadeb41e31a5821">cy_en_smif_data_rate_t</a> cy_stc_smif_context_t::preCmdDataRate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>preferred command data rate </p>
+<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="a0a30a597f16545936e7970359aa6d1dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a30a597f16545936e7970359aa6d1dc">&#9670;&nbsp;</a></span>preCmdWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#gab71e4b1f4c80b3e8c82dd85570415e44">cy_en_smif_txfr_width_t</a> cy_stc_smif_context_t::preCmdWidth</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>preferred command data rate </p>
+<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="a25f3b43821e3f1a90d9f40a3efd59bad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f3b43821e3f1a90d9f40a3efd59bad">&#9670;&nbsp;</a></span>preXIPDataRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga6673e9fe92675ceaddadeb41e31a5821">cy_en_smif_data_rate_t</a> cy_stc_smif_context_t::preXIPDataRate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>preferred XIP data rate </p>
+<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

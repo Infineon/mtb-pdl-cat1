@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Enumerated Types</title>
+<title>MTB CAT1 Peripheral driver library: Enumerated Types</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -101,6 +101,10 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a8ea0e32df3a60aa4e3f67214e7bc9670">CY_SYSCLK_CLKPATH_IN_DSIMUX</a> = 4U, 
 <br />
+&#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6aeaf8bc8139b8b6650c7556c2cac23e9c">CY_SYSCLK_CLKPATH_IN_LPECO</a> = 5U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a2be0f1330799c3c8033544ef8a38f2b8">CY_SYSCLK_CLKPATH_IN_IHO</a> = 6U, 
+<br />
 &#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a500d565f7082457c24b8625ae237de76">CY_SYSCLK_CLKPATH_IN_DSI</a> = 0x100U, 
 <br />
 &#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a7eef507a3c37bba29b152666d0d3b276">CY_SYSCLK_CLKPATH_IN_ILO</a> = 0x110U, 
@@ -109,7 +113,9 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a2339d80a8602ff685892a75173cd9f04">CY_SYSCLK_CLKPATH_IN_ALTLF</a> = 0x112U, 
 <br />
-&#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a443bf4d9f06a39e605fb3956e556482d">CY_SYSCLK_CLKPATH_IN_PILO</a> = 0x113U
+&#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a443bf4d9f06a39e605fb3956e556482d">CY_SYSCLK_CLKPATH_IN_PILO</a> = 0x113U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a92cec13a6997817a985c9dae7460f0fe">CY_SYSCLK_CLKPATH_IN_ILO1</a> = 0x114U
 <br />
  }<tr class="memdesc:ga8ddaf9023a02dee0d1f9a5629d6ccfe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input multiplexer clock sources.  <a href="group__group__sysclk__path__src__enums.html#ga8ddaf9023a02dee0d1f9a5629d6ccfe6">More...</a><br /></td></tr>
 </td></tr>
@@ -137,9 +143,12 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga8ddaf9023a02dee0d1f9a5629d6ccfe6a28f5ad80fd20d8459d40aa8b86d3a77e"></a>CY_SYSCLK_CLKPATH_IN_ECO&#160;</td><td class="fielddoc"><p>Select the ECO as the output of the path mux. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga8ddaf9023a02dee0d1f9a5629d6ccfe6a9224f314d2feb3eb78dc931b2f4523a3"></a>CY_SYSCLK_CLKPATH_IN_ALTHF&#160;</td><td class="fielddoc"><p>Select the ALTHF as the output of the path mux. </p>
-<p>Make sure the ALTHF clock source is available on used device. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga8ddaf9023a02dee0d1f9a5629d6ccfe6a8ea0e32df3a60aa4e3f67214e7bc9670"></a>CY_SYSCLK_CLKPATH_IN_DSIMUX&#160;</td><td class="fielddoc"><p>Select the DSI MUX output as the output of the path mux. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga8ddaf9023a02dee0d1f9a5629d6ccfe6aeaf8bc8139b8b6650c7556c2cac23e9c"></a>CY_SYSCLK_CLKPATH_IN_LPECO&#160;</td><td class="fielddoc"><p>Select the LPECO as the output of the path mux. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga8ddaf9023a02dee0d1f9a5629d6ccfe6a2be0f1330799c3c8033544ef8a38f2b8"></a>CY_SYSCLK_CLKPATH_IN_IHO&#160;</td><td class="fielddoc"><p>Select the IHO as the output of the path mux. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga8ddaf9023a02dee0d1f9a5629d6ccfe6a500d565f7082457c24b8625ae237de76"></a>CY_SYSCLK_CLKPATH_IN_DSI&#160;</td><td class="fielddoc"><p>Select a DSI signal (0 - 15) as the output of the DSI mux and path mux. </p>
 <p>Make sure the DSI clock sources are available on used device. </p>
@@ -154,6 +163,8 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga8ddaf9023a02dee0d1f9a5629d6ccfe6a443bf4d9f06a39e605fb3956e556482d"></a>CY_SYSCLK_CLKPATH_IN_PILO&#160;</td><td class="fielddoc"><p>Select the PILO (19) as the output of the DSI mux and path mux. </p>
 <p>Make sure the PILO clock sources in available on used device. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="gga8ddaf9023a02dee0d1f9a5629d6ccfe6a92cec13a6997817a985c9dae7460f0fe"></a>CY_SYSCLK_CLKPATH_IN_ILO1&#160;</td><td class="fielddoc"><p>Select the ILO1(20) as the output of the path mux. </p>
+</td></tr>
 </table>
 
 </div>
@@ -164,7 +175,7 @@ Enumerations</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

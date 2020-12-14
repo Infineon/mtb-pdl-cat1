@@ -143,6 +143,9 @@ const cy_stc_device_t cy_deviceIpBlockCfgPSoC6_01 =
     /* cpussRam0Ctl0             */ (uint16_t)offsetof(CPUSS_V1_Type, RAM0_CTL0),
     /* cpussRam1Ctl0             */ (uint16_t)offsetof(CPUSS_V1_Type, RAM1_CTL0),
     /* cpussRam2Ctl0             */ (uint16_t)offsetof(CPUSS_V1_Type, RAM2_CTL0),
+    /* cpussRam0PwrCtl           */ (uint16_t)offsetof(CPUSS_V1_Type, RAM0_PWR_MACRO_CTL),
+    /* cpussRam1PwrCtl           */ (uint16_t)offsetof(CPUSS_V1_Type, RAM1_PWR_CTL),
+    /* cpussRam2PwrCtl           */ (uint16_t)offsetof(CPUSS_V1_Type, RAM2_PWR_CTL),
 
     /* IPC registers */
     /* ipcStructSize             */ sizeof(IPC_STRUCT_V1_Type),
@@ -256,6 +259,9 @@ const cy_stc_device_t cy_deviceIpBlockCfgPSoC6_02 =
     /* cpussRam0Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM0_CTL0),
     /* cpussRam1Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM1_CTL0),
     /* cpussRam2Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM2_CTL0),
+    /* cpussRam0PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM0_PWR_MACRO_CTL),
+    /* cpussRam1PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM1_PWR_CTL),
+    /* cpussRam2PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM2_PWR_CTL),
 
     /* IPC registers */
     /* ipcStructSize             */ sizeof(IPC_STRUCT_V2_Type),
@@ -369,6 +375,9 @@ const cy_stc_device_t cy_deviceIpBlockCfgPSoC6_03 =
     /* cpussRam0Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM0_CTL0),
     /* cpussRam1Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM1_CTL0),
     /* cpussRam2Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM2_CTL0),
+    /* cpussRam0PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM0_PWR_MACRO_CTL),
+    /* cpussRam1PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM1_PWR_CTL),
+    /* cpussRam2PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM2_PWR_CTL),
 
     /* IPC registers */
     /* ipcStructSize             */ sizeof(IPC_STRUCT_V2_Type),
@@ -482,6 +491,9 @@ const cy_stc_device_t cy_deviceIpBlockCfgPSoC6_04 =
     /* cpussRam0Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM0_CTL0),
     /* cpussRam1Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM1_CTL0),
     /* cpussRam2Ctl0             */ (uint16_t)offsetof(CPUSS_V2_Type, RAM2_CTL0),
+    /* cpussRam0PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM0_PWR_MACRO_CTL),
+    /* cpussRam1PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM1_PWR_CTL),
+    /* cpussRam2PwrCtl           */ (uint16_t)offsetof(CPUSS_V2_Type, RAM2_PWR_CTL),
 
     /* IPC registers */
     /* ipcStructSize             */ sizeof(IPC_STRUCT_V2_Type),

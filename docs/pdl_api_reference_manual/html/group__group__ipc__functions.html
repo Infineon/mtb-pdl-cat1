@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Functions</title>
+<title>MTB CAT1 Peripheral driver library: Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -121,6 +121,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gadf7235959bc77bc9d71f6660e315741a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__ipc__enums.html#gab838549fe808bd6cb1bfc52d2b5cbf25">cy_en_ipcdrv_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__functions.html#gadf7235959bc77bc9d71f6660e315741a">Cy_IPC_Drv_ReadMsgWord</a> (<a class="el" href="struct_i_p_c___s_t_r_u_c_t___type.html">IPC_STRUCT_Type</a> const *base, uint32_t *message)</td></tr>
 <tr class="memdesc:gadf7235959bc77bc9d71f6660e315741a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to read a 32-bit word message through an IPC channel.  <a href="#gadf7235959bc77bc9d71f6660e315741a">More...</a><br /></td></tr>
 <tr class="separator:gadf7235959bc77bc9d71f6660e315741a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7726debfaa087fcf9b4fdfe0ab93a0cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__ipc__enums.html#gab838549fe808bd6cb1bfc52d2b5cbf25">cy_en_ipcdrv_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__functions.html#ga7726debfaa087fcf9b4fdfe0ab93a0cb">Cy_IPC_Drv_SendMsgDWord</a> (<a class="el" href="struct_i_p_c___s_t_r_u_c_t___type.html">IPC_STRUCT_Type</a> *base, uint32_t notifyEventIntr, uint32_t *message)</td></tr>
+<tr class="memdesc:ga7726debfaa087fcf9b4fdfe0ab93a0cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to send two 32-bit word message through an IPC channel.  <a href="#ga7726debfaa087fcf9b4fdfe0ab93a0cb">More...</a><br /></td></tr>
+<tr class="separator:ga7726debfaa087fcf9b4fdfe0ab93a0cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga169756dae596703caf8aa0479f95c917"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__ipc__enums.html#gab838549fe808bd6cb1bfc52d2b5cbf25">cy_en_ipcdrv_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__functions.html#ga169756dae596703caf8aa0479f95c917">Cy_IPC_Drv_ReadMsgDWord</a> (<a class="el" href="struct_i_p_c___s_t_r_u_c_t___type.html">IPC_STRUCT_Type</a> const *base, uint32_t *message)</td></tr>
+<tr class="memdesc:ga169756dae596703caf8aa0479f95c917"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to read two 32-bit word message through an IPC channel.  <a href="#ga169756dae596703caf8aa0479f95c917">More...</a><br /></td></tr>
+<tr class="separator:ga169756dae596703caf8aa0479f95c917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab9e1b6079cd81d9b918b354d9437744d"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__ipc__enums.html#gab838549fe808bd6cb1bfc52d2b5cbf25">cy_en_ipcdrv_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__functions.html#gab9e1b6079cd81d9b918b354d9437744d">Cy_IPC_Drv_SendMsgPtr</a> (<a class="el" href="struct_i_p_c___s_t_r_u_c_t___type.html">IPC_STRUCT_Type</a> *base, uint32_t notifyEventIntr, void const *msgPtr)</td></tr>
 <tr class="memdesc:gab9e1b6079cd81d9b918b354d9437744d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to send a message pointer through an IPC channel.  <a href="#gab9e1b6079cd81d9b918b354d9437744d">More...</a><br /></td></tr>
 <tr class="separator:gab9e1b6079cd81d9b918b354d9437744d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -521,6 +527,107 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga7726debfaa087fcf9b4fdfe0ab93a0cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7726debfaa087fcf9b4fdfe0ab93a0cb">&#9670;&nbsp;</a></span>Cy_IPC_Drv_SendMsgDWord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__ipc__enums.html#gab838549fe808bd6cb1bfc52d2b5cbf25">cy_en_ipcdrv_status_t</a> Cy_IPC_Drv_SendMsgDWord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i_p_c___s_t_r_u_c_t___type.html">IPC_STRUCT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>notifyEventIntr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to send two 32-bit word message through an IPC channel. </p>
+<p>The function also has an associated notification field that will let the message notify one or multiple IPC interrupts. The IPC channel is locked and remains locked after the function returns. The receiver of the message should release the channel.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>This parameter is a handle that represents the base address of the registers of the IPC channel. The parameter is generally returned from a call to the <a class="el" href="group__group__ipc__functions.html#gaa1ca9b002b286f12fde442c8653aa3bf">Cy_IPC_Drv_GetIpcBaseAddress</a>.</td></tr>
+    <tr><td class="paramname">notifyEventIntr</td><td>Bit encoded list of IPC interrupt lines that are triggered by a notification.</td></tr>
+    <tr><td class="paramname">message</td><td>The message word that is the data placed in the IPC data register.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status of the operation: </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">CY_IPC_DRV_SUCCESS</td><td>The send operation was successful. </td></tr>
+    <tr><td class="paramname">CY_IPC_DRV_ERROR</td><td>The IPC channel is unavailable because it is already locked.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is a need to send a &quot;one word&quot; (32-bit) message,</span></div><div class="line"><span class="comment">     * which can be also used as any command/flag/etc.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_IPC_CHAN_INDEX       (8UL) </span><span class="comment">/* Example of IPC channel index */</span><span class="preprocessor"></span></div><div class="line"><span class="preprocessor">    #define MY_IPC_INTR_INDEX       (8UL) </span><span class="comment">/* Example of IPC interrupt channel index */</span><span class="preprocessor"></span></div><div class="line"><span class="preprocessor">    #define MY_IPC_INTR_MASK        (1UL &lt;&lt; MY_IPC_INTR_INDEX) </span><span class="comment">/* IPC release interrupt mask */</span><span class="preprocessor"></span></div><div class="line"></div><div class="line">    <a class="code" href="struct_i_p_c___s_t_r_u_c_t___type.html">IPC_STRUCT_Type</a> * myIpc = <a class="code" href="group__group__ipc__functions.html#gaa1ca9b002b286f12fde442c8653aa3bf">Cy_IPC_Drv_GetIpcBaseAddress</a>(MY_IPC_CHAN_INDEX); <span class="comment">/* Get IPC base register address */</span></div><div class="line">    uint32_t myMsg = 0x12345678UL;        <span class="comment">/* Example message */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__ipc__enums.html#ggab838549fe808bd6cb1bfc52d2b5cbf25a8748b3bf3a2b39bd469c0d41217a2cb2">CY_IPC_DRV_SUCCESS</a> != <a class="code" href="group__group__ipc__functions.html#ga60f75f0403a88420eb1268f54b21ed27">Cy_IPC_Drv_SendMsgWord</a>(myIpc, MY_IPC_INTR_MASK, myMsg))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga169756dae596703caf8aa0479f95c917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga169756dae596703caf8aa0479f95c917">&#9670;&nbsp;</a></span>Cy_IPC_Drv_ReadMsgDWord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__ipc__enums.html#gab838549fe808bd6cb1bfc52d2b5cbf25">cy_en_ipcdrv_status_t</a> Cy_IPC_Drv_ReadMsgDWord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i_p_c___s_t_r_u_c_t___type.html">IPC_STRUCT_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to read two 32-bit word message through an IPC channel. </p>
+<p>This function assumes that the channel is locked (for a valid message). If the channel is not locked, the message is invalid. The user must call Cy_IPC_Drv_Release() function after reading the message to release the IPC channel.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>This parameter is a handle that represents the base address of the registers of the IPC channel. The parameter is generally returned from a call to the <a class="el" href="group__group__ipc__functions.html#gaa1ca9b002b286f12fde442c8653aa3bf">Cy_IPC_Drv_GetIpcBaseAddress</a>.</td></tr>
+    <tr><td class="paramname">message</td><td>A variable where the read data is copied.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status of the operation </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">CY_IPC_DRV_SUCCESS</td><td>The function executed successfully and the IPC was acquired. </td></tr>
+    <tr><td class="paramname">CY_IPC_DRV_ERROR</td><td>The function encountered an error because the IPC channel was already in a released state, meaning the data may be invalid.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: a notification interrupt has just occurred so</span></div><div class="line"><span class="comment">     * there is a need to receive a &quot;one word&quot; (32-bit) message</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_IPC_CHAN_INDEX       (8UL) </span><span class="comment">/* Example of IPC channel index */</span><span class="preprocessor"></span></div><div class="line"><span class="preprocessor">    #define MY_IPC_INTR_INDEX       (8UL) </span><span class="comment">/* Example of IPC interrupt channel index */</span><span class="preprocessor"></span></div><div class="line"><span class="preprocessor">    #define MY_IPC_INTR_MASK        (1UL &lt;&lt; MY_IPC_INTR_INDEX) </span><span class="comment">/* IPC release interrupt mask */</span><span class="preprocessor"></span></div><div class="line"></div><div class="line">    <a class="code" href="struct_i_p_c___s_t_r_u_c_t___type.html">IPC_STRUCT_Type</a> * myIpc = <a class="code" href="group__group__ipc__functions.html#gaa1ca9b002b286f12fde442c8653aa3bf">Cy_IPC_Drv_GetIpcBaseAddress</a>(MY_IPC_CHAN_INDEX); <span class="comment">/* Get IPC base register address */</span></div><div class="line">    uint32_t myMsg; <span class="comment">/* Example message */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__ipc__enums.html#ggab838549fe808bd6cb1bfc52d2b5cbf25a8748b3bf3a2b39bd469c0d41217a2cb2">CY_IPC_DRV_SUCCESS</a> == <a class="code" href="group__group__ipc__functions.html#gadf7235959bc77bc9d71f6660e315741a">Cy_IPC_Drv_ReadMsgWord</a>(myIpc, &amp;myMsg))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Now myMsg contains the received message word */</span></div><div class="line"></div><div class="line">        <span class="comment">/* The IPC data is received and processed.</span></div><div class="line"><span class="comment">         * Free up the channel for the next transaction.</span></div><div class="line"><span class="comment">         */</span></div><div class="line">        <a class="code" href="group__group__ipc__functions.html#gae012b59909da4867ac1112f69f9dd3a1">Cy_IPC_Drv_ReleaseNotify</a>(myIpc, MY_IPC_INTR_MASK);</div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
 <a id="gab9e1b6079cd81d9b918b354d9437744d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab9e1b6079cd81d9b918b354d9437744d">&#9670;&nbsp;</a></span>Cy_IPC_Drv_SendMsgPtr()</h2>
 
@@ -875,7 +982,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

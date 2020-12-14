@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Functions</title>
+<title>MTB CAT1 Peripheral driver library: Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -218,12 +218,17 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">trigLine</td><td>The input of the trigger mux.<ul>
-<li>Bit 30 represents if the signal is an input/output. When this bit is set, the trigger activation is for an output trigger from the trigger multiplexer. When this bit is reset, the trigger activation is for an input trigger to the trigger multiplexer.</li>
-<li>Bits 12:8 represent the trigger group selection.<br />
- In case of output trigger line (bit 30 is set): For PERI_ver1:</li>
+<li>Bit 30 represents if the signal is an input/output. When this bit is set, the trigger activation is for an output trigger from the trigger multiplexer. When this bit is reset, the trigger activation is for an input trigger to the trigger multiplexer.<br />
+</li>
+<li>For PERI_ver1 Bits 11:8 represent the trigger group selection.<br />
+</li>
+<li>For PERI_ver2 Bits 12:8 represent the trigger group selection.<br />
+ In case of output trigger line (bit 30 is set):<br />
+ For PERI_ver1:</li>
 <li>Bits 6:0 select the output trigger number in the trigger group.<br />
  For PERI_ver2:</li>
-<li>Bits 7:0 select the output trigger number in the trigger group. In case of input trigger line (bit 30 is unset):</li>
+<li>Bits 7:0 select the output trigger number in the trigger group.<br />
+ In case of input trigger line (bit 30 is unset):</li>
 <li>Bits 7:0 select the input trigger signal for the trigger multiplexer.</li>
 </ul>
 </td></tr>
@@ -384,7 +389,8 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">outTrig</td><td>The output of the trigger mux or dedicated 1-to-1 trigger line.<ul>
 <li>Bit 30 should be set.</li>
-<li>Bits 12:8 represent the trigger group selection.</li>
+<li>For PERI_ver1 Bits 11:8 represent the trigger group selection.</li>
+<li>For PERI_ver2 Bits 12:8 represent the trigger group selection.</li>
 <li>Bits 7:0 select the output trigger number in the trigger group.</li>
 </ul>
 </td></tr>
@@ -411,7 +417,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

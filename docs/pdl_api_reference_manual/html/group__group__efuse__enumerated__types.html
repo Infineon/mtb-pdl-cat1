@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Enumerated Types</title>
+<title>MTB CAT1 Peripheral driver library: Enumerated Types</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -101,6 +101,12 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__efuse__enumerated__types.html#ggad6c57e8e4b9500208ff1f6d27f6055b0accd064505cd2fd71c40eb2f535920a16">CY_EFUSE_IPC_BUSY</a> = CY_EFUSE_ID | CY_PDL_STATUS_ERROR | 0x04UL, 
 <br />
+&#160;&#160;<a class="el" href="group__group__efuse__enumerated__types.html#ggad6c57e8e4b9500208ff1f6d27f6055b0a2cfce2c44b1c1cd4731c89acace60dd6">CY_EFUSE_WRITE_BUSY</a> = CY_EFUSE_ID | CY_PDL_STATUS_ERROR | 0x05UL, 
+<br />
+&#160;&#160;<a class="el" href="group__group__efuse__enumerated__types.html#ggad6c57e8e4b9500208ff1f6d27f6055b0a3abe243d7283b321776400e92d59f671">CY_EFUSE_WRITE_ERROR</a> = CY_EFUSE_ID | CY_PDL_STATUS_ERROR | 0x06UL, 
+<br />
+&#160;&#160;<a class="el" href="group__group__efuse__enumerated__types.html#ggad6c57e8e4b9500208ff1f6d27f6055b0a213782780b5cded632d5f9eb6b06e394">CY_EFUSE_WRITE_TIMEOUT_ERROR</a> = CY_EFUSE_ID | CY_PDL_STATUS_ERROR | 0x07UL, 
+<br />
 &#160;&#160;<a class="el" href="group__group__efuse__enumerated__types.html#ggad6c57e8e4b9500208ff1f6d27f6055b0a7f40519e81c80b25cc4dc9dfbbf35cb6">CY_EFUSE_ERR_UNC</a> = CY_EFUSE_ID | CY_PDL_STATUS_ERROR | 0xFFUL
 <br />
  }<tr class="memdesc:gad6c57e8e4b9500208ff1f6d27f6055b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This enum has the return values of the eFuse driver.  <a href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">More...</a><br /></td></tr>
@@ -132,6 +138,15 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ggad6c57e8e4b9500208ff1f6d27f6055b0accd064505cd2fd71c40eb2f535920a16"></a>CY_EFUSE_IPC_BUSY&#160;</td><td class="fielddoc"><p>The IPC structure is already locked by another process. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="ggad6c57e8e4b9500208ff1f6d27f6055b0a2cfce2c44b1c1cd4731c89acace60dd6"></a>CY_EFUSE_WRITE_BUSY&#160;</td><td class="fielddoc"><p>Previous write operation in progress. </p>
+<dl class="section note"><dt>Note</dt><dd>Supported in CAT1B devices. </dd></dl>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad6c57e8e4b9500208ff1f6d27f6055b0a3abe243d7283b321776400e92d59f671"></a>CY_EFUSE_WRITE_ERROR&#160;</td><td class="fielddoc"><p>Write operation failed. </p>
+<p>Retry operation. </p><dl class="section note"><dt>Note</dt><dd>Supported in CAT1B devices. </dd></dl>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad6c57e8e4b9500208ff1f6d27f6055b0a213782780b5cded632d5f9eb6b06e394"></a>CY_EFUSE_WRITE_TIMEOUT_ERROR&#160;</td><td class="fielddoc"><p>Timeout Error in Write Operation. </p>
+<dl class="section note"><dt>Note</dt><dd>Supported in CAT1B devices. </dd></dl>
+</td></tr>
 <tr><td class="fieldname"><a id="ggad6c57e8e4b9500208ff1f6d27f6055b0a7f40519e81c80b25cc4dc9dfbbf35cb6"></a>CY_EFUSE_ERR_UNC&#160;</td><td class="fielddoc"><p>Unknown error code. </p>
 <p>See <a class="el" href="group__group__efuse__functions.html#ga19b1ee83f64f5405681b37266941c3e5" title="This function handles the case where a module such as a security image captures a system call from th...">Cy_EFUSE_GetExternalStatus()</a> </p>
 </td></tr>
@@ -145,7 +160,7 @@ Enumerations</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

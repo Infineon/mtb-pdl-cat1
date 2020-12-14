@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: MCWDT        (Multi-Counter Watchdog)</title>
+<title>MTB CAT1 Peripheral driver library: MCWDT        (Multi-Counter Watchdog)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -122,13 +122,15 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.50 </td><td>Added support for new family of devices. </td><td>New device support.  </td></tr>
+<tr>
 <td>1.40 </td><td>Fixed/documented MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
 <tr>
 <td>1.30.1 </td><td>Minor documentation updates. </td><td>Documentation enhancement.  </td></tr>
 <tr>
 <td>1.30 </td><td>In version 1.20 the <a class="el" href="group__group__mcwdt__functions.html#ga2c7f8cc4f0897618bb6c4b3389357086" title="Reports the current value of combined C1-C0 cascaded counters. ">Cy_MCWDT_GetCountCascaded()</a> function returned the wrong value when counter#1 overflowed. This bug is corrected in version 1.30.  </td><td>Defect fixes.   </td></tr>
 <tr>
-<td>1.20 </td><td>Flattened the organization of the driver source code into the single source directory and the single include directory.  </td><td>Driver library directory-structure simplification.  </td></tr>
+<td rowspan="2">1.20 </td><td>Flattened the organization of the driver source code into the single source directory and the single include directory.  </td><td>Driver library directory-structure simplification.  </td></tr>
 <tr>
 <td>Added register access layer. Use register access macros instead of direct register access using dereferenced pointers. </td><td>Makes register access device-independent, so that the PDL does not need to be recompiled for each supported part number.  </td></tr>
 <tr>
@@ -157,7 +159,7 @@ API Reference</h2></td></tr>
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

@@ -10,7 +10,7 @@ var searchData=
   ['rangecond',['rangeCond',['../structcy__stc__sar__config__t.html#a27365f96ede08918dd4204b62b986984',1,'cy_stc_sar_config_t']]],
   ['rangeintrmask',['rangeIntrMask',['../structcy__stc__sar__config__t.html#a175bdc3582ee03c226b925f011905457',1,'cy_stc_sar_config_t']]],
   ['rangethres',['rangeThres',['../structcy__stc__sar__config__t.html#acd6a42daab5525b953e77b60c26d59a5',1,'cy_stc_sar_config_t']]],
-  ['rca',['RCA',['../structcy__stc__sd__host__context__t.html#a1f289f498b5b71bf6b5f68774bb8bade',1,'cy_stc_sd_host_context_t::RCA()'],['../structcy__stc__sd__host__sd__card__config__t.html#a97c19c5ed3a262da1b1049278a68d21a',1,'cy_stc_sd_host_sd_card_config_t::rca()']]],
+  ['rca',['rca',['../structcy__stc__sd__host__sd__card__config__t.html#a97c19c5ed3a262da1b1049278a68d21a',1,'cy_stc_sd_host_sd_card_config_t::rca()'],['../structcy__stc__sd__host__context__t.html#a1f289f498b5b71bf6b5f68774bb8bade',1,'cy_stc_sd_host_context_t::RCA()']]],
   ['read',['read',['../structcy__stc__sd__host__data__config__t.html#a6323584b2914fba017f7b76f1c4f4f35',1,'cy_stc_sd_host_data_config_t']]],
   ['readcmd',['readCmd',['../structcy__stc__smif__mem__device__cfg__t.html#acbffaff900e449871089a11dea0ad752',1,'cy_stc_smif_mem_device_cfg_t']]],
   ['readsfdpcmd',['readSfdpCmd',['../structcy__stc__smif__mem__device__cfg__t.html#a5126d2926b18f7bddf7861165957a041',1,'cy_stc_smif_mem_device_cfg_t']]],

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PSoC 6 Peripheral Driver Library: Functions</title>
+<title>MTB CAT1 Peripheral driver library: Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PSoC 6 Peripheral Driver Library</div>
+   <div id="projectname">MTB CAT1 Peripheral driver library</div>
   </td>
  </tr>
  </tbody>
@@ -231,6 +231,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8f78da1f7bdf7b0e6603652c78577073"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__common__functions.html#ga8f78da1f7bdf7b0e6603652c78577073">Cy_SCB_ClearSpiInterrupt</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base, uint32_t interruptMask)</td></tr>
 <tr class="memdesc:ga8f78da1f7bdf7b0e6603652c78577073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears SPI interrupt sources in the interrupt request register.  <a href="#ga8f78da1f7bdf7b0e6603652c78577073">More...</a><br /></td></tr>
 <tr class="separator:ga8f78da1f7bdf7b0e6603652c78577073"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9fe5bef3c2e514b7a34d195ad678926d"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__common__functions.html#ga9fe5bef3c2e514b7a34d195ad678926d">Cy_SCB_SetMemWidth</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base, uint32_t MemWidthMode)</td></tr>
+<tr class="memdesc:ga9fe5bef3c2e514b7a34d195ad678926d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the RX and TX FIFOs byte mode/halfword/word mode.  <a href="#ga9fe5bef3c2e514b7a34d195ad678926d">More...</a><br /></td></tr>
+<tr class="separator:ga9fe5bef3c2e514b7a34d195ad678926d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaef77f8b5b4b94d3413a05517165591a2"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__common__functions.html#gaef77f8b5b4b94d3413a05517165591a2">Cy_SCB_Get_RxDataWidth</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *base)</td></tr>
+<tr class="memdesc:gaef77f8b5b4b94d3413a05517165591a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the RX data width.  <a href="#gaef77f8b5b4b94d3413a05517165591a2">More...</a><br /></td></tr>
+<tr class="separator:gaef77f8b5b4b94d3413a05517165591a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac2a371c838a72134646cb973562e42b9"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__common__functions.html#gac2a371c838a72134646cb973562e42b9">Cy_SCB_IsTxDataWidthByte</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *base)</td></tr>
+<tr class="memdesc:gac2a371c838a72134646cb973562e42b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the TX data width is a byte (8 bits).  <a href="#gac2a371c838a72134646cb973562e42b9">More...</a><br /></td></tr>
+<tr class="separator:gac2a371c838a72134646cb973562e42b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga60f36e44a9aed61db905e17ab7c6b495"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__common__functions.html#ga60f36e44a9aed61db905e17ab7c6b495">Cy_SCB_Get_TxDataWidth</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *base)</td></tr>
+<tr class="memdesc:ga60f36e44a9aed61db905e17ab7c6b495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the TX data width.  <a href="#ga60f36e44a9aed61db905e17ab7c6b495">More...</a><br /></td></tr>
+<tr class="separator:ga60f36e44a9aed61db905e17ab7c6b495"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga4cc4a30079873628f3e57ecff7c20791"></a>
@@ -1745,13 +1757,135 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga9fe5bef3c2e514b7a34d195ad678926d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9fe5bef3c2e514b7a34d195ad678926d">&#9670;&nbsp;</a></span>Cy_SCB_SetMemWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_SCB_SetMemWidth </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>MemWidthMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the RX and TX FIFOs byte mode/halfword/word mode. </p>
+<p>The FIFOs are either 8-bit(byte),16-bit(halfword) or 32-bit (word) wide. See the device datasheet for FIFO depths.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the SCB instance.</td></tr>
+    <tr><td class="paramname">MemWidthMode</td><td>If 0x0, TX and RX FIFOs are 8-bit wide. If 0x1, the FIFOs are 16-bit wide. If 0x2, the FIFOs are 32-bit wide.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gaef77f8b5b4b94d3413a05517165591a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaef77f8b5b4b94d3413a05517165591a2">&#9670;&nbsp;</a></span>Cy_SCB_Get_RxDataWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE uint32_t Cy_SCB_Get_RxDataWidth </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the RX data width. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the SCB instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>RX data width.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gac2a371c838a72134646cb973562e42b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac2a371c838a72134646cb973562e42b9">&#9670;&nbsp;</a></span>Cy_SCB_IsTxDataWidthByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE bool Cy_SCB_IsTxDataWidthByte </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the TX data width is a byte (8 bits). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the SCB instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If true, the TX data width is a byte (8 bits). Otherwise, false. </dd></dl>
+
+</div>
+</div>
+<a id="ga60f36e44a9aed61db905e17ab7c6b495"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga60f36e44a9aed61db905e17ab7c6b495">&#9670;&nbsp;</a></span>Cy_SCB_Get_TxDataWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE uint32_t Cy_SCB_Get_TxDataWidth </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the TX data width. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the SCB instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The TX data width.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part
 <div id="nav-path" class="navpath">
     <ul>
         <li class="footer">
-            Generated for <b>PSoC 6 Peripheral Driver Library</b> by <b>Cypress Semiconductor Corporation</b>.
+            Generated for <b>MTB CAT1 Peripheral driver library</b> by <b>Cypress Semiconductor Corporation</b>.
             All rights reserved.
         </li>
     </ul>

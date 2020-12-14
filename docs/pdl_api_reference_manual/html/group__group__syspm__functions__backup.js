@@ -1,8 +1,8 @@
 var group__group__syspm__functions__backup =
 [
-    [ "Cy_SysPm_BackupSetSupply", "group__group__syspm__functions__backup.html#ga599bd7a461b2cc7280183808a119fd92", null ],
-    [ "Cy_SysPm_BackupGetSupply", "group__group__syspm__functions__backup.html#gac869bdcfcc968df79261414a6a7ef088", null ],
-    [ "Cy_SysPm_BackupEnableVoltageMeasurement", "group__group__syspm__functions__backup.html#ga3f33e9f05d6aa5449513522032d33bf3", null ],
-    [ "Cy_SysPm_BackupDisableVoltageMeasurement", "group__group__syspm__functions__backup.html#ga72096a59eb7cc015895a559fcd95cd65", null ],
-    [ "Cy_SysPm_BackupSuperCapCharge", "group__group__syspm__functions__backup.html#gaf9eaa32393d9afde1e53fc7808fecbb4", null ]
+    [ "Cy_SysPm_BackupSetSupply", "group__group__syspm__functions__backup.html#gad6c5aa1ff07043550bf0e49e000e93cd", null ],
+    [ "Cy_SysPm_BackupGetSupply", "group__group__syspm__functions__backup.html#ga9056ecea6aa1b86d3c657bd1692a92a8", null ],
+    [ "Cy_SysPm_BackupEnableVoltageMeasurement", "group__group__syspm__functions__backup.html#gad87323df5ca65d861bcb67b03c7ee594", null ],
+    [ "Cy_SysPm_BackupDisableVoltageMeasurement", "group__group__syspm__functions__backup.html#ga2de08a3d7db223f4106d938843f5b846", null ],
+    [ "Cy_SysPm_BackupSuperCapCharge", "group__group__syspm__functions__backup.html#ga8ec1e64a405842b4b5bd62a418dfad1f", null ]
 ];

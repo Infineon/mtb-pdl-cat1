@@ -11,6 +11,7 @@ var searchData=
   ['i2s_20_20_20_20_20_20_20_20_20_20_28inter_2dic_20sound_29',['I2S          (Inter-IC Sound)',['../group__group__i2s.html',1,'']]],
   ['interrupt_20masks',['Interrupt Masks',['../group__group__i2s__macros__interrupt__masks.html',1,'']]],
   ['ipc_20_20_20_20_20_20_20_20_20_20_28inter_20process_20communication_29',['IPC          (Inter Process Communication)',['../group__group__ipc.html',1,'']]],
+  ['ipc_20bluetooth_20sub_2dsystem_20layer_20_28ipc_5fbtss_29',['IPC bluetooth sub-system layer (IPC_BTSS)',['../group__group__ipc__bt.html',1,'']]],
   ['ipc_20driver_20layer_20_28ipc_5fdrv_29',['IPC driver layer (IPC_DRV)',['../group__group__ipc__drv.html',1,'']]],
   ['ipc_20pipes_20layer_20_28ipc_5fpipe_29',['IPC pipes layer (IPC_PIPE)',['../group__group__ipc__pipe.html',1,'']]],
   ['ipc_20semaphores_20layer_20_28ipc_5fsema_29',['IPC semaphores layer (IPC_SEMA)',['../group__group__ipc__sema.html',1,'']]],
@@ -87,5 +88,5 @@ var searchData=
   ['irdainvertrx',['irdaInvertRx',['../structcy__stc__scb__uart__config__t.html#a1c4cd968ea7897497e93dcb2ae3ad39c',1,'cy_stc_scb_uart_config_t']]],
   ['irqn_5ftype',['IRQn_Type',['../group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8',1,'irqn_type.h']]],
   ['iztat',['iztat',['../structcy__stc__sysanalog__config__t.html#a236237de19d937fe25084d160cc53df1',1,'cy_stc_sysanalog_config_t']]],
-  ['introducing_20psoc_206',['Introducing PSoC 6',['../page_introducing_psoc_6.html',1,'']]]
+  ['introducing_20mtb_20cat1a',['Introducing MTB CAT1A',['../page_introducing_mtb_cat1a.html',1,'']]]
 ];

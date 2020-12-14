@@ -25,6 +25,7 @@ var group__group__tcpwm__data__structures__pwm =
       [ "killInputMode", "structcy__stc__tcpwm__pwm__config__t.html#a62e50e17cdcbeafb5af318149ca91312", null ],
       [ "killInput", "structcy__stc__tcpwm__pwm__config__t.html#af1910e1d1df6bf11909f9a263051d8f7", null ],
       [ "countInputMode", "structcy__stc__tcpwm__pwm__config__t.html#a6e07285f605e430e0e0237a45fc44111", null ],
-      [ "countInput", "structcy__stc__tcpwm__pwm__config__t.html#aadbc0571c713e50e3e5842b95917d18d", null ]
+      [ "countInput", "structcy__stc__tcpwm__pwm__config__t.html#aadbc0571c713e50e3e5842b95917d18d", null ],
+      [ "swapOverflowUnderflow", "structcy__stc__tcpwm__pwm__config__t.html#a61dda857a9d8fcc73df41c9dd6b1b47d", null ]
     ] ]
 ];

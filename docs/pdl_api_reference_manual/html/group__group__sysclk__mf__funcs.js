@@ -1,12 +1,12 @@
 var group__group__sysclk__mf__funcs =
 [
-    [ "Cy_SysClk_MfoEnable", "group__group__sysclk__mf__funcs.html#ga03fe8fcf693221a4ad150a2f3e9fcce4", null ],
-    [ "Cy_SysClk_MfoIsEnabled", "group__group__sysclk__mf__funcs.html#ga1cb222d86b4698726363ea2d0738e1e0", null ],
-    [ "Cy_SysClk_MfoDisable", "group__group__sysclk__mf__funcs.html#gac76c0197d17dfc0e822a8b556ecf4560", null ],
-    [ "Cy_SysClk_ClkMfEnable", "group__group__sysclk__mf__funcs.html#ga27962298db8338018645f00e827a3f6d", null ],
-    [ "Cy_SysClk_ClkMfIsEnabled", "group__group__sysclk__mf__funcs.html#ga8e3f1571fd13511e9f05be33afd86a4c", null ],
-    [ "Cy_SysClk_ClkMfDisable", "group__group__sysclk__mf__funcs.html#gaf773404ad70105aaad85d444c771ea64", null ],
-    [ "Cy_SysClk_ClkMfSetDivider", "group__group__sysclk__mf__funcs.html#ga8d7b2b4f121d2cdee14f8ff4dc14fbd0", null ],
-    [ "Cy_SysClk_ClkMfGetDivider", "group__group__sysclk__mf__funcs.html#ga6e334afa97fdbf051ab4dd74375f51dd", null ],
-    [ "Cy_SysClk_ClkMfGetFrequency", "group__group__sysclk__mf__funcs.html#ga1bd2d0b78f50ccf2402e7f8bfc7bbfb7", null ]
+    [ "Cy_SysClk_MfoEnable", "group__group__sysclk__mf__funcs.html#ga283d5413436f7a9f05b24d52ac2026be", null ],
+    [ "Cy_SysClk_MfoIsEnabled", "group__group__sysclk__mf__funcs.html#ga1dd74d05d2b8b2d0b5ef588a304c2a66", null ],
+    [ "Cy_SysClk_MfoDisable", "group__group__sysclk__mf__funcs.html#gaf8ca8fc33fc99fd7c7af45048ff3e17e", null ],
+    [ "Cy_SysClk_ClkMfEnable", "group__group__sysclk__mf__funcs.html#ga195a613b088f27c5d7667a6fecb0bbbc", null ],
+    [ "Cy_SysClk_ClkMfIsEnabled", "group__group__sysclk__mf__funcs.html#gab27fbf5f4e7b9856014fbf7c59eff78b", null ],
+    [ "Cy_SysClk_ClkMfDisable", "group__group__sysclk__mf__funcs.html#ga8cc7f7635c71f5ea4da74950bc6521a4", null ],
+    [ "Cy_SysClk_ClkMfSetDivider", "group__group__sysclk__mf__funcs.html#ga54c1e75dcdea293cdfd2662ceffa26e0", null ],
+    [ "Cy_SysClk_ClkMfGetDivider", "group__group__sysclk__mf__funcs.html#ga420525301a89c8f5f45c97a0fb37ea6f", null ],
+    [ "Cy_SysClk_ClkMfGetFrequency", "group__group__sysclk__mf__funcs.html#gaf917222c5e1a0bb3dc2f7d398dcff05c", null ]
 ];

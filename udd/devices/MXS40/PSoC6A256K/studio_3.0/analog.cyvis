@@ -3550,12 +3550,12 @@
         <TextAlignment value="TopLeft" />
       </Annotation>
     </Wire>
-    <Wire shapeName="Shape_2816" zorder="375" effectiveName="Net_213" type="Analog">
+    <Wire shapeName="Shape_2816" zorder="375" effectiveName="pass0_ctb_pads6" type="Analog">
       <Point1 x="360" y="480" />
       <Point2 x="378" y="480" />
       <ShapeTags>wl:pass[0].ctdac[0]</ShapeTags>
     </Wire>
-    <Wire shapeName="Shape_2817" zorder="377" effectiveName="Net_213" type="Analog">
+    <Wire shapeName="Shape_2817" zorder="377" effectiveName="pass0_ctb_pads6" type="Analog">
       <Point1 x="378" y="444" />
       <Point2 x="378" y="480" />
       <ShapeTags>wl:pass[0].ctdac[0]</ShapeTags>
@@ -3713,23 +3713,29 @@
       <Point1 x="342" y="120" />
       <Point2 x="534" y="120" />
     </Wire>
-    <Wire shapeName="Shape_3195" zorder="406" effectiveName="Net_213" type="Analog">
+    <Wire shapeName="Shape_3195" zorder="406" effectiveName="pass0_ctb_pads6" type="Analog">
       <Point1 x="306" y="444" />
       <Point2 x="378" y="444" />
       <ShapeTags>wl:pass[0].ctdac[0]</ShapeTags>
     </Wire>
-    <Wire shapeName="Shape_3196" zorder="191" effectiveName="Net_213" type="Analog">
+    <Wire shapeName="Shape_3196" zorder="191" effectiveName="pass0_ctb_pads6" type="Analog">
       <Point1 x="306" y="150" />
       <Point2 x="306" y="444" />
       <ShapeTags>wl:pass[0].ctdac[0]</ShapeTags>
     </Wire>
-    <Wire shapeName="Shape_3197" zorder="426" effectiveName="Net_213" type="Analog">
+    <Wire shapeName="Shape_3197" zorder="426" effectiveName="pass0_ctb_pads6" type="Analog">
       <Point1 x="474" y="150" solderDot="true" />
       <Point2 x="474" y="456" />
     </Wire>
-    <Wire shapeName="Shape_3205" zorder="120" effectiveName="Net_213" type="Analog">
+    <Wire shapeName="Shape_3205" zorder="120" effectiveName="pass0_ctb_pads6" type="Analog">
       <Point1 x="474" y="150" solderDot="true" />
       <Point2 x="588" y="150" />
+      <Annotation zorder="121">
+        <Location x="483" y="144" />
+        <Text>pass0_ctb_pads6</Text>
+        <Vertical value="false" />
+        <TextAlignment value="TopLeft" />
+      </Annotation>
     </Wire>
     <Wire shapeName="Shape_3209" zorder="210" effectiveName="p9_2" type="Analog">
       <Point1 x="648" y="108" />
@@ -6314,7 +6320,7 @@
         <TextAlignment value="BottomRight" />
       </Annotation>
     </Wire>
-    <Wire shapeName="Shape_5112" zorder="118" effectiveName="Net_213" type="Analog">
+    <Wire shapeName="Shape_5112" zorder="118" effectiveName="pass0_ctb_pads6" type="Analog">
       <Point1 x="306" y="150" />
       <Point2 x="474" y="150" solderDot="true" />
       <ShapeTags>wl:pass[0].ctdac[0]</ShapeTags>

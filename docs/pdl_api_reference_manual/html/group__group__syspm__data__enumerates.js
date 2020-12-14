@@ -84,5 +84,16 @@ var group__group__syspm__data__enumerates =
       [ "CY_SYSPM_CHECK_FAIL", "group__group__syspm__data__enumerates.html#ggae06cd8869fe61d709ad6145ca9f3cd63a96acf2d0ae5537798228d5fba0fecd17", null ],
       [ "CY_SYSPM_BEFORE_TRANSITION", "group__group__syspm__data__enumerates.html#ggae06cd8869fe61d709ad6145ca9f3cd63a7d302375276b3b5f250a8208c999b558", null ],
       [ "CY_SYSPM_AFTER_TRANSITION", "group__group__syspm__data__enumerates.html#ggae06cd8869fe61d709ad6145ca9f3cd63aafd1db1f7f86ac7bbd18d59b78af5693", null ]
+    ] ],
+    [ "cy_en_syspm_sram_index_t", "group__group__syspm__data__enumerates.html#ga681ab279dc7009abfcdf75af3b6ee48f", [
+      [ "CY_SYSPM_SRAM0_MEMORY", "group__group__syspm__data__enumerates.html#gga681ab279dc7009abfcdf75af3b6ee48faf762a273265d71269a1782147dd8f522", null ],
+      [ "CY_SYSPM_SRAM1_MEMORY", "group__group__syspm__data__enumerates.html#gga681ab279dc7009abfcdf75af3b6ee48faf65729dd7376041e00283483ce0b3084", null ],
+      [ "CY_SYSPM_SRAM2_MEMORY", "group__group__syspm__data__enumerates.html#gga681ab279dc7009abfcdf75af3b6ee48fa30562f760c7b23e61921b7de1937b1bc", null ]
+    ] ],
+    [ "cy_en_syspm_sram_pwr_mode_t", "group__group__syspm__data__enumerates.html#ga9d90d8779ef4bda0c99d42ef42eab23d", [
+      [ "CY_SYSPM_SRAM_PWR_MODE_OFF", "group__group__syspm__data__enumerates.html#gga9d90d8779ef4bda0c99d42ef42eab23da6dc84385fc5f0aa8c7466d2967e16892", null ],
+      [ "CY_SYSPM_SRAM_PWR_MODE_INVALID", "group__group__syspm__data__enumerates.html#gga9d90d8779ef4bda0c99d42ef42eab23dab94e1eb79ebaed95f3af628bda441b64", null ],
+      [ "CY_SYSPM_SRAM_PWR_MODE_RET", "group__group__syspm__data__enumerates.html#gga9d90d8779ef4bda0c99d42ef42eab23dadaad008b8249945eeb5a515d4f6e3bb2", null ],
+      [ "CY_SYSPM_SRAM_PWR_MODE_ON", "group__group__syspm__data__enumerates.html#gga9d90d8779ef4bda0c99d42ef42eab23da42541ffe65f1cf54288e48047972e859", null ]
     ] ]
 ];

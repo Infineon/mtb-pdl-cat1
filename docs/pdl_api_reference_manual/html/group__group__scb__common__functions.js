@@ -46,5 +46,9 @@ var group__group__scb__common__functions =
     [ "Cy_SCB_SetSpiInterruptMask", "group__group__scb__common__functions.html#gaf3b4740908fcc11c882fbcebcbf79158", null ],
     [ "Cy_SCB_GetSpiInterruptMask", "group__group__scb__common__functions.html#gad0ffac666d098ad1eb450defd472ac6f", null ],
     [ "Cy_SCB_GetSpiInterruptStatusMasked", "group__group__scb__common__functions.html#gabe022dae40dd39d861033ea44ea3e095", null ],
-    [ "Cy_SCB_ClearSpiInterrupt", "group__group__scb__common__functions.html#ga8f78da1f7bdf7b0e6603652c78577073", null ]
+    [ "Cy_SCB_ClearSpiInterrupt", "group__group__scb__common__functions.html#ga8f78da1f7bdf7b0e6603652c78577073", null ],
+    [ "Cy_SCB_SetMemWidth", "group__group__scb__common__functions.html#ga9fe5bef3c2e514b7a34d195ad678926d", null ],
+    [ "Cy_SCB_Get_RxDataWidth", "group__group__scb__common__functions.html#gaef77f8b5b4b94d3413a05517165591a2", null ],
+    [ "Cy_SCB_IsTxDataWidthByte", "group__group__scb__common__functions.html#gac2a371c838a72134646cb973562e42b9", null ],
+    [ "Cy_SCB_Get_TxDataWidth", "group__group__scb__common__functions.html#ga60f36e44a9aed61db905e17ab7c6b495", null ]
 ];

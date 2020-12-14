@@ -655,15 +655,15 @@
 #if !defined(CY_SAR_H)
 #define CY_SAR_H
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include "cy_device_headers.h"
-#include "cy_syslib.h"
-#include "cy_syspm.h"
 #include "cy_device.h"
 
 #ifdef CY_IP_MXS40PASS_SAR
+
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include "cy_syslib.h"
+#include "cy_syspm.h"
 
 #if defined(__cplusplus)
 extern "C" {
