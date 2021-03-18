@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_scb_common.h
-* \version 2.70
+* \version 2.80
 *
 * Provides common API declarations of the SCB driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,6 +56,12 @@
 *******************************************************************************
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.80</td>
+*     <td>Updated the behaviour of \ref Cy_SCB_UART_SetEnableMsbFirst and \ref Cy_SCB_UART_GetEnableMsbFirst functions.
+*         Now the value of enableMsbFirst is being set and fetched correctly.
+*     <td>Defect fixing.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">2.70</td>
 *     <td>Newly added API's for runtime parameter set/get functionality which include
@@ -423,7 +429,7 @@ __STATIC_INLINE uint32_t Cy_SCB_Get_TxDataWidth(CySCB_Type const *base);
 #define CY_SCB_DRV_VERSION_MAJOR    (2)
 
 /** Driver minor version */
-#define CY_SCB_DRV_VERSION_MINOR    (70)
+#define CY_SCB_DRV_VERSION_MINOR    (80)
 
 /** SCB driver identifier */
 #define CY_SCB_ID           CY_PDL_DRV_ID(0x2AU)

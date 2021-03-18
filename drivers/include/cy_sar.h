@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_sar.h
-* \version 2.0
+* \version 2.0.1
 *
 * Header file for the SAR driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2017-2020 Cypress Semiconductor Corporation
+* Copyright 2017-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -307,6 +307,8 @@
 *    </tr>
 * </table>
 *
+* If trigger occurs during a scan, a \ref CY_SAR_INTR_FW_COLLISION interrupt occurs and the trigger is delayed until after end of scan.
+*
 * The trigger mode can be changed during run time with \ref Cy_SAR_SetConvertMode.
 *
 * For the hardware trigger modes, use the \ref group_trigmux driver to route an internal or external
@@ -556,6 +558,11 @@
 * \section group_sar_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.0.1</td>
+*     <td>Minor documentation updates.</td>
+*     <td>Documentation enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="4">2.0</td>
 *     <td>Added the next PASS_ver2 features: \ref group_sar_functions_lp, \ref group_sar_functions_fifo, and \ref group_sar_functions_trig.</td>

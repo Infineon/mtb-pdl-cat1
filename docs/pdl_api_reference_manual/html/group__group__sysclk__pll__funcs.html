@@ -114,6 +114,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0dab90271e8887833424c8fc280a1f30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pll__funcs.html#ga0dab90271e8887833424c8fc280a1f30">Cy_SysClk_PllDisable</a> (uint32_t clkPath)</td></tr>
 <tr class="memdesc:ga0dab90271e8887833424c8fc280a1f30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the selected PLL.  <a href="#ga0dab90271e8887833424c8fc280a1f30">More...</a><br /></td></tr>
 <tr class="separator:ga0dab90271e8887833424c8fc280a1f30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga219fd6d8d1d18090fe6d7002610ac021"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pll__funcs.html#ga219fd6d8d1d18090fe6d7002610ac021">Cy_SysClk_PllGetFrequency</a> (uint32_t clkPath)</td></tr>
+<tr class="memdesc:ga219fd6d8d1d18090fe6d7002610ac021"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the output frequency of the PLL.  <a href="#ga219fd6d8d1d18090fe6d7002610ac021">More...</a><br /></td></tr>
+<tr class="separator:ga219fd6d8d1d18090fe6d7002610ac021"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gac5c498137bf7012e8e0f8b8e0dfba1f0"></a>
@@ -434,6 +437,35 @@ Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f93
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd></dl>
 <dl class="section user"><dt>Side Effects</dt><dd>This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT. If AUTO mode should be used, call <a class="el" href="group__group__sysclk__pll__funcs.html#gac5c498137bf7012e8e0f8b8e0dfba1f0">Cy_SysClk_PllConfigure</a> or <a class="el" href="group__group__sysclk__pll__funcs.html#gad21ad8110bfc4506947fbd0fb163d055">Cy_SysClk_PllManualConfigure</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a>.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Path 1 PLL failed to enable and must be reconfigured. Or the</span></div><div class="line"><span class="comment">                 PLL is no longer used and hence needs to be disabled. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__pll__funcs.html#gae3ee5e192525df92ea07b32a3eb3d295">Cy_SysClk_PllIsEnabled</a>(1UL))</div><div class="line">    {</div><div class="line">        <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> != <a class="code" href="group__group__sysclk__pll__funcs.html#ga0dab90271e8887833424c8fc280a1f30">Cy_SysClk_PllDisable</a>(1UL))</div><div class="line">        {</div><div class="line">            <span class="comment">/* Insert error handling */</span></div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* The clocks that relied on the PLL will now run off of the clock that</span></div><div class="line"><span class="comment">       was used to source the FLL (e.g. IMO or ECO). */</span></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga219fd6d8d1d18090fe6d7002610ac021"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga219fd6d8d1d18090fe6d7002610ac021">&#9670;&nbsp;</a></span>Cy_SysClk_PllGetFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_PllGetFrequency </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkPath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the output frequency of the PLL. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkPath</td><td>Selects which PLL to check. 1 is the first PLL; 0 is invalid</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The output frequency of the path PLL.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the return value equals zero, that means PLL is disabled.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint32_t freq = <a class="code" href="group__group__sysclk__pll__funcs.html#ga219fd6d8d1d18090fe6d7002610ac021">Cy_SysClk_PllGetFrequency</a>(0UL);</div><div class="line">    (void) freq; <span class="comment">/* Supress &#39;unused variable&#39; warning */</span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

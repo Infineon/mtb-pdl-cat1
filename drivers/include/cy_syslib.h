@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 2.80
+* \version 2.90
 *
 * Provides an API declaration of the SysLib driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,6 +117,15 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">2.90</td>
+*     <td>Added new functions \ref Cy_SysLib_Rtos_Delay, \ref Cy_SysLib_Rtos_DelayUs.</td>
+*     <td>Provide user an option to overwrite delay function implementation based on target RTOS environment.</td>
+*   </tr>
+*   <tr>
+*     <td>Added new functions \ref Cy_SysLib_GetResetStatus, \ref Cy_SysLib_GetWcoTrim and \ref Cy_SysLib_SetWcoTrim.</td>
+*     <td>Add a possibility to manage the backup domain reset better and to store/restore the WCO trimming value.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">2.80</td>
 *     <td>Support for CM33.</td>
@@ -572,7 +581,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    2
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    80
+#define CY_SYSLIB_DRV_VERSION_MINOR    90
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN
@@ -852,7 +861,7 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
 * \param milliseconds  The number of milliseconds to delay.
 *
 * \note The function calls \ref Cy_SysLib_DelayCycles() API to generate a delay.
-*       If the function parameter (milliseconds) is bigger than 
+*       If the function parameter (milliseconds) is bigger than
 *       CY_DELAY_MS_OVERFLOW constant, then an additional loop runs to prevent
 *       an overflow in parameter passed to \ref Cy_SysLib_DelayCycles() API.
 *
@@ -876,6 +885,31 @@ void Cy_SysLib_Delay(uint32_t milliseconds);
 *
 *******************************************************************************/
 void Cy_SysLib_DelayUs(uint16_t microseconds);
+
+/*******************************************************************************
+* Function Name: Cy_SysLib_Rtos_Delay
+****************************************************************************//**
+*
+* The function is same as \ref Cy_SysLib_Delay. However, this API is declared WEAK
+* providing option for user to overwrite the implementation based on target RTOS.
+*
+* \param milliseconds  The number of milliseconds to delay.
+*
+*******************************************************************************/
+void Cy_SysLib_Rtos_Delay(uint32_t milliseconds);
+
+
+/*******************************************************************************
+* Function Name: Cy_SysLib_Rtos_DelayUs
+****************************************************************************//**
+*
+* The function is same as \ref Cy_SysLib_DelayUs. However, this API is declared WEAK
+* providing option for user to overwrite the imlementation based on target RTOS.
+*
+* \param microseconds  The number of microseconds to delay.
+*
+*******************************************************************************/
+void Cy_SysLib_Rtos_DelayUs(uint16_t microseconds);
 
 
 /** Delays for the specified number of cycles.
@@ -1023,10 +1057,18 @@ void Cy_SysLib_SoftResetCM4(void);
 *       reads the register immediately for returning the result of the backup
 *       domain reset state. The reading register is important because the Read
 *       itself takes multiple AHB clock cycles, and the reset is actually
-*       finishing during that time.
+*       finishing during that time. Use \ref Cy_SysLib_GetResetStatus to check
+*       the BACKUP->RESET before any other BACKUP register write.
+*
+* \note This function also resets the WCO trimming value - use the
+*       \ref Cy_SysLib_GetWcoTrim and \ref Cy_SysLib_SetWcoTrim to store/restore
+*       the WCO trimming value.
 *
 * \return CY_SYSLIB_SUCCESS, if BACKUP->RESET read-back is 0.
 *         Otherwise returns CY_SYSLIB_INVALID_STATE.
+*
+* \funcusage
+* \snippet syslib/snippet/main.c snippet_Cy_SysLib_WcoTrim
 *
 *******************************************************************************/
 cy_en_syslib_status_t Cy_SysLib_ResetBackupDomain(void);
@@ -1079,6 +1121,77 @@ uint32_t Cy_SysLib_GetResetReason(void);
 *
 *******************************************************************************/
 void Cy_SysLib_ClearResetReason(void);
+
+
+/*******************************************************************************
+* Function Name: Cy_SysLib_GetResetStatus
+****************************************************************************//**
+*
+* This function returns the BACKUP->RESET bit value.
+* It is reused by the \ref Cy_SysLib_ResetBackupDomain itself and also intended to
+* check for CY_SYSLIB_SUCCESS in loop after the \ref Cy_SysLib_ResetBackupDomain call.
+*
+* \note Writing 1 to BACKUP->RESET resets the backup logic. Hardware clears it
+*       when the reset is complete. After setting the register, this function
+*       reads the register immediately for returning the result of the backup
+*       domain reset state. The reading register is important because the Read
+*       itself takes multiple AHB clock cycles, and the reset is actually
+*       finishing during that time.
+*
+* \return CY_SYSLIB_SUCCESS, if BACKUP->RESET read-back is 0.
+*         Otherwise returns CY_SYSLIB_INVALID_STATE.
+*
+* \funcusage
+* \snippet syslib/snippet/main.c snippet_Cy_SysLib_ResetBackup
+*
+*******************************************************************************/
+__STATIC_INLINE cy_en_syslib_status_t Cy_SysLib_GetResetStatus (void)
+{
+    return ((0UL == (BACKUP_RESET & BACKUP_RESET_RESET_Msk)) ? CY_SYSLIB_SUCCESS : CY_SYSLIB_INVALID_STATE);
+}
+
+
+#if defined (CY_IP_MXS40SRSS)
+/*******************************************************************************
+* Function Name: Cy_SysLib_GetWcoTrim
+****************************************************************************//**
+*
+* This function returns the BACKUP->TRIM bitfield value.
+* It is intended to store the WCO trimming value before
+* the \ref Cy_SysLib_ResetBackupDomain usage.
+*
+* \return The WCO trimming value.
+*
+* \funcusage
+* \snippet syslib/snippet/main.c snippet_Cy_SysLib_WcoTrim
+*
+*******************************************************************************/
+__STATIC_INLINE uint32_t Cy_SysLib_GetWcoTrim (void)
+{
+    return (BACKUP_TRIM & BACKUP_TRIM_TRIM_Msk);
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_SysLib_SetWcoTrim
+****************************************************************************//**
+*
+* This function writes the value into the BACKUP->TRIM bitfield.
+* It is intended to restore the WCO trimming value after
+* the \ref Cy_SysLib_ResetBackupDomain usage.
+*
+* \param wcoTrim The WCO trimming value.
+*
+* \funcusage
+* \snippet syslib/snippet/main.c snippet_Cy_SysLib_WcoTrim
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysLib_SetWcoTrim (uint32_t wcoTrim)
+{
+    BACKUP_TRIM = wcoTrim & BACKUP_TRIM_TRIM_Msk;
+}
+#endif /* CY_IP_MXS40SRSS */
+
 
 #if (CY_ARM_FAULT_DEBUG == CY_ARM_FAULT_DEBUG_ENABLED) || defined(CY_DOXYGEN)
 

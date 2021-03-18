@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.10
+* \version 2.20
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -198,6 +198,12 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.20</td>
+*     <td>Bug fixes in \ref Cy_SMIF_MemEraseSector for Hybrid memory configuration.
+*         Updated \ref Cy_SMIF_MemIsReady to use \ref Cy_SysLib_Rtos_Delay and \ref Cy_SysLib_Rtos_DelayUs.</td>
+*     <td>Code enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td>2.10</td>
 *     <td>New silicon family support.</td>
@@ -489,7 +495,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       10
+#define CY_SMIF_DRV_VERSION_MINOR       20
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)

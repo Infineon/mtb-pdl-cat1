@@ -111,6 +111,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3517689f7b87299fecbaf6eea8656146"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__fll__funcs.html#ga3517689f7b87299fecbaf6eea8656146">Cy_SysClk_FllDisable</a> (void)</td></tr>
 <tr class="memdesc:ga3517689f7b87299fecbaf6eea8656146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the FLL and the CCO.  <a href="#ga3517689f7b87299fecbaf6eea8656146">More...</a><br /></td></tr>
 <tr class="separator:ga3517689f7b87299fecbaf6eea8656146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e45b36747a2be6610f6fc9daefae02b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__fll__funcs.html#ga0e45b36747a2be6610f6fc9daefae02b">Cy_SysClk_FllGetFrequency</a> (void)</td></tr>
+<tr class="memdesc:ga0e45b36747a2be6610f6fc9daefae02b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the output frequency of the FLL.  <a href="#ga0e45b36747a2be6610f6fc9daefae02b">More...</a><br /></td></tr>
+<tr class="separator:ga0e45b36747a2be6610f6fc9daefae02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gad9d9c36d022475746375bddaba2b2065"></a>
@@ -348,6 +351,29 @@ true = locked</dd></dl>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the FLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: FLL failed to enable and must be reconfigured. Or the FLL is no</span></div><div class="line"><span class="comment">                 longer used and hence needs to be disabled. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__fll__funcs.html#gab266867b8e4f71d58467c33c53f6f0e2">Cy_SysClk_FllIsEnabled</a>())</div><div class="line">    {</div><div class="line">        <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> != <a class="code" href="group__group__sysclk__fll__funcs.html#ga3517689f7b87299fecbaf6eea8656146">Cy_SysClk_FllDisable</a>())</div><div class="line">        {</div><div class="line">            <span class="comment">/* Insert error handling */</span></div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* The clocks that relied on the FLL will now run off of the clock that</span></div><div class="line"><span class="comment">       was used to source the FLL (e.g. IMO or ECO). */</span></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga0e45b36747a2be6610f6fc9daefae02b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0e45b36747a2be6610f6fc9daefae02b">&#9670;&nbsp;</a></span>Cy_SysClk_FllGetFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_FllGetFrequency </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the output frequency of the FLL. </p>
+<dl class="section return"><dt>Returns</dt><dd>The output frequency of FLL.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the return value equals zero, that means FLL is disabled.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint32_t freq = <a class="code" href="group__group__sysclk__fll__funcs.html#ga0e45b36747a2be6610f6fc9daefae02b">Cy_SysClk_FllGetFrequency</a>();</div><div class="line">    (void) freq; <span class="comment">/* Supress &#39;unused variable&#39; warning */</span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

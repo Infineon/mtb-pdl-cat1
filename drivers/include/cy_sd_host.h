@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file cy_sd_host.h
-* \version 1.70
+* \version 1.80
 *
 *  This file provides constants and parameter values for
 *  the SD Host Controller driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -248,6 +248,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td> 1.80</td>
+*     <td>Added an internal function.</td>
+*     <td>Code efficiency enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>1.70</td>
 *     <td>Allow SDIO Card initialization through Cy_SD_Host_InitCard() API.
 *         Added new API Cy_SD_Host_GetBlockCount().
@@ -404,7 +409,7 @@ extern "C"
 #define CY_SD_HOST_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_SD_HOST_DRV_VERSION_MINOR       70
+#define CY_SD_HOST_DRV_VERSION_MINOR       80
 
 /******************************************************************************
 * API Constants

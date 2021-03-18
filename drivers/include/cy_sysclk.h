@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.10
+* \version 3.20
 *
 * Provides an API declaration of the sysclk driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -78,6 +78,11 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.20</td>
+*     <td>Added new API's \ref Cy_SysClk_FllGetFrequency and \ref Cy_SysClk_PllGetFrequency.</td>
+*     <td>Fetch the FLL and PLL frequency.</td>
+*   </tr>
 *   <tr>
 *     <td>3.10</td>
 *     <td>Support for CM33.</td>
@@ -737,7 +742,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   10
+#define  CY_SYSCLK_DRV_VERSION_MINOR   20
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 
@@ -1647,6 +1652,22 @@ cy_en_sysclk_status_t Cy_SysClk_FllDisable(void);
 *******************************************************************************/
 void Cy_SysClk_FllOutputDividerEnable(bool enable);
 #endif
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_FllGetFrequency
+****************************************************************************//**
+*
+* Returns the output frequency of the FLL.
+*
+* \return The output frequency of FLL.
+*
+* \note If the return value equals zero, that means FLL is disabled.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_FllGetFrequency
+*
+*******************************************************************************/
+uint32_t Cy_SysClk_FllGetFrequency(void);
 /** \} group_sysclk_fll_funcs */
 
 
@@ -1970,6 +1991,24 @@ bool Cy_SysClk_PllLostLock(uint32_t clkPath);
 *
 *******************************************************************************/
 cy_en_sysclk_status_t Cy_SysClk_PllDisable(uint32_t clkPath);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_PllGetFrequency
+****************************************************************************//**
+*
+* Returns the output frequency of the PLL.
+*
+* \param clkPath Selects which PLL to check. 1 is the first PLL; 0 is invalid
+*
+* \return The output frequency of the path PLL.
+*
+* \note If the return value equals zero, that means PLL is disabled.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllGetFrequency
+*
+*******************************************************************************/
+uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath);
 /** \} group_sysclk_pll_funcs */
 
 

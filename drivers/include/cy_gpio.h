@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_gpio.h
-* \version 1.40
+* \version 1.50
 *
 * Provides an API declaration of the GPIO driver
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,6 +103,12 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.50</td>
+*     <td>Modified \ref Cy_GPIO_Pin_Init, \ref Cy_GPIO_Pin_FastInit, and
+*         \ref Cy_GPIO_SetDrivemode APIs to catch wrong drive modes.</td>
+*     <td>Defect fix.</td>
+*   </tr>
+*   <tr>
 *     <td rowspan="2">1.40</td>
 *     <td>Changes in Support of the new family of devices</td>
 *     <td>Added new family of devices</td>
@@ -194,7 +200,7 @@ extern "C" {
 #define CY_GPIO_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_GPIO_DRV_VERSION_MINOR       40
+#define CY_GPIO_DRV_VERSION_MINOR       50
 
 /** GPIO driver ID */
 #define CY_GPIO_ID CY_PDL_DRV_ID(0x16U)
@@ -399,7 +405,9 @@ typedef struct
 #define CY_GPIO_IS_PIN_VALID(pinNum)           (CY_GPIO_PINS_MAX > (pinNum))
 #define CY_GPIO_IS_FILTER_PIN_VALID(pinNum)    (CY_GPIO_PINS_MAX >= (pinNum))
 #define CY_GPIO_IS_VALUE_VALID(outVal)         (1UL >= (outVal))
-#define CY_GPIO_IS_DM_VALID(driveMode)         (0U == ((driveMode) & (uint32_t)~CY_GPIO_CFG_DM_MASK))
+#define CY_GPIO_IS_DM_VALID(driveMode)         ((0U == ((driveMode) & (uint32_t)~CY_GPIO_CFG_DM_MASK)) && \
+                                               ((driveMode) != CY_GPIO_DM_INVALID_IN_OFF) && \
+                                               ((driveMode) != CY_GPIO_DM_INVALID))
 
 #define CY_GPIO_IS_HSIOM_VALID(hsiom)          (0U == ((hsiom) & (uint32_t)~CY_GPIO_HSIOM_MASK))
 
@@ -520,13 +528,15 @@ typedef struct
 *   the pin is driven by other signals that may cause shorts.
 */
 #define CY_GPIO_DM_ANALOG                      (0x00UL) /**< Analog High-Z. Input buffer off */
-#define CY_GPIO_DM_PULLUP_IN_OFF                (0x02UL) /**< Resistive Pull-Up. Input buffer off */
+#define CY_GPIO_DM_INVALID_IN_OFF              (0x01UL) /**< Invalid mode. It should not be used */
+#define CY_GPIO_DM_PULLUP_IN_OFF               (0x02UL) /**< Resistive Pull-Up. Input buffer off */
 #define CY_GPIO_DM_PULLDOWN_IN_OFF             (0x03UL) /**< Resistive Pull-Down. Input buffer off */
 #define CY_GPIO_DM_OD_DRIVESLOW_IN_OFF         (0x04UL) /**< Open Drain, Drives Low. Input buffer off */
 #define CY_GPIO_DM_OD_DRIVESHIGH_IN_OFF        (0x05UL) /**< Open Drain, Drives High. Input buffer off */
 #define CY_GPIO_DM_STRONG_IN_OFF               (0x06UL) /**< Strong Drive. Input buffer off */
 #define CY_GPIO_DM_PULLUP_DOWN_IN_OFF          (0x07UL) /**< Resistive Pull-Up/Down. Input buffer off */
 #define CY_GPIO_DM_HIGHZ                       (0x08UL) /**< Digital High-Z. Input buffer on */
+#define CY_GPIO_DM_INVALID                     (0x09UL) /**< Invalid mode. It should not be used */
 #define CY_GPIO_DM_PULLUP                      (0x0AUL) /**< Resistive Pull-Up. Input buffer on */
 #define CY_GPIO_DM_PULLDOWN                    (0x0BUL) /**< Resistive Pull-Down. Input buffer on */
 #define CY_GPIO_DM_OD_DRIVESLOW                (0x0CUL) /**< Open Drain, Drives Low. Input buffer on */

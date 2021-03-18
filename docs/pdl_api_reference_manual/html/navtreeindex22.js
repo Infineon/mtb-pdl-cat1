@@ -1,5 +1,14 @@
 var NAVTREEINDEX22 =
 {
+"structcy__stc__fault__frame__t.html#a244b9726ed2baa8979a810f36e1a68ef":[2,31,2,0,3],
+"structcy__stc__fault__frame__t.html#a4ca5ffae59e080db1d09b95232071753":[2,31,2,0,1],
+"structcy__stc__fault__frame__t.html#a570892fc2df70d3214c02a2a55ea310f":[2,31,2,0,7],
+"structcy__stc__fault__frame__t.html#aa2e8c476a1a71f9d886d2c7e2056a0a6":[2,31,2,0,4],
+"structcy__stc__fault__frame__t.html#ab9f988877d090b172123b7bf5168fcab":[2,31,2,0,6],
+"structcy__stc__flash__notify__t.html":[2,9,2,0],
+"structcy__stc__flash__notify__t.html#a229a77177cf992ec268a46def2fd2967":[2,9,2,0,0],
+"structcy__stc__flash__notify__t.html#a56206a89f36101e96916effa3bf13a11":[2,9,2,0,2],
+"structcy__stc__flash__notify__t.html#ab5674d3c5f5912ab008486aca20ccd70":[2,9,2,0,1],
 "structcy__stc__fll__manual__config__t.html":[2,29,5,1,0],
 "structcy__stc__fll__manual__config__t.html#a0791fc7e856b2669453d9910e59978e5":[2,29,5,1,0,3],
 "structcy__stc__fll__manual__config__t.html#a360c2401fd72307f663bdd153fe9a04e":[2,29,5,1,0,8],
@@ -240,14 +249,5 @@ var NAVTREEINDEX22 =
 "structcy__stc__pra__system__config__t.html#a7d2c76cc194da3c5d6bbd06f988882ba":[2,17,3,0,86],
 "structcy__stc__pra__system__config__t.html#a822c91d63bcd2196efbca8a917a73d3f":[2,17,3,0,73],
 "structcy__stc__pra__system__config__t.html#a82abf3f1f4ca5fa3c0c43a2771bdc9e4":[2,17,3,0,17],
-"structcy__stc__pra__system__config__t.html#a83dd0313cc72422db9ae53f446992b4e":[2,17,3,0,34],
-"structcy__stc__pra__system__config__t.html#a84509cea0241bd05c6a3e1b8ad3980df":[2,17,3,0,16],
-"structcy__stc__pra__system__config__t.html#a85bf3bd10fd6d5b6f61752429eb3a3e4":[2,17,3,0,60],
-"structcy__stc__pra__system__config__t.html#a8882b3dda29566831ac7907d71fb23bc":[2,17,3,0,1],
-"structcy__stc__pra__system__config__t.html#a8a09ad0345b180d4a01c997d02be0d37":[2,17,3,0,56],
-"structcy__stc__pra__system__config__t.html#a8a1f577b37aa90ac61f76bf04cb2d836":[2,17,3,0,106],
-"structcy__stc__pra__system__config__t.html#a8db19ef8fa9f1649ed51aac89bbc4b92":[2,17,3,0,13],
-"structcy__stc__pra__system__config__t.html#a8f628f024f9695b15613f175c9318da9":[2,17,3,0,38],
-"structcy__stc__pra__system__config__t.html#a90fb8235131fba7431e36ca71e4fb823":[2,17,3,0,19],
-"structcy__stc__pra__system__config__t.html#a92523a2827d7627e77c1566566951cd9":[2,17,3,0,45]
+"structcy__stc__pra__system__config__t.html#a83dd0313cc72422db9ae53f446992b4e":[2,17,3,0,34]
 };

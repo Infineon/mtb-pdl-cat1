@@ -1,5 +1,14 @@
 var NAVTREEINDEX24 =
 {
+"structcy__stc__sd__host__data__config__t.html#aa95b8223c41ad322b9f30a61d57119bb":[2,23,2,3,6],
+"structcy__stc__sd__host__data__config__t.html#acfbb149d641b32d609e4b702f9bc42e5":[2,23,2,3,8],
+"structcy__stc__sd__host__data__config__t.html#add879461d35f90bda10ff1fa88e1dce2":[2,23,2,3,3],
+"structcy__stc__sd__host__data__config__t.html#ae1cac2445bb6f9be1b0ede804e793f73":[2,23,2,3,0],
+"structcy__stc__sd__host__init__config__t.html":[2,23,2,0],
+"structcy__stc__sd__host__init__config__t.html#a132f14b1297b311f78e372dbcbcd9037":[2,23,2,0,1],
+"structcy__stc__sd__host__init__config__t.html#aa7bf6b8f3e5b65ce67b1ac991a51a981":[2,23,2,0,2],
+"structcy__stc__sd__host__init__config__t.html#ad1464a6d34fe1c9c8b6e89100bdcdbb4":[2,23,2,0,0],
+"structcy__stc__sd__host__sd__card__config__t.html":[2,23,2,1],
 "structcy__stc__sd__host__sd__card__config__t.html#a100a6eaaadfd0c1736c8d3331a0f3d8b":[2,23,2,1,0],
 "structcy__stc__sd__host__sd__card__config__t.html#a435d663b11c533e9eda2abe447b4d286":[2,23,2,1,2],
 "structcy__stc__sd__host__sd__card__config__t.html#a504565cfc281596214442c57425dff2f":[2,23,2,1,4],
@@ -240,14 +249,5 @@ var NAVTREEINDEX24 =
 "structcy__stc__tcpwm__pwm__config__t.html#ada54c502dbeb46b60802fc60b602f05d":[2,34,2,2,0,18],
 "structcy__stc__tcpwm__pwm__config__t.html#add150f9e27b83cc7549db22934cd4d00":[2,34,2,2,0,14],
 "structcy__stc__tcpwm__pwm__config__t.html#ae0207c4144a26dd04c0e06b09f931da3":[2,34,2,2,0,19],
-"structcy__stc__tcpwm__pwm__config__t.html#af1910e1d1df6bf11909f9a263051d8f7":[2,34,2,2,0,22],
-"structcy__stc__tcpwm__quaddec__config__t.html":[2,34,3,2,0],
-"structcy__stc__tcpwm__quaddec__config__t.html#a139114c65e2c3dd6ba549319ba21c3d2":[2,34,3,2,0,2],
-"structcy__stc__tcpwm__quaddec__config__t.html#a40d7a2830339c593182dea25668a4cd4":[2,34,3,2,0,1],
-"structcy__stc__tcpwm__quaddec__config__t.html#a4f96c057c83a5371220063f1d0fd433b":[2,34,3,2,0,7],
-"structcy__stc__tcpwm__quaddec__config__t.html#a6d8a95cce86565d2f8aa6453d038bb8d":[2,34,3,2,0,4],
-"structcy__stc__tcpwm__quaddec__config__t.html#a9181815a912b6c5ed2949711024410d5":[2,34,3,2,0,5],
-"structcy__stc__tcpwm__quaddec__config__t.html#a9bccb40249e89734807ee65b11c642fe":[2,34,3,2,0,6],
-"structcy__stc__tcpwm__quaddec__config__t.html#abb9b2f8cf13a51d4a81f5b8fd591f6e8":[2,34,3,2,0,0],
-"structcy__stc__tcpwm__quaddec__config__t.html#aed2032743d6da4c15fe418b2ee17d399":[2,34,3,2,0,3]
+"structcy__stc__tcpwm__pwm__config__t.html#af1910e1d1df6bf11909f9a263051d8f7":[2,34,2,2,0,22]
 };

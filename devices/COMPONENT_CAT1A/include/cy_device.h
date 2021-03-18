@@ -293,6 +293,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define BACKUP_INTR_MASK                    (((BACKUP_V1_Type *) BACKUP)->INTR_MASK)
 #define BACKUP_INTR_MASKED                  (((BACKUP_V1_Type *) BACKUP)->INTR_MASKED)
 #define BACKUP_RESET                        (((BACKUP_V1_Type *) BACKUP)->RESET)
+#define BACKUP_TRIM                         (((BACKUP_V1_Type *) BACKUP)->TRIM)
 
 /*******************************************************************************
 *                CANFD

@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_sysclk.c
-* \version 3.10
+* \version 3.20
 *
 * Provides an API implementation of the sysclk driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -1343,43 +1343,27 @@ uint32_t Cy_SysClk_ClkPathGetFrequency(uint32_t clkPath)
 {
     CY_ASSERT_L1(clkPath < CY_SRSS_NUM_CLKPATH);
 
-    uint32_t freq = Cy_SysClk_ClkPathMuxGetFrequency(clkPath);
-    uint32_t fDiv = 1UL;    /* FLL/PLL multiplier/feedback divider */
-    uint32_t rDiv = 1UL;    /* FLL/PLL reference divider */
-    uint32_t oDiv = 1UL;    /* FLL/PLL output divider */
-    bool  enabled = false;  /* FLL or PLL enable status; n/a for direct */
+    uint32_t freq = 0UL;
 
     if (clkPath == (uint32_t)CY_SYSCLK_CLKHF_IN_CLKPATH0) /* FLL? (always path 0) */
     {
-        cy_stc_fll_manual_config_t fllCfg = {0UL,0U,CY_SYSCLK_FLL_CCO_RANGE0,false,0U,0U,0U,0U,CY_SYSCLK_FLLPLL_OUTPUT_AUTO,0U};
-        Cy_SysClk_FllGetConfiguration(&fllCfg);
-        enabled = (Cy_SysClk_FllIsEnabled()) && (CY_SYSCLK_FLLPLL_OUTPUT_INPUT != fllCfg.outputMode);
-        fDiv = fllCfg.fllMult;
-        rDiv = fllCfg.refDiv;
-        oDiv = (fllCfg.enableOutputDiv) ? 2UL : 1UL;
+        freq = Cy_SysClk_FllGetFrequency();
     }
     else if (clkPath <= CY_SRSS_NUM_PLL) /* PLL? (always path 1...N)*/
     {
-        cy_stc_pll_manual_config_t pllcfg = {0U,0U,0U,false,CY_SYSCLK_FLLPLL_OUTPUT_AUTO};
-        (void)Cy_SysClk_PllGetConfiguration(clkPath, &pllcfg);
-        enabled = (Cy_SysClk_PllIsEnabled(clkPath)) && (CY_SYSCLK_FLLPLL_OUTPUT_INPUT != pllcfg.outputMode);
-        fDiv = pllcfg.feedbackDiv;
-        rDiv = pllcfg.referenceDiv;
-        oDiv = pllcfg.outputDiv;
+        freq = Cy_SysClk_PllGetFrequency(clkPath);
     }
     else
     {
         /* Do nothing with the path mux frequency */
     }
 
-    if (enabled && /* If FLL or PLL is enabled and not bypassed */
-        (0UL != rDiv) && (0UL != oDiv)) /* to avoid division by zero */
+    if(freq==0UL)
     {
-        freq = (uint32_t)CY_SYSLIB_DIV_ROUND(((uint64_t)freq * (uint64_t)fDiv),
-                                             ((uint64_t)rDiv * (uint64_t)oDiv));
+        freq = Cy_SysClk_ClkPathMuxGetFrequency(clkPath);
     }
 
-    return (freq);
+return (freq);
 }
 
 
@@ -2761,6 +2745,67 @@ uint32_t Cy_SysClk_ClkTimerGetFrequency(void)
 
     /* Divide the input frequency down and return the result */
     return (CY_SYSLIB_DIV_ROUND(freq, 1UL + (uint32_t)Cy_SysClk_ClkTimerGetDivider()));
+}
+
+
+uint32_t Cy_SysClk_FllGetFrequency(void)
+{
+    uint32_t fDiv ;    /* FLL multiplier/feedback divider */
+    uint32_t rDiv;    /* FLL reference divider */
+    uint32_t oDiv;    /* FLL output divider */
+    bool  enabled;    /* FLL enable status; n/a for direct */
+    uint32_t freq = 0UL;    /* FLL Frequency */
+
+    cy_stc_fll_manual_config_t fllCfg = {0UL,0U,CY_SYSCLK_FLL_CCO_RANGE0,false,0U,0U,0U,0U,CY_SYSCLK_FLLPLL_OUTPUT_AUTO,0U};
+    Cy_SysClk_FllGetConfiguration(&fllCfg);
+    enabled = (Cy_SysClk_FllIsEnabled()) && (CY_SYSCLK_FLLPLL_OUTPUT_INPUT != fllCfg.outputMode);
+    fDiv = fllCfg.fllMult;
+    rDiv = fllCfg.refDiv;
+    oDiv = (fllCfg.enableOutputDiv) ? 2UL : 1UL;
+
+    if (enabled && /* If FLL is enabled and not bypassed */
+        (0UL != rDiv)) /* to avoid division by zero */
+    {
+        freq = Cy_SysClk_ClkPathMuxGetFrequency(0UL); /* FLL mapped always to path 0 */
+        freq = (uint32_t)CY_SYSLIB_DIV_ROUND(((uint64_t)freq * (uint64_t)fDiv),
+                                             ((uint64_t)rDiv * (uint64_t)oDiv));
+    }
+
+    return (freq);
+}
+
+uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath)
+{
+    uint32_t fDiv;    /* PLL multiplier/feedback divider */
+    uint32_t rDiv;    /* PLL reference divider */
+    uint32_t oDiv;    /* PLL output divider */
+    bool  enabled;    /* PLL enable status; n/a for direct */
+    uint32_t freq=0UL;    /* PLL Frequency */
+
+    if ((CY_SRSS_NUM_PLL > 0UL) && (clkPath > 0UL))
+    {
+        CY_ASSERT_L1(clkPath < CY_SRSS_NUM_CLKPATH);
+
+        if (clkPath <= CY_SRSS_NUM_PLL)
+        {
+            cy_stc_pll_manual_config_t pllcfg = {0U,0U,0U,false,CY_SYSCLK_FLLPLL_OUTPUT_AUTO};
+            (void)Cy_SysClk_PllGetConfiguration(clkPath, &pllcfg);
+            enabled = (Cy_SysClk_PllIsEnabled(clkPath)) && (CY_SYSCLK_FLLPLL_OUTPUT_INPUT != pllcfg.outputMode);
+            fDiv = pllcfg.feedbackDiv;
+            rDiv = pllcfg.referenceDiv;
+            oDiv = pllcfg.outputDiv;
+
+            if (enabled && /* If PLL is enabled and not bypassed */
+            (0UL != rDiv) && (0UL != oDiv)) /* to avoid division by zero */
+            {
+                freq = Cy_SysClk_ClkPathMuxGetFrequency(clkPath);
+                freq = (uint32_t)CY_SYSLIB_DIV_ROUND(((uint64_t)freq * (uint64_t)fDiv),
+                                                     ((uint64_t)rDiv * (uint64_t)oDiv));
+            }
+        }
+    }
+
+    return (freq);
 }
 
 

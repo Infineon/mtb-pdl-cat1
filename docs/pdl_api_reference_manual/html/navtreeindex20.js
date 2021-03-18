@@ -1,5 +1,14 @@
 var NAVTREEINDEX20 =
 {
+"group__group__usbfs__dev__drv__enums.html#gga3ad103323d30857a208f4108147b69c8a487d625566a26442b6a8c3f7ad87788e":[2,36,3,4,3],
+"group__group__usbfs__dev__drv__enums.html#gga3ad103323d30857a208f4108147b69c8a5372e43422c64e4cb178888efb6ce721":[2,36,3,4,5],
+"group__group__usbfs__dev__drv__enums.html#gga3ad103323d30857a208f4108147b69c8a860550942bbedf07b892efeafe008782":[2,36,3,4,8],
+"group__group__usbfs__dev__drv__enums.html#gga3ad103323d30857a208f4108147b69c8aaa774bc9a333416ac4787930e8fabeef":[2,36,3,4,1],
+"group__group__usbfs__dev__drv__enums.html#gga3ad103323d30857a208f4108147b69c8ab97cd4aba9fb12bffe0188f442a6654a":[2,36,3,4,6],
+"group__group__usbfs__dev__drv__enums.html#gga3ad103323d30857a208f4108147b69c8ad57b604965dea4c1fb308cac734470e6":[2,36,3,4,4],
+"group__group__usbfs__dev__drv__enums.html#gga460ea6ba6179dd6fad514ba26c982e92a42ed8216cf8d45da2c58680d244636e9":[2,36,3,6,1],
+"group__group__usbfs__dev__drv__enums.html#gga460ea6ba6179dd6fad514ba26c982e92a57321e74efcb759861b887f1ecae041e":[2,36,3,6,2],
+"group__group__usbfs__dev__drv__enums.html#gga460ea6ba6179dd6fad514ba26c982e92a8b34c20782a28e9fe3fe8629d27b2c0b":[2,36,3,6,0],
 "group__group__usbfs__dev__drv__enums.html#gga460ea6ba6179dd6fad514ba26c982e92abd413f93f3d4d26de5a92a590634b108":[2,36,3,6,3],
 "group__group__usbfs__dev__drv__enums.html#gga7e78856f9225afbd18151968ceefbe06a6651dc537422c316a62d46cc08f40324":[2,36,3,7,0],
 "group__group__usbfs__dev__drv__enums.html#gga7e78856f9225afbd18151968ceefbe06a7d596171383aca43fb95de42caa4ee57":[2,36,3,7,1],
@@ -240,14 +249,5 @@ var NAVTREEINDEX20 =
 "structcy__stc__canfd__r1__t.html#a8c2a131a72755b6e53c5fcd1b21234f6":[2,1,2,1,0],
 "structcy__stc__canfd__r1__t.html#ac30d64c756b0e2d8d5a71286d8d9c822":[2,1,2,1,2],
 "structcy__stc__canfd__r1__t.html#ad2c446d9edb17be86dcb8c20606473a9":[2,1,2,1,1],
-"structcy__stc__canfd__r1__t.html#af902c1efe04ff3fe5709971f9f5a9077":[2,1,2,1,5],
-"structcy__stc__canfd__rx__buffer__t.html":[2,1,2,2],
-"structcy__stc__canfd__rx__buffer__t.html#a0db6cdd9b30082a0639b997703f2aec1":[2,1,2,2,2],
-"structcy__stc__canfd__rx__buffer__t.html#a602b97b15de68d54ccb557ed4c501e20":[2,1,2,2,0],
-"structcy__stc__canfd__rx__buffer__t.html#ac4fdc02124190194f9093018dfffbc3e":[2,1,2,2,1],
-"structcy__stc__canfd__sid__filter__config__t.html":[2,1,2,12],
-"structcy__stc__canfd__sid__filter__config__t.html#a5bfcbd161c4c00c2bb84049e60b16f06":[2,1,2,12,0],
-"structcy__stc__canfd__sid__filter__config__t.html#a92e7899d38016cae127bf55e6796da3b":[2,1,2,12,1],
-"structcy__stc__canfd__t0__t.html":[2,1,2,3],
-"structcy__stc__canfd__t0__t.html#a038a678a0ed8c38db7f713985f199587":[2,1,2,3,0]
+"structcy__stc__canfd__r1__t.html#af902c1efe04ff3fe5709971f9f5a9077":[2,1,2,1,5]
 };

@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_scb_uart.c
-* \version 2.70
+* \version 2.80
 *
 * Provides UART API implementation of the SCB driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -230,10 +230,10 @@ void Cy_SCB_UART_SetDropOnParityError(CySCB_Type *base, bool dropOnParityError)
 void Cy_SCB_UART_SetEnableMsbFirst(CySCB_Type *base, bool enableMsbFirst)
 {
     /* Configure the RX direction with given parameters */
-    CY_REG32_CLR_SET(SCB_UART_RX_CTRL(base), SCB_RX_CTRL_MSB_FIRST, enableMsbFirst);
+    CY_REG32_CLR_SET(SCB_RX_CTRL(base), SCB_RX_CTRL_MSB_FIRST, enableMsbFirst);
 
     /* Configure the TX direction with given parameters*/
-    CY_REG32_CLR_SET(SCB_UART_TX_CTRL(base), SCB_TX_CTRL_MSB_FIRST, enableMsbFirst);
+    CY_REG32_CLR_SET(SCB_TX_CTRL(base), SCB_TX_CTRL_MSB_FIRST, enableMsbFirst);
 }
 
 /*******************************************************************************

@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 2.80
+* \version 2.90
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -119,6 +119,15 @@ void Cy_SysLib_DelayUs(uint16_t microseconds)
     Cy_SysLib_DelayCycles((uint32_t) microseconds * cy_delayFreqMhz);
 }
 
+__WEAK void Cy_SysLib_Rtos_Delay(uint32_t milliseconds)
+{
+    Cy_SysLib_Delay(milliseconds);
+}
+
+__WEAK void Cy_SysLib_Rtos_DelayUs(uint16_t microseconds)
+{
+    Cy_SysLib_DelayUs(microseconds);
+}
 
 __NO_RETURN void Cy_SysLib_Halt(uint32_t reason)
 {
@@ -170,8 +179,7 @@ void Cy_SysLib_ClearFlashCacheAndBuffer(void)
 cy_en_syslib_status_t Cy_SysLib_ResetBackupDomain(void)
 {
     BACKUP_RESET = BACKUP_RESET_RESET_Msk;
-
-    return ( ((BACKUP_RESET & BACKUP_RESET_RESET_Msk) == 0UL) ? CY_SYSLIB_SUCCESS : CY_SYSLIB_INVALID_STATE );
+    return (Cy_SysLib_GetResetStatus());
 }
 
 

@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_mcwdt.c
-* \version 1.50
+* \version 1.50.1
 *
 *  Description:
 *   Provides a system API for the MCWDT driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");

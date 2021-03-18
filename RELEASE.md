@@ -1,4 +1,4 @@
-# MTB CAT1A Peripheral Driver Library v2.1.0
+# MTB CAT1A Peripheral Driver Library v2.2.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,45 +8,33 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## New Features
 
-* External clock support for secure core.
-* Provided interface for validating and configuring SRAM power modes.
+* Added support for new silicon revision of CY8C61x4 and CY8C62x4 devices.
+* Added RTOS friendly delay APIs in SYSLIB driver.
+* Enhanced SYSPM driver to manage the backup domain reset in a better manner and to store/restore the WCO trim value.
 
 ## Updated Personalities
 
-* BT - Added Support for BT personality disabled case
-* SAR - Minor bug fix.
-* SCB - Allow 50000 kbps baud rate if MISO is not used.
-* TCPWM - Added Swap Underflow/Overflow Set/Clear functionality.
-* USBFS - Improved filtering for allowed DMA connections.
+* SAR - Bug fix/Code enhancement.
+* SYSCLK - Fixed compiler warning.
+* SYSPM - Minor bug fix.
+* TCPWM - Minor bug fix.
 
 ## Added Drivers
 
 ## Updated Drivers
 
-* [DMA 2.40](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__dma.html)
-* [EFUSE 2.0](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__dma.html)
-* [GPIO 1.40](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
-* [IPC 1.60](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
-* [LVD 1.40](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lvd.html)
-* [MCWDT 1.50](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
-* [PRA 2.20](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pra.html)
-* [PROT 1.60](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__prot.html)
-* [RTC 2.50](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__rtc.html)
-* [SCB 2.70](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
-* [SDHOST 1.70](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sd__host.html)
-* [SMIF 2.10](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [SYSCLK 3.10](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSINT 2.0](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
-* [SYSLIB 2.80](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
-* [SYSPM 5.50](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [SYSTICK 1.40](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__arm__system__timer.html)
-* [TCPWM 1.30](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__tcpwm.html)
-* [TRIGMUX 1.30](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__trigmux.html)
+* [GPIO 1.50](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
+* [SCB 2.80](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
+* [SDHOST 1.80](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sd__host.html)
+* [SMIF 2.20](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
+* [SYSCLK 3.20](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [SYSLIB 2.90](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
 
 ### Drivers with patch version updates
 
 Minor documentation changes:
-* [FLASH 3.50.1](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
+* [MCWDT 1.50.1](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
+* [SAR 2.0.1](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sar.html)
 
 ### Obsoleted part numbers
 
@@ -68,6 +56,10 @@ Below is a list of PSoC 6 part numbers obsoleted in psoc6pdl release-v1.6.0, wit
 | CY8C624ALQI-D42       | N/A                   |
 
 ## Known Issues
+* On soft reset, user need to reset back up domain using Cy_SysLib_ResetBackupDomain() to receive Cy_RTC_CenturyInterrupt() callback on Century roll over.
+* On building with tools 2.2, user get warning related to the older version of tools used. To avoid this warning, user is advised to migrate to newer tools version or keep working with previous version of this library.  The warning generated is as follows:
+  * _#warning "(Library) The referenced 'device support library' contains newer content than is supported. Either downgrade the version of the 'device support library' referenced or upgrade the version of tools being used_
+  
 
 ## Defect Fixes
 
@@ -99,4 +91,4 @@ This version of PDL was validated for compatibility with the following Software 
 * [Cypress Semiconductor](http://www.cypress.com)
 
 ---
-© Cypress Semiconductor Corporation, 2020.
+© Cypress Semiconductor Corporation, 2021.

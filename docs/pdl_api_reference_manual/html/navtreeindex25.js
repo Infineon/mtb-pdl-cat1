@@ -1,5 +1,14 @@
 var NAVTREEINDEX25 =
 {
+"structcy__stc__tcpwm__quaddec__config__t.html":[2,34,3,2,0],
+"structcy__stc__tcpwm__quaddec__config__t.html#a139114c65e2c3dd6ba549319ba21c3d2":[2,34,3,2,0,2],
+"structcy__stc__tcpwm__quaddec__config__t.html#a40d7a2830339c593182dea25668a4cd4":[2,34,3,2,0,1],
+"structcy__stc__tcpwm__quaddec__config__t.html#a4f96c057c83a5371220063f1d0fd433b":[2,34,3,2,0,7],
+"structcy__stc__tcpwm__quaddec__config__t.html#a6d8a95cce86565d2f8aa6453d038bb8d":[2,34,3,2,0,4],
+"structcy__stc__tcpwm__quaddec__config__t.html#a9181815a912b6c5ed2949711024410d5":[2,34,3,2,0,5],
+"structcy__stc__tcpwm__quaddec__config__t.html#a9bccb40249e89734807ee65b11c642fe":[2,34,3,2,0,6],
+"structcy__stc__tcpwm__quaddec__config__t.html#abb9b2f8cf13a51d4a81f5b8fd591f6e8":[2,34,3,2,0,0],
+"structcy__stc__tcpwm__quaddec__config__t.html#aed2032743d6da4c15fe418b2ee17d399":[2,34,3,2,0,3],
 "structcy__stc__tcpwm__shiftreg__config__t.html":[2,34,4,2,0],
 "structcy__stc__tcpwm__shiftreg__config__t.html#a09a0fa05b9b04caa6853949c7d004a9b":[2,34,4,2,0,0],
 "structcy__stc__tcpwm__shiftreg__config__t.html#a246b6b86b3d503819d9dfa4e442bedf3":[2,34,4,2,0,2],

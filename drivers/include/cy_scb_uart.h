@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_scb_uart.h
-* \version 2.70
+* \version 2.80
 *
 * Provides UART API declarations of the SCB driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -1257,7 +1257,7 @@ __STATIC_INLINE bool Cy_SCB_UART_GetDropOnParityError(CySCB_Type const *base)
 *******************************************************************************/
 __STATIC_INLINE bool Cy_SCB_UART_GetEnableMsbFirst(CySCB_Type const *base)
 {
-    return _FLD2BOOL(SCB_TX_CTRL_MSB_FIRST, SCB_UART_TX_CTRL(base));
+    return _FLD2BOOL(SCB_TX_CTRL_MSB_FIRST, SCB_TX_CTRL(base));
 }
 
 

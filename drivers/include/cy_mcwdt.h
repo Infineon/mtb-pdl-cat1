@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_mcwdt.h
-* \version 1.50
+* \version 1.50.1
 *
 * Provides an API declaration of the Cypress PDL 3.0 MCWDT driver
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,6 +101,11 @@
 * \section group_mcwdt_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.50.1</td>
+*     <td>Minor documentation updates.</td>
+*     <td>Documentation enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td>1.50</td>
 *     <td>Added support for new family of devices.</td>
@@ -1565,7 +1570,7 @@ __STATIC_INLINE uint32_t Cy_MCWDT_GetCascadeMatchMode(MCWDT_STRUCT_Type const *b
 *  \param counter
 *   The cascaded counter type. The valid cascaded type is either C0C1 or C1C2.
 *
-*  \param carryoutconfig
+*  \param matchconfig
 *   CY_MCWDT_CASCADE_MATCH_CONFIG_COUNTER:
 *   For CY_MCWDT_CASCADE_C0C1: Based on counter 1 alone
 *   For CY_MCWDT_CASCADE_C1C2: Based on counter 2 alone

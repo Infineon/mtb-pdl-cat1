@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.c
-* \version 2.10
+* \version 2.20
 *
 * \brief
 *  This file provides the source code for the memory-level APIs of the SMIF driver.
@@ -9,7 +9,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -3539,9 +3539,9 @@ cy_en_smif_status_t Cy_SMIF_MemSfdpDetect(SMIF_Type *base,
 cy_en_smif_status_t Cy_SMIF_MemIsReady(SMIF_Type *base, cy_stc_smif_mem_config_t const *memConfig, 
                                        uint32_t timeoutUs, cy_stc_smif_context_t const *context)
 {    
-    uint32_t timeoutChunk;
+    uint32_t delayMs = 0UL;
     uint32_t timeoutSlice = 0UL;
-    uint32_t microChunk; 
+    uint16_t delayUs = 0U;
     bool isBusy;
     
     /* Calculate the slice of time to split the timeoutUs delay into TIMEOUT_SLICE_DIV times */
@@ -3556,21 +3556,19 @@ cy_en_smif_status_t Cy_SMIF_MemIsReady(SMIF_Type *base, cy_stc_smif_mem_config_t
     {
         timeoutSlice = 1UL;
     }
-    
+
     do
     {
-        timeoutChunk = (timeoutUs > timeoutSlice) ? timeoutSlice : timeoutUs;
-        timeoutUs = (timeoutUs > timeoutChunk) ? timeoutUs - timeoutChunk : 0UL;
-        
-        do
-        {
-            /* Check for UINT16 overflow */
-            microChunk = (timeoutChunk > (uint32_t)UINT16_MAX) ? (uint32_t)UINT16_MAX : timeoutChunk;
-            timeoutChunk = (timeoutChunk > microChunk) ? timeoutChunk - microChunk : 0UL;
-            Cy_SysLib_DelayUs((uint16_t)microChunk);
-        } while(timeoutChunk > 0UL);
-        
+        delayMs = timeoutSlice / 1000UL;
+        delayUs = (uint16_t) (timeoutSlice % 1000UL);
+
+        Cy_SysLib_Rtos_Delay(delayMs);
+        Cy_SysLib_Rtos_DelayUs(delayUs);
+
         isBusy = Cy_SMIF_Memslot_IsBusy(base, (cy_stc_smif_mem_config_t* )memConfig, context);
+
+        timeoutUs = (timeoutUs > timeoutSlice) ? (timeoutUs - timeoutSlice) : 0UL;
+
     } while(isBusy && (timeoutUs > 0UL));
 
     return (isBusy ? CY_SMIF_EXCEED_TIMEOUT : CY_SMIF_SUCCESS);
@@ -4118,7 +4116,7 @@ cy_en_smif_status_t Cy_SMIF_MemEraseSector(SMIF_Type *base, cy_stc_smif_mem_conf
     {
         /* If the memory is hybrid and there is more than one region to
          * erase - update the sector size and offset for the last sector */
-        if(endAddress < eraseEnd)
+        if(endAddress > eraseEnd)
         {
             status = Cy_SMIF_MemLocateHybridRegion(memConfig, &hybrInfo, endAddress);
             if (CY_SMIF_SUCCESS == status)

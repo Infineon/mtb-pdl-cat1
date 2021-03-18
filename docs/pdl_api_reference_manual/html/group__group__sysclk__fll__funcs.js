@@ -6,5 +6,6 @@ var group__group__sysclk__fll__funcs =
     [ "Cy_SysClk_FllEnable", "group__group__sysclk__fll__funcs.html#ga5a008909d3f50d85fb8d8c9f56ed8886", null ],
     [ "Cy_SysClk_FllIsEnabled", "group__group__sysclk__fll__funcs.html#gab266867b8e4f71d58467c33c53f6f0e2", null ],
     [ "Cy_SysClk_FllLocked", "group__group__sysclk__fll__funcs.html#ga3227d4ab9e531127a7cc7bd27c49a499", null ],
-    [ "Cy_SysClk_FllDisable", "group__group__sysclk__fll__funcs.html#ga3517689f7b87299fecbaf6eea8656146", null ]
+    [ "Cy_SysClk_FllDisable", "group__group__sysclk__fll__funcs.html#ga3517689f7b87299fecbaf6eea8656146", null ],
+    [ "Cy_SysClk_FllGetFrequency", "group__group__sysclk__fll__funcs.html#ga0e45b36747a2be6610f6fc9daefae02b", null ]
 ];
