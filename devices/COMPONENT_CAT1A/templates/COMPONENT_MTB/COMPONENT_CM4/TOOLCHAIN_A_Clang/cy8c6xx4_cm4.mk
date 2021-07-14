@@ -1,6 +1,6 @@
 ################################################################################
 # \file cy8c6xx4_cm4.mk
-# \version 2.90.1
+# \version 2.91
 #
 # \brief
 # Specifies the starting address and the size of the segments in the output
@@ -11,7 +11,7 @@
 #
 ################################################################################
 # \copyright
-# Copyright 2018-2020 Cypress Semiconductor Corporation
+# Copyright 2018-2021 Cypress Semiconductor Corporation
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

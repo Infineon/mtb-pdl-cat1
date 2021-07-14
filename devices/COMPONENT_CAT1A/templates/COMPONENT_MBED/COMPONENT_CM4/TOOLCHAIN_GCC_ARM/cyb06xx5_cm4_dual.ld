@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cyb06xx5_cm4_dual.ld
-* \version 2.90.1
+* \version 2.91
 *
 * Linker file for the GNU C compiler.
 *
@@ -19,7 +19,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -75,11 +75,11 @@ BOOT_HEADER_SIZE = 0x400;
 #endif
 
 #if !defined(MBED_RAM_START)
-  #define MBED_RAM_START    0x08001800
+  #define MBED_RAM_START    0x08000800
 #endif
 
 #if !defined(MBED_RAM_SIZE)
-  #define MBED_RAM_SIZE     0x0001E800
+  #define MBED_RAM_SIZE     0x0001F800
 #endif
 
 #if !defined(MBED_BOOT_STACK_SIZE)

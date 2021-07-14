@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" release="PSoC Creator  4.3" xmlns="http://cypress.com/xsd/cysem">
-  <Instances count="245">
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" release="PSoC Creator  4.4" xmlns="http://cypress.com/xsd/cysem">
+  <Instances count="248">
     <Instance guid="00b88554-1ec0-45c5-aeaa-d544841c1feb" name="IOSS0_PORT9_P9_P43" component="swh">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -715,6 +715,9 @@
       <Parameter name="INSTANCE_NAME">
         <Value>PASS0_SARADC1_SAR</Value>
       </Parameter>
+      <Parameter name="InvertTitle">
+        <Value>true</Value>
+      </Parameter>
     </Instance>
     <Instance guid="2bc6dca2-9232-4008-a3f0-b30f20db2679" name="PASS0_SARMUX1_sw24" component="swh">
       <Parameter name="CY_COMMENT">
@@ -773,8 +776,8 @@
       <Parameter name="INSTANCE_NAME">
         <Value>CSD0_CSD</Value>
       </Parameter>
-      <Parameter name="InvertShieldVref">
-        <Value>false</Value>
+      <Parameter name="InvertTitle">
+        <Value>true</Value>
       </Parameter>
     </Instance>
     <Instance guid="2c59b82f-2ef3-4dbd-be8f-1830ccdd4788" name="AMUXT1_AA_SR" component="swh">
@@ -872,6 +875,9 @@
       </Parameter>
       <Parameter name="INSTANCE_NAME">
         <Value>LPCOMP0_COMP0</Value>
+      </Parameter>
+      <Parameter name="InvertTitle">
+        <Value>true</Value>
       </Parameter>
     </Instance>
     <Instance guid="3019244d-a33b-4e25-9116-45f5781657a0" name="PASS0_CTB0_D51" component="swh">
@@ -1545,6 +1551,29 @@
         <Value>IOSS0_PORT7_P7_P52</Value>
       </Parameter>
     </Instance>
+    <Instance guid="55123397-f50f-4959-be0c-c71290e9a0b2" name="SAR_5" component="cy_mxs40_sarref">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="HwBlock">
+        <Value>pass[0].saradc[0].sar[1]</Value>
+      </Parameter>
+      <Parameter name="Index">
+        <Value>1</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>SAR_5</Value>
+      </Parameter>
+    </Instance>
     <Instance guid="56b4d5ef-a350-4c71-9376-34b9f7e06778" name="AMUXT3_BB_SR" component="swh">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -1617,6 +1646,29 @@
       </Parameter>
       <Parameter name="INSTANCE_NAME">
         <Value>AMUXT5_BB_SR</Value>
+      </Parameter>
+    </Instance>
+    <Instance guid="5d45e9a8-4741-4a10-9d6f-6ffcd8f11de0" name="SAR_4" component="cy_mxs40_sarref">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="HwBlock">
+        <Value>pass[0].saradc[0].sar[0]</Value>
+      </Parameter>
+      <Parameter name="Index">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>SAR_4</Value>
       </Parameter>
     </Instance>
     <Instance guid="5e71fb58-6a5e-46fc-b95d-1fb8bdccbdc9" name="PASS0_SARMUX1_sw10" component="swh">
@@ -1834,6 +1886,9 @@
       </Parameter>
       <Parameter name="INSTANCE_NAME">
         <Value>PASS0_CTDAC0</Value>
+      </Parameter>
+      <Parameter name="InvertTitle">
+        <Value>true</Value>
       </Parameter>
     </Instance>
     <Instance guid="7317a55e-e01c-422e-a786-2e4c3cca63aa" name="PASS0_CTB0_D62" component="swh">
@@ -2488,7 +2543,8 @@
         <Value>AREF_VBGR</Value>
       </Parameter>
       <Parameter name="RefName">
-        <Value>VREF</Value>
+        <Value>AREF
+1.2V</Value>
       </Parameter>
     </Instance>
     <Instance guid="941454e6-2f77-4dac-9bc7-61b2f093dad0" name="PASS0_SARMUX0_sw11" component="swh">
@@ -2599,6 +2655,9 @@
       </Parameter>
       <Parameter name="INSTANCE_NAME">
         <Value>PASS0_SARADC0_SAR</Value>
+      </Parameter>
+      <Parameter name="InvertTitle">
+        <Value>true</Value>
       </Parameter>
     </Instance>
     <Instance guid="96af4931-cf44-462d-8b07-b2b6d842b851" name="PASS0_SARMUX1_sw22" component="swh">
@@ -2923,6 +2982,9 @@
       </Parameter>
       <Parameter name="INSTANCE_NAME">
         <Value>LPCOMP0_COMP1</Value>
+      </Parameter>
+      <Parameter name="InvertTitle">
+        <Value>true</Value>
       </Parameter>
     </Instance>
     <Instance guid="aeaa379f-f3ae-4a31-9a9b-973a717cc427" name="PASS0_CTB0_CHD" component="swh">
@@ -3277,6 +3339,23 @@
       </Parameter>
       <Parameter name="INSTANCE_NAME">
         <Value>IOSS0_PORT7_P7_P53</Value>
+      </Parameter>
+    </Instance>
+    <Instance guid="c3f2a2fd-bc58-4fb5-a4d0-d49a3b34340d" name="cy_shapetag_disconnect_6" component="cy_all_shapetag_disconnect">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>cy_shapetag_disconnect_6</Value>
       </Parameter>
     </Instance>
     <Instance guid="c51b0e94-0d00-47c2-b406-3e60fcfa0ccb" name="cy_all_shapetag_disconnect_3" component="cy_all_shapetag_disconnect">
@@ -4449,18 +4528,18 @@
   </Instances>
   <Signals count="62">
     <Signal name="amuxbus_a_csd0" type="Analog" terminalCount="3">
-      <Terminal name="cy_all_shapetag_disconnect_2.a" type="Instance Analog InOut" />
-      <Terminal name="cy_all_shapetag_disconnect_4.a" type="Instance Analog InOut" />
       <Terminal name="cy_all_shapetag_disconnect_6.a" type="Instance Analog InOut" />
+      <Terminal name="cy_all_shapetag_disconnect_4.a" type="Instance Analog InOut" />
+      <Terminal name="cy_all_shapetag_disconnect_2.a" type="Instance Analog InOut" />
     </Signal>
     <Signal name="amuxbus_a_csd1" type="" terminalCount="0" />
     <Signal name="amuxbus_a_main" type="" terminalCount="0" />
     <Signal name="amuxbus_a_sar" type="" terminalCount="0" />
     <Signal name="amuxbus_a_vddio_1" type="" terminalCount="0" />
     <Signal name="amuxbus_b_csd0" type="Analog" terminalCount="3">
-      <Terminal name="cy_all_shapetag_disconnect_1.a" type="Instance Analog InOut" />
-      <Terminal name="cy_all_shapetag_disconnect_3.a" type="Instance Analog InOut" />
       <Terminal name="cy_all_shapetag_disconnect_5.a" type="Instance Analog InOut" />
+      <Terminal name="cy_all_shapetag_disconnect_3.a" type="Instance Analog InOut" />
+      <Terminal name="cy_all_shapetag_disconnect_1.a" type="Instance Analog InOut" />
     </Signal>
     <Signal name="amuxbus_b_csd1" type="" terminalCount="0" />
     <Signal name="amuxbus_b_main" type="" terminalCount="0" />
@@ -4498,7 +4577,9 @@
     </Signal>
     <Signal name="p7_4" type="" terminalCount="0" />
     <Signal name="p7_5" type="" terminalCount="0" />
-    <Signal name="p7_7" type="" terminalCount="0" />
+    <Signal name="p7_7" type="Analog" terminalCount="1">
+      <Terminal name="cy_shapetag_disconnect_6.a" type="Instance Analog InOut" />
+    </Signal>
     <Signal name="p8_0" type="" terminalCount="0" />
     <Signal name="p8_1" type="" terminalCount="0" />
     <Signal name="p9_0" type="" terminalCount="0" />
@@ -4531,8 +4612,8 @@
       <Terminal name="cy_all_shapetag_disconnect_22.a" type="Instance Analog InOut" />
     </Signal>
     <Signal name="pass0_ctb0_oa_vplus1" type="Analog" terminalCount="2">
-      <Terminal name="cy_all_shapetag_disconnect_20.a" type="Instance Analog InOut" />
       <Terminal name="cy_shapetag_disconnect_21.a" type="Instance Analog InOut" />
+      <Terminal name="cy_all_shapetag_disconnect_20.a" type="Instance Analog InOut" />
     </Signal>
     <Signal name="pass0_ctb0_oa_vplus_int0" type="" terminalCount="0" />
     <Signal name="pass0_ctb0_samplein0" type="" terminalCount="0" />

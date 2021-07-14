@@ -17,16 +17,16 @@
   <Param name="SAR12_REMOVED" value="NA" />
   <Param name="SAR12Sample_ksps" value="2000" />
   <Param name="OpAmp_Count" value="0" />
-  <Param name="OpAmp_Removed" value="0;1" />
+  <Param name="OpAmp_Removed" value="NA" />
   <Param name="LPComp_Count" value="2" />
   <Param name="LPComp_REMOVED" value="NA" />
   <Param name="DAC8_Count" value="2" />
   <Param name="DAC8_removed" value="NA" />
   <Param name="DAC12_Count" value="0" />
   <Param name="DAC12_removed" value="0" />
-  <Param name="SampleHold_COUNT " value="1" />
+  <Param name="SampleHold_COUNT" value="1" />
   <Param name="SampleHold_REMOVED" value="NA" />
-  <Param name="SDHC_COUNT " value="1" />
+  <Param name="SDHC_COUNT" value="1" />
   <Param name="SDHC_REMOVED" value="NA" />
   <Param name="SCB_Count" value="7" />
   <Param name="SCB_removed" value="NA" />
@@ -46,7 +46,7 @@
   <Param name="DirDriveLCD" value="Y" />
   <Param name="DMAchannels_count" value="61" />
   <Param name="DMACchannels_count" value="2" />
-  <Param name="IO_Count" value="53" />
+  <Param name="IO_Count" value="55" />
   <Param name="Power_Modes" value="ANY" />
   <Param name="Vddmin_volts" value="1.7" />
   <Param name="Vddmax_volts" value="3.6" />

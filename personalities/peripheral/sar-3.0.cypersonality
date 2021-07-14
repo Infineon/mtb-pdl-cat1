@@ -362,41 +362,41 @@
       <ConfigDefine name="`${INST_NAME}`_CTL" value="((uint32_t)CY_SAR_VREF_PWR_100 | (uint32_t)`${vref_select}` | (uint32_t)`${vref_byp_cap ? &quot;CY_SAR_BYPASS_CAP_ENABLE&quot; : &quot;CY_SAR_BYPASS_CAP_DISABLE&quot;}` | `${vneg_select_string}` | (uint32_t)CY_SAR_CTRL_NEGVREF_HW | (uint32_t)`${compDly}` | (uint32_t)CY_SAR_COMP_PWR_100 | (uint32_t)CY_SAR_DEEPSLEEP_SARMUX_OFF | (uint32_t)CY_SAR_SARSEQ_SWITCH_ENABLE)" public="true" include="true" />
       <ConfigDefine name="`${INST_NAME}`_SAMPLE" value="((uint32_t)SAR_SAMPLE_CTRL_EOS_DSI_OUT_EN_Msk | (uint32_t)CY_SAR_RIGHT_ALIGN | (uint32_t)`${diff_format}` | (uint32_t)`${se_format}` | (uint32_t)`${avg_cnt}` | (uint32_t)`${avg_mode}` | (uint32_t)`${soc_en ? trigger_mode : &quot;CY_SAR_TRIGGER_MODE_FW_ONLY&quot;}`)" public="true" include="true" />
       <ConfigDefine name="`${INST_NAME}`_CH$idx_CONFIG" value="(((uint32_t)`${instName}`_VPLUS$idx_PORT &lt;&lt; SAR_CHAN_CONFIG_POS_PORT_ADDR_Pos) | (uint32_t)(`${instName}`_VPLUS$idx_PIN &lt;&lt; SAR_CHAN_CONFIG_POS_PIN_ADDR_Pos) | CY_SAR_CHAN_SINGLE_ENDED | `${ch$idx_avg ? &quot;CY_SAR_CHAN_AVG_ENABLE&quot; : &quot;CY_SAR_CHAN_AVG_DISABLE&quot;}` | (uint32_t)`${getTclVar(&quot;ch$idx_sample_time_sel&quot;, scheduler)}`)" public="true" include="`${ch$idx_en &amp;&amp; ch$idx_se}`" repeatCount="16"/>
-      
-      <ConfigDefine name="`${instName}`_VMINUS0_PORT" value="(0UL)" public="true" include="`${ch0_en &amp;&amp; !ch0_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS0_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS1_PORT" value="(0UL)" public="true" include="`${ch1_en &amp;&amp; !ch1_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS1_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS2_PORT" value="(0UL)" public="true" include="`${ch2_en &amp;&amp; !ch2_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS2_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS3_PORT" value="(0UL)" public="true" include="`${ch3_en &amp;&amp; !ch3_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS3_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS4_PORT" value="(0UL)" public="true" include="`${ch4_en &amp;&amp; !ch4_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS4_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS5_PORT" value="(0UL)" public="true" include="`${ch5_en &amp;&amp; !ch5_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS5_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS6_PORT" value="(0UL)" public="true" include="`${ch6_en &amp;&amp; !ch6_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS6_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS7_PORT" value="(0UL)" public="true" include="`${ch7_en &amp;&amp; !ch7_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS7_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS8_PORT" value="(0UL)" public="true" include="`${ch8_en &amp;&amp; !ch8_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS8_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS9_PORT" value="(0UL)" public="true" include="`${ch9_en &amp;&amp; !ch9_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS9_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS10_PORT" value="(0UL)" public="true" include="`${ch10_en &amp;&amp; !ch10_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS10_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS11_PORT" value="(0UL)" public="true" include="`${ch11_en &amp;&amp; !ch11_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS11_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS12_PORT" value="(0UL)" public="true" include="`${ch12_en &amp;&amp; !ch12_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS12_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS13_PORT" value="(0UL)" public="true" include="`${ch13_en &amp;&amp; !ch13_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS13_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS14_PORT" value="(0UL)" public="true" include="`${ch14_en &amp;&amp; !ch14_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS14_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS15_PORT" value="(0UL)" public="true" include="`${ch15_en &amp;&amp; !ch15_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS15_PAIRING)"/>
-      
-      <ConfigDefine name="`${instName}`_VMINUS0_PIN" value="(0UL)" public="true" include="`${ch0_en &amp;&amp; !ch0_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS0_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS1_PIN" value="(0UL)" public="true" include="`${ch1_en &amp;&amp; !ch1_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS1_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS2_PIN" value="(0UL)" public="true" include="`${ch2_en &amp;&amp; !ch2_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS2_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS3_PIN" value="(0UL)" public="true" include="`${ch3_en &amp;&amp; !ch3_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS3_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS4_PIN" value="(0UL)" public="true" include="`${ch4_en &amp;&amp; !ch4_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS4_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS5_PIN" value="(0UL)" public="true" include="`${ch5_en &amp;&amp; !ch5_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS5_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS6_PIN" value="(0UL)" public="true" include="`${ch6_en &amp;&amp; !ch6_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS6_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS7_PIN" value="(0UL)" public="true" include="`${ch7_en &amp;&amp; !ch7_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS7_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS8_PIN" value="(0UL)" public="true" include="`${ch8_en &amp;&amp; !ch8_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS8_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS9_PIN" value="(0UL)" public="true" include="`${ch9_en &amp;&amp; !ch9_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS9_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS10_PIN" value="(0UL)" public="true" include="`${ch10_en &amp;&amp; !ch10_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS10_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS11_PIN" value="(0UL)" public="true" include="`${ch11_en &amp;&amp; !ch11_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS11_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS12_PIN" value="(0UL)" public="true" include="`${ch12_en &amp;&amp; !ch12_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS12_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS13_PIN" value="(0UL)" public="true" include="`${ch13_en &amp;&amp; !ch13_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS13_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS14_PIN" value="(0UL)" public="true" include="`${ch14_en &amp;&amp; !ch14_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS14_PAIRING)"/>
-      <ConfigDefine name="`${instName}`_VMINUS15_PIN" value="(0UL)" public="true" include="`${ch15_en &amp;&amp; !ch15_se}`" guard="(CY_SAR_CHAN_DIFFERENTIAL_PAIRED == `${instName}`_VMINUS15_PAIRING)"/>
-      
+
+      <ConfigDefine name="`${instName}`_VMINUS0_PORT" value="(0UL)" public="true" include="`${ch0_en &amp;&amp; !ch0_se}`" guard="!defined `${instName}`_VMINUS0_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS1_PORT" value="(0UL)" public="true" include="`${ch1_en &amp;&amp; !ch1_se}`" guard="!defined `${instName}`_VMINUS1_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS2_PORT" value="(0UL)" public="true" include="`${ch2_en &amp;&amp; !ch2_se}`" guard="!defined `${instName}`_VMINUS2_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS3_PORT" value="(0UL)" public="true" include="`${ch3_en &amp;&amp; !ch3_se}`" guard="!defined `${instName}`_VMINUS3_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS4_PORT" value="(0UL)" public="true" include="`${ch4_en &amp;&amp; !ch4_se}`" guard="!defined `${instName}`_VMINUS4_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS5_PORT" value="(0UL)" public="true" include="`${ch5_en &amp;&amp; !ch5_se}`" guard="!defined `${instName}`_VMINUS5_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS6_PORT" value="(0UL)" public="true" include="`${ch6_en &amp;&amp; !ch6_se}`" guard="!defined `${instName}`_VMINUS6_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS7_PORT" value="(0UL)" public="true" include="`${ch7_en &amp;&amp; !ch7_se}`" guard="!defined `${instName}`_VMINUS7_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS8_PORT" value="(0UL)" public="true" include="`${ch8_en &amp;&amp; !ch8_se}`" guard="!defined `${instName}`_VMINUS8_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS9_PORT" value="(0UL)" public="true" include="`${ch9_en &amp;&amp; !ch9_se}`" guard="!defined `${instName}`_VMINUS9_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS10_PORT" value="(0UL)" public="true" include="`${ch10_en &amp;&amp; !ch10_se}`" guard="!defined `${instName}`_VMINUS10_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS11_PORT" value="(0UL)" public="true" include="`${ch11_en &amp;&amp; !ch11_se}`" guard="!defined `${instName}`_VMINUS11_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS12_PORT" value="(0UL)" public="true" include="`${ch12_en &amp;&amp; !ch12_se}`" guard="!defined `${instName}`_VMINUS12_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS13_PORT" value="(0UL)" public="true" include="`${ch13_en &amp;&amp; !ch13_se}`" guard="!defined `${instName}`_VMINUS13_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS14_PORT" value="(0UL)" public="true" include="`${ch14_en &amp;&amp; !ch14_se}`" guard="!defined `${instName}`_VMINUS14_PORT"/>
+      <ConfigDefine name="`${instName}`_VMINUS15_PORT" value="(0UL)" public="true" include="`${ch15_en &amp;&amp; !ch15_se}`" guard="!defined `${instName}`_VMINUS15_PORT"/>
+
+      <ConfigDefine name="`${instName}`_VMINUS0_PIN" value="(0UL)" public="true" include="`${ch0_en &amp;&amp; !ch0_se}`" guard="!defined `${instName}`_VMINUS0_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS1_PIN" value="(0UL)" public="true" include="`${ch1_en &amp;&amp; !ch1_se}`" guard="!defined `${instName}`_VMINUS1_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS2_PIN" value="(0UL)" public="true" include="`${ch2_en &amp;&amp; !ch2_se}`" guard="!defined `${instName}`_VMINUS2_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS3_PIN" value="(0UL)" public="true" include="`${ch3_en &amp;&amp; !ch3_se}`" guard="!defined `${instName}`_VMINUS3_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS4_PIN" value="(0UL)" public="true" include="`${ch4_en &amp;&amp; !ch4_se}`" guard="!defined `${instName}`_VMINUS4_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS5_PIN" value="(0UL)" public="true" include="`${ch5_en &amp;&amp; !ch5_se}`" guard="!defined `${instName}`_VMINUS5_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS6_PIN" value="(0UL)" public="true" include="`${ch6_en &amp;&amp; !ch6_se}`" guard="!defined `${instName}`_VMINUS6_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS7_PIN" value="(0UL)" public="true" include="`${ch7_en &amp;&amp; !ch7_se}`" guard="!defined `${instName}`_VMINUS7_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS8_PIN" value="(0UL)" public="true" include="`${ch8_en &amp;&amp; !ch8_se}`" guard="!defined `${instName}`_VMINUS8_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS9_PIN" value="(0UL)" public="true" include="`${ch9_en &amp;&amp; !ch9_se}`" guard="!defined `${instName}`_VMINUS9_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS10_PIN" value="(0UL)" public="true" include="`${ch10_en &amp;&amp; !ch10_se}`" guard="!defined `${instName}`_VMINUS10_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS11_PIN" value="(0UL)" public="true" include="`${ch11_en &amp;&amp; !ch11_se}`" guard="!defined `${instName}`_VMINUS11_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS12_PIN" value="(0UL)" public="true" include="`${ch12_en &amp;&amp; !ch12_se}`" guard="!defined `${instName}`_VMINUS12_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS13_PIN" value="(0UL)" public="true" include="`${ch13_en &amp;&amp; !ch13_se}`" guard="!defined `${instName}`_VMINUS13_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS14_PIN" value="(0UL)" public="true" include="`${ch14_en &amp;&amp; !ch14_se}`" guard="!defined `${instName}`_VMINUS14_PIN"/>
+      <ConfigDefine name="`${instName}`_VMINUS15_PIN" value="(0UL)" public="true" include="`${ch15_en &amp;&amp; !ch15_se}`" guard="!defined `${instName}`_VMINUS15_PIN"/>
+
       <ConfigDefine name="`${INST_NAME}`_CH$idx_CONFIG" value="(((uint32_t)`${instName}`_VPLUS$idx_PORT &lt;&lt; SAR_CHAN_CONFIG_POS_PORT_ADDR_Pos) | (uint32_t)(`${instName}`_VPLUS$idx_PIN &lt;&lt; SAR_CHAN_CONFIG_POS_PIN_ADDR_Pos) | (uint32_t)(`${instName}`_VMINUS$idx_PORT &lt;&lt; SAR_CHAN_CONFIG_NEG_PORT_ADDR_Pos) | (uint32_t)(`${instName}`_VMINUS$idx_PIN &lt;&lt; SAR_CHAN_CONFIG_NEG_PIN_ADDR_Pos) | `${instName}`_VMINUS$idx_PAIRING | `${ch$idx_avg ? &quot;CY_SAR_CHAN_AVG_ENABLE&quot; : &quot;CY_SAR_CHAN_AVG_DISABLE&quot;}` | (uint32_t)`${getTclVar(&quot;ch$idx_sample_time_sel&quot;, scheduler)}`)" public="true" include="`${ch$idx_en &amp;&amp; !ch$idx_se}`" repeatCount="16"/>
       <!-- injection channel -->
       <ConfigDefine name="`${INST_NAME}`_INJ_CONFIG" value="(((uint32_t)`${instName}`_VPLUS16_PORT &lt;&lt; SAR_INJ_CHAN_CONFIG_INJ_PORT_ADDR_Pos) | (uint32_t)(`${instName}`_VPLUS16_PIN &lt;&lt; SAR_INJ_CHAN_CONFIG_INJ_PIN_ADDR_Pos) | `${inj_se ? &quot;CY_SAR_CHAN_SINGLE_ENDED&quot; : &quot;CY_SAR_CHAN_DIFFERENTIAL_PAIRED&quot;}` | `${inj_avg ? &quot;CY_SAR_CHAN_AVG_ENABLE&quot; : &quot;CY_SAR_CHAN_AVG_DISABLE&quot;}` | (uint32_t)`${getTclVar(&quot;inj_sample_time_sel&quot;, scheduler)}`)" public="true" include="`${inj_en}`"/>

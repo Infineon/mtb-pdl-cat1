@@ -1,6 +1,6 @@
 /*******************************************************************************
 * \file cyb06xxa_cm4.icf
-* \version 2.90.1
+* \version 2.91
 *
 * Linker file for the IAR compiler.
 *
@@ -8,7 +8,7 @@
 * input files should be mapped into the output file, and to control the memory
 * layout of the output file.
 *
-* \note The entry point is fixed and starts at 0x10000000. The valid application
+* \note The entry point is fixed and starts at 0x100E0000. The valid application
 * image should be placed there.
 *
 * \note The linker files included with the PDL template projects must be generic
@@ -19,7 +19,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -62,30 +62,6 @@ define symbol __ICFEDIT_region_IROM2_start__ = 0x14000000;
 define symbol __ICFEDIT_region_IROM2_end__   = 0x14007FFF;
 
 /* The following symbols define device specific memory regions and must not be changed. */
-/* Supervisory FLASH - User Data */
-define symbol __ICFEDIT_region_IROM3_start__ = 0x16000800;
-define symbol __ICFEDIT_region_IROM3_end__   = 0x16000FFF;
-
-/* Supervisory FLASH - Normal Access Restrictions (NAR) */
-define symbol __ICFEDIT_region_IROM4_start__ = 0x16001A00;
-define symbol __ICFEDIT_region_IROM4_end__   = 0x16001BFF;
-
-/* Supervisory FLASH - Public Key */
-define symbol __ICFEDIT_region_IROM5_start__ = 0x16005A00;
-define symbol __ICFEDIT_region_IROM5_end__   = 0x160065FF;
-
-/* Supervisory FLASH - Table of Content # 2 */
-define symbol __ICFEDIT_region_IROM6_start__ = 0x16007C00;
-define symbol __ICFEDIT_region_IROM6_end__   = 0x16007DFF;
-
-/* Supervisory FLASH - Table of Content # 2 Copy */
-define symbol __ICFEDIT_region_IROM7_start__ = 0x16007E00;
-define symbol __ICFEDIT_region_IROM7_end__   = 0x16007FFF;
-
-/* eFuse */
-define symbol __ICFEDIT_region_IROM8_start__ = 0x90700000;
-define symbol __ICFEDIT_region_IROM8_end__   = 0x907FFFFF;
-
 /* XIP */
 define symbol __ICFEDIT_region_EROM1_start__ = 0x18000000;
 define symbol __ICFEDIT_region_EROM1_end__   = 0x1FFFFFFF;
@@ -127,12 +103,6 @@ define symbol BOOT_HEADER_SIZE  = 0x400;
 define memory mem with size = 4G;
 define region IROM1_region = mem:[from __ICFEDIT_region_IROM1_start__ to __ICFEDIT_region_IROM1_end__];
 define region IROM2_region = mem:[from __ICFEDIT_region_IROM2_start__ to __ICFEDIT_region_IROM2_end__];
-define region IROM3_region = mem:[from __ICFEDIT_region_IROM3_start__ to __ICFEDIT_region_IROM3_end__];
-define region IROM4_region = mem:[from __ICFEDIT_region_IROM4_start__ to __ICFEDIT_region_IROM4_end__];
-define region IROM5_region = mem:[from __ICFEDIT_region_IROM5_start__ to __ICFEDIT_region_IROM5_end__];
-define region IROM6_region = mem:[from __ICFEDIT_region_IROM6_start__ to __ICFEDIT_region_IROM6_end__];
-define region IROM7_region = mem:[from __ICFEDIT_region_IROM7_start__ to __ICFEDIT_region_IROM7_end__];
-define region IROM8_region = mem:[from __ICFEDIT_region_IROM8_start__ to __ICFEDIT_region_IROM8_end__];
 define region EROM1_region = mem:[from __ICFEDIT_region_EROM1_start__ to __ICFEDIT_region_EROM1_end__];
 define region IRAM1_region = mem:[from __ICFEDIT_region_IRAM1_start__ to __ICFEDIT_region_IRAM1_end__];
 
@@ -159,24 +129,6 @@ place at address (__ICFEDIT_region_IROM1_start__ + BOOT_HEADER_SIZE) { block RO 
 /* Emulated EEPROM Flash area */
 ".cy_em_eeprom" : place at start of IROM2_region  { section .cy_em_eeprom };
 
-/* Supervisory Flash - User Data */
-".cy_sflash_user_data" : place at start of IROM3_region  { section .cy_sflash_user_data };
-
-/* Supervisory Flash - NAR */
-".cy_sflash_nar" : place at start of IROM4_region  { section .cy_sflash_nar };
-
-/* Supervisory Flash - Public Key */
-".cy_sflash_public_key" : place at start of IROM5_region  { section .cy_sflash_public_key };
-
-/* Supervisory Flash - TOC2 */
-".cy_toc_part2" : place at start of IROM6_region  { section .cy_toc_part2 };
-
-/* Supervisory Flash - RTOC2 */
-".cy_rtoc_part2" : place at start of IROM7_region  { section .cy_rtoc_part2 };
-
-/* eFuse */
-".cy_efuse" : place at start of IROM8_region  { section .cy_efuse };
-
 /* Execute in Place (XIP). See the smif driver documentation for details. */
 "cy_xip" : place at start of EROM1_region  { block cy_xip };
 
@@ -185,47 +137,11 @@ place at start of IRAM1_region  { readwrite section .intvec_ram};
 place in          IRAM1_region  { readwrite };
 place at end   of IRAM1_region  { block HSTACK };
 
-/* These sections are used for additional metadata (silicon revision, Silicon/JTAG ID, etc.) storage. */
-".cymeta" : place at address mem : 0x90500000 { readonly section .cymeta };
-
-
 keep {  section .cy_app_signature,
         section .cy_em_eeprom,
-        section .cy_sflash_user_data,
-        section .cy_sflash_nar,
-        section .cy_sflash_public_key,
-        section .cy_toc_part2,
-        section .cy_rtoc_part2,
-        section .cy_efuse,
         section .cy_xip,
-        section .cymeta,
          };
 
 
-/* The following symbols used by the cymcuelftool. */
-/* Flash */
-define exported symbol __cy_memory_0_start    = 0x10000000;
-define exported symbol __cy_memory_0_length   = 0x001D0000;
-define exported symbol __cy_memory_0_row_size = 0x200;
-
-/* Emulated EEPROM Flash area */
-define exported symbol __cy_memory_1_start    = 0x14000000;
-define exported symbol __cy_memory_1_length   = 0x8000;
-define exported symbol __cy_memory_1_row_size = 0x200;
-
-/* Supervisory Flash */
-define exported symbol __cy_memory_2_start    = 0x16000000;
-define exported symbol __cy_memory_2_length   = 0x8000;
-define exported symbol __cy_memory_2_row_size = 0x200;
-
-/* XIP */
-define exported symbol __cy_memory_3_start    = 0x18000000;
-define exported symbol __cy_memory_3_length   = 0x08000000;
-define exported symbol __cy_memory_3_row_size = 0x200;
-
-/* eFuse */
-define exported symbol __cy_memory_4_start    = 0x90700000;
-define exported symbol __cy_memory_4_length   = 0x100000;
-define exported symbol __cy_memory_4_row_size = 1;
 
 /* EOF */

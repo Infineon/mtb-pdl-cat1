@@ -4,7 +4,7 @@
 
 ;*******************************************************************************
 ;* \file cyb06xx5_cm4_dual.sct
-;* \version 2.90.1
+;* \version 2.91
 ;*
 ;* Linker file for the ARMCC.
 ;*
@@ -26,7 +26,7 @@
 ;*
 ;*******************************************************************************
 ;* \copyright
-;* Copyright 2016-2020 Cypress Semiconductor Corporation
+;* Copyright 2016-2021 Cypress Semiconductor Corporation
 ;* SPDX-License-Identifier: Apache-2.0
 ;*
 ;* Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,8 +50,8 @@
 ; Your changes must be aligned with the corresponding defines for CM0+ core in 'xx_cm0plus.scat',
 ; where 'xx' is the device group; for example, 'cyb06xx7_cm0plus.scat'.
 ; RAM
-#define RAM_START               0x08001800
-#define RAM_SIZE                0x0001E800
+#define RAM_START               0x08000800
+#define RAM_SIZE                0x0001F800
 ; Flash
 #define FLASH_START             0x10000000
 #define FLASH_SIZE              0x00030000
@@ -67,33 +67,9 @@
 
 
 ; The following defines describe device specific memory regions and must not be changed.
-; Supervisory flash: User data
-#define SFLASH_USER_DATA_START  0x16000800
-#define SFLASH_USER_DATA_SIZE   0x00000800
-
-; Supervisory flash: Normal Access Restrictions (NAR)
-#define SFLASH_NAR_START        0x16001A00
-#define SFLASH_NAR_SIZE         0x00000200
-
-; Supervisory flash: Public Key
-#define SFLASH_PUBLIC_KEY_START 0x16005A00
-#define SFLASH_PUBLIC_KEY_SIZE  0x00000C00
-
-; Supervisory flash: Table of Content # 2
-#define SFLASH_TOC_2_START      0x16007C00
-#define SFLASH_TOC_2_SIZE       0x00000200
-
-; Supervisory flash: Table of Content # 2 Copy
-#define SFLASH_RTOC_2_START     0x16007E00
-#define SFLASH_RTOC_2_SIZE      0x00000200
-
 ; External memory
 #define XIP_START               0x18000000
 #define XIP_SIZE                0x08000000
-
-; eFuse
-#define EFUSE_START             0x90700000
-#define EFUSE_SIZE              0x100000
 
 
 ; Cortex-M0+ application flash image area
@@ -158,52 +134,6 @@ LR_IROM1 (FLASH_START + FLASH_CM0P_SIZE) (FLASH_SIZE - FLASH_CM0P_SIZE)
 
 
 
-; Supervisory flash: User data
-LR_SFLASH_USER_DATA SFLASH_USER_DATA_START SFLASH_USER_DATA_SIZE
-{
-    .cy_sflash_user_data +0
-    {
-        * (.cy_sflash_user_data)
-    }
-}
-
-; Supervisory flash: Normal Access Restrictions (NAR)
-LR_SFLASH_NAR SFLASH_NAR_START SFLASH_NAR_SIZE
-{
-    .cy_sflash_nar +0
-    {
-        * (.cy_sflash_nar)
-    }
-}
-
-; Supervisory flash: Public Key
-LR_SFLASH_PUBLIC_KEY SFLASH_PUBLIC_KEY_START SFLASH_PUBLIC_KEY_SIZE
-{
-    .cy_sflash_public_key +0
-    {
-        * (.cy_sflash_public_key)
-    }
-}
-
-; Supervisory flash: Table of Content # 2
-LR_SFLASH_TOC_2 SFLASH_TOC_2_START SFLASH_TOC_2_SIZE
-{
-    .cy_toc_part2 +0
-    {
-        * (.cy_toc_part2)
-    }
-}
-
-; Supervisory flash: Table of Content # 2 Copy
-LR_SFLASH_RTOC_2 SFLASH_RTOC_2_START SFLASH_RTOC_2_SIZE
-{
-    .cy_rtoc_part2 +0
-    {
-        * (.cy_rtoc_part2)
-    }
-}
-
-
 ; Places the code in the Execute in Place (XIP) section. See the smif driver documentation for details.
 LR_EROM XIP_START XIP_SIZE
 {
@@ -212,45 +142,6 @@ LR_EROM XIP_START XIP_SIZE
         * (.cy_xip)
     }
 }
-
-
-; eFuse
-LR_EFUSE EFUSE_START EFUSE_SIZE
-{
-    .cy_efuse +0
-    {
-        * (.cy_efuse)
-    }
-}
-
-
-; The section is used for additional metadata (silicon revision, Silicon/JTAG ID, etc.) storage.
-CYMETA 0x90500000
-{
-    .cymeta +0 { * (.cymeta) }
-}
-
-/* The following symbols used by the cymcuelftool. */
-/* Flash */
-#define __cy_memory_0_start 0x10000000
-#define __cy_memory_0_length  0x00070000
-#define __cy_memory_0_row_size 0x200
-
-
-/* Supervisory Flash */
-#define __cy_memory_2_start    0x16000000
-#define __cy_memory_2_length   0x8000
-#define __cy_memory_2_row_size 0x200
-
-/* XIP */
-#define __cy_memory_3_start    0x18000000
-#define __cy_memory_3_length   0x08000000
-#define __cy_memory_3_row_size 0x200
-
-/* eFuse */
-#define __cy_memory_4_start    0x90700000
-#define __cy_memory_4_length   0x100000
-#define __cy_memory_4_row_size 1
 
 
 /* [] END OF FILE */

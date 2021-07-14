@@ -1,4 +1,4 @@
-# MTB CAT1A Peripheral Driver Library v2.2.0
+# MTB CAT1A Peripheral Driver Library v2.2.1
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,33 +8,20 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## New Features
 
-* Added support for new silicon revision of CY8C61x4 and CY8C62x4 devices.
-* Added RTOS friendly delay APIs in SYSLIB driver.
-* Enhanced SYSPM driver to manage the backup domain reset in a better manner and to store/restore the WCO trim value.
+## Build Changes
+
+* Linker script updated for PSoC64 devices to match with default policy settings. This increases flash space available for the user application.
 
 ## Updated Personalities
 
 * SAR - Bug fix/Code enhancement.
-* SYSCLK - Fixed compiler warning.
-* SYSPM - Minor bug fix.
-* TCPWM - Minor bug fix.
+* Emulated EEPROM - New personality.
 
 ## Added Drivers
 
 ## Updated Drivers
 
-* [GPIO 1.50](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
-* [SCB 2.80](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
-* [SDHOST 1.80](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sd__host.html)
-* [SMIF 2.20](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [SYSCLK 3.20](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSLIB 2.90](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
-
 ### Drivers with patch version updates
-
-Minor documentation changes:
-* [MCWDT 1.50.1](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
-* [SAR 2.0.1](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sar.html)
 
 ### Obsoleted part numbers
 
@@ -71,8 +58,8 @@ This version of PDL was validated for compatibility with the following Software 
 
 | Software and Tools                                                            | Version      |
 | :---                                                                          | :----        |
-| [Cypress Core Library](https://github.com/cypresssemiconductorco/core-lib)    | 1.1.4        |
-| [Cypress HAL](https://github.com/cypresssemiconductorco/psoc6hal)             | 1.4.0        |
+| [Cypress Core Library](https://github.com/cypresssemiconductorco/core-lib)    | 1.2.0        |
+| [Cypress HAL](https://github.com/cypresssemiconductorco/mtb-hal-cat1)         | 1.6.0        |
 | CMSIS-Core(M)                                                                 | 5.4.0        |
 | GCC Compiler                                                                  | 9.3.1        |
 | IAR Compiler                                                                  | 8.42.2       |
