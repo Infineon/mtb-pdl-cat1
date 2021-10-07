@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_pra_cfg.h
-* \version 2.20
+* \version 2.30
 *
 * \brief The header file of the PRA driver. The API is not intended to
 * be used directly by the user application.
@@ -28,7 +28,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS) && defined (CY_IP_MXS40IOSS)
+#if defined (CY_IP_MXS40SRSS)
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -363,7 +363,7 @@ uint32_t Cy_PRA_CalculatePLLOutFreq(uint8_t pll, const cy_stc_pra_system_config_
 
 #endif /* (CY_DEVICE_SECURE) */
 
-#endif /* CY_IP_MXS40IOSS */
+#endif /* defined (CY_IP_MXS40SRSS) */
 
 #endif /* #if !defined(CY_PRA_CFG_H) */
 

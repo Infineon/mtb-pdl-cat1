@@ -39,8 +39,8 @@
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__clk__hf.html" linkText="Open High-Frequency Clocks Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
-  
-    <ParamRange id="clockInst" name="clockInst" group="Internal" default="`${getInstNumber(&quot;hfclk&quot;)}`" min="0" max="`${NUM_HFROOT-1}`" resolution="1" visible="false" editable="false" desc="" /> 
+
+    <ParamRange id="clockInst" name="clockInst" group="Internal" default="`${getInstNumber(&quot;hfclk&quot;)}`" min="0" max="`${NUM_HFROOT-1}`" resolution="1" visible="false" editable="false" desc="" />
     <ParamChoice id="sourceClockNumber" name="Source Clock" group="General" default="0" visible="true" editable="true" desc="The clock source for CLK_HF`${clockInst}`">
       <Entry name="CLK_PATH0"  value="0"  visible="`${NUM_CLKPATH >= 1}`"/>
       <Entry name="CLK_PATH1"  value="1"  visible="`${NUM_CLKPATH >= 2}`"/>
@@ -59,7 +59,7 @@
       <Entry name="CLK_PATH14" value="14" visible="`${NUM_CLKPATH >= 15}`"/>
       <Entry name="CLK_PATH15" value="15" visible="`${NUM_CLKPATH >= 16}`"/>
     </ParamChoice>
-    
+
     <!-- If the FLL/PLL are enabled, their output drive the corresponding clock path -->
     <ParamBool id="isFllUsed" name="Is FLL Used" group="Internal" default="`${(sourceClockNumber eq 0) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].fll[0]&quot;)}`" visible="false" editable="false" desc="" />
 
@@ -77,7 +77,7 @@
     <ParamRange id="sourceFreq" name="sourceFrequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="400000000" resolution="0.001" visible="false" editable="false" desc="" />
     <ParamString id="accuracy" name="accuracy" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;accuracy&quot;) : 0}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceFrequencyInfo" name="Source Frequency" group="General" default="`${formatFrequency(sourceFreq,accuracy)}`" visible="true" editable="false" desc="Source clock frequency" />
-    
+
 
     <ParamChoice id="divider" name="Divider" group="General" default="1" visible="true" editable="true" desc="The source clock frequency divider">
       <Entry name="1" value="1" visible="true"/>
@@ -87,7 +87,7 @@
     </ParamChoice>
     <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFreq / divider}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
     <!-- If the frequency is less than one MHz, display its value in kHz -->
-    <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${formatFrequency(frequency,accuracy)}`" visible="true" editable="false" desc="The resulting CLK_HF`${clockInst}` output clock frequency" />    
+    <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${formatFrequency(frequency,accuracy)}`" visible="true" editable="false" desc="The resulting CLK_HF`${clockInst}` output clock frequency" />
     <ParamSignal port="root_clk[0]" name="Clock Output" group="General" visible="true" desc="A high-frequency clock output driving specific periperals" canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -142,7 +142,7 @@
     <ConfigDefine name="CY_CFG_SYSCLK_CLKHF`${clockInst}`_FREQ_MHZ" public="false" value="`${frequency / 1000000}`UL" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKHF`${clockInst}`_CLKPATH" public="false" value="CY_SYSCLK_CLKHF_IN_CLKPATH`${sourceClockNumber}`" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKHF`${clockInst}`_CLKPATH_NUM" public="true" value="`${sourceClockNumber}`UL" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkHf`${clockInst}`Init()" body="    Cy_SysClk_ClkHfSetSource(`${clockInst}`U, CY_CFG_SYSCLK_CLKHF`${clockInst}`_CLKPATH);&#xA;    Cy_SysClk_ClkHfSetDivider(`${clockInst}`U, CY_SYSCLK_CLKHF_`${divider == 1 ? &quot;NO_DIVIDE&quot; : ((&quot;DIVIDE_BY_&quot;) . divider)}`);" public="false" include="`${clockInst eq 0}`" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkHf`${clockInst}`Init()" body="    Cy_SysClk_ClkHfSetSource(CY_CFG_SYSCLK_CLKHF`${clockInst}`, CY_CFG_SYSCLK_CLKHF`${clockInst}`_CLKPATH);&#xA;    Cy_SysClk_ClkHfSetDivider(CY_CFG_SYSCLK_CLKHF`${clockInst}`, CY_SYSCLK_CLKHF_`${divider == 1 ? &quot;NO_DIVIDE&quot; : ((&quot;DIVIDE_BY_&quot;) . divider)}`);&#xA;    Cy_SysClk_ClkHfEnable(CY_CFG_SYSCLK_CLKHF`${clockInst}`);" public="false" include="`${clockInst gt 0}`" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkHf`${clockInst}`Init()" body="    Cy_SysClk_ClkHfSetSource(`${clockInst}`U, CY_CFG_SYSCLK_CLKHF`${clockInst}`_CLKPATH);&#xA;    Cy_SysClk_ClkHfSetDivider(`${clockInst}`U, CY_SYSCLK_CLKHF_`${divider == 1 ? &quot;NO_DIVIDE&quot; : ((&quot;DIVIDE_BY_&quot;) . divider)}`);" public="false" include="`${clockInst eq 0}`" guard="(!defined(CY_DEVICE_SECURE))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkHf`${clockInst}`Init()" body="    Cy_SysClk_ClkHfSetSource(CY_CFG_SYSCLK_CLKHF`${clockInst}`, CY_CFG_SYSCLK_CLKHF`${clockInst}`_CLKPATH);&#xA;    Cy_SysClk_ClkHfSetDivider(CY_CFG_SYSCLK_CLKHF`${clockInst}`, CY_SYSCLK_CLKHF_`${divider == 1 ? &quot;NO_DIVIDE&quot; : ((&quot;DIVIDE_BY_&quot;) . divider)}`);&#xA;    Cy_SysClk_ClkHfEnable(CY_CFG_SYSCLK_CLKHF`${clockInst}`);" public="false" include="`${clockInst gt 0}`" guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

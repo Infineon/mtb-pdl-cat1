@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_pra.c
-* \version 2.20
+* \version 2.30
 *
 * \brief The source code file for the PRA driver. The API is not intended to
 * be used directly by the user application.
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS) && defined (CY_IP_MXS40IOSS)
+#if defined (CY_IP_MXS40SRSS)
 
 #include "cy_pra.h"
 #include "cy_pra_cfg.h"
@@ -37,6 +37,9 @@
 #include "cy_gpio.h"
 
 #if defined (CY_DEVICE_SECURE) || defined (CY_DOXYGEN)
+
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 17.2', 4, \
+'Checked manually. All the recursive cycles are handled properly.');
 
 #define CY_PRA_REG_POLICY_WRITE_ALL   (0x00000000UL)
 #define CY_PRA_REG_POLICY_WRITE_NONE  (0xFFFFFFFFUL)
@@ -50,6 +53,8 @@
 #define CY_PRA_CLK_ECO_OUTPIN_INDEX     (2UL)
 #define CY_PRA_CLK_WCO_INPIN_INDEX      (3UL)
 #define CY_PRA_CLK_WCO_OUTPIN_INDEX     (4UL)
+
+#define CY_PRA_SKIP_SYS_CFG             (0xFFUL)
 
 
 /* The table to get a register address based on its index */
@@ -679,7 +684,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
 
             if( NULL != (cy_stc_pra_system_config_t *)(message->praData1))
             {
-                cy_en_sysclk_status_t sysClkStatus = CY_SYSCLK_SUCCESS;
+                bool structInitBak = structInit;
                 message->praStatus = CY_PRA_STATUS_SUCCESS;
 
                 structCpy = *((cy_stc_pra_system_config_t *)(message->praData1));
@@ -706,15 +711,22 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                     /* Skip clock clocks configuration resetting */
                 }
 
-                CY_MISRA_FP_LINE('MISRA C-2012 Rule 14.3','Checked manually, condition evaluates true.');
-                if (CY_SYSCLK_SUCCESS == sysClkStatus)
+                if (CY_PRA_STATUS_SUCCESS == message->praStatus)
                 {
+                    structInit = false; /* This makes sure not to allow any CY_PRA_MSG_TYPE_FUNC_POLICY \
+                                            operation during system configurations */
                     message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                }
 
-                if((!structInit) && (CY_PRA_STATUS_SUCCESS == message->praStatus))
+                    structInit = structInitBak;
+
+                    if(CY_PRA_STATUS_SUCCESS == message->praStatus)
+                    {
+                        structInit = true;
+                    }
+                }
+                else
                 {
-                    structInit = true;
+                    /* Error PRA status */
                 }
             }
             else
@@ -905,13 +917,20 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         {
                             structCpy.ulpEnable = false;
                         }
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.powerEnable = powerEnableTmp;
-                            structCpy.ldoEnable = ldoEnableTmp;
-                            structCpy.ulpEnable = ulpEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.powerEnable = powerEnableTmp;
+                                structCpy.ldoEnable = ldoEnableTmp;
+                                structCpy.ulpEnable = ulpEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -933,13 +952,20 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         {
                             structCpy.ulpEnable = false;
                         }
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.powerEnable = powerEnableTmp;
-                            structCpy.ldoEnable = ldoEnableTmp;
-                            structCpy.ulpEnable = ulpEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.powerEnable = powerEnableTmp;
+                                structCpy.ldoEnable = ldoEnableTmp;
+                                structCpy.ulpEnable = ulpEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -952,12 +978,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         pwrCurrentModeMinTmp = structCpy.pwrCurrentModeMin;
                         structCpy.powerEnable = true;
                         structCpy.pwrCurrentModeMin = true;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.powerEnable = powerEnableTmp;
-                            structCpy.pwrCurrentModeMin = pwrCurrentModeMinTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.powerEnable = powerEnableTmp;
+                                structCpy.pwrCurrentModeMin = pwrCurrentModeMinTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -970,12 +1003,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         pwrCurrentModeMinTmp = structCpy.pwrCurrentModeMin;
                         structCpy.powerEnable = true;
                         structCpy.pwrCurrentModeMin = false;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.powerEnable = powerEnableTmp;
-                            structCpy.pwrCurrentModeMin = pwrCurrentModeMinTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.powerEnable = powerEnableTmp;
+                                structCpy.pwrCurrentModeMin = pwrCurrentModeMinTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -986,11 +1026,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         ecoEnableTmp = structCpy.ecoEnable;
                         structCpy.ecoEnable = false;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.ecoEnable = ecoEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.ecoEnable = ecoEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1004,12 +1051,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         fllEnableTmp = structCpy.fllEnable;
                         structCpy.fllEnable = false;
                         structCpy.fllOutFreqHz = CY_PRA_DEFAULT_ZERO;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.fllEnable = fllEnableTmp;
-                            structCpy.fllOutFreqHz = fllOutFreqHzTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.fllEnable = fllEnableTmp;
+                                structCpy.fllOutFreqHz = fllOutFreqHzTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1023,13 +1077,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                             ((message->praData1) == CY_PRA_CLKPLL_1) ? (pllEnable = structCpy.pll0Enable) : (pllEnable = structCpy.pll1Enable);
 
                             ((message->praData1) == CY_PRA_CLKPLL_1) ? (structCpy.pll0Enable = false) : (structCpy.pll1Enable = false);
-
-                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-
-                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                             {
-                                /* On failure, previous values are restored */
-                                ((message->praData1) == CY_PRA_CLKPLL_1) ? (structCpy.pll0Enable = pllEnable) : (structCpy.pll1Enable = pllEnable);
+                                message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+
+                                if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                                {
+                                    /* On failure, previous values are restored */
+                                    ((message->praData1) == CY_PRA_CLKPLL_1) ? (structCpy.pll0Enable = pllEnable) : (structCpy.pll1Enable = pllEnable);
+                                }
+                            }
+                            else
+                            {
+                                message->praStatus = CY_PRA_STATUS_SUCCESS;
                             }
                         }
                         else
@@ -1045,11 +1105,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         iloEnableTmp = structCpy.iloEnable;
                         structCpy.iloEnable = true;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored  */
-                            structCpy.iloEnable = iloEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored  */
+                                structCpy.iloEnable = iloEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1060,11 +1127,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         iloEnableTmp = structCpy.iloEnable;
                         structCpy.iloEnable = false;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.iloEnable = iloEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.iloEnable = iloEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1075,11 +1149,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         iloHibernateOnTmp = structCpy.iloHibernateON;
                         structCpy.iloHibernateON = (CY_PRA_DATA_DISABLE != message->praData1);
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.iloHibernateON = iloHibernateOnTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.iloHibernateON = iloHibernateOnTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1090,11 +1171,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         piloEnableTmp = structCpy.piloEnable;
                         structCpy.piloEnable = true;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.piloEnable = piloEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.piloEnable = piloEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1105,11 +1193,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         piloEnableTmp = structCpy.piloEnable;
                         structCpy.piloEnable = false;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.piloEnable = piloEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.piloEnable = piloEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1120,11 +1215,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         wcoEnableTmp = structCpy.wcoEnable;
                         structCpy.wcoEnable = true;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.wcoEnable = wcoEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.wcoEnable = wcoEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1135,11 +1237,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         wcoEnableTmp = structCpy.wcoEnable;
                         structCpy.wcoEnable = false;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.wcoEnable = wcoEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.wcoEnable = wcoEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1151,14 +1260,17 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         bypassEnableTmp = structCpy.bypassEnable;
                         structCpy.bypassEnable = ((cy_en_wco_bypass_modes_t) message->praData1 == CY_SYSCLK_WCO_BYPASSED) ? true : false;
                         message->praStatus = CY_PRA_STATUS_SUCCESS;
-                        /* The bypass value will be written to the register only when WCO is enabled */
-                        if (structCpy.wcoEnable)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            /* The bypass value will be written to the register only when WCO is enabled */
+                            if (structCpy.wcoEnable)
                             {
-                                /* On failure, previous values are restored */
-                                structCpy.bypassEnable = bypassEnableTmp;
+                                message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                                if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                                {
+                                    /* On failure, previous values are restored */
+                                    structCpy.bypassEnable = bypassEnableTmp;
+                                }
                             }
                         }
                     }
@@ -1207,7 +1319,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                             break;
 
                         }
-                        if (message->praStatus == CY_PRA_STATUS_SUCCESS)
+                        if ((message->praStatus == CY_PRA_STATUS_SUCCESS) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -1291,7 +1403,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                             break;
 
                         }
-                        if (message->praStatus == CY_PRA_STATUS_SUCCESS)
+                        if ((message->praStatus == CY_PRA_STATUS_SUCCESS) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -1404,7 +1516,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                          * that particular HF is enabled. Otherwise, it is stored in
                          * the system config structure
                          */
-                        if ((message->praStatus == CY_PRA_STATUS_SUCCESS) && (hfEnabled))
+                        if ((message->praStatus == CY_PRA_STATUS_SUCCESS) && (hfEnabled) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -1523,7 +1635,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                          * that particular HF is enabled. Otherwise, it is stored in
                          * the system config structure
                          */
-                        if ((message->praStatus == CY_PRA_STATUS_SUCCESS) && (hfEnabled))
+                        if ((message->praStatus == CY_PRA_STATUS_SUCCESS) && (hfEnabled) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -1579,12 +1691,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         clkFastDivTmp = structCpy.clkFastDiv;
                         structCpy.clkFastEnable = true;
                         structCpy.clkFastDiv =  (uint8_t)(message->praData1);
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored  */
-                            structCpy.clkFastDiv = clkFastDivTmp;
-                            structCpy.clkFastEnable = clkFastEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored  */
+                                structCpy.clkFastDiv = clkFastDivTmp;
+                                structCpy.clkFastEnable = clkFastEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1598,12 +1717,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         clkPeriEnableTmp = structCpy.clkPeriEnable;
                         structCpy.clkPeriEnable = true;
                         structCpy.clkPeriDiv =  (uint8_t)(message->praData1);
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored  */
-                            structCpy.clkPeriDiv = clkPeriDivTmp;
-                            structCpy.clkPeriEnable = clkPeriEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored  */
+                                structCpy.clkPeriDiv = clkPeriDivTmp;
+                                structCpy.clkPeriEnable = clkPeriEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1617,12 +1743,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         clkLfSourceTmp = structCpy.clkLfSource;
                         structCpy.clkLFEnable = true;
                         structCpy.clkLfSource = (cy_en_clklf_in_sources_t)message->praData1;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.clkLfSource = clkLfSourceTmp;
-                            structCpy.clkLFEnable = clkLFEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.clkLfSource = clkLfSourceTmp;
+                                structCpy.clkLFEnable = clkLFEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1634,7 +1767,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         clkTimerSourceTmp = structCpy.clkTimerSource;
                         structCpy.clkTimerSource = (cy_en_clktimer_in_sources_t)message->praData1;
                         message->praStatus = CY_PRA_STATUS_SUCCESS;
-                        if (structCpy.clkTimerEnable)
+                        if ((structCpy.clkTimerEnable) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -1657,7 +1790,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                          * when CLK_TIMER is enabled. Otherwise, it is only
                          * stored in the system config structure
                          */
-                        if (structCpy.clkTimerEnable)
+                        if ((structCpy.clkTimerEnable) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -1675,11 +1808,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         clkTimerEnableTmp = structCpy.clkTimerEnable;
                         structCpy.clkTimerEnable = true;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored  */
-                            structCpy.clkTimerEnable = clkTimerEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored  */
+                                structCpy.clkTimerEnable = clkTimerEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1690,11 +1830,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         clkTimerEnableTmp = structCpy.clkTimerEnable;
                         structCpy.clkTimerEnable = false;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored  */
-                            structCpy.clkTimerEnable = clkTimerEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored  */
+                                structCpy.clkTimerEnable = clkTimerEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1710,7 +1857,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                          * when PUMP is enabled. Otherwise, it is only
                          * stored in the system config structure
                          */
-                        if (structCpy.clkPumpEnable)
+                        if ((structCpy.clkPumpEnable) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -1733,7 +1880,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                          * when PUMP is enabled. Otherwise, it is only
                          * stored in the system config structure
                          */
-                        if (structCpy.clkPumpEnable)
+                        if ((structCpy.clkPumpEnable) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -1751,11 +1898,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         clkPumpEnableTmp = structCpy.clkPumpEnable;
                         structCpy.clkPumpEnable = true;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored  */
-                            structCpy.clkPumpEnable = clkPumpEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored  */
+                                structCpy.clkPumpEnable = clkPumpEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1766,11 +1920,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         clkPumpEnableTmp = structCpy.clkPumpEnable;
                         structCpy.clkPumpEnable = false;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored */
-                            structCpy.clkPumpEnable = clkPumpEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored */
+                                structCpy.clkPumpEnable = clkPumpEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1784,12 +1945,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         clkBakSourceTmp = structCpy.clkBakSource;
                         structCpy.clkBakEnable = true;
                         structCpy.clkBakSource = (cy_en_clkbak_in_sources_t)message->praData1;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored  */
-                            structCpy.clkBakSource = clkBakSourceTmp;
-                            structCpy.clkBakEnable = clkBakEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored  */
+                                structCpy.clkBakSource = clkBakSourceTmp;
+                                structCpy.clkBakEnable = clkBakEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1823,11 +1991,18 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         /* Backups old values */
                         ecoEnableTmp = structCpy.ecoEnable;
                         structCpy.ecoEnable = true;
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous values are restored  */
-                            structCpy.ecoEnable = ecoEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous values are restored  */
+                                structCpy.ecoEnable = ecoEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -1886,7 +2061,7 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                             message->praStatus = CY_PRA_STATUS_ACCESS_DENIED;
                             break;
                         }
-                        if (message->praStatus == CY_PRA_STATUS_SUCCESS)
+                        if ((message->praStatus == CY_PRA_STATUS_SUCCESS) && (CY_PRA_SKIP_SYS_CFG != message->praData2))
                         {
                             message->praStatus = Cy_PRA_SystemConfig(&structCpy);
                             if (message->praStatus != CY_PRA_STATUS_SUCCESS)
@@ -2050,20 +2225,27 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                             /* FLL Enable API does not contain the FLL output value
                              * as the argument. So, calculate and update the FLL output value */
                             structCpy.fllOutFreqHz = Cy_PRA_CalculateFLLOutFreq(&structCpy);
-                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                             {
-                                structCpy.fllOutFreqHz = CY_PRA_DEFAULT_ZERO;
-                                structCpy.fllEnable = false;
-                            }
+                                message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                                if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                                {
+                                    structCpy.fllOutFreqHz = CY_PRA_DEFAULT_ZERO;
+                                    structCpy.fllEnable = false;
+                                }
+                                else
+                                {
+                                    /* Check if FLL is source to HF0 */
+                                    if (structCpy.hf0Source == CY_SYSCLK_CLKHF_IN_CLKPATH0)
+                                    {
+                                        /* Update HF0 output frequency */
+                                        structCpy.hf0OutFreqMHz = CY_SYSLIB_DIV_ROUND(Cy_SysClk_ClkPathGetFrequency((uint32_t) structCpy.hf0Source), ((1UL << (uint32_t)structCpy.hf0Divider) * CY_PRA_FREQUENCY_HZ_CONVERSION));
+                                    }
+                                }
+                            } /* (CY_PRA_SKIP_SYS_CFG != message->praData2) */
                             else
                             {
-                                /* Check if FLL is source to HF0 */
-                                if (structCpy.hf0Source == CY_SYSCLK_CLKHF_IN_CLKPATH0)
-                                {
-                                    /* Update HF0 output frequency */
-                                    structCpy.hf0OutFreqMHz = CY_SYSLIB_DIV_ROUND(Cy_SysClk_ClkPathGetFrequency((uint32_t) structCpy.hf0Source), ((1UL << (uint32_t)structCpy.hf0Divider) * CY_PRA_FREQUENCY_HZ_CONVERSION));
-                                }
+                                message->praStatus = CY_PRA_STATUS_SUCCESS;
                             }
                         }
                     }
@@ -2126,30 +2308,36 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                                 structCpy.pll1OutFreqHz = Cy_PRA_CalculatePLLOutFreq(CY_PRA_CLKPLL_2, &structCpy);
                                 structCpy.pll1Enable = true;
                             }
-
-                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-
-                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                             {
-                                if ((message->praData1) == CY_PRA_CLKPLL_1)
+                                message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+
+                                if (message->praStatus != CY_PRA_STATUS_SUCCESS)
                                 {
-                                    structCpy.pll0OutFreqHz = CY_PRA_DEFAULT_ZERO;
-                                    structCpy.pll0Enable = false;
+                                    if ((message->praData1) == CY_PRA_CLKPLL_1)
+                                    {
+                                        structCpy.pll0OutFreqHz = CY_PRA_DEFAULT_ZERO;
+                                        structCpy.pll0Enable = false;
+                                    }
+                                    else
+                                    {
+                                        structCpy.pll1OutFreqHz = CY_PRA_DEFAULT_ZERO;
+                                        structCpy.pll1Enable = false;
+                                    }
                                 }
-                                else
+                                else /* PLL is enabled successfully */
                                 {
-                                    structCpy.pll1OutFreqHz = CY_PRA_DEFAULT_ZERO;
-                                    structCpy.pll1Enable = false;
+                                    /* Check if PLL0 or PLL1 is source to HF0 */
+                                    if ((structCpy.hf0Source == CY_SYSCLK_CLKHF_IN_CLKPATH1) || (structCpy.hf0Source == CY_SYSCLK_CLKHF_IN_CLKPATH2))
+                                    {
+                                        /* Update HF0 output frequency */
+                                        structCpy.hf0OutFreqMHz = CY_SYSLIB_DIV_ROUND(Cy_SysClk_ClkPathGetFrequency((uint32_t) structCpy.hf0Source), ((1UL << (uint32_t)structCpy.hf0Divider) * CY_PRA_FREQUENCY_HZ_CONVERSION));
+                                    }
                                 }
-                            }
-                            else /* PLL is enabled successfully */
+                            } /* (CY_PRA_SKIP_SYS_CFG != message->praData2) */
+                            else
                             {
-                                /* Check if PLL0 or PLL1 is source to HF0 */
-                                if ((structCpy.hf0Source == CY_SYSCLK_CLKHF_IN_CLKPATH1) || (structCpy.hf0Source == CY_SYSCLK_CLKHF_IN_CLKPATH2))
-                                {
-                                    /* Update HF0 output frequency */
-                                    structCpy.hf0OutFreqMHz = CY_SYSLIB_DIV_ROUND(Cy_SysClk_ClkPathGetFrequency((uint32_t) structCpy.hf0Source), ((1UL << (uint32_t)structCpy.hf0Divider) * CY_PRA_FREQUENCY_HZ_CONVERSION));
-                                }
+                                message->praStatus = CY_PRA_STATUS_SUCCESS;
                             }
 
                         }
@@ -2165,12 +2353,19 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
                         clkSlowDivTmp = structCpy.clkSlowDiv;
                         structCpy.clkSlowEnable = true;
                         structCpy.clkSlowDiv = (uint8_t)(message->praData1);
-                        message->praStatus = Cy_PRA_SystemConfig(&structCpy);
-                        if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                        if (CY_PRA_SKIP_SYS_CFG != message->praData2)
                         {
-                            /* On failure, previous path values are restored */
-                            structCpy.clkSlowDiv = clkSlowDivTmp;
-                            structCpy.clkSlowEnable = clkSlowEnableTmp;
+                            message->praStatus = Cy_PRA_SystemConfig(&structCpy);
+                            if (message->praStatus != CY_PRA_STATUS_SUCCESS)
+                            {
+                                /* On failure, previous path values are restored */
+                                structCpy.clkSlowDiv = clkSlowDivTmp;
+                                structCpy.clkSlowEnable = clkSlowEnableTmp;
+                            }
+                        }
+                        else
+                        {
+                            message->praStatus = CY_PRA_STATUS_SUCCESS;
                         }
                     }
                     break;
@@ -2203,7 +2398,6 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
 #endif /* (CY_CPU_CORTEX_M0P) */
 
 
-#if (CY_CPU_CORTEX_M4) || defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_PRA_SendCmd
@@ -2233,9 +2427,41 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
     cy_en_pra_status_t Cy_PRA_SendCmd(uint16_t cmd, uint16_t regIndex, uint32_t clearMask, uint32_t setMask)
     {
+        cy_en_pra_status_t status;
+    #if (CY_CPU_CORTEX_M0P)
+        /* update structCpy variable */
+        CY_ALIGN(4UL)cy_stc_pra_msg_t msgLocal;
+
+        msgLocal.praCommand = cmd;
+        msgLocal.praStatus  = CY_PRA_STATUS_REQUEST_SENT;
+        msgLocal.praIndex   = regIndex;
+        msgLocal.praData1   = clearMask;
+
+        if (cmd == CY_PRA_MSG_TYPE_FUNC_POLICY)
+        {
+            msgLocal.praData2   = CY_PRA_SKIP_SYS_CFG;
+            Cy_PRA_ProcessCmd(&msgLocal);
+            status = CY_PRA_STATUS_SUCCESS;
+            (void)setMask;
+        }
+        else if ((cmd == CY_PRA_MSG_TYPE_SYS_CFG_FUNC) && (regIndex == CY_PRA_FUNC_INIT_CYCFG_DEVICE))
+        {
+            msgLocal.praData2   = setMask;
+            Cy_PRA_ProcessCmd(&msgLocal);
+            status = (cy_en_pra_status_t) msgLocal.praStatus;
+        }
+        else
+        {
+            status = CY_PRA_STATUS_ACCESS_DENIED;
+            (void)cmd;
+            (void)regIndex;
+            (void)clearMask;
+            (void)setMask;
+        }
+    #else
         CY_ASSERT_L1(NULL != ipcPraBase);
 
-        cy_en_pra_status_t status;
+
         CY_ALIGN(4UL) cy_stc_pra_msg_t ipcMsg;
         uint32_t interruptState;
 
@@ -2303,12 +2529,15 @@ static void Cy_PRA_ProcessCmd(cy_stc_pra_msg_t *message)
             status = (cy_en_pra_status_t)ipcMsg.praData1;
         }
 
+    #endif /* (CY_CPU_CORTEX_M0P) */
+
         return status;
     }
 #if defined(CY_DEVICE_PSOC6ABLE2)
     CY_SECTION_RAMFUNC_END
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
+#if (CY_CPU_CORTEX_M4) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_PRA_GetPinProtType
 ****************************************************************************//**
@@ -3119,6 +3348,8 @@ static cy_en_pra_status_t Cy_PRA_ValidateEntireSramPowerMode(cy_en_syspm_sram_in
 }
 
 #endif /* (CY_CPU_CORTEX_M0P) */
+
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2');
 
 #endif /* (CY_DEVICE_SECURE) */
 

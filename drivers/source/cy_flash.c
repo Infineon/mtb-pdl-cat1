@@ -636,6 +636,11 @@ CY_SECTION_RAMFUNC_END
 * XRES pin, a software reset, and watchdog reset sources. Also, low-voltage
 * detect circuits should be configured to generate an interrupt instead of a
 * reset. Otherwise, portions of flash may undergo unexpected changes.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param rowAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -692,6 +697,11 @@ cy_en_flashdrv_status_t Cy_Flash_EraseRow(uint32_t rowAddr)
 * reading data from previously programmed/erased flash rows, the user must
 * clear the flash cache with the Cy_SysLib_ClearFlashCacheAndBuffer()
 * function.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param rowAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -750,6 +760,11 @@ cy_en_flashdrv_status_t Cy_Flash_StartEraseRow(uint32_t rowAddr)
 * XRES pin, a software reset, and watchdog reset sources. Also, low-voltage
 * detect circuits should be configured to generate an interrupt instead of a
 * reset. Otherwise, portions of flash may undergo unexpected changes.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param sectorAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -805,6 +820,11 @@ cy_en_flashdrv_status_t Cy_Flash_EraseSector(uint32_t sectorAddr)
 * \note Before reading data from previously programmed/erased flash rows, the
 * user must clear the flash cache with the Cy_SysLib_ClearFlashCacheAndBuffer()
 * function.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param sectorAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -863,6 +883,11 @@ cy_en_flashdrv_status_t Cy_Flash_StartEraseSector(uint32_t sectorAddr)
 * XRES pin, a software reset, and watchdog reset sources. Also, low-voltage
 * detect circuits should be configured to generate an interrupt instead of a
 * reset. Otherwise, portions of flash may undergo unexpected changes.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param subSectorAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -918,6 +943,11 @@ cy_en_flashdrv_status_t Cy_Flash_EraseSubsector(uint32_t subSectorAddr)
 * \note Before reading data from previously programmed/erased flash rows, the
 * user must clear the flash cache with the Cy_SysLib_ClearFlashCacheAndBuffer()
 * function.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param subSectorAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -983,6 +1013,11 @@ cy_en_flashdrv_status_t Cy_Flash_StartEraseSubsector(uint32_t subSectorAddr)
 * \note Before reading data from previously programmed/erased flash rows, the
 * user must clear the flash cache with the Cy_SysLib_ClearFlashCacheAndBuffer()
 * function.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param rowAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -1045,6 +1080,11 @@ cy_en_flashdrv_status_t Cy_Flash_ProgramRow(uint32_t rowAddr, const uint32_t* da
 * circuits should be configured to generate an interrupt
 * instead of a reset. Otherwise, portions of flash may undergo
 * unexpected changes.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param rowAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -1107,6 +1147,11 @@ cy_en_flashdrv_status_t Cy_Flash_WriteRow(uint32_t rowAddr, const uint32_t* data
 * \note Before reading data from previously programmed/erased flash rows, the
 * user must clear the flash cache with the Cy_SysLib_ClearFlashCacheAndBuffer()
 * function.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param rowAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
@@ -1187,6 +1232,11 @@ cy_en_flashdrv_status_t Cy_Flash_IsOperationComplete(void)
 * \note Before reading data from previously programmed/erased flash rows, the
 * user must clear the flash cache with the Cy_SysLib_ClearFlashCacheAndBuffer()
 * function.
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
+* in the same or neighboring flash sector where the flash Write, Erase, or
+* Program operation is working. This violation may cause a HardFault exception.
+* To avoid the Read while Write violation,
+* use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
 *
 * \param rowAddr The address of the flash row number.
 * The Read-while-Write violation occurs when the Flash Write operation is

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.c
-* \version 1.50
+* \version 1.50.1
 *
 * Provides an API implementation of the GPIO driver
 *
@@ -67,6 +67,10 @@ extern "C" {
 * \note
 * This function modifies port registers in read-modify-write operations. It is
 * not thread safe as the resource is shared among multiple pins on a port.
+*
+* \note
+* When EXT_CLK is source to HF0 and this API is called from application then
+* make sure that the drivemode argument is CY_GPIO_DM_HIGHZ.
 *
 * \funcusage
 * \snippet gpio/snippet/main.c snippet_Cy_GPIO_Pin_Init
@@ -355,6 +359,10 @@ cy_en_gpio_status_t Cy_GPIO_Port_Init(GPIO_PRT_Type* base, const cy_stc_gpio_prt
 * You can use the Cy_SysLib_EnterCriticalSection() and
 * Cy_SysLib_ExitCriticalSection() functions to ensure that
 * Cy_GPIO_Pin_FastInit() function execution is not interrupted.
+*
+* \note
+* When EXT_CLK is source to HF0 and this API is called from application then
+* make sure that the drivemode argument is CY_GPIO_DM_HIGHZ.
 *
 * \funcusage
 * \snippet gpio/snippet/main.c snippet_Cy_GPIO_Pin_FastInit

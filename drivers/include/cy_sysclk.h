@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.20
+* \version 3.30
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,23 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="3">3.30</td>
+*     <td>
+*         For PSoC64 device, allow CM0+ to call CY_PRA_FUNCTION_CALL_X_X API in functions
+*         accessing FUNCTION_POLICY registers. So that System Configuration structure is
+*         updated with new parameters.
+*     </td>
+*     <td>For PSoC64 device, System configuration can be done from CM0+ application.</td>
+*   </tr>
+*   <tr>
+*     <td>Fixed MISRA 2012 violations.</td>
+*     <td>MISRA 2012 compliance.</td>
+*   </tr>
+*   <tr>
+*     <td>Return type doxygen updated for PSoC64 devices.</td>
+*     <td>Doxygen update for PSoC64 devices.</td>
+*   </tr>
 *   <tr>
 *     <td>3.20</td>
 *     <td>Added new API's \ref Cy_SysClk_FllGetFrequency and \ref Cy_SysClk_PllGetFrequency.</td>
@@ -1268,9 +1285,9 @@ typedef struct
 * \param source \ref cy_en_clkpath_in_sources_t
 *
 * \return \ref cy_en_sysclk_status_t
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -1477,9 +1494,9 @@ cy_en_sysclk_status_t Cy_SysClk_FllConfigure(uint32_t inputFreq, uint32_t output
 * \return  Error / status code: \n
 * CY_SYSCLK_SUCCESS - FLL successfully configured \n
 * CY_SYSCLK_INVALID_STATE - FLL not configured because it is enabled
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -1548,9 +1565,9 @@ void Cy_SysClk_FllGetConfiguration(cy_stc_fll_manual_config_t *config);
 * \return Error / status code: \n
 * CY_SYSCLK_SUCCESS - FLL successfully enabled \n
 * CY_SYSCLK_TIMEOUT - Timeout waiting for FLL lock
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -1619,9 +1636,9 @@ bool Cy_SysClk_FllLocked(void);
 * Disables the FLL and the CCO.
 *
 * \return \ref cy_en_sysclk_status_t
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -1784,9 +1801,9 @@ cy_en_sysclk_status_t Cy_SysClk_PllConfigure(uint32_t clkPath, const cy_stc_pll_
 * CY_SYSCLK_SUCCESS - PLL successfully configured \n
 * CY_SYSCLK_INVALID_STATE - PLL not configured because it is enabled \n
 * CY_SYSCLK_BAD_PARAM - invalid clock path number
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -1835,9 +1852,9 @@ cy_en_sysclk_status_t Cy_SysClk_PllManualConfigure(uint32_t clkPath, const cy_st
 * \return  Error / status code: \n
 * CY_SYSCLK_SUCCESS - PLL data successfully reported \n
 * CY_SYSCLK_BAD_PARAM - invalid clock path number
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -1869,9 +1886,9 @@ cy_en_sysclk_status_t Cy_SysClk_PllGetConfiguration(uint32_t clkPath, cy_stc_pll
 * CY_SYSCLK_SUCCESS - PLL successfully enabled \n
 * CY_SYSCLK_TIMEOUT - Timeout waiting for PLL lock \n
 * CY_SYSCLK_BAD_PARAM - invalid clock path number
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -1963,9 +1980,9 @@ bool Cy_SysClk_PllLostLock(uint32_t clkPath);
 * \return Error / status code: \n
 * CY_SYSCLK_SUCCESS - PLL successfully disabled \n
 * CY_SYSCLK_BAD_PARAM - invalid clock path number
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -2125,9 +2142,9 @@ bool Cy_SysClk_IloIsEnabled(void);
 * \return Error / status code: \n
 * CY_SYSCLK_SUCCESS - ILO successfully disabled \n
 * CY_SYSCLK_INVALID_STATE - Cannot disable the ILO if the WDT is enabled.
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -2395,9 +2412,9 @@ typedef struct
 * CY_SYSCLK_INVALID_STATE if already doing a measurement \n
 * CY_SYSCLK_BAD_PARAM if invalid clock input parameter \n
 * else CY_SYSCLK_SUCCESS
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -2619,9 +2636,9 @@ void Cy_SysClk_PiloUpdateTrimStep(void);
 * \return Error / status code; see \ref cy_en_syspm_status_t. Pass if not doing
 * a clock measurement, otherwise Fail. Timeout if timeout waiting for ECO, FLL
 * or PLL to get stable / regain its frequency lock.
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -2784,9 +2801,9 @@ typedef struct
 * \return Error / status code: \n
 * CY_SYSCLK_SUCCESS - WCO successfully enabled \n
 * CY_SYSCLK_TIMEOUT - Timeout waiting for WCO to stabilize
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -3177,9 +3194,9 @@ extern uint32_t altHfFreq; /* Internal storage for BLE ECO frequency user settin
 * \param clkHf Selects which clkHf to enable.
 *
 * \return \ref cy_en_sysclk_status_t
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -3240,9 +3257,9 @@ cy_en_sysclk_status_t Cy_SysClk_ClkHfDisable(uint32_t clkHf);
 * \param source \ref cy_en_clkhf_in_sources_t
 *
 * \return \ref cy_en_sysclk_status_t
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *
@@ -3293,9 +3310,9 @@ cy_en_clkhf_in_sources_t Cy_SysClk_ClkHfGetSource(uint32_t clkHf);
 * \param divider \ref cy_en_clkhf_dividers_t
 *
 * \return \ref cy_en_sysclk_status_t
-* CY_SYSCLK_INVALID_STATE - ECO already enabled
-* For the PSoC 64 devices there are possible situations when function returns
-* the PRA error status code. This is because for PSoC 64 devices the function
+* CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when
+* function returns the PRA error status code \ref cy_en_pra_status_t instead of
+* \ref cy_en_sysclk_status_t. This is because for PSoC 64 devices the function
 * uses the PRA driver to change the protected registers. Refer to
 * \ref cy_en_pra_status_t for more details.
 *

@@ -47,7 +47,7 @@
     <ParamBool id="srcError" name="Source Error" group="Internal" default="`${srcNotUsed || getExposedMember(sourceClockRsc, &quot;error&quot;)}`" visible="false" editable="false" desc="" />
     <ParamRange id="sourceFrequencyActual" name="Source Frequency" group="Internal" default="`${srcError ? 0 : getExposedMember(sourceClockRsc, &quot;frequency&quot;)}`" min="0" max="100000000" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="accuracy" name="accuracy" group="Internal" default="`${!srcError ? getExposedMember(sourceClockRsc, &quot;accuracy&quot;) : 0}`" visible="false" editable="false" desc="" />
-    
+
     <ParamString id="sourceFrequencyInfo" name="Source Frequency" group="General" default="`${formatFrequency(sourceFrequencyActual,accuracy)}`" visible="true" editable="false" desc="Source clock frequency" />
     <!-- For ULP mode, Fpll_max = 50 MHz -->
     <ParamBool id="usingUlp" name="usingUlp" group="Internal" default="`${isBlockUsed(&quot;srss[0].power[0]&quot;) &amp;&amp; getExposedMember(&quot;srss[0].power[0]&quot;, &quot;usingUlp&quot;)}`" visible="false" editable="false" desc="" />
@@ -64,7 +64,7 @@
       <Entry name="Min Power" value="MinPower" visible="true" />
       <Entry name="Min Jitter" value="MinJitter" visible="true" />
     </ParamChoice>
-    
+
     <!-- Set an error if the source clock is not enabled, contains an error or the source frequency is outside the valid range -->
     <ParamBool id="sourceFrequencyOutRange" name="sourceFrequencyOutRange" group="Internal" default="`${(sourceFrequencyActual &lt; 4000000) || (sourceFrequencyActual &gt; 64000000)}`" visible="false" editable="false" desc="" />
     <ParamBool id="error" name="Clock Error" group="Internal" default="`${srcError || sourceFrequencyOutRange}`" visible="false" editable="false" desc="" />
@@ -100,7 +100,7 @@
     <!-- Manual mode DRCs -->
     <DRC type="ERROR" text="VCO frequency out of range. VCO frequency (sourceFrequency * Feedback / Reference) of `${vcoFreq}` MHz is outside valid range of `${vcoMin}` MHz - `${vcoMax}` MHz" condition="`${manConfig &amp;&amp; (vcoFreq &lt; vcoMin || vcoFreq &gt; vcoMax)}`" />
     <DRC type="ERROR" text="PFD reference frequency out of range. PFD reference frequency (sourceFrequency / Reference) of `${pfdFreq}` MHz is outside valid range of 4 MHz - 8 MHz" condition="`${manConfig &amp;&amp; (pfdFreq &lt; 4 || pfdFreq &gt; 8)}`" />
-    
+
   </DRCs>
   <ConfigFirmware>
     <ConfigInclude value="cy_sysclk.h" include="true" />
@@ -111,13 +111,13 @@
     <ConfigDefine name="CY_CFG_SYSCLK_PLL`${clockInst}`_LF_MODE" value="`${lowFrequencyMode}`" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_PLL`${clockInst}`_OUTPUT_MODE" value="CY_SYSCLK_FLLPLL_OUTPUT_AUTO" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_PLL`${clockInst}`_OUTPUT_FREQ" value="`${frequency}`" public="false" include="true" />
-    <ConfigStruct name="`${INST_NAME . &quot;_pllConfig&quot;}`" type="cy_stc_pll_manual_config_t" const="true" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))">
+    <ConfigStruct name="`${INST_NAME . &quot;_pllConfig&quot;}`" type="cy_stc_pll_manual_config_t" const="true" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))">
       <Member name="feedbackDiv" value="`${feedback}`" />
       <Member name="referenceDiv" value="`${reference}`" />
       <Member name="outputDiv" value="`${output}`" />
       <Member name="lfMode" value="`${lowFrequencyMode}`" />
       <Member name="outputMode" value="CY_SYSCLK_FLLPLL_OUTPUT_AUTO" />
     </ConfigStruct>
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_Pll`${clockInst}`Init()" body="    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllManualConfigure(`${clockInst + 1}`U, &amp;`${INST_NAME}`_pllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllEnable(`${clockInst + 1}`U, 10000u))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_Pll`${clockInst}`Init()" body="    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllManualConfigure(`${clockInst + 1}`U, &amp;`${INST_NAME}`_pllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllEnable(`${clockInst + 1}`U, 10000u))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

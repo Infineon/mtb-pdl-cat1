@@ -116,6 +116,12 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td rowspan="3">3.30 </td><td>For PSoC64 device, allow CM0+ to call CY_PRA_FUNCTION_CALL_X_X API in functions accessing FUNCTION_POLICY registers. So that System Configuration structure is updated with new parameters.  </td><td>For PSoC64 device, System configuration can be done from CM0+ application.  </td></tr>
+<tr>
+<td>Fixed MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
+<tr>
+<td>Return type doxygen updated for PSoC64 devices. </td><td>Doxygen update for PSoC64 devices.  </td></tr>
+<tr>
 <td>3.20 </td><td>Added new API's <a class="el" href="group__group__sysclk__fll__funcs.html#ga0e45b36747a2be6610f6fc9daefae02b">Cy_SysClk_FllGetFrequency</a> and <a class="el" href="group__group__sysclk__pll__funcs.html#ga219fd6d8d1d18090fe6d7002610ac021">Cy_SysClk_PllGetFrequency</a>. </td><td>Fetch the FLL and PLL frequency.  </td></tr>
 <tr>
 <td>3.10 </td><td>Support for CM33. </td><td>New devices support.  </td></tr>

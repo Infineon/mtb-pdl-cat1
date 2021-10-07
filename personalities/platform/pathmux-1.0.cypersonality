@@ -41,7 +41,7 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__path__src.html" linkText="Open Clock Path Source Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
-    <ParamRange id="clockInst" name="CLK_PATH Instance" group="Interal" default="`${getInstNumber(&quot;pathmux&quot;)}`" min="0" max="`${NUM_CLKPATH-1}`" resolution="1" visible="false" editable="false" desc="" /> 
+    <ParamRange id="clockInst" name="CLK_PATH Instance" group="Interal" default="`${getInstNumber(&quot;pathmux&quot;)}`" min="0" max="`${NUM_CLKPATH-1}`" resolution="1" visible="false" editable="false" desc="" />
     <ParamChoice id="sourceClock" name="Source Clock" group="General" default="imo" visible="true" editable="true" desc="The clock source for Clock Path `${clockInst}`">
       <Entry name="IMO"    value="imo"    visible="true"/>
       <Entry name="ECO"    value="eco"    visible="true"/>
@@ -74,7 +74,7 @@
     <ParamRange id="frequency" name="Frequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="100000000" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="accuracy" name="accuracy" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;accuracy&quot;) : 0}`" visible="false" editable="false" desc="" />
 
-    <!-- If the frequency is less than one MHz, display its value in kHz -->    
+    <!-- If the frequency is less than one MHz, display its value in kHz -->
     <ParamString id="frequencyInfo" name="Source Frequency" group="General" default="`${formatFrequency(frequency,accuracy)}`" visible="true" editable="false" desc="The Clock Path frequency provided by the chosen clock source" />
   </Parameters>
   <DRCs>
@@ -88,15 +88,15 @@
     <ConfigDefine name="CY_CFG_SYSCLK_CLKPATH`${clockInst}`_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKPATH`${clockInst}`_SOURCE" value="CY_SYSCLK_CLKPATH_IN_`${sourceClockApiName}`" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKPATH`${clockInst}`_SOURCE_NUM" value="`${sourceClockNumber}`UL"  public="false" include="true" />
-    
+
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
       <Member name="type" value="CYHAL_RSC_CLKPATH" />
       <Member name="block_num" value="`${clockInst}`U" />
       <Member name="channel_num" value="0U" />
     </ConfigStruct>
-    
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkPath`${clockInst}`Init()" body="    Cy_SysClk_ClkPathSetSource(`${clockInst}`U, CY_CFG_SYSCLK_CLKPATH`${clockInst}`_SOURCE);" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
-    
+
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkPath`${clockInst}`Init()" body="    Cy_SysClk_ClkPathSetSource(`${clockInst}`U, CY_CFG_SYSCLK_CLKPATH`${clockInst}`_SOURCE);" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
+
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
 </Personality>

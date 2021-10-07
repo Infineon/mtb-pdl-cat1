@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.50
+* \version 5.60
 *
 * Provides the function definitions for the power management API.
 *
@@ -720,6 +720,19 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">5.60</td>
+*     <td>
+*         For PSoC64 device, allow CM0+ to call CY_PRA_FUNCTION_CALL_X_X API in functions
+*         accessing FUNCTION_POLICY registers. So that System Configuration structure is
+*         updated with new parameters.
+*     </td>
+*     <td>For PSoC64 device, System configuration can be done from CM0+ application.</td>
+*   </tr>
+*   <tr>
+*     <td>Fixed MISRA 2012 violations.</td>
+*     <td>MISRA 2012 compliance.</td>
+*   </tr>
 *   <tr>
 *     <td>5.50</td>
 *     <td>

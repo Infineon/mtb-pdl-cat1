@@ -108,6 +108,7 @@ $(document).ready(function(){initNavTree('group__group__pra.html','');});
 <li><a class="el" href="group__group__flash.html">Flash (Flash System Routine)</a></li>
 <li><a class="el" href="group__group__sysint.html">SysInt (System Interrupt)</a> (PSoC 64 CYB06xx7 devices only)</li>
 <li><a class="el" href="group__group__prot.html">Prot (Protection Unit)</a> (PSoC 64 CYB06xx7 devices only)</li>
+<li><a class="el" href="group__group__gpio.html">GPIO (General Purpose Input Output)</a></li>
 </ul>
 <p>The execution time of the functions that access the protected registers is increased on the PSoC 64 devices because the access is performed on Cortex-M0+ via the IPC command (both CPU cores run at 8 MHz):</p><ul>
 <li>The access to the protected register may take about 50 us, while access to the unprotected one may take about 3 us.</li>
@@ -123,14 +124,16 @@ Basic Operation</h1>
 </div>
 <h1><a class="anchor" id="group_pra_device_config"></a>
 Device Configuration</h1>
-<p>For PSoC 64 device, device configuration (like system clock settings and power modes) is applied on the secure Cortex-M0+. The device configuration structure <a class="el" href="structcy__stc__pra__system__config__t.html">cy_stc_pra_system_config_t</a> is initialized with Device Configurator and passed to the secure Cortex-M0+ for validation and register the update in the cybsp_init() function.</p>
+<p>For PSoC 64 device, device configuration (like system clock settings and power modes) is applied on the secure Cortex-M0+. The device configuration can be initiated from either of the core or both the cores. The device configuration structure <a class="el" href="structcy__stc__pra__system__config__t.html">cy_stc_pra_system_config_t</a> is initialized with Device Configurator. For Cortext-M4 application, it passed to the secure Cortex-M0+ core through IPC for validation and register the update in the cybsp_init() function. For Cortext-M0+ application, this device configuration structure is directly validated and applied.</p>
 <dl class="section note"><dt>Note</dt><dd>The external clocks (ECO, WCO, and EXTCLK) require additional configuration to be allowed to source CLK_HF0 (clocks both Cortex-M0+ and Cortex-M4 CPUs) in order to prevent clock tampering. See <a class="el" href="group__group__pra.html#group_pra_external_clocks">External Clock Sources</a> for details.</dd>
 <dd>
 The ALTHF (BLE ECO) is not allowed to source CLK_HF0 (clocks both Cortex-M0+ and Cortex-M4 CPUs) in order to prevent clock tampering.</dd>
 <dd>
 The internal low-frequency clocks (ILO and PILO) are not allowed to source the CLK_HF0 directly and through PLL or FLL.</dd>
 <dd>
-The clock source for Cortex-M4 SysTick cannot be configured with the Device Configurator. Enabling CLK_ALT_SYS_TICK will result in a compilation error. SysTick still can be configured in run-time with some limitations. For more details, refer to <a class="el" href="group__group__systick__functions.html#gaa8a72d8a278e4a3a970b4c4a021f3647">Cy_SysTick_SetClockSource()</a> in <a class="el" href="group__group__arm__system__timer.html">SysTick (ARM System Timer)</a>.</dd></dl>
+The clock source for Cortex-M4 SysTick cannot be configured with the Device Configurator. Enabling CLK_ALT_SYS_TICK will result in a compilation error. SysTick still can be configured in run-time with some limitations. For more details, refer to <a class="el" href="group__group__systick__functions.html#gaa8a72d8a278e4a3a970b4c4a021f3647">Cy_SysTick_SetClockSource()</a> in <a class="el" href="group__group__arm__system__timer.html">SysTick (ARM System Timer)</a>.</dd>
+<dd>
+When EXT_CLK is source to HF0 then the drive mode for EXT_CLK pin is hard coded to CY_GPIO_DM_HIGHZ. So user has to make sure this pin configuration is not overwritten from secure application.</dd></dl>
 <h1><a class="anchor" id="group_pra_external_clocks"></a>
 External Clock Sources</h1>
 <p>The PSoC 64 devices must be provisioned with the external clocks (ECO, WCO, and EXTCLK) configuration before routing these clocks to CLK_HF0. To do that, update the JSON file (delivered with CySecureTools) with the "extclk" node in the custom data section as shown below. The configuration fields in the JSON file match the fields in the Device Configurator.</p>
@@ -155,6 +158,14 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td rowspan="4">2.30 </td><td>System Configuration can be done from CM0+ using PRA API with CY_PRA_MSG_TYPE_SYS_CFG_FUNC and CY_PRA_FUNC_INIT_CYCFG_DEVICE arguments. </td><td>Enhancement based on customer feedback.  </td></tr>
+<tr>
+<td>System configuration structure is updated with appropriate value, when cm0+ applicaton calls any PDL API accessing to FUNCTION_POLICY registers. </td><td>Enhancement based on customer feedback.  </td></tr>
+<tr>
+<td>Fixed MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
+<tr>
+<td>Updated doxygen for External clock source to HF0. </td><td>Documentation enhancement.  </td></tr>
 <tr>
 <td>2.20 </td><td>Allowing external clocks (EXT_CLK, ECO and WCO) can be source to secure core. Provide interface for validating and configuring SRAM power modes. </td><td>External clock support and SRAM power mode configuration support.  </td></tr>
 <tr>

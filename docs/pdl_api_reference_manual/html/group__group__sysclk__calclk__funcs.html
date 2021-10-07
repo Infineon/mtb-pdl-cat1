@@ -152,7 +152,7 @@ After calling this function, call <a class="el" href="group__group__sysclk__calc
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_INVALID_STATE if already doing a measurement <br />
 CY_SYSCLK_BAD_PARAM if invalid clock input parameter <br />
-else CY_SYSCLK_SUCCESS CY_SYSCLK_INVALID_STATE - ECO already enabled For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
+else CY_SYSCLK_SUCCESS CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when function returns the PRA error status code <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> instead of <a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The counters are both 24-bit, so the maximum value of count1 is 0xFFFFFF. If clock2 frequency is greater than clock1, make sure that count1 is low enough that counter2 does not overflow before counter1 reaches zero. </dd>
 <dd>
 The time to complete a measurement is count1 / clock1 frequency. </dd>

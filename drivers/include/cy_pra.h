@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_pra.h
-* \version 2.20
+* \version 2.30
 *
 * \brief The header file of the PRA driver. The API is not intended to
 * be used directly by the user application.
@@ -61,6 +61,7 @@
 * * \ref group_flash
 * * \ref group_sysint (PSoC 64 CYB06xx7 devices only)
 * * \ref group_prot (PSoC 64 CYB06xx7 devices only)
+* * \ref group_gpio
 *
 * The execution time of the functions that access the protected registers is
 * increased on the PSoC 64 devices because the access is performed on Cortex-M0+
@@ -88,9 +89,12 @@
 * \section group_pra_device_config Device Configuration
 * For PSoC 64 device, device configuration (like system clock settings and
 * power modes) is applied on the secure Cortex-M0+. The device configuration
-* structure \ref cy_stc_pra_system_config_t is initialized with Device
-* Configurator and passed to the secure Cortex-M0+ for validation and
-* register the update in the cybsp_init() function.
+* can be initiated from either of the core or both the cores. The device
+* configuration structure \ref cy_stc_pra_system_config_t is initialized
+* with Device Configurator. For Cortext-M4 application, it passed to the
+* secure Cortex-M0+ core through IPC for validation and register the update
+* in the cybsp_init() function. For Cortext-M0+ application, this device
+* configuration structure is directly validated and applied.
 *
 * \note The external clocks (ECO, WCO, and EXTCLK) require
 * additional configuration to be allowed to source CLK_HF0 (clocks both
@@ -108,6 +112,11 @@
 * compilation error. SysTick still can be configured in run-time with
 * some limitations. For more details, refer to \ref Cy_SysTick_SetClockSource()
 * in \ref group_arm_system_timer.
+*
+* \note
+* When EXT_CLK is source to HF0 then the drive mode for EXT_CLK pin is hard coded
+* to CY_GPIO_DM_HIGHZ. So user has to make sure this pin configuration is not
+* overwritten from secure application.
 *
 *\section group_pra_external_clocks External Clock Sources
 * The PSoC 64 devices must be provisioned with the external clocks
@@ -219,6 +228,25 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td rowspan="4">2.30</td>
+*     <td>System Configuration can be done from CM0+ using PRA API with
+*         CY_PRA_MSG_TYPE_SYS_CFG_FUNC and CY_PRA_FUNC_INIT_CYCFG_DEVICE arguments.</td>
+*     <td>Enhancement based on customer feedback.</td>
+*   </tr>
+*   <tr>
+*     <td>System configuration structure is updated with appropriate value, when
+*         cm0+ applicaton calls any PDL API accessing to FUNCTION_POLICY registers.</td>
+*     <td>Enhancement based on customer feedback.</td>
+*   </tr>
+*   <tr>
+*     <td>Fixed MISRA 2012 violations.</td>
+*     <td>MISRA 2012 compliance.</td>
+*   </tr>
+*   <tr>
+*     <td>Updated doxygen for External clock source to HF0.</td>
+*     <td>Documentation enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>2.20</td>
 *     <td>Allowing external clocks (EXT_CLK, ECO and WCO) can be source to secure core.
 *         Provide interface for validating and configuring SRAM power modes.</td>
@@ -291,7 +319,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS) && defined (CY_IP_MXS40IOSS)
+#if defined (CY_IP_MXS40SRSS)
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -496,7 +524,7 @@ extern "C" {
 #define CY_PRA_DRV_VERSION_MAJOR       2
 
 /** Driver minor version */
-#define CY_PRA_DRV_VERSION_MINOR       20
+#define CY_PRA_DRV_VERSION_MINOR       30
 
 /** Protected Register Access driver ID */
 #define CY_PRA_ID                       (CY_PDL_DRV_ID(0x46U))
@@ -725,8 +753,9 @@ void Cy_PRA_Init(void);
 #endif /* (CY_CPU_CORTEX_M0P) || defined (CY_DOXYGEN) */
 /** \endcond */
 
+cy_en_pra_status_t Cy_PRA_SendCmd(uint16_t cmd, uint16_t regIndex, uint32_t clearMask, uint32_t setMask);
+
 #if (CY_CPU_CORTEX_M4) || defined (CY_DOXYGEN)
-    cy_en_pra_status_t Cy_PRA_SendCmd(uint16_t cmd, uint16_t regIndex, uint32_t clearMask, uint32_t setMask);
 
     cy_en_pra_pin_prot_type_t Cy_PRA_GetPinProtType(GPIO_PRT_Type *base, uint32_t pinNum);
 
@@ -821,6 +850,7 @@ void Cy_PRA_Init(void);
     #define CY_PRA_CM0_WAKEUP()  \
         (void)Cy_PRA_SendCmd(CY_PRA_MSG_TYPE_CM0_WAKEUP, (uint16_t) 0U, 0UL, 0UL)
 
+#endif /* (CY_CPU_CORTEX_M4) */
 
 /*******************************************************************************
 * Macro Name: CY_PRA_FUNCTION_CALL_RETURN_PARAM(msgType, funcIndex, param)
@@ -846,7 +876,8 @@ void Cy_PRA_Init(void);
 * Macro Name: CY_PRA_FUNCTION_CALL_RETURN_VOID(msgType, funcIndex)
 ****************************************************************************//**
 *
-* Calls the specified function without a parameter and returns void.
+* Calls the specified function without a parameter and returns the
+* execution status.
 *
 * \param msgType The function type.
 *
@@ -890,6 +921,8 @@ void Cy_PRA_Init(void);
     #define CY_PRA_FUNCTION_CALL_VOID_VOID(msgType, funcIndex)  \
         (void)Cy_PRA_SendCmd((msgType), (funcIndex), 0UL, 0UL)
 
+
+#if (CY_CPU_CORTEX_M4) || defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Macro Name: CY_PRA_GET_PIN_PROT_TYPE(base, pinNum)
@@ -999,8 +1032,7 @@ void Cy_PRA_Init(void);
 
 #endif /* (CY_DEVICE_SECURE) */
 
-
-#endif /* CY_IP_MXS40IOSS */
+#endif /* defined (CY_IP_MXS40SRSS) */
 
 #endif /* #if !defined(CY_PRA_H) */
 

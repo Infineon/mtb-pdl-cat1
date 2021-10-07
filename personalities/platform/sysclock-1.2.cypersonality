@@ -50,7 +50,7 @@
     <ConfigDefine name="CY_CFG_SYSCLK_FLL_ERROR"   value="4" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_WCO_ERROR"   value="5" public="false" include="true" />
 
-    <ConfigStruct name="`${INST_NAME . &quot;_secureConfig&quot;}`" type="cy_stc_pra_system_config_t" const="false" public="false" include="true" guard="defined (CY_DEVICE_SECURE) &amp;&amp; (CY_CPU_CORTEX_M4)" >
+    <ConfigStruct name="`${INST_NAME . &quot;_secureConfig&quot;}`" type="cy_stc_pra_system_config_t" const="false" public="false" include="true" guard="defined (CY_DEVICE_SECURE)" >
     </ConfigStruct>
 
     <ConfigFunction signature="__WEAK void __NO_RETURN cycfg_ClockStartupError(uint32_t error)" body="    (void)error; /* Suppress the compiler warning */&#xA;    while(1);" public="false" include="true" />
@@ -523,11 +523,11 @@
    #ifdef CY_CFG_SYSCLK_ALTHF_BLE_ECO_VOL_REGULATOR&#xA;
        secure_config->altHFvoltageReg = CY_CFG_SYSCLK_ALTHF_BLE_ECO_VOL_REGULATOR;&#xA;
    #endif /* CY_CFG_SYSCLK_ALTHF_BLE_ECO_VOL_REGULATOR */&#xA;"
-    public="false" include="true" guard="defined (CY_DEVICE_SECURE) &amp;&amp; (CY_CPU_CORTEX_M4)"/>
+    public="false" include="true" guard="defined (CY_DEVICE_SECURE)"/>
 
 
     <!-- Configure Secure options -->
-    <ConfigInstruction value="#if ((CY_CPU_CORTEX_M4) &amp;&amp; (defined(CY_DEVICE_SECURE)))" include="true" />
+    <ConfigInstruction value="#if defined(CY_DEVICE_SECURE)" include="true" />
     <ConfigInstruction value="    cy_en_pra_status_t configStatus;" include="true" />
     <ConfigInstruction value="    init_cycfg_secure_struct(&amp;`${INST_NAME . &quot;_secureConfig&quot;}`);" include="true" />
     <ConfigInstruction value="    #if (((CY_CFG_SYSCLK_CLKPATH0_SOURCE_NUM &gt;= 3UL) &amp;&amp; (CY_CFG_SYSCLK_CLKPATH0_SOURCE_NUM &lt;= 5UL))  &amp;&amp; (CY_CFG_SYSCLK_CLKHF0_CLKPATH_NUM == 0UL))" include="true" />
@@ -556,7 +556,7 @@
     <ConfigInstruction value="    #ifdef CY_CFG_SYSCLK_EXTCLK_FREQ" include="true" />
     <ConfigInstruction value="        Cy_SysClk_ExtClkSetFrequency(CY_CFG_SYSCLK_EXTCLK_FREQ);" include="true" />
     <ConfigInstruction value="    #endif /* CY_CFG_SYSCLK_EXTCLK_FREQ */" include="true" />
-    <ConfigInstruction value="#else /* ((CY_CPU_CORTEX_M4) &amp;&amp; (defined(CY_DEVICE_SECURE))) */" include="true" />
+    <ConfigInstruction value="#else /* defined(CY_DEVICE_SECURE) */" include="true" />
     <ConfigInstruction value="" include="true" />
 
     <!-- Configure flash wait states -->
@@ -865,7 +865,7 @@
     <ConfigInstruction value="    #endif" include="true" />
     <ConfigInstruction value="" include="true" />
 
-    <ConfigInstruction value="#endif /* ((CY_CPU_CORTEX_M4) &amp;&amp; (defined(CY_DEVICE_SECURE))) */" include="true" />
+    <ConfigInstruction value="#endif /* defined(CY_DEVICE_SECURE) */" include="true" />
     <ConfigInstruction value="" include="true" />
 
     <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_MFO_ENABLED" include="true" />
@@ -878,7 +878,7 @@
     <ConfigInstruction value="#endif" include="true" />
     <ConfigInstruction value="" include="true" />
 
-    <ConfigInstruction value="#if ((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" include="true" />
+    <ConfigInstruction value="#if (!defined(CY_DEVICE_SECURE))" include="true" />
     <!-- Configure final flash wait states -->
     <ConfigInstruction value="    /* Set accurate flash wait states */" include="true" />
     <ConfigInstruction value="    #if (defined (CY_CFG_PWR_ENABLED) &amp;&amp; defined (CY_CFG_SYSCLK_CLKHF0_ENABLED))" include="true" />
@@ -901,7 +901,7 @@
     <ConfigInstruction value="    #endif" include="true" />
     <ConfigInstruction value="" include="true" />
 
-    <ConfigInstruction value="#endif /* ((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE))) */" include="true" />
+    <ConfigInstruction value="#endif /* (!defined(CY_DEVICE_SECURE)) */" include="true" />
     <ConfigInstruction value="" include="true" />
 
   </ConfigFirmware>

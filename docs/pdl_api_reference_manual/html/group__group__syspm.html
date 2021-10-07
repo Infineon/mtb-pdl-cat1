@@ -380,6 +380,10 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td rowspan="2">5.60 </td><td>For PSoC64 device, allow CM0+ to call CY_PRA_FUNCTION_CALL_X_X API in functions accessing FUNCTION_POLICY registers. So that System Configuration structure is updated with new parameters.  </td><td>For PSoC64 device, System configuration can be done from CM0+ application.  </td></tr>
+<tr>
+<td>Fixed MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
+<tr>
 <td>5.50 </td><td>Added following functions for SRAM power mode configuration: <a class="el" href="group__group__syspm__functions__general.html#ga05204555cfdd18da26aa8e615359484f">Cy_SysPm_SetSRAMMacroPwrMode()</a>, <a class="el" href="group__group__syspm__functions__general.html#ga42e3e9a5780971ac8dc0f84519f9cac5">Cy_SysPm_SetSRAMPwrMode()</a>, <a class="el" href="group__group__syspm__functions__general.html#gaad339304ab3d1f6f0201f6ef1297c856">Cy_SysPm_GetSRAMMacroPwrMode()</a>. For PSoC 64 devices these functions can return PRA driver status value.  </td><td>Added support for SRAM power mode configuration.  </td></tr>
 <tr>
 <td>5.40 </td><td>Support for CM33. </td><td>New devices support.  </td></tr>

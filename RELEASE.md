@@ -1,4 +1,4 @@
-# MTB CAT1A Peripheral Driver Library v2.2.1
+# MTB CAT1A Peripheral Driver Library v2.3.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,20 +8,23 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## New Features
 
+* For PSoC64 devices, added support for system configuration from secure CM0+ core using PRA API.
+
 ## Build Changes
 
-* Linker script updated for PSoC64 devices to match with default policy settings. This increases flash space available for the user application.
-
 ## Updated Personalities
-
-* SAR - Bug fix/Code enhancement.
-* Emulated EEPROM - New personality.
 
 ## Added Drivers
 
 ## Updated Drivers
 
+* [PRA 2.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pra.html)
+* [SYSCLK 3.30](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [SYSPM 5.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+
 ### Drivers with patch version updates
+
+* [GPIO 1.50.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
 
 ### Obsoleted part numbers
 
@@ -46,7 +49,7 @@ Below is a list of PSoC 6 part numbers obsoleted in psoc6pdl release-v1.6.0, wit
 * On soft reset, user need to reset back up domain using Cy_SysLib_ResetBackupDomain() to receive Cy_RTC_CenturyInterrupt() callback on Century roll over.
 * On building with tools 2.2, user get warning related to the older version of tools used. To avoid this warning, user is advised to migrate to newer tools version or keep working with previous version of this library.  The warning generated is as follows:
   * _#warning "(Library) The referenced 'device support library' contains newer content than is supported. Either downgrade the version of the 'device support library' referenced or upgrade the version of tools being used_
-  
+
 
 ## Defect Fixes
 

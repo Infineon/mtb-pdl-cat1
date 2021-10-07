@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.h
-* \version 1.50
+* \version 1.50.1
 *
 * Provides an API declaration of the GPIO driver
 *
@@ -102,6 +102,11 @@
 * \section group_gpio_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.50.1</td>
+*     <td>Updated doxygen for External clock source to HF0.</td>
+*     <td>Documentation enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td>1.50</td>
 *     <td>Modified \ref Cy_GPIO_Pin_Init, \ref Cy_GPIO_Pin_FastInit, and

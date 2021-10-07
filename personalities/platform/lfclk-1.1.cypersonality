@@ -39,7 +39,7 @@
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__clk__lf.html" linkText="Open Low-Frequency Clock Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
-  
+
     <ParamChoice id="sourceClock" name="Source Clock" group="General" default="ilo" visible="true" editable="true" desc="The clock source for CLK_LF">
       <Entry name="ALTLF" value="altlf" visible="`${ALTLF_PRESENT}`"/>
       <Entry name="ILO" value="ilo" visible="true"/>
@@ -66,6 +66,6 @@
     <ConfigDefine name="CY_CFG_SYSCLK_CLKLF_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKLF_FREQ_HZ" value="`${frequency}`" public="true" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKLF_SOURCE" value="CY_SYSCLK_CLKLF_IN_`${sourceClockApiName}`" public="true" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkLfInit()" body="    /* The WDT is unlocked in the default startup code */&#xA;    Cy_SysClk_ClkLfSetSource(CY_SYSCLK_CLKLF_IN_`${sourceClockApiName}`);" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkLfInit()" body="    /* The WDT is unlocked in the default startup code */&#xA;    Cy_SysClk_ClkLfSetSource(CY_SYSCLK_CLKLF_IN_`${sourceClockApiName}`);" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

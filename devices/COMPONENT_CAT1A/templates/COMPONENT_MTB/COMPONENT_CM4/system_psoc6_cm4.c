@@ -100,7 +100,7 @@ uint32_t cy_BleEcoClockFreqHz = 0UL;
 
 /* IPC_STRUCT7->DATA configuration */
 #define CY_STARTUP_CM0_DP_STATE         (0x2uL)
-#define CY_STARTUP_IPC7_DP_OFFSET       (0x28u)
+#define CY_STARTUP_IPC7_DP_OFFSET       (28u)
 
 
 /*******************************************************************************

@@ -38,7 +38,7 @@
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__pilo.html" linkText="Open PILO Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
-  
+
     <ParamRange id="frequency" name="Frequency" group="Internal" default="32768" min="32768" max="32768" resolution="1" visible="false" editable="false" desc="" />
     <ParamRange id="accuracy" name="Accuracy" group="Internal" default="2" min="2" max="2" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${frequency / 1000.0 . &quot; kHz&quot;}`" visible="true" editable="false" desc="The nominal output frequency" />
@@ -47,6 +47,6 @@
   <ConfigFirmware>
     <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_PILO_ENABLED" value="1" public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_PiloInit()" body="    Cy_SysClk_PiloEnable();" public="false" include="true"  guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_PiloInit()" body="    Cy_SysClk_PiloEnable();" public="false" include="true"  guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

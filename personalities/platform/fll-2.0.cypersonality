@@ -40,7 +40,7 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__fll.html" linkText="Open FLL Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
-  
+
     <!-- For ULP mode, Ffll_max = 50 MHz. For LP mode, Ffll_max = 100 MHz or Fcpu_max (if Fcpu_max < 100 MHz) -->
     <ParamBool id="usingUlp" name="usingUlp" group="Internal" default="`${isBlockUsed(&quot;srss[0].power[0]&quot;) &amp;&amp; getExposedMember(&quot;srss[0].power[0]&quot;, &quot;usingUlp&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="maxFrequency" name="Max Frequency (MHz)" group="Internal" default="`${getDeviceAttr(&quot;CPU_MAX_MHZ&quot;) &gt; 100 ? 100 : getDeviceAttr(&quot;CPU_MAX_MHZ&quot;)}`" visible="false" editable="false" desc="The maximum FLL frequency" />
@@ -60,11 +60,11 @@
     </ParamChoice>
 
     <ParamBool id="manConfig" name="Manual FLL Configuration" group="Internal" default="`${configuration eq manual}`" visible="false" editable="false" desc="" />
-    
+
     <ParamRange id="desiredFrequency" name="Desired Frequency (MHz)" group="General" default="`${maxFrequency}`" min="24" max="`${maxFrequency}`" resolution="0.001" visible="`${!manConfig}`" editable="true" desc="" />
-    
+
     <!-- Use default values in case of error -->
-    
+
     <!-- The FLL calculator takes into account whether the WCO is used as the reference clock for the FLL. The FLL resides on clock path 0. -->
     <ParamString id="path0ClkSource" name="Source Clock for Clock Path 0" group="Internal" default="`${!srcError ? getExposedMember(sourceClockRsc, &quot;sourceClock&quot;) : false}`" visible="false" editable="false" desc="" />
 
@@ -74,7 +74,7 @@
     <ParamRange id="multiplier" name="Multiplier (1-262143)" group="General" default="`${getTclVar(&quot;fllMult&quot;, callSolverAuto)}`" min="`${srcNotUsed ? 0 : 1}`" max="262143" resolution="1" visible="true" editable="`${manConfig}`" desc="The feedback clock divider" />
     <ParamRange id="reference" name="Reference (1-8191)" group="General" default="`${getTclVar(&quot;refDiv&quot;, callSolverAuto)}`" min="`${srcNotUsed ? 0 : 1}`" max="8191" resolution="1" visible="true" editable="`${manConfig}`" desc="The reference clock divider" />
     <ParamRange id="tolerance" name="Lock Tolerance (0-511)" group="General" default="`${getTclVar(&quot;lockTolerance&quot;, callSolverAuto)}`" min="0" max="511" resolution="1" visible="true" editable="`${manConfig}`" desc="Lock tolerance sets the error threshold for when the FLL output is considered locked to the reference input. A high tolerance can be used to lock more quickly or to track a less accurate source.  The tolerance should be set so that the FLL does not unlock under normal conditions. The tolerance is the allowed difference between the count value for the ideal formula and the measured value" />
-    
+
     <ParamString id="callSolver" name="callSolver" group="Internal" default="`${manConfig ? runTcl(&quot;fll_solver-2.0.tcl&quot; , &quot;manual&quot;, sourceFrequency / 1000000.0, multiplier, reference, tolerance, path0ClkSource eq &quot;wco&quot;, sourceAccuracy) : callSolverAuto}`" visible="false" editable="false" desc="FLL clock solver" />
 
     <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFrequency * multiplier / (srcNotUsed ? 1 : reference) / (getTclVar(&quot;enableOutputDiv&quot;, callSolver) ? 2 : 1)}`" min="`${srcNotUsed ? 0 : 24000000}`" max="`${maxFreqHz}`" resolution="200000" visible="false" editable="false" desc="" />
@@ -103,7 +103,7 @@
     <ConfigDefine name="CY_CFG_SYSCLK_FLL_OUTPUT_MODE" value="`${getTclVar(&quot;outputMode&quot;, callSolver)}`" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_FLL_CCO_FREQ" value="`${getTclVar(&quot;cco_Freq&quot;, callSolver)}`U" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_FLL_OUT_FREQ" value="`${frequency}`" public="false" include="true" />
-    <ConfigStruct name="`${INST_NAME . &quot;_fllConfig&quot;}`" type="cy_stc_fll_manual_config_t" const="true" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" >
+    <ConfigStruct name="`${INST_NAME . &quot;_fllConfig&quot;}`" type="cy_stc_fll_manual_config_t" const="true" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" >
       <Member name="fllMult" value="`${multiplier}`U" />
       <Member name="refDiv" value="`${reference}`U" />
       <Member name="ccoRange" value="`${getTclVar(&quot;ccoRange&quot;, callSolver)}`" />
@@ -115,6 +115,6 @@
       <Member name="outputMode" value="`${getTclVar(&quot;outputMode&quot;, callSolver)}`" />
       <Member name="cco_Freq" value="`${getTclVar(&quot;cco_Freq&quot;, callSolver)}`U" />
     </ConfigStruct>
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_FllInit()" body="    if (CY_SYSCLK_SUCCESS != Cy_SysClk_FllManualConfigure(&amp;`${INST_NAME}`_fllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_FLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_FllEnable(200000UL))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_FLL_ERROR);&#xA;    }" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_FllInit()" body="    if (CY_SYSCLK_SUCCESS != Cy_SysClk_FllManualConfigure(&amp;`${INST_NAME}`_fllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_FLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_FllEnable(200000UL))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_FLL_ERROR);&#xA;    }" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

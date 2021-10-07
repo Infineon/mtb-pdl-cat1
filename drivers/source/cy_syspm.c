@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.c
-* \version 5.50
+* \version 5.60
 *
 * This driver provides the source code for API power management.
 *
@@ -30,6 +30,13 @@
 #include "cy_ipc_drv.h"
 #include "cy_ipc_pipe.h"
 #include "cy_prot.h"
+
+#if defined (CY_DEVICE_SECURE)
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 17.2', 4, \
+'Checked manually. All the recursive cycles are handled properly.');
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 18.6', 3, \
+'Checked manually. Assignment of Local to global variable does not create any issue.');
+#endif
 
 #if ((CY_CPU_CORTEX_M0P) && (defined(CY_DEVICE_SECURE)))
     #include "cy_pra_cfg.h"
@@ -905,10 +912,11 @@ cy_en_syspm_status_t Cy_SysPm_SystemSetMinRegulatorCurrent(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_CANCELED;
 
-#if ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
+#if defined (CY_DEVICE_SECURE)
     retVal = (cy_en_syspm_status_t)CY_PRA_FUNCTION_CALL_RETURN_VOID(CY_PRA_MSG_TYPE_FUNC_POLICY,
                                                                     CY_PRA_PM_FUNC_SET_MIN_CURRENT);
-#else
+#endif /* defined (CY_DEVICE_SECURE) */
+#if ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE)))
     /* Check are the power circuits are ready to enter into regulator minimum
     *  current mode
     */
@@ -942,7 +950,7 @@ cy_en_syspm_status_t Cy_SysPm_SystemSetMinRegulatorCurrent(void)
 
         retVal = CY_SYSPM_SUCCESS;
     }
-#endif /* ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
+#endif /* ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE))) */
 
     return retVal;
 }
@@ -952,10 +960,11 @@ cy_en_syspm_status_t Cy_SysPm_SystemSetNormalRegulatorCurrent(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_TIMEOUT;
 
-#if ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
+#if defined (CY_DEVICE_SECURE)
     retVal = (cy_en_syspm_status_t)CY_PRA_FUNCTION_CALL_RETURN_VOID(CY_PRA_MSG_TYPE_FUNC_POLICY,
                                                                     CY_PRA_PM_FUNC_SET_NORMAL_CURRENT);
-#else
+#endif /* defined (CY_DEVICE_SECURE) */
+#if ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE)))
     uint32_t timeOut = WAIT_DELAY_TRYES;
 
     /* Configure the regulator normal current mode for the POR/BOD circuits
@@ -995,7 +1004,7 @@ cy_en_syspm_status_t Cy_SysPm_SystemSetNormalRegulatorCurrent(void)
 
         retVal= CY_SYSPM_SUCCESS;
     }
-#endif /* ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
+#endif /* ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE))) */
 
     return retVal;
 }
@@ -1104,11 +1113,12 @@ cy_en_syspm_status_t Cy_SysPm_BuckEnable(cy_en_syspm_buck_voltage1_t voltage)
 
     cy_en_syspm_status_t retVal = CY_SYSPM_INVALID_STATE;
 
-#if ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
+#if defined (CY_DEVICE_SECURE)
     retVal = (cy_en_syspm_status_t)CY_PRA_FUNCTION_CALL_RETURN_PARAM(CY_PRA_MSG_TYPE_FUNC_POLICY,
                                                                      CY_PRA_PM_FUNC_BUCK_ENABLE,
                                                                      voltage);
-#else
+#endif /* defined (CY_DEVICE_SECURE) */
+#if ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE)))
 
     /* Enable the Buck regulator only if it was not enabled previously.
     *  If the LDO is disabled, the device is sourced by the Buck regulator
@@ -1205,7 +1215,7 @@ cy_en_syspm_status_t Cy_SysPm_BuckEnable(cy_en_syspm_buck_voltage1_t voltage)
             retVal = CY_SYSPM_SUCCESS;
         }
     }
-#endif /* ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
+#endif /* ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE))) */
 
     return retVal;
 }
@@ -1217,11 +1227,12 @@ cy_en_syspm_status_t Cy_SysPm_BuckSetVoltage1(cy_en_syspm_buck_voltage1_t voltag
 
     cy_en_syspm_status_t retVal = CY_SYSPM_INVALID_STATE;
 
-#if ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
+#if defined (CY_DEVICE_SECURE)
     retVal = (cy_en_syspm_status_t)CY_PRA_FUNCTION_CALL_RETURN_PARAM(CY_PRA_MSG_TYPE_FUNC_POLICY,
                                                                      CY_PRA_PM_FUNC_BUCK_ENABLE,
                                                                      voltage);
-#else
+#endif /* defined (CY_DEVICE_SECURE) */
+#if ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE)))
 
     /* Change the voltage only if protection context is set to zero (PC = 0)
     *  or the device revision supports modifying registers via syscall
@@ -1292,7 +1303,7 @@ cy_en_syspm_status_t Cy_SysPm_BuckSetVoltage1(cy_en_syspm_buck_voltage1_t voltag
 
         Cy_SysLib_ExitCriticalSection(interruptState);
     }
-#endif /* ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
+#endif /* ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE))) */
 
     return retVal;
 }
@@ -1393,11 +1404,12 @@ cy_en_syspm_status_t Cy_SysPm_LdoSetVoltage(cy_en_syspm_ldo_voltage_t voltage)
 
     cy_en_syspm_status_t retVal = CY_SYSPM_INVALID_STATE;
 
-#if ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
+#if defined (CY_DEVICE_SECURE)
     retVal = (cy_en_syspm_status_t)CY_PRA_FUNCTION_CALL_RETURN_PARAM(CY_PRA_MSG_TYPE_FUNC_POLICY,
                                                                      CY_PRA_PM_FUNC_LDO_SET_VOLTAGE,
                                                                      voltage);
-#else
+#endif /* defined (CY_DEVICE_SECURE) */
+#if ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE)))
     /* Change the voltage only if protection context is set to zero (PC = 0),
     *  or the device revision supports modifying registers via syscall
     */
@@ -1487,7 +1499,7 @@ cy_en_syspm_status_t Cy_SysPm_LdoSetVoltage(cy_en_syspm_ldo_voltage_t voltage)
 
         Cy_SysLib_ExitCriticalSection(interruptState);
     }
-#endif /* ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
+#endif /* ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE))) */
 
     return retVal;
 }
@@ -2622,6 +2634,11 @@ void Cy_SysPm_BackupSuperCapCharge(cy_en_syspm_sc_charge_key_t key)
         BACKUP_CTL &= ((uint32_t) ~BACKUP_CTL_EN_CHARGE_KEY_Msk);
     }
 }
+
+#if defined (CY_DEVICE_SECURE)
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.6');
+#endif
 
 #endif
 /* [] END OF FILE */

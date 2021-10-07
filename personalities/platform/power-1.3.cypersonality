@@ -224,7 +224,7 @@
         #endif /* CY_CFG_SYSCLK_ILO_ENABLED */&#xA;
     #endif /* CY_CFG_PWR_VBACKUP_USING_VDDD */&#xA;&#xA;
     /* Configure core regulator */&#xA;
-    #if !((CY_CPU_CORTEX_M4) &amp;&amp; (defined(CY_DEVICE_SECURE)))&#xA;
+   #if !(defined(CY_DEVICE_SECURE))&#xA;
         #if CY_CFG_PWR_USING_LDO&#xA;
             Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_`${actPwrMode}`);&#xA;
         #else&#xA;
@@ -235,7 +235,7 @@
         #else&#xA;
             Cy_SysPm_SystemSetNormalRegulatorCurrent();&#xA;
         #endif /* CY_CFG_PWR_REGULATOR_MODE_MIN */&#xA;
-    #endif /* !((CY_CPU_CORTEX_M4) &amp;&amp; (defined(CY_DEVICE_SECURE))) */&#xA;
+   #endif /* !(defined(CY_DEVICE_SECURE)) */&#xA;
     /* Configure PMIC */&#xA;
     Cy_SysPm_UnlockPmic();&#xA;
     #if CY_CFG_PWR_USING_PMIC&#xA;
@@ -243,6 +243,6 @@
     #else&#xA;
         Cy_SysPm_PmicDisableOutput();&#xA;
     #endif /* CY_CFG_PWR_USING_PMIC */"
-    public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+    public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_pra_cfg.c
-* \version 2.20
+* \version 2.30
 *
 * \brief The source code file for the PRA driver.  The API is not intented to
 * be used directly by user application.
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS) && defined (CY_IP_MXS40IOSS)
+#if defined (CY_IP_MXS40SRSS)
 
 #include "cy_pra_cfg.h"
 #include "cy_device.h"
@@ -33,6 +33,9 @@
 #include "cy_wdt.h"
 
 #if defined (CY_DEVICE_SECURE) || defined (CY_DOXYGEN)
+
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 17.2', 15, \
+'Checked manually. All the recursive cycles are handled properly.');
 
 #if (CY_CPU_CORTEX_M0P)
     #include "cy_prot.h"
@@ -349,6 +352,8 @@ __STATIC_INLINE cy_en_pra_status_t Cy_PRA_FllInit(const cy_stc_pra_system_config
 *
 * Initializes External Clock Source. This function initializes external pin and
 * sets EXT_CLK frequency.
+* The drive mode of the pin is hardcoded to \ref CY_GPIO_DM_HIGHZ. So User has to
+* make sure this drive mode is not overwritten in application.
 *
 * \param devConfig
 *
@@ -2760,8 +2765,12 @@ cy_en_pra_status_t Cy_PRA_SystemConfig(const cy_stc_pra_system_config_t *devConf
 
     if(Cy_SysClk_FllIsEnabled())
     {
-        /* Disables FLL when its state changes ENABLE -> DISABLE */
-        if (!devConfig->fllEnable)
+        uint32_t oldFreq, newFreq;
+        oldFreq = Cy_SysClk_FllGetFrequency();
+        newFreq = Cy_PRA_CalculateFLLOutFreq(devConfig);
+        /* Disables FLL when its state changes ENABLE -> DISABLE or FLL configuration changed */
+        if ((!(devConfig->fllEnable)) || /* state change from ENABLE -> DISABLE */
+            (oldFreq != newFreq)) /* fll configuration is changed */
         {
             sysClkStatus = Cy_SysClk_FllDisable();
 
@@ -2771,21 +2780,21 @@ cy_en_pra_status_t Cy_PRA_SystemConfig(const cy_stc_pra_system_config_t *devConf
             }
         }
     }
-    /* When the FLL state changes DISABLE -> ENABLE, enable only FLL.
-     * Ignore, if FLL is already enabled */
-    else
-    {
-        if(devConfig->fllEnable)
-        {
-            SystemCoreClockUpdate();
-            status = Cy_PRA_FllInit(devConfig);
 
-            if (CY_PRA_STATUS_SUCCESS != status)
-            {
-                return status;
-            }
+    /* When the FLL state changes DISABLE -> ENABLE, then only enable FLL.
+     * Ignore, if FLL is already enabled
+     */
+    if((devConfig->fllEnable) && (!Cy_SysClk_FllIsEnabled()))
+    {
+        SystemCoreClockUpdate();
+        status = Cy_PRA_FllInit(devConfig);
+
+        if (CY_PRA_STATUS_SUCCESS != status)
+        {
+            return status;
         }
     }
+
 
     /* CLK_HF0 Init */
     sysClkStatus = Cy_SysClk_ClkHfSetSource(CY_PRA_CLKHF_0, devConfig->hf0Source);
@@ -2820,8 +2829,12 @@ cy_en_pra_status_t Cy_PRA_SystemConfig(const cy_stc_pra_system_config_t *devConf
     {
         if(Cy_SysClk_PllIsEnabled(CY_PRA_CLKPLL_1))
         {
-            /* Disables PLL0 when its state changes ENABLE -> DISABLE */
-            if(!devConfig->pll0Enable)
+            uint32_t oldFreq, newFreq;
+            oldFreq = Cy_SysClk_PllGetFrequency(CY_PRA_CLKPLL_1);
+            newFreq = Cy_PRA_CalculatePLLOutFreq(CY_PRA_CLKPLL_1, devConfig);
+            /* Disables PLL0 when its state changes ENABLE -> DISABLE or PLL configuration changed */
+            if ((!devConfig->pll0Enable) ||  /* state change from ENABLE -> DISABLE */
+                (oldFreq != newFreq)) /* pll1 configuration is changed */
             {
                 SystemCoreClockUpdate();
                 sysClkStatus = Cy_SysClk_PllDisable(CY_PRA_CLKPLL_1);
@@ -2834,26 +2847,24 @@ cy_en_pra_status_t Cy_PRA_SystemConfig(const cy_stc_pra_system_config_t *devConf
         }
         /* When the PLL0 state changes DISABLE -> ENABLE, enable only PLL0.
          * Ignore, if PLL0 is already enabled */
-        else
+
+        if((devConfig->pll0Enable) && (!Cy_SysClk_PllIsEnabled(CY_PRA_CLKPLL_1)))
         {
-            if(devConfig->pll0Enable)
+            const cy_stc_pll_manual_config_t pll0Config =
             {
-                const cy_stc_pll_manual_config_t pll0Config =
-                {
-                    .feedbackDiv = devConfig->pll0FeedbackDiv,
-                    .referenceDiv = devConfig->pll0ReferenceDiv,
-                    .outputDiv = devConfig->pll0OutputDiv,
-                    .lfMode = devConfig->pll0LfMode,
-                    .outputMode = devConfig->pll0OutputMode,
-                };
+                .feedbackDiv = devConfig->pll0FeedbackDiv,
+                .referenceDiv = devConfig->pll0ReferenceDiv,
+                .outputDiv = devConfig->pll0OutputDiv,
+                .lfMode = devConfig->pll0LfMode,
+                .outputMode = devConfig->pll0OutputMode,
+            };
 
-                SystemCoreClockUpdate();
-                status = Cy_PRA_PllInit(CY_PRA_CLKPLL_1, &pll0Config);
+            SystemCoreClockUpdate();
+            status = Cy_PRA_PllInit(CY_PRA_CLKPLL_1, &pll0Config);
 
-                if (CY_PRA_STATUS_SUCCESS != status)
-                {
-                    return CY_PRA_STATUS_ERROR_PROCESSING_PLL0;
-                }
+            if (CY_PRA_STATUS_SUCCESS != status)
+            {
+                return CY_PRA_STATUS_ERROR_PROCESSING_PLL0;
             }
         }
     }
@@ -2862,8 +2873,12 @@ cy_en_pra_status_t Cy_PRA_SystemConfig(const cy_stc_pra_system_config_t *devConf
     {
         if(Cy_SysClk_PllIsEnabled(CY_PRA_CLKPLL_2))
         {
-            /* Disables PLL0 when its state changes ENABLE -> DISABLE */
-            if(!devConfig->pll1Enable)
+            uint32_t oldFreq, newFreq;
+            oldFreq = Cy_SysClk_PllGetFrequency(CY_PRA_CLKPLL_2);
+            newFreq = Cy_PRA_CalculatePLLOutFreq(CY_PRA_CLKPLL_2, devConfig);
+            /* Disables PLL0 when its state changes ENABLE -> DISABLE or PLL configuration changed */
+            if ((!devConfig->pll1Enable) ||  /* state change from ENABLE -> DISABLE */
+                (oldFreq != newFreq)) /* pll2 configuration is changed */
             {
                 SystemCoreClockUpdate();
                 sysClkStatus = Cy_SysClk_PllDisable(CY_PRA_CLKPLL_2);
@@ -2876,26 +2891,24 @@ cy_en_pra_status_t Cy_PRA_SystemConfig(const cy_stc_pra_system_config_t *devConf
         }
         /* When the PLL1 state changes DISABLE -> ENABLE, enable only PLL1.
          * Ignore, if PLL1 is already enabled */
-        else
+
+        if((devConfig->pll1Enable) && (!Cy_SysClk_PllIsEnabled(CY_PRA_CLKPLL_2)))
         {
-            if(devConfig->pll1Enable)
+            const cy_stc_pll_manual_config_t pll1Config =
             {
-                const cy_stc_pll_manual_config_t pll1Config =
-                {
-                    .feedbackDiv = devConfig->pll1FeedbackDiv,
-                    .referenceDiv = devConfig->pll1ReferenceDiv,
-                    .outputDiv = devConfig->pll1OutputDiv,
-                    .lfMode = devConfig->pll1LfMode,
-                    .outputMode = devConfig->pll1OutputMode,
-                };
+                .feedbackDiv = devConfig->pll1FeedbackDiv,
+                .referenceDiv = devConfig->pll1ReferenceDiv,
+                .outputDiv = devConfig->pll1OutputDiv,
+                .lfMode = devConfig->pll1LfMode,
+                .outputMode = devConfig->pll1OutputMode,
+            };
 
-                SystemCoreClockUpdate();
-                status = Cy_PRA_PllInit(CY_PRA_CLKPLL_2, &pll1Config);
+            SystemCoreClockUpdate();
+            status = Cy_PRA_PllInit(CY_PRA_CLKPLL_2, &pll1Config);
 
-                if (CY_PRA_STATUS_SUCCESS != status)
-                {
-                    return CY_PRA_STATUS_ERROR_PROCESSING_PLL1;
-                }
+            if (CY_PRA_STATUS_SUCCESS != status)
+            {
+                return CY_PRA_STATUS_ERROR_PROCESSING_PLL1;
             }
         }
     }
@@ -3193,9 +3206,10 @@ void Cy_PRA_OpenSrssMain2(void)
 
 #endif /* (CY_CPU_CORTEX_M0P) || defined (CY_DOXYGEN) */
 
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2');
+
 #endif /* (CY_DEVICE_SECURE) */
 
-
-#endif /* CY_IP_M4CPUSS */
+#endif /* defined (CY_IP_MXS40SRSS) */
 
 /* [] END OF FILE */
