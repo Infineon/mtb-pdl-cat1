@@ -119,9 +119,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa50787f58138e1f55206988a5db124ae"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysanalog__functions.html#gaa50787f58138e1f55206988a5db124ae">Cy_SysAnalog_Disable</a> (void)</td></tr>
 <tr class="memdesc:gaa50787f58138e1f55206988a5db124ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the AREF hardware block.  <a href="#gaa50787f58138e1f55206988a5db124ae">More...</a><br /></td></tr>
 <tr class="separator:gaa50787f58138e1f55206988a5db124ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga780a105377971d2ddc4e8a0caab252b6"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysanalog__functions.html#ga780a105377971d2ddc4e8a0caab252b6">Cy_SysAnalog_SetArefMode</a> (<a class="el" href="group__group__sysanalog__enums.html#ga242311d3120c1005ba7d5be64516597d">cy_en_sysanalog_startup_t</a> startup)</td></tr>
-<tr class="memdesc:ga780a105377971d2ddc4e8a0caab252b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the AREF startup mode from power on reset or from Deep Sleep wakeup.  <a href="#ga780a105377971d2ddc4e8a0caab252b6">More...</a><br /></td></tr>
-<tr class="separator:ga780a105377971d2ddc4e8a0caab252b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga33f3a7cbdba876ae95c89c5a49bc0abb"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysanalog__functions.html#ga33f3a7cbdba876ae95c89c5a49bc0abb">Cy_SysAnalog_VrefSelect</a> (<a class="el" href="group__group__sysanalog__enums.html#ga953d5952135c077f6de135e058222459">cy_en_sysanalog_vref_source_t</a> vref)</td></tr>
 <tr class="memdesc:ga33f3a7cbdba876ae95c89c5a49bc0abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the source for the Vref.  <a href="#ga33f3a7cbdba876ae95c89c5a49bc0abb">More...</a><br /></td></tr>
 <tr class="separator:ga33f3a7cbdba876ae95c89c5a49bc0abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -315,36 +312,6 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
 <div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: The AREF block is no longer needed.</span></div><div class="line"><span class="comment">     * That is, all the consumer blocks (SAR, CTDAC, CTB, and CSDv2) have been disabled.</span></div><div class="line"><span class="comment">     * Disable the AREF block to save power. */</span></div><div class="line">    <a class="code" href="group__group__sysanalog__functions.html#gaa50787f58138e1f55206988a5db124ae">Cy_SysAnalog_Disable</a>();</div><div class="line"></div></div><!-- fragment -->
-</div>
-</div>
-<a id="ga780a105377971d2ddc4e8a0caab252b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga780a105377971d2ddc4e8a0caab252b6">&#9670;&nbsp;</a></span>Cy_SysAnalog_SetArefMode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE void Cy_SysAnalog_SetArefMode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__group__sysanalog__enums.html#ga242311d3120c1005ba7d5be64516597d">cy_en_sysanalog_startup_t</a>&#160;</td>
-          <td class="paramname"><em>startup</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the AREF startup mode from power on reset or from Deep Sleep wakeup. </p>
-<p>The AREF can startup in a normal or fast mode.</p>
-<p>If fast startup is desired from Deep Sleep wakeup, the IPTAT generators must be enabled during Deep Sleep. This is a minimum Deep Sleep mode setting of <a class="el" href="group__group__sysanalog__enums.html#gga0aadb061d882d9a964dff3729322cf12a040af8630904ae7b6e969a18c2712a70">CY_SYSANALOG_DEEPSLEEP_IPTAT_1</a> (see also <a class="el" href="group__group__sysanalog__functions.html#ga5d6d537beaf82fddf8e06f30b1d308b3">Cy_SysAnalog_SetDeepSleepMode</a>).</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">startup</td><td>Value from enum <a class="el" href="group__group__sysanalog__enums.html#ga242311d3120c1005ba7d5be64516597d">cy_en_sysanalog_startup_t</a></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
-<div class="fragment"><div class="line">    <span class="comment">/* Scenario: The fast startup mode is desired. */</span></div><div class="line">    <a class="code" href="group__group__sysanalog__functions.html#ga780a105377971d2ddc4e8a0caab252b6">Cy_SysAnalog_SetArefMode</a>(<a class="code" href="group__group__sysanalog__enums.html#gga242311d3120c1005ba7d5be64516597da85c067feb78f5673b6c2f3c982fd56a6">CY_SYSANALOG_STARTUP_FAST</a>);</div></div><!-- fragment -->
 </div>
 </div>
 <a id="ga33f3a7cbdba876ae95c89c5a49bc0abb"></a>

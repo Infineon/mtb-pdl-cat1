@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ctb.h
-* \version 2.0
+* \version 2.10
 *
 * Header file for the CTB driver
 *
@@ -285,6 +285,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>2.10</td>
+*     <td>Added new power saver modes: \ref CY_CTB_POWER_PS_LOW, \ref CY_CTB_POWER_PS_MEDIUM and \ref CY_CTB_POWER_PS_HIGH.</td>
+*     <td>API enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td rowspan="2">2.0</td>
 *     <td>Added new function \ref Cy_CTB_SetPumpClkSource with new pump clock source \ref CY_CTB_CLK_PUMP_DEEPSLEEP for PASS_v2.</td>
 *     <td>New silicon family support.</td>
@@ -379,7 +384,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 24, \
 #define CY_CTB_DRV_VERSION_MAJOR            2
 
 /** Driver minor version */
-#define CY_CTB_DRV_VERSION_MINOR            0
+#define CY_CTB_DRV_VERSION_MINOR            10
 
 /** CTB driver identifier*/
 #define CY_CTB_ID                           CY_PDL_DRV_ID(0x0Bu)
@@ -534,6 +539,9 @@ typedef enum {
     CY_CTB_POWER_LOW       = 1UL,     /**< Low power: IDD = 350 uA, GBW = 1 MHz for both 1x and 10x */
     CY_CTB_POWER_MEDIUM    = 2UL,     /**< Medium power: IDD = 600 uA, GBW = 3 MHz for 1x and 2.5 MHz for 10x */
     CY_CTB_POWER_HIGH      = 3UL,     /**< High power: IDD = 1500 uA, GBW = 8 MHz for 1x and 6 MHz for 10x */
+    CY_CTB_POWER_PS_LOW    = 5UL,     /**< Power Saver Low power mode: IDD = ~20uA with 1uA bias from AREF, GBW = ~100kHz for 1x/10x, offset correcting IDAC is disabled */
+    CY_CTB_POWER_PS_MEDIUM = 6UL,     /**< Power Saver Medium power mode: IDD = ~40uA with 1uA bias from AREF, GBW = ~100kHz for 1x/10x, offset correcting IDAC is enabled */
+    CY_CTB_POWER_PS_HIGH   = 7UL,     /**< Power Saver High power mode: IDD = ~60uA with 1uA bias from AREF, GBW = ~200kHz for 1x/10x, offset correcting IDAC is enabled */
 }cy_en_ctb_power_t;
 
 /**

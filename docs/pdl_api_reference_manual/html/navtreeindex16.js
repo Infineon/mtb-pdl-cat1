@@ -1,6 +1,5 @@
 var NAVTREEINDEX16 =
 {
-"group__group__sysclk__clk__peripheral.html":[2,29,16],
 "group__group__sysclk__clk__peripheral__enums.html":[2,29,16,1],
 "group__group__sysclk__clk__peripheral__enums.html#ga06138349be16d91fd5d00ded2f4592b8":[2,29,16,1,1],
 "group__group__sysclk__clk__peripheral__enums.html#ga9aa4619e36f4b0314e9b882f4ff2b6df":[2,29,16,1,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX16 =
 "group__group__syslib__enumerated__types.html#gga97d0b049220b931606e2ae2e144994e1a7d26e21cf3c67f4202b35c3c6bcde534":[2,31,3,0,0],
 "group__group__syslib__enumerated__types.html#gga97d0b049220b931606e2ae2e144994e1ab0fe56aafcc3a799deb35a95cd267cae":[2,31,3,0,2],
 "group__group__syslib__enumerated__types.html#gga97d0b049220b931606e2ae2e144994e1afbaf0aa42e3fea46010fbb779c3b4fd8":[2,31,3,0,1],
-"group__group__syslib__functions.html":[2,31,1]
+"group__group__syslib__functions.html":[2,31,1],
+"group__group__syslib__functions.html#ga0852597c5a10b76413a7063711043fef":[2,31,1,17]
 };

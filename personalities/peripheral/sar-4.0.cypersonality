@@ -3,7 +3,7 @@
 
 <!--****************************************************************************
 * \file sar.cypersonality
-* \version 3.0
+* \version 4.0
 *
 * \brief
 * SAR personality description file.
@@ -285,10 +285,8 @@
         <Arm name="Injection Vminus" desc="Assign the connection for the negative terminal of Injection Channel" visible="`${inj_en &amp;&amp; !inj_se}`" canBeEmpty="`${!inj_en || inj_se}`" multiSelect="true" group="Injection Channel" role="INJ_VMINUS"/>
         <Arm name="Vneg" desc="Assign the connection for the shared negative terminal. Only visible when at least one channel is not differential." visible="`${isVneg}`" canBeEmpty="`${!isVneg}`" multiSelect="true" role="VNEG"/>
     </ParamMux>
-
-
-    <!-- FIFO -->
     
+    <!-- FIFO -->
     <ParamBool id="isFirst" name="isFirst" group="Fifo" default="`${inst eq 0}`" visible="`${debug}`" editable="false" desc="" />
     <ParamRange id="prvInst" name="prvInst" group="Fifo" default="`${isFirst ? 0 : inst - 1}`" min="0" max="3" resolution="1" visible="`${debug}`" editable="false" desc="" />
     

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysanalog.c
-* \version 2.0
+* \version 2.10
 *
 * Provides the public functions for the API for the SysAnalog driver.
 *
@@ -95,31 +95,25 @@ const cy_stc_sysanalog_config_t Cy_SysAnalog_Fast_External =
 * \snippet sysanalog/snippet/main.c SYSANA_SNIPPET_INIT
 *
 *******************************************************************************/
-cy_en_sysanalog_status_t Cy_SysAnalog_Init(const cy_stc_sysanalog_config_t *config)
+cy_en_sysanalog_status_t Cy_SysAnalog_Init(const cy_stc_sysanalog_config_t * config)
 {
     CY_ASSERT_L1(NULL != config);
 
-    cy_en_sysanalog_status_t result = CY_SYSANALOG_SUCCESS;
-    uint32_t ctrlReg = CY_SYSANALOG_DEINIT;
+    cy_en_sysanalog_status_t result = CY_SYSANALOG_BAD_PARAM;
 
-    if (NULL == config)
+    if (NULL != config)
     {
-        result = CY_SYSANALOG_BAD_PARAM;
-    }
-    else
-    {
-        CY_ASSERT_L3(CY_SYSANALOG_STARTUP(config->startup));
         CY_ASSERT_L3(CY_SYSANALOG_DEEPSLEEP(config->deepSleep));
         CY_ASSERT_L3(CY_SYSANALOG_VREF(config->vref));
         CY_ASSERT_L3(CY_SYSANALOG_IZTAT(config->iztat));
 
-        ctrlReg = (uint32_t) config->startup \
-                  | CY_SYSANALOG_DEFAULT_BIAS_SCALE \
-                  | (uint32_t) config->iztat \
-                  | (uint32_t) config->vref \
-                  | (uint32_t) config->deepSleep;
+        PASS_AREF_AREF_CTRL = (uint32_t) CY_SYSANALOG_STARTUP_FAST \
+                            | (uint32_t) CY_SYSANALOG_DEFAULT_BIAS_SCALE \
+                            | (uint32_t) config->iztat \
+                            | (uint32_t) config->vref \
+                            | (uint32_t) config->deepSleep;
 
-        PASS_AREF_AREF_CTRL = ctrlReg;
+        result = CY_SYSANALOG_SUCCESS;
     }
 
     return result;
@@ -144,7 +138,7 @@ cy_en_sysanalog_status_t Cy_SysAnalog_Init(const cy_stc_sysanalog_config_t *conf
 * \funcusage \snippet sysanalog/snippet/main.c SYSANA_SNIPPET_INIT_DS
 *
 *******************************************************************************/
-cy_en_sysanalog_status_t Cy_SysAnalog_DeepSleepInit(PASS_Type * base, const cy_stc_sysanalog_deep_sleep_config_t *config)
+cy_en_sysanalog_status_t Cy_SysAnalog_DeepSleepInit(PASS_Type * base, const cy_stc_sysanalog_deep_sleep_config_t * config)
 {
     cy_en_sysanalog_status_t result = CY_SYSANALOG_UNSUPPORTED;
 

@@ -14,7 +14,10 @@ var group__group__ctb__enums =
       [ "CY_CTB_POWER_OFF", "group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a66abce3441d5fa21de57a3562618699d", null ],
       [ "CY_CTB_POWER_LOW", "group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a485df17e1615711ae1bdf8dc4a4544a9", null ],
       [ "CY_CTB_POWER_MEDIUM", "group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7aae2c9f6a316b91068303ed99830455b0", null ],
-      [ "CY_CTB_POWER_HIGH", "group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a05afe81fc659387c6bc8353aff8eb5d0", null ]
+      [ "CY_CTB_POWER_HIGH", "group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a05afe81fc659387c6bc8353aff8eb5d0", null ],
+      [ "CY_CTB_POWER_PS_LOW", "group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a29ea09aec9a63a04cc3d40b9cb482d0d", null ],
+      [ "CY_CTB_POWER_PS_MEDIUM", "group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a8bbc21b1cd8d1b080b682bf3956963d8", null ],
+      [ "CY_CTB_POWER_PS_HIGH", "group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7adc12104acc34a6485c492507bb915ebd", null ]
     ] ],
     [ "cy_en_ctb_mode_t", "group__group__ctb__enums.html#gad4b99429b5ed1561e1b82bb7a21d9e79", [
       [ "CY_CTB_MODE_OPAMP1X", "group__group__ctb__enums.html#ggad4b99429b5ed1561e1b82bb7a21d9e79a524f96c99484d892af4fcd85bc5f410c", null ],

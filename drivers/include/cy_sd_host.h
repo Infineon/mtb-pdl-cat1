@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sd_host.h
-* \version 1.80
+* \version 1.90
 *
 *  This file provides constants and parameter values for
 *  the SD Host Controller driver.
@@ -248,6 +248,12 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td> 1.90</td>
+*     <td>Fixed the Cy_SD_Host_SoftwareReset() function behaviour.
+*         Now it waits untill corresponding reset bit gets cleared by SDHC IP block.</td>
+*     <td>Defect fixing.</td>
+*   </tr>
+*   <tr>
 *     <td> 1.80</td>
 *     <td>Added an internal function.</td>
 *     <td>Code efficiency enhancement.</td>
@@ -409,7 +415,7 @@ extern "C"
 #define CY_SD_HOST_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_SD_HOST_DRV_VERSION_MINOR       80
+#define CY_SD_HOST_DRV_VERSION_MINOR       90
 
 /******************************************************************************
 * API Constants

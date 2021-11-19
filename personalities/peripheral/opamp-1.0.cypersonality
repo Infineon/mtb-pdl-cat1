@@ -33,25 +33,9 @@
   </Dependencies>
   <ExposedMembers />
   <Parameters>
-      <!--
-    <ParamChoice id="mode" name="Mode" group="General" default="CY_CTB_MODE_OPAMP" visible="true" editable="true" desc="This parameter defines feedback routing of the Opamp." >
-        <Entry name="Opamp" value="CY_CTB_MODE_OPAMP" visible="true" />
-        <Entry name="Follower" value="CY_CTB_MODE_FOLLOWER" visible="true" />
-    </ParamChoice>
-    -->
+
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__ctb.html" linkText="Open CTB Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
-    
-    <ParamChoice id="power" name="Power" group="General" default="CY_CTB_POWER_HIGH" visible="true" editable="true" desc="The Power parameter allows you to select the power level. Higher operating current increases the Opamp bandwidth." >
-      <Entry name="Off" value="CY_CTB_POWER_OFF" visible="false" />
-      <Entry name="Low" value="CY_CTB_POWER_LOW" visible="true" />
-      <Entry name="Medium" value="CY_CTB_POWER_MEDIUM" visible="true" />
-      <Entry name="High" value="CY_CTB_POWER_HIGH" visible="true" />
-    </ParamChoice>
-    <ParamChoice id="outputCurrent" name="Output Drive" group="General" default="CY_CTB_MODE_OPAMP1X" visible="true" editable="true" desc="This parameter selects an output drive mode. Selecting Output to pin allows for connections to device pins with 10x more drive current." >
-        <Entry name="Output to pin" value="CY_CTB_MODE_OPAMP10X" visible="true" />
-        <Entry name="Internal only" value="CY_CTB_MODE_OPAMP1X" visible="true" />
-    </ParamChoice> 
 
     <!-- Internal Parameters -->
     <ParamBool id="debug" name="debug" group="Internal" default="false" visible="false" editable="false" desc="" />
@@ -65,8 +49,25 @@
     <ParamBool id="isPumpClkEnabled" name="isPumpClkEnabled" group="Internal" default="`${verGt1 ? isCTBmClockEnabled : isSysAnalogEnabled}`" visible="`${debug}`" editable="false" desc="" />
     <ParamString id="clockRsc" name="clockRsc" group="Internal" default="`${verGt1 ? &quot;pass[0].ctbmclk[0]&quot; : &quot;pass[0]&quot;}`" visible="`${debug}`" editable="false" desc="" />
     <ParamString id="pumpClkHz" name="Opamp Pump Clock Freq" group="Internal" default="`${isPumpClkEnabled ? getExposedMember(clockRsc, &quot;frequency&quot;) : 0}`" visible="`${debug}`" editable="false" desc="Frequency of the Opamp Pump Clock in Hertz" />
-    <ParamBool id="highPwr" name="Is Power High" group="Internal" default="`${power eq &quot;CY_CTB_POWER_HIGH&quot;}`" visible="`${debug}`" editable="false" desc="High power selected" />
+    
+    <!-- Public Parameters -->
+    <ParamChoice id="power" name="Power" group="General" default="CY_CTB_POWER_HIGH" visible="true" editable="true" desc="The Power parameter allows you to select the power level. Higher operating current increases the Opamp bandwidth." >
+      <Entry name="Off" value="CY_CTB_POWER_OFF" visible="false" />
+      <Entry name="Low" value="CY_CTB_POWER_LOW" visible="true" />
+      <Entry name="Medium" value="CY_CTB_POWER_MEDIUM" visible="true" />
+      <Entry name="High" value="CY_CTB_POWER_HIGH" visible="true" />
+      <Entry name="Power Saver Low" value="CY_CTB_POWER_PS_LOW" visible="true" />
+      <Entry name="Power Saver Medium" value="CY_CTB_POWER_PS_MEDIUM" visible="true" />
+      <Entry name="Power Saver High" value="CY_CTB_POWER_PS_HIGH" visible="true" />
+    </ParamChoice>
+    <ParamChoice id="outputCurrent" name="Output Drive" group="General" default="CY_CTB_MODE_OPAMP1X" visible="true" editable="true" desc="This parameter selects an output drive mode. Selecting Output to pin allows for connections to device pins with 10x more drive current." >
+        <Entry name="Output to pin" value="CY_CTB_MODE_OPAMP10X" visible="true" />
+        <Entry name="Internal only" value="CY_CTB_MODE_OPAMP1X" visible="true" />
+    </ParamChoice> 
     <ParamBool id="deepSleep" name="Deep Sleep Enable" group="General" default="`${isSysAnalogEnabled ? (getExposedMember(&quot;pass[0]&quot;, &quot;ctb&quot; . getInstNumber(&quot;ctb&quot;) . &quot;_deep_sleep&quot;)) : false}`" visible="true" editable="false" desc="Deep Sleep is configured in the Programmable Analog resource. When Deep Sleep is enabled, the input range of the opamp is reduced." />
+
+    <!-- Internal Parameters -->
+    <ParamBool id="highPwr" name="Is Power High" group="Internal" default="`${power eq &quot;CY_CTB_POWER_HIGH&quot;}`" visible="`${debug}`" editable="false" desc="High power selected" />
     <ParamBool id="deepSleepClk" name="deepSleepClk" group="Internal" default="`${(deepSleep &amp;&amp; verGt1) ? (&quot;CY_CTB_CLK_PUMP_DEEPSLEEP&quot; eq getExposedMember(&quot;pass[0].ctbmclk[0]&quot;, &quot;clock&quot;)) : false}`" visible="`${debug}`" editable="false" desc="" />
 
     <!-- Signals -->

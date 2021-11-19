@@ -1,6 +1,5 @@
 var NAVTREEINDEX21 =
 {
-"structcy__stc__canfd__rx__buffer__t.html":[2,1,2,2],
 "structcy__stc__canfd__rx__buffer__t.html#a0db6cdd9b30082a0639b997703f2aec1":[2,1,2,2,2],
 "structcy__stc__canfd__rx__buffer__t.html#a602b97b15de68d54ccb557ed4c501e20":[2,1,2,2,0],
 "structcy__stc__canfd__rx__buffer__t.html#ac4fdc02124190194f9093018dfffbc3e":[2,1,2,2,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX21 =
 "structcy__stc__fault__frame__t.html":[2,31,2,0],
 "structcy__stc__fault__frame__t.html#a0aae89dfd974c6540659d09d3339aaa6":[2,31,2,0,2],
 "structcy__stc__fault__frame__t.html#a1c9617d78d270cf3af98763f0bb5a47a":[2,31,2,0,0],
-"structcy__stc__fault__frame__t.html#a2194671c2c38dc854a05b2851110aa0a":[2,31,2,0,5]
+"structcy__stc__fault__frame__t.html#a2194671c2c38dc854a05b2851110aa0a":[2,31,2,0,5],
+"structcy__stc__fault__frame__t.html#a244b9726ed2baa8979a810f36e1a68ef":[2,31,2,0,3]
 };

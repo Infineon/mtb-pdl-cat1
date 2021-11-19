@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 2.90
+* \version 3.0
 *
 * Provides an API declaration of the SysLib driver.
 *
@@ -117,6 +117,11 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.0</td>
+*     <td>Updated \ref Cy_SysLib_SoftResetCM4 to perform correctly when function is called multiple times.</td>
+*     <td>Fixed issue which caused IPC Message to Fail if API is called more than once.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">2.90</td>
 *     <td>Added new functions \ref Cy_SysLib_Rtos_Delay, \ref Cy_SysLib_Rtos_DelayUs.</td>
@@ -578,10 +583,10 @@ typedef enum
 */
 
 /** The driver major version */
-#define CY_SYSLIB_DRV_VERSION_MAJOR    2
+#define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    90
+#define CY_SYSLIB_DRV_VERSION_MINOR    0
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN

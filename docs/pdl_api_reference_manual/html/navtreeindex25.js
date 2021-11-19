@@ -1,7 +1,5 @@
 var NAVTREEINDEX25 =
 {
-"structcy__stc__tcpwm__quaddec__config__t.html":[2,34,3,2,0],
-"structcy__stc__tcpwm__quaddec__config__t.html#a139114c65e2c3dd6ba549319ba21c3d2":[2,34,3,2,0,2],
 "structcy__stc__tcpwm__quaddec__config__t.html#a40d7a2830339c593182dea25668a4cd4":[2,34,3,2,0,1],
 "structcy__stc__tcpwm__quaddec__config__t.html#a4f96c057c83a5371220063f1d0fd433b":[2,34,3,2,0,7],
 "structcy__stc__tcpwm__quaddec__config__t.html#a6d8a95cce86565d2f8aa6453d038bb8d":[2,34,3,2,0,4],

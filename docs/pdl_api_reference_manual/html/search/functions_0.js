@@ -1121,7 +1121,6 @@ var searchData=
   ['cy_5fsysanalog_5fiztatselect',['Cy_SysAnalog_IztatSelect',['../group__group__sysanalog__functions.html#ga7cb2b66d4b31d17a3e041dacd4fd9e6c',1,'cy_sysanalog.h']]],
   ['cy_5fsysanalog_5flposcdisable',['Cy_SysAnalog_LpOscDisable',['../group__group__sysanalog__functions__lposc.html#ga257fa33a4838c3f8fec6c2dae67628d6',1,'cy_sysanalog.h']]],
   ['cy_5fsysanalog_5flposcenable',['Cy_SysAnalog_LpOscEnable',['../group__group__sysanalog__functions__lposc.html#ga3d570989fa28e6a4e86ae51970930f6c',1,'cy_sysanalog.h']]],
-  ['cy_5fsysanalog_5fsetarefmode',['Cy_SysAnalog_SetArefMode',['../group__group__sysanalog__functions.html#ga780a105377971d2ddc4e8a0caab252b6',1,'cy_sysanalog.h']]],
   ['cy_5fsysanalog_5fsetdeepsleepmode',['Cy_SysAnalog_SetDeepSleepMode',['../group__group__sysanalog__functions.html#ga5d6d537beaf82fddf8e06f30b1d308b3',1,'cy_sysanalog.h']]],
   ['cy_5fsysanalog_5ftimerdisable',['Cy_SysAnalog_TimerDisable',['../group__group__sysanalog__functions__timer.html#ga4b9cb8e2d1afcea9ba07ec6196471f09',1,'cy_sysanalog.h']]],
   ['cy_5fsysanalog_5ftimerenable',['Cy_SysAnalog_TimerEnable',['../group__group__sysanalog__functions__timer.html#gabf1f6993d098242c63769608a1e236f7',1,'cy_sysanalog.h']]],

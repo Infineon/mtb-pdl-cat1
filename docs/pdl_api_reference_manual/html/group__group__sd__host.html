@@ -191,6 +191,8 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.90 </td><td>Fixed the <a class="el" href="group__group__sd__host__low__level__functions.html#ga602f69704f064f99daf947c1af04318b" title="Issues the software reset command to the SD card. ">Cy_SD_Host_SoftwareReset()</a> function behaviour. Now it waits untill corresponding reset bit gets cleared by SDHC IP block. </td><td>Defect fixing.  </td></tr>
+<tr>
 <td>1.80 </td><td>Added an internal function. </td><td>Code efficiency enhancement.  </td></tr>
 <tr>
 <td>1.70 </td><td>Allow SDIO Card initialization through <a class="el" href="group__group__sd__host__high__level__functions.html#ga9d72dcc2426210eef77fa5b95eefb986" title="Initializes a card if it is connected. ">Cy_SD_Host_InitCard()</a> API. Added new API <a class="el" href="group__group__sd__host__low__level__functions.html#ga6f59baa83f0e65ea417e755fe6a105e3" title="Returns the Block count in SD/eMMC Card. ">Cy_SD_Host_GetBlockCount()</a>.  </td><td>Code enhancement, minor defect fixing.  </td></tr>

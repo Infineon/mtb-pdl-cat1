@@ -44,6 +44,7 @@
     <ParamString id="sar3rcs" name="sar3rcs" group="Internal" default="pass[0].saradc[0].sar[3]" visible="`${debug}`" editable="false" desc="" />
     <ParamString id="timerRcs" name="timerRcs" group="Internal" default="pass[0].timer[0]" visible="`${debug}`" editable="false" desc="" />
     <ParamString id="dpslpRsc" name="dpslpRsc" group="Internal" default="pass[0].dpslp[0]" visible="`${debug}`" editable="false" desc="" />
+    <ParamRange id="dpslpFreq" name="dpslpFreq" group="Internal" default="`${isBlockUsed(dpslpRsc) ? getExposedMember(dpslpRsc, &quot;frequency&quot;) : 0}`" min="0" max="8000000" resolution="1" visible="`${debug}`" editable="false" desc="" />
     
     <ParamRange id="SarNum" name="Number of SARs" group="Internal" default="`${hasBlock(sar0rcs) + hasBlock(sar1rcs) + hasBlock(sar2rcs) + hasBlock(sar3rcs)}`" min="0" max="4" resolution="1" visible="`${debug}`"  editable="false" desc="Number of SARs available on the device." />
     
@@ -52,7 +53,8 @@
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sar.html" linkText="Open SAR Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
     
     <ParamRange id="powerUpDelay" name="Power Up Delay" group="General" default="0" min="0" max="255" resolution="1" visible="true" editable="true" desc="Power up time for SAR blocks. Fastest power up time is achieved with a setting of 0. Additional time can be added to allow for analog settling. The power up time is in Deep Sleep Clock cycles. This setting is only applicable when at least one active SAR block is clocked by Deep Sleep Clock." />
-    <ParamString id="powerUpDelayUs" name="Power Up Delay Period" desc="Power Up Delay Period" group="General" default="`${((powerUpDelay &gt; 0) &amp;&amp; (isBlockUsed(dpslpRsc))) ? (powerUpDelay * 1000000.0) / getExposedMember(dpslpRsc, &quot;frequency&quot;) : 0}` us" visible="true" editable="false" />
+    <ParamRange id="powerUpDelayUs" name="powerUpDelayUs" group="Internal" default="`${dpslpFreq &gt; 0 ? powerUpDelay * 1000000.0 / dpslpFreq : 0.0}`" min="0" max="1000000" resolution="0.1" visible="`${debug}`" editable="false" desc="" />
+    <ParamString id="powerUpDelayUsInd" name="Power Up Delay Period" desc="Power Up Delay Period" group="General" default="`${dpslpFreq &gt; 0 ? powerUpDelayUs . &quot;us&quot; : &quot;undefined&quot;}`" visible="true" editable="false" />
     
     <ParamRange id="SarScanCount" name="SAR Scan Count" group="General" default="1" min="1" max="256" resolution="1" visible="true" editable="true" desc="The number of samples SAR will take when triggered." />
     

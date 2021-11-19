@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"group__group__ctdac__functions__basic.html#ga1023b3cf97003859e12ced716a557d83":[2,5,1,1,6],
+"group__group__ctdac__functions__basic.html#ga1524565433728ffa19f773354b88f036":[2,5,1,1,1],
+"group__group__ctdac__functions__basic.html#ga3e645d5bdf428353fc09461b24a3352f":[2,5,1,1,7],
 "group__group__ctdac__functions__basic.html#ga4356463f9bf1c69c2afdfca69a60b850":[2,5,1,1,2],
 "group__group__ctdac__functions__basic.html#ga92374004a9bab9201916af6ee54c4f6d":[2,5,1,1,3],
 "group__group__ctdac__functions__basic.html#gaa327e33f705cc55c86c9e4415d28b9ff":[2,5,1,1,5],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "group__group__dmac__enums.html#ggafc067b535081b9cd83fa29b9e68b002ca1ba63593cd2c5e79bd76aabce07688f7":[2,7,4,0,3],
 "group__group__dmac__enums.html#ggafc067b535081b9cd83fa29b9e68b002ca3b9827d7abb313265bc818a838a812ec":[2,7,4,0,4],
 "group__group__dmac__enums.html#ggafc067b535081b9cd83fa29b9e68b002ca700cc18061eb5de2f16f3dc1ee96fbe8":[2,7,4,0,1],
-"group__group__dmac__enums.html#ggafc067b535081b9cd83fa29b9e68b002cab5d6ca37e5fda03e2f5279bd367e2dea":[2,7,4,0,2],
-"group__group__dmac__enums.html#ggafc067b535081b9cd83fa29b9e68b002caf68863734529e44979158fe63bb9f8d8":[2,7,4,0,0],
-"group__group__dmac__functions.html":[2,7,2],
-"group__group__dmac__macros.html":[2,7,0]
+"group__group__dmac__enums.html#ggafc067b535081b9cd83fa29b9e68b002cab5d6ca37e5fda03e2f5279bd367e2dea":[2,7,4,0,2]
 };

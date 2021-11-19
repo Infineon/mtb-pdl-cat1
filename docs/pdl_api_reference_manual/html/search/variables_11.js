@@ -67,7 +67,6 @@ var searchData=
   ['startdst',['startDst',['../structcy__stc__rtc__dst__t.html#a9e7d565f426a607cdd499a305a5434eb',1,'cy_stc_rtc_dst_t']]],
   ['startinput',['startInput',['../structcy__stc__tcpwm__counter__config__t.html#a196e0eb9e9b9a5772d592af837f0770e',1,'cy_stc_tcpwm_counter_config_t::startInput()'],['../structcy__stc__tcpwm__pwm__config__t.html#a8c931214b10404070b4fc713ba1ac339',1,'cy_stc_tcpwm_pwm_config_t::startInput()'],['../structcy__stc__tcpwm__shiftreg__config__t.html#ab31c0afc07c0356a69b0993e58a2577f',1,'cy_stc_tcpwm_shiftreg_config_t::startInput()']]],
   ['startinputmode',['startInputMode',['../structcy__stc__tcpwm__counter__config__t.html#acf2e30970a7085ed01f8f62648e929c8',1,'cy_stc_tcpwm_counter_config_t::startInputMode()'],['../structcy__stc__tcpwm__pwm__config__t.html#ae0207c4144a26dd04c0e06b09f931da3',1,'cy_stc_tcpwm_pwm_config_t::startInputMode()'],['../structcy__stc__tcpwm__shiftreg__config__t.html#a7967565f53758c555681b49b08d5dc21',1,'cy_stc_tcpwm_shiftreg_config_t::startInputMode()']]],
-  ['startup',['startup',['../structcy__stc__sysanalog__config__t.html#a48f49165b47ee954a4ddf6c7ae3c457a',1,'cy_stc_sysanalog_config_t']]],
   ['statcnts',['statCnts',['../structcy__stc__csd__config__t.html#acb7545b024f230dc4fad57573699f8cf',1,'cy_stc_csd_config_t']]],
   ['stathcnt',['statHcnt',['../structcy__stc__csd__config__t.html#ac357794b4fa9d35bfc2804f50f9d0417',1,'cy_stc_csd_config_t']]],
   ['statseq',['statSeq',['../structcy__stc__csd__config__t.html#a77c9b2701b86f376bf957adc1ed090ff',1,'cy_stc_csd_config_t']]],

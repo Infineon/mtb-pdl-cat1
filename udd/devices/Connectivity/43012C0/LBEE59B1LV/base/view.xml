@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<baseview>
+  <mcu>CortexM4</mcu>
+  <vendor>Cypress</vendor>
+  <flash>0</flash>
+  <ram>1310720</ram>
+  <package>106-LGA</package>
+  <minvoltage>3200</minvoltage>
+  <maxvoltage>4400</maxvoltage>
+  <description>The LBEE59B1LV device.</description>
+</baseview>

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * \file cy_sd_host.c
-* \version 1.80
+* \version 1.90
 *
 * \brief
 *  This file provides the driver code to the API for the SD Host Controller
@@ -4936,6 +4936,9 @@ void Cy_SD_Host_SoftwareReset(SDHC_Type *base,
         case CY_SD_HOST_RESET_DATALINE:
             SDHC_CORE_SW_RST_R(base) = (uint8_t)_VAL2FLD(SDHC_CORE_SW_RST_R_SW_RST_DAT, 1UL);
 
+            /* Wait for at least 3 card clock periods */
+            Cy_SysLib_DelayUs(CY_SD_HOST_3_PERIODS_US);
+
             while(false != _FLD2BOOL(SDHC_CORE_SW_RST_R_SW_RST_DAT, SDHC_CORE_SW_RST_R(base)))
             {
                 /* Wait until the reset completes. */
@@ -4944,6 +4947,9 @@ void Cy_SD_Host_SoftwareReset(SDHC_Type *base,
             break;
         case CY_SD_HOST_RESET_CMD_LINE:
             SDHC_CORE_SW_RST_R(base) = (uint8_t)_VAL2FLD(SDHC_CORE_SW_RST_R_SW_RST_CMD, 1UL);
+
+            /* Wait for at least 3 card clock periods */
+            Cy_SysLib_DelayUs(CY_SD_HOST_3_PERIODS_US);
 
             while(false != _FLD2BOOL(SDHC_CORE_SW_RST_R_SW_RST_CMD, SDHC_CORE_SW_RST_R(base)))
             {

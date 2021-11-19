@@ -1,4 +1,4 @@
-# MTB CAT1A Peripheral Driver Library v2.3.0
+# MTB CAT1A Peripheral Driver Library v2.3.1
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,23 +8,26 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## New Features
 
-* For PSoC64 devices, added support for system configuration from secure CM0+ core using PRA API.
-
 ## Build Changes
 
 ## Updated Personalities
+
+* SAR 4.0: Bug fix/Code enhancement
+* SAR 5.0: New personality
+* SAR ADC 1.0: Bug fix/Code enhancement
+* SAR ADC 2.0: New personality
+* EM EEPROM 2.0: New personality
 
 ## Added Drivers
 
 ## Updated Drivers
 
-* [PRA 2.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pra.html)
-* [SYSCLK 3.30](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSPM 5.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [CTB 2.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ctb.html)
+* [SD HOST 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sd__host.html)
+* [SYSANALOG 2.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysanalog.html)
+* [SYSLIB 3.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
 
 ### Drivers with patch version updates
-
-* [GPIO 1.50.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
 
 ### Obsoleted part numbers
 
@@ -61,13 +64,13 @@ This version of PDL was validated for compatibility with the following Software 
 
 | Software and Tools                                                            | Version      |
 | :---                                                                          | :----        |
-| [Cypress Core Library](https://github.com/cypresssemiconductorco/core-lib)    | 1.2.0        |
-| [Cypress HAL](https://github.com/cypresssemiconductorco/mtb-hal-cat1)         | 1.6.0        |
+| [Cypress Core Library](https://github.com/cypresssemiconductorco/core-lib)    | 1.3.0        |
+| [Cypress HAL](https://github.com/cypresssemiconductorco/mtb-hal-cat1)         | 2.0.0        |
 | CMSIS-Core(M)                                                                 | 5.4.0        |
-| GCC Compiler                                                                  | 9.3.1        |
+| GCC Compiler                                                                  | 10.3.1        |
 | IAR Compiler                                                                  | 8.42.2       |
 | ARM Compiler 6                                                                | 6.13         |
-| FreeRTOS                                                                      | 10.0.1       |
+| FreeRTOS                                                                      | 10.4.3       |
 
 ## More information
 

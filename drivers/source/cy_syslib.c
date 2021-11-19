@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 2.90
+* \version 3.0
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
@@ -231,7 +231,9 @@ void Cy_SysLib_ClearResetReason(void)
 
 void Cy_SysLib_SoftResetCM4(void)
 {
-    static uint32_t msg = CY_IPC_DATA_FOR_CM4_SOFT_RESET;
+    static uint32_t msg;
+
+    msg = CY_IPC_DATA_FOR_CM4_SOFT_RESET;
 
     /* Tries to acquire the IPC structure and pass the arguments to SROM API.
     *  SROM API parameters:

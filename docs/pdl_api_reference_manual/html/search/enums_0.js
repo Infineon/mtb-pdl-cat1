@@ -257,7 +257,6 @@ var searchData=
   ['cy_5fen_5fsysanalog_5fintr_5fcause_5ft',['cy_en_sysanalog_intr_cause_t',['../group__group__sysanalog__enums.html#gaa031d15d64f0d87a749bc99b3e0dc083',1,'cy_sysanalog.h']]],
   ['cy_5fen_5fsysanalog_5fiztat_5fsource_5ft',['cy_en_sysanalog_iztat_source_t',['../group__group__sysanalog__enums.html#ga745102c8162e8d67ae113184c8ced99b',1,'cy_sysanalog.h']]],
   ['cy_5fen_5fsysanalog_5flposc_5fdeep_5fsleep_5fmode_5ft',['cy_en_sysanalog_lposc_deep_sleep_mode_t',['../group__group__sysanalog__enums.html#ga8d5d1c61a078ccf107fce8277b39a11b',1,'cy_sysanalog.h']]],
-  ['cy_5fen_5fsysanalog_5fstartup_5ft',['cy_en_sysanalog_startup_t',['../group__group__sysanalog__enums.html#ga242311d3120c1005ba7d5be64516597d',1,'cy_sysanalog.h']]],
   ['cy_5fen_5fsysanalog_5fstatus_5ft',['cy_en_sysanalog_status_t',['../group__group__sysanalog__enums.html#ga31d179a49097fe5a8b2e8863adba59f4',1,'cy_sysanalog.h']]],
   ['cy_5fen_5fsysanalog_5ftimer_5fclock_5ft',['cy_en_sysanalog_timer_clock_t',['../group__group__sysanalog__enums.html#ga608d2bbfed03023ee844347f7c339f4e',1,'cy_sysanalog.h']]],
   ['cy_5fen_5fsysanalog_5fvref_5fsource_5ft',['cy_en_sysanalog_vref_source_t',['../group__group__sysanalog__enums.html#ga953d5952135c077f6de135e058222459',1,'cy_sysanalog.h']]],

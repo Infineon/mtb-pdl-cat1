@@ -5,10 +5,6 @@ var group__group__sysanalog__enums =
       [ "CY_SYSANALOG_BAD_PARAM", "group__group__sysanalog__enums.html#gga31d179a49097fe5a8b2e8863adba59f4a6cee019b293e163d881c959f4809b4a0", null ],
       [ "CY_SYSANALOG_UNSUPPORTED", "group__group__sysanalog__enums.html#gga31d179a49097fe5a8b2e8863adba59f4ad53ec06abc4d82517a3eec54906ff609", null ]
     ] ],
-    [ "cy_en_sysanalog_startup_t", "group__group__sysanalog__enums.html#ga242311d3120c1005ba7d5be64516597d", [
-      [ "CY_SYSANALOG_STARTUP_NORMAL", "group__group__sysanalog__enums.html#gga242311d3120c1005ba7d5be64516597da97088b3ca7674f661a097c808682ab77", null ],
-      [ "CY_SYSANALOG_STARTUP_FAST", "group__group__sysanalog__enums.html#gga242311d3120c1005ba7d5be64516597da85c067feb78f5673b6c2f3c982fd56a6", null ]
-    ] ],
     [ "cy_en_sysanalog_vref_source_t", "group__group__sysanalog__enums.html#ga953d5952135c077f6de135e058222459", [
       [ "CY_SYSANALOG_VREF_SOURCE_SRSS", "group__group__sysanalog__enums.html#gga953d5952135c077f6de135e058222459abd6eb3ce2b45c1a5085cc96bbb7c942e", null ],
       [ "CY_SYSANALOG_VREF_SOURCE_LOCAL_1_2V", "group__group__sysanalog__enums.html#gga953d5952135c077f6de135e058222459a2487a839aa1c8244f65a684b319daa6b", null ],

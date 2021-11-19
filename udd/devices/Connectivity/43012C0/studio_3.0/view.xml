@@ -1,1 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Parameters xml_version="1" />
+<?xml version="1.0" encoding="utf-8"?>
+<View xml_version="1" xmlns="http://cypress.com/xsd/cystudiouddviewdie_v1">
+  <Files>
+  </Files>
+  <HasUserControllableMcu value="false" />
+</View>
