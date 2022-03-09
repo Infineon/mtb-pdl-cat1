@@ -52,7 +52,7 @@ Below is a list of PSoC 6 part numbers obsoleted in psoc6pdl release-v1.6.0, wit
 * On soft reset, user need to reset back up domain using Cy_SysLib_ResetBackupDomain() to receive Cy_RTC_CenturyInterrupt() callback on Century roll over.
 * On building with tools 2.2, user get warning related to the older version of tools used. To avoid this warning, user is advised to migrate to newer tools version or keep working with previous version of this library.  The warning generated is as follows:
   * _#warning "(Library) The referenced 'device support library' contains newer content than is supported. Either downgrade the version of the 'device support library' referenced or upgrade the version of tools being used_
-
+* When LPComp is used in Deep Sleep or Hibernate power modes (using the Ultra Low Power mode setting) or the negative input is connected to the local Vref - enable the local reference source using the Cy_LPComp_UlpReferenceEnable API function.
 
 ## Defect Fixes
 
