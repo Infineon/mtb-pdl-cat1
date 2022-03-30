@@ -8,5 +8,7 @@ var group__group__sysclk__mf__funcs =
     [ "Cy_SysClk_ClkMfDisable", "group__group__sysclk__mf__funcs.html#ga8cc7f7635c71f5ea4da74950bc6521a4", null ],
     [ "Cy_SysClk_ClkMfSetDivider", "group__group__sysclk__mf__funcs.html#ga54c1e75dcdea293cdfd2662ceffa26e0", null ],
     [ "Cy_SysClk_ClkMfGetDivider", "group__group__sysclk__mf__funcs.html#ga420525301a89c8f5f45c97a0fb37ea6f", null ],
-    [ "Cy_SysClk_ClkMfGetFrequency", "group__group__sysclk__mf__funcs.html#gaf917222c5e1a0bb3dc2f7d398dcff05c", null ]
+    [ "Cy_SysClk_ClkMfGetFrequency", "group__group__sysclk__mf__funcs.html#gaf917222c5e1a0bb3dc2f7d398dcff05c", null ],
+    [ "Cy_SysClk_ClkMfSetSource", "group__group__sysclk__mf__funcs.html#gaacb30352c5e747c40be8f15b673ee54a", null ],
+    [ "Cy_SysClk_ClkMfGetSource", "group__group__sysclk__mf__funcs.html#ga336ac15ebc0e4d002717b0b15cd04bed", null ]
 ];

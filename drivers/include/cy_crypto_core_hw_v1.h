@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hw_v1.h
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides constants and function prototypes
 *  for the Vector Unit functions in the Crypto block driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");

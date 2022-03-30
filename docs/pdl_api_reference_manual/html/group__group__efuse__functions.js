@@ -11,6 +11,7 @@ var group__group__efuse__functions =
     [ "Cy_EFUSE_WriteByte", "group__group__efuse__functions.html#ga52ffd7cf26fba5e7786187b8627665b9", null ],
     [ "Cy_EFUSE_WriteWord", "group__group__efuse__functions.html#ga15f9240bfa808040e6104c864c57e2c7", null ],
     [ "Cy_EFUSE_WriteWordArray", "group__group__efuse__functions.html#ga8d99433f456f0504334af8ab56e3cc91", null ],
+    [ "Cy_EFUSE_ReadBit", "group__group__efuse__functions.html#ga4574fafa0f4533914834b12546575690", null ],
     [ "Cy_EFUSE_ReadByte", "group__group__efuse__functions.html#ga6484736ef7054535e2b22dab58a9d704", null ],
     [ "Cy_EFUSE_ReadWord", "group__group__efuse__functions.html#gaebe9c2648cd8b31bdb5721c802b4b4b3", null ],
     [ "Cy_EFUSE_ReadWordArray", "group__group__efuse__functions.html#gac5f241d89e5dd02359c5e1f5718b8c96", null ],

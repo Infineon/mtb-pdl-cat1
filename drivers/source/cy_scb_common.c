@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_common.c
-* \version 2.80
+* \version 2.90
 *
 * Provides common API implementation of the SCB driver.
 *
@@ -76,7 +76,7 @@ void Cy_SCB_ReadArrayNoCheck(CySCB_Type const *base, void *buffer, uint32_t size
             buf[idx] = (uint16_t) Cy_SCB_ReadRxFifo(base);
         }
     }
-#elif(CY_IP_MXSCB_VERSION>=3)
+#elif(CY_IP_MXSCB_VERSION>=2)
     uint32_t datawidth = Cy_SCB_Get_RxDataWidth(base);
 
     if (datawidth == CY_SCB_BYTE_WIDTH)
@@ -178,7 +178,7 @@ void Cy_SCB_ReadArrayBlocking(CySCB_Type const *base, void *buffer, uint32_t siz
 {
     uint32_t numCopied;
     uint8_t  *buf = (uint8_t *) buffer;
-#if(CY_IP_MXSCB_VERSION>=3)
+#if(CY_IP_MXSCB_VERSION>=2)
     uint32_t datawidth = Cy_SCB_Get_RxDataWidth(base);
 #elif(CY_IP_MXSCB_VERSION==1)
     bool     byteMode = Cy_SCB_IsRxDataWidthByte(base);
@@ -187,7 +187,7 @@ void Cy_SCB_ReadArrayBlocking(CySCB_Type const *base, void *buffer, uint32_t siz
     while (size > 0UL)
     {
         numCopied = Cy_SCB_ReadArray(base, (void *) buf, size);
-#if(CY_IP_MXSCB_VERSION>=3)
+#if(CY_IP_MXSCB_VERSION>=2)
         buf = &buf[((datawidth/8UL) * numCopied)];
 #elif(CY_IP_MXSCB_VERSION==1)
         buf = &buf[(byteMode ? (numCopied) : (2UL * numCopied))];
@@ -280,7 +280,7 @@ void Cy_SCB_WriteArrayNoCheck(CySCB_Type *base, void *buffer, uint32_t size)
             Cy_SCB_WriteTxFifo(base, (uint32_t) buf[idx]);
         }
     }
-#elif(CY_IP_MXSCB_VERSION>=3)
+#elif(CY_IP_MXSCB_VERSION>=2)
     uint32_t datawidth = Cy_SCB_Get_TxDataWidth(base);
     
     if (datawidth == CY_SCB_BYTE_WIDTH)
@@ -381,7 +381,7 @@ void Cy_SCB_WriteArrayBlocking(CySCB_Type *base, void *buffer, uint32_t size)
 {
     uint32_t numCopied;
     uint8_t  *buf = (uint8_t *) buffer;
-#if(CY_IP_MXSCB_VERSION>=3)
+#if(CY_IP_MXSCB_VERSION>=2)
     uint32_t datawidth = Cy_SCB_Get_TxDataWidth(base);
 #elif(CY_IP_MXSCB_VERSION==1)
     bool     byteMode = Cy_SCB_IsTxDataWidthByte(base);
@@ -390,7 +390,7 @@ void Cy_SCB_WriteArrayBlocking(CySCB_Type *base, void *buffer, uint32_t size)
     while (size > 0UL)
     {
         numCopied = Cy_SCB_WriteArray(base, (void *) buf, size);
-#if(CY_IP_MXSCB_VERSION>=3)
+#if(CY_IP_MXSCB_VERSION>=2)
         buf = &buf[((datawidth/8UL) * numCopied)];
 #elif(CY_IP_MXSCB_VERSION==1)
         buf = &buf[(byteMode ? (numCopied) : (2UL * numCopied))];

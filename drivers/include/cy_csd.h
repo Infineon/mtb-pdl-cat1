@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_csd.h
-* \version 1.10.2
+* \version 1.20
 *
 * The header file of the CSD driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -285,6 +285,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.20</td>
+*     <td>Added Cy_CSD_Capture() function</td>
+*     <td>CapSense memory consumption optimization</td>
+*   </tr>
+*   <tr>
 *     <td>1.10.2</td>
 *     <td>Documentation updates</td>
 *     <td>Documented MISRA 2012 violations</td>
@@ -356,7 +361,10 @@ extern "C" {
 #define CY_CSD_DRV_VERSION_MAJOR            (1)
 
 /** Driver minor version */
-#define CY_CSD_DRV_VERSION_MINOR            (10)
+#define CY_CSD_DRV_VERSION_MINOR            (20)
+
+/** Driver version */
+#define CY_CSD_DRV2_VERSION                 (120)
 
 
 /******************************************************************************
@@ -636,6 +644,7 @@ typedef struct
 
 cy_en_csd_status_t Cy_CSD_Init(CSD_Type * base, cy_stc_csd_config_t const * config, cy_en_csd_key_t key, cy_stc_csd_context_t * context);
 cy_en_csd_status_t Cy_CSD_DeInit(const CSD_Type * base, cy_en_csd_key_t key, cy_stc_csd_context_t * context);
+cy_en_csd_status_t Cy_CSD_Capture(CSD_Type * base, cy_en_csd_key_t key, cy_stc_csd_context_t * context);
 cy_en_csd_status_t Cy_CSD_Configure(CSD_Type * base, const cy_stc_csd_config_t * config, cy_en_csd_key_t key, const cy_stc_csd_context_t * context);
 
 __STATIC_INLINE cy_en_csd_key_t Cy_CSD_GetLockStatus(const CSD_Type * base, const cy_stc_csd_context_t * context);

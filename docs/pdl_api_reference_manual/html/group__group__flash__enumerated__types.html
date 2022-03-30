@@ -120,7 +120,29 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a5244becc5d012c5195e6d04719575ed1">CY_FLASH_DRV_OPERATION_STARTED</a> = ( CY_FLASH_ID_INFO + 0x1UL), 
 <br />
-&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a9ddac0d7038bbdfe57db1acbeac9df82">CY_FLASH_DRV_OPCODE_BUSY</a> = ( CY_FLASH_ID_INFO + 0x2UL)
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a9ddac0d7038bbdfe57db1acbeac9df82">CY_FLASH_DRV_OPCODE_BUSY</a> = ( CY_FLASH_ID_INFO + 0x2UL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ac887076eb974096a8aa5dfe9b5c3be20">CY_FLASH_DRV_CHECKSUM_NON_ZERO</a> = ( CY_FLASH_ID_ERROR + 0x4UL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ad3d528582f4886c66f026df5cd124bf7">CY_FLASH_DRV_NO_ERASE_SUSPEND</a> = ( CY_FLASH_ID_ERROR + 0x7UL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ac483cc60a7188ec1daffac5bf72a2fa7">CY_FLASH_DRV_FLASH_NOT_ERASED</a> = ( CY_FLASH_ID_ERROR + 0x8UL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a6ef5711bd2df5980e46022908e89960b">CY_FLASH_DRV_NO_ERASE_ONGOING</a> = ( CY_FLASH_ID_ERROR + 0x9UL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ab8da6b5602c9f15eb6cf1d8cdf82a737">CY_FLASH_DRV_ACTIVE_ERASE</a> = ( CY_FLASH_ID_ERROR + 0xAUL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a13e777b6eb35712277e8eb0150c7240b">CY_FLASH_DRV_INVALID_DATA_WIDTH</a> = ( CY_FLASH_ID_ERROR + 0xBUL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496af36de80c2983094e4987cc962d97ee9f">CY_FLASH_DRV_FLASH_SAFTEY_ENABLED</a> = ( CY_FLASH_ID_ERROR + 0xCUL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a655fbeb495bf35af80a482f75f3b29fe">CY_FLASH_DRV_INVALID_SFLASH_ADDR</a> = ( CY_FLASH_ID_ERROR + 0xDUL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a66e571050efe4cb44a648858221745d6">CY_FLASH_DRV_SFLASH_BACKUP_ERASED</a> = ( CY_FLASH_ID_ERROR + 0xEUL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a69649db27a5846b1ea5ef4aa13671eae">CY_FLASH_DRV_SECTOR_SUSPEND</a> = ( CY_FLASH_ID_ERROR + 0xFUL), 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a0dd6e04b5ebc9674697ace8969cb4e73">CY_FLASH_DRV_SROM_API_TIMEOUT</a> = ( CY_FLASH_ID_ERROR + 0x10UL)
 <br />
  }<tr class="memdesc:gae3ceedae602af2dd75864cf38246f496"><td class="mdescLeft">&#160;</td><td class="mdescRight">This enum has the return values of the Flash driver.  <a href="group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496">More...</a><br /></td></tr>
 </td></tr>
@@ -165,6 +187,28 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a5244becc5d012c5195e6d04719575ed1"></a>CY_FLASH_DRV_OPERATION_STARTED&#160;</td><td class="fielddoc"><p>Flash operation is successfully initiated. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a9ddac0d7038bbdfe57db1acbeac9df82"></a>CY_FLASH_DRV_OPCODE_BUSY&#160;</td><td class="fielddoc"><p>Flash is under operation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496ac887076eb974096a8aa5dfe9b5c3be20"></a>CY_FLASH_DRV_CHECKSUM_NON_ZERO&#160;</td><td class="fielddoc"><p>Checksum of FLASH resulted in non-zero (SROM STATUS CODE: 0xF000000A) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496ad3d528582f4886c66f026df5cd124bf7"></a>CY_FLASH_DRV_NO_ERASE_SUSPEND&#160;</td><td class="fielddoc"><p>Returned when EraseResume is called when no sector is suspended from erase (SROM STATUS CODE: 0xF0000092) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496ac483cc60a7188ec1daffac5bf72a2fa7"></a>CY_FLASH_DRV_FLASH_NOT_ERASED&#160;</td><td class="fielddoc"><p>Returned when ProgramRow is invoked on unerased cells or blank check fails (SROM STATUS CODE: 0xF00000A4) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a6ef5711bd2df5980e46022908e89960b"></a>CY_FLASH_DRV_NO_ERASE_ONGOING&#160;</td><td class="fielddoc"><p>Returned by EraseSuspend when called with no ongoing erase operation (SROM STATUS CODE: 0xF00000A5) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496ab8da6b5602c9f15eb6cf1d8cdf82a737"></a>CY_FLASH_DRV_ACTIVE_ERASE&#160;</td><td class="fielddoc"><p>Returned by ProgramRow when active erase operation is going on (SROM STATUS CODE: 0xF00000A6) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a13e777b6eb35712277e8eb0150c7240b"></a>CY_FLASH_DRV_INVALID_DATA_WIDTH&#160;</td><td class="fielddoc"><p>Returned by ProgramRow API if invalid program width option is provided (SROM STATUS CODE: 0xF00000A8) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496af36de80c2983094e4987cc962d97ee9f"></a>CY_FLASH_DRV_FLASH_SAFTEY_ENABLED&#160;</td><td class="fielddoc"><p>Returned by FLASH program/erase APIs when writes are disabled in safety register (SROM STATUS CODE: 0xF00000AA) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a655fbeb495bf35af80a482f75f3b29fe"></a>CY_FLASH_DRV_INVALID_SFLASH_ADDR&#160;</td><td class="fielddoc"><p>Returned when WriteRow is called on invalid SFLASH rows in NORMAL state (SROM STATUS CODE: 0xF00000B2) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a66e571050efe4cb44a648858221745d6"></a>CY_FLASH_DRV_SFLASH_BACKUP_ERASED&#160;</td><td class="fielddoc"><p>Returned by Sflash programming APIs when backup sector is in erased state (SROM STATUS CODE: 0xF00000BB) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a69649db27a5846b1ea5ef4aa13671eae"></a>CY_FLASH_DRV_SECTOR_SUSPEND&#160;</td><td class="fielddoc"><p>Returned when Program operation is called on sector which is suspended from erase (SROM STATUS CODE: 0xF0000091) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a0dd6e04b5ebc9674697ace8969cb4e73"></a>CY_FLASH_DRV_SROM_API_TIMEOUT&#160;</td><td class="fielddoc"><p>Time out happens after calling srom API driver. </p>
 </td></tr>
 </table>
 

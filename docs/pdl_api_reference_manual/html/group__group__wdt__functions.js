@@ -3,6 +3,7 @@ var group__group__wdt__functions =
     [ "Cy_WDT_Init", "group__group__wdt__functions.html#gaac6f64babfb1855f9ba8aecccc19ecb4", null ],
     [ "Cy_WDT_Enable", "group__group__wdt__functions.html#ga82aec7e454d05d03dfd1d6fd5e573d5e", null ],
     [ "Cy_WDT_Disable", "group__group__wdt__functions.html#ga709f597d56e7f7fb6717d5ff671491fa", null ],
+    [ "Cy_WDT_IsEnabled", "group__group__wdt__functions.html#ga05f8bb5603ce46caf842bd0ad254f604", null ],
     [ "Cy_WDT_Lock", "group__group__wdt__functions.html#gaec9bd8d1439389a46cdd2dcadc8e987d", null ],
     [ "Cy_WDT_Unlock", "group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667", null ],
     [ "Cy_WDT_Locked", "group__group__wdt__functions.html#ga6a98fa4f1133264ca3add72381e7bb22", null ],
@@ -15,5 +16,8 @@ var group__group__wdt__functions =
     [ "Cy_WDT_UnmaskInterrupt", "group__group__wdt__functions.html#ga38c69c98675d6024a7d73acb41b24399", null ],
     [ "Cy_WDT_ClearInterrupt", "group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987", null ],
     [ "Cy_WDT_ClearWatchdog", "group__group__wdt__functions.html#ga5aafcfb34e8078ae911bb42be76a8f18", null ],
-    [ "Cy_WDT_IsEnabled", "group__group__wdt__functions.html#ga05f8bb5603ce46caf842bd0ad254f604", null ]
+    [ "Cy_WDT_SetClkSource", "group__group__wdt__functions.html#gacbd12276c1d11f3ad3f462a88d4b1065", null ],
+    [ "Cy_WDT_GetClkSource", "group__group__wdt__functions.html#ga0b6f3df91bd3670cc8bce387e266d945", null ],
+    [ "Cy_WDT_SetMatchBits", "group__group__wdt__functions.html#ga73fa85d671d84a6e318ea363a61eac72", null ],
+    [ "Cy_WDT_GetMatchBits", "group__group__wdt__functions.html#gab47dddd65c9eb8b2c6a220b9f57ba3c4", null ]
 ];

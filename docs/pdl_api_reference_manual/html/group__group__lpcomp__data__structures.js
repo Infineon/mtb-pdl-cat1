@@ -6,5 +6,6 @@ var group__group__lpcomp__data__structures =
       [ "hysteresis", "structcy__stc__lpcomp__config__t.html#ad43e4f40af6d78d02b8c0a277cb10f96", null ],
       [ "power", "structcy__stc__lpcomp__config__t.html#a88d9af26c01c9a718c3ba06d0b28d064", null ],
       [ "intType", "structcy__stc__lpcomp__config__t.html#a82f018ec13c63e0cdba228f3de6463dc", null ]
-    ] ]
+    ] ],
+    [ "cy_stc_lpcomp_context_t", "structcy__stc__lpcomp__context__t.html", null ]
 ];

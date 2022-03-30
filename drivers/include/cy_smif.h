@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.20
+* \version 2.30
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -171,11 +171,37 @@
 * is not limited to code and is suitable also for data read and write accesses.
 * The memory regions available for XIP addresses allocation are defined
 * in a linker script file (.ld).
+*
+* With SMIF V3 IP, MMIO mode transacations are also allowed when the device is set
+* to XIP mode. However, only blocking SMIF API's are expected to be used for erase or
+* program operations as external flash will be busy for such operation and may not be
+* available for XIP at that moment. Blocking API's will ensure the transaction is complete
+* and then switch back to XIP.
+*
 * \snippet smif/snippet/main.c SMIF_INIT: XIP
 * \note Example of input parameters initialization is in \ref group_smif_init 
 * section.
 * \warning Functions that called from external memory should be declared with 
 * long call attribute.  
+*
+* \subsection group_smif_xip_crypto SMIF XIP On-the-fly encryption
+* In XIP mode, a cryptography component supports on-the-fly encryption for write data and
+* on-the-fly decryption for read data. On-the-fly encryption/decryption in XIP mode can be
+* enabled by setting the flags \ref CY_SMIF_FLAG_CRYPTO_ENABLE.
+* Encryption  and  decryption  are  based  on  the  AES-128 forward block cipher: advanced
+* encryption standard blockcipher with a 128-bit key. KEY[127:0] is a secret (private) key
+* programmed into the CRYPTO_KEY3,...,CRYPTO_KEY0 registers using \ref Cy_SMIF_SetCryptoKey.
+* These registers are software write-only. A software read returns 0. In the SMIF hardware,
+* by applying AES-128 with KEY[127:0] on a plaintext PT[127:0], we get a ciphertext CT[127:0].
+* In XIP mode, the XIP address is used as the plaintext PT[]. The resulting ciphertext CT[]
+* is used on-the-fly and not software accessible. The XIP address is extended with the
+* CRYPTO_INPUT3, ..., CRYPTO_INPUT0 registers. \ref Cy_SMIF_SetCryptoIV can be used to set
+* initialization vector (96-bits).
+* In XIP mode, the resulting ciphertext CT[] (of the encrypted address) is XORed with the memory
+* transfers read data or write data. Note that the AES-128 block cipher is on the address of the
+* data and not on the data itself.
+*
+* \image html smif_xip_mode_functionality.png
 *
 * \subsection group_smif_usage_rules Rules for PSoC6 QSPI/SMIF Block Usage
 * 1. All operations must use one or more dummy cycles between the PSoC 6 Command 
@@ -198,6 +224,44 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="5">2.30</td>
+*     <td>Octal SDR and DDR support using SFDP mode.</td>
+*     <td>Octal device support.</td>
+*   </tr>
+*   <tr>
+*     <td>Move SFDP related functionality to cy_smif_sfdp.c. </td>
+*     <td>Code Enhancements.</td>
+*   </tr>
+*   <tr>
+*     <td>Added support for new product families</td>
+*     <td>Support for CAT1B and CAT1C devices.</td>
+*   </tr>
+*   <tr>
+*     <td>Added new API's:\n
+*         \ref Cy_SMIF_MemInitSfdpMode()\n
+*         \ref Cy_SMIF_SetCryptoIV()\n
+*         \ref Cy_SMIF_SetCryptoKey()\n
+*         \ref Cy_SMIF_ConvertSlaveSlotToIndex()\n
+*         \ref Cy_SMIF_SetCryptoEnable()\n
+*         \ref Cy_SMIF_SetCryptoDisable()\n
+*         \ref Cy_SMIF_SetReadyPollingDelay()\n
+*
+*         Following macros renamed:\n
+*         CY_SMIF_WRITE_STATUS_REG2_CMD to CY_SMIF_WRITE_STATUS_REG2_T1_CMD.</td>
+*     <td>Support for SFDP 1.0 devices.</td>
+*   </tr>
+*   <tr>
+*     <td>Added new API's for CAT1D devices\n
+*         \ref Cy_SMIF_SetRxCaptureMode()\n
+*         \ref Cy_SMIF_Bridge_Enable()\n
+*         \ref Cy_SMIF_Bridge_SetPortPriority()\n
+*         \ref Cy_SMIF_Bridge_SetSimpleRemapRegion()\n
+*         \ref Cy_SMIF_Bridge_SetInterleavingRemapRegion()\n
+*         \ref Cy_SMIF_MemOctalEnable()\n
+      </td>
+*     <td>Support for CAT1D devices.</td>
+*   </tr>
 *   <tr>
 *     <td>2.20</td>
 *     <td>Bug fixes in \ref Cy_SMIF_MemEraseSector for Hybrid memory configuration.
@@ -495,33 +559,20 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       20
+#define CY_SMIF_DRV_VERSION_MINOR       30
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
 
 /** The SMIF driver ID, reported as part of an unsuccessful API return status
  * \ref cy_en_smif_status_t */
-#define CY_SMIF_ID                      CY_PDL_DRV_ID(0x2CU)
+#define CY_SMIF_ID                      CY_PDL_DRV_ID(0x2CUL)
 
 
 /**
 * \addtogroup group_smif_macros_isr
 * \{
 */
-#if (CY_IP_MXSMIF_VERSION>=3)
-#define SMIF_INTR_RX_DATA_FIFO_UNDERFLOW_Msk SMIF_INTR_RX_DATA_MMIO_FIFO_UNDERFLOW_Msk
-#define SMIF_TX_DATA_FIFO_CTL SMIF_TX_DATA_MMIO_FIFO_CTL
-#define SMIF_RX_DATA_FIFO_CTL SMIF_RX_DATA_MMIO_FIFO_CTL
-#define SMIF_TX_DATA_FIFO_WR4 SMIF_TX_DATA_MMIO_FIFO_WR4
-#define SMIF_TX_DATA_FIFO_WR1 SMIF_TX_DATA_MMIO_FIFO_WR1
-#define SMIF_TX_DATA_FIFO_WR2 SMIF_TX_DATA_MMIO_FIFO_WR2
-#define SMIF_RX_DATA_FIFO_RD4 SMIF_RX_DATA_MMIO_FIFO_RD4
-#define SMIF_RX_DATA_FIFO_RD1 SMIF_RX_DATA_MMIO_FIFO_RD1
-#define SMIF_RX_DATA_FIFO_RD2 SMIF_RX_DATA_MMIO_FIFO_RD2
-#define SMIF_CRYPTO_CMD_START_Msk SMIF_SMIF_CRYPTO_CRYPTO_CMD_START_Msk
-#define SMIF_CRYPTO_CMD_START_Pos SMIF_SMIF_CRYPTO_CRYPTO_CMD_START_Pos
-#endif /* CY_IP_MXSMIF_VERSION */
 
 /** Enable XIP_ALIGNMENT_ERROR interrupt see TRM for details */
 #define CY_SMIF_ALIGNMENT_ERROR                 (SMIF_INTR_XIP_ALIGNMENT_ERROR_Msk)
@@ -540,12 +591,36 @@ extern "C" {
 
 /** \cond INTERNAL */
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
+#define SMIF_INTR_RX_DATA_FIFO_UNDERFLOW_Msk SMIF_INTR_RX_DATA_MMIO_FIFO_UNDERFLOW_Msk
+#define SMIF_RX_DATA_FIFO_CTL SMIF_RX_DATA_MMIO_FIFO_CTL
+#define SMIF_RX_DATA_FIFO_RD4 SMIF_RX_DATA_MMIO_FIFO_RD4
+#define SMIF_RX_DATA_FIFO_RD1 SMIF_RX_DATA_MMIO_FIFO_RD1
+#define SMIF_RX_DATA_FIFO_RD2 SMIF_RX_DATA_MMIO_FIFO_RD2
+#endif /* CY_IP_MXSMIF_VERSION */
+
+#if (CY_IP_MXSMIF_VERSION==2)
+ /* SMIF IP V2 do not use register name MMIO */
+#define SMIF_TX_CMD_MMIO_FIFO_WR        SMIF_TX_CMD_FIFO_WR
+#define SMIF_TX_DATA_MMIO_FIFO_WR1ODD   SMIF_TX_DATA_FIFO_WR1ODD
+#define SMIF_TX_DATA_MMIO_FIFO_WR1      SMIF_TX_DATA_FIFO_WR1
+#endif
+
+#if (CY_IP_MXSMIF_VERSION==3)
+#define SMIF_TX_DATA_FIFO_CTL SMIF_TX_DATA_MMIO_FIFO_CTL
+#define SMIF_TX_DATA_FIFO_WR4 SMIF_TX_DATA_MMIO_FIFO_WR4
+#define SMIF_TX_DATA_FIFO_WR1 SMIF_TX_DATA_MMIO_FIFO_WR1
+#define SMIF_TX_DATA_FIFO_WR2 SMIF_TX_DATA_MMIO_FIFO_WR2
+#define SMIF_CRYPTO_CMD_START_Msk SMIF_SMIF_CRYPTO_CRYPTO_CMD_START_Msk
+#define SMIF_CRYPTO_CMD_START_Pos SMIF_SMIF_CRYPTO_CRYPTO_CMD_START_Pos
+#endif /* CY_IP_MXSMIF_VERSION */
+
 #define CY_SMIF_CMD_FIFO_TX_MODE            (0UL)
 #define CY_SMIF_CMD_FIFO_TX_COUNT_MODE      (1UL)
 #define CY_SMIF_CMD_FIFO_RX_COUNT_MODE      (2UL)
 #define CY_SMIF_CMD_FIFO_DUMMY_COUNT_MODE   (3UL)
 
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
 #define CY_SMIF_TX_CMD_FIFO_STATUS_RANGE    (8U)
 #else
 #define CY_SMIF_TX_CMD_FIFO_STATUS_RANGE    (4U)
@@ -589,7 +664,7 @@ extern "C" {
                                              (CY_SMIF_MEMORY == (cy_en_smif_mode_t)(mode)))
 #define CY_SMIF_BLOCK_EVENT_VALID(event)    ((CY_SMIF_BUS_ERROR == (cy_en_smif_error_event_t)(event)) || \
                                              (CY_SMIF_WAIT_STATES == (cy_en_smif_error_event_t)(event)))
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
 #define CY_SMIF_CLOCK_SEL_VALID(clkSel)     ((CY_SMIF_SEL_OUTPUT_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
                                              (CY_SMIF_SEL_INVERTED_OUTPUT_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
                                              (CY_SMIF_SEL_INTERNAL_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
@@ -635,7 +710,7 @@ extern "C" {
 *        Command FIFO Register
 ***************************************/
 
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
 /* SMIF->TX_CMD_FIFO_MMIO_WR Commands Fields */
 #define CY_SMIF_CMD_MMIO_FIFO_WR_MODE_Pos            (24UL)           /* [26:24]         Command data mode */
 #define CY_SMIF_CMD_MMIO_FIFO_WR_MODE_Msk            (0x07000000UL)   /* DATA[26:24]       Command data mode    */
@@ -805,7 +880,16 @@ typedef enum
     CY_SMIF_SFDP_SS3_FAILED = CY_SMIF_ID |CY_PDL_STATUS_ERROR |
                             ((uint32_t)CY_SMIF_SFDP_FAIL << CY_SMIF_SFDP_FAIL_SS3_POS),
     /** The command API is not supported for this memory device. */
-    CY_SMIF_CMD_NOT_FOUND = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x80U
+    CY_SMIF_CMD_NOT_FOUND = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x80U,
+    /** SFDP Buffer Insufficient. */
+    CY_SMIF_SFDP_BUFFER_INSUFFICIENT = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x81U,
+    /**
+    * The device does not have a OE bit. The device detects
+    * 1-1-8 and 1-8-8 Reads based on the instruction.
+    */
+    CY_SMIF_NO_OE_BIT       = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x82U,
+    /** SMIF is currently busy and cannot accept the request */
+    CY_SMIF_BUSY            = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x83U,
 } cy_en_smif_status_t;
 
 /** The SMIF slave select definitions for the driver API. Each slave select is
@@ -819,11 +903,26 @@ typedef enum
    CY_SMIF_SLAVE_SELECT_3 = 8U   /**< The SMIF slave select 3  */
 } cy_en_smif_slave_select_t;
 
-/** Specifies the clock source for the receiver clock. */
-#if (CY_IP_MXSMIF_VERSION>=3) || defined (CY_DOXYGEN)
+#if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
+/** Specifies receive capture mode. */
 /**
 * \note
-* This enum is available for CAT1B devices.
+* This enum is available for CAT1D devices.
+**/
+typedef enum
+{
+    CY_SMIF_SEL_NORMAL_SPI = 0U,                   /**< Normal SPI without DLP. */
+    CY_SMIF_SEL_NORMAL_SPI_WITH_DLP = 1U,          /**< Normal SPI with DLP (Data Learning Pattern). */
+    CY_SMIF_SEL_XSPI_HYPERBUS_WITH_DQS = 2U,       /**< xSPI or HYPER BUS with Data strobe line. */
+} cy_en_smif_capture_mode_t;
+#endif
+
+#if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
+
+/** Specifies the clock source for the receiver clock. */
+/**
+* \note
+* This enum is available for CAT1B and CAT1C devices.
 **/
 typedef enum
 {
@@ -857,11 +956,35 @@ typedef enum
     CY_SMIF_CACHE_BOTH      = 3U    /**< The SMIF both caches */
 } cy_en_smif_cache_t;
 
-#if (CY_IP_MXSMIF_VERSION>=3) || defined (CY_DOXYGEN)
+/** Specifies the quad enable requirement case.
+ * JEDEC Basic Flash Parameter Table: 15th DWORD
+**/
+typedef enum
+{
+    CY_SMIF_SFDP_QER_0   = 0, /**< No QE Bit */
+    CY_SMIF_SFDP_QER_1   = 1, /**< Bit 1 of Status Register 2 - Write uses 2 bytes using 01h */
+    CY_SMIF_SFDP_QER_2   = 2, /**< Bit 6 of Status Register 1 - Write uses 1 byte */
+    CY_SMIF_SFDP_QER_3   = 3, /**< Bit 7 of Status Register 2- Write uses 1 byte */
+    CY_SMIF_SFDP_QER_4   = 4, /**< Bit 1 of Status Register 2 - Write uses 1 or 2 bytes */
+    CY_SMIF_SFDP_QER_5   = 5, /**< Bit 1 of Status Register 2 - Write status uses 01h */
+    CY_SMIF_SFDP_QER_6   = 6, /**< Bit 1 of Status Register 2 - Write uses 1 byte using 31h */
+} cy_en_smif_qer_t;
+
+/** Specifies the memory interface frequency range of operation.
+**/
+typedef enum
+{
+    CY_SMIF_100MHZ_OPERATION   = 0, /**< 100 MHz default operation */
+    CY_SMIF_133MHZ_OPERATION   = 1, /**< 133 MHz operation */
+    CY_SMIF_166MHZ_OPERATION   = 2, /**< 166 MHz operation */
+    CY_SMIF_200MHZ_OPERATION   = 3, /**< 200 MHz operation */
+} cy_en_smif_interface_freq_t;
+
+#if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
 /** Specifies the data rate. */
 /**
 * \note
-* This enum is available for CAT1B devices.
+* This enum is available for CAT1B, CAT1C and CAT1D devices.
 **/
 typedef enum
 {
@@ -872,7 +995,7 @@ typedef enum
 /** Specifies the presence of the field. */
 /**
 * \note
-* This enum is available for CAT1B devices.
+* This enum is available for CAT1B, CAT1C and CAT1D devices.
 **/
 typedef enum
 {
@@ -880,8 +1003,140 @@ typedef enum
     CY_SMIF_PRESENT_1BYTE = 1,
     CY_SMIF_PRESENT_2BYTE = 2,
 } cy_en_smif_field_presence_t;
+
+/** Specifies the merge transaction timeout in terms of clock cycles. */
+/**
+* \note
+* This enum is available for CAT1B, CAT1C and CAT1D devices.
+**/
+typedef enum
+{
+    CY_SMIF_MERGE_TIMEOUT_1_CYCLE      = 0,
+    CY_SMIF_MERGE_TIMEOUT_16_CYCLES    = 1,
+    CY_SMIF_MERGE_TIMEOUT_256_CYCLES   = 2,
+    CY_SMIF_MERGE_TIMEOUT_4096_CYCLES  = 3,
+    CY_SMIF_MERGE_TIMEOUT_65536_CYCLES = 4,
+} cy_en_smif_merge_timeout_t;
+
 #endif /* CY_IP_MXSMIF_VERSION */
 
+#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
+/** Specifies the  PORT priority for XIP space. */
+/**
+* \note
+* This enum is available for CAT1D devices.
+**/
+
+typedef enum
+{
+    CY_EN_BRIDGE_PRIO_SMIF0_XIP_SPACE = 0, // The master accessing through the SMIF0 XIP space has high priority.
+    CY_EN_BRIDGE_PRIO_SMIF1_XIP_SPACE = 1, // The master accessing through the SMIF1 XIP space has high priority.
+} cy_en_smif_bridge_xip_space_pri_t;
+
+/** Specifies the XIP space. */
+/**
+* \note
+* This enum is available for CAT1D devices.
+**/
+
+typedef enum
+{
+    CY_EN_BRIDGE_SMIF0_XIP_SPACE = 0,
+    CY_EN_BRIDGE_SMIF1_XIP_SPACE = 1,
+} cy_en_smif_bridge_xip_space_t;
+
+/** Specifies the port priority on bridge interface. */
+/**
+* \note
+* This structure is available for CAT1D devices.
+**/
+
+typedef struct
+{
+    cy_en_smif_bridge_xip_space_pri_t pri_ahb_smif0;  /**< This specifies the priority for AHB access over SMIF0 */
+    cy_en_smif_bridge_xip_space_pri_t pri_ahb_smif1;  /**< This specifies the priority for AHB access over SMIF1 */
+    cy_en_smif_bridge_xip_space_pri_t pri_axi_smif0;  /**< This specifies the priority for AXI access over SMIF0 */
+    cy_en_smif_bridge_xip_space_pri_t pri_axi_smif1;  /**< This specifies the priority for AXI access over SMIF1 */
+} cy_stc_smif_bridge_pri_t;
+
+/** Specifies the remap type. */
+/**
+* \note
+* This enum is available for CAT1D devices.
+**/
+
+typedef enum
+{
+    CY_EN_BRIDGE_REMAP_TYPE_INACTIVE   = 0,
+    CY_EN_BRIDGE_REMAP_TYPE_TO_SMIF0   = 1,
+    CY_EN_BRIDGE_REMAP_TYPE_TO_SMIF1   = 2,
+    CY_EN_BRIDGE_REMAP_TYPE_INTERLEAVE = 3,
+} cy_en_smif_bridge_remap_type_t;
+
+/** Specifies the interleave size. */
+/**
+* \note
+* This enum is available for CAT1D devices.
+**/
+
+typedef enum
+{
+    CY_EN_BRIDGE_INTERLEAVE_8BYTE   = 0,
+    CY_EN_BRIDGE_INTERLEAVE_16BYTE  = 1,
+    CY_EN_BRIDGE_INTERLEAVE_32BYTE  = 2,
+    CY_EN_BRIDGE_INTERLEAVE_64BYTE  = 3,
+    CY_EN_BRIDGE_INTERLEAVE_128BYTE = 4,
+} cy_en_smif_bridge_interleave_step_t;
+
+/** Specifies the remap size. */
+/**
+* \note
+* This enum is available for CAT1D devices.
+**/
+
+typedef enum
+{
+    CY_EN_BRIDGE_REMAP_SIZE_1MB   = 0x1FF00000U,
+    CY_EN_BRIDGE_REMAP_SIZE_2MB   = 0x1FE00000U,
+    CY_EN_BRIDGE_REMAP_SIZE_4MB   = 0x1FC00000U,
+    CY_EN_BRIDGE_REMAP_SIZE_8MB   = 0x1F800000U,
+    CY_EN_BRIDGE_REMAP_SIZE_16MB  = 0x1F000000U,
+    CY_EN_BRIDGE_REMAP_SIZE_32MB  = 0x1E000000U,
+    CY_EN_BRIDGE_REMAP_SIZE_64MB  = 0x1C000000U,
+    CY_EN_BRIDGE_REMAP_SIZE_128MB = 0x18000000U,
+    CY_EN_BRIDGE_REMAP_SIZE_256MB = 0x10000000U,
+    CY_EN_BRIDGE_REMAP_SIZE_512MB = 0x00000000U,
+} cy_en_smif_bridge_remap_region_size_t;
+
+/** Specifies the remap region information. */
+/**
+* \note
+* This structure is available for CAT1D devices.
+**/
+
+typedef struct
+{
+    uint32_t                              regionIdx;   /**< This specifies the region index (0..8) */
+    cy_en_smif_bridge_remap_region_size_t regionSize;  /**< This specifies the region size */
+    uint32_t                              xipAddr;     /**< This specifies XIP address to be remapped */
+    uint32_t                              phyAddr;     /**< This specifies target remapped address */
+} cy_stc_smif_bridge_remap_t;
+
+/** Specifies the interleaved memory region. */
+/**
+* \note
+* This structure is available for CAT1D devices.
+**/
+typedef struct
+{
+    uint32_t                              regionIdx;       /**< This specifies the region index (0..8) */
+    cy_en_smif_bridge_remap_region_size_t regionSize;      /**< This specifies the region size */
+    uint32_t                              xipAddr;         /**< This specifies XIP address to be remapped */
+    uint32_t                              phyAddr0;        /**< This specifies remapped address on PORT0 */
+    uint32_t                              phyAddr1;        /**< This specifies remapped address on PORT1 */
+} cy_stc_smif_bridge_interleave_remap_t;
+
+#endif /* CY_IP_MXSMIF_VERSION */
 
 /** \cond INTERNAL */
 /*******************************************************************************
@@ -963,20 +1218,24 @@ typedef struct
     * The timeout in microseconds for the blocking functions. This timeout value applies to all blocking APIs.
     */
     uint32_t timeout;
-#if (CY_IP_MXSMIF_VERSION>=3) || defined (CY_DOXYGEN)
+    /**
+    * The timeout in microseconds for polling memory device on its readiness.
+    */
+    uint16_t memReadyPollDealy;
+#if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
     /**
     * \note
-    * This parameter is available for CAT1B devices.
+    * This parameter is available for CAT1B, CAT1C and CAT1D devices.
     **/
     cy_en_smif_data_rate_t  preCmdDataRate; /**< preferred command data rate */
     /**
     * \note
-    * This parameter is available for CAT1B devices.
+    * This parameter is available for CAT1B, CAT1C and CAT1D devices.
     **/
     cy_en_smif_txfr_width_t preCmdWidth; /**< preferred command data rate */
     /**
     * \note
-    * This parameter is available for CAT1B devices.
+    * This parameter is available for CAT1B, CAT1C and CAT1D devices.
     **/
     cy_en_smif_data_rate_t  preXIPDataRate; /**< preferred XIP data rate */
 #endif /* CY_IP_MXSMIF_VERSION */
@@ -1029,7 +1288,7 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles(SMIF_Type *base, uint32_t cycles);
 uint32_t Cy_SMIF_GetTransferStatus(SMIF_Type const *base, cy_stc_smif_context_t const *context);
 void Cy_SMIF_Enable(SMIF_Type *base, cy_stc_smif_context_t *context);
 
-#if (CY_IP_MXSMIF_VERSION>=3) || defined (CY_DOXYGEN)
+#if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
 cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
                                                  uint16_t cmd,
                                                  bool isCommand2byte,
@@ -1040,7 +1299,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
                                                  cy_en_smif_txfr_width_t paramTxfrWidth,
                                                  cy_en_smif_data_rate_t paramDataRate,
                                                  cy_en_smif_slave_select_t slaveSelect,
-                                                 uint32_t cmpltTxfr,
+                                                 uint32_t completeTxfr,
                                                  cy_stc_smif_context_t const *context);
 
 cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
@@ -1055,7 +1314,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
                                                 uint8_t const *txBuffer,
                                                 uint32_t size,
                                                 cy_en_smif_txfr_width_t transferWidth,
-                                                cy_en_smif_data_rate_t dataRate,
+                                                cy_en_smif_data_rate_t dataDataRate,
                                                 cy_stc_smif_context_t const *context);
 
 cy_en_smif_status_t Cy_SMIF_ReceiveData_Ext(SMIF_Type *base,
@@ -1103,13 +1362,28 @@ cy_en_smif_status_t Cy_SMIF_CacheDisable(SMIF_Type *base, cy_en_smif_cache_t cac
 cy_en_smif_status_t Cy_SMIF_CachePrefetchingEnable(SMIF_Type *base, cy_en_smif_cache_t cacheType);
 cy_en_smif_status_t Cy_SMIF_CachePrefetchingDisable(SMIF_Type *base, cy_en_smif_cache_t cacheType);
 cy_en_smif_status_t Cy_SMIF_CacheInvalidate(SMIF_Type *base, cy_en_smif_cache_t cacheType);
-
+void Cy_SMIF_SetCryptoKey(SMIF_Type *base, uint32_t *key);
+void Cy_SMIF_SetCryptoIV(SMIF_Type *base, uint32_t *nonce);
+cy_en_smif_status_t Cy_SMIF_SetCryptoEnable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
+cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
+cy_en_smif_status_t Cy_SMIF_ConvertSlaveSlotToIndex(cy_en_smif_slave_select_t ss, uint32_t *device_idx);
+#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
+void Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode);
+cy_en_smif_status_t Cy_SMIF_Bridge_Enable(SMIF_Base_Type *base, bool enable);
+cy_en_smif_status_t Cy_SMIF_Bridge_SetPortPriority(SMIF_Base_Type *base, cy_stc_smif_bridge_pri_t* bridge_priority);
+cy_en_smif_status_t Cy_SMIF_Bridge_SetSimpleRemapRegion(SMIF_Base_Type *base, const cy_stc_smif_bridge_remap_t* region_info);
+cy_en_smif_status_t Cy_SMIF_Bridge_SetInterleavingRemapRegion(SMIF_Base_Type *base,
+                                                                              const cy_stc_smif_bridge_interleave_remap_t* region_info);
+cy_en_smif_status_t Cy_SMIF_Bridge_DeactivateRemapRegion(SMIF_Base_Type *base, uint32_t regionIdx);
+#endif
 /** \addtogroup group_smif_functions_syspm_callback
 * The driver supports SysPm callback for Deep Sleep and Hibernate transition.
 * \{
 */
+#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS)
 cy_en_syspm_status_t Cy_SMIF_DeepSleepCallback(cy_stc_syspm_callback_params_t *callbackParams, cy_en_syspm_callback_mode_t mode);
 cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *callbackParams, cy_en_syspm_callback_mode_t mode);
+#endif
 /** \} */
 
 
@@ -1342,6 +1616,8 @@ __STATIC_INLINE uint32_t  Cy_SMIF_GetCmdFifoStatus(SMIF_Type const *base)
 {
 #if (CY_IP_MXSMIF_VERSION>=3)
     return (_FLD2VAL(SMIF_TX_CMD_MMIO_FIFO_STATUS_USED4, SMIF_TX_CMD_MMIO_FIFO_STATUS(base)));
+#elif (CY_IP_MXSMIF_VERSION == 2)
+    return (_FLD2VAL(SMIF_TX_CMD_FIFO_STATUS_USED4, SMIF_TX_CMD_FIFO_STATUS(base)));
 #else
     return (_FLD2VAL(SMIF_TX_CMD_FIFO_STATUS_USED3, SMIF_TX_CMD_FIFO_STATUS(base)));
 #endif /* CY_IP_MXSMIF_VERSION */
@@ -1384,7 +1660,7 @@ __STATIC_INLINE uint32_t  Cy_SMIF_GetTxFifoStatus(SMIF_Type const *base)
 *******************************************************************************/
 __STATIC_INLINE uint32_t  Cy_SMIF_GetRxFifoStatus(SMIF_Type const *base)
 {
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
     return (_FLD2VAL(SMIF_RX_DATA_MMIO_FIFO_STATUS_USED4, SMIF_RX_DATA_MMIO_FIFO_STATUS(base)));
 #else
     return (_FLD2VAL(SMIF_RX_DATA_FIFO_STATUS_USED4, SMIF_RX_DATA_FIFO_STATUS(base)));
@@ -1543,7 +1819,7 @@ __STATIC_INLINE void Cy_SMIF_PushTxFifo(SMIF_Type *baseaddr, cy_stc_smif_context
         /* The second main use case for short transfers */
         else if(writeBytes == CY_SMIF_ONE_BYTE)
         {
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
             if((context->preCmdDataRate == CY_SMIF_DDR) &&(context->preCmdWidth == CY_SMIF_WIDTH_OCTAL))
             {
                 SMIF_TX_DATA_MMIO_FIFO_WR1ODD(baseaddr) = buff[0U]; 
@@ -1864,7 +2140,6 @@ __STATIC_INLINE SMIF_DEVICE_Type volatile * Cy_SMIF_GetDeviceBySlot(SMIF_Type *b
 
     return device;
 }
-
 /** \endcond */
 /** \} group_smif_low_level_functions */
 

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.c
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  This file provides the source code for the SMIF driver APIs.
@@ -77,32 +77,43 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
 
     if((NULL != base) && (NULL != config) && (NULL != context))
     {
+        uint32_t smif_ctl_vlaue = SMIF_CTL(base);
+
         /* Copy the base address of the SMIF and the SMIF Device block  
         * registers to the context. 
         */
         context->timeout = timeout;
 
-#if(CY_IP_MXSMIF_VERSION>=3)
+        /* Default initialization */
+        context->memReadyPollDealy = 0U;
+
+#if(CY_IP_MXSMIF_VERSION>=2)
         /* Default initialization */
         context->preXIPDataRate = CY_SMIF_SDR;
 #endif /* CY_IP_MXSMIF_VERSION */
 
-        /* Configure the initial interrupt mask */
-        /* Disable the TR_TX_REQ and TR_RX_REQ interrupts */
-        Cy_SMIF_SetInterruptMask(base, Cy_SMIF_GetInterruptMask(base) 
+        /* SMIF is running already in XIP/ARB mode. Do not modify register configuration */
+        if ((_FLD2VAL(SMIF_CTL_ENABLED, smif_ctl_vlaue) == 0U) && (_FLD2VAL(SMIF_CTL_XIP_MODE, smif_ctl_vlaue) != 1U))
+        {
+            /* Configure the initial interrupt mask */
+            /* Disable the TR_TX_REQ and TR_RX_REQ interrupts */
+            Cy_SMIF_SetInterruptMask(base, Cy_SMIF_GetInterruptMask(base)
                         & ~(SMIF_INTR_TR_TX_REQ_Msk | SMIF_INTR_TR_RX_REQ_Msk));
 
-        /* Check config structure */
-        CY_ASSERT_L3(CY_SMIF_MODE_VALID(config->mode));
-        CY_ASSERT_L3(CY_SMIF_CLOCK_SEL_VALID(config->rxClockSel));
-        CY_ASSERT_L2(CY_SMIF_DESELECT_DELAY_VALID(config->deselectDelay));
-        CY_ASSERT_L3(CY_SMIF_BLOCK_EVENT_VALID(config->blockEvent));
-        
-        /* Configure the SMIF interface */
-        SMIF_CTL(base) = (uint32_t)(_VAL2FLD(SMIF_CTL_XIP_MODE, config->mode) |
-                       _VAL2FLD(SMIF_CTL_CLOCK_IF_RX_SEL, config->rxClockSel) |
-                       _VAL2FLD(SMIF_CTL_DESELECT_DELAY, config->deselectDelay) |
-                       _VAL2FLD(SMIF_CTL_BLOCK, config->blockEvent) );
+            /* Check config structure */
+            CY_ASSERT_L3(CY_SMIF_MODE_VALID(config->mode));
+            CY_ASSERT_L3(CY_SMIF_CLOCK_SEL_VALID(config->rxClockSel));
+            CY_ASSERT_L2(CY_SMIF_DESELECT_DELAY_VALID(config->deselectDelay));
+            CY_ASSERT_L3(CY_SMIF_BLOCK_EVENT_VALID(config->blockEvent));
+
+            /* Configure the SMIF interface */
+            SMIF_CTL(base) = (uint32_t)(_VAL2FLD(SMIF_CTL_XIP_MODE, config->mode) |
+#if (CY_IP_MXSMIF_VERSION<=3)
+                           _VAL2FLD(SMIF_CTL_CLOCK_IF_RX_SEL, config->rxClockSel) |
+#endif
+                           _VAL2FLD(SMIF_CTL_DESELECT_DELAY, config->deselectDelay) |
+                           _VAL2FLD(SMIF_CTL_BLOCK, config->blockEvent) );
+        }
 
         result = CY_SMIF_SUCCESS;
     }
@@ -152,7 +163,7 @@ void Cy_SMIF_DeInit(SMIF_Type *base)
 * from the PSoC register map. In the MMIO mode, the SMIF block acts as a simple
 * SPI engine.
 *
-* \note Interrupt and triggers and not working in XIP mode, see TRM for details
+* \note With SMIF V1 IP, Interrupt and triggers are not working in XIP mode, see TRM for details
 *
 * \param base
 * Holds the base address of the SMIF block registers.
@@ -172,7 +183,7 @@ void Cy_SMIF_SetMode(SMIF_Type *base, cy_en_smif_mode_t mode)
     }
     else
     {
-#if(CY_IP_MXSMIF_VERSION>=3)
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
         uint32_t read_cmd_data_ctl;
         uint8_t idx;
 
@@ -181,11 +192,11 @@ void Cy_SMIF_SetMode(SMIF_Type *base, cy_en_smif_mode_t mode)
          * Multiple devices supporting XIP mode is not supported with the version of driver.
          */
 
-        for(idx = 0UL; idx < SMIF_DEVICE_NR; idx++)
+        for(idx = 0U; idx < SMIF_DEVICE_NR; idx++)
         {
             read_cmd_data_ctl = SMIF_DEVICE_IDX_RD_DATA_CTL(base, idx);
 
-            if (read_cmd_data_ctl & SMIF_DEVICE_RD_DATA_CTL_DDR_MODE_Msk)
+            if ((read_cmd_data_ctl & SMIF_DEVICE_RD_DATA_CTL_DDR_MODE_Msk) != 0UL)
             {
                     uint32_t temp;
                     /* Select TX Clock mode SDR/DDR */
@@ -340,9 +351,9 @@ cy_en_smif_status_t  Cy_SMIF_TransmitCommand(SMIF_Type *base,
                                 uint32_t completeTxfr,
                                 cy_stc_smif_context_t const *context)
 {
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
    return Cy_SMIF_TransmitCommand_Ext(base,
-                                      (int16_t)cmd,
+                                      (uint16_t)cmd,
                                       false,
                                       cmdTxfrWidth,
                                       CY_SMIF_SDR,
@@ -464,7 +475,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitData(SMIF_Type *base,
                             cy_stc_smif_context_t *context)
 {
 
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
     return Cy_SMIF_TransmitData_Ext(base,
                                     txBuffer,
                                     size,
@@ -560,7 +571,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitDataBlocking(SMIF_Type *base,
                             cy_en_smif_txfr_width_t transferWidth,
                             cy_stc_smif_context_t const *context)
 {
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
      return Cy_SMIF_TransmitDataBlocking_Ext(base,
                                              txBuffer,
                                              size,
@@ -679,7 +690,7 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveData(SMIF_Type *base,
                             cy_smif_event_cb_t RxCompleteCb,
                             cy_stc_smif_context_t *context)
 {
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if (CY_IP_MXSMIF_VERSION>=2)
     return Cy_SMIF_ReceiveData_Ext(base,
                                    rxBuffer,
                                    size,
@@ -782,7 +793,7 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveDataBlocking(SMIF_Type *base,
                             cy_en_smif_txfr_width_t transferWidth,
                             cy_stc_smif_context_t const *context)
 {
-#if(CY_IP_MXSMIF_VERSION>=3)
+#if(CY_IP_MXSMIF_VERSION>=2)
      return Cy_SMIF_ReceiveDataBlocking_Ext(base,
                             rxBuffer,
                             size,
@@ -858,7 +869,7 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveDataBlocking(SMIF_Type *base,
 cy_en_smif_status_t  Cy_SMIF_SendDummyCycles(SMIF_Type *base,
                                 uint32_t cycles)
 {
-#if(CY_IP_MXSMIF_VERSION>=3)
+#if(CY_IP_MXSMIF_VERSION>=2)
     return Cy_SMIF_SendDummyCycles_Ext(base,
                                        CY_SMIF_WIDTH_SINGLE,
                                        CY_SMIF_SDR,
@@ -950,7 +961,7 @@ void Cy_SMIF_Enable(SMIF_Type *base, cy_stc_smif_context_t *context)
 
 }
 
-#if (CY_IP_MXSMIF_VERSION>=3) || defined (CY_DOXYGEN)
+#if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SMIF_TransmitCommand_Ext()
 ****************************************************************************//**
@@ -1018,7 +1029,7 @@ void Cy_SMIF_Enable(SMIF_Type *base, cy_stc_smif_context_t *context)
 *
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
@@ -1035,7 +1046,9 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
                                                  cy_stc_smif_context_t const *context)
 {
     cy_en_smif_status_t result = CY_SMIF_SUCCESS;
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     uint32_t temp = 0;
+#endif
 
     /* Check input values */
      CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(cmdTxfrWidth));
@@ -1052,11 +1065,13 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
          _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_MODE, CY_SMIF_CMD_FIFO_TX_MODE) |
          _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_SS, slaveSelect));
      uint32_t timeoutUnits = context->timeout;
-    
+
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
      /* Select TX Clock mode SDR/DDR for COMMAND */
      temp = SMIF_CTL(base);
      temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
      SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, cmdDataRate);
+#endif
 
     /* Prepare a cmd fifo data */
         if(isCommand2byte == true)
@@ -1067,8 +1082,8 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
              SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t) cmdTxfrWidth) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) cmdDataRate) |
-                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint8_t)(cmd & 0x00FF)) |
-                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, (uint8_t)((cmd >> 8) & 0x00FF)) |
+                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint8_t)(cmd & 0x00FFU)) |
+                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, (uint8_t)((cmd >> 8U) & 0x00FFU)) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE,
                      ((0UL == paramSize) ? completeTxfr : 0UL)) ;
          }
@@ -1078,16 +1093,16 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
              SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t) cmdTxfrWidth) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) cmdDataRate) |
-                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint8_t)((cmd >> 8) & 0x00FF)) |
-                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, 0) |
+                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint8_t)((cmd >> 8U) & 0x00FFU)) |
+                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, 0U) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE,
                      ((0UL == paramSize) ? completeTxfr : 0UL)) ;
 
              SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t) cmdTxfrWidth) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) cmdDataRate) |
-                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint8_t)(cmd & 0x00FF)) |
-                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, 0) |
+                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint8_t)(cmd & 0x00FFU)) |
+                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, 0U) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE,
                      ((0UL == paramSize) ? completeTxfr : 0UL)) ;         
          }
@@ -1104,10 +1119,12 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
                  ((0UL == paramSize) ? completeTxfr : 0UL)) ;
      }
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
         /* Select TX Clock mode SDR/DDR for ADDRESS */
         temp = SMIF_CTL(base);
         temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
         SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, paramDataRate);
+#endif
 
     if((paramTxfrWidth == CY_SMIF_WIDTH_OCTAL) && (paramDataRate == CY_SMIF_DDR))
     {
@@ -1118,13 +1135,13 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
                 if    (Cy_SMIF_GetCmdFifoStatus(base) < CY_SMIF_TX_CMD_FIFO_STATUS_RANGE)
                 {
                                 SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart|
-                    _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint32_t) cmdParam[bufIndex+1]) |
+                    _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint32_t) cmdParam[bufIndex+1U]) |
                     _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, (uint32_t) cmdParam[bufIndex])|
                     _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t) paramTxfrWidth) |
                     _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) paramDataRate) |
                     _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE,
                             ((((uint32_t)bufIndex + 2UL) < paramSize) ?  0UL : completeTxfr));
-                    bufIndex += 2;
+                    bufIndex += 2U;
                 }
                 result = Cy_SMIF_TimeoutRun(&timeoutUnits);
             }
@@ -1151,11 +1168,12 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
         }
     }
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     /* Switch back to prefered XIP mode data rate */
     temp = SMIF_CTL(base);
     temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
     SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, context->preXIPDataRate);
-
+#endif
     return (result);
 }
 
@@ -1215,7 +1233,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
 *       - \ref CY_SMIF_CMD_FIFO_FULL
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
@@ -1229,25 +1247,29 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_CMD_FIFO_FULL;
     uint32_t trUnitNum;
-    uint32_t temp;
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
+    uint32_t temp = 0;
+#endif
     
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
     CY_ASSERT_L2(CY_SMIF_BUF_SIZE_VALID(size));
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     /* Select TX Clock mode SDR/DDR */
     temp = SMIF_CTL(base);
     temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
     SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, dataDataRate);
+#endif
 
     /* If the mode is octal SPI with DDR data unit is a 2-byte */
     if((transferWidth == CY_SMIF_WIDTH_OCTAL) && (dataDataRate == CY_SMIF_DDR))
     {
-        if(size % 2 != 0)
+        if(size % 2U != 0U)
         {
             return CY_SMIF_BAD_PARAM;
         }
-        trUnitNum = size / 2;
+        trUnitNum = size / 2U;
     }
     else
     {
@@ -1263,7 +1285,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
             _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t)transferWidth)    |
             _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) dataDataRate) |
             _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TX_COUNT, (trUnitNum - 1UL))|
-            _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1);
+            _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1U);
 
         if (NULL != txBuffer)
         {
@@ -1284,10 +1306,12 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
         result = CY_SMIF_SUCCESS;
     }
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     /* Switch back to prefered XIP mode data rate */
     temp = SMIF_CTL(base);
     temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
     SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, context->preXIPDataRate);
+#endif
 
     return (result);
 }
@@ -1338,7 +1362,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
 *       - \ref CY_SMIF_BAD_PARAM
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
@@ -1351,7 +1375,9 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
     uint32_t trUnitNum;
-    uint32_t temp;
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
+    uint32_t temp = 0;
+#endif
     
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
@@ -1365,29 +1391,30 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
             /* If the mode is octal SPI with DDR or Hyperbus, data unit is a 2-byte */
             if((transferWidth == CY_SMIF_WIDTH_OCTAL) && (dataDataRate == CY_SMIF_DDR))
             {
-                if(size % 2 != 0)
+                if(size % 2U != 0U)
                 {
                     return CY_SMIF_BAD_PARAM;
                 }
-                trUnitNum = size / 2;
+                trUnitNum = size / 2U;
             }
             else
             {
                 trUnitNum = size;
             }
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
             /* Select TX Clock mode SDR/DDR */
             temp = SMIF_CTL(base);
             temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
             SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, dataDataRate);
-                     
+#endif
             /* Enter the transmitting mode */
             SMIF_TX_CMD_MMIO_FIFO_WR(base) =
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_MODE, CY_SMIF_CMD_FIFO_TX_COUNT_MODE) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) dataDataRate) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t)transferWidth)    |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TX_COUNT, (trUnitNum - 1U)) |
-                _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1);
+                _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1U);
 
             result = CY_SMIF_SUCCESS;
 
@@ -1414,10 +1441,12 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
         }
     }
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     /* Switch back to prefered XIP mode data rate */
     temp = SMIF_CTL(base);
     temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
     SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, context->preXIPDataRate);
+#endif
 
     return (result);
 }
@@ -1483,7 +1512,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
 * \note Check \ref group_smif_usage_rules for any usage restriction 
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_ReceiveData_Ext(SMIF_Type *base,
@@ -1497,7 +1526,9 @@ cy_en_smif_status_t Cy_SMIF_ReceiveData_Ext(SMIF_Type *base,
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
     uint32_t rxUnitNum;
-    uint32_t temp;
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
+    uint32_t temp = 0;
+#endif
 
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
@@ -1511,29 +1542,30 @@ cy_en_smif_status_t Cy_SMIF_ReceiveData_Ext(SMIF_Type *base,
             /* If the mode is octal SPI with DDR or Hyperbus, data unit is a 2-byte */
             if((transferWidth == CY_SMIF_WIDTH_OCTAL) && (dataRate == CY_SMIF_DDR))
             {
-                if(size % 2 != 0)
+                if(size % 2U != 0U)
                 {
                     return CY_SMIF_BAD_PARAM;
                 }
-                rxUnitNum = size / 2;
+                rxUnitNum = size / 2U;
             }
             else
             {
                 rxUnitNum = size;
             }
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
             /* Select TX Clock mode SDR/DDR */
             temp = SMIF_CTL(base);
             temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
             SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, dataRate);
-
+#endif
             /* Enter the receiving mode */
             SMIF_TX_CMD_MMIO_FIFO_WR(base) =
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_MODE, CY_SMIF_CMD_FIFO_RX_COUNT_MODE) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t)transferWidth)    |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) dataRate) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_RX_COUNT, (rxUnitNum - 1UL)) |
-                _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1);
+                _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1U);
 
             if (NULL != rxBuffer)
             {
@@ -1606,7 +1638,7 @@ cy_en_smif_status_t Cy_SMIF_ReceiveData_Ext(SMIF_Type *base,
 * \note Check \ref group_smif_usage_rules for any usage restriction 
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_ReceiveDataBlocking_Ext(SMIF_Type *base,
@@ -1619,7 +1651,9 @@ cy_en_smif_status_t Cy_SMIF_ReceiveDataBlocking_Ext(SMIF_Type *base,
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
     uint32_t rxUnitNum;
-    uint32_t temp;
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
+    uint32_t temp = 0;
+#endif
 
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
@@ -1633,29 +1667,30 @@ cy_en_smif_status_t Cy_SMIF_ReceiveDataBlocking_Ext(SMIF_Type *base,
               /* If the mode is octal SPI with DDR or Hyperbus, data unit is a 2-byte */
             if((transferWidth == CY_SMIF_WIDTH_OCTAL) && (dataRate == CY_SMIF_DDR))
             {
-                if(size % 2 != 0)
+                if(size % 2U != 0U)
                 {
                     return CY_SMIF_BAD_PARAM;
                 }
-                rxUnitNum = size / 2;
+                rxUnitNum = size / 2U;
             }
             else
             {
                 rxUnitNum = size;
             }
 
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
             /* Select TX Clock mode SDR/DDR */
             temp = SMIF_CTL(base);
             temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
             SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, dataRate);
-
+#endif
             /* Enter the receiving mode */
             SMIF_TX_CMD_MMIO_FIFO_WR(base) =
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_MODE, CY_SMIF_CMD_FIFO_RX_COUNT_MODE) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t)transferWidth)    |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_RX_COUNT, (rxUnitNum - 1UL)) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) dataRate) |
-                _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1);
+                _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1U);
             
             result = CY_SMIF_SUCCESS;
 
@@ -1680,11 +1715,12 @@ cy_en_smif_status_t Cy_SMIF_ReceiveDataBlocking_Ext(SMIF_Type *base,
         }
     }
 
-    
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     /* Switch back to prefered XIP mode data rate */
     temp = SMIF_CTL(base);
     temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
     SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, context->preXIPDataRate);
+#endif
 
     return (result);
 }
@@ -1715,7 +1751,7 @@ cy_en_smif_status_t Cy_SMIF_ReceiveDataBlocking_Ext(SMIF_Type *base,
 *       - \ref CY_SMIF_BAD_PARAM
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
@@ -1725,16 +1761,20 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
 {
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     uint32_t temp = 0;
+#endif
     if (cycles > 0U)
     {
         result = CY_SMIF_CMD_FIFO_FULL;
-        
+
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
         /* Select TX Clock mode SDR/DDR */
         temp = SMIF_CTL(base);
         temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
         SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, dataRate);
-            
+#endif
+
         /* Check if there are enough free entries in TX_CMD_FIFO */
         if  (Cy_SMIF_GetCmdFifoStatus(base) < CY_SMIF_TX_CMD_FIFO_STATUS_RANGE)
         {
@@ -1754,6 +1794,161 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
 }
 #endif /* CY_IP_MXSMIF_VERSION */
 
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetCryptoKey
+****************************************************************************//**
+*
+* Sets the AES-128 encryption key into SMIF crypto registers.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param key
+* An array containing 128 bit crypto key: uint32_t key[4].
+* The least significant word first.
+*
+*******************************************************************************/
+void Cy_SMIF_SetCryptoKey(SMIF_Type *base, uint32_t *key)
+{
+    SMIF_CRYPTO_KEY0(base) = key[0U];
+    SMIF_CRYPTO_KEY1(base) = key[1U];
+    SMIF_CRYPTO_KEY2(base) = key[2U];
+    SMIF_CRYPTO_KEY3(base) = key[3U];
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetCryptoIV
+****************************************************************************//**
+*
+* Sets the 96 bit initialization vector (nonce) into SMIF crypto registers.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param nonce
+* An array containing 96 bit initialization vector (nonce)
+*
+*******************************************************************************/
+void Cy_SMIF_SetCryptoIV(SMIF_Type *base, uint32_t *nonce)
+{
+    /* SMIF_CRYPTO_INPUT0 is a counter, the rest 3 registers are nonce */
+    SMIF_CRYPTO_INPUT1(base) = nonce[0U];
+    SMIF_CRYPTO_INPUT2(base) = nonce[1U];
+    SMIF_CRYPTO_INPUT3(base) = nonce[2U];
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_ConvertSlaveSlotToIndex
+****************************************************************************//**
+*
+* Converts Slave Select enum to the device index.
+*
+* \param ss
+* Slave Select enum.
+*
+* \param device_idx
+* A pointer to device index to be returned.
+*
+* \return \ref cy_en_smif_status_t.
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_ConvertSlaveSlotToIndex(cy_en_smif_slave_select_t ss, uint32_t *device_idx)
+{
+    cy_en_smif_status_t ret = CY_SMIF_BAD_PARAM;
+
+    switch (ss)
+    {
+        case CY_SMIF_SLAVE_SELECT_0:
+            *device_idx = 0U;
+            ret = CY_SMIF_SUCCESS;
+            break;
+        case CY_SMIF_SLAVE_SELECT_1:
+            *device_idx = 1U;
+            ret = CY_SMIF_SUCCESS;
+            break;
+        case CY_SMIF_SLAVE_SELECT_2:
+            *device_idx = 2U;
+            ret = CY_SMIF_SUCCESS;
+            break;
+        case CY_SMIF_SLAVE_SELECT_3:
+            *device_idx = 3U;
+            ret = CY_SMIF_SUCCESS;
+            break;
+        default:
+            /* The switch statement must have a non-empty default clause. MISRA 16.4 */
+            ret = CY_SMIF_BAD_PARAM;
+            break;
+    }
+    return ret;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetCryptoEnable
+****************************************************************************//**
+*
+* Enables SMIF encryption
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param slaveId
+* salve select line to indicate the device on which encryption should be enabled.
+*
+* \return \ref cy_en_smif_status_t.
+*
+* \note Please ensure cache is disabled using \ref Cy_SMIF_CacheDisable or
+* invalidated using \ref Cy_SMIF_CacheInvalidate or any other system level cache to
+* be cleared so that the next read/execute from flash operation results in correct data.
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_SetCryptoEnable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId)
+{
+    uint32_t device_idx;
+    cy_en_smif_status_t ret = CY_SMIF_BAD_PARAM;
+
+    if (CY_SMIF_SUCCESS == Cy_SMIF_ConvertSlaveSlotToIndex(slaveId, &device_idx))
+    {
+        SMIF_DEVICE_IDX_CTL(base, device_idx) |= SMIF_DEVICE_CTL_CRYPTO_EN_Msk;
+        ret = CY_SMIF_SUCCESS;
+    }
+
+    return ret;
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetCryptoDisable
+****************************************************************************//**
+*
+* Disables SMIF encryption.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param slaveId
+* salve select line to indicate the device on which encryption should be disabled.
+*
+* \return \ref cy_en_smif_status_t.
+*
+* \note Please ensure cache is disabled using \ref Cy_SMIF_CacheDisable or
+* invalidated using \ref Cy_SMIF_CacheInvalidate or any other system level cache to
+* be cleared so that the next read/execute from flash operation results in correct data.
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId)
+{
+    cy_en_smif_status_t ret = CY_SMIF_BAD_PARAM;
+    uint32_t device_idx;
+
+    if (CY_SMIF_SUCCESS == Cy_SMIF_ConvertSlaveSlotToIndex(slaveId, &device_idx))
+    {
+        SMIF_DEVICE_IDX_CTL(base, device_idx) &= ~SMIF_DEVICE_CTL_CRYPTO_EN_Msk;
+        ret = CY_SMIF_SUCCESS;
+    }
+    return ret;
+}
+
 /*******************************************************************************
 * Function Name: Cy_SMIF_Encrypt()
 ****************************************************************************//**
@@ -1772,9 +1967,9 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
 * For sensitive data, the Crypto block is used.
 *
 * \note The API does not have access to the encryption key. The key must be
-* placed in the register before calling this API. The crypto routine
-* that can access the key storage area is recommended. This crypto routine is
-* typically a protection context 0 function.
+* placed in the register using \ref Cy_SMIF_SetCryptoKey() before calling this API.
+* The crypto routine that can access the key storage area is recommended.
+* This crypto routine is typically a protection context 0 function.
 *
 * \note This is a blocking API. The API waits for encryption completion. Will
 * exit if a timeout is set (not equal to 0) and expired.
@@ -1785,15 +1980,15 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
 * \param address
 * The address that gets encrypted is a masked 16-byte block address. The 32-bit
 * address with the last 4 bits masked is placed as the last 4 bytes in the
-* 128-bit input. The rest of the higher bit for the 128 bits are padded zeros.
+* 128-bit input. The rest of the higher bit for the 128 bits are padded zeros by default.
 * PA[127:0]:
 * PA[3:0] = 0
 * PA[7:4] = ADDR[7:4].
 * PA[15:8] = ADDR[15:8].
 * PA[23:16] = ADDR[23:16].
 * PA[31:24] = ADDR[31:24].
-* The other twelve of the sixteen plain text address bytes of PA[127:0] are "0":
-* PA[127:32] = "0".
+* The other twelve of the sixteen plain text address bytes of PA[127:0] are "0" by default.
+* User can initialize PA[127:32] with \ref Cy_SMIF_SetCryptoIV().
 *
 * \param data
 * This is the location where the input data-array is passed while the function
@@ -2093,7 +2288,323 @@ cy_en_smif_status_t Cy_SMIF_CacheInvalidate(SMIF_Type *base,
     return (status);
 }
 
+#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetRxCaptureMode
+****************************************************************************//**
+* This function sets the Rx Capture mode setting for SMIF IP block instance
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param mode
+* Rx Capture mode \ref cy_en_smif_capture_mode_t
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+void Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode)
+{
+    CY_ASSERT_L1(NULL != base);
 
+    SMIF_CTL2(base) = _VAL2FLD(SMIF_CORE_CTL2_RX_CAPTURE_MODE, (uint32_t)mode);
+}
+
+static bool Cy_SMIF_IsBridgeOn(SMIF_Base_Type *base)
+{
+    CY_ASSERT_L1(NULL != base);
+
+    return _FLD2VAL(SMIF_SMIF_BRIDGE_CTL_ENABLED, SMIF_BRIDGE_CTL(base));
+}
+static bool Cy_SMIF_IsRegionAddrAligned(uint32_t addr, cy_en_smif_bridge_remap_region_size_t regionSize)
+{
+    return (((addr & 0x1FFFFFFFU) & (~regionSize)) == 0U);
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_Bridge_Enable
+****************************************************************************//**
+* This function is used to enable/disable Bridge
+*
+* \param base
+* Holds the base address of the SMIF base registers.
+*
+* \param enable
+* enable/disable the bridge
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Bridge_Enable(SMIF_Base_Type *base, bool enable)
+{
+    CY_ASSERT_L1(NULL != base);
+
+    uint32_t prevStatus = Cy_SysLib_EnterCriticalSection();
+
+    /* Confirming all smif core is not busy */
+    for(uint32_t smifCoreIdx = 0; smifCoreIdx < CY_SMIF_CORE_COUNT; smifCoreIdx+=1U)
+    {
+        if(Cy_SMIF_BusyCheck(&(base->CORE[smifCoreIdx])) == true)
+        {
+            return CY_SMIF_BUSY;
+        }
+    }
+
+    /* Set Enable bit of the smif bridge */
+    SMIF_BRIDGE_CTL(base) = _VAL2FLD(SMIF_SMIF_BRIDGE_CTL_ENABLED, (uint32_t) enable);
+
+    Cy_SysLib_ExitCriticalSection(prevStatus);
+
+    return CY_SMIF_SUCCESS;;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_Bridge_SetPortPriority
+****************************************************************************//**
+* This function sets the priority of PORTS (AHB/AXI)
+*
+* \param base
+* Holds the base address of the SMIF base registers.
+*
+* \param bridge_priority
+* priotiry configuration for different ports using AHB/AXI interface
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Bridge_SetPortPriority(SMIF_Base_Type *base, cy_stc_smif_bridge_pri_t* bridge_priority)
+{
+    CY_ASSERT_L1(NULL != base);
+    CY_ASSERT_L1(NULL != bridge_priority);
+
+    SMIF_BRIDGE_CTL(base) = _VAL2FLD(SMIF_SMIF_BRIDGE_CTL_ARB_PRI_AHB_SMIF0, (uint32_t) bridge_priority->pri_ahb_smif0) |
+                            _VAL2FLD(SMIF_SMIF_BRIDGE_CTL_ARB_PRI_AHB_SMIF1, (uint32_t) bridge_priority->pri_ahb_smif1) |
+                            _VAL2FLD(SMIF_SMIF_BRIDGE_CTL_ARB_PRI_AXI_SMIF0, (uint32_t) bridge_priority->pri_ahb_smif0) |
+                            _VAL2FLD(SMIF_SMIF_BRIDGE_CTL_ARB_PRI_AXI_SMIF1, (uint32_t) bridge_priority->pri_ahb_smif0);
+
+    return CY_SMIF_SUCCESS;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_Bridge_SetSimpleRemapRegion
+****************************************************************************//**
+* This function sets up a new remap region.
+*
+* \param base
+* Holds the base address of the SMIF base registers.
+*
+* \param region_info
+* Region Information contains xip address and target remap physical addresses
+* along with size of remap.
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Bridge_SetSimpleRemapRegion(SMIF_Base_Type *base, const cy_stc_smif_bridge_remap_t* region_info)
+{
+    CY_ASSERT_L1(NULL != base);
+    CY_ASSERT_L1(NULL != region_info);
+
+    cy_en_smif_bridge_xip_space_t xipSpace = CY_EN_BRIDGE_SMIF0_XIP_SPACE;
+    cy_en_smif_bridge_remap_type_t remapDest = CY_EN_BRIDGE_REMAP_TYPE_TO_SMIF0;
+    cy_en_smif_status_t result = CY_SMIF_SUCCESS;
+
+    /* Status Checking */
+   if(Cy_SMIF_IsBridgeOn(base) == true)
+   {
+       result = CY_SMIF_BAD_PARAM;
+   }
+    
+   /* Parameter Checking */
+   if ((result == CY_SMIF_SUCCESS) ||
+          (region_info->regionIdx >= CY_SMIF_BRIDGE_REMAP_REGION_COUNT) ||
+          (!Cy_SMIF_IsRegionAddrAligned(region_info->xipAddr, region_info->regionSize)) ||
+          (!Cy_SMIF_IsRegionAddrAligned(region_info->phyAddr, region_info->regionSize)))
+   {
+       result = CY_SMIF_BAD_PARAM;
+   }
+
+   /* Check the input address */ 
+   if ((region_info->xipAddr & SMIF_SMIF0_XIP_MASK) == SMIF_SMIF0_XIP_ADDR)
+   {
+       xipSpace = CY_EN_BRIDGE_SMIF0_XIP_SPACE;
+   }
+   else if ((region_info->xipAddr & SMIF_SMIF1_XIP_MASK) == SMIF_SMIF1_XIP_ADDR)
+   {
+       xipSpace = CY_EN_BRIDGE_SMIF1_XIP_SPACE;
+   }
+   else
+   {
+       result = CY_SMIF_BAD_PARAM;
+   }
+    
+   /* Check the remap address */
+   if ((region_info->phyAddr & SMIF_SMIF0_XIP_MASK) == SMIF_SMIF0_XIP_ADDR)
+   {
+       remapDest = CY_EN_BRIDGE_REMAP_TYPE_TO_SMIF0;
+   }
+   else if ((region_info->phyAddr & SMIF_SMIF1_XIP_MASK) == SMIF_SMIF1_XIP_ADDR)
+   {
+       remapDest = CY_EN_BRIDGE_REMAP_TYPE_TO_SMIF1;
+   }
+   else
+   {
+       result = CY_SMIF_BAD_PARAM;
+   }
+
+   if (result == CY_SMIF_SUCCESS)
+   {
+       SMIF_REMAPREGION_CTL(base, region_info->regionIdx) = (_VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_CTL_USE_SMIF, (uint32_t)remapDest) |
+                                                            _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_CTL_SMIF_SPACE, (uint32_t)xipSpace));
+       SMIF_REMAPREGION_ADDR(base, region_info->regionIdx) = _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_CTL_USE_SMIF, (uint32_t)region_info->xipAddr);
+       SMIF_REMAPREGION_MASK(base, region_info->regionIdx) = _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_CTL_USE_SMIF, (uint32_t)region_info->regionSize);
+    
+       if (remapDest == CY_EN_BRIDGE_REMAP_TYPE_TO_SMIF0)
+       {
+           SMIF_REMAPREGION_SMIF0_REMAP(base, region_info->regionIdx)  = region_info->phyAddr;
+       }
+       else
+       {
+           SMIF_REMAPREGION_SMIF0_REMAP(base, region_info->regionIdx) = region_info->phyAddr;
+       }
+   }
+
+   return result;
+
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_Bridge_SetInterleavingRemapRegion
+****************************************************************************//**
+* This function sets up a new interleaving remap region.
+*
+* \param base
+* Holds the base address of the SMIF base registers.
+*
+* \param region_info
+* Region Information contains xip address and target remap physical addresses
+* on both CORES since interleaving uses both the PORTS along with size of remap.
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Bridge_SetInterleavingRemapRegion(SMIF_Base_Type *base, const cy_stc_smif_bridge_interleave_remap_t* region_info)
+{
+    CY_ASSERT_L1(NULL != base);
+    CY_ASSERT_L1(NULL != region_info);
+
+    cy_en_smif_bridge_xip_space_t xipSpace = CY_EN_BRIDGE_SMIF0_XIP_SPACE;
+    cy_en_smif_bridge_xip_space_t phy0Space = CY_EN_BRIDGE_SMIF0_XIP_SPACE;
+    cy_en_smif_bridge_xip_space_t phy1Space = CY_EN_BRIDGE_SMIF0_XIP_SPACE;
+    cy_en_smif_status_t result = CY_SMIF_SUCCESS;
+    
+     /* Status Checking */
+    if(Cy_SMIF_IsBridgeOn(base) == true)
+    {
+        result = CY_SMIF_BAD_PARAM;
+    }
+     
+    /* Parameter Checking */
+    if ((result == CY_SMIF_SUCCESS) ||
+        (region_info->regionIdx >= CY_SMIF_BRIDGE_REMAP_REGION_COUNT) ||
+        (!Cy_SMIF_IsRegionAddrAligned(region_info->xipAddr, region_info->regionSize)) ||
+        (!Cy_SMIF_IsRegionAddrAligned(region_info->phyAddr0, region_info->regionSize)) ||
+        (!Cy_SMIF_IsRegionAddrAligned(region_info->phyAddr1, region_info->regionSize)))
+    {
+        result = CY_SMIF_BAD_PARAM;
+    }
+    
+    /* Check the input address */ 
+    if ((region_info->xipAddr & SMIF_SMIF0_XIP_MASK) == SMIF_SMIF0_XIP_ADDR)
+    {
+        xipSpace = CY_EN_BRIDGE_SMIF0_XIP_SPACE;
+    }
+    else if ((region_info->xipAddr & SMIF_SMIF1_XIP_MASK) == SMIF_SMIF1_XIP_ADDR)
+    {
+        xipSpace = CY_EN_BRIDGE_SMIF1_XIP_SPACE;
+    }
+    else
+    {
+        result = CY_SMIF_BAD_PARAM;
+    }
+     
+    /* Check the remap address */
+    if ((region_info->phyAddr0 & SMIF_SMIF0_XIP_MASK) == SMIF_SMIF0_XIP_ADDR)
+    {
+        phy0Space = CY_EN_BRIDGE_SMIF0_XIP_SPACE;
+    }
+    else if ((region_info->phyAddr0 & SMIF_SMIF1_XIP_MASK) == SMIF_SMIF1_XIP_ADDR)
+    {
+        phy0Space = CY_EN_BRIDGE_SMIF1_XIP_SPACE;
+    }
+    else
+    {
+        result = CY_SMIF_BAD_PARAM;
+    }
+
+    if ((region_info->phyAddr1 & SMIF_SMIF0_XIP_MASK) == SMIF_SMIF0_XIP_ADDR)
+    {
+        phy1Space = CY_EN_BRIDGE_SMIF0_XIP_SPACE;
+    }
+    else if ((region_info->phyAddr1 & SMIF_SMIF1_XIP_MASK) == SMIF_SMIF1_XIP_ADDR)
+    {
+        phy1Space = CY_EN_BRIDGE_SMIF1_XIP_SPACE;
+    }
+    else
+    {
+        result = CY_SMIF_BAD_PARAM;
+    }
+
+    if ((result == CY_SMIF_SUCCESS) && (phy0Space != phy1Space))
+    {
+        SMIF_REMAPREGION_CTL(base, region_info->regionIdx) = _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_CTL_USE_SMIF, (uint32_t) CY_EN_BRIDGE_REMAP_TYPE_INTERLEAVE) |
+                                                             _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_CTL_SMIF_SPACE, (uint32_t)xipSpace);
+        SMIF_REMAPREGION_ADDR(base, region_info->regionIdx) = _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_ADDR_ADDR, (uint32_t)region_info->xipAddr);
+        SMIF_REMAPREGION_MASK(base, region_info->regionIdx) = _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_MASK_MASK, (uint32_t)region_info->regionSize);
+         SMIF_REMAPREGION_SMIF0_REMAP(base, region_info->regionIdx)    = _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_SMIF0_REMAP_SMIF0_REMAP, (uint32_t)region_info->phyAddr0);
+        SMIF_REMAPREGION_SMIF1_REMAP(base, region_info->regionIdx) = _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_SMIF0_REMAP_SMIF0_REMAP, (uint32_t)region_info->phyAddr1);
+    }
+    
+    return result;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_Bridge_DeactivateRemapRegion
+****************************************************************************//**
+* This function sets up a new interleaving remap region.
+*
+* \param base
+* Holds the base address of the SMIF base registers.
+*
+* \param regionIdx
+* Region index for which the remap region should be deactivated.
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Bridge_DeactivateRemapRegion(SMIF_Base_Type *base, uint32_t regionIdx)
+{
+    CY_ASSERT_L1(NULL != base);
+    cy_en_smif_status_t result = CY_SMIF_SUCCESS;
+
+    /* Check Bridge status and input parameters */
+    if ((Cy_SMIF_IsBridgeOn(base) == true) || \
+       (regionIdx >= CY_SMIF_BRIDGE_REMAP_REGION_COUNT))
+    {
+        result = CY_SMIF_BAD_PARAM;
+    }
+
+    if (result == CY_SMIF_SUCCESS)
+    {
+        SMIF_REMAPREGION_CTL(base, regionIdx)   = _VAL2FLD(SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_CTL_USE_SMIF, (uint32_t) CY_EN_BRIDGE_REMAP_TYPE_INACTIVE);
+    }
+
+    return CY_SMIF_SUCCESS;
+
+}
+
+#endif
+
+#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS)
 /*******************************************************************************
 * Function Name: Cy_SMIF_DeepSleepCallback
 ****************************************************************************//**
@@ -2301,7 +2812,7 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 
     return (retStatus);
 }
-
+#endif /* defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) */
 
 #if defined(__cplusplus)
 }

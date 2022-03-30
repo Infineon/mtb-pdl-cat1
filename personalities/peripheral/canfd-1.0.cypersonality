@@ -36,10 +36,10 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Peripheral Documentation" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__canfd.html" linkText="Open CAN FD Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
-    <!-- Calback functions -->
-    <ParamString id="txCallback" name="TxCallback Function" group="Calback functions" default="NULL" visible="true" editable="true" desc="The Callback function for transmit completed." />
-    <ParamString id="rxCallback" name="RxCallback Function" group="Calback functions" default="NULL" visible="true" editable="true" desc="The Callback function for receive completed." />
-    <ParamString id="errorCallback" name="ErrorCallback Function" group="Calback functions" default="NULL" visible="true" editable="true" desc="The Callback function for CAN related errors." />
+    <!-- Callback functions -->
+    <ParamString id="txCallback" name="TxCallback Function" group="Callback functions" default="NULL" visible="true" editable="true" desc="The Callback function for transmit completed." />
+    <ParamString id="rxCallback" name="RxCallback Function" group="Callback functions" default="NULL" visible="true" editable="true" desc="The Callback function for receive completed." />
+    <ParamString id="errorCallback" name="ErrorCallback Function" group="Callback functions" default="NULL" visible="true" editable="true" desc="The Callback function for CAN related errors." />
 
     <!-- Mode -->
     <ParamBool id="mode" name="CAN FD Mode" group="Mode" default="false" visible="true" editable="true" desc="Set if CAN FD, reset if Classic CAN mode." />

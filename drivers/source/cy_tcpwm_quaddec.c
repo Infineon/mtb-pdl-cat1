@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file cy_tcpwm_quaddec.c
-* \version 1.30
+* \version 1.40
 *
 * \brief
 *  The source file of the tcpwm driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -122,7 +122,7 @@ cy_en_tcpwm_status_t Cy_TCPWM_QuadDec_Init(TCPWM_Type *base, uint32_t cntNum,
                               _VAL2FLD(TCPWM_GRP_CNT_V2_TR_IN_EDGE_SEL_RELOAD_EDGE, config->indexInputMode) |
                               _VAL2FLD(TCPWM_GRP_CNT_V2_TR_IN_EDGE_SEL_STOP_EDGE, config->stopInputMode));
 
-            if(TCPWM_GRP_CC1(grp))
+            if(TCPWM_GRP_CC1(base, grp))
             {
                 TCPWM_GRP_CNT_CC1(base, grp, cntNum) = config->compare1;
                 TCPWM_GRP_CNT_CC1_BUFF(base, grp, cntNum) = config->compareBuf1;

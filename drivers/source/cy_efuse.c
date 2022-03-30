@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_efuse.c
-* \version 2.0
+* \version 2.10
 *
 * \brief
 * Provides API implementation of the eFuse driver.
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXEFUSE) && (CY_IP_MXEFUSE_VERSION == 1)
+#if defined (CY_IP_MXEFUSE) && (CY_IP_MXEFUSE_VERSION <= 2)
 
 #include "cy_efuse.h"
 #include "cy_ipc_drv.h"
@@ -150,6 +150,6 @@ static cy_en_efuse_status_t ProcessOpcode(void)
     return (result);
 }
 
-#endif /* #ifdef (CY_IP_MXEFUSE) && (CY_IP_MXEFUSE_VERSION == 1) */
+#endif /* #ifdef (CY_IP_MXEFUSE) && (CY_IP_MXEFUSE_VERSION <= 2) */
 
 /* [] END OF FILE */

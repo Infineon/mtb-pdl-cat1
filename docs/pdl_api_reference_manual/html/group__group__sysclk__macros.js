@@ -9,5 +9,9 @@ var group__group__sysclk__macros =
     [ "CY_SYSCLK_PILO_FREQ", "group__group__sysclk__macros.html#gaffa481a00710a6d6dea53ad1e12266c3", null ],
     [ "CY_SYSCLK_IMO_FREQ", "group__group__sysclk__macros.html#ga9b98d83b0a60b378966d56f7636d85a6", null ],
     [ "CY_SYSCLK_MFO_FREQ", "group__group__sysclk__macros.html#ga40dbc1d4deedd96abbaf1790bb96cee2", null ],
-    [ "CY_SYSCLK_PILO_TRIM_STEP", "group__group__sysclk__macros.html#gaa43941ffce9db407916a2d0da03dad47", null ]
+    [ "CY_SYSCLK_PILO_TRIM_STEP", "group__group__sysclk__macros.html#gaa43941ffce9db407916a2d0da03dad47", null ],
+    [ "CY_SYSCLK_IHO_FREQ", "group__group__sysclk__macros.html#ga45a41c9c03970ea3b6758f649abaa1ae", null ],
+    [ "CY_SYSCLK_ECO_FREQ", "group__group__sysclk__macros.html#ga298156008f36e1fcec11a51efa2b71c9", null ],
+    [ "CY_SYSCLK_BYPASS_CONFIGURE_DELAY", "group__group__sysclk__macros.html#ga45b6a9e242086c261e607b0438bda4bc", null ],
+    [ "CY_SYSCLK_FLL_DISABLE_TIMEOUT", "group__group__sysclk__macros.html#gad86b6fa733ec662fe862712b39939884", null ]
 ];

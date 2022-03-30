@@ -46,7 +46,11 @@ var group__group__smif__data__structures__memslot =
       [ "chipEraseTime", "structcy__stc__smif__mem__device__cfg__t.html#affa18792a98acafd3e86b5fafd6fc59c", null ],
       [ "programTime", "structcy__stc__smif__mem__device__cfg__t.html#a5156e88b285cfe78f4ff4e42194a70c0", null ],
       [ "hybridRegionCount", "structcy__stc__smif__mem__device__cfg__t.html#af699412addf5631fb6e2d61ece8a89f0", null ],
-      [ "hybridRegionInfo", "structcy__stc__smif__mem__device__cfg__t.html#a989bd3b0d57035f44bd936d185afb7bf", null ]
+      [ "hybridRegionInfo", "structcy__stc__smif__mem__device__cfg__t.html#a989bd3b0d57035f44bd936d185afb7bf", null ],
+      [ "readLatencyCmd", "structcy__stc__smif__mem__device__cfg__t.html#a1c383f7341855294fda5cc5d03b7f270", null ],
+      [ "writeLatencyCmd", "structcy__stc__smif__mem__device__cfg__t.html#aeaa8b36aacfa7b39dcfbbbe042c832a8", null ],
+      [ "latencyCyclesRegAddr", "structcy__stc__smif__mem__device__cfg__t.html#a2bbe834f1ccfb409c369851d0b5be848", null ],
+      [ "latencyCyclesMask", "structcy__stc__smif__mem__device__cfg__t.html#af668180d0dac7778ba607ec4bc3ebafe", null ]
     ] ],
     [ "cy_stc_smif_mem_config_t", "structcy__stc__smif__mem__config__t.html", [
       [ "slaveSelect", "structcy__stc__smif__mem__config__t.html#a1ddf064315a00cf0929f632835ad5508", null ],

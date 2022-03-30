@@ -153,6 +153,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8c16343c075610b2888b0693f972b555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#ga8c16343c075610b2888b0693f972b555">Cy_SysLib_ExitCriticalSection</a> (uint32_t savedIntrStatus)</td></tr>
 <tr class="memdesc:ga8c16343c075610b2888b0693f972b555"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-enables the interrupts if they were enabled before <a class="el" href="group__group__syslib__functions.html#gae679f15a1702c159c105b596a8801105" title="Cy_SysLib_EnterCriticalSection disables interrupts and returns a value indicating whether the interru...">Cy_SysLib_EnterCriticalSection()</a> was called.  <a href="#ga8c16343c075610b2888b0693f972b555">More...</a><br /></td></tr>
 <tr class="separator:ga8c16343c075610b2888b0693f972b555"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaebb3c0de07c70f0a39aa07a4ebb72f64"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gaebb3c0de07c70f0a39aa07a4ebb72f64">Cy_SysLib_GetDeviceRevision</a> (void)</td></tr>
+<tr class="memdesc:gaebb3c0de07c70f0a39aa07a4ebb72f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a device Revision ID.  <a href="#gaebb3c0de07c70f0a39aa07a4ebb72f64">More...</a><br /></td></tr>
+<tr class="separator:gaebb3c0de07c70f0a39aa07a4ebb72f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31851d85af687fef11473fa11145030d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#ga31851d85af687fef11473fa11145030d">Cy_SysLib_GetDevice</a> (void)</td></tr>
+<tr class="memdesc:ga31851d85af687fef11473fa11145030d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a device Family ID.  <a href="#ga31851d85af687fef11473fa11145030d">More...</a><br /></td></tr>
+<tr class="separator:ga31851d85af687fef11473fa11145030d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc2fac2da2d735bedac2a57d45d53fac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gabc2fac2da2d735bedac2a57d45d53fac">Cy_Syslib_SetWarmBootEntryPoint</a> (uint32_t *entryPoint, bool enable)</td></tr>
+<tr class="memdesc:gabc2fac2da2d735bedac2a57d45d53fac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set Warm boot entry point address to a location read by BootROM.  <a href="#gabc2fac2da2d735bedac2a57d45d53fac">More...</a><br /></td></tr>
+<tr class="separator:gabc2fac2da2d735bedac2a57d45d53fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaad1c32546fdb0e3c6fa8b46fb95843b5"></a>
@@ -179,7 +188,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The function calls <a class="el" href="group__group__syslib__functions.html#ga58e78e8abc25b8b598fb0b7d50e18c69">Cy_SysLib_DelayCycles()</a> API to generate a delay. If the function parameter (milliseconds) is bigger than CY_DELAY_MS_OVERFLOW constant, then an additional loop runs to prevent an overflow in parameter passed to <a class="el" href="group__group__syslib__functions.html#ga58e78e8abc25b8b598fb0b7d50e18c69">Cy_SysLib_DelayCycles()</a> API. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function calls <a class="el" href="group__group__syslib__functions.html#ga58e78e8abc25b8b598fb0b7d50e18c69">Cy_SysLib_DelayCycles()</a> API to generate a delay. If the function parameter (milliseconds) is bigger than CY_DELAY_MS_OVERFLOW constant, then an additional loop runs to prevent an overflow in parameter passed to <a class="el" href="group__group__syslib__functions.html#ga58e78e8abc25b8b598fb0b7d50e18c69">Cy_SysLib_DelayCycles()</a> API.</dd>
+<dd>
+The Calibration factor is to correct the delay in cases where CPU's use branch prediction, currently applicable for only CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -207,7 +218,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the CPU frequency is a small non-integer number, the actual delay can be up to twice as long as the nominal value. The actual delay cannot be shorter than the nominal one. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the CPU frequency is a small non-integer number, the actual delay can be up to twice as long as the nominal value. The actual delay cannot be shorter than the nominal one.</dd>
+<dd>
+The Calibration factor is to correct the delay in cases where CPU's use branch prediction, currently applicable for only CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -484,31 +497,53 @@ This function also resets the WCO trimming value - use the <a class="el" href="g
 <dl class="section return"><dt>Returns</dt><dd>The cause of a system reset. Return values to be checked as per the CPUSS IP of the device.</dd></dl>
 <table class="doxtable">
 <tr>
-<th>Name in M4CPUSS IP </th><th>Name in M33SYSCPUSS IP </th><th>Value  </th></tr>
+<th>Name in M4CPUSS IP </th><th>Name in M33SYSCPUSS IP </th><th>Name in M7CPUSS IP </th><th>Value  </th></tr>
 <tr>
-<td>CY_SYSLIB_RESET_HWWDT </td><td>CY_SYSLIB_RESET_HWWDT </td><td>0x00001 (bit0) </td></tr>
+<td>CY_SYSLIB_RESET_HWWDT </td><td>CY_SYSLIB_RESET_HWWDT </td><td>CY_SYSLIB_RESET_HWWDT </td><td>0x00001 (bit0) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_ACT_FAULT </td><td>CY_SYSLIB_RESET_ACT_FAULT </td><td>0x00002 (bit1) </td></tr>
+<td>CY_SYSLIB_RESET_ACT_FAULT </td><td>CY_SYSLIB_RESET_ACT_FAULT </td><td>CY_SYSLIB_RESET_ACT_FAULT </td><td>0x00002 (bit1) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_DPSLP_FAULT </td><td>CY_SYSLIB_RESET_DPSLP_FAULT </td><td>0x00004 (bit2) </td></tr>
+<td>CY_SYSLIB_RESET_DPSLP_FAULT </td><td>CY_SYSLIB_RESET_DPSLP_FAULT </td><td>CY_SYSLIB_RESET_DPSLP_FAULT </td><td>0x00004 (bit2) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_TC_DBGRESET </td><td>CY_SYSLIB_RESET_CSV_WCO_LOSS </td><td>0x00008 (bit3) </td></tr>
+<td>CY_SYSLIB_RESET_TC_DBGRESET </td><td>CY_SYSLIB_RESET_CSV_WCO_LOSS </td><td>CY_SYSLIB_RESET_TC_DBGRESET </td><td>0x00008 (bit3) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SOFT </td><td>CY_SYSLIB_RESET_SOFT </td><td>0x00010 (bit4) </td></tr>
+<td>CY_SYSLIB_RESET_SOFT </td><td>CY_SYSLIB_RESET_SOFT </td><td>CY_SYSLIB_RESET_SOFT </td><td>0x00010 (bit4) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SWWDT0 </td><td>CY_SYSLIB_RESET_SWWDT0 </td><td>0x00020 (bit5) </td></tr>
+<td>CY_SYSLIB_RESET_SWWDT0 </td><td>CY_SYSLIB_RESET_SWWDT0 </td><td>CY_SYSLIB_RESET_SWWDT0 </td><td>0x00020 (bit5) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SWWDT1 </td><td>CY_SYSLIB_RESET_SWWDT1 </td><td>0x00040 (bit6) </td></tr>
+<td>CY_SYSLIB_RESET_SWWDT1 </td><td>CY_SYSLIB_RESET_SWWDT1 </td><td>CY_SYSLIB_RESET_SWWDT1 </td><td>0x00040 (bit6) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SWWDT2 </td><td>CY_SYSLIB_RESET_SWWDT2 </td><td>0x00080 (bit7) </td></tr>
+<td>CY_SYSLIB_RESET_SWWDT2 </td><td>CY_SYSLIB_RESET_SWWDT2 </td><td>CY_SYSLIB_RESET_SWWDT2 </td><td>0x00080 (bit7) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_SWWDT3 </td><td>CY_SYSLIB_RESET_SWWDT3 </td><td>0x00100 (bit8) </td></tr>
+<td>CY_SYSLIB_RESET_SWWDT3 </td><td>CY_SYSLIB_RESET_SWWDT3 </td><td>CY_SYSLIB_RESET_SWWDT3 </td><td>0x00100 (bit8) </td></tr>
 <tr>
-<td></td><td>CY_SYSLIB_RESET_HFCLK_LOSS </td><td>0x10000 (bit16) </td></tr>
+<td></td><td>CY_SYSLIB_RESET_HFCLK_LOSS </td><td>CY_SYSLIB_RESET_XRES </td><td>0x10000 (bit16) </td></tr>
 <tr>
-<td></td><td>CY_SYSLIB_RESET_HFCLK_ERR </td><td>0x20000 (bit17) </td></tr>
+<td></td><td>CY_SYSLIB_RESET_HFCLK_ERR </td><td>CY_SYSLIB_RESET_BODVDDD </td><td>0x20000 (bit17) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>0x40000 (bit18) </td></tr>
+<td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>CY_SYSLIB_RESET_BODVDDA </td><td>0x40000 (bit18) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_BODVCCD </td><td>0x80000 (bit19) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_OVDVDDD </td><td>0x100000 (bit20) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_OVDVDDA </td><td>0x200000 (bit21) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_OVDVCCD </td><td>0x400000 (bit22) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_OCD_ACT_LINREG </td><td>0x800000 (bit23) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_OCD_DPSLP_LINREG </td><td>0x1000000 (bit24) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_OCD_REGHC </td><td>0x2000000 (bit25) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_PMIC </td><td>0x4000000 (bit26) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_PXRES </td><td>0x10000000 (bit28) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_STRUCT_XRES </td><td>0x20000000 (bit29) </td></tr>
+<tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_PORVDDD </td><td>0x40000000 (bit30) </td></tr>
 </table>
 <dl class="section note"><dt>Note</dt><dd>This not is available for devices having M33SYSCPUSS IP CY_SYSLIB_RESET_CSV_WCO_LOSS, CY_SYSLIB_RESET_HFCLK_LOSS and CY_SYSLIB_RESET_HFCLK_ERR causes of a system reset available only if WCO CSV present in the device. </dd></dl>
 
@@ -755,6 +790,87 @@ The CY_ARM_FAULT_DEBUG macro defines if the Fault Handler is enabled. By default
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="gaebb3c0de07c70f0a39aa07a4ebb72f64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaebb3c0de07c70f0a39aa07a4ebb72f64">&#9670;&nbsp;</a></span>Cy_SysLib_GetDeviceRevision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Cy_SysLib_GetDeviceRevision </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns a device Revision ID. </p>
+<dl class="section return"><dt>Returns</dt><dd>A device Revision ID. </dd></dl>
+
+</div>
+</div>
+<a id="ga31851d85af687fef11473fa11145030d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga31851d85af687fef11473fa11145030d">&#9670;&nbsp;</a></span>Cy_SysLib_GetDevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Cy_SysLib_GetDevice </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns a device Family ID. </p>
+<dl class="section return"><dt>Returns</dt><dd>A device Family ID. </dd></dl>
+
+</div>
+</div>
+<a id="gabc2fac2da2d735bedac2a57d45d53fac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc2fac2da2d735bedac2a57d45d53fac">&#9670;&nbsp;</a></span>Cy_Syslib_SetWarmBootEntryPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Syslib_SetWarmBootEntryPoint </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>entryPoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will set Warm boot entry point address to a location read by BootROM. </p>
+<p>This function is used only before entering DeepSleep-RAM and not effective in any other sleep mode. Before entering CY_SYSPM_MODE_DEEPSLEEP_RAM, user needs to set entry point to a function located in RAM Image using <a class="el" href="group__group__syslib__functions.html#gabc2fac2da2d735bedac2a57d45d53fac" title="This function will set Warm boot entry point address to a location read by BootROM. ">Cy_Syslib_SetWarmBootEntryPoint()</a>, refer <a class="el" href="group__group__syspm__functions__power.html#gaaff87adb57f74191a344e996517bd74b" title="Set the deepsleep mode - deepsleep or deepsleep-ram or deepsleep-off. ">Cy_SysPm_SetDeepSleepMode()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entryPoint</td><td>Address of the function that needs to be entered after WARM boot.</td></tr>
+    <tr><td class="paramname">enable</td><td>Enables/Disables debugging control after DS-RAM wakeup i.e. warmboot</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
 
 </div>
 </div>

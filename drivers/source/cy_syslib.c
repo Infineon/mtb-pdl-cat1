@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.0
+* \version 3.10
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
 *
 ********************************************************************************
-* Copyright 2016-2021 Cypress Semiconductor Corporation
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M4CPUSS)
+#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || defined(CY_IP_M55APPCPUSS)
 
 #include "cy_syslib.h"
 
@@ -63,7 +64,7 @@
 
 #endif
 
-#if defined (CY_IP_MXS40SRSS)
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3))
 /* RESET_CAUSE2 macro for CAT1A devices */
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Msk    (SRSS_RES_CAUSE2_RESET_CSV_HF_LOSS_Msk)
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Pos    (SRSS_RES_CAUSE2_RESET_CSV_HF_LOSS_Pos)
@@ -71,14 +72,21 @@
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Pos    (SRSS_RES_CAUSE2_RESET_CSV_HF_FREQ_Pos)
 #endif
 
-#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS)
-/* RESET_CAUSE2 macro for CAT1B devices */
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+/* RESET_CAUSE2 macro for CAT1C devices */
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Msk    (SRSS_RES_CAUSE2_RESET_CSV_HF_Msk)
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Pos    (SRSS_RES_CAUSE2_RESET_CSV_HF_Pos)
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Msk    (SRSS_RES_CAUSE2_RESET_CSV_REF_Msk)
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Pos    (SRSS_RES_CAUSE2_RESET_CSV_REF_Pos)
 #endif
 
+#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || defined(CY_IP_MXS22SSRSS)
+/* RESET_CAUSE2 macro for CAT1B, CAT1D devices */
+#define CY_SRSS_RES_CAUSE2_CSV_LOSS_Msk    (SRSS_RES_CAUSE2_RESET_CSV_HF_Msk)
+#define CY_SRSS_RES_CAUSE2_CSV_LOSS_Pos    (SRSS_RES_CAUSE2_RESET_CSV_HF_Pos)
+#define CY_SRSS_RES_CAUSE2_CSV_ERROR_Msk    (SRSS_RES_CAUSE2_RESET_CSV_REF_Msk)
+#define CY_SRSS_RES_CAUSE2_CSV_ERROR_Pos    (SRSS_RES_CAUSE2_RESET_CSV_REF_Pos)
+#endif
 
 #if !defined(NDEBUG)
     CY_NOINIT char_t cy_assertFileName[CY_MAX_FILE_NAME_SIZE];
@@ -97,6 +105,9 @@
         #endif /* (__ARMCC_VERSION >= 6010050) */
 #endif  /* (__ARMCC_VERSION) */
 
+#ifndef CY_SYSLIB_DELAY_CALIBRATION_FACTOR
+#define CY_SYSLIB_DELAY_CALIBRATION_FACTOR     1U
+#endif
 
 void Cy_SysLib_Delay(uint32_t milliseconds)
 {
@@ -110,13 +121,13 @@ void Cy_SysLib_Delay(uint32_t milliseconds)
         milliseconds -= CY_DELAY_MS_OVERFLOW;
     }
 
-    Cy_SysLib_DelayCycles(milliseconds * cy_delayFreqKhz);
+    Cy_SysLib_DelayCycles(milliseconds * cy_delayFreqKhz * CY_SYSLIB_DELAY_CALIBRATION_FACTOR);
 }
 
 
 void Cy_SysLib_DelayUs(uint16_t microseconds)
 {
-    Cy_SysLib_DelayCycles((uint32_t) microseconds * cy_delayFreqMhz);
+    Cy_SysLib_DelayCycles((uint32_t) microseconds * cy_delayFreqMhz * CY_SYSLIB_DELAY_CALIBRATION_FACTOR);
 }
 
 __WEAK void Cy_SysLib_Rtos_Delay(uint32_t milliseconds)
@@ -192,6 +203,7 @@ uint32_t Cy_SysLib_GetResetReason(void)
         retVal |= CY_SYSLIB_RESET_HIB_WAKEUP;
     }
 
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) ||  defined(CY_IP_MXS22SSRSS)
     if(0U != _FLD2VAL(CY_SRSS_RES_CAUSE2_CSV_LOSS, SRSS_RES_CAUSE2))
     {
         retVal |= CY_SYSLIB_RESET_CSV_LOSS_WAKEUP;
@@ -201,7 +213,7 @@ uint32_t Cy_SysLib_GetResetReason(void)
     {
         retVal |= CY_SYSLIB_RESET_CSV_ERROR_WAKEUP;
     }
-
+#endif
     return (retVal);
 }
 
@@ -398,6 +410,9 @@ void Cy_SysLib_SetWaitStates(bool ulpMode, uint32_t clkHfMHz)
     (void) clkHfMHz;
 #endif /* !((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
 #endif
+
+    (void) ulpMode;
+    (void) clkHfMHz;
 }
 
 
@@ -419,6 +434,12 @@ uint16_t Cy_SysLib_GetDevice(void)
 #endif    
 }
 
+#if  defined (CY_IP_MXS40SSRSS)
+void Cy_Syslib_SetWarmBootEntryPoint(uint32_t *entryPoint, bool enable)
+{
+    *(uint32_t *)CY_SYSPM_BOOTROM_ENTRYPOINT_ADDR = (uint32_t)entryPoint | (enable ? CY_SYSPM_BOOTROM_DSRAM_DBG_ENABLE_MASK : 0UL) ;
+}
+#endif
 #endif /* CY_IP_M33SYSCPUSS, CY_IP_M4CPUSS */
 
 /* [] END OF FILE */

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Woundings xml_version="1" xmlns="http://cypress.com/xsd/cychipresourcewoundings_v1">
+  <BooleanWounding name="SMIF">
+    <Block name="smif"/>
+  </BooleanWounding>
+  <NaWounding name="BLUETOOTH">
+    <Block name="btss"/>
+    <Block name="srss.clock.althf"/>
+  </NaWounding>
+  <RemoveListWounding name="SCB_REMOVED">
+    <Block name="scb"/>
+  </RemoveListWounding>
+  <RemoveListWounding name="TIMERCOUNTERPWM_REMOVED">
+    <Block name="tcpwm.group.cnt"/>
+  </RemoveListWounding>
+</Woundings>

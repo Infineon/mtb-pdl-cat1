@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.0
+* \version 3.10
 *
 * Provides an API declaration of the SysLib driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2021 Cypress Semiconductor Corporation
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,6 +118,13 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.10</td>
+*     <td>CAT1B, CAT1C, CAT1D devices support.<br>Added new API Cy_Syslib_SetWarmBootEntryPoint()
+*         to set the warm boot entry point address to a location read by BootROM.<br>
+*         To get the accurate delay, updated Cy_SysLib_Delay(), Cy_SysLib_DelayUs() with a calibration factor.</td>
+*     <td>Support for new devices.</td>
+*   </tr>
 *   <tr>
 *     <td>3.0</td>
 *     <td>Updated \ref Cy_SysLib_SoftResetCM4 to perform correctly when function is called multiple times.</td>
@@ -302,7 +310,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M4CPUSS)
+#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || defined(CY_IP_M55APPCPUSS)
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -365,7 +373,59 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 3, \
     #define CY_ARM_FAULT_DEBUG         (CY_ARM_FAULT_DEBUG_ENABLED)
 #endif /* CY_ARM_FAULT_DEBUG */
 
+#else
+
+/** \cond INTERNAL */
+/**
+* \note
+* This macro is defined as false for all CAT1B devices.
+**/
+#define CY_CPU_CORTEX_M0P   (__CORTEX_M == 0)    /**< CM0+ core CPU Code */
+/**
+* \note
+* This macro is defined as false for all CAT1B devices.
+**/
+#define CY_CPU_CORTEX_M4    (__CORTEX_M == 4)    /**< CM4  core CPU Code */
+
+/**
+* \note
+* This macro is available for devices having M7CPUSS IP.
+**/
+#define CY_CPU_CORTEX_M7    (__CORTEX_M == 7)    /**< CM7  core CPU Code */
+/**
+* \note
+* This macro is available for devices having M55APPCPUSS IP.
+**/
+#define CY_CPU_CORTEX_M55    (__CORTEX_M == 55)    /**< CM55 core CPU Code */
+
+/** \endcond */
+
 #endif /* CY_IP_M4CPUSS */
+
+#if defined (CY_IP_M33SYSCPUSS)
+/**
+* \note
+* This macro is available for devices having M4CPUSS IP.
+**/
+/** The macro to disable the Fault Handler */
+#define CY_ARM_FAULT_DEBUG_DISABLED    (1U)
+/**
+* \note
+* This macro is available for devices having M4CPUSS IP.
+**/
+/** The macro to enable the Fault Handler */
+#define CY_ARM_FAULT_DEBUG_ENABLED     (0U)
+
+#if !defined (CY_ARM_FAULT_DEBUG)
+    /**
+    * \note
+    * This macro is available for devices having M4CPUSS IP.
+    **/
+    /** The macro defines if the Fault Handler is enabled. Enabled by default. */
+    #define CY_ARM_FAULT_DEBUG         (CY_ARM_FAULT_DEBUG_ENABLED)
+#endif /* CY_ARM_FAULT_DEBUG */
+
+#endif /* CY_IP_M33SYSCPUSS */
 
 /**
 * \defgroup group_syslib_macros_status_codes Status codes
@@ -374,7 +434,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 3, \
 */
 /** \cond INTERNAL */
 
-#ifdef CY_IP_M4CPUSS
+#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
 /**
 * \note
 * This macro is available for devices having M4CPUSS IP.
@@ -414,7 +474,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 3, \
 
 /** \endcond */
 
-#if defined (CY_IP_M33SYSCPUSS)
+#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M55APPCPUSS)
 
 #define CY_PDL_STATUS_CODE_Pos  (0U)        /**< The module status code position in the status code */
 #define CY_PDL_STATUS_TYPE_Pos  (16U)       /**< The status type position in the status code */
@@ -586,7 +646,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    0
+#define CY_SYSLIB_DRV_VERSION_MINOR    10
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN
@@ -609,6 +669,34 @@ typedef enum
 /** Define variable to be placed to the shared SRAM area by the linker */
 #ifndef CY_SECTION_SHAREDMEM
 #define CY_SECTION_SHAREDMEM CY_SECTION(".cy_sharedmem")
+#endif
+
+/** Define start of function placed to the bootstrap area by the linker */
+#ifndef CY_SECTION_BOOTSTRAP_FUNC_BEGIN
+#if defined (__GNUC__)
+#define CY_SECTION_BOOTSTRAP_FUNC_BEGIN CY_SECTION(".cy_l1func")
+#endif
+#endif
+
+/** Define end of function placed to the bootstrap area by the linker */
+#ifndef CY_SECTION_BOOTSTRAP_FUNC_END
+#if defined (__GNUC__)
+#define CY_SECTION_BOOTSTRAP_FUNC_END
+#endif
+#endif
+
+/** Placed initialized global valiable to the bootstrap data area by the linker */
+#ifndef CY_SECTION_BOOTSTRAP_DATA
+#if defined (__GNUC__)
+#define CY_SECTION_BOOTSTRAP_DATA CY_SECTION(".cy_l1data")
+#endif
+#endif
+
+/** Placed un-init global variable to the bootstrap bss area by the linker */
+#ifndef CY_SECTION_BOOTSTRAP_BSS
+#if defined (__GNUC__)
+#define CY_SECTION_BOOTSTRAP_BSS CY_SECTION(".cy_l1bss")
+#endif
 #endif
 
 typedef void (* cy_israddress)(void);   /**< Type of ISR callbacks */
@@ -752,7 +840,7 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
 /** The fault logging system requested a reset from its Deep-Sleep logic. */
 #define CY_SYSLIB_RESET_DPSLP_FAULT     (0x0004U)
 
-#ifdef CY_IP_M33SYSCPUSS
+#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M7CPUSS)
 /** The fault logging system requested a reset from its Test Controller or debugger asserted test. */
 /**
 * \note
@@ -771,12 +859,49 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
 #define CY_SYSLIB_RESET_SWWDT2          (0x0080U)
 /** The Multi-Counter Watchdog timer #3 reset has occurred since the last power cycle. */
 #define CY_SYSLIB_RESET_SWWDT3          (0x0100U)
-/** The reset has occured on a loss of high-frequency clock. */
+/** The reset has occurred on a loss of high-frequency clock. */
 #define CY_SYSLIB_RESET_CSV_LOSS_WAKEUP      (0x10000UL)
-/** The reset has occured due to frequency error of high-frequency clock. */
+/** The reset has occurred due to frequency error of high-frequency clock. */
 #define CY_SYSLIB_RESET_CSV_ERROR_WAKEUP      (0x20000UL)
 /** The reset has occurred on a wakeup from Hibernate power mode. */
 #define CY_SYSLIB_RESET_HIB_WAKEUP      (0x40000UL)
+
+#ifdef CY_IP_M7CPUSS
+/**
+* \note
+* Below macro are available for devices having CY_IP_M7CPUSS IP.
+**/
+/** External XRES pin was asserted. This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
+#define CY_SYSLIB_RESET_XRES             (0x10000U)
+/** External VDDD supply crossed brown-out limit.  Note that this cause will only be observable as long as the VDDD supply does not go below the POR (power on reset) detection limit. */
+#define CY_SYSLIB_RESET_BODVDDD          (0x20000)
+/** External VDDA supply crossed the brown-out limit.  This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
+#define CY_SYSLIB_RESET_BODVDDA          (0x40000)
+/** Internal VCCD core supply crossed the brown-out limit.  Note that this detector will detect gross issues with the internal core supply, but may not catch all brown-out conditions. */
+#define CY_SYSLIB_RESET_BODVCCD          (0x80000)
+/** Overvoltage detection on the external VDDD supply.  This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
+#define CY_SYSLIB_RESET_OVDVDDD          (0x100000)
+/** Overvoltage detection on the external VDDA supply.  This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
+#define CY_SYSLIB_RESET_OVDVDDA          (0x200000)
+/** Overvoltage detection on the internal core VCCD supply.  This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
+#define CY_SYSLIB_RESET_OVDVCCD          (0x400000)
+/** Overcurrent detection on the internal VCCD supply when supplied by the ACTIVE power mode linear regulator. This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD.  */
+#define CY_SYSLIB_RESET_OCD_ACT_LINREG   (0x800000)
+/** Overcurrent detection on the internal VCCD supply when supplied by the DEEPSLEEP power mode linear regulator. This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
+#define CY_SYSLIB_RESET_OCD_DPSLP_LINREG (0x1000000)
+/** Overcurrent detection from REGHC (if present).  If REGHC is not present, hardware will never set this bit.This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
+#define CY_SYSLIB_RESET_OCD_REGHC        (0x2000000)
+/** PMIC status triggered a reset.  If PMIC control is not present, hardware will never set this bit. This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
+#define CY_SYSLIB_RESET_PMIC             (0x4000000)
+/** PXRES triggered.  This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. Hardware clears this bit during POR. */
+#define CY_SYSLIB_RESET_PXRES            (0x10000000)
+/** Structural reset was asserted.  This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. Hardware clears this bit during POR. */
+#define CY_SYSLIB_RESET_STRUCT_XRES      (0x20000000)
+/** Indicator that a POR occurred.  This is a high-voltage cause bit, and hardware clears the other bits when this one is set. It does not block further recording of other high-voltage causes. */
+#define CY_SYSLIB_RESET_PORVDDD          (0x40000000)
+
+#endif
+
 
 /** \} group_syslib_macros_reset_cause */
 
@@ -870,6 +995,10 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
 *       CY_DELAY_MS_OVERFLOW constant, then an additional loop runs to prevent
 *       an overflow in parameter passed to \ref Cy_SysLib_DelayCycles() API.
 *
+* \note The Calibration factor is to correct the delay in cases where
+*       CPU's use branch prediction, currently applicable for only CAT1C
+*       devices.
+*
 *******************************************************************************/
 void Cy_SysLib_Delay(uint32_t milliseconds);
 
@@ -887,6 +1016,10 @@ void Cy_SysLib_Delay(uint32_t milliseconds);
 * \note If the CPU frequency is a small non-integer number, the actual delay
 *       can be up to twice as long as the nominal value. The actual delay
 *       cannot be shorter than the nominal one.
+*
+* \note The Calibration factor is to correct the delay in cases where
+*       CPU's use branch prediction, currently applicable for only CAT1C
+*       devices.
 *
 *******************************************************************************/
 void Cy_SysLib_DelayUs(uint16_t microseconds);
@@ -954,7 +1087,7 @@ void Cy_SysLib_DelayCycles(uint32_t cycles);
 __NO_RETURN void Cy_SysLib_Halt(uint32_t reason);
 /** \endcond */
 #endif
-#if defined (CY_IP_M33SYSCPUSS) || defined (CY_DOXYGEN)
+#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M55APPCPUSS) || defined (CY_DOXYGEN)
     void Cy_SysLib_Halt(uint32_t reason);
 #endif
 
@@ -1093,21 +1226,31 @@ cy_en_syslib_status_t Cy_SysLib_ResetBackupDomain(void);
 * \return The cause of a system reset. 
 * Return values to be checked as per the CPUSS IP of the device.
 *
-* | Name in M4CPUSS IP            | Name in M33SYSCPUSS IP       | Value
-* |-------------------------------|------------------------------|-------------------
-* | CY_SYSLIB_RESET_HWWDT         | CY_SYSLIB_RESET_HWWDT        | 0x00001 (bit0)
-* | CY_SYSLIB_RESET_ACT_FAULT     | CY_SYSLIB_RESET_ACT_FAULT    | 0x00002 (bit1)
-* | CY_SYSLIB_RESET_DPSLP_FAULT   | CY_SYSLIB_RESET_DPSLP_FAULT  | 0x00004 (bit2)
-* | CY_SYSLIB_RESET_TC_DBGRESET   | CY_SYSLIB_RESET_CSV_WCO_LOSS | 0x00008 (bit3)
-* | CY_SYSLIB_RESET_SOFT          | CY_SYSLIB_RESET_SOFT         | 0x00010 (bit4)
-* | CY_SYSLIB_RESET_SWWDT0        | CY_SYSLIB_RESET_SWWDT0       | 0x00020 (bit5)
-* | CY_SYSLIB_RESET_SWWDT1        | CY_SYSLIB_RESET_SWWDT1       | 0x00040 (bit6)
-* | CY_SYSLIB_RESET_SWWDT2        | CY_SYSLIB_RESET_SWWDT2       | 0x00080 (bit7)
-* | CY_SYSLIB_RESET_SWWDT3        | CY_SYSLIB_RESET_SWWDT3       | 0x00100 (bit8)
-* |                               | CY_SYSLIB_RESET_HFCLK_LOSS   | 0x10000 (bit16)
-* |                               | CY_SYSLIB_RESET_HFCLK_ERR    | 0x20000 (bit17)
-* | CY_SYSLIB_RESET_HIB_WAKEUP    | CY_SYSLIB_RESET_HIB_WAKEUP   | 0x40000 (bit18)
-*
+* | Name in M4CPUSS IP            | Name in M33SYSCPUSS IP       | Name in M7CPUSS IP               | Value
+* |-------------------------------|------------------------------|----------------------------------|-------------------
+* | CY_SYSLIB_RESET_HWWDT         | CY_SYSLIB_RESET_HWWDT        | CY_SYSLIB_RESET_HWWDT            | 0x00001    (bit0)
+* | CY_SYSLIB_RESET_ACT_FAULT     | CY_SYSLIB_RESET_ACT_FAULT    | CY_SYSLIB_RESET_ACT_FAULT        | 0x00002    (bit1)
+* | CY_SYSLIB_RESET_DPSLP_FAULT   | CY_SYSLIB_RESET_DPSLP_FAULT  | CY_SYSLIB_RESET_DPSLP_FAULT      | 0x00004    (bit2)
+* | CY_SYSLIB_RESET_TC_DBGRESET   | CY_SYSLIB_RESET_CSV_WCO_LOSS | CY_SYSLIB_RESET_TC_DBGRESET      | 0x00008    (bit3)
+* | CY_SYSLIB_RESET_SOFT          | CY_SYSLIB_RESET_SOFT         | CY_SYSLIB_RESET_SOFT             | 0x00010    (bit4)
+* | CY_SYSLIB_RESET_SWWDT0        | CY_SYSLIB_RESET_SWWDT0       | CY_SYSLIB_RESET_SWWDT0           | 0x00020    (bit5)
+* | CY_SYSLIB_RESET_SWWDT1        | CY_SYSLIB_RESET_SWWDT1       | CY_SYSLIB_RESET_SWWDT1           | 0x00040    (bit6)
+* | CY_SYSLIB_RESET_SWWDT2        | CY_SYSLIB_RESET_SWWDT2       | CY_SYSLIB_RESET_SWWDT2           | 0x00080    (bit7)
+* | CY_SYSLIB_RESET_SWWDT3        | CY_SYSLIB_RESET_SWWDT3       | CY_SYSLIB_RESET_SWWDT3           | 0x00100    (bit8)
+* |                               | CY_SYSLIB_RESET_HFCLK_LOSS   | CY_SYSLIB_RESET_XRES             | 0x10000    (bit16)
+* |                               | CY_SYSLIB_RESET_HFCLK_ERR    | CY_SYSLIB_RESET_BODVDDD          | 0x20000    (bit17)
+* | CY_SYSLIB_RESET_HIB_WAKEUP    | CY_SYSLIB_RESET_HIB_WAKEUP   | CY_SYSLIB_RESET_BODVDDA          | 0x40000    (bit18)
+* |                               |                              | CY_SYSLIB_RESET_BODVCCD          | 0x80000    (bit19)
+* |                               |                              | CY_SYSLIB_RESET_OVDVDDD          | 0x100000   (bit20)
+* |                               |                              | CY_SYSLIB_RESET_OVDVDDA          | 0x200000   (bit21)
+* |                               |                              | CY_SYSLIB_RESET_OVDVCCD          | 0x400000   (bit22)
+* |                               |                              | CY_SYSLIB_RESET_OCD_ACT_LINREG   | 0x800000   (bit23)
+* |                               |                              | CY_SYSLIB_RESET_OCD_DPSLP_LINREG | 0x1000000  (bit24)
+* |                               |                              | CY_SYSLIB_RESET_OCD_REGHC        | 0x2000000  (bit25)
+* |                               |                              | CY_SYSLIB_RESET_PMIC             | 0x4000000  (bit26)
+* |                               |                              | CY_SYSLIB_RESET_PXRES            | 0x10000000 (bit28)
+* |                               |                              | CY_SYSLIB_RESET_STRUCT_XRES      | 0x20000000 (bit29)
+* |                               |                              | CY_SYSLIB_RESET_PORVDDD          | 0x40000000 (bit30)
 * \note This not is available for devices having M33SYSCPUSS IP
 *       CY_SYSLIB_RESET_CSV_WCO_LOSS, CY_SYSLIB_RESET_HFCLK_LOSS and
 *       CY_SYSLIB_RESET_HFCLK_ERR causes of a system reset available only if
@@ -1173,7 +1316,11 @@ __STATIC_INLINE cy_en_syslib_status_t Cy_SysLib_GetResetStatus (void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_SysLib_GetWcoTrim (void)
 {
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3)
+    return 0;
+#else
     return (BACKUP_TRIM & BACKUP_TRIM_TRIM_Msk);
+#endif
 }
 
 
@@ -1193,7 +1340,10 @@ __STATIC_INLINE uint32_t Cy_SysLib_GetWcoTrim (void)
 *******************************************************************************/
 __STATIC_INLINE void Cy_SysLib_SetWcoTrim (uint32_t wcoTrim)
 {
+    CY_UNUSED_PARAMETER(wcoTrim);
+#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3))
     BACKUP_TRIM = wcoTrim & BACKUP_TRIM_TRIM_Msk;
+#endif
 }
 #endif /* CY_IP_MXS40SRSS */
 
@@ -1312,11 +1462,6 @@ uint32_t Cy_SysLib_EnterCriticalSection(void);
 void Cy_SysLib_ExitCriticalSection(uint32_t savedIntrStatus);
 
 
-/** \cond INTERNAL */
-#define CY_SYSLIB_DEVICE_REV_0A       (0x21U)  /**< The device TO *A Revision ID */
-#define CY_SYSLIB_DEVICE_PSOC6ABLE2   (0x100U) /**< The PSoC6 BLE2 device Family ID */
-
-
 /*******************************************************************************
 * Function Name: Cy_SysLib_GetDeviceRevision
 ****************************************************************************//**
@@ -1338,6 +1483,36 @@ uint8_t Cy_SysLib_GetDeviceRevision(void);
 *
 *******************************************************************************/
 uint16_t Cy_SysLib_GetDevice(void);
+
+#if  defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_Syslib_SetWarmBootEntryPoint
+****************************************************************************//**
+*
+* This function will set Warm boot entry point address to a location read by
+* BootROM. This function is used only before entering DeepSleep-RAM and not
+* effective in any other sleep mode. Before entering CY_SYSPM_MODE_DEEPSLEEP_RAM,
+* user needs to set entry point to a function located in RAM Image using
+* Cy_Syslib_SetWarmBootEntryPoint(), refer Cy_SysPm_SetDeepSleepMode().
+*
+*  \param entryPoint Address of the function that needs to be entered after
+* WARM boot.
+*
+*  \param enable Enables/Disables debugging control after DS-RAM wakeup
+* i.e. warmboot
+*
+* \note
+* This API is available for CAT1B devices.
+*
+*******************************************************************************/
+void Cy_Syslib_SetWarmBootEntryPoint(uint32_t *entryPoint, bool enable);
+
+#endif
+
+
+/** \cond INTERNAL */
+#define CY_SYSLIB_DEVICE_REV_0A       (0x21U)  /**< The device TO *A Revision ID */
+#define CY_SYSLIB_DEVICE_PSOC6ABLE2   (0x100U) /**< The PSoC6 BLE2 device Family ID */
 
 typedef uint32_t cy_status;
 /** The ARM 32-bit status value for backward compatibility with the UDB components. Do not use it in your code. */

@@ -118,14 +118,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the clock divider for the slow clock. </p>
-<p>The source of this clock is the peripheral clock (clkPeri), which is sourced from clkHf[0].</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">divider</td><td>Divider value between 0 and 255. Causes integer division of (divider value + 1), or division by 1 to 256.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling.</dd>
+<dd>
+This API is available for CAT1A &amp; CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: HFCLK0 is configured and enabled. The Slow clock sourcing the</span></div><div class="line"><span class="comment">                 CM0+ core must run at a frequency that is 1/32 of HFCLK0. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Slow clock is sourced from Peri clock. Set the divider to 1 (freq = HFCLK0) */</span></div><div class="line">    <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f">Cy_SysClk_ClkPeriSetDivider</a>(1u);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(32u != <a class="code" href="group__group__sysclk__clk__slow__funcs.html#gabb2d6633178611c2c0281939da363eac">Cy_SysClk_ClkSlowGetDivider</a>())</div><div class="line">    {</div><div class="line">        <a class="code" href="group__group__sysclk__clk__slow__funcs.html#gab90aac1a92f5fa0256dce73097b8fc58">Cy_SysClk_ClkSlowSetDivider</a>(32u);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Get the CM0+ clock source frequency */</span></div><div class="line">    uint32_t clkSlowfreq = <a class="code" href="group__group__sysclk__clk__slow__funcs.html#ga7ca0c247dee5e69b25f173240db9ed53">Cy_SysClk_ClkSlowGetFrequency</a>();</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -148,6 +149,7 @@ Functions</h2></td></tr>
 
 <p>Reports the divider value for the slow clock. </p>
 <dl class="section return"><dt>Returns</dt><dd>The divider value. The integer division done is by (divider value + 1), or division by 1 to 256.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A &amp; CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: HFCLK0 is configured and enabled. The Slow clock sourcing the</span></div><div class="line"><span class="comment">                 CM0+ core must run at a frequency that is 1/32 of HFCLK0. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Slow clock is sourced from Peri clock. Set the divider to 1 (freq = HFCLK0) */</span></div><div class="line">    <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f">Cy_SysClk_ClkPeriSetDivider</a>(1u);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(32u != <a class="code" href="group__group__sysclk__clk__slow__funcs.html#gabb2d6633178611c2c0281939da363eac">Cy_SysClk_ClkSlowGetDivider</a>())</div><div class="line">    {</div><div class="line">        <a class="code" href="group__group__sysclk__clk__slow__funcs.html#gab90aac1a92f5fa0256dce73097b8fc58">Cy_SysClk_ClkSlowSetDivider</a>(32u);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Get the CM0+ clock source frequency */</span></div><div class="line">    uint32_t clkSlowfreq = <a class="code" href="group__group__sysclk__clk__slow__funcs.html#ga7ca0c247dee5e69b25f173240db9ed53">Cy_SysClk_ClkSlowGetFrequency</a>();</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -170,6 +172,7 @@ Functions</h2></td></tr>
 
 <p>Reports the frequency of the slow clock. </p>
 <dl class="section return"><dt>Returns</dt><dd>The frequency, in Hz.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A &amp; CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: HFCLK0 is configured and enabled. The Slow clock sourcing the</span></div><div class="line"><span class="comment">                 CM0+ core must run at a frequency that is 1/32 of HFCLK0. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Slow clock is sourced from Peri clock. Set the divider to 1 (freq = HFCLK0) */</span></div><div class="line">    <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f">Cy_SysClk_ClkPeriSetDivider</a>(1u);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(32u != <a class="code" href="group__group__sysclk__clk__slow__funcs.html#gabb2d6633178611c2c0281939da363eac">Cy_SysClk_ClkSlowGetDivider</a>())</div><div class="line">    {</div><div class="line">        <a class="code" href="group__group__sysclk__clk__slow__funcs.html#gab90aac1a92f5fa0256dce73097b8fc58">Cy_SysClk_ClkSlowSetDivider</a>(32u);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Get the CM0+ clock source frequency */</span></div><div class="line">    uint32_t clkSlowfreq = <a class="code" href="group__group__sysclk__clk__slow__funcs.html#ga7ca0c247dee5e69b25f173240db9ed53">Cy_SysClk_ClkSlowGetFrequency</a>();</div></div><!-- fragment --></dd></dl>
 
 </div>

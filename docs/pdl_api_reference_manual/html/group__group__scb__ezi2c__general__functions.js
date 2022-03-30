@@ -7,5 +7,6 @@ var group__group__scb__ezi2c__general__functions =
     [ "Cy_SCB_EZI2C_SetAddress1", "group__group__scb__ezi2c__general__functions.html#gab321bf749393f592131b61257af1d262", null ],
     [ "Cy_SCB_EZI2C_GetAddress1", "group__group__scb__ezi2c__general__functions.html#ga1f1d07bd655fb78309119d2bbca4e25c", null ],
     [ "Cy_SCB_EZI2C_SetAddress2", "group__group__scb__ezi2c__general__functions.html#ga2e81f148dad6ecd6d476546571995375", null ],
-    [ "Cy_SCB_EZI2C_GetAddress2", "group__group__scb__ezi2c__general__functions.html#ga9861dc3fe528d19c186df09525e26344", null ]
+    [ "Cy_SCB_EZI2C_GetAddress2", "group__group__scb__ezi2c__general__functions.html#ga9861dc3fe528d19c186df09525e26344", null ],
+    [ "Cy_SCB_SetEzI2CMode", "group__group__scb__ezi2c__general__functions.html#ga3f5a46deab427f46285992e1cbf8d361", null ]
 ];

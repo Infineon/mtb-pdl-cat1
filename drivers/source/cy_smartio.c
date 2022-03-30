@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if (defined (CY_IP_MXS40IOSS) || (defined(CY_IP_MXS40SIOSS) && defined(SMARTIO_BASE)))
+#if (defined (CY_IP_MXS40IOSS) || (defined(CY_IP_MXS40SIOSS) && defined(SMARTIO_BASE)) || defined(CY_IP_MXS22IOSS))
 
 #include "cy_smartio.h"
 

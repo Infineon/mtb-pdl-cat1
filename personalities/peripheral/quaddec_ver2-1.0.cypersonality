@@ -110,7 +110,9 @@
     <ParamRange id="Period" name="Period" group="Period" default="32768" min="0" max="`${pCntWidthMax}`" resolution="1" visible="`${QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CAPT || QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CMP}`" editable="true" desc="Sets the period of the Timer/Counter. Range: 0-65535 (for 16 bit resolution) or 0–4294967295 (for 32 bit resolution)." />
 
     <!--Inputs-->
-    <ParamSignal port="clock[0]" name="Clock Signal" group="Inputs" visible="true" desc="The clock input defines the operating frequency." canBeEmpty="false" />
+    <ParamSignal port="clock[0]" name="Clock Signal" group="Inputs" visible="`${hasVisibleOption(&quot;clock[0]&quot;)}`" desc="The clock input defines the operating frequency." canBeEmpty="`${!hasVisibleOption(&quot;clock[0]&quot;)}`" />
+    <ParamSignal port="clock_counter_en[0]" name="Clock Signal" group="Inputs" visible="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;)}`" desc="The clock input defines the operating frequency." canBeEmpty="`${!hasVisibleOption(&quot;clock_counter_en[0]&quot;)}`" />
+
     <ParamChoice id="IndexInput" name="`${QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE0_CMP ? &quot;Index 0 Input&quot; : &quot;Index Input&quot;}`" group="Inputs" default="CY_TCPWM_INPUT_DISABLED" visible="true" editable="true" desc="Determines if an index is needed and what edge causes an index to occur">
       <Entry name="Rising Edge" value="CY_TCPWM_INPUT_RISINGEDGE" visible="true" />
       <Entry name="Falling Edge" value="CY_TCPWM_INPUT_FALLINGEDGE" visible="true" />
@@ -213,11 +215,11 @@
 
     <!--Trigger Outputs-->
     <ParamChoice id="trigger0Event" name="Trigger 0 Event" group="Trigger Outputs" default="CY_TCPWM_CNT_TRIGGER_ON_DISABLED" visible="true" editable="true" desc="This output used to connect TCPWM event signals to other peripherals." >
-      <Entry name="Overflow" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" visible="false" />
-      <Entry name="Underflow" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" visible="false" />
+      <Entry name="Overflow" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" visible="`${QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CAPT || QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CMP}`" />
+      <Entry name="Underflow" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" visible="`${QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CAPT || QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CMP}`" />
       <Entry name="Terminal Count" value="CY_TCPWM_CNT_TRIGGER_ON_TC" visible="true" />
       <Entry name="Compare 0 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" visible="true" />
-      <Entry name="Compare 1 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" visible="false" />
+      <Entry name="Compare 1 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" visible="`${pCntCC1 &amp;&amp; !(QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE0)}`" />
       <Entry name="Disabled" value="CY_TCPWM_CNT_TRIGGER_ON_DISABLED" visible="true" />
     </ParamChoice>
     <ParamSignal port="tr_out0[0]" name="Trigger 0 Signal" group="Trigger Outputs" visible="`${trigger0Event ne CY_TCPWM_CNT_TRIGGER_ON_DISABLED}`" desc="Signals to connect on Trigger 0 Event" canBeEmpty="`${trigger0Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED}`" >
@@ -234,11 +236,11 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
     <ParamChoice id="trigger1Event" name="Trigger 1 Event" group="Trigger Outputs" default="CY_TCPWM_CNT_TRIGGER_ON_DISABLED" visible="true" editable="true" desc="This output used to connect TCPWM event signals to other peripherals." >
-      <Entry name="Overflow" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" visible="false" />
-      <Entry name="Underflow" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" visible="false" />
+      <Entry name="Overflow" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" visible="`${QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CAPT || QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CMP}`" />
+      <Entry name="Underflow" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" visible="`${QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CAPT || QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CMP}`" />
       <Entry name="Terminal Count" value="CY_TCPWM_CNT_TRIGGER_ON_TC" visible="true" />
       <Entry name="Compare 0 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" visible="true" />
-      <Entry name="Compare 1 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" visible="false" />
+      <Entry name="Compare 1 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" visible="`${pCntCC1 &amp;&amp; !(QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE0)}`" />
       <Entry name="Disabled" value="CY_TCPWM_CNT_TRIGGER_ON_DISABLED" visible="true" />
     </ParamChoice>
     <ParamSignal port="tr_out1[0]" name="Trigger 1 Signal" group="Trigger Outputs" visible="`${trigger1Event ne CY_TCPWM_CNT_TRIGGER_ON_DISABLED}`" desc="Signals to connect on Trigger 1 Event" canBeEmpty="`${trigger1Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED}`" >
@@ -263,9 +265,9 @@
     <ParamRange id="cntInst" name="CNT Number" group="Internal" default="`${getInstNumber(&quot;cnt&quot;)}`" min="0" max="31" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="definePrefix" name="Define prefix" group="Internal" default="`${&quot;TCPWM&quot; . tcpwmInst . &quot;_GRP&quot; . pCntGroup . &quot;_CNT&quot; . getInstNumber(&quot;cnt&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="defineInputDisabled" name="Define input disabled" group="Internal" default="`${INST_NAME . &quot;_INPUT_DISABLED &amp; 0x3U&quot;}`" visible="false" editable="false" desc="" />
-    <ParamString id="pclk" name="PCLK" group="Internal" default="`${getBlockFromSignal(&quot;clock[0]&quot;)}`" visible="false" editable="false" desc="Connected peripheral clock divider (PCLK)" />
-    <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
-    <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="PCLK_TCPWM`${tcpwmInst}`_CLOCKS`${cntInst}`" visible="false" editable="false" desc="" />
+    <ParamString id="pclk" name="PCLK" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? getBlockFromSignal(&quot;clock_counter_en[0]&quot;):getBlockFromSignal(&quot;clock[0]&quot;)}`" visible="false" editable="false" desc="Connected peripheral clock divider (PCLK)" />
+    <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? hasConnection(&quot;clock_counter_en&quot;, 0) &amp;&amp; isBlockUsed(pclk) : hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
+    <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCK_COUNTER_EN&quot; . cntInst : &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCKS&quot; . cntInst}`" visible="false" editable="false" desc="" />
   </Parameters>
 
   <DRCs>

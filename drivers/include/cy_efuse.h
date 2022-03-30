@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_efuse.h
-* \version 2.0
+* \version 2.10
 *
 * Provides the API declarations of the eFuse driver.
 *
@@ -68,10 +68,15 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>2.10</td>
+*     <td>Implementation for newly introduced APIs for CAT1B devices has been updated.</td>
+*     <td>Updated driver APIs support for CAT1B devices.</td>
+*   </tr>
+*   <tr>
 *     <td>2.0</td>
 *     <td>Added the following functions: \ref Cy_EFUSE_Init,\n \ref Cy_EFUSE_DeInit,\n \ref Cy_EFUSE_Enable,\n
 *         \ref Cy_EFUSE_Disable,\n \ref Cy_EFUSE_WriteBit,\n \ref Cy_EFUSE_WriteByte,\n \ref Cy_EFUSE_WriteWord,\n
-*         \ref Cy_EFUSE_WriteWordArray,\n \ref Cy_EFUSE_ReadByte,\n \ref Cy_EFUSE_ReadWord,\n
+*         \ref Cy_EFUSE_WriteWordArray,\n \ref Cy_EFUSE_ReadBit,\n \ref Cy_EFUSE_ReadByte,\n \ref Cy_EFUSE_ReadWord,\n
 *         \ref Cy_EFUSE_ReadWordArray,\n \ref Cy_EFUSE_WriteBootRow,\n \ref Cy_EFUSE_ReadBootRow.</td>
 *     <td>New driver APIs support for CAT1B devices.</td>
 *   </tr>
@@ -132,7 +137,7 @@
 /** The driver major version */
 #define CY_EFUSE_DRV_VERSION_MAJOR          2
 /** The driver minor version */
-#define CY_EFUSE_DRV_VERSION_MINOR          0
+#define CY_EFUSE_DRV_VERSION_MINOR          10
 /** The eFuse driver identifier */
 #define CY_EFUSE_ID                         (CY_PDL_DRV_ID(0x1AUL))
 /** The number of bits in the byte */
@@ -177,7 +182,7 @@ extern "C" {
 * \addtogroup group_efuse_functions
 * \{
 */
-#if (CY_IP_MXEFUSE_VERSION == 1) || defined (CY_DOXYGEN)
+#if (CY_IP_MXEFUSE_VERSION <= 2) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_EFUSE_GetEfuseBit
 ****************************************************************************//**
@@ -205,7 +210,7 @@ extern "C" {
 * \ref cy_en_efuse_status_t
 * 
 * \note
-* Supported in eFuse v1.
+* Supported in CAT1A and CAT1C devices.
 *
 * \funcusage
 * The example below shows how to read device life-cycle register bits in
@@ -244,7 +249,7 @@ cy_en_efuse_status_t Cy_EFUSE_GetEfuseBit(uint32_t bitNum, bool *bitVal);
 * \ref cy_en_efuse_status_t
 *
 * \note
-* Supported in eFuse v1.
+* Supported in CAT1A and CAT1C devices.
 *
 * \funcusage
 * The example below shows how to read a device life-cycle stage register in
@@ -273,7 +278,7 @@ cy_en_efuse_status_t Cy_EFUSE_GetEfuseByte(uint32_t offset, uint8_t *byteVal);
 * The error code of the previous efuse operation.
 *
 * \note
-* Supported in eFuse v1.
+* Supported in CAT1A and CAT1C devices.
 *
 *******************************************************************************/
 uint32_t Cy_EFUSE_GetExternalStatus(void);
@@ -373,10 +378,10 @@ void Cy_EFUSE_DeInit(EFUSE_Type *base);
 * The EFUSE API status \ref cy_en_efuse_status_t.
 *
 * \note
-* -The caller is expected to verify the input parameters for correctness
+* - The caller is expected to verify the input parameters for correctness
 *  and to check whether the bit is already blown before calling this function
 *  to not over-program bits.
-* -Supported in CAT1B devices.
+* - Supported in CAT1B devices.
 *
 *******************************************************************************/
 cy_en_efuse_status_t Cy_EFUSE_WriteBit(EFUSE_Type *base, uint32_t bitPos, uint32_t offset);
@@ -433,7 +438,9 @@ cy_en_efuse_status_t Cy_EFUSE_WriteByte(EFUSE_Type *base, uint32_t src, uint32_t
 * The EFUSE API status \ref cy_en_efuse_status_t.
 *
 * \note
-* Supported in CAT1B devices.
+* - The caller is expected to check whether the bits within the 32-bit word
+*  are already blown before calling this function to not over-program bits.
+* - Supported in CAT1B devices.
 *
 *******************************************************************************/
 cy_en_efuse_status_t Cy_EFUSE_WriteWord(EFUSE_Type *base, uint32_t src, uint32_t offset);
@@ -466,11 +473,42 @@ cy_en_efuse_status_t Cy_EFUSE_WriteWord(EFUSE_Type *base, uint32_t src, uint32_t
 * The EFUSE API status \ref cy_en_efuse_status_t.
 *
 * \note
-* Supported in CAT1B devices.
+* - The caller is expected to check whether the bits within the 32-bit words
+*  are already blown before calling this function to not over-program bits.
+* - Supported in CAT1B devices.
 *
 *******************************************************************************/
 cy_en_efuse_status_t Cy_EFUSE_WriteWordArray(EFUSE_Type *base, const uint32_t *src, uint32_t offset, uint32_t num);
 
+/*******************************************************************************
+* Function Name: Cy_EFUSE_ReadBit
+****************************************************************************//**
+*
+* Reads a bit from EFUSE.
+* Before read operations you must call \ref Cy_EFUSE_Init().
+* It is recommended to disable the block when not using it.
+* Call \ref Cy_EFUSE_Disable() to disable the EFUSE block.
+*
+* \param base
+* The pointer to the EFUSE instance.
+*
+* \param dst
+* Pointer to the destination where the read bit is stored.
+*
+* \param bitPos
+* Bit position within byte.
+*
+* \param offset
+* Byte offset from the EFUSE base address.
+*
+* \return
+* The EFUSE API status \ref cy_en_efuse_status_t.
+*
+* \note
+* Supported in CAT1B devices.
+*
+*******************************************************************************/
+cy_en_efuse_status_t Cy_EFUSE_ReadBit(EFUSE_Type *base, uint8_t *dst, uint32_t bitPos, uint32_t offset);
 
 /*******************************************************************************
 * Function Name: Cy_EFUSE_ReadByte
@@ -516,7 +554,7 @@ cy_en_efuse_status_t Cy_EFUSE_ReadByte(EFUSE_Type *base, uint8_t *dst, uint32_t 
 * Pointer to the destination where the read word is stored.
 *
 * \param offset
-* Offset from the EFUSE base address. Must be 4 byte aligned.
+* Offset from the EFUSE base address. Must be 4-byte aligned.
 *
 * \return 
 * The EFUSE API status \ref cy_en_efuse_status_t.

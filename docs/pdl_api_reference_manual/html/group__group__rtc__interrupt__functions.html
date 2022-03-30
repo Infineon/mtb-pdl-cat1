@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('group__group__rtc__interrupt__function
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga47cd2af8969302fd8fc5a7e661eba819"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__interrupt__functions.html#ga47cd2af8969302fd8fc5a7e661eba819">Cy_RTC_Interrupt</a> (<a class="el" href="structcy__stc__rtc__dst__t.html">cy_stc_rtc_dst_t</a> const *dstTime, bool mode)</td></tr>
+<tr class="memitem:ga47cd2af8969302fd8fc5a7e661eba819"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__interrupt__functions.html#ga47cd2af8969302fd8fc5a7e661eba819">Cy_RTC_Interrupt</a> (<a class="el" href="structcy__stc__rtc__dst__t.html">cy_stc_rtc_dst_t</a> const *dstTime, bool <a class="el" href="group__group__ipc__bt__data__structures.html#gaf294e94ca5176720ef5e5cbedc95ca47">mode</a>)</td></tr>
 <tr class="memdesc:ga47cd2af8969302fd8fc5a7e661eba819"><td class="mdescLeft">&#160;</td><td class="mdescRight">The interrupt handler function which should be called in user provided RTC interrupt function.  <a href="#ga47cd2af8969302fd8fc5a7e661eba819">More...</a><br /></td></tr>
 <tr class="separator:ga47cd2af8969302fd8fc5a7e661eba819"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5c2c4659f4165a5ed5fa2b0cafd2c06c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__interrupt__functions.html#ga5c2c4659f4165a5ed5fa2b0cafd2c06c">Cy_RTC_Alarm1Interrupt</a> (void)</td></tr>
@@ -228,7 +228,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This is a processing handler against the DST event. </p>
-<p>It adjusts the current time using the DST start/stop parameters and registers the next DST event time into the ALARM2 interrupt.</p>
+<p>It adjusts the current time using the DST start/stop parameters and registers the next DST event time into the ALARM2 interrupt. This function is already called by <a class="el" href="group__group__rtc__interrupt__functions.html#ga47cd2af8969302fd8fc5a7e661eba819">Cy_RTC_Interrupt()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dstTime</td><td>The DST configuration structure, see <a class="el" href="structcy__stc__rtc__dst__t.html">cy_stc_rtc_dst_t</a>. </td></tr>
@@ -255,7 +255,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This is a weak function and it should be redefined in user source code in condition that such event handler is required. </p>
-<p>By calling this function, it indicates the year reached 2100. It should add an adjustment to avoid the Y2K problem.</p>
+<p>By calling this function, it indicates the year reached 2100.</p>
 <p>Function implementation should be defined in user source code in condition that such event handler is required. If such event is not required user should not do any actions. </p>
 
 </div>

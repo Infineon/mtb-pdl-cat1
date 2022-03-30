@@ -102,6 +102,18 @@ Functions</h2></td></tr>
 <tr class="memitem:gaece6af6547fbec8defb4defd1b10af1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__ilo__funcs.html#gaece6af6547fbec8defb4defd1b10af1a">Cy_SysClk_IloHibernateOn</a> (bool on)</td></tr>
 <tr class="memdesc:gaece6af6547fbec8defb4defd1b10af1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls whether the ILO stays on during a hibernate, or through an XRES or brown-out detect (BOD) event.  <a href="#gaece6af6547fbec8defb4defd1b10af1a">More...</a><br /></td></tr>
 <tr class="separator:gaece6af6547fbec8defb4defd1b10af1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga37a81892a544b2278e039ca79f57b819"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__ilo__funcs.html#ga37a81892a544b2278e039ca79f57b819">Cy_SysClk_IloSrcEnable</a> (uint32_t iloNum)</td></tr>
+<tr class="memdesc:ga37a81892a544b2278e039ca79f57b819"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the ILO.  <a href="#ga37a81892a544b2278e039ca79f57b819">More...</a><br /></td></tr>
+<tr class="separator:ga37a81892a544b2278e039ca79f57b819"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc04fa9632d411a379cf36f182a916d4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__ilo__funcs.html#gadc04fa9632d411a379cf36f182a916d4">Cy_SysClk_IloSrcIsEnabled</a> (uint32_t iloNum)</td></tr>
+<tr class="memdesc:gadc04fa9632d411a379cf36f182a916d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the Enabled/Disabled status of the ILO.  <a href="#gadc04fa9632d411a379cf36f182a916d4">More...</a><br /></td></tr>
+<tr class="separator:gadc04fa9632d411a379cf36f182a916d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9242347b2eec6b11cd614a75e05ad017"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__ilo__funcs.html#ga9242347b2eec6b11cd614a75e05ad017">Cy_SysClk_IloSrcDisable</a> (uint32_t iloNum)</td></tr>
+<tr class="memdesc:ga9242347b2eec6b11cd614a75e05ad017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the ILO.  <a href="#ga9242347b2eec6b11cd614a75e05ad017">More...</a><br /></td></tr>
+<tr class="separator:ga9242347b2eec6b11cd614a75e05ad017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafd23ef6b241182bb67a5f26d6d3be167"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__ilo__funcs.html#gafd23ef6b241182bb67a5f26d6d3be167">Cy_SysClk_IloSrcHibernateOn</a> (uint32_t iloNum, bool on)</td></tr>
+<tr class="memdesc:gafd23ef6b241182bb67a5f26d6d3be167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls whether the ILO0 stays on during a hibernate, or through an XRES or brown-out detect (BOD) event, this feature is not available for ILO1.  <a href="#gafd23ef6b241182bb67a5f26d6d3be167">More...</a><br /></td></tr>
+<tr class="separator:gafd23ef6b241182bb67a5f26d6d3be167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gad07e09e072e4cd87baa319711d0549b5"></a>
@@ -144,8 +156,7 @@ Functions</h2></td></tr>
 
 <p>Reports the Enabled/Disabled status of the ILO. </p>
 <dl class="section return"><dt>Returns</dt><dd>Boolean status of ILO: true - Enabled, false - Disabled.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: LFCLK needs to be sourced by the PILO instead of the ILO. All</span></div><div class="line"><span class="comment">                 peripherals clocked by the LFCLK are disabled and the Watchdog</span></div><div class="line"><span class="comment">                 timer (WDT) is unlocked. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__ilo__funcs.html#gae2af369242a12431544f998445a1e163">Cy_SysClk_IloIsEnabled</a>())</div><div class="line">    {</div><div class="line">        <span class="comment">/* Disable the ILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__ilo__funcs.html#ga83eef140283a1667c139d02124ae0843">Cy_SysClk_IloDisable</a>();</div><div class="line"></div><div class="line">        <span class="comment">/* Enable the PILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__pilo__funcs.html#ga92e44b1390d7cabf2c597c45a5fdd309">Cy_SysClk_PiloEnable</a>();</div><div class="line"></div><div class="line">        <span class="comment">/* Set the LFCLK source to the PILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054">Cy_SysClk_ClkLfSetSource</a>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a51a3252aefb2b8198451b0d1589e47bf">CY_SYSCLK_CLKLF_IN_PILO</a>);</div><div class="line">    }</div></div><!-- fragment --> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices. </dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: LFCLK needs to be sourced by the PILO instead of the ILO. All</span></div><div class="line"><span class="comment">                 peripherals clocked by the LFCLK are disabled and the Watchdog</span></div><div class="line"><span class="comment">                 timer (WDT) is unlocked. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__ilo__funcs.html#gae2af369242a12431544f998445a1e163">Cy_SysClk_IloIsEnabled</a>())</div><div class="line">    {</div><div class="line">        <span class="comment">/* Disable the ILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__ilo__funcs.html#ga83eef140283a1667c139d02124ae0843">Cy_SysClk_IloDisable</a>();</div><div class="line"></div><div class="line">        <span class="comment">/* Enable the PILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__pilo__funcs.html#ga92e44b1390d7cabf2c597c45a5fdd309">Cy_SysClk_PiloEnable</a>();</div><div class="line"></div><div class="line">        <span class="comment">/* Set the LFCLK source to the PILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054">Cy_SysClk_ClkLfSetSource</a>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a51a3252aefb2b8198451b0d1589e47bf">CY_SYSCLK_CLKLF_IN_PILO</a>);</div><div class="line">    }</div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -201,6 +212,137 @@ false = ILO turns off for hibernate or XRES/BOD.</td></tr>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Writes to the register/bit are ignored if the watchdog (WDT) is locked.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: The ILO needs to clock the Real-Time-clock (RTC) during chip</span></div><div class="line"><span class="comment">                 hibernate, hard reset (XRES) and Brown-out detect (BOD) events.</span></div><div class="line"><span class="comment">                 All peripherals clocked by the LFCLK are disabled and the</span></div><div class="line"><span class="comment">                 Watchdog timer (WDT) is unlocked. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Enable ILO operation during chip hibernate mode */</span></div><div class="line">    <a class="code" href="group__group__sysclk__ilo__funcs.html#gaece6af6547fbec8defb4defd1b10af1a">Cy_SysClk_IloHibernateOn</a>(<span class="keyword">true</span>);</div><div class="line"></div><div class="line">    <span class="comment">/* Enable the ILO */</span></div><div class="line">    <a class="code" href="group__group__sysclk__ilo__funcs.html#gad07e09e072e4cd87baa319711d0549b5">Cy_SysClk_IloEnable</a>();</div><div class="line"></div><div class="line">    <span class="comment">/* Set the LFCLK source to the ILO */</span></div><div class="line">    <a class="code" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054">Cy_SysClk_ClkLfSetSource</a>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a724311d4501aedcbd0699a3302aabaf9">CY_SYSCLK_CLKLF_IN_ILO</a>);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga37a81892a544b2278e039ca79f57b819"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga37a81892a544b2278e039ca79f57b819">&#9670;&nbsp;</a></span>Cy_SysClk_IloSrcEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_IloSrcEnable </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>iloNum</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the ILO. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iloNum</td><td>- ILO index , 0 : ILO0, 1: ILO1</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The watchdog timer (WDT) must be unlocked before calling this function.</dd>
+<dd>
+This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="gadc04fa9632d411a379cf36f182a916d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc04fa9632d411a379cf36f182a916d4">&#9670;&nbsp;</a></span>Cy_SysClk_IloSrcIsEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_SysClk_IloSrcIsEnabled </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>iloNum</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports the Enabled/Disabled status of the ILO. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iloNum</td><td>- ILO index , ILO0 or ILO1</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Boolean status of ILO: true - Enabled, false - Disabled.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga9242347b2eec6b11cd614a75e05ad017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9242347b2eec6b11cd614a75e05ad017">&#9670;&nbsp;</a></span>Cy_SysClk_IloSrcDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> Cy_SysClk_IloSrcDisable </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>iloNum</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables the ILO. </p>
+<p>ILO can't be disabled if WDT is enabled.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iloNum</td><td>- ILO index , 0 : ILO0, 1: ILO1</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
+CY_SYSCLK_SUCCESS - ILO successfully disabled <br />
+CY_SYSCLK_INVALID_STATE - Cannot disable the ILO if the WDT is enabled. CY_SYSCLK_INVALID_STATE - ECO already enabled</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The watchdog timer (WDT) must be unlocked before calling this function. Do not call this function if the WDT is enabled, because the WDT is clocked by the ILO.</dd>
+<dd>
+This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="gafd23ef6b241182bb67a5f26d6d3be167"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafd23ef6b241182bb67a5f26d6d3be167">&#9670;&nbsp;</a></span>Cy_SysClk_IloSrcHibernateOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_IloSrcHibernateOn </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>iloNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>on</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Controls whether the ILO0 stays on during a hibernate, or through an XRES or brown-out detect (BOD) event, this feature is not available for ILO1. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iloNum</td><td>- ILO index , 0 : ILO0, 1: ILO1(Feature not available, ignored)</td></tr>
+    <tr><td class="paramname">on</td><td>true = ILO stays on during hibernate or across XRES/BOD. <br />
+false = ILO turns off for hibernate or XRES/BOD.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Writes to the register/bit are ignored if the watchdog (WDT) is locked.</dd>
+<dd>
+This API is available for CAT1C devices. </dd></dl>
 
 </div>
 </div>

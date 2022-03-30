@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.c
-* \version 1.60
+* \version 1.70
 *
 *  Description:
 *   IPC Pipe Driver - This source file includes code for the Pipe layer on top
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS)
+#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
 
 #include "cy_ipc_pipe.h"
 
@@ -103,7 +103,7 @@ void Cy_IPC_Pipe_Init(cy_stc_ipc_pipe_config_t const *config)
     CY_ASSERT_L1(NULL != config->userPipeIsrHandler);
     /* Parameters checking end */
 
-#if (CY_CPU_CORTEX_M0P)
+#if (CY_CPU_CORTEX_M0P && CY_IP_M4CPUSS)
 
     /* Receiver endpoint = EP0, Sender endpoint = EP1 */
     epConfigDataA = config->ep0ConfigData;
@@ -112,7 +112,7 @@ void Cy_IPC_Pipe_Init(cy_stc_ipc_pipe_config_t const *config)
     /* Configure CM0 interrupts */
     ipc_intr_cypipeConfig.intrSrc          = (IRQn_Type)epConfigDataA.ipcNotifierMuxNumber;
     CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to IRQn_Type enum');
-    ipc_intr_cypipeConfig.cm0pSrc          = (cy_en_intr_t)((int32_t)cy_device->cpussIpc0Irq + (int32_t)epConfigDataA.ipcNotifierNumber);
+    ipc_intr_cypipeConfig.cm0pSrc          = (cy_en_intr_t)((int32_t)cpuss_interrupts_ipc_0_IRQn + (int32_t)epConfigDataA.ipcNotifierNumber);
     ipc_intr_cypipeConfig.intrPriority     = epConfigDataA.ipcNotifierPriority;
 
 #else
@@ -123,7 +123,7 @@ void Cy_IPC_Pipe_Init(cy_stc_ipc_pipe_config_t const *config)
 
     /* Configure interrupts */
     CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to IRQn_Type enum');
-    ipc_intr_cypipeConfig.intrSrc          = (IRQn_Type)((int32_t)cy_device->cpussIpc0Irq + (int32_t)epConfigDataA.ipcNotifierNumber);
+    ipc_intr_cypipeConfig.intrSrc          = (IRQn_Type)((int32_t)cpuss_interrupts_ipc_0_IRQn + (int32_t)epConfigDataA.ipcNotifierNumber);
     ipc_intr_cypipeConfig.intrPriority     = epConfigDataA.ipcNotifierPriority;
 
 #endif

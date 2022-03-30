@@ -33,9 +33,6 @@ var group__group__lpcomp__enums =
     ] ],
     [ "cy_en_lpcomp_status_t", "group__group__lpcomp__enums.html#gaf31980ad7c767f9317dd498c03f2dea0", [
       [ "CY_LPCOMP_SUCCESS", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0af6aa5b0f54a00426737b5a4c5c2261c1", null ],
-      [ "CY_LPCOMP_BAD_PARAM", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0a423189ffbde1ea7514fafee46c9a89b3", null ],
-      [ "CY_LPCOMP_TIMEOUT", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0a7f9b1eb5d718c61fd5c5016dfc215e47", null ],
-      [ "CY_LPCOMP_INVALID_STATE", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0a8bd70a207df58bcb4872cebf51400b43", null ],
-      [ "CY_LPCOMP_UNKNOWN", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0a1f42acc422e089bc03fd06984efba829", null ]
+      [ "CY_LPCOMP_BAD_PARAM", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0a423189ffbde1ea7514fafee46c9a89b3", null ]
     ] ]
 ];

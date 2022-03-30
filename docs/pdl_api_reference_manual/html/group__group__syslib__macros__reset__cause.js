@@ -3,6 +3,7 @@ var group__group__syslib__macros__reset__cause =
     [ "CY_SYSLIB_RESET_HWWDT", "group__group__syslib__macros__reset__cause.html#ga3a56e49329f1b1a8b0f3f01b23982e3f", null ],
     [ "CY_SYSLIB_RESET_ACT_FAULT", "group__group__syslib__macros__reset__cause.html#gaf98e87e2c0964035aa2098762724b30b", null ],
     [ "CY_SYSLIB_RESET_DPSLP_FAULT", "group__group__syslib__macros__reset__cause.html#gaa0ecb786558344cda8cdd667d8d01801", null ],
+    [ "CY_SYSLIB_RESET_TC_DBGRESET", "group__group__syslib__macros__reset__cause.html#ga344f70a566a5c9a5cc155bd1e3482328", null ],
     [ "CY_SYSLIB_RESET_SOFT", "group__group__syslib__macros__reset__cause.html#gaab329c3d83a4e66c6d77fc3dbc746a39", null ],
     [ "CY_SYSLIB_RESET_SWWDT0", "group__group__syslib__macros__reset__cause.html#ga7576c814eb77306bfda9a9edecb14a70", null ],
     [ "CY_SYSLIB_RESET_SWWDT1", "group__group__syslib__macros__reset__cause.html#ga07916f36b0a552bb53f5dd507fd464ea", null ],

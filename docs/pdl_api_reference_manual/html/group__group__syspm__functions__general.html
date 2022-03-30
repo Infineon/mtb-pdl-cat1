@@ -160,8 +160,7 @@ Functions</h2></td></tr>
 <li>CY_SYSPM_BAD_PARAM - Input parameters are out of range. See <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>.</li>
 </ul>
 </dd></dl>
-<p>For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</p>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices. </dd></dl>
+<p>For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details. </p>
 
 </div>
 </div>
@@ -200,8 +199,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>If SRAM1 and SRAM2 consists of single power partition, power mode will be applied to whole SRAM region, so 0 must be passed for sramMacroNum parameter, and the power mode obtained will be for whole SRAM.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns SRAM power mode. See <a class="el" href="group__group__syspm__data__enumerates.html#ga9d90d8779ef4bda0c99d42ef42eab23d">cy_en_syspm_sram_pwr_mode_t</a>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns SRAM power mode. See <a class="el" href="group__group__syspm__data__enumerates.html#ga9d90d8779ef4bda0c99d42ef42eab23d">cy_en_syspm_sram_pwr_mode_t</a>. </dd></dl>
 
 </div>
 </div>
@@ -244,8 +242,7 @@ Functions</h2></td></tr>
 <li>CY_SYSPM_BAD_PARAM - Input parameters are out of range. See <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>.</li>
 </ul>
 </dd></dl>
-<p>For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</p>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices. </dd></dl>
+<p>For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details. </p>
 
 </div>
 </div>
@@ -275,9 +272,10 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>CY_SYSPM_SUCCESS - The voltage is set.</li>
-<li>CY_SYSPM_CANCELED - Operation was canceled. Call the function again until the function returns CY_SYSPM_SUCCESS. See <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>.</li>
+<li>CY_SYSPM_CANCELED - Operation was canceled. Call the function again until the function returns CY_SYSPM_SUCCESS. See <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>. </li>
 </ul>
 </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    </div><div class="line">    <span class="comment">/* The system may continue operating while the voltage on Vccd </span></div><div class="line"><span class="comment">    * discharges to the new voltage. The time it takes to reach the </span></div><div class="line"><span class="comment">    * new voltage depends on operating conditions, including the load current</span></div><div class="line"><span class="comment">    * on Vccd and external capacitor size.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    SRSS_PWR_BUCK_CTL = </div><div class="line">    _CLR_SET_FLD32U((SRSS_PWR_BUCK_CTL), SRSS_PWR_BUCK_CTL_BUCK_OUT1_SEL, (uint32_t) <a class="code" href="group__group__syspm__data__enumerates.html#gga3917bcfb5a7b4151ec1b0fcd95c37d5aa0009b3f9bef2d360c1b221cd8c801650">CY_SYSPM_BUCK_OUT1_VOLTAGE_ULP</a>);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -308,6 +306,7 @@ Saves non-retained UDB registers before system entering system Deep Sleep. Must 
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to save the non-retained UDB registers while </span></div><div class="line"><span class="comment">    *  in system Deep Sleep routine.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    <span class="keyword">static</span> <a class="code" href="structcy__stc__syspm__backup__regs__t.html">cy_stc_syspm_backup_regs_t</a> regs;</div><div class="line">    </div><div class="line">    <span class="comment">/* Save non-retained UDB registers */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__general.html#gad4960d176e56bce8631015843a143e1b">Cy_SysPm_SaveRegisters</a>(&amp;regs);</div><div class="line">    </div><div class="line">    SCB_SCR |= SCB_SCR_SLEEPDEEP_Msk;</div><div class="line"></div><div class="line">    __WFI();</div><div class="line"></div><div class="line">    <span class="comment">/* Restore non-retained UDB registers after system Deep Sleep */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__general.html#ga300fc24bbd19d12771dc2dd472658ab7">Cy_SysPm_RestoreRegisters</a>(&amp;regs);</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -336,7 +335,7 @@ On CAT1A devices: \ Restores non-retained UDB registers and the slow and fast cl
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>CAT1B devices, registers are non-retained type.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to save the non-retained UDB registers while </span></div><div class="line"><span class="comment">    *  in system Deep Sleep routine.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    <span class="keyword">static</span> <a class="code" href="structcy__stc__syspm__backup__regs__t.html">cy_stc_syspm_backup_regs_t</a> regs;</div><div class="line">    </div><div class="line">    <span class="comment">/* Save non-retained UDB registers */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__general.html#gad4960d176e56bce8631015843a143e1b">Cy_SysPm_SaveRegisters</a>(&amp;regs);</div><div class="line">    </div><div class="line">    SCB_SCR |= SCB_SCR_SLEEPDEEP_Msk;</div><div class="line"></div><div class="line">    __WFI();</div><div class="line"></div><div class="line">    <span class="comment">/* Restore non-retained UDB registers after system Deep Sleep */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__general.html#ga300fc24bbd19d12771dc2dd472658ab7">Cy_SysPm_RestoreRegisters</a>(&amp;regs);</div></div><!-- fragment --></dd></dl>
 
 </div>

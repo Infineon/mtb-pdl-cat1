@@ -105,6 +105,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ga608ccc641bfd0b816ef8dc9d58c6f738"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pilo__funcs.html#ga608ccc641bfd0b816ef8dc9d58c6f738">Cy_SysClk_PiloGetTrim</a> (void)</td></tr>
 <tr class="memdesc:ga608ccc641bfd0b816ef8dc9d58c6f738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the current PILO trim bits value.  <a href="#ga608ccc641bfd0b816ef8dc9d58c6f738">More...</a><br /></td></tr>
 <tr class="separator:ga608ccc641bfd0b816ef8dc9d58c6f738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6c21afebcb9f09b55c9589a682130e78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pilo__funcs.html#ga6c21afebcb9f09b55c9589a682130e78">Cy_SysClk_PiloBackupEnable</a> (void)</td></tr>
+<tr class="memdesc:ga6c21afebcb9f09b55c9589a682130e78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the PILO as always on if Backup Domain is present.  <a href="#ga6c21afebcb9f09b55c9589a682130e78">More...</a><br /></td></tr>
+<tr class="separator:ga6c21afebcb9f09b55c9589a682130e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga971789bdb0713f551f314eb405c6e2a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pilo__funcs.html#ga971789bdb0713f551f314eb405c6e2a1">Cy_SysClk_PiloBackupDisable</a> (void)</td></tr>
+<tr class="memdesc:ga971789bdb0713f551f314eb405c6e2a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the PILO as always on if Backup Domain is present.  <a href="#ga971789bdb0713f551f314eb405c6e2a1">More...</a><br /></td></tr>
+<tr class="separator:ga971789bdb0713f551f314eb405c6e2a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c3147eb364c04d6820a9089cf390044"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pilo__funcs.html#ga9c3147eb364c04d6820a9089cf390044">Cy_SysClk_PiloTcscEnable</a> (void)</td></tr>
+<tr class="memdesc:ga9c3147eb364c04d6820a9089cf390044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the PILO TCSC(Second order temperature curvature correction) Feature.  <a href="#ga9c3147eb364c04d6820a9089cf390044">More...</a><br /></td></tr>
+<tr class="separator:ga9c3147eb364c04d6820a9089cf390044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf56d2b85a12e5e1dadc838619de6f08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pilo__funcs.html#gabf56d2b85a12e5e1dadc838619de6f08">Cy_SysClk_PiloTcscDisable</a> (void)</td></tr>
+<tr class="memdesc:gabf56d2b85a12e5e1dadc838619de6f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the PILO TCSC(Second order temperature curvature correction) Feature.  <a href="#gabf56d2b85a12e5e1dadc838619de6f08">More...</a><br /></td></tr>
+<tr class="separator:gabf56d2b85a12e5e1dadc838619de6f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga92e44b1390d7cabf2c597c45a5fdd309"></a>
@@ -124,7 +136,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Enables the PILO. </p>
-<dl class="section note"><dt>Note</dt><dd>This function blocks for 1 millisecond between enabling the PILO and releasing the PILO reset.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function blocks for 1 millisecond between enabling the PILO and releasing the PILO reset. This is applicable only for CAT1A Devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: PILO needs to source the LFCLK.  All peripherals clocked by</span></div><div class="line"><span class="comment">                 the LFCLK are disabled and the Watchdog timer (WDT) is unlocked. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Enable the PILO. Note: Blocks for 1 millisecond. */</span></div><div class="line">    <a class="code" href="group__group__sysclk__pilo__funcs.html#ga92e44b1390d7cabf2c597c45a5fdd309">Cy_SysClk_PiloEnable</a>();</div><div class="line"></div><div class="line">    <span class="comment">/* Set the LFCLK source to the PILO */</span></div><div class="line">    <a class="code" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054">Cy_SysClk_ClkLfSetSource</a>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a51a3252aefb2b8198451b0d1589e47bf">CY_SYSCLK_CLKLF_IN_PILO</a>);</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -147,8 +159,7 @@ Functions</h2></td></tr>
 
 <p>Reports the Enabled/Disabled status of the PILO. </p>
 <dl class="section return"><dt>Returns</dt><dd>Boolean status of PILO: true - Enabled, false - Disabled.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: LFCLK needs to be sourced by the ILO instead of the PILO. All</span></div><div class="line"><span class="comment">                 peripherals clocked by the LFCLK are disabled and the Watchdog</span></div><div class="line"><span class="comment">                 timer (WDT) is unlocked. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__pilo__funcs.html#gad1f5cd3318276616c1e0553f868142d2">Cy_SysClk_PiloIsEnabled</a>())</div><div class="line">    {</div><div class="line">        <span class="comment">/* Disable the PILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__pilo__funcs.html#gaf73c2da9e8676f8b4cdfcd1f95e839f9">Cy_SysClk_PiloDisable</a>();</div><div class="line"></div><div class="line">        <span class="comment">/* Enable the ILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__ilo__funcs.html#gad07e09e072e4cd87baa319711d0549b5">Cy_SysClk_IloEnable</a>();</div><div class="line"></div><div class="line">        <span class="comment">/* Set the LFCLK source to the ILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054">Cy_SysClk_ClkLfSetSource</a>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a724311d4501aedcbd0699a3302aabaf9">CY_SYSCLK_CLKLF_IN_ILO</a>);</div><div class="line">    }</div></div><!-- fragment --> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices. </dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: LFCLK needs to be sourced by the ILO instead of the PILO. All</span></div><div class="line"><span class="comment">                 peripherals clocked by the LFCLK are disabled and the Watchdog</span></div><div class="line"><span class="comment">                 timer (WDT) is unlocked. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__pilo__funcs.html#gad1f5cd3318276616c1e0553f868142d2">Cy_SysClk_PiloIsEnabled</a>())</div><div class="line">    {</div><div class="line">        <span class="comment">/* Disable the PILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__pilo__funcs.html#gaf73c2da9e8676f8b4cdfcd1f95e839f9">Cy_SysClk_PiloDisable</a>();</div><div class="line"></div><div class="line">        <span class="comment">/* Enable the ILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__ilo__funcs.html#gad07e09e072e4cd87baa319711d0549b5">Cy_SysClk_IloEnable</a>();</div><div class="line"></div><div class="line">        <span class="comment">/* Set the LFCLK source to the ILO */</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054">Cy_SysClk_ClkLfSetSource</a>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a724311d4501aedcbd0699a3302aabaf9">CY_SYSCLK_CLKLF_IN_ILO</a>);</div><div class="line">    }</div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -213,6 +224,90 @@ Functions</h2></td></tr>
 
 <p>Reports the current PILO trim bits value. </p>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: PILO needs to be trimmed to +/- 2% of nominal 32.768 kHz using</span></div><div class="line"><span class="comment">                 the ECO as the source. */</span></div><div class="line"></div><div class="line"><span class="preprocessor">    #define ECO_FREQ        24000000UL  </span><span class="comment">/* 24 MHz ECO */</span><span class="preprocessor"></span></div><div class="line"><span class="preprocessor">    #define PILO_NOMINAL    32768UL     </span><span class="comment">/* 32.768 kHz PILO */</span><span class="preprocessor"></span></div><div class="line"><span class="preprocessor">    #define PILO_ACCURACY   655UL       </span><span class="comment">/* PILO_NOMINAL * 0.02 */</span><span class="preprocessor"></span></div><div class="line"></div><div class="line">    <span class="keywordtype">bool</span> trimStatus = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">    <span class="keywordflow">while</span>(!trimStatus)</div><div class="line">    {</div><div class="line">        <span class="comment">/* Start the PILO clock measurement using the IMO */</span></div><div class="line">        (void)<a class="code" href="group__group__sysclk__calclk__funcs.html#ga0a87e123411d5711344780ddfa492f37">Cy_SysClk_StartClkMeasurementCounters</a>(CY_SYSCLK_MEAS_CLK_PILO,    <span class="comment">/* Counter 1 clock      = PILO */</span></div><div class="line">                                                    0x3FFUL,                    <span class="comment">/* Counter 1 init value = 1024 */</span></div><div class="line">                                                    CY_SYSCLK_MEAS_CLK_ECO);    <span class="comment">/* Counter 2 clock      = ECO  */</span></div><div class="line">        <span class="comment">/* Wait for counter 1 to reach 0 */</span></div><div class="line">        <span class="keywordflow">while</span> (!<a class="code" href="group__group__sysclk__calclk__funcs.html#gaab1d99baa3555bcbbde18bc24822d4b0">Cy_SysClk_ClkMeasurementCountersDone</a>()){}</div><div class="line"></div><div class="line">        <span class="comment">/* Measure clock 1 with the ECO clock cycles (counter 2) */</span></div><div class="line">        uint32_t measuredFreq = <a class="code" href="group__group__sysclk__calclk__funcs.html#ga979f2ef437908618291bf3a935488412">Cy_SysClk_ClkMeasurementCountersGetFreq</a>(<span class="keyword">false</span>, ECO_FREQ);</div><div class="line"></div><div class="line">        <span class="comment">/* Increment/decrement the trim depending on the returned result */</span></div><div class="line">        <span class="keywordflow">if</span> ((PILO_NOMINAL + PILO_ACCURACY) &lt; measuredFreq)</div><div class="line">        {</div><div class="line">            <a class="code" href="group__group__sysclk__pilo__funcs.html#gad609f2077dfc69a271fb94cba111ad42">Cy_SysClk_PiloSetTrim</a>(<a class="code" href="group__group__sysclk__pilo__funcs.html#ga608ccc641bfd0b816ef8dc9d58c6f738">Cy_SysClk_PiloGetTrim</a>() - 1UL);</div><div class="line">        }</div><div class="line">        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (measuredFreq &lt; (PILO_NOMINAL - PILO_ACCURACY))</div><div class="line">        {</div><div class="line">            <a class="code" href="group__group__sysclk__pilo__funcs.html#gad609f2077dfc69a271fb94cba111ad42">Cy_SysClk_PiloSetTrim</a>(<a class="code" href="group__group__sysclk__pilo__funcs.html#ga608ccc641bfd0b816ef8dc9d58c6f738">Cy_SysClk_PiloGetTrim</a>() + 1UL);</div><div class="line">        }</div><div class="line">        <span class="keywordflow">else</span></div><div class="line">        {</div><div class="line">            <span class="comment">/* Trimmed within limits */</span></div><div class="line">            trimStatus = <span class="keyword">true</span>;</div><div class="line">        }</div><div class="line">    }</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga6c21afebcb9f09b55c9589a682130e78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6c21afebcb9f09b55c9589a682130e78">&#9670;&nbsp;</a></span>Cy_SysClk_PiloBackupEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_PiloBackupEnable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the PILO as always on if Backup Domain is present. </p>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B &amp; CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga971789bdb0713f551f314eb405c6e2a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga971789bdb0713f551f314eb405c6e2a1">&#9670;&nbsp;</a></span>Cy_SysClk_PiloBackupDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_PiloBackupDisable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables the PILO as always on if Backup Domain is present. </p>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B &amp; CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga9c3147eb364c04d6820a9089cf390044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9c3147eb364c04d6820a9089cf390044">&#9670;&nbsp;</a></span>Cy_SysClk_PiloTcscEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_PiloTcscEnable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the PILO TCSC(Second order temperature curvature correction) Feature. </p>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gabf56d2b85a12e5e1dadc838619de6f08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabf56d2b85a12e5e1dadc838619de6f08">&#9670;&nbsp;</a></span>Cy_SysClk_PiloTcscDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_PiloTcscDisable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables the PILO TCSC(Second order temperature curvature correction) Feature. </p>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
 
 </div>
 </div>

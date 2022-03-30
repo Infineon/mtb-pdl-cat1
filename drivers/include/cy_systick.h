@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_systick.h
-* \version 1.40
+* \version 1.50
 *
 * Provides the API declarations of the SysTick driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,6 +62,12 @@
 *
 * <table class="doxtable">
 * <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.50</td>
+*     <td>CAT1C, CAT1D devices support.<br>
+*         Updated Cy_SysTick_Init() to use Cy_SysInt_SetVector() API to register the callback function and removed invalid define CY_SYSTICK_IRQ_NUM.</td>
+*     <td>Support for new devices.</td>
+*   </tr>
 *   <tr>
 *     <td>1.40</td>
 *     <td>Support for CM33.</td>
@@ -125,7 +132,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M4CPUSS)
+#if defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || defined(CY_IP_M55APPCPUSS)
 
 #include <stdint.h>
 #include "cy_syslib.h"
@@ -164,7 +171,10 @@ typedef enum
 #define SYSTICK_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define SYSTICK_DRV_VERSION_MINOR       40
+#define SYSTICK_DRV_VERSION_MINOR       50
+
+/** SysTick driver ID */
+#define CY_SYSTICK_ID           CY_PDL_DRV_ID(0x19U)
 
 /** Number of the callbacks assigned to the SysTick interrupt */
 #define CY_SYS_SYST_NUM_OF_CALLBACKS         (5u)
@@ -178,12 +188,7 @@ typedef enum
 
 /** \cond */
 /** Interrupt number in the vector table */
-#if defined (CY_IP_M4CPUSS)
-#define CY_SYSTICK_IRQ_NUM                   (15u)
-#endif /* CY_IP_M4CPUSS */
-#if defined (CY_IP_M33SYSCPUSS)
 #define CY_SYSTICK_IRQ_NUM                   (SysTick_IRQn)
-#endif /* CY_IP_M33SYSCPUSS */
 /** \endcond */
 
 

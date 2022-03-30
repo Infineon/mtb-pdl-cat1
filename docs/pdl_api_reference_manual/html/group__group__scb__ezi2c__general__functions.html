@@ -114,6 +114,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9861dc3fe528d19c186df09525e26344"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__general__functions.html#ga9861dc3fe528d19c186df09525e26344">Cy_SCB_EZI2C_GetAddress2</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *base, <a class="el" href="structcy__stc__scb__ezi2c__context__t.html">cy_stc_scb_ezi2c_context_t</a> const *context)</td></tr>
 <tr class="memdesc:ga9861dc3fe528d19c186df09525e26344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the secondary EZI2C slave address.  <a href="#ga9861dc3fe528d19c186df09525e26344">More...</a><br /></td></tr>
 <tr class="separator:ga9861dc3fe528d19c186df09525e26344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f5a46deab427f46285992e1cbf8d361"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__general__functions.html#ga3f5a46deab427f46285992e1cbf8d361">Cy_SCB_SetEzI2CMode</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base, bool ezMode)</td></tr>
+<tr class="memdesc:ga3f5a46deab427f46285992e1cbf8d361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets EZ mode for I2C protocol.  <a href="#ga3f5a46deab427f46285992e1cbf8d361">More...</a><br /></td></tr>
+<tr class="separator:ga3f5a46deab427f46285992e1cbf8d361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaafe61aa4c2931975a8698afa46717b97"></a>
@@ -424,6 +427,44 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 7-bit right justified slave address. </dd></dl>
+
+</div>
+</div>
+<a id="ga3f5a46deab427f46285992e1cbf8d361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3f5a46deab427f46285992e1cbf8d361">&#9670;&nbsp;</a></span>Cy_SCB_SetEzI2CMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_SCB_SetEzI2CMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ezMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets EZ mode for I2C protocol. </p>
+<p>EZ mode is only used for synchronous serial interface protocols. This mode is only applicable to slave functionality. In EZ mode, the slave can read from and write to an addressable memory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the EZI2C SCB instance.</td></tr>
+    <tr><td class="paramname">ezMode</td><td>If true, HW EZ mode is enabled. If false, HW EZ mode is disabled. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

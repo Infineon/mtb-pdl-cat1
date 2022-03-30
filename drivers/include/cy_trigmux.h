@@ -1,13 +1,13 @@
 /*******************************************************************************
 * \file cy_trigmux.h
-* \version 1.30
+* \version 1.40
 *
 *  This file provides constants and parameter values for the Trigger multiplexer driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
-* SPDX-License-Identifier: Apache-2.0
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -168,6 +168,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.40</td>
+*     <td>Fixed MISRA violation.</td>
+*     <td>MISRA compliance.</td>
+*   </tr>
+*   <tr>
 *     <td rowspan="2">1.30</td>
 *     <td>Minor bug fixes.</td>
 *     <td>Keep device specific changes under a compile time device flag.</td>
@@ -279,7 +284,7 @@ extern "C" {
 #define CY_TRIGMUX_DRV_VERSION_MAJOR       1
 
 /** The driver minor version */
-#define CY_TRIGMUX_DRV_VERSION_MINOR       30
+#define CY_TRIGMUX_DRV_VERSION_MINOR       40
 
 /** TRIGMUX PDL ID */
 #define CY_TRIGMUX_ID                       CY_PDL_DRV_ID(0x33UL) /**< The trigger multiplexer driver identifier */

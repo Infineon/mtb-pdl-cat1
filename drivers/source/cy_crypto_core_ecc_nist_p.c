@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc.h
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides Elliptic Curve (EC) Scalar Multiplication using (X,Y)-only,
 *  Co-Z arithmetic in the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -1791,7 +1793,7 @@ void Cy_Crypto_Core_JacobianEcDouble(CRYPTO_Type *base,
 *******************************************************************************/
 void Cy_Crypto_Core_JacobianEcScalarMul(CRYPTO_Type *base, uint32_t s_x, uint32_t s_y, uint32_t d, uint32_t size)
 {
-    uint32_t i;
+    int32_t i;
     uint32_t status;
     uint32_t carry;
     uint16_t clsame;
@@ -1846,7 +1848,8 @@ void Cy_Crypto_Core_JacobianEcScalarMul(CRYPTO_Type *base, uint32_t s_x, uint32_
     * Carry set if current bit is equal to 1 (hence, perform point addition - point
     * doubling is always performed)
     */
-    for (i = 0u; i < (size - clsame - 1u); i++)
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to int32_t because result of composite expression can be negative');
+    for (i = 0; i < ((int32_t)(size - clsame - 1u)); i++)
     {
         /* Carry set if current bit is equal to 1 (hence, perform point addition - point
         * doubling is always performed)

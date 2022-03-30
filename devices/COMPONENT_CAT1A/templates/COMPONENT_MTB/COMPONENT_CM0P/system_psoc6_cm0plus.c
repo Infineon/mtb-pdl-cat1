@@ -60,7 +60,7 @@
 
 
 /**
-* Holds the SlowClk (Cortex-M0+) or FastClk (Cortex-M4) system core clock,
+* Holds the system core clock,
 * which is the system clock frequency supplied to the SysTick timer and the
 * processor core clock.
 * This variable implements CMSIS Core global variable.
@@ -125,7 +125,7 @@ uint32_t cy_delay32kMs    = CY_DELAY_MS_OVERFLOW_THRESHOLD *
 * Function Name: SystemInit
 ****************************************************************************//**
 *
-* Initializes the system:
+* Initializes the system on CAT1A:
 * - Restores FLL registers to the default state.
 * - Unlocks and disables WDT.
 * - Calls Cy_PDL_Init() function to define the driver library.

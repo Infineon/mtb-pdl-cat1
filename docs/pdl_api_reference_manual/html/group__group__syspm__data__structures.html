@@ -100,11 +100,26 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__syspm__backup__regs__t.html">cy_stc_syspm_backup_regs_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This internal structure stores non-retained registers in the system Deep Sleep power mode.  <a href="structcy__stc__syspm__backup__regs__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__syspm__warmboot__entrypoint__t.html">cy_stc_syspm_warmboot_entrypoint_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The structure contains warmboot entry point struct used during DEEPSLEEP-RAM entry.  <a href="structcy__stc__syspm__warmboot__entrypoint__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__syspm__core__buck__params__t.html">cy_stc_syspm_core_buck_params_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The structure contains syspm core buck configuration parameters.  <a href="structcy__stc__syspm__core__buck__params__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__syspm__sdr__params__t.html">cy_stc_syspm_sdr_params_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The structure contains syspm SDR0/SDR1(Step Down Regulator) LDO configuration parameters.  <a href="structcy__stc__syspm__sdr__params__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__syspm__hvldo__params__t.html">cy_stc_syspm_hvldo_params_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The structure contains syspm HVLDO configuration parameters.  <a href="structcy__stc__syspm__hvldo__params__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__syspm__extra_req__params__t.html">cy_stc_syspm_extraReq_params_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The structure contains syspm Extra Requestor configuration parameters.  <a href="structcy__stc__syspm__extra_req__params__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ga0b54e47bca8fb045d86884a9b3d12067"><td class="memItemLeft" align="right" valign="top"><a id="ga0b54e47bca8fb045d86884a9b3d12067"></a>
-typedef <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__data__structures.html#ga0b54e47bca8fb045d86884a9b3d12067">Cy_SysPmCallback</a>) (<a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> *callbackParams, <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a> mode)</td></tr>
+typedef <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__data__structures.html#ga0b54e47bca8fb045d86884a9b3d12067">Cy_SysPmCallback</a>) (<a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> *callbackParams, <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#gaf294e94ca5176720ef5e5cbedc95ca47">mode</a>)</td></tr>
 <tr class="memdesc:ga0b54e47bca8fb045d86884a9b3d12067"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type for syspm callbacks. <br /></td></tr>
 <tr class="separator:ga0b54e47bca8fb045d86884a9b3d12067"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

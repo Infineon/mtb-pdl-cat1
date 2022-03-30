@@ -87,8 +87,10 @@ $(document).ready(function(){initNavTree('group__group__pdm__pcm.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<p>The pulse-density modulation to pulse-code modulation (PDM-PCM) driver provides an API to manage PDM-PCM conversion. </p>
-<p>A PDM-PCM converter is used to convert 1-bit digital audio streaming data to PCM data.</p>
+<dl class="section note"><dt>Note</dt><dd>IP Supported: AUDIOSS </dd>
+<dd>
+Device Categories: CAT1A. Please refer <a href="usergroup1.html">Device Catalog</a>.</dd></dl>
+<p>The pulse-density modulation to pulse-code modulation (PDM-PCM) driver provides an API to manage PDM-PCM conversion. A PDM-PCM converter is used to convert 1-bit digital audio streaming data to PCM data.</p>
 <p>The functions and other declarations used in this driver are in cy_pdm_pcm.h. You can include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
 <p>Features:</p><ul>
 <li>Supports FIFO buffer for Incoming Data</li>
@@ -102,7 +104,7 @@ $(document).ready(function(){initNavTree('group__group__pdm__pcm.html','');});
 Configuration Considerations</h1>
 <p>To set up a PDM-PCM, provide the configuration parameters in the <a class="el" href="structcy__stc__pdm__pcm__config__t.html">cy_stc_pdm_pcm_config_t</a> structure.</p>
 <p>For example, set dataStreamingEnable to true, configure rxFifoTriggerLevel, dmaTriggerEnable (depending on whether DMA is going to be used), provide clock settings (clkDiv, mclkDiv and ckoDiv), set sincDecRate to the appropriate decimation rate, wordLen, and wordBitExtension. No other parameters are necessary for this example.</p>
-<p>To initialize the PDM-PCM block, call the <a class="el" href="group__group__pdm__pcm__functions.html#ga72f994cbd634988b0016f464720b3559">Cy_PDM_PCM_Init</a> function, providing the filled <a class="el" href="structcy__stc__pdm__pcm__config__t.html">cy_stc_pdm_pcm_config_t</a> structure.</p>
+<p>To initialize the PDM-PCM block, call the <a class="el" href="group__group__pdm__pcm__functions__v2.html#ga26938ec1c8eb9fe737fffabfa68f33b4">Cy_PDM_PCM_Init</a> function, providing the filled <a class="el" href="structcy__stc__pdm__pcm__config__t.html">cy_stc_pdm_pcm_config_t</a> structure.</p>
 <p>If you use a DMA, the DMA channel should be previously configured. PDM-PCM interrupts (if applicable) can be enabled by calling <a class="el" href="group__group__pdm__pcm__functions.html#gaecd6316cef42b4c9d31b38aad0c222e6">Cy_PDM_PCM_SetInterruptMask</a>.</p>
 <p>For example, if the trigger interrupt is used during operation, the ISR should call the <a class="el" href="group__group__pdm__pcm__functions.html#ga93d86ba7f06b583502f1300eafde9783">Cy_PDM_PCM_ReadFifo</a> as many times as required for your FIFO payload. Then call <a class="el" href="group__group__pdm__pcm__functions.html#ga9519b93d2271e63fc4fbce99cc555d5e">Cy_PDM_PCM_ClearInterrupt</a> with appropriate parameters.</p>
 <p>If a DMA is used and the DMA channel is properly configured, no CPU activity (or application code) is needed for PDM-PCM operation.</p>
@@ -114,6 +116,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.30.1 </td><td>Added Note that this driver supports CAT1A devices only.  </td><td>To avoid misunderstanding of pdm_pcm and pdm_pcm_v2 drivers usage.   </td></tr>
 <tr>
 <td>2.30 </td><td>Fixed MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
 <tr>

@@ -87,7 +87,9 @@ $(document).ready(function(){initNavTree('group__group__i2s.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<p>The I2S driver provides a function API to manage Inter-IC Sound. </p>
+<dl class="section note"><dt>Note</dt><dd>IP Supported: AUDIOSS </dd>
+<dd>
+Device Categories: CAT1A. Please refer <a href="usergroup1.html">Device Catalog</a>. The I2S driver provides a function API to manage Inter-IC Sound.</dd></dl>
 <p>The functions and other declarations used in this driver are in cy_i2s.h. You can include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
 <p>I2S is used to send digital audio streaming data to external I2S devices, such as audio codecs or simple DACs. It can also receive digital audio streaming data.</p>
 <p>Features:</p><ul>
@@ -118,6 +120,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.30 </td><td>Update to configure MCLK. </td><td>Update to configure i2S on core CM7.  </td></tr>
 <tr>
 <td>2.20 </td><td>Fixed/documented MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
 <tr>

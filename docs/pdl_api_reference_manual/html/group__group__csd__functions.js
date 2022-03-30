@@ -2,6 +2,7 @@ var group__group__csd__functions =
 [
     [ "Cy_CSD_Init", "group__group__csd__functions.html#ga22ab53f2e99efe2990b5c99c06dc0be7", null ],
     [ "Cy_CSD_DeInit", "group__group__csd__functions.html#ga72f4009cdd9b57d9edc9f9789d896b7c", null ],
+    [ "Cy_CSD_Capture", "group__group__csd__functions.html#ga077bebfd76a1640f60ebdb0749afafe0", null ],
     [ "Cy_CSD_Configure", "group__group__csd__functions.html#gaed0da3eeb7d2217581b1946ce102f0ae", null ],
     [ "Cy_CSD_GetVrefTrim", "group__group__csd__functions.html#ga7685ad3c3b00b1c77bf67b03f944752f", null ],
     [ "Cy_CSD_GetLockStatus", "group__group__csd__functions.html#gafc4c25c2faefdfb3f3fdcf070b645c13", null ],

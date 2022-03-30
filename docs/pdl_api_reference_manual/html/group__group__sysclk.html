@@ -116,6 +116,58 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td rowspan="3">3.40 </td><td>Added CAT1C and CAT1D devices support.  </td><td>Support for new devices.  </td></tr>
+<tr>
+<td>New API's for PLL400M and PLL200M. </td><td>To handle the new PLL's for CAT1C devices.  </td></tr>
+<tr>
+<td><p class="starttd">New API's Added</p><ul>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga9e748343551cd15bfca189250e0af1c4" title="Configures 200M PLL. ">Cy_SysClk_Pll200MConfigure()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gaaa6456259e31b786c7e161435b7dd450" title="Manually configures a 200M PLL based on user inputs. ">Cy_SysClk_Pll200MManualConfigure()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga030e569b07a163e58e84928773b9ad25" title="Reports configuration settings for 200M PLL. ">Cy_SysClk_Pll200MGetConfiguration()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gaa755ea5198f4eebc6b7e7991bfe30c6e" title="Enables the 200M PLL. ">Cy_SysClk_Pll200MEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga850229a9ff0d4af9d0f298f377ce5ba0" title="Reports whether or not the selected 200M PLL is enabled. ">Cy_SysClk_Pll200MIsEnabled()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gaae48c98d74bbb34e049d2e8c17100685" title="Reports whether or not the selected 200M PLL is locked. ">Cy_SysClk_Pll200MLocked()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga40696a5667ca242332fb3de42b1b2994" title="Reports whether or not the selected 200M PLL lost its lock since the last time this function was call...">Cy_SysClk_Pll200MLostLock()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27" title="Disables the selected 200M PLL. ">Cy_SysClk_Pll200MDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gad498857f6d3c3b8df8dd176391d07f6f" title="Configures 400M PLL. ">Cy_SysClk_Pll400MConfigure()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga940fd6400c3ea9f37a0b26893ae8b42b" title="Manually configures a 400M PLL based on user inputs. ">Cy_SysClk_Pll400MManualConfigure()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gad0d8b724b371f76ba51ed3378691d9df" title="Reports configuration settings for 400M PLL. ">Cy_SysClk_Pll400MGetConfiguration()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gaa92e2b0dd3f211143fd66edf70fcd2ae" title="Enables the 400M PLL. ">Cy_SysClk_Pll400MEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga156fecfbaecb9d502c74529f910fe24b" title="Reports whether or not the selected 400M PLL is enabled. ">Cy_SysClk_Pll400MIsEnabled()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga5455c05316aa399ef5afacf7648a3cf1" title="Reports whether or not the selected 400M PLL is locked. ">Cy_SysClk_Pll400MLocked()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8e300a347373de8ab2c7d2ca89b05dee" title="Reports whether or not the selected 200M PLL lost its lock since the last time this function was call...">Cy_SysClk_Pll400MLostLock()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27" title="Disables the selected 200M PLL. ">Cy_SysClk_Pll200MDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__iho__funcs.html#gae014bbd531b0612fc784cdcf15784564" title="Enables the IHO during deepsleep mode. ">Cy_SysClk_IhoDeepsleepEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__iho__funcs.html#ga9de913cc5f378cba22fa53d77ab30b98" title="Reports whether or not the selected IHO is enabled during deepsleep mode. ">Cy_SysClk_IhoIsDeepsleepEnabled()</a></li>
+<li><a class="el" href="group__group__sysclk__iho__funcs.html#ga43ed6359a710ce0581978ff5dfa4af19" title="Disables IHO during deepsleep mode. ">Cy_SysClk_IhoDeepsleepDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__ilo__funcs.html#ga37a81892a544b2278e039ca79f57b819" title="Enables the ILO. ">Cy_SysClk_IloSrcEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__ilo__funcs.html#gadc04fa9632d411a379cf36f182a916d4" title="Reports the Enabled/Disabled status of the ILO. ">Cy_SysClk_IloSrcIsEnabled()</a></li>
+<li><a class="el" href="group__group__sysclk__ilo__funcs.html#ga9242347b2eec6b11cd614a75e05ad017" title="Disables the ILO. ">Cy_SysClk_IloSrcDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__ilo__funcs.html#gafd23ef6b241182bb67a5f26d6d3be167" title="Controls whether the ILO0 stays on during a hibernate, or through an XRES or brown-out detect (BOD) e...">Cy_SysClk_IloSrcHibernateOn()</a></li>
+<li><a class="el" href="group__group__sysclk__pilo__funcs.html#ga6c21afebcb9f09b55c9589a682130e78" title="Enables the PILO as always on if Backup Domain is present. ">Cy_SysClk_PiloBackupEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__pilo__funcs.html#ga971789bdb0713f551f314eb405c6e2a1" title="Disables the PILO as always on if Backup Domain is present. ">Cy_SysClk_PiloBackupDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__pilo__funcs.html#ga9c3147eb364c04d6820a9089cf390044" title="Enables the PILO TCSC(Second order temperature curvature correction) Feature. ">Cy_SysClk_PiloTcscEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__pilo__funcs.html#gabf56d2b85a12e5e1dadc838619de6f08" title="Disables the PILO TCSC(Second order temperature curvature correction) Feature. ">Cy_SysClk_PiloTcscDisable()</a></li>
+<li><a class="el" href="group__group__sysclk__alt__hf__funcs.html#gabc0dc28ac55e3606f2666742a8553962" title="Enables the ATLHF. ">Cy_SysClk_AltHfEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__alt__hf__funcs.html#gaaa7e7850d3f5674f78d51e99dd3a2d4a" title="Reports if ALTHF is enabled or not. ">Cy_SysClk_IsAltHfEnabled()</a></li>
+<li><a class="el" href="group__group__sysclk__trim__funcs.html#ga853789a9e526c8735521be673bb4dbdc" title="Set ILO Trim Value. ">Cy_SysClk_IloSetTrim()</a></li>
+<li><a class="el" href="group__group__sysclk__trim__funcs.html#gade35b7c0258b0eeabba38043134b1828" title="Gets the ILO Trim Value. ">Cy_SysClk_IloGetTrim()</a></li>
+<li><a class="el" href="group__group__sysclk__mf__funcs.html#gaacb30352c5e747c40be8f15b673ee54a" title="Sets the source for the Medium frequency clock(clkMf). ">Cy_SysClk_ClkMfSetSource()</a></li>
+<li><a class="el" href="group__group__sysclk__mf__funcs.html#ga336ac15ebc0e4d002717b0b15cd04bed" title="Reports the source for the Medium frequency clock (clkMf). ">Cy_SysClk_ClkMfGetSource()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gace8a5255f8579c17f4062dccb3ff3694" title="Enable/Disable the direct source selection as IMO for CLK_HF[[n]]. ">Cy_SysClk_ClkHfDirectSel()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga58bb033cfac5881d026e32643ed6c6b7" title="Checks if direct source selection as IMO for CLK_HF[[n]] is enabled/disabled. ">Cy_SysClk_IsClkHfDirectSelEnabled()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#ga99275f043f1a304bd579fc31783c2bd7" title="Gets the particular Slave Control value for a particular group. ">Cy_SysClk_PeriGroupGetSlaveCtl()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#ga56bf76b1f4037514461e60a7428bf8a1" title="Gets the mask value of particular slave control register for a particular group. ">Cy_SysClk_IsPeriGroupSlaveCtlSet()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#gaf121b7b35d0c907e84289c2f7b0106bf" title="Reports the frequency of the output of a given peripheral divider. ">Cy_SysClk_PeriPclkGetFrequency()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#ga849645f956b39e9a1fc81822db691641" title="Reports the enabled/disabled state of the selected divider. ">Cy_SysClk_PeriPclkGetDividerEnabled()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#ga234568ee0ae345e5108841f4fdde2473" title="Reports the corresponding CLK_HF* number for a particular PERI PCLK group. ">Cy_Sysclk_PeriPclkGetClkHfNum()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__mem__funcs.html#gaac472fea7c35a1108a2d587e2b32400d" title="Sets the clock divider for the Mem clock. ">Cy_SysClk_ClkMemSetDivider()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__mem__funcs.html#gaeb639022805581a220f2c91cfa76b85e" title="Reports the divider value for the Mem clock. ">Cy_SysClk_ClkMemGetDivider()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__mem__funcs.html#gad37e89c4cbafc9948f7e1f23ae922d04" title="Reports the frequency of the Mem clock. ">Cy_SysClk_ClkMemGetFrequency()</a></li>
+</ul>
+<p class="endtd"></p>
+</td><td>New API's to handle CAT1B, CAT1C and CAT1D devices.  </td></tr>
+<tr>
 <td rowspan="3">3.30 </td><td>For PSoC64 device, allow CM0+ to call CY_PRA_FUNCTION_CALL_X_X API in functions accessing FUNCTION_POLICY registers. So that System Configuration structure is updated with new parameters.  </td><td>For PSoC64 device, System configuration can be done from CM0+ application.  </td></tr>
 <tr>
 <td>Fixed MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
@@ -140,7 +192,7 @@ Changelog</h1>
 <li><a class="el" href="group__group__sysclk__pilo__funcs.html#gaf73c2da9e8676f8b4cdfcd1f95e839f9" title="Disables the PILO. ">Cy_SysClk_PiloDisable()</a></li>
 <li><a class="el" href="group__group__sysclk__wco__funcs.html#ga0990b94c499652b8f5c2dd1cf6abf95e" title="Disables the WCO. ">Cy_SysClk_WcoDisable()</a></li>
 <li><a class="el" href="group__group__sysclk__wco__funcs.html#gaf254b104b1e1020545103779a573da17" title="Sets whether the WCO is bypassed or not. ">Cy_SysClk_WcoBypass()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga05a3e0e120574d1205c2b2f9861dc733" title="Sets the clock divider for the fast clock, which sources the main processor. ">Cy_SysClk_ClkFastSetDivider()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__fast__funcs.html#gaf4bdc05485fc32e862d0228ce56e0580" title="Sets the clock divider for the fast clock, which sources the main processor. ">Cy_SysClk_ClkFastSetDivider()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f" title="Sets the clock divider for the peripheral clock tree. ">Cy_SysClk_ClkPeriSetDivider()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054" title="Sets the source for the low frequency clock(clkLf). ">Cy_SysClk_ClkLfSetSource()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829" title="Sets the source for the timer clock (clk_timer). ">Cy_SysClk_ClkTimerSetSource()</a></li>
@@ -201,7 +253,7 @@ Changelog</h1>
 . <a class="el" href="group__group__sysclk__mf__funcs.html#gaf917222c5e1a0bb3dc2f7d398dcff05c">Cy_SysClk_ClkMfGetFrequency</a> </td><td>New device support.  </td></tr>
 <tr>
 <td>Added the following new API functions <a class="el" href="group__group__sysclk__fll__funcs.html#gab266867b8e4f71d58467c33c53f6f0e2">Cy_SysClk_FllIsEnabled</a>, <a class="el" href="group__group__sysclk__pll__funcs.html#gae3ee5e192525df92ea07b32a3eb3d295">Cy_SysClk_PllIsEnabled</a>,<br />
- <a class="el" href="group__group__sysclk__ext__funcs.html#gad4b77c61d47878007b5c50e3baf13e51">Cy_SysClk_ExtClkSetFrequency</a>, <a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga2fd7d9e080181356a1e6a5a72d948119">Cy_SysClk_ClkFastGetFrequency</a>,<br />
+ <a class="el" href="group__group__sysclk__ext__funcs.html#gad4b77c61d47878007b5c50e3baf13e51">Cy_SysClk_ExtClkSetFrequency</a>, <a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga6de7dbb9539f6c134c84a4d5ebe5e4c4">Cy_SysClk_ClkFastGetFrequency</a>,<br />
  <a class="el" href="group__group__sysclk__clk__peri__funcs.html#ga8db0b9f751e98d8b19054e0879f965c4">Cy_SysClk_ClkPeriGetFrequency</a> and <a class="el" href="group__group__sysclk__clk__slow__funcs.html#ga7ca0c247dee5e69b25f173240db9ed53">Cy_SysClk_ClkSlowGetFrequency</a> </td><td>Enhancement based on usability feedback  </td></tr>
 <tr>
 <td>Deprecated the following macros: CY_SYSCLK_DIV_ROUND and CY_SYSCLK_DIV_ROUNDUP </td><td>Macros were moved into <a class="el" href="group__group__syslib.html">SysLib (System Library)</a>  </td></tr>
@@ -256,7 +308,7 @@ API Reference</h2></td></tr>
 <tr class="memitem:group__group__sysclk__enums"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__enums.html">General Enumerated Types</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__ext"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__ext.html">External Clock Source (EXTCLK)</a></td></tr>
-<tr class="memdesc:group__group__sysclk__ext"><td class="mdescLeft">&#160;</td><td class="mdescRight">The External Clock Source (EXTCLK) is a clock source routed into PSoC through a GPIO pin. <br /></td></tr>
+<tr class="memdesc:group__group__sysclk__ext"><td class="mdescLeft">&#160;</td><td class="mdescRight">The External Clock Source (EXTCLK) is a clock source routed into SOC through a GPIO pin. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__eco"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__eco.html">External Crystal Oscillator (ECO)</a></td></tr>
 <tr class="memdesc:group__group__sysclk__eco"><td class="mdescLeft">&#160;</td><td class="mdescRight">The External Crystal Oscillator (ECO) is a clock source that consists of an oscillator circuit that drives an external crystal through its dedicated ECO pins. <br /></td></tr>
@@ -318,8 +370,14 @@ API Reference</h2></td></tr>
 <tr class="memitem:group__group__sysclk__clk__bak"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__bak.html">Backup Domain Clock</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__bak"><td class="mdescLeft">&#160;</td><td class="mdescRight">The backup domain clock drives the <a class="el" href="group__group__rtc.html">RTC (Real-Time Clock)</a>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__group__sysclk__mf__funcs"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__mf__funcs.html">Medium Frequency Domain Clock</a></td></tr>
-<tr class="memdesc:group__group__sysclk__mf__funcs"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Medium Frequency Domain Clock is present only in SRSS_ver1_3. <br /></td></tr>
+<tr class="memitem:group__group__sysclk__mf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__mf.html">Medium Frequency Domain Clock</a></td></tr>
+<tr class="memdesc:group__group__sysclk__mf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Medium Frequency Domain Clock is present only in SRSS_ver1_3. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__sysclk__iho"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__iho.html">Internal High Frequency(IHO) Clock</a></td></tr>
+<tr class="memdesc:group__group__sysclk__iho"><td class="mdescLeft">&#160;</td><td class="mdescRight">The IHO Clock is Internal High-speed Oscillator, which is present in CAT1B and CAT1D devices and operates at 48MHz. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__sysclk__clk__mem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__mem.html">Mem Clock</a></td></tr>
+<tr class="memdesc:group__group__sysclk__clk__mem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock for the Memories. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

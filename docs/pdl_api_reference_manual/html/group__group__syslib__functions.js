@@ -20,5 +20,8 @@ var group__group__syslib__functions =
     [ "Cy_SysLib_ProcessingFault", "group__group__syslib__functions.html#ga0852597c5a10b76413a7063711043fef", null ],
     [ "Cy_SysLib_SetWaitStates", "group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9", null ],
     [ "Cy_SysLib_EnterCriticalSection", "group__group__syslib__functions.html#gae679f15a1702c159c105b596a8801105", null ],
-    [ "Cy_SysLib_ExitCriticalSection", "group__group__syslib__functions.html#ga8c16343c075610b2888b0693f972b555", null ]
+    [ "Cy_SysLib_ExitCriticalSection", "group__group__syslib__functions.html#ga8c16343c075610b2888b0693f972b555", null ],
+    [ "Cy_SysLib_GetDeviceRevision", "group__group__syslib__functions.html#gaebb3c0de07c70f0a39aa07a4ebb72f64", null ],
+    [ "Cy_SysLib_GetDevice", "group__group__syslib__functions.html#ga31851d85af687fef11473fa11145030d", null ],
+    [ "Cy_Syslib_SetWarmBootEntryPoint", "group__group__syslib__functions.html#gabc2fac2da2d735bedac2a57d45d53fac", null ]
 ];

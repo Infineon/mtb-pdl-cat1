@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file cy_tcpwm_shiftreg.c
-* \version 1.30
+* \version 1.40
 *
 * \brief
 *  The source file of the tcpwm driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -97,7 +97,7 @@ cy_en_tcpwm_status_t Cy_TCPWM_ShiftReg_Init(TCPWM_Type const *base, uint32_t cnt
 
         TCPWM_GRP_CNT_INTR_MASK(base, grp, cntNum) = config->interruptSources;
 
-        if(TCPWM_GRP_CC1(grp))
+        if(TCPWM_GRP_CC1(base, grp))
         {
             TCPWM_GRP_CNT_CC1(base, grp, cntNum) = config->compare1;
             TCPWM_GRP_CNT_CC1_BUFF(base, grp, cntNum) = config->compareBuf1;

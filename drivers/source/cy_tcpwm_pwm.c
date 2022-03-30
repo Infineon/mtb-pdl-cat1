@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file cy_tcpwm_pwm.c
-* \version 1.30
+* \version 1.40
 *
 * \brief
 *  The source file of the tcpwm driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,6 +37,10 @@ extern "C" {
 ****************************************************************************//**
 *
 * Initializes the counter in the TCPWM block for the PWM operation.
+*
+* \note After initialization, connected PWM output pins Drive modes
+* are set to High-Z state. To set Drive modes as set by PWM output pins
+* configuration, call the \ref Cy_TCPWM_PWM_Enable function.
 *
 * \param base
 * The pointer to a TCPWM instance.
@@ -193,14 +197,14 @@ cy_en_tcpwm_status_t Cy_TCPWM_PWM_Init(TCPWM_Type *base, uint32_t cntNum,  cy_st
                     TCPWM_GRP_CNT_TR_PWM_CTRL(base, grp, cntNum) = ((config->swapOverflowUnderflow ? CY_TCPWM_PWM_MODE_CNTR_OR_ASYMM_SWAPPED : CY_TCPWM_PWM_MODE_CNTR_OR_ASYMM) |
                                                                     CY_TCPWM_PWM_MODE_CC1_IGNORE);
                 }
-                else if (TCPWM_GRP_CC1(grp) && (CY_TCPWM_PWM_ASYMMETRIC_CC0_CC1_ALIGN == config->pwmAlignment))
+                else if (TCPWM_GRP_CC1(base, grp) && (CY_TCPWM_PWM_ASYMMETRIC_CC0_CC1_ALIGN == config->pwmAlignment))
                 {
                     TCPWM_GRP_CNT_CTRL(base, grp, cntNum) |= 
                             _VAL2FLD(TCPWM_GRP_CNT_V2_CTRL_UP_DOWN_MODE, CY_TCPWM_PWM_LEFT_ALIGN);
                     TCPWM_GRP_CNT_COUNTER(base, grp, cntNum) = CY_TCPWM_CNT_UP_DOWN_INIT_VAL;
                     TCPWM_GRP_CNT_TR_PWM_CTRL(base, grp, cntNum) = CY_TCPWM_PWM_MODE_ASYMM_CC0_CC1;
                 }
-                else if (TCPWM_GRP_CC1(grp) && (CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN == config->pwmAlignment))
+                else if (TCPWM_GRP_CC1(base, grp) && (CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN == config->pwmAlignment))
                 {
                     TCPWM_GRP_CNT_CTRL(base, grp, cntNum) |= 
                             _VAL2FLD(TCPWM_GRP_CNT_V2_CTRL_UP_DOWN_MODE, CY_TCPWM_PWM_CENTER_ALIGN);
@@ -248,7 +252,7 @@ cy_en_tcpwm_status_t Cy_TCPWM_PWM_Init(TCPWM_Type *base, uint32_t cntNum,  cy_st
 
             TCPWM_GRP_CNT_INTR_MASK(base, grp, cntNum) = config->interruptSources;
 
-            if(TCPWM_GRP_CC1(grp))
+            if(TCPWM_GRP_CC1(base, grp))
             {
                 TCPWM_GRP_CNT_CC1(base, grp, cntNum) = config->compare2;
                 TCPWM_GRP_CNT_CC1_BUFF(base, grp, cntNum) = config->compare3;
@@ -261,7 +265,7 @@ cy_en_tcpwm_status_t Cy_TCPWM_PWM_Init(TCPWM_Type *base, uint32_t cntNum,  cy_st
                     (_VAL2FLD(TCPWM_GRP_CNT_V2_TR_IN_EDGE_SEL_CAPTURE1_EDGE, config->kill1InputMode));
             }
 
-            if(TCPWM_GRP_AMC(grp))
+            if(TCPWM_GRP_AMC(base, grp))
             {
                 if(CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN != config->pwmAlignment)
                 {

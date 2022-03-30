@@ -76,15 +76,15 @@
       <Entry name="Right Aligned" value="CY_TCPWM_PWM_RIGHT_ALIGN" visible="true" />
       <Entry name="Center Aligned" value="CY_TCPWM_PWM_CENTER_ALIGN" visible="true" />
       <Entry name="Asymmetric" value="CY_TCPWM_PWM_ASYMMETRIC_ALIGN" visible="true" />
-      <Entry name="Asymmetric CC0 &amp; CC1" value="CY_TCPWM_PWM_ASYMMETRIC_CC0_CC1_ALIGN" visible="`${pCntCC1}`" />
-      <Entry name="Center Asymmetric CC0 &amp; CC1" value="CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN" visible="`${pCntCC1}`" />
+      <Entry name="Asymmetric CC0 &amp; CC1" value="CY_TCPWM_PWM_ASYMMETRIC_CC0_CC1_ALIGN" visible="`${pCntAMC}`" />
+      <Entry name="Center Asymmetric CC0 &amp; CC1" value="CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN" visible="`${pCntAMC}`" />
     </ParamChoice>
     <ParamBool id="SwapUnderflowOverflow" name="Swap Underflow Overflow Set/Clear" group="General" default="false" visible="`${((PwmAlignment eq CY_TCPWM_PWM_CENTER_ALIGN) || (PwmAlignment eq CY_TCPWM_PWM_ASYMMETRIC_ALIGN))}`" editable="true" desc="If checked on underflow event, output is SET and on overflow event output is CLEAR." />
     <ParamChoice id="RunMode" name="Run Mode" group="General" default="CY_TCPWM_PWM_CONTINUOUS" visible="true" editable="true" desc="If Continuous is selected counter runs forever. If One Shot is selected counter runs for one period and stops.">
       <Entry name="Continuous" value="CY_TCPWM_PWM_CONTINUOUS" visible="true" />
       <Entry name="One Shot" value="CY_TCPWM_PWM_ONESHOT" visible="true" />
     </ParamChoice>
-    <ParamRange id="DeadClocks" name="Dead Time Clocks" group="General" default="0" min="0" max="255" resolution="1" visible="`${PwmMode eq CY_TCPWM_PWM_MODE_DEADTIME}`" editable="true" desc="Number of clock cycles of dead time between PWM outputs. Range: 0-255." />
+    <ParamRange id="DeadClocks" name="Dead Time Clocks" group="General" default="0" min="0" max="`${(pCntAMC) ? 65535 : 255}`" resolution="1" visible="`${PwmMode eq CY_TCPWM_PWM_MODE_DEADTIME}`" editable="true" desc="Number of clock cycles of dead time between PWM outputs. Range: 0-255 on standard PWM or 0-65535 on PWM with advanced motor control." />
     <ParamBool id="ImmediateKill" name="Immediate Kill" group="General" default="false" visible="true" editable="true" desc="If checked kill event immediately deactivates the dt_line_out and dt_line_compl_out. If not with the next module clock." />
 
     <!--Period-->
@@ -107,9 +107,9 @@
 
     <!-- Event Generation -->
     <ParamBool id="pEventGenerationVisible" name="pEventGenerationVisible" group="Internal" default="`${(pCntAMC &amp;&amp; ((PwmAlignment eq CY_TCPWM_PWM_CENTER_ALIGN) || (PwmAlignment eq CY_TCPWM_PWM_ASYMMETRIC_ALIGN) || (PwmAlignment eq CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN)))}`" visible="false" editable="false" desc="" />
-    <ParamBool id="Compare0MatchUp" name="Compare 0 match up" group="Event Generation" default="false" visible="`${pEventGenerationVisible}`" editable="true" desc="test" />
+    <ParamBool id="Compare0MatchUp" name="Compare 0 match up" group="Event Generation" default="true" visible="`${pEventGenerationVisible}`" editable="true" desc="test" />
     <ParamBool id="Compare0MatchDown" name="Compare 0 match Down" group="Event Generation" default="false" visible="`${pEventGenerationVisible}`" editable="true" desc="test" />
-    <ParamBool id="Compare1MatchUp" name="Compare 1 match up" group="Event Generation" default="false" visible="`${pEventGenerationVisible}`" editable="true" desc="test" />
+    <ParamBool id="Compare1MatchUp" name="Compare 1 match up" group="Event Generation" default="true" visible="`${pEventGenerationVisible}`" editable="true" desc="test" />
     <ParamBool id="Compare1MatchDown" name="Compare 1 match Down" group="Event Generation" default="false" visible="`${pEventGenerationVisible}`" editable="true" desc="test" />
     
     <!--Interrupts-->
@@ -119,8 +119,9 @@
     <ParamString id="InterruptSource" name="InterruptSource" desc="InterruptSource" group="Interrupt Source" default="(CY_TCPWM_INT_ON_TC `${(InterruptTC)? &quot;&quot; : &quot;&amp; 0U&quot;}`) | (CY_TCPWM_INT_ON_CC0 `${(InterruptCC0)? &quot;&quot; : &quot;&amp; 0U&quot;}`) | (CY_TCPWM_INT_ON_CC1 `${(InterruptCC1)? &quot;&quot; : &quot;&amp; 0U&quot;}`)" visible="false" editable="false" />
     
     <!--Inputs-->
-    <ParamSignal port="clock[0]" name="Clock Signal" group="Inputs" visible="true" desc="The clock input defines the operating frequency." canBeEmpty="false" />
-    
+    <ParamSignal port="clock[0]" name="Clock Signal" group="Inputs" visible="`${hasVisibleOption(&quot;clock[0]&quot;)}`" desc="The clock input defines the operating frequency." canBeEmpty="`${!hasVisibleOption(&quot;clock[0]&quot;)}`" />
+    <ParamSignal port="clock_counter_en[0]" name="Clock Signal" group="Inputs" visible="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;)}`" desc="The clock input defines the operating frequency." canBeEmpty="`${!hasVisibleOption(&quot;clock_counter_en[0]&quot;)}`" />
+
     <ParamChoice id="CountInput" name="Count Input" group="Inputs" default="CY_TCPWM_INPUT_DISABLED" visible="`${pPwmNePrs}`" editable="true" desc="Determines if a count input is needed and how that input is registered." >
       <Entry name="Rising Edge" value="CY_TCPWM_INPUT_RISINGEDGE" visible="true" />
       <Entry name="Falling Edge" value="CY_TCPWM_INPUT_FALLINGEDGE" visible="true" />
@@ -165,6 +166,7 @@
       <Entry name="Rising Edge" value="CY_TCPWM_INPUT_RISINGEDGE" visible="true" />
       <Entry name="Falling Edge" value="CY_TCPWM_INPUT_FALLINGEDGE" visible="true" />
       <Entry name="Either Edge" value="CY_TCPWM_INPUT_EITHEREDGE" visible="true" />
+      <Entry name="Level" value="CY_TCPWM_INPUT_LEVEL" visible="`${PwmMode eq CY_TCPWM_PWM_MODE_PSEUDORANDOM}`" />
       <Entry name="Disabled" value="CY_TCPWM_INPUT_DISABLED" visible="true" />
     </ParamChoice>
     <ParamSignal port="reload[0]" name="Reload Signal" group="Inputs" visible="`${ReloadInput ne CY_TCPWM_INPUT_DISABLED}`" desc="This digital input triggers a reload of the PWM, and starts the PWM." canBeEmpty="`${ReloadInput eq CY_TCPWM_INPUT_DISABLED}`" >
@@ -288,8 +290,8 @@
     
     <!--Trigger Outputs-->
     <ParamChoice id="trigger0Event" name="Trigger 0 Event" group="Trigger Outputs" default="CY_TCPWM_CNT_TRIGGER_ON_DISABLED" visible="true" editable="true" desc="This output used to connect TCPWM event signals to other peripherals." >
-      <Entry name="Overflow" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" visible="true" />
-      <Entry name="Underflow" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" visible="true" />
+      <Entry name="Overflow" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" visible="`${PwmMode ne CY_TCPWM_PWM_MODE_PSEUDORANDOM}`" />
+      <Entry name="Underflow" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" visible="`${PwmMode ne CY_TCPWM_PWM_MODE_PSEUDORANDOM}`" />
       <Entry name="Terminal Count" value="CY_TCPWM_CNT_TRIGGER_ON_TC" visible="true" />
       <Entry name="Compare 0 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" visible="true" />
       <Entry name="Compare 1 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" visible="`${pCntCC1}`" />
@@ -310,8 +312,8 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
     <ParamChoice id="trigger1Event" name="Trigger 1 Event" group="Trigger Outputs" default="CY_TCPWM_CNT_TRIGGER_ON_DISABLED" visible="true" editable="true" desc="This output used to connect TCPWM event signals to other peripherals." >
-      <Entry name="Overflow" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" visible="true" />
-      <Entry name="Underflow" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" visible="true" />
+      <Entry name="Overflow" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" visible="`${PwmMode ne CY_TCPWM_PWM_MODE_PSEUDORANDOM}`" />
+      <Entry name="Underflow" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" visible="`${PwmMode ne CY_TCPWM_PWM_MODE_PSEUDORANDOM}`" />
       <Entry name="Terminal Count" value="CY_TCPWM_CNT_TRIGGER_ON_TC" visible="true" />
       <Entry name="Compare 0 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" visible="true" />
       <Entry name="Compare 1 Match" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" visible="`${pCntCC1}`" />
@@ -338,9 +340,9 @@
     <!-- Peripheral clock divider connection -->
     <ParamString id="definePrefix" name="Define prefix" group="Internal" default="`${&quot;TCPWM&quot; . tcpwmInst . &quot;_GRP&quot; . pCntGroup . &quot;_CNT&quot; . getInstNumber(&quot;cnt&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="defineInputDisabled" name="Define input disabled" group="Internal" default="`${INST_NAME . &quot;_INPUT_DISABLED &amp; 0x3U&quot;}`" visible="false" editable="false" desc="" />
-    <ParamString id="pclk" name="PCLK" group="Internal" default="`${getBlockFromSignal(&quot;clock[0]&quot;)}`" visible="false" editable="false" desc="Connected peripheral clock divider (PCLK)" />
-    <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
-    <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="PCLK_TCPWM`${tcpwmInst}`_CLOCKS`${cntInst}`" visible="false" editable="false" desc="" />
+    <ParamString id="pclk" name="PCLK" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? getBlockFromSignal(&quot;clock_counter_en[0]&quot;):getBlockFromSignal(&quot;clock[0]&quot;)}`" visible="false" editable="false" desc="Connected peripheral clock divider (PCLK)" />
+    <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? hasConnection(&quot;clock_counter_en&quot;, 0) &amp;&amp; isBlockUsed(pclk) : hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
+    <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCK_COUNTER_EN&quot; . cntInst : &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCKS&quot; . cntInst}`" visible="false" editable="false" desc="" />
     
     <!-- Auxiliary internal parameters-->
     <ParamBool id="pC0GtP0" name="pC0GtP0" desc="pC0GtP0" group="Internal" default="`${Compare0 &gt; Period0}`" visible="false" editable="false" />
@@ -417,7 +419,6 @@
 	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
 	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
 	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
 	</DRC>
 
     <!--SwapInput DRCs-->

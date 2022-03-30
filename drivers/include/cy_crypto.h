@@ -1,12 +1,14 @@
 /***************************************************************************//**
 * \file cy_crypto.h
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides the public interface for the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +27,9 @@
 /**
 * \addtogroup group_crypto
 * \{
+* \note IP Supported: CPUSS
+* \note Device Categories: CAT1A. Please refer <a href="usergroup1.html">Device Catalog</a>.
+*
 * The Crypto driver provides a public API to perform cryptographic and hash
 * operations, as well as generate both true and pseudo random numbers.
 *
@@ -210,22 +215,19 @@
 *   <tr>
 *     <td>Asymmetric Key Cryptography</td>
 *     <td>Also referred to as Public Key encryption. To receive a message,
-*     you publish a very large public key (up to 4096 bits currently).
-*     That key is one of the two prime factors of a very large number. The
-*     other prime factor is the recipient's private (secret) key.
-*     To send a message to the publisher of the public key, you
-*     encrypt the message with the public key. This message can now be
-*     decrypted only with the private key (the other prime factor held in secret by
-*     the recipient). The message is now sent over any channel to the recipient
-*     who can decrypt it with the private (secret) key. The same process is used
-*     to send messages to the sender of the original message. The asymmetric
-*     cryptography relies on the mathematical impracticality (usually related to
-*     the processing power available at any given time) of factoring the keys.
-*     Common, computationally intensive, asymmetric algorithms are RSA and ECC.
-*     The public key is described by the pair (n, e) where n is a product of two
-*     randomly chosen primes p and q. The exponent e is a random integer
+*     you publish a very large public key (up to 4096 bits currently). The
+*     public key is described by the pair (n, e) where n is a product of
+*     two randomly chosen primes p and q. The exponent e is a random integer
 *     1 < e < Q where Q = (p-1) (q-1). The private key d is uniquely defined
-*     by the integer 1 < d < Q so that ed congruent with 1 (mod Q ).
+*     by the integer 1 < d < Q so that ed congruent with 1 (mod Q ). To send
+*     a message to the publisher of the public key, you encrypt the message
+*     with the public key. This message can now be decrypted only with the
+*     private key. The message is now sent over any channel to the recipient
+*     who can decrypt it with the private (secret) key. The same process is
+*     used to send messages to the sender of the original message. The
+*     asymmetric cryptography relies on the mathematical impracticality
+*     (usually related to the processing power available at any given time)
+*     of factoring the keys.
 *     </td>
 *   </tr>
 * </table>
@@ -240,6 +242,12 @@
 * \section group_crypto_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td> 2.50</td>
+*     <td>Fixed the Cy_Crypto_Core_ECC_VerifyHash() and an internal function behaviour
+*         to support 0 hash message. Resolved MISRA 2012 standard defects.</td>
+*     <td>Defect fixing and MISRA 2012 compliance.</td>
+*   </tr>
 *   <tr>
 *     <td>2.40</td>
 *     <td>

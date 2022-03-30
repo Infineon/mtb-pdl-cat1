@@ -1,13 +1,14 @@
 /***************************************************************************//**
 * \file cy_rtc.c
-* \version 2.50
+* \version 2.60
 *
 * This file provides constants and parameter values for the APIs for the
 * Real-Time Clock (RTC).
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +26,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS40SRSS_RTC) || defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS40SRSS_RTC) || defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 
 #include "cy_rtc.h"
 
@@ -35,12 +36,12 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 2.2', 3, \
 extern "C" {
 #endif
 
-#if defined (CY_IP_MXS40SRSS_RTC)
-#define CONVERT_BCD_TO_DEC(bcdNum) Cy_RTC_ConvertBcdToDec(bcdNum)
-#define CONVERT_DEC_TO_BCD(decNum) Cy_RTC_ConvertDecToBcd(decNum)
-#elif defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (CY_IP_MXS40SRSS_RTC_VERSION >= 3)
 #define CONVERT_BCD_TO_DEC(bcdNum) (bcdNum)
 #define CONVERT_DEC_TO_BCD(decNum) (decNum)
+#else
+#define CONVERT_BCD_TO_DEC(bcdNum) Cy_RTC_ConvertBcdToDec(bcdNum)
+#define CONVERT_DEC_TO_BCD(decNum) Cy_RTC_ConvertDecToBcd(decNum)
 #endif /* CY_IP_MXS40SRSS_RTC, CY_IP_MXS28SRSS, CY_IP_MXS40SSRSS */
 
 /** RTC days in months table */
@@ -799,8 +800,7 @@ cy_en_rtc_status_t Cy_RTC_SetHoursFormat(cy_en_rtc_hours_format_t hoursFormat)
     return(retVal);
 }
 
-#if defined (CY_IP_MXS40SRSS_RTC)
-
+#if defined (CY_IP_MXS40SRSS_RTC) || defined (CY_IP_MXS40SSRSS)
 /*******************************************************************************
 * Function Name: Cy_RTC_SelectFrequencyPrescaler()
 ****************************************************************************//**
@@ -847,18 +847,18 @@ cy_en_rtc_status_t Cy_RTC_SetHoursFormat(cy_en_rtc_hours_format_t hoursFormat)
 * limitation is not related to WCO external clock sources which can drive the
 * WCO in Bypass mode.
 *
-* \note
-* This API is available for CAT1A devices.
-*
 *******************************************************************************/
 void Cy_RTC_SelectFrequencyPrescaler(cy_en_rtc_clock_freq_t clkSel)
 {
     CY_ASSERT_L3(CY_RTC_IS_CLK_VALID(clkSel));
 
+#if defined (CY_IP_MXS22SRSS)
+    BACKUP_CTL = (_CLR_SET_FLD32U(BACKUP_CTL, SRSS_CLK_WCO_CONFIG_PRESCALER, (uint32_t) clkSel));
+#else
     BACKUP_CTL = (_CLR_SET_FLD32U(BACKUP_CTL, BACKUP_CTL_PRESCALER, (uint32_t) clkSel));
+#endif
 }
-#endif /* CY_IP_MXS40SRSS_RTC */
-
+#endif /* CY_IP_MXS40SRSS_RTC, CY_IP_MXS40SSRSS */
 /*******************************************************************************
 * Function Name: Cy_RTC_SelectClockSource()
 ****************************************************************************//**
@@ -873,16 +873,20 @@ void Cy_RTC_SelectClockSource(cy_rtc_clk_select_sources_t clkSel)
 {
     CY_ASSERT_L3(CY_RTC_IS_SRC_CLK_SELECT_VALID(clkSel));
 
+#if defined (CY_IP_MXS22SRSS)
+    BACKUP_CTL = (_CLR_SET_FLD32U(BACKUP_CTL, SRSS_CLK_WCO_CONFIG_CLK_SEL, (uint32_t) clkSel));
+#else
     BACKUP_CTL = (_CLR_SET_FLD32U(BACKUP_CTL, BACKUP_CTL_CLK_SEL, (uint32_t) clkSel));
+#endif
 }
 
 /*******************************************************************************
 * Function Name: Cy_RTC_EnableDstTime
 ****************************************************************************//**
 *
-* The function sets the DST time and configures the ALARM2 interrupt register
+* The function sets the DST time, configures the DST start time when the specified time is outside DST period and configures the ALARM2 interrupt register
 * with the appropriate DST time. This function sets the DST stop time if the
-* current time is already in the DST period. The DST period is a period of time
+* specified time is already in the DST period. The DST period is a period of time
 * between the DST start time and DST stop time. The DST start time and DST stop
 * time is presented in the DST configuration structure,
 * see \ref cy_stc_rtc_dst_t.
@@ -891,11 +895,11 @@ void Cy_RTC_SelectClockSource(cy_rtc_clk_select_sources_t clkSel)
 * The DST configuration structure, see \ref cy_stc_rtc_dst_t.
 *
 * \param timeDate
-* The time and date structure. The the appropriate DST time is
+* The time and date structure. The appropriate DST time is
 * set based on this time and date, see \ref cy_stc_rtc_config_t.
 *
 * \return
-* cy_en_rtc_status_t A validation check result of RTC register update.
+* A validation check result of RTC register update. See \ref cy_en_rtc_status_t.
 *
 *******************************************************************************/
 cy_en_rtc_status_t Cy_RTC_EnableDstTime(cy_stc_rtc_dst_t const *dstTime, cy_stc_rtc_config_t const *timeDate)
@@ -913,7 +917,7 @@ cy_en_rtc_status_t Cy_RTC_EnableDstTime(cy_stc_rtc_dst_t const *dstTime, cy_stc_
             retVal = Cy_RTC_SetNextDstTime(&dstTime->startDst);
         }
 
-        Cy_RTC_SetInterruptMask(CY_RTC_INTR_ALARM2);
+        Cy_RTC_SetInterruptMask(Cy_RTC_GetInterruptMask() | CY_RTC_INTR_ALARM2);
     }
 
     return (retVal);
@@ -1006,7 +1010,7 @@ cy_en_rtc_status_t Cy_RTC_SetNextDstTime(cy_stc_rtc_dst_format_t const *nextDst)
 * \param dstTime The DST configuration structure, see \ref cy_stc_rtc_dst_t.
 *
 * \param timeDate
-* The time and date structure. The the appropriate DST time is
+* The time and date structure. The appropriate DST time is
 * set based on this time and date, see \ref cy_stc_rtc_config_t.
 *
 * \return
@@ -1148,7 +1152,7 @@ __WEAK void Cy_RTC_Alarm2Interrupt(void)
 *
 * This is a processing handler against the DST event. It adjusts the current
 * time using the DST start/stop parameters and registers the next DST event time
-* into the ALARM2 interrupt.
+* into the ALARM2 interrupt. This function is already called by \ref Cy_RTC_Interrupt().
 *
 * \param dstTime The DST configuration structure, see \ref cy_stc_rtc_dst_t.
 *
@@ -1165,7 +1169,7 @@ void Cy_RTC_DstInterrupt(cy_stc_rtc_dst_t const *dstTime)
         *  the time adjusting occurs, the other time and date values should be
         *  corrected (day of the week, date, month and year).
         */
-        if (curDateTime.hour > CY_RTC_MAX_HOURS_24H)
+        if (curDateTime.hour == CY_RTC_MAX_HOURS_24H)
         {
             /* Incrementing day of the week value as hour adjusted next day of
             *  the week and date. Correcting hour value as its incrementation
@@ -1237,9 +1241,9 @@ void Cy_RTC_DstInterrupt(cy_stc_rtc_dst_t const *dstTime)
             */
             if (curDateTime.date < CY_RTC_FIRST_DAY_OF_MONTH)
             {
+               curDateTime.month--;
                curDateTime.date =
                Cy_RTC_DaysInMonth(curDateTime.month, (curDateTime.year + CY_RTC_TWO_THOUSAND_YEARS));
-               curDateTime.month--;
             }
 
             /* Correct a month if its increment pushed it out of the valid
@@ -1268,8 +1272,7 @@ void Cy_RTC_DstInterrupt(cy_stc_rtc_dst_t const *dstTime)
 *
 * This is a weak function and it should be redefined in user source code
 * in condition that such event handler is required.
-* By calling this function, it indicates the year reached 2100. It
-* should add an adjustment to avoid the Y2K problem.
+* By calling this function, it indicates the year reached 2100.
 *
 * Function implementation should be defined in user source code in condition
 * that such event handler is required. If such event is not required user
@@ -1365,9 +1368,9 @@ void Cy_RTC_ClearInterrupt(uint32_t interruptMask)
 {
     CY_ASSERT_L3(CY_RTC_INTR_VALID(interruptMask));
 
-    BACKUP_INTR = interruptMask;
-
     (void) BACKUP_INTR;
+
+    BACKUP_INTR = interruptMask;
 }
 
 

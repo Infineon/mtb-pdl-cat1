@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_sysclk.c
-* \version 3.30
+* \version 3.40
 *
 * Provides an API implementation of the sysclk driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2021 Cypress Semiconductor Corporation
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS40SRSS)
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)
 
 #include "cy_sysclk.h"
 #include "cy_syslib.h"
@@ -2830,7 +2831,7 @@ uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath)
     bool  enabled;    /* PLL enable status; n/a for direct */
     uint32_t freq=0UL;    /* PLL Frequency */
 
-    if ((CY_SRSS_NUM_PLL > 0UL) && (clkPath > 0UL))
+    if((CY_SRSS_NUM_PLL > 0UL) && (clkPath > 0UL))
     {
         CY_ASSERT_L1(clkPath < CY_SRSS_NUM_CLKPATH);
 

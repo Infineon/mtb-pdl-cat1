@@ -114,12 +114,30 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7be24fe4952cebbba78e612463981287"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga7be24fe4952cebbba78e612463981287">Cy_SysInt_DisconnectInterruptSource</a> (<a class="el" href="group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8">IRQn_Type</a> IRQn, <a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a> devIntrSrc)</td></tr>
 <tr class="memdesc:ga7be24fe4952cebbba78e612463981287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect the interrupt source from the specified NVIC channel.  <a href="#ga7be24fe4952cebbba78e612463981287">More...</a><br /></td></tr>
 <tr class="separator:ga7be24fe4952cebbba78e612463981287"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7408282c7e26c82dcf6fe0949c393dcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga7408282c7e26c82dcf6fe0949c393dcf">Cy_SysInt_SetNmiSource</a> (<a class="el" href="group__group__sysint__enums.html#ga07f7e918a4abcd8e1da910e9642e6ccb">cy_en_sysint_nmi_t</a> nmiNum, <a class="el" href="group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8">IRQn_Type</a> intrSrc)</td></tr>
-<tr class="memdesc:ga7408282c7e26c82dcf6fe0949c393dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt source of the CPU core NMI.  <a href="#ga7408282c7e26c82dcf6fe0949c393dcf">More...</a><br /></td></tr>
-<tr class="separator:ga7408282c7e26c82dcf6fe0949c393dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac6f71ee79199c4da9f084985e2bbbb7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8">IRQn_Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#gac6f71ee79199c4da9f084985e2bbbb7d">Cy_SysInt_GetNmiSource</a> (<a class="el" href="group__group__sysint__enums.html#ga07f7e918a4abcd8e1da910e9642e6ccb">cy_en_sysint_nmi_t</a> nmiNum)</td></tr>
-<tr class="memdesc:gac6f71ee79199c4da9f084985e2bbbb7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt source of the CPU core NMI for the given NMI source number.  <a href="#gac6f71ee79199c4da9f084985e2bbbb7d">More...</a><br /></td></tr>
-<tr class="separator:gac6f71ee79199c4da9f084985e2bbbb7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28cee26f53a27552e4cb434f5b16bde3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysint__enums.html#ga01619b224f9d5c23915e51783ea184c8">cy_en_sysint_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga28cee26f53a27552e4cb434f5b16bde3">Cy_SysInt_InitExtIRQ</a> (const <a class="el" href="structcy__stc__sysint__t.html">cy_stc_sysint_t</a> *config, <a class="el" href="group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6">cy_israddress</a> userIsr)</td></tr>
+<tr class="memdesc:ga28cee26f53a27552e4cb434f5b16bde3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the referenced external interrupt by setting the CPU IRQ priority and the interrupt vector.  <a href="#ga28cee26f53a27552e4cb434f5b16bde3">More...</a><br /></td></tr>
+<tr class="separator:ga28cee26f53a27552e4cb434f5b16bde3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7dc474639ecee7d1014e94464ca72520"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysint__enums.html#ga01619b224f9d5c23915e51783ea184c8">cy_en_sysint_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga7dc474639ecee7d1014e94464ca72520">Cy_SysInt_InitIntIRQ</a> (const <a class="el" href="structcy__stc__sysint__t.html">cy_stc_sysint_t</a> *config, <a class="el" href="group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6">cy_israddress</a> userIsr)</td></tr>
+<tr class="memdesc:ga7dc474639ecee7d1014e94464ca72520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the referenced internal interrupt by setting the priority and the interrupt vector.  <a href="#ga7dc474639ecee7d1014e94464ca72520">More...</a><br /></td></tr>
+<tr class="separator:ga7dc474639ecee7d1014e94464ca72520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac9dbdadbfad60830b215cc9ca4a14cdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#gac9dbdadbfad60830b215cc9ca4a14cdc">Cy_SysInt_SetSystemIrqVector</a> (<a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a> sysIntSrc, <a class="el" href="group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6">cy_israddress</a> userIsr)</td></tr>
+<tr class="memdesc:gac9dbdadbfad60830b215cc9ca4a14cdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the User ISR vector for the System Interrupt.  <a href="#gac9dbdadbfad60830b215cc9ca4a14cdc">More...</a><br /></td></tr>
+<tr class="separator:gac9dbdadbfad60830b215cc9ca4a14cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65e7577e0339a89a74bf09596a2c874b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6">cy_israddress</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga65e7577e0339a89a74bf09596a2c874b">Cy_SysInt_GetSystemIrqVector</a> (<a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a> sysIntSrc)</td></tr>
+<tr class="memdesc:ga65e7577e0339a89a74bf09596a2c874b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the address of the current user ISR vector for the System Interrupt.  <a href="#ga65e7577e0339a89a74bf09596a2c874b">More...</a><br /></td></tr>
+<tr class="separator:ga65e7577e0339a89a74bf09596a2c874b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b4be2b36944476c434f4bd20545d8a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga3b4be2b36944476c434f4bd20545d8a3">Cy_SysInt_EnableSystemInt</a> (<a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a> sysIntSrc)</td></tr>
+<tr class="memdesc:ga3b4be2b36944476c434f4bd20545d8a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable system interrupt.  <a href="#ga3b4be2b36944476c434f4bd20545d8a3">More...</a><br /></td></tr>
+<tr class="separator:ga3b4be2b36944476c434f4bd20545d8a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a85186c69bb5375f1009fba7ea4ca0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga4a85186c69bb5375f1009fba7ea4ca0f">Cy_SysInt_DisableSystemInt</a> (<a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a> sysIntSrc)</td></tr>
+<tr class="memdesc:ga4a85186c69bb5375f1009fba7ea4ca0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable system interrupt.  <a href="#ga4a85186c69bb5375f1009fba7ea4ca0f">More...</a><br /></td></tr>
+<tr class="separator:ga4a85186c69bb5375f1009fba7ea4ca0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3163ed7de473929acded134fc67ab997"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga3163ed7de473929acded134fc67ab997">Cy_SysInt_SetNmiSource</a> (<a class="el" href="group__group__sysint__enums.html#ga07f7e918a4abcd8e1da910e9642e6ccb">cy_en_sysint_nmi_t</a> nmiNum, <a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a> devIntrSrc)</td></tr>
+<tr class="memdesc:ga3163ed7de473929acded134fc67ab997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt source of the CPU core NMI.  <a href="#ga3163ed7de473929acded134fc67ab997">More...</a><br /></td></tr>
+<tr class="separator:ga3163ed7de473929acded134fc67ab997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga460d1703cced3ba31091a77355434649"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#ga460d1703cced3ba31091a77355434649">Cy_SysInt_GetNmiSource</a> (<a class="el" href="group__group__sysint__enums.html#ga07f7e918a4abcd8e1da910e9642e6ccb">cy_en_sysint_nmi_t</a> nmiNum)</td></tr>
+<tr class="memdesc:ga460d1703cced3ba31091a77355434649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt source of the CPU core NMI for the given NMI source number.  <a href="#ga460d1703cced3ba31091a77355434649">More...</a><br /></td></tr>
+<tr class="separator:ga460d1703cced3ba31091a77355434649"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab2c1e70c5151e021f2e7283408617acd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__functions.html#gab2c1e70c5151e021f2e7283408617acd">Cy_SysInt_SoftwareTrig</a> (<a class="el" href="group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8">IRQn_Type</a> IRQn)</td></tr>
 <tr class="memdesc:gab2c1e70c5151e021f2e7283408617acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an interrupt using software (Not applicable for CM0+).  <a href="#gab2c1e70c5151e021f2e7283408617acd">More...</a><br /></td></tr>
 <tr class="separator:gab2c1e70c5151e021f2e7283408617acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,7 +170,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the referenced interrupt by setting the priority and the interrupt vector. </p>
-<p>In case of CM33 with Security Extension eanbled, if this function is called from secure world then, the parameters are used to configure secure interrupt. If it is called form non-secure world then the parameters are used to configure non-secure interrupt. In case of CM33 without Security Extension, this function alwasys configures the non-secure interrupt.</p>
+<p>In case of CM33 with Security Extension eanbled, if this function is called from secure world then, the parameters are used to configure secure interrupt. If it is called form non-secure world then the parameters are used to configure non-secure interrupt. In case of CM33 without Security Extension, this function alwasys configures the non-secure interrupt. In case of CM55, this function alwasys configures the non-secure interrupt. In case of CM7/CM0+ it initializes the external system interrupt, maps it to CPU interrupt and registers the User ISR vector for the System Interrupt.</p>
 <p>Use the CMSIS core function NVIC_EnableIRQ(config.intrSrc) to enable the interrupt.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -166,8 +184,11 @@ Functions</h2></td></tr>
  The interrupt vector will be relocated only if the vector table was moved to __ramVectors in SRAM. Otherwise it is ignored.</dd>
 <dd>
 CM33<br />
- The interrupt vector will be relocated only if the vector table was moved to __s_vector_table_rw and __ns_vector_table_rw for secure and non-secure world respectively. </dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Vector table is relocated to RAM in __ramVectors[] */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Prototype of ISR function for port interrupt 0 */</span></div><div class="line">    <span class="keywordtype">void</span> Interrupt_Handler_Port0 (<span class="keywordtype">void</span>);</div><div class="line"></div><div class="line">    <a class="code" href="structcy__stc__sysint__t.html">cy_stc_sysint_t</a> intrCfg =</div><div class="line">    {</div><div class="line"><span class="preprocessor">        #if (CY_CPU_CORTEX_M0P)</span></div><div class="line">            <span class="comment">/*.intrSrc =*/</span> NvicMux7_IRQn,               <span class="comment">/* CM0+ interrupt is NVIC #7 */</span></div><div class="line">            <span class="comment">/*.cm0pSrc =*/</span> ioss_interrupts_gpio_0_IRQn, <span class="comment">/* Source of NVIC #7 is GPIO port 0 interrupt */</span></div><div class="line">            <span class="comment">/*.intrPriority =*/</span> 2UL                     <span class="comment">/* Interrupt priority is 2 */</span></div><div class="line"><span class="preprocessor">        #else</span></div><div class="line">            <span class="comment">/*.intrSrc =*/</span> ioss_interrupts_gpio_0_IRQn, <span class="comment">/* Interrupt source is GPIO port 0 interrupt */</span></div><div class="line">            <span class="comment">/*.intrPriority =*/</span> 4UL                     <span class="comment">/* Interrupt priority is 4 */</span></div><div class="line"><span class="preprocessor">        #endif</span></div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Initialize the interrupt with vector at Interrupt_Handler_Port0() */</span></div><div class="line">    <a class="code" href="group__group__sysint__functions.html#gab2ff6820a898e9af3f780000054eea5d">Cy_SysInt_Init</a>(&amp;intrCfg, &amp;Interrupt_Handler_Port0);</div><div class="line"></div><div class="line">    <span class="comment">/* Enable the interrupt */</span></div><div class="line">    NVIC_EnableIRQ(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>);</div><div class="line"></div></div><!-- fragment --></dd></dl>
+ The interrupt vector will be relocated only if the vector table was moved to __s_vector_table_rw and __ns_vector_table_rw for secure and non-secure world respectively.</dd>
+<dd>
+CM55<br />
+ The interrupt vector will be relocated only if the vector table was moved to __ns_vector_table_rw non-secure world.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Vector table is relocated to RAM in __ramVectors[] */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Prototype of ISR function for port interrupt 0. For CY_IP_M7CPUSS port 21 is configured */</span></div><div class="line">    <span class="keywordtype">void</span> Interrupt_Handler_Port0 (<span class="keywordtype">void</span>);</div><div class="line"></div><div class="line">    <span class="comment">/* Initialize the interrupt with vector at Interrupt_Handler_Port0() */</span></div><div class="line">    <a class="code" href="group__group__sysint__functions.html#gab2ff6820a898e9af3f780000054eea5d">Cy_SysInt_Init</a>(&amp;intrCfg, &amp;Interrupt_Handler_Port0);</div><div class="line"></div><div class="line">    <span class="comment">/* Enable the interrupt */</span></div><div class="line"><span class="preprocessor">#if (CY_IP_M7CPUSS)</span></div><div class="line">    NVIC_EnableIRQ((<a class="code" href="group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8">IRQn_Type</a>) NvicMux3_IRQn);</div><div class="line"><span class="preprocessor">#else</span></div><div class="line">    NVIC_EnableIRQ(intrCfg.intrSrc);</div><div class="line"><span class="preprocessor">#endif</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -203,6 +224,8 @@ CM33<br />
 <p>CM33:<br />
  When called from secure world. this function relies on the assumption that the vector table is relocated to __s_vector_table_rw[] in secure SRAM. Otherwise it will return the address of the default ISR location in the secure flash/ROM vector table.</p>
 <p>When called from non-secure world. this function relies on the assumption that the vector table is relocated to __ns_vector_table_rw[] in non-secure SRAM. Otherwise it will return the address of the default ISR location in the non-secure flash/ROM vector table.</p>
+<p>CM55:<br />
+ This function relies on the assumption that the vector table is relocated to __ns_vector_table_rw[] in non-secure SRAM. Otherwise it will return the address of the default ISR location in the non-secure flash/ROM vector table.</p>
 <p>Use the CMSIS core function NVIC_EnableIRQ(config.intrSrc) to enable the interrupt. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">IRQn</td><td>Interrupt source</td></tr>
@@ -214,7 +237,7 @@ CM33<br />
 <dl class="section note"><dt>Note</dt><dd>For CM0+, this function sets the interrupt vector for the interrupt channel on the NVIC.</dd>
 <dd>
 In case of CM33 with Security Extension eanbled, if this function is called from secure world then, it sets the interrupt vector for the secure world. If it is called form non-secure world then it sets the interrupt vector for the non-secure world.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Vector table is relocated to RAM in __ramVectors[]. The interrupt</span></div><div class="line"><span class="comment">                 was initialized with the &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Prototype of ISR function for port interrupt 0 */</span></div><div class="line">    <span class="keywordtype">void</span> Interrupt_Handler_Port0 (<span class="keywordtype">void</span>);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(&amp;Interrupt_Handler_Port0 != <a class="code" href="group__group__sysint__functions.html#gac3feeb7969667eebe109ecab98dbfbb2">Cy_SysInt_GetVector</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the port0 interrupt vector to be at Interrupt_Handler_Port0() */</span></div><div class="line">        (void)<a class="code" href="group__group__sysint__functions.html#ga6628d90db5d0e0e8801535e2f1519266">Cy_SysInt_SetVector</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>, &amp;Interrupt_Handler_Port0);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Vector table is relocated to RAM in __ramVectors[]. The interrupt</span></div><div class="line"><span class="comment">                 was initialized with the &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Prototype of ISR function for port interrupt 0 */</span></div><div class="line">    <span class="keywordtype">void</span> Interrupt_Handler_Port0 (<span class="keywordtype">void</span>);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(&amp;Interrupt_Handler_Port0 != <a class="code" href="group__group__sysint__functions.html#gac3feeb7969667eebe109ecab98dbfbb2">Cy_SysInt_GetVector</a>(intrCfg.intrSrc))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the port0 interrupt vector to be at Interrupt_Handler_Port0() */</span></div><div class="line">        (void)<a class="code" href="group__group__sysint__functions.html#ga6628d90db5d0e0e8801535e2f1519266">Cy_SysInt_SetVector</a>(intrCfg.intrSrc, &amp;Interrupt_Handler_Port0);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -239,6 +262,8 @@ In case of CM33 with Security Extension eanbled, if this function is called from
  This function relies on the assumption that the vector table is relocated to __ramVectors[RAM_VECTORS_SIZE] in SRAM. Otherwise it will return the address of the default ISR location in the flash vector table.</p>
 <p>CM33:<br />
  When called from the secure world, this function relies on the assumption that the vector table is relocated to __ns_vector_table_rw[] in non-secure SRAM. Otherwise it will return the address of the default ISR location in the flash/ROM vector table.</p>
+<p>CM55:<br />
+ This function relies on the assumption that the vector table is relocated to __ns_vector_table_rw[] in non-secure SRAM. Otherwise it will return the address of the default ISR location in the flash/ROM vector table.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">IRQn</td><td>Interrupt source</td></tr>
@@ -251,7 +276,7 @@ In case of CM33 with Security Extension eanbled, if this function is called from
 <dd>
 CM33:<br />
 In case of CM33 with Security Extension eanbled, if this function is called from secure world then, it returns the interrupt vector for the secure world. If it is called form non-secure world then it returns the interrupt vector for the non-secure world.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Vector table is relocated to RAM in __ramVectors[]. The interrupt</span></div><div class="line"><span class="comment">                 was initialized with the &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Prototype of ISR function for port interrupt 0 */</span></div><div class="line">    <span class="keywordtype">void</span> Interrupt_Handler_Port0 (<span class="keywordtype">void</span>);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(&amp;Interrupt_Handler_Port0 != <a class="code" href="group__group__sysint__functions.html#gac3feeb7969667eebe109ecab98dbfbb2">Cy_SysInt_GetVector</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the port0 interrupt vector to be at Interrupt_Handler_Port0() */</span></div><div class="line">        (void)<a class="code" href="group__group__sysint__functions.html#ga6628d90db5d0e0e8801535e2f1519266">Cy_SysInt_SetVector</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>, &amp;Interrupt_Handler_Port0);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Vector table is relocated to RAM in __ramVectors[]. The interrupt</span></div><div class="line"><span class="comment">                 was initialized with the &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Prototype of ISR function for port interrupt 0 */</span></div><div class="line">    <span class="keywordtype">void</span> Interrupt_Handler_Port0 (<span class="keywordtype">void</span>);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(&amp;Interrupt_Handler_Port0 != <a class="code" href="group__group__sysint__functions.html#gac3feeb7969667eebe109ecab98dbfbb2">Cy_SysInt_GetVector</a>(intrCfg.intrSrc))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the port0 interrupt vector to be at Interrupt_Handler_Port0() */</span></div><div class="line">        (void)<a class="code" href="group__group__sysint__functions.html#ga6628d90db5d0e0e8801535e2f1519266">Cy_SysInt_SetVector</a>(intrCfg.intrSrc, &amp;Interrupt_Handler_Port0);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -290,8 +315,8 @@ In case of CM33 with Security Extension eanbled, if this function is called from
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CM0+ core only.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Reconfigure the interrupt source of the NVIC input on the CM0+</span></div><div class="line"><span class="comment">                 core at run-time. The interrupt was initialized with the</span></div><div class="line"><span class="comment">                 &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_IP_M4CPUSS_VERSION == 1)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gacc962aa9f81be5df394ccf2ff746270b">Cy_SysInt_GetInterruptSource</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CY_IP_M4CPUSS_VERSION == 2 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932">Cy_SysInt_GetNvicConnection</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7">cm0pSrc</a>))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_IP_M4CPUSS_VERSION */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the interrupt source for intrCfg.intrSrc on CM0+ */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga59e3d1e09d83aa163865bcf5f363d7c3">Cy_SysInt_SetInterruptSource</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>, intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7">cm0pSrc</a>);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CM0+/CM7 core only.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Reconfigure the interrupt source of the NVIC input on the CM0+</span></div><div class="line"><span class="comment">                 core at run-time. The interrupt was initialized with the</span></div><div class="line"><span class="comment">                 &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_IP_M4CPUSS_VERSION == 1)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gacc962aa9f81be5df394ccf2ff746270b">Cy_SysInt_GetInterruptSource</a>(intrCfg.intrSrc))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CY_IP_M4CPUSS_VERSION == 2 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932">Cy_SysInt_GetNvicConnection</a>(intrCfg.cm0pSrc))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_IP_M4CPUSS_VERSION */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the interrupt source for intrCfg.intrSrc on CM0+ */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga59e3d1e09d83aa163865bcf5f363d7c3">Cy_SysInt_SetInterruptSource</a>(intrCfg.intrSrc, intrCfg.cm0pSrc);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -322,7 +347,7 @@ In case of CM33 with Security Extension eanbled, if this function is called from
 <dl class="section note"><dt>Note</dt><dd>This function is available for CM0+ core only.</dd>
 <dd>
 This function supports only devices using CPUSS_ver1. For all other devices, use the <a class="el" href="group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932" title="Gets the NVIC channel to which the interrupt source is connected. ">Cy_SysInt_GetNvicConnection()</a> function.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Reconfigure the interrupt source of the NVIC input on the CM0+</span></div><div class="line"><span class="comment">                 core at run-time. The interrupt was initialized with the</span></div><div class="line"><span class="comment">                 &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_IP_M4CPUSS_VERSION == 1)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gacc962aa9f81be5df394ccf2ff746270b">Cy_SysInt_GetInterruptSource</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CY_IP_M4CPUSS_VERSION == 2 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932">Cy_SysInt_GetNvicConnection</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7">cm0pSrc</a>))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_IP_M4CPUSS_VERSION */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the interrupt source for intrCfg.intrSrc on CM0+ */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga59e3d1e09d83aa163865bcf5f363d7c3">Cy_SysInt_SetInterruptSource</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>, intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7">cm0pSrc</a>);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Reconfigure the interrupt source of the NVIC input on the CM0+</span></div><div class="line"><span class="comment">                 core at run-time. The interrupt was initialized with the</span></div><div class="line"><span class="comment">                 &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_IP_M4CPUSS_VERSION == 1)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gacc962aa9f81be5df394ccf2ff746270b">Cy_SysInt_GetInterruptSource</a>(intrCfg.intrSrc))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CY_IP_M4CPUSS_VERSION == 2 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932">Cy_SysInt_GetNvicConnection</a>(intrCfg.cm0pSrc))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_IP_M4CPUSS_VERSION */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the interrupt source for intrCfg.intrSrc on CM0+ */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga59e3d1e09d83aa163865bcf5f363d7c3">Cy_SysInt_SetInterruptSource</a>(intrCfg.intrSrc, intrCfg.cm0pSrc);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -350,10 +375,10 @@ This function supports only devices using CPUSS_ver1. For all other devices, use
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>NVIC channel number connected to the CPU core. A returned value of "unconnected_IRQn" indicates that the interrupt source is disabled.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CM0+ core only.</dd>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CM0+/CM7 core only.</dd>
 <dd>
 This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Reconfigure the interrupt source of the NVIC input on the CM0+</span></div><div class="line"><span class="comment">                 core at run-time. The interrupt was initialized with the</span></div><div class="line"><span class="comment">                 &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_IP_M4CPUSS_VERSION == 1)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gacc962aa9f81be5df394ccf2ff746270b">Cy_SysInt_GetInterruptSource</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CY_IP_M4CPUSS_VERSION == 2 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932">Cy_SysInt_GetNvicConnection</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7">cm0pSrc</a>))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_IP_M4CPUSS_VERSION */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the interrupt source for intrCfg.intrSrc on CM0+ */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga59e3d1e09d83aa163865bcf5f363d7c3">Cy_SysInt_SetInterruptSource</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>, intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7">cm0pSrc</a>);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Reconfigure the interrupt source of the NVIC input on the CM0+</span></div><div class="line"><span class="comment">                 core at run-time. The interrupt was initialized with the</span></div><div class="line"><span class="comment">                 &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_IP_M4CPUSS_VERSION == 1)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gacc962aa9f81be5df394ccf2ff746270b">Cy_SysInt_GetInterruptSource</a>(intrCfg.intrSrc))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CY_IP_M4CPUSS_VERSION == 2 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932">Cy_SysInt_GetNvicConnection</a>(intrCfg.cm0pSrc))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_IP_M4CPUSS_VERSION */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the interrupt source for intrCfg.intrSrc on CM0+ */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga59e3d1e09d83aa163865bcf5f363d7c3">Cy_SysInt_SetInterruptSource</a>(intrCfg.intrSrc, intrCfg.cm0pSrc);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -382,10 +407,10 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Device interrupt connected to the NVIC channel. A returned value of "disconnected_IRQn" indicates that there are no active (pending) interrupts on this NVIC channel.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CM0+ core only.</dd>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CM0+/CM7 core only.</dd>
 <dd>
 This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Inside the interrupt service routine for NvicMux7_IRQn: */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7">cm0pSrc</a> == <a class="code" href="group__group__sysint__functions.html#ga9e42b44b1946290e12f25ff5042f1fc0">Cy_SysInt_GetInterruptActive</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Handle the ioss_interrupts_gpio_0_IRQn interrupt */</span></div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Inside the interrupt service routine for NvicMux7_IRQn: */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (intrCfg.cm0pSrc == <a class="code" href="group__group__sysint__functions.html#ga9e42b44b1946290e12f25ff5042f1fc0">Cy_SysInt_GetInterruptActive</a>(intrCfg.intrSrc))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Handle the ioss_interrupts_gpio_0_IRQn interrupt */</span></div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -424,12 +449,224 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This function is available for CM0+ core only.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Disconnect the previously connected interrupt source */</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__sysint__functions.html#ga7be24fe4952cebbba78e612463981287">Cy_SysInt_DisconnectInterruptSource</a>(intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6da08d81da65a7f93d3e4c46a4b8d950">intrSrc</a>, intrCfg.<a class="code" href="structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7">cm0pSrc</a>);</div><div class="line">    </div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Disconnect the previously connected interrupt source */</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__sysint__functions.html#ga7be24fe4952cebbba78e612463981287">Cy_SysInt_DisconnectInterruptSource</a>(intrCfg.intrSrc, intrCfg.cm0pSrc);</div><div class="line">    </div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
-<a id="ga7408282c7e26c82dcf6fe0949c393dcf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7408282c7e26c82dcf6fe0949c393dcf">&#9670;&nbsp;</a></span>Cy_SysInt_SetNmiSource()</h2>
+<a id="ga28cee26f53a27552e4cb434f5b16bde3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28cee26f53a27552e4cb434f5b16bde3">&#9670;&nbsp;</a></span>Cy_SysInt_InitExtIRQ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__sysint__enums.html#ga01619b224f9d5c23915e51783ea184c8">cy_en_sysint_status_t</a> Cy_SysInt_InitExtIRQ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcy__stc__sysint__t.html">cy_stc_sysint_t</a> *&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6">cy_israddress</a>&#160;</td>
+          <td class="paramname"><em>userIsr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the referenced external interrupt by setting the CPU IRQ priority and the interrupt vector. </p>
+<p>Use the CMSIS core function NVIC_EnableIRQ(config.intrSrc) to enable the interrupt.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config</td><td>Interrupt configuration structure</td></tr>
+    <tr><td class="paramname">userIsr</td><td>Address of the ISR</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Initialization status</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>CM0+/CM7 <br />
+ The interrupt vector will be relocated only if the vector table was moved to __ramVectors in SRAM. Otherwise it is ignored. </dd></dl>
+
+</div>
+</div>
+<a id="ga7dc474639ecee7d1014e94464ca72520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7dc474639ecee7d1014e94464ca72520">&#9670;&nbsp;</a></span>Cy_SysInt_InitIntIRQ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__sysint__enums.html#ga01619b224f9d5c23915e51783ea184c8">cy_en_sysint_status_t</a> Cy_SysInt_InitIntIRQ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcy__stc__sysint__t.html">cy_stc_sysint_t</a> *&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6">cy_israddress</a>&#160;</td>
+          <td class="paramname"><em>userIsr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the referenced internal interrupt by setting the priority and the interrupt vector. </p>
+<p>Use the CMSIS core function NVIC_EnableIRQ(config.intrSrc) to enable the interrupt.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config</td><td>Interrupt configuration structure</td></tr>
+    <tr><td class="paramname">userIsr</td><td>Address of the ISR</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Initialization status</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>CM0+/CM7 <br />
+ The interrupt vector will be relocated only if the vector table was moved to __ramVectors in SRAM. Otherwise it is ignored. </dd></dl>
+
+</div>
+</div>
+<a id="gac9dbdadbfad60830b215cc9ca4a14cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac9dbdadbfad60830b215cc9ca4a14cdc">&#9670;&nbsp;</a></span>Cy_SysInt_SetSystemIrqVector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysInt_SetSystemIrqVector </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a>&#160;</td>
+          <td class="paramname"><em>sysIntSrc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6">cy_israddress</a>&#160;</td>
+          <td class="paramname"><em>userIsr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the User ISR vector for the System Interrupt. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sysIntSrc</td><td>Interrrupt source</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userIsr</td><td>Address of the ISR to set in the interrupt vector table</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga65e7577e0339a89a74bf09596a2c874b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga65e7577e0339a89a74bf09596a2c874b">&#9670;&nbsp;</a></span>Cy_SysInt_GetSystemIrqVector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6">cy_israddress</a> Cy_SysInt_GetSystemIrqVector </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a>&#160;</td>
+          <td class="paramname"><em>sysIntSrc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the address of the current user ISR vector for the System Interrupt. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sysIntSrc</td><td>Interrupt source</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Address of the ISR in the interrupt vector table </dd></dl>
+
+</div>
+</div>
+<a id="ga3b4be2b36944476c434f4bd20545d8a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3b4be2b36944476c434f4bd20545d8a3">&#9670;&nbsp;</a></span>Cy_SysInt_EnableSystemInt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysInt_EnableSystemInt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a>&#160;</td>
+          <td class="paramname"><em>sysIntSrc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable system interrupt. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sysIntSrc</td><td>System interrrupt source to be enabled.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga4a85186c69bb5375f1009fba7ea4ca0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a85186c69bb5375f1009fba7ea4ca0f">&#9670;&nbsp;</a></span>Cy_SysInt_DisableSystemInt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysInt_DisableSystemInt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a>&#160;</td>
+          <td class="paramname"><em>sysIntSrc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable system interrupt. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sysIntSrc</td><td>System interrrupt source to be disabled.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga3163ed7de473929acded134fc67ab997"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3163ed7de473929acded134fc67ab997">&#9670;&nbsp;</a></span>Cy_SysInt_SetNmiSource()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -443,8 +680,8 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8">IRQn_Type</a>&#160;</td>
-          <td class="paramname"><em>intrSrc</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a>&#160;</td>
+          <td class="paramname"><em>devIntrSrc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -459,25 +696,25 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nmiNum</td><td>NMI source number. CPUSS_ver2 allows up to 4 sources to trigger the core NMI. CPUSS_ver1 allows only one source to trigger the core NMI and the specified NMI number is ignored.</td></tr>
-    <tr><td class="paramname">intrSrc</td><td>Interrupt source. This parameter can either be of type cy_en_intr_t or IRQn_Type for CM0+ and CM4/CM33 respectively.</td></tr>
+    <tr><td class="paramname">devIntrSrc</td><td>Interrupt source. This parameter can either be of type cy_en_intr_t or IRQn_Type for CM0+/CM7 and CM4/CM33/CM55 respectively.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>CM0+ may call this function only at PC=0, CM4 may set its NMI handler at any PC. </dd>
 <dd>
 The CM0+ NMI is used for performing system calls that execute out of ROM.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Set the NMI trigger source for the processor of interest. The</span></div><div class="line"><span class="comment">                 interrupt was initialized with the &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_CPU_CORTEX_M0P)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gac6f71ee79199c4da9f084985e2bbbb7d">Cy_SysInt_GetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CM4 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gac6f71ee79199c4da9f084985e2bbbb7d">Cy_SysInt_GetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_CPU_CORTEX_M0P */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the NMI source to GPIO port 0 interrupt */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga7408282c7e26c82dcf6fe0949c393dcf">Cy_SysInt_SetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>, ioss_interrupts_gpio_0_IRQn);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Set the NMI trigger source for the processor of interest. The</span></div><div class="line"><span class="comment">                 interrupt was initialized with the &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_CPU_CORTEX_M0P)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga460d1703cced3ba31091a77355434649">Cy_SysInt_GetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CM4 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga460d1703cced3ba31091a77355434649">Cy_SysInt_GetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_CPU_CORTEX_M0P */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the NMI source to GPIO port 0 interrupt */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga3163ed7de473929acded134fc67ab997">Cy_SysInt_SetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>, ioss_interrupts_gpio_0_IRQn);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
-<a id="gac6f71ee79199c4da9f084985e2bbbb7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac6f71ee79199c4da9f084985e2bbbb7d">&#9670;&nbsp;</a></span>Cy_SysInt_GetNmiSource()</h2>
+<a id="ga460d1703cced3ba31091a77355434649"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga460d1703cced3ba31091a77355434649">&#9670;&nbsp;</a></span>Cy_SysInt_GetNmiSource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8">IRQn_Type</a> Cy_SysInt_GetNmiSource </td>
+          <td class="memname"><a class="el" href="group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20">cy_en_intr_t</a> Cy_SysInt_GetNmiSource </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="group__group__sysint__enums.html#ga07f7e918a4abcd8e1da910e9642e6ccb">cy_en_sysint_nmi_t</a>&#160;</td>
           <td class="paramname"><em>nmiNum</em></td><td>)</td>
@@ -493,8 +730,8 @@ The CM0+ NMI is used for performing system calls that execute out of ROM.</dd></
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Interrupt Source. This parameter can either be of type cy_en_intr_t or IRQn_Type for CM0+ and CM4/CM33 respectively.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Set the NMI trigger source for the processor of interest. The</span></div><div class="line"><span class="comment">                 interrupt was initialized with the &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_CPU_CORTEX_M0P)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gac6f71ee79199c4da9f084985e2bbbb7d">Cy_SysInt_GetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CM4 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#gac6f71ee79199c4da9f084985e2bbbb7d">Cy_SysInt_GetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_CPU_CORTEX_M0P */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the NMI source to GPIO port 0 interrupt */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga7408282c7e26c82dcf6fe0949c393dcf">Cy_SysInt_SetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>, ioss_interrupts_gpio_0_IRQn);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Interrupt Source. This parameter can either be of type cy_en_intr_t or IRQn_Type for CM0+/CM7 and CM4/CM33/CM55 respectively.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Set the NMI trigger source for the processor of interest. The</span></div><div class="line"><span class="comment">                 interrupt was initialized with the &quot;intrCfg&quot; configuration struct. */</span></div><div class="line"><span class="preprocessor">#if (CY_CPU_CORTEX_M0P)</span></div><div class="line">    <span class="keywordflow">if</span>(disconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga460d1703cced3ba31091a77355434649">Cy_SysInt_GetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CM4 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span>(unconnected_IRQn == <a class="code" href="group__group__sysint__functions.html#ga460d1703cced3ba31091a77355434649">Cy_SysInt_GetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_CPU_CORTEX_M0P */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the NMI source to GPIO port 0 interrupt */</span></div><div class="line">        <a class="code" href="group__group__sysint__functions.html#ga3163ed7de473929acded134fc67ab997">Cy_SysInt_SetNmiSource</a>(<a class="code" href="group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccbafc6fdeffd7f2d0d790358985ecd3d997">CY_SYSINT_NMI1</a>, ioss_interrupts_gpio_0_IRQn);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

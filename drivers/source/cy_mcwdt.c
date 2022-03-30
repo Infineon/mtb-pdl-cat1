@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_mcwdt.c
-* \version 1.50.1
+* \version 1.60
 *
 *  Description:
 *   Provides a system API for the MCWDT driver.
 *
 ********************************************************************************
-* Copyright 2016-2021 Cypress Semiconductor Corporation
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS40SRSS_MCWDT) || defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)
 
 #include "cy_mcwdt.h"
 
@@ -161,7 +162,7 @@ uint32_t Cy_MCWDT_GetCountCascaded(MCWDT_STRUCT_Type const *base)
     uint32_t counter0 = countVal & MCWDT_STRUCT_MCWDT_CNTLOW_WDT_CTR0_Msk;
     uint32_t match0 = _FLD2VAL(MCWDT_STRUCT_MCWDT_MATCH_WDT_MATCH0, MCWDT_STRUCT_MCWDT_MATCH(base));
     uint32_t match1 = _FLD2VAL(MCWDT_STRUCT_MCWDT_MATCH_WDT_MATCH1, MCWDT_STRUCT_MCWDT_MATCH(base));
-
+#if defined (CY_IP_MXS40SRSS_MCWDT)
     /*
      * The counter  counter0 goes to zero when it reaches the match0
      * value (c0ClearOnMatch = 1) or reaches the maximum
@@ -175,7 +176,7 @@ uint32_t Cy_MCWDT_GetCountCascaded(MCWDT_STRUCT_Type const *base)
     {
         counter1++;
     }
-
+#endif
     /* Check if the counter0 is Free running */
     if (0UL == _FLD2VAL(MCWDT_STRUCT_MCWDT_CONFIG_WDT_CLEAR0, MCWDT_STRUCT_MCWDT_CONFIG(base)))
     {

@@ -26,5 +26,14 @@ var group__group__mcwdt__functions =
     [ "Cy_MCWDT_GetInterruptMask", "group__group__mcwdt__functions.html#ga86bedf42a58f28a08bb8368d155a5563", null ],
     [ "Cy_MCWDT_SetInterruptMask", "group__group__mcwdt__functions.html#gaeaa26b488af90a877760cffc61ad08e3", null ],
     [ "Cy_MCWDT_GetInterruptStatusMasked", "group__group__mcwdt__functions.html#gaaa998a0ecd6a11e77d25abaf0cb5af37", null ],
+    [ "Cy_MCWDT_GetLowerLimit", "group__group__mcwdt__functions.html#ga3a74c8b0934307d550ed201bb1b9fed8", null ],
+    [ "Cy_MCWDT_SetLowerLimit", "group__group__mcwdt__functions.html#gaae6c32b6cccf0dcbee4bd04c94898864", null ],
+    [ "Cy_MCWDT_GetLowerLimitMode", "group__group__mcwdt__functions.html#ga325b3bb0d2404854c78908c5118c2ce4", null ],
+    [ "Cy_MCWDT_SetLowerLimitMode", "group__group__mcwdt__functions.html#gafbe6c4d34f78ba955484a1524ef585ea", null ],
+    [ "Cy_MCWDT_GetLowerLimitCascaded", "group__group__mcwdt__functions.html#ga7049df180477872251c6bf5f979df30c", null ],
+    [ "Cy_MCWDT_SetCascadeCarryOutRollOver", "group__group__mcwdt__functions.html#gaa93172fa1b72d328964f90325421f2f5", null ],
+    [ "Cy_MCWDT_GetCascadeCarryOutRollOver", "group__group__mcwdt__functions.html#ga556f4e8c658c4f4e669d186938db36f1", null ],
+    [ "Cy_MCWDT_SetCascadeMatchCombined", "group__group__mcwdt__functions.html#ga1bd47a8cc5217f1077a92f57bac19100", null ],
+    [ "Cy_MCWDT_GetCascadeMatchCombined", "group__group__mcwdt__functions.html#ga9d105e8b26101615b50496b3c584e364", null ],
     [ "Cy_MCWDT_GetCountCascaded", "group__group__mcwdt__functions.html#ga2c7f8cc4f0897618bb6c4b3389357086", null ]
 ];

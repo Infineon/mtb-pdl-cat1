@@ -1,12 +1,14 @@
 /***************************************************************************//**
 * \file cy_crypto.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  Provides API implementation of the Cypress PDL Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");

@@ -105,6 +105,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8ec1e64a405842b4b5bd62a418dfad1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__backup.html#ga8ec1e64a405842b4b5bd62a418dfad1f">Cy_SysPm_BackupSuperCapCharge</a> (<a class="el" href="group__group__syspm__data__enumerates.html#gaffbcaa784d215b003d6b95e0620b9fa7">cy_en_syspm_sc_charge_key_t</a> key)</td></tr>
 <tr class="memdesc:ga8ec1e64a405842b4b5bd62a418dfad1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the supercapacitor charger circuit.  <a href="#ga8ec1e64a405842b4b5bd62a418dfad1f">More...</a><br /></td></tr>
 <tr class="separator:ga8ec1e64a405842b4b5bd62a418dfad1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaad0d60d7cd653e0651f6eb4e66ab02f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__backup.html#gaaad0d60d7cd653e0651f6eb4e66ab02f">Cy_SysPm_BackupWordStore</a> (uint32_t wordIndex, uint32_t *wordSrcPointer, uint32_t wordSize)</td></tr>
+<tr class="memdesc:gaaad0d60d7cd653e0651f6eb4e66ab02f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores supported number of words(SRSS_BACKUP_NUM_BREG) in Backup Domain.  <a href="#gaaad0d60d7cd653e0651f6eb4e66ab02f">More...</a><br /></td></tr>
+<tr class="separator:gaaad0d60d7cd653e0651f6eb4e66ab02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad101a96506a0ea0ef62f2a09af94be55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__backup.html#gad101a96506a0ea0ef62f2a09af94be55">Cy_SysPm_BackupWordReStore</a> (uint32_t wordIndex, uint32_t *wordDstPointer, uint32_t wordSize)</td></tr>
+<tr class="memdesc:gad101a96506a0ea0ef62f2a09af94be55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores supported number of words(SRSS_BACKUP_NUM_BREG) in Backup Domain.  <a href="#gad101a96506a0ea0ef62f2a09af94be55">More...</a><br /></td></tr>
+<tr class="separator:gad101a96506a0ea0ef62f2a09af94be55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0ad6666907cdc8668196bc5e849cd7f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__backup.html#ga0ad6666907cdc8668196bc5e849cd7f1">Cy_SysPm_CpuEnterRAMOffDeepSleep</a> (void)</td></tr>
+<tr class="memdesc:ga0ad6666907cdc8668196bc5e849cd7f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets executing CPU to the Deep Sleep mode forcefull RAM OFF.  <a href="#ga0ad6666907cdc8668196bc5e849cd7f1">More...</a><br /></td></tr>
+<tr class="separator:ga0ad6666907cdc8668196bc5e849cd7f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gad6c5aa1ff07043550bf0e49e000e93cd"></a>
@@ -228,6 +237,120 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>This function is used only for charging the supercapacitor. Do not use this function to charge a battery. Refer to device TRM for more detail.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to charge the supercapacitor which will</span></div><div class="line"><span class="comment">     * supply the RTC during Hibernate mode for a few hours</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#ga8ec1e64a405842b4b5bd62a418dfad1f">Cy_SysPm_BackupSuperCapCharge</a>(<a class="code" href="group__group__syspm__data__enumerates.html#ggaffbcaa784d215b003d6b95e0620b9fa7ad9281b6f6744e83f380cd0b0c7f2821c">CY_SYSPM_SC_CHARGE_ENABLE</a>);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gaaad0d60d7cd653e0651f6eb4e66ab02f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaad0d60d7cd653e0651f6eb4e66ab02f">&#9670;&nbsp;</a></span>Cy_SysPm_BackupWordStore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysPm_BackupWordStore </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>wordIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>wordSrcPointer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>wordSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stores supported number of words(SRSS_BACKUP_NUM_BREG) in Backup Domain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">wordIndex</td><td>Offset/Index of Backup Register Region(BREG) to where the data needs to be stored. Starts with 0, ends with (SRSS_BACKUP_NUM_BREG - 1)</td></tr>
+    <tr><td class="paramname">wordSrcPointer</td><td>Source address from where the words have to be picked and backed up.</td></tr>
+    <tr><td class="paramname">wordSize</td><td>Number of words to be stored</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gad101a96506a0ea0ef62f2a09af94be55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad101a96506a0ea0ef62f2a09af94be55">&#9670;&nbsp;</a></span>Cy_SysPm_BackupWordReStore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysPm_BackupWordReStore </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>wordIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>wordDstPointer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>wordSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Restores supported number of words(SRSS_BACKUP_NUM_BREG) in Backup Domain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">wordIndex</td><td>Offset/Index of Backup Register Region(BREG) from where the data need to be Restored. Starts with 0, ends with (SRSS_BACKUP_NUM_BREG - 1)</td></tr>
+    <tr><td class="paramname">wordDstPointer</td><td>Destination address from where the backed up words have to be written.</td></tr>
+    <tr><td class="paramname">wordSize</td><td>Number of words to be Restored</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga0ad6666907cdc8668196bc5e849cd7f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0ad6666907cdc8668196bc5e849cd7f1">&#9670;&nbsp;</a></span>Cy_SysPm_CpuEnterRAMOffDeepSleep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a> Cy_SysPm_CpuEnterRAMOffDeepSleep </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets executing CPU to the Deep Sleep mode forcefull RAM OFF. </p>
+<dl class="section return"><dt>Returns</dt><dd>Entered status, see <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices.</dd>
+<dd>
+This API is not a standard PDL interface, it is a custom defined Power Management State, not to be used by the customers. </dd></dl>
 
 </div>
 </div>

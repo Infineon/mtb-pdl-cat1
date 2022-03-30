@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Parameters xml_version="1" xmlns="http://cypress.com/xsd/cydatawounding_v1">
+  <Param name="PartNumber" value="CYW89829A0KML" />
+  <Param name="PartAvailability" value="Active" />
+  <Param name="DeviceDie" value="CYW20829" />
+  <Param name="Silicon_Revision" value="SAMPLING" />
+  <Param name="Package" value="40-QFN" />
+  <Param name="CPU" value="ARM CM33" />
+  <Param name="DeviceSeries" value="20829" />
+  <Param name="Speed_MHz" value="96" />
+  <Param name="Flash_KB" value="0" />
+  <Param name="ROM_KB" value="64" />
+  <Param name="SRAM_KB" value="128" />
+  <Param name="SMIF" value="Y" />
+  <Param name="SCB_Count" value="3" />
+  <Param name="SCB_removed" value="NA" />
+  <Param name="TimerCounterPWM_Count" value="9" />
+  <Param name="TimerCounterPWM_removed" value="NA" />
+  <Param name="Bluetooth" value="5.2" />
+  <Param name="Vddmin_volts" value="1.62" />
+  <Param name="Vddmax_volts" value="3.63" />
+  <Param name="TempMin_Celsius" value="-40" />
+  <Param name="TempMax_Celsius" value="105" />
+  <Param name="DSP" value="N" />
+  <Param name="FPU" value="N" />
+  <Param name="SiliconID" value="0x1EB42069" />
+  <Param name="Module" value="No" />
+  <Param name="REQUIRED_KITS" value="None" />
+  <Param name="Next_Best_Alt_Part" value="None" />
+  <Param name="DATASHEET" value="https://www.cypress.com/ble" />
+</Parameters>

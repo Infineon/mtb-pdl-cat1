@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['tcpwm_5ftype',['TCPWM_Type',['../struct_t_c_p_w_m___type.html',1,'']]]
+  ['sar_5ftype',['SAR_Type',['../struct_s_a_r___type.html',1,'']]],
+  ['smif_5ftype',['SMIF_Type',['../struct_s_m_i_f___type.html',1,'']]]
 ];

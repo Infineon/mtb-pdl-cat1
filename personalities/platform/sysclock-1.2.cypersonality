@@ -618,9 +618,9 @@
     <ConfigInstruction value="    #endif" include="true" />
     <ConfigInstruction value="" include="true" />
 
-    <ConfigInstruction value="    #ifdef CY_CFG_SYSCLK_ALTHF_ENABLED" include="true" />
+    <ConfigInstruction value="    #if (defined(CY_IP_M4CPUSS) &amp;&amp; CY_CFG_SYSCLK_ALTHF_ENABLED)&#xA;" include="true" />
     <ConfigInstruction value="        Cy_SysClk_AltHfInit();" include="true" />
-    <ConfigInstruction value="    #endif" include="true" />
+    <ConfigInstruction value="    #endif /* (defined(CY_IP_M4CPUSS) &amp;&amp; CY_CFG_SYSCLK_ALTHF_ENABLED */&#xA;" include="true" />
     <ConfigInstruction value="" include="true" />
 
     <ConfigInstruction value="    #ifdef CY_CFG_SYSCLK_ECO_ENABLED" include="true" />

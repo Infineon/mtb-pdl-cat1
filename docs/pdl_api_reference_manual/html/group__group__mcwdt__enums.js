@@ -17,6 +17,15 @@ var group__group__mcwdt__enums =
       [ "CY_MCWDT_CASCADE_C1C2", "group__group__mcwdt__enums.html#gga5839a43ea48c22508e74388c2215b887ab72acce3db79bb543b7bd02b3b06425b", null ],
       [ "CY_MCWDT_CASCADE_BOTH", "group__group__mcwdt__enums.html#gga5839a43ea48c22508e74388c2215b887a3aa2c02b5f734fbf16fc7566fe0eb416", null ]
     ] ],
+    [ "cy_en_mcwdtlowerlimit_t", "group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4", [
+      [ "CY_MCWDT_LOWER_LIMIT0", "group__group__mcwdt__enums.html#gga82c7d6c9b1da23690ddf4cb76e69d7c4a8fac15312ddcc8bd55798f9b247117c6", null ],
+      [ "CY_MCWDT_LOWER_LIMIT1", "group__group__mcwdt__enums.html#gga82c7d6c9b1da23690ddf4cb76e69d7c4a960d49a08d6b4d649f6bfe0fb46ea9ae", null ]
+    ] ],
+    [ "cy_en_mcwdtlowerlimitmode_t", "group__group__mcwdt__enums.html#ga480796bb60575de9a724058f2ae31e7c", [
+      [ "CY_MCWDT_LOWER_LIMIT_MODE_NOTHING", "group__group__mcwdt__enums.html#gga480796bb60575de9a724058f2ae31e7ca22176e69b928131d2b366199f9c32f8d", null ],
+      [ "CY_MCWDT_LOWER_LIMIT_MODE_INT", "group__group__mcwdt__enums.html#gga480796bb60575de9a724058f2ae31e7cae426eafdde466e2b44d0bed5c9aee6f4", null ],
+      [ "CY_MCWDT_LOWER_LIMIT_MODE_RESET", "group__group__mcwdt__enums.html#gga480796bb60575de9a724058f2ae31e7cacd6f95031bff491d014a2fb7c14c1d7e", null ]
+    ] ],
     [ "cy_en_mcwdt_status_t", "group__group__mcwdt__enums.html#gac983f45895a641f98b9b887e453a8a5d", [
       [ "CY_MCWDT_SUCCESS", "group__group__mcwdt__enums.html#ggac983f45895a641f98b9b887e453a8a5dad10c3bbc046c2ce5cf5e17f690e46d2f", null ],
       [ "CY_MCWDT_BAD_PARAM", "group__group__mcwdt__enums.html#ggac983f45895a641f98b9b887e453a8a5daaed53ccf1629be662b6537d1d4558cb2", null ]

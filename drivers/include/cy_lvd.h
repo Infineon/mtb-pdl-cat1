@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_lvd.h
-* \version 1.40
+* \version 1.50
 *
 * The header file of the LVD driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2017-2020 Cypress Semiconductor Corporation
+* Copyright (c) (2017-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -64,6 +65,20 @@
 * \section group_lvd_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason of Change</th></tr>
+*   <tr>
+*     <td rowspan="2">1.50</td>
+*     <td>Added CAT1B device support.</td>
+*     <td>Added support for CAT1B family of devices.</td>
+*   </tr>
+*   <tr>
+*     <td>New APIs Added
+*         * Cy_LVD_GetSourceVoltage()
+*         * Cy_LVD_SetSourceVoltage()
+*     </td>
+*     <td>Added new APIs to set and get the source voltage.</td>
+
+*   </tr>
+
 *   <tr>
 *     <td>1.40</td>
 *     <td>Added new device support.</td>
@@ -124,7 +139,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3))
 
 #include "cy_pra.h"
 #include "cy_syspm.h"
@@ -141,7 +156,7 @@ extern "C" {
 #define CY_LVD_DRV_VERSION_MAJOR       1
 
 /** The driver minor version */
-#define CY_LVD_DRV_VERSION_MINOR       40
+#define CY_LVD_DRV_VERSION_MINOR       50
 
 /** The LVD driver identifier */
 #define CY_LVD_ID                      (CY_PDL_DRV_ID(0x39U))
@@ -241,6 +256,18 @@ typedef enum
     CY_LVD_STATUS_ABOVE   = 0x1U,  /**<The voltage is above the threshold */
 } cy_en_lvd_status_t;
 
+/**
+ * LVD Voltage Source.
+ */
+typedef enum
+{
+    CY_LVD_SOURCE_VDDD       = 0x0U,  /**<Selects VDDD */
+    CY_LVD_SOURCE_AMUXBUSA   = 0x1U,  /**<Selects AMUXBUSA*/
+    CY_LVD_SOURCE_RES        = 0x2U,  /**<Reserved */
+    CY_LVD_SOURCE_VDDIO      = 0x3U,  /**<Selects VDDIO, Currently Reserved , Selects VDDD */
+    CY_LVD_SOURCE_AMUXBUSB   = 0x4U,  /**<Selects AMUXBUSB*/
+} cy_en_lvd_source_t;
+
 /** \} group_lvd_enums */
 
 /** \cond internal */
@@ -268,7 +295,7 @@ typedef enum
                                           ((intrCfg) == CY_LVD_INTR_BOTH))
 
 /* Added for backward Compatibility */
-#define CY_LVD_INTR        (SRSS_SRSS_INTR_HVLVD1_Msk)
+#define CY_LVD_INTR        (CY_LVD_SRSS_INTR_HVLVD1_MASK)
 
 /** \endcond */
 
@@ -288,6 +315,9 @@ __STATIC_INLINE void Cy_LVD_SetInterruptMask(void);
 __STATIC_INLINE void Cy_LVD_ClearInterruptMask(void);
 __STATIC_INLINE uint32_t Cy_LVD_GetInterruptStatusMasked(void);
 __STATIC_INLINE void Cy_LVD_SetInterruptConfig(cy_en_lvd_intr_config_t lvdInterruptConfig);
+__STATIC_INLINE uint32_t Cy_LVD_GetSourceVoltage(void);
+__STATIC_INLINE void Cy_LVD_SetSourceVoltage(cy_en_lvd_source_t source);
+
 /** \addtogroup group_lvd_functions_syspm_callback
 * The driver supports SysPm callback for Deep Sleep transition.
 * \{
@@ -369,8 +399,13 @@ __STATIC_INLINE void Cy_LVD_SetThreshold(cy_en_lvd_tripsel_t threshold)
 *******************************************************************************/
 __STATIC_INLINE cy_en_lvd_status_t Cy_LVD_GetStatus(void)
 {
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','SRSS_PWR_LVD_STATUS_HVLVD1_OK_Msk extracts only 1 bit value');
+    return ((cy_en_lvd_status_t) _FLD2VAL(SRSS_PWR_LVD_STATUS_HVLVD1_OUT, SRSS_PWR_LVD_STATUS));
+#else
     CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','SRSS_PWR_LVD_STATUS_HVLVD1_OK_Msk extracts only 1 bit value');
     return ((cy_en_lvd_status_t) _FLD2VAL(SRSS_PWR_LVD_STATUS_HVLVD1_OK, SRSS_PWR_LVD_STATUS));
+#endif
 }
 
 
@@ -386,7 +421,11 @@ __STATIC_INLINE cy_en_lvd_status_t Cy_LVD_GetStatus(void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_LVD_GetInterruptStatus(void)
 {
+#if defined (CY_IP_MXS40SSRSS)
+    return (SRSS_SRSS_AINTR & CY_LVD_SRSS_INTR_HVLVD1_MASK);
+#else
     return (SRSS_SRSS_INTR & CY_LVD_SRSS_INTR_HVLVD1_MASK);
+#endif
 }
 
 
@@ -402,11 +441,17 @@ __STATIC_INLINE void Cy_LVD_ClearInterrupt(void)
 {
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_SET(CY_PRA_INDX_SRSS_SRSS_INTR, CY_LVD_SRSS_INTR_HVLVD1_MASK);
+    #elif defined (CY_IP_MXS40SSRSS)
+        SRSS_SRSS_AINTR = CY_LVD_SRSS_INTR_HVLVD1_MASK;
     #else
         SRSS_SRSS_INTR = CY_LVD_SRSS_INTR_HVLVD1_MASK;
     #endif
 
+#if defined (CY_IP_MXS40SSRSS)
+    (void) SRSS_SRSS_AINTR;
+#else
     (void) SRSS_SRSS_INTR;
+#endif
 }
 
 
@@ -422,6 +467,8 @@ __STATIC_INLINE void Cy_LVD_SetInterrupt(void)
 {
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_SET(CY_PRA_INDX_SRSS_SRSS_INTR_SET, CY_LVD_SRSS_INTR_SET_HVLVD1_MASK);
+    #elif defined (CY_IP_MXS40SSRSS)
+        SRSS_SRSS_AINTR_SET = CY_LVD_SRSS_INTR_SET_HVLVD1_MASK;
     #else
         SRSS_SRSS_INTR_SET = CY_LVD_SRSS_INTR_SET_HVLVD1_MASK;
     #endif
@@ -440,7 +487,11 @@ __STATIC_INLINE void Cy_LVD_SetInterrupt(void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_LVD_GetInterruptMask(void)
 {
+#if defined (CY_IP_MXS40SSRSS)
+    return (SRSS_SRSS_AINTR_MASK & CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK);
+#else
     return (SRSS_SRSS_INTR_MASK & CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK);
+#endif
 }
 
 
@@ -456,6 +507,8 @@ __STATIC_INLINE void Cy_LVD_SetInterruptMask(void)
 {
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_CLR_SET(CY_PRA_INDX_SRSS_SRSS_INTR_MASK, SRSS_SRSS_INTR_MASK_HVLVD1, 1U);
+    #elif defined (CY_IP_MXS40SSRSS)
+        SRSS_SRSS_AINTR_MASK |= CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK;
     #else
         SRSS_SRSS_INTR_MASK |= CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK;
     #endif
@@ -474,6 +527,8 @@ __STATIC_INLINE void Cy_LVD_ClearInterruptMask(void)
 {
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_CLR_SET(CY_PRA_INDX_SRSS_SRSS_INTR_MASK, SRSS_SRSS_INTR_MASK_HVLVD1, 0U);
+    #elif defined (CY_IP_MXS40SSRSS)
+        SRSS_SRSS_AINTR_MASK &= (uint32_t) ~CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK;
     #else
         SRSS_SRSS_INTR_MASK &= (uint32_t) ~CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK;
     #endif
@@ -493,7 +548,11 @@ __STATIC_INLINE void Cy_LVD_ClearInterruptMask(void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_LVD_GetInterruptStatusMasked(void)
 {
+#if defined (CY_IP_MXS40SSRSS)
+    return (SRSS_SRSS_AINTR_MASKED & CY_LVD_SRSS_INTR_MASKED_HVLVD1_MASK);
+#else
     return (SRSS_SRSS_INTR_MASKED & CY_LVD_SRSS_INTR_MASKED_HVLVD1_MASK);
+#endif
 }
 
 
@@ -511,18 +570,56 @@ __STATIC_INLINE void Cy_LVD_SetInterruptConfig(cy_en_lvd_intr_config_t lvdInterr
 {
     CY_ASSERT_L3(CY_LVD_CHECK_INTR_CFG(lvdInterruptConfig));
 
-#if defined (CY_IP_MXS40SRSS)
+#if defined (CY_IP_MXS40SRSS) 
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_CLR_SET(CY_PRA_INDX_SRSS_SRSS_INTR_CFG, SRSS_SRSS_INTR_CFG_HVLVD1_EDGE_SEL, lvdInterruptConfig);
     #else
-        SRSS_SRSS_INTR_CFG = _CLR_SET_FLD32U(SRSS_SRSS_INTR_CFG, SRSS_SRSS_INTR_CFG_HVLVD1_EDGE_SEL, lvdInterruptConfig);
+        #if (CY_IP_MXS40SRSS_VERSION < 3)
+             SRSS_SRSS_INTR_CFG = _CLR_SET_FLD32U(SRSS_SRSS_INTR_CFG, SRSS_SRSS_INTR_CFG_HVLVD1_EDGE_SEL, lvdInterruptConfig);
+        #else
+            SRSS_PWR_LVD_CTL = _CLR_SET_FLD32U(SRSS_PWR_LVD_CTL, SRSS_PWR_LVD_CTL_HVLVD1_EDGE_SEL, lvdInterruptConfig);
+        #endif
+    #endif
 #endif
 
 #if defined (CY_IP_MXS40SSRSS)
         SRSS_PWR_LVD_CTL = _CLR_SET_FLD32U(SRSS_PWR_LVD_CTL, SRSS_PWR_LVD_CTL_HVLVD1_EDGE_SEL, lvdInterruptConfig);
 #endif
-    #endif
+
+    (void) lvdInterruptConfig;
 }
+
+/*******************************************************************************
+* Function Name:  Cy_LVD_GetSourceVoltage
+****************************************************************************//**
+*
+*  Returns the index of the source selected
+*
+*  \return LVD source index, \ref cy_en_lvd_source_t.
+*
+*******************************************************************************/
+__STATIC_INLINE uint32_t Cy_LVD_GetSourceVoltage(void)
+{
+    return (SRSS_PWR_LVD_CTL & SRSS_PWR_LVD_CTL_HVLVD1_SRCSEL_Msk);
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_LVD_SetSourceVoltage
+****************************************************************************//**
+*
+* Selects the source voltage for LVD.
+*
+*  \param source \ref cy_en_lvd_source_t.
+*
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_LVD_SetSourceVoltage(cy_en_lvd_source_t source)
+{
+    CY_UNUSED_PARAMETER(source); /* Suppress a compiler warning about unused variables */
+    SRSS_PWR_LVD_CTL |= SRSS_PWR_LVD_CTL_HVLVD1_SRCSEL_Msk;
+}
+
 
 /** \} group_lvd_functions */
 

@@ -12,5 +12,7 @@ var group__group__lvd__functions =
     [ "Cy_LVD_SetInterruptMask", "group__group__lvd__functions.html#ga7f58d4e85f404434cf4f0b89c35143d2", null ],
     [ "Cy_LVD_ClearInterruptMask", "group__group__lvd__functions.html#ga1de4327b866c4002806eb915023f438e", null ],
     [ "Cy_LVD_GetInterruptStatusMasked", "group__group__lvd__functions.html#gaf66597cc5c1f74f48510a60b34c8de7a", null ],
-    [ "Cy_LVD_SetInterruptConfig", "group__group__lvd__functions.html#gaf9f813c4673a427b7a8aa35447f91cf0", null ]
+    [ "Cy_LVD_SetInterruptConfig", "group__group__lvd__functions.html#gaf9f813c4673a427b7a8aa35447f91cf0", null ],
+    [ "Cy_LVD_GetSourceVoltage", "group__group__lvd__functions.html#gab29e8cf1578ac78da92ae70526bcbf1e", null ],
+    [ "Cy_LVD_SetSourceVoltage", "group__group__lvd__functions.html#gaac5a3234ace5fec4b51c94c222da13eb", null ]
 ];

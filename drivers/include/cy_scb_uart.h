@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_uart.h
-* \version 2.80
+* \version 2.90
 *
 * Provides UART API declarations of the SCB driver.
 *
@@ -498,11 +498,11 @@ typedef struct stc_scb_uart_config
 
     /** Specifies the number of bits to detect a break condition */
     uint32_t    breakWidth;
-#if(CY_IP_MXSCB_VERSION>=3) || defined (CY_DOXYGEN)
+#if(CY_IP_MXSCB_VERSION>=2) || defined (CY_DOXYGEN)
     /** Specifies the low or high level pulse detection for break condition */
     /**
     * \note
-    * This parameter is available for CAT1B devices.
+    * This parameter is available for CAT1B and CAT1C devices.
     **/
     bool        breaklevel;
 #endif /* CY_IP_MXSCB_VERSION */

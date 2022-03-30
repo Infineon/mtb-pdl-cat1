@@ -102,7 +102,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga13952b966a0787ea58ca78dc5916d0df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver major version. <br /></td></tr>
 <tr class="separator:ga13952b966a0787ea58ca78dc5916d0df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae92890ad068051d74200a1ffb67b74e2"><td class="memItemLeft" align="right" valign="top"><a id="gae92890ad068051d74200a1ffb67b74e2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__macros.html#gae92890ad068051d74200a1ffb67b74e2">CY_SYSCLK_DRV_VERSION_MINOR</a>&#160;&#160;&#160;20</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__macros.html#gae92890ad068051d74200a1ffb67b74e2">CY_SYSCLK_DRV_VERSION_MINOR</a>&#160;&#160;&#160;40</td></tr>
 <tr class="memdesc:gae92890ad068051d74200a1ffb67b74e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver minor version. <br /></td></tr>
 <tr class="separator:gae92890ad068051d74200a1ffb67b74e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7fbd2bd690d5954a03c6a09e1dd29530"><td class="memItemLeft" align="right" valign="top"><a id="ga7fbd2bd690d5954a03c6a09e1dd29530"></a>
@@ -133,7 +133,57 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__macros.html#gaa43941ffce9db407916a2d0da03dad47">CY_SYSCLK_PILO_TRIM_STEP</a>&#160;&#160;&#160;(5UL) /* Default PILO TRIM Step size */</td></tr>
 <tr class="memdesc:gaa43941ffce9db407916a2d0da03dad47"><td class="mdescLeft">&#160;</td><td class="mdescRight">CY_SYSCLK_PILO_TRIM_STEP is the default PILO TRIM Step value. <br /></td></tr>
 <tr class="separator:gaa43941ffce9db407916a2d0da03dad47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45a41c9c03970ea3b6758f649abaa1ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__macros.html#ga45a41c9c03970ea3b6758f649abaa1ae">CY_SYSCLK_IHO_FREQ</a>&#160;&#160;&#160;(48000000UL) /* Hz */</td></tr>
+<tr class="memdesc:ga45a41c9c03970ea3b6758f649abaa1ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">IHO clock frequency.  <a href="#ga45a41c9c03970ea3b6758f649abaa1ae">More...</a><br /></td></tr>
+<tr class="separator:ga45a41c9c03970ea3b6758f649abaa1ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga298156008f36e1fcec11a51efa2b71c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__macros.html#ga298156008f36e1fcec11a51efa2b71c9">CY_SYSCLK_ECO_FREQ</a>&#160;&#160;&#160;(4000000UL) /* Hz */</td></tr>
+<tr class="memdesc:ga298156008f36e1fcec11a51efa2b71c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECO clock frequency.  <a href="#ga298156008f36e1fcec11a51efa2b71c9">More...</a><br /></td></tr>
+<tr class="separator:ga298156008f36e1fcec11a51efa2b71c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45b6a9e242086c261e607b0438bda4bc"><td class="memItemLeft" align="right" valign="top"><a id="ga45b6a9e242086c261e607b0438bda4bc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__macros.html#ga45b6a9e242086c261e607b0438bda4bc">CY_SYSCLK_BYPASS_CONFIGURE_DELAY</a>&#160;&#160;&#160;(2UL) /* micro seconds */</td></tr>
+<tr class="memdesc:ga45b6a9e242086c261e607b0438bda4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLL BYPASS configure Delay , As per SAS "When changing BYPASS_SEL, do not turn off the reference clock
+or CCO clock for ten cycles (whichever is slower)" Slower if IMO, so delay = (10 * 1/(IMO freq in Mhz)) = 1.25 micro seconds, approximated to 2 micro second. <br /></td></tr>
+<tr class="separator:ga45b6a9e242086c261e607b0438bda4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad86b6fa733ec662fe862712b39939884"><td class="memItemLeft" align="right" valign="top"><a id="gad86b6fa733ec662fe862712b39939884"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__macros.html#gad86b6fa733ec662fe862712b39939884">CY_SYSCLK_FLL_DISABLE_TIMEOUT</a>&#160;&#160;&#160;(100UL) /* micro seconds */</td></tr>
+<tr class="memdesc:gad86b6fa733ec662fe862712b39939884"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLL Disable Timeout value. <br /></td></tr>
+<tr class="separator:gad86b6fa733ec662fe862712b39939884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga45a41c9c03970ea3b6758f649abaa1ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga45a41c9c03970ea3b6758f649abaa1ae">&#9670;&nbsp;</a></span>CY_SYSCLK_IHO_FREQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SYSCLK_IHO_FREQ&#160;&#160;&#160;(48000000UL) /* Hz */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IHO clock frequency. </p>
+<dl class="section note"><dt>Note</dt><dd>This macro is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga298156008f36e1fcec11a51efa2b71c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga298156008f36e1fcec11a51efa2b71c9">&#9670;&nbsp;</a></span>CY_SYSCLK_ECO_FREQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SYSCLK_ECO_FREQ&#160;&#160;&#160;(4000000UL) /* Hz */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ECO clock frequency. </p>
+<dl class="section note"><dt>Note</dt><dd>This macro is available for CAT1A devices. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

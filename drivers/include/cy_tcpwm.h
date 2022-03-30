@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_tcpwm.h
-* \version 1.30
+* \version 1.40
 *
 * The header file of the TCPWM driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2022 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -199,6 +199,16 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.40</td>
+*     <td>Support for CAT1B and CAT1D devices is added. No changes in public APIs interface and behavior. </td>
+*     <td>New devices support added.</td>
+*   </tr>
+*   <tr>
+*     <td>1.30.1</td>
+*     <td>Updated documentation of PWM mode. </td>
+*     <td>Documentation enhancement. </td>
+*   </tr>
+*   <tr>
 *     <td>1.30</td>
 *     <td>Added new option to Swap Overflow/Underflow behavior in PWM Centre/Asymmetric Alignment modes.</td>
 *     <td>New feature.</td>
@@ -294,7 +304,7 @@ extern "C" {
 #define CY_TCPWM_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_TCPWM_DRV_VERSION_MINOR       30
+#define CY_TCPWM_DRV_VERSION_MINOR       40
 
 
 /******************************************************************************
@@ -324,6 +334,10 @@ extern "C" {
 #define CY_TCPWM_INPUT_TRIG_11          (13U) /**< Input is connected to the trigger input 11 */
 #define CY_TCPWM_INPUT_TRIG_12          (14U) /**< Input is connected to the trigger input 12 */
 #define CY_TCPWM_INPUT_TRIG_13          (15U) /**< Input is connected to the trigger input 13 */
+
+#if (CY_IP_MXTCPWM_VERSION >= 2U) || defined(CY_DOXYGEN)
+#define CY_TCPWM_INPUT_TRIG(n) (n + TCPWM_TR_ONE_CNT_NR + 2U) /**< Input is connected to the trigger input n - all purpose trigger */
+#endif
 
 /** Input is defined by Creator, and Init() function does not need to configure input */
 #define CY_TCPWM_INPUT_CREATOR          (0xFFFFFFFFU)
@@ -621,7 +635,7 @@ __STATIC_INLINE void Cy_TCPWM_Block_EnableCompare0Swap(TCPWM_Type *base, uint32_
 #if (CY_IP_MXTCPWM_VERSION >= 2U) || defined (CY_DOXYGEN)
 __STATIC_INLINE void Cy_TCPWM_Block_EnableCompare1Swap(TCPWM_Type *base, uint32_t cntNum,  bool enable)
 {
-    if (TCPWM_GRP_CC1(TCPWM_GRP_CNT_GET_GRP(cntNum)))
+    if (TCPWM_GRP_CC1(base, TCPWM_GRP_CNT_GET_GRP(cntNum)))
     {
         if (enable)
         {
@@ -639,7 +653,7 @@ __STATIC_INLINE uint32_t Cy_TCPWM_Block_GetCC1Val(TCPWM_Type const  *base, uint3
 {
     uint32_t result = 0UL;
 
-    if (TCPWM_GRP_CC1(TCPWM_GRP_CNT_GET_GRP(cntNum)))
+    if (TCPWM_GRP_CC1(base, TCPWM_GRP_CNT_GET_GRP(cntNum)))
     {
         result = TCPWM_GRP_CNT_CC1(base, TCPWM_GRP_CNT_GET_GRP(cntNum), cntNum);
     }
@@ -650,7 +664,7 @@ __STATIC_INLINE uint32_t Cy_TCPWM_Block_GetCC1BufVal(TCPWM_Type const  *base, ui
 {
     uint32_t result = 0UL;
 
-    if (TCPWM_GRP_CC1(TCPWM_GRP_CNT_GET_GRP(cntNum)))
+    if (TCPWM_GRP_CC1(base, TCPWM_GRP_CNT_GET_GRP(cntNum)))
     {
         result = TCPWM_GRP_CNT_CC1_BUFF(base, TCPWM_GRP_CNT_GET_GRP(cntNum), cntNum);
     }
@@ -659,14 +673,14 @@ __STATIC_INLINE uint32_t Cy_TCPWM_Block_GetCC1BufVal(TCPWM_Type const  *base, ui
 }
 __STATIC_INLINE void Cy_TCPWM_Block_SetCC1BufVal(TCPWM_Type *base, uint32_t cntNum,  uint32_t compareBuf1)
 {
-    if (TCPWM_GRP_CC1(TCPWM_GRP_CNT_GET_GRP(cntNum)))
+    if (TCPWM_GRP_CC1(base, TCPWM_GRP_CNT_GET_GRP(cntNum)))
     {
         TCPWM_GRP_CNT_CC1_BUFF(base, TCPWM_GRP_CNT_GET_GRP(cntNum), cntNum) = compareBuf1;
     }
 }
 __STATIC_INLINE void Cy_TCPWM_Block_SetCC1Val(TCPWM_Type *base, uint32_t cntNum,  uint32_t compare1)
 {
-    if (TCPWM_GRP_CC1(TCPWM_GRP_CNT_GET_GRP(cntNum)))
+    if (TCPWM_GRP_CC1(base, TCPWM_GRP_CNT_GET_GRP(cntNum)))
     {
         TCPWM_GRP_CNT_CC1(base, TCPWM_GRP_CNT_GET_GRP(cntNum), cntNum) = compare1;
     }
@@ -777,6 +791,11 @@ __STATIC_INLINE void Cy_TCPWM_TriggerReloadOrIndex(TCPWM_Type *base, uint32_t co
 ****************************************************************************//**
 *
 * Triggers a stop in the Timer Counter mode, or a kill in the PWM mode.
+*
+* \note The kill trigger behavior for PWM is defined by the
+* \ref cy_stc_tcpwm_pwm_config_t::killMode field. The pins states after a kill
+* trigger are defined by \ref cy_stc_tcpwm_pwm_config_t::invertPWMOut and
+* \ref cy_stc_tcpwm_pwm_config_t::invertPWMOutN fields.
 *
 * \param base
 * The pointer to a TCPWM instance.
@@ -1123,6 +1142,11 @@ __STATIC_INLINE void Cy_TCPWM_TriggerReloadOrIndex_Single(TCPWM_Type *base, uint
 * Triggers a stop in the Timer Counter mode, or a kill in the PWM mode on
 * selected TCPWM.
 *
+* \note The kill trigger behavior for PWM is defined by the
+* \ref cy_stc_tcpwm_pwm_config_t::killMode field. The pins states after a kill
+* trigger are defined by \ref cy_stc_tcpwm_pwm_config_t::invertPWMOut and
+* \ref cy_stc_tcpwm_pwm_config_t::invertPWMOutN fields.
+*
 * \param base
 * The pointer to a TCPWM instance.
 *
@@ -1202,7 +1226,7 @@ __STATIC_INLINE void Cy_TCPWM_TriggerCapture0(TCPWM_Type *base, uint32_t cntNum)
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_TriggerCapture1(TCPWM_Type *base, uint32_t cntNum)
 {
-    if (TCPWM_GRP_CC1(TCPWM_GRP_CNT_GET_GRP(cntNum)))
+    if (TCPWM_GRP_CC1(base, TCPWM_GRP_CNT_GET_GRP(cntNum)))
     {
         TCPWM_GRP_CNT_TR_CMD(base, TCPWM_GRP_CNT_GET_GRP(cntNum), cntNum) =
                                                 TCPWM_GRP_CNT_V2_TR_CMD_CAPTURE1_Msk;
@@ -1345,7 +1369,7 @@ __STATIC_INLINE void Cy_TCPWM_InputTriggerSetup (TCPWM_Type *base, uint32 cntNum
             TCPWM_GRP_CNT_TR_IN_EDGE_SEL(base, grp, cntNum) |= _VAL2FLD(TCPWM_GRP_CNT_V2_TR_IN_EDGE_SEL_CAPTURE0_EDGE, edgeSelect);
             break;
         case CY_TCPWM_INPUT_TR_CAPTURE1:
-            if (TCPWM_GRP_CC1(grp))
+            if (TCPWM_GRP_CC1(base, grp))
             {
                 TCPWM_GRP_CNT_TR_IN_SEL1(base, grp, cntNum) &= ~TCPWM_GRP_CNT_V2_TR_IN_SEL1_CAPTURE1_SEL_Msk;
                 TCPWM_GRP_CNT_TR_IN_EDGE_SEL(base, grp, cntNum) &= ~TCPWM_GRP_CNT_V2_TR_IN_EDGE_SEL_CAPTURE1_EDGE_Msk;

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_trigmux.c
-* \version 1.30
+* \version 1.40
 *
 * \brief Trigger mux API.
 *
@@ -27,6 +27,9 @@
 #if defined (CY_IP_MXSPERI) || defined (CY_IP_MXPERI)
 
 #include "cy_trigmux.h"
+
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 4, \
+'CY_PERI_V1 is not available for CAT1B devices.');
 
 #define CY_TRIGMUX_IS_TRIGTYPE_VALID(trigType)  (((trigType) == TRIGGER_TYPE_EDGE) || \
                                                  ((trigType) == TRIGGER_TYPE_LEVEL))
@@ -171,7 +174,7 @@ cy_en_trigmux_status_t Cy_TrigMux_Select(uint32_t outTrig, bool invert, en_trig_
     CY_ASSERT_L3(CY_TRIGMUX_IS_TRIGTYPE_VALID(trigType));
     CY_ASSERT_L2(CY_TRIGMUX_IS_ONETRIG_VALID(outTrig));
 
-    if (!CY_PERI_V1)
+    if (CY_PERI_V1 == 0U) /* !mxperi_v1 */
     {
         uint32_t interruptState;
 
@@ -220,7 +223,7 @@ cy_en_trigmux_status_t Cy_TrigMux_Deselect(uint32_t outTrig)
 
     CY_ASSERT_L2(CY_TRIGMUX_IS_ONETRIG_VALID(outTrig));
 
-    if (!CY_PERI_V1)
+    if (CY_PERI_V1 == 0U) /* !mxperi_v1 */
     {
         uint32_t interruptState;
 
@@ -269,7 +272,7 @@ cy_en_trigmux_status_t Cy_TrigMux_SetDebugFreeze(uint32_t outTrig, bool enable)
 {
     cy_en_trigmux_status_t retVal = CY_TRIGMUX_BAD_PARAM;
 
-    if (!CY_PERI_V1)
+    if (CY_PERI_V1 == 0U) /* !mxperi_v1 */
     {
         uint32_t interruptState;
 
@@ -357,7 +360,7 @@ cy_en_trigmux_status_t Cy_TrigMux_SwTrigger(uint32_t trigLine, uint32_t cycles)
 
             retVal = CY_TRIGMUX_SUCCESS;
 
-            if (CY_PERI_V1) /* mxperi_v1 */
+            if (CY_PERI_V1 != 0U) /* mxperi_v1 */
             {
                 PERI_TR_CMD = trCmd | _VAL2FLD(PERI_TR_CMD_COUNT, cycles);
             }
@@ -388,6 +391,8 @@ cy_en_trigmux_status_t Cy_TrigMux_SwTrigger(uint32_t trigLine, uint32_t cycles)
 
     return retVal;
 }
+
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3');
 
 #endif /* CY_IP_MXSPERI, CY_IP_MXPERI */
 

@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_wdt.h
-* \version 1.30.1
+* \version 1.40
 *
 *  This file provides constants and parameter values for the WDT driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -188,6 +189,13 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.40</td>
+*     <td>CAT1B, CAT1C devices support.<br>
+*         Newly added API's Cy_WDT_SetClkSource() to configure the WDT clock source, Cy_WDT_GetClkSource() to get the WDT clock source configured, 
+*         Cy_WDT_SetMatchBits() to configure the bit position above which the bits will be ignored for match, Cy_WDT_GetMatchBits() to get the bit position above which the bits will be ignored for match.</td>
+*     <td>Support for new devices.</td>
+*   </tr>
+*   <tr>
 *     <td>1.30.1</td>
 *     <td>Minor documentation updates.</td>
 *     <td>Removed MISRA 2004 compliance details and verified MISRA 2012 complaince.</td>
@@ -257,6 +265,7 @@
 * </table>
 *
 * \defgroup group_wdt_macros Macros
+* \defgroup group_wdt_clk_src_enums Enums
 * \defgroup group_wdt_functions Functions
 *
 */
@@ -266,7 +275,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SRSS ) || defined (CY_IP_MXS40SSRSS )
+#if defined (CY_IP_MXS28SRSS)|| defined (CY_IP_MXS40SSRSS ) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3))
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -294,7 +303,7 @@ extern "C" {
 #define CY_WDT_DRV_VERSION_MAJOR                       1
 
 /** The driver minor version */
-#define CY_WDT_DRV_VERSION_MINOR                       30
+#define CY_WDT_DRV_VERSION_MINOR                       40
 
 /** The internal define for the first iteration of WDT unlocking */
 #define CY_SRSS_WDT_LOCK_BIT0                           ((uint32_t)0x01U << 30U)
@@ -314,23 +323,60 @@ extern "C" {
 /** The WDT driver identifier */
 #define CY_WDT_ID                                       CY_PDL_DRV_ID(0x34U)
 
-/** \} group_wdt_macros */
-
 /** \cond Internal */
 
+#if defined (CY_IP_MXS40SSRSS)
+/** The WDT maximum match value */
+#define WDT_MAX_MATCH_VALUE                      ((0xFFFFFFFFuL) >> (32 - SRSS_NUM_WDT_A_BITS))
+/* Internal macro to validate match value */
+#define CY_WDT_IS_IGNORE_BITS_ABOVE_VALID(bitPos)     ((bitPos) < SRSS_NUM_WDT_A_BITS)
+
+#else
 /** The WDT maximum match value */
 #define WDT_MAX_MATCH_VALUE                      (0xFFFFuL)
+#endif
 
-/** The WDT maximum match value */
+/** The WDT maximum Ignore Bits */
 #define WDT_MAX_IGNORE_BITS                      (0xFuL)
 
-/* Internal macro to validate match value */
-#define CY_WDT_IS_MATCH_VAL_VALID(match)         ((match) <= WDT_MAX_MATCH_VALUE)
+ /* Internal macro to validate match value */
+ #define CY_WDT_IS_MATCH_VAL_VALID(match)        ((match) <= WDT_MAX_MATCH_VALUE)
 
 /* Internal macro to validate match value */
 #define CY_WDT_IS_IGNORE_BITS_VALID(bitsNum)     ((bitsNum) <= WDT_MAX_IGNORE_BITS)
 
+#if defined (CY_IP_MXS40SSRSS)
+/**
+* \note
+* This Macro is available for CAT1B devices.
+**/
+/* Internal macro to validate match value */
+#define CY_WDT_IS_CLK_SRC_VALID(src)         (((src) == CY_WDT_CLK_SOURCE_ILO)  || \
+                                              ((src) == CY_WDT_CLK_SOURCE_PILO) || \
+                                              ((src) == CY_WDT_CLK_SOURCE_BAK))
+#endif
+
 /** \endcond */
+/** \} group_wdt_macros */
+/**
+* \addtogroup group_wdt_clk_src_enums
+* \{
+*/
+
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+/**
+* \note
+* This enum is available for CAT1B devices.
+**/
+
+typedef enum
+{
+    CY_WDT_CLK_SOURCE_ILO       =     0U, /**< Select the ILO as clock source to WDT */
+    CY_WDT_CLK_SOURCE_PILO      =     1U, /**< Select the PILO as clock source to WDT */
+    CY_WDT_CLK_SOURCE_BAK       =     2U, /**< Select the clk_bak as clock source to WDT */
+} cy_en_wdt_clk_sources_t;
+#endif
+/** \} group_wdt_clk_src_enums */
 
 
 /*******************************************************************************
@@ -344,6 +390,7 @@ extern "C" {
 void Cy_WDT_Init(void);
 __STATIC_INLINE void Cy_WDT_Enable(void);
 __STATIC_INLINE void Cy_WDT_Disable(void);
+__STATIC_INLINE bool Cy_WDT_IsEnabled(void);
 void Cy_WDT_Lock(void);
 void Cy_WDT_Unlock(void);
 bool Cy_WDT_Locked(void);
@@ -356,7 +403,12 @@ __STATIC_INLINE void Cy_WDT_MaskInterrupt(void);
 __STATIC_INLINE void Cy_WDT_UnmaskInterrupt(void);
 void Cy_WDT_ClearInterrupt(void);
 void Cy_WDT_ClearWatchdog(void);
-
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+__STATIC_INLINE void Cy_WDT_SetClkSource(cy_en_wdt_clk_sources_t src);
+__STATIC_INLINE cy_en_wdt_clk_sources_t Cy_WDT_GetClkSource(void);
+void Cy_WDT_SetMatchBits(uint32_t bitPos);
+__STATIC_INLINE uint32_t Cy_WDT_GetMatchBits(void);
+#endif
 
 /*******************************************************************************
 * Function Name: Cy_WDT_Enable
@@ -420,6 +472,48 @@ __STATIC_INLINE uint32_t Cy_WDT_GetMatch(void)
     return ((uint32_t) _FLD2VAL(SRSS_WDT_MATCH_MATCH, SRSS_WDT_MATCH));
 }
 
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_WDT_SetClkSource
+****************************************************************************//**
+*
+* Configures the WDT clock source
+*
+* \param src
+* \ref cy_en_wdt_clk_sources_t
+*
+* \note
+* This API is available for CAT1B devices.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_WDT_SetClkSource(cy_en_wdt_clk_sources_t src)
+{
+    CY_ASSERT_L2(CY_WDT_IS_CLK_SRC_VALID(src));
+
+    if (false == Cy_WDT_Locked())
+    {
+        SRSS_WDT_CTL = _CLR_SET_FLD32U((SRSS_WDT_CTL), SRSS_WDT_CTL_WDT_CLK_SEL, src);
+    }
+}
+
+/*******************************************************************************
+* Function Name: Cy_WDT_GetClkSource
+****************************************************************************//**
+*
+* Gets the WDT clock source configured.
+*
+* \return The Clock source enum \ref cy_en_wdt_clk_sources_t
+*
+* \note
+* This API is available for CAT1B devices.
+*
+*******************************************************************************/
+__STATIC_INLINE cy_en_wdt_clk_sources_t Cy_WDT_GetClkSource(void)
+{
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to cy_en_wdt_clk_sources_t enum.');
+    return ((cy_en_wdt_clk_sources_t) _FLD2VAL(SRSS_WDT_CTL_WDT_CLK_SEL, SRSS_WDT_CTL));
+}
+#endif
 
 /*******************************************************************************
 * Function Name: Cy_WDT_GetCount
@@ -448,9 +542,31 @@ __STATIC_INLINE uint32_t Cy_WDT_GetCount(void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_WDT_GetIgnoreBits(void)
 {
+#if defined (CY_IP_MXS40SSRSS)
+    return((uint32_t) (WDT_MAX_IGNORE_BITS - _FLD2VAL(SRSS_WDT_MATCH2_IGNORE_BITS_ABOVE, SRSS_WDT_MATCH2)));
+#else
     return((uint32_t) _FLD2VAL(SRSS_WDT_MATCH_IGNORE_BITS, SRSS_WDT_MATCH));
+#endif
 }
 
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_WDT_GetMatchBits
+****************************************************************************//**
+*
+* Gets the bit position above which the bits will be ignored for match.
+*
+* \return The bit position above which the bits will be ignored for match.
+*
+* \note
+* This API is available for CAT1B devices.
+*
+*******************************************************************************/
+__STATIC_INLINE uint32_t Cy_WDT_GetMatchBits(void)
+{
+    return((uint32_t) (_FLD2VAL(SRSS_WDT_MATCH2_IGNORE_BITS_ABOVE, SRSS_WDT_MATCH2)));
+}
+#endif
 
 /*******************************************************************************
 * Function Name: Cy_WDT_MaskInterrupt

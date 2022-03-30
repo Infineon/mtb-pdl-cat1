@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file cy_tcpwm_shiftreg.h
-* \version 1.30
+* \version 1.40
 *
 * \brief
 * The header file of the TCPWM Shift Register driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright 2016-2021 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -88,7 +88,6 @@ extern "C" {
 * The clock source must be connected for proper operation.
 * Any of the peripheral clock dividers could be used. Use the
 * \ref group_sysclk driver API to do that.
-* \snippet tcpwm/shiftreg/snippet/main.c snippet_Cy_TCPWM_ShiftReg_Clock
 *
 * \subsection group_tcpwm_shiftreg_enable Enable Shift Register
 * Shift Register has to be enabled before starting

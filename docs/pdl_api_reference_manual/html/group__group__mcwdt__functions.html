@@ -114,7 +114,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7178ccb7c11988aa5597d128bacd9bb3"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga7178ccb7c11988aa5597d128bacd9bb3">Cy_MCWDT_GetLockedStatus</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base)</td></tr>
 <tr class="memdesc:ga7178ccb7c11988aa5597d128bacd9bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the locked/unlocked state of the MCWDT.  <a href="#ga7178ccb7c11988aa5597d128bacd9bb3">More...</a><br /></td></tr>
 <tr class="separator:ga7178ccb7c11988aa5597d128bacd9bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f5ff22771e9c3a5203d154842f4e339"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga6f5ff22771e9c3a5203d154842f4e339">Cy_MCWDT_SetMode</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *base, <a class="el" href="group__group__mcwdt__enums.html#gaf24fe552bfb229753a1306574961f2a7">cy_en_mcwdtctr_t</a> counter, <a class="el" href="group__group__mcwdt__enums.html#gaa3ab9dd24dfec93a9982f06b5d7f0221">cy_en_mcwdtmode_t</a> mode)</td></tr>
+<tr class="memitem:ga6f5ff22771e9c3a5203d154842f4e339"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga6f5ff22771e9c3a5203d154842f4e339">Cy_MCWDT_SetMode</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *base, <a class="el" href="group__group__mcwdt__enums.html#gaf24fe552bfb229753a1306574961f2a7">cy_en_mcwdtctr_t</a> counter, <a class="el" href="group__group__mcwdt__enums.html#gaa3ab9dd24dfec93a9982f06b5d7f0221">cy_en_mcwdtmode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#gaf294e94ca5176720ef5e5cbedc95ca47">mode</a>)</td></tr>
 <tr class="memdesc:ga6f5ff22771e9c3a5203d154842f4e339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the mode of the specified counter.  <a href="#ga6f5ff22771e9c3a5203d154842f4e339">More...</a><br /></td></tr>
 <tr class="separator:ga6f5ff22771e9c3a5203d154842f4e339"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga70dfa889ac1ea76ed7dd84149182f634"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__mcwdt__enums.html#gaa3ab9dd24dfec93a9982f06b5d7f0221">cy_en_mcwdtmode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga70dfa889ac1ea76ed7dd84149182f634">Cy_MCWDT_GetMode</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base, <a class="el" href="group__group__mcwdt__enums.html#gaf24fe552bfb229753a1306574961f2a7">cy_en_mcwdtctr_t</a> counter)</td></tr>
@@ -168,6 +168,33 @@ Functions</h2></td></tr>
 <tr class="memitem:gaaa998a0ecd6a11e77d25abaf0cb5af37"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#gaaa998a0ecd6a11e77d25abaf0cb5af37">Cy_MCWDT_GetInterruptStatusMasked</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base)</td></tr>
 <tr class="memdesc:gaaa998a0ecd6a11e77d25abaf0cb5af37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the MCWDT interrupt masked request register.  <a href="#gaaa998a0ecd6a11e77d25abaf0cb5af37">More...</a><br /></td></tr>
 <tr class="separator:gaaa998a0ecd6a11e77d25abaf0cb5af37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a74c8b0934307d550ed201bb1b9fed8"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga3a74c8b0934307d550ed201bb1b9fed8">Cy_MCWDT_GetLowerLimit</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base, <a class="el" href="group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4">cy_en_mcwdtlowerlimit_t</a> counter)</td></tr>
+<tr class="memdesc:ga3a74c8b0934307d550ed201bb1b9fed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the Lower Limit value of the specified counter.  <a href="#ga3a74c8b0934307d550ed201bb1b9fed8">More...</a><br /></td></tr>
+<tr class="separator:ga3a74c8b0934307d550ed201bb1b9fed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae6c32b6cccf0dcbee4bd04c94898864"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#gaae6c32b6cccf0dcbee4bd04c94898864">Cy_MCWDT_SetLowerLimit</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *base, <a class="el" href="group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4">cy_en_mcwdtlowerlimit_t</a> counter, uint32_t lowerLimit, uint16_t waitUs)</td></tr>
+<tr class="memdesc:gaae6c32b6cccf0dcbee4bd04c94898864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the lower limit value for the specified counter (0 or 1).  <a href="#gaae6c32b6cccf0dcbee4bd04c94898864">More...</a><br /></td></tr>
+<tr class="separator:gaae6c32b6cccf0dcbee4bd04c94898864"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga325b3bb0d2404854c78908c5118c2ce4"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__mcwdt__enums.html#ga480796bb60575de9a724058f2ae31e7c">cy_en_mcwdtlowerlimitmode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga325b3bb0d2404854c78908c5118c2ce4">Cy_MCWDT_GetLowerLimitMode</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base, <a class="el" href="group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4">cy_en_mcwdtlowerlimit_t</a> counter)</td></tr>
+<tr class="memdesc:ga325b3bb0d2404854c78908c5118c2ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the lower limit mode of the specified counter.  <a href="#ga325b3bb0d2404854c78908c5118c2ce4">More...</a><br /></td></tr>
+<tr class="separator:ga325b3bb0d2404854c78908c5118c2ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbe6c4d34f78ba955484a1524ef585ea"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#gafbe6c4d34f78ba955484a1524ef585ea">Cy_MCWDT_SetLowerLimitMode</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *base, <a class="el" href="group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4">cy_en_mcwdtlowerlimit_t</a> counter, <a class="el" href="group__group__mcwdt__enums.html#ga480796bb60575de9a724058f2ae31e7c">cy_en_mcwdtlowerlimitmode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#gaf294e94ca5176720ef5e5cbedc95ca47">mode</a>)</td></tr>
+<tr class="memdesc:gafbe6c4d34f78ba955484a1524ef585ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the lower limit mode option for the specified counter.  <a href="#gafbe6c4d34f78ba955484a1524ef585ea">More...</a><br /></td></tr>
+<tr class="separator:gafbe6c4d34f78ba955484a1524ef585ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7049df180477872251c6bf5f979df30c"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga7049df180477872251c6bf5f979df30c">Cy_MCWDT_GetLowerLimitCascaded</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base)</td></tr>
+<tr class="memdesc:ga7049df180477872251c6bf5f979df30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets lower limit registers cascaded value.  <a href="#ga7049df180477872251c6bf5f979df30c">More...</a><br /></td></tr>
+<tr class="separator:ga7049df180477872251c6bf5f979df30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa93172fa1b72d328964f90325421f2f5"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#gaa93172fa1b72d328964f90325421f2f5">Cy_MCWDT_SetCascadeCarryOutRollOver</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *base, <a class="el" href="group__group__mcwdt__enums.html#ga5839a43ea48c22508e74388c2215b887">cy_en_mcwdtcascade_t</a> counter, bool carryoutconfig)</td></tr>
+<tr class="memdesc:gaa93172fa1b72d328964f90325421f2f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the Rollover mode for carryout.  <a href="#gaa93172fa1b72d328964f90325421f2f5">More...</a><br /></td></tr>
+<tr class="separator:gaa93172fa1b72d328964f90325421f2f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga556f4e8c658c4f4e669d186938db36f1"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga556f4e8c658c4f4e669d186938db36f1">Cy_MCWDT_GetCascadeCarryOutRollOver</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base, <a class="el" href="group__group__mcwdt__enums.html#ga5839a43ea48c22508e74388c2215b887">cy_en_mcwdtcascade_t</a> counter)</td></tr>
+<tr class="memdesc:ga556f4e8c658c4f4e669d186938db36f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if Rollover mode enabled for carryout or not.  <a href="#ga556f4e8c658c4f4e669d186938db36f1">More...</a><br /></td></tr>
+<tr class="separator:ga556f4e8c658c4f4e669d186938db36f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1bd47a8cc5217f1077a92f57bac19100"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga1bd47a8cc5217f1077a92f57bac19100">Cy_MCWDT_SetCascadeMatchCombined</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *base, <a class="el" href="group__group__mcwdt__enums.html#ga5839a43ea48c22508e74388c2215b887">cy_en_mcwdtcascade_t</a> counter, bool matchconfig)</td></tr>
+<tr class="memdesc:ga1bd47a8cc5217f1077a92f57bac19100"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the match to combined cascade counters.  <a href="#ga1bd47a8cc5217f1077a92f57bac19100">More...</a><br /></td></tr>
+<tr class="separator:ga1bd47a8cc5217f1077a92f57bac19100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d105e8b26101615b50496b3c584e364"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga9d105e8b26101615b50496b3c584e364">Cy_MCWDT_GetCascadeMatchCombined</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base, <a class="el" href="group__group__mcwdt__enums.html#ga5839a43ea48c22508e74388c2215b887">cy_en_mcwdtcascade_t</a> counter)</td></tr>
+<tr class="memdesc:ga9d105e8b26101615b50496b3c584e364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports if match is enabled with combined cascade counters or not.  <a href="#ga9d105e8b26101615b50496b3c584e364">More...</a><br /></td></tr>
+<tr class="separator:ga9d105e8b26101615b50496b3c584e364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2c7f8cc4f0897618bb6c4b3389357086"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__mcwdt__functions.html#ga2c7f8cc4f0897618bb6c4b3389357086">Cy_MCWDT_GetCountCascaded</a> (<a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *base)</td></tr>
 <tr class="memdesc:ga2c7f8cc4f0897618bb6c4b3389357086"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the current value of combined C1-C0 cascaded counters.  <a href="#ga2c7f8cc4f0897618bb6c4b3389357086">More...</a><br /></td></tr>
 <tr class="separator:ga2c7f8cc4f0897618bb6c4b3389357086"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1128,6 +1155,392 @@ Setting this parameter to a zero means No wait. In this case, it is the user's r
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The current status of enabled MCWDT interrupt sources. See the <a class="el" href="group__group__mcwdt__macros.html#gadb87c7b323120f1297143824fd7cded7">CY_MCWDT_CTR0</a>, CY_MCWDT_CTR1, and CY_MCWDT_CTR2 macros. </dd></dl>
+
+</div>
+</div>
+<a id="ga3a74c8b0934307d550ed201bb1b9fed8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3a74c8b0934307d550ed201bb1b9fed8">&#9670;&nbsp;</a></span>Cy_MCWDT_GetLowerLimit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE uint32_t Cy_MCWDT_GetLowerLimit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4">cy_en_mcwdtlowerlimit_t</a>&#160;</td>
+          <td class="paramname"><em>counter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports the Lower Limit value of the specified counter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+    <tr><td class="paramname">counter</td><td>The number of the WDT counter. The valid range is [0-1].</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A Lower Limit value. Counters 0 and 1 are 16-bit counters.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gaae6c32b6cccf0dcbee4bd04c94898864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaae6c32b6cccf0dcbee4bd04c94898864">&#9670;&nbsp;</a></span>Cy_MCWDT_SetLowerLimit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_MCWDT_SetLowerLimit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4">cy_en_mcwdtlowerlimit_t</a>&#160;</td>
+          <td class="paramname"><em>counter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>lowerLimit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>waitUs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the lower limit value for the specified counter (0 or 1). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+    <tr><td class="paramname">counter</td><td>The number of the WDT counter. The valid range is [0-1].</td></tr>
+    <tr><td class="paramname">lowerLimit</td><td>The value to be written in the lower limit register The valid range is [0-65535] for c0 and [1-65535] for c1.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The lower limit mode is not supported by Counter 2.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">waitUs</td><td>The function waits for some delay in microseconds before returning, because the lower limit register write affects after two lf_clk cycles pass. The recommended value is 93 us. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Setting this parameter to a zero means No wait. This must be taken into account when changing the lower limit register values.</dd>
+<dd>
+This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga325b3bb0d2404854c78908c5118c2ce4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga325b3bb0d2404854c78908c5118c2ce4">&#9670;&nbsp;</a></span>Cy_MCWDT_GetLowerLimitMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__mcwdt__enums.html#ga480796bb60575de9a724058f2ae31e7c">cy_en_mcwdtlowerlimitmode_t</a> Cy_MCWDT_GetLowerLimitMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4">cy_en_mcwdtlowerlimit_t</a>&#160;</td>
+          <td class="paramname"><em>counter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports the lower limit mode of the specified counter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+    <tr><td class="paramname">counter</td><td>The number of the WDT counter. The valid range is [0-1].</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The current lower limit mode of the counter. See enum typedef cy_en_mcwdtlowerlimitmode_t.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gafbe6c4d34f78ba955484a1524ef585ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafbe6c4d34f78ba955484a1524ef585ea">&#9670;&nbsp;</a></span>Cy_MCWDT_SetLowerLimitMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_MCWDT_SetLowerLimitMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga82c7d6c9b1da23690ddf4cb76e69d7c4">cy_en_mcwdtlowerlimit_t</a>&#160;</td>
+          <td class="paramname"><em>counter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga480796bb60575de9a724058f2ae31e7c">cy_en_mcwdtlowerlimitmode_t</a>&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the lower limit mode option for the specified counter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+    <tr><td class="paramname">counter</td><td>The number of the WDT counter. The valid range is [0-1].</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The lower limit mode is not supported by Counter 2.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Set 0 - Do nothing, 1 - Assert WDT_INTx, 2 - Assert WDT Reset</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API must not be called while the counters are running. Prior to calling this API, the counter must be disabled. This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga7049df180477872251c6bf5f979df30c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7049df180477872251c6bf5f979df30c">&#9670;&nbsp;</a></span>Cy_MCWDT_GetLowerLimitCascaded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE uint32_t Cy_MCWDT_GetLowerLimitCascaded </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets lower limit registers cascaded value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The lower limit mode is not supported by Counter 2.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A 32-bit lower limit register value.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gaa93172fa1b72d328964f90325421f2f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa93172fa1b72d328964f90325421f2f5">&#9670;&nbsp;</a></span>Cy_MCWDT_SetCascadeCarryOutRollOver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_MCWDT_SetCascadeCarryOutRollOver </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga5839a43ea48c22508e74388c2215b887">cy_en_mcwdtcascade_t</a>&#160;</td>
+          <td class="paramname"><em>counter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>carryoutconfig</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the Rollover mode for carryout. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+    <tr><td class="paramname">counter</td><td>The cascaded counter type. The valid cascaded type is either C0C1 or C1C2.</td></tr>
+    <tr><td class="paramname">carryoutconfig</td><td>For CY_MCWDT_CASCADE_C0C1: FALSE: carry out on counter 0 match TRUE: carry out on counter 0 rollover. For CY_MCWDT_CASCADE_C1C2: FALSE: carry out on counter 1 match TRUE: carry out on counter 1 rollover.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga556f4e8c658c4f4e669d186938db36f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga556f4e8c658c4f4e669d186938db36f1">&#9670;&nbsp;</a></span>Cy_MCWDT_GetCascadeCarryOutRollOver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE bool Cy_MCWDT_GetCascadeCarryOutRollOver </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga5839a43ea48c22508e74388c2215b887">cy_en_mcwdtcascade_t</a>&#160;</td>
+          <td class="paramname"><em>counter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if Rollover mode enabled for carryout or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+    <tr><td class="paramname">counter</td><td>The cascaded counter type. The valid cascaded type is either C0C1 or C1C2.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True : Rollover Enabled False : Rollover Disabled</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga1bd47a8cc5217f1077a92f57bac19100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1bd47a8cc5217f1077a92f57bac19100">&#9670;&nbsp;</a></span>Cy_MCWDT_SetCascadeMatchCombined()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_MCWDT_SetCascadeMatchCombined </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga5839a43ea48c22508e74388c2215b887">cy_en_mcwdtcascade_t</a>&#160;</td>
+          <td class="paramname"><em>counter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>matchconfig</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the match to combined cascade counters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+    <tr><td class="paramname">counter</td><td>The cascaded counter type. The valid cascaded type is either C0C1 or C1C2.</td></tr>
+    <tr><td class="paramname">matchconfig</td><td>For CY_MCWDT_CASCADE_C0C1: FALSE: Match based on counter 1 alone TRUE: Match based on counter 1 and counter 0 matching simultaneously For CY_MCWDT_CASCADE_C1C2: FALSE: Match based on counter 2 alone TRUE: Match based on counter 2 and counter 1 matching simultaneously</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga9d105e8b26101615b50496b3c584e364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d105e8b26101615b50496b3c584e364">&#9670;&nbsp;</a></span>Cy_MCWDT_GetCascadeMatchCombined()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE bool Cy_MCWDT_GetCascadeMatchCombined </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_c_w_d_t___s_t_r_u_c_t___type.html">MCWDT_STRUCT_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__mcwdt__enums.html#ga5839a43ea48c22508e74388c2215b887">cy_en_mcwdtcascade_t</a>&#160;</td>
+          <td class="paramname"><em>counter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports if match is enabled with combined cascade counters or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The base pointer to a structure that describes registers.</td></tr>
+    <tr><td class="paramname">counter</td><td>The cascaded counter type. The valid cascaded type is either C0C1 or C1C2.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True : Combined match is enabled False : Combined match is disabled.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
 
 </div>
 </div>

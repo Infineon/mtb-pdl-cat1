@@ -4,6 +4,7 @@ var searchData=
   ['cy_5fcanfd_5ferror_5ffunc_5fptr_5ft',['cy_canfd_error_func_ptr_t',['../group__group__canfd__data__structures.html#gae198512e1fb6df10b86da3a393b536ec',1,'cy_canfd.h']]],
   ['cy_5fcanfd_5frx_5fmsg_5ffunc_5fptr_5ft',['cy_canfd_rx_msg_func_ptr_t',['../group__group__canfd__data__structures.html#ga3fdd841e17fd4e706f5f217ca80a691a',1,'cy_canfd.h']]],
   ['cy_5fcanfd_5ftx_5fmsg_5ffunc_5fptr_5ft',['cy_canfd_tx_msg_func_ptr_t',['../group__group__canfd__data__structures.html#ga7300609d8a0291692ae148456fee951c',1,'cy_canfd.h']]],
+  ['cy_5fcb_5fkeyscan_5fhandle_5fevents_5ft',['cy_cb_keyscan_handle_events_t',['../group__group__keyscan__data__structures.html#gabdae0c466fe83ef246af89387c127ee0',1,'cy_keyscan.h']]],
   ['cy_5fcb_5fscb_5fi2c_5fhandle_5faddr_5ft',['cy_cb_scb_i2c_handle_addr_t',['../group__group__scb__i2c__data__structures.html#gab0351020deb72a39fe1695e88f8aa8c0',1,'cy_scb_i2c.h']]],
   ['cy_5fcb_5fscb_5fi2c_5fhandle_5fevents_5ft',['cy_cb_scb_i2c_handle_events_t',['../group__group__scb__i2c__data__structures.html#ga5d6df20d77d2690048aaef8fe9e57e2e',1,'cy_scb_i2c.h']]],
   ['cy_5fcb_5fscb_5fspi_5fhandle_5fevents_5ft',['cy_cb_scb_spi_handle_events_t',['../group__group__scb__spi__data__structures.html#gaa02c98c323acc350f3b4780f7833785f',1,'cy_scb_spi.h']]],
@@ -15,6 +16,12 @@ var searchData=
   ['cy_5ffunc_5fget_5frandom_5fdata_5ft',['cy_func_get_random_data_t',['../group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022',1,'cy_crypto_core_ecc.h']]],
   ['cy_5fisraddress',['cy_israddress',['../group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6',1,'cy_syslib.h']]],
   ['cy_5fsmif_5fevent_5fcb_5ft',['cy_smif_event_cb_t',['../group__group__smif__data__structures.html#ga13688dde62e8977a11ab69cf6b2c39b5',1,'cy_smif.h']]],
+  ['cy_5fstc_5fipc_5fmsg_5fiocfg_5ft',['cy_stc_ipc_msg_iocfg_t',['../group__group__ipc__bt__data__structures.html#ga14c4e222019c04534ffa98969527e269',1,'cy_ipc_bt.h']]],
+  ['cy_5fstc_5fipc_5fmsg_5fpmcmd_5ft',['cy_stc_ipc_msg_pmcmd_t',['../group__group__ipc__bt__data__structures.html#gab4b81151334a570c0750de07e33e1450',1,'cy_ipc_bt.h']]],
+  ['cy_5fstc_5fipc_5fmsg_5fpmresp_5ft',['cy_stc_ipc_msg_pmresp_t',['../group__group__ipc__bt__data__structures.html#ga60e334f45e027dc943cca913b2220926',1,'cy_ipc_bt.h']]],
+  ['cy_5fstc_5fipc_5fmsg_5fres_5faccess_5freq_5ft',['cy_stc_ipc_msg_res_access_req_t',['../group__group__ipc__bt__data__structures.html#gaea0b0bf7457a09edd93c5d751e7cfb32',1,'cy_ipc_bt.h']]],
+  ['cy_5fstc_5fipc_5fmsg_5fres_5faccess_5fresp_5ft',['cy_stc_ipc_msg_res_access_resp_t',['../group__group__ipc__bt__data__structures.html#gaefbe07b6897b7eb7eaa399bd452b54bb',1,'cy_ipc_bt.h']]],
+  ['cy_5fstc_5fipc_5fmsg_5ftrng_5ft',['cy_stc_ipc_msg_trng_t',['../group__group__ipc__bt__data__structures.html#ga68704d4af14b2a9fccefc59cdf006751',1,'cy_ipc_bt.h']]],
   ['cy_5fstc_5fprofile_5fctr_5fptr_5ft',['cy_stc_profile_ctr_ptr_t',['../group__group__profile__data__structures.html#gac954b1f2e2b8fc00b15f89c0b1fe372e',1,'cy_profile.h']]],
   ['cy_5fsyspmcallback',['Cy_SysPmCallback',['../group__group__syspm__data__structures.html#ga0b54e47bca8fb045d86884a9b3d12067',1,'cy_syspm.h']]]
 ];

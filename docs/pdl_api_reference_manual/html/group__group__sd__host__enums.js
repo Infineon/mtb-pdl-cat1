@@ -55,7 +55,8 @@ var group__group__sd__host__enums =
       [ "CY_SD_HOST_BUS_SPEED_SDR25", "group__group__sd__host__enums.html#gga8c324f7e5938bf4866db55490f4dac01ad1d43f2f5efc6d079b36152ab73c843e", null ],
       [ "CY_SD_HOST_BUS_SPEED_SDR50", "group__group__sd__host__enums.html#gga8c324f7e5938bf4866db55490f4dac01aecfa0d28173ed7ff0907e03640df0f49", null ],
       [ "CY_SD_HOST_BUS_SPEED_EMMC_LEGACY", "group__group__sd__host__enums.html#gga8c324f7e5938bf4866db55490f4dac01abe02655783983c2246f419fcbe8ccd62", null ],
-      [ "CY_SD_HOST_BUS_SPEED_EMMC_HIGHSPEED_SDR", "group__group__sd__host__enums.html#gga8c324f7e5938bf4866db55490f4dac01aa718a50cf6e8edeb85da01991062934c", null ]
+      [ "CY_SD_HOST_BUS_SPEED_EMMC_HIGHSPEED_SDR", "group__group__sd__host__enums.html#gga8c324f7e5938bf4866db55490f4dac01aa718a50cf6e8edeb85da01991062934c", null ],
+      [ "CY_SD_HOST_BUS_SPEED_DDR50", "group__group__sd__host__enums.html#gga8c324f7e5938bf4866db55490f4dac01a38e5e766e50decb41659511eca402d20", null ]
     ] ],
     [ "cy_en_sd_host_io_voltage_t", "group__group__sd__host__enums.html#ga4f01f971b4eb071a32474c7603b2e721", [
       [ "CY_SD_HOST_IO_VOLT_3_3V", "group__group__sd__host__enums.html#gga4f01f971b4eb071a32474c7603b2e721aa7ee898ac117837c6a5b098cc7dbb83d", null ],

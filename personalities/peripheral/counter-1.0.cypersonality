@@ -106,19 +106,7 @@
     </ParamChoice>  
        
     <!--Inputs-->
-    <ParamSignal port="clock[0]" name="Clock Signal" group="Inputs" visible="true" desc="The clock input defines the operating frequency." canBeEmpty="false" >
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
-        <Parameter id="DriveModes" severity="DEFAULT" reason="">
-          <Fixed value="CY_GPIO_DM_HIGHZ" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
-        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
-          <Fixed value="CY_GPIO_DM_HIGHZ" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
-    </ParamSignal>
+    <ParamSignal port="clock[0]" name="Clock Signal" group="Inputs" visible="true" desc="The clock input defines the operating frequency." canBeEmpty="false" />
     <ParamChoice id="CountInput" name="Count Input" group="Inputs" default="CY_TCPWM_INPUT_DISABLED" visible="true" editable="true" desc="Determines if a count input is needed and how that input is registered." >
       <Entry name="Rising Edge" value="CY_TCPWM_INPUT_RISINGEDGE" visible="true" />
       <Entry name="Falling Edge" value="CY_TCPWM_INPUT_FALLINGEDGE" visible="true" />

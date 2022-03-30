@@ -1,6 +1,7 @@
 var searchData=
 [
   ['ble_20eco_20_20_20_20_20_20_28ble_20eco_20clock_29',['BLE ECO      (BLE ECO Clock)',['../group__group__ble__clk.html',1,'']]],
+  ['btss_20host_20api_28bluetooth_20sub_20system_20host_20api_29',['BTSS Host API(Bluetooth Sub System Host API)',['../group__group__btss.html',1,'']]],
   ['basic_20configuration_20functions',['Basic Configuration Functions',['../group__group__ctb__functions__basic.html',1,'']]],
   ['basic_20configuration_20functions',['Basic Configuration Functions',['../group__group__ctdac__functions__basic.html',1,'']]],
   ['block_20functions',['Block Functions',['../group__group__dma__block__functions.html',1,'']]],

@@ -17,6 +17,17 @@ var group__group__flash__enumerated__types =
       [ "CY_FLASH_DRV_ERR_UNC", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ac254c9da9cc66cbb96da5de8f0c11cdb", null ],
       [ "CY_FLASH_DRV_PROGRESS_NO_ERROR", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a836c247e885083c35ff635659972b14b", null ],
       [ "CY_FLASH_DRV_OPERATION_STARTED", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a5244becc5d012c5195e6d04719575ed1", null ],
-      [ "CY_FLASH_DRV_OPCODE_BUSY", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a9ddac0d7038bbdfe57db1acbeac9df82", null ]
+      [ "CY_FLASH_DRV_OPCODE_BUSY", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a9ddac0d7038bbdfe57db1acbeac9df82", null ],
+      [ "CY_FLASH_DRV_CHECKSUM_NON_ZERO", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ac887076eb974096a8aa5dfe9b5c3be20", null ],
+      [ "CY_FLASH_DRV_NO_ERASE_SUSPEND", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ad3d528582f4886c66f026df5cd124bf7", null ],
+      [ "CY_FLASH_DRV_FLASH_NOT_ERASED", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ac483cc60a7188ec1daffac5bf72a2fa7", null ],
+      [ "CY_FLASH_DRV_NO_ERASE_ONGOING", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a6ef5711bd2df5980e46022908e89960b", null ],
+      [ "CY_FLASH_DRV_ACTIVE_ERASE", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496ab8da6b5602c9f15eb6cf1d8cdf82a737", null ],
+      [ "CY_FLASH_DRV_INVALID_DATA_WIDTH", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a13e777b6eb35712277e8eb0150c7240b", null ],
+      [ "CY_FLASH_DRV_FLASH_SAFTEY_ENABLED", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496af36de80c2983094e4987cc962d97ee9f", null ],
+      [ "CY_FLASH_DRV_INVALID_SFLASH_ADDR", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a655fbeb495bf35af80a482f75f3b29fe", null ],
+      [ "CY_FLASH_DRV_SFLASH_BACKUP_ERASED", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a66e571050efe4cb44a648858221745d6", null ],
+      [ "CY_FLASH_DRV_SECTOR_SUSPEND", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a69649db27a5846b1ea5ef4aa13671eae", null ],
+      [ "CY_FLASH_DRV_SROM_API_TIMEOUT", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a0dd6e04b5ebc9674697ace8969cb4e73", null ]
     ] ]
 ];

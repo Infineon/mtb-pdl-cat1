@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_common.h
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides common constants and parameters
 *  for the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +65,7 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         40
+#define CY_CRYPTO_DRV_VERSION_MINOR         50
 
 /**
 * \addtogroup group_crypto_cli_srv_macros
@@ -330,7 +332,7 @@ typedef struct
     uint32_t errorStatus0;
 
     /**
-     [31]     - "1" - Indicates that hardware error has occured and
+     [31]     - "1" - Indicates that hardware error has occurred and
                 ERROR_STATUS0 and ERROR_STATUS1 captured valid error-information.
      [26..24] - The error source:
                 - "0": <b>INSTR_OPC_ERROR</b> - an instruction decoder error.

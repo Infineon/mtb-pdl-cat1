@@ -97,9 +97,12 @@ $(document).ready(function(){initNavTree('group__group__flash.html','');});
 Configuration Considerations</h1>
 <h2><a class="anchor" id="group_flash_config_intro"></a>
 Introduction:</h2>
-<p>The PSoC 6 MCU user-programmable Flash consists of:</p><ul>
+<p>The CAT1A devices user-programmable Flash consists of:</p><ul>
 <li>Application flash memory (from 2 to 8 sectors) - 128KB/256KB each.</li>
 <li>EE emulation flash memory - 32KB.</li>
+</ul>
+<p>The CAT1C devices user-programmable Flash consists of:</p><ul>
+<li>Work flash region has 48 large sectors of 2 KB and 256 small sectors of 128 B.</li>
 </ul>
 <p>Write operation may be done as Blocking or Partially Blocking, defined as follows:</p>
 <h2><a class="anchor" id="group_flash_config_blocking"></a>
@@ -110,7 +113,7 @@ Constraints for Blocking Flash operations:</h2>
 <ol type="1">
 <li>During write to flash, the device should not be reset (including XRES pin, software reset, and watchdog), or unexpected changes may be made to portions of the flash.</li>
 <li>The low-voltage detect circuits should be configured to generate an interrupt instead of a reset.</li>
-<li>Flash rite operation is allowed only in one of the following CM4 states:<ol type="a">
+<li>Flash write operation in CAT1A devices is allowed only in one of the following CM4 states:<ol type="a">
 <li>CM4 is Active and initialized:<br />
  call <a class="el" href="group__group__system__config__cm4__functions.html#gac44c12fdb0562403fc055e4e8966b557">Cy_SysEnableCM4(CY_CORTEX_M4_APPL_ADDR)</a>. <b>Note:</b> If desired user may put CM4 core in Deep Sleep any time after calling <a class="el" href="group__group__system__config__cm4__functions.html#gac44c12fdb0562403fc055e4e8966b557" title="Sets vector table base address and enables the Cortex-M4 core. ">Cy_SysEnableCM4()</a>.</li>
 <li>CM4 is Off and disabled:<br />
@@ -120,13 +123,15 @@ Constraints for Blocking Flash operations:</h2>
 <li>Flash Write cannot be performed in Ultra Low Power (core voltage 0.9V) mode.</li>
 <li>Interrupts must be enabled on both active cores. Do not enter a critical section during flash operation.</li>
 <li>For the CY8C6xx6, CY8C6xx7 devices user must guarantee that system pipe interrupts (IPC interrupts 3 and 4) have the highest priority, or at least that pipe interrupts are not interrupted or in a pending state for more than 700 &micro;s.</li>
-<li>User must guarantee that during flash write operation no flash read operations are performed by bus masters other than CM0+ and CM4 (DMA and Crypto).</li>
+<li>For CAT1A devices user must guarantee that during flash write operation no flash read operations are performed by bus masters other than CM0+ and CM4 (DMA and Crypto).</li>
 <li>For the CY8C6xx6, CY8C6xx7 devices if you do not use the default startup, perform the following steps before any flash write/erase operations: <div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* 1. Allocate and initialize IPC semaphores for the system operations */</span></div><div class="line">    <span class="keyword">static</span> uint32_t ipcSemaArray[<a class="code" href="group__group__system__config__user__settings__macro.html#gaba78bac52ffcbd69ab531467fa3caa6d">CY_IPC_SEMA_COUNT</a> / <a class="code" href="group__group__ipc__sema__macros.html#ga7c011c5126248439921e442aab3c6b23">CY_IPC_SEMA_PER_WORD</a>];</div><div class="line"></div><div class="line">    (void) <a class="code" href="group__group__ipc__sema__functions.html#ga1cbc3b147c650c8716de10a1ee8423bd">Cy_IPC_Sema_Init</a>(CY_IPC_CHAN_SEMA, <a class="code" href="group__group__system__config__user__settings__macro.html#gaba78bac52ffcbd69ab531467fa3caa6d">CY_IPC_SEMA_COUNT</a>, ipcSemaArray);</div><div class="line"></div><div class="line">    <span class="comment">/* 2. Create an array of endpoint structures and configure an IPC pipe infrastructure */</span></div><div class="line">    <span class="keyword">static</span> <a class="code" href="structcy__stc__ipc__pipe__ep__t.html">cy_stc_ipc_pipe_ep_t</a> ipcPipeEpArray[<a class="code" href="group__group__system__config__user__settings__macro.html#ga26b976c68c4fc4e45bc7f400e97c8495">CY_IPC_MAX_ENDPOINTS</a>];</div><div class="line"></div><div class="line">    <a class="code" href="group__group__ipc__pipe__functions.html#ga7a1c8f1e92e74f27856ef2b7ac09c640">Cy_IPC_Pipe_Config</a>(ipcPipeEpArray);</div><div class="line"></div><div class="line">    <span class="comment">/* 3. Create an array of client callbacks and initialize a system pipe by a configuration structure */</span></div><div class="line">    <span class="keyword">static</span> cy_ipc_pipe_callback_ptr_t sysIpcPipeCbArray[CY_SYS_CYPIPE_CLIENT_CNT];</div><div class="line"></div><div class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structcy__stc__ipc__pipe__config__t.html">cy_stc_ipc_pipe_config_t</a> systemIpcPipeConfig =</div><div class="line">    {</div><div class="line">    <span class="comment">/* .ep0ConfigData */</span></div><div class="line">        {</div><div class="line">            <span class="comment">/* .ipcNotifierNumber    */</span>  CY_IPC_INTR_CYPIPE_EP0,</div><div class="line">            <span class="comment">/* .ipcNotifierPriority  */</span>  CY_SYS_INTR_CYPIPE_PRIOR_EP0,</div><div class="line">            <span class="comment">/* .ipcNotifierMuxNumber */</span>  CY_SYS_INTR_CYPIPE_MUX_EP0,</div><div class="line">            <span class="comment">/* .epAddress            */</span>  CY_IPC_EP_CYPIPE_CM0_ADDR,</div><div class="line">            <span class="comment">/* .epConfig             */</span>  CY_SYS_CYPIPE_CONFIG_EP0</div><div class="line">        },</div><div class="line">    <span class="comment">/* .ep1ConfigData */</span></div><div class="line">        {</div><div class="line">            <span class="comment">/* .ipcNotifierNumber    */</span>  CY_IPC_INTR_CYPIPE_EP1,</div><div class="line">            <span class="comment">/* .ipcNotifierPriority  */</span>  CY_SYS_INTR_CYPIPE_PRIOR_EP1,</div><div class="line">            <span class="comment">/* .ipcNotifierMuxNumber */</span>  0u,</div><div class="line">            <span class="comment">/* .epAddress            */</span>  CY_IPC_EP_CYPIPE_CM4_ADDR,</div><div class="line">            <span class="comment">/* .epConfig             */</span>  CY_SYS_CYPIPE_CONFIG_EP1</div><div class="line">        },</div><div class="line">    <span class="comment">/* .endpointClientsCount     */</span>  CY_SYS_CYPIPE_CLIENT_CNT,</div><div class="line">    <span class="comment">/* .endpointsCallbacksArray  */</span>  sysIpcPipeCbArray,</div><div class="line">    <span class="comment">/* .systemPipeIsrHandler     */</span>  &amp;SysIpcPipeIsr</div><div class="line">    };</div><div class="line"></div><div class="line">    <a class="code" href="group__group__ipc__pipe__functions.html#gafb7fa479327e6d7c282c262bc1dc6c8c">Cy_IPC_Pipe_Init</a>(&amp;systemIpcPipeConfig);</div><div class="line"></div><div class="line">    <span class="comment">/* 4. And finally initialize the flash */</span></div><div class="line">    <a class="code" href="group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19">Cy_Flash_Init</a>();</div><div class="line"></div><div class="line">    <span class="comment">/* Ensure to run these steps on all the MCU cores */</span></div><div class="line"></div></div><!-- fragment --> </li>
 </ol>
 <h2><a class="anchor" id="group_flash_config_rww"></a>
 Partially Blocking:</h2>
 <p>This method has a much shorter time window during which Flash accesses are not allowed. Application code execution from Flash is blocked for only a part of Flash Write duration, for both cores. Blocking duration depends upon the API sequence used.</p>
-<p>For API sequence <a class="el" href="group__group__flash__functions.html#ga36c8da8da155cd73eaf3359f3f81af02" title="Starts erasing a single row of flash. ">Cy_Flash_StartEraseRow()</a> + <a class="el" href="group__group__flash__functions.html#gafc57348bb2e6922a65826bccad961fed" title="Starts writing an array of data to a single row of flash. ">Cy_Flash_StartProgram()</a> there are four block-out regions during which Read is blocked. See <b>Figure 1</b>.</p>
+<p>For CAT1A Devices API sequence <a class="el" href="group__group__flash__functions.html#ga36c8da8da155cd73eaf3359f3f81af02" title="Starts erasing a single row of flash. ">Cy_Flash_StartEraseRow()</a> + <a class="el" href="group__group__flash__functions.html#gafc57348bb2e6922a65826bccad961fed" title="Starts writing an array of data to a single row of flash. ">Cy_Flash_StartProgram()</a> there are four block-out regions during which Read is blocked. See <b>Figure 1</b>.</p>
+<p>For CAT1C devices Flash memory controller has the dual bank mode feature. When using dual bank mode, flash memory region is split into two half banks. One is called Logical Bank 0 and the other is called Logical Bank 1 User will be able to read froma a different logical bank while writing to one logical bank.</p>
+<p>For CAT1C devices Erase ROW is not supported. User has to erase the entire sector before writing to the sector.</p>
 <center> <a class="anchor" id=""></a>
 <table class="doxtable">
 <caption>Table 1 - Block-out periods (timing values are valid just for the CY8C6xx6, CY8C6xx7 devices) </caption>
@@ -146,12 +151,12 @@ Partially Blocking:</h2>
 <img src="flash-rww-diagram.png" alt="flash-rww-diagram.png"/>
 <div class="caption">
 Figure 1 - Blocking Intervals in Flash Write operation</div></div>
-<p> For the <a class="el" href="group__group__flash__functions.html#gafed287628c010c2258f73c5777b52292" title="Performs pre-program, erase and then starts programming the flash row with the input data...">Cy_Flash_StartWrite()</a> function, the block-out period is different for the two cores. The core that initiates <a class="el" href="group__group__flash__functions.html#gafed287628c010c2258f73c5777b52292" title="Performs pre-program, erase and then starts programming the flash row with the input data...">Cy_Flash_StartWrite()</a> is blocked for two periods:</p><ul>
+<p> For the <a class="el" href="group__group__flash__functions.html#gafed287628c010c2258f73c5777b52292" title="Starts programming the flash row with the input data. ">Cy_Flash_StartWrite()</a> function, the block-out period is different for the two cores. The core that initiates <a class="el" href="group__group__flash__functions.html#gafed287628c010c2258f73c5777b52292" title="Starts programming the flash row with the input data. ">Cy_Flash_StartWrite()</a> is blocked for two periods:</p><ul>
 <li>From start of Erase operation (start of A on Figure 1) till the start of Program operation (end of C on Figure 1).</li>
 <li>During D period on <b>Figure 1</b>.</li>
 </ul>
 <p>The core that performs read/execute is blocked identically to the previous scenario - see <b>Figure 1</b>.</p>
-<p>This allows the core that initiates <a class="el" href="group__group__flash__functions.html#gafed287628c010c2258f73c5777b52292" title="Performs pre-program, erase and then starts programming the flash row with the input data...">Cy_Flash_StartWrite()</a> to execute for about 20% of Flash Write operation. The other core executes for about 80% of Flash Write operation.</p>
+<p>This allows the core that initiates <a class="el" href="group__group__flash__functions.html#gafed287628c010c2258f73c5777b52292" title="Starts programming the flash row with the input data. ">Cy_Flash_StartWrite()</a> to execute for about 20% of Flash Write operation. The other core executes for about 80% of Flash Write operation.</p>
 <p>Some constraints must be planned for in the Partially Blocking mode which are described in detail below.</p>
 <h2><a class="anchor" id="group_flash_config_rww_const"></a>
 Constraints for Partially Blocking Flash operations:</h2>
@@ -160,14 +165,15 @@ Constraints for Partially Blocking Flash operations:</h2>
 <li>The low-voltage detect circuits should be configured to generate an interrupt instead of a reset.</li>
 <li>During write to flash, application code should not change the clock settings. Use <a class="el" href="group__group__flash__functions.html#ga436020eae198750c56b93dbabdf6dc6d" title="Reports a successful operation result, reason of failure or busy status ( CY_FLASH_DRV_OPCODE_BUSY )...">Cy_Flash_IsOperationComplete()</a> to ensure flash write operation is finished.</li>
 <li>During write to flash, application code should not start the clock measurements (should not call <a class="el" href="group__group__sysclk__calclk__funcs.html#ga0a87e123411d5711344780ddfa492f37" title="Assigns clocks to the clock measurement counters, and starts counting. ">Cy_SysClk_StartClkMeasurementCounters()</a>).</li>
-<li>Flash write operation is allowed only in one of the following CM4 states:<ol type="a">
+<li>For CAT1A devices Flash write operation is allowed only in one of the following CM4 states:<ol type="a">
 <li>CM4 is Active and initialized:<br />
  call <a class="el" href="group__group__system__config__cm4__functions.html#gac44c12fdb0562403fc055e4e8966b557">Cy_SysEnableCM4(CY_CORTEX_M4_APPL_ADDR)</a>. <b>Note:</b> If desired user may put CM4 core in Deep Sleep any time after calling <a class="el" href="group__group__system__config__cm4__functions.html#gac44c12fdb0562403fc055e4e8966b557" title="Sets vector table base address and enables the Cortex-M4 core. ">Cy_SysEnableCM4()</a>.</li>
 <li>CM4 is Off and disabled:<br />
  call <a class="el" href="group__group__system__config__cm4__functions.html#ga4df7e46b2841b62a00ab856e5a6f098f" title="Disables the Cortex-M4 core and waits for the mode to take the effect. ">Cy_SysDisableCM4()</a>. <b>Note:</b> In this state Debug mode is not supported.</li>
 </ol>
 </li>
-<li>Use the following rules for split by sectors. (In this context, read means read of any bus master: CM0+, CM4, DMA, Crypto, etc.)<ol type="a">
+<li>For CAT1C devices flash write opertion is only allowed after the sector in erased.</li>
+<li>For CAT1A devices use the following rules for split by sectors. (In this context, read means read of any bus master: CM0+, CM4, DMA, Crypto, etc.)<ol type="a">
 <li>Do not write to and read/execute from the same flash sector at the same time. This is true for all sectors.</li>
 <li><p class="startli">Writing rules in application flash (this restriction is applicable just for CY8C6xx6, CY8C6xx7 devices):</p><ol type="i">
 <li>Any bus master can read/execute from UFLASH S0 and/or S1, during flash write to UFLASH S2 or S3.</li>
@@ -194,6 +200,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>3.60 </td><td>Added API's to support new product family. Enhancement for support of eCT flash. </td><td>eCT flash's contains Code flash and Work flash. New API's to program/erase both work flash and code flash are added.  </td></tr>
 <tr>
 <td>3.50.1 </td><td>Updated documentation to limit devices with the restrictions. </td><td>User experience enhancement.  </td></tr>
 <tr>
@@ -250,6 +258,8 @@ API Reference</h2></td></tr>
 <tr class="memitem:group__group__flash__functions"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html">Functions</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__flash__enumerated__types"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__enumerated__types.html">Enumerated Types</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__flash__srom__config__structure"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__srom__config__structure.html">Structures</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

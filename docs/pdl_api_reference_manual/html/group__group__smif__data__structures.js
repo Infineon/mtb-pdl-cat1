@@ -19,6 +19,7 @@ var group__group__smif__data__structures =
       [ "txCompleteCb", "structcy__stc__smif__context__t.html#a71a18df866cf403b715696915290a8d0", null ],
       [ "rxCompleteCb", "structcy__stc__smif__context__t.html#ab9a4c6932ab197e3d62ebc0b253200f5", null ],
       [ "timeout", "structcy__stc__smif__context__t.html#ab5ea1c5ff56657fbff10620e7a8e37aa", null ],
+      [ "memReadyPollDealy", "structcy__stc__smif__context__t.html#ab4ee7c584ce14622e55be3eb0969c5fd", null ],
       [ "preCmdDataRate", "structcy__stc__smif__context__t.html#a03f1548bb9f885d5fdb0c70c5501b4cb", null ],
       [ "preCmdWidth", "structcy__stc__smif__context__t.html#a0a30a597f16545936e7970359aa6d1dc", null ],
       [ "preXIPDataRate", "structcy__stc__smif__context__t.html#a25f3b43821e3f1a90d9f40a3efd59bad", null ]

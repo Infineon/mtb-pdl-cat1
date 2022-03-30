@@ -120,12 +120,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gaef65b4e1818b36e57229ee4ff7a83784"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__low__level__functions.html#gaef65b4e1818b36e57229ee4ff7a83784">Cy_RTC_SyncToRtcAhbAlarm</a> (uint32_t alarmTimeBcd, uint32_t alarmDateBcd, <a class="el" href="group__group__rtc__enums.html#gad3785b5ad8bf1b0d49cc5f639176db5f">cy_en_rtc_alarm_t</a> alarmIndex)</td></tr>
 <tr class="memdesc:gaef65b4e1818b36e57229ee4ff7a83784"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates new alarm time and date into the alarm tire and date RTC AHB registers.  <a href="#gaef65b4e1818b36e57229ee4ff7a83784">More...</a><br /></td></tr>
 <tr class="separator:gaef65b4e1818b36e57229ee4ff7a83784"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3ca19fe52a0d3321de4c8ddce5b26c3f"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__low__level__functions.html#ga3ca19fe52a0d3321de4c8ddce5b26c3f">Cy_RTC_ConvertBcdToDec</a> (uint32_t bcdNum)</td></tr>
-<tr class="memdesc:ga3ca19fe52a0d3321de4c8ddce5b26c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an 8-bit BCD number into an 8-bit hexadecimal number.  <a href="#ga3ca19fe52a0d3321de4c8ddce5b26c3f">More...</a><br /></td></tr>
-<tr class="separator:ga3ca19fe52a0d3321de4c8ddce5b26c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga97b5ef395c6fde3e299252f200d70942"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__low__level__functions.html#ga97b5ef395c6fde3e299252f200d70942">Cy_RTC_ConvertDecToBcd</a> (uint32_t decNum)</td></tr>
-<tr class="memdesc:ga97b5ef395c6fde3e299252f200d70942"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an 8-bit hexadecimal number into an 8-bit BCD number.  <a href="#ga97b5ef395c6fde3e299252f200d70942">More...</a><br /></td></tr>
-<tr class="separator:ga97b5ef395c6fde3e299252f200d70942"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaefa2dfda62dd0bd93a020a5f3f109f55"></a>
@@ -479,66 +473,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Ensure that the parameters are presented in the BCD format. Use the ConstructTimeDate() function to construct BCD time and date values. Refer to ConstructTimeDate() function description for more details about the RTC ALMx_TIME and ALMx_DATE bit-fields format.</dd></dl>
 <p>The RTC AHB registers can be updated only under condition that the Write bit is set and the RTC busy bit is cleared (RTC_BUSY = 0). Call the Cy_RTC_WriteEnable(CY_RTC_WRITE_ENABLED) and ensure that <a class="el" href="group__group__rtc__low__level__functions.html#ga8db7f22180c44fafceb083e2dcbf9555" title="Set/Clear writeable option for RTC user registers. ">Cy_RTC_WriteEnable()</a> returned CY_RTC_SUCCESS. Then you can call <a class="el" href="group__group__rtc__low__level__functions.html#ga749c1f8be6f66b49d7e9205449ac3653" title="This function updates new time and date into the time and date RTC AHB registers. ...">Cy_RTC_SyncToRtcAhbDateAndTime()</a>. Do not forget to clear the RTC Write bit to finish an RTC register update by calling the Cy_RTC_WriteEnable(CY_RTC_WRITE_DISABLED) after you executed <a class="el" href="group__group__rtc__low__level__functions.html#ga749c1f8be6f66b49d7e9205449ac3653" title="This function updates new time and date into the time and date RTC AHB registers. ...">Cy_RTC_SyncToRtcAhbDateAndTime()</a>. Ensure that <a class="el" href="group__group__rtc__low__level__functions.html#ga8db7f22180c44fafceb083e2dcbf9555" title="Set/Clear writeable option for RTC user registers. ">Cy_RTC_WriteEnable()</a> returned CY_RTC_SUCCESS. </p>
-
-</div>
-</div>
-<a id="ga3ca19fe52a0d3321de4c8ddce5b26c3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3ca19fe52a0d3321de4c8ddce5b26c3f">&#9670;&nbsp;</a></span>Cy_RTC_ConvertBcdToDec()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE uint32_t Cy_RTC_ConvertBcdToDec </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>bcdNum</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Converts an 8-bit BCD number into an 8-bit hexadecimal number. </p>
-<p>Each byte is converted individually and returned as an individual byte in the 32-bit variable.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bcdNum</td><td>An 8-bit BCD number. Each byte represents BCD.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>decNum An 8-bit hexadecimal equivalent number of the BCD number.</dd></dl>
-<p>For example, for 0x11223344 BCD number, the function returns 0x2C in hexadecimal format.</p>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices. </dd></dl>
-
-</div>
-</div>
-<a id="ga97b5ef395c6fde3e299252f200d70942"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga97b5ef395c6fde3e299252f200d70942">&#9670;&nbsp;</a></span>Cy_RTC_ConvertDecToBcd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE uint32_t Cy_RTC_ConvertDecToBcd </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>decNum</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Converts an 8-bit hexadecimal number into an 8-bit BCD number. </p>
-<p>Each byte is converted individually and returned as an individual byte in the 32-bit variable.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">decNum</td><td>An 8-bit hexadecimal number. Each byte is represented in hex. 0x11223344 -&gt; 0x20 hex format.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>An 8-bit BCD equivalent of the passed hexadecimal number.</dd></dl>
-<p>For example, for 0x11223344 hexadecimal number, the function returns 0x20 BCD number.</p>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices. </dd></dl>
 
 </div>
 </div>

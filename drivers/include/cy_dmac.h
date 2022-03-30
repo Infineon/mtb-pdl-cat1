@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_dmac.h
-* \version 1.20
+* \version 1.30
 *
 * \brief
 * The header file of the DMAC driver.
@@ -75,6 +75,8 @@
 * in a typical user application:
 * \image html dmac.png
 *
+* <B>NOTE:</B> DMAC will read descriptors from SRAM memory. To run DMAC on devices with Core CM7,
+* D cache needs to be cleaned before calling \ref Cy_DMAC_Channel_Enable and should be invalidated after DMAC transfer. \n
 * <B>NOTE:</B> Even if a DMAC channel is enabled, it is not operational until
 * the DMAC block is enabled using function \ref Cy_DMAC_Enable.\n
 * <B>NOTE:</B> If the DMAC descriptor is configured to generate an interrupt,
@@ -91,6 +93,11 @@
 *
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.30</td>
+*     <td>Update to configure DMAC on core CM7.</td>
+*     <td>Support for new product family.</td>
+*   </tr>
 *   <tr>
 *     <td>1.20</td>
 *     <td>Fixed MISRA 2012 violations.</td>
@@ -130,7 +137,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS_DMAC) || defined (CY_IP_MXAHBDMAC)
+#if defined (CY_IP_M4CPUSS_DMAC) || defined (CY_IP_MXAHBDMAC) || defined (CY_IP_M7CPUSS_DMAC)
 
 #include "cy_syslib.h"
 #include <stdint.h>
@@ -157,7 +164,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 13, \
 #define CY_DMAC_DRV_VERSION_MAJOR       1
 
 /** The driver minor version */
-#define CY_DMAC_DRV_VERSION_MINOR       20
+#define CY_DMAC_DRV_VERSION_MINOR       30
 
 /** The DMAC driver identifier */
 #define CY_DMAC_ID                      (CY_PDL_DRV_ID(0x3FU))

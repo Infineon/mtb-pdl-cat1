@@ -133,19 +133,8 @@
     <ParamString id="InterruptSource" name="InterruptSource" desc="InterruptSource" group="Interrupt Source" default="(CY_TCPWM_INT_ON_TC `${(InterruptTC)? &quot;&quot; : &quot;&amp; 0U&quot;}`) | (CY_TCPWM_INT_ON_CC0 `${(InterruptCC0)? &quot;&quot; : &quot;&amp; 0U&quot;}`) | (CY_TCPWM_INT_ON_CC1 `${(InterruptCC1)? &quot;&quot; : &quot;&amp; 0U&quot;}`)" visible="false" editable="false" />
 
     <!--Inputs-->
-    <ParamSignal port="clock[0]" name="Clock Signal" group="Inputs" visible="true" desc="The clock input defines the operating frequency." canBeEmpty="false" >
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
-        <Parameter id="DriveModes" severity="DEFAULT" reason="">
-          <Fixed value="CY_GPIO_DM_HIGHZ" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
-        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
-          <Fixed value="CY_GPIO_DM_HIGHZ" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
-    </ParamSignal>
+    <ParamSignal port="clock[0]" name="Clock Signal" group="Inputs" visible="`${hasVisibleOption(&quot;clock[0]&quot;)}`" desc="The clock input defines the operating frequency." canBeEmpty="`${!hasVisibleOption(&quot;clock[0]&quot;)}`" />
+    <ParamSignal port="clock_counter_en[0]" name="Clock Signal" group="Inputs" visible="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;)}`" desc="The clock input defines the operating frequency." canBeEmpty="`${!hasVisibleOption(&quot;clock_counter_en[0]&quot;)}`" />
     <ParamChoice id="CountInput" name="Count Input" group="Inputs" default="CY_TCPWM_INPUT_DISABLED" visible="true" editable="true" desc="Determines if a count input is needed and how that input is registered." >
       <Entry name="Rising Edge" value="CY_TCPWM_INPUT_RISINGEDGE" visible="true" />
       <Entry name="Falling Edge" value="CY_TCPWM_INPUT_FALLINGEDGE" visible="true" />
@@ -275,9 +264,9 @@
     <!-- Peripheral clock divider connection -->
     <ParamString id="definePrefix" name="Define prefix" group="Internal" default="`${&quot;TCPWM&quot; . tcpwmInst . &quot;_GRP&quot; . pCntGroup . &quot;_CNT&quot; . getInstNumber(&quot;cnt&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="defineInputDisabled" name="Define input disabled" group="Internal" default="`${INST_NAME . &quot;_INPUT_DISABLED &amp; 0x3U&quot;}`" visible="false" editable="false" desc="" />    
-    <ParamString id="pclk" name="PCLK" group="Internal" default="`${getBlockFromSignal(&quot;clock[0]&quot;)}`" visible="false" editable="false" desc="Connected peripheral clock divider (PCLK)" />
-    <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
-    <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="PCLK_TCPWM`${tcpwmInst}`_CLOCKS`${cntInst}`" visible="false" editable="false" desc="" />
+    <ParamString id="pclk" name="PCLK" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? getBlockFromSignal(&quot;clock_counter_en[0]&quot;):getBlockFromSignal(&quot;clock[0]&quot;)}`" visible="false" editable="false" desc="Connected peripheral clock divider (PCLK)" />
+    <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? hasConnection(&quot;clock_counter_en&quot;, 0) &amp;&amp; isBlockUsed(pclk) : hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
+    <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCK_COUNTER_EN&quot; . cntInst : &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCKS&quot; . cntInst}`" visible="false" editable="false" desc="" />
     
   </Parameters>
 

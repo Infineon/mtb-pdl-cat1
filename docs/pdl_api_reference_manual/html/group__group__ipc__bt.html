@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MTB CAT1 Peripheral driver library: IPC bluetooth sub-system layer (IPC_BTSS)</title>
+<title>MTB CAT1 Peripheral driver library: IPC Bluetooth sub-system layer (IPC_BTSS)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -80,10 +80,34 @@ $(document).ready(function(){initNavTree('group__group__ipc__bt.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#groups">API Reference</a>  </div>
   <div class="headertitle">
-<div class="title">IPC bluetooth sub-system layer (IPC_BTSS)<div class="ingroups"><a class="el" href="group__group__ipc.html">IPC          (Inter Process Communication)</a></div></div>  </div>
+<div class="title">IPC Bluetooth sub-system layer (IPC_BTSS)<div class="ingroups"><a class="el" href="group__group__ipc.html">IPC          (Inter Process Communication)</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
+<p>All the HCI APIs are intended to be called by the stack interface layer, and not meant to be called by the application developers. </p>
+<p>The BT IPC functions provide a method to transfer Host Controller Interface (HCI) and High Priority Controller (HPC) messages between the MCU and BT SS.</p>
+<p>Include cy_ipc_bt.h. Alternatively include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
+<p>The data needs to be provided in an array along with the payload type indicator. Depending on the payload length, the message gets formatted in to short or long message. If the payload length is less than 7 bytes, then it is considered as a short message. Short messages are packed and sent using IPC channel DATA0 and DATA1 registers. Any payload length greater than 7 bytes will be sent using the buffers in the shared memory.</p>
+<p>It supports callback function for notification on receiving the HCI messages from the BT SS HCI notification callback function is registered during the initialization of the driver. It also supports multiple callback registration for notification on receiving the HPC messages. </p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
+API Reference</h2></td></tr>
+<tr class="memitem:group__group__ipc__bt__macros"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__bt__macros.html">Macros</a></td></tr>
+<tr class="memdesc:group__group__ipc__bt__macros"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro definitions are used in the driver. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__ipc__bt__functions"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__bt__functions.html">Functions</a></td></tr>
+<tr class="memdesc:group__group__ipc__bt__functions"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions are used in the driver. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__ipc__bt__data__structures"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__bt__data__structures.html">Data Structures</a></td></tr>
+<tr class="memdesc:group__group__ipc__bt__data__structures"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data structures are used in the driver. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__ipc__bt__enums"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__bt__enums.html">Enumerated Types</a></td></tr>
+<tr class="memdesc:group__group__ipc__bt__enums"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerations are used in the driver. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

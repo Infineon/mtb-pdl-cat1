@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hw.h
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides the headers to the API for the utils
 *  in the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -112,8 +114,6 @@ extern "C" {
 #define REG_CRYPTO_DEV_KEY_CTL0(base)      (((CRYPTO_V2_Type*)(base))->DEV_KEY_CTL0)
 #define REG_CRYPTO_DEV_KEY_CTL1(base)      (((CRYPTO_V2_Type*)(base))->DEV_KEY_CTL1)
 
-/* The CRYPTO internal-memory buffer-size in 32-bit words. */
-#define CY_CRYPTO_MEM_BUFF_SIZE_U32        (cy_device->cryptoMemSize)
 /* The CRYPTO internal-memory buffer-size in bytes. */
 #define CY_CRYPTO_MEM_BUFF_SIZE            (CY_CRYPTO_MEM_BUFF_SIZE_U32 * 4u)
 

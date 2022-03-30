@@ -23,5 +23,7 @@ var group__group__sysclk =
     [ "Timer Clock", "group__group__sysclk__clk__timer.html", "group__group__sysclk__clk__timer" ],
     [ "Pump Clock", "group__group__sysclk__clk__pump.html", "group__group__sysclk__clk__pump" ],
     [ "Backup Domain Clock", "group__group__sysclk__clk__bak.html", "group__group__sysclk__clk__bak" ],
-    [ "Medium Frequency Domain Clock", "group__group__sysclk__mf__funcs.html", "group__group__sysclk__mf__funcs" ]
+    [ "Medium Frequency Domain Clock", "group__group__sysclk__mf.html", "group__group__sysclk__mf" ],
+    [ "Internal High Frequency(IHO) Clock", "group__group__sysclk__iho.html", "group__group__sysclk__iho" ],
+    [ "Mem Clock", "group__group__sysclk__clk__mem.html", "group__group__sysclk__clk__mem" ]
 ];

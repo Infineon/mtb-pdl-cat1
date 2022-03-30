@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.h
-* \version 1.60
+* \version 1.70
 *
 *  Description:
 *   IPC Pipe Driver - This header file contains all the function prototypes,
@@ -31,7 +31,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS)
+#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
 
 #include "cy_ipc_drv.h"
 #include "cy_syslib.h"
@@ -118,7 +118,7 @@ typedef cy_ipc_pipe_callback_ptr_t *cy_ipc_pipe_callback_array_ptr_t;
 #define CY_IPC_PIPE_MSG_USR_Msk        (0x0000FF00UL)   /**< User data mask for first word of Pipe message */
 #define CY_IPC_PIPE_MSG_USR_Pos        (8UL)            /**< User data shift for first word of Pipe message */
 #define CY_IPC_PIPE_MSG_RELEASE_Msk    (0xFFFF0000UL)   /**< Mask for message release mask */
-#define CY_IPC_PIPE_MSG_RELEASE_Pos    (16UL)           /**< Shift require to line up mask to LSb */
+#define CY_IPC_PIPE_MSG_RELEASE_Pos    (16UL)           /**< Shift require to line up mask to LSB */
 
 /** Use to set the busy flag when waiting for a release interrupt */
 #define CY_IPC_PIPE_ENDPOINT_BUSY      (1UL)
@@ -244,11 +244,11 @@ typedef enum
 * The first 32-bit word of the message is used to identify the client that owns
 * the message.
 *
-* The upper 16 bits are the client ID.
+* The upper 16-bits are the client ID.
 *
-* The lower 16 bits are for use by the client in any way desired.
+* The lower 16-bits are for use by the client in any way desired.
 *
-* The lower 16 bits are preserved (not modified) and not interpreted in any way.
+* The lower 16-bits are preserved (not modified) and not interpreted in any way.
 * \endcond
 */
 
@@ -291,7 +291,7 @@ void                     Cy_IPC_Pipe_ExecCallback(cy_stc_ipc_pipe_ep_t * endpoin
 
 /** \} group_ipc_pipe_functions */
 
-#endif /* CY_IP_M4CPUSS */
+#endif /* CY_IP_M4CPUSS  || CY_IP_M7CPUSS */
 
 #endif /* CY_IPC_PIPE_H  */
 

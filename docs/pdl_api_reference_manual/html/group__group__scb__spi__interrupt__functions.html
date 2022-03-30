@@ -177,7 +177,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>To remove the callback, pass NULL as the pointer to the callback function. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><ul>
+<li>To remove the callback, pass NULL as the pointer to the callback function.</li>
+<li>To get the event notification, the corresponding interrupt mask needs to be set in the interrupt mask register so that interrupt request register can trigger an interrupt event in <a class="el" href="group__group__scb__spi__interrupt__functions.html#ga0adeb497479d79c9ecea8169cfaff114">Cy_SCB_SPI_Interrupt</a>. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>

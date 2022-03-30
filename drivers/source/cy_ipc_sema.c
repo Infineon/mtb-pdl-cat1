@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_sema.c
-* \version 1.60
+* \version 1.70
 *
 *  Description:
 *   IPC Semaphore Driver - This source file contains the source code for the
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS)
+#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
 
 #include "cy_ipc_drv.h"
 #include "cy_ipc_sema.h"

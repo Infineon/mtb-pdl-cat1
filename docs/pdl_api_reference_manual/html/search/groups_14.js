@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['week_20of_20month_20definitions',['Week of month definitions',['../group__group__rtc__dst__week__of__month.html',1,'']]],
-  ['watch_20crystal_20oscillator_20_28wco_29',['Watch Crystal Oscillator (WCO)',['../group__group__sysclk__wco.html',1,'']]],
-  ['wdt_20_20_20_20_20_20_20_20_20_20_28watchdog_20timer_29',['WDT          (Watchdog Timer)',['../group__group__wdt.html',1,'']]]
+  ['vector_20unit_20_28vu_29',['Vector Unit (VU)',['../group__group__crypto__lld__vu.html',1,'']]],
+  ['voltage_20trip_20mode',['Voltage trip mode',['../group__group__gpio__vtrip.html',1,'']]],
+  ['voltage_20trip_20automotive_20compatible_20mode',['Voltage trip automotive compatible mode',['../group__group__gpio__vtrip__auto.html',1,'']]]
 ];

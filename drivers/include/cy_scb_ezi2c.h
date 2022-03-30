@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_ezi2c.h
-* \version 2.80
+* \version 2.90
 *
 * Provides EZI2C API declarations of the SCB driver.
 *
@@ -495,7 +495,7 @@ cy_en_syspm_status_t Cy_SCB_EZI2C_HibernateCallback(cy_stc_syspm_callback_params
 
 /** \cond INTERNAL */
 /* Default registers values */
-#if (CY_IP_MXSCB_VERSION>=3)
+#if (CY_IP_MXSCB_VERSION>=2)
 #define CY_SCB_EZI2C_I2C_CTRL   (SCB_I2C_CTRL_S_GENERAL_IGNORE_Msk | SCB_I2C_CTRL_SLAVE_MODE_Msk | \
                                  SCB_I2C_CTRL_S_READY_ADDR_ACK_Msk | SCB_I2C_CTRL_S_READY_DATA_ACK_Msk)
 #elif (CY_IP_MXSCB_VERSION==1)
@@ -552,6 +552,35 @@ __STATIC_INLINE void Cy_SCB_EZI2C_Enable(CySCB_Type *base)
 {
     SCB_CTRL(base) |= SCB_CTRL_ENABLED_Msk;
 }
+
+/*******************************************************************************
+* Function Name: Cy_SCB_SetEzI2CMode
+****************************************************************************//**
+*
+* Sets EZ mode for I2C protocol.
+* EZ mode is only used for synchronous serial interface protocols.
+* This mode is only applicable to slave functionality.
+* In EZ mode, the slave can read from and write to an addressable memory.
+*
+* \param base
+* The pointer to the EZI2C SCB instance.
+*
+* \param ezMode
+* If true, HW EZ mode is enabled. If false, HW EZ mode is disabled.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SCB_SetEzI2CMode(CySCB_Type *base, bool ezMode)
+{
+    if(ezMode)
+    {
+        SCB_CTRL(base) |= SCB_CTRL_EZ_MODE_Msk;
+    }
+    else
+    {
+        SCB_CTRL(base) &= ~(SCB_CTRL_EZ_MODE_Msk);
+    }
+}
+
 
 /** \} group_scb_ezi2c_general_functions */
 

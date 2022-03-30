@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hmac_v2.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides the source code to the API for the HMAC method
 *  in the Crypto block driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -265,7 +267,7 @@ static cy_en_crypto_status_t Cy_Crypto_Core_V2_Hmac_Calculate(CRYPTO_Type *base,
 static void Cy_Crypto_Core_V2_Hmac_Free(CRYPTO_Type *base, cy_stc_crypto_v2_hmac_state_t *hmacState)
 {
     /* Clear the memory buffer. */
-    Cy_Crypto_Core_V2_MemSet(base, hmacState, 0u, sizeof(cy_stc_crypto_v2_hmac_state_t));
+    Cy_Crypto_Core_V2_MemSet(base, hmacState, 0u, ((uint16_t)sizeof(cy_stc_crypto_v2_hmac_state_t)));
 }
 
 /*******************************************************************************

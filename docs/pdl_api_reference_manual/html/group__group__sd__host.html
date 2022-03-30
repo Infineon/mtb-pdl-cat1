@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('group__group__sd__host.html','');});
 <li>SD interface features:</li>
 <li>- Supports the 4-bit interface</li>
 <li>- Supports Ultra High Speed (UHS-I) mode</li>
-<li>- Supports Default Speed (DS), High Speed (HS), SDR12, SDR25 and SDR50 speed modes</li>
+<li>- Supports Default Speed (DS), High Speed (HS), SDR12, SDR25, SDR50, and DDR50 speed modes</li>
 <li>- Supports SDIO card interrupts in both 1-bit and 4-bit modes</li>
 <li>- Supports Standard capacity (SDSC), High capacity (SDHC) and Extended capacity (SDXC) memory</li>
 <li>- Supports CRC and check for command and data packets</li>
@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('group__group__sd__host.html','');});
 <li>Wrap address transfers</li>
 <li>eMMC boot operation</li>
 <li>Suspend/Resume operation in an SDIO card</li>
-<li>Operation in SDR104, UHS-II mode, High Speed DDR, HS200, and HS400</li>
+<li>Operation in SDR104, UHS-II mode, HS200, and HS400</li>
 <li>Serial Peripheral Interface (SPI) protocol mode</li>
 <li>Interrupt input pins for the embedded SD system</li>
 <li>Auto-tuning</li>
@@ -190,6 +190,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.0 </td><td>Added support for DDR50 mode and modified <a class="el" href="group__group__sd__host__high__level__functions.html#ga9d72dcc2426210eef77fa5b95eefb986" title="Initializes a card if it is connected. ">Cy_SD_Host_InitCard()</a> API to set highest possible bus speed mode. Minor documentation updates. </td><td>New feature implementation and documentation enhancement.  </td></tr>
 <tr>
 <td>1.90 </td><td>Fixed the <a class="el" href="group__group__sd__host__low__level__functions.html#ga602f69704f064f99daf947c1af04318b" title="Issues the software reset command to the SD card. ">Cy_SD_Host_SoftwareReset()</a> function behaviour. Now it waits untill corresponding reset bit gets cleared by SDHC IP block. </td><td>Defect fixing.  </td></tr>
 <tr>

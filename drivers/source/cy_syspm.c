@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_syspm.c
-* \version 5.60
+* \version 5.70
 *
 * This driver provides the source code for API power management.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,11 +25,10 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS40SRSS)
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)
 
 #include "cy_syspm.h"
 #include "cy_ipc_drv.h"
-#include "cy_ipc_pipe.h"
 #include "cy_prot.h"
 
 #if defined (CY_DEVICE_SECURE)
@@ -2162,7 +2162,7 @@ cy_en_syspm_status_t Cy_SysPm_SetSRAMPwrMode(cy_en_syspm_sram_index_t sramNum, c
     pwrModeConfig.sramNum = sramNum;
     pwrModeConfig.sramPwrMode = sramPwrMode;
 
-    CY_PRA_FUNCTION_CALL_VOID_PARAM(CY_PRA_MSG_TYPE_SECURE_ONLY, CY_PRA_PM_FUNC_SRAM_PWR_MODE, &pwrModeConfig);
+    status = (cy_en_syspm_status_t)CY_PRA_FUNCTION_CALL_RETURN_PARAM(CY_PRA_MSG_TYPE_SECURE_ONLY, CY_PRA_PM_FUNC_SRAM_PWR_MODE, &pwrModeConfig);
 #else
     if(sramNum == CY_SYSPM_SRAM0_MEMORY)
     {

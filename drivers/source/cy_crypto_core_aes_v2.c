@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes_v2.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides the source code fro the API for the AES method
 *  in the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -135,8 +137,8 @@ void Cy_Crypto_Core_V2_Aes_LoadDecKey(CRYPTO_Type *base,
 *******************************************************************************/
 cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Free(CRYPTO_Type *base, cy_stc_crypto_aes_state_t *aesState)
 {
-    Cy_Crypto_Core_V2_MemSet(base, (void *)aesState->buffers, 0u, sizeof(cy_stc_crypto_aes_buffers_t));
-    Cy_Crypto_Core_V2_MemSet(base, (void *)aesState, 0u, sizeof(cy_stc_crypto_aes_state_t));
+    Cy_Crypto_Core_V2_MemSet(base, (void *)aesState->buffers, 0u, ((uint16_t)sizeof(cy_stc_crypto_aes_buffers_t)));
+    Cy_Crypto_Core_V2_MemSet(base, (void *)aesState, 0u, ((uint16_t)sizeof(cy_stc_crypto_aes_state_t)));
 
     return (CY_CRYPTO_SUCCESS);
 }
@@ -180,7 +182,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Init(CRYPTO_Type *base,
 
     uint16_t keySize = CY_CRYPTO_AES_128_KEY_SIZE + ((uint16_t)keyLength * 8u);
 
-    Cy_Crypto_Core_V2_MemSet(base, aesState, 0u, sizeof(cy_stc_crypto_aes_state_t));
+    Cy_Crypto_Core_V2_MemSet(base, aesState, 0u, ((uint16_t)sizeof(cy_stc_crypto_aes_state_t)));
 
     aesState->buffers = (cy_stc_crypto_aes_buffers_t*) aesBuffers;
     aesState->keyLength = keyLength;

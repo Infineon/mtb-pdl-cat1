@@ -28,7 +28,7 @@
 
 <Personality id="mxs40dap" name="Debug Access" version="1.0" path="Debug" xmlns="http://cypress.com/xsd/cyhwpersonality_v1">
   <Dependencies>
-    <IpBlock name="m4cpuss,m4cpuss_ver2" />
+    <IpBlock name="m4cpuss,m4cpuss_ver2,m33syscpuss,m7cpuss" />
     <Resource name="cpuss\.dap" used="true" />
   </Dependencies>
   

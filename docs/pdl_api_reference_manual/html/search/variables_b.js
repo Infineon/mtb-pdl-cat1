@@ -1,11 +1,16 @@
 var searchData=
 [
   ['last',['last',['../structcy__stc__seglcd__font__t.html#ae899ae5eedf0babd3416bf3fd9979eba',1,'cy_stc_seglcd_font_t']]],
+  ['latchdelay',['latchDelay',['../structcy__stc__adcmic__audio__digital__path__config__t.html#a9e56bed2a6cb64f7dc02b6fa984c1c72',1,'cy_stc_adcmic_audio_digital_path_config_t']]],
+  ['latencycyclesmask',['latencyCyclesMask',['../structcy__stc__smif__mem__device__cfg__t.html#af668180d0dac7778ba607ec4bc3ebafe',1,'cy_stc_smif_mem_device_cfg_t']]],
+  ['latencycyclesregaddr',['latencyCyclesRegAddr',['../structcy__stc__smif__mem__device__cfg__t.html#a2bbe834f1ccfb409c369851d0b5be848',1,'cy_stc_smif_mem_device_cfg_t']]],
+  ['latesample',['lateSample',['../structcy__stc__tdm__config__rx__t.html#ada33c42d9387cc8098fc43ad1aa881f8',1,'cy_stc_tdm_config_rx_t']]],
   ['ldoenable',['ldoEnable',['../structcy__stc__pra__system__config__t.html#a8882b3dda29566831ac7907d71fb23bc',1,'cy_stc_pra_system_config_t']]],
   ['ldovoltage',['ldoVoltage',['../structcy__stc__pra__system__config__t.html#a83dd0313cc72422db9ae53f446992b4e',1,'cy_stc_pra_system_config_t']]],
   ['level',['level',['../structcy__stc__sar__fifo__config__t.html#afcab699456bc1b55943f2a8de86a7253',1,'cy_stc_sar_fifo_config_t']]],
   ['lfmode',['lfMode',['../structcy__stc__pll__config__t.html#a3dc5e0d1ec6da25c55deaf10fccad2ef',1,'cy_stc_pll_config_t::lfMode()'],['../structcy__stc__pll__manual__config__t.html#af681c23d3186d2a38661c8019bb3a8a6',1,'cy_stc_pll_manual_config_t::lfMode()']]],
   ['lfsrinitval',['lfsrInitVal',['../structcy__stc__dma__crc__config__t.html#ad8cc4baa069f067285c9773ecc5102bc',1,'cy_stc_dma_crc_config_t']]],
+  ['lintransceiverautoenable',['linTransceiverAutoEnable',['../structcy__stc__lin__config__t.html#ad4cd937891ccf393abf7d5038472aee7',1,'cy_stc_lin_config_t']]],
   ['lockkey',['lockKey',['../structcy__stc__csd__context__t.html#a3d3718a12013b8dbe488bf031cd4eefa',1,'cy_stc_csd_context_t']]],
   ['locktolerance',['lockTolerance',['../structcy__stc__pra__system__config__t.html#a85bf3bd10fd6d5b6f61752429eb3a3e4',1,'cy_stc_pra_system_config_t::lockTolerance()'],['../structcy__stc__fll__manual__config__t.html#a99a5cde7d712e279f423ec34bac38ba7',1,'cy_stc_fll_manual_config_t::lockTolerance()']]],
   ['lowphasedutycycle',['lowPhaseDutyCycle',['../structcy__stc__scb__i2c__config__t.html#a8b742ccfd88a2a9216e9ad7b018a6d51',1,'cy_stc_scb_i2c_config_t']]],

@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_server.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides the source code to the API for Crypto Server
 *  in the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,7 +54,7 @@ extern "C" {
 #include <string.h>
 
 /* The pointer to the CRYPTO instance. */
-#define CY_CRYPTO_BASE           ((CRYPTO_Type *)cy_device->cryptoBase)
+#define CY_CRYPTO_BASE           (CRYPTO)
 
 typedef struct
 {

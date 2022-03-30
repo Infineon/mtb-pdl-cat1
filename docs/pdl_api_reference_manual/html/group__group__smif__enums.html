@@ -81,6 +81,7 @@ $(document).ready(function(){initNavTree('group__group__smif__enums.html','');})
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">Enumerated Types<div class="ingroups"><a class="el" href="group__group__smif.html">SMIF         (Serial Memory Interface)</a></div></div>  </div>
@@ -88,6 +89,18 @@ $(document).ready(function(){initNavTree('group__group__smif__enums.html','');})
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__bridge__pri__t.html">cy_stc_smif_bridge_pri_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the port priority on bridge interface.  <a href="structcy__stc__smif__bridge__pri__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__bridge__remap__t.html">cy_stc_smif_bridge_remap_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the remap region information.  <a href="structcy__stc__smif__bridge__remap__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__bridge__interleave__remap__t.html">cy_stc_smif_bridge_interleave_remap_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the interleaved memory region.  <a href="structcy__stc__smif__bridge__interleave__remap__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:gab71e4b1f4c80b3e8c82dd85570415e44"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#gab71e4b1f4c80b3e8c82dd85570415e44">cy_en_smif_txfr_width_t</a> { <br />
@@ -179,7 +192,13 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a2cffe8c7a33af9216fa5d83f59ea769d">CY_SMIF_SFDP_SS3_FAILED</a>, 
 <br />
-&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a9972908ec392b0c3a3ccd2e2f837e64e">CY_SMIF_CMD_NOT_FOUND</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x80U
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a9972908ec392b0c3a3ccd2e2f837e64e">CY_SMIF_CMD_NOT_FOUND</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x80U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41ae7a17d3a2df0fe50b4fb8d6c6878049c">CY_SMIF_SFDP_BUFFER_INSUFFICIENT</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x81U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41ab6ceed21f5d3338e1a772300e875f9ba">CY_SMIF_NO_OE_BIT</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x82U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41abcf28a2ae38dd12e0457ac2de2dd50f4">CY_SMIF_BUSY</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x83U
 <br />
  }<tr class="memdesc:ga75fb83c49239ece738cfba778165cb41"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SMIF API return values.  <a href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">More...</a><br /></td></tr>
 </td></tr>
@@ -196,6 +215,16 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gad776a0db9224477ab865254a32d9e312"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SMIF slave select definitions for the driver API.  <a href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gad776a0db9224477ab865254a32d9e312"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga159307bb2b563a18f87dcf492a2bcc75"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga159307bb2b563a18f87dcf492a2bcc75">cy_en_smif_capture_mode_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga159307bb2b563a18f87dcf492a2bcc75aa7b7f500bee438993cd709de7d8a62f7">CY_SMIF_SEL_NORMAL_SPI</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga159307bb2b563a18f87dcf492a2bcc75a4223535fb0e9f40aa3402e30f3aeecb9">CY_SMIF_SEL_NORMAL_SPI_WITH_DLP</a> = 1U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga159307bb2b563a18f87dcf492a2bcc75a14048df7957c7a19e5824e8935108abe">CY_SMIF_SEL_XSPI_HYPERBUS_WITH_DQS</a> = 2U
+<br />
+ }<tr class="memdesc:ga159307bb2b563a18f87dcf492a2bcc75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies receive capture mode.  <a href="group__group__smif__enums.html#ga159307bb2b563a18f87dcf492a2bcc75">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga159307bb2b563a18f87dcf492a2bcc75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6a2149f74b63ec4ebc76b99a9eb633d2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga6a2149f74b63ec4ebc76b99a9eb633d2">cy_en_smif_clk_select_t</a> { <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a34eef5ff6111e8add1da8a3077beeea5">CY_SMIF_SEL_OUTPUT_CLK</a> = 0U, 
 <br />
@@ -253,6 +282,36 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gaf7e001d5a1821a56324e8898913b21ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies enabled type of SMIF cache.  <a href="group__group__smif__enums.html#gaf7e001d5a1821a56324e8898913b21ef">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gaf7e001d5a1821a56324e8898913b21ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga686921944cbda1b19deb3c24363e7d9b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga686921944cbda1b19deb3c24363e7d9b">cy_en_smif_qer_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga686921944cbda1b19deb3c24363e7d9ba2a373f31628c397864f2a89fef766a17">CY_SMIF_SFDP_QER_0</a> = 0, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga686921944cbda1b19deb3c24363e7d9bafb3de54fc15aac85a9b3ef7a3d4b6176">CY_SMIF_SFDP_QER_1</a> = 1, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga686921944cbda1b19deb3c24363e7d9babde92cf9532d85cf52afae5eaf048532">CY_SMIF_SFDP_QER_2</a> = 2, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga686921944cbda1b19deb3c24363e7d9ba513e0b8ff080545d98056815d77ab063">CY_SMIF_SFDP_QER_3</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga686921944cbda1b19deb3c24363e7d9bab7038f0d941d4590d8e1008a8e9df9f0">CY_SMIF_SFDP_QER_4</a> = 4, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga686921944cbda1b19deb3c24363e7d9bad717df79ed7394aa6ff6f7ceb14f101f">CY_SMIF_SFDP_QER_5</a> = 5, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga686921944cbda1b19deb3c24363e7d9ba05c7bd63e26fc8b713f414e94c6fd1bf">CY_SMIF_SFDP_QER_6</a> = 6
+<br />
+ }<tr class="memdesc:ga686921944cbda1b19deb3c24363e7d9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the quad enable requirement case.  <a href="group__group__smif__enums.html#ga686921944cbda1b19deb3c24363e7d9b">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga686921944cbda1b19deb3c24363e7d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8845b5cf67d0b876a5b0edc589ecadbd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga8845b5cf67d0b876a5b0edc589ecadbd">cy_en_smif_interface_freq_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga8845b5cf67d0b876a5b0edc589ecadbda1ddc11a3761e46c093eea2f7cc0fb0dc">CY_SMIF_100MHZ_OPERATION</a> = 0, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga8845b5cf67d0b876a5b0edc589ecadbda8e455cf66843849d71f3f11303c557fd">CY_SMIF_133MHZ_OPERATION</a> = 1, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga8845b5cf67d0b876a5b0edc589ecadbda61ad059ff1c4b45f161b429c6d23cbd8">CY_SMIF_166MHZ_OPERATION</a> = 2, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga8845b5cf67d0b876a5b0edc589ecadbda04457dac2cbcd195725157b2eea7b7fd">CY_SMIF_200MHZ_OPERATION</a> = 3
+<br />
+ }<tr class="memdesc:ga8845b5cf67d0b876a5b0edc589ecadbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the memory interface frequency range of operation.  <a href="group__group__smif__enums.html#ga8845b5cf67d0b876a5b0edc589ecadbd">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga8845b5cf67d0b876a5b0edc589ecadbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6673e9fe92675ceaddadeb41e31a5821"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga6673e9fe92675ceaddadeb41e31a5821">cy_en_smif_data_rate_t</a> { <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6673e9fe92675ceaddadeb41e31a5821a9460f0a01ac60d16d13cb2d26158f6de">CY_SMIF_SDR</a> = 0, 
 <br />
@@ -271,6 +330,86 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gaab7ef20face67224d22e69b01fae73d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the presence of the field.  <a href="group__group__smif__enums.html#gaab7ef20face67224d22e69b01fae73d5">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gaab7ef20face67224d22e69b01fae73d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58cf90a88ebb49c269bc67295d6e5cc3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga58cf90a88ebb49c269bc67295d6e5cc3">cy_en_smif_merge_timeout_t</a> { <br />
+&#160;&#160;<b>CY_SMIF_MERGE_TIMEOUT_1_CYCLE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_SMIF_MERGE_TIMEOUT_16_CYCLES</b> = 1, 
+<br />
+&#160;&#160;<b>CY_SMIF_MERGE_TIMEOUT_256_CYCLES</b> = 2, 
+<br />
+&#160;&#160;<b>CY_SMIF_MERGE_TIMEOUT_4096_CYCLES</b> = 3, 
+<br />
+&#160;&#160;<b>CY_SMIF_MERGE_TIMEOUT_65536_CYCLES</b> = 4
+<br />
+ }<tr class="memdesc:ga58cf90a88ebb49c269bc67295d6e5cc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the merge transaction timeout in terms of clock cycles.  <a href="group__group__smif__enums.html#ga58cf90a88ebb49c269bc67295d6e5cc3">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga58cf90a88ebb49c269bc67295d6e5cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93891f64674148452aa691e58a10965f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga93891f64674148452aa691e58a10965f">cy_en_smif_bridge_xip_space_pri_t</a> { <br />
+&#160;&#160;<b>CY_EN_BRIDGE_PRIO_SMIF0_XIP_SPACE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_PRIO_SMIF1_XIP_SPACE</b> = 1
+<br />
+ }<tr class="memdesc:ga93891f64674148452aa691e58a10965f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the PORT priority for XIP space.  <a href="group__group__smif__enums.html#ga93891f64674148452aa691e58a10965f">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga93891f64674148452aa691e58a10965f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7bca582b1a4fa65765ac17cf2ad98242"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga7bca582b1a4fa65765ac17cf2ad98242">cy_en_smif_bridge_xip_space_t</a> { <br />
+&#160;&#160;<b>CY_EN_BRIDGE_SMIF0_XIP_SPACE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_SMIF1_XIP_SPACE</b> = 1
+<br />
+ }<tr class="memdesc:ga7bca582b1a4fa65765ac17cf2ad98242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the XIP space.  <a href="group__group__smif__enums.html#ga7bca582b1a4fa65765ac17cf2ad98242">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga7bca582b1a4fa65765ac17cf2ad98242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga88167c6d27cc2a1260e162eb660cfd69"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga88167c6d27cc2a1260e162eb660cfd69">cy_en_smif_bridge_remap_type_t</a> { <br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_TYPE_INACTIVE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_TYPE_TO_SMIF0</b> = 1, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_TYPE_TO_SMIF1</b> = 2, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_TYPE_INTERLEAVE</b> = 3
+<br />
+ }<tr class="memdesc:ga88167c6d27cc2a1260e162eb660cfd69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the remap type.  <a href="group__group__smif__enums.html#ga88167c6d27cc2a1260e162eb660cfd69">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga88167c6d27cc2a1260e162eb660cfd69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga37705a366bb121c75080a7a831b70bea"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga37705a366bb121c75080a7a831b70bea">cy_en_smif_bridge_interleave_step_t</a> { <br />
+&#160;&#160;<b>CY_EN_BRIDGE_INTERLEAVE_8BYTE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_INTERLEAVE_16BYTE</b> = 1, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_INTERLEAVE_32BYTE</b> = 2, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_INTERLEAVE_64BYTE</b> = 3, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_INTERLEAVE_128BYTE</b> = 4
+<br />
+ }<tr class="memdesc:ga37705a366bb121c75080a7a831b70bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the interleave size.  <a href="group__group__smif__enums.html#ga37705a366bb121c75080a7a831b70bea">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga37705a366bb121c75080a7a831b70bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad786eeb67bcea60b35ae8ecd48ffaf82"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#gad786eeb67bcea60b35ae8ecd48ffaf82">cy_en_smif_bridge_remap_region_size_t</a> { <br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_1MB</b> = 0x1FF00000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_2MB</b> = 0x1FE00000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_4MB</b> = 0x1FC00000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_8MB</b> = 0x1F800000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_16MB</b> = 0x1F000000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_32MB</b> = 0x1E000000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_64MB</b> = 0x1C000000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_128MB</b> = 0x18000000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_256MB</b> = 0x10000000U, 
+<br />
+&#160;&#160;<b>CY_EN_BRIDGE_REMAP_SIZE_512MB</b> = 0x00000000U
+<br />
+ }<tr class="memdesc:gad786eeb67bcea60b35ae8ecd48ffaf82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the remap size.  <a href="group__group__smif__enums.html#gad786eeb67bcea60b35ae8ecd48ffaf82">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gad786eeb67bcea60b35ae8ecd48ffaf82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="gab71e4b1f4c80b3e8c82dd85570415e44"></a>
@@ -454,6 +593,13 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga75fb83c49239ece738cfba778165cb41a9972908ec392b0c3a3ccd2e2f837e64e"></a>CY_SMIF_CMD_NOT_FOUND&#160;</td><td class="fielddoc"><p>The command API is not supported for this memory device. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="gga75fb83c49239ece738cfba778165cb41ae7a17d3a2df0fe50b4fb8d6c6878049c"></a>CY_SMIF_SFDP_BUFFER_INSUFFICIENT&#160;</td><td class="fielddoc"><p>SFDP Buffer Insufficient. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga75fb83c49239ece738cfba778165cb41ab6ceed21f5d3338e1a772300e875f9ba"></a>CY_SMIF_NO_OE_BIT&#160;</td><td class="fielddoc"><p>The device does not have a OE bit. </p>
+<p>The device detects 1-1-8 and 1-8-8 Reads based on the instruction. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga75fb83c49239ece738cfba778165cb41abcf28a2ae38dd12e0457ac2de2dd50f4"></a>CY_SMIF_BUSY&#160;</td><td class="fielddoc"><p>SMIF is currently busy and cannot accept the request. </p>
+</td></tr>
 </table>
 
 </div>
@@ -485,6 +631,31 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="ga159307bb2b563a18f87dcf492a2bcc75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga159307bb2b563a18f87dcf492a2bcc75">&#9670;&nbsp;</a></span>cy_en_smif_capture_mode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga159307bb2b563a18f87dcf492a2bcc75">cy_en_smif_capture_mode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies receive capture mode. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D devices. </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga159307bb2b563a18f87dcf492a2bcc75aa7b7f500bee438993cd709de7d8a62f7"></a>CY_SMIF_SEL_NORMAL_SPI&#160;</td><td class="fielddoc"><p>Normal SPI without DLP. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga159307bb2b563a18f87dcf492a2bcc75a4223535fb0e9f40aa3402e30f3aeecb9"></a>CY_SMIF_SEL_NORMAL_SPI_WITH_DLP&#160;</td><td class="fielddoc"><p>Normal SPI with DLP (Data Learning Pattern). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga159307bb2b563a18f87dcf492a2bcc75a14048df7957c7a19e5824e8935108abe"></a>CY_SMIF_SEL_XSPI_HYPERBUS_WITH_DQS&#160;</td><td class="fielddoc"><p>xSPI or HYPER BUS with Data strobe line. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="ga6a2149f74b63ec4ebc76b99a9eb633d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga6a2149f74b63ec4ebc76b99a9eb633d2">&#9670;&nbsp;</a></span>cy_en_smif_clk_select_t <span class="overload">[1/2]</span></h2>
 
@@ -498,7 +669,7 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specifies the clock source for the receiver clock. </p>
-<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B and CAT1C devices. </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a34eef5ff6111e8add1da8a3077beeea5"></a>CY_SMIF_SEL_OUTPUT_CLK&#160;</td><td class="fielddoc"><p>The SMIF output clock. </p>
 </td></tr>
@@ -585,6 +756,65 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="ga686921944cbda1b19deb3c24363e7d9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga686921944cbda1b19deb3c24363e7d9b">&#9670;&nbsp;</a></span>cy_en_smif_qer_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga686921944cbda1b19deb3c24363e7d9b">cy_en_smif_qer_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the quad enable requirement case. </p>
+<p>JEDEC Basic Flash Parameter Table: 15th DWORD </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga686921944cbda1b19deb3c24363e7d9ba2a373f31628c397864f2a89fef766a17"></a>CY_SMIF_SFDP_QER_0&#160;</td><td class="fielddoc"><p>No QE Bit. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga686921944cbda1b19deb3c24363e7d9bafb3de54fc15aac85a9b3ef7a3d4b6176"></a>CY_SMIF_SFDP_QER_1&#160;</td><td class="fielddoc"><p>Bit 1 of Status Register 2 - Write uses 2 bytes using 01h. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga686921944cbda1b19deb3c24363e7d9babde92cf9532d85cf52afae5eaf048532"></a>CY_SMIF_SFDP_QER_2&#160;</td><td class="fielddoc"><p>Bit 6 of Status Register 1 - Write uses 1 byte. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga686921944cbda1b19deb3c24363e7d9ba513e0b8ff080545d98056815d77ab063"></a>CY_SMIF_SFDP_QER_3&#160;</td><td class="fielddoc"><p>Bit 7 of Status Register 2- Write uses 1 byte. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga686921944cbda1b19deb3c24363e7d9bab7038f0d941d4590d8e1008a8e9df9f0"></a>CY_SMIF_SFDP_QER_4&#160;</td><td class="fielddoc"><p>Bit 1 of Status Register 2 - Write uses 1 or 2 bytes. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga686921944cbda1b19deb3c24363e7d9bad717df79ed7394aa6ff6f7ceb14f101f"></a>CY_SMIF_SFDP_QER_5&#160;</td><td class="fielddoc"><p>Bit 1 of Status Register 2 - Write status uses 01h. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga686921944cbda1b19deb3c24363e7d9ba05c7bd63e26fc8b713f414e94c6fd1bf"></a>CY_SMIF_SFDP_QER_6&#160;</td><td class="fielddoc"><p>Bit 1 of Status Register 2 - Write uses 1 byte using 31h. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga8845b5cf67d0b876a5b0edc589ecadbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8845b5cf67d0b876a5b0edc589ecadbd">&#9670;&nbsp;</a></span>cy_en_smif_interface_freq_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga8845b5cf67d0b876a5b0edc589ecadbd">cy_en_smif_interface_freq_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the memory interface frequency range of operation. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga8845b5cf67d0b876a5b0edc589ecadbda1ddc11a3761e46c093eea2f7cc0fb0dc"></a>CY_SMIF_100MHZ_OPERATION&#160;</td><td class="fielddoc"><p>100 MHz default operation </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga8845b5cf67d0b876a5b0edc589ecadbda8e455cf66843849d71f3f11303c557fd"></a>CY_SMIF_133MHZ_OPERATION&#160;</td><td class="fielddoc"><p>133 MHz operation </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga8845b5cf67d0b876a5b0edc589ecadbda61ad059ff1c4b45f161b429c6d23cbd8"></a>CY_SMIF_166MHZ_OPERATION&#160;</td><td class="fielddoc"><p>166 MHz operation </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga8845b5cf67d0b876a5b0edc589ecadbda04457dac2cbcd195725157b2eea7b7fd"></a>CY_SMIF_200MHZ_OPERATION&#160;</td><td class="fielddoc"><p>200 MHz operation </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="ga6673e9fe92675ceaddadeb41e31a5821"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga6673e9fe92675ceaddadeb41e31a5821">&#9670;&nbsp;</a></span>cy_en_smif_data_rate_t</h2>
 
@@ -598,7 +828,7 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specifies the data rate. </p>
-<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga6673e9fe92675ceaddadeb41e31a5821a9460f0a01ac60d16d13cb2d26158f6de"></a>CY_SMIF_SDR&#160;</td><td class="fielddoc"><p>The SMIF Single Data Rate (SDR) </p>
 </td></tr>
@@ -621,7 +851,109 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specifies the presence of the field. </p>
-<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga58cf90a88ebb49c269bc67295d6e5cc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga58cf90a88ebb49c269bc67295d6e5cc3">&#9670;&nbsp;</a></span>cy_en_smif_merge_timeout_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga58cf90a88ebb49c269bc67295d6e5cc3">cy_en_smif_merge_timeout_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the merge transaction timeout in terms of clock cycles. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga93891f64674148452aa691e58a10965f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga93891f64674148452aa691e58a10965f">&#9670;&nbsp;</a></span>cy_en_smif_bridge_xip_space_pri_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga93891f64674148452aa691e58a10965f">cy_en_smif_bridge_xip_space_pri_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the PORT priority for XIP space. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga7bca582b1a4fa65765ac17cf2ad98242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7bca582b1a4fa65765ac17cf2ad98242">&#9670;&nbsp;</a></span>cy_en_smif_bridge_xip_space_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga7bca582b1a4fa65765ac17cf2ad98242">cy_en_smif_bridge_xip_space_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the XIP space. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga88167c6d27cc2a1260e162eb660cfd69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga88167c6d27cc2a1260e162eb660cfd69">&#9670;&nbsp;</a></span>cy_en_smif_bridge_remap_type_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga88167c6d27cc2a1260e162eb660cfd69">cy_en_smif_bridge_remap_type_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the remap type. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga37705a366bb121c75080a7a831b70bea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga37705a366bb121c75080a7a831b70bea">&#9670;&nbsp;</a></span>cy_en_smif_bridge_interleave_step_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga37705a366bb121c75080a7a831b70bea">cy_en_smif_bridge_interleave_step_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the interleave size. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="gad786eeb67bcea60b35ae8ecd48ffaf82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad786eeb67bcea60b35ae8ecd48ffaf82">&#9670;&nbsp;</a></span>cy_en_smif_bridge_remap_region_size_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#gad786eeb67bcea60b35ae8ecd48ffaf82">cy_en_smif_bridge_remap_region_size_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the remap size. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D devices. </dd></dl>
 
 </div>
 </div>

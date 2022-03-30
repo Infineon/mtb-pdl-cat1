@@ -7,5 +7,7 @@ var group__group__sysclk__clk__hf__funcs =
     [ "Cy_SysClk_ClkHfGetSource", "group__group__sysclk__clk__hf__funcs.html#ga464acde9f381963929fae73189e80f5c", null ],
     [ "Cy_SysClk_ClkHfSetDivider", "group__group__sysclk__clk__hf__funcs.html#ga66c6e94768403ab318f2aa321b4c1e50", null ],
     [ "Cy_SysClk_ClkHfGetDivider", "group__group__sysclk__clk__hf__funcs.html#ga4d8e4a7091e32319bc2c79f3e2809912", null ],
-    [ "Cy_SysClk_ClkHfGetFrequency", "group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3", null ]
+    [ "Cy_SysClk_ClkHfGetFrequency", "group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3", null ],
+    [ "Cy_SysClk_ClkHfDirectSel", "group__group__sysclk__clk__hf__funcs.html#gace8a5255f8579c17f4062dccb3ff3694", null ],
+    [ "Cy_SysClk_IsClkHfDirectSelEnabled", "group__group__sysclk__clk__hf__funcs.html#ga58bb033cfac5881d026e32643ed6c6b7", null ]
 ];

@@ -12,6 +12,8 @@ var group__group__gpio__functions__gpio =
     [ "Cy_GPIO_GetDrivemode", "group__group__gpio__functions__gpio.html#gae90b7d2f020bdb44c90a1dd1c86710de", null ],
     [ "Cy_GPIO_SetVtrip", "group__group__gpio__functions__gpio.html#ga29f04942490a8188bc0675cf58b0c609", null ],
     [ "Cy_GPIO_GetVtrip", "group__group__gpio__functions__gpio.html#ga07c1bd4b2b19d11a21c9294a221e08c3", null ],
+    [ "Cy_GPIO_SetVtripAuto", "group__group__gpio__functions__gpio.html#ga877ae84c544a65ea19347dae57652d48", null ],
+    [ "Cy_GPIO_GetVtripAuto", "group__group__gpio__functions__gpio.html#ga85ac7b2dd2bd7902a5c39ab43eb1211b", null ],
     [ "Cy_GPIO_SetSlewRate", "group__group__gpio__functions__gpio.html#ga8f742fe22abb2ff8e0f54cc43ee95d37", null ],
     [ "Cy_GPIO_GetSlewRate", "group__group__gpio__functions__gpio.html#gae10d8bc6eaac45fbafba8cb770910dc8", null ],
     [ "Cy_GPIO_SetDriveSel", "group__group__gpio__functions__gpio.html#ga5010a092c64808615b6a6c4d0a202c6f", null ],

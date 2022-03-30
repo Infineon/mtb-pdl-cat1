@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_ecdsa.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC ECDSA
 *  in the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -259,6 +261,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_VerifyHash(CRYPTO_Type *base,
     const cy_stc_crypto_ecc_dp_type *eccDp;
 
     uint32_t mallocMask = 0U;
+    bool isHashZero = false;
 
     /* NULL parameters checking */
     if ((sig != NULL) && (hash != NULL) && (stat != NULL) && (key != NULL))
@@ -355,6 +358,12 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_VerifyHash(CRYPTO_Type *base,
                 Cy_Crypto_Core_Vu_SetMemValue (base, p_o, (uint8_t *)hash, datasize * 8u);
                 Cy_Crypto_Core_VU_RegInvertEndianness(base, p_o);
 
+                /* Check if message hash is zero */
+                if(Cy_Crypto_Core_Vu_IsRegZero(base, p_o))
+                {
+                    isHashZero = true;
+                }
+
                 if ((datasize * 8u) > bitsize)
                 {
                     CY_CRYPTO_VU_SET_REG(base, dividend, (datasize * 8u) - bitsize, 1u);
@@ -410,14 +419,22 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_VerifyHash(CRYPTO_Type *base,
                 /* u2 * Qa */
                 Cy_Crypto_Core_EC_NistP_PointMul(base, p_qx, p_qy, p_u2, p_o, bitsize);
 
-                /* P = u1 * G + u2 * Qa. Only Px is needed */
-                Cy_Crypto_Core_EC_SubMod(base, dividend, p_qy, p_gy);           /* (y2-y1) */
-                Cy_Crypto_Core_EC_SubMod(base, p_s, p_qx, p_gx);                /* (x2-x1) */
-                Cy_Crypto_Core_EC_DivMod(base, p_s, dividend, p_s, bitsize);    /* s = (y2-y1)/(x2-x1) */
+                if(isHashZero)
+                {
+                    /* GECC 3.22 */
+                    CY_CRYPTO_VU_MOV(base, p_s, p_qx);
+                }
+                else
+                {
+                    /* P = u1 * G + u2 * Qa. Only Px is needed */
+                    Cy_Crypto_Core_EC_SubMod(base, dividend, p_qy, p_gy);            /* (y2-y1) */
+                    Cy_Crypto_Core_EC_SubMod(base, p_s, p_qx, p_gx);                /* (x2-x1) */
+                    Cy_Crypto_Core_EC_DivMod(base, p_s, dividend, p_s, bitsize);    /* s = (y2-y1)/(x2-x1) */
 
-                Cy_Crypto_Core_EC_SquareMod (base, p_s, p_s, bitsize);         /* s^2 */
-                Cy_Crypto_Core_EC_SubMod    (base, p_s, p_s, p_gx);            /* s^2 - x1 */
-                Cy_Crypto_Core_EC_SubMod    (base, p_s, p_s, p_qx);            /* s^2 - x1 - x2 which is Px mod n */
+                    Cy_Crypto_Core_EC_SquareMod (base, p_s, p_s, bitsize);           /* s^2 */
+                    Cy_Crypto_Core_EC_SubMod    (base, p_s, p_s, p_gx);            /* s^2 - x1 */
+                    Cy_Crypto_Core_EC_SubMod    (base, p_s, p_s, p_qx);            /* s^2 - x1 - x2 which is Px mod n */
+                }
 
                 CY_CRYPTO_VU_FREE_MEM(base, CY_CRYPTO_VU_REG_BIT(p_o));
 

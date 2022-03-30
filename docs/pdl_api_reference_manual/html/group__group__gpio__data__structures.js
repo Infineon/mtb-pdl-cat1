@@ -10,7 +10,11 @@ var group__group__gpio__data__structures =
       [ "cfgOut", "structcy__stc__gpio__prt__config__t.html#a762edbdcbfa88173e805a8577b33c52f", null ],
       [ "cfgSIO", "structcy__stc__gpio__prt__config__t.html#a3d8fa53684ea40041db124e3da5412db", null ],
       [ "sel0Active", "structcy__stc__gpio__prt__config__t.html#acaf2429c91f5de7f64f6b007c00ed35d", null ],
-      [ "sel1Active", "structcy__stc__gpio__prt__config__t.html#a512073c3eb872e2b7d53a5e43ee6aef5", null ]
+      [ "sel1Active", "structcy__stc__gpio__prt__config__t.html#a512073c3eb872e2b7d53a5e43ee6aef5", null ],
+      [ "cfgSlew", "structcy__stc__gpio__prt__config__t.html#ae45a5b55868813fc798f154897a2f02c", null ],
+      [ "cfgDriveSel0", "structcy__stc__gpio__prt__config__t.html#a8ed05a164d9c2be87d994215ca0d6b61", null ],
+      [ "cfgDriveSel1", "structcy__stc__gpio__prt__config__t.html#adc09324003007e956be2d8bc0e9e7004", null ],
+      [ "nonSecMask", "structcy__stc__gpio__prt__config__t.html#ae4dac6192992209fc667e67335002755", null ]
     ] ],
     [ "cy_stc_gpio_pin_config_t", "structcy__stc__gpio__pin__config__t.html", [
       [ "outVal", "structcy__stc__gpio__pin__config__t.html#ae39ff5dc65ffef2808a0183f23691389", null ],
@@ -25,6 +29,7 @@ var group__group__gpio__data__structures =
       [ "ibufMode", "structcy__stc__gpio__pin__config__t.html#ac81f30a52ad1fa519a37bca4555f756b", null ],
       [ "vtripSel", "structcy__stc__gpio__pin__config__t.html#aa4cc8c41ddc1a81f1b70c22bb9284a89", null ],
       [ "vrefSel", "structcy__stc__gpio__pin__config__t.html#a4bb7bdbf8e3df5475582113e02e63bc0", null ],
-      [ "vohSel", "structcy__stc__gpio__pin__config__t.html#a5af07673aa0c34dafa660f6975bad826", null ]
+      [ "vohSel", "structcy__stc__gpio__pin__config__t.html#a5af07673aa0c34dafa660f6975bad826", null ],
+      [ "nonSec", "structcy__stc__gpio__pin__config__t.html#aa678e972ae52882207161cbb7190fd79", null ]
     ] ]
 ];

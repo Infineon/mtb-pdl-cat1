@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_uart.c
-* \version 2.80
+* \version 2.90
 *
 * Provides UART API implementation of the SCB driver.
 *
@@ -299,7 +299,7 @@ cy_en_scb_uart_status_t Cy_SCB_UART_Init(CySCB_Type *base, cy_stc_scb_uart_confi
     }
 
     /* Configure the UART interface */
-#if(CY_IP_MXSCB_VERSION>=3)
+#if(CY_IP_MXSCB_VERSION>=2)
     SCB_CTRL(base) = _BOOL2FLD(SCB_CTRL_ADDR_ACCEPT, config->acceptAddrInFifo)                      |
                  _VAL2FLD(SCB_CTRL_MEM_WIDTH, ((config->dataWidth <= CY_SCB_BYTE_WIDTH)? 0UL:1UL))  |
                  _VAL2FLD(SCB_CTRL_OVS, ovs)                                                        |
@@ -325,7 +325,7 @@ cy_en_scb_uart_status_t Cy_SCB_UART_Init(CySCB_Type *base, cy_stc_scb_uart_confi
                          _VAL2FLD(SCB_UART_RX_CTRL_BREAK_WIDTH, (config->breakWidth - 1UL))          |
                          _VAL2FLD(SCB_UART_RX_CTRL_STOP_BITS,   ((uint32_t) config->stopBits) - 1UL) |
                          _VAL2FLD(CY_SCB_UART_RX_CTRL_SET_PARITY, (uint32_t) config->parity);
-#if(CY_IP_MXSCB_VERSION>=3)
+#if(CY_IP_MXSCB_VERSION>=2)
     SCB_UART_RX_CTRL(base)|=_BOOL2FLD(SCB_UART_RX_CTRL_BREAK_LEVEL, config->breaklevel);
 #endif /* CY_IP_MXSCB_VERSION */
 
@@ -1641,8 +1641,8 @@ static void HandleDataTransmit(CySCB_Type *base, cy_stc_scb_uart_context_t *cont
         /* Put the last data element and make sure that "TX done" will happen for it */
         intrStatus = Cy_SysLib_EnterCriticalSection();
 
-        Cy_SCB_WriteTxFifo(base, txData);
         Cy_SCB_ClearTxInterrupt(base, CY_SCB_TX_INTR_UART_DONE);
+        Cy_SCB_WriteTxFifo(base, txData);
 
         Cy_SysLib_ExitCriticalSection(intrStatus);
 

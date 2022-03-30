@@ -10,6 +10,7 @@ var searchData=
   ['common_20enumerated_20types',['Common Enumerated Types',['../group__group__crypto__enums.html',1,'']]],
   ['cyclic_20redundancy_20code_20_28crc_29',['Cyclic Redundancy Code (CRC)',['../group__group__crypto__lld__crc.html',1,'']]],
   ['control_20and_20status',['Control and Status',['../group__group__crypto__lld__hw.html',1,'']]],
+  ['cryptolite_20_20_20_28cryptography_29',['Cryptolite   (Cryptography)',['../group__group__cryptolite.html',1,'']]],
   ['csd_20_20_20_20_20_20_20_20_20_20_28capsense_20sigma_20delta_29',['CSD          (CapSense Sigma Delta)',['../group__group__csd.html',1,'']]],
   ['ctb_20_20_20_20_20_20_20_20_20_20_28continuous_20time_20block_29',['CTB          (Continuous Time Block)',['../group__group__ctb.html',1,'']]],
   ['comparator_20functions',['Comparator Functions',['../group__group__ctb__functions__comparator.html',1,'']]],

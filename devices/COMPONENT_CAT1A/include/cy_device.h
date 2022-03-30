@@ -221,6 +221,9 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define CY_SRSS_NUM_PLL                     ((uint32_t)(cy_device->srssNumPll))
 #define CY_SRSS_NUM_HFROOT                  ((uint32_t)(cy_device->srssNumHfroot))
 
+#define CY_SRSS_PLL400M_PRESENT             0
+#define CY_SRSS_NUM_PLL400M                 0
+
 #define SRSS_PWR_CTL                        (((SRSS_V1_Type *) SRSS)->PWR_CTL)
 #define SRSS_PWR_HIBERNATE                  (((SRSS_V1_Type *) SRSS)->PWR_HIBERNATE)
 #define SRSS_PWR_TRIM_PWRSYS_CTL            (((SRSS_V1_Type *) SRSS)->PWR_TRIM_PWRSYS_CTL)
@@ -273,6 +276,13 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 
 #define SRSS_TST_DDFT_SLOW_CTL_MASK         (0x00001F1EU)
 #define SRSS_TST_DDFT_FAST_CTL_MASK         (62U)
+
+/*******************************************************************************
+*                CRYPTO
+*******************************************************************************/
+
+/* The CRYPTO internal-memory buffer-size in 32-bit words. */
+#define CY_CRYPTO_MEM_BUFF_SIZE_U32         (1024U)
 
 /*******************************************************************************
 *                BACKUP
@@ -506,9 +516,9 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define TCPWM_CNT_TR_CTRL1(base, cntNum)     (((TCPWM_V1_Type *)(base))->CNT[cntNum].TR_CTRL1)
 #define TCPWM_CNT_TR_CTRL2(base, cntNum)     (((TCPWM_V1_Type *)(base))->CNT[cntNum].TR_CTRL2)
 
-#define TCPWM_GRP_CC1(grp)                   ((((cy_device->tcpwmCC1Present) >> (grp)) & 0x01U) != 0U)
-#define TCPWM_GRP_AMC(grp)                   ((((cy_device->tcpwmAMCPresent) >> (grp)) & 0x01U) != 0U)
-#define TCPWM_GRP_SMC(grp)                   ((((cy_device->tcpwmSMCPrecent) >> (grp)) & 0x01U) != 0U)
+#define TCPWM_GRP_CC1(base, grp)                   ((((cy_device->tcpwmCC1Present) >> (grp)) & 0x01U) != 0U)
+#define TCPWM_GRP_AMC(base, grp)                   ((((cy_device->tcpwmAMCPresent) >> (grp)) & 0x01U) != 0U)
+#define TCPWM_GRP_SMC(base, grp)                   ((((cy_device->tcpwmSMCPrecent) >> (grp)) & 0x01U) != 0U)
 
 #define TCPWM_GRP_CNT_GET_GRP(cntNum)        ((cntNum )/ 256U)
 
@@ -697,6 +707,13 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define SMIF_INTR_MASK(base)                (((SMIF_V1_Type *)(base))->INTR_MASK)
 #define SMIF_INTR_MASKED(base)              (((SMIF_V1_Type *)(base))->INTR_MASKED)
 #define SMIF_CRYPTO_INPUT0(base)            (((SMIF_V1_Type *)(base))->CRYPTO_INPUT0)
+#define SMIF_CRYPTO_INPUT1(base)            (((SMIF_V1_Type *)(base))->CRYPTO_INPUT1)
+#define SMIF_CRYPTO_INPUT2(base)            (((SMIF_V1_Type *)(base))->CRYPTO_INPUT2)
+#define SMIF_CRYPTO_INPUT3(base)            (((SMIF_V1_Type *)(base))->CRYPTO_INPUT3)
+#define SMIF_CRYPTO_KEY0(base)              (((SMIF_V1_Type *)(base))->CRYPTO_KEY0)
+#define SMIF_CRYPTO_KEY1(base)              (((SMIF_V1_Type *)(base))->CRYPTO_KEY1)
+#define SMIF_CRYPTO_KEY2(base)              (((SMIF_V1_Type *)(base))->CRYPTO_KEY2)
+#define SMIF_CRYPTO_KEY3(base)              (((SMIF_V1_Type *)(base))->CRYPTO_KEY3)
 #define SMIF_CRYPTO_OUTPUT0(base)           (((SMIF_V1_Type *)(base))->CRYPTO_OUTPUT0)
 #define SMIF_CRYPTO_OUTPUT1(base)           (((SMIF_V1_Type *)(base))->CRYPTO_OUTPUT1)
 #define SMIF_CRYPTO_OUTPUT2(base)           (((SMIF_V1_Type *)(base))->CRYPTO_OUTPUT2)
@@ -713,7 +730,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 *******************************************************************************/
 
 #define CY_DW_V1                            (0x20U > cy_device->dwVersion)
-#define CY_DW_CRC                           (0x20U <= cy_device->dwVersion)
+#define CY_DW_CRC                           ((uint32_t)(0x20U <= cy_device->dwVersion))
 #define CY_DW0_BASE                         ((DW_Type*) 0x40280000UL)
 #define CY_DW0_CH_NR                        (cy_device->cpussDw0ChNr)
 #define CY_DW1_CH_NR                        (cy_device->cpussDw1ChNr)
@@ -772,7 +789,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 *******************************************************************************/
 #define CY_PERI_BASE                        ((PERI_V1_Type *) cy_device->periBase)
 
-#define CY_PERI_V1                          (0x20U > cy_device->periVersion) /* true if the mxperi version is 1.x */
+#define CY_PERI_V1                          ((uint32_t)(0x20U > cy_device->periVersion)) /* true if the mxperi version is 1.x */
 #define CY_PERI_V2_TR_GR_SIZE               (sizeof(PERI_TR_GR_V2_Type))
 #define CY_PERI_TR_CTL_NUM                  ((uint32_t)cy_device->periTrGrSize / sizeof(uint32_t))
 #define CY_PERI_TR_CTL_SEL_Pos              (0UL)
@@ -902,6 +919,9 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 /*******************************************************************************
 *                I2S
 *******************************************************************************/
+#if (defined(AUDIOSS_I2S) || defined(AUDIOSS0_I2S))
+#define AUDIOSS_I2S_PRESENT
+#endif
 
 #define REG_I2S_CTL(base)                   (((I2S_V1_Type*)(base))->CTL)
 #define REG_I2S_CMD(base)                   (((I2S_V1_Type*)(base))->CMD)
@@ -927,6 +947,9 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 /*******************************************************************************
 *                PDM
 *******************************************************************************/
+#if (defined(AUDIOSS_PDM) || defined(AUDIOSS0_PDM))
+#define AUDIOSS_PDM_PRESENT
+#endif
 
 #define PDM_PCM_CTL(base)                   (((PDM_V1_Type*)(base))->CTL)
 #define PDM_PCM_CMD(base)                   (((PDM_V1_Type*)(base))->CMD)

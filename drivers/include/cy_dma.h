@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_dma.h
-* \version 2.40
+* \version 2.50
 *
 * \brief
 * The header file of the DMA driver.
@@ -74,6 +74,8 @@
 * in a typical user application:
 * \image html dma.png
 *
+* <B>NOTE:</B> DMA will read descriptors from SRAM memory. To run DMA on devices with Core CM7,
+* D cache needs to be cleaned before DMA transfer and should be invalidated after DMA transfer. \n
 * <B>NOTE:</B> Even if a DMA channel is enabled, it is not operational until
 * the DMA block is enabled using function \ref Cy_DMA_Enable.\n
 * <B>NOTE:</B> If the DMA descriptor is configured to generate an interrupt,
@@ -92,6 +94,16 @@
 *
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.50</td>
+*     <td>Fixed MISRA 2012 violations.</td>
+*     <td>MISRA 2012 compliance.</td>
+*   </tr>
+*   <tr>
+*     <td>2.40.1</td>
+*     <td>Minor documentation updates.</td>
+*     <td>Update to configure DMA on core CM7.</td>
+*   </tr>
 *   <tr>
 *     <td>2.40</td>
 *     <td>Minor Bug fixes.</td>
@@ -171,7 +183,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS_DMA) || defined (CY_IP_MXDW)
+#if defined (CY_IP_M4CPUSS_DMA) || defined (CY_IP_MXDW) || defined (CY_IP_M7CPUSS_DMA)
 
 #include "cy_syslib.h"
 #include <stdint.h>
@@ -198,7 +210,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 15, \
 #define CY_DMA_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_DMA_DRV_VERSION_MINOR       40
+#define CY_DMA_DRV_VERSION_MINOR       50
 
 /** The DMA driver identifier */
 #define CY_DMA_ID                      (CY_PDL_DRV_ID(0x13U))

@@ -1,13 +1,15 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_domain_params.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC
 *  in the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2020 Cypress Semiconductor Corporation
+* \copyright
+* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");

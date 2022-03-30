@@ -87,7 +87,10 @@ $(document).ready(function(){initNavTree('group__group__crypto.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<p>The Crypto driver provides a public API to perform cryptographic and hash operations, as well as generate both true and pseudo random numbers. </p>
+<dl class="section note"><dt>Note</dt><dd>IP Supported: CPUSS </dd>
+<dd>
+Device Categories: CAT1A. Please refer <a href="usergroup1.html">Device Catalog</a>.</dd></dl>
+<p>The Crypto driver provides a public API to perform cryptographic and hash operations, as well as generate both true and pseudo random numbers.</p>
 <p>It uses a hardware IP block to accelerate operations.</p>
 <p>The functions and other declarations used in this driver are in cy_crypto.h, cy_crypto_core.h, and cy_crypto_server.h. You can also include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
 <p>The driver implements two usage models:</p><ul>
@@ -167,7 +170,7 @@ Definitions</h1>
 <p class="endtd"></p>
 </td></tr>
 <tr>
-<td>Asymmetric Key Cryptography </td><td>Also referred to as Public Key encryption. To receive a message, you publish a very large public key (up to 4096 bits currently). That key is one of the two prime factors of a very large number. The other prime factor is the recipient's private (secret) key. To send a message to the publisher of the public key, you encrypt the message with the public key. This message can now be decrypted only with the private key (the other prime factor held in secret by the recipient). The message is now sent over any channel to the recipient who can decrypt it with the private (secret) key. The same process is used to send messages to the sender of the original message. The asymmetric cryptography relies on the mathematical impracticality (usually related to the processing power available at any given time) of factoring the keys. Common, computationally intensive, asymmetric algorithms are RSA and ECC. The public key is described by the pair (n, e) where n is a product of two randomly chosen primes p and q. The exponent e is a random integer 1 &lt; e &lt; Q where Q = (p-1) (q-1). The private key d is uniquely defined by the integer 1 &lt; d &lt; Q so that ed congruent with 1 (mod Q ).   </td></tr>
+<td>Asymmetric Key Cryptography </td><td>Also referred to as Public Key encryption. To receive a message, you publish a very large public key (up to 4096 bits currently). The public key is described by the pair (n, e) where n is a product of two randomly chosen primes p and q. The exponent e is a random integer 1 &lt; e &lt; Q where Q = (p-1) (q-1). The private key d is uniquely defined by the integer 1 &lt; d &lt; Q so that ed congruent with 1 (mod Q ). To send a message to the publisher of the public key, you encrypt the message with the public key. This message can now be decrypted only with the private key. The message is now sent over any channel to the recipient who can decrypt it with the private (secret) key. The same process is used to send messages to the sender of the original message. The asymmetric cryptography relies on the mathematical impracticality (usually related to the processing power available at any given time) of factoring the keys.   </td></tr>
 </table>
 <h1><a class="anchor" id="group_crypto_more_information"></a>
 More Information</h1>
@@ -178,6 +181,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.50 </td><td>Fixed the <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga1d1d01ef464f6609df2a5c1ba4186d86" title="Verify an ECC signature. ">Cy_Crypto_Core_ECC_VerifyHash()</a> and an internal function behaviour to support 0 hash message. Resolved MISRA 2012 standard defects. </td><td>Defect fixing and MISRA 2012 compliance.  </td></tr>
 <tr>
 <td>2.40 </td><td>Resolve MISRA 2012 standard defects.  </td><td>MISRA 2012 compliance.   </td></tr>
 <tr>

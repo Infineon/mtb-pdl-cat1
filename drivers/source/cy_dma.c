@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_dma.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 * The source code file for the DMA driver.
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS_DMA) || defined (CY_IP_MXDW)
+#if defined (CY_IP_M4CPUSS_DMA) || defined (CY_IP_MXDW) || defined (CY_IP_M7CPUSS_DMA)
 
 #include "cy_dma.h"
 
@@ -57,7 +57,7 @@ cy_en_dma_status_t Cy_DMA_Crc_Init(DW_Type * base, cy_stc_dma_crc_config_t const
 #ifdef CY_IP_MXDW
     if((NULL != base) && (NULL != crcConfig) )
 #else
-    if((NULL != base) && (NULL != crcConfig) && CY_DW_CRC)
+    if((NULL != base) && (NULL != crcConfig) && (CY_DW_CRC == 1UL))
 #endif /* CY_IP_MXDW */
     {
         DW_CRC_CTL(base) = _BOOL2FLD(DW_V2_CRC_CTL_DATA_REVERSE, crcConfig->dataReverse) |
@@ -175,7 +175,8 @@ cy_en_dma_status_t Cy_DMA_Descriptor_Init(cy_stc_dma_descriptor_t * descriptor, 
                 break;
 
             case CY_DMA_CRC_TRANSFER:
-                if (CY_DW_CRC)
+                CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 14.3','CY_DW_CRC is available for all CAT1B devices.');
+                if (CY_DW_CRC != 0UL)
                 {
                     CY_ASSERT_L2(CY_DMA_IS_LOOP_INCR_VALID(config->srcXincrement));
                     CY_ASSERT_L2(CY_DMA_IS_LOOP_COUNT_VALID(config->xCount));
@@ -427,7 +428,8 @@ void Cy_DMA_Descriptor_SetDescriptorType(cy_stc_dma_descriptor_t * descriptor, c
 {
     CY_ASSERT_L3(CY_DMA_IS_TYPE_VALID(descriptorType));
     CY_ASSERT_L1(descriptor);
-    if ((CY_DMA_CRC_TRANSFER != descriptorType) || CY_DW_CRC)
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 14.3','CY_DW_CRC is available for all CAT1B devices.');
+    if ((CY_DMA_CRC_TRANSFER != descriptorType) || (CY_DW_CRC == 1UL))
     {
         if (descriptorType != Cy_DMA_Descriptor_GetDescriptorType(descriptor)) /* Do not perform if the type is not changed */
         {

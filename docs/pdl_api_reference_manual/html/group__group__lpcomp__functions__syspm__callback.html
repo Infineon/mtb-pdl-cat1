@@ -87,15 +87,15 @@ $(document).ready(function(){initNavTree('group__group__lpcomp__functions__syspm
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<p>The driver supports SysPm callback for Deep Sleep and Hibernate transition. </p>
+<p>The driver supports the SysPm callback for Deep Sleep and Hibernate transition. </p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga1db6050e8d02b0117098b1afcf485d1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lpcomp__functions__syspm__callback.html#ga1db6050e8d02b0117098b1afcf485d1a">Cy_LPComp_DeepSleepCallback</a> (<a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> *callbackParams, <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a> mode)</td></tr>
-<tr class="memdesc:ga1db6050e8d02b0117098b1afcf485d1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks the current power mode of LPComp and then disables the LPComp block if there is no wake-up source from LPComp in the deep-sleep mode.  <a href="#ga1db6050e8d02b0117098b1afcf485d1a">More...</a><br /></td></tr>
+<tr class="memitem:ga1db6050e8d02b0117098b1afcf485d1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lpcomp__functions__syspm__callback.html#ga1db6050e8d02b0117098b1afcf485d1a">Cy_LPComp_DeepSleepCallback</a> (<a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> *callbackParams, <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#gaf294e94ca5176720ef5e5cbedc95ca47">mode</a>)</td></tr>
+<tr class="memdesc:ga1db6050e8d02b0117098b1afcf485d1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks the current low-power comparator power mode and disables the low-power comparator block, if there is no wake-up source from the low-power comparator in Deep-Sleep mode.  <a href="#ga1db6050e8d02b0117098b1afcf485d1a">More...</a><br /></td></tr>
 <tr class="separator:ga1db6050e8d02b0117098b1afcf485d1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac2cc38b002d8336bc1c364e70b2d5534"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lpcomp__functions__syspm__callback.html#gac2cc38b002d8336bc1c364e70b2d5534">Cy_LPComp_HibernateCallback</a> (<a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> *callbackParams, <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a> mode)</td></tr>
-<tr class="memdesc:gac2cc38b002d8336bc1c364e70b2d5534"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks the current power mode of LPComp and then disable the LPComp block, if there is no wake-up source from LPComp in the hibernate mode.  <a href="#gac2cc38b002d8336bc1c364e70b2d5534">More...</a><br /></td></tr>
+<tr class="memitem:gac2cc38b002d8336bc1c364e70b2d5534"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lpcomp__functions__syspm__callback.html#gac2cc38b002d8336bc1c364e70b2d5534">Cy_LPComp_HibernateCallback</a> (<a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> *callbackParams, <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#gaf294e94ca5176720ef5e5cbedc95ca47">mode</a>)</td></tr>
+<tr class="memdesc:gac2cc38b002d8336bc1c364e70b2d5534"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks the current low-power comparator power mode and disables the low-power comparator block, if there is no wake-up source from the low-power comparator in Hibernate mode.  <a href="#gac2cc38b002d8336bc1c364e70b2d5534">More...</a><br /></td></tr>
 <tr class="separator:gac2cc38b002d8336bc1c364e70b2d5534"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -125,11 +125,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function checks the current power mode of LPComp and then disables the LPComp block if there is no wake-up source from LPComp in the deep-sleep mode. </p>
-<p>It stores the state of the LPComp enable and then disables the LPComp block before going to the low power modes, and recovers the LPComp power state after wake-up using the stored value.</p>
+<p>This function checks the current low-power comparator power mode and disables the low-power comparator block, if there is no wake-up source from the low-power comparator in Deep-Sleep mode. </p>
+<p>This function stores the state of the low-power comparator "Enable", disables the low-power comparator block before going to low power modes and then recovers the low-power comparator power "after a wake-up" state using the stored value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">*callbackParams</td><td>The <a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> structure with the callback parameters which consists of mode, base and context fields: *base - LPComp register structure pointer; *context - Context for the call-back function; mode CY_SYSPM_CHECK_READY - No action for this state. CY_SYSPM_CHECK_FAIL - No action for this state. CY_SYSPM_BEFORE_TRANSITION - Checks the LPComp interrupt mask and the power mode, and then disables or enables the LPComp block according to the condition. Stores the LPComp state to recover the state after wake up. CY_SYSPM_AFTER_TRANSITION - Enables the LPComp block, if it was disabled before the sleep mode.</td></tr>
+    <tr><td class="paramname">*callbackParams</td><td>A <a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> structure with callback parameters that consists of mode, base and context fields: *base - a low-power comparator register structure pointer. *context - context for the call-back function. mode<ul>
+<li>CY_SYSPM_CHECK_READY - no action for this state.</li>
+<li>CY_SYSPM_CHECK_FAIL - no action for this state.</li>
+<li>CY_SYSPM_BEFORE_TRANSITION - checks the low-power comparator interrupt mask and power mode and then disables or enables the low-power comparator block per condition. Stores the low-power comparator state to recover the state after a wake up.</li>
+<li>CY_SYSPM_AFTER_TRANSITION - enables the low-power comparator block if it was disabled before Sleep mode.</li>
+</ul>
+</td></tr>
     <tr><td class="paramname">mode</td><td>Callback mode, see <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a></td></tr>
   </table>
   </dd>
@@ -164,10 +170,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function checks the current power mode of LPComp and then disable the LPComp block, if there is no wake-up source from LPComp in the hibernate mode. </p>
+<p>This function checks the current low-power comparator power mode and disables the low-power comparator block, if there is no wake-up source from the low-power comparator in Hibernate mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">*callbackParams</td><td>The <a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> structure with the callback parameters which consists of mode, base and context fields: *base - LPComp register structure pointer; *context - Context for the call-back function; mode CY_SYSPM_CHECK_READY - No action for this state. CY_SYSPM_CHECK_FAIL - No action for this state. CY_SYSPM_BEFORE_TRANSITION - Checks the wake-up source from the hibernate mode of the LPComp block, and then disables or enables the LPComp block according to the condition.</td></tr>
+    <tr><td class="paramname">*callbackParams</td><td>A <a class="el" href="structcy__stc__syspm__callback__params__t.html">cy_stc_syspm_callback_params_t</a> structure with callback parameters that consists of mode, base and context fields: *base - a low-power comparator register structure pointer. *context - context for the call-back function. mode<ul>
+<li>CY_SYSPM_CHECK_READY - no action for this state.</li>
+<li>CY_SYSPM_CHECK_FAIL - no action for this state.</li>
+<li>CY_SYSPM_BEFORE_TRANSITION - checks the wake-up source from Hibernate mode of the low-power comparator block, and then disables or enables the low-power comparator block per condition.</li>
+</ul>
+</td></tr>
     <tr><td class="paramname">mode</td><td>Callback mode, see <a class="el" href="group__group__syspm__data__enumerates.html#gae06cd8869fe61d709ad6145ca9f3cd63">cy_en_syspm_callback_mode_t</a></td></tr>
   </table>
   </dd>

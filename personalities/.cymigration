@@ -134,7 +134,7 @@
   </Source>
   <Source id="mxs40saradc-1.0">
     <Destination id="mxs40saradc-2.0" valid="true" message="Migration is successful" defaultMapping="true">
-      <Parameter param="powerUpDelay" value="`${(value(&quot;powerUpDelayUs&quot;) >= 20) ? value(&quot;powerUpDelay&quot;) : 40}`" />
+      <Parameter param="powerUpDelay" value="`${(value(&quot;powerUpDelayUs&quot;) ge 20) ? value(&quot;powerUpDelay&quot;) : 40}`" />
     </Destination>
   </Source>
   <Source id="mxs40fll-1.0">

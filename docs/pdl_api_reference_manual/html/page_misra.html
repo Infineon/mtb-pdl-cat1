@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('page_misra.html','');});
 <tr>
 <td>Test Specification </td><td>MISRA-C:2012 Guidelines for the use of the C language in critical systems </td><td>March 2013  </td></tr>
 <tr>
-<td rowspan="2">MISRA Checking Tool </td><td>Coverity Static Analysis Tool </td><td>2020.03  </td></tr>
+<td rowspan="2">MISRA Checking Tool </td><td>Coverity Static Analysis Tool </td><td>2021.9.0  </td></tr>
 </table>
 <h1>Project Deviation</h1>
 <p>The list of deviated rules/directives is provided in the table below:</p>
@@ -114,6 +114,8 @@ $(document).ready(function(){initNavTree('page_misra.html','');});
 <td>1.1 </td><td>R </td><td>R </td><td>The program shall contain no violations of the standard C syntax and constraints, and shall not exceed the implementation’s translation limits </td><td>PDL supports ISO:C99 standard.  </td></tr>
 <tr>
 <td>1.3 </td><td>R </td><td>R </td><td>There shall be no occurrence of undefined or critical unspecified behaviour. </td><td>This specific behavior is explicitly covered in rules 5.1, 21.1.  </td></tr>
+<tr>
+<td>2.2 </td><td>R </td><td>R </td><td>There shall be no dead code </td><td>PDL has few WEAK functions that can be overwritten.  </td></tr>
 <tr>
 <td>3.1 </td><td>R </td><td>R </td><td>The character sequences <code>/*</code> and // shall not be used within a comment </td><td>Allow doxygen-style comments.  </td></tr>
 <tr>
@@ -131,13 +133,31 @@ $(document).ready(function(){initNavTree('page_misra.html','');});
 <tr>
 <td>5.8 </td><td>R </td><td>R </td><td>Identifiers that define objects or functions with external linkage shall be unique. </td><td>During the code analysis, the same source files are compiled multiple times with device-specific options. All object and function identifiers are actually unique for each specific run.  </td></tr>
 <tr>
+<td>8.3 </td><td>R </td><td>R </td><td>All declarations of an object or function shall use the same names and type qualifiers </td><td>In case of deviations, few functions have multiple prototypes. Correct prototype is picked based on the device type for which PDL is being built   </td></tr>
+<tr>
+<td>8.5 </td><td>R </td><td>R </td><td>An external object or function shall be declared once in one and only one file </td><td>Correct prototype is picked based on the device type for which PDL is being built  </td></tr>
+<tr>
+<td>8.6 </td><td>R </td><td>R </td><td>An identifier with external linkage shall have exactly one external definition </td><td>PDL has few functions defined in assembly files and these are not scanned by Coverity  </td></tr>
+<tr>
+<td>10.8 </td><td>R </td><td>R </td><td>The value of a composite expression shall not be cast to a different essential type category or a wider essential type </td><td>In case of deviations, the case to wider type does not have any unintended effect  </td></tr>
+<tr>
 <td>11.1 </td><td>R </td><td>R </td><td>Conversions shall not be performed between a pointer to a function and any other type </td><td>The cast from unsigned int to pointer does not have any unintended effect, as it is a consequence of the definition of a structure based on hardware registers.  </td></tr>
 <tr>
 <td>11.2 </td><td>R </td><td>R </td><td>Conversions shall not be performed between a pointer to an incomplete type and any other type </td><td>The cast from unsigned int to pointer does not have any unintended effect, as it is a consequence of the definition of a structure based on hardware registers.  </td></tr>
 <tr>
+<td>11.3 </td><td>R </td><td>R </td><td>A cast shall not be performed between a pointer to object type and a pointer to a different object type </td><td>Intentional typecast as PDL initializes the CAT1A device drivers at runtime based on the target device  </td></tr>
+<tr>
 <td>11.6 </td><td>R </td><td>R </td><td>A cast shall not be performed between pointer to void and an arithmetic type </td><td>The cast from unsigned int to pointer does not have any unintended effect, as it is a consequence of the definition of a structure based on hardware registers.  </td></tr>
 <tr>
 <td>11.8 </td><td>R </td><td>R </td><td>A cast shall not remove any const or volatile qualification from the type pointed to by a pointer </td><td>Drivers access hardware register by macro, which is used for both read and write access. In that case remove of const qualification does not have any unintended effect, as it is a consequence of the macro usage.  </td></tr>
+<tr>
+<td>12.2 </td><td>R </td><td>R </td><td>The right hand operand of a shift operator shall lie in the range zero to one less than the width in bits of the essential </td><td>Verified that shift is within the range  </td></tr>
+<tr>
+<td>14.3 </td><td>R </td><td>R </td><td>Controlling expressions shall not be invariant </td><td>Deviations as there are few comparisions between MACRO and number  </td></tr>
+<tr>
+<td>18.1 </td><td>R </td><td>R </td><td>A pointer resulting from arithmetic on a pointer operand shall address an element of the same array as that pointer operand </td><td>Intentional typecast of message buffer to byte array  </td></tr>
+<tr>
+<td>18.6 </td><td>R </td><td>R </td><td>The address of an object with automatic storage shall not be copied to another object that persists after the first object has ceased to exist </td><td>In case of deviation, no valid data expected after funtion return  </td></tr>
 <tr>
 <td>20.4 </td><td>R </td><td>R </td><td>A macro shall not be defined with the same name as a keyword </td><td>There are some CMSIS-CORE defines are used for structure members definitions, that cannot be enclosed in parentheses.  </td></tr>
 <tr>

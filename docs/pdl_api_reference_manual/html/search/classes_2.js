@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gpio_5fprt_5ftype',['GPIO_PRT_Type',['../struct_g_p_i_o___p_r_t___type.html',1,'']]]
+  ['dw_5ftype',['DW_Type',['../struct_d_w___type.html',1,'']]]
 ];

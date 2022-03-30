@@ -133,6 +133,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf9f813c4673a427b7a8aa35447f91cf0"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lvd__functions.html#gaf9f813c4673a427b7a8aa35447f91cf0">Cy_LVD_SetInterruptConfig</a> (<a class="el" href="group__group__lvd__enums.html#ga86656c2b083eef9b483a09ef4078257e">cy_en_lvd_intr_config_t</a> lvdInterruptConfig)</td></tr>
 <tr class="memdesc:gaf9f813c4673a427b7a8aa35447f91cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a configuration for LVD interrupt.  <a href="#gaf9f813c4673a427b7a8aa35447f91cf0">More...</a><br /></td></tr>
 <tr class="separator:gaf9f813c4673a427b7a8aa35447f91cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab29e8cf1578ac78da92ae70526bcbf1e"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lvd__functions.html#gab29e8cf1578ac78da92ae70526bcbf1e">Cy_LVD_GetSourceVoltage</a> (void)</td></tr>
+<tr class="memdesc:gab29e8cf1578ac78da92ae70526bcbf1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the source selected.  <a href="#gab29e8cf1578ac78da92ae70526bcbf1e">More...</a><br /></td></tr>
+<tr class="separator:gab29e8cf1578ac78da92ae70526bcbf1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaac5a3234ace5fec4b51c94c222da13eb"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lvd__functions.html#gaac5a3234ace5fec4b51c94c222da13eb">Cy_LVD_SetSourceVoltage</a> (<a class="el" href="group__group__lvd__enums.html#ga83513d700b0ebe345c0c9a02ca4e9d56">cy_en_lvd_source_t</a> source)</td></tr>
+<tr class="memdesc:gaac5a3234ace5fec4b51c94c222da13eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the source voltage for LVD.  <a href="#gaac5a3234ace5fec4b51c94c222da13eb">More...</a><br /></td></tr>
+<tr class="separator:gaac5a3234ace5fec4b51c94c222da13eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga855b38a29ad7ce794e38f09e546f14c4"></a>
@@ -397,6 +403,53 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lvdInterruptConfig</td><td><a class="el" href="group__group__lvd__enums.html#ga86656c2b083eef9b483a09ef4078257e">cy_en_lvd_intr_config_t</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gab29e8cf1578ac78da92ae70526bcbf1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab29e8cf1578ac78da92ae70526bcbf1e">&#9670;&nbsp;</a></span>Cy_LVD_GetSourceVoltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE uint32_t Cy_LVD_GetSourceVoltage </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the index of the source selected. </p>
+<dl class="section return"><dt>Returns</dt><dd>LVD source index, <a class="el" href="group__group__lvd__enums.html#ga83513d700b0ebe345c0c9a02ca4e9d56">cy_en_lvd_source_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="gaac5a3234ace5fec4b51c94c222da13eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaac5a3234ace5fec4b51c94c222da13eb">&#9670;&nbsp;</a></span>Cy_LVD_SetSourceVoltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_LVD_SetSourceVoltage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__lvd__enums.html#ga83513d700b0ebe345c0c9a02ca4e9d56">cy_en_lvd_source_t</a>&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selects the source voltage for LVD. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td><a class="el" href="group__group__lvd__enums.html#ga83513d700b0ebe345c0c9a02ca4e9d56">cy_en_lvd_source_t</a>. </td></tr>
   </table>
   </dd>
 </dl>

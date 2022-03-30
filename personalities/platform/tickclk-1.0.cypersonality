@@ -56,7 +56,8 @@
     
     <!-- If the frequency is less than one MHz, display its value in kHz -->
     <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${formatFrequency(frequency,accuracy)}`" visible="true" editable="false" desc="The resulting CLK_ALT_SYS_TICK output clock frequency" />
-  </Parameters>
+   <ParamRange id="interval" name="Interval (µs)" group="General" default="0" min="0" max="`${floor(((16777215.0 / frequency) * 1000000) )}`" resolution="1" visible="true" editable="true" desc="Systick Interrupt Interval. Range (0 - `${floor(((16777215.0 / frequency) * 1000000) )}`) µs" />
+ </Parameters>
   <DRCs>
     <DRC type="ERROR" text="Source clock for CLK_ALT_SYS_TICK is not enabled" condition="`${error}`" >
       <FixIt action="ENABLE_BLOCK" target="`${sourceClockRsc}`" value="" valid="true" />
@@ -66,6 +67,9 @@
     <ConfigInclude value="cy_systick.h" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKALTSYSTICK_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKALTSYSTICK_SOURCE" value="CY_SYSTICK_CLOCK_SOURCE_CLK_`${sourceClockRscName}`" public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkAltSysTickInit()" body="    Cy_SysTick_SetClockSource(CY_SYSTICK_CLOCK_SOURCE_CLK_`${sourceClockRscName}`);" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+	<ConfigDefine name="CY_CFG_SYSCLK_CLKALTSYSTICK_INTERVAL" value="`${interval}`" public="false" include="true" />
+	<ConfigDefine name="CY_CFG_SYSCLK_CLKALTSYSTICK_FREQUENCY" value="`${frequency}`" public="false" include="true" />
+	<ConfigDefine name="CY_CFG_SYSCLK_CLKALTSYSTICK_TICKS" value="((`${interval}`)/1000000.0)*`${frequency}`" public="false" include="true" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkAltSysTickInit()" body=" Cy_SysTick_Init(CY_CFG_SYSCLK_CLKALTSYSTICK_SOURCE, CY_CFG_SYSCLK_CLKALTSYSTICK_TICKS);" public="false" include="true" />
   </ConfigFirmware>
 </Personality>

@@ -1,0 +1,27 @@
+var group__group__lin__functions =
+[
+    [ "Cy_LIN_DeInit", "group__group__lin__functions.html#gae612337973effac3385278932caed920", null ],
+    [ "Cy_LIN_Init", "group__group__lin__functions.html#ga022f651949b9b0da42eb49b26d6dc629", null ],
+    [ "Cy_LIN_ReadData", "group__group__lin__functions.html#gafc5157ee9701212ec438b8935e025008", null ],
+    [ "Cy_LIN_WriteData", "group__group__lin__functions.html#gadc187085698922054358f40f61102766", null ],
+    [ "Cy_LIN_Enable", "group__group__lin__functions.html#gaeaf5d7ed1dad6387c6e29ae9e1e6f283", null ],
+    [ "Cy_LIN_Disable", "group__group__lin__functions.html#ga7f0d57ec29739409641ab31d55027f24", null ],
+    [ "Cy_LIN_SetBreakWakeupFieldLength", "group__group__lin__functions.html#gad350aa9efb6456b15bd19496c8a2fbd3", null ],
+    [ "Cy_LIN_SetDataLength", "group__group__lin__functions.html#ga82271648198d79ec6b6b04d121760e47", null ],
+    [ "Cy_LIN_SetChecksumType", "group__group__lin__functions.html#ga5b3de77896f20af2c86306dce5434d44", null ],
+    [ "Cy_LIN_SetCmd", "group__group__lin__functions.html#ga03c597f64053b7ebe11db0d332f21af2", null ],
+    [ "Cy_LIN_SetHeader", "group__group__lin__functions.html#gaeeb11daf2fc23f165651c5b81b7c82c4", null ],
+    [ "Cy_LIN_GetHeader", "group__group__lin__functions.html#ga46b5fce31309f1875e4a3d994cc0257f", null ],
+    [ "Cy_LIN_SetInterruptMask", "group__group__lin__functions.html#ga545104ebfe2a6d54cc7c35cbcc5a46b3", null ],
+    [ "Cy_LIN_GetInterruptMask", "group__group__lin__functions.html#ga6f1c6979953fc43f09090c792d8f4f3e", null ],
+    [ "Cy_LIN_GetInterruptMaskedStatus", "group__group__lin__functions.html#ga621860135fb27c82e6cea7488dad4543", null ],
+    [ "Cy_LIN_GetInterruptStatus", "group__group__lin__functions.html#ga3cccda84a6e9859c69dbebf477c11e97", null ],
+    [ "Cy_LIN_ClearInterrupt", "group__group__lin__functions.html#ga09ae5f9ff1edcf886fc2abf09de8e5c2", null ],
+    [ "Cy_LIN_GetStatus", "group__group__lin__functions.html#gaa653a7971577ec2aae00f721be4f2349", null ],
+    [ "Cy_LIN_EnOut_Enable", "group__group__lin__functions.html#gad6d061f47fdb235761cebb7e7369112f", null ],
+    [ "Cy_LIN_EnOut_Disable", "group__group__lin__functions.html#gad9dbfa93695b15cac42007ede0102583", null ],
+    [ "Cy_LIN_TestMode_Enable", "group__group__lin__functions.html#gac9f8f70bf71701f8dc2ec50b208d381a", null ],
+    [ "Cy_LIN_TestMode_Disable", "group__group__lin__functions.html#gae7bada6c7d973bc2dfc3f52d1076d0b0", null ],
+    [ "Cy_LIN_ErrCtl_Enable", "group__group__lin__functions.html#gabc994b44431ec2d606a37dd858628521", null ],
+    [ "Cy_LIN_ErrCtl_Disable", "group__group__lin__functions.html#gad6d7af2807ea4e927061a16fc1c43f95", null ]
+];

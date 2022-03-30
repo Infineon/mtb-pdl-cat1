@@ -83,7 +83,7 @@ $(document).ready(function(){initNavTree('group__group__system__config__globals.
   <div class="summary">
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">Global Variables<div class="ingroups"><a class="el" href="group__group__system__config.html">Startup      (System Configuration Files)</a></div></div>  </div>
+<div class="title">Global Variables<div class="ingroups"><a class="el" href="group__group__system__config.html">Startup CAT1A</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('group__group__system__config__globals.
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:gaa3cd3e43291e81e795d642b79b6088e6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__system__config__globals.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a></td></tr>
-<tr class="memdesc:gaa3cd3e43291e81e795d642b79b6088e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the SlowClk (Cortex-M0+) or FastClk (Cortex-M4) system core clock, which is the system clock frequency supplied to the SysTick timer and the processor core clock.  <a href="#gaa3cd3e43291e81e795d642b79b6088e6">More...</a><br /></td></tr>
+<tr class="memdesc:gaa3cd3e43291e81e795d642b79b6088e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the system core clock, which is the system clock frequency supplied to the SysTick timer and the processor core clock.  <a href="#gaa3cd3e43291e81e795d642b79b6088e6">More...</a><br /></td></tr>
 <tr class="separator:gaa3cd3e43291e81e795d642b79b6088e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad6c61e43c7d81802c759a8f0046bdc12"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__system__config__globals.html#gad6c61e43c7d81802c759a8f0046bdc12">cy_BleEcoClockFreqHz</a></td></tr>
 <tr class="memdesc:gad6c61e43c7d81802c759a8f0046bdc12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the Alternate high frequency clock in Hz.  <a href="#gad6c61e43c7d81802c759a8f0046bdc12">More...</a><br /></td></tr>
@@ -116,7 +116,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Holds the SlowClk (Cortex-M0+) or FastClk (Cortex-M4) system core clock, which is the system clock frequency supplied to the SysTick timer and the processor core clock. </p>
+<p>Holds the system core clock, which is the system clock frequency supplied to the SysTick timer and the processor core clock. </p>
+<p>This variable implements CMSIS Core global variable. Refer to the <a href="http://www.keil.com/pack/doc/CMSIS/Core/html/group__system__init__gr.html" title="System and Clock Configuration">CMSIS documentation</a> for more details. This variable can be used by debuggers to query the frequency of the debug timer or to configure the trace clock speed.</p>
+<dl class="section attention"><dt>Attention</dt><dd>Compilers must be configured to avoid removing this variable in case the application program is not using it. Debugging systems require the variable to be physically present in memory so that it can be examined to configure the debugger.</dd></dl>
+<p>Holds the system core clock, which is the system clock frequency supplied to the SysTick timer and the processor core clock.</p>
 <p>This variable implements CMSIS Core global variable. Refer to the <a href="http://www.keil.com/pack/doc/CMSIS/Core/html/group__system__init__gr.html" title="System and Clock Configuration">CMSIS documentation</a> for more details. This variable can be used by debuggers to query the frequency of the debug timer or to configure the trace clock speed.</p>
 <dl class="section attention"><dt>Attention</dt><dd>Compilers must be configured to avoid removing this variable in case the application program is not using it. Debugging systems require the variable to be physically present in memory so that it can be examined to configure the debugger. </dd></dl>
 

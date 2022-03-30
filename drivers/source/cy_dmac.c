@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_dmac.c
-* \version 1.20
+* \version 1.30
 *
 * \brief
 * The source code file for the DMAC driver.
@@ -25,7 +25,8 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS_DMAC) || defined (CY_IP_MXAHBDMAC)
+#if defined (CY_IP_M4CPUSS_DMAC) || defined (CY_IP_MXAHBDMAC) || defined (CY_IP_M7CPUSS_DMAC)
+
 
 #include "cy_dmac.h"
 

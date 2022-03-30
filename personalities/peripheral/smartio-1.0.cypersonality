@@ -137,22 +137,22 @@
         <Entry name="LUT5" value="CY_SMARTIO_LUTTR_LUT5_OUT" visible="true" />
         <Entry name="LUT6" value="CY_SMARTIO_LUTTR_LUT6_OUT" visible="true" />
         <Entry name="LUT7" value="CY_SMARTIO_LUTTR_LUT7_OUT" visible="true" />
-        <Entry name="Chip 0" value="CY_SMARTIO_LUTTR_CHIP0" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP0)}`" />
-        <Entry name="Chip 1" value="CY_SMARTIO_LUTTR_CHIP1" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP1)}`" />
-        <Entry name="Chip 2" value="CY_SMARTIO_LUTTR_CHIP2" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP2)}`" />
-        <Entry name="Chip 3" value="CY_SMARTIO_LUTTR_CHIP3" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP3)}`" />
-        <Entry name="Chip 4" value="CY_SMARTIO_LUTTR_CHIP4" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP4)}`" />
-        <Entry name="Chip 5" value="CY_SMARTIO_LUTTR_CHIP5" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP5)}`" />
-        <Entry name="Chip 6" value="CY_SMARTIO_LUTTR_CHIP6" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP6)}`" />
-        <Entry name="Chip 7" value="CY_SMARTIO_LUTTR_CHIP7" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP7)}`" />
-        <Entry name="I/O 0" value="CY_SMARTIO_LUTTR_IO0" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO0)}`" />
-        <Entry name="I/O 1" value="CY_SMARTIO_LUTTR_IO1" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO1)}`" />
-        <Entry name="I/O 2" value="CY_SMARTIO_LUTTR_IO2" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO2)}`" />
-        <Entry name="I/O 3" value="CY_SMARTIO_LUTTR_IO3" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO3)}`" />
-        <Entry name="I/O 4" value="CY_SMARTIO_LUTTR_IO4" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO4)}`" />
-        <Entry name="I/O 5" value="CY_SMARTIO_LUTTR_IO5" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO5)}`" />
-        <Entry name="I/O 6" value="CY_SMARTIO_LUTTR_IO6" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO6)}`" />
-        <Entry name="I/O 7" value="CY_SMARTIO_LUTTR_IO7" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO7)}`" />
+        <Entry name="Chip 0" value="CY_SMARTIO_LUTTR_CHIP0" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP0)) : false}`" />
+        <Entry name="Chip 1" value="CY_SMARTIO_LUTTR_CHIP1" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP1)) : false}`" />
+        <Entry name="Chip 2" value="CY_SMARTIO_LUTTR_CHIP2" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP2)) : false}`" />
+        <Entry name="Chip 3" value="CY_SMARTIO_LUTTR_CHIP3" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP3)) : false}`" />
+        <Entry name="Chip 4" value="CY_SMARTIO_LUTTR_CHIP4" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP4)) : false}`" />
+        <Entry name="Chip 5" value="CY_SMARTIO_LUTTR_CHIP5" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP5)) : false}`" />
+        <Entry name="Chip 6" value="CY_SMARTIO_LUTTR_CHIP6" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP6)) : false}`" />
+        <Entry name="Chip 7" value="CY_SMARTIO_LUTTR_CHIP7" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP7)) : false}`" />
+        <Entry name="I/O 0" value="CY_SMARTIO_LUTTR_IO0" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO0)) : false}`" />
+        <Entry name="I/O 1" value="CY_SMARTIO_LUTTR_IO1" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO1)) : false}`" />
+        <Entry name="I/O 2" value="CY_SMARTIO_LUTTR_IO2" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO2)) : false}`" />
+        <Entry name="I/O 3" value="CY_SMARTIO_LUTTR_IO3" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO3)) : false}`" />
+        <Entry name="I/O 4" value="CY_SMARTIO_LUTTR_IO4" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO4)) : false}`" />
+        <Entry name="I/O 5" value="CY_SMARTIO_LUTTR_IO5" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO5)) : false}`" />
+        <Entry name="I/O 6" value="CY_SMARTIO_LUTTR_IO6" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO6)) : false}`" />
+        <Entry name="I/O 7" value="CY_SMARTIO_LUTTR_IO7" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO7)) : false}`" />
         <Entry name="None" value="CY_SMARTIO_LUTTR_INVALID" visible="true" />
       </ParamChoice>
 
@@ -165,22 +165,22 @@
         <Entry name="LUT5" value="CY_SMARTIO_LUTTR_LUT5_OUT" visible="true" />
         <Entry name="LUT6" value="CY_SMARTIO_LUTTR_LUT6_OUT" visible="true" />
         <Entry name="LUT7" value="CY_SMARTIO_LUTTR_LUT7_OUT" visible="true" />
-        <Entry name="Chip 0" value="CY_SMARTIO_LUTTR_CHIP0" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP0)}`" />
-        <Entry name="Chip 1" value="CY_SMARTIO_LUTTR_CHIP1" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP1)}`" />
-        <Entry name="Chip 2" value="CY_SMARTIO_LUTTR_CHIP2" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP2)}`" />
-        <Entry name="Chip 3" value="CY_SMARTIO_LUTTR_CHIP3" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP3)}`" />
-        <Entry name="Chip 4" value="CY_SMARTIO_LUTTR_CHIP4" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP4)}`" />
-        <Entry name="Chip 5" value="CY_SMARTIO_LUTTR_CHIP5" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP5)}`" />
-        <Entry name="Chip 6" value="CY_SMARTIO_LUTTR_CHIP6" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP6)}`" />
-        <Entry name="Chip 7" value="CY_SMARTIO_LUTTR_CHIP7" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP7)}`" />
-        <Entry name="I/O 0" value="CY_SMARTIO_LUTTR_IO0" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO0)}`" />
-        <Entry name="I/O 1" value="CY_SMARTIO_LUTTR_IO1" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO1)}`" />
-        <Entry name="I/O 2" value="CY_SMARTIO_LUTTR_IO2" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO2)}`" />
-        <Entry name="I/O 3" value="CY_SMARTIO_LUTTR_IO3" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO3)}`" />
-        <Entry name="I/O 4" value="CY_SMARTIO_LUTTR_IO4" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO4)}`" />
-        <Entry name="I/O 5" value="CY_SMARTIO_LUTTR_IO5" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO5)}`" />
-        <Entry name="I/O 6" value="CY_SMARTIO_LUTTR_IO6" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO6)}`" />
-        <Entry name="I/O 7" value="CY_SMARTIO_LUTTR_IO7" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO7)}`" />
+        <Entry name="Chip 0" value="CY_SMARTIO_LUTTR_CHIP0" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP0)) : false}`" />
+        <Entry name="Chip 1" value="CY_SMARTIO_LUTTR_CHIP1" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP1)) : false}`" />
+        <Entry name="Chip 2" value="CY_SMARTIO_LUTTR_CHIP2" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP2)) : false}`" />
+        <Entry name="Chip 3" value="CY_SMARTIO_LUTTR_CHIP3" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP3)) : false}`" />
+        <Entry name="Chip 4" value="CY_SMARTIO_LUTTR_CHIP4" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP4)) : false}`" />
+        <Entry name="Chip 5" value="CY_SMARTIO_LUTTR_CHIP5" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP5)) : false}`" />
+        <Entry name="Chip 6" value="CY_SMARTIO_LUTTR_CHIP6" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP6)) : false}`" />
+        <Entry name="Chip 7" value="CY_SMARTIO_LUTTR_CHIP7" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP7)) : false}`" />
+        <Entry name="I/O 0" value="CY_SMARTIO_LUTTR_IO0" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO0)) : false}`" />
+        <Entry name="I/O 1" value="CY_SMARTIO_LUTTR_IO1" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO1)) : false}`" />
+        <Entry name="I/O 2" value="CY_SMARTIO_LUTTR_IO2" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO2)) : false}`" />
+        <Entry name="I/O 3" value="CY_SMARTIO_LUTTR_IO3" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO3)) : false}`" />
+        <Entry name="I/O 4" value="CY_SMARTIO_LUTTR_IO4" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO4)) : false}`" />
+        <Entry name="I/O 5" value="CY_SMARTIO_LUTTR_IO5" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO5)) : false}`" />
+        <Entry name="I/O 6" value="CY_SMARTIO_LUTTR_IO6" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO6)) : false}`" />
+        <Entry name="I/O 7" value="CY_SMARTIO_LUTTR_IO7" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO7)) : false}`" />
         <Entry name="None" value="CY_SMARTIO_LUTTR_INVALID" visible="true" />
       </ParamChoice>
 
@@ -193,22 +193,22 @@
         <Entry name="LUT5" value="CY_SMARTIO_LUTTR_LUT5_OUT" visible="true" />
         <Entry name="LUT6" value="CY_SMARTIO_LUTTR_LUT6_OUT" visible="true" />
         <Entry name="LUT7" value="CY_SMARTIO_LUTTR_LUT7_OUT" visible="true" />
-        <Entry name="Chip 0" value="CY_SMARTIO_LUTTR_CHIP0" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP0)}`" />
-        <Entry name="Chip 1" value="CY_SMARTIO_LUTTR_CHIP1" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP1)}`" />
-        <Entry name="Chip 2" value="CY_SMARTIO_LUTTR_CHIP2" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP2)}`" />
-        <Entry name="Chip 3" value="CY_SMARTIO_LUTTR_CHIP3" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP3)}`" />
-        <Entry name="Chip 4" value="CY_SMARTIO_LUTTR_CHIP4" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP4)}`" />
-        <Entry name="Chip 5" value="CY_SMARTIO_LUTTR_CHIP5" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP5)}`" />
-        <Entry name="Chip 6" value="CY_SMARTIO_LUTTR_CHIP6" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP6)}`" />
-        <Entry name="Chip 7" value="CY_SMARTIO_LUTTR_CHIP7" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP7)}`" />
-        <Entry name="I/O 0" value="CY_SMARTIO_LUTTR_IO0" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO0)}`" />
-        <Entry name="I/O 1" value="CY_SMARTIO_LUTTR_IO1" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO1)}`" />
-        <Entry name="I/O 2" value="CY_SMARTIO_LUTTR_IO2" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO2)}`" />
-        <Entry name="I/O 3" value="CY_SMARTIO_LUTTR_IO3" visible="`${($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO3)}`" />
-        <Entry name="I/O 4" value="CY_SMARTIO_LUTTR_IO4" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO4)}`" />
-        <Entry name="I/O 5" value="CY_SMARTIO_LUTTR_IO5" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO5)}`" />
-        <Entry name="I/O 6" value="CY_SMARTIO_LUTTR_IO6" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO6)}`" />
-        <Entry name="I/O 7" value="CY_SMARTIO_LUTTR_IO7" visible="`${($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO7)}`" />
+        <Entry name="Chip 0" value="CY_SMARTIO_LUTTR_CHIP0" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP0)) : false}`" />
+        <Entry name="Chip 1" value="CY_SMARTIO_LUTTR_CHIP1" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP1)) : false}`" />
+        <Entry name="Chip 2" value="CY_SMARTIO_LUTTR_CHIP2" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP2)) : false}`" />
+        <Entry name="Chip 3" value="CY_SMARTIO_LUTTR_CHIP3" visible="`${hasAnyChip$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP3)) : false}`" />
+        <Entry name="Chip 4" value="CY_SMARTIO_LUTTR_CHIP4" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP4)) : false}`" />
+        <Entry name="Chip 5" value="CY_SMARTIO_LUTTR_CHIP5" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP5)) : false}`" />
+        <Entry name="Chip 6" value="CY_SMARTIO_LUTTR_CHIP6" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP6)) : false}`" />
+        <Entry name="Chip 7" value="CY_SMARTIO_LUTTR_CHIP7" visible="`${hasAnyChip$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_CHIP7)) : false}`" />
+        <Entry name="I/O 0" value="CY_SMARTIO_LUTTR_IO0" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO0)) : false}`" />
+        <Entry name="I/O 1" value="CY_SMARTIO_LUTTR_IO1" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO1)) : false}`" />
+        <Entry name="I/O 2" value="CY_SMARTIO_LUTTR_IO2" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO2)) : false}`" />
+        <Entry name="I/O 3" value="CY_SMARTIO_LUTTR_IO3" visible="`${hasAnyIo$idx ? (($idx lt 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO3)) : false}`" />
+        <Entry name="I/O 4" value="CY_SMARTIO_LUTTR_IO4" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO4)) : false}`" />
+        <Entry name="I/O 5" value="CY_SMARTIO_LUTTR_IO5" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO5)) : false}`" />
+        <Entry name="I/O 6" value="CY_SMARTIO_LUTTR_IO6" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO6)) : false}`" />
+        <Entry name="I/O 7" value="CY_SMARTIO_LUTTR_IO7" visible="`${hasAnyIo$idx ? (($idx ge 4) &amp;&amp; (clkSrc ne CY_SMARTIO_CLK_IO7)) : false}`" />
         <Entry name="None" value="CY_SMARTIO_LUTTR_INVALID" visible="true" />
       </ParamChoice>
 
@@ -448,6 +448,7 @@
       <Member name="duCfg" value="`${duEn eq true ? (&quot;&amp;&quot; . INST_NAME . &quot;_duCfg&quot;) : &quot;NULL&quot;}`" />
       <Member name="hldOvr" value="`${hldOvr}`" />
     </ConfigStruct>
-    <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`" />
+    <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`" guard="(CY_IP_MXS40IOSS_VERSION &lt; 3)" />
+    <ConfigInstruction value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`" guard="(CY_IP_MXS40IOSS_VERSION &gt;= 3)" />
   </ConfigFirmware>
 </Personality>

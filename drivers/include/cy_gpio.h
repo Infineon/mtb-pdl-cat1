@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.h
-* \version 1.50.1
+* \version 1.60
 *
 * Provides an API declaration of the GPIO driver
 *
@@ -103,6 +103,17 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td rowspan="2">1.60</td>
+*     <td>Added \ref Cy_GPIO_SetVtripAuto and \ref Cy_GPIO_GetVtripAuto APIs for 
+*         configuring    GPIO input buffer voltage for automotive compatible or not,
+*         for CAT1C devices.</td>
+*     <td>New   APIs support for CAT1C devices.</td>
+*   </tr>
+*   <tr>
+*     <td>Fixed unused variables error.</td>
+*     <td>Minor error fixes.</td>
+*   </tr>
+*   <tr>
 *     <td>1.50.1</td>
 *     <td>Updated doxygen for External clock source to HF0.</td>
 *     <td>Documentation enhancement.</td>
@@ -188,7 +199,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS40SIOSS) || defined (CY_IP_MXS40IOSS)
+#if defined (CY_IP_MXS40SIOSS) || defined (CY_IP_MXS40IOSS) || defined (CY_IP_MXS22IOSS)
 
 #include <stddef.h>
 #include "cy_syslib.h"
@@ -205,7 +216,7 @@ extern "C" {
 #define CY_GPIO_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_GPIO_DRV_VERSION_MINOR       50
+#define CY_GPIO_DRV_VERSION_MINOR       60
 
 /** GPIO driver ID */
 #define CY_GPIO_ID CY_PDL_DRV_ID(0x16U)
@@ -274,28 +285,36 @@ typedef struct
     uint32_t cfgSIO;        /**< Port SIO pins configuration */
     uint32_t sel0Active;    /**< HSIOM selection for port pins 0,1,2,3 */
     uint32_t sel1Active;    /**< HSIOM selection for port pins 4,5,6,7 */
-#if defined (CY_IP_MXS40SIOSS)
+#if defined (CY_IP_MXS40SIOSS) || defined (CY_IP_MXS22IOSS)
     /**
     * \note
-    * This parameter is available for the CAT1B devices.
+    * This parameter is available for the CAT1B and CAT1D devices.
     **/
     uint32_t cfgSlew;       /**< Port slew rate configuration */
     /**
     * \note
-    * This parameter is available for the CAT1B devices.
+    * This parameter is available for the CAT1B and CAT1D devices.
     **/
     uint32_t cfgDriveSel0;  /**< Drive strength configuration for pins 0,1,2,3 */
     /**
     * \note
-    * This parameter is available for the CAT1B devices.
+    * This parameter is available for the CAT1B and CAT1D devices.
     **/
     uint32_t cfgDriveSel1;  /**< Drive strength configuration for pins 4,5,6,7 */
     /**
     * \note
-    * This parameter is available for the CAT1B devices.
+    * This parameter is available for the CAT1B and CAT1D devices.
     **/
     uint32_t nonSecMask;    /**< HSIOM non secure mask for port pins 0-7 */
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
+#if defined (CY_IP_MXS22IOSS)
+    /**
+    * \note
+    * This parameter is valid only if CY_GPIO_DM_CFG3_ENABLE_IN_OFF is selected from \ref group_gpio_driveModes
+    * and it is available for the CAT1D devices.
+    **/
+    uint32_t cfgOut3;          /**< Extra drive mode configurations for port pins */
+#endif /* CY_IP_MXS22IOSS */
 } cy_stc_gpio_prt_config_t;
 
 /** This structure is used to initialize a single GPIO pin */
@@ -314,13 +333,13 @@ typedef struct
     uint32_t vtripSel;       /**< SIO pair input buffer trip point */
     uint32_t vrefSel;        /**< SIO pair reference voltage for input buffer trip point */
     uint32_t vohSel;         /**< SIO pair regulated voltage output level */
-#if defined (CY_IP_MXS40SIOSS)
+#if defined (CY_IP_MXS40SIOSS) || defined (CY_IP_MXS22IOSS)
     /**
     * \note
-    * This parameter is available for the CAT1B devices.
+    * This parameter is available for the CAT1B and CAT1D devices.
     **/
     uint32_t nonSec;         /**< Secure attribute for each Pin of a port */
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
 } cy_stc_gpio_pin_config_t;
 
 /** \} group_gpio_data_structures */
@@ -334,16 +353,20 @@ typedef struct
 /* General Constants */
 #define CY_GPIO_PRT_HALF                       (4UL)      /**< Half-way point of a GPIO port */
 #define CY_GPIO_PRT_DEINIT                     (0UL)      /**< De-init value for port registers */
-#if defined (CY_IP_MXS40SIOSS)
+#if (defined (CY_IP_MXS40SIOSS) && ((IOSS_HSIOM_HSIOM_SEC_PORT_NR != 0) || (CPUSS_CM33_0_SECEXT_PRESENT != 0))) || defined (CY_IP_MXS22IOSS)
 #define CY_HSIOM_NONSEC_DEINIT                 (0xFFUL)   /**< De-init value for port non sec register */
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
 
 /* GPIO Masks */
 #define CY_GPIO_HSIOM_MASK                     (0x1FUL)   /**< HSIOM selection mask */
 #define CY_GPIO_OUT_MASK                       (0x01UL)   /**< Single pin mask for OUT register */
 #define CY_GPIO_IN_MASK                        (0x01UL)   /**< Single pin mask for IN register */
 #define CY_GPIO_CFG_DM_MASK                    (0x0FUL)   /**< Single pin mask for drive mode in CFG register */
-#define CY_GPIO_CFG_IN_VTRIP_SEL_MASK          (0x01UL)   /**< Single pin mask for VTRIP selection in CFG IN register */
+#define CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK        (0x01UL)   /**< Single pin mask for VTRIP selection in CFG IN register */
+#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U))
+#define CY_GPIO_CFG_IN_VTRIP_SEL_1_MASK        (0x01UL)   /**< Single pin mask for VTRIP selection in CFG IN AUTOLVL register */
+#endif /* CY_IP_MXS40IOSS_VERSION */
+#define CY_GPIO_CFG_IN_VTRIP_SEL_MASK          CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK   /**< Single pin mask for VTRIP selection in CFG IN register */
 #define CY_GPIO_INTR_STATUS_MASK               (0x01UL)   /**< Single pin mask for interrupt status in INTR register */
 #define CY_GPIO_INTR_EN_MASK                   (0x01UL)   /**< Single pin mask for interrupt status in INTR register */
 #define CY_GPIO_INTR_MASKED_MASK               (0x01UL)   /**< Single pin mask for masked interrupt status in INTR_MASKED register */
@@ -358,6 +381,10 @@ typedef struct
 #define CY_GPIO_CFG_SLEW_EXT_MASK              (0x07UL)   /**< Single pin mask for slew rate in CFG SLEW EXT register */
 #define CY_GPIO_CFG_DRIVE_SEL_EXT_MASK         (0x1FUL)   /**< Single pin mask for drive strength in CFG DRIVE EXT register */
 #endif /* CY_IP_MXS40IOSS */
+#if defined (CY_IP_MXS22IOSS)
+#define CY_GPIO_CFG_RES_I3C_PULLUP_MODE_MASK   (0x0FUL)   /**< Single pin mask for I3C Pull-up mode in CFG_RES register */
+#define CY_GPIO_CFG_OUT3_EXT_DM_MASK           (0x0FUL)   /**< Single pin mask for drive mode in CFG_OUT3 register */
+#endif /* CY_IP_MXS22IOSS */
 
 /* SIO Masks */
 #define CY_GPIO_VREG_EN_MASK                   (0x01UL)   /**< Single SIO pin mask for voltage regulation enable */
@@ -382,10 +409,14 @@ typedef struct
 #define CY_GPIO_INTR_CFG_OFFSET                (1UL)      /**< Offset for interrupt config */
 #define CY_GPIO_INTR_FILT_OFFSET               (18UL)     /**< Offset for filtered interrupt config */
 #define CY_GPIO_CFG_SIO_OFFSET                 (2UL)      /**< Offset for SIO config */
-#if defined (CY_IP_MXS40SIOSS)
+#if defined (CY_IP_MXS40SIOSS) || defined (CY_IP_MXS22IOSS)
 #define CY_GPIO_CFG_SLEW_EXT_OFFSET            (2UL)      /**< Offset for CFG SLEW EXT */
 #define CY_GPIO_CFG_DRIVE_SEL_EXT_OFFSET       (3UL)      /**< Offset for CFG SLEW EXT */
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
+#if defined (CY_IP_MXS22IOSS)
+#define CY_GPIO_CFG_RES_I3C_PULLUP_MODE_OFFSET (2UL)      /**< Offset for I3C Pull-up mode */
+#define CY_GPIO_CFG_OUT3_EXT_DRIVE_MODE_OFFSET (2UL)      /**< Offset for Extra drive mode */
+#endif /* CY_IP_MXS22IOSS */
 
 /* Parameter validation constants */
 #define CY_GPIO_PINS_MAX                       (8UL)      /**< Number of pins in the port */
@@ -434,6 +465,21 @@ typedef struct
                                                 (CY_SIO_VOH_2_50       == (vrefSel)) || \
                                                 (CY_SIO_VOH_2_78       == (vrefSel)) || \
                                                 (CY_SIO_VOH_4_16       == (vrefSel)))
+
+#if defined (CY_IP_MXS22IOSS)
+#define CY_GPIO_IS_I3C_PULLUP_VALID(i3cPullUp) ((CY_GPIO_I3C_PULLUP_DISABLE  == (i3cPullUp)) || \
+                                                 (CY_GPIO_I3C_PULLUP_570       == (i3cPullUp)) || \
+                                                 (CY_GPIO_I3C_PULLUP_720       == (i3cPullUp)) || \
+                                                 (CY_GPIO_I3C_PULLUP_840       == (i3cPullUp)) || \
+                                                 (CY_GPIO_I3C_PULLUP_1100       == (i3cPullUp)) || \
+                                                 (CY_GPIO_I3C_PULLUP_1200       == (i3cPullUp)) || \
+                                                 (CY_GPIO_I3C_PULLUP_1800       == (i3cPullUp)) || \
+                                                 (CY_GPIO_I3C_PULLUP_2800       == (i3cPullUp)))
+
+#define CY_GPIO_IS_EXT_DM_VALID(extDriveMode)  (((extDriveMode) == CY_GPIO_EXT_DM_HIGHZ) || \
+                                                (((extDriveMode) >= CY_GPIO_EXT_DM_PUPD) && \
+                                                (CY_GPIO_EXT_DM_OE0_PUHIZ >= (extDriveMode))))
+#endif /* CY_IP_MXS22IOSS */
 
 #define CY_GPIO_IS_PIN_BIT_VALID(pinBit)       (0U == ((pinBit) & (uint32_t)~CY_GPIO_PRT_PINS_MASK))
 #define CY_GPIO_IS_INTR_CFG_VALID(intrCfg)     (0U == ((intrCfg) & (uint32_t)~CY_GPIO_PRT_INTR_CFG_RANGE_MASK))
@@ -532,7 +578,11 @@ typedef struct
 *   pulled up while the low data state is pulled down. This mode is useful when
 *   the pin is driven by other signals that may cause shorts.
 */
+#if defined (CY_IP_MXS22IOSS)
+#define CY_GPIO_DM_CFG3_ENABLE_IN_OFF          (0x00UL) /**< Enables extra drive modes. Options are detailed in \ref group_gpio_extraDriveModes macros. Input buffer off */
+#else
 #define CY_GPIO_DM_ANALOG                      (0x00UL) /**< Analog High-Z. Input buffer off */
+#endif /* CY_IP_MXS22IOSS */
 #define CY_GPIO_DM_INVALID_IN_OFF              (0x01UL) /**< Invalid mode. It should not be used */
 #define CY_GPIO_DM_PULLUP_IN_OFF               (0x02UL) /**< Resistive Pull-Up. Input buffer off */
 #define CY_GPIO_DM_PULLDOWN_IN_OFF             (0x03UL) /**< Resistive Pull-Down. Input buffer off */
@@ -540,7 +590,11 @@ typedef struct
 #define CY_GPIO_DM_OD_DRIVESHIGH_IN_OFF        (0x05UL) /**< Open Drain, Drives High. Input buffer off */
 #define CY_GPIO_DM_STRONG_IN_OFF               (0x06UL) /**< Strong Drive. Input buffer off */
 #define CY_GPIO_DM_PULLUP_DOWN_IN_OFF          (0x07UL) /**< Resistive Pull-Up/Down. Input buffer off */
+#if defined (CY_IP_MXS22IOSS)
+#define CY_GPIO_DM_CFG3_ENABLE                 (0x08UL) /**< Enables extra drive modes. Options are detailed in \ref group_gpio_extraDriveModes macros. Input buffer on */
+#else
 #define CY_GPIO_DM_HIGHZ                       (0x08UL) /**< Digital High-Z. Input buffer on */
+#endif /* CY_IP_MXS22IOSS */
 #define CY_GPIO_DM_INVALID                     (0x09UL) /**< Invalid mode. It should not be used */
 #define CY_GPIO_DM_PULLUP                      (0x0AUL) /**< Resistive Pull-Up. Input buffer on */
 #define CY_GPIO_DM_PULLDOWN                    (0x0BUL) /**< Resistive Pull-Down. Input buffer on */
@@ -550,6 +604,29 @@ typedef struct
 #define CY_GPIO_DM_PULLUP_DOWN                 (0x0FUL) /**< Resistive Pull-Up/Down. Input buffer on */
 /** \} */
 
+#if defined (CY_IP_MXS22IOSS)
+/**
+* \defgroup group_gpio_extDriveModes Extra pin drive mode
+* \{
+* Constants to be used for setting the extra drive mode of the pin. There are nine
+* extra drive modes.
+*
+* \note
+* These extra drive modes are available for the CAT1D devices.
+*
+*/
+#define CY_GPIO_EXT_DM_HIGHZ                   (0x00UL) /**< High-impedance ( High-Z ) mode */
+#define CY_GPIO_EXT_DM_PUPD                    (0x01UL) /**< When data_out is enabled strong drive, else pull_up and pull_down both are enabled */
+#define CY_GPIO_EXT_DM_PULLUP                  (0x02UL) /**< When data_out is enabled strong drive, else pull_up is enabled */
+#define CY_GPIO_EXT_DM_PULLDOWN                (0x03UL) /**< When data_out is enabled strong drive, else pull_down is enabled */
+#define CY_GPIO_EXT_DM_OE0_HIZHIZ_0            (0x04UL) /**< When data_out is enabled strong drive, else high-impedance is enabled */
+#define CY_GPIO_EXT_DM_OE0_HIZHIZ_1            (0x05UL) /**< When data_out is enabled strong drive, else high-impedance is enabled */
+#define CY_GPIO_EXT_DM_OE0_HIZHIZ_2            (0x06UL) /**< When data_out is enabled strong drive, else high-impedance is enabled */
+#define CY_GPIO_EXT_DM_OE0_PUPD                (0x07UL) /**< When data_out is enabled strong drive, else pull_up or pull _down is enabled as per the value of data_out */
+#define CY_GPIO_EXT_DM_OE0_PUHIZ               (0x08UL) /**< When data_out is enabled strong drive, else pull_up or pull _down is enabled as per the value of data_out */
+/** \} */
+#endif /* CY_IP_MXS22IOSS */
+
 /**
 * \defgroup group_gpio_vtrip Voltage trip mode
 * \{
@@ -558,6 +635,21 @@ typedef struct
 #define CY_GPIO_VTRIP_CMOS                     (0x00UL) /**< Input buffer compatible with CMOS and I2C interfaces */
 #define CY_GPIO_VTRIP_TTL                      (0x01UL) /**< Input buffer compatible with TTL and MediaLB interfaces */
 /** \} */
+
+#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U)) || defined (CY_DOXYGEN)
+/**
+* \defgroup group_gpio_vtrip_auto Voltage trip automotive compatible mode
+* \{
+* Constants to be used for setting the input buffer automotive compatible mode (trip points and hysteresis) for GPIO upper bit.
+*
+* \note
+* These macros are available for CAT1B devices.
+*
+*/
+#define CY_GPIO_VTRIP_DIS_AUTO                 (0x00UL) /**< Input buffer is not compatible with automotive and it is compatible with CMOS/TTL interfaces */
+#define CY_GPIO_VTRIP_SEL_AUTO                 (0x01UL) /**< Input buffer is compatible with automotive */
+/** \} */
+#endif/* CY_IP_MXS40IOSS_VERSION */
 
 /**
 * \defgroup group_gpio_slewRate Slew Rate Mode
@@ -645,6 +737,27 @@ typedef struct
 #define CY_SIO_VOH_4_16                        (0x07UL) /**< Voh = 4.16 x Reference */
 /** \} */
 
+#if defined (CY_IP_MXS22IOSS)
+/**
+* \defgroup group_gpio_i3cPullUpMode I3C Pull-up mode
+* \{
+* Constants to be used for setting the I3C Pull-up mode on the pin.
+*
+* \note
+* This parameter is available for the CAT1D devices.
+*
+*/
+#define CY_GPIO_I3C_PULLUP_DISABLE             (0x00UL) /**< Disable additional Pull-ups */
+#define CY_GPIO_I3C_PULLUP_570                 (0x07UL) /**< Pull-up 570 ohms */
+#define CY_GPIO_I3C_PULLUP_720                 (0x06UL) /**< Pull-up 720 ohms */
+#define CY_GPIO_I3C_PULLUP_840                 (0x05UL) /**< Pull-up 840 ohms */
+#define CY_GPIO_I3C_PULLUP_1100                (0x03UL) /**< Pull-up 1100 ohms */
+#define CY_GPIO_I3C_PULLUP_1200                (0x04UL) /**< Pull-up 1200 ohms */
+#define CY_GPIO_I3C_PULLUP_1800                (0x02UL) /**< Pull-up 1800 ohms */
+#define CY_GPIO_I3C_PULLUP_2800                (0x01UL) /**< Pull-up 2800 ohms */
+/** \} */
+#endif /* CY_IP_MXS22IOSS */
+
 /** \} group_gpio_macros */
 
 /***************************************
@@ -668,11 +781,11 @@ void Cy_GPIO_Port_Deinit(GPIO_PRT_Type* base);
 void Cy_GPIO_SetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum, en_hsiom_sel_t value);
 en_hsiom_sel_t Cy_GPIO_GetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum);
 __STATIC_INLINE GPIO_PRT_Type* Cy_GPIO_PortToAddr(uint32_t portNum);
-#if defined (CY_IP_MXS40SIOSS)
+#if (defined (CY_IP_MXS40SIOSS) && ((IOSS_HSIOM_HSIOM_SEC_PORT_NR != 0) || (CPUSS_CM33_0_SECEXT_PRESENT != 0))) || defined (CY_IP_MXS22IOSS)
 void Cy_GPIO_Pin_SecFastInit(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t driveMode, uint32_t outVal, en_hsiom_sel_t hsiom);
 __STATIC_INLINE void Cy_GPIO_SetHSIOM_SecPin(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 __STATIC_INLINE uint32_t Cy_GPIO_GetHSIOM_SecPin(GPIO_PRT_Type* base, uint32_t pinNum);
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, IOSS_HSIOM_HSIOM_SEC_PORT_NR, CPUSS_CM33_0_SECEXT_PRESENT, CY_IP_MXS22IOSS */
 
 /** \} group_gpio_functions_init */
 
@@ -694,10 +807,21 @@ void Cy_GPIO_SetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum);
 void Cy_GPIO_SetVtrip(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetVtrip(GPIO_PRT_Type* base, uint32_t pinNum);
+#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U)) || defined (CY_DOXYGEN)
+void Cy_GPIO_SetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
+uint32_t Cy_GPIO_GetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum);
+#endif /* CY_IP_MXS40IOSS_VERSION */
 void Cy_GPIO_SetSlewRate(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetSlewRate(GPIO_PRT_Type* base, uint32_t pinNum);
 void Cy_GPIO_SetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum);
+
+#if defined (CY_IP_MXS22IOSS)
+void Cy_GPIO_SetExtDrivemode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
+uint32_t Cy_GPIO_GetExtDrivemode(GPIO_PRT_Type* base, uint32_t pinNum);
+void Cy_GPIO_SetI3C_PullUpMode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
+uint32_t Cy_GPIO_GetI3C_PullUpMode(GPIO_PRT_Type* base, uint32_t pinNum);
+#endif /* CY_IP_MXS22IOSS */
 
 /** \} group_gpio_functions_gpio */
 
@@ -739,19 +863,19 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetInterruptCause0(void);
 __STATIC_INLINE uint32_t Cy_GPIO_GetInterruptCause1(void);
 __STATIC_INLINE uint32_t Cy_GPIO_GetInterruptCause2(void);
 __STATIC_INLINE uint32_t Cy_GPIO_GetInterruptCause3(void);
-#if defined (CY_IP_MXS40SIOSS)
+#if (defined (CY_IP_MXS40SIOSS) && (CPUSS_CM33_0_SECEXT_PRESENT != 0)) || defined (CY_IP_MXS22IOSS)
 __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause0(void);
 __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause1(void);
 __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause2(void);
 __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause3(void);
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
 
 /** \} group_gpio_functions_interrupt */
 
 /** \cond INTERNAL */
-#if defined (CY_IP_MXS40SIOSS)
+#if defined (CY_IP_MXS40SIOSS) || (defined (CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION > 2)) || defined (CY_IP_MXS22IOSS)
 #define HSIOM_PRT_V1_Type HSIOM_PRT_Type
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
 /** \endcond */
 
 /**
@@ -759,7 +883,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause3(void);
 * \{
 */
 
-#if defined (CY_IP_MXS40SIOSS)
+#if (defined (CY_IP_MXS40SIOSS) && ((IOSS_HSIOM_HSIOM_SEC_PORT_NR != 0) || (CPUSS_CM33_0_SECEXT_PRESENT != 0))) || defined (CY_IP_MXS22IOSS)
 /*******************************************************************************
 * Function Name: Cy_GPIO_SetHSIOM_SecPin
 ****************************************************************************//**
@@ -783,7 +907,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause3(void);
 * HSIOM secure port (HSIOM_SECURE_PRT_Type).
 *
 * \note
-* This API is available for the CAT1B devices.
+* This API is available for the CAT1B and CAT1D devices.
 *
 * \funcusage
 *
@@ -820,7 +944,7 @@ __STATIC_INLINE void Cy_GPIO_SetHSIOM_SecPin(GPIO_PRT_Type* base, uint32_t pinNu
 * HSIOM input selection
 *
 * \note
-* This API is available for the CAT1B devices.
+* This API is available for the CAT1B and CAT1D devices.
 *
 * \funcusage
 *
@@ -838,7 +962,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetHSIOM_SecPin(GPIO_PRT_Type* base, uint32_t p
     return (uint32_t)((HSIOM_SEC_PRT_NONSEC_MASK(portAddrSecHSIOM) >> pinNum) & CY_GPIO_HSIOM_SEC_MASK);
 }
 
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
 
 /*******************************************************************************
 * Function Name: Cy_GPIO_PortToAddr
@@ -963,7 +1087,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetInterruptCause3(void)
     return (GPIO_INTR_CAUSE3);
 }
 
-#if defined (CY_IP_MXS40SIOSS)
+#if (defined (CY_IP_MXS40SIOSS) && (CPUSS_CM33_0_SECEXT_PRESENT != 0)) || defined (CY_IP_MXS22IOSS)
 /*******************************************************************************
 * Function Name: Cy_GPIO_GetSecureInterruptCause0
 ****************************************************************************//**
@@ -975,7 +1099,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetInterruptCause3(void)
 * 1 = Interrupt detected on port
 *
 * \note
-* This API is available for the CAT1B devices.
+* This API is available for the CAT1B and CAT1D devices.
 *
 * \funcusage
 *
@@ -997,7 +1121,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause0(void)
 * 1 = Interrupt detected on port
 *
 * \note
-* This API is available for the CAT1B devices.
+* This API is available for the CAT1B and CAT1D devices.
 *
 * \funcusage
 *
@@ -1019,7 +1143,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause1(void)
 * 1 = Interrupt detected on port
 *
 * \note
-* This API is available for the CAT1B devices.
+* This API is available for the CAT1B and CAT1D devices.
 *
 * \funcusage
 *
@@ -1041,7 +1165,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause2(void)
 * 1 = Interrupt detected on port
 *
 * \note
-* This API is available for the CAT1B devices.
+* This API is available for the CAT1B and CAT1D devices.
 *
 * \funcusage
 *
@@ -1050,7 +1174,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause3(void)
 {
     return (GPIO_SEC_INTR_CAUSE3);
 }
-#endif /* CY_IP_MXS40SIOSS */
+#endif /* CY_IP_MXS40SIOSS, CPUSS_CM33_0_SECEXT_PRESENT, CY_IP_MXS22IOSS */
 
 /** \} group_gpio_functions_interrupt */
 
@@ -1060,7 +1184,7 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetSecureInterruptCause3(void)
 }
 #endif
 
-#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS40IOSS */
+#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS40IOSS, CY_IP_MXS22IOSS */
 
 #endif /* CY_GPIO_H */
 

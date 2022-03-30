@@ -1,6 +1,9 @@
 var group__group__lpcomp__functions =
 [
     [ "Low Power Callback", "group__group__lpcomp__functions__syspm__callback.html", "group__group__lpcomp__functions__syspm__callback" ],
+    [ "Cy_LPComp_Init_Ext", "group__group__lpcomp__functions.html#gaaf6375b7632f40f6c91c2618cd825d05", null ],
+    [ "Cy_LPComp_Enable_Ext", "group__group__lpcomp__functions.html#gade6b4331e7ef29b8a6e05e8f8dfe6247", null ],
+    [ "Cy_LPComp_Disable_Ext", "group__group__lpcomp__functions.html#ga0bed47dc7996b32c37537c238e963db6", null ],
     [ "Cy_LPComp_Init", "group__group__lpcomp__functions.html#ga8bd3aa3993770f07ff766dc78c610398", null ],
     [ "Cy_LPComp_Enable", "group__group__lpcomp__functions.html#gaff74ff9c60f85f25ee5f058162807d06", null ],
     [ "Cy_LPComp_Disable", "group__group__lpcomp__functions.html#ga4894c0f290bc4d135809f020878ed15b", null ],
@@ -9,10 +12,12 @@ var group__group__lpcomp__functions =
     [ "Cy_LPComp_UlpReferenceEnable", "group__group__lpcomp__functions.html#gaaacaaed309a56a6490306af40822788c", null ],
     [ "Cy_LPComp_UlpReferenceDisable", "group__group__lpcomp__functions.html#gaab411d8e411323193819a64488a41544", null ],
     [ "Cy_LPComp_GetCompare", "group__group__lpcomp__functions.html#gadc91cd80afbb17ee87fbd38dd963ec2e", null ],
+    [ "Cy_LPComp_SetPower_Ext", "group__group__lpcomp__functions.html#ga125ecf3021339e4ffae3200f6197079c", null ],
     [ "Cy_LPComp_SetPower", "group__group__lpcomp__functions.html#gabf02edb4c1ca19009f2f1f1df1156afa", null ],
     [ "Cy_LPComp_SetHysteresis", "group__group__lpcomp__functions.html#gab3eaf7a6243e832967c6606b5f8ab368", null ],
     [ "Cy_LPComp_SetInputs", "group__group__lpcomp__functions.html#ga86039c548754145643a780320928c8f0", null ],
     [ "Cy_LPComp_SetOutputMode", "group__group__lpcomp__functions.html#gaa2bcd67bfc73396d4401a71989a36803", null ],
+    [ "Cy_LPComp_SetInterruptTriggerMode_Ext", "group__group__lpcomp__functions.html#gaccc7a72f8456824bab3793c74d4604e9", null ],
     [ "Cy_LPComp_SetInterruptTriggerMode", "group__group__lpcomp__functions.html#gac4dc8de0329cb2191b1ded546a595afe", null ],
     [ "Cy_LPComp_GetInterruptStatus", "group__group__lpcomp__functions.html#ga3819ae37b76dcf760d1303209be7b0d0", null ],
     [ "Cy_LPComp_ClearInterrupt", "group__group__lpcomp__functions.html#ga5197f02cfc236a0280d7d18e52cfb916", null ],

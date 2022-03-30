@@ -310,7 +310,7 @@
 
     <!--TX Interrupt Sources-->
     <ParamBool id="IntrTxUartDone" name="UART Done" group="TX Interrupt Sources" default="false" visible="`${ConfigIntr}`" editable="true" desc="This parameter enables the UART done interrupt source to trigger the interrupt output." />
-    <ParamBool id="IntrTxUartLostArb" name="TX Lost Arbitratio" group="TX Interrupt Sources" default="false" visible="`${ConfigIntr &amp;&amp; SmartCard}`" editable="true" desc="This parameter enables the TX lost arbitration interrupt source to trigger the interrupt output." />
+    <ParamBool id="IntrTxUartLostArb" name="TX Lost Arbitration" group="TX Interrupt Sources" default="false" visible="`${ConfigIntr &amp;&amp; SmartCard}`" editable="true" desc="This parameter enables the TX lost arbitration interrupt source to trigger the interrupt output." />
     <ParamBool id="IntrTxUartNack" name="TX NACK" group="TX Interrupt Sources" default="false" visible="`${ConfigIntr &amp;&amp; SmartCard}`" editable="true" desc="This parameter enables the TX NACK interrupt source to trigger the interrupt output." />
     <ParamBool id="IntrTxEmpty" name="TX FIFO Empty" group="TX Interrupt Sources" default="false" visible="`${ConfigIntr}`" editable="true" desc="This parameter enables the TX FIFO empty interrupt source to trigger the interrupt output." />
     <ParamBool id="IntrTxNotFull" name="TX FIFO not Full" group="TX Interrupt Sources" default="false" visible="`${ConfigIntr}`" editable="true" desc="This parameter enables the TX FIFO not-full interrupt source to trigger the interrupt output." />

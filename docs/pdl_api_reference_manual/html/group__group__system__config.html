@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MTB CAT1 Peripheral driver library: Startup      (System Configuration Files)</title>
+<title>MTB CAT1 Peripheral driver library: Startup CAT1A</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,7 +83,7 @@ $(document).ready(function(){initNavTree('group__group__system__config.html','')
   <div class="summary">
 <a href="#groups">API Reference</a>  </div>
   <div class="headertitle">
-<div class="title">Startup (System Configuration Files)</div>  </div>
+<div class="title">Startup CAT1A</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
@@ -151,7 +151,7 @@ Device Initialization</h2>
 <p>After a power-on-reset (POR), the boot process is handled by the boot code from the on-chip ROM that is always executed by the Cortex-M0+ core. The boot code passes the control to the Cortex-M0+ startup code located in flash.</p>
 <h3><a class="anchor" id="group_system_config_dual_core_device_initialization"></a>
 Dual-Core Devices</h3>
-<p>The Cortex-M0+ startup code performs the device initialization by a call to <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system: ">SystemInit()</a> and then calls the main() function. The Cortex-M4 core is disabled by default. Enable the core using the <a class="el" href="group__group__system__config__cm4__functions.html#gac44c12fdb0562403fc055e4e8966b557">Cy_SysEnableCM4()</a> function. See <a class="el" href="group__group__system__config__cm4__functions.html">Cortex-M4 Control</a> for more details. </p><dl class="section note"><dt>Note</dt><dd>Startup code executes <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system: ">SystemInit()</a> function for the both Cortex-M0+ and Cortex-M4 cores. The function has a separate implementation on each core. Both function implementations unlock and disable the WDT. Therefore enable the WDT after both cores have been initialized.</dd></dl>
+<p>The Cortex-M0+ startup code performs the device initialization by a call to <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> and then calls the main() function. The Cortex-M4 core is disabled by default. Enable the core using the <a class="el" href="group__group__system__config__cm4__functions.html#gac44c12fdb0562403fc055e4e8966b557">Cy_SysEnableCM4()</a> function. See <a class="el" href="group__group__system__config__cm4__functions.html">Cortex-M4 Control</a> for more details. </p><dl class="section note"><dt>Note</dt><dd>Startup code executes <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> function for the both Cortex-M0+ and Cortex-M4 cores. The function has a separate implementation on each core. Both function implementations unlock and disable the WDT. Therefore enable the WDT after both cores have been initialized.</dd></dl>
 <h3><a class="anchor" id="group_system_config_single_core_device_initialization"></a>
 Single-Core Devices</h3>
 <p>The Cortex-M0+ core is not user-accessible on these devices. In this case the Flash Boot handles setup of the CM0+ core and starts the Cortex-M4 core.</p>
@@ -262,20 +262,20 @@ Changelog</h1>
 <tr>
 <td>2.20 </td><td>Moved the Cy_IPC_SystemSemaInit(), Cy_IPC_SystemPipeInit() functions implementation from IPC to Startup. </td><td>Changed the IPC driver configuration method from compile time to run time.  </td></tr>
 <tr>
-<td rowspan="2">2.10 </td><td>Added constructor attribute to <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system: ">SystemInit()</a> function declaration for ARM MDK compiler. <br />
+<td rowspan="2">2.10 </td><td>Added constructor attribute to <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> function declaration for ARM MDK compiler. <br />
  Removed $Sub$$main symbol for ARM MDK compiler.  </td><td>uVision Debugger support.  </td></tr>
 <tr>
 <td>Updated description of the Startup behavior for Single-Core Devices. <br />
- Added note about WDT disabling by <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system: ">SystemInit()</a> function.  </td><td>Documentation improvement.  </td></tr>
+ Added note about WDT disabling by <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> function.  </td><td>Documentation improvement.  </td></tr>
 <tr>
-<td rowspan="4">2.0 </td><td>Added restoring of FLL registers to the default state in <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system: ">SystemInit()</a> API for single core devices. Single core device support.  </td><td></td></tr>
+<td rowspan="4">2.0 </td><td>Added restoring of FLL registers to the default state in <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> API for single core devices. Single core device support.  </td><td></td></tr>
 <tr>
 <td>Added Normal Access Restrictions, Public Key, TOC part2 and TOC part2 copy to Supervisory flash linker memory regions. <br />
  Renamed 'wflash' memory region to 'em_eeprom'.  </td><td>Linker scripts usability improvement.  </td></tr>
 <tr>
-<td>Added Cy_IPC_SystemSemaInit(), Cy_IPC_SystemPipeInit(), <a class="el" href="group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19" title="Initiates all needed prerequisites to support flash erase/write. ">Cy_Flash_Init()</a> functions call to <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system: ">SystemInit()</a> API. </td><td>Reserved system resources for internal operations.  </td></tr>
+<td>Added Cy_IPC_SystemSemaInit(), Cy_IPC_SystemPipeInit(), <a class="el" href="group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19" title="Initiates all needed prerequisites to support flash erase/write. ">Cy_Flash_Init()</a> functions call to <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> API. </td><td>Reserved system resources for internal operations.  </td></tr>
 <tr>
-<td>Added clearing and releasing of IPC structure #7 (reserved for the Deep-Sleep operations) to <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system: ">SystemInit()</a> API. </td><td>To avoid deadlocks in case of SW or WDT reset during Deep-Sleep entering.  </td></tr>
+<td>Added clearing and releasing of IPC structure #7 (reserved for the Deep-Sleep operations) to <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> API. </td><td>To avoid deadlocks in case of SW or WDT reset during Deep-Sleep entering.  </td></tr>
 <tr>
 <td>1.0 </td><td>Initial version </td><td></td></tr>
 </table>

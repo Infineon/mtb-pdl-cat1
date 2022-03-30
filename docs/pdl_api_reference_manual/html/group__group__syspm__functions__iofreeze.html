@@ -90,14 +90,46 @@ $(document).ready(function(){initNavTree('group__group__syspm__functions__iofree
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga5df20917d995755606672fac961e8e9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga5df20917d995755606672fac961e8e9b">Cy_SysPm_IoUnfreeze</a> (void)</td></tr>
-<tr class="memdesc:ga5df20917d995755606672fac961e8e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function unfreezes the I/O cells that are automatically frozen when Hibernate is entered with the call to <a class="el" href="group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51">Cy_SysPm_SystemEnterHibernate()</a>.  <a href="#ga5df20917d995755606672fac961e8e9b">More...</a><br /></td></tr>
-<tr class="separator:ga5df20917d995755606672fac961e8e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf741ea459227eeb4528221653b5fde4a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#gaf741ea459227eeb4528221653b5fde4a">Cy_SysPm_IoIsFrozen</a> (void)</td></tr>
 <tr class="memdesc:gaf741ea459227eeb4528221653b5fde4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether IOs are frozen.  <a href="#gaf741ea459227eeb4528221653b5fde4a">More...</a><br /></td></tr>
 <tr class="separator:gaf741ea459227eeb4528221653b5fde4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5df20917d995755606672fac961e8e9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga5df20917d995755606672fac961e8e9b">Cy_SysPm_IoUnfreeze</a> (void)</td></tr>
+<tr class="memdesc:ga5df20917d995755606672fac961e8e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function unfreezes the I/O cells that are automatically frozen when Hibernate is entered with the call to <a class="el" href="group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51">Cy_SysPm_SystemEnterHibernate()</a>.  <a href="#ga5df20917d995755606672fac961e8e9b">More...</a><br /></td></tr>
+<tr class="separator:ga5df20917d995755606672fac961e8e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga09d3a037917bd2e02d9e9e500ae700ab">Cy_SysPm_DeepSleepIoIsFrozen</a> (void)</td></tr>
+<tr class="memdesc:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether IOs are frozen during DEEPSLEEP-RAM/OFF.  <a href="#ga09d3a037917bd2e02d9e9e500ae700ab">More...</a><br /></td></tr>
+<tr class="separator:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab725010772eda4fcfc2412fef03ef3d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#gab725010772eda4fcfc2412fef03ef3d0">Cy_SysPm_DeepSleepIoUnfreeze</a> (void)</td></tr>
+<tr class="memdesc:gab725010772eda4fcfc2412fef03ef3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function unfreezes the I/O cells that are automatically frozen when DEEPSLEEP-RAM/OFF is entered.  <a href="#gab725010772eda4fcfc2412fef03ef3d0">More...</a><br /></td></tr>
+<tr class="separator:gab725010772eda4fcfc2412fef03ef3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gaf741ea459227eeb4528221653b5fde4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf741ea459227eeb4528221653b5fde4a">&#9670;&nbsp;</a></span>Cy_SysPm_IoIsFrozen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_SysPm_IoIsFrozen </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether IOs are frozen. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>True if IOs are frozen.</li>
+<li>False if IOs are unfrozen.</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    </div><div class="line">    <span class="comment">/* Scenario: There is a need to use Hibernate power mode and retain the </span></div><div class="line"><span class="comment">    *  the I/O state after the a wake-up from Hibernate</span></div><div class="line"><span class="comment">    */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Check the I/O freeze status after the boot.</span></div><div class="line"><span class="comment">    *  If the I/O is frozen it means we have returned from Hibernate.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__syspm__functions__iofreeze.html#gaf741ea459227eeb4528221653b5fde4a">Cy_SysPm_IoIsFrozen</a>())</div><div class="line">    {</div><div class="line">        <span class="comment">/* Restore the I/O configuration before unfreezing.</span></div><div class="line"><span class="comment">        *  Use configuration data programmed into firmware stored in S</span></div><div class="line"><span class="comment">        *  RSS-&gt;PWR_HIB_DATA[] or BACKUP-&gt;BREG[] </span></div><div class="line"><span class="comment">        *  before the Hibernate was entered. Th emost common use case is to</span></div><div class="line"><span class="comment">        *  restore from GPIO driver the firmware initialization structures.</span></div><div class="line"><span class="comment">        */</span></div><div class="line">        <a class="code" href="group__group__syspm__functions__iofreeze.html#ga5df20917d995755606672fac961e8e9b">Cy_SysPm_IoUnfreeze</a>();</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Save the I/O before entering Hibernate. You can store the</span></div><div class="line"><span class="comment">    *  the I/O configuration into SRSS-&gt;PWR_HIB_DATA[] or </span></div><div class="line"><span class="comment">    *  BACKUP-&gt;BREG[] registers.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    </div><div class="line">    <span class="comment">/* Enter Hibernate mode */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51">Cy_SysPm_SystemEnterHibernate</a>();</div><div class="line">    </div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
 <a id="ga5df20917d995755606672fac961e8e9b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga5df20917d995755606672fac961e8e9b">&#9670;&nbsp;</a></span>Cy_SysPm_IoUnfreeze()</h2>
 
@@ -122,14 +154,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gaf741ea459227eeb4528221653b5fde4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf741ea459227eeb4528221653b5fde4a">&#9670;&nbsp;</a></span>Cy_SysPm_IoIsFrozen()</h2>
+<a id="ga09d3a037917bd2e02d9e9e500ae700ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga09d3a037917bd2e02d9e9e500ae700ab">&#9670;&nbsp;</a></span>Cy_SysPm_DeepSleepIoIsFrozen()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Cy_SysPm_IoIsFrozen </td>
+          <td class="memname">bool Cy_SysPm_DeepSleepIoIsFrozen </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -138,13 +170,35 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Checks whether IOs are frozen. </p>
+<p>Checks whether IOs are frozen during DEEPSLEEP-RAM/OFF. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>True if IOs are frozen.</li>
-<li>False if IOs are unfrozen.</li>
+<li>False if IOs are unfrozen. </li>
 </ul>
 </dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    </div><div class="line">    <span class="comment">/* Scenario: There is a need to use Hibernate power mode and retain the </span></div><div class="line"><span class="comment">    *  the I/O state after the a wake-up from Hibernate</span></div><div class="line"><span class="comment">    */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Check the I/O freeze status after the boot.</span></div><div class="line"><span class="comment">    *  If the I/O is frozen it means we have returned from Hibernate.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__syspm__functions__iofreeze.html#gaf741ea459227eeb4528221653b5fde4a">Cy_SysPm_IoIsFrozen</a>())</div><div class="line">    {</div><div class="line">        <span class="comment">/* Restore the I/O configuration before unfreezing.</span></div><div class="line"><span class="comment">        *  Use configuration data programmed into firmware stored in S</span></div><div class="line"><span class="comment">        *  RSS-&gt;PWR_HIB_DATA[] or BACKUP-&gt;BREG[] </span></div><div class="line"><span class="comment">        *  before the Hibernate was entered. Th emost common use case is to</span></div><div class="line"><span class="comment">        *  restore from GPIO driver the firmware initialization structures.</span></div><div class="line"><span class="comment">        */</span></div><div class="line">        <a class="code" href="group__group__syspm__functions__iofreeze.html#ga5df20917d995755606672fac961e8e9b">Cy_SysPm_IoUnfreeze</a>();</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Save the I/O before entering Hibernate. You can store the</span></div><div class="line"><span class="comment">    *  the I/O configuration into SRSS-&gt;PWR_HIB_DATA[] or </span></div><div class="line"><span class="comment">    *  BACKUP-&gt;BREG[] registers.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    </div><div class="line">    <span class="comment">/* Enter Hibernate mode */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51">Cy_SysPm_SystemEnterHibernate</a>();</div><div class="line">    </div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gab725010772eda4fcfc2412fef03ef3d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab725010772eda4fcfc2412fef03ef3d0">&#9670;&nbsp;</a></span>Cy_SysPm_DeepSleepIoUnfreeze()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysPm_DeepSleepIoUnfreeze </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function unfreezes the I/O cells that are automatically frozen when DEEPSLEEP-RAM/OFF is entered. </p>
+<p>I/O cells remain frozen after a wakeup from DEEPSLEEP_RAM/OFF mode until the firmware unfreezes them by calling this function.</p>
+<p>If the firmware must retain the data value on the pin, then the value must be read and re-written to the pin's port data register before calling this function. Furthermore, the drive mode must be re-programmed before the pins are unfrozen. If this is not done, the pin will change to the default state the moment the freeze is removed.</p>
+<p>Note that I/O cell configuration can be changed while frozen. The new configuration becomes effective only after the pins are unfrozen. </p>
 
 </div>
 </div>

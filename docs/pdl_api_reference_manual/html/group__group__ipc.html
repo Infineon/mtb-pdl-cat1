@@ -90,11 +90,11 @@ $(document).ready(function(){initNavTree('group__group__ipc.html','');});
 <p>The inter-processor communication (IPC) driver provides a safe and reliable method to transfer data between CPUs. </p>
 <p>Hardware locking ensures that only one device can acquire and transfer data at a time so no data is lost or overwritten by asynchronous processes or CPUs.</p>
 <p>Include either cy_ipc_pipe.h, cy_ipc_sema.h or cy_ipc_bt.h. Alternatively include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
-<p>There are three parts to the API:</p><ul>
-<li>Driver-level (DRV) API - used internally by Semaphore, Pipe and Bluetooth levels</li>
-<li>Pipe-level (PIPE) API - establishes a communication channel between processors</li>
-<li>Semaphore-level (SEMA) API - enables users to set and clear flags to synchronize operations.</li>
-<li>Bluetooth Subsystem (BTSS) API - establishes communication channel between MCU and the BTSS</li>
+<p>There are four parts to the API:</p><ul>
+<li>Driver-level (DRV) API - used internally by Semaphore, Pipe and Bluetooth levels. These APIs are supported in both CAT1A and CAT1B devices.</li>
+<li>Pipe-level (PIPE) API - establishes a communication channel between processors. These APIs are supported in both CAT1A and CAT1B devices.</li>
+<li>Semaphore-level (SEMA) API - enables users to set and clear flags to synchronize operations. These APIs are supported in both CAT1A and CAT1B devices.</li>
+<li>Bluetooth Subsystem (BTSS) API - establishes communication channel between MCU and the BTSS. These APIs are supported in CAT1B devices.</li>
 </ul>
 <p>Firmware does not need to use the DRV API. It can implement IPC functionality entirely with the PIPE, SEMA and BTSS APIs.</p>
 <h1><a class="anchor" id="group_ipc_background"></a>
@@ -111,12 +111,12 @@ Background</h1>
 <div class="image">
 <img src="ipc_driver.png" alt="ipc_driver.png"/>
 </div>
-<p>These transactions are handled transparently by the DRV-level API. Use the PIPE, SEMA and BTSS layers of the API to implement communication in your application. The data transferred is limited to a single 32-bit value incase of PIPE and SEMA and two 32 bit value incse of BTIPC. As implemented by the PIPE API, that value is a pointer to a data structure of arbitrary size and complexity. BTSS uses both 32 bit registers for communication of short messages. If the payload is greater than 7 bytes, then it copies the data to the shared memory between MCU and the BT SS.</p>
+<p>These transactions are handled transparently by the DRV-level API. Use the PIPE, SEMA and BTSS layers of the API to implement communication in your application. The data transferred is limited to a single 32-bit value in case of PIPE and SEMA and two 32-bit value incse of BTIPC. As implemented by the PIPE API, that value is a pointer to a data structure of arbitrary size and complexity. BTSS uses both 32-bit registers for communication of short messages. If the payload is greater than 7 bytes, then it copies the data to the shared memory between MCU and the BT SS.</p>
 <h1><a class="anchor" id="group_ipc_overview"></a>
 Overview</h1>
 <p>The Pipe is the key element in the PDL design. A pipe is typically a full-duplex communication channel between CPU cores. A pipe allows a single conduit to transfer messages or data to and from multiple processes or CPUs.</p>
 <p>A pipe has two endpoints, one on each core. Each endpoint contains a dedicated IPC channel and an interrupt. IPC channels 0-7(8 for the CYB064XX devices) and IPC interrupts 0-7 are reserved for system use.</p>
-<p>The pipe also contains the number of clients it supports, and for each client a callback function. So the pipe can service a number of clients, each with a separate callback function, on either endpoint. The number of clients a pipe supports is the sum of each endpoint's clients.</p>
+<p>The pipe also contains the number of clients it supports, and for each client a callback function. So, the pipe can service a number of clients, each with a separate callback function, on either endpoint. The number of clients a pipe supports is the sum of each endpoint's clients.</p>
 <p>This design enables any number of processes on the sending core to put arbitrary data into a single pipe. The first element of that data is the client ID of the client that should handle the data.</p>
 <p>An interrupt notifies the receiving core that data is available. The receiving core parses the data to identify the client, and then dispatches the event to the appropriate client via the client callback function. An interrupt notifies the sending core that the receiver is finished. In this way a single pipe can manage arbitrary data transfers between cores with data flowing in either direction.</p>
 <div class="image">
@@ -124,7 +124,7 @@ Overview</h1>
 </div>
 <p>The application can use semaphores to control access to shared resources, as required by the application's logic.</p>
 <p>The PDL provides specific files that set up default IPC functionality. They are system_psoc6.h, system_psoc6_cm0plus.c and system_psoc6_cm4.c. You can modify these files based on the requirements of your design. If you use PSoC Creator as a development environment, it will not overwrite your changes when you generate the application or build your code.</p>
-<p>BTSS provides dedicated communication channels for communication between MCU and the BT SS. APIs provided handle exchange of HCI and HPC packets using 4 dedicated IPC channels. Two dedicated Up Link (UL) channels, one for HCI and another for HPC from MCU to BT SS and two dedicated Down Link (DL) channels, one for HCI and another for HPC from BT SS to MCU are used.</p>
+<p>BTSS provides dedicated communication channels for communication between MCU and the BT SS. APIs provided handle exchange of Host Controller Interface (HCI) and High Priority Controller (HPC) packets using 4 dedicated IPC channels. Two dedicated Up Link (UL) channels, one for HCI and another for HPC from MCU to BT SS and two dedicated Down Link (DL) channels, one for HCI and another for HPC from BT SS to MCU are used.</p>
 <h1><a class="anchor" id="group_ipc_pipe_layer"></a>
 PIPE layer</h1>
 <p>A pipe is a communication channel between two endpoints. PSoC 6 devices support 16 IPC channels, and 16 IPC interrupts, each numbered 0-15. IPC Channels 0-7 and IPC interrupts 0-7 are reserved for system use. Channels 8-15 and interrupts 8-15 are available for application use.</p>
@@ -140,9 +140,9 @@ SEMA Layer</h1>
 <p>Functions are available to initialize the semaphore system, to set or clear a semaphore, or to get the semaphore's current status. Application logic uses SEMA functions to relate a particular semaphore to a particular shared resource, and set, clear, or check the flag when accessing the shared resource.</p>
 <h1><a class="anchor" id="group_ipc_bt_layer"></a>
 BTSS layer</h1>
-<p>A Bluetooth Sub-system (BTSS) layer is a communication channel between the MCU and the BT Sub-system. It uses 4 IPC channels and 2 interrupts. 2 UL channels ( one for HCI and HPC each) and 2 DL channels (one for HCI and HPC each). IPC interrupt 0 is used to interrupt the BT SS and IPC interrupt 1 is used to interrupt the MCU. IPC channels 0 is used for HCI UL, channel 1 is used from HCI DL, IPC channels 2 is used for HPC UL,and channel 3 is used from HPC DL. The IPC interrupt gets triggered for both Notify and Release channel. Bluetooth stack interface layer registers a callback function for notification when BT SS sends an HCI packet. It also provides APIs to read the HCI packets from the BT SS. On the UL path, it supports APIs to send HCI packet from MCU to BT SS.</p>
-<p>The communication is made more efficient by elimilnating the need for buffers by packing them into the DATA0 and DATA1 IPC channel registers when payload length is less than or equal to 7 bytes . In case the where the payload length is greater than 7bytes, it would use the shared memory to send/recevive the packet.</p>
-<p>This layer support control message communication between the MCU and the BT SS using the HPC channels. The HPC channel is used for power manamgement, IO configuration, access for TRNG, etc. APIs are provided to send HPC packets to the BT SS. It also supports APIs to register the callback function to get notification on receiving the HPC packets from the BT SS. Multiple modules running on the MCU can register callback functions. Maximum number of HPC callbacks supported is decided by the MAX_BT_IPC_HPC_CB macro. All the shared buffer management mechanism is built into this layer.</p>
+<p>A Bluetooth Sub-system (BTSS) layer is a communication channel between the MCU and the BT Sub-system. It uses 4 IPC channels and 2 interrupts. 2 UL channels (one for HCI and HPC each) and 2 DL channels (one for HCI and HPC each). IPC interrupt 0 is used to interrupt the BT SS and IPC interrupt 1 is used to interrupt the MCU. IPC channels 0 is used for HCI UL, channel 1 is used from HCI DL, IPC channels 2 is used for HPC UL, and channel 3 is used from HPC DL. The IPC interrupt gets triggered for both Notify and Release channel. Bluetooth stack interface layer registers a callback function for notification when BT SS sends an HCI packet. It also provides APIs to read the HCI packets from the BT SS. On the UL path, it supports APIs to send HCI packet from MCU to BT SS.</p>
+<p>The communication is made more efficient by eliminating the need for buffers by packing them into the DATA0 and DATA1 IPC channel registers when payload length is less than or equal to 7 bytes. In case the where the payload length is greater than 7 bytes, it would use the shared memory to send/receive the packet.</p>
+<p>This layer support control message communication between the MCU and the BT SS using the HPC channels. The HPC channel is used for power management, IO configuration, access for TRNG, etc. APIs are provided to send HPC packets to the BT SS. It also supports APIs to register the callback function to get notification on receiving the HPC packets from the BT SS. Multiple modules running on the MCU can register callback functions. Maximum number of HPC callbacks supported is decided by the MAX_BT_IPC_HPC_CB macro. All the shared buffer management mechanism is built into this layer. </p><dl class="section note"><dt>Note</dt><dd>All the HCI APIs are intended to be called by the stack interface layer and not meant to be called by the application developers.</dd></dl>
 <h1><a class="anchor" id="group_ipc_configuration_cypipe"></a>
 Configuration Considerations - CYPIPE</h1>
 <p>There are none. The startup files set up the required CYPIPE for system use. Do not modify the CYPIPE. It uses IPC channels 5 and 6 to implement full duplex communication between cores. See System Interrupt (SysInt) for background.</p>
@@ -154,17 +154,17 @@ Configuration Considerations - CYPIPE</h1>
 </ol>
 <h1><a class="anchor" id="group_ipc_configuration_sema"></a>
 Configuration Considerations - SEMA</h1>
-<p>Startup code calls <a class="el" href="group__group__ipc__sema__functions.html#ga1cbc3b147c650c8716de10a1ee8423bd" title="This function initializes the semaphores subsystem. ">Cy_IPC_Sema_Init()</a> with default values to set up semaphore functionality. By default the semaphore system uses IPC channel 4, and creates 128 semaphores. Do <b>not</b> change the IPC channel. You can change the number of semaphores.</p>
+<p>Startup code calls <a class="el" href="group__group__ipc__sema__functions.html#ga1cbc3b147c650c8716de10a1ee8423bd" title="This function initializes the semaphores subsystem. ">Cy_IPC_Sema_Init()</a> with default values to set up semaphore functionality. By default, the semaphore system uses IPC channel 4, and creates 128 semaphores. Do <b>not</b> change the IPC channel. You can change the number of semaphores.</p>
 <p>To change the number of semaphores, modify this line of code in system_psoc6.h.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#define CY_IPC_SEMA_COUNT               (uint32_t)(128u)</span></div></div><!-- fragment --><p>Startup also declares array ipcSemaArray to hold the semaphore flags based on the size defined for this symbol. Use increments of 32. You must have at least 32 semaphores. Semaphores 0-15 are reserved for system use. Your application can use semaphores greater than 15.</p>
 <h1><a class="anchor" id="group_ipc_configuration_btss"></a>
 Configuration Considerations - BTSS</h1>
-<p>Application code calls Cy_BTIPC_Init() with configuration parameters to set up BTSS IPC functionality. By default the BT IPC uses IPC channel 0,1,2 and 3. Do <b>not</b> change the IPC channel.</p>
+<p>Application code calls <a class="el" href="group__group__ipc__bt__functions.html#gad43df1ebf07766591ecec7ca2d8da891" title="This function initializes the Bluetooth IPC. ">Cy_BTIPC_Init()</a> with configuration parameters to set up BTSS IPC functionality. By default, the BT IPC uses IPC channel 0,1,2 and 3. Do <b>not</b> change the IPC channel.</p>
 <p>To change the number of callbacks supported, modify this line of code in cy_ipc_bt.h.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#define MAX_BT_IPC_HPC_CB           5</span></div></div><!-- fragment --><p>To change the count of maximum number of buffers shared by BT SS, modify this line of code in cy_ipc_bt.h.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#define MAX_BUF_COUNT               10</span></div></div><!-- fragment --><h1><a class="anchor" id="group_ipc_more_information"></a>
 More Information</h1>
-<p>If the default startup file is not used, or <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system: ">SystemInit()</a> is not called in your project, call the following three functions prior to executing any flash or EmEEPROM write or erase operation:</p><ol type="1">
+<p>If the default startup file is not used, or <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> is not called in your project, call the following three functions prior to executing any flash or EmEEPROM write or erase operation:</p><ol type="1">
 <li><a class="el" href="group__group__ipc__sema__functions.html#ga1cbc3b147c650c8716de10a1ee8423bd" title="This function initializes the semaphores subsystem. ">Cy_IPC_Sema_Init()</a></li>
 <li><a class="el" href="group__group__ipc__pipe__functions.html#ga7a1c8f1e92e74f27856ef2b7ac09c640" title="This function stores a copy of a pointer to the array of endpoints. ">Cy_IPC_Pipe_Config()</a></li>
 <li><a class="el" href="group__group__ipc__pipe__functions.html#gafb7fa479327e6d7c282c262bc1dc6c8c" title="Initializes the system pipes. ">Cy_IPC_Pipe_Init()</a></li>
@@ -176,6 +176,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td rowspan="1">1.70 </td><td>Added BT IPC service layer. </td><td>To support communication between MCU and BTSS through IPC.  </td></tr>
 <tr>
 <td>1.60 </td><td>Added new APIs to use DATA0 and DATA1 for short messages. </td><td>Enhancement based on usability/efficiency.  </td></tr>
 <tr>
@@ -215,7 +217,8 @@ API Reference</h2></td></tr>
 <tr class="memitem:group__group__ipc__pipe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__pipe.html">IPC pipes layer (IPC_PIPE)</a></td></tr>
 <tr class="memdesc:group__group__ipc__pipe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Pipe functions provide a method to transfer one or more words of data between CPUs or tasks. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__group__ipc__bt"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__bt.html">IPC bluetooth sub-system layer (IPC_BTSS)</a></td></tr>
+<tr class="memitem:group__group__ipc__bt"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__bt.html">IPC Bluetooth sub-system layer (IPC_BTSS)</a></td></tr>
+<tr class="memdesc:group__group__ipc__bt"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the HCI APIs are intended to be called by the stack interface layer, and not meant to be called by the application developers. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

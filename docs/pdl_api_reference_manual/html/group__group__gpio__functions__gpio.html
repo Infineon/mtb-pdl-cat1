@@ -126,6 +126,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga07c1bd4b2b19d11a21c9294a221e08c3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__gpio__functions__gpio.html#ga07c1bd4b2b19d11a21c9294a221e08c3">Cy_GPIO_GetVtrip</a> (<a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *base, uint32_t pinNum)</td></tr>
 <tr class="memdesc:ga07c1bd4b2b19d11a21c9294a221e08c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pin input buffer voltage threshold mode.  <a href="#ga07c1bd4b2b19d11a21c9294a221e08c3">More...</a><br /></td></tr>
 <tr class="separator:ga07c1bd4b2b19d11a21c9294a221e08c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga877ae84c544a65ea19347dae57652d48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__gpio__functions__gpio.html#ga877ae84c544a65ea19347dae57652d48">Cy_GPIO_SetVtripAuto</a> (<a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *base, uint32_t pinNum, uint32_t value)</td></tr>
+<tr class="memdesc:ga877ae84c544a65ea19347dae57652d48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the GPIO pin input buffer for automotive compatible or not.  <a href="#ga877ae84c544a65ea19347dae57652d48">More...</a><br /></td></tr>
+<tr class="separator:ga877ae84c544a65ea19347dae57652d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga85ac7b2dd2bd7902a5c39ab43eb1211b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__gpio__functions__gpio.html#ga85ac7b2dd2bd7902a5c39ab43eb1211b">Cy_GPIO_GetVtripAuto</a> (<a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *base, uint32_t pinNum)</td></tr>
+<tr class="memdesc:ga85ac7b2dd2bd7902a5c39ab43eb1211b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pin input buffer voltage whether it is automotive compatible or not.  <a href="#ga85ac7b2dd2bd7902a5c39ab43eb1211b">More...</a><br /></td></tr>
+<tr class="separator:ga85ac7b2dd2bd7902a5c39ab43eb1211b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8f742fe22abb2ff8e0f54cc43ee95d37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__gpio__functions__gpio.html#ga8f742fe22abb2ff8e0f54cc43ee95d37">Cy_GPIO_SetSlewRate</a> (<a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *base, uint32_t pinNum, uint32_t value)</td></tr>
 <tr class="memdesc:ga8f742fe22abb2ff8e0f54cc43ee95d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the pin output buffer slew rate.  <a href="#ga8f742fe22abb2ff8e0f54cc43ee95d37">More...</a><br /></td></tr>
 <tr class="separator:ga8f742fe22abb2ff8e0f54cc43ee95d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,7 +187,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for the CAT1A devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for the CAT1A and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -220,7 +226,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns configuration of the three switches in the selected splitter cell</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for the CAT1A devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for the CAT1A and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -633,6 +639,92 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pin voltage threshold mode. Options are detailed in <a class="el" href="group__group__gpio__vtrip.html">Voltage trip mode</a> macros</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Connect the pin to a TTL hardware */</span></div><div class="line">    </div><div class="line">    <span class="comment">/* Get the vtrip value of P0.3 */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__gpio__vtrip.html#ga0eb9d3f41338feae28103e8a8c302ba0">CY_GPIO_VTRIP_CMOS</a> == <a class="code" href="group__group__gpio__functions__gpio.html#ga07c1bd4b2b19d11a21c9294a221e08c3">Cy_GPIO_GetVtrip</a>(P0_3_PORT, P0_3_NUM))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Change the vtrip of P0.3 to LVTTL */</span></div><div class="line">        <a class="code" href="group__group__gpio__functions__gpio.html#ga29f04942490a8188bc0675cf58b0c609">Cy_GPIO_SetVtrip</a>(P0_3_PORT, P0_3_NUM, <a class="code" href="group__group__gpio__vtrip.html#gac6202dadf8d8993589920d3461f317b5">CY_GPIO_VTRIP_TTL</a>);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga877ae84c544a65ea19347dae57652d48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga877ae84c544a65ea19347dae57652d48">&#9670;&nbsp;</a></span>Cy_GPIO_SetVtripAuto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_GPIO_SetVtripAuto </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pinNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures the GPIO pin input buffer for automotive compatible or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Pointer to the pin's port register base address</td></tr>
+    <tr><td class="paramname">pinNum</td><td>Position of the pin bit-field within the port register</td></tr>
+    <tr><td class="paramname">value</td><td>Pin voltage threshold mode. Options are detailed in <a class="el" href="group__group__gpio__vtrip__auto.html">Voltage trip automotive compatible mode</a> macros</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function modifies a port register in a read-modify-write operation. It is not thread safe as the resource is shared among multiple pins on a port.</dd>
+<dd>
+This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga85ac7b2dd2bd7902a5c39ab43eb1211b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga85ac7b2dd2bd7902a5c39ab43eb1211b">&#9670;&nbsp;</a></span>Cy_GPIO_GetVtripAuto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_GPIO_GetVtripAuto </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_g_p_i_o___p_r_t___type.html">GPIO_PRT_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pinNum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the pin input buffer voltage whether it is automotive compatible or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Pointer to the pin's port register base address</td></tr>
+    <tr><td class="paramname">pinNum</td><td>Position of the pin bit-field within the port register</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pin voltage for automotive or not. Options are detailed in <a class="el" href="group__group__gpio__vtrip__auto.html">Voltage trip automotive compatible mode</a> macros</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
 
 </div>
 </div>

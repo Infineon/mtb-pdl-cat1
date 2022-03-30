@@ -94,7 +94,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#ga15f5cbfbdc6a3cb4a35b7705743777f0">CY_SMIF_FLAG_ALL_DISABLED</a>&#160;&#160;&#160;(0U)</td></tr>
 <tr class="memdesc:ga15f5cbfbdc6a3cb4a35b7705743777f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">All memory configuration flags are disabled. <br /></td></tr>
 <tr class="separator:ga15f5cbfbdc6a3cb4a35b7705743777f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3932175eef63cefb6740f7b8287067a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#gae3932175eef63cefb6740f7b8287067a">CY_SMIF_FLAG_WRITE_ENABLE</a>&#160;&#160;&#160;(SMIF_DEVICE_CTL_WR_EN_Msk)</td></tr>
+<tr class="memitem:gae3932175eef63cefb6740f7b8287067a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#gae3932175eef63cefb6740f7b8287067a">CY_SMIF_FLAG_WRITE_ENABLE</a>&#160;&#160;&#160;(1U)</td></tr>
 <tr class="memdesc:gae3932175eef63cefb6740f7b8287067a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the write capability for the memory slave in the memory-mapped mode.  <a href="#gae3932175eef63cefb6740f7b8287067a">More...</a><br /></td></tr>
 <tr class="separator:gae3932175eef63cefb6740f7b8287067a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga29c9ff0df16794497a73170841902770"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#ga29c9ff0df16794497a73170841902770">CY_SMIF_FLAG_MEMORY_MAPPED</a>&#160;&#160;&#160;(2U)</td></tr>
@@ -104,12 +104,15 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#ga23e01da45ea8e930e94279967557a1c5">CY_SMIF_FLAG_DETECT_SFDP</a>&#160;&#160;&#160;(4U)</td></tr>
 <tr class="memdesc:ga23e01da45ea8e930e94279967557a1c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the Autodetect using the SFDP. <br /></td></tr>
 <tr class="separator:ga23e01da45ea8e930e94279967557a1c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4a63040de70e518360dc47c1afe146e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#ga4a63040de70e518360dc47c1afe146e3">CY_SMIF_FLAG_CRYPTO_ENABLE</a>&#160;&#160;&#160;(SMIF_DEVICE_CTL_CRYPTO_EN_Msk)</td></tr>
+<tr class="memitem:ga4a63040de70e518360dc47c1afe146e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#ga4a63040de70e518360dc47c1afe146e3">CY_SMIF_FLAG_CRYPTO_ENABLE</a>&#160;&#160;&#160;(8U)</td></tr>
 <tr class="memdesc:ga4a63040de70e518360dc47c1afe146e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the crypto support for this memory slave.  <a href="#ga4a63040de70e518360dc47c1afe146e3">More...</a><br /></td></tr>
 <tr class="separator:ga4a63040de70e518360dc47c1afe146e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1b5da16bdec8c2e1f75f11118e897275"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#ga1b5da16bdec8c2e1f75f11118e897275">CY_SMIF_FLAG_SMIF_REV_3</a>&#160;&#160;&#160;(8U)</td></tr>
+<tr class="memitem:ga1b5da16bdec8c2e1f75f11118e897275"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#ga1b5da16bdec8c2e1f75f11118e897275">CY_SMIF_FLAG_SMIF_REV_3</a>&#160;&#160;&#160;(16U)</td></tr>
 <tr class="memdesc:ga1b5da16bdec8c2e1f75f11118e897275"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables IP version 3 features such as octal SPI/DDR mode/ 2 byte addressing.  <a href="#ga1b5da16bdec8c2e1f75f11118e897275">More...</a><br /></td></tr>
 <tr class="separator:ga1b5da16bdec8c2e1f75f11118e897275"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga661fa6c08fd461448fe53679172d0609"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__macros__flags.html#ga661fa6c08fd461448fe53679172d0609">CY_SMIF_FLAG_MERGE_ENABLE</a>&#160;&#160;&#160;(32U)</td></tr>
+<tr class="memdesc:ga661fa6c08fd461448fe53679172d0609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continous transfer merge enable.  <a href="#ga661fa6c08fd461448fe53679172d0609">More...</a><br /></td></tr>
+<tr class="separator:ga661fa6c08fd461448fe53679172d0609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="gae3932175eef63cefb6740f7b8287067a"></a>
@@ -119,7 +122,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CY_SMIF_FLAG_WRITE_ENABLE&#160;&#160;&#160;(SMIF_DEVICE_CTL_WR_EN_Msk)</td>
+          <td class="memname">#define CY_SMIF_FLAG_WRITE_ENABLE&#160;&#160;&#160;(1U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -153,7 +156,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CY_SMIF_FLAG_CRYPTO_ENABLE&#160;&#160;&#160;(SMIF_DEVICE_CTL_CRYPTO_EN_Msk)</td>
+          <td class="memname">#define CY_SMIF_FLAG_CRYPTO_ENABLE&#160;&#160;&#160;(8U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -170,13 +173,30 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CY_SMIF_FLAG_SMIF_REV_3&#160;&#160;&#160;(8U)</td>
+          <td class="memname">#define CY_SMIF_FLAG_SMIF_REV_3&#160;&#160;&#160;(16U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Enables IP version 3 features such as octal SPI/DDR mode/ 2 byte addressing. </p>
-<dl class="section note"><dt>Note</dt><dd>This macro is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This macro is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga661fa6c08fd461448fe53679172d0609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga661fa6c08fd461448fe53679172d0609">&#9670;&nbsp;</a></span>CY_SMIF_FLAG_MERGE_ENABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SMIF_FLAG_MERGE_ENABLE&#160;&#160;&#160;(32U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Continous transfer merge enable. </p>
+<p>This skips the overhead (command, address, mode, dummy cycles) for a continuous (linear sequential) transfer. </p>
 
 </div>
 </div>

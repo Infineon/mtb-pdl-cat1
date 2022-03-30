@@ -123,6 +123,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8d99433f456f0504334af8ab56e3cc91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__efuse__functions.html#ga8d99433f456f0504334af8ab56e3cc91">Cy_EFUSE_WriteWordArray</a> (EFUSE_Type *base, const uint32_t *src, uint32_t offset, uint32_t num)</td></tr>
 <tr class="memdesc:ga8d99433f456f0504334af8ab56e3cc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the values of num 32-bit words from the location pointed to by src to the EFUSE location pointed to by offset.  <a href="#ga8d99433f456f0504334af8ab56e3cc91">More...</a><br /></td></tr>
 <tr class="separator:ga8d99433f456f0504334af8ab56e3cc91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4574fafa0f4533914834b12546575690"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__efuse__functions.html#ga4574fafa0f4533914834b12546575690">Cy_EFUSE_ReadBit</a> (EFUSE_Type *base, uint8_t *dst, uint32_t bitPos, uint32_t offset)</td></tr>
+<tr class="memdesc:ga4574fafa0f4533914834b12546575690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a bit from EFUSE.  <a href="#ga4574fafa0f4533914834b12546575690">More...</a><br /></td></tr>
+<tr class="separator:ga4574fafa0f4533914834b12546575690"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6484736ef7054535e2b22dab58a9d704"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__efuse__functions.html#ga6484736ef7054535e2b22dab58a9d704">Cy_EFUSE_ReadByte</a> (EFUSE_Type *base, uint8_t *dst, uint32_t offset)</td></tr>
 <tr class="memdesc:ga6484736ef7054535e2b22dab58a9d704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads byte from EFUSE.  <a href="#ga6484736ef7054535e2b22dab58a9d704">More...</a><br /></td></tr>
 <tr class="separator:ga6484736ef7054535e2b22dab58a9d704"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -188,7 +191,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a></dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Supported in eFuse v1.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Supported in CAT1A and CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd>The example below shows how to read device life-cycle register bits in PSoC 6: <div class="fragment"><div class="line">    uint32_t offset = offsetof(<a class="code" href="structcy__stc__efuse__data__t.html">cy_stc_efuse_data_t</a>, LIFECYCLE_STAGE.SECURE);</div><div class="line">    <span class="keywordtype">bool</span> bitVal;</div><div class="line">    </div><div class="line">    (void) <a class="code" href="group__group__efuse__functions.html#ga2dc80ca522388529fe573f5c46694f2f">Cy_EFUSE_GetEfuseBit</a>(offset, &amp;bitVal);</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -240,7 +243,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a></dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Supported in eFuse v1.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Supported in CAT1A and CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd>The example below shows how to read a device life-cycle stage register in PSoC 6: <div class="fragment"><div class="line">    <span class="comment">/* Determine the offset of the byte to read. Divide by 8 since the one byte in</span></div><div class="line"><span class="comment">    * cy_stc_efuse_data_t struct corresponds to the one bit in the eFuse memory.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    uint32_t offset = offsetof(<a class="code" href="structcy__stc__efuse__data__t.html">cy_stc_efuse_data_t</a>, LIFECYCLE_STAGE.NORMAL) / <a class="code" href="group__group__efuse__macros.html#ga34bda47f01021424e981b32de0d8a7f6">CY_EFUSE_BITS_PER_BYTE</a>;</div><div class="line">    uint8_t byteVal;</div><div class="line">    </div><div class="line">    (void) <a class="code" href="group__group__efuse__functions.html#ga975d7896953da9ad0c2543f481cbfcc6">Cy_EFUSE_GetEfuseByte</a>(offset, &amp;byteVal);</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -265,7 +268,7 @@ Functions</h2></td></tr>
 <p>In that case, a function from this driver returns an unknown error (see <a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a>). After receipt of an unknown error, the user may call this function to get the status of the capturing module.</p>
 <p>The user is responsible for parsing the content of the returned value and casting it to the appropriate enumeration.</p>
 <dl class="section return"><dt>Returns</dt><dd>The error code of the previous efuse operation.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Supported in eFuse v1. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Supported in CAT1A and CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -423,7 +426,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The EFUSE API status <a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>-The caller is expected to verify the input parameters for correctness and to check whether the bit is already blown before calling this function to not over-program bits. -Supported in CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><ul>
+<li>The caller is expected to verify the input parameters for correctness and to check whether the bit is already blown before calling this function to not over-program bits.</li>
+<li>Supported in CAT1B devices. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -521,7 +528,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The EFUSE API status <a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Supported in CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><ul>
+<li>The caller is expected to check whether the bits within the 32-bit word are already blown before calling this function to not over-program bits.</li>
+<li>Supported in CAT1B devices. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -571,6 +582,64 @@ Functions</h2></td></tr>
     <tr><td class="paramname">src</td><td>Pointer to the source of data to be written.</td></tr>
     <tr><td class="paramname">offset</td><td>Offset from the EFUSE base address. Must be 4-byte aligned.</td></tr>
     <tr><td class="paramname">num</td><td>Number of 32-bit words to be written.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The EFUSE API status <a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><ul>
+<li>The caller is expected to check whether the bits within the 32-bit words are already blown before calling this function to not over-program bits.</li>
+<li>Supported in CAT1B devices. </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a id="ga4574fafa0f4533914834b12546575690"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4574fafa0f4533914834b12546575690">&#9670;&nbsp;</a></span>Cy_EFUSE_ReadBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0">cy_en_efuse_status_t</a> Cy_EFUSE_ReadBit </td>
+          <td>(</td>
+          <td class="paramtype">EFUSE_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>bitPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads a bit from EFUSE. </p>
+<p>Before read operations you must call <a class="el" href="group__group__efuse__functions.html#ga06a4ae2e9113c195ff77f1dc820b25e7">Cy_EFUSE_Init()</a>. It is recommended to disable the block when not using it. Call <a class="el" href="group__group__efuse__functions.html#ga0aa04dbc5db609a8cc641c45c3cd79e7">Cy_EFUSE_Disable()</a> to disable the EFUSE block.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the EFUSE instance.</td></tr>
+    <tr><td class="paramname">dst</td><td>Pointer to the destination where the read bit is stored.</td></tr>
+    <tr><td class="paramname">bitPos</td><td>Bit position within byte.</td></tr>
+    <tr><td class="paramname">offset</td><td>Byte offset from the EFUSE base address.</td></tr>
   </table>
   </dd>
 </dl>
@@ -664,7 +733,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the EFUSE instance.</td></tr>
     <tr><td class="paramname">dst</td><td>Pointer to the destination where the read word is stored.</td></tr>
-    <tr><td class="paramname">offset</td><td>Offset from the EFUSE base address. Must be 4 byte aligned.</td></tr>
+    <tr><td class="paramname">offset</td><td>Offset from the EFUSE base address. Must be 4-byte aligned.</td></tr>
   </table>
   </dd>
 </dl>

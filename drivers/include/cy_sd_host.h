@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sd_host.h
-* \version 1.90
+* \version 2.0
 *
 *  This file provides constants and parameter values for
 *  the SD Host Controller driver.
@@ -44,7 +44,7 @@
 * * SD interface features:
 * * - Supports the 4-bit interface
 * * - Supports Ultra High Speed (UHS-I) mode
-* * - Supports Default Speed (DS), High Speed (HS), SDR12, SDR25 and SDR50 speed modes
+* * - Supports Default Speed (DS), High Speed (HS), SDR12, SDR25, SDR50, and DDR50 speed modes
 * * - Supports SDIO card interrupts in both 1-bit and 4-bit modes
 * * - Supports Standard capacity (SDSC), High capacity (SDHC)
 * and Extended capacity (SDXC) memory
@@ -61,7 +61,7 @@
 * * Wrap address transfers
 * * eMMC boot operation
 * * Suspend/Resume operation in an SDIO card
-* * Operation in SDR104, UHS-II mode, High Speed DDR, HS200, and HS400
+* * Operation in SDR104, UHS-II mode, HS200, and HS400
 * * Serial Peripheral Interface (SPI) protocol mode
 * * Interrupt input pins for the embedded SD system
 * * Auto-tuning
@@ -248,6 +248,12 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td> 2.0</td>
+*     <td>Added support for DDR50 mode and modified Cy_SD_Host_InitCard() API
+*         to set highest possible bus speed mode. Minor documentation updates.</td>
+*     <td>New feature implementation and documentation enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td> 1.90</td>
 *     <td>Fixed the Cy_SD_Host_SoftwareReset() function behaviour.
 *         Now it waits untill corresponding reset bit gets cleared by SDHC IP block.</td>
@@ -412,10 +418,10 @@ extern "C"
 */
 
 /** Driver major version */
-#define CY_SD_HOST_DRV_VERSION_MAJOR       1
+#define CY_SD_HOST_DRV_VERSION_MAJOR       2
 
 /** Driver minor version */
-#define CY_SD_HOST_DRV_VERSION_MINOR       90
+#define CY_SD_HOST_DRV_VERSION_MINOR       0
 
 /******************************************************************************
 * API Constants
@@ -431,7 +437,7 @@ extern "C"
                                                       */
 
 /* SD output clock. */
-#define CY_SD_HOST_CLK_25M                  (25UL * 1000UL * 1000UL) /**< Clk = 20 MHz. */
+#define CY_SD_HOST_CLK_25M                  (25UL * 1000UL * 1000UL) /**< Clk = 25 MHz. */
 #define CY_SD_HOST_CLK_50M                  (50UL * 1000UL * 1000UL) /**< Clk = 50 MHz. */
 #define CY_SD_HOST_CLK_100M                 (100UL * 1000UL * 1000UL) /**< Clk = 100 MHz. */
 
@@ -1274,7 +1280,8 @@ typedef enum
     CY_SD_HOST_BUS_SPEED_SDR25              = 3U,  /**< SDR25: UHS-I (1.8V signaling) at 50 MHz SDClk (25 MB/sec). */
     CY_SD_HOST_BUS_SPEED_SDR50              = 4U,  /**< SDR50: UHS-I (1.8V signaling) at 100 MHz SDClk (50 MB/sec). */
     CY_SD_HOST_BUS_SPEED_EMMC_LEGACY        = 5U,  /**< Backwards Compatibility with legacy MMC card (26MB/sec max). */
-    CY_SD_HOST_BUS_SPEED_EMMC_HIGHSPEED_SDR = 6U   /**< eMMC High speed SDR (52MB/sec max) */
+    CY_SD_HOST_BUS_SPEED_EMMC_HIGHSPEED_SDR = 6U,   /**< eMMC High speed SDR (52MB/sec max) */
+    CY_SD_HOST_BUS_SPEED_DDR50              = 7U  /**< DDR50: UHS-I (1.8V signaling) at 50 MHz SDClk (50 MB/sec). */
 } cy_en_sd_host_bus_speed_mode_t;
 
 /** The SD bus voltage select. */

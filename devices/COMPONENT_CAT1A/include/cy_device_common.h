@@ -45,6 +45,7 @@ typedef enum {
   SVCall_IRQn                       =  -5,      /*!<  -5 System Service Call via SVC instruction */
   PendSV_IRQn                       =  -2,      /*!<  -2 Pendable request for system service */
   SysTick_IRQn                      =  -1,      /*!<  -1 System Tick Timer */
+  cpuss_interrupts_ipc_0_IRQn       =  23,      /*!<  23 [DeepSleep] CPUSS Inter Process Communication Interrupt #0 */
   unconnected_IRQn                  = 240
 #else
   /* ARM Cortex-M4 Core Interrupt Numbers */
@@ -58,6 +59,7 @@ typedef enum {
   DebugMonitor_IRQn                 =  -4,      /*!<  -4 Debug Monitor */
   PendSV_IRQn                       =  -2,      /*!<  -2 Pendable request for system service */
   SysTick_IRQn                      =  -1,      /*!<  -1 System Tick Timer */
+  cpuss_interrupts_ipc_0_IRQn       =  23,      /*!<  23 [DeepSleep] CPUSS Inter Process Communication Interrupt #0 */
   unconnected_IRQn                  = 240
 #endif
 } IRQn_Type;
@@ -441,7 +443,8 @@ extern uint32_t Cy_SysGetCM4Status(void);
 #define PROFILE                                 ((PROFILE_Type*) PROFILE_BASE)
 #define BLE_BASE                                0x403C0000UL
 #define BLE                                     ((BLE_Type*) BLE_BASE)
-
+#define CRYPTO_BASE                             0x40110000UL
+#define CRYPTO                                  ((CRYPTO_Type*) CRYPTO_BASE)                                      /* 0x40110000 */
 #endif /* _CY_DEVICE_COMMON_H_ */
 
 

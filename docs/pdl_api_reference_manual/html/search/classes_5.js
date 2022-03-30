@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mcwdt_5fstruct_5ftype',['MCWDT_STRUCT_Type',['../struct_m_c_w_d_t___s_t_r_u_c_t___type.html',1,'']]]
+  ['lpcomp_5ftype',['LPCOMP_Type',['../struct_l_p_c_o_m_p___type.html',1,'']]]
 ];

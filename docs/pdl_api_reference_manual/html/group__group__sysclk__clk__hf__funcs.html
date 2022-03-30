@@ -114,6 +114,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gafa8c21271b8cb1b1fd9f7fb489a8d2b3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a> (uint32_t clkHf)</td></tr>
 <tr class="memdesc:gafa8c21271b8cb1b1fd9f7fb489a8d2b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the frequency of the selected clkHf.  <a href="#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">More...</a><br /></td></tr>
 <tr class="separator:gafa8c21271b8cb1b1fd9f7fb489a8d2b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace8a5255f8579c17f4062dccb3ff3694"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gace8a5255f8579c17f4062dccb3ff3694">Cy_SysClk_ClkHfDirectSel</a> (uint32_t clkHf, bool enable)</td></tr>
+<tr class="memdesc:gace8a5255f8579c17f4062dccb3ff3694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable/Disable the direct source selection as IMO for CLK_HF[[n]].  <a href="#gace8a5255f8579c17f4062dccb3ff3694">More...</a><br /></td></tr>
+<tr class="separator:gace8a5255f8579c17f4062dccb3ff3694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58bb033cfac5881d026e32643ed6c6b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga58bb033cfac5881d026e32643ed6c6b7">Cy_SysClk_IsClkHfDirectSelEnabled</a> (uint32_t clkHf)</td></tr>
+<tr class="memdesc:ga58bb033cfac5881d026e32643ed6c6b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if direct source selection as IMO for CLK_HF[[n]] is enabled/disabled.  <a href="#ga58bb033cfac5881d026e32643ed6c6b7">More...</a><br /></td></tr>
+<tr class="separator:ga58bb033cfac5881d026e32643ed6c6b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaf3041fc8333478cc7c8d869d2a535d71"></a>
@@ -374,6 +380,73 @@ Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f93
 <dl class="section return"><dt>Returns</dt><dd>The frequency, in Hz.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The reported frequency may be zero, which indicates unknown. This happens if the source input is dsi_out or clk_altlf.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Set HFCLK0 divider to 8, to reduce frequency and save power */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4ab24eafa784b1cc50c94072e6be0dd4b8">CY_SYSCLK_CLKHF_DIVIDE_BY_8</a> != <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga4d8e4a7091e32319bc2c79f3e2809912">Cy_SysClk_ClkHfGetDivider</a>(0UL))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Set the HFCLK0 divider to 8 */</span></div><div class="line">        (void)<a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga66c6e94768403ab318f2aa321b4c1e50">Cy_SysClk_ClkHfSetDivider</a>(0UL, <a class="code" href="group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4ab24eafa784b1cc50c94072e6be0dd4b8">CY_SYSCLK_CLKHF_DIVIDE_BY_8</a>);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Check the HFCLK0 frequency */</span></div><div class="line">    uint32_t clkHf0freq = <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a>(0UL);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gace8a5255f8579c17f4062dccb3ff3694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace8a5255f8579c17f4062dccb3ff3694">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfDirectSel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> Cy_SysClk_ClkHfDirectSel </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable/Disable the direct source selection as IMO for CLK_HF[[n]]. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHf</td><td>Selects the clkHf</td></tr>
+    <tr><td class="paramname">enable</td><td>True - Selects IMO , False - Selects Root Mux</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> CY_SYSCLK_BAD_PARAM - If clkhf is incorrect. CY_SYSCLK_SUCCESS - If successfully Enabled/Disabled.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga58bb033cfac5881d026e32643ed6c6b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga58bb033cfac5881d026e32643ed6c6b7">&#9670;&nbsp;</a></span>Cy_SysClk_IsClkHfDirectSelEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_SysClk_IsClkHfDirectSelEnabled </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if direct source selection as IMO for CLK_HF[[n]] is enabled/disabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHf</td><td>Selects the clkHf</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True - IMO is selected , False - Root Mux is selected</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
 
 </div>
 </div>

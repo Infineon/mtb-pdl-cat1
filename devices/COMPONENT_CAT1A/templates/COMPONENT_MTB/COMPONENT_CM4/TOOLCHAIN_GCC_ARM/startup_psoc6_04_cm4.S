@@ -497,9 +497,9 @@ Fault_Handler:
     b .L_API_call
 .L_MSP:
     mrs r0, MSP
-.L_API_call:
     /* Compensation of stack pointer address due to pushing 4 bytes of LR */
     adds r0, r0, #4
+.L_API_call:
     bl Cy_SysLib_FaultHandler
     b   .
     .size    Fault_Handler, . - Fault_Handler

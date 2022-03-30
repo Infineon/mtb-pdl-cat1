@@ -12,5 +12,10 @@ var group__group__scb__i2c__general__functions =
     [ "Cy_SCB_I2C_SlaveGetAddressMask", "group__group__scb__i2c__general__functions.html#ga169deb4dae9c301ac0066dd952eb987d", null ],
     [ "Cy_SCB_I2C_IsBusBusy", "group__group__scb__i2c__general__functions.html#gac8561c29752c84ccc49cc6a2042bf715", null ],
     [ "Cy_SCB_I2C_MasterSetLowPhaseDutyCycle", "group__group__scb__i2c__general__functions.html#ga13706b2b65e812a846f92560b42c8826", null ],
-    [ "Cy_SCB_I2C_MasterSetHighPhaseDutyCycle", "group__group__scb__i2c__general__functions.html#gac37d485d1fc071c88a7b0d4df1685e92", null ]
+    [ "Cy_SCB_I2C_MasterSetHighPhaseDutyCycle", "group__group__scb__i2c__general__functions.html#gac37d485d1fc071c88a7b0d4df1685e92", null ],
+    [ "Cy_SCB_I2C_SetStretchThreshold", "group__group__scb__i2c__general__functions.html#ga22f1ebfff05be21316da5126807e78b6", null ],
+    [ "Cy_SCB_I2C_GetStretchCount", "group__group__scb__i2c__general__functions.html#gaa2d07f085f4ffd0682a7047f77c3f450", null ],
+    [ "Cy_SCB_I2C_IsStretchDetected", "group__group__scb__i2c__general__functions.html#gade527ee35b573ec84b5142631a3e4d59", null ],
+    [ "Cy_SCB_I2C_IsSyncDetected", "group__group__scb__i2c__general__functions.html#gad69a133c6bcb6438a186bce6f785d7ac", null ],
+    [ "Cy_SCB_I2C_IsStretching", "group__group__scb__i2c__general__functions.html#ga0dda1a9c2ce73e6ec0bf46229611c303", null ]
 ];

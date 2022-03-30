@@ -125,7 +125,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling.</dd>
+<dd>
+This API is available for CAT1A &amp; CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: HFCLK0 is configured and enabled. The Peri clock sourcing the</span></div><div class="line"><span class="comment">                 majority of peripherals must run at a frequency that is 1/2</span></div><div class="line"><span class="comment">                 of HFCLK0. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(1U != <a class="code" href="group__group__sysclk__clk__peri__funcs.html#gaf5822e176f993dee154fb1639817449c">Cy_SysClk_ClkPeriGetDivider</a>())</div><div class="line">    {</div><div class="line">        <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f">Cy_SysClk_ClkPeriSetDivider</a>(1U);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Get the Peri clock output frequency */</span></div><div class="line">    uint32_t clkPerifreq = <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga8db0b9f751e98d8b19054e0879f965c4">Cy_SysClk_ClkPeriGetFrequency</a>();</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -148,6 +150,7 @@ Functions</h2></td></tr>
 
 <p>Reports the frequency of the peri clock. </p>
 <dl class="section return"><dt>Returns</dt><dd>The frequency, in Hz.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A &amp; CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: HFCLK0 is configured and enabled. The Peri clock sourcing the</span></div><div class="line"><span class="comment">                 majority of peripherals must run at a frequency that is 1/2</span></div><div class="line"><span class="comment">                 of HFCLK0. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(1U != <a class="code" href="group__group__sysclk__clk__peri__funcs.html#gaf5822e176f993dee154fb1639817449c">Cy_SysClk_ClkPeriGetDivider</a>())</div><div class="line">    {</div><div class="line">        <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f">Cy_SysClk_ClkPeriSetDivider</a>(1U);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Get the Peri clock output frequency */</span></div><div class="line">    uint32_t clkPerifreq = <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga8db0b9f751e98d8b19054e0879f965c4">Cy_SysClk_ClkPeriGetFrequency</a>();</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -170,6 +173,7 @@ Functions</h2></td></tr>
 
 <p>Returns the clock divider of the peripheral (peri) clock. </p>
 <dl class="section return"><dt>Returns</dt><dd>The divider value. The integer division done is by (divider value + 1), or division by 1 to 256.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A &amp; CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: HFCLK0 is configured and enabled. The Peri clock sourcing the</span></div><div class="line"><span class="comment">                 majority of peripherals must run at a frequency that is 1/2</span></div><div class="line"><span class="comment">                 of HFCLK0. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(1U != <a class="code" href="group__group__sysclk__clk__peri__funcs.html#gaf5822e176f993dee154fb1639817449c">Cy_SysClk_ClkPeriGetDivider</a>())</div><div class="line">    {</div><div class="line">        <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f">Cy_SysClk_ClkPeriSetDivider</a>(1U);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Get the Peri clock output frequency */</span></div><div class="line">    uint32_t clkPerifreq = <a class="code" href="group__group__sysclk__clk__peri__funcs.html#ga8db0b9f751e98d8b19054e0879f965c4">Cy_SysClk_ClkPeriGetFrequency</a>();</div></div><!-- fragment --></dd></dl>
 
 </div>

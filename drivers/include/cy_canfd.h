@@ -280,7 +280,7 @@ extern "C" {
 #define CY_CANFD_DRV_VERSION_MINOR       20U
 
 /** CAN FD driver ID */
-#define CY_CANFD_ID CY_PDL_DRV_ID        (0x45U)
+#define CY_CANFD_ID CY_PDL_DRV_ID(0x45U)
 
 /******************************************************************************
 * API Constants
