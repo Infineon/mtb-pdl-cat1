@@ -85,6 +85,7 @@ Below is a list of PSoC 6 part numbers obsoleted in psoc6pdl release-v1.6.0, wit
 
 ## Known Issues
 * CAT1A: On soft reset, user need to reset back up domain using Cy_SysLib_ResetBackupDomain() to receive Cy_RTC_CenturyInterrupt() callback on Century roll over.
+* CAT1A: IAR compiler Linker scripts do not support Dual-CPU project with the custom CM0p Application by default. Modify linker scripts to ensure proper layout of CM0p and CM4 images in MCU Flash. Refer to the following AppNote for more information. https://www.infineon.com/dgdl/Infineon-AN215656_PSoC_6_MCU_Dual-CPU_System_Design-ApplicationNotes-v09_00-EN.pdf?fileId=8ac78c8c7cdc391c017d0d3180c4655f&utm_source=cypress&utm_medium=referral&utm_campaign=202110_globe_en_all_integration-application_note
 * On building with tools 2.2, user get warning related to the older version of tools used. To avoid this warning, user is advised to migrate to newer tools version or keep working with previous version of this library.  The warning generated is as follows:
   * _#warning "(Library) The referenced 'device support library' contains newer content than is supported. Either downgrade the version of the 'device support library' referenced or upgrade the version of tools being used_
 
