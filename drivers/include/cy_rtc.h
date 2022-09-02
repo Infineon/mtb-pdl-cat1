@@ -1081,6 +1081,11 @@ __STATIC_INLINE uint32_t Cy_RTC_DaysInMonth(uint32_t month, uint32_t year)
 * registers are copied to the user registers. Meanwhile the RTC continues to
 * clock.
 *
+* \note The delay used between two critical sections in this API will
+* disable the interrupts until delay expires. For time critical applications,
+* sync from RTC must be implemented on application level by reusing the
+* Cy_RTC_SyncFromRtc() code with the reduced delays.
+*
 *******************************************************************************/
 __STATIC_INLINE void Cy_RTC_SyncFromRtc(void)
 {

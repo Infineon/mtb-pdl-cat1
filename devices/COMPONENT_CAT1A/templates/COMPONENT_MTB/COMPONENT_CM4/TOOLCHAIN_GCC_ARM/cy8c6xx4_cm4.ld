@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy8c6xx4_cm4.ld
-* \version 2.91
+* \version 2.95
 *
 * Linker file for the GNU C compiler.
 *

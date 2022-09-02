@@ -1,6 +1,6 @@
 /*******************************************************************************
 * \file cy8c6xxa_cm4.icf
-* \version 2.91
+* \version 2.95
 *
 * Linker file for the IAR compiler.
 *

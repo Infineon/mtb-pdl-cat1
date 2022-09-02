@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file system_psoc6.h
-* \version 2.91
+* \version 2.95
 *
 * \brief Device system header file.
 *
@@ -332,6 +332,11 @@
 *       <th>Version</th>
 *       <th>Changes</th>
 *       <th>Reason for Change</th>
+*   </tr>
+*   <tr>
+*       <td rowspan="1">2.95</td>
+*       <td>Update FPU enable function with CMSIS macros to disable/enable interrupts</td>
+*       <td>Move to stadnard inline CMSIS ARM macros</td>
 *   </tr>
 *   <tr>
 *       <td rowspan="2">2.91</td>

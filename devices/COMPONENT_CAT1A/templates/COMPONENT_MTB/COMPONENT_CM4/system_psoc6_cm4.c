@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file system_psoc6_cm4.c
-* \version 2.91
+* \version 2.95
 *
 * The device system-source file.
 *
@@ -308,11 +308,12 @@ void Cy_SystemInitFpuEnable(void)
 {
     #if defined (__FPU_USED) && (__FPU_USED == 1U)
         uint32_t  interruptState;
-        interruptState = Cy_SysLib_EnterCriticalSection();
+        interruptState = __get_PRIMASK();
+        __disable_irq();
         SCB->CPACR |= SCB_CPACR_CP10_CP11_ENABLE;
         __DSB();
         __ISB();
-        Cy_SysLib_ExitCriticalSection(interruptState);
+        __set_PRIMASK(interruptState);
     #endif /* (__FPU_USED) && (__FPU_USED == 1U) */
 }
 

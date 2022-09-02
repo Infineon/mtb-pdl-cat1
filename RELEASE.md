@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v2.4.0
+# MTB CAT1 Peripheral Driver Library v2.4.1
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,61 +8,27 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## New Features
 
-* Support for CAT1B device. Please refer [CYW20829](https://www.infineon.com/cms/en/product/promopages/airoc20829)
-* New PSoC 6A 256K MPNs added: CY8C6244AZQ-S4D92, CY8C6244LQQ-S4D92, CY8C6244AZQ-S4D93, CY8C6144AZQ-S4F92, CY8C6144LQQ-S4F92, CY8C6144AZQ-S4F93, CY8C4588AZQ-H685, CY8C4588AZQ-H686
+None
 
 ## Build Changes
 
+None
+
 ## Personalities Changes
 
-* Updated Personalities: canfd-1.0, coex-1.0, counter_v2-1.0, lpcomp-1.0, pwm_ver2-1.0, quaddec_ver2-1.0, saradc-1.0, shiftreg_v2-1.0, smartio-1.0, debug-1.0, power-1.3, sysclock-1.2, tickclk-1.0
-* New Personalities: adcmic-0.1, canfd-2.0, ezi2c-2.0, i2c-3.0, keyscan-1.0, lin-1.0, mcwdt-2.0, pdm_pcm-2.0, rtc-2.0, smartio-2.0, smif_ver2-1.0, spi-2.0, tdm-1.0, uart-2.0, althf-1.1, bakclk-2.0, dma-2.0, extclk-2.0, fll-3.0, hfclk-2.0, hvilo-2.0, iho-1.0, imo-2.0, lfclk-2.0, mfclk-2.0, mfo-2.0, pathmux-2.0, pclk-2.0, pilo-2.0, pin_intrinsic-2.0, pin-2.0, power-2.0, pumpclk 2.0, sysclock-2.0, tickclk-2.0, timerclk-2.0, wco-2.0
+None
 
 ## Added Drivers
 
-Following drivers are added for CAT1B device support:
-* [ADC MIC](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__adcmic.html)
-* [Cryptolite](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
-* [KeyScan](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__keyscan.html)
-* [LIN](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lin.html)
-* [PDM-PCM Converter V2](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pdm__pcm__v2.html)
-* [TDM/I2S](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__tdm.html)
-* [Startup CAT1B](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__system__config__cm33.html)
-
+None
 
 ## Updated Drivers
 
-* [CRYPTO 2.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
-* [CSD 1.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__csd.html)
-* [DMA 2.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__dma.html)
-* [DMAC 1.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__dmac.html)
-* [EFUSE 2.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__efuse.html)
-* [FLASH 3.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
-* [GPIO 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
-* [I2S 2.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__i2s.html)
-* [IPC 1.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
-* [LPCOMP 1.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lpcomp.html)
-* [LVD 1.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lvd.html)
-* [MCWDT 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
-* [MCWDT 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
-* [PROT 1.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__prot.html)
-* [RTC 2.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__rtc.html)
-* [SCB 2.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
-* [SDHOST 2.00](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sd__host.html)
-* [SMIF 2.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [SYSCLK 3.40](https://cypresssemiconductorco.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSINT 1.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
-* [SYSLIB 3.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
-* [SYSPM 5.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [SYSTICK 1.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__arm__system__timer.html)
-* [TCPWM 1.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__tcpwm.html)
-* [TRIGMUX 1.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__trigmux.html)
-* [WDT 1.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__wdt.html)
-
+* [Startup 2.95](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__system__config.html)
 
 ### Drivers with patch version updates
 
-* [PDM/PCM 2.30.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pdm__pcm.html)
+None
 
 ### Obsoleted part numbers
 
@@ -85,10 +51,10 @@ Below is a list of PSoC 6 part numbers obsoleted in psoc6pdl release-v1.6.0, wit
 
 ## Known Issues
 * CAT1A: On soft reset, user need to reset back up domain using Cy_SysLib_ResetBackupDomain() to receive Cy_RTC_CenturyInterrupt() callback on Century roll over.
-* CAT1A: IAR compiler Linker scripts do not support Dual-CPU project with the custom CM0p Application by default. Modify linker scripts to ensure proper layout of CM0p and CM4 images in MCU Flash. Refer to the following AppNote for more information. https://www.infineon.com/dgdl/Infineon-AN215656_PSoC_6_MCU_Dual-CPU_System_Design-ApplicationNotes-v09_00-EN.pdf?fileId=8ac78c8c7cdc391c017d0d3180c4655f&utm_source=cypress&utm_medium=referral&utm_campaign=202110_globe_en_all_integration-application_note
+* CAT1A: IAR compiler Linker scripts do not support Dual-CPU project with the custom CM0p Application by default. Modify linker scripts to ensure proper layout of CM0p and CM4 images in MCU Flash. Refer to the following AppNote for more information. https://www.infineon.com/dgdl/Infineon-AN215656_PSoC_6_MCU_Dual-CPU_System_Design-ApplicationNotes-v09_00-EN.pdf?fileId=8ac78c8c7cdc391c017d0d3180c4655f&utm_source=cypress&utm_medium=referral&utm_campaign=202110_globe_en_all_integration-application_note.
 * On building with tools 2.2, user get warning related to the older version of tools used. To avoid this warning, user is advised to migrate to newer tools version or keep working with previous version of this library.  The warning generated is as follows:
   * _#warning "(Library) The referenced 'device support library' contains newer content than is supported. Either downgrade the version of the 'device support library' referenced or upgrade the version of tools being used_
-
+* RTC: API - Cy_RTC_SyncFromRtc(), The delay used between two critical sections in this API will disable the interrupts until delay expires. For time critical applications, sync from RTC must be implemented on application level by reusing the Cy_RTC_SyncFromRtc() code with the reduced delays.
 
 ## Defect Fixes
 
@@ -114,7 +80,7 @@ This version of PDL was validated for compatibility with the following Software 
 * [Peripheral Driver Library API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
 * [ModusToolbox Software Environment, Quick Start Guide, Documentation, and Videos](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/)
 * [ModusToolbox Device Configurator Tool Guide](https://www.infineon.com/dgdl/Infineon-ModusToolbox_Device_Configurator_Guide_4-UserManual-v01_00-EN.pdf?fileId=8ac78c8c7d718a49017d99ab297631cb)
-* [AN210781 Getting Started with PSoC 6 MCU with Bluetooth Low Energy (BLE) Connectivity](http://www.cypress.com/an210781)
+* [AN210781 Getting Started with PSoC 6 MCU with Bluetooth Low Energy (BLE) Connectivity](https://www.infineon.com/dgdl/Infineon-AN210781_Getting_Started_with_PSoC_6_MCU_with_Bluetooth_Low_Energy_(BLE)_Connectivity_on_PSoC_Creator-ApplicationNotes-v05_00-EN.pdf?fileId=8ac78c8c7cdc391c017d0d311f536528)
 * [PSoC 6 Technical Reference Manuals](https://edit.infineon.com/cms/en/search.html#!term=psoc6%20technical%20reference%20manual&view=downloads)
 * [PSoC 6 MCU Datasheets](https://edit.infineon.com/cms/en/search.html?intc=searchkwr-return#!view=downloads&term=psoc6&doc_group=Data%20Sheet)
 * [CYW20829](https://www.infineon.com/cms/en/product/promopages/airoc20829)

@@ -1,6 +1,6 @@
 ################################################################################
 # \file cy8c6xx7_cm4_dual.mk
-# \version 2.91
+# \version 2.95
 #
 # \brief
 # Specifies the starting address and the size of the segments in the output
