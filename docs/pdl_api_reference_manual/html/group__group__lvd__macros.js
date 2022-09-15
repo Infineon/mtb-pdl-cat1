@@ -10,5 +10,7 @@ var group__group__lvd__macros =
     [ "CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK", "group__group__lvd__macros.html#ga29705271b0f3ac4bb88f18d3de7e1596", null ],
     [ "CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK", "group__group__lvd__macros.html#ga29705271b0f3ac4bb88f18d3de7e1596", null ],
     [ "CY_LVD_SRSS_INTR_MASKED_HVLVD1_MASK", "group__group__lvd__macros.html#ga6db6685e6694407e4b3147f7341b24a2", null ],
-    [ "CY_LVD_SRSS_INTR_MASKED_HVLVD1_MASK", "group__group__lvd__macros.html#ga6db6685e6694407e4b3147f7341b24a2", null ]
+    [ "CY_LVD_SRSS_INTR_MASKED_HVLVD1_MASK", "group__group__lvd__macros.html#ga6db6685e6694407e4b3147f7341b24a2", null ],
+    [ "CY_LVD_SRSS_PWR_LVD_CTL_HVLVD_EN_Msk", "group__group__lvd__macros.html#ga226a01f5e44ada9deeeeac7b4d8e3b01", null ],
+    [ "CY_LVD_SRSS_PWR_LVD_CTL_HVLVD_EN_Msk", "group__group__lvd__macros.html#ga226a01f5e44ada9deeeeac7b4d8e3b01", null ]
 ];

@@ -6,6 +6,22 @@ var group__group__syspm__return__status =
     [ "CY_SYSPM_STATUS_CM0_ACTIVE", "group__group__syspm__return__status.html#gaa4676826fb292ff98352ea91a5f01d7f", null ],
     [ "CY_SYSPM_STATUS_CM0_SLEEP", "group__group__syspm__return__status.html#ga493abda4ebf3d821730a530bee49ffca", null ],
     [ "CY_SYSPM_STATUS_CM0_DEEPSLEEP", "group__group__syspm__return__status.html#ga375835d257ff290cf6959c4414321bf8", null ],
+    [ "CY_SYSPM_STATUS_CM0_LOWPOWER", "group__group__syspm__return__status.html#ga295511ed4eeb7a7c5150378a065bc299", null ],
+    [ "CY_SYSPM_STATUS_CM7_0_ACTIVE", "group__group__syspm__return__status.html#ga55abf586448b5debbcab9c26b9dc1fc1", null ],
+    [ "CY_SYSPM_STATUS_CM7_0_SLEEP", "group__group__syspm__return__status.html#ga0ae3838ec18bda7cba0cca4d5c5e54ff", null ],
+    [ "CY_SYSPM_STATUS_CM7_0_DEEPSLEEP", "group__group__syspm__return__status.html#ga9c03de0724bcdda45de59f16f7da026a", null ],
+    [ "CY_SYSPM_STATUS_CM7_0_LOWPOWER", "group__group__syspm__return__status.html#ga77e5a48d2d1a9d5846bd6e20107b0a39", null ],
+    [ "CY_SYSPM_CM7_0_PWR_CTL_PWR_MODE_RETAINED", "group__group__syspm__return__status.html#ga2a245c201f3c4b89500351707d11650e", null ],
+    [ "CY_SYSPM_STATUS_CM7_1_ACTIVE", "group__group__syspm__return__status.html#gac16a96b96cb939862ccb0a6f255b570d", null ],
+    [ "CY_SYSPM_STATUS_CM7_1_SLEEP", "group__group__syspm__return__status.html#gafc08d528e42933d5b2f2a478222431d4", null ],
+    [ "CY_SYSPM_STATUS_CM7_1_DEEPSLEEP", "group__group__syspm__return__status.html#ga36599ce3ea3eac8e08ed90bb93f22f29", null ],
+    [ "CY_SYSPM_STATUS_CM7_1_LOWPOWER", "group__group__syspm__return__status.html#ga86c569d53159a7543217adf49d10f740", null ],
+    [ "CY_SYSPM_CM7_1_PWR_CTL_PWR_MODE_RETAINED", "group__group__syspm__return__status.html#ga0d231e4711523cee3a54702d607efe65", null ],
     [ "CY_SYSPM_STATUS_SYSTEM_LP", "group__group__syspm__return__status.html#gad3ad8f600bce37ba71a645d8b2e00ac8", null ],
-    [ "CY_SYSPM_STATUS_SYSTEM_ULP", "group__group__syspm__return__status.html#ga49568080ec568a62e63466fe03377157", null ]
+    [ "CY_SYSPM_STATUS_SYSTEM_ULP", "group__group__syspm__return__status.html#ga49568080ec568a62e63466fe03377157", null ],
+    [ "CY_SYSPM_STATUS_SYSTEM_LPACTIVE", "group__group__syspm__return__status.html#ga9e42c3f19b0c11b99415bc6656a08480", null ],
+    [ "CY_SYSPM_ACTIVE_TO_LP_WAIT_US", "group__group__syspm__return__status.html#gaab3c7012515592d791de489c86cba464", null ],
+    [ "CY_SYSPM_LP_TO_ACTIVE_WAIT_BEFORE_US", "group__group__syspm__return__status.html#ga3d638f89a6e4f6658d58b3c814f429ad", null ],
+    [ "CY_SYSPM_LP_TO_ACTIVE_WAIT_AFTER_US", "group__group__syspm__return__status.html#ga611d90762830a8f86be6420ddfcb4268", null ],
+    [ "CY_SYSPM_WAIT_DELAY_TRYES", "group__group__syspm__return__status.html#gacce756a82b32fe8435e02743d6253f4f", null ]
 ];

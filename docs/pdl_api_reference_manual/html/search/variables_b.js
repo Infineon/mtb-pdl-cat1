@@ -1,7 +1,7 @@
 var searchData=
 [
   ['last',['last',['../structcy__stc__seglcd__font__t.html#ae899ae5eedf0babd3416bf3fd9979eba',1,'cy_stc_seglcd_font_t']]],
-  ['latchdelay',['latchDelay',['../structcy__stc__adcmic__audio__digital__path__config__t.html#a9e56bed2a6cb64f7dc02b6fa984c1c72',1,'cy_stc_adcmic_audio_digital_path_config_t']]],
+  ['latchdelay',['latchDelay',['../structcy__stc__adcmic__pdm__config__t.html#a28db2fca9dd6105cbc7b537f78109b16',1,'cy_stc_adcmic_pdm_config_t']]],
   ['latencycyclesmask',['latencyCyclesMask',['../structcy__stc__smif__mem__device__cfg__t.html#af668180d0dac7778ba607ec4bc3ebafe',1,'cy_stc_smif_mem_device_cfg_t']]],
   ['latencycyclesregaddr',['latencyCyclesRegAddr',['../structcy__stc__smif__mem__device__cfg__t.html#a2bbe834f1ccfb409c369851d0b5be848',1,'cy_stc_smif_mem_device_cfg_t']]],
   ['latesample',['lateSample',['../structcy__stc__tdm__config__rx__t.html#ada33c42d9387cc8098fc43ad1aa881f8',1,'cy_stc_tdm_config_rx_t']]],

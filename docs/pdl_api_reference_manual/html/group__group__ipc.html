@@ -111,7 +111,7 @@ Background</h1>
 <div class="image">
 <img src="ipc_driver.png" alt="ipc_driver.png"/>
 </div>
-<p>These transactions are handled transparently by the DRV-level API. Use the PIPE, SEMA and BTSS layers of the API to implement communication in your application. The data transferred is limited to a single 32-bit value in case of PIPE and SEMA and two 32-bit value incse of BTIPC. As implemented by the PIPE API, that value is a pointer to a data structure of arbitrary size and complexity. BTSS uses both 32-bit registers for communication of short messages. If the payload is greater than 7 bytes, then it copies the data to the shared memory between MCU and the BT SS.</p>
+<p>These transactions are handled transparently by the DRV-level API. Use the PIPE, SEMA and BTSS layers of the API to implement communication in your application. The data transferred is limited to a single 32-bit value in case of PIPE and SEMA and two 32-bit value incase of BTIPC. As implemented by the PIPE API, that value is a pointer to a data structure of arbitrary size and complexity. BTSS uses both 32-bit registers for communication of short messages. If the payload is greater than 7 bytes, then it copies the data to the shared memory between MCU and the BT SS.</p>
 <h1><a class="anchor" id="group_ipc_overview"></a>
 Overview</h1>
 <p>The Pipe is the key element in the PDL design. A pipe is typically a full-duplex communication channel between CPU cores. A pipe allows a single conduit to transfer messages or data to and from multiple processes or CPUs.</p>
@@ -164,7 +164,7 @@ Configuration Considerations - BTSS</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#define MAX_BT_IPC_HPC_CB           5</span></div></div><!-- fragment --><p>To change the count of maximum number of buffers shared by BT SS, modify this line of code in cy_ipc_bt.h.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#define MAX_BUF_COUNT               10</span></div></div><!-- fragment --><h1><a class="anchor" id="group_ipc_more_information"></a>
 More Information</h1>
-<p>If the default startup file is not used, or <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="Initializes the system on CAT1A: ">SystemInit()</a> is not called in your project, call the following three functions prior to executing any flash or EmEEPROM write or erase operation:</p><ol type="1">
+<p>If the default startup file is not used, or <a class="el" href="group__group__startup__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="For CAT1A: ">SystemInit()</a> is not called in your project, call the following three functions prior to executing any flash or EmEEPROM write or erase operation:</p><ol type="1">
 <li><a class="el" href="group__group__ipc__sema__functions.html#ga1cbc3b147c650c8716de10a1ee8423bd" title="This function initializes the semaphores subsystem. ">Cy_IPC_Sema_Init()</a></li>
 <li><a class="el" href="group__group__ipc__pipe__functions.html#ga7a1c8f1e92e74f27856ef2b7ac09c640" title="This function stores a copy of a pointer to the array of endpoints. ">Cy_IPC_Pipe_Config()</a></li>
 <li><a class="el" href="group__group__ipc__pipe__functions.html#gafb7fa479327e6d7c282c262bc1dc6c8c" title="Initializes the system pipes. ">Cy_IPC_Pipe_Init()</a></li>
@@ -176,6 +176,12 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td rowspan="3">1.80 </td><td>Updated argument name of <a class="el" href="group__group__ipc__functions.html#ga741e9137775cdfab6275adaf45dd5406" title="This function is used to set the interrupt mask for an IPC Interrupt. ">Cy_IPC_Drv_SetInterruptMask()</a>, <a class="el" href="group__group__ipc__functions.html#ga5fb9bd90c225d8cc4bc8c9ef1a829948" title="This function is used to set the interrupt source. ">Cy_IPC_Drv_SetInterrupt()</a> and <a class="el" href="group__group__ipc__functions.html#ga408e08c5842189246a35ca2be89d62ea" title="This function is used to clear the interrupt source. ">Cy_IPC_Drv_ClearInterrupt()</a> for better user readability. </td><td>Enhancement based on usability feedback.  </td></tr>
+<tr>
+<td>Defined CY_IPC_CHAN_SYSCALL macro and handled caches for CM7 device. </td><td>Added support for CM7.  </td></tr>
+<tr>
+<td>Other than CAT1A devices, pipe config structure <a class="el" href="structcy__stc__ipc__pipe__config__t.html">cy_stc_ipc_pipe_config_t</a> description is changed. ep0ConfigData is used for receiver endpoint and ep1ConfigData is used for send endpoint. For CAT1A devices, ep0ConfigData is always used for first endpoint(CM0+) and ep1ConfigData is always used for second endpoint(CM4).  </td><td>Enhancement based on usability/efficiency.  </td></tr>
 <tr>
 <td rowspan="1">1.70 </td><td>Added BT IPC service layer. </td><td>To support communication between MCU and BTSS through IPC.  </td></tr>
 <tr>

@@ -7,9 +7,11 @@ var searchData=
   ['acquirenotifierconfig',['acquireNotifierConfig',['../structcy__stc__crypto__config__t.html#abd4789ed2371b4b38395295401248b34',1,'cy_stc_crypto_config_t']]],
   ['actualpti',['actualPti',['../structcy__stc__ipc__msg__buff__t.html#a77bf9afa916ce34c5e29b5a4fd091f8c',1,'cy_stc_ipc_msg_buff_t']]],
   ['adcctl',['adcCtl',['../structcy__stc__csd__config__t.html#a11549e04d6946461c2e44645e8a96cf8',1,'cy_stc_csd_config_t']]],
+  ['adcenable',['adcEnable',['../structcy__stc__sar2__config__t.html#abbfa20b67544f2d8ac354624323d1b83',1,'cy_stc_sar2_config_t']]],
   ['adcres',['adcRes',['../structcy__stc__csd__config__t.html#a2d0daac77be320ca004a77d0e95f09b7',1,'cy_stc_csd_config_t']]],
   ['address',['address',['../structcy__stc__mpu__cfg__t.html#abc08a263e780837850958090e6163c2c',1,'cy_stc_mpu_cfg_t::address()'],['../structcy__stc__smpu__cfg__t.html#ab5c10f0e5caa0b98ea5a77e963083278',1,'cy_stc_smpu_cfg_t::address()'],['../structcy__stc__ppu__prog__cfg__t.html#a4e4be32414098c2065ad67ee2e225176',1,'cy_stc_ppu_prog_cfg_t::address()'],['../structcy__stc__sd__host__write__read__config__t.html#abf986be07c8a00aa8e5394bf8f07f75b',1,'cy_stc_sd_host_write_read_config_t::address()']]],
   ['addrrate',['addrRate',['../structcy__stc__smif__mem__cmd__t.html#ac46bf87f8daae2bae3e57330d60179c1',1,'cy_stc_smif_mem_cmd_t']]],
+  ['addrtobechecked',['addrToBeChecked',['../structcy__stc__flash__blankcheck__config__t.html#afd677dde991c6663066cd14596109d38',1,'cy_stc_flash_blankcheck_config_t']]],
   ['addrwidth',['addrWidth',['../structcy__stc__smif__mem__cmd__t.html#a23d95eaa05bd12e4cbb416e1f07af5d7',1,'cy_stc_smif_mem_cmd_t']]],
   ['algo',['algo',['../structcy__stc__crypto__ecc__dp__type.html#a21a15ceafa7b448925b7239872aad5a9',1,'cy_stc_crypto_ecc_dp_type']]],
   ['allocbuffer',['allocBuffer',['../structcy__stc__usb__dev__ep__config__t.html#a5ba21ba730ec10df131e46e469b4aee9',1,'cy_stc_usb_dev_ep_config_t']]],
@@ -21,11 +23,11 @@ var searchData=
   ['althfxtalstartuptime',['altHFxtalStartUpTime',['../structcy__stc__pra__system__config__t.html#a55ae459ce519c5b5124429ef7625ef73',1,'cy_stc_pra_system_config_t']]],
   ['ambuf',['ambuf',['../structcy__stc__csd__config__t.html#abed4902deef6ed1d5211ec9f5f0e4d6e',1,'cy_stc_csd_config_t']]],
   ['ampm',['amPm',['../structcy__stc__rtc__config__t.html#a965e01ebe42f81bae6e113ded4606d59',1,'cy_stc_rtc_config_t']]],
-  ['anaconfig',['anaConfig',['../structcy__stc__adcmic__config__t.html#af55001e254b5f1d80638a801b8e35259',1,'cy_stc_adcmic_config_t']]],
   ['anmf',['anmf',['../structcy__stc__canfd__r1__t.html#af902c1efe04ff3fe5709971f9f5a9077',1,'cy_stc_canfd_r1_t']]],
   ['arrayptr',['arrayPtr',['../structcy__stc__ipc__sema__t.html#ad04fb13a0736977c4ddc642a630c9f54',1,'cy_stc_ipc_sema_t']]],
   ['ascii',['ascii',['../structcy__stc__seglcd__font__t.html#a128a4b366ab894415a75d0635fb368f7',1,'cy_stc_seglcd_font_t']]],
   ['attributes',['attributes',['../structcy__stc__usb__dev__ep__config__t.html#ad2e3a63c90c484593d678b995de6c6a9',1,'cy_stc_usb_dev_ep_config_t']]],
   ['audio_5ffreq_5fdiv',['audio_freq_div',['../structcy__stc__test__config__t.html#ac76c690654428a83147427b2a440073a',1,'cy_stc_test_config_t']]],
-  ['autocommand',['autoCommand',['../structcy__stc__sd__host__data__config__t.html#add879461d35f90bda10ff1fa88e1dce2',1,'cy_stc_sd_host_data_config_t::autoCommand()'],['../structcy__stc__sd__host__write__read__config__t.html#ad3deb9b66da477a4db770342d9c53a6c',1,'cy_stc_sd_host_write_read_config_t::autoCommand()']]]
+  ['autocommand',['autoCommand',['../structcy__stc__sd__host__data__config__t.html#add879461d35f90bda10ff1fa88e1dce2',1,'cy_stc_sd_host_data_config_t::autoCommand()'],['../structcy__stc__sd__host__write__read__config__t.html#ad3deb9b66da477a4db770342d9c53a6c',1,'cy_stc_sd_host_write_read_config_t::autoCommand()']]],
+  ['averagecount',['averageCount',['../structcy__stc__sar2__channel__config__t.html#a1313acc428a4c47f27c666636de0e9b8',1,'cy_stc_sar2_channel_config_t']]]
 ];

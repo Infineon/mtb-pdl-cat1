@@ -6,6 +6,7 @@ var group__group__efuse__functions =
     [ "Cy_EFUSE_Init", "group__group__efuse__functions.html#ga06a4ae2e9113c195ff77f1dc820b25e7", null ],
     [ "Cy_EFUSE_Enable", "group__group__efuse__functions.html#ga4c007af8fdfc8f7179abad616e88cae2", null ],
     [ "Cy_EFUSE_Disable", "group__group__efuse__functions.html#ga0aa04dbc5db609a8cc641c45c3cd79e7", null ],
+    [ "Cy_EFUSE_IsEnabled", "group__group__efuse__functions.html#ga5dae8f5e5f2a463363c4dfcc5af57b28", null ],
     [ "Cy_EFUSE_DeInit", "group__group__efuse__functions.html#ga28ecc1dcdb968e053a958cca635e9461", null ],
     [ "Cy_EFUSE_WriteBit", "group__group__efuse__functions.html#ga0dd2f9a26afa1c75420318c09a7f53fb", null ],
     [ "Cy_EFUSE_WriteByte", "group__group__efuse__functions.html#ga52ffd7cf26fba5e7786187b8627665b9", null ],

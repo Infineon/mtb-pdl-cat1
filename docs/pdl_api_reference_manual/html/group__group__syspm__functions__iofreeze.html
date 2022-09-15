@@ -96,6 +96,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5df20917d995755606672fac961e8e9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga5df20917d995755606672fac961e8e9b">Cy_SysPm_IoUnfreeze</a> (void)</td></tr>
 <tr class="memdesc:ga5df20917d995755606672fac961e8e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function unfreezes the I/O cells that are automatically frozen when Hibernate is entered with the call to <a class="el" href="group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51">Cy_SysPm_SystemEnterHibernate()</a>.  <a href="#ga5df20917d995755606672fac961e8e9b">More...</a><br /></td></tr>
 <tr class="separator:ga5df20917d995755606672fac961e8e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8f0ee97d39dbc001ce07b5d306ffbddc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga8f0ee97d39dbc001ce07b5d306ffbddc">Cy_SysPm_IoFreeze</a> (void)</td></tr>
+<tr class="memdesc:ga8f0ee97d39dbc001ce07b5d306ffbddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Freezes IOs.  <a href="#ga8f0ee97d39dbc001ce07b5d306ffbddc">More...</a><br /></td></tr>
+<tr class="separator:ga8f0ee97d39dbc001ce07b5d306ffbddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga09d3a037917bd2e02d9e9e500ae700ab">Cy_SysPm_DeepSleepIoIsFrozen</a> (void)</td></tr>
 <tr class="memdesc:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether IOs are frozen during DEEPSLEEP-RAM/OFF.  <a href="#ga09d3a037917bd2e02d9e9e500ae700ab">More...</a><br /></td></tr>
 <tr class="separator:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,6 +154,29 @@ Functions</h2></td></tr>
 <p>If the firmware must retain the data value on the pin, then the value must be read and re-written to the pin's port data register before calling this function. Furthermore, the drive mode must be re-programmed before the pins are unfrozen. If this is not done, the pin will change to the default state the moment the freeze is removed.</p>
 <p>Note that I/O cell configuration can be changed while frozen. The new configuration becomes effective only after the pins are unfrozen.</p>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    </div><div class="line">    <span class="comment">/* Scenario: There is a need to use Hibernate power mode and retain the </span></div><div class="line"><span class="comment">    *  the I/O state after the a wake-up from Hibernate</span></div><div class="line"><span class="comment">    */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Check the I/O freeze status after the boot.</span></div><div class="line"><span class="comment">    *  If the I/O is frozen it means we have returned from Hibernate.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__syspm__functions__iofreeze.html#gaf741ea459227eeb4528221653b5fde4a">Cy_SysPm_IoIsFrozen</a>())</div><div class="line">    {</div><div class="line">        <span class="comment">/* Restore the I/O configuration before unfreezing.</span></div><div class="line"><span class="comment">        *  Use configuration data programmed into firmware stored in S</span></div><div class="line"><span class="comment">        *  RSS-&gt;PWR_HIB_DATA[] or BACKUP-&gt;BREG[] </span></div><div class="line"><span class="comment">        *  before the Hibernate was entered. Th emost common use case is to</span></div><div class="line"><span class="comment">        *  restore from GPIO driver the firmware initialization structures.</span></div><div class="line"><span class="comment">        */</span></div><div class="line">        <a class="code" href="group__group__syspm__functions__iofreeze.html#ga5df20917d995755606672fac961e8e9b">Cy_SysPm_IoUnfreeze</a>();</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Save the I/O before entering Hibernate. You can store the</span></div><div class="line"><span class="comment">    *  the I/O configuration into SRSS-&gt;PWR_HIB_DATA[] or </span></div><div class="line"><span class="comment">    *  BACKUP-&gt;BREG[] registers.</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    </div><div class="line">    <span class="comment">/* Enter Hibernate mode */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51">Cy_SysPm_SystemEnterHibernate</a>();</div><div class="line">    </div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga8f0ee97d39dbc001ce07b5d306ffbddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8f0ee97d39dbc001ce07b5d306ffbddc">&#9670;&nbsp;</a></span>Cy_SysPm_IoFreeze()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysPm_IoFreeze </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Freezes IOs. </p>
+<p>Freezes the IO cells directly to save the IO-cell state on a wakeup from the Hibernate. Do not call this function before entering the Hibernate mode, because Cy_SysPm_Hibernate() function freezes the IO cells.</p>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C devices.</dd></dl>
+<p>Freezes the IO cells directly to save the IO-cell state on a wakeup from the Hibernate. Do not call this function before entering the Hibernate mode, because Cy_SysPm_Hibernate() function freezes the IO cells. </p>
 
 </div>
 </div>

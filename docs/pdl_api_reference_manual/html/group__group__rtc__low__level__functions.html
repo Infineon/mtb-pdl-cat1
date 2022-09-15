@@ -256,9 +256,7 @@ Functions</h2></td></tr>
 
 <p>The Synchronizer updates RTC values into AHB RTC user registers from the actual RTC. </p>
 <p>By calling this function, the actual RTC register values is copied to AHB user registers.</p>
-<dl class="section note"><dt>Note</dt><dd>Only after calling <a class="el" href="group__group__rtc__low__level__functions.html#gaf4ac08fe9e8eabc52d9f022cd3103e60" title="The Synchronizer updates RTC values into AHB RTC user registers from the actual RTC. ">Cy_RTC_SyncFromRtc()</a>, the RTC time values can be read. After <a class="el" href="group__group__rtc__low__level__functions.html#gaf4ac08fe9e8eabc52d9f022cd3103e60" title="The Synchronizer updates RTC values into AHB RTC user registers from the actual RTC. ">Cy_RTC_SyncFromRtc()</a> calling the snapshot of the actual RTC registers are copied to the user registers. Meanwhile the RTC continues to clock.</dd>
-<dd>
-The delay used between two critical sections in this API will disable the interrupts until delay expires. For time critical applications, sync from RTC must be implemented on application level by reusing the <a class="el" href="group__group__rtc__low__level__functions.html#gaf4ac08fe9e8eabc52d9f022cd3103e60" title="The Synchronizer updates RTC values into AHB RTC user registers from the actual RTC. ">Cy_RTC_SyncFromRtc()</a> code with the reduced delays. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Only after calling <a class="el" href="group__group__rtc__low__level__functions.html#gaf4ac08fe9e8eabc52d9f022cd3103e60" title="The Synchronizer updates RTC values into AHB RTC user registers from the actual RTC. ">Cy_RTC_SyncFromRtc()</a>, the RTC time values can be read. After <a class="el" href="group__group__rtc__low__level__functions.html#gaf4ac08fe9e8eabc52d9f022cd3103e60" title="The Synchronizer updates RTC values into AHB RTC user registers from the actual RTC. ">Cy_RTC_SyncFromRtc()</a> calling the snapshot of the actual RTC registers are copied to the user registers. Meanwhile the RTC continues to clock. </dd></dl>
 
 </div>
 </div>

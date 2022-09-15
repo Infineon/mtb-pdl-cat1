@@ -4,6 +4,7 @@ var group__group__crypto__data__structures =
     [ "cy_stc_crypto_aes_buffers_t", "structcy__stc__crypto__aes__buffers__t.html", null ],
     [ "cy_stc_crypto_aes_state_t", "structcy__stc__crypto__aes__state__t.html", null ],
     [ "cy_stc_crypto_sha_state_t", "structcy__stc__crypto__sha__state__t.html", null ],
+    [ "cy_stc_crypto_hmac_state_t", "structcy__stc__crypto__hmac__state__t.html", null ],
     [ "cy_stc_crypto_ecc_point", "structcy__stc__crypto__ecc__point.html", [
       [ "x", "structcy__stc__crypto__ecc__point.html#add55e76c8f42aec7b4274af7feeb1017", null ],
       [ "y", "structcy__stc__crypto__ecc__point.html#aaf8d6d30379956a97aae67b103cc09b0", null ]

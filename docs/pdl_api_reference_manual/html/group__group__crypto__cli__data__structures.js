@@ -12,7 +12,7 @@ var group__group__crypto__cli__data__structures =
     [ "cy_stc_crypto_context_trng_t", "structcy__stc__crypto__context__trng__t.html", null ],
     [ "cy_stc_crypto_context_str_t", "structcy__stc__crypto__context__str__t.html", null ],
     [ "cy_stc_crypto_context_crc_t", "structcy__stc__crypto__context__crc__t.html", null ],
-    [ "cy_stc_crypto_context_rsa_ver_t", "structcy__stc__crypto__context__rsa__ver__t.html", null ],
     [ "cy_stc_crypto_context_rsa_t", "structcy__stc__crypto__context__rsa__t.html", null ],
+    [ "cy_stc_crypto_context_rsa_ver_t", "structcy__stc__crypto__context__rsa__ver__t.html", null ],
     [ "cy_stc_crypto_context_ecc_t", "structcy__stc__crypto__context__ecc__t.html", null ]
 ];

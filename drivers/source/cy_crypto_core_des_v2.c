@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_des_v2.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the source code fro the API for the DES method
@@ -27,15 +27,17 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXCRYPTO)
+#if defined(CY_IP_MXCRYPTO)
 
 #include "cy_crypto_core_des_v2.h"
+
+#if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-#if (CPUSS_CRYPTO_DES == 1)
+#if (CPUSS_CRYPTO_DES == 1) && defined(CY_CRYPTO_CFG_DES_C)
 
 #include "cy_crypto_common.h"
 #include "cy_crypto_core_hw_v2.h"
@@ -44,6 +46,12 @@ extern "C" {
 
 #define CY_CRYPTO_DES_WEAK_KEY_COUNT   (16U)
 #define CY_CRYPTO_DES_KEY_BYTE_LENGTH  (8U)
+
+typedef enum
+{
+    CY_CRYPTO_DES_MODE_SINGLE = 0,
+    CY_CRYPTO_DES_MODE_TRIPLE = 1
+} cy_en_crypto_des_mode_t;
 
 /* Table with DES weak keys */
 CY_ALIGN(4)
@@ -170,16 +178,16 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Tdes(CRYPTO_Type *base,
     /* Check weak keys */
     for (i = 0U; i < CY_CRYPTO_DES_WEAK_KEY_COUNT; i++)
     {
-    for (uint32_t keynum=0U; keynum < (CY_CRYPTO_TDES_KEY_SIZE / CY_CRYPTO_DES_KEY_SIZE); keynum++)
+        for (uint32_t keynum=0U; keynum < (CY_CRYPTO_TDES_KEY_SIZE / CY_CRYPTO_DES_KEY_SIZE); keynum++)
         {
             if (Cy_Crypto_Core_V2_MemCmp(base, &(key[keynum * CY_CRYPTO_DES_KEY_BYTE_LENGTH]), (uint8_t const *)cy_desWeakKeys[i], CY_CRYPTO_DES_KEY_BYTE_LENGTH) == 0U)
             {
                 status = CY_CRYPTO_DES_WEAK_KEY;
                 break;
             }
-    }
+        }
         if (status == CY_CRYPTO_DES_WEAK_KEY)
-    {
+        {
             break;
         }
     }
@@ -199,13 +207,14 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Tdes(CRYPTO_Type *base,
     return (status);
 }
 
-#endif /* #if (CPUSS_CRYPTO_DES == 1) */
+#endif /* (CPUSS_CRYPTO_DES == 1) && defined(CY_CRYPTO_CFG_DES_C) */
 
 #if defined(__cplusplus)
 }
 #endif
 
-#endif /* CY_IP_MXCRYPTO */
+#endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
 
+#endif /* defined(CY_IP_MXCRYPTO) */
 
 /* [] END OF FILE */

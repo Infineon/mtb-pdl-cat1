@@ -20,6 +20,6 @@ var group__group__lin__data__structures =
       [ "txPIDStop_error", "structcy__stc__lin__test__error__config__t.html#ab37d0a62ff24b669eba2607d285cdeb8", null ],
       [ "txDataStop_error", "structcy__stc__lin__test__error__config__t.html#a3fbddf38deab6a0ace7f4569ecef30d0", null ],
       [ "txChecksum_error", "structcy__stc__lin__test__error__config__t.html#a53ad35075e509fea7c2ef6a5f412acdc", null ],
-      [ "txCheksumStop_error", "structcy__stc__lin__test__error__config__t.html#a023556eb879c928af77d1118892d8e1e", null ]
+      [ "txChecksumStop_error", "structcy__stc__lin__test__error__config__t.html#ac491f844a9f6f78e708b8df8c91cd247", null ]
     ] ]
 ];

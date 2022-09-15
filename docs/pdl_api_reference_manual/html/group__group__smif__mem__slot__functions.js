@@ -23,5 +23,7 @@ var group__group__smif__mem__slot__functions =
     [ "Cy_SMIF_MemEraseSector", "group__group__smif__mem__slot__functions.html#ga0366724555c54f148c6bec37f084897c", null ],
     [ "Cy_SMIF_MemEraseChip", "group__group__smif__mem__slot__functions.html#ga7525385db143137bd0e16a82e248243d", null ],
     [ "Cy_SMIF_MemLocateHybridRegion", "group__group__smif__mem__slot__functions.html#ga2ecd32504ba15c504203a6ac3daee4c4", null ],
-    [ "Cy_SMIF_SetReadyPollingDelay", "group__group__smif__mem__slot__functions.html#ga18824b6bf3b3c8a5ac03a24f748da880", null ]
+    [ "Cy_SMIF_SetReadyPollingDelay", "group__group__smif__mem__slot__functions.html#ga18824b6bf3b3c8a5ac03a24f748da880", null ],
+    [ "Cy_SMIF_MemCmdPowerDown", "group__group__smif__mem__slot__functions.html#ga980d0c489c56484a487cf6f501086133", null ],
+    [ "Cy_SMIF_MemCmdReleasePowerDown", "group__group__smif__mem__slot__functions.html#gabb2213b32c3004b0b46f63e859e4b7e4", null ]
 ];

@@ -17,5 +17,5 @@ var group__group__syspm__functions__buck =
     [ "Cy_SysPm_CoreBuckGetMode", "group__group__syspm__functions__buck.html#ga41d5506518f466aabea598d48cf5db9f", null ],
     [ "Cy_SysPm_CoreBuckConfig", "group__group__syspm__functions__buck.html#gadf48f25b461d9b7e5b5f1c8db9d97249", null ],
     [ "Cy_SysPm_CoreBuckStatus", "group__group__syspm__functions__buck.html#gae18d875b522e63828fd66e5d2e99d7bf", null ],
-    [ "Cy_SysPm_LdoExtraRequester", "group__group__syspm__functions__buck.html#gac83bb84aea464a32ff24b898c5f4c34a", null ]
+    [ "Cy_SysPm_LdoExtraRequesterConfig", "group__group__syspm__functions__buck.html#ga630b7dcea7341187b54176f860023083", null ]
 ];

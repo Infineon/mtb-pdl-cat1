@@ -147,7 +147,7 @@ SRAM Power Mode Configurations</h1>
 <h1><a class="anchor" id="group_pra_standalone"></a>
 Using without BSPs</h1>
 <p>If PDL is used in Standalone mode without Board Support Package (BSP), do the following:</p><ul>
-<li>1) Call the <a class="el" href="group__group__pra__functions.html#ga93393c7e6e2ca124ac0b331dcee6e78b">Cy_PRA_Init</a> function prior to executing API of any of the drivers listed above. By default, this function is called from <a class="el" href="group__group__system__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2">SystemInit</a> on both CPU cores.</li>
+<li>1) Call the <a class="el" href="group__group__pra__functions.html#ga93393c7e6e2ca124ac0b331dcee6e78b">Cy_PRA_Init</a> function prior to executing API of any of the drivers listed above. By default, this function is called from <a class="el" href="group__group__startup__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2">SystemInit</a> on both CPU cores.</li>
 <li>2) Call the <a class="el" href="group__group__pra__functions.html#ga9eb129562cf959674d91dc11d37c374a">Cy_PRA_SystemConfig</a> function with the initial device configuration passed as a parameter. Refer to Section "Function Usage" of the <a class="el" href="group__group__pra__functions.html#ga9eb129562cf959674d91dc11d37c374a">Cy_PRA_SystemConfig</a> function for more details.</li>
 </ul>
 <h1><a class="anchor" id="group_pra_more_information"></a>
@@ -159,9 +159,11 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>2.40 </td><td>Initialize internal data structure to initial values when external clock policy pointer is NULL to avoid null pointer de-referencing. </td><td>Defect fix.  </td></tr>
+<tr>
 <td rowspan="4">2.30 </td><td>System Configuration can be done from CM0+ using PRA API with CY_PRA_MSG_TYPE_SYS_CFG_FUNC and CY_PRA_FUNC_INIT_CYCFG_DEVICE arguments. </td><td>Enhancement based on customer feedback.  </td></tr>
 <tr>
-<td>System configuration structure is updated with appropriate value, when cm0+ applicaton calls any PDL API accessing to FUNCTION_POLICY registers. </td><td>Enhancement based on customer feedback.  </td></tr>
+<td>System configuration structure is updated with appropriate value, when cm0+ application calls any PDL API accessing to FUNCTION_POLICY registers. </td><td>Enhancement based on customer feedback.  </td></tr>
 <tr>
 <td>Fixed MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
 <tr>

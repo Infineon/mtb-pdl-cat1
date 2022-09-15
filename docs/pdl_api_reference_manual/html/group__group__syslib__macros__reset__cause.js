@@ -11,5 +11,19 @@ var group__group__syslib__macros__reset__cause =
     [ "CY_SYSLIB_RESET_SWWDT3", "group__group__syslib__macros__reset__cause.html#gabb8cdf49ff0e9fd12f7f8c9a8cde6d52", null ],
     [ "CY_SYSLIB_RESET_CSV_LOSS_WAKEUP", "group__group__syslib__macros__reset__cause.html#ga0d320f6610ee7f457bfd8798c2da91ca", null ],
     [ "CY_SYSLIB_RESET_CSV_ERROR_WAKEUP", "group__group__syslib__macros__reset__cause.html#ga1e13f4eb0894bab7da23ff11e7bc5b35", null ],
-    [ "CY_SYSLIB_RESET_HIB_WAKEUP", "group__group__syslib__macros__reset__cause.html#gad30b17c4bd7e48fd4628d4ee56cace84", null ]
+    [ "CY_SYSLIB_RESET_HIB_WAKEUP", "group__group__syslib__macros__reset__cause.html#gad30b17c4bd7e48fd4628d4ee56cace84", null ],
+    [ "CY_SYSLIB_RESET_XRES", "group__group__syslib__macros__reset__cause.html#ga8b0202d78f26968d02757e0b10249799", null ],
+    [ "CY_SYSLIB_RESET_BODVDDD", "group__group__syslib__macros__reset__cause.html#gad5f2544aa19111ecd3159a97d7dd69cf", null ],
+    [ "CY_SYSLIB_RESET_BODVDDA", "group__group__syslib__macros__reset__cause.html#ga9ecd16e2c8fe061ad0d0164bc2e3b98a", null ],
+    [ "CY_SYSLIB_RESET_BODVCCD", "group__group__syslib__macros__reset__cause.html#gac7798cd7ad74e8e3dc85d8d37cdb09e1", null ],
+    [ "CY_SYSLIB_RESET_OVDVDDD", "group__group__syslib__macros__reset__cause.html#gac21bba7fa0c24ecea50d12038a2ac136", null ],
+    [ "CY_SYSLIB_RESET_OVDVDDA", "group__group__syslib__macros__reset__cause.html#ga2490062d21c8c5c7935bdf854b312858", null ],
+    [ "CY_SYSLIB_RESET_OVDVCCD", "group__group__syslib__macros__reset__cause.html#gaa2928ea39085b5e38fb05ed1c62d9655", null ],
+    [ "CY_SYSLIB_RESET_OCD_ACT_LINREG", "group__group__syslib__macros__reset__cause.html#gaba088d381fc6716cf9c3c83af776b567", null ],
+    [ "CY_SYSLIB_RESET_OCD_DPSLP_LINREG", "group__group__syslib__macros__reset__cause.html#ga1e99c58e36c9f0d90fb108bc59de8983", null ],
+    [ "CY_SYSLIB_RESET_OCD_REGHC", "group__group__syslib__macros__reset__cause.html#ga7a9e1a30ff804412b453df6d08552c9c", null ],
+    [ "CY_SYSLIB_RESET_PMIC", "group__group__syslib__macros__reset__cause.html#ga38c30b821ab37545d12e840729b7886b", null ],
+    [ "CY_SYSLIB_RESET_PXRES", "group__group__syslib__macros__reset__cause.html#ga3bfecc977d82eb0c3ac76e128f6dc5a5", null ],
+    [ "CY_SYSLIB_RESET_STRUCT_XRES", "group__group__syslib__macros__reset__cause.html#ga762cf56f68854e559a6a93227cf55332", null ],
+    [ "CY_SYSLIB_RESET_PORVDDD", "group__group__syslib__macros__reset__cause.html#ga35546f2d5563315369a1b7378245bb70", null ]
 ];

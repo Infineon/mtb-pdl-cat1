@@ -169,7 +169,7 @@ CY_SYSCLK_UNSUPPORTED_STATE - FLL is not present</dd></dl>
 <dd>
 Do not call this function when the FLL is enabled. If it is called, then this function returns with an CY_SYSCLK_INVALID_STATE return value and no register updates.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the FLL is the source of CLK_HF0 and the FLL frequency is increasing.</dd>
 <dd>
@@ -210,7 +210,7 @@ CY_SYSCLK_INVALID_STATE - FLL not configured because it is enabled CY_PRA_STATUS
 <dd>
 Do not call this function when the FLL is enabled. If it is called, then this function returns immediately with an CY_SYSCLK_INVALID_STATE return value and no register updates.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the FLL is the source of CLK_HF0 and the FLL frequency is increasing.</dd>
 <dd>
@@ -278,9 +278,11 @@ CY_SYSCLK_SUCCESS - FLL successfully enabled <br />
 CY_SYSCLK_TIMEOUT - Timeout waiting for FLL lock CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when function returns the PRA error status code <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> instead of <a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>While waiting for the FLL to lock, the FLL bypass mode is set to <a class="el" href="group__group__sysclk__fll__enums.html#gga777e08424e26c9cd8c2602b2114e716baf2893197c53d0101be01ef926a33528b">CY_SYSCLK_FLLPLL_OUTPUT_INPUT</a>. After the FLL is locked, the FLL bypass mdoe is then set to <a class="el" href="group__group__sysclk__fll__enums.html#gga777e08424e26c9cd8c2602b2114e716baf9198d7cbbee5db8e8c48375125aee74">CY_SYSCLK_FLLPLL_OUTPUT_OUTPUT</a>.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after calling this function if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after calling this function if it affects the CLK_HF0 frequency.</dd>
 <dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the FLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd></dl>
+Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the FLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
+<dd>
+Take into account the possible platform specific clkHf (and further clocking chain links) frequency limitations while using this API.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: FLL is configured and needs to be enabled within 2 ms */</span></div><div class="line"></div><div class="line"><span class="preprocessor">    #define CLKPATH0 (0UL)</span></div><div class="line"></div><div class="line">    uint32_t clkPathFreq = 0UL; <span class="comment">/* Variable to store the Clock Path output frequency */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Enable the FLL with a timeout of 2000 microseconds */</span></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> == <a class="code" href="group__group__sysclk__fll__funcs.html#ga5a008909d3f50d85fb8d8c9f56ed8886">Cy_SysClk_FllEnable</a>(2000UL))</div><div class="line">    {</div><div class="line">        clkPathFreq = <a class="code" href="group__group__sysclk__path__src__funcs.html#ga54c618c89782d227fb8f292d1dc15625">Cy_SysClk_ClkPathGetFrequency</a>(CLKPATH0);</div><div class="line">        <span class="comment">/* Now clkPathFreq contains an actual FLL frequency */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -351,7 +353,7 @@ true = locked</dd></dl>
 
 <p>Disables the FLL and the CCO. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when function returns the PRA error status code <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> instead of <a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the FLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: FLL failed to enable and must be reconfigured. Or the FLL is no</span></div><div class="line"><span class="comment">                 longer used and hence needs to be disabled. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__fll__funcs.html#gab266867b8e4f71d58467c33c53f6f0e2">Cy_SysClk_FllIsEnabled</a>())</div><div class="line">    {</div><div class="line">        <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> != <a class="code" href="group__group__sysclk__fll__funcs.html#ga3517689f7b87299fecbaf6eea8656146">Cy_SysClk_FllDisable</a>())</div><div class="line">        {</div><div class="line">            <span class="comment">/* Insert error handling */</span></div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* The clocks that relied on the FLL will now run off of the clock that</span></div><div class="line"><span class="comment">       was used to source the FLL (e.g. IMO or ECO). */</span></div></div><!-- fragment --></dd></dl>
@@ -403,7 +405,7 @@ Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f93
 <p>Returns the output frequency of the FLL. </p>
 <dl class="section return"><dt>Returns</dt><dd>The output frequency of FLL.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the return value equals zero, that means FLL is disabled.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint32_t freq = <a class="code" href="group__group__sysclk__fll__funcs.html#ga0e45b36747a2be6610f6fc9daefae02b">Cy_SysClk_FllGetFrequency</a>();</div><div class="line">    (void) freq; <span class="comment">/* Supress &#39;unused variable&#39; warning */</span></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint32_t freq = <a class="code" href="group__group__sysclk__fll__funcs.html#ga0e45b36747a2be6610f6fc9daefae02b">Cy_SysClk_FllGetFrequency</a>();</div><div class="line">    (void) freq; <span class="comment">/* Suppress &#39;unused variable&#39; warning */</span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

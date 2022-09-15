@@ -81,7 +81,8 @@ $(document).ready(function(){initNavTree('group__group__sysclk.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#groups">API Reference</a>  </div>
+<a href="#groups">API Reference</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">SysClk (System Clock)</div>  </div>
 </div><!--header-->
@@ -97,7 +98,7 @@ $(document).ready(function(){initNavTree('group__group__sysclk.html','');});
 </ul>
 <p>Consult the Technical Reference Manual for your device for details of the clock system.</p>
 <p>The PDL defines clock system capabilities in:<br />
-devices/include/&lt;series&gt;_config.h. (E.g. devices/include/psoc6_01_config.h). User-configurable clock speeds are defined in the file system_&lt;series&gt;.h.</p>
+devices/COMPONENT_CAT1&lt;subcategory&gt;/include/&lt;series&gt;_config.h. (E.g. devices/COMPONENT_CAT1A/include/psoc6_01_config.h).</p>
 <p>As an illustration of the clocking system, the following diagram shows the PSoC 63 series clock tree. The actual tree may vary depending on the device series. Consult the Technical Reference Manual for your device for details. </p><div class="image">
 <img src="sysclk_tree.png" alt="sysclk_tree.png"/>
 </div>
@@ -115,6 +116,21 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>3.50 </td><td>Bug fixes and few new APIs addition.<br />
+Newly added APIs: <br />
+ <a class="el" href="group__group__sysclk__pll__funcs.html#ga219fd6d8d1d18090fe6d7002610ac021" title="Returns the output frequency of the PLL. ">Cy_SysClk_PllGetFrequency()</a> for CAT1A,CAT1C and CAT1D devices, <br />
+ <a class="el" href="group__group__sysclk__pll__funcs.html#gabdf2396edece2bf47abd72603fc791e5" title="Gets the frequency of PLL200M. ">Cy_SysClk_Pll200MGetFrequency()</a> for CAT1C devices, <br />
+ <a class="el" href="group__group__sysclk__pll__funcs.html#ga1e83e55b944bb47222d309ede5569d38" title="Gets the frequency of PLL400M. ">Cy_SysClk_Pll400MGetFrequency()</a> for CAT1C devices, <br />
+ <a class="el" href="group__group__sysclk__imo__funcs.html#ga40861bc2380f871a06ef0600ccbd4dd5" title="Enables the IMO. ">Cy_SysClk_ImoEnable()</a> for CAT1D devices, <br />
+ <a class="el" href="group__group__sysclk__imo__funcs.html#ga65e688803f1098d1d42ac635117104bc" title="Disables IMO. ">Cy_SysClk_ImoDisable()</a> for CAT1D devices, <br />
+ <a class="el" href="group__group__sysclk__imo__funcs.html#gaff509bb102fcc7335d2a1c89a139e67a" title="Reports whether or not the selected IMO is enabled. ">Cy_SysClk_ImoIsEnabled()</a> for CAT1D devices, <br />
+ <a class="el" href="group__group__sysclk__imo__funcs.html#ga8a32e62d8e2e086016de33b18bd87033" title="Enables the IMO during deepsleep mode. ">Cy_SysClk_ImoDeepsleepEnable()</a> for CAT1D devices, <br />
+ <a class="el" href="group__group__sysclk__imo__funcs.html#ga2225594aadfb96b61f6c6d05ff02378b" title="Reports whether or not the selected IMO is enabled during deepsleep mode. ">Cy_SysClk_ImoIsDeepsleepEnabled()</a> for CAT1D devices, <br />
+ <a class="el" href="group__group__sysclk__imo__funcs.html#gadd8190021e511b1c0b10db23b4e61c7d" title="Disables IMO during deepsleep mode. ">Cy_SysClk_ImoDeepsleepDisable()</a> for CAT1D devices, <br />
+ <a class="el" href="group__group__sysclk__clk__fast__funcs.html#gae1f57c49981b7f62a3d09c040f000d29" title="Returns the Integer and Fractional clock divider for the fast clock. ">Cy_SysClk_ClkFastSrcGetDivider()</a> for CAT1C devices, <br />
+ <a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga2ce026196feb54b320018717643b35d8" title="Sets the clock divider for the fast clock, which sources the main processor. ">Cy_SysClk_ClkFastSrcSetDivider()</a> for CAT1C devices, <br />
+ <a class="el" href="group__group__sysclk__clk__fast__funcs.html#gabe3c665ba505489d3c831daa44e4eabf" title="Reports the frequency of the fast clock. ">Cy_SysClk_ClkFastSrcGetFrequency()</a> for CAT1C devices,  </td><td>Bug fixes and new devices support.  </td></tr>
 <tr>
 <td rowspan="3">3.40 </td><td>Added CAT1C and CAT1D devices support.  </td><td>Support for new devices.  </td></tr>
 <tr>
@@ -192,7 +208,7 @@ Changelog</h1>
 <li><a class="el" href="group__group__sysclk__pilo__funcs.html#gaf73c2da9e8676f8b4cdfcd1f95e839f9" title="Disables the PILO. ">Cy_SysClk_PiloDisable()</a></li>
 <li><a class="el" href="group__group__sysclk__wco__funcs.html#ga0990b94c499652b8f5c2dd1cf6abf95e" title="Disables the WCO. ">Cy_SysClk_WcoDisable()</a></li>
 <li><a class="el" href="group__group__sysclk__wco__funcs.html#gaf254b104b1e1020545103779a573da17" title="Sets whether the WCO is bypassed or not. ">Cy_SysClk_WcoBypass()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__fast__funcs.html#gaf4bdc05485fc32e862d0228ce56e0580" title="Sets the clock divider for the fast clock, which sources the main processor. ">Cy_SysClk_ClkFastSetDivider()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga05a3e0e120574d1205c2b2f9861dc733" title="Sets the clock divider for the fast clock, which sources the main processor. ">Cy_SysClk_ClkFastSetDivider()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__peri__funcs.html#ga872a11532b18a5438e9bea423fc4076f" title="Sets the clock divider for the peripheral clock tree. ">Cy_SysClk_ClkPeriSetDivider()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054" title="Sets the source for the low frequency clock(clkLf). ">Cy_SysClk_ClkLfSetSource()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829" title="Sets the source for the timer clock (clk_timer). ">Cy_SysClk_ClkTimerSetSource()</a></li>
@@ -253,7 +269,7 @@ Changelog</h1>
 . <a class="el" href="group__group__sysclk__mf__funcs.html#gaf917222c5e1a0bb3dc2f7d398dcff05c">Cy_SysClk_ClkMfGetFrequency</a> </td><td>New device support.  </td></tr>
 <tr>
 <td>Added the following new API functions <a class="el" href="group__group__sysclk__fll__funcs.html#gab266867b8e4f71d58467c33c53f6f0e2">Cy_SysClk_FllIsEnabled</a>, <a class="el" href="group__group__sysclk__pll__funcs.html#gae3ee5e192525df92ea07b32a3eb3d295">Cy_SysClk_PllIsEnabled</a>,<br />
- <a class="el" href="group__group__sysclk__ext__funcs.html#gad4b77c61d47878007b5c50e3baf13e51">Cy_SysClk_ExtClkSetFrequency</a>, <a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga6de7dbb9539f6c134c84a4d5ebe5e4c4">Cy_SysClk_ClkFastGetFrequency</a>,<br />
+ <a class="el" href="group__group__sysclk__ext__funcs.html#gad4b77c61d47878007b5c50e3baf13e51">Cy_SysClk_ExtClkSetFrequency</a>, <a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3">Cy_SysClk_ClkHfGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga2fd7d9e080181356a1e6a5a72d948119">Cy_SysClk_ClkFastGetFrequency</a>,<br />
  <a class="el" href="group__group__sysclk__clk__peri__funcs.html#ga8db0b9f751e98d8b19054e0879f965c4">Cy_SysClk_ClkPeriGetFrequency</a> and <a class="el" href="group__group__sysclk__clk__slow__funcs.html#ga7ca0c247dee5e69b25f173240db9ed53">Cy_SysClk_ClkSlowGetFrequency</a> </td><td>Enhancement based on usability feedback  </td></tr>
 <tr>
 <td>Deprecated the following macros: CY_SYSCLK_DIV_ROUND and CY_SYSCLK_DIV_ROUNDUP </td><td>Macros were moved into <a class="el" href="group__group__syslib.html">SysLib (System Library)</a>  </td></tr>
@@ -374,12 +390,49 @@ API Reference</h2></td></tr>
 <tr class="memdesc:group__group__sysclk__mf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Medium Frequency Domain Clock is present only in SRSS_ver1_3. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__iho"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__iho.html">Internal High Frequency(IHO) Clock</a></td></tr>
-<tr class="memdesc:group__group__sysclk__iho"><td class="mdescLeft">&#160;</td><td class="mdescRight">The IHO Clock is Internal High-speed Oscillator, which is present in CAT1B and CAT1D devices and operates at 48MHz. <br /></td></tr>
+<tr class="memdesc:group__group__sysclk__iho"><td class="mdescLeft">&#160;</td><td class="mdescRight">The IHO Clock is Internal High-speed Oscillator, which is present in CAT1B(48MHz) and CAT1D(50MHz) devices. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__sysclk__imo"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__imo.html">Internal Main Oscillator(IMO) Clock</a></td></tr>
+<tr class="memdesc:group__group__sysclk__imo"><td class="mdescLeft">&#160;</td><td class="mdescRight">The IMO Clock is Internal Main Oscillator, which is present in CAT1A/CAT1B/CAT1C and CAT1D devices, where as it is it is 8MHz in CAT1A/CAT1B/CAT1C, and CAT1D supports two instances of IMO i.e. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__clk__mem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__mem.html">Mem Clock</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__mem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock for the Memories. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga4d15feb4b518e976266c4d44f5cc8791"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk.html#ga4d15feb4b518e976266c4d44f5cc8791">cy_en_imo_in_sources_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__sysclk.html#gga4d15feb4b518e976266c4d44f5cc8791ae153d55c566dce7842ea98e48acaf154">CY_SYSCLK_IMO_IN_4MHz</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__sysclk.html#gga4d15feb4b518e976266c4d44f5cc8791ac458c9e7ee2b7e9d50a90884492c3dff">CY_SYSCLK_IMO_IN_2MHz</a> = 1U
+<br />
+ }<tr class="memdesc:ga4d15feb4b518e976266c4d44f5cc8791"><td class="mdescLeft">&#160;</td><td class="mdescRight">IMO frequency select sources.  <a href="group__group__sysclk.html#ga4d15feb4b518e976266c4d44f5cc8791">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga4d15feb4b518e976266c4d44f5cc8791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga4d15feb4b518e976266c4d44f5cc8791"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4d15feb4b518e976266c4d44f5cc8791">&#9670;&nbsp;</a></span>cy_en_imo_in_sources_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__sysclk.html#ga4d15feb4b518e976266c4d44f5cc8791">cy_en_imo_in_sources_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IMO frequency select sources. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga4d15feb4b518e976266c4d44f5cc8791ae153d55c566dce7842ea98e48acaf154"></a>CY_SYSCLK_IMO_IN_4MHz&#160;</td><td class="fielddoc"><p>4MHz selected for IMO </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4d15feb4b518e976266c4d44f5cc8791ac458c9e7ee2b7e9d50a90884492c3dff"></a>CY_SYSCLK_IMO_IN_2MHz&#160;</td><td class="fielddoc"><p>2MHz selected for IMO </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

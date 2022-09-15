@@ -13,6 +13,7 @@ var searchData=
   ['range_20interrupt_20register_20enums',['Range Interrupt Register Enums',['../group__group__sar__range__thres__register__enums.html',1,'']]],
   ['rx_20interrupt_20statuses',['RX Interrupt Statuses',['../group__group__scb__common__macros__rx__intr.html',1,'']]],
   ['reset_20cause',['Reset cause',['../group__group__syslib__macros__reset__cause.html',1,'']]],
+  ['reghc_20_28high_20current_20regulator_29',['REGHC (High Current Regulator)',['../group__group__syspm__functions__reghc.html',1,'']]],
   ['reduction_20trigger_20mutiplexers',['Reduction Trigger Mutiplexers',['../group__group__trigmux__red__enums.html',1,'']]],
   ['reduction_20trigger_20mutiplexer_20inputs',['Reduction Trigger Mutiplexer Inputs',['../group__group__trigmux__red__in__enums.html',1,'']]],
   ['reduction_20trigger_20mutiplexer_20outputs',['Reduction Trigger Mutiplexer Outputs',['../group__group__trigmux__red__out__enums.html',1,'']]]

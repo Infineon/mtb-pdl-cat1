@@ -41,6 +41,7 @@ var group__group__ipc__bt__enums =
       [ "CY_BT_IPC_HPC_BUFPROVIDE", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024aaf8397a448c765e4db654151837243bc", null ],
       [ "CY_BT_IPC_HPC_PM", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024a482b895a3a41cf4170817c55b3ccb4d0", null ],
       [ "CY_BT_IPC_HPC_RESACCESS", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024ae32dbd1f9490b43d8353c9abbb9bc5c9", null ],
+      [ "CY_BT_IPC_HPC_LPO_SWITCH", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024ac60e56b6a1116794733da78e3327ed95", null ],
       [ "CY_BT_IPC_HPC_LONG", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024a6af3a8459d4d34d05d2de1c06193c0f3", null ]
     ] ],
     [ "cy_en_btipc_hpcmsgid_t", "group__group__ipc__bt__enums.html#gab8224a6bf48f6e76edd3aafb294420fd", [
@@ -66,6 +67,10 @@ var group__group__ipc__bt__enums =
     [ "cy_en_btipc_recacc_resp_t", "group__group__ipc__bt__enums.html#gaea389d7af384e87848f8158ad26d8164", [
       [ "CY_BT_IPC_RESACC_ACCEPTED", "group__group__ipc__bt__enums.html#ggaea389d7af384e87848f8158ad26d8164abcd2312dd8b8795c7a8a587199f5f60d", null ],
       [ "CY_BT_IPC_RESACC_REJECTED", "group__group__ipc__bt__enums.html#ggaea389d7af384e87848f8158ad26d8164a1d314c81dbcf420a9dfcc97425e8b955", null ]
+    ] ],
+    [ "cy_en_btipc_lpo_cmd_t", "group__group__ipc__bt__enums.html#ga666c35680b9e898d124a3f7f289564dd", [
+      [ "CY_BT_IPC_LPO_PILO", "group__group__ipc__bt__enums.html#gga666c35680b9e898d124a3f7f289564ddaaf050f78b73493bec0feb43bc6253035", null ],
+      [ "CY_BT_IPC_LPO_WCO", "group__group__ipc__bt__enums.html#gga666c35680b9e898d124a3f7f289564dda24e339bd25a29b5076e2804e5b10fcb2", null ]
     ] ],
     [ "cy_en_btipc_hci_diag_msg_type_t", "group__group__ipc__bt__enums.html#ga814017d60798f7f7563a57ab425d51d9", null ]
 ];

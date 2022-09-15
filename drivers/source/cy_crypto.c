@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  Provides API implementation of the Cypress PDL Crypto driver.
@@ -239,7 +239,13 @@ cy_en_crypto_status_t Cy_Crypto_Init(cy_stc_crypto_config_t const *config,
             Cy_IPC_Drv_SetInterruptMask(Cy_IPC_Drv_GetIntrBaseAddr(context->releaseNotifierChannel),
                                                             (1uL << context->ipcChannel), CY_IPC_NO_NOTIFICATION);
 
-            NVIC_EnableIRQ(context->releaseNotifierConfig.intrSrc);
+
+            #if defined (CY_IP_M7CPUSS)
+                CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to IRQn_Type enum.');
+                NVIC_EnableIRQ((IRQn_Type)((context->releaseNotifierConfig.intrSrc >> 16) & 0x00FFUL));
+            #else
+                NVIC_EnableIRQ(context->releaseNotifierConfig.intrSrc);
+            #endif
         }
 
         clientContext = context;
@@ -263,7 +269,13 @@ cy_en_crypto_status_t Cy_Crypto_DeInit(void)
         if (NULL != clientContext->userCompleteCallback)
         {
             /* Disable the Release interrupt from IPC */
-            NVIC_DisableIRQ(clientContext->releaseNotifierConfig.intrSrc);
+            #if defined (CY_IP_M7CPUSS)
+                CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to IRQn_Type enum.');
+                NVIC_DisableIRQ((IRQn_Type)((clientContext->releaseNotifierConfig.intrSrc >> 16) & 0x00FFUL));
+            #else
+                NVIC_DisableIRQ(clientContext->releaseNotifierConfig.intrSrc);
+            #endif
+
 
             /* Re-set up the IPC Release interrupt here */
             interruptMasked = Cy_IPC_Drv_ExtractReleaseMask(Cy_IPC_Drv_GetInterruptStatusMasked(Cy_IPC_Drv_GetIntrBaseAddr(clientContext->releaseNotifierChannel)));
@@ -347,7 +359,7 @@ cy_en_crypto_status_t Cy_Crypto_Disable(void)
    return (err);
 }
 
-#if (CPUSS_CRYPTO_PR == 1)
+#if (CPUSS_CRYPTO_PR == 1) && defined(CY_CRYPTO_CFG_PRNG_C)
 cy_en_crypto_status_t Cy_Crypto_Prng_Init(uint32_t lfsr32InitState,
                                           uint32_t lfsr31InitState,
                                           uint32_t lfsr29InitState,
@@ -387,9 +399,9 @@ cy_en_crypto_status_t Cy_Crypto_Prng_Generate(uint32_t max,
     }
     return (err);
 }
-#endif /* #if (CPUSS_CRYPTO_PR == 1) */
+#endif /* (CPUSS_CRYPTO_PR == 1) && defined(CY_CRYPTO_CFG_PRNG_C) */
 
-#if (CPUSS_CRYPTO_AES == 1)
+#if (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_AES_C)
 cy_en_crypto_status_t Cy_Crypto_Aes_Init(uint32_t *key,
                                          cy_en_crypto_aes_key_length_t keyLength,
                                          cy_stc_crypto_context_aes_t *cfContext)
@@ -430,6 +442,7 @@ cy_en_crypto_status_t Cy_Crypto_Aes_Ecb_Run(cy_en_crypto_dir_mode_t dirMode,
     return (err);
 }
 
+#if defined(CY_CRYPTO_CFG_CIPHER_MODE_CBC)
 cy_en_crypto_status_t Cy_Crypto_Aes_Cbc_Run(cy_en_crypto_dir_mode_t dirMode,
                                             uint32_t srcSize,
                                             uint32_t *ivPtr,
@@ -454,7 +467,9 @@ cy_en_crypto_status_t Cy_Crypto_Aes_Cbc_Run(cy_en_crypto_dir_mode_t dirMode,
     }
     return (err);
 }
+#endif /* defined(CY_CRYPTO_CFG_CIPHER_MODE_CBC) */
 
+#if defined(CY_CRYPTO_CFG_CIPHER_MODE_CFB)
 cy_en_crypto_status_t Cy_Crypto_Aes_Cfb_Run(cy_en_crypto_dir_mode_t dirMode,
                                             uint32_t srcSize,
                                             uint32_t *ivPtr,
@@ -479,7 +494,9 @@ cy_en_crypto_status_t Cy_Crypto_Aes_Cfb_Run(cy_en_crypto_dir_mode_t dirMode,
     }
     return (err);
 }
+#endif /* defined(CY_CRYPTO_CFG_CIPHER_MODE_CFB) */
 
+#if defined(CY_CRYPTO_CFG_CIPHER_MODE_CTR)
 cy_en_crypto_status_t Cy_Crypto_Aes_Ctr_Run(cy_en_crypto_dir_mode_t dirMode,
                                             uint32_t srcSize,
                                             uint32_t *srcOffset,
@@ -508,7 +525,10 @@ cy_en_crypto_status_t Cy_Crypto_Aes_Ctr_Run(cy_en_crypto_dir_mode_t dirMode,
     }
     return (err);
 }
+#endif /* defined(CY_CRYPTO_CFG_CIPHER_MODE_CTR) */
+#endif /* (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_AES_C) */
 
+#if (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_CMAC_C)
 cy_en_crypto_status_t Cy_Crypto_Aes_Cmac_Run(uint32_t *src,
                                              uint32_t srcSize,
                                              uint32_t *key,
@@ -533,9 +553,9 @@ cy_en_crypto_status_t Cy_Crypto_Aes_Cmac_Run(uint32_t *src,
     }
     return (err);
 }
-#endif /* #if (CPUSS_CRYPTO_AES == 1) */
+#endif /* (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_CMAC_C) */
 
-#if (CPUSS_CRYPTO_SHA == 1)
+#if (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_SHA_C)
 cy_en_crypto_status_t Cy_Crypto_Sha_Run(uint32_t *message,
                                         uint32_t messageSize,
                                         uint32_t *digest,
@@ -558,9 +578,9 @@ cy_en_crypto_status_t Cy_Crypto_Sha_Run(uint32_t *message,
     }
     return (err);
 }
-#endif /* #if (CPUSS_CRYPTO_SHA == 1) */
+#endif /* (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_SHA_C) */
 
-#if (CPUSS_CRYPTO_SHA == 1)
+#if (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_HMAC_C)
 cy_en_crypto_status_t Cy_Crypto_Hmac_Run(uint32_t *hmac,
                                          uint32_t *message,
                                          uint32_t messageSize,
@@ -587,7 +607,7 @@ cy_en_crypto_status_t Cy_Crypto_Hmac_Run(uint32_t *hmac,
     }
     return (err);
 }
-#endif /* #if (CPUSS_CRYPTO_SHA == 1) */
+#endif /* (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_HMAC_C) */
 
 #if (CPUSS_CRYPTO_STR == 1)
 cy_en_crypto_status_t Cy_Crypto_Str_MemCpy(void* dst,
@@ -679,7 +699,7 @@ cy_en_crypto_status_t Cy_Crypto_Str_MemXor(void const *src0,
 }
 #endif /* #if (CPUSS_CRYPTO_STR == 1) */
 
-#if (CPUSS_CRYPTO_CRC == 1)
+#if (CPUSS_CRYPTO_CRC == 1) && defined(CY_CRYPTO_CFG_CRC_C)
 cy_en_crypto_status_t Cy_Crypto_Crc_Init(uint32_t polynomial,
                                          uint8_t  dataReverse,
                                          uint8_t  dataXor,
@@ -727,9 +747,9 @@ cy_en_crypto_status_t Cy_Crypto_Crc_Run(void *data,
     }
     return (err);
 }
-#endif /* #if (CPUSS_CRYPTO_CRC == 1) */
+#endif /* (CPUSS_CRYPTO_CRC == 1) && defined(CY_CRYPTO_CFG_CRC_C) */
 
-#if (CPUSS_CRYPTO_TR == 1)
+#if (CPUSS_CRYPTO_TR == 1) && defined(CY_CRYPTO_CFG_TRNG_C)
 cy_en_crypto_status_t Cy_Crypto_Trng_Generate(uint32_t  GAROPol,
                                               uint32_t  FIROPol,
                                               uint32_t  max,
@@ -752,9 +772,9 @@ cy_en_crypto_status_t Cy_Crypto_Trng_Generate(uint32_t  GAROPol,
     }
     return (err);
 }
-#endif /* #if (CPUSS_CRYPTO_TR == 1) */
+#endif /* (CPUSS_CRYPTO_TR == 1) && defined(CY_CRYPTO_CFG_TRNG_C) */
 
-#if (CPUSS_CRYPTO_DES == 1)
+#if (CPUSS_CRYPTO_DES == 1) && defined(CY_CRYPTO_CFG_DES_C)
 cy_en_crypto_status_t Cy_Crypto_Des_Run(cy_en_crypto_dir_mode_t dirMode,
                                         uint32_t *key,
                                         uint32_t *dstBlock,
@@ -800,128 +820,9 @@ cy_en_crypto_status_t Cy_Crypto_Tdes_Run(cy_en_crypto_dir_mode_t dirMode,
     }
     return (err);
 }
-#endif /* #if (CPUSS_CRYPTO_DES == 1) */
+#endif /* (CPUSS_CRYPTO_DES == 1) && defined(CY_CRYPTO_CFG_DES_C) */
 
-#if (CPUSS_CRYPTO_VU == 1)
-cy_en_crypto_status_t Cy_Crypto_Rsa_Proc(cy_stc_crypto_rsa_pub_key_t const *pubKey,
-                                         uint32_t const *message,
-                                         uint32_t messageSize,
-                                         uint32_t *processedMessage,
-                                         cy_stc_crypto_context_rsa_t *cfContext)
-{
-    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
-
-    if (clientContext != NULL)
-    {
-        clientContext->instr = CY_CRYPTO_INSTR_RSA_PROC;
-        clientContext->xdata = cfContext;
-
-        cfContext->key = pubKey;
-        cfContext->message = message;
-        cfContext->messageSize = messageSize;
-        cfContext->result = processedMessage;
-
-        err = Cy_Crypto_Client_Send();
-    }
-    return (err);
-}
-
-cy_en_crypto_status_t Cy_Crypto_Rsa_CalcCoefs(cy_stc_crypto_rsa_pub_key_t const *pubKey,
-                                              cy_stc_crypto_context_rsa_t *cfContext)
-{
-    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
-
-    if (clientContext != NULL)
-    {
-        clientContext->instr = CY_CRYPTO_INSTR_RSA_COEF;
-        clientContext->xdata = cfContext;
-
-        cfContext->key = pubKey;
-
-        err = Cy_Crypto_Client_Send();
-    }
-    return (err);
-}
-
-#if (CPUSS_CRYPTO_SHA == 1)
-cy_en_crypto_status_t Cy_Crypto_Rsa_Verify(cy_en_crypto_rsa_ver_result_t *verResult,
-                                           cy_en_crypto_sha_mode_t digestType,
-                                           uint32_t const *digest,
-                                           uint32_t const *decryptedSignature,
-                                           uint32_t decryptedSignatureLength,
-                                           cy_stc_crypto_context_rsa_ver_t *cfContext)
-{
-    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
-
-    if (clientContext != NULL)
-    {
-        clientContext->instr = CY_CRYPTO_INSTR_RSA_VER;
-        clientContext->xdata = cfContext;
-
-        cfContext->verResult = verResult;
-        cfContext->digestType = digestType;
-        cfContext->hash = digest;
-        cfContext->decryptedSignature = decryptedSignature;
-        cfContext->decryptedSignatureLength = decryptedSignatureLength;
-
-        err = Cy_Crypto_Client_Send();
-    }
-    return (err);
-}
-#endif /* #if (CPUSS_CRYPTO_SHA == 1) */
-
-cy_en_crypto_status_t Cy_Crypto_ECDSA_SignHash(const uint8_t *hash,
-                                        uint32_t hashlen,
-                                        uint8_t *sig,
-                                        const cy_stc_crypto_ecc_key *key,
-                                        const uint8_t *messageKey,
-                                        cy_stc_crypto_context_ecc_t *cfContext)
-{
-    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
-
-    if (clientContext != NULL)
-    {
-        clientContext->instr = CY_CRYPTO_INSTR_ECDSA_SIGN;
-        clientContext->xdata = cfContext;
-
-        cfContext->datalen = hashlen;
-        cfContext->src0 = hash;
-        cfContext->dst0 = sig;
-        cfContext->key  = key;
-        cfContext->src1 = messageKey;
-
-        err = Cy_Crypto_Client_Send();
-    }
-    return (err);
-}
-
-cy_en_crypto_status_t Cy_Crypto_ECDSA_VerifyHash(const uint8_t *sig,
-                                        const uint8_t *hash,
-                                        uint32_t hashlen,
-                                        uint8_t *stat,
-                                        const cy_stc_crypto_ecc_key *key,
-                                        cy_stc_crypto_context_ecc_t *cfContext)
-{
-    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
-
-    if (clientContext != NULL)
-    {
-        clientContext->instr = CY_CRYPTO_INSTR_ECDSA_VER;
-        clientContext->xdata = cfContext;
-
-        cfContext->datalen = hashlen;
-        cfContext->src0 = hash;
-        cfContext->src1 = sig;
-        cfContext->dst0 = stat;
-        cfContext->key  = key;
-
-        err = Cy_Crypto_Client_Send();
-    }
-    return (err);
-}
-
-#endif /* #if (CPUSS_CRYPTO_VU == 1) */
-
+#if (CPUSS_CRYPTO_VU == 1) && defined(CY_CRYPTO_CFG_RSA_C)
 cy_en_crypto_status_t Cy_Crypto_SetMemBufAddress(uint32_t const *newMembufAddress,
                                            uint32_t newMembufSize,
                                            cy_stc_crypto_context_str_t *cfContext)
@@ -974,6 +875,130 @@ cy_en_crypto_status_t Cy_Crypto_GetMemBufSize(uint32_t *membufSize,
     }
     return (err);
 }
+
+cy_en_crypto_status_t Cy_Crypto_Rsa_Proc(cy_stc_crypto_rsa_pub_key_t const *pubKey,
+                                         uint32_t const *message,
+                                         uint32_t messageSize,
+                                         uint32_t *processedMessage,
+                                         cy_stc_crypto_context_rsa_t *cfContext)
+{
+    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
+
+    if (clientContext != NULL)
+    {
+        clientContext->instr = CY_CRYPTO_INSTR_RSA_PROC;
+        clientContext->xdata = cfContext;
+
+        cfContext->key = pubKey;
+        cfContext->message = message;
+        cfContext->messageSize = messageSize;
+        cfContext->result = processedMessage;
+
+        err = Cy_Crypto_Client_Send();
+    }
+    return (err);
+}
+
+cy_en_crypto_status_t Cy_Crypto_Rsa_CalcCoefs(cy_stc_crypto_rsa_pub_key_t const *pubKey,
+                                              cy_stc_crypto_context_rsa_t *cfContext)
+{
+    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
+
+    if (clientContext != NULL)
+    {
+        clientContext->instr = CY_CRYPTO_INSTR_RSA_COEF;
+        clientContext->xdata = cfContext;
+
+        cfContext->key = pubKey;
+
+        err = Cy_Crypto_Client_Send();
+    }
+    return (err);
+}
+
+#if (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_SHA_C) && defined(CY_CRYPTO_CFG_RSA_VERIFY_ENABLED)
+cy_en_crypto_status_t Cy_Crypto_Rsa_Verify(cy_en_crypto_rsa_ver_result_t *verResult,
+                                           cy_en_crypto_sha_mode_t digestType,
+                                           uint32_t const *digest,
+                                           uint32_t const *decryptedSignature,
+                                           uint32_t decryptedSignatureLength,
+                                           cy_stc_crypto_context_rsa_ver_t *cfContext)
+{
+    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
+
+    if (clientContext != NULL)
+    {
+        clientContext->instr = CY_CRYPTO_INSTR_RSA_VER;
+        clientContext->xdata = cfContext;
+
+        cfContext->verResult = verResult;
+        cfContext->digestType = digestType;
+        cfContext->hash = digest;
+        cfContext->decryptedSignature = decryptedSignature;
+        cfContext->decryptedSignatureLength = decryptedSignatureLength;
+
+        err = Cy_Crypto_Client_Send();
+    }
+    return (err);
+}
+#endif /* (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_SHA_C) && defined(CY_CRYPTO_CFG_RSA_VERIFY_ENABLED) */
+#endif /* (CPUSS_CRYPTO_VU == 1) && defined(CY_CRYPTO_CFG_RSA_C) */
+
+#if (CPUSS_CRYPTO_VU == 1) && defined(CY_CRYPTO_CFG_ECDSA_C)
+#if defined(CY_CRYPTO_CFG_ECDSA_SIGN_C)
+cy_en_crypto_status_t Cy_Crypto_ECDSA_SignHash(const uint8_t *hash,
+                                        uint32_t hashlen,
+                                        uint8_t *sig,
+                                        const cy_stc_crypto_ecc_key *key,
+                                        const uint8_t *messageKey,
+                                        cy_stc_crypto_context_ecc_t *cfContext)
+{
+    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
+
+    if (clientContext != NULL)
+    {
+        clientContext->instr = CY_CRYPTO_INSTR_ECDSA_SIGN;
+        clientContext->xdata = cfContext;
+
+        cfContext->datalen = hashlen;
+        cfContext->src0 = hash;
+        cfContext->dst0 = sig;
+        cfContext->key  = key;
+        cfContext->src1 = messageKey;
+
+        err = Cy_Crypto_Client_Send();
+    }
+    return (err);
+}
+#endif /* defined(CY_CRYPTO_CFG_ECDSA_SIGN_C) */
+
+#if defined(CY_CRYPTO_CFG_ECDSA_VERIFY_C)
+cy_en_crypto_status_t Cy_Crypto_ECDSA_VerifyHash(const uint8_t *sig,
+                                        const uint8_t *hash,
+                                        uint32_t hashlen,
+                                        uint8_t *stat,
+                                        const cy_stc_crypto_ecc_key *key,
+                                        cy_stc_crypto_context_ecc_t *cfContext)
+{
+    cy_en_crypto_status_t err = CY_CRYPTO_NOT_INITIALIZED;
+
+    if (clientContext != NULL)
+    {
+        clientContext->instr = CY_CRYPTO_INSTR_ECDSA_VER;
+        clientContext->xdata = cfContext;
+
+        cfContext->datalen = hashlen;
+        cfContext->src0 = hash;
+        cfContext->src1 = sig;
+        cfContext->dst0 = stat;
+        cfContext->key  = key;
+
+        err = Cy_Crypto_Client_Send();
+    }
+    return (err);
+}
+#endif /* defined(CY_CRYPTO_CFG_ECDSA_VERIFY_C) */
+#endif /* (CPUSS_CRYPTO_VU == 1) && defined(CY_CRYPTO_CFG_ECDSA_C) */
 
 void Cy_Crypto_InvertEndianness(void *inArrPtr, uint32_t byteSize)
 {

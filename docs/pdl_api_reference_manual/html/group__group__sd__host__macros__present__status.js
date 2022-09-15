@@ -13,6 +13,7 @@ var group__group__sd__host__macros__present__status =
     [ "CY_SD_HOST_CARD_DETECT_PIN_LEVEL", "group__group__sd__host__macros__present__status.html#ga21d869a7c9492f88e9430bf656e788f3", null ],
     [ "CY_SD_HOST_WR_PROTECT_SW_LVL", "group__group__sd__host__macros__present__status.html#gab6aae5e97e401d36dc4ba3c592dc2d43", null ],
     [ "CY_SD_HOST_DAT_3_0", "group__group__sd__host__macros__present__status.html#ga0a3a89bbd8f8ec28159d675928bd345a", null ],
+    [ "CY_SD_HOST_DAT_0_Msk", "group__group__sd__host__macros__present__status.html#ga76efbc8545e77fb3e9597e2e2c7ff287", null ],
     [ "CY_SD_HOST_CMD_LINE_LVL", "group__group__sd__host__macros__present__status.html#ga8a9fbdbfc4567abf546aeccdc126628c", null ],
     [ "CY_SD_HOST_HOST_REG_VOL", "group__group__sd__host__macros__present__status.html#gaa0f39190ba3853c61ac3756fc2e01f19", null ],
     [ "CY_SD_HOST_CMD_ISSU_ERR", "group__group__sd__host__macros__present__status.html#ga4430687403739f8df2470e3d88ab281d", null ],

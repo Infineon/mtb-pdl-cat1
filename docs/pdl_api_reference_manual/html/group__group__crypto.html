@@ -101,6 +101,7 @@ Device Categories: CAT1A. Please refer <a href="usergroup1.html">Device Catalog<
 <p>The Crypto driver supports these standards: DES, TDES, AES (128, 192, 256 bits), CMAC-AES, SHA, HMAC, PRNG, TRNG, CRC, RSA, ECP, and ECDSA. </p><dl class="section note"><dt>Note</dt><dd>ECP and ECDSA are only implemented for the <a class="el" href="group__group__crypto__lld__api.html">Direct Crypto Core Access</a> model.</dd></dl>
 <h1><a class="anchor" id="group_crypto_configuration_considerations"></a>
 Configuration Considerations</h1>
+<p>User can enable/disable cryptographic functionality based on the project requirements. To do so, create a configuration header file to configure cryptographic functionalities and define a macro CY_CRYPTO_USER_CONFIG_FILE with configuration header file name and add to project environment. If CY_CRYPTO_USER_CONFIG_FILE macro is not defined in project environment, firmware will enable all available cryptographic functionalities.</p>
 <p>Firmware sets up a cryptographic operation by passing in the required data as parameters in the function calls.</p>
 <p>All Crypto functions require a context. A context is a data structure that the driver uses for its operations. Firmware declares a context (allocates memory) but does not write or read the values in that context. In effect, the context is a scratch pad you provide to the driver. The driver uses the context to store and manipulate data during cryptographic operations.</p>
 <p>Several methods require an additional context unique to the particular cryptographic technique. The Crypto driver header files declare all the required structures for both configuration and context.</p>
@@ -174,13 +175,22 @@ Definitions</h1>
 </table>
 <h1><a class="anchor" id="group_crypto_more_information"></a>
 More Information</h1>
-<p>RSASSA-PKCS1-v1_5 described here, page 31: <a href="http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf">http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf</a></p>
+<p>RSASSA-PKCS1-v1_5 described here, page 31: <a href="https://www.rfc-editor.org/rfc/pdfrfc/rfc8017.txt.pdf">https://www.rfc-editor.org/rfc/pdfrfc/rfc8017.txt.pdf</a></p>
 <p>See the "Cryptographic Function Block" chapter of the Technical Reference Manual.</p>
 <h1><a class="anchor" id="group_crypto_changelog"></a>
 Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.6 </td><td><ul>
+<li>
+Added support for compile time crypto functionality selection with user defined config header. By default, all crypto features supported will be enabled.<br />
+ </li>
+<li>
+Added new API <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gaf81bcce61483c6ebf3374dcf456d20f8">Cy_Crypto_Core_Rsa_Verify_Ext</a> to support verification of PKCS 1.5 signatures with CY_CRYPTO_MODE_SHA_NONE, which was unsupported in existing <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae8aee459272ad30568e9c13a4c5dc729">Cy_Crypto_Core_Rsa_Verify</a>. </li>
+</ul>
+</td><td>Driver enhancement and new feature addition.  </td></tr>
 <tr>
 <td>2.50 </td><td>Fixed the <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga1d1d01ef464f6609df2a5c1ba4186d86" title="Verify an ECC signature. ">Cy_Crypto_Core_ECC_VerifyHash()</a> and an internal function behaviour to support 0 hash message. Resolved MISRA 2012 standard defects. </td><td>Defect fixing and MISRA 2012 compliance.  </td></tr>
 <tr>
@@ -233,9 +243,9 @@ Added Chunk mode for SHA, the chunk size is limited to the SHA block size. </li>
 <tr>
 <td>Removed files with the default driver configuration. <br />
  Added API functions to start different server functionality:<ul>
-<li><a class="el" href="group__group__crypto__srv__functions.html#ga20467da28097037178b4e9a2bb16095c">Cy_Crypto_Server_Start_Base</a></li>
-<li><a class="el" href="group__group__crypto__srv__functions.html#gaccdace40a137ec8634f6f2114832e162">Cy_Crypto_Server_Start_Extra</a></li>
-<li><a class="el" href="group__group__crypto__srv__functions.html#gaf91c7e2d0fd473dd35d8e1df05e5c7f5">Cy_Crypto_Server_Start_Full</a>  </li>
+<li>Cy_Crypto_Server_Start_Base</li>
+<li>Cy_Crypto_Server_Start_Extra</li>
+<li>Cy_Crypto_Server_Start_Full  </li>
 </ul>
 </td><td></td></tr>
 <tr>

@@ -304,7 +304,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">descriptor</td><td>The descriptor structure instance declared by the user/component.</td></tr>
-    <tr><td class="paramname">nextDescriptor</td><td>The pointer to the next descriptor.</td></tr>
+    <tr><td class="paramname">nextDescriptor</td><td>The pointer to the next descriptor. For CAT1C devices this pointer needs to point to 32 byte aligned structure.</td></tr>
   </table>
   </dd>
 </dl>
@@ -381,7 +381,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">descriptor</td><td>The descriptor structure instance declared by the user/component.</td></tr>
-    <tr><td class="paramname">srcAddress</td><td>The source address value for the descriptor.</td></tr>
+    <tr><td class="paramname">srcAddress</td><td>The source address value for the descriptor. For CAT1C devices this data pointer needs to point to 32 byte aligned data.</td></tr>
   </table>
   </dd>
 </dl>
@@ -419,7 +419,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">descriptor</td><td>The descriptor structure instance declared by the user/component.</td></tr>
-    <tr><td class="paramname">dstAddress</td><td>The destination address value for the descriptor.</td></tr>
+    <tr><td class="paramname">dstAddress</td><td>The destination address value for the descriptor. For CAT1C devices this data pointer needs to point to 32 byte aligned data.</td></tr>
   </table>
   </dd>
 </dl>

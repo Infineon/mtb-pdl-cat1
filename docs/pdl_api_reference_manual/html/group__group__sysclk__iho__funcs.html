@@ -108,6 +108,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga43ed6359a710ce0581978ff5dfa4af19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__iho__funcs.html#ga43ed6359a710ce0581978ff5dfa4af19">Cy_SysClk_IhoDeepsleepDisable</a> (void)</td></tr>
 <tr class="memdesc:ga43ed6359a710ce0581978ff5dfa4af19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables IHO during deepsleep mode.  <a href="#ga43ed6359a710ce0581978ff5dfa4af19">More...</a><br /></td></tr>
 <tr class="separator:ga43ed6359a710ce0581978ff5dfa4af19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae774f7284fc26719b2553ca2cd3d5d72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__iho__funcs.html#gae774f7284fc26719b2553ca2cd3d5d72">Cy_SysClk_IhoSetTrim</a> (uint32_t trimVal)</td></tr>
+<tr class="memdesc:gae774f7284fc26719b2553ca2cd3d5d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the trim value for IHO.  <a href="#gae774f7284fc26719b2553ca2cd3d5d72">More...</a><br /></td></tr>
+<tr class="separator:gae774f7284fc26719b2553ca2cd3d5d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ca24f008d75c12a31032bb65ca88667"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__iho__funcs.html#ga1ca24f008d75c12a31032bb65ca88667">Cy_SysClk_IhoGetTrim</a> (void)</td></tr>
+<tr class="memdesc:ga1ca24f008d75c12a31032bb65ca88667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the trim value configured for IHO.  <a href="#ga1ca24f008d75c12a31032bb65ca88667">More...</a><br /></td></tr>
+<tr class="separator:ga1ca24f008d75c12a31032bb65ca88667"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gab8daa7d68936a0e58ccb2a9ef5f608fa"></a>
@@ -127,9 +133,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Enables the IHO. </p>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
-This API is available for devices having MXS40SSRSS and CY_IP_MXS22SRSS IP. </dd></dl>
+This API is available for devices having MXS40SSRSS(CAT1B) and CY_IP_MXS22SRSS IP(CAT1D).</dd>
+<dd>
+Take into account the possible platform specific clkHf (and further clocking chain links) frequency limitations while using this API. </dd></dl>
 
 </div>
 </div>
@@ -152,7 +160,7 @@ This API is available for devices having MXS40SSRSS and CY_IP_MXS22SRSS IP. </dd
 <p>Reports whether or not the selected IHO is enabled. </p>
 <dl class="section return"><dt>Returns</dt><dd>false = disabled <br />
 true = enabled</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for devices having MXS40SSRSS and CY_IP_MXS22SRSS IP. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for devices having MXS40SSRSS(CAT1B) and CY_IP_MXS22SRSS IP(CAT1D). </dd></dl>
 
 </div>
 </div>
@@ -173,9 +181,9 @@ true = enabled</dd></dl>
 </div><div class="memdoc">
 
 <p>Disables IHO. </p>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
-This API is available for devices having MXS40SSRSS and CY_IP_MXS22SRSS IP. </dd></dl>
+This API is available for devices having MXS40SSRSS(CAT1B) and CY_IP_MXS22SRSS IP(CAT1D). </dd></dl>
 
 </div>
 </div>
@@ -196,9 +204,9 @@ This API is available for devices having MXS40SSRSS and CY_IP_MXS22SRSS IP. </dd
 </div><div class="memdoc">
 
 <p>Enables the IHO during deepsleep mode. </p>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
-This API is available for CAT1D Devices. </dd></dl>
+This API is available for devices having CY_IP_MXS22SRSS(CAT1D) IP. </dd></dl>
 
 </div>
 </div>
@@ -221,7 +229,7 @@ This API is available for CAT1D Devices. </dd></dl>
 <p>Reports whether or not the selected IHO is enabled during deepsleep mode. </p>
 <dl class="section return"><dt>Returns</dt><dd>false = disabled <br />
 true = enabled</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D Devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for devices having CY_IP_MXS22SRSS(CAT1D) IP. </dd></dl>
 
 </div>
 </div>
@@ -242,9 +250,58 @@ true = enabled</dd></dl>
 </div><div class="memdoc">
 
 <p>Disables IHO during deepsleep mode. </p>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
-This API is available for CAT1D Devices. </dd></dl>
+This API is available for devices having CY_IP_MXS22SRSS(CAT1D) IP. </dd></dl>
+
+</div>
+</div>
+<a id="gae774f7284fc26719b2553ca2cd3d5d72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae774f7284fc26719b2553ca2cd3d5d72">&#9670;&nbsp;</a></span>Cy_SysClk_IhoSetTrim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_IhoSetTrim </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>trimVal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the trim value for IHO. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trimVal</td><td>Trim value to be set for IHO.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for devices having CY_IP_MXS22SRSS(CAT1D) IP. </dd></dl>
+
+</div>
+</div>
+<a id="ga1ca24f008d75c12a31032bb65ca88667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1ca24f008d75c12a31032bb65ca88667">&#9670;&nbsp;</a></span>Cy_SysClk_IhoGetTrim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_IhoGetTrim </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the trim value configured for IHO. </p>
+<dl class="section return"><dt>Returns</dt><dd>Configured IHO Trim value.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for devices having CY_IP_MXS22SRSS(CAT1D) IP. </dd></dl>
 
 </div>
 </div>

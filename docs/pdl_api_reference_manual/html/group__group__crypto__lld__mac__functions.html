@@ -93,9 +93,24 @@ Functions</h2></td></tr>
 <tr class="memitem:ga4e225ac7b941ef415efa59b3b0c77f09"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#ga4e225ac7b941ef415efa59b3b0c77f09">Cy_Crypto_Core_Cmac</a> (CRYPTO_Type *base, uint8_t const *message, uint32_t messageSize, uint8_t const *key, <a class="el" href="group__group__crypto__enums.html#ga5402841d4798c0a82d41d8433c92b62f">cy_en_crypto_aes_key_length_t</a> keyLength, uint8_t *cmac, <a class="el" href="structcy__stc__crypto__aes__state__t.html">cy_stc_crypto_aes_state_t</a> *aesState)</td></tr>
 <tr class="memdesc:ga4e225ac7b941ef415efa59b3b0c77f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the AES Cipher-based Message Authentication Code (CMAC) on the input message with the provided key.  <a href="#ga4e225ac7b941ef415efa59b3b0c77f09">More...</a><br /></td></tr>
 <tr class="separator:ga4e225ac7b941ef415efa59b3b0c77f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaca9a7ef419e6a290f9622325fb62d37e"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gaca9a7ef419e6a290f9622325fb62d37e">Cy_Crypto_Core_Hmac</a> (CRYPTO_Type *base, uint8_t *hmac, uint8_t const *message, uint32_t messageSize, uint8_t const *key, uint32_t keyLength, <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#gaf294e94ca5176720ef5e5cbedc95ca47">mode</a>)</td></tr>
+<tr class="memitem:gaca9a7ef419e6a290f9622325fb62d37e"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gaca9a7ef419e6a290f9622325fb62d37e">Cy_Crypto_Core_Hmac</a> (CRYPTO_Type *base, uint8_t *hmac, uint8_t const *message, uint32_t messageSize, uint8_t const *key, uint32_t keyLength, <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a>)</td></tr>
 <tr class="memdesc:gaca9a7ef419e6a290f9622325fb62d37e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the HMAC calculation.  <a href="#gaca9a7ef419e6a290f9622325fb62d37e">More...</a><br /></td></tr>
 <tr class="separator:gaca9a7ef419e6a290f9622325fb62d37e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa86482c35b81fa108a5ab4483c0331a0"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gaa86482c35b81fa108a5ab4483c0331a0">Cy_Crypto_Core_Hmac_Init</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *hmacState, <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a>, void *hmacBuffer)</td></tr>
+<tr class="memdesc:gaa86482c35b81fa108a5ab4483c0331a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function to initialize the HMAC operation.  <a href="#gaa86482c35b81fa108a5ab4483c0331a0">More...</a><br /></td></tr>
+<tr class="separator:gaa86482c35b81fa108a5ab4483c0331a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9477b5c7ca32ef3f4d90364bb83c54a"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gab9477b5c7ca32ef3f4d90364bb83c54a">Cy_Crypto_Core_Hmac_Start</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *hmacState, uint8_t const *key, uint32_t keyLength)</td></tr>
+<tr class="memdesc:gab9477b5c7ca32ef3f4d90364bb83c54a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the HMAC key.  <a href="#gab9477b5c7ca32ef3f4d90364bb83c54a">More...</a><br /></td></tr>
+<tr class="separator:gab9477b5c7ca32ef3f4d90364bb83c54a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d7c12922082e0c96c2dcb6cbbf870c3"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#ga4d7c12922082e0c96c2dcb6cbbf870c3">Cy_Crypto_Core_Hmac_Update</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *hmacState, uint8_t const *message, uint32_t messageSize)</td></tr>
+<tr class="memdesc:ga4d7c12922082e0c96c2dcb6cbbf870c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the multipart hmac operation.  <a href="#ga4d7c12922082e0c96c2dcb6cbbf870c3">More...</a><br /></td></tr>
+<tr class="separator:ga4d7c12922082e0c96c2dcb6cbbf870c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad20268cbe493ddd0c53348fbb78c138a"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gad20268cbe493ddd0c53348fbb78c138a">Cy_Crypto_Core_Hmac_Finish</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *hmacState, uint8_t *hmac)</td></tr>
+<tr class="memdesc:gad20268cbe493ddd0c53348fbb78c138a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the hmac operation.  <a href="#gad20268cbe493ddd0c53348fbb78c138a">More...</a><br /></td></tr>
+<tr class="separator:gad20268cbe493ddd0c53348fbb78c138a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae52a10fea6c54c9ac8a69d163d141a7f"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gae52a10fea6c54c9ac8a69d163d141a7f">Cy_Crypto_Core_Hmac_Free</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *hmacState)</td></tr>
+<tr class="memdesc:gae52a10fea6c54c9ac8a69d163d141a7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the internally stored buffers in hmac context.  <a href="#gae52a10fea6c54c9ac8a69d163d141a7f">More...</a><br /></td></tr>
+<tr class="separator:gae52a10fea6c54c9ac8a69d163d141a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga4e225ac7b941ef415efa59b3b0c77f09"></a>
@@ -167,7 +182,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    uint8_t cmacKey[<a class="code" href="group__group__crypto__cli__srv__macros.html#ga0b49d7f139227541dbc20bcd2a1867a4">CY_CRYPTO_AES_256_KEY_SIZE</a>] =</div><div class="line">    {</div><div class="line">        0x60u, 0x3Du, 0xEBu, 0x10u, 0x15u, 0xCAu, 0x71u, 0xBEu,</div><div class="line">        0x2Bu, 0x73u, 0xAEu, 0xF0u, 0x85u, 0x7Du, 0x77u, 0x81u,</div><div class="line">        0x1Fu, 0x35u, 0x2Cu, 0x07u, 0x3Bu, 0x61u, 0x08u, 0xD7u,</div><div class="line">        0x2Du, 0x98u, 0x10u, 0xA3u, 0x09u, 0x14u, 0xDFu, 0xF4u</div><div class="line">    };</div><div class="line"></div><div class="line">    uint8_t cmac256PlainText[16] =</div><div class="line">    {</div><div class="line">        0x6Bu, 0xC1u, 0xBEu, 0xE2u, 0x2Eu, 0x40u, 0x9Fu, 0x96u,</div><div class="line">        0xE9u, 0x3Du, 0x7Eu, 0x11u, 0x73u, 0x93u, 0x17u, 0x2Au</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Calculated CMAC */</span></div><div class="line">    uint8_t cmac[<a class="code" href="group__group__crypto__cli__srv__macros.html#gab966285a569cc381f21ca7ebb9918128">CY_CRYPTO_AES_BLOCK_SIZE</a>] = {0};</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line">    <a class="code" href="structcy__stc__crypto__aes__state__t.html">cy_stc_crypto_aes_state_t</a> aesState;</div><div class="line"></div><div class="line">    <span class="comment">/* CMAC from the text message using AES-256 */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__mac__functions.html#ga4e225ac7b941ef415efa59b3b0c77f09">Cy_Crypto_Core_Cmac</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             cmac256PlainText,       <span class="comment">/* Pointer to plain text */</span></div><div class="line">                             <span class="keyword">sizeof</span>(cmac256PlainText),  <span class="comment">/* Size of plain text */</span></div><div class="line">                             cmacKey,            <span class="comment">/* Pointer to encryption key */</span></div><div class="line">                             <a class="code" href="group__group__crypto__enums.html#gga5402841d4798c0a82d41d8433c92b62fa3b323f55c81fca9b412fea5ed28bcb30">CY_CRYPTO_KEY_AES_256</a>, <span class="comment">/* Size of encryption key */</span></div><div class="line">                             cmac,              <span class="comment">/* Pointer to calculated CMAC */</span></div><div class="line">                             &amp;aesState);    <span class="comment">/* Pointer to AES state structure */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -237,6 +253,246 @@ Functions</h2></td></tr>
     <tr><td class="paramname">key</td><td>The pointer to the key.</td></tr>
     <tr><td class="paramname">keyLength</td><td>The length of the key.</td></tr>
     <tr><td class="paramname">mode</td><td><a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    uint8_t hmac256Key[<a class="code" href="group__group__crypto__cli__srv__macros.html#ga0b49d7f139227541dbc20bcd2a1867a4">CY_CRYPTO_AES_256_KEY_SIZE</a>] =</div><div class="line">    {</div><div class="line">        0x00u, 0x01u, 0x02u, 0x03u, 0x04u, 0x05u, 0x06u, 0x07u,</div><div class="line">        0x08u, 0x09u, 0x0Au, 0x0Bu, 0x0Cu, 0x0Du, 0x0Eu, 0x0Fu,</div><div class="line">        0x10u, 0x11u, 0x12u, 0x13u, 0x14u, 0x15u, 0x16u, 0x17u,</div><div class="line">        0x18u, 0x19u, 0x1Au, 0x1Bu, 0x1Cu, 0x1Du, 0x1Eu, 0x1Fu</div><div class="line">    };</div><div class="line"></div><div class="line">    uint8_t hmac256PlainText[34] =</div><div class="line">    {</div><div class="line">        0x53u, 0x61u,</div><div class="line">        0x6Du, 0x70u, 0x6Cu, 0x65u, 0x20u, 0x6Du, 0x65u, 0x73u,</div><div class="line">        0x73u, 0x61u, 0x67u, 0x65u, 0x20u, 0x66u, 0x6Fu, 0x72u,</div><div class="line">        0x20u, 0x6Bu, 0x65u, 0x79u, 0x6Cu, 0x65u, 0x6Eu, 0x3Cu,</div><div class="line">        0x62u, 0x6Cu, 0x6Fu, 0x63u, 0x6Bu, 0x6Cu, 0x65u, 0x6Eu</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Calculated HMAC */</span></div><div class="line">    uint8_t hmac256[<a class="code" href="group__group__crypto__cli__srv__macros.html#ga82ff1a7671e4f0cf2026cbda5ef7e12a">CY_CRYPTO_SHA256_DIGEST_SIZE</a>] = {0};</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line">    <span class="comment">/* HMAC from the text message using SHA256 */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__mac__functions.html#gaca9a7ef419e6a290f9622325fb62d37e">Cy_Crypto_Core_Hmac</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             hmac256,           <span class="comment">/* Pointer to calculated HMAC */</span></div><div class="line">                             hmac256PlainText,       <span class="comment">/* Pointer to plain text */</span></div><div class="line">                             <span class="keyword">sizeof</span>(hmac256PlainText),  <span class="comment">/* Size of plain text */</span></div><div class="line">                             hmac256Key,         <span class="comment">/* Pointer to encryption key */</span></div><div class="line">                             <span class="keyword">sizeof</span>(hmac256Key),    <span class="comment">/* Size of encryption key */</span></div><div class="line">                             <a class="code" href="group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbba2212390919051b39d22d567c508c6d1f">CY_CRYPTO_MODE_SHA256</a>);            <span class="comment">/* SHA method */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gaa86482c35b81fa108a5ab4483c0331a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa86482c35b81fa108a5ab4483c0331a0">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Hmac_Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Hmac_Init </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *&#160;</td>
+          <td class="paramname"><em>hmacState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a>&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>hmacBuffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The function to initialize the HMAC operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">hmacState</td><td>The pointer to the HMAC state.</td></tr>
+    <tr><td class="paramname">hmacBuffer</td><td>The pointer to the chmac buffer structure that stores all buffers for HMAC operation.</td></tr>
+    <tr><td class="paramname">mode</td><td><a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="gab9477b5c7ca32ef3f4d90364bb83c54a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab9477b5c7ca32ef3f4d90364bb83c54a">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Hmac_Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Hmac_Start </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *&#160;</td>
+          <td class="paramname"><em>hmacState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>keyLength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the HMAC key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">hmacState</td><td>The pointer to the HMAC state.</td></tr>
+    <tr><td class="paramname">key</td><td>the pointer to the hmac key</td></tr>
+    <tr><td class="paramname">keyLength</td><td>the length of the key</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga4d7c12922082e0c96c2dcb6cbbf870c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4d7c12922082e0c96c2dcb6cbbf870c3">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Hmac_Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Hmac_Update </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *&#160;</td>
+          <td class="paramname"><em>hmacState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>messageSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs the multipart hmac operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">hmacState</td><td>The pointer to the HMAC state.</td></tr>
+    <tr><td class="paramname">message</td><td>the pointer to the message</td></tr>
+    <tr><td class="paramname">messageSize</td><td>the length of the message</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="gad20268cbe493ddd0c53348fbb78c138a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad20268cbe493ddd0c53348fbb78c138a">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Hmac_Finish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Hmac_Finish </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *&#160;</td>
+          <td class="paramname"><em>hmacState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>hmac</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finishes the hmac operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">hmacState</td><td>The pointer to the HMAC state.</td></tr>
+    <tr><td class="paramname">hmac</td><td>the pointer to store the hmac.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="gae52a10fea6c54c9ac8a69d163d141a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae52a10fea6c54c9ac8a69d163d141a7f">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Hmac_Free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Hmac_Free </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__hmac__state__t.html">cy_stc_crypto_hmac_state_t</a> *&#160;</td>
+          <td class="paramname"><em>hmacState</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees the internally stored buffers in hmac context. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">hmacState</td><td>The pointer to the HMAC state.</td></tr>
   </table>
   </dd>
 </dl>

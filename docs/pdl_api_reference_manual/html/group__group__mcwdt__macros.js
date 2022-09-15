@@ -6,5 +6,6 @@ var group__group__mcwdt__macros =
     [ "CY_MCWDT_CTR0", "group__group__mcwdt__macros.html#gadb87c7b323120f1297143824fd7cded7", null ],
     [ "CY_MCWDT_CTR1", "group__group__mcwdt__macros.html#ga76e6bc848da419e9d59c3d9dafe55a48", null ],
     [ "CY_MCWDT_CTR2", "group__group__mcwdt__macros.html#gacc9a577d8085b81e8ba0ebd22dad789e", null ],
-    [ "CY_MCWDT_CTR_Msk", "group__group__mcwdt__macros.html#gab85b144b042fe28d1e2638686aced6ca", null ]
+    [ "CY_MCWDT_CTR_Msk", "group__group__mcwdt__macros.html#gab85b144b042fe28d1e2638686aced6ca", null ],
+    [ "MCWDT_STRUCT_Type", "group__group__mcwdt__macros.html#ga28b13cec83044e29124890facf3111a1", null ]
 ];

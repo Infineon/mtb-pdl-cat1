@@ -112,7 +112,13 @@ Configuration Considerations</h1>
 <p> To set up an MCWDT, provide the configuration parameters in the <a class="el" href="structcy__stc__mcwdt__config__t.html" title="The MCWDT component configuration structure. ">cy_stc_mcwdt_config_t</a> structure. Then call <a class="el" href="group__group__mcwdt__functions.html#gab8bd6fb7ec48ef294287c01e179c41df" title="Initializes the MCWDT block. ">Cy_MCWDT_Init()</a> to initialize the driver. Call <a class="el" href="group__group__mcwdt__functions.html#ga90f8d4636fc67fc8abe3bfd87ab521ac" title="Enables all specified counters. ">Cy_MCWDT_Enable()</a> to enable all specified counters.</p>
 <p>You can also set the mode of operation for any counter. If you choose interrupt mode, use <a class="el" href="group__group__mcwdt__functions.html#gaeaa26b488af90a877760cffc61ad08e3" title="Writes MCWDT interrupt mask register. ">Cy_MCWDT_SetInterruptMask()</a> with the parameter for the masks described in Macro Section. All counter interrupts are OR'd together to from a single combined MCWDT interrupt. Additionally, enable the Global interrupts and initialize the referenced interrupt by setting the priority and the interrupt vector using <a class="el" href="group__group__sysint__functions.html#gab2ff6820a898e9af3f780000054eea5d">Cy_SysInt_Init()</a> of the sysint driver.</p>
 <p>The values of the MCWDT counters can be monitored using <a class="el" href="group__group__mcwdt__functions.html#ga82cd9aad79c9faf18b7a5ada22c3f7d3" title="Reports the current counter value of the specified counter. ">Cy_MCWDT_GetCount()</a>.</p>
-<dl class="section note"><dt>Note</dt><dd>In addition to the MCWDTs, each device has a separate watchdog timer (WDT) that can also be used to generate a watchdog reset or periodic interrupts. For more information on the WDT, see the appropriate section of the PDL.</dd></dl>
+<p>CAT1C devices supports MCWDT_B type of counters, which are slightly different from MCWDT, which is explained above</p>
+<p>A simplified diagram of the MCWDT_B hardware is shown below: </p><div class="image">
+<img src="mcwdt_b.png" alt="mcwdt_b.png"/>
+</div>
+<dl class="section note"><dt>Note</dt><dd>Please refer to TRM for more information on CAT1C supported MCWDT_B counters.</dd>
+<dd>
+In addition to the MCWDTs, each device has a separate watchdog timer (WDT) that can also be used to generate a watchdog reset or periodic interrupts. For more information on the WDT, see the appropriate section of the PDL.</dd></dl>
 <h1><a class="anchor" id="group_mcwdt_more_information"></a>
 More Information</h1>
 <p>For more information on the MCWDT peripheral, refer to the technical reference manual (TRM).</p>
@@ -121,6 +127,32 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>1.70 </td><td>Added MCWDT_B type support required for CAT1C devices.<br />
+Newly added APIs: <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga366d471122c4324a20bfb49b88b611f5" title="Sets the lower limit action of the specified counter. ">Cy_MCWDT_SetLowerAction()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#gad043073e808d60849d106283d3955377" title="Sets the upper limit action of the specified counter. ">Cy_MCWDT_SetUpperAction()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga7d4361ed633c0302a39d077cfdc8d7b4" title="Sets the warn limit action of the specified counter. ">Cy_MCWDT_SetWarnAction()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga3cca2590256f5f0b6509bd45dce71941" title="Sets the counter 2 action of the specified counter. ">Cy_MCWDT_SetSubCounter2Action()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga19e5cc99601e7590a206211c24381db8" title="Reports the lower limit action type of the specified counter. ">Cy_MCWDT_GetLowerAction()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga71678baab1ad3f68a2a11bfb0a4a6f40" title="Reports the upper limit action type of the specified counter. ">Cy_MCWDT_GetUpperAction()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga6cd37cd4d24b8668a19f17f49b7c9631" title="Reports the warn limit action type of the specified counter. ">Cy_MCWDT_GetWarnAction()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga6ea81605e48bf608162140af9ea258d7" title="Reports the counter 2 action type of the specified counter. ">Cy_MCWDT_GetSubCounter2Action()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga04d9c4538fc41df99f95c86545fa9f60" title="Sets the Auto service option for the specified counter. ">Cy_MCWDT_SetAutoService()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga5fe194dcc78fc8bd3c06f97464fef632" title="Reports the Auto service setting for the specified counter. ">Cy_MCWDT_GetAutoService()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#gabba3ba56c68c48950212dc6d20956bd2" title="Sets the Sleep deep pause option for the specified counter. ">Cy_MCWDT_SetSleepDeepPause()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga034fcbb8cca5d6de3a451f622e5717d0" title="Reports the Sleep deep pause setting for the specified counter. ">Cy_MCWDT_GetSleepDeepPause()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga36e5f597079178fa716e8610507d888c" title="Sets the Debug run option for the specified counter. ">Cy_MCWDT_SetDebugRun()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#gaf30fc627ed06db95b32b6c7f7d74ac7e" title="Reports the Debug run setting for the specified counter. ">Cy_MCWDT_GetDebugRun()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#gaae6c32b6cccf0dcbee4bd04c94898864" title="Sets the lower limit value for the specified counter (0 or 1). ">Cy_MCWDT_SetLowerLimit()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga189e0fc8639485938c9bec90ab7d2ea6" title="Sets the upper limit value for the specified counter (0 or 1). ">Cy_MCWDT_SetUpperLimit()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga7010d2642420171c8c53f9165cbb3be0" title="Sets the warn limit value for the specified counter (0 or 1). ">Cy_MCWDT_SetWarnLimit()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga3a74c8b0934307d550ed201bb1b9fed8" title="Reports the Lower Limit value of the specified counter. ">Cy_MCWDT_GetLowerLimit()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#gad05cf6c4a4b7c1bef71b9f1a84f53b3f" title="Reports the upper limit comparison value for the specified counter (0 or 1). ">Cy_MCWDT_GetUpperLimit()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga4e08c92f6ce86bd1089c4c5eecf7635b" title="Reports the warn limit comparison value for the specified counter (0 or 1). ">Cy_MCWDT_GetWarnLimit()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga070d6f92c33d9be8774711e690dffc0b" title="wait completion of counter reset. ">Cy_MCWDT_WaitForCounterReset()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga1b1ea9a634f2e76b856d38a0c649a0c4" title="Select deep sleep of which core for pausing this counter. ">Cy_MCWDT_CpuSelectForDpSlpPauseAction()</a>, <br />
+ <a class="el" href="group__group__mcwdt__functions.html#ga9d105e8b26101615b50496b3c584e364" title="Reports if match is enabled with combined cascade counters or not. ">Cy_MCWDT_GetCascadeMatchCombined()</a>. </td><td>Support for new devices.  </td></tr>
 <tr>
 <td>1.60 </td><td>CAT1B, CAT1C devices support.<br />
 Newly added APIs: <br />

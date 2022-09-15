@@ -108,6 +108,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0aa04dbc5db609a8cc641c45c3cd79e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__efuse__functions.html#ga0aa04dbc5db609a8cc641c45c3cd79e7">Cy_EFUSE_Disable</a> (EFUSE_Type *base)</td></tr>
 <tr class="memdesc:ga0aa04dbc5db609a8cc641c45c3cd79e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the EFUSE block.  <a href="#ga0aa04dbc5db609a8cc641c45c3cd79e7">More...</a><br /></td></tr>
 <tr class="separator:ga0aa04dbc5db609a8cc641c45c3cd79e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5dae8f5e5f2a463363c4dfcc5af57b28"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__efuse__functions.html#ga5dae8f5e5f2a463363c4dfcc5af57b28">Cy_EFUSE_IsEnabled</a> (EFUSE_Type *base)</td></tr>
+<tr class="memdesc:ga5dae8f5e5f2a463363c4dfcc5af57b28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if EFUSE block is Enabled or Not.  <a href="#ga5dae8f5e5f2a463363c4dfcc5af57b28">More...</a><br /></td></tr>
+<tr class="separator:ga5dae8f5e5f2a463363c4dfcc5af57b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga28ecc1dcdb968e053a958cca635e9461"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__efuse__functions.html#ga28ecc1dcdb968e053a958cca635e9461">Cy_EFUSE_DeInit</a> (EFUSE_Type *base)</td></tr>
 <tr class="memdesc:ga28ecc1dcdb968e053a958cca635e9461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the EFUSE block.  <a href="#ga28ecc1dcdb968e053a958cca635e9461">More...</a><br /></td></tr>
 <tr class="separator:ga28ecc1dcdb968e053a958cca635e9461"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -351,6 +354,38 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Supported in CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga5dae8f5e5f2a463363c4dfcc5af57b28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5dae8f5e5f2a463363c4dfcc5af57b28">&#9670;&nbsp;</a></span>Cy_EFUSE_IsEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_EFUSE_IsEnabled </td>
+          <td>(</td>
+          <td class="paramtype">EFUSE_Type *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if EFUSE block is Enabled or Not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the EFUSE instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>True if the EFUSE is enabled.</li>
+<li>False if EFUSE is disabled.</li>
+</ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Supported in CAT1B devices. </dd></dl>
 
 </div>

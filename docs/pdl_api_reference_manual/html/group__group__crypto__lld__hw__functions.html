@@ -93,10 +93,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga000bf3a63e4f2ee9fb8bb3a452b87d87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#ga000bf3a63e4f2ee9fb8bb3a452b87d87">Cy_Crypto_Core_ClearVuRegisters</a> (CRYPTO_Type *base)</td></tr>
 <tr class="memdesc:ga000bf3a63e4f2ee9fb8bb3a452b87d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function to initialize the Crypto VU registers.  <a href="#ga000bf3a63e4f2ee9fb8bb3a452b87d87">More...</a><br /></td></tr>
 <tr class="separator:ga000bf3a63e4f2ee9fb8bb3a452b87d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga139392b8345e8ce49bef50ac91177f8f"><td class="memItemLeft" align="right" valign="top"><a id="ga139392b8345e8ce49bef50ac91177f8f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#ga139392b8345e8ce49bef50ac91177f8f">Cy_Crypto_Core_HwInit</a> (void)</td></tr>
-<tr class="memdesc:ga139392b8345e8ce49bef50ac91177f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function to initialize the Crypto hardware. <br /></td></tr>
-<tr class="separator:ga139392b8345e8ce49bef50ac91177f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab3142870809b04978115aaaa2fe8c5fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#gab3142870809b04978115aaaa2fe8c5fb">Cy_Crypto_Core_SetVuMemoryAddress</a> (CRYPTO_Type *base, uint32_t const *vuMemoryAddr, uint32_t vuMemorySize)</td></tr>
 <tr class="memdesc:gab3142870809b04978115aaaa2fe8c5fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the new memory buffer address and size.  <a href="#gab3142870809b04978115aaaa2fe8c5fb">More...</a><br /></td></tr>
 <tr class="separator:gab3142870809b04978115aaaa2fe8c5fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,9 +117,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
  inArr[n/2] &lt;&mdash;&gt; inArr[n/2-1]<br />
   <a href="#ga5d74ed1e6161b72e972fac828fa3aea9">More...</a><br /></td></tr>
 <tr class="separator:ga5d74ed1e6161b72e972fac828fa3aea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga01fae2e729570c9d06c927793e366c83"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#ga01fae2e729570c9d06c927793e366c83">Cy_Crypto_Core_GetVuMemoryAddress</a> (CRYPTO_Type *base)</td></tr>
-<tr class="memdesc:ga01fae2e729570c9d06c927793e366c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets Crypto memory buffer address.  <a href="#ga01fae2e729570c9d06c927793e366c83">More...</a><br /></td></tr>
-<tr class="separator:ga01fae2e729570c9d06c927793e366c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga07acf748f85c91a73ad9b8d78a2f70a5"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#ga07acf748f85c91a73ad9b8d78a2f70a5">Cy_Crypto_Core_GetVuMemoryAddress</a> (CRYPTO_Type *base)</td></tr>
+<tr class="memdesc:ga07acf748f85c91a73ad9b8d78a2f70a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets Crypto memory buffer address.  <a href="#ga07acf748f85c91a73ad9b8d78a2f70a5">More...</a><br /></td></tr>
+<tr class="separator:ga07acf748f85c91a73ad9b8d78a2f70a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab4a5ca67ee625db608b6380fec04a6a3"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#gab4a5ca67ee625db608b6380fec04a6a3">Cy_Crypto_Core_IsEnabled</a> (CRYPTO_Type *base)</td></tr>
 <tr class="memdesc:gab4a5ca67ee625db608b6380fec04a6a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function checks whether the Crypto hardware is enabled.  <a href="#gab4a5ca67ee625db608b6380fec04a6a3">More...</a><br /></td></tr>
 <tr class="separator:gab4a5ca67ee625db608b6380fec04a6a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -289,7 +285,8 @@ New memory buffer should be allocated in a memory region that is not protected b
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Crypto status <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Crypto status <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line">    <span class="comment">/* Enable Crypto IP */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__hw__functions.html#ga6aede3754a84e01d5e9b4227a683c24c">Cy_Crypto_Core_Enable</a>(</div><div class="line">                             CRYPTO_HW);  <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -343,7 +340,8 @@ New memory buffer should be allocated in a memory region that is not protected b
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Check if Crypto IP is enabled */</span></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__crypto__lld__hw__functions.html#gab4a5ca67ee625db608b6380fec04a6a3">Cy_Crypto_Core_IsEnabled</a>(CRYPTO_HW)) {</div><div class="line"></div><div class="line">        <span class="comment">/* Disable Crypto HW */</span></div><div class="line">        <a class="code" href="group__group__crypto__lld__hw__functions.html#gaa25e439d33aee00d542476a82720e5cd">Cy_Crypto_Core_Disable</a>(CRYPTO_HW);</div><div class="line"></div><div class="line">        <span class="comment">/* Clear whole register file */</span></div><div class="line">        <a class="code" href="group__group__crypto__lld__hw__functions.html#ga000bf3a63e4f2ee9fb8bb3a452b87d87">Cy_Crypto_Core_ClearVuRegisters</a>(CRYPTO_HW);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -391,14 +389,14 @@ New memory buffer should be allocated in a memory region that is not protected b
 
 </div>
 </div>
-<a id="ga01fae2e729570c9d06c927793e366c83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga01fae2e729570c9d06c927793e366c83">&#9670;&nbsp;</a></span>Cy_Crypto_Core_GetVuMemoryAddress()</h2>
+<a id="ga07acf748f85c91a73ad9b8d78a2f70a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga07acf748f85c91a73ad9b8d78a2f70a5">&#9670;&nbsp;</a></span>Cy_Crypto_Core_GetVuMemoryAddress()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">__STATIC_INLINE void * Cy_Crypto_Core_GetVuMemoryAddress </td>
+          <td class="memname">__STATIC_INLINE uint32_t * Cy_Crypto_Core_GetVuMemoryAddress </td>
           <td>(</td>
           <td class="paramtype">CRYPTO_Type *&#160;</td>
           <td class="paramname"><em>base</em></td><td>)</td>
@@ -441,7 +439,8 @@ New memory buffer should be allocated in a memory region that is not protected b
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Crypto status <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Crypto status <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Check if Crypto IP is enabled */</span></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__crypto__lld__hw__functions.html#gab4a5ca67ee625db608b6380fec04a6a3">Cy_Crypto_Core_IsEnabled</a>(CRYPTO_HW)) {</div><div class="line"></div><div class="line">        <span class="comment">/* Disable Crypto HW */</span></div><div class="line">        <a class="code" href="group__group__crypto__lld__hw__functions.html#gaa25e439d33aee00d542476a82720e5cd">Cy_Crypto_Core_Disable</a>(CRYPTO_HW);</div><div class="line"></div><div class="line">        <span class="comment">/* Clear whole register file */</span></div><div class="line">        <a class="code" href="group__group__crypto__lld__hw__functions.html#ga000bf3a63e4f2ee9fb8bb3a452b87d87">Cy_Crypto_Core_ClearVuRegisters</a>(CRYPTO_HW);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

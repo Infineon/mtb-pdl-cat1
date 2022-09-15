@@ -176,6 +176,94 @@ var group__group__syspm__data__enumerates =
       [ "CY_SYSPM_HVLDO_VOLTAGE_2_900V", "group__group__syspm__data__enumerates.html#gga64b1d9370a07008a83b14bcbee4f731cab1a6f4628888ba29959ca00b9d7949eb", null ],
       [ "CY_SYSPM_HVLDO_VOLTAGE_3_000V", "group__group__syspm__data__enumerates.html#gga64b1d9370a07008a83b14bcbee4f731ca516b23dae4cf1bc91742aaa8dcb60b23", null ]
     ] ],
+    [ "cy_en_syspm_ovd_vddd_sel_t", "group__group__syspm__data__enumerates.html#ga171f49b013986cf02925d88a945a3dde", [
+      [ "CY_SYSPM_OVD_VDDD_5_5V", "group__group__syspm__data__enumerates.html#gga171f49b013986cf02925d88a945a3ddea376c9a3110ce66eae3f0901b74c94fa8", null ],
+      [ "CY_SYSPM_OVD_VDDD_5_0V", "group__group__syspm__data__enumerates.html#gga171f49b013986cf02925d88a945a3ddeabc1324d93dcc937302f38cbb40ad6b04", null ]
+    ] ],
+    [ "cy_en_syspm_ovd_vdda_sel_t", "group__group__syspm__data__enumerates.html#ga826b5c441042deb86518565c0139a540", [
+      [ "CY_SYSPM_OVD_VDDA_5_5V", "group__group__syspm__data__enumerates.html#gga826b5c441042deb86518565c0139a540a6b0547096be2347a7b16dcde5032a265", null ],
+      [ "CY_SYSPM_OVD_VDDA_5_0V", "group__group__syspm__data__enumerates.html#gga826b5c441042deb86518565c0139a540a934de73fd354099e52587e997811c16f", null ]
+    ] ],
+    [ "cy_en_syspm_ovd_sel_t", "group__group__syspm__data__enumerates.html#ga1d2ca460c2f87303cc154d08b2fb7a21", [
+      [ "CY_SYSPM_OVD_ON_VDDD", "group__group__syspm__data__enumerates.html#gga1d2ca460c2f87303cc154d08b2fb7a21af58927a02b303732fc12e79b2e5629d1", null ],
+      [ "CY_SYSPM_OVD_ON_VDDA", "group__group__syspm__data__enumerates.html#gga1d2ca460c2f87303cc154d08b2fb7a21a486a5add73e3c123a995120593975970", null ],
+      [ "CY_SYSPM_OVD_ON_VCCD", "group__group__syspm__data__enumerates.html#gga1d2ca460c2f87303cc154d08b2fb7a21afc8e0ba31f84dfbe7375d0588ba8326e", null ]
+    ] ],
+    [ "cy_en_syspm_ovd_action_select_t", "group__group__syspm__data__enumerates.html#ga13164732f4686b9400eb2641d4594de7", [
+      [ "CY_SYSPM_OVD_ACTION_NOTHING", "group__group__syspm__data__enumerates.html#gga13164732f4686b9400eb2641d4594de7a6343cc5ad1a9e159b2ad4655caec0d38", null ],
+      [ "CY_SYSPM_OVD_ACTION_FAULT", "group__group__syspm__data__enumerates.html#gga13164732f4686b9400eb2641d4594de7ab1bfa3a832af6a0d81dfcb409ef957fa", null ],
+      [ "CY_SYSPM_OVD_ACTION_RESET", "group__group__syspm__data__enumerates.html#gga13164732f4686b9400eb2641d4594de7a351e2f9421f578810b2a9c4555f9f274", null ]
+    ] ],
+    [ "cy_en_syspm_bod_vddd_sel_t", "group__group__syspm__data__enumerates.html#ga6563c92655e3e272f56c4abc453c7bba", [
+      [ "CY_SYSPM_BOD_VDDD_2_7V", "group__group__syspm__data__enumerates.html#gga6563c92655e3e272f56c4abc453c7bbaa90afa2e0f91c76212a0a4bc9327ebd8a", null ],
+      [ "CY_SYSPM_BOD_VDDD_3_0V", "group__group__syspm__data__enumerates.html#gga6563c92655e3e272f56c4abc453c7bbaa09b5bc3b1a8f91e009109eb280612c81", null ]
+    ] ],
+    [ "cy_en_syspm_bod_vdda_sel_t", "group__group__syspm__data__enumerates.html#ga46d992cf469c5c6cee4f7d0b01169332", [
+      [ "CY_SYSPM_BOD_VDDA_2_7V", "group__group__syspm__data__enumerates.html#gga46d992cf469c5c6cee4f7d0b01169332a24f431f797a902f182b30bfedf0c14df", null ],
+      [ "CY_SYSPM_BOD_VDDA_3_0V", "group__group__syspm__data__enumerates.html#gga46d992cf469c5c6cee4f7d0b01169332a2ddb242fe7c9d8e42d6b6c14ed9a1bf6", null ]
+    ] ],
+    [ "cy_en_syspm_bod_sel_t", "group__group__syspm__data__enumerates.html#gab8d46ded4cf57ea2c4b365ebc9c6ce30", [
+      [ "CY_SYSPM_BOD_ON_VDDD", "group__group__syspm__data__enumerates.html#ggab8d46ded4cf57ea2c4b365ebc9c6ce30af589640c3f00a207ad10baeeee6e8eb0", null ],
+      [ "CY_SYSPM_BOD_ON_VDDA", "group__group__syspm__data__enumerates.html#ggab8d46ded4cf57ea2c4b365ebc9c6ce30ac4496ab461f9ddea9a8fef9a2ad7e04f", null ],
+      [ "CY_SYSPM_BOD_ON_VCCD", "group__group__syspm__data__enumerates.html#ggab8d46ded4cf57ea2c4b365ebc9c6ce30a0378caa2a63403a81880c66fcc5adb95", null ]
+    ] ],
+    [ "cy_en_syspm_bod_action_select_t", "group__group__syspm__data__enumerates.html#ga9a5991f97a48c172d9815fb64ffd3c3f", [
+      [ "CY_SYSPM_BOD_ACTION_NOTHING", "group__group__syspm__data__enumerates.html#gga9a5991f97a48c172d9815fb64ffd3c3fa8a4f4024dc4c42558532f792854f0dfd", null ],
+      [ "CY_SYSPM_BOD_ACTION_FAULT", "group__group__syspm__data__enumerates.html#gga9a5991f97a48c172d9815fb64ffd3c3fa9c49f19b653e233a73775f0db5d19eee", null ],
+      [ "CY_SYSPM_BOD_ACTION_RESET", "group__group__syspm__data__enumerates.html#gga9a5991f97a48c172d9815fb64ffd3c3fa1b87159988d789e9bd68c42e11d75d0f", null ]
+    ] ],
+    [ "cy_en_syspm_supply_entity_select_t", "group__group__syspm__data__enumerates.html#ga219c1c0c47a516504e4951a05f38a65d", [
+      [ "CY_SYSPM_ENTITY_BOD_VDDD", "group__group__syspm__data__enumerates.html#gga219c1c0c47a516504e4951a05f38a65daa764687012de33b89972309600010273", null ],
+      [ "CY_SYSPM_ENTITY_BOD_VDDA", "group__group__syspm__data__enumerates.html#gga219c1c0c47a516504e4951a05f38a65daf4ec4b1ba647701d77229673a2615607", null ],
+      [ "CY_SYSPM_ENTITY_BOD_VCCD", "group__group__syspm__data__enumerates.html#gga219c1c0c47a516504e4951a05f38a65da9b41677902fc011f6ff46518991c15d9", null ],
+      [ "CY_SYSPM_ENTITY_OVD_VDDD", "group__group__syspm__data__enumerates.html#gga219c1c0c47a516504e4951a05f38a65dabd1f7610d4617e9c0d954e34d2ccf9be", null ],
+      [ "CY_SYSPM_ENTITY_OVD_VDDA", "group__group__syspm__data__enumerates.html#gga219c1c0c47a516504e4951a05f38a65dabdefb4adaa94224a473ee6a9db904b95", null ],
+      [ "CY_SYSPM_ENTITY_OVD_VCCD", "group__group__syspm__data__enumerates.html#gga219c1c0c47a516504e4951a05f38a65da85e586c9a8bea1070b06667d442040e5", null ]
+    ] ],
+    [ "cy_en_syspm_reghc_mode_t", "group__group__syspm__data__enumerates.html#gab5444f2635fc73eeec99898e007f19b2", [
+      [ "CY_SYSPM_REGHC_MODE_TRANSISTOR", "group__group__syspm__data__enumerates.html#ggab5444f2635fc73eeec99898e007f19b2a96974e3b14e6df48014929ff4f946bba", null ],
+      [ "CY_SYSPM_REGHC_MODE_PMIC", "group__group__syspm__data__enumerates.html#ggab5444f2635fc73eeec99898e007f19b2abcfac29891545adcc07dcbf1d52a625f", null ]
+    ] ],
+    [ "cy_en_syspm_reghc_vadj_t", "group__group__syspm__data__enumerates.html#gac4232e669b5d9530d35ed285dc947e31", [
+      [ "CY_SYSPM_REGHC_VADJ_1_020V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31afe97885e9d44d0f520eb2992a9924881", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_025V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31acde8e7da1adc70d0dfe7a0ce8f83e4b5", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_030V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a5b644bbd9d1d99705c6a1952f67c0c19", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_035V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31addb360580564183f4f72761510083354", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_040V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a13db46298e21d5690686c18e5ba77508", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_045V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a486e4f7b9fb0b1d5f4ee7de51954bbb7", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_050V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31add25fdb8d4cbd3b26c5667fb2793ae6c", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_055V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a6fa7460aed2b50b9da7bccd090a24125", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_060V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a647e874c009c885104d18a2e1a78dcec", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_065V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31ac29d6fdb2610e6da73e17bfbbe5634f0", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_070V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a58cf67fc5a103ea5140bb5e7630c40c2", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_075V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a346e95cc2f73a16a0085509c6cead7cf", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_080V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a23c88757d3b48b7c5c25cb35ac4e59bb", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_085V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a1084707a22b870c4b5a6bf820ba22b60", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_090V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a97c74e4f21a6833ee10385da01ad2bae", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_095V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31af14af253723ea72dec0b29bc83dfedc4", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_100V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a4e8e785b45aa5d6be75f44b06038354e", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_105V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31aaadc670ca423443adf0b64ca49ce9a05", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_110V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31ab9a52288bdf67644ffe141e069d7bf62", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_115V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31af7967527ecb46f01380dc47d5bd5661b", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_120V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a719757eff115d850b6f0660230dab583", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_125V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a2b4785f5f8249930d799ca7dda47b9b8", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_130V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a44a0dbd48ebe169e3e4dcde50d244a53", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_135V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a288c52272cd33ee8803adcc93ed46c22", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_140V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a37911a6f65726af2132f014e74a00641", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_145V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a2af06b5ab533ef8e27d318a102c2a8f5", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_150V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31afaf5199baef64affd22a0256b36956e7", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_155V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a5d701dace8dcbee7625f487ac2e35f1c", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_160V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a0a52b2c1e21f6f2f0290f9bed6007ba8", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_165V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31aae9bc82fca2bc304f48a6f7a448832a8", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_170V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31a8704a8ea343c160532fc81606d95eb42", null ],
+      [ "CY_SYSPM_REGHC_VADJ_1_175V", "group__group__syspm__data__enumerates.html#ggac4232e669b5d9530d35ed285dc947e31abad46f9c2a5d421e9134a40cd987b1df", null ]
+    ] ],
+    [ "cy_en_syspm_reghc_drive_out_t", "group__group__syspm__data__enumerates.html#gaf6ae7c54ce7306400ddfc3f3b40aeb28", [
+      [ "CY_SYSPM_REGHC_DRIVE_OUT_0P9_VCCD_BY_VADJ", "group__group__syspm__data__enumerates.html#ggaf6ae7c54ce7306400ddfc3f3b40aeb28a2810a8fb0f6d032b0751cc8bdd4e83c7", null ],
+      [ "CY_SYSPM_REGHC_DRIVE_OUT_0P8_VCCD_BY_VADJ", "group__group__syspm__data__enumerates.html#ggaf6ae7c54ce7306400ddfc3f3b40aeb28a29fc77df7d73627543111a9625d5cf2a", null ],
+      [ "CY_SYSPM_REGHC_DRIVE_OUT_0P6_VCCD_BY_VADJ", "group__group__syspm__data__enumerates.html#ggaf6ae7c54ce7306400ddfc3f3b40aeb28a80bf448b97ccde2478245ad45b3adab1", null ],
+      [ "CY_SYSPM_REGHC_DRIVE_OUT_VCCD", "group__group__syspm__data__enumerates.html#ggaf6ae7c54ce7306400ddfc3f3b40aeb28aef798228e93430f0f71b7de6efd804f1", null ]
+    ] ],
     [ "cy_en_syspm_sram0_macro_t", "group__group__syspm__data__enumerates.html#ga7c6db751c1fb0b15f63af6b52811e418", [
       [ "CY_SYSPM_SRAM0_MACRO_0", "group__group__syspm__data__enumerates.html#gga7c6db751c1fb0b15f63af6b52811e418ad77cab540a00473dc249577f457b400a", null ],
       [ "CY_SYSPM_SRAM0_MACRO_1", "group__group__syspm__data__enumerates.html#gga7c6db751c1fb0b15f63af6b52811e418a21b8b44b725273c6b068cc9130631590", null ]

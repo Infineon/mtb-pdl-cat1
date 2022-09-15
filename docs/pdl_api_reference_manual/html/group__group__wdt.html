@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('group__group__wdt.html','');});
 <p>The WDT can issue counter match interrupts, and a device reset if its interrupts are not handled. Use the Watchdog timer for two main purposes:</p>
 <p>The <b> First use case </b> is recovering from a CPU or firmware failure. A timeout period is set up in the Watchdog timer, and if a timeout occurs, the device is reset (WRES). <br />
  The <b>Second use case</b> is to generate periodic interrupts. It is strongly recommended not to use the WDT for periodic interrupt generation. However, if absolutely required, see information below.</p>
-<p>A "reset cause" register exists, and the firmware should check this register at a start-up. An appropriate action can be taken if a WRES reset is detected.</p>
+<p>A "reset cause" register(RES_CAUSE, Part of SRSS IP) exists, and the firmware should check this register at a start-up. An appropriate action can be taken if a WRES reset is detected.</p>
 <p>The user's firmware periodically resets the timeout period (clears or "feeds" the watchdog) before a timeout occurs. If the firmware fails to do so, that is considered to be a CPU crash or a firmware failure, and the reason for a device reset. The WDT can generate an interrupt instead of a device reset. The Interrupt Service Routine (ISR) can handle the interrupt either as a periodic interrupt, or as an early indication of a firmware failure and respond accordingly. However, it is not recommended to use the WDT for periodic interrupt generation. The Multi-counter Watchdog Timers (MCWDT) can be used to generate periodic interrupts if such are presented in the device.</p>
 <p><b> Functional Description </b></p>
 <p>The WDT generates an interrupt when the count value in the counter equals the configured match value.</p>
@@ -135,10 +135,24 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.50 </td><td>Added WDT_B type support required for CAT1C devices.<br />
+Newly added APIs: <br />
+ <a class="el" href="group__group__wdt__functions.html#ga21e7fd379fa9a0b5d475c11263ec16d5" title="Set lower limit for watchdog. ">Cy_WDT_SetLowerLimit()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#ga64c5c9f8c8ff98b132deed303d219714" title="Set upper limit for watchdog. ">Cy_WDT_SetUpperLimit()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#ga9ad751d2eeac6606210e6f2da2409450" title="Set warn limit for watchdog. ">Cy_WDT_SetWarnLimit()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#gae1cf0ca2963580bc88dc0241ba9843b2" title="Set action taken if this watchdog is serviced before LOWER_LIMIT is reached. ">Cy_WDT_SetLowerAction()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#ga496dd75cabf55aeab95c6c1e759c7da6" title="Set action taken if this watchdog is not serviced before UPPER_LIMIT is reached. ">Cy_WDT_SetUpperAction()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#gadeda593623cd11c8594e4cec64759bf3" title="Set action taken when the count value reaches WARN_LIMIT. ">Cy_WDT_SetWarnAction()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#ga5c59734a60855534520a53194ef181a4" title="Set automatically service when the count value reaches WARN_LIMIT. ">Cy_WDT_SetAutoService()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#gaf6cfcbb37db4f7c295fae0f9113bafea" title="Set whether the WDT counter runs/pauses when the system is in DEEPSLEEP. ">Cy_WDT_SetDeepSleepPause()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#ga607ca487deb77c6fa533cbfa3ba2a320" title="Set whether the WDT counter runs/pauses when the system is in HIBERNATE. ">Cy_WDT_SetHibernatePause()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#gace74b427ab6c7bb323a4018cd2a9c1ee" title="Set the debug run value. ">Cy_WDT_SetDebugRun()</a>, <br />
+ <a class="el" href="group__group__wdt__functions.html#ga405c852c5a61c72a9492f9d0d9c04213" title="Set service of the watchdog. ">Cy_WDT_SetService()</a>, </td><td>Support for new devices.  </td></tr>
+<tr>
 <td>1.40 </td><td>CAT1B, CAT1C devices support.<br />
  Newly added API's <a class="el" href="group__group__wdt__functions.html#gacbd12276c1d11f3ad3f462a88d4b1065" title="Configures the WDT clock source. ">Cy_WDT_SetClkSource()</a> to configure the WDT clock source, <a class="el" href="group__group__wdt__functions.html#ga0b6f3df91bd3670cc8bce387e266d945" title="Gets the WDT clock source configured. ">Cy_WDT_GetClkSource()</a> to get the WDT clock source configured, <a class="el" href="group__group__wdt__functions.html#ga73fa85d671d84a6e318ea363a61eac72" title="Configures the bit position above which the bits will be ignored for match. ">Cy_WDT_SetMatchBits()</a> to configure the bit position above which the bits will be ignored for match, <a class="el" href="group__group__wdt__functions.html#gab47dddd65c9eb8b2c6a220b9f57ba3c4" title="Gets the bit position above which the bits will be ignored for match. ">Cy_WDT_GetMatchBits()</a> to get the bit position above which the bits will be ignored for match. </td><td>Support for new devices.  </td></tr>
 <tr>
-<td>1.30.1 </td><td>Minor documentation updates. </td><td>Removed MISRA 2004 compliance details and verified MISRA 2012 complaince.  </td></tr>
+<td>1.30.1 </td><td>Minor documentation updates. </td><td>Removed MISRA 2004 compliance details and verified MISRA 2012 compliance.  </td></tr>
 <tr>
 <td rowspan="2">1.30 </td><td>Updated the following functions for the PSoC 64 devices: <a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987">Cy_WDT_ClearInterrupt()</a>, <a class="el" href="group__group__wdt__functions.html#gab6caa17bf5bcb0c365f60e602e653fed">Cy_WDT_MaskInterrupt()</a>, and <a class="el" href="group__group__wdt__functions.html#ga38c69c98675d6024a7d73acb41b24399">Cy_WDT_UnmaskInterrupt()</a>. </td><td>Added PSoC 64 device support.  </td></tr>
 <tr>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_bt.c
-* \version 1.70
+* \version 1.80
 *
 * \brief
 *  This driver provides the source code for BT IPC.
@@ -240,7 +240,7 @@ void Cy_BTIPC_IRQ_Handler(cy_stc_ipc_bt_context_t *btIpcContext)
             }
             else
             {
-                BTIPC_LOG_L0("Error: Msg recevied after FIFO is full !\n");
+                BTIPC_LOG_L0("Error: Msg received after FIFO is full !\n");
                 contextPtr->droppedHCI++;
                 /* Add assert here */
                 CY_ASSERT_L1(false);
@@ -725,9 +725,9 @@ cy_en_btipcdrv_status_t Cy_BTIPC_HCI_GetWriteBufPtr(cy_stc_ipc_bt_context_t *btI
 
     *ppData = NULL;
 
-    /* Get the buffer type based on the payload type indeicator */
+    /* Get the buffer type based on the payload type indicator */
     bufType = Cy_bt_get_buf_type(pti);
-    /* Pick a free buffe from the pool of buffers */
+    /* Pick a free buffer from the pool of buffers */
     status = Cy_bt_GetBuffer (contextPtr, (void **)&destBuf, bufType, length);
     if (((uint32_t)status) != 0UL)
     {
@@ -781,7 +781,7 @@ cy_en_btipcdrv_status_t Cy_BTIPC_HCI_Write(cy_stc_ipc_bt_context_t *btIpcContext
 #else
         ipcPacket.bufAddr = (uint8_t*)((uint32_t)bPtr - ((uint32_t)BTSS_DATA_RAM_IPC - 0x28000000UL));
 #endif
-        /* end of buffer preperation */
+        /* end of buffer preparation */
         msgPtr = (uint32_t*)((void*)&ipcPacket);
     }
     else /* Short Message */
@@ -1124,7 +1124,7 @@ static cy_en_btipcdrv_status_t Cy_bt_PutBuffer(cy_stc_ipc_bt_context_t *btIpcCon
 }
 
 
-/* Local function implmentation */
+/* Local function implementation */
 cy_en_btipcdrv_status_t Cy_bt_handle_hpclong_msg(cy_stc_ipc_bt_context_t *btIpcContext, uint32_t * msgPtr)
 {
     cy_stc_ipc_bt_context_t *contextPtr = btIpcContext;
@@ -1301,7 +1301,7 @@ static cy_en_btipc_buftype_t Cy_bt_get_buf_type(cy_en_btipc_hcipti_t pti)
 {
     cy_en_btipc_buftype_t bufType;
 
-    /* To be done: Currently retruning Control buffer for all PTIs. Need to change it once we have clarity on it */
+    /* To be done: Currently returning Control buffer for all PTIs. Need to change it once we have clarity on it */
     switch (pti)
     {
         case CY_BT_IPC_HCI_CMD:

@@ -1,26 +1,6 @@
 var group__group__adcmic__data__structures =
 [
     [ "MXS40ADCMIC_Type", "struct_m_x_s40_a_d_c_m_i_c___type.html", null ],
-    [ "cy_stc_adcmic_audio_analog_path_config_t", "structcy__stc__adcmic__audio__analog__path__config__t.html", [
-      [ "micBias", "structcy__stc__adcmic__audio__analog__path__config__t.html#a6ecde6a6ba6b2fb04ebadac70d427d57", null ],
-      [ "micBiasLz", "structcy__stc__adcmic__audio__analog__path__config__t.html#a7b41f3fb4a9d7884d9f3f4314b174d33", null ],
-      [ "micPd", "structcy__stc__adcmic__audio__analog__path__config__t.html#a413b565d067267f5b01df0bcdb870d8f", null ],
-      [ "micClamp", "structcy__stc__adcmic__audio__analog__path__config__t.html#a5458f4253562dd93154c6dde01ea3d5d", null ],
-      [ "pgaGain", "structcy__stc__adcmic__audio__analog__path__config__t.html#ae8bb47afa6c7df2f1b26671e11c3af0e", null ],
-      [ "pgaInCm", "structcy__stc__adcmic__audio__analog__path__config__t.html#a759b017aa23bf41f363e84c262b885ee", null ],
-      [ "pgaOutCm", "structcy__stc__adcmic__audio__analog__path__config__t.html#a10abc0e49357112679b6bb5f68648197", null ]
-    ] ],
-    [ "cy_stc_adcmic_audio_digital_path_config_t", "structcy__stc__adcmic__audio__digital__path__config__t.html", [
-      [ "clockDiv", "structcy__stc__adcmic__audio__digital__path__config__t.html#ac41b425c3e177c3fc3c522792f31e567", null ],
-      [ "clockInv", "structcy__stc__adcmic__audio__digital__path__config__t.html#a768255b37519d4ed47e4ce1526bbee80", null ],
-      [ "latchDelay", "structcy__stc__adcmic__audio__digital__path__config__t.html#a9e56bed2a6cb64f7dc02b6fa984c1c72", null ]
-    ] ],
-    [ "cy_stc_adcmic_dc_path_config_t", "structcy__stc__adcmic__dc__path__config__t.html", [
-      [ "range", "structcy__stc__adcmic__dc__path__config__t.html#a5f73fa33c1ea1e1d3e415c9854013dae", null ],
-      [ "input", "structcy__stc__adcmic__dc__path__config__t.html#a1d24fab7a1221e15b5f9d12134247802", null ],
-      [ "tmrLatch", "structcy__stc__adcmic__dc__path__config__t.html#ac01bb12f0a14ff3de199e3480c1e899b", null ],
-      [ "time", "structcy__stc__adcmic__dc__path__config__t.html#a7c9de17fa8c424332f71cecf70cec65e", null ]
-    ] ],
     [ "cy_stc_adcmic_biquad_config_t", "structcy__stc__adcmic__biquad__config__t.html", [
       [ "bq0_num1_coeff", "structcy__stc__adcmic__biquad__config__t.html#aa963e3dadd68686606ad8a3c65e07959", null ],
       [ "bq0_num2_coeff", "structcy__stc__adcmic__biquad__config__t.html#a9ddf53e62b0b32af0150af151ad42058", null ],
@@ -48,25 +28,42 @@ var group__group__adcmic__data__structures =
       [ "bq4_den2_coeff", "structcy__stc__adcmic__biquad__config__t.html#ad8a72bb66db25fa4ec96a83e806757fb", null ],
       [ "bq4_den3_coeff", "structcy__stc__adcmic__biquad__config__t.html#abd43ac6f9101609201df8373f87354d7", null ]
     ] ],
-    [ "cy_stc_adcmic_fifo_config_t", "structcy__stc__adcmic__fifo__config__t.html", [
-      [ "full", "structcy__stc__adcmic__fifo__config__t.html#a35946231464b1f961459522e7dee707c", null ],
-      [ "empty", "structcy__stc__adcmic__fifo__config__t.html#ad8f5cc31246f41074eda8f732dd46d4f", null ]
+    [ "cy_stc_adcmic_mic_config_t", "structcy__stc__adcmic__mic__config__t.html", [
+      [ "sampleRate", "structcy__stc__adcmic__mic__config__t.html#a4ef87a512a7e1511ab1315dc087dcda2", null ],
+      [ "micBias", "structcy__stc__adcmic__mic__config__t.html#a311cda022f27465d9421fb4ab6bd5f24", null ],
+      [ "micBiasLz", "structcy__stc__adcmic__mic__config__t.html#a8f06e161efb6fce0db4ac482ddf81d4f", null ],
+      [ "micClamp", "structcy__stc__adcmic__mic__config__t.html#af5d989a86dc01a75ff3a62a238ace0ce", null ],
+      [ "pgaGain", "structcy__stc__adcmic__mic__config__t.html#a9562aad47e4259d51cccd20f019e00e4", null ],
+      [ "pgaInCm", "structcy__stc__adcmic__mic__config__t.html#ab0d875f8e7f34b834808b8dcc793b857", null ],
+      [ "pgaOutCm", "structcy__stc__adcmic__mic__config__t.html#a6a19db490bdbc02e1d2002dc134689a5", null ],
+      [ "biQuadConfig", "structcy__stc__adcmic__mic__config__t.html#a36f425829f07d6345b9b1540d3a356c9", null ],
+      [ "fifoTrigger", "structcy__stc__adcmic__mic__config__t.html#ac4760faa194b88eacf8d5f003957c75e", null ],
+      [ "fifoFull", "structcy__stc__adcmic__mic__config__t.html#a9c346fcb52f36cc0320581ca9d380d2f", null ],
+      [ "fifoEmpty", "structcy__stc__adcmic__mic__config__t.html#ade06e1dd8dfd8e6264b2e7d654ae6103", null ]
     ] ],
-    [ "cy_stc_adcmic_timer_trigger_config_t", "structcy__stc__adcmic__timer__trigger__config__t.html", [
-      [ "timerTrigger", "structcy__stc__adcmic__timer__trigger__config__t.html#a66eeeef711c5d0554429eb1ebc7f5e16", null ],
-      [ "fifoTrigger", "structcy__stc__adcmic__timer__trigger__config__t.html#afddc46ea6d5b56b1f930da8c07633434", null ],
-      [ "period", "structcy__stc__adcmic__timer__trigger__config__t.html#aa5b95cea91621ea2866a1471ea9b5b64", null ],
-      [ "input", "structcy__stc__adcmic__timer__trigger__config__t.html#a4bd64b1e0b3c93b4a432939707a201ed", null ]
+    [ "cy_stc_adcmic_pdm_config_t", "structcy__stc__adcmic__pdm__config__t.html", [
+      [ "sampleRate", "structcy__stc__adcmic__pdm__config__t.html#ad7713be64717eb52b328a4cfb645935f", null ],
+      [ "clockInv", "structcy__stc__adcmic__pdm__config__t.html#ab72e43ec673f69cd57415b9d70c2f20e", null ],
+      [ "latchDelay", "structcy__stc__adcmic__pdm__config__t.html#a28db2fca9dd6105cbc7b537f78109b16", null ],
+      [ "biQuadConfig", "structcy__stc__adcmic__pdm__config__t.html#aa640a2a2bd04e195b5b53737e3772a67", null ],
+      [ "fifoTrigger", "structcy__stc__adcmic__pdm__config__t.html#a8bb466075f7b9923acebf47a6dc044f5", null ],
+      [ "fifoFull", "structcy__stc__adcmic__pdm__config__t.html#ae8b96e9189dd4a0167c4df1c347ad51b", null ],
+      [ "fifoEmpty", "structcy__stc__adcmic__pdm__config__t.html#a77b60203271f82538197dbc4221facfe", null ]
+    ] ],
+    [ "cy_stc_adcmic_context_t", "structcy__stc__adcmic__context__t.html", [
+      [ "offset", "structcy__stc__adcmic__context__t.html#aab3167c806d002846266e31cfbfa1c3c", null ],
+      [ "gain", "structcy__stc__adcmic__context__t.html#a81770788878a05b8e36b7ab8ad02befe", null ]
+    ] ],
+    [ "cy_stc_adcmic_dc_config_t", "structcy__stc__adcmic__dc__config__t.html", [
+      [ "range", "structcy__stc__adcmic__dc__config__t.html#a359301dff3fe81bbfa0535b735ee2fe1", null ],
+      [ "channel", "structcy__stc__adcmic__dc__config__t.html#a9db6b11e08ec3c86dede214203714390", null ],
+      [ "timerPeriod", "structcy__stc__adcmic__dc__config__t.html#a9168c7819159217a06f695fef5548ac8", null ],
+      [ "timerInput", "structcy__stc__adcmic__dc__config__t.html#a00af0a41f1d6b7902385abcba218b3e2", null ],
+      [ "context", "structcy__stc__adcmic__dc__config__t.html#a00fcfd23a38fee917cc9492725a67fd2", null ]
     ] ],
     [ "cy_stc_adcmic_config_t", "structcy__stc__adcmic__config__t.html", [
-      [ "clockDiv", "structcy__stc__adcmic__config__t.html#a4d3c269ce9081eb9925acd71a687114e", null ],
-      [ "source", "structcy__stc__adcmic__config__t.html#ac3abfea173a07fa7c319043b0cd0907d", null ],
-      [ "sampleRate", "structcy__stc__adcmic__config__t.html#a49a4fcf76d4890cf0f6713515e50a1bb", null ],
-      [ "anaConfig", "structcy__stc__adcmic__config__t.html#af55001e254b5f1d80638a801b8e35259", null ],
-      [ "digConfig", "structcy__stc__adcmic__config__t.html#af1dce9bbf3852fcb2f99d2cc973d0fa8", null ],
-      [ "dcConfig", "structcy__stc__adcmic__config__t.html#a1c14a3826b2c2f35e874981e641285a4", null ],
-      [ "biQuadConfig", "structcy__stc__adcmic__config__t.html#a676cce57e36ac49522822b06b1f1c61e", null ],
-      [ "fifoConfig", "structcy__stc__adcmic__config__t.html#ad3d69dde9d5c2aa8c20980110fa27f19", null ],
-      [ "tmrTrgConfig", "structcy__stc__adcmic__config__t.html#a9f09d75f60a63261f73178d3e9088596", null ]
+      [ "micConfig", "structcy__stc__adcmic__config__t.html#ae12e5b1fa4ed00d00e7dd0af404f501f", null ],
+      [ "pdmConfig", "structcy__stc__adcmic__config__t.html#a7545f7d484a8b23b80cff58ea64dd284", null ],
+      [ "dcConfig", "structcy__stc__adcmic__config__t.html#a80f374bcc8f5756c40b4e8d0835602d9", null ]
     ] ]
 ];

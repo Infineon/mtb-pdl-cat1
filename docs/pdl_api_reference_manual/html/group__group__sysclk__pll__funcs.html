@@ -141,6 +141,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8b42389042d11aaa84bd2e769f6b7b27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27">Cy_SysClk_Pll200MDisable</a> (uint32_t pllNum)</td></tr>
 <tr class="memdesc:ga8b42389042d11aaa84bd2e769f6b7b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the selected 200M PLL.  <a href="#ga8b42389042d11aaa84bd2e769f6b7b27">More...</a><br /></td></tr>
 <tr class="separator:ga8b42389042d11aaa84bd2e769f6b7b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabdf2396edece2bf47abd72603fc791e5"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pll__funcs.html#gabdf2396edece2bf47abd72603fc791e5">Cy_SysClk_Pll200MGetFrequency</a> (uint32_t pllNum)</td></tr>
+<tr class="memdesc:gabdf2396edece2bf47abd72603fc791e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the frequency of PLL200M.  <a href="#gabdf2396edece2bf47abd72603fc791e5">More...</a><br /></td></tr>
+<tr class="separator:gabdf2396edece2bf47abd72603fc791e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad498857f6d3c3b8df8dd176391d07f6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pll__funcs.html#gad498857f6d3c3b8df8dd176391d07f6f">Cy_SysClk_Pll400MConfigure</a> (uint32_t pllNum, const <a class="el" href="structcy__stc__pll__config__t.html">cy_stc_pll_config_t</a> *config)</td></tr>
 <tr class="memdesc:gad498857f6d3c3b8df8dd176391d07f6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures 400M PLL.  <a href="#gad498857f6d3c3b8df8dd176391d07f6f">More...</a><br /></td></tr>
 <tr class="separator:gad498857f6d3c3b8df8dd176391d07f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,6 +168,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga51760beb96b211722ffa88483b9d3af2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pll__funcs.html#ga51760beb96b211722ffa88483b9d3af2">Cy_SysClk_Pll400MDisable</a> (uint32_t pllNum)</td></tr>
 <tr class="memdesc:ga51760beb96b211722ffa88483b9d3af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the selected 400M PLL.  <a href="#ga51760beb96b211722ffa88483b9d3af2">More...</a><br /></td></tr>
 <tr class="separator:ga51760beb96b211722ffa88483b9d3af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e83e55b944bb47222d309ede5569d38"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__pll__funcs.html#ga1e83e55b944bb47222d309ede5569d38">Cy_SysClk_Pll400MGetFrequency</a> (uint32_t pllNum)</td></tr>
+<tr class="memdesc:ga1e83e55b944bb47222d309ede5569d38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the frequency of PLL400M.  <a href="#ga1e83e55b944bb47222d309ede5569d38">More...</a><br /></td></tr>
+<tr class="separator:ga1e83e55b944bb47222d309ede5569d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gac5c498137bf7012e8e0f8b8e0dfba1f0"></a>
@@ -211,7 +217,7 @@ CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
 <dd>
 Do not call this function when the PLL is enabled. If it is called, then this function returns immediately with an error return value and no register updates.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
 <dd>
@@ -266,7 +272,7 @@ CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_UNSUPPORTED_STATE - PL
 <dd>
 Do not call this function when the PLL is enabled. If it is called, then this function returns immediately with an error return value and no register updates.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
 <dd>
@@ -362,13 +368,15 @@ This API is available for CAT1A, CAT1C and CAT1D devices.</dd></dl>
 CY_SYSCLK_SUCCESS - PLL successfully enabled <br />
 CY_SYSCLK_TIMEOUT - Timeout waiting for PLL lock <br />
 CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when function returns the PRA error status code <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> instead of <a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd>
 <dd>
-This API is available for CAT1A, CAT1C and CAT1D devices.</dd></dl>
+This API is available for CAT1A, CAT1C and CAT1D devices.</dd>
+<dd>
+Take into account the possible platform specific clkHf (and further clocking chain links) frequency limitations while using this API.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: PLL is configured and needs to be enabled within 2 ms */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Enable the Path 1 PLL with a timeout of 2000 microsecond */</span></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> != <a class="code" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a>(1UL, 2000UL))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -490,7 +498,7 @@ true = lost lock</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_SUCCESS - PLL successfully disabled <br />
 CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when function returns the PRA error status code <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> instead of <a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
 <dd>
@@ -528,7 +536,7 @@ Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f93
 <dl class="section note"><dt>Note</dt><dd>If the return value equals zero, that means PLL is disabled.</dd>
 <dd>
 This API is available for CAT1A, CAT1C and CAT1D devices.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint32_t freq = <a class="code" href="group__group__sysclk__pll__funcs.html#ga219fd6d8d1d18090fe6d7002610ac021">Cy_SysClk_PllGetFrequency</a>(1UL);</div><div class="line">    (void) freq; <span class="comment">/* Supress &#39;unused variable&#39; warning */</span></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint32_t freq = <a class="code" href="group__group__sysclk__pll__funcs.html#ga219fd6d8d1d18090fe6d7002610ac021">Cy_SysClk_PllGetFrequency</a>(1UL);</div><div class="line">    (void) freq; <span class="comment">/* Suppress &#39;unused variable&#39; warning */</span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -576,7 +584,7 @@ CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
 <dd>
 Do not call this function when the PLL is enabled. If it is called, then this function returns immediately with an error return value and no register updates.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
 <dd>
@@ -628,14 +636,13 @@ CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO al
 <dd>
 Do not call this function when the PLL is enabled. If it is called, then this function returns immediately with an error return value and no register updates.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.</dd>
 <dd>
-On PSoC 64 devices the configuration on the PRA driver will be reflected after <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> call. Any call to <a class="el" href="group__group__sysclk__pll__funcs.html#ga1fc66dcae940c37c26bc7d8b840f83b0">Cy_SysClk_PllGetConfiguration</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> returns old configuration values.</dd></dl>
-<p>This API is available only for CAT1C devices. </p>
+This API is available only for CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -675,7 +682,7 @@ On PSoC 64 devices the configuration on the PRA driver will be reflected after <
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_SUCCESS - PLL data successfully reported <br />
-CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
+CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1C devices. </dd></dl>
 
 </div>
@@ -718,8 +725,8 @@ CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO al
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_SUCCESS - PLL successfully enabled <br />
 CY_SYSCLK_TIMEOUT - Timeout waiting for PLL lock <br />
-CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
 <dd>
@@ -842,13 +849,41 @@ true = lost lock</dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_SUCCESS - PLL successfully disabled <br />
-CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd></dl>
 <dl class="section user"><dt>Side Effects</dt><dd>This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT. If AUTO mode should be used, call <a class="el" href="group__group__sysclk__pll__funcs.html#gac5c498137bf7012e8e0f8b8e0dfba1f0">Cy_SysClk_PllConfigure</a> or <a class="el" href="group__group__sysclk__pll__funcs.html#gad21ad8110bfc4506947fbd0fb163d055">Cy_SysClk_PllManualConfigure</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="gabdf2396edece2bf47abd72603fc791e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabdf2396edece2bf47abd72603fc791e5">&#9670;&nbsp;</a></span>Cy_SysClk_Pll200MGetFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_Pll200MGetFrequency </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pllNum</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the frequency of PLL200M. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pllNum</td><td>Selects which PLL to check.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>PLL200M Frequency</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1C devices. </dd></dl>
 
 </div>
@@ -897,14 +932,13 @@ CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
 <dd>
 Do not call this function when the PLL is enabled. If it is called, then this function returns immediately with an error return value and no register updates.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.</dd>
 <dd>
-On PSoC 64 devices the configuration on the PRA driver will be reflected after <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> call. Any call to <a class="el" href="group__group__sysclk__pll__funcs.html#ga1fc66dcae940c37c26bc7d8b840f83b0">Cy_SysClk_PllGetConfiguration</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> returns old configuration values.</dd></dl>
-<p>This API is available only for CAT1C devices. </p>
+This API is available only for CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -945,19 +979,18 @@ On PSoC 64 devices the configuration on the PRA driver will be reflected after <
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_SUCCESS - PLL successfully configured <br />
 CY_SYSCLK_INVALID_STATE - PLL not configured because it is enabled <br />
-CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
+CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Call this function after changing the PLL input frequency; for example if <a class="el" href="group__group__sysclk__path__src__funcs.html#ga517f603266062d0013947ea950ed5b60">Cy_SysClk_ClkPathSetSource()</a> is called.</dd>
 <dd>
 Do not call this function when the PLL is enabled. If it is called, then this function returns immediately with an error return value and no register updates.</dd>
 <dd>
-Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.</dd>
 <dd>
-On PSoC 64 devices the configuration on the PRA driver will be reflected after <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> call. Any call to <a class="el" href="group__group__sysclk__pll__funcs.html#ga1fc66dcae940c37c26bc7d8b840f83b0">Cy_SysClk_PllGetConfiguration</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> returns old configuration values.</dd></dl>
-<p>This API is available only for CAT1C devices. </p>
+This API is available only for CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -997,10 +1030,8 @@ On PSoC 64 devices the configuration on the PRA driver will be reflected after <
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_SUCCESS - PLL data successfully reported <br />
-CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>On PSoC 64 devices the configuration on the PRA driver will be reflected after <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> call. Any call to <a class="el" href="group__group__sysclk__pll__funcs.html#ga1fc66dcae940c37c26bc7d8b840f83b0">Cy_SysClk_PllGetConfiguration</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a> returns old configuration values.</dd>
-<dd>
-This API is available only for CAT1C devices. </dd></dl>
+CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -1042,8 +1073,8 @@ This API is available only for CAT1C devices. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_SUCCESS - PLL successfully enabled <br />
 CY_SYSCLK_TIMEOUT - Timeout waiting for PLL lock <br />
-CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
 <dd>
@@ -1166,13 +1197,41 @@ true = lost lock</dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
 CY_SYSCLK_SUCCESS - PLL successfully disabled <br />
-CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present For the PSoC 64 devices there are possible situations when function returns the PRA error status code. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__system__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
+CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - ECO already enabled CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
 <dd>
 Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd></dl>
 <dl class="section user"><dt>Side Effects</dt><dd>This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT. If AUTO mode should be used, call <a class="el" href="group__group__sysclk__pll__funcs.html#gac5c498137bf7012e8e0f8b8e0dfba1f0">Cy_SysClk_PllConfigure</a> or <a class="el" href="group__group__sysclk__pll__funcs.html#gad21ad8110bfc4506947fbd0fb163d055">Cy_SysClk_PllManualConfigure</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga1e83e55b944bb47222d309ede5569d38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e83e55b944bb47222d309ede5569d38">&#9670;&nbsp;</a></span>Cy_SysClk_Pll400MGetFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_Pll400MGetFrequency </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pllNum</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the frequency of PLL400M. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pllNum</td><td>Selects which PLL to check.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>PLL400M Frequency</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1C devices. </dd></dl>
 
 </div>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_cmac_v2.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the source code to the API for the CMAC method
@@ -30,15 +30,17 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXCRYPTO)
+#if defined(CY_IP_MXCRYPTO)
 
 #include "cy_crypto_core_cmac_v2.h"
+
+#if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-#if (CPUSS_CRYPTO_AES == 1)
+#if (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_CMAC_C)
 
 #include "cy_crypto_core_aes_v2.h"
 #include "cy_crypto_core_hw_v2.h"
@@ -46,13 +48,6 @@ extern "C" {
 
 /* The bit string used to generate sub-keys */
 #define CY_CRYPTO_CMAC_RB  (0x87u)
-
-/* The structure to define used memory buffers */
-typedef struct
-{
-    cy_stc_crypto_v2_cmac_state_t cmacState;
-    uint8_t k[CY_CRYPTO_AES_BLOCK_SIZE];
-} cy_stc_crypto_v2_cmac_buffers_t;
 
 static void Cy_Crypto_Core_V2_Cmac_CalcSubKey(uint8_t *srcDstPtr);
 
@@ -86,6 +81,10 @@ static void Cy_Crypto_Core_V2_Cmac_CalcSubKey(uint8_t *srcDstPtr)
         /* Just one byte is valuable, the rest are zeros */
         srcDstPtr[(uint8_t)(CY_CRYPTO_AES_BLOCK_SIZE - 1U)] ^= CY_CRYPTO_CMAC_RB;
     }
+#if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
+    /* Flush the cache */
+    SCB_CleanDCache_by_Addr((volatile void *)srcDstPtr,(int32_t)CY_CRYPTO_AES_BLOCK_SIZE);
+#endif
 }
 
 /*******************************************************************************
@@ -104,6 +103,7 @@ static void Cy_Crypto_Core_V2_Cmac_CalcSubKey(uint8_t *srcDstPtr)
 void Cy_Crypto_Core_V2_Cmac_Init(cy_stc_crypto_v2_cmac_state_t* cmacState, uint8_t* k)
 {
     cmacState->k = k;
+
 }
 
 /*******************************************************************************
@@ -273,9 +273,10 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Cmac(CRYPTO_Type *base,
     cy_stc_crypto_v2_cmac_buffers_t *cmacBuffers  = &cmacBuffersData;
     cy_stc_crypto_v2_cmac_state_t   *cmacStateLoc = &cmacBuffers->cmacState;
 
-    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 18.6','No valid data expected after funtion return');
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 18.6','No valid data expected after function return');
     (void)Cy_Crypto_Core_V2_Aes_Init(base, key, keyLength, aesState, &aesBuffersData);
     Cy_Crypto_Core_V2_Aes_LoadEncKey(base, aesState);
+
 
     Cy_Crypto_Core_V2_Cmac_Init  (cmacStateLoc, cmacBuffers->k);
     Cy_Crypto_Core_V2_Cmac_Start (base, cmacStateLoc);
@@ -285,13 +286,15 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Cmac(CRYPTO_Type *base,
     return (CY_CRYPTO_SUCCESS);
 }
 
-#endif /* #if (CPUSS_CRYPTO_AES == 1) */
+#endif /* (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_CMAC_C) */
 
 #if defined(__cplusplus)
 }
 #endif
 
-#endif /* CY_IP_MXCRYPTO */
+#endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+
+#endif /* defined(CY_IP_MXCRYPTO) */
 
 
 /* [] END OF FILE */

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_key_gen.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC key
@@ -35,8 +35,12 @@
 extern "C" {
 #endif
 
+#if defined(CY_CRYPTO_CFG_ECDSA_C)
+
 #include "cy_crypto_core_ecc_nist_p.h"
 #include "cy_crypto_core_vu.h"
+
+#if defined(CY_CRYPTO_CFG_ECDSA_GENKEY_C)
 #include "cy_crypto_core_trng.h"
 
 #define CY_ECC_CONFIG_TR_GARO_CTL      0x6C740B8DuL
@@ -146,6 +150,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePrivateKey(CRYPTO_Type *base,
         }
         else
         {
+            #if defined(CY_CRYPTO_CFG_TRNG_C)
             uint32_t i = 0U;
             int32_t randomsize = (int32_t)bitsize;
             cy_en_crypto_status_t status = CY_CRYPTO_SUCCESS;
@@ -164,6 +169,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePrivateKey(CRYPTO_Type *base,
                     tmpResult = CY_CRYPTO_HW_ERROR;
                 }
             }
+            #else
+            tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+            #endif
         }
 
         if (CY_CRYPTO_SUCCESS == tmpResult)
@@ -218,8 +226,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePrivateKey(CRYPTO_Type *base,
 
     return (tmpResult);
 }
+#endif /* defined(CY_CRYPTO_CFG_ECDSA_GENKEY_C) */
 
-
+#if defined(CY_CRYPTO_CFG_ECDSA_GENKEY_C) || defined(CY_CRYPTO_CFG_ECDSA_SIGN_C)
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_ECC_MakePublicKey
 ****************************************************************************//**
@@ -305,6 +314,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePublicKey(CRYPTO_Type *base,
 
     return (tmpResult);
 }
+#endif /* defined(CY_CRYPTO_CFG_ECDSA_GENKEY_C) || defined(CY_CRYPTO_CFG_ECDSA_SIGN_C) */
+
+#endif /* defined(CY_CRYPTO_CFG_ECDSA_C) */
 
 #if defined(__cplusplus)
 }

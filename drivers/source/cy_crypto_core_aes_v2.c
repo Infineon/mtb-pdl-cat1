@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes_v2.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the source code fro the API for the AES method
@@ -27,15 +27,17 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXCRYPTO)
+#if defined(CY_IP_MXCRYPTO)
 
 #include "cy_crypto_core_aes_v2.h"
+
+#if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-#if (CPUSS_CRYPTO_AES == 1)
+#if (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_AES_C)
 
 #include "cy_crypto_core_hw_v2.h"
 #include "cy_crypto_core_mem_v2.h"
@@ -181,8 +183,15 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Init(CRYPTO_Type *base,
     CY_ASSERT_L3(CY_CRYPTO_IS_KEYLENGTH_VALID(keyLength));
 
     uint16_t keySize = CY_CRYPTO_AES_128_KEY_SIZE + ((uint16_t)keyLength * 8u);
-
+#if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
+    /* Flush the cache */
+    SCB_CleanDCache_by_Addr((volatile void *)key,(int32_t)keySize);
+#endif
     Cy_Crypto_Core_V2_MemSet(base, aesState, 0u, ((uint16_t)sizeof(cy_stc_crypto_aes_state_t)));
+
+#if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
+    SCB_InvalidateDCache_by_Addr((volatile void *)aesState, (int32_t)sizeof(cy_stc_crypto_aes_state_t));
+#endif
 
     aesState->buffers = (cy_stc_crypto_aes_buffers_t*) aesBuffers;
     aesState->keyLength = keyLength;
@@ -242,6 +251,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Ecb(CRYPTO_Type *base,
     return (CY_CRYPTO_SUCCESS);
 }
 
+#if defined(CY_CRYPTO_CFG_CIPHER_MODE_CBC)
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_V2_Aes_Cbc
 ****************************************************************************//**
@@ -350,7 +360,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Cbc(CRYPTO_Type *base,
 
     return (tmpResult);
 }
+#endif /* defined(CY_CRYPTO_CFG_CIPHER_MODE_CBC) */
 
+#if defined(CY_CRYPTO_CFG_CIPHER_MODE_CFB)
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_V2_Aes_Cfb
 ********************************************************************************
@@ -446,7 +458,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Cfb(CRYPTO_Type *base,
 
     return (tmpResult);
 }
+#endif /* defined(CY_CRYPTO_CFG_CIPHER_MODE_CFB) */
 
+#if defined(CY_CRYPTO_CFG_CIPHER_MODE_CTR)
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_V2_Aes_Ctr
 ********************************************************************************
@@ -550,15 +564,17 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Ctr(CRYPTO_Type *base,
 
     return (CY_CRYPTO_SUCCESS);
 }
-                                            
+#endif /* defined(CY_CRYPTO_CFG_CIPHER_MODE_CTR) */
 CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
-#endif /* #if (CPUSS_CRYPTO_AES == 1) */
+#endif /* (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_AES_C) */
 
 #if defined(__cplusplus)
 }
 #endif
 
-#endif /* CY_IP_MXCRYPTO */
+#endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+
+#endif /* defined(CY_IP_MXCRYPTO) */
 
 
 /* [] END OF FILE */

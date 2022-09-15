@@ -164,6 +164,145 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the CRC calculation. </p>
+<p>Call to initialize this encryption technique before using any associated functions. You must initialize this technique again after using any other encryption technique.</p>
+<p>Below is the table with known polynomials with different parameters and their calculated CRCs from the string <b>"123456789"</b>: </p><table class="doxtable">
+<tr>
+<th align="left">Name </th><th align="center">Width </th><th align="center">Poly </th><th align="center">Init </th><th align="center">Data Rev </th><th align="center">Data XOR </th><th align="center">Rem Rev </th><th align="center">Rem XOR </th><th align="center">Expected CRC  </th></tr>
+<tr>
+<td align="left">CRC-3 / ROHC </td><td align="center">3 </td><td align="center">0x3 </td><td align="center">0x7 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x6 </td></tr>
+<tr>
+<td align="left">CRC-4 / ITU </td><td align="center">4 </td><td align="center">0x3 </td><td align="center">0x0 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x7 </td></tr>
+<tr>
+<td align="left">CRC-5 / EPC </td><td align="center">5 </td><td align="center">0x9 </td><td align="center">0x9 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x0 </td></tr>
+<tr>
+<td align="left">CRC-5 / ITU </td><td align="center">5 </td><td align="center">0x15 </td><td align="center">0x0 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x7 </td></tr>
+<tr>
+<td align="left">CRC-5 / USB </td><td align="center">5 </td><td align="center">0x5 </td><td align="center">0x1F </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x1F </td><td align="center">0x19 </td></tr>
+<tr>
+<td align="left">CRC-6 / CDMA2000-A </td><td align="center">6 </td><td align="center">0x27 </td><td align="center">0x3F </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0xD </td></tr>
+<tr>
+<td align="left">CRC-6 / CDMA2000-B </td><td align="center">6 </td><td align="center">0x7 </td><td align="center">0x3F </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x3B </td></tr>
+<tr>
+<td align="left">CRC-6 / DARC </td><td align="center">6 </td><td align="center">0x19 </td><td align="center">0x0 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x26 </td></tr>
+<tr>
+<td align="left">CRC-6 / ITU </td><td align="center">6 </td><td align="center">0x3 </td><td align="center">0x0 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x6 </td></tr>
+<tr>
+<td align="left">CRC-7 </td><td align="center">7 </td><td align="center">0x9 </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x75 </td></tr>
+<tr>
+<td align="left">CRC-7 / ROHC </td><td align="center">7 </td><td align="center">0x4F </td><td align="center">0x7F </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x53 </td></tr>
+<tr>
+<td align="left">CRC-8 </td><td align="center">8 </td><td align="center">0x7 </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0xF4 </td></tr>
+<tr>
+<td align="left">CRC-8 / CDMA2000 </td><td align="center">8 </td><td align="center">0x9B </td><td align="center">0xFF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0xDA </td></tr>
+<tr>
+<td align="left">CRC-8 / DARC </td><td align="center">8 </td><td align="center">0x39 </td><td align="center">0x0 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x15 </td></tr>
+<tr>
+<td align="left">CRC-8 / DVB-S2 </td><td align="center">8 </td><td align="center">0xD5 </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0xBC </td></tr>
+<tr>
+<td align="left">CRC-8 / EBU </td><td align="center">8 </td><td align="center">0x1D </td><td align="center">0xFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x97 </td></tr>
+<tr>
+<td align="left">CRC-8 / I-CODE </td><td align="center">8 </td><td align="center">0x1D </td><td align="center">0xFD </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x7E </td></tr>
+<tr>
+<td align="left">CRC-8 / ITU </td><td align="center">8 </td><td align="center">0x7 </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x55 </td><td align="center">0xA1 </td></tr>
+<tr>
+<td align="left">CRC-8 / MAXIM </td><td align="center">8 </td><td align="center">0x31 </td><td align="center">0x0 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0xA1 </td></tr>
+<tr>
+<td align="left">CRC-8 / ROHC </td><td align="center">8 </td><td align="center">0x7 </td><td align="center">0xFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0xD0 </td></tr>
+<tr>
+<td align="left">CRC-8 / WCDMA </td><td align="center">8 </td><td align="center">0x9B </td><td align="center">0x0 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x25 </td></tr>
+<tr>
+<td align="left">CRC-10 </td><td align="center">10 </td><td align="center">0x233 </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x199 </td></tr>
+<tr>
+<td align="left">CRC-10 / CDMA2000 </td><td align="center">10 </td><td align="center">0x3D9 </td><td align="center">0x3FF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x233 </td></tr>
+<tr>
+<td align="left">CRC-11 </td><td align="center">11 </td><td align="center">0x385 </td><td align="center">0x1A </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x5A3 </td></tr>
+<tr>
+<td align="left">CRC-12 / 3GPP </td><td align="center">12 </td><td align="center">0x80F </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0xDAF </td></tr>
+<tr>
+<td align="left">CRC-12 / CDMA2000 </td><td align="center">12 </td><td align="center">0xF13 </td><td align="center">0xFFF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0xD4D </td></tr>
+<tr>
+<td align="left">CRC-12 / DECT </td><td align="center">12 </td><td align="center">0x80F </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0xF5B </td></tr>
+<tr>
+<td align="left">CRC-13 / BBC </td><td align="center">13 </td><td align="center">0x1CF5 </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x4FA </td></tr>
+<tr>
+<td align="left">CRC-14 / DARC </td><td align="center">14 </td><td align="center">0x805 </td><td align="center">0x0 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0 </td><td align="center">0x82D </td></tr>
+<tr>
+<td align="left">CRC-15 </td><td align="center">15 </td><td align="center">0x4599 </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x59E </td></tr>
+<tr>
+<td align="left">CRC-15 / MPT1327 </td><td align="center">15 </td><td align="center">0x6815 </td><td align="center">0x0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x1 </td><td align="center">0x2566 </td></tr>
+<tr>
+<td align="left">CRC-24 </td><td align="center">24 </td><td align="center">0x0864CFB </td><td align="center">0x00B704CE </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x21CF02 </td></tr>
+<tr>
+<td align="left">CRC-24 / FLEXRAY-A </td><td align="center">24 </td><td align="center">0x05D6DCB </td><td align="center">0x00FEDCBA </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x7979BD </td></tr>
+<tr>
+<td align="left">CRC-24 / FLEXRAY-B </td><td align="center">24 </td><td align="center">0x05D6DCB </td><td align="center">0x00ABCDEF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0 </td><td align="center">0x1F23B8 </td></tr>
+<tr>
+<td align="left">CRC-31 / PHILIPS </td><td align="center">31 </td><td align="center">0x4C11DB7 </td><td align="center">0x7FFFFFFF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x7FFFFFFF </td><td align="center">0xCE9E46C </td></tr>
+<tr>
+<td align="left">CRC-16 / ARC </td><td align="center">16 </td><td align="center">0x8005 </td><td align="center">0x0000 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0000 </td><td align="center">0xBB3D </td></tr>
+<tr>
+<td align="left">CRC-16 / AUG-CCITT </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0x1D0F </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0xE5CC </td></tr>
+<tr>
+<td align="left">CRC-16 / BUYPASS </td><td align="center">16 </td><td align="center">0x8005 </td><td align="center">0x0000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0xFEE8 </td></tr>
+<tr>
+<td align="left">CRC-16 / CCITT-0 </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0xFFFF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0x29B1 </td></tr>
+<tr>
+<td align="left">CRC-16 / CDMA2000 </td><td align="center">16 </td><td align="center">0xC867 </td><td align="center">0xFFFF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0x4C06 </td></tr>
+<tr>
+<td align="left">CRC-16 / DDS-110 </td><td align="center">16 </td><td align="center">0x8005 </td><td align="center">0x800D </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0x9ECF </td></tr>
+<tr>
+<td align="left">CRC-16 / DECT-R </td><td align="center">16 </td><td align="center">0x0589 </td><td align="center">0x0000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0001 </td><td align="center">0x007E </td></tr>
+<tr>
+<td align="left">CRC-16 / DECT-X </td><td align="center">16 </td><td align="center">0x0589 </td><td align="center">0x0000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0x007F </td></tr>
+<tr>
+<td align="left">CRC-16 / DNP </td><td align="center">16 </td><td align="center">0x3D65 </td><td align="center">0x0000 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0xFFFF </td><td align="center">0xEA82 </td></tr>
+<tr>
+<td align="left">CRC-16 / EN-13757 </td><td align="center">16 </td><td align="center">0x3D65 </td><td align="center">0x0000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0xFFFF </td><td align="center">0xC2B7 </td></tr>
+<tr>
+<td align="left">CRC-16 / GENIBUS </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0xFFFF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0xFFFF </td><td align="center">0xD64E </td></tr>
+<tr>
+<td align="left">CRC-16 / MAXIM </td><td align="center">16 </td><td align="center">0x8005 </td><td align="center">0x0000 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0xFFFF </td><td align="center">0x44C2 </td></tr>
+<tr>
+<td align="left">CRC-16 / MCRF4XX </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0xFFFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0000 </td><td align="center">0x6F91 </td></tr>
+<tr>
+<td align="left">CRC-16 / RIELLO </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0xB2AA </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0000 </td><td align="center">0x63D0 </td></tr>
+<tr>
+<td align="left">CRC-16 / T10-DIF </td><td align="center">16 </td><td align="center">0x8BB7 </td><td align="center">0x0000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0xD0DB </td></tr>
+<tr>
+<td align="left">CRC-16 / TELEDISK </td><td align="center">16 </td><td align="center">0xA097 </td><td align="center">0x0000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0x0FB3 </td></tr>
+<tr>
+<td align="left">CRC-16 / TMS37157 </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0x89EC </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0000 </td><td align="center">0x26B1 </td></tr>
+<tr>
+<td align="left">CRC-16 / USB </td><td align="center">16 </td><td align="center">0x8005 </td><td align="center">0xFFFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0xFFFF </td><td align="center">0xB4C8 </td></tr>
+<tr>
+<td align="left">CRC-A </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0xC6C6 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0000 </td><td align="center">0xBF05 </td></tr>
+<tr>
+<td align="left">CRC-16 / KERMIT </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0x0000 </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0000 </td><td align="center">0x2189 </td></tr>
+<tr>
+<td align="left">CRC-16 / MODBUS </td><td align="center">16 </td><td align="center">0x8005 </td><td align="center">0xFFFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x0000 </td><td align="center">0x4B37 </td></tr>
+<tr>
+<td align="left">CRC-16 / X-25 </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0xFFFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0xFFFF </td><td align="center">0x906E </td></tr>
+<tr>
+<td align="left">CRC-16 / XMODEM </td><td align="center">16 </td><td align="center">0x1021 </td><td align="center">0x0000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x0000 </td><td align="center">0x31C3 </td></tr>
+<tr>
+<td align="left">CRC-32 </td><td align="center">32 </td><td align="center">0x04C11DB7 </td><td align="center">0xFFFFFFFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0xFFFFFFFF </td><td align="center">0xCBF43926 </td></tr>
+<tr>
+<td align="left">CRC-32 / BZIP2 </td><td align="center">32 </td><td align="center">0x04C11DB7 </td><td align="center">0xFFFFFFFF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0xFFFFFFFF </td><td align="center">0xFC891918 </td></tr>
+<tr>
+<td align="left">CRC-32C </td><td align="center">32 </td><td align="center">0x1EDC6F41 </td><td align="center">0xFFFFFFFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0xFFFFFFFF </td><td align="center">0xE3069283 </td></tr>
+<tr>
+<td align="left">CRC-32D </td><td align="center">32 </td><td align="center">0xA833982B </td><td align="center">0xFFFFFFFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0xFFFFFFFF </td><td align="center">0x87315576 </td></tr>
+<tr>
+<td align="left">CRC-32 / MPEG-2 </td><td align="center">32 </td><td align="center">0x04C11DB7 </td><td align="center">0xFFFFFFFF </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x00000000 </td><td align="center">0x0376E6E7 </td></tr>
+<tr>
+<td align="left">CRC-32 / POSIX </td><td align="center">32 </td><td align="center">0x04C11DB7 </td><td align="center">0x00000000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0xFFFFFFFF </td><td align="center">0x765E7680 </td></tr>
+<tr>
+<td align="left">CRC-32Q </td><td align="center">32 </td><td align="center">0x814141AB </td><td align="center">0x00000000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x00000000 </td><td align="center">0x3010BF7F </td></tr>
+<tr>
+<td align="left">CRC-32 / JAMCRC </td><td align="center">32 </td><td align="center">0x04C11DB7 </td><td align="center">0xFFFFFFFF </td><td align="center">1 </td><td align="center">0 </td><td align="center">1 </td><td align="center">0x00000000 </td><td align="center">0x340BC6D9 </td></tr>
+<tr>
+<td align="left">CRC-32 / XFER </td><td align="center">32 </td><td align="center">0x000000AF </td><td align="center">0x00000000 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0 </td><td align="center">0x00000000 </td><td align="center">0xBD0BE338 </td></tr>
+</table>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -314,7 +453,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* CRC parameters for some CRC algorithms:</span></div><div class="line"><span class="comment">    +---------------------+-----+------------+------------+------+------+-----+------------+------------+</span></div><div class="line"><span class="comment">    | CRC algorithm Name  | CRC |  Polynom   |   Initial  | Data | Data | Rem |  Remainder |  Expected  |</span></div><div class="line"><span class="comment">    |                     | len |            |    seed    | REV  | XOR  | REV |    XOR     |    CRC     |</span></div><div class="line"><span class="comment">    | ------------------- | --- | ---------- |----------- | ---- | ---- | --- | ---------- | ---------- |</span></div><div class="line"><span class="comment">    | CRC-6  / CDMA2000-A |  6  |    0x27    |    0x3F    |   0  |   0  |  0  |    0x00    |    0x0D    |</span></div><div class="line"><span class="comment">    | CRC-6  / CDMA2000-B |  6  |    0x07    |    0x3F    |   0  |   0  |  0  |    0x00    |    0x3B    |</span></div><div class="line"><span class="comment">    | CRC-6  / DARC       |  6  |    0x19    |    0x00    |   1  |   0  |  1  |    0x00    |    0x26    |</span></div><div class="line"><span class="comment">    | CRC-6  / ITU        |  6  |    0x03    |    0x00    |   1  |   0  |  1  |    0x00    |    0x06    |</span></div><div class="line"><span class="comment">    | CRC-8  / ITU        |  8  |    0x07    |    0x00    |   0  |   0  |  0  |    0x55    |    0xA1    |</span></div><div class="line"><span class="comment">    | CRC-8  / MAXIM      |  8  |    0x31    |    0x00    |   1  |   0  |  1  |    0x00    |    0xA1    |</span></div><div class="line"><span class="comment">    | CRC-8  / ROHC       |  8  |    0x07    |    0xFF    |   1  |   0  |  1  |    0x00    |    0xD0    |</span></div><div class="line"><span class="comment">    | CRC-8  / WCDMA      |  8  |    0x9B    |    0x00    |   1  |   0  |  1  |    0x00    |    0x25    |</span></div><div class="line"><span class="comment">    | CRC-16 / CCITT-0    | 16  |   0x1021   |   0xFFFF   |   0  |   0  |  0  |   0x0000   |   0x29B1   |</span></div><div class="line"><span class="comment">    | CRC-16 / CDMA2000   | 16  |   0xC867   |   0xFFFF   |   0  |   0  |  0  |   0x0000   |   0x4C06   |</span></div><div class="line"><span class="comment">    | CRC-32              | 32  | 0x04C11DB7 | 0xFFFFFFFF |   1  |   0  |  1  | 0xFFFFFFFF | 0xCBF43926 |</span></div><div class="line"><span class="comment">    | CRC-32 / BZIP2      | 32  | 0x04C11DB7 | 0xFFFFFFFF |   0  |   0  |  0  | 0xFFFFFFFF | 0xFC891918 |</span></div><div class="line"><span class="comment">    +---------------------+-----+------------+------------+------+------+-----+------------+------------+</span></div><div class="line"><span class="comment">    */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Use &quot;CRC-16/CCITT-0&quot; calculation */</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_WIDTH           (16u)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_POLYNOMIAL      (0x1021)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_LFSR_SEED       (0xffff)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_DATA_REVERSE    (0u)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_DATA_XOR        (0u)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_REM_REVERSE     (0u)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_REM_XOR         (0x0000)</span></div><div class="line"></div><div class="line">    uint8_t message[9] = <span class="stringliteral">&quot;123456789&quot;</span>;</div><div class="line">    uint32_t calculatedCrc = 0;</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line">    <span class="comment">/* Initialization Crypto operation */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__crc__functions.html#ga881e13920b637d25be9d8f98f5b10c91">Cy_Crypto_Core_Crc_CalcInit</a>(</div><div class="line">                             CRYPTO_HW,</div><div class="line">                             CRC16CCITT_WIDTH,</div><div class="line">                             CRC16CCITT_POLYNOMIAL,</div><div class="line">                             CRC16CCITT_DATA_REVERSE,</div><div class="line">                             CRC16CCITT_DATA_XOR,</div><div class="line">                             CRC16CCITT_REM_REVERSE,</div><div class="line">                             CRC16CCITT_REM_XOR,</div><div class="line">                             CRC16CCITT_LFSR_SEED);</div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Calculate CRC */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__crc__functions.html#ga4f97802fcf9f38711103e24f1ad9c584">Cy_Crypto_Core_Crc_Calc</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             CRC16CCITT_WIDTH,            <span class="comment">/* CRC width in bits*/</span></div><div class="line">                             &amp;calculatedCrc,         <span class="comment">/* Pointer to CRC result */</span></div><div class="line">                             (<span class="keywordtype">void</span>*)message,            <span class="comment">/* Pointer to message */</span></div><div class="line">                             <span class="keyword">sizeof</span>(message));             <span class="comment">/* Size of message */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -508,7 +648,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* CRC parameters for some CRC algorithms:</span></div><div class="line"><span class="comment">    +---------------------+-----+------------+------------+------+------+-----+------------+------------+</span></div><div class="line"><span class="comment">    | CRC algorithm Name  | CRC |  Polynom   |   Initial  | Data | Data | Rem |  Remainder |  Expected  |</span></div><div class="line"><span class="comment">    |                     | len |            |    seed    | REV  | XOR  | REV |    XOR     |    CRC     |</span></div><div class="line"><span class="comment">    | ------------------- | --- | ---------- |----------- | ---- | ---- | --- | ---------- | ---------- |</span></div><div class="line"><span class="comment">    | CRC-6  / CDMA2000-A |  6  |    0x27    |    0x3F    |   0  |   0  |  0  |    0x00    |    0x0D    |</span></div><div class="line"><span class="comment">    | CRC-6  / CDMA2000-B |  6  |    0x07    |    0x3F    |   0  |   0  |  0  |    0x00    |    0x3B    |</span></div><div class="line"><span class="comment">    | CRC-6  / DARC       |  6  |    0x19    |    0x00    |   1  |   0  |  1  |    0x00    |    0x26    |</span></div><div class="line"><span class="comment">    | CRC-6  / ITU        |  6  |    0x03    |    0x00    |   1  |   0  |  1  |    0x00    |    0x06    |</span></div><div class="line"><span class="comment">    | CRC-8  / ITU        |  8  |    0x07    |    0x00    |   0  |   0  |  0  |    0x55    |    0xA1    |</span></div><div class="line"><span class="comment">    | CRC-8  / MAXIM      |  8  |    0x31    |    0x00    |   1  |   0  |  1  |    0x00    |    0xA1    |</span></div><div class="line"><span class="comment">    | CRC-8  / ROHC       |  8  |    0x07    |    0xFF    |   1  |   0  |  1  |    0x00    |    0xD0    |</span></div><div class="line"><span class="comment">    | CRC-8  / WCDMA      |  8  |    0x9B    |    0x00    |   1  |   0  |  1  |    0x00    |    0x25    |</span></div><div class="line"><span class="comment">    | CRC-16 / CCITT-0    | 16  |   0x1021   |   0xFFFF   |   0  |   0  |  0  |   0x0000   |   0x29B1   |</span></div><div class="line"><span class="comment">    | CRC-16 / CDMA2000   | 16  |   0xC867   |   0xFFFF   |   0  |   0  |  0  |   0x0000   |   0x4C06   |</span></div><div class="line"><span class="comment">    | CRC-32              | 32  | 0x04C11DB7 | 0xFFFFFFFF |   1  |   0  |  1  | 0xFFFFFFFF | 0xCBF43926 |</span></div><div class="line"><span class="comment">    | CRC-32 / BZIP2      | 32  | 0x04C11DB7 | 0xFFFFFFFF |   0  |   0  |  0  | 0xFFFFFFFF | 0xFC891918 |</span></div><div class="line"><span class="comment">    +---------------------+-----+------------+------------+------+------+-----+------------+------------+</span></div><div class="line"><span class="comment">    */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Use &quot;CRC-16/CCITT-0&quot; calculation */</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_WIDTH           (16u)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_POLYNOMIAL      (0x1021)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_LFSR_SEED       (0xffff)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_DATA_REVERSE    (0u)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_DATA_XOR        (0u)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_REM_REVERSE     (0u)</span></div><div class="line"><span class="preprocessor">    #define CRC16CCITT_REM_XOR         (0x0000)</span></div><div class="line"></div><div class="line">    uint8_t message[9] = <span class="stringliteral">&quot;123456789&quot;</span>;</div><div class="line">    uint32_t calculatedCrc = 0;</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line">    <span class="comment">/* Initialization Crypto operation */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__crc__functions.html#ga881e13920b637d25be9d8f98f5b10c91">Cy_Crypto_Core_Crc_CalcInit</a>(</div><div class="line">                             CRYPTO_HW,</div><div class="line">                             CRC16CCITT_WIDTH,</div><div class="line">                             CRC16CCITT_POLYNOMIAL,</div><div class="line">                             CRC16CCITT_DATA_REVERSE,</div><div class="line">                             CRC16CCITT_DATA_XOR,</div><div class="line">                             CRC16CCITT_REM_REVERSE,</div><div class="line">                             CRC16CCITT_REM_XOR,</div><div class="line">                             CRC16CCITT_LFSR_SEED);</div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Calculate CRC */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__crc__functions.html#ga4f97802fcf9f38711103e24f1ad9c584">Cy_Crypto_Core_Crc_Calc</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             CRC16CCITT_WIDTH,            <span class="comment">/* CRC width in bits*/</span></div><div class="line">                             &amp;calculatedCrc,         <span class="comment">/* Pointer to CRC result */</span></div><div class="line">                             (<span class="keywordtype">void</span>*)message,            <span class="comment">/* Pointer to message */</span></div><div class="line">                             <span class="keyword">sizeof</span>(message));             <span class="comment">/* Size of message */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

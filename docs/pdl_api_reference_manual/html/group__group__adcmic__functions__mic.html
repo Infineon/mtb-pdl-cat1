@@ -94,12 +94,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga762d2396a064c93f512813427c08640e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__adcmic__enums.html#gaf46b38a86a6fbdfee98d9b37ae44a154">cy_en_adcmic_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__adcmic__functions__mic.html#ga762d2396a064c93f512813427c08640e">Cy_ADCMic_SetPgaGain</a> (<a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> *base, <a class="el" href="group__group__adcmic__enums.html#gadeb06cc1ffc25c6cceffeb34f0fa36d8">cy_en_adcmic_pga_gain_t</a> gain)</td></tr>
 <tr class="memdesc:ga762d2396a064c93f512813427c08640e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the PGA gain (0dB to 42dB in steps of 1dB)  <a href="#ga762d2396a064c93f512813427c08640e">More...</a><br /></td></tr>
 <tr class="separator:ga762d2396a064c93f512813427c08640e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga23adf7e06d1516ad0d7df0326183bbb1"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__adcmic__functions__mic.html#ga23adf7e06d1516ad0d7df0326183bbb1">Cy_ADCMic_SleepMic</a> (<a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> *base)</td></tr>
-<tr class="memdesc:ga23adf7e06d1516ad0d7df0326183bbb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shuts down the MIC bias and PGA.  <a href="#ga23adf7e06d1516ad0d7df0326183bbb1">More...</a><br /></td></tr>
-<tr class="separator:ga23adf7e06d1516ad0d7df0326183bbb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab19884a632521853559e34295e5f0ed5"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__adcmic__functions__mic.html#gab19884a632521853559e34295e5f0ed5">Cy_ADCMic_WakeUpMic</a> (<a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> *base)</td></tr>
-<tr class="memdesc:gab19884a632521853559e34295e5f0ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns on the MIC bias and PGA.  <a href="#gab19884a632521853559e34295e5f0ed5">More...</a><br /></td></tr>
-<tr class="separator:gab19884a632521853559e34295e5f0ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga762d2396a064c93f512813427c08640e"></a>
@@ -138,60 +132,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The status <a class="el" href="group__group__adcmic__enums.html#gaf46b38a86a6fbdfee98d9b37ae44a154">cy_en_adcmic_status_t</a>.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to increase the PGA gain to 12 db: */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__adcmic__enums.html#ggaf46b38a86a6fbdfee98d9b37ae44a154a5372a55427aca75e12013c2bb7844157">CY_ADCMIC_SUCCESS</a> != <a class="code" href="group__group__adcmic__functions__mic.html#ga762d2396a064c93f512813427c08640e">Cy_ADCMic_SetPgaGain</a>(MXS40ADCMIC0, <a class="code" href="group__group__adcmic__enums.html#ggadeb06cc1ffc25c6cceffeb34f0fa36d8a26444563592679fe9ec3fd53ff9e3544">CY_ADCMIC_PGA_GAIN_12</a>))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Something went wrong, insert error handling here */</span></div><div class="line">    }</div></div><!-- fragment --></dd></dl>
-
-</div>
-</div>
-<a id="ga23adf7e06d1516ad0d7df0326183bbb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga23adf7e06d1516ad0d7df0326183bbb1">&#9670;&nbsp;</a></span>Cy_ADCMic_SleepMic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE void Cy_ADCMic_SleepMic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> *&#160;</td>
-          <td class="paramname"><em>base</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Shuts down the MIC bias and PGA. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to the hardware ADCMic block.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is need to use analog MIC with PGA */</span></div><div class="line">    <a class="code" href="group__group__adcmic__functions__mic.html#gab19884a632521853559e34295e5f0ed5">Cy_ADCMic_WakeUpMic</a>(MXS40ADCMIC0);</div><div class="line"></div><div class="line">    <span class="comment">/* Scenario: shut down analog audio path to reduce power consumption */</span></div><div class="line">    <a class="code" href="group__group__adcmic__functions__mic.html#ga23adf7e06d1516ad0d7df0326183bbb1">Cy_ADCMic_SleepMic</a>(MXS40ADCMIC0);</div></div><!-- fragment --></dd></dl>
-
-</div>
-</div>
-<a id="gab19884a632521853559e34295e5f0ed5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab19884a632521853559e34295e5f0ed5">&#9670;&nbsp;</a></span>Cy_ADCMic_WakeUpMic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE void Cy_ADCMic_WakeUpMic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> *&#160;</td>
-          <td class="paramname"><em>base</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Turns on the MIC bias and PGA. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to the hardware ADCMic block.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is need to use analog MIC with PGA */</span></div><div class="line">    <a class="code" href="group__group__adcmic__functions__mic.html#gab19884a632521853559e34295e5f0ed5">Cy_ADCMic_WakeUpMic</a>(MXS40ADCMIC0);</div><div class="line"></div><div class="line">    <span class="comment">/* Scenario: shut down analog audio path to reduce power consumption */</span></div><div class="line">    <a class="code" href="group__group__adcmic__functions__mic.html#ga23adf7e06d1516ad0d7df0326183bbb1">Cy_ADCMic_SleepMic</a>(MXS40ADCMIC0);</div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_ecdsa.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC ECDSA
@@ -35,10 +35,13 @@
 extern "C" {
 #endif
 
+#if defined(CY_CRYPTO_CFG_ECDSA_C)
+
 #include "cy_crypto_core_ecc_nist_p.h"
 #include "cy_crypto_core_mem.h"
 #include "cy_crypto_core_vu.h"
 
+#if defined(CY_CRYPTO_CFG_ECDSA_SIGN_C)
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_ECC_SignHash
 ****************************************************************************//**
@@ -223,8 +226,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_SignHash(CRYPTO_Type *base, const uint8
 
     return (tmpResult);
 }
+#endif /* defined(CY_CRYPTO_CFG_ECDSA_SIGN_C) */
 
-
+#if defined(CY_CRYPTO_CFG_ECDSA_VERIFY_C)
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_ECC_VerifyHash
 ****************************************************************************//**
@@ -454,6 +458,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_VerifyHash(CRYPTO_Type *base,
 
     return (tmpResult);
 }
+#endif /* defined(CY_CRYPTO_CFG_ECDSA_VERIFY_C) */
+
+#endif /* defined(CY_CRYPTO_CFG_ECDSA_C) */
 
 #if defined(__cplusplus)
 }

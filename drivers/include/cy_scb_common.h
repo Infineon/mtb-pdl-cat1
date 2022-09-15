@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_common.h
-* \version 2.90
+* \version 3.0
 *
 * Provides common API declarations of the SCB driver.
 *
@@ -56,6 +56,15 @@
 *******************************************************************************
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">3.0</td>
+*     <td>Updated \ref Cy_SCB_SPI_Init and other internal data handling functions to handle wide range of data widths.</td>
+*     <td>Defect fixing.</td>
+*   </tr>
+*   <tr>
+*     <td>Minor documentation updates.</td>
+*     <td>Documentation enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">2.90</td>
 *     <td>A new API, \ref Cy_SCB_SetEzI2CMode, has been added to help set the hardware EZ mode for the I2C protocol.</td>
@@ -341,13 +350,13 @@ extern "C" {
 * \addtogroup group_scb_common_functions
 * \{
 */
-__STATIC_INLINE uint32_t Cy_SCB_ReadRxFifo    (CySCB_Type const *base);
+__STATIC_FORCEINLINE uint32_t Cy_SCB_ReadRxFifo    (CySCB_Type const *base);
 __STATIC_INLINE void     Cy_SCB_SetRxFifoLevel(CySCB_Type *base, uint32_t level);
 __STATIC_INLINE uint32_t Cy_SCB_GetNumInRxFifo(CySCB_Type const *base);
 __STATIC_INLINE uint32_t Cy_SCB_GetRxSrValid  (CySCB_Type const *base);
 __STATIC_INLINE void     Cy_SCB_ClearRxFifo   (CySCB_Type *base);
 
-__STATIC_INLINE void     Cy_SCB_WriteTxFifo   (CySCB_Type *base, uint32_t data);
+__STATIC_FORCEINLINE void     Cy_SCB_WriteTxFifo   (CySCB_Type *base, uint32_t data);
 __STATIC_INLINE void     Cy_SCB_SetTxFifoLevel(CySCB_Type *base, uint32_t level);
 __STATIC_INLINE uint32_t Cy_SCB_GetNumInTxFifo(CySCB_Type const *base);
 __STATIC_INLINE uint32_t Cy_SCB_GetTxSrValid  (CySCB_Type const *base);
@@ -439,10 +448,10 @@ __STATIC_INLINE uint32_t Cy_SCB_Get_TxDataWidth(CySCB_Type const *base);
 */
 
 /** Driver major version */
-#define CY_SCB_DRV_VERSION_MAJOR    (2)
+#define CY_SCB_DRV_VERSION_MAJOR    (3)
 
 /** Driver minor version */
-#define CY_SCB_DRV_VERSION_MINOR    (90)
+#define CY_SCB_DRV_VERSION_MINOR    (0)
 
 /** SCB driver identifier */
 #define CY_SCB_ID           CY_PDL_DRV_ID(0x2AU)
@@ -453,13 +462,13 @@ __STATIC_INLINE uint32_t Cy_SCB_Get_TxDataWidth(CySCB_Type const *base);
 /** EZI2C mode identifier */
 #define CY_SCB_EZI2C_ID     (0x0UL << CY_SCB_SUB_MODE_Pos)
 
-/** EZI2C mode identifier */
+/** I2C mode identifier */
 #define CY_SCB_I2C_ID       (0x1UL << CY_SCB_SUB_MODE_Pos)
 
-/** EZI2C mode identifier */
+/** SPI mode identifier */
 #define CY_SCB_SPI_ID       (0x2UL << CY_SCB_SUB_MODE_Pos)
 
-/** EZI2C mode identifier */
+/** UART mode identifier */
 #define CY_SCB_UART_ID      (0x3UL << CY_SCB_SUB_MODE_Pos)
 
 /**
@@ -839,7 +848,7 @@ __STATIC_INLINE uint32_t Cy_SCB_Get_TxDataWidth(CySCB_Type const *base);
 * Data from RX FIFO.
 *
 *******************************************************************************/
-__STATIC_INLINE uint32_t Cy_SCB_ReadRxFifo(CySCB_Type const *base)
+__STATIC_FORCEINLINE uint32_t Cy_SCB_ReadRxFifo(CySCB_Type const *base)
 {
     return (SCB_RX_FIFO_RD(base));
 }
@@ -942,7 +951,7 @@ __STATIC_INLINE void Cy_SCB_ClearRxFifo(CySCB_Type* base)
 * Data to write to the TX FIFO.
 *
 *******************************************************************************/
-__STATIC_INLINE void Cy_SCB_WriteTxFifo(CySCB_Type* base, uint32_t data)
+__STATIC_FORCEINLINE void Cy_SCB_WriteTxFifo(CySCB_Type* base, uint32_t data)
 {
     SCB_TX_FIFO_WR(base) = data;
 }

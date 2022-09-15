@@ -91,13 +91,11 @@ $(document).ready(function(){initNavTree('structcy__stc__ipc__pipe__config__t.ht
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ac585fb98c4029e06b8153e4e5d64f165"><td class="memItemLeft" align="right" valign="top"><a id="ac585fb98c4029e06b8153e4e5d64f165"></a>
-<a class="el" href="structcy__stc__ipc__pipe__ep__config__t.html">cy_stc_ipc_pipe_ep_config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__ipc__pipe__config__t.html#ac585fb98c4029e06b8153e4e5d64f165">ep0ConfigData</a></td></tr>
-<tr class="memdesc:ac585fb98c4029e06b8153e4e5d64f165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the notify interrupt number for the first endpoint. <br /></td></tr>
+<tr class="memitem:ac585fb98c4029e06b8153e4e5d64f165"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcy__stc__ipc__pipe__ep__config__t.html">cy_stc_ipc_pipe_ep_config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__ipc__pipe__config__t.html#ac585fb98c4029e06b8153e4e5d64f165">ep0ConfigData</a></td></tr>
+<tr class="memdesc:ac585fb98c4029e06b8153e4e5d64f165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the notify interrupt number for the receiver endpoint.  <a href="#ac585fb98c4029e06b8153e4e5d64f165">More...</a><br /></td></tr>
 <tr class="separator:ac585fb98c4029e06b8153e4e5d64f165"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefa7a75db152315e2e3e3ae46820a4ce"><td class="memItemLeft" align="right" valign="top"><a id="aefa7a75db152315e2e3e3ae46820a4ce"></a>
-<a class="el" href="structcy__stc__ipc__pipe__ep__config__t.html">cy_stc_ipc_pipe_ep_config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__ipc__pipe__config__t.html#aefa7a75db152315e2e3e3ae46820a4ce">ep1ConfigData</a></td></tr>
-<tr class="memdesc:aefa7a75db152315e2e3e3ae46820a4ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the notify interrupt number for the second endpoint. <br /></td></tr>
+<tr class="memitem:aefa7a75db152315e2e3e3ae46820a4ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcy__stc__ipc__pipe__ep__config__t.html">cy_stc_ipc_pipe_ep_config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__ipc__pipe__config__t.html#aefa7a75db152315e2e3e3ae46820a4ce">ep1ConfigData</a></td></tr>
+<tr class="memdesc:aefa7a75db152315e2e3e3ae46820a4ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the notify interrupt number for the send endpoint.  <a href="#aefa7a75db152315e2e3e3ae46820a4ce">More...</a><br /></td></tr>
 <tr class="separator:aefa7a75db152315e2e3e3ae46820a4ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d8f58b169ab2e50427ece461550d22c"><td class="memItemLeft" align="right" valign="top"><a id="a9d8f58b169ab2e50427ece461550d22c"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__ipc__pipe__config__t.html#a9d8f58b169ab2e50427ece461550d22c">endpointClientsCount</a></td></tr>
@@ -111,6 +109,40 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="separator:aec89378774fd910f4037abf56114d868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
+<a id="ac585fb98c4029e06b8153e4e5d64f165"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac585fb98c4029e06b8153e4e5d64f165">&#9670;&nbsp;</a></span>ep0ConfigData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcy__stc__ipc__pipe__ep__config__t.html">cy_stc_ipc_pipe_ep_config_t</a> cy_stc_ipc_pipe_config_t::ep0ConfigData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the notify interrupt number for the receiver endpoint. </p>
+<p>Only for CAT1A device, it is used as first endpoint. </p>
+
+</div>
+</div>
+<a id="aefa7a75db152315e2e3e3ae46820a4ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefa7a75db152315e2e3e3ae46820a4ce">&#9670;&nbsp;</a></span>ep1ConfigData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcy__stc__ipc__pipe__ep__config__t.html">cy_stc_ipc_pipe_ep_config_t</a> cy_stc_ipc_pipe_config_t::ep1ConfigData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the notify interrupt number for the send endpoint. </p>
+<p>Only for CAT1A device, it is used as second endpoint. </p>
+
+</div>
+</div>
 <a id="a9027c672e8ad600c381c33feecf10e94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9027c672e8ad600c381c33feecf10e94">&#9670;&nbsp;</a></span>endpointsCallbacksArray</h2>
 

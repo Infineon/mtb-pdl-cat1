@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_mem_v2.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the source code to the API for the PRNG
@@ -27,9 +27,11 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXCRYPTO)
+#if defined(CY_IP_MXCRYPTO)
 
 #include "cy_crypto_core_mem_v2.h"
+
+#if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
 
 #if defined(__cplusplus)
 extern "C" {
@@ -66,6 +68,25 @@ void Cy_Crypto_Core_V2_MemCpy(CRYPTO_Type *base, void* dst, void const *src, uin
 {
     if (size != 0U)
     {
+    
+#if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
+        /* Flush the cache */
+        if(((uint32_t)src & 0x1FU) == 0u)
+        {
+
+            SCB_CleanDCache_by_Addr((volatile void *)src,(int32_t)size);
+
+        }
+
+        if(((uint32_t)dst & 0x1FU) == 0u)
+        {
+
+            SCB_InvalidateDCache_by_Addr((volatile void *)dst,(int32_t)size);
+
+        }
+
+#endif
+
         Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, (const uint8_t*)src, (uint32_t)size);
         Cy_Crypto_Core_V2_FFStart   (base, CY_CRYPTO_V2_RB_FF_STORE, (const uint8_t*)dst, (uint32_t)size);
 
@@ -81,6 +102,7 @@ void Cy_Crypto_Core_V2_MemCpy(CRYPTO_Type *base, void* dst, void const *src, uin
         }
 
         Cy_Crypto_Core_V2_Sync(base);
+
     }
 }
 
@@ -108,6 +130,16 @@ void Cy_Crypto_Core_V2_MemSet(CRYPTO_Type *base, void* dst, uint8_t data, uint16
 {
     if (size != 0U)
     {
+    #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
+        if(((uint32_t)dst & 0x1FU) == 0u)
+        {
+
+            SCB_InvalidateDCache_by_Addr((volatile void *)dst,(int32_t)size);
+
+        }
+
+    #endif
+
         Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_STORE, dst, (uint32_t)size);
 
         while (size >= CY_CRYPTO_V2_DATA_FIFODEPTH)
@@ -122,6 +154,9 @@ void Cy_Crypto_Core_V2_MemSet(CRYPTO_Type *base, void* dst, uint8_t data, uint16
         }
 
         Cy_Crypto_Core_V2_Sync(base);
+
+        
+
     }
 }
 
@@ -154,6 +189,25 @@ uint32_t Cy_Crypto_Core_V2_MemCmp(CRYPTO_Type *base, void const *src0, void cons
 
     if (size != 0U)
     {
+
+#if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
+    /* Flush the cache */
+    if(((uint32_t)src0 & 0x1FU) == 0u)
+    {
+
+        SCB_CleanDCache_by_Addr((volatile void *)src0,(int32_t)size);
+
+    }
+
+    if(((uint32_t)src1 & 0x1FU) == 0u)
+    {
+
+        SCB_CleanDCache_by_Addr((volatile void *)src1,(int32_t)size);
+
+    }
+
+#endif
+
         REG_CRYPTO_RESULT(base) = 0UL;
 
         Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, (const uint8_t*)src0, (uint32_t)size);
@@ -207,6 +261,27 @@ void Cy_Crypto_Core_V2_MemXor(CRYPTO_Type *base,
 {
     if (size != 0U)
     {
+    
+    #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
+        /* Flush the cache */
+        if(((uint32_t)src0 & 0x1FU) == 0u)
+        {
+            SCB_CleanDCache_by_Addr((volatile void *)src0,(int32_t)size);
+        }
+
+        if(((uint32_t)src1 & 0x1FU) == 0u)
+        {
+            SCB_CleanDCache_by_Addr((volatile void *)src1,(int32_t)size);
+        }
+
+        if(((uint32_t)dst & 0x1FU) == 0u)
+        {
+            SCB_InvalidateDCache_by_Addr((volatile void *)dst,(int32_t)size);
+        }
+
+
+    #endif
+
         Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, (const uint8_t*)src0, (uint32_t)size);
         Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD1, (const uint8_t*)src1, (uint32_t)size);
         Cy_Crypto_Core_V2_FFStart   (base, CY_CRYPTO_V2_RB_FF_STORE, dst, (uint32_t)size);
@@ -226,6 +301,7 @@ void Cy_Crypto_Core_V2_MemXor(CRYPTO_Type *base,
         }
 
         Cy_Crypto_Core_V2_Sync(base);
+
     }
 }
 CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
@@ -234,7 +310,8 @@ CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
 }
 #endif
 
-#endif /* CY_IP_MXCRYPTO */
+#endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
 
+#endif /* defined(CY_IP_MXCRYPTO) */
 
 /* [] END OF FILE */

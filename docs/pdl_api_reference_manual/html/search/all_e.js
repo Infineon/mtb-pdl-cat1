@@ -1,6 +1,7 @@
 var searchData=
 [
   ['offset_20and_20slope_20trim_20functions',['Offset and Slope Trim Functions',['../group__group__ctb__functions__trim.html',1,'']]],
+  ['ovd',['OVD',['../group__group__syspm__functions__ovd.html',1,'']]],
   ['output_20trigger_20modes',['Output Trigger Modes',['../group__group__tcpwm__output__trigger__modes.html',1,'']]],
   ['one_2dto_2done_20trigger_20lines',['One-To-One Trigger Lines',['../group__group__trigmux__1to1__enums.html',1,'']]],
   ['oa0compbypass',['oa0CompBypass',['../structcy__stc__ctb__config__t.html#a0e9d958bf458e55181b0fb3504ad0da1',1,'cy_stc_ctb_config_t']]],
@@ -29,16 +30,19 @@ var searchData=
   ['oamode',['oaMode',['../structcy__stc__ctb__opamp__config__t.html#ad33d6b5797035ce6fda1ecc140462340',1,'cy_stc_ctb_opamp_config_t']]],
   ['oapower',['oaPower',['../structcy__stc__ctb__opamp__config__t.html#aef62aae08649c72b650d6c15f4e814a9',1,'cy_stc_ctb_opamp_config_t']]],
   ['oapump',['oaPump',['../structcy__stc__ctb__opamp__config__t.html#a6652cab285a285f59407ee3b373f91d2',1,'cy_stc_ctb_opamp_config_t']]],
+  ['offset',['offset',['../structcy__stc__adcmic__context__t.html#aab3167c806d002846266e31cfbfa1c3c',1,'cy_stc_adcmic_context_t::offset()'],['../structcy__stc__sar2__digital__calibration__config__t.html#ae4451387e8ea2a8668d7b94a50fffbc0',1,'cy_stc_sar2_digital_calibration_config_t::offset()'],['../structcy__stc__sar2__analog__calibration__conifg__t.html#ad51f624937651cd514f4b863afc47692',1,'cy_stc_sar2_analog_calibration_conifg_t::offset()']]],
   ['opcode',['opcode',['../structcy__stc__smartio__lutcfg__t.html#a287e2d703c0edf6b3a7f93e9823dc8a6',1,'cy_stc_smartio_lutcfg_t::opcode()'],['../structcy__stc__smartio__ducfg__t.html#a59a970ac12e4c3adcbc7420514efc1b1',1,'cy_stc_smartio_ducfg_t::opcode()']]],
   ['order',['order',['../structcy__stc__crypto__ecc__dp__type.html#a3443f7da3a3fc50869c2a04ea497654c',1,'cy_stc_crypto_ecc_dp_type::order()'],['../structcy__stc__syspm__callback__t.html#a13e6dfd81747d61783aac9ca28931fe4',1,'cy_stc_syspm_callback_t::order()']]],
   ['out',['out',['../structcy__stc__gpio__prt__config__t.html#a3ad84c6941c092aeb4b7d04b0727f58c',1,'cy_stc_gpio_prt_config_t']]],
   ['outputbuffer',['outputBuffer',['../structcy__stc__ctdac__config__t.html#a3f80e68bce9f56439d398758b9f001ac',1,'cy_stc_ctdac_config_t::outputBuffer()'],['../structcy__stc__ctdac__fast__config__t.html#a4e2836a6961f5a03a9e60557a0e10d6d',1,'cy_stc_ctdac_fast_config_t::outputBuffer()']]],
   ['outputdiv',['outputDiv',['../structcy__stc__pll__manual__config__t.html#abe8bbccfd7d952e84515784c13c99ea9',1,'cy_stc_pll_manual_config_t']]],
+  ['outputenable',['OutputEnable',['../structcy__stc___sys_fault__t.html#a27254af68e1ff952a603516824007ebd',1,'cy_stc_SysFault_t']]],
   ['outputfreq',['outputFreq',['../structcy__stc__pll__config__t.html#a7dc6ebb635cc86d5895c38839c2f7b12',1,'cy_stc_pll_config_t']]],
   ['outputmode',['outputMode',['../structcy__stc__ctdac__config__t.html#a476cbfb0637fc0b5ab977603acfb650d',1,'cy_stc_ctdac_config_t::outputMode()'],['../structcy__stc__lpcomp__config__t.html#a480331bf074a8da85d644604ccbd4be1',1,'cy_stc_lpcomp_config_t::outputMode()'],['../structcy__stc__pra__system__config__t.html#aebe424d7bbe9a21cced548331c77b67e',1,'cy_stc_pra_system_config_t::outputMode()'],['../structcy__stc__fll__manual__config__t.html#a360c2401fd72307f663bdd153fe9a04e',1,'cy_stc_fll_manual_config_t::outputMode()'],['../structcy__stc__pll__config__t.html#ac2a175b4b9836e20035f26c91e0f72f9',1,'cy_stc_pll_config_t::outputMode()'],['../structcy__stc__pll__manual__config__t.html#a9e2b4c76d69fcbd676eb18cf91537c12',1,'cy_stc_pll_manual_config_t::outputMode()']]],
   ['outtrigmux',['outTrigMux',['../structcy__stc__usbfs__dev__drv__dma__config__t.html#ae0d28e5f57a66f4a71e9a6fd319f06c5',1,'cy_stc_usbfs_dev_drv_dma_config_t']]],
   ['outval',['outVal',['../structcy__stc__gpio__pin__config__t.html#ae39ff5dc65ffef2808a0183f23691389',1,'cy_stc_gpio_pin_config_t']]],
   ['overflow',['overflow',['../structcy__stc__profile__ctr__t.html#a717ea8d346c652b12c099ac2ea1e9582',1,'cy_stc_profile_ctr_t']]],
+  ['overlapdiagmode',['overlapDiagMode',['../structcy__stc__sar2__channel__config__t.html#a98f3bd2e1545a417698a1393a00734ba',1,'cy_stc_sar2_channel_config_t']]],
   ['override',['override',['../structcy__stc__syspm__core__buck__params__t.html#ace2f0f2f88f0e8960ece515e28cef9b4',1,'cy_stc_syspm_core_buck_params_t']]],
   ['oversample',['oversample',['../structcy__stc__scb__spi__config__t.html#ac6a475cbca4d11fc3c339007694e33c4',1,'cy_stc_scb_spi_config_t::oversample()'],['../structcy__stc__scb__uart__config__t.html#a3174ca2a227f57bf9682c2dee729b2ff',1,'cy_stc_scb_uart_config_t::oversample()']]]
 ];

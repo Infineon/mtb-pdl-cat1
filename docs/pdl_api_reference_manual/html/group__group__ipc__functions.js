@@ -14,10 +14,10 @@ var group__group__ipc__functions =
     [ "Cy_IPC_Drv_ReadMsgDWord", "group__group__ipc__functions.html#ga169756dae596703caf8aa0479f95c917", null ],
     [ "Cy_IPC_Drv_SendMsgPtr", "group__group__ipc__functions.html#gab9e1b6079cd81d9b918b354d9437744d", null ],
     [ "Cy_IPC_Drv_ReadMsgPtr", "group__group__ipc__functions.html#ga2641f60d4f3147aaea537d4c66d2b3a1", null ],
-    [ "Cy_IPC_Drv_SetInterruptMask", "group__group__ipc__functions.html#ga6e910b181ed0ef66a0fa9a2cc9afa105", null ],
+    [ "Cy_IPC_Drv_SetInterruptMask", "group__group__ipc__functions.html#ga741e9137775cdfab6275adaf45dd5406", null ],
     [ "Cy_IPC_Drv_GetInterruptMask", "group__group__ipc__functions.html#ga0a79aaa6be9b9d40fe8c8ff17fce058b", null ],
     [ "Cy_IPC_Drv_GetInterruptStatusMasked", "group__group__ipc__functions.html#ga423a1a0df8939384794e95f7e05b1e03", null ],
     [ "Cy_IPC_Drv_GetInterruptStatus", "group__group__ipc__functions.html#ga0caa401ab6f35b70e99768a0c442c71a", null ],
-    [ "Cy_IPC_Drv_SetInterrupt", "group__group__ipc__functions.html#ga4223d653355f0cd7890b57ab1e8d1ff6", null ],
-    [ "Cy_IPC_Drv_ClearInterrupt", "group__group__ipc__functions.html#gaa3dbb5de3a3b0336daa2758e72dded45", null ]
+    [ "Cy_IPC_Drv_SetInterrupt", "group__group__ipc__functions.html#ga5fb9bd90c225d8cc4bc8c9ef1a829948", null ],
+    [ "Cy_IPC_Drv_ClearInterrupt", "group__group__ipc__functions.html#ga408e08c5842189246a35ca2be89d62ea", null ]
 ];

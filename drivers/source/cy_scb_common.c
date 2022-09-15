@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_common.c
-* \version 2.90
+* \version 3.0
 *
 * Provides common API implementation of the SCB driver.
 *
@@ -79,7 +79,7 @@ void Cy_SCB_ReadArrayNoCheck(CySCB_Type const *base, void *buffer, uint32_t size
 #elif(CY_IP_MXSCB_VERSION>=2)
     uint32_t datawidth = Cy_SCB_Get_RxDataWidth(base);
 
-    if (datawidth == CY_SCB_BYTE_WIDTH)
+    if (datawidth <= CY_SCB_BYTE_WIDTH)
     {
         uint8_t *buf = (uint8_t *) buffer;
 
@@ -89,7 +89,7 @@ void Cy_SCB_ReadArrayNoCheck(CySCB_Type const *base, void *buffer, uint32_t size
             buf[idx] = (uint8_t) Cy_SCB_ReadRxFifo(base);
         }
     }
-    else if(datawidth == CY_SCB_HALF_WORD_WIDTH)
+    else if(datawidth <= CY_SCB_HALF_WORD_WIDTH)
     {
         uint16_t *buf = (uint16_t *) buffer;
 
@@ -283,7 +283,7 @@ void Cy_SCB_WriteArrayNoCheck(CySCB_Type *base, void *buffer, uint32_t size)
 #elif(CY_IP_MXSCB_VERSION>=2)
     uint32_t datawidth = Cy_SCB_Get_TxDataWidth(base);
     
-    if (datawidth == CY_SCB_BYTE_WIDTH)
+    if (datawidth <= CY_SCB_BYTE_WIDTH)
     {
         uint8_t *buf = (uint8_t *) buffer;
 
@@ -293,7 +293,7 @@ void Cy_SCB_WriteArrayNoCheck(CySCB_Type *base, void *buffer, uint32_t size)
             Cy_SCB_WriteTxFifo(base, (uint32_t) buf[idx]);
         }
     }
-    else if(datawidth == CY_SCB_HALF_WORD_WIDTH)
+    else if(datawidth <= CY_SCB_HALF_WORD_WIDTH)
     {
         uint16_t *buf = (uint16_t *) buffer;
 

@@ -17,6 +17,7 @@ var group__group__sysclk__pll__funcs =
     [ "Cy_SysClk_Pll200MLocked", "group__group__sysclk__pll__funcs.html#gaae48c98d74bbb34e049d2e8c17100685", null ],
     [ "Cy_SysClk_Pll200MLostLock", "group__group__sysclk__pll__funcs.html#ga40696a5667ca242332fb3de42b1b2994", null ],
     [ "Cy_SysClk_Pll200MDisable", "group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27", null ],
+    [ "Cy_SysClk_Pll200MGetFrequency", "group__group__sysclk__pll__funcs.html#gabdf2396edece2bf47abd72603fc791e5", null ],
     [ "Cy_SysClk_Pll400MConfigure", "group__group__sysclk__pll__funcs.html#gad498857f6d3c3b8df8dd176391d07f6f", null ],
     [ "Cy_SysClk_Pll400MManualConfigure", "group__group__sysclk__pll__funcs.html#ga940fd6400c3ea9f37a0b26893ae8b42b", null ],
     [ "Cy_SysClk_Pll400MGetConfiguration", "group__group__sysclk__pll__funcs.html#gad0d8b724b371f76ba51ed3378691d9df", null ],
@@ -24,5 +25,6 @@ var group__group__sysclk__pll__funcs =
     [ "Cy_SysClk_Pll400MIsEnabled", "group__group__sysclk__pll__funcs.html#ga156fecfbaecb9d502c74529f910fe24b", null ],
     [ "Cy_SysClk_Pll400MLocked", "group__group__sysclk__pll__funcs.html#ga5455c05316aa399ef5afacf7648a3cf1", null ],
     [ "Cy_SysClk_Pll400MLostLock", "group__group__sysclk__pll__funcs.html#ga8e300a347373de8ab2c7d2ca89b05dee", null ],
-    [ "Cy_SysClk_Pll400MDisable", "group__group__sysclk__pll__funcs.html#ga51760beb96b211722ffa88483b9d3af2", null ]
+    [ "Cy_SysClk_Pll400MDisable", "group__group__sysclk__pll__funcs.html#ga51760beb96b211722ffa88483b9d3af2", null ],
+    [ "Cy_SysClk_Pll400MGetFrequency", "group__group__sysclk__pll__funcs.html#ga1e83e55b944bb47222d309ede5569d38", null ]
 ];

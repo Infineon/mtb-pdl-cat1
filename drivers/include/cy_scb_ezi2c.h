@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_ezi2c.h
-* \version 2.90
+* \version 3.0
 *
 * Provides EZI2C API declarations of the SCB driver.
 *

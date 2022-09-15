@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_i2c.c
-* \version 2.90
+* \version 3.0
 *
 * Provides I2C API implementation of the SCB driver.
 *
@@ -2291,7 +2291,7 @@ void Cy_SCB_I2C_SlaveInterrupt(CySCB_Type *base, cy_stc_scb_i2c_context_t *conte
 *
 * \param value
 * The stretch threshold value to be set.
-* Typically it is the SCL turaound delay (including IO cell delay, SCL rise time,
+* Typically it is the SCL turaround delay (including IO cell delay, SCL rise time,
 * analog filter delay), in number of clk_scb cycles.
 *
 * \note
@@ -3093,7 +3093,7 @@ static void MasterHandleDataTransmit(CySCB_Type *base, cy_stc_scb_i2c_context_t 
         {
             if (context->masterPause)
             {
-                /* Wait until data is transfered onto the bus */
+                /* Wait until data is transferred onto the bus */
                 Cy_SCB_SetTxInterruptMask(base, CY_SCB_TX_INTR_UNDERFLOW);
 
                 context->state = CY_SCB_I2C_MASTER_TX_DONE;

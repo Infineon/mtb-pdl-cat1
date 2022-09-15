@@ -2,6 +2,7 @@ var group__group__syspm__functions__power =
 [
     [ "Cy_SysPm_CpuEnterSleep", "group__group__syspm__functions__power.html#gab09936e85606de476a0c379f9548603f", null ],
     [ "Cy_SysPm_Init", "group__group__syspm__functions__power.html#ga5b9413044f40ae96064c575c61d3aa1f", null ],
+    [ "Cy_SysPm_IsLpmReady", "group__group__syspm__functions__power.html#ga457b565bd799fb951a2808d7bb2479e0", null ],
     [ "Cy_SysPm_SystemLpActiveEnter", "group__group__syspm__functions__power.html#gae5b8fe608ae9052382b242d29d34d4b9", null ],
     [ "Cy_SysPm_SystemLpActiveExit", "group__group__syspm__functions__power.html#ga81d08ce12e3dd770c48e8bc23246c18f", null ],
     [ "Cy_SysPm_IsSystemLpActiveEnabled", "group__group__syspm__functions__power.html#gaedd38e42919449afe22a9e1dc2c6cac7", null ],

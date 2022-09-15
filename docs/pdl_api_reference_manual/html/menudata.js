@@ -8,4 +8,6 @@ var menudata={children:[
 {text:"CAT1A Devices",url:"device_index_page_cat1a.html",children:[
 {text:"CAT1A Device Details",url:"device_catalog_cat1a.html"}]},
 {text:"CAT1B Devices",url:"device_index_page_cat1b.html",children:[
-{text:"CAT1B Device Details",url:"device_catalog_cat1b.html"}]}]}]}
+{text:"CAT1B Device Details",url:"device_catalog_cat1b.html"}]},
+{text:"CAT1C Devices",url:"device_index_page_cat1c.html",children:[
+{text:"CAT1C Device Details",url:"device_catalog_cat1c.html"}]}]}]}

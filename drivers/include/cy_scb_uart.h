@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_uart.h
-* \version 2.90
+* \version 3.0
 *
 * Provides UART API declarations of the SCB driver.
 *

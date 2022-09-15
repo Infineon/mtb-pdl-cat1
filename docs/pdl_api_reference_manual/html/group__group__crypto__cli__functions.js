@@ -25,13 +25,13 @@ var group__group__crypto__cli__functions =
     [ "Cy_Crypto_Trng_Generate", "group__group__crypto__cli__functions.html#ga69061dfb8a8ccd707edf8151e1427987", null ],
     [ "Cy_Crypto_Des_Run", "group__group__crypto__cli__functions.html#gab5ab6f272d15ebb2fb14000530b6d29a", null ],
     [ "Cy_Crypto_Tdes_Run", "group__group__crypto__cli__functions.html#ga86c02f38711df37a1ca8f9b505ad5f2c", null ],
+    [ "Cy_Crypto_GetMemBufAddress", "group__group__crypto__cli__functions.html#ga7af64261d94fecab72944509ccafd3c1", null ],
+    [ "Cy_Crypto_GetMemBufSize", "group__group__crypto__cli__functions.html#gaa3a3ecfb202af1b604b1fdf51e75aa55", null ],
+    [ "Cy_Crypto_SetMemBufAddress", "group__group__crypto__cli__functions.html#gaaa1e1ff151ed92f21f876bb404be1b8f", null ],
     [ "Cy_Crypto_Rsa_Proc", "group__group__crypto__cli__functions.html#gac73a47f8656e1056686f461c68956fed", null ],
     [ "Cy_Crypto_Rsa_CalcCoefs", "group__group__crypto__cli__functions.html#gaf7d03e6a13f42bae1fbbcf6c05730129", null ],
     [ "Cy_Crypto_Rsa_Verify", "group__group__crypto__cli__functions.html#gaeb5b9b79cbdb1e4b45dce7a27e269b5c", null ],
     [ "Cy_Crypto_ECDSA_SignHash", "group__group__crypto__cli__functions.html#ga82ae96bd17e206306bd8e7b5f09de17a", null ],
     [ "Cy_Crypto_ECDSA_VerifyHash", "group__group__crypto__cli__functions.html#ga516a14dbdb8e2bd757311017e5a7cf20", null ],
-    [ "Cy_Crypto_SetMemBufAddress", "group__group__crypto__cli__functions.html#gaaa1e1ff151ed92f21f876bb404be1b8f", null ],
-    [ "Cy_Crypto_GetMemBufAddress", "group__group__crypto__cli__functions.html#ga7af64261d94fecab72944509ccafd3c1", null ],
-    [ "Cy_Crypto_GetMemBufSize", "group__group__crypto__cli__functions.html#gaa3a3ecfb202af1b604b1fdf51e75aa55", null ],
     [ "Cy_Crypto_InvertEndianness", "group__group__crypto__cli__functions.html#gabd4ba58c8fef2e5dc952995774cfb760", null ]
 ];

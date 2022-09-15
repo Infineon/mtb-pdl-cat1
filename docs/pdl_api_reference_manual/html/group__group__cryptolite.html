@@ -87,18 +87,28 @@ $(document).ready(function(){initNavTree('group__group__cryptolite.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<dl class="section note"><dt>Note</dt><dd>IP Supported: CRYPTO </dd>
+<p>The Cryptolite driver provides a public API to perform HMAC SHA256 calculation, using a cryptolite hardware IP block to accelerate operation. </p>
+<p>The functions and other declarations used in this driver are in cy_cryptolite_hmac.h. You can also include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
+<p>The Cryptolite driver supports only HMAC SHA256.</p>
+<h1><a class="anchor" id="group_cryptolite_hmac_configuration_considerations"></a>
+Configuration Considerations</h1>
+<p>Firmware sets up a cryptographic operation by passing in the required data as parameters in the function call.</p>
+<p>Cryptolite HMAC SHA256 function require a context. A context is a data structure that the driver uses for its operations. Firmware declares a context (allocates memory) but does not write or read the values in that context. In effect, the context is a scratch pad you provide to the driver. The driver uses the context to store and manipulate data during cryptographic operations. The Cryptolite HMAC driver header file declare all the required structures for context.</p>
+<p>Note: Cryptolite works only with SAHB mapped address, User must map any CBUS mapped address to SAHB address before using the API.</p>
+<h1><a class="anchor" id="group_cryptolite_hmac_definitions"></a>
+Definitions</h1>
+<dl class="section note"><dt>Note</dt><dd>IP Supported: CRYPTOLITE </dd>
 <dd>
 Device Categories: CAT1B. Please refer <a href="usergroup1.html">Device Catalog</a>.</dd></dl>
 <p>The Cryptolite driver provides a public API to perform SHA256 hash calculation, using a cryptolite hardware IP block to accelerate operation.</p>
 <p>The functions and other declarations used in this driver are in cy_cryptolite.h. You can also include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
 <p>The Cryptolite driver supports only SHA256.</p>
-<h1><a class="anchor" id="group_cryptolite_configuration_considerations"></a>
+<h1><a class="anchor" id="group_cryptolite_sha256_configuration_considerations"></a>
 Configuration Considerations</h1>
 <p>Firmware sets up a cryptographic operation by passing in the required data as parameters in the function call.</p>
 <p>Cryptolite SHA256 function require a context. A context is a data structure that the driver uses for its operations. Firmware declares a context (allocates memory) but does not write or read the values in that context. In effect, the context is a scratch pad you provide to the driver. The driver uses the context to store and manipulate data during cryptographic operations. The Cryptolite driver header file declare all the required structures for context.</p>
 <p>Note: Cryptolite works only with SAHB mapped address, User must map any CBUS mapped address to SAHB address before using the API.</p>
-<h1><a class="anchor" id="group_cryptolite_definitions"></a>
+<h1><a class="anchor" id="group_cryptolite_sha256_definitions"></a>
 Definitions</h1>
 <table class="doxtable">
 <tr>
@@ -109,6 +119,16 @@ Definitions</h1>
 <td>Secure Hash Algorithm (SHA) </td><td><p class="starttd">A cryptographic hash function. This function takes a message of an arbitrary length and reduces it to a fixed-length residue or message digest after performing a series of mathematically defined operations that practically guarantee that any change in the message will change the hash value. It is used for message authentication by transmitting a message with a hash value appended to it and recalculating the message hash value using the same algorithm at the recipient's end. If the hashes differ, then the message is corrupted. For more information see <a href="https://csrc.nist.gov/csrc/media/publications/fips/180/2/archive/2002-08-01/documents/fips180-2.pdf">Secure Hash standard description</a>.  </p>
 <p class="endtd"></p>
 </td></tr>
+</table>
+<h1><a class="anchor" id="group_cryptolite_changelog"></a>
+Changelog</h1>
+<table class="doxtable">
+<tr>
+<th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.0 </td><td>Renamed the sha256 context structure from cy_stc_cryptolite_context_sha_t to cy_stc_cryptolite_context_sha256_t  </td><td></td></tr>
+<tr>
+<td>1.0 </td><td>Initial Version </td><td></td></tr>
 </table>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>

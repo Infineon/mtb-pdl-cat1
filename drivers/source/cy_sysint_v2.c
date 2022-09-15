@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_sysint.c
-* \version 1.70
+* \version 1.80
 *
 * \brief
 * Provides an API implementation of the SysInt driver.
@@ -26,7 +26,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M33SYSCPUSS) || defined(CY_IP_M55APPCPUSS)
+#if (defined (CY_IP_M33SYSCPUSS) || defined(CY_IP_M55APPCPUSS))
 
 #include "cy_sysint.h"
 
@@ -34,26 +34,43 @@
 static uint32_t *__ns_vector_table_rw_ptr = (uint32_t*)&__ns_vector_table_rw;
 #endif
 
+#if ((defined(CY_CPU_CORTEX_M0P) && (CY_CPU_CORTEX_M0P)) && !defined(CY_IP_M0SECCPUSS))
+void Cy_SysInt_SetNmiSource(cy_en_sysint_nmi_t nmiNum, cy_en_intr_t intrSrc)
+#else
 void Cy_SysInt_SetNmiSource(cy_en_sysint_nmi_t nmiNum, IRQn_Type intrSrc)
-
+#endif
 {
+#if ((defined(CY_CPU_CORTEX_M0P) && (CY_CPU_CORTEX_M0P)) && !defined(CY_IP_M0SECCPUSS))
+    CY_ASSERT_L1(CY_SYSINT_IS_PC_0);
+    (void)nmiNum;
+    (void)intrSrc;
+#else
     CY_ASSERT_L3(CY_SYSINT_IS_NMI_NUM_VALID(nmiNum));
 #if (CY_CPU_CORTEX_M55)
     MXCM55_CM55_NMI_CTL((uint32_t)nmiNum - 1UL) = (uint32_t)intrSrc;
 #else
     MXCM33_CM33_NMI_CTL((uint32_t)nmiNum - 1UL) = (uint32_t)intrSrc;
 #endif
+#endif
 }
 
 
+#if ((defined(CY_CPU_CORTEX_M0P) && (CY_CPU_CORTEX_M0P)) && !defined(CY_IP_M0SECCPUSS))
+cy_en_intr_t Cy_SysInt_GetNmiSource(cy_en_sysint_nmi_t nmiNum)
+#else
 IRQn_Type Cy_SysInt_GetNmiSource(cy_en_sysint_nmi_t nmiNum)
-
+#endif
 {
     CY_ASSERT_L3(CY_SYSINT_IS_NMI_NUM_VALID(nmiNum));
+
+#if ((defined(CY_CPU_CORTEX_M0P) && (CY_CPU_CORTEX_M0P)) && !defined(CY_IP_M0SECCPUSS))
+    return (cy_en_intr_t)nmiNum;
+#else
 #if (CY_CPU_CORTEX_M55)
     return ((IRQn_Type)(MXCM55_CM55_NMI_CTL((uint32_t)nmiNum - 1UL)));
 #else
     return ((IRQn_Type)(MXCM33_CM33_NMI_CTL((uint32_t)nmiNum - 1UL)));
+#endif
 #endif
 }
 
@@ -142,11 +159,12 @@ cy_israddress Cy_SysInt_GetVector(IRQn_Type IRQn)
     return (currIsr);
 }
 
-
+#if !(defined(CY_CPU_CORTEX_M0P) && (CY_CPU_CORTEX_M0P))
 void Cy_SysInt_SoftwareTrig(IRQn_Type IRQn)
 {
     NVIC->STIR = (uint32_t)IRQn & CY_SYSINT_STIR_MASK;
 }
+#endif
 
 #endif
 
