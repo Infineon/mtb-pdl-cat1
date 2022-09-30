@@ -108,8 +108,14 @@ Functions</h2></td></tr>
 <tr class="memitem:gafd6640533419a469e0803709c2a00aa3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__general__functions.html#gafd6640533419a469e0803709c2a00aa3">Cy_RTC_SelectFrequencyPrescaler</a> (<a class="el" href="group__group__rtc__enums.html#gaa98ef67a70e8f64649634baee4498d56">cy_en_rtc_clock_freq_t</a> clkSel)</td></tr>
 <tr class="memdesc:gafd6640533419a469e0803709c2a00aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the RTC pre-scaler value and changes its clock frequency.  <a href="#gafd6640533419a469e0803709c2a00aa3">More...</a><br /></td></tr>
 <tr class="separator:gafd6640533419a469e0803709c2a00aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3a72b5200fee4d45411722bb727f7291"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__general__functions.html#ga3a72b5200fee4d45411722bb727f7291">Cy_RTC_SelectClockSource</a> (<a class="el" href="group__group__rtc__enums.html#ga80121694c2c29336d673a1c401725310">cy_rtc_clk_select_sources_t</a> clkSel)</td></tr>
-<tr class="separator:ga3a72b5200fee4d45411722bb727f7291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e627b3c4c82ee379c04dcb7e754f7d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__general__functions.html#ga5e627b3c4c82ee379c04dcb7e754f7d8">Cy_RTC_SelectClockSource</a> (<a class="el" href="group__group__rtc__enums.html#ga6620485d475a6116576bd6981e01108e">cy_en_rtc_clk_select_sources_t</a> clkSel)</td></tr>
+<tr class="separator:ga5e627b3c4c82ee379c04dcb7e754f7d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf36756aa9b28a64258a08c03135b2e81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__general__functions.html#gaf36756aa9b28a64258a08c03135b2e81">Cy_RTC_CalibrationControlEnable</a> (uint8_t calib_val, <a class="el" href="group__group__rtc__enums.html#ga27d0d203e4fec44e87b25fdaedb8a534">cy_en_rtc_calib_sign_t</a> calib_sign, <a class="el" href="group__group__rtc__enums.html#ga3401259c29686278c4311b75ebc70f55">cy_en_rtc_calib_sel_t</a> calib_sel)</td></tr>
+<tr class="memdesc:gaf36756aa9b28a64258a08c03135b2e81"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes calibration control register.  <a href="#gaf36756aa9b28a64258a08c03135b2e81">More...</a><br /></td></tr>
+<tr class="separator:gaf36756aa9b28a64258a08c03135b2e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45217f2d6714fec65b2711e83c65d2ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__rtc__general__functions.html#ga45217f2d6714fec65b2711e83c65d2ac">Cy_RTC_CalibrationControlDisable</a> (void)</td></tr>
+<tr class="memdesc:ga45217f2d6714fec65b2711e83c65d2ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the calibration control.  <a href="#ga45217f2d6714fec65b2711e83c65d2ac">More...</a><br /></td></tr>
+<tr class="separator:ga45217f2d6714fec65b2711e83c65d2ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga4c6aca12f876f94707818e7a5dcdbf82"></a>
@@ -163,7 +169,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A validation check result of date and month. Returns an error, if the date range is invalid. See <a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The function may return CY_RTC_INVALID_STATE if the RTC is busy with previous update. In such situation, user should call this function repetitively with appropriate parameters to ensure that RTC is updated with provided arguments. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The function may return CY_RTC_INVALID_STATE if the RTC is busy with previous update. In such situation, user should call this function repetitively with appropriate parameters to ensure that RTC is updated with provided arguments.</dd>
+<dd>
+Refresh ALARM using <a class="el" href="group__group__rtc__alarm__functions.html#ga92807dc709c679c70c07d44cf0331a94">Cy_RTC_SetAlarmDateAndTime</a> if it is already enabled before calling this API. </dd></dl>
 
 </div>
 </div>
@@ -289,7 +297,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A validation check result of RTC register update. See <a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A validation check result of RTC register update. See <a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Refresh ALARM using <a class="el" href="group__group__rtc__alarm__functions.html#ga92807dc709c679c70c07d44cf0331a94">Cy_RTC_SetAlarmDateAndTime</a> if it is already enabled before calling this API. </dd></dl>
 
 </div>
 </div>
@@ -337,12 +346,13 @@ Functions</h2></td></tr>
 <li>Enable the WCO.</li>
 </ol>
 <p>(1) - Refer to the device TRM to know how to configure the wco pins properly and which wco pin should be driven/floating.</p>
-<dl class="section warning"><dt>Warning</dt><dd>There is a limitation to the external clock source frequencies. Only two frequencies are allowed - 50 Hz or 60 Hz. Note that this limitation is related to the RTC pre-scaling feature presented in this function. This limitation is not related to WCO external clock sources which can drive the WCO in Bypass mode. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>There is a limitation to the external clock source frequencies. Only two frequencies are allowed - 50 Hz or 60 Hz. Note that this limitation is related to the RTC pre-scaling feature presented in this function. This limitation is not related to WCO external clock sources which can drive the WCO in Bypass mode.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
 
 </div>
 </div>
-<a id="ga3a72b5200fee4d45411722bb727f7291"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3a72b5200fee4d45411722bb727f7291">&#9670;&nbsp;</a></span>Cy_RTC_SelectClockSource()</h2>
+<a id="ga5e627b3c4c82ee379c04dcb7e754f7d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e627b3c4c82ee379c04dcb7e754f7d8">&#9670;&nbsp;</a></span>Cy_RTC_SelectClockSource()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -350,7 +360,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void Cy_RTC_SelectClockSource </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__group__rtc__enums.html#ga80121694c2c29336d673a1c401725310">cy_rtc_clk_select_sources_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__group__rtc__enums.html#ga6620485d475a6116576bd6981e01108e">cy_en_rtc_clk_select_sources_t</a>&#160;</td>
           <td class="paramname"><em>clkSel</em></td><td>)</td>
           <td></td>
         </tr>
@@ -358,11 +368,77 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">clkSel</td><td>Source clock, see <a class="el" href="group__group__rtc__enums.html#ga80121694c2c29336d673a1c401725310">cy_rtc_clk_select_sources_t</a> Selects the source clock for RTC.</td></tr>
+    <tr><td class="paramname">clkSel</td><td>Source clock, see <a class="el" href="group__group__rtc__enums.html#ga6620485d475a6116576bd6981e01108e">cy_en_rtc_clk_select_sources_t</a> Selects the source clock for RTC.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gaf36756aa9b28a64258a08c03135b2e81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf36756aa9b28a64258a08c03135b2e81">&#9670;&nbsp;</a></span>Cy_RTC_CalibrationControlEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a> Cy_RTC_CalibrationControlEnable </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>calib_val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__rtc__enums.html#ga27d0d203e4fec44e87b25fdaedb8a534">cy_en_rtc_calib_sign_t</a>&#160;</td>
+          <td class="paramname"><em>calib_sign</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__rtc__enums.html#ga3401259c29686278c4311b75ebc70f55">cy_en_rtc_calib_sel_t</a>&#160;</td>
+          <td class="paramname"><em>calib_sel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function writes calibration control register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">calib_val</td><td>Calibration value for absolute frequency (at a fixed temperature). Each step causes 128 ticks to be added or removed each hour.</td></tr>
+    <tr><td class="paramname">calib_sign</td><td>Remove or Add ticks, see <a class="el" href="group__group__rtc__enums.html#ga27d0d203e4fec44e87b25fdaedb8a534">cy_en_rtc_calib_sign_t</a></td></tr>
+    <tr><td class="paramname">calib_sel</td><td>Select calibration wave output signal, see <a class="el" href="group__group__rtc__enums.html#ga3401259c29686278c4311b75ebc70f55">cy_en_rtc_calib_sel_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The RTC return status, see <a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga45217f2d6714fec65b2711e83c65d2ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga45217f2d6714fec65b2711e83c65d2ac">&#9670;&nbsp;</a></span>Cy_RTC_CalibrationControlDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a> Cy_RTC_CalibrationControlDisable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function disables the calibration control. </p>
+<dl class="section return"><dt>Returns</dt><dd>The RTC return status, see <a class="el" href="group__group__rtc__enums.html#ga45a1b113f07f81bc369d7bf9da75eaae">cy_en_rtc_status_t</a> </dd></dl>
 
 </div>
 </div>

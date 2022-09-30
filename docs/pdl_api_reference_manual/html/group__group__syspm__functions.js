@@ -7,5 +7,9 @@ var group__group__syspm__functions =
     [ "Core Voltage Regulation", "group__group__syspm__functions__core__regulators.html", "group__group__syspm__functions__core__regulators" ],
     [ "PMIC", "group__group__syspm__functions__pmic.html", "group__group__syspm__functions__pmic" ],
     [ "Backup Domain", "group__group__syspm__functions__backup.html", "group__group__syspm__functions__backup" ],
-    [ "Low Power Callbacks", "group__group__syspm__functions__callback.html", "group__group__syspm__functions__callback" ]
+    [ "Low Power Callbacks", "group__group__syspm__functions__callback.html", "group__group__syspm__functions__callback" ],
+    [ "Linear Regulator", "group__group__syspm__functions__linearreg.html", "group__group__syspm__functions__linearreg" ],
+    [ "REGHC (High Current Regulator)", "group__group__syspm__functions__reghc.html", "group__group__syspm__functions__reghc" ],
+    [ "OVD", "group__group__syspm__functions__ovd.html", "group__group__syspm__functions__ovd" ],
+    [ "BOD", "group__group__syspm__functions__bod.html", "group__group__syspm__functions__bod" ]
 ];

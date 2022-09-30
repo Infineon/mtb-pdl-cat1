@@ -172,6 +172,8 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024ae32dbd1f9490b43d8353c9abbb9bc5c9">CY_BT_IPC_HPC_RESACCESS</a> = (0x05u), 
 <br />
+&#160;&#160;<a class="el" href="group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024ac60e56b6a1116794733da78e3327ed95">CY_BT_IPC_HPC_LPO_SWITCH</a> = (0x06u), 
+<br />
 &#160;&#160;<a class="el" href="group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024a6af3a8459d4d34d05d2de1c06193c0f3">CY_BT_IPC_HPC_LONG</a> = (0xFFu)
 <br />
  }<tr class="memdesc:ga507434e5563d48f8b3b58b0ce9146024"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a list of ENUMs used for HPC packet type.  <a href="group__group__ipc__bt__enums.html#ga507434e5563d48f8b3b58b0ce9146024">More...</a><br /></td></tr>
@@ -223,6 +225,14 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gaea389d7af384e87848f8158ad26d8164"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a list of ENUMs used as response from MCCU to BTSS for resource access request.  <a href="group__group__ipc__bt__enums.html#gaea389d7af384e87848f8158ad26d8164">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gaea389d7af384e87848f8158ad26d8164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga666c35680b9e898d124a3f7f289564dd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__bt__enums.html#ga666c35680b9e898d124a3f7f289564dd">cy_en_btipc_lpo_cmd_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__ipc__bt__enums.html#gga666c35680b9e898d124a3f7f289564ddaaf050f78b73493bec0feb43bc6253035">CY_BT_IPC_LPO_PILO</a> = (0x00u), 
+<br />
+&#160;&#160;<a class="el" href="group__group__ipc__bt__enums.html#gga666c35680b9e898d124a3f7f289564dda24e339bd25a29b5076e2804e5b10fcb2">CY_BT_IPC_LPO_WCO</a> = (0x01u)
+<br />
+ }<tr class="memdesc:ga666c35680b9e898d124a3f7f289564dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a list of ENUMs used for LPO change indication from MCUSS to BTSS.  <a href="group__group__ipc__bt__enums.html#ga666c35680b9e898d124a3f7f289564dd">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga666c35680b9e898d124a3f7f289564dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga814017d60798f7f7563a57ab425d51d9"><td class="memItemLeft" align="right" valign="top"><a id="ga814017d60798f7f7563a57ab425d51d9"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__bt__enums.html#ga814017d60798f7f7563a57ab425d51d9">cy_en_btipc_hci_diag_msg_type_t</a> { <br />
 &#160;&#160;<b>CY_BT_IPC_HCI_DIAG_IN_PKT_ID_NOP</b> = (0x00U), 
 <br />
@@ -411,6 +421,8 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga507434e5563d48f8b3b58b0ce9146024ae32dbd1f9490b43d8353c9abbb9bc5c9"></a>CY_BT_IPC_HPC_RESACCESS&#160;</td><td class="fielddoc"><p>HPC payload type Resource Access. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="gga507434e5563d48f8b3b58b0ce9146024ac60e56b6a1116794733da78e3327ed95"></a>CY_BT_IPC_HPC_LPO_SWITCH&#160;</td><td class="fielddoc"><p>HPC payload type LPO Clk switch. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="gga507434e5563d48f8b3b58b0ce9146024a6af3a8459d4d34d05d2de1c06193c0f3"></a>CY_BT_IPC_HPC_LONG&#160;</td><td class="fielddoc"><p>HPC payload type long message. </p>
 </td></tr>
 </table>
@@ -546,6 +558,28 @@ Enumerations</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaea389d7af384e87848f8158ad26d8164abcd2312dd8b8795c7a8a587199f5f60d"></a>CY_BT_IPC_RESACC_ACCEPTED&#160;</td><td class="fielddoc"><p>Resource access request accepted. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggaea389d7af384e87848f8158ad26d8164a1d314c81dbcf420a9dfcc97425e8b955"></a>CY_BT_IPC_RESACC_REJECTED&#160;</td><td class="fielddoc"><p>Resource access request rejected. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga666c35680b9e898d124a3f7f289564dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga666c35680b9e898d124a3f7f289564dd">&#9670;&nbsp;</a></span>cy_en_btipc_lpo_cmd_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__ipc__bt__enums.html#ga666c35680b9e898d124a3f7f289564dd">cy_en_btipc_lpo_cmd_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This is a list of ENUMs used for LPO change indication from MCUSS to BTSS. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga666c35680b9e898d124a3f7f289564ddaaf050f78b73493bec0feb43bc6253035"></a>CY_BT_IPC_LPO_PILO&#160;</td><td class="fielddoc"><p>LPO clk type PILO. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga666c35680b9e898d124a3f7f289564dda24e339bd25a29b5076e2804e5b10fcb2"></a>CY_BT_IPC_LPO_WCO&#160;</td><td class="fielddoc"><p>LPO clk type WCO. </p>
 </td></tr>
 </table>
 

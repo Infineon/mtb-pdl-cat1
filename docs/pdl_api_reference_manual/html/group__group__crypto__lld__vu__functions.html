@@ -93,6 +93,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga578cecebde8bce42aba5657d36b809ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__vu__functions.html#ga578cecebde8bce42aba5657d36b809ee">Cy_Crypto_Core_Cleanup</a> (CRYPTO_Type *base)</td></tr>
 <tr class="memdesc:ga578cecebde8bce42aba5657d36b809ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up the Crypto block.  <a href="#ga578cecebde8bce42aba5657d36b809ee">More...</a><br /></td></tr>
 <tr class="separator:ga578cecebde8bce42aba5657d36b809ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65d42e0ff144c74133e83f158767337a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__vu__functions.html#ga65d42e0ff144c74133e83f158767337a">Cy_Crypto_Core_Shutdown</a> (CRYPTO_Type *base)</td></tr>
+<tr class="memdesc:ga65d42e0ff144c74133e83f158767337a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up the Crypto block, disable it and reset all crypto registers.  <a href="#ga65d42e0ff144c74133e83f158767337a">More...</a><br /></td></tr>
+<tr class="separator:ga65d42e0ff144c74133e83f158767337a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad21cfd7efa413ac522736348d3e28813"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__vu__functions.html#gad21cfd7efa413ac522736348d3e28813">Cy_Crypto_Core_Vu_SetMemValue</a> (CRYPTO_Type *base, uint32_t dstReg, uint8_t const *src, uint32_t size)</td></tr>
 <tr class="memdesc:gad21cfd7efa413ac522736348d3e28813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value in the Crypto memory allocated by the destination VU register.  <a href="#gad21cfd7efa413ac522736348d3e28813">More...</a><br /></td></tr>
 <tr class="separator:gad21cfd7efa413ac522736348d3e28813"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,6 +167,33 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga65d42e0ff144c74133e83f158767337a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga65d42e0ff144c74133e83f158767337a">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Shutdown </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cleans up the Crypto block, disable it and reset all crypto registers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
 <a id="gad21cfd7efa413ac522736348d3e28813"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad21cfd7efa413ac522736348d3e28813">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Vu_SetMemValue()</h2>
 
@@ -203,6 +233,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the value in the Crypto memory allocated by the destination VU register. </p>
+<p>For CAT1C devices when D-Cache is enabled, the user is expected to maintain the cache coherency of data..</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -254,6 +285,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the value located in the crypto memory and pointed by source VU register. </p>
+<p>For CAT1C devices when D-Cache is enabled, the user is expected to maintain the cache coherency of data..</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>

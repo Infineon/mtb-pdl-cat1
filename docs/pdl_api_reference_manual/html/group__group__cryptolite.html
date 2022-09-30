@@ -87,18 +87,18 @@ $(document).ready(function(){initNavTree('group__group__cryptolite.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<dl class="section note"><dt>Note</dt><dd>IP Supported: CRYPTO </dd>
+<dl class="section note"><dt>Note</dt><dd>IP Supported: CRYPTOLITE </dd>
 <dd>
 Device Categories: CAT1B. Please refer <a href="usergroup1.html">Device Catalog</a>.</dd></dl>
 <p>The Cryptolite driver provides a public API to perform SHA256 hash calculation, using a cryptolite hardware IP block to accelerate operation.</p>
 <p>The functions and other declarations used in this driver are in cy_cryptolite.h. You can also include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
 <p>The Cryptolite driver supports only SHA256.</p>
-<h1><a class="anchor" id="group_cryptolite_configuration_considerations"></a>
+<h1><a class="anchor" id="group_cryptolite_sha256_configuration_considerations"></a>
 Configuration Considerations</h1>
 <p>Firmware sets up a cryptographic operation by passing in the required data as parameters in the function call.</p>
 <p>Cryptolite SHA256 function require a context. A context is a data structure that the driver uses for its operations. Firmware declares a context (allocates memory) but does not write or read the values in that context. In effect, the context is a scratch pad you provide to the driver. The driver uses the context to store and manipulate data during cryptographic operations. The Cryptolite driver header file declare all the required structures for context.</p>
 <p>Note: Cryptolite works only with SAHB mapped address, User must map any CBUS mapped address to SAHB address before using the API.</p>
-<h1><a class="anchor" id="group_cryptolite_definitions"></a>
+<h1><a class="anchor" id="group_cryptolite_sha256_definitions"></a>
 Definitions</h1>
 <table class="doxtable">
 <tr>
@@ -110,16 +110,26 @@ Definitions</h1>
 <p class="endtd"></p>
 </td></tr>
 </table>
+<h1><a class="anchor" id="group_cryptolite_changelog"></a>
+Changelog</h1>
+<table class="doxtable">
+<tr>
+<th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.0 </td><td>Renamed the sha256 context structure from cy_stc_cryptolite_context_sha_t to <a class="el" href="structcy__stc__cryptolite__context__sha256__t.html" title="The structure for storing the SHA256 context. ">cy_stc_cryptolite_context_sha256_t</a>  </td><td></td></tr>
+<tr>
+<td>1.0 </td><td>Initial Version </td><td></td></tr>
+</table>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
 API Reference</h2></td></tr>
+<tr class="memitem:group__group__cryptolite__lld__sha"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__lld__sha.html">Hash operations (SHA)</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__cryptolite__data__structures"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__data__structures.html">Common Data Structures</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__cryptolite__enums"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html">Common Enumerated Types</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__cryptolite__macros"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__macros.html">Macros</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__group__cryptolite__functions"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__functions.html">Functions</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__group__cryptolite__data__structures"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__data__structures.html">Data Structures</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__group__cryptolite__enums"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html">Enumerated Types</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

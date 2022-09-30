@@ -1,11 +1,11 @@
 var group__group__scb__common__functions =
 [
-    [ "Cy_SCB_ReadRxFifo", "group__group__scb__common__functions.html#ga4cc4a30079873628f3e57ecff7c20791", null ],
+    [ "Cy_SCB_ReadRxFifo", "group__group__scb__common__functions.html#ga5d9d1b3b7d230f5d7f7982640984ab9d", null ],
     [ "Cy_SCB_SetRxFifoLevel", "group__group__scb__common__functions.html#ga64d034531ea5eb2695ed018d6a75da68", null ],
     [ "Cy_SCB_GetNumInRxFifo", "group__group__scb__common__functions.html#ga609852206a4ebd6e375bfadccc1309d1", null ],
     [ "Cy_SCB_GetRxSrValid", "group__group__scb__common__functions.html#ga65d298c978eb0efa15c61663c7ff4b31", null ],
     [ "Cy_SCB_ClearRxFifo", "group__group__scb__common__functions.html#ga917e48e9c29d35cde17b8e7bb94ec3fb", null ],
-    [ "Cy_SCB_WriteTxFifo", "group__group__scb__common__functions.html#gab8c63a539a502984525706e94b9969d3", null ],
+    [ "Cy_SCB_WriteTxFifo", "group__group__scb__common__functions.html#ga7a44b629d39c04a731574bc59c98708b", null ],
     [ "Cy_SCB_SetTxFifoLevel", "group__group__scb__common__functions.html#ga36285e337c94df91a4ebe5b1ee0fd43d", null ],
     [ "Cy_SCB_GetNumInTxFifo", "group__group__scb__common__functions.html#ga63f43347a32c0c4c27f11a9b3fa448c2", null ],
     [ "Cy_SCB_GetTxSrValid", "group__group__scb__common__functions.html#ga29625f5e80763aeb9d8008f58d7ac342", null ],

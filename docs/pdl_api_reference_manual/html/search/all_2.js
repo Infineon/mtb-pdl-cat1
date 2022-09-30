@@ -1,13 +1,15 @@
 var searchData=
 [
+  ['bank',['bank',['../structcy__stc__flash__checksum__config__t.html#abc8f32254fdb083f1f660cc19b2a95d0',1,'cy_stc_flash_checksum_config_t']]],
   ['barrett_5fo',['barrett_o',['../structcy__stc__crypto__ecc__dp__type.html#a9cd2894c6d48d780736fded492222b01',1,'cy_stc_crypto_ecc_dp_type']]],
   ['barrett_5fp',['barrett_p',['../structcy__stc__crypto__ecc__dp__type.html#a32985516423929455def0b6a6ce8523e',1,'cy_stc_crypto_ecc_dp_type']]],
   ['base',['base',['../structcy__stc__syspm__callback__params__t.html#a56076e99358e2b7c99681312108b09af',1,'cy_stc_syspm_callback_params_t::base()'],['../structcy__stc__usbfs__dev__drv__dma__config__t.html#a8f4ec9857bf5868ec58ce1383b140b5d',1,'cy_stc_usbfs_dev_drv_dma_config_t::base()']]],
   ['baseaddress',['baseAddress',['../structcy__stc__smif__mem__config__t.html#a460a4733ce1f20fc1a3f767c35b1d3db',1,'cy_stc_smif_mem_config_t']]],
   ['bias',['bias',['../structcy__stc__seglcd__config__t.html#ab3f79d01165e2a5f3926ab943d01a789',1,'cy_stc_seglcd_config_t']]],
-  ['biquadconfig',['biQuadConfig',['../structcy__stc__adcmic__config__t.html#a676cce57e36ac49522822b06b1f1c61e',1,'cy_stc_adcmic_config_t']]],
+  ['biquadconfig',['biQuadConfig',['../structcy__stc__adcmic__mic__config__t.html#a36f425829f07d6345b9b1540d3a356c9',1,'cy_stc_adcmic_mic_config_t::biQuadConfig()'],['../structcy__stc__adcmic__pdm__config__t.html#aa640a2a2bd04e195b5b53737e3772a67',1,'cy_stc_adcmic_pdm_config_t::biQuadConfig()']]],
   ['bitrate',['bitrate',['../structcy__stc__canfd__config__t.html#a4f9e70770fabc4e2f30fe3afb1e5bdbc',1,'cy_stc_canfd_config_t']]],
   ['blockevent',['blockEvent',['../structcy__stc__smif__config__t.html#aa6fcae8a59c000ef79d71de06695b659',1,'cy_stc_smif_config_t']]],
+  ['blocking',['blocking',['../structcy__stc__flash__programrow__config__t.html#aa086431b53ca716cfe56fcb803b61be0',1,'cy_stc_flash_programrow_config_t::blocking()'],['../structcy__stc__flash__erasesector__config__t.html#a0b20ad68683c3c24ffbd4f65c8094ccf',1,'cy_stc_flash_erasesector_config_t::blocking()'],['../structcy__stc__flash__eraseresume__config__t.html#a4a7145f796b61d7a18afabd5927ad6c9',1,'cy_stc_flash_eraseresume_config_t::blocking()']]],
   ['blocksize',['blockSize',['../structcy__stc__sd__host__data__config__t.html#ae1cac2445bb6f9be1b0ede804e793f73',1,'cy_stc_sd_host_data_config_t']]],
   ['boottype',['bootType',['../structcy__stc__ipc__bt__context__t.html#a87773c22a7a5abbda25ec3f3ee8fc544',1,'cy_stc_ipc_bt_context_t']]],
   ['bq0_5fden2_5fcoeff',['bq0_den2_coeff',['../structcy__stc__adcmic__biquad__config__t.html#aeee08894ecd27f48252ed502a6f65b39',1,'cy_stc_adcmic_biquad_config_t']]],
@@ -59,7 +61,6 @@ var searchData=
   ['bypassenable',['bypassEnable',['../structcy__stc__pra__system__config__t.html#a2f3c8b87509eec88a8d1ff107b04b0af',1,'cy_stc_pra_system_config_t']]],
   ['bypassmask',['bypassMask',['../structcy__stc__smartio__config__t.html#a4b9c0b1f5a84c0e4e078235901cf982d',1,'cy_stc_smartio_config_t']]],
   ['ble_20eco_20_20_20_20_20_20_28ble_20eco_20clock_29',['BLE ECO      (BLE ECO Clock)',['../group__group__ble__clk.html',1,'']]],
-  ['btss_20host_20api_28bluetooth_20sub_20system_20host_20api_29',['BTSS Host API(Bluetooth Sub System Host API)',['../group__group__btss.html',1,'']]],
   ['basic_20configuration_20functions',['Basic Configuration Functions',['../group__group__ctb__functions__basic.html',1,'']]],
   ['basic_20configuration_20functions',['Basic Configuration Functions',['../group__group__ctdac__functions__basic.html',1,'']]],
   ['block_20functions',['Block Functions',['../group__group__dma__block__functions.html',1,'']]],
@@ -67,6 +68,8 @@ var searchData=
   ['bus_20master_20and_20pc_20functions',['Bus Master and PC Functions',['../group__group__prot__functions__busmaster.html',1,'']]],
   ['block_20configuration_20functions',['Block Configuration Functions',['../group__group__seglcd__functions__config.html',1,'']]],
   ['backup_20domain_20clock',['Backup Domain Clock',['../group__group__sysclk__clk__bak.html',1,'']]],
+  ['btss_20host_20api_28bluetooth_20sub_20system_20host_20api_29',['BTSS Host API(Bluetooth Sub System Host API)',['../group__group__syspm__btss.html',1,'']]],
   ['backup_20domain',['Backup Domain',['../group__group__syspm__functions__backup.html',1,'']]],
+  ['bod',['BOD',['../group__group__syspm__functions__bod.html',1,'']]],
   ['buck',['Buck',['../group__group__syspm__functions__buck.html',1,'']]]
 ];

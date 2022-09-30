@@ -29,5 +29,14 @@ var group__group__mcwdt__enums =
     [ "cy_en_mcwdt_status_t", "group__group__mcwdt__enums.html#gac983f45895a641f98b9b887e453a8a5d", [
       [ "CY_MCWDT_SUCCESS", "group__group__mcwdt__enums.html#ggac983f45895a641f98b9b887e453a8a5dad10c3bbc046c2ce5cf5e17f690e46d2f", null ],
       [ "CY_MCWDT_BAD_PARAM", "group__group__mcwdt__enums.html#ggac983f45895a641f98b9b887e453a8a5daaed53ccf1629be662b6537d1d4558cb2", null ]
-    ] ]
+    ] ],
+    [ "cy_en_mcwdt_enable_t", "group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f", null ],
+    [ "cy_en_mcwdt_select_core_t", "group__group__mcwdt__enums.html#ga56cabdb0b4e42968be47b13bbe6bebad", null ],
+    [ "cy_en_mcwdt_cnt2_action_t", "group__group__mcwdt__enums.html#gad2667a60c671e6f199cdbf47cf2fbeaf", null ],
+    [ "cy_en_mcwdt_lower_upper_action_t", "group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797", [
+      [ "CY_MCWDT_ACTION_NONE", "group__group__mcwdt__enums.html#gga57fd8960981e53e849e7c7bcf2b85797ad59102d4b4d900a75304328b983a3335", null ],
+      [ "CY_MCWDT_ACTION_FAULT", "group__group__mcwdt__enums.html#gga57fd8960981e53e849e7c7bcf2b85797a204d7a04715d2327719c32c734839844", null ],
+      [ "CY_MCWDT_ACTION_FAULT_THEN_RESET", "group__group__mcwdt__enums.html#gga57fd8960981e53e849e7c7bcf2b85797ac0119b436b35e21998a90cbdbfe3ea41", null ]
+    ] ],
+    [ "cy_en_mcwdt_warn_action_t", "group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67", null ]
 ];

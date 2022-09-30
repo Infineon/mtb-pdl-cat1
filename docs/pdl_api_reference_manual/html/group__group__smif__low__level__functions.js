@@ -20,6 +20,8 @@ var group__group__smif__low__level__functions =
     [ "Cy_SMIF_ReceiveData_Ext", "group__group__smif__low__level__functions.html#ga2762a9749d61af95370c669561c8f042", null ],
     [ "Cy_SMIF_ReceiveDataBlocking_Ext", "group__group__smif__low__level__functions.html#ga18fc5b9f3fba366db39a16018dae9a64", null ],
     [ "Cy_SMIF_SendDummyCycles_Ext", "group__group__smif__low__level__functions.html#ga3be6006b4c0c72703db49623734eccd6", null ],
+    [ "Cy_SMIF_DeviceTransfer_SetMergeTimeout", "group__group__smif__low__level__functions.html#ga194756a68fde927d8b6bbc5255177414", null ],
+    [ "Cy_SMIF_DeviceTransfer_ClearMergeTimeout", "group__group__smif__low__level__functions.html#ga6d2d7ef86eccf2e7a3a2f760208bea0b", null ],
     [ "Cy_SMIF_Disable", "group__group__smif__low__level__functions.html#ga318b7c99ac2ba33e833cb4a0ab675e17", null ],
     [ "Cy_SMIF_SetInterruptMask", "group__group__smif__low__level__functions.html#gae74985772e86b44ab99a95ea467f6245", null ],
     [ "Cy_SMIF_GetInterruptMask", "group__group__smif__low__level__functions.html#ga83bbab71bc76fc372b4c8ad363e2512d", null ],
@@ -45,10 +47,5 @@ var group__group__smif__low__level__functions =
     [ "Cy_SMIF_SetCryptoEnable", "group__group__smif__low__level__functions.html#gab65ee303c9b39e383297dae50e1efba1", null ],
     [ "Cy_SMIF_SetCryptoDisable", "group__group__smif__low__level__functions.html#gad5d21a6411e7b0a176394b39d54c6eeb", null ],
     [ "Cy_SMIF_ConvertSlaveSlotToIndex", "group__group__smif__low__level__functions.html#ga5252ac741f6ba0122748d89d907d87f6", null ],
-    [ "Cy_SMIF_SetRxCaptureMode", "group__group__smif__low__level__functions.html#gace72b4bce3960215436d0b60c0cf1ce4", null ],
-    [ "Cy_SMIF_Bridge_Enable", "group__group__smif__low__level__functions.html#ga6633fdcf48299706b9c87369d1adf26f", null ],
-    [ "Cy_SMIF_Bridge_SetPortPriority", "group__group__smif__low__level__functions.html#ga4975001c4d310d4a719c5132de5456c6", null ],
-    [ "Cy_SMIF_Bridge_SetSimpleRemapRegion", "group__group__smif__low__level__functions.html#ga98c640f012d8fa085b386151b79ccb99", null ],
-    [ "Cy_SMIF_Bridge_SetInterleavingRemapRegion", "group__group__smif__low__level__functions.html#ga4d6f097c01ad5362d75ec6cc0fd84aa2", null ],
-    [ "Cy_SMIF_Bridge_DeactivateRemapRegion", "group__group__smif__low__level__functions.html#gaef4df875277119aad938e20cd4bd5386", null ]
+    [ "Cy_SMIF_SetRxCaptureMode", "group__group__smif__low__level__functions.html#gace72b4bce3960215436d0b60c0cf1ce4", null ]
 ];

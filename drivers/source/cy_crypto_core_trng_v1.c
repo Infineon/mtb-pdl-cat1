@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_trng_v1.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the source code to the API for the TRNG
@@ -31,11 +31,13 @@
 
 #include "cy_crypto_core_trng_v1.h"
 
+#if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-#if (CPUSS_CRYPTO_TR == 1)
+#if (CPUSS_CRYPTO_TR == 1) && defined(CY_CRYPTO_CFG_TRNG_C)
 
 #include "cy_crypto_core_hw_v1.h"
 #include "cy_crypto_core_trng_config_v1.h"
@@ -134,11 +136,13 @@ cy_en_crypto_status_t Cy_Crypto_Core_V1_Trng(CRYPTO_Type *base,
     return (CY_CRYPTO_SUCCESS);
 }
 
-#endif /* #if (CPUSS_CRYPTO_TR == 1) */
+#endif /* #if (CPUSS_CRYPTO_TR == 1) && defined(CY_CRYPTO_CFG_TRNG_C)*/
 
 #if defined(__cplusplus)
 }
 #endif
+
+#endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
 
 #endif /* CY_IP_MXCRYPTO */
 

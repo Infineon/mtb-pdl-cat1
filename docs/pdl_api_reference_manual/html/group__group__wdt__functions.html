@@ -93,15 +93,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gaac6f64babfb1855f9ba8aecccc19ecb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gaac6f64babfb1855f9ba8aecccc19ecb4">Cy_WDT_Init</a> (void)</td></tr>
 <tr class="memdesc:gaac6f64babfb1855f9ba8aecccc19ecb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the Watchdog timer to its default state.  <a href="#gaac6f64babfb1855f9ba8aecccc19ecb4">More...</a><br /></td></tr>
 <tr class="separator:gaac6f64babfb1855f9ba8aecccc19ecb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga82aec7e454d05d03dfd1d6fd5e573d5e"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga82aec7e454d05d03dfd1d6fd5e573d5e">Cy_WDT_Enable</a> (void)</td></tr>
-<tr class="memdesc:ga82aec7e454d05d03dfd1d6fd5e573d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the Watchdog timer.  <a href="#ga82aec7e454d05d03dfd1d6fd5e573d5e">More...</a><br /></td></tr>
-<tr class="separator:ga82aec7e454d05d03dfd1d6fd5e573d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga709f597d56e7f7fb6717d5ff671491fa"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga709f597d56e7f7fb6717d5ff671491fa">Cy_WDT_Disable</a> (void)</td></tr>
-<tr class="memdesc:ga709f597d56e7f7fb6717d5ff671491fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the Watchdog timer.  <a href="#ga709f597d56e7f7fb6717d5ff671491fa">More...</a><br /></td></tr>
-<tr class="separator:ga709f597d56e7f7fb6717d5ff671491fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga05f8bb5603ce46caf842bd0ad254f604"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga05f8bb5603ce46caf842bd0ad254f604">Cy_WDT_IsEnabled</a> (void)</td></tr>
-<tr class="memdesc:ga05f8bb5603ce46caf842bd0ad254f604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports an enable/disable state of the Watchdog timer.  <a href="#ga05f8bb5603ce46caf842bd0ad254f604">More...</a><br /></td></tr>
-<tr class="separator:ga05f8bb5603ce46caf842bd0ad254f604"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaec9bd8d1439389a46cdd2dcadc8e987d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gaec9bd8d1439389a46cdd2dcadc8e987d">Cy_WDT_Lock</a> (void)</td></tr>
 <tr class="memdesc:gaec9bd8d1439389a46cdd2dcadc8e987d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks out configuration changes to the Watchdog Timer register.  <a href="#gaec9bd8d1439389a46cdd2dcadc8e987d">More...</a><br /></td></tr>
 <tr class="separator:gaec9bd8d1439389a46cdd2dcadc8e987d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,45 +102,87 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6a98fa4f1133264ca3add72381e7bb22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga6a98fa4f1133264ca3add72381e7bb22">Cy_WDT_Locked</a> (void)</td></tr>
 <tr class="memdesc:ga6a98fa4f1133264ca3add72381e7bb22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the WDT lock state.  <a href="#ga6a98fa4f1133264ca3add72381e7bb22">More...</a><br /></td></tr>
 <tr class="separator:ga6a98fa4f1133264ca3add72381e7bb22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1e7105cb2482131f03140a223caf5cc1"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga1e7105cb2482131f03140a223caf5cc1">Cy_WDT_GetCount</a> (void)</td></tr>
-<tr class="memdesc:ga1e7105cb2482131f03140a223caf5cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the current WDT counter value.  <a href="#ga1e7105cb2482131f03140a223caf5cc1">More...</a><br /></td></tr>
-<tr class="separator:ga1e7105cb2482131f03140a223caf5cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1e707a8236e6dcd90eede7e726a2648f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga1e707a8236e6dcd90eede7e726a2648f">Cy_WDT_SetMatch</a> (uint32_t match)</td></tr>
-<tr class="memdesc:ga1e707a8236e6dcd90eede7e726a2648f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the WDT counter match comparison value.  <a href="#ga1e707a8236e6dcd90eede7e726a2648f">More...</a><br /></td></tr>
-<tr class="separator:ga1e707a8236e6dcd90eede7e726a2648f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga77552627bbcbe8ded86f52b67f5f12b3"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga77552627bbcbe8ded86f52b67f5f12b3">Cy_WDT_GetMatch</a> (void)</td></tr>
-<tr class="memdesc:ga77552627bbcbe8ded86f52b67f5f12b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the WDT counter match comparison value.  <a href="#ga77552627bbcbe8ded86f52b67f5f12b3">More...</a><br /></td></tr>
-<tr class="separator:ga77552627bbcbe8ded86f52b67f5f12b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafad1413ff11cfb3e3e2b5d9854dc793e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gafad1413ff11cfb3e3e2b5d9854dc793e">Cy_WDT_SetIgnoreBits</a> (uint32_t bitsNum)</td></tr>
-<tr class="memdesc:gafad1413ff11cfb3e3e2b5d9854dc793e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the number of the most significant bits of the Watchdog timer that are not checked against the match.  <a href="#gafad1413ff11cfb3e3e2b5d9854dc793e">More...</a><br /></td></tr>
-<tr class="separator:gafad1413ff11cfb3e3e2b5d9854dc793e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3ec661a60927ab0c15e654540f55c95b"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga3ec661a60927ab0c15e654540f55c95b">Cy_WDT_GetIgnoreBits</a> (void)</td></tr>
-<tr class="memdesc:ga3ec661a60927ab0c15e654540f55c95b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the number of the most significant bits of the Watchdog timer that are not checked against the match.  <a href="#ga3ec661a60927ab0c15e654540f55c95b">More...</a><br /></td></tr>
-<tr class="separator:ga3ec661a60927ab0c15e654540f55c95b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab6caa17bf5bcb0c365f60e602e653fed"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gab6caa17bf5bcb0c365f60e602e653fed">Cy_WDT_MaskInterrupt</a> (void)</td></tr>
-<tr class="memdesc:gab6caa17bf5bcb0c365f60e602e653fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">After masking interrupts from the WDT, they are not passed to the CPU.  <a href="#gab6caa17bf5bcb0c365f60e602e653fed">More...</a><br /></td></tr>
-<tr class="separator:gab6caa17bf5bcb0c365f60e602e653fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga38c69c98675d6024a7d73acb41b24399"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga38c69c98675d6024a7d73acb41b24399">Cy_WDT_UnmaskInterrupt</a> (void)</td></tr>
-<tr class="memdesc:ga38c69c98675d6024a7d73acb41b24399"><td class="mdescLeft">&#160;</td><td class="mdescRight">After unmasking interrupts from the WDT, they are passed to CPU.  <a href="#ga38c69c98675d6024a7d73acb41b24399">More...</a><br /></td></tr>
-<tr class="separator:ga38c69c98675d6024a7d73acb41b24399"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga727d9ae6fdba36809bf631985a3eb987"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987">Cy_WDT_ClearInterrupt</a> (void)</td></tr>
 <tr class="memdesc:ga727d9ae6fdba36809bf631985a3eb987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value.  <a href="#ga727d9ae6fdba36809bf631985a3eb987">More...</a><br /></td></tr>
 <tr class="separator:ga727d9ae6fdba36809bf631985a3eb987"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5aafcfb34e8078ae911bb42be76a8f18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga5aafcfb34e8078ae911bb42be76a8f18">Cy_WDT_ClearWatchdog</a> (void)</td></tr>
 <tr class="memdesc:ga5aafcfb34e8078ae911bb42be76a8f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears ("feeds") the watchdog, to prevent a XRES device reset.  <a href="#ga5aafcfb34e8078ae911bb42be76a8f18">More...</a><br /></td></tr>
 <tr class="separator:ga5aafcfb34e8078ae911bb42be76a8f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga82aec7e454d05d03dfd1d6fd5e573d5e"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga82aec7e454d05d03dfd1d6fd5e573d5e">Cy_WDT_Enable</a> (void)</td></tr>
+<tr class="memdesc:ga82aec7e454d05d03dfd1d6fd5e573d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the Watchdog timer.  <a href="#ga82aec7e454d05d03dfd1d6fd5e573d5e">More...</a><br /></td></tr>
+<tr class="separator:ga82aec7e454d05d03dfd1d6fd5e573d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga709f597d56e7f7fb6717d5ff671491fa"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga709f597d56e7f7fb6717d5ff671491fa">Cy_WDT_Disable</a> (void)</td></tr>
+<tr class="memdesc:ga709f597d56e7f7fb6717d5ff671491fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the Watchdog timer.  <a href="#ga709f597d56e7f7fb6717d5ff671491fa">More...</a><br /></td></tr>
+<tr class="separator:ga709f597d56e7f7fb6717d5ff671491fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05f8bb5603ce46caf842bd0ad254f604"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga05f8bb5603ce46caf842bd0ad254f604">Cy_WDT_IsEnabled</a> (void)</td></tr>
+<tr class="memdesc:ga05f8bb5603ce46caf842bd0ad254f604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports an enable/disable state of the Watchdog timer.  <a href="#ga05f8bb5603ce46caf842bd0ad254f604">More...</a><br /></td></tr>
+<tr class="separator:ga05f8bb5603ce46caf842bd0ad254f604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e7105cb2482131f03140a223caf5cc1"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga1e7105cb2482131f03140a223caf5cc1">Cy_WDT_GetCount</a> (void)</td></tr>
+<tr class="memdesc:ga1e7105cb2482131f03140a223caf5cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the current WDT counter value.  <a href="#ga1e7105cb2482131f03140a223caf5cc1">More...</a><br /></td></tr>
+<tr class="separator:ga1e7105cb2482131f03140a223caf5cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab6caa17bf5bcb0c365f60e602e653fed"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gab6caa17bf5bcb0c365f60e602e653fed">Cy_WDT_MaskInterrupt</a> (void)</td></tr>
+<tr class="memdesc:gab6caa17bf5bcb0c365f60e602e653fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">After masking interrupts from the WDT, they are not passed to the CPU.  <a href="#gab6caa17bf5bcb0c365f60e602e653fed">More...</a><br /></td></tr>
+<tr class="separator:gab6caa17bf5bcb0c365f60e602e653fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga38c69c98675d6024a7d73acb41b24399"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga38c69c98675d6024a7d73acb41b24399">Cy_WDT_UnmaskInterrupt</a> (void)</td></tr>
+<tr class="memdesc:ga38c69c98675d6024a7d73acb41b24399"><td class="mdescLeft">&#160;</td><td class="mdescRight">After unmasking interrupts from the WDT, they are passed to CPU.  <a href="#ga38c69c98675d6024a7d73acb41b24399">More...</a><br /></td></tr>
+<tr class="separator:ga38c69c98675d6024a7d73acb41b24399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e707a8236e6dcd90eede7e726a2648f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga1e707a8236e6dcd90eede7e726a2648f">Cy_WDT_SetMatch</a> (uint32_t match)</td></tr>
+<tr class="memdesc:ga1e707a8236e6dcd90eede7e726a2648f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the WDT counter match comparison value.  <a href="#ga1e707a8236e6dcd90eede7e726a2648f">More...</a><br /></td></tr>
+<tr class="separator:ga1e707a8236e6dcd90eede7e726a2648f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafad1413ff11cfb3e3e2b5d9854dc793e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gafad1413ff11cfb3e3e2b5d9854dc793e">Cy_WDT_SetIgnoreBits</a> (uint32_t bitsNum)</td></tr>
+<tr class="memdesc:gafad1413ff11cfb3e3e2b5d9854dc793e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the number of the most significant bits of the Watchdog timer that are not checked against the match.  <a href="#gafad1413ff11cfb3e3e2b5d9854dc793e">More...</a><br /></td></tr>
+<tr class="separator:gafad1413ff11cfb3e3e2b5d9854dc793e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77552627bbcbe8ded86f52b67f5f12b3"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga77552627bbcbe8ded86f52b67f5f12b3">Cy_WDT_GetMatch</a> (void)</td></tr>
+<tr class="memdesc:ga77552627bbcbe8ded86f52b67f5f12b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the WDT counter match comparison value.  <a href="#ga77552627bbcbe8ded86f52b67f5f12b3">More...</a><br /></td></tr>
+<tr class="separator:ga77552627bbcbe8ded86f52b67f5f12b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ec661a60927ab0c15e654540f55c95b"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga3ec661a60927ab0c15e654540f55c95b">Cy_WDT_GetIgnoreBits</a> (void)</td></tr>
+<tr class="memdesc:ga3ec661a60927ab0c15e654540f55c95b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the number of the most significant bits of the Watchdog timer that are not checked against the match.  <a href="#ga3ec661a60927ab0c15e654540f55c95b">More...</a><br /></td></tr>
+<tr class="separator:ga3ec661a60927ab0c15e654540f55c95b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga73fa85d671d84a6e318ea363a61eac72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga73fa85d671d84a6e318ea363a61eac72">Cy_WDT_SetMatchBits</a> (uint32_t bitPos)</td></tr>
+<tr class="memdesc:ga73fa85d671d84a6e318ea363a61eac72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the bit position above which the bits will be ignored for match.  <a href="#ga73fa85d671d84a6e318ea363a61eac72">More...</a><br /></td></tr>
+<tr class="separator:ga73fa85d671d84a6e318ea363a61eac72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacbd12276c1d11f3ad3f462a88d4b1065"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gacbd12276c1d11f3ad3f462a88d4b1065">Cy_WDT_SetClkSource</a> (<a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a> src)</td></tr>
 <tr class="memdesc:gacbd12276c1d11f3ad3f462a88d4b1065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the WDT clock source.  <a href="#gacbd12276c1d11f3ad3f462a88d4b1065">More...</a><br /></td></tr>
 <tr class="separator:gacbd12276c1d11f3ad3f462a88d4b1065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0b6f3df91bd3670cc8bce387e266d945"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga0b6f3df91bd3670cc8bce387e266d945">Cy_WDT_GetClkSource</a> (void)</td></tr>
 <tr class="memdesc:ga0b6f3df91bd3670cc8bce387e266d945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the WDT clock source configured.  <a href="#ga0b6f3df91bd3670cc8bce387e266d945">More...</a><br /></td></tr>
 <tr class="separator:ga0b6f3df91bd3670cc8bce387e266d945"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga73fa85d671d84a6e318ea363a61eac72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga73fa85d671d84a6e318ea363a61eac72">Cy_WDT_SetMatchBits</a> (uint32_t bitPos)</td></tr>
-<tr class="memdesc:ga73fa85d671d84a6e318ea363a61eac72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the bit position above which the bits will be ignored for match.  <a href="#ga73fa85d671d84a6e318ea363a61eac72">More...</a><br /></td></tr>
-<tr class="separator:ga73fa85d671d84a6e318ea363a61eac72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab47dddd65c9eb8b2c6a220b9f57ba3c4"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gab47dddd65c9eb8b2c6a220b9f57ba3c4">Cy_WDT_GetMatchBits</a> (void)</td></tr>
 <tr class="memdesc:gab47dddd65c9eb8b2c6a220b9f57ba3c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the bit position above which the bits will be ignored for match.  <a href="#gab47dddd65c9eb8b2c6a220b9f57ba3c4">More...</a><br /></td></tr>
 <tr class="separator:gab47dddd65c9eb8b2c6a220b9f57ba3c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga21e7fd379fa9a0b5d475c11263ec16d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga21e7fd379fa9a0b5d475c11263ec16d5">Cy_WDT_SetLowerLimit</a> (uint32_t match)</td></tr>
+<tr class="memdesc:ga21e7fd379fa9a0b5d475c11263ec16d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set lower limit for watchdog.  <a href="#ga21e7fd379fa9a0b5d475c11263ec16d5">More...</a><br /></td></tr>
+<tr class="separator:ga21e7fd379fa9a0b5d475c11263ec16d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64c5c9f8c8ff98b132deed303d219714"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga64c5c9f8c8ff98b132deed303d219714">Cy_WDT_SetUpperLimit</a> (uint32_t match)</td></tr>
+<tr class="memdesc:ga64c5c9f8c8ff98b132deed303d219714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set upper limit for watchdog.  <a href="#ga64c5c9f8c8ff98b132deed303d219714">More...</a><br /></td></tr>
+<tr class="separator:ga64c5c9f8c8ff98b132deed303d219714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ad751d2eeac6606210e6f2da2409450"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga9ad751d2eeac6606210e6f2da2409450">Cy_WDT_SetWarnLimit</a> (uint32_t match)</td></tr>
+<tr class="memdesc:ga9ad751d2eeac6606210e6f2da2409450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set warn limit for watchdog.  <a href="#ga9ad751d2eeac6606210e6f2da2409450">More...</a><br /></td></tr>
+<tr class="separator:ga9ad751d2eeac6606210e6f2da2409450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1cf0ca2963580bc88dc0241ba9843b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gae1cf0ca2963580bc88dc0241ba9843b2">Cy_WDT_SetLowerAction</a> (<a class="el" href="group__group__wdt__clk__src__enums.html#gad825b14b5e132304da2877abc00d20ce">cy_en_wdt_lower_upper_action_t</a> action)</td></tr>
+<tr class="memdesc:gae1cf0ca2963580bc88dc0241ba9843b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set action taken if this watchdog is serviced before LOWER_LIMIT is reached.  <a href="#gae1cf0ca2963580bc88dc0241ba9843b2">More...</a><br /></td></tr>
+<tr class="separator:gae1cf0ca2963580bc88dc0241ba9843b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga496dd75cabf55aeab95c6c1e759c7da6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga496dd75cabf55aeab95c6c1e759c7da6">Cy_WDT_SetUpperAction</a> (<a class="el" href="group__group__wdt__clk__src__enums.html#gad825b14b5e132304da2877abc00d20ce">cy_en_wdt_lower_upper_action_t</a> action)</td></tr>
+<tr class="memdesc:ga496dd75cabf55aeab95c6c1e759c7da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set action taken if this watchdog is not serviced before UPPER_LIMIT is reached.  <a href="#ga496dd75cabf55aeab95c6c1e759c7da6">More...</a><br /></td></tr>
+<tr class="separator:ga496dd75cabf55aeab95c6c1e759c7da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadeda593623cd11c8594e4cec64759bf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gadeda593623cd11c8594e4cec64759bf3">Cy_WDT_SetWarnAction</a> (<a class="el" href="group__group__wdt__clk__src__enums.html#ga81dab00f6381d41c0f7ed9765cf09d41">cy_en_wdt_warn_action_t</a> action)</td></tr>
+<tr class="memdesc:gadeda593623cd11c8594e4cec64759bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set action taken when the count value reaches WARN_LIMIT.  <a href="#gadeda593623cd11c8594e4cec64759bf3">More...</a><br /></td></tr>
+<tr class="separator:gadeda593623cd11c8594e4cec64759bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c59734a60855534520a53194ef181a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga5c59734a60855534520a53194ef181a4">Cy_WDT_SetAutoService</a> (<a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a> enable)</td></tr>
+<tr class="memdesc:ga5c59734a60855534520a53194ef181a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set automatically service when the count value reaches WARN_LIMIT.  <a href="#ga5c59734a60855534520a53194ef181a4">More...</a><br /></td></tr>
+<tr class="separator:ga5c59734a60855534520a53194ef181a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6cfcbb37db4f7c295fae0f9113bafea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gaf6cfcbb37db4f7c295fae0f9113bafea">Cy_WDT_SetDeepSleepPause</a> (<a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a> enable)</td></tr>
+<tr class="memdesc:gaf6cfcbb37db4f7c295fae0f9113bafea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the WDT counter runs/pauses when the system is in DEEPSLEEP.  <a href="#gaf6cfcbb37db4f7c295fae0f9113bafea">More...</a><br /></td></tr>
+<tr class="separator:gaf6cfcbb37db4f7c295fae0f9113bafea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga607ca487deb77c6fa533cbfa3ba2a320"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga607ca487deb77c6fa533cbfa3ba2a320">Cy_WDT_SetHibernatePause</a> (<a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a> enable)</td></tr>
+<tr class="memdesc:ga607ca487deb77c6fa533cbfa3ba2a320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the WDT counter runs/pauses when the system is in HIBERNATE.  <a href="#ga607ca487deb77c6fa533cbfa3ba2a320">More...</a><br /></td></tr>
+<tr class="separator:ga607ca487deb77c6fa533cbfa3ba2a320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace74b427ab6c7bb323a4018cd2a9c1ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#gace74b427ab6c7bb323a4018cd2a9c1ee">Cy_WDT_SetDebugRun</a> (<a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a> enable)</td></tr>
+<tr class="memdesc:gace74b427ab6c7bb323a4018cd2a9c1ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the debug run value.  <a href="#gace74b427ab6c7bb323a4018cd2a9c1ee">More...</a><br /></td></tr>
+<tr class="separator:gace74b427ab6c7bb323a4018cd2a9c1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga405c852c5a61c72a9492f9d0d9c04213"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga405c852c5a61c72a9492f9d0d9c04213">Cy_WDT_SetService</a> (void)</td></tr>
+<tr class="memdesc:ga405c852c5a61c72a9492f9d0d9c04213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set service of the watchdog.  <a href="#ga405c852c5a61c72a9492f9d0d9c04213">More...</a><br /></td></tr>
+<tr class="separator:ga405c852c5a61c72a9492f9d0d9c04213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaac6f64babfb1855f9ba8aecccc19ecb4"></a>
@@ -170,7 +203,116 @@ Functions</h2></td></tr>
 
 <p>Initializes the Watchdog timer to its default state. </p>
 <p>The given default setting of the WDT: The WDT is unlocked and disabled. The WDT match value is 4096. None of ignore bits are set: the whole WDT counter bits are checked against the match value.</p>
-<dl class="section user"><dt>Side Effects</dt><dd>This function clears the WDT interrupt. </dd></dl>
+<dl class="section user"><dt>Side Effects</dt><dd>This function clears the WDT interrupt.</dd></dl>
+<p>The given default setting of the WDT: The WDT is unlocked and disabled. The WDT Lower Limit value is set to 0 and Lower action to None. The WDT Warn Limit value is set to 0 and Warn action to None. The WDT Upper Limit value is set to 32000 (1 second) and Upper action to Reset. The WDT is locked again. </p>
+
+</div>
+</div>
+<a id="gaec9bd8d1439389a46cdd2dcadc8e987d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaec9bd8d1439389a46cdd2dcadc8e987d">&#9670;&nbsp;</a></span>Cy_WDT_Lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_Lock </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Locks out configuration changes to the Watchdog Timer register. </p>
+<p>After this function is called, the WDT configuration cannot be changed until <a class="el" href="group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667" title="Unlocks the Watchdog Timer configuration register. ">Cy_WDT_Unlock()</a> is called.</p>
+<dl class="section warning"><dt>Warning</dt><dd>The WDT lock state is not retained during system Deep Sleep. After the wakeup from system Deep Sleep the WDT is locked. </dd></dl>
+
+</div>
+</div>
+<a id="ga51094ce9149f69553b6348eccbd89667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga51094ce9149f69553b6348eccbd89667">&#9670;&nbsp;</a></span>Cy_WDT_Unlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_Unlock </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unlocks the Watchdog Timer configuration register. </p>
+<dl class="section warning"><dt>Warning</dt><dd>The WDT lock state is not retained during system Deep Sleep. After the wakeup from system Deep Sleep the WDT is locked. </dd></dl>
+
+</div>
+</div>
+<a id="ga6a98fa4f1133264ca3add72381e7bb22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6a98fa4f1133264ca3add72381e7bb22">&#9670;&nbsp;</a></span>Cy_WDT_Locked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_WDT_Locked </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the WDT lock state. </p>
+<dl class="section return"><dt>Returns</dt><dd>True - if WDT is locked. False - if WDT is unlocked. </dd></dl>
+
+</div>
+</div>
+<a id="ga727d9ae6fdba36809bf631985a3eb987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga727d9ae6fdba36809bf631985a3eb987">&#9670;&nbsp;</a></span>Cy_WDT_ClearInterrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_ClearInterrupt </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value. </p>
+<p>Two unserviced interrupts lead to a system reset (i.e. at the third match).</p>
+<p>Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value. </p>
+
+</div>
+</div>
+<a id="ga5aafcfb34e8078ae911bb42be76a8f18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5aafcfb34e8078ae911bb42be76a8f18">&#9670;&nbsp;</a></span>Cy_WDT_ClearWatchdog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_ClearWatchdog </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears ("feeds") the watchdog, to prevent a XRES device reset. </p>
+<p>This function simply call <a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987" title="Clears the WDT match flag which is set as configured by WDT action and limits. ">Cy_WDT_ClearInterrupt()</a> function.</p>
+<p>This function simply call <a class="el" href="group__group__wdt__functions.html#ga405c852c5a61c72a9492f9d0d9c04213" title="Set service of the watchdog. ">Cy_WDT_SetService()</a> function. </p>
 
 </div>
 </div>
@@ -241,70 +383,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gaec9bd8d1439389a46cdd2dcadc8e987d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaec9bd8d1439389a46cdd2dcadc8e987d">&#9670;&nbsp;</a></span>Cy_WDT_Lock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Cy_WDT_Lock </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Locks out configuration changes to the Watchdog Timer register. </p>
-<p>After this function is called, the WDT configuration cannot be changed until <a class="el" href="group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667" title="Unlocks the Watchdog Timer configuration register. ">Cy_WDT_Unlock()</a> is called.</p>
-<dl class="section warning"><dt>Warning</dt><dd>The WDT lock state is not retained during system Deep Sleep. After the wakeup from system Deep Sleep the WDT is locked. </dd></dl>
-
-</div>
-</div>
-<a id="ga51094ce9149f69553b6348eccbd89667"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga51094ce9149f69553b6348eccbd89667">&#9670;&nbsp;</a></span>Cy_WDT_Unlock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Cy_WDT_Unlock </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unlocks the Watchdog Timer configuration register. </p>
-<dl class="section warning"><dt>Warning</dt><dd>The WDT lock state is not retained during system Deep Sleep. After the wakeup from system Deep Sleep the WDT is locked. </dd></dl>
-
-</div>
-</div>
-<a id="ga6a98fa4f1133264ca3add72381e7bb22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6a98fa4f1133264ca3add72381e7bb22">&#9670;&nbsp;</a></span>Cy_WDT_Locked()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Cy_WDT_Locked </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the WDT lock state. </p>
-<dl class="section return"><dt>Returns</dt><dd>True - if WDT is locked. False - if WDT is unlocked. </dd></dl>
-
-</div>
-</div>
 <a id="ga1e7105cb2482131f03140a223caf5cc1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga1e7105cb2482131f03140a223caf5cc1">&#9670;&nbsp;</a></span>Cy_WDT_GetCount()</h2>
 
@@ -323,104 +401,6 @@ Functions</h2></td></tr>
 
 <p>Reads the current WDT counter value. </p>
 <dl class="section return"><dt>Returns</dt><dd>A live counter value. </dd></dl>
-
-</div>
-</div>
-<a id="ga1e707a8236e6dcd90eede7e726a2648f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1e707a8236e6dcd90eede7e726a2648f">&#9670;&nbsp;</a></span>Cy_WDT_SetMatch()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Cy_WDT_SetMatch </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>match</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configures the WDT counter match comparison value. </p>
-<p>The Watchdog timer should be unlocked before changing the match value. Call the <a class="el" href="group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667" title="Unlocks the Watchdog Timer configuration register. ">Cy_WDT_Unlock()</a> function to unlock the WDT.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">match</td><td>The valid valid range is [0-65535]. The value to be used to match against the counter. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga77552627bbcbe8ded86f52b67f5f12b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga77552627bbcbe8ded86f52b67f5f12b3">&#9670;&nbsp;</a></span>Cy_WDT_GetMatch()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE uint32_t Cy_WDT_GetMatch </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the WDT counter match comparison value. </p>
-<dl class="section return"><dt>Returns</dt><dd>The counter match value. </dd></dl>
-
-</div>
-</div>
-<a id="gafad1413ff11cfb3e3e2b5d9854dc793e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gafad1413ff11cfb3e3e2b5d9854dc793e">&#9670;&nbsp;</a></span>Cy_WDT_SetIgnoreBits()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Cy_WDT_SetIgnoreBits </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>bitsNum</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configures the number of the most significant bits of the Watchdog timer that are not checked against the match. </p>
-<p>Unlock the Watchdog timer before ignoring the bits setting. Call the <a class="el" href="group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667" title="Unlocks the Watchdog Timer configuration register. ">Cy_WDT_Unlock()</a> API to unlock the WDT.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bitsNum</td><td>The number of the most significant bits. The valid range is [0-15]. The bitsNum over 12 are considered as 12.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>The value of bitsNum controls the time-to-reset of the Watchdog timer This happens after 3 successive matches.</p>
-<dl class="section warning"><dt>Warning</dt><dd>This function changes the WDT interrupt period, therefore the device can go into an infinite WDT reset loop. This may happen if a WDT reset occurs faster that a device start-up. </dd></dl>
-
-</div>
-</div>
-<a id="ga3ec661a60927ab0c15e654540f55c95b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3ec661a60927ab0c15e654540f55c95b">&#9670;&nbsp;</a></span>Cy_WDT_GetIgnoreBits()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE uint32_t Cy_WDT_GetIgnoreBits </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the number of the most significant bits of the Watchdog timer that are not checked against the match. </p>
-<dl class="section return"><dt>Returns</dt><dd>The number of the most significant bits. </dd></dl>
 
 </div>
 </div>
@@ -466,83 +446,70 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga727d9ae6fdba36809bf631985a3eb987"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga727d9ae6fdba36809bf631985a3eb987">&#9670;&nbsp;</a></span>Cy_WDT_ClearInterrupt()</h2>
+<a id="ga1e707a8236e6dcd90eede7e726a2648f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e707a8236e6dcd90eede7e726a2648f">&#9670;&nbsp;</a></span>Cy_WDT_SetMatch()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Cy_WDT_ClearInterrupt </td>
+          <td class="memname">void Cy_WDT_SetMatch </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>match</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value. </p>
-<p>Two unserviced interrupts lead to a system reset (i.e. at the third match). </p>
-
-</div>
-</div>
-<a id="ga5aafcfb34e8078ae911bb42be76a8f18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5aafcfb34e8078ae911bb42be76a8f18">&#9670;&nbsp;</a></span>Cy_WDT_ClearWatchdog()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Cy_WDT_ClearWatchdog </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears ("feeds") the watchdog, to prevent a XRES device reset. </p>
-<p>This function simply call <a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987" title="Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value...">Cy_WDT_ClearInterrupt()</a> function. </p>
-
-</div>
-</div>
-<a id="gacbd12276c1d11f3ad3f462a88d4b1065"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacbd12276c1d11f3ad3f462a88d4b1065">&#9670;&nbsp;</a></span>Cy_WDT_SetClkSource()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE void Cy_WDT_SetClkSource </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a>&#160;</td>
-          <td class="paramname"><em>src</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configures the WDT clock source. </p>
+<p>Configures the WDT counter match comparison value. </p>
+<p>The Watchdog timer should be unlocked before changing the match value. Call the <a class="el" href="group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667" title="Unlocks the Watchdog Timer configuration register. ">Cy_WDT_Unlock()</a> function to unlock the WDT.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a></td></tr>
+    <tr><td class="paramname">match</td><td>The valid valid range is [0-65535]. The value to be used to match against the counter. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
 
 </div>
 </div>
-<a id="ga0b6f3df91bd3670cc8bce387e266d945"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0b6f3df91bd3670cc8bce387e266d945">&#9670;&nbsp;</a></span>Cy_WDT_GetClkSource()</h2>
+<a id="gafad1413ff11cfb3e3e2b5d9854dc793e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafad1413ff11cfb3e3e2b5d9854dc793e">&#9670;&nbsp;</a></span>Cy_WDT_SetIgnoreBits()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a> Cy_WDT_GetClkSource </td>
+          <td class="memname">void Cy_WDT_SetIgnoreBits </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>bitsNum</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures the number of the most significant bits of the Watchdog timer that are not checked against the match. </p>
+<p>Unlock the Watchdog timer before ignoring the bits setting. Call the <a class="el" href="group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667" title="Unlocks the Watchdog Timer configuration register. ">Cy_WDT_Unlock()</a> API to unlock the WDT.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bitsNum</td><td>The number of the most significant bits. The valid range is [0-15]. The bitsNum over 12 are considered as 12.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>The value of bitsNum controls the time-to-reset of the Watchdog timer This happens after 3 successive matches.</p>
+<dl class="section warning"><dt>Warning</dt><dd>This function changes the WDT interrupt period, therefore the device can go into an infinite WDT reset loop. This may happen if a WDT reset occurs faster that a device start-up. </dd></dl>
+
+</div>
+</div>
+<a id="ga77552627bbcbe8ded86f52b67f5f12b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga77552627bbcbe8ded86f52b67f5f12b3">&#9670;&nbsp;</a></span>Cy_WDT_GetMatch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE uint32_t Cy_WDT_GetMatch </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -551,9 +518,31 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the WDT clock source configured. </p>
-<dl class="section return"><dt>Returns</dt><dd>The Clock source enum <a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a></dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+<p>Reads the WDT counter match comparison value. </p>
+<dl class="section return"><dt>Returns</dt><dd>The counter match value.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1B and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga3ec661a60927ab0c15e654540f55c95b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ec661a60927ab0c15e654540f55c95b">&#9670;&nbsp;</a></span>Cy_WDT_GetIgnoreBits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE uint32_t Cy_WDT_GetIgnoreBits </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads the number of the most significant bits of the Watchdog timer that are not checked against the match. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of the most significant bits.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1B and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -586,6 +575,57 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="gacbd12276c1d11f3ad3f462a88d4b1065"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacbd12276c1d11f3ad3f462a88d4b1065">&#9670;&nbsp;</a></span>Cy_WDT_SetClkSource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_WDT_SetClkSource </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a>&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures the WDT clock source. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B and CAT1D devices.</dd>
+<dd>
+It takes four cycles of the originally selected clock to switch away from it. Do not disable the original clock during this time. </dd></dl>
+
+</div>
+</div>
+<a id="ga0b6f3df91bd3670cc8bce387e266d945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0b6f3df91bd3670cc8bce387e266d945">&#9670;&nbsp;</a></span>Cy_WDT_GetClkSource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a> Cy_WDT_GetClkSource </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the WDT clock source configured. </p>
+<dl class="section return"><dt>Returns</dt><dd>The Clock source enum <a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B and CAT1D devices. </dd></dl>
+
+</div>
+</div>
 <a id="gab47dddd65c9eb8b2c6a220b9f57ba3c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab47dddd65c9eb8b2c6a220b9f57ba3c4">&#9670;&nbsp;</a></span>Cy_WDT_GetMatchBits()</h2>
 
@@ -604,7 +644,301 @@ Functions</h2></td></tr>
 
 <p>Gets the bit position above which the bits will be ignored for match. </p>
 <dl class="section return"><dt>Returns</dt><dd>The bit position above which the bits will be ignored for match.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga21e7fd379fa9a0b5d475c11263ec16d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga21e7fd379fa9a0b5d475c11263ec16d5">&#9670;&nbsp;</a></span>Cy_WDT_SetLowerLimit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetLowerLimit </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>match</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set lower limit for watchdog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">match</td><td>- Value to be matched</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga64c5c9f8c8ff98b132deed303d219714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga64c5c9f8c8ff98b132deed303d219714">&#9670;&nbsp;</a></span>Cy_WDT_SetUpperLimit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetUpperLimit </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>match</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set upper limit for watchdog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">match</td><td>- Value to be matched</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga9ad751d2eeac6606210e6f2da2409450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9ad751d2eeac6606210e6f2da2409450">&#9670;&nbsp;</a></span>Cy_WDT_SetWarnLimit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetWarnLimit </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>match</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set warn limit for watchdog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">match</td><td>- Value to be matched</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="gae1cf0ca2963580bc88dc0241ba9843b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae1cf0ca2963580bc88dc0241ba9843b2">&#9670;&nbsp;</a></span>Cy_WDT_SetLowerAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetLowerAction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#gad825b14b5e132304da2877abc00d20ce">cy_en_wdt_lower_upper_action_t</a>&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set action taken if this watchdog is serviced before LOWER_LIMIT is reached. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">action</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#gad825b14b5e132304da2877abc00d20ce">cy_en_wdt_lower_upper_action_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga496dd75cabf55aeab95c6c1e759c7da6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga496dd75cabf55aeab95c6c1e759c7da6">&#9670;&nbsp;</a></span>Cy_WDT_SetUpperAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetUpperAction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#gad825b14b5e132304da2877abc00d20ce">cy_en_wdt_lower_upper_action_t</a>&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set action taken if this watchdog is not serviced before UPPER_LIMIT is reached. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">action</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#gad825b14b5e132304da2877abc00d20ce">cy_en_wdt_lower_upper_action_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="gadeda593623cd11c8594e4cec64759bf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadeda593623cd11c8594e4cec64759bf3">&#9670;&nbsp;</a></span>Cy_WDT_SetWarnAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetWarnAction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#ga81dab00f6381d41c0f7ed9765cf09d41">cy_en_wdt_warn_action_t</a>&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set action taken when the count value reaches WARN_LIMIT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">action</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#ga81dab00f6381d41c0f7ed9765cf09d41">cy_en_wdt_warn_action_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga5c59734a60855534520a53194ef181a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5c59734a60855534520a53194ef181a4">&#9670;&nbsp;</a></span>Cy_WDT_SetAutoService()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetAutoService </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a>&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set automatically service when the count value reaches WARN_LIMIT. </p>
+<p>This function is used for WARN_LIMIT.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="gaf6cfcbb37db4f7c295fae0f9113bafea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf6cfcbb37db4f7c295fae0f9113bafea">&#9670;&nbsp;</a></span>Cy_WDT_SetDeepSleepPause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetDeepSleepPause </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a>&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set whether the WDT counter runs/pauses when the system is in DEEPSLEEP. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga607ca487deb77c6fa533cbfa3ba2a320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga607ca487deb77c6fa533cbfa3ba2a320">&#9670;&nbsp;</a></span>Cy_WDT_SetHibernatePause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetHibernatePause </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a>&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set whether the WDT counter runs/pauses when the system is in HIBERNATE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="gace74b427ab6c7bb323a4018cd2a9c1ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace74b427ab6c7bb323a4018cd2a9c1ee">&#9670;&nbsp;</a></span>Cy_WDT_SetDebugRun()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetDebugRun </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a>&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the debug run value. </p>
+<p>It needs when using debugger.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td><a class="el" href="group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a">cy_en_wdt_enable_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga405c852c5a61c72a9492f9d0d9c04213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga405c852c5a61c72a9492f9d0d9c04213">&#9670;&nbsp;</a></span>Cy_WDT_SetService()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_WDT_SetService </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set service of the watchdog. </p>
+<p>This resets the count value to zero.</p>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
 
 </div>
 </div>

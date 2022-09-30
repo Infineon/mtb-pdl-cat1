@@ -15,7 +15,6 @@ var searchData=
   ['efid2',['efid2',['../structcy__stc__canfd__f1__t.html#a99b8506a2baf06713330527888012281',1,'cy_stc_canfd_f1_t']]],
   ['eft',['eft',['../structcy__stc__canfd__f1__t.html#a70878983c9c65ef73cefdab49e1427f0',1,'cy_stc_canfd_f1_t']]],
   ['emmc',['emmc',['../structcy__stc__sd__host__init__config__t.html#ad1464a6d34fe1c9c8b6e89100bdcdbb4',1,'cy_stc_sd_host_init_config_t']]],
-  ['empty',['empty',['../structcy__stc__adcmic__fifo__config__t.html#ad8f5cc31246f41074eda8f732dd46d4f',1,'cy_stc_adcmic_fifo_config_t']]],
   ['enable',['enable',['../structcy__stc__dma__channel__config__t.html#a018bbd8e3039b78ad16f9c0536dde3c0',1,'cy_stc_dma_channel_config_t::enable()'],['../structcy__stc__dmac__channel__config__t.html#a01cab162709493ed756b6cb21219ff51',1,'cy_stc_dmac_channel_config_t::enable()'],['../structcy__stc__test__config__t.html#a00483dafa146cbbc0b1cb040b338b64d',1,'cy_stc_test_config_t::enable()'],['../structcy__stc__tdm__config__tx__t.html#a3bc0d8a5a0059e0012490022c3f06a3d',1,'cy_stc_tdm_config_tx_t::enable()'],['../structcy__stc__tdm__config__rx__t.html#a4a4839e77c81bf1fe7c32b8edf67befe',1,'cy_stc_tdm_config_rx_t::enable()']]],
   ['enableautoresponseerrorcheck',['enableAutoResponseErrorCheck',['../structcy__stc__sd__host__cmd__config__t.html#ae2912e7f351ba66d4dbe1c652cfd525e',1,'cy_stc_sd_host_cmd_config_t']]],
   ['enablecompare0swap',['enableCompare0Swap',['../structcy__stc__tcpwm__shiftreg__config__t.html#a72cf5641fbd233221a67118edec8c82e',1,'cy_stc_tcpwm_shiftreg_config_t']]],
@@ -27,6 +26,12 @@ var searchData=
   ['enabledma',['enableDma',['../structcy__stc__sd__host__data__config__t.html#a8c6205390c0288816bcf15adab9a5b0d',1,'cy_stc_sd_host_data_config_t::enableDma()'],['../structcy__stc__sd__host__write__read__config__t.html#abe4883ca2cfbcc2a2ffe01ad99bd4f99',1,'cy_stc_sd_host_write_read_config_t::enableDma()']]],
   ['enableendpoint',['enableEndpoint',['../structcy__stc__usb__dev__ep__config__t.html#a9832618b80c22557e26288c46c903346',1,'cy_stc_usb_dev_ep_config_t']]],
   ['enablefreerunsclk',['enableFreeRunSclk',['../structcy__stc__scb__spi__config__t.html#aad9bb6b5bf1883ecb44ee09398903f47',1,'cy_stc_scb_spi_config_t']]],
+  ['enablefreezeadc0',['enableFreezeAdc0',['../structcy__stc__sar2__debug__freeze__config__t.html#ac43237cd92bd52ed61689362351b4e9d',1,'cy_stc_sar2_debug_freeze_config_t']]],
+  ['enablefreezeadc1',['enableFreezeAdc1',['../structcy__stc__sar2__debug__freeze__config__t.html#a2734e5468839a77771ceacc75703b333',1,'cy_stc_sar2_debug_freeze_config_t']]],
+  ['enablefreezeadc2',['enableFreezeAdc2',['../structcy__stc__sar2__debug__freeze__config__t.html#ab138d45dbc2ebc8bc8ce739e50ed21f6',1,'cy_stc_sar2_debug_freeze_config_t']]],
+  ['enablefreezeadc3',['enableFreezeAdc3',['../structcy__stc__sar2__debug__freeze__config__t.html#aa6eb75f2f3f20dc5c44f33d18da37cf7',1,'cy_stc_sar2_debug_freeze_config_t']]],
+  ['enablehalflsbconv',['enableHalfLsbConv',['../structcy__stc__sar2__config__t.html#a63f2c52203441744bf3a7b753fedb06d',1,'cy_stc_sar2_config_t']]],
+  ['enableidlepowerdown',['enableIdlePowerDown',['../structcy__stc__sar2__config__t.html#a6b3a6f12a026232f2c693e00728ce350',1,'cy_stc_sar2_config_t']]],
   ['enableidxcheck',['enableIdxCheck',['../structcy__stc__sd__host__cmd__config__t.html#acaff80593eeedfb3513527f16c3a6ae4',1,'cy_stc_sd_host_cmd_config_t']]],
   ['enableinputfilter',['enableInputFilter',['../structcy__stc__scb__spi__config__t.html#a4a8fa24b12a399b989276d7c6fa42837',1,'cy_stc_scb_spi_config_t::enableInputFilter()'],['../structcy__stc__scb__uart__config__t.html#a11ed4ced763dc661cf7e3b5456ec6157',1,'cy_stc_scb_uart_config_t::enableInputFilter()']]],
   ['enableintatblockgap',['enableIntAtBlockGap',['../structcy__stc__sd__host__data__config__t.html#a45aeea11671d119f13f80068dc023c49',1,'cy_stc_sd_host_data_config_t']]],
@@ -68,5 +73,7 @@ var searchData=
   ['extclkport',['extClkPort',['../structcy__stc__pra__system__config__t.html#ac83be3d598cd832ee897b72b65dfc02f',1,'cy_stc_pra_system_config_t']]],
   ['extidandmask',['extIDANDMask',['../structcy__stc__canfd__extid__filter__config__t.html#ab4c437d42463b651635e1cbd74a9edeb',1,'cy_stc_canfd_extid_filter_config_t']]],
   ['extidfilter',['extidFilter',['../structcy__stc__canfd__extid__filter__config__t.html#a6abcfc52baa9dbcd7f02d774fa7d7f12',1,'cy_stc_canfd_extid_filter_config_t']]],
-  ['extidfilterconfig',['extidFilterConfig',['../structcy__stc__canfd__config__t.html#a4ab0d26238c986888bf65ae80e0e175e',1,'cy_stc_canfd_config_t']]]
+  ['extidfilterconfig',['extidFilterConfig',['../structcy__stc__canfd__config__t.html#a4ab0d26238c986888bf65ae80e0e175e',1,'cy_stc_canfd_config_t']]],
+  ['extmuxenable',['extMuxEnable',['../structcy__stc__sar2__channel__config__t.html#ac8124b9249f78f966f76aa4d1c024821',1,'cy_stc_sar2_channel_config_t']]],
+  ['extmuxselect',['extMuxSelect',['../structcy__stc__sar2__channel__config__t.html#a7a7f4c53be120ca2f61bd0c6066978a6',1,'cy_stc_sar2_channel_config_t']]]
 ];

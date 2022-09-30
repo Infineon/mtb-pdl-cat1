@@ -100,12 +100,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gadc19dc83856db209d195a1df6e9dcd67"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__adcmic__functions__fifo.html#gadc19dc83856db209d195a1df6e9dcd67">Cy_ADCMic_ReadFifo</a> (<a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> const *base)</td></tr>
 <tr class="memdesc:gadc19dc83856db209d195a1df6e9dcd67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Low-level API which returns the ADCMIC_DATA register value that contains <b>two</b> subsequent FIFO data samples.  <a href="#gadc19dc83856db209d195a1df6e9dcd67">More...</a><br /></td></tr>
 <tr class="separator:gadc19dc83856db209d195a1df6e9dcd67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga92dcfb88eca4988f49c0e6c7207340b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__adcmic__functions__fifo.html#ga92dcfb88eca4988f49c0e6c7207340b1">Cy_ADCMic_SetDcOffset</a> (<a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> const *base, int16_t offset)</td></tr>
-<tr class="memdesc:ga92dcfb88eca4988f49c0e6c7207340b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the offset value for DC measurement calibration.  <a href="#ga92dcfb88eca4988f49c0e6c7207340b1">More...</a><br /></td></tr>
-<tr class="separator:ga92dcfb88eca4988f49c0e6c7207340b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga46910eec1b043bf60e74b82dd03449fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__adcmic__functions__fifo.html#ga46910eec1b043bf60e74b82dd03449fc">Cy_ADCMic_SetDcGain</a> (<a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> const *base, int16_t gain)</td></tr>
-<tr class="memdesc:ga46910eec1b043bf60e74b82dd03449fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the gain value for DC measurement calibration.  <a href="#ga46910eec1b043bf60e74b82dd03449fc">More...</a><br /></td></tr>
-<tr class="separator:ga46910eec1b043bf60e74b82dd03449fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga220eefbf87371967992dbbd993c747d6"></a>
@@ -200,80 +194,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The combined 32-bit value of two 16-bit samples. Use <a class="el" href="group__group__adcmic__macros__fifo__samples.html">FIFO Samples definitions</a> to parse it.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint16_t samples[2U];</div><div class="line">    uint32_t fifoData = <a class="code" href="group__group__adcmic__functions__fifo.html#gadc19dc83856db209d195a1df6e9dcd67">Cy_ADCMic_ReadFifo</a>(MXS40ADCMIC0);</div><div class="line">    samples[0U] = (uint16_t)_FLD2VAL(CY_ADCMIC_FIFO_FIRST_SAMPLE, fifoData);</div><div class="line">    samples[1U] = (uint16_t)_FLD2VAL(CY_ADCMIC_FIFO_SECOND_SAMPLE, fifoData);</div><div class="line">    <span class="comment">/* now the samples array contains two subsequent data samples */</span></div></div><!-- fragment --></dd></dl>
-
-</div>
-</div>
-<a id="ga92dcfb88eca4988f49c0e6c7207340b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga92dcfb88eca4988f49c0e6c7207340b1">&#9670;&nbsp;</a></span>Cy_ADCMic_SetDcOffset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Cy_ADCMic_SetDcOffset </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> const *&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t&#160;</td>
-          <td class="paramname"><em>offset</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the offset value for DC measurement calibration. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to the hardware ADCMic block.</td></tr>
-    <tr><td class="paramname">offset</td><td>The offset value. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ga46910eec1b043bf60e74b82dd03449fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga46910eec1b043bf60e74b82dd03449fc">&#9670;&nbsp;</a></span>Cy_ADCMic_SetDcGain()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Cy_ADCMic_SetDcGain </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_m_x_s40_a_d_c_m_i_c___type.html">MXS40ADCMIC_Type</a> const *&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t&#160;</td>
-          <td class="paramname"><em>gain</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the gain value for DC measurement calibration. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to the hardware ADCMic block.</td></tr>
-    <tr><td class="paramname">gain</td><td>The gain value. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

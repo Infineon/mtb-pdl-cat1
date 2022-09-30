@@ -215,7 +215,7 @@ Functions</h2></td></tr>
 <li>TEN_VOLT: 10 V constant since the gain is in counts per 10 volts.</li>
 <li>Gain: Value stored by the <a class="el" href="group__group__sar__functions__countsto.html#ga39cd1ae1f2f7101812199b012f22b635">Cy_SAR_SetChannelGain</a> function.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>This funtion is only valid when result alignment is right aligned.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is only valid when result alignment is right aligned.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>Pointer to structure describing registers</td></tr>
@@ -230,7 +230,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
-<div class="fragment"><div class="line">    </div><div class="line">    <span class="comment">/* Scenario: ADC conversion has completed and result is valid.</span></div><div class="line"><span class="comment">     * Retrieve the result on channel 0 and convert it to volts. */</span></div><div class="line">    uint32_t chan = 0UL;</div><div class="line">    <a class="code" href="group__group__syslib__macros.html#ga4611b605e45ab401f02cab15c5e38715">float32_t</a> resultVolts;</div><div class="line">    resultVolts = <a class="code" href="group__group__sar__functions__countsto.html#gaf9e34e8b68020602396686ec699314a1">Cy_SAR_CountsTo_Volts</a>(SAR, chan, <a class="code" href="group__group__sar__functions__basic.html#ga5d7a3489629382b1e46477c034bbb2d0">Cy_SAR_GetResult16</a>(SAR, chan));</div></div><!-- fragment -->
+<div class="fragment"><div class="line">    </div><div class="line">    <span class="comment">/* Scenario: ADC conversion has completed and result is valid.</span></div><div class="line"><span class="comment">     * Retrieve the result on channel 0 and convert it to volts. */</span></div><div class="line">    uint32_t chan = 0UL;</div><div class="line">    <a class="code" href="group__group__syslib__macros.html#ga4611b605e45ab401f02cab15c5e38715">float32_t</a> resultVolts;</div><div class="line">    resultVolts = <a class="code" href="group__group__sar__functions__countsto.html#gaf9e34e8b68020602396686ec699314a1">Cy_SAR_CountsTo_Volts</a>(SAR_HW, chan, <a class="code" href="group__group__sar__functions__basic.html#ga5d7a3489629382b1e46477c034bbb2d0">Cy_SAR_GetResult16</a>(SAR_HW, chan));</div></div><!-- fragment -->
 </div>
 </div>
 <a id="ga8f1189056459a76c4b9f9917dc3a9e6e"></a>
@@ -280,7 +280,7 @@ mV = V * 1000
 <li>TEN_VOLT: 10 V constant since the gain is in counts per 10 volts.</li>
 <li>Gain: Value stored by the <a class="el" href="group__group__sar__functions__countsto.html#ga39cd1ae1f2f7101812199b012f22b635">Cy_SAR_SetChannelGain</a> function.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>This funtion is only valid when result alignment is right aligned.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is only valid when result alignment is right aligned.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>Pointer to structure describing registers</td></tr>
@@ -295,7 +295,7 @@ mV = V * 1000
 </ul>
 </dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
-<div class="fragment"><div class="line">    <span class="comment">/* Scenario: ADC conversion has completed and result is valid.</span></div><div class="line"><span class="comment">     * Retrieve the result on channel 0 and convert it to millivolts. */</span></div><div class="line">    uint32_t chan = 0UL;</div><div class="line">    int16_t resultmVolts;</div><div class="line">    resultmVolts = <a class="code" href="group__group__sar__functions__countsto.html#ga8f1189056459a76c4b9f9917dc3a9e6e">Cy_SAR_CountsTo_mVolts</a>(SAR, chan, <a class="code" href="group__group__sar__functions__basic.html#ga5d7a3489629382b1e46477c034bbb2d0">Cy_SAR_GetResult16</a>(SAR, chan));</div></div><!-- fragment -->
+<div class="fragment"><div class="line">    <span class="comment">/* Scenario: ADC conversion has completed and result is valid.</span></div><div class="line"><span class="comment">     * Retrieve the result on channel 0 and convert it to millivolts. */</span></div><div class="line">    uint32_t chan = 0UL;</div><div class="line">    int16_t resultmVolts;</div><div class="line">    resultmVolts = <a class="code" href="group__group__sar__functions__countsto.html#ga8f1189056459a76c4b9f9917dc3a9e6e">Cy_SAR_CountsTo_mVolts</a>(SAR_HW, chan, <a class="code" href="group__group__sar__functions__basic.html#ga5d7a3489629382b1e46477c034bbb2d0">Cy_SAR_GetResult16</a>(SAR_HW, chan));</div></div><!-- fragment -->
 </div>
 </div>
 <a id="ga0950546e50604fc6daa33b2bdb155e5d"></a>
@@ -345,7 +345,7 @@ uV = V * 1000000
 <li>TEN_VOLT: 10 V constant since the gain is in counts per 10 volts.</li>
 <li>Gain: Value stored by the <a class="el" href="group__group__sar__functions__countsto.html#ga39cd1ae1f2f7101812199b012f22b635">Cy_SAR_SetChannelGain</a> function.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>This funtion is only valid when result alignment is right aligned.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is only valid when result alignment is right aligned.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>Pointer to structure describing registers</td></tr>
@@ -360,7 +360,7 @@ uV = V * 1000000
 </ul>
 </dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
-<div class="fragment"><div class="line">    <span class="comment">/* Scenario: ADC conversion has completed and result is valid.</span></div><div class="line"><span class="comment">     * Retrieve the result on channel 0 and convert it to microvolts. */</span></div><div class="line">    uint32_t chan = 0UL;</div><div class="line">    int32_t resultuVolts;</div><div class="line">    resultuVolts = <a class="code" href="group__group__sar__functions__countsto.html#ga0950546e50604fc6daa33b2bdb155e5d">Cy_SAR_CountsTo_uVolts</a>(SAR, chan, <a class="code" href="group__group__sar__functions__basic.html#ga5d7a3489629382b1e46477c034bbb2d0">Cy_SAR_GetResult16</a>(SAR, chan));</div></div><!-- fragment -->
+<div class="fragment"><div class="line">    <span class="comment">/* Scenario: ADC conversion has completed and result is valid.</span></div><div class="line"><span class="comment">     * Retrieve the result on channel 0 and convert it to microvolts. */</span></div><div class="line">    uint32_t chan = 0UL;</div><div class="line">    int32_t resultuVolts;</div><div class="line">    resultuVolts = <a class="code" href="group__group__sar__functions__countsto.html#ga0950546e50604fc6daa33b2bdb155e5d">Cy_SAR_CountsTo_uVolts</a>(SAR_HW, chan, <a class="code" href="group__group__sar__functions__basic.html#ga5d7a3489629382b1e46477c034bbb2d0">Cy_SAR_GetResult16</a>(SAR_HW, chan));</div></div><!-- fragment -->
 </div>
 </div>
 <a id="gacb47a32670fdb8439eeaafeed8cc36fb"></a>

@@ -2,6 +2,7 @@ var searchData=
 [
   ['number_20of_20days_20in_20month_20definitions',['Number of days in month definitions',['../group__group__rtc__days__in__month.html',1,'']]],
   ['name',['name',['../structcy__stc__crypto__ecc__dp__type.html#ab82d2c5a88601262a08abccf2a78c335',1,'cy_stc_crypto_ecc_dp_type']]],
+  ['negativereload',['negativeReload',['../structcy__stc__sar2__channel__config__t.html#a5e9fbf1dad620008b001fe34265cb04e',1,'cy_stc_sar2_channel_config_t']]],
   ['nextdescriptor',['nextDescriptor',['../structcy__stc__dma__descriptor__config__t.html#a6bbdfa16f3b38866a9e6d4242814b45e',1,'cy_stc_dma_descriptor_config_t::nextDescriptor()'],['../structcy__stc__dmac__descriptor__config__t.html#a99cb4784bc632bd6f7144a972e7b9509',1,'cy_stc_dmac_descriptor_config_t::nextDescriptor()']]],
   ['nextitm',['nextItm',['../structcy__stc__syspm__callback__t.html#a491e913ae8b54d0a61f2ac6959abf8ab',1,'cy_stc_syspm_callback_t']]],
   ['nextptr',['nextPtr',['../structcy__stc__dma__descriptor__t.html#a5a4b7a5d21ed52dc47bf239bfa547b2b',1,'cy_stc_dma_descriptor_t::nextPtr()'],['../structcy__stc__dmac__descriptor__t.html#aab77a638b75ddc536d776e6d9b37cad0',1,'cy_stc_dmac_descriptor_t::nextPtr()']]],
@@ -20,5 +21,7 @@ var searchData=
   ['numberofextidfilters',['numberOfEXTIDFilters',['../structcy__stc__canfd__extid__filter__config__t.html#a64ec8d1f72eaa08c9ac9bdc033e75691',1,'cy_stc_canfd_extid_filter_config_t']]],
   ['numberoffifoelements',['numberOfFIFOElements',['../structcy__en__canfd__fifo__config__t.html#a182249c9eb66def21e9163229580be84',1,'cy_en_canfd_fifo_config_t']]],
   ['numberofsidfilters',['numberOfSIDFilters',['../structcy__stc__canfd__sid__filter__config__t.html#a5bfcbd161c4c00c2bb84049e60b16f06',1,'cy_stc_canfd_sid_filter_config_t']]],
-  ['numofaddrbytes',['numOfAddrBytes',['../structcy__stc__smif__mem__device__cfg__t.html#a35330244a98f847507496b3f5cbff5aa',1,'cy_stc_smif_mem_device_cfg_t']]]
+  ['numofaddrbytes',['numOfAddrBytes',['../structcy__stc__smif__mem__device__cfg__t.html#a35330244a98f847507496b3f5cbff5aa',1,'cy_stc_smif_mem_device_cfg_t']]],
+  ['numofbyte',['numOfByte',['../structcy__stc__flash__computehash__config__t.html#aaf59f0d885a9d92e2fa85efc9a10ac77',1,'cy_stc_flash_computehash_config_t']]],
+  ['numofwordstobechecked',['numOfWordsToBeChecked',['../structcy__stc__flash__blankcheck__config__t.html#ab39b06bf91730b4961c1d7ff954cc26d',1,'cy_stc_flash_blankcheck_config_t']]]
 ];

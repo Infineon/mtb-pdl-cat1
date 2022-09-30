@@ -101,12 +101,21 @@ Functions</h2></td></tr>
 <tr class="memitem:gae8aee459272ad30568e9c13a4c5dc729"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae8aee459272ad30568e9c13a4c5dc729">Cy_Crypto_Core_Rsa_Verify</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> *verResult, <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a> digestType, uint8_t const *digest, uint8_t const *decryptedSignature, uint32_t decryptedSignatureLength)</td></tr>
 <tr class="memdesc:gae8aee459272ad30568e9c13a4c5dc729"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA verification with checks for content, paddings and signature format.  <a href="#gae8aee459272ad30568e9c13a4c5dc729">More...</a><br /></td></tr>
 <tr class="separator:gae8aee459272ad30568e9c13a4c5dc729"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf81bcce61483c6ebf3374dcf456d20f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gaf81bcce61483c6ebf3374dcf456d20f8">Cy_Crypto_Core_Rsa_Verify_Ext</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> *verResult, <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a> digestType, uint8_t const *digest, uint32_t digestLength, uint8_t const *decryptedSignature, uint32_t decryptedSignatureLength)</td></tr>
+<tr class="memdesc:gaf81bcce61483c6ebf3374dcf456d20f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA verification with checks for content, paddings and signature format.  <a href="#gaf81bcce61483c6ebf3374dcf456d20f8">More...</a><br /></td></tr>
+<tr class="separator:gaf81bcce61483c6ebf3374dcf456d20f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae83f35c8c5a35e9b7321ada249d40d95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae83f35c8c5a35e9b7321ada249d40d95">Cy_Crypto_Core_Rsa_Proc</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *key, uint8_t const *message, uint32_t messageSize, uint8_t *processedMessage)</td></tr>
 <tr class="memdesc:gae83f35c8c5a35e9b7321ada249d40d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA process algorithm based on the Montgomery algorithm using Barrett reduction.  <a href="#gae83f35c8c5a35e9b7321ada249d40d95">More...</a><br /></td></tr>
 <tr class="separator:gae83f35c8c5a35e9b7321ada249d40d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga0a60b217ca4b355bc1fcafc2e1478368">Cy_Crypto_Core_Rsa_Coef</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> const *key)</td></tr>
 <tr class="memdesc:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculation constant coefficients to to speed-up Montgomery algorithm.  <a href="#ga0a60b217ca4b355bc1fcafc2e1478368">More...</a><br /></td></tr>
 <tr class="separator:ga0a60b217ca4b355bc1fcafc2e1478368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga072945ffa6f5e33f9dd95753cbca58d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga072945ffa6f5e33f9dd95753cbca58d8">Cy_Crypto_Core_ECC_MakePrivateKey</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, uint8_t *key, <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a> GetRandomDataFunc, void *randomDataInfo)</td></tr>
+<tr class="memdesc:ga072945ffa6f5e33f9dd95753cbca58d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new ECC private key.  <a href="#ga072945ffa6f5e33f9dd95753cbca58d8">More...</a><br /></td></tr>
+<tr class="separator:ga072945ffa6f5e33f9dd95753cbca58d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f2794ea5588d819aa19a1c1cfeec209"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga7f2794ea5588d819aa19a1c1cfeec209">Cy_Crypto_Core_ECC_MakePublicKey</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, const uint8_t *privateKey, <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *publicKey)</td></tr>
+<tr class="memdesc:ga7f2794ea5588d819aa19a1c1cfeec209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new ECC public key.  <a href="#ga7f2794ea5588d819aa19a1c1cfeec209">More...</a><br /></td></tr>
+<tr class="separator:ga7f2794ea5588d819aa19a1c1cfeec209"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga85493f9431e34316b21d3f29dae4ac4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga85493f9431e34316b21d3f29dae4ac4b">Cy_Crypto_Core_ECC_MakeKeyPair</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *key, <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a> GetRandomDataFunc, void *randomDataInfo)</td></tr>
 <tr class="memdesc:ga85493f9431e34316b21d3f29dae4ac4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new ECC key pair.  <a href="#ga85493f9431e34316b21d3f29dae4ac4b">More...</a><br /></td></tr>
 <tr class="separator:ga85493f9431e34316b21d3f29dae4ac4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,12 +125,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga1d1d01ef464f6609df2a5c1ba4186d86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga1d1d01ef464f6609df2a5c1ba4186d86">Cy_Crypto_Core_ECC_VerifyHash</a> (CRYPTO_Type *base, const uint8_t *sig, const uint8_t *hash, uint32_t hashlen, uint8_t *stat, const <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *key)</td></tr>
 <tr class="memdesc:ga1d1d01ef464f6609df2a5c1ba4186d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify an ECC signature.  <a href="#ga1d1d01ef464f6609df2a5c1ba4186d86">More...</a><br /></td></tr>
 <tr class="separator:ga1d1d01ef464f6609df2a5c1ba4186d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga072945ffa6f5e33f9dd95753cbca58d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga072945ffa6f5e33f9dd95753cbca58d8">Cy_Crypto_Core_ECC_MakePrivateKey</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, uint8_t *key, <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a> GetRandomDataFunc, void *randomDataInfo)</td></tr>
-<tr class="memdesc:ga072945ffa6f5e33f9dd95753cbca58d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new ECC private key.  <a href="#ga072945ffa6f5e33f9dd95753cbca58d8">More...</a><br /></td></tr>
-<tr class="separator:ga072945ffa6f5e33f9dd95753cbca58d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7f2794ea5588d819aa19a1c1cfeec209"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga7f2794ea5588d819aa19a1c1cfeec209">Cy_Crypto_Core_ECC_MakePublicKey</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, const uint8_t *privateKey, <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *publicKey)</td></tr>
-<tr class="memdesc:ga7f2794ea5588d819aa19a1c1cfeec209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new ECC public key.  <a href="#ga7f2794ea5588d819aa19a1c1cfeec209">More...</a><br /></td></tr>
-<tr class="separator:ga7f2794ea5588d819aa19a1c1cfeec209"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3339d6b9fad08c824ef9d94d0234e903"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga3339d6b9fad08c824ef9d94d0234e903">Cy_Crypto_Core_EC_NistP_PointMultiplication</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, const uint8_t *ecpGX, const uint8_t *ecpGY, const uint8_t *ecpD, uint8_t *ecpQX, uint8_t *ecpQY)</td></tr>
 <tr class="memdesc:ga3339d6b9fad08c824ef9d94d0234e903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elliptic curve point multiplication in GF(p).  <a href="#ga3339d6b9fad08c824ef9d94d0234e903">More...</a><br /></td></tr>
 <tr class="separator:ga3339d6b9fad08c824ef9d94d0234e903"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,13 +188,91 @@ Functions</h2></td></tr>
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
     <tr><td class="paramname">verResult</td><td>The pointer to the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</td></tr>
     <tr><td class="paramname">digestType</td><td>SHA mode used for hash calculation <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a>.</td></tr>
-    <tr><td class="paramname">digest</td><td>The pointer to the hash of the message whose signature is to be verified.</td></tr>
+    <tr><td class="paramname">digest</td><td>The pointer to the hash of the message or the message whose signature is to be verified.</td></tr>
     <tr><td class="paramname">decryptedSignature</td><td>The pointer to the decrypted signature to be verified.</td></tr>
     <tr><td class="paramname">decryptedSignatureLength</td><td>The length of the decrypted signature to be verified (in bytes)</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line"><span class="preprocessor">    #define RSA_MODULO_LENGTH       2048u</span></div><div class="line"><span class="preprocessor">    #define RSA_MODULO_DATA_SIZE    (RSA_MODULO_LENGTH / 8)</span></div><div class="line"></div><div class="line">    <span class="keyword">typedef</span> <span class="keyword">struct</span></div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> publicKeyStruct;</div><div class="line">        uint8_t  moduloData[RSA_MODULO_DATA_SIZE];</div><div class="line">        uint8_t  expData   [32];</div><div class="line">        uint8_t  k1Data    [RSA_MODULO_DATA_SIZE+4];</div><div class="line">        uint8_t  k2Data    [RSA_MODULO_DATA_SIZE];</div><div class="line">        uint8_t  k3Data    [RSA_MODULO_DATA_SIZE];</div><div class="line">    } cy_stc_public_key_t;</div><div class="line"></div><div class="line">    <span class="comment">/* All data arrays should be 4-byte aligned */</span></div><div class="line">    cy_stc_public_key_t cy_publicKey =</div><div class="line">    {</div><div class="line">        .publicKeyStruct =</div><div class="line">        {</div><div class="line">            .moduloPtr          = 0,</div><div class="line">            .moduloLength       = RSA_MODULO_LENGTH,</div><div class="line">            .pubExpPtr          = 0,</div><div class="line">            .pubExpLength       = 24,</div><div class="line">            .barretCoefPtr      = NULL,</div><div class="line">            .inverseModuloPtr   = NULL,</div><div class="line">            .rBarPtr            = NULL</div><div class="line">        },</div><div class="line">        .moduloData =</div><div class="line">        {   <span class="comment">/* modulus in Little Endian for a public key - rsa_public.txt */</span></div><div class="line">            0xD9u, 0x94u, 0x94u, 0x38u, 0xA4u, 0xE0u, 0x50u, 0xA1u,</div><div class="line">            0xADu, 0xC5u, 0xE2u, 0x66u, 0xA9u, 0x7Fu, 0xE7u, 0xD7u,</div><div class="line">            0xA8u, 0x10u, 0x87u, 0x3Au, 0xBEu, 0xB3u, 0x0Eu, 0x6Au,</div><div class="line">            0xB2u, 0x8Bu, 0x2Eu, 0x8Du, 0xC2u, 0x45u, 0x41u, 0xA6u,</div><div class="line">            0xDBu, 0xEBu, 0x90u, 0x20u, 0x56u, 0xECu, 0xFDu, 0x8Cu,</div><div class="line">            0x23u, 0x09u, 0x13u, 0x5Du, 0x65u, 0xA2u, 0xADu, 0x9Du,</div><div class="line">            0x3Bu, 0xF2u, 0x5Bu, 0xF6u, 0xABu, 0x2Eu, 0xFEu, 0xF2u,</div><div class="line">            0x69u, 0x98u, 0x29u, 0x6Du, 0xD1u, 0x2Eu, 0x91u, 0x5Au,</div><div class="line">            0x65u, 0x83u, 0xF5u, 0x7Fu, 0x8Eu, 0x73u, 0xFFu, 0xA1u,</div><div class="line">            0x8Cu, 0x70u, 0x07u, 0xDFu, 0x4Du, 0xF4u, 0x79u, 0xB7u,</div><div class="line">            0x18u, 0xC1u, 0xA3u, 0x2Bu, 0x82u, 0x5Bu, 0x9Eu, 0xE2u,</div><div class="line">            0xF0u, 0xA0u, 0xB8u, 0xDAu, 0x19u, 0xADu, 0xBBu, 0x2Bu,</div><div class="line">            0xD5u, 0x07u, 0x5Au, 0x85u, 0x12u, 0x03u, 0xD8u, 0x60u,</div><div class="line">            0x53u, 0x3Du, 0xC6u, 0x34u, 0xE2u, 0x7Fu, 0x96u, 0x4Cu,</div><div class="line">            0x26u, 0x1Eu, 0x82u, 0xB1u, 0x85u, 0xC3u, 0x0Du, 0x54u,</div><div class="line">            0x68u, 0x37u, 0x97u, 0x58u, 0x19u, 0x36u, 0x43u, 0x9Cu,</div><div class="line">            0xD9u, 0xC3u, 0x42u, 0xEBu, 0xBEu, 0xE2u, 0x8Fu, 0x72u,</div><div class="line">            0xF1u, 0x5Eu, 0x2Au, 0x15u, 0x56u, 0x52u, 0xD4u, 0x6Du,</div><div class="line">            0x61u, 0x97u, 0x16u, 0xFEu, 0xC3u, 0xF9u, 0x17u, 0x3Cu,</div><div class="line">            0x37u, 0xD5u, 0xE1u, 0xA1u, 0x0Au, 0xB7u, 0xD9u, 0x65u,</div><div class="line">            0xA1u, 0x15u, 0xECu, 0xC7u, 0x39u, 0xECu, 0xEDu, 0x39u,</div><div class="line">            0x98u, 0x96u, 0x66u, 0x50u, 0x8Cu, 0x25u, 0xC3u, 0x29u,</div><div class="line">            0xB9u, 0xF8u, 0x25u, 0x55u, 0x92u, 0x7Au, 0xBFu, 0xFBu,</div><div class="line">            0x45u, 0x2Au, 0x28u, 0x8Au, 0xF9u, 0xE5u, 0xE2u, 0x30u,</div><div class="line">            0x72u, 0x0Eu, 0x0Au, 0x1Cu, 0x25u, 0x09u, 0x86u, 0x6Fu,</div><div class="line">            0xF6u, 0x6Fu, 0x15u, 0xEDu, 0x14u, 0xE6u, 0x1Eu, 0x53u,</div><div class="line">            0x5Au, 0x15u, 0x25u, 0xB9u, 0x5Eu, 0xC9u, 0xBAu, 0x48u,</div><div class="line">            0xA3u, 0xE3u, 0x93u, 0x62u, 0x3Cu, 0x6Cu, 0x3Cu, 0x83u,</div><div class="line">            0x17u, 0x29u, 0xFBu, 0xAEu, 0x91u, 0x47u, 0xC9u, 0x41u,</div><div class="line">            0x2Fu, 0xF9u, 0x82u, 0x29u, 0x7Bu, 0xB4u, 0x5Au, 0x93u,</div><div class="line">            0x01u, 0x95u, 0xDBu, 0x08u, 0x7Eu, 0x7Bu, 0x99u, 0x1Eu,</div><div class="line">            0xD4u, 0x25u, 0xD3u, 0x2Au, 0xF4u, 0xC7u, 0x9Fu, 0xB3u,</div><div class="line">        },</div><div class="line">        <span class="comment">/* Little endian exponent for a public key - rsa_public.txt */</span></div><div class="line">        .expData = { 0x01, 0x00, 0x01 },</div><div class="line">        .k1Data  = { 0, },</div><div class="line">        .k2Data  = { 0, },</div><div class="line">        .k3Data  = { 0, },</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Present encrypted signature of the image */</span></div><div class="line">    uint8_t rsaEncryptedSign[RSA_MODULO_DATA_SIZE] =</div><div class="line">    {</div><div class="line">        0x12u, 0xCEu, 0x13u, 0x83u, 0x4Fu, 0xFFu, 0x39u, 0x9Bu,</div><div class="line">        0x33u, 0xDEu, 0xDCu, 0xDBu, 0x7Cu, 0x62u, 0xA5u, 0x10u,</div><div class="line">        0x24u, 0x07u, 0xEAu, 0x4Cu, 0x04u, 0x4Au, 0xCEu, 0x7Bu,</div><div class="line">        0x8Cu, 0xD8u, 0xD4u, 0x64u, 0xD1u, 0x98u, 0xA2u, 0x33u,</div><div class="line">        0x2Eu, 0xFFu, 0x06u, 0x13u, 0xD6u, 0x5Au, 0x50u, 0x3Cu,</div><div class="line">        0xA2u, 0x5Eu, 0xE3u, 0x11u, 0x54u, 0x7Cu, 0x6Au, 0x49u,</div><div class="line">        0x39u, 0xA3u, 0x62u, 0x02u, 0x66u, 0xB0u, 0x19u, 0x82u,</div><div class="line">        0xFBu, 0x5Du, 0x15u, 0xB2u, 0x0Bu, 0xF7u, 0xECu, 0x6Cu,</div><div class="line">        0xBEu, 0xEBu, 0x04u, 0x1Fu, 0x0Bu, 0x5Bu, 0x18u, 0x0Eu,</div><div class="line">        0x96u, 0x03u, 0xC4u, 0x1Eu, 0x56u, 0xB6u, 0x1Fu, 0xF2u,</div><div class="line">        0x08u, 0x7Au, 0x81u, 0x96u, 0x86u, 0xA4u, 0x93u, 0x5Du,</div><div class="line">        0x66u, 0x63u, 0x10u, 0xD5u, 0x9Bu, 0xA9u, 0xD7u, 0x52u,</div><div class="line">        0xCDu, 0xEFu, 0x23u, 0xDCu, 0x58u, 0xC7u, 0x3Du, 0x72u,</div><div class="line">        0x3Fu, 0x09u, 0x5Eu, 0x3Bu, 0x03u, 0xF9u, 0x91u, 0x10u,</div><div class="line">        0x63u, 0x2Au, 0x56u, 0xFAu, 0xCEu, 0x8Cu, 0x8Au, 0xBFu,</div><div class="line">        0xB5u, 0xA1u, 0xA7u, 0x0Fu, 0xBBu, 0xD8u, 0xACu, 0x7Fu,</div><div class="line">        0x43u, 0x3Cu, 0xBFu, 0x11u, 0xD8u, 0xAEu, 0x55u, 0xE7u,</div><div class="line">        0x23u, 0xF8u, 0xA4u, 0xE0u, 0x56u, 0xCFu, 0x3Fu, 0x21u,</div><div class="line">        0xA9u, 0xB6u, 0x01u, 0x34u, 0xDFu, 0xB6u, 0xDCu, 0xAAu,</div><div class="line">        0x29u, 0xB0u, 0x97u, 0x9Du, 0xD9u, 0xAAu, 0x47u, 0xD4u,</div><div class="line">        0xD9u, 0x4Au, 0x97u, 0x52u, 0x3Cu, 0xB9u, 0x36u, 0xDAu,</div><div class="line">        0xF6u, 0xA6u, 0x14u, 0x97u, 0xDEu, 0xE6u, 0x76u, 0xBFu,</div><div class="line">        0x1Bu, 0x23u, 0xDBu, 0x68u, 0x66u, 0xEAu, 0x0Eu, 0xC6u,</div><div class="line">        0xD3u, 0x52u, 0x05u, 0x86u, 0x26u, 0x04u, 0x31u, 0xCEu,</div><div class="line">        0xCFu, 0x8Du, 0x13u, 0x84u, 0x81u, 0xF2u, 0x7Bu, 0xB7u,</div><div class="line">        0xDCu, 0x93u, 0x23u, 0x93u, 0xD1u, 0x0Cu, 0xF4u, 0xDFu,</div><div class="line">        0x37u, 0x44u, 0x3Du, 0xD7u, 0xAFu, 0xBFu, 0xAFu, 0x32u,</div><div class="line">        0xE7u, 0x31u, 0x50u, 0x70u, 0x62u, 0xC3u, 0xABu, 0x31u,</div><div class="line">        0x51u, 0x28u, 0x2Bu, 0x0Bu, 0x31u, 0xC6u, 0xD3u, 0x0Fu,</div><div class="line">        0x74u, 0xE6u, 0x31u, 0x21u, 0xF0u, 0xA3u, 0x40u, 0x5Du,</div><div class="line">        0xEDu, 0xFFu, 0xC9u, 0xEBu, 0x5Au, 0x65u, 0xF3u, 0xCBu,</div><div class="line">        0x67u, 0x50u, 0x62u, 0x2Du, 0x8Au, 0xEAu, 0xC3u, 0xBDu,</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Previously calculated SHA-256 digest of the image */</span></div><div class="line">    uint8_t sha256Digest[<a class="code" href="group__group__crypto__cli__srv__macros.html#ga82ff1a7671e4f0cf2026cbda5ef7e12a">CY_CRYPTO_SHA256_DIGEST_SIZE</a>] =</div><div class="line">    {</div><div class="line">        0xf4u, 0xcbu, 0x29u, 0x53u, 0xadu, 0xc2u, 0xbdu, 0x49u,</div><div class="line">        0x6bu, 0x43u, 0x28u, 0x2bu, 0x63u, 0xb7u, 0x0du, 0x16u,</div><div class="line">        0xa9u, 0xd4u, 0x90u, 0x65u, 0x6eu, 0x7bu, 0x6du, 0xb7u,</div><div class="line">        0x0bu, 0x17u, 0xefu, 0x60u, 0x02u, 0x12u, 0x0fu, 0x90u</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Temporary decryption buffer */</span></div><div class="line">    uint8_t rsaOutput[RSA_MODULO_DATA_SIZE];</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> verResult;</div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line"></div><div class="line">    cy_publicKey.publicKeyStruct.moduloPtr = cy_publicKey.moduloData;</div><div class="line">    cy_publicKey.publicKeyStruct.pubExpPtr = cy_publicKey.expData;</div><div class="line"></div><div class="line">    <span class="comment">/* Reverse the signature generated by openssl, CRYPTO IP is Little-Endian */</span></div><div class="line">    <a class="code" href="group__group__crypto__lld__hw__functions.html#ga5d74ed1e6161b72e972fac828fa3aea9">Cy_Crypto_Core_InvertEndianness</a>(rsaEncryptedSign, RSA_MODULO_DATA_SIZE);</div><div class="line"></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__asymmetric__functions.html#gae83f35c8c5a35e9b7321ada249d40d95">Cy_Crypto_Core_Rsa_Proc</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             &amp;cy_publicKey.publicKeyStruct, <span class="comment">/* Pointer to key */</span></div><div class="line">                             rsaEncryptedSign,        <span class="comment">/* Pointer to signature */</span></div><div class="line">                             <span class="keyword">sizeof</span>(rsaEncryptedSign),   <span class="comment">/* size of signature */</span></div><div class="line">                             rsaOutput);    <span class="comment">/* Pointer to decrypted signature */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Reverse the decrypted signature */</span></div><div class="line">    <a class="code" href="group__group__crypto__lld__hw__functions.html#ga5d74ed1e6161b72e972fac828fa3aea9">Cy_Crypto_Core_InvertEndianness</a>(rsaOutput, RSA_MODULO_DATA_SIZE);</div><div class="line"></div><div class="line">    <span class="comment">/* Verify decrypted signature by calculated SHA digest from data image */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__asymmetric__functions.html#gae8aee459272ad30568e9c13a4c5dc729">Cy_Crypto_Core_Rsa_Verify</a>(</div><div class="line">                             CRYPTO_HW,</div><div class="line">                             &amp;verResult,    <span class="comment">/* Pointer to verification result */</span></div><div class="line">                             <a class="code" href="group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbba2212390919051b39d22d567c508c6d1f">CY_CRYPTO_MODE_SHA256</a>,              <span class="comment">/* Hash mode */</span></div><div class="line">                             sha256Digest, <span class="comment">/* Pointer to hash digest of image */</span></div><div class="line">                             rsaOutput,     <span class="comment">/* Pointer to decrypted signature */</span></div><div class="line">                             <span class="keyword">sizeof</span>(rsaOutput));         <span class="comment">/* Size of signature */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__crypto__enums.html#ggaf08f93b8b21962a60f119157337b2113ae4b7e089501db168bf6ef127b8dbcb21">CY_CRYPTO_RSA_VERIFY_SUCCESS</a> == verResult)</div><div class="line">    {</div><div class="line">        <span class="comment">/* Verification OK */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Verification FAILED */</span></div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gaf81bcce61483c6ebf3374dcf456d20f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf81bcce61483c6ebf3374dcf456d20f8">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Rsa_Verify_Ext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Rsa_Verify_Ext </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> *&#160;</td>
+          <td class="paramname"><em>verResult</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a>&#160;</td>
+          <td class="paramname"><em>digestType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>digest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>digestLength</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>decryptedSignature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>decryptedSignatureLength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RSA verification with checks for content, paddings and signature format. </p>
+<p>SHA digest of the message and decrypted message should be calculated before. Supports only PKCS1-v1_5 format, inside of this format supported padding using only SHA, cases with MD2 and MD5 are not supported. PKCS1-v1_5 described here, page 31: <a href="http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf">http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf</a></p>
+<p>For CAT1C devices when D-Cache is enabled parameter decryptedSignature must align and end in 32 byte boundary.</p>
+<p>Returns the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">verResult</td><td>The pointer to the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</td></tr>
+    <tr><td class="paramname">digestType</td><td>SHA mode used for hash calculation <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a>.</td></tr>
+    <tr><td class="paramname">digest</td><td>The pointer to the hash of the message or the message whose signature is to be verified.</td></tr>
+    <tr><td class="paramname">digestLength</td><td>The length of the message whose signature is to be verified and is applicable for CY_CRYPTO_MODE_SHA_NONE mode.</td></tr>
+    <tr><td class="paramname">decryptedSignature</td><td>The pointer to the decrypted signature to be verified.</td></tr>
+    <tr><td class="paramname">decryptedSignatureLength</td><td>The length of the decrypted signature to be verified (in bytes)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line"><span class="preprocessor">    #define RSA_MODULO_LENGTH       2048u</span></div><div class="line"><span class="preprocessor">    #define RSA_MODULO_DATA_SIZE    (RSA_MODULO_LENGTH / 8)</span></div><div class="line"></div><div class="line">    <span class="keyword">typedef</span> <span class="keyword">struct</span></div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> publicKeyStruct;</div><div class="line">        uint8_t  moduloData[RSA_MODULO_DATA_SIZE];</div><div class="line">        uint8_t  expData   [32];</div><div class="line">        uint8_t  k1Data    [RSA_MODULO_DATA_SIZE+4];</div><div class="line">        uint8_t  k2Data    [RSA_MODULO_DATA_SIZE];</div><div class="line">        uint8_t  k3Data    [RSA_MODULO_DATA_SIZE];</div><div class="line">    } cy_stc_public_key_t;</div><div class="line"></div><div class="line">    <span class="comment">/* All data arrays should be 4-byte aligned */</span></div><div class="line">    cy_stc_public_key_t cy_publicKey =</div><div class="line">    {</div><div class="line">        .publicKeyStruct =</div><div class="line">        {</div><div class="line">            .moduloPtr          = 0,</div><div class="line">            .moduloLength       = RSA_MODULO_LENGTH,</div><div class="line">            .pubExpPtr          = 0,</div><div class="line">            .pubExpLength       = 24,</div><div class="line">            .barretCoefPtr      = NULL,</div><div class="line">            .inverseModuloPtr   = NULL,</div><div class="line">            .rBarPtr            = NULL</div><div class="line">        },</div><div class="line">        .moduloData =</div><div class="line">        {   <span class="comment">/* modulus in Little Endian for a public key - rsa_public.txt */</span></div><div class="line">            0xD9u, 0x94u, 0x94u, 0x38u, 0xA4u, 0xE0u, 0x50u, 0xA1u,</div><div class="line">            0xADu, 0xC5u, 0xE2u, 0x66u, 0xA9u, 0x7Fu, 0xE7u, 0xD7u,</div><div class="line">            0xA8u, 0x10u, 0x87u, 0x3Au, 0xBEu, 0xB3u, 0x0Eu, 0x6Au,</div><div class="line">            0xB2u, 0x8Bu, 0x2Eu, 0x8Du, 0xC2u, 0x45u, 0x41u, 0xA6u,</div><div class="line">            0xDBu, 0xEBu, 0x90u, 0x20u, 0x56u, 0xECu, 0xFDu, 0x8Cu,</div><div class="line">            0x23u, 0x09u, 0x13u, 0x5Du, 0x65u, 0xA2u, 0xADu, 0x9Du,</div><div class="line">            0x3Bu, 0xF2u, 0x5Bu, 0xF6u, 0xABu, 0x2Eu, 0xFEu, 0xF2u,</div><div class="line">            0x69u, 0x98u, 0x29u, 0x6Du, 0xD1u, 0x2Eu, 0x91u, 0x5Au,</div><div class="line">            0x65u, 0x83u, 0xF5u, 0x7Fu, 0x8Eu, 0x73u, 0xFFu, 0xA1u,</div><div class="line">            0x8Cu, 0x70u, 0x07u, 0xDFu, 0x4Du, 0xF4u, 0x79u, 0xB7u,</div><div class="line">            0x18u, 0xC1u, 0xA3u, 0x2Bu, 0x82u, 0x5Bu, 0x9Eu, 0xE2u,</div><div class="line">            0xF0u, 0xA0u, 0xB8u, 0xDAu, 0x19u, 0xADu, 0xBBu, 0x2Bu,</div><div class="line">            0xD5u, 0x07u, 0x5Au, 0x85u, 0x12u, 0x03u, 0xD8u, 0x60u,</div><div class="line">            0x53u, 0x3Du, 0xC6u, 0x34u, 0xE2u, 0x7Fu, 0x96u, 0x4Cu,</div><div class="line">            0x26u, 0x1Eu, 0x82u, 0xB1u, 0x85u, 0xC3u, 0x0Du, 0x54u,</div><div class="line">            0x68u, 0x37u, 0x97u, 0x58u, 0x19u, 0x36u, 0x43u, 0x9Cu,</div><div class="line">            0xD9u, 0xC3u, 0x42u, 0xEBu, 0xBEu, 0xE2u, 0x8Fu, 0x72u,</div><div class="line">            0xF1u, 0x5Eu, 0x2Au, 0x15u, 0x56u, 0x52u, 0xD4u, 0x6Du,</div><div class="line">            0x61u, 0x97u, 0x16u, 0xFEu, 0xC3u, 0xF9u, 0x17u, 0x3Cu,</div><div class="line">            0x37u, 0xD5u, 0xE1u, 0xA1u, 0x0Au, 0xB7u, 0xD9u, 0x65u,</div><div class="line">            0xA1u, 0x15u, 0xECu, 0xC7u, 0x39u, 0xECu, 0xEDu, 0x39u,</div><div class="line">            0x98u, 0x96u, 0x66u, 0x50u, 0x8Cu, 0x25u, 0xC3u, 0x29u,</div><div class="line">            0xB9u, 0xF8u, 0x25u, 0x55u, 0x92u, 0x7Au, 0xBFu, 0xFBu,</div><div class="line">            0x45u, 0x2Au, 0x28u, 0x8Au, 0xF9u, 0xE5u, 0xE2u, 0x30u,</div><div class="line">            0x72u, 0x0Eu, 0x0Au, 0x1Cu, 0x25u, 0x09u, 0x86u, 0x6Fu,</div><div class="line">            0xF6u, 0x6Fu, 0x15u, 0xEDu, 0x14u, 0xE6u, 0x1Eu, 0x53u,</div><div class="line">            0x5Au, 0x15u, 0x25u, 0xB9u, 0x5Eu, 0xC9u, 0xBAu, 0x48u,</div><div class="line">            0xA3u, 0xE3u, 0x93u, 0x62u, 0x3Cu, 0x6Cu, 0x3Cu, 0x83u,</div><div class="line">            0x17u, 0x29u, 0xFBu, 0xAEu, 0x91u, 0x47u, 0xC9u, 0x41u,</div><div class="line">            0x2Fu, 0xF9u, 0x82u, 0x29u, 0x7Bu, 0xB4u, 0x5Au, 0x93u,</div><div class="line">            0x01u, 0x95u, 0xDBu, 0x08u, 0x7Eu, 0x7Bu, 0x99u, 0x1Eu,</div><div class="line">            0xD4u, 0x25u, 0xD3u, 0x2Au, 0xF4u, 0xC7u, 0x9Fu, 0xB3u,</div><div class="line">        },</div><div class="line">        <span class="comment">/* Little endian exponent for a public key - rsa_public.txt */</span></div><div class="line">        .expData = { 0x01, 0x00, 0x01 },</div><div class="line">        .k1Data  = { 0, },</div><div class="line">        .k2Data  = { 0, },</div><div class="line">        .k3Data  = { 0, },</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Present encrypted signature of the image */</span></div><div class="line">    uint8_t rsaEncryptedSign[RSA_MODULO_DATA_SIZE] =</div><div class="line">    {</div><div class="line">        0x12u, 0xCEu, 0x13u, 0x83u, 0x4Fu, 0xFFu, 0x39u, 0x9Bu,</div><div class="line">        0x33u, 0xDEu, 0xDCu, 0xDBu, 0x7Cu, 0x62u, 0xA5u, 0x10u,</div><div class="line">        0x24u, 0x07u, 0xEAu, 0x4Cu, 0x04u, 0x4Au, 0xCEu, 0x7Bu,</div><div class="line">        0x8Cu, 0xD8u, 0xD4u, 0x64u, 0xD1u, 0x98u, 0xA2u, 0x33u,</div><div class="line">        0x2Eu, 0xFFu, 0x06u, 0x13u, 0xD6u, 0x5Au, 0x50u, 0x3Cu,</div><div class="line">        0xA2u, 0x5Eu, 0xE3u, 0x11u, 0x54u, 0x7Cu, 0x6Au, 0x49u,</div><div class="line">        0x39u, 0xA3u, 0x62u, 0x02u, 0x66u, 0xB0u, 0x19u, 0x82u,</div><div class="line">        0xFBu, 0x5Du, 0x15u, 0xB2u, 0x0Bu, 0xF7u, 0xECu, 0x6Cu,</div><div class="line">        0xBEu, 0xEBu, 0x04u, 0x1Fu, 0x0Bu, 0x5Bu, 0x18u, 0x0Eu,</div><div class="line">        0x96u, 0x03u, 0xC4u, 0x1Eu, 0x56u, 0xB6u, 0x1Fu, 0xF2u,</div><div class="line">        0x08u, 0x7Au, 0x81u, 0x96u, 0x86u, 0xA4u, 0x93u, 0x5Du,</div><div class="line">        0x66u, 0x63u, 0x10u, 0xD5u, 0x9Bu, 0xA9u, 0xD7u, 0x52u,</div><div class="line">        0xCDu, 0xEFu, 0x23u, 0xDCu, 0x58u, 0xC7u, 0x3Du, 0x72u,</div><div class="line">        0x3Fu, 0x09u, 0x5Eu, 0x3Bu, 0x03u, 0xF9u, 0x91u, 0x10u,</div><div class="line">        0x63u, 0x2Au, 0x56u, 0xFAu, 0xCEu, 0x8Cu, 0x8Au, 0xBFu,</div><div class="line">        0xB5u, 0xA1u, 0xA7u, 0x0Fu, 0xBBu, 0xD8u, 0xACu, 0x7Fu,</div><div class="line">        0x43u, 0x3Cu, 0xBFu, 0x11u, 0xD8u, 0xAEu, 0x55u, 0xE7u,</div><div class="line">        0x23u, 0xF8u, 0xA4u, 0xE0u, 0x56u, 0xCFu, 0x3Fu, 0x21u,</div><div class="line">        0xA9u, 0xB6u, 0x01u, 0x34u, 0xDFu, 0xB6u, 0xDCu, 0xAAu,</div><div class="line">        0x29u, 0xB0u, 0x97u, 0x9Du, 0xD9u, 0xAAu, 0x47u, 0xD4u,</div><div class="line">        0xD9u, 0x4Au, 0x97u, 0x52u, 0x3Cu, 0xB9u, 0x36u, 0xDAu,</div><div class="line">        0xF6u, 0xA6u, 0x14u, 0x97u, 0xDEu, 0xE6u, 0x76u, 0xBFu,</div><div class="line">        0x1Bu, 0x23u, 0xDBu, 0x68u, 0x66u, 0xEAu, 0x0Eu, 0xC6u,</div><div class="line">        0xD3u, 0x52u, 0x05u, 0x86u, 0x26u, 0x04u, 0x31u, 0xCEu,</div><div class="line">        0xCFu, 0x8Du, 0x13u, 0x84u, 0x81u, 0xF2u, 0x7Bu, 0xB7u,</div><div class="line">        0xDCu, 0x93u, 0x23u, 0x93u, 0xD1u, 0x0Cu, 0xF4u, 0xDFu,</div><div class="line">        0x37u, 0x44u, 0x3Du, 0xD7u, 0xAFu, 0xBFu, 0xAFu, 0x32u,</div><div class="line">        0xE7u, 0x31u, 0x50u, 0x70u, 0x62u, 0xC3u, 0xABu, 0x31u,</div><div class="line">        0x51u, 0x28u, 0x2Bu, 0x0Bu, 0x31u, 0xC6u, 0xD3u, 0x0Fu,</div><div class="line">        0x74u, 0xE6u, 0x31u, 0x21u, 0xF0u, 0xA3u, 0x40u, 0x5Du,</div><div class="line">        0xEDu, 0xFFu, 0xC9u, 0xEBu, 0x5Au, 0x65u, 0xF3u, 0xCBu,</div><div class="line">        0x67u, 0x50u, 0x62u, 0x2Du, 0x8Au, 0xEAu, 0xC3u, 0xBDu,</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Previously calculated SHA-256 digest of the image */</span></div><div class="line">    uint8_t sha256Digest[<a class="code" href="group__group__crypto__cli__srv__macros.html#ga82ff1a7671e4f0cf2026cbda5ef7e12a">CY_CRYPTO_SHA256_DIGEST_SIZE</a>] =</div><div class="line">    {</div><div class="line">        0xf4u, 0xcbu, 0x29u, 0x53u, 0xadu, 0xc2u, 0xbdu, 0x49u,</div><div class="line">        0x6bu, 0x43u, 0x28u, 0x2bu, 0x63u, 0xb7u, 0x0du, 0x16u,</div><div class="line">        0xa9u, 0xd4u, 0x90u, 0x65u, 0x6eu, 0x7bu, 0x6du, 0xb7u,</div><div class="line">        0x0bu, 0x17u, 0xefu, 0x60u, 0x02u, 0x12u, 0x0fu, 0x90u</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Temporary decryption buffer */</span></div><div class="line">    uint8_t rsaOutput[RSA_MODULO_DATA_SIZE];</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> verResult;</div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line"></div><div class="line">    cy_publicKey.publicKeyStruct.moduloPtr = cy_publicKey.moduloData;</div><div class="line">    cy_publicKey.publicKeyStruct.pubExpPtr = cy_publicKey.expData;</div><div class="line"></div><div class="line">    <span class="comment">/* Reverse the signature generated by openssl, CRYPTO IP is Little-Endian */</span></div><div class="line">    <a class="code" href="group__group__crypto__lld__hw__functions.html#ga5d74ed1e6161b72e972fac828fa3aea9">Cy_Crypto_Core_InvertEndianness</a>(rsaEncryptedSign, RSA_MODULO_DATA_SIZE);</div><div class="line"></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__asymmetric__functions.html#gae83f35c8c5a35e9b7321ada249d40d95">Cy_Crypto_Core_Rsa_Proc</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             &amp;cy_publicKey.publicKeyStruct, <span class="comment">/* Pointer to key */</span></div><div class="line">                             rsaEncryptedSign,        <span class="comment">/* Pointer to signature */</span></div><div class="line">                             <span class="keyword">sizeof</span>(rsaEncryptedSign),   <span class="comment">/* size of signature */</span></div><div class="line">                             rsaOutput);    <span class="comment">/* Pointer to decrypted signature */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Reverse the decrypted signature */</span></div><div class="line">    <a class="code" href="group__group__crypto__lld__hw__functions.html#ga5d74ed1e6161b72e972fac828fa3aea9">Cy_Crypto_Core_InvertEndianness</a>(rsaOutput, RSA_MODULO_DATA_SIZE);</div><div class="line"></div><div class="line">    <span class="comment">/* Verify decrypted signature by calculated SHA digest from data image */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__asymmetric__functions.html#gae8aee459272ad30568e9c13a4c5dc729">Cy_Crypto_Core_Rsa_Verify</a>(</div><div class="line">                             CRYPTO_HW,</div><div class="line">                             &amp;verResult,    <span class="comment">/* Pointer to verification result */</span></div><div class="line">                             <a class="code" href="group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbba2212390919051b39d22d567c508c6d1f">CY_CRYPTO_MODE_SHA256</a>,              <span class="comment">/* Hash mode */</span></div><div class="line">                             sha256Digest, <span class="comment">/* Pointer to hash digest of image */</span></div><div class="line">                             rsaOutput,     <span class="comment">/* Pointer to decrypted signature */</span></div><div class="line">                             <span class="keyword">sizeof</span>(rsaOutput));         <span class="comment">/* Size of signature */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__crypto__enums.html#ggaf08f93b8b21962a60f119157337b2113ae4b7e089501db168bf6ef127b8dbcb21">CY_CRYPTO_RSA_VERIFY_SUCCESS</a> == verResult)</div><div class="line">    {</div><div class="line">        <span class="comment">/* Verification OK */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Verification FAILED */</span></div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -240,6 +321,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>RSA process algorithm based on the Montgomery algorithm using Barrett reduction. </p>
+<p>For CAT1C devices when D-Cache is enabled parameters message, processedMessage and key(pubExpPtr, moduloPtr, barretCoefPtr, inverseModuloPtr and  rBarPtr) must align and end in 32 byte boundary.</p>
 <p><a href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29">https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -251,7 +333,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line"><span class="preprocessor">    #define RSA_MODULO_LENGTH       2048u</span></div><div class="line"><span class="preprocessor">    #define RSA_MODULO_DATA_SIZE    (RSA_MODULO_LENGTH / 8)</span></div><div class="line"></div><div class="line">    <span class="keyword">typedef</span> <span class="keyword">struct</span></div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__crypto__rsa__pub__key__t.html">cy_stc_crypto_rsa_pub_key_t</a> publicKeyStruct;</div><div class="line">        uint8_t  moduloData[RSA_MODULO_DATA_SIZE];</div><div class="line">        uint8_t  expData   [32];</div><div class="line">        uint8_t  k1Data    [RSA_MODULO_DATA_SIZE+4];</div><div class="line">        uint8_t  k2Data    [RSA_MODULO_DATA_SIZE];</div><div class="line">        uint8_t  k3Data    [RSA_MODULO_DATA_SIZE];</div><div class="line">    } cy_stc_public_key_t;</div><div class="line"></div><div class="line">    <span class="comment">/* All data arrays should be 4-byte aligned */</span></div><div class="line">    cy_stc_public_key_t cy_publicKey =</div><div class="line">    {</div><div class="line">        .publicKeyStruct =</div><div class="line">        {</div><div class="line">            .moduloPtr          = 0,</div><div class="line">            .moduloLength       = RSA_MODULO_LENGTH,</div><div class="line">            .pubExpPtr          = 0,</div><div class="line">            .pubExpLength       = 24,</div><div class="line">            .barretCoefPtr      = NULL,</div><div class="line">            .inverseModuloPtr   = NULL,</div><div class="line">            .rBarPtr            = NULL</div><div class="line">        },</div><div class="line">        .moduloData =</div><div class="line">        {   <span class="comment">/* modulus in Little Endian for a public key - rsa_public.txt */</span></div><div class="line">            0xD9u, 0x94u, 0x94u, 0x38u, 0xA4u, 0xE0u, 0x50u, 0xA1u,</div><div class="line">            0xADu, 0xC5u, 0xE2u, 0x66u, 0xA9u, 0x7Fu, 0xE7u, 0xD7u,</div><div class="line">            0xA8u, 0x10u, 0x87u, 0x3Au, 0xBEu, 0xB3u, 0x0Eu, 0x6Au,</div><div class="line">            0xB2u, 0x8Bu, 0x2Eu, 0x8Du, 0xC2u, 0x45u, 0x41u, 0xA6u,</div><div class="line">            0xDBu, 0xEBu, 0x90u, 0x20u, 0x56u, 0xECu, 0xFDu, 0x8Cu,</div><div class="line">            0x23u, 0x09u, 0x13u, 0x5Du, 0x65u, 0xA2u, 0xADu, 0x9Du,</div><div class="line">            0x3Bu, 0xF2u, 0x5Bu, 0xF6u, 0xABu, 0x2Eu, 0xFEu, 0xF2u,</div><div class="line">            0x69u, 0x98u, 0x29u, 0x6Du, 0xD1u, 0x2Eu, 0x91u, 0x5Au,</div><div class="line">            0x65u, 0x83u, 0xF5u, 0x7Fu, 0x8Eu, 0x73u, 0xFFu, 0xA1u,</div><div class="line">            0x8Cu, 0x70u, 0x07u, 0xDFu, 0x4Du, 0xF4u, 0x79u, 0xB7u,</div><div class="line">            0x18u, 0xC1u, 0xA3u, 0x2Bu, 0x82u, 0x5Bu, 0x9Eu, 0xE2u,</div><div class="line">            0xF0u, 0xA0u, 0xB8u, 0xDAu, 0x19u, 0xADu, 0xBBu, 0x2Bu,</div><div class="line">            0xD5u, 0x07u, 0x5Au, 0x85u, 0x12u, 0x03u, 0xD8u, 0x60u,</div><div class="line">            0x53u, 0x3Du, 0xC6u, 0x34u, 0xE2u, 0x7Fu, 0x96u, 0x4Cu,</div><div class="line">            0x26u, 0x1Eu, 0x82u, 0xB1u, 0x85u, 0xC3u, 0x0Du, 0x54u,</div><div class="line">            0x68u, 0x37u, 0x97u, 0x58u, 0x19u, 0x36u, 0x43u, 0x9Cu,</div><div class="line">            0xD9u, 0xC3u, 0x42u, 0xEBu, 0xBEu, 0xE2u, 0x8Fu, 0x72u,</div><div class="line">            0xF1u, 0x5Eu, 0x2Au, 0x15u, 0x56u, 0x52u, 0xD4u, 0x6Du,</div><div class="line">            0x61u, 0x97u, 0x16u, 0xFEu, 0xC3u, 0xF9u, 0x17u, 0x3Cu,</div><div class="line">            0x37u, 0xD5u, 0xE1u, 0xA1u, 0x0Au, 0xB7u, 0xD9u, 0x65u,</div><div class="line">            0xA1u, 0x15u, 0xECu, 0xC7u, 0x39u, 0xECu, 0xEDu, 0x39u,</div><div class="line">            0x98u, 0x96u, 0x66u, 0x50u, 0x8Cu, 0x25u, 0xC3u, 0x29u,</div><div class="line">            0xB9u, 0xF8u, 0x25u, 0x55u, 0x92u, 0x7Au, 0xBFu, 0xFBu,</div><div class="line">            0x45u, 0x2Au, 0x28u, 0x8Au, 0xF9u, 0xE5u, 0xE2u, 0x30u,</div><div class="line">            0x72u, 0x0Eu, 0x0Au, 0x1Cu, 0x25u, 0x09u, 0x86u, 0x6Fu,</div><div class="line">            0xF6u, 0x6Fu, 0x15u, 0xEDu, 0x14u, 0xE6u, 0x1Eu, 0x53u,</div><div class="line">            0x5Au, 0x15u, 0x25u, 0xB9u, 0x5Eu, 0xC9u, 0xBAu, 0x48u,</div><div class="line">            0xA3u, 0xE3u, 0x93u, 0x62u, 0x3Cu, 0x6Cu, 0x3Cu, 0x83u,</div><div class="line">            0x17u, 0x29u, 0xFBu, 0xAEu, 0x91u, 0x47u, 0xC9u, 0x41u,</div><div class="line">            0x2Fu, 0xF9u, 0x82u, 0x29u, 0x7Bu, 0xB4u, 0x5Au, 0x93u,</div><div class="line">            0x01u, 0x95u, 0xDBu, 0x08u, 0x7Eu, 0x7Bu, 0x99u, 0x1Eu,</div><div class="line">            0xD4u, 0x25u, 0xD3u, 0x2Au, 0xF4u, 0xC7u, 0x9Fu, 0xB3u,</div><div class="line">        },</div><div class="line">        <span class="comment">/* Little endian exponent for a public key - rsa_public.txt */</span></div><div class="line">        .expData = { 0x01, 0x00, 0x01 },</div><div class="line">        .k1Data  = { 0, },</div><div class="line">        .k2Data  = { 0, },</div><div class="line">        .k3Data  = { 0, },</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Present encrypted signature of the image */</span></div><div class="line">    uint8_t rsaEncryptedSign[RSA_MODULO_DATA_SIZE] =</div><div class="line">    {</div><div class="line">        0x12u, 0xCEu, 0x13u, 0x83u, 0x4Fu, 0xFFu, 0x39u, 0x9Bu,</div><div class="line">        0x33u, 0xDEu, 0xDCu, 0xDBu, 0x7Cu, 0x62u, 0xA5u, 0x10u,</div><div class="line">        0x24u, 0x07u, 0xEAu, 0x4Cu, 0x04u, 0x4Au, 0xCEu, 0x7Bu,</div><div class="line">        0x8Cu, 0xD8u, 0xD4u, 0x64u, 0xD1u, 0x98u, 0xA2u, 0x33u,</div><div class="line">        0x2Eu, 0xFFu, 0x06u, 0x13u, 0xD6u, 0x5Au, 0x50u, 0x3Cu,</div><div class="line">        0xA2u, 0x5Eu, 0xE3u, 0x11u, 0x54u, 0x7Cu, 0x6Au, 0x49u,</div><div class="line">        0x39u, 0xA3u, 0x62u, 0x02u, 0x66u, 0xB0u, 0x19u, 0x82u,</div><div class="line">        0xFBu, 0x5Du, 0x15u, 0xB2u, 0x0Bu, 0xF7u, 0xECu, 0x6Cu,</div><div class="line">        0xBEu, 0xEBu, 0x04u, 0x1Fu, 0x0Bu, 0x5Bu, 0x18u, 0x0Eu,</div><div class="line">        0x96u, 0x03u, 0xC4u, 0x1Eu, 0x56u, 0xB6u, 0x1Fu, 0xF2u,</div><div class="line">        0x08u, 0x7Au, 0x81u, 0x96u, 0x86u, 0xA4u, 0x93u, 0x5Du,</div><div class="line">        0x66u, 0x63u, 0x10u, 0xD5u, 0x9Bu, 0xA9u, 0xD7u, 0x52u,</div><div class="line">        0xCDu, 0xEFu, 0x23u, 0xDCu, 0x58u, 0xC7u, 0x3Du, 0x72u,</div><div class="line">        0x3Fu, 0x09u, 0x5Eu, 0x3Bu, 0x03u, 0xF9u, 0x91u, 0x10u,</div><div class="line">        0x63u, 0x2Au, 0x56u, 0xFAu, 0xCEu, 0x8Cu, 0x8Au, 0xBFu,</div><div class="line">        0xB5u, 0xA1u, 0xA7u, 0x0Fu, 0xBBu, 0xD8u, 0xACu, 0x7Fu,</div><div class="line">        0x43u, 0x3Cu, 0xBFu, 0x11u, 0xD8u, 0xAEu, 0x55u, 0xE7u,</div><div class="line">        0x23u, 0xF8u, 0xA4u, 0xE0u, 0x56u, 0xCFu, 0x3Fu, 0x21u,</div><div class="line">        0xA9u, 0xB6u, 0x01u, 0x34u, 0xDFu, 0xB6u, 0xDCu, 0xAAu,</div><div class="line">        0x29u, 0xB0u, 0x97u, 0x9Du, 0xD9u, 0xAAu, 0x47u, 0xD4u,</div><div class="line">        0xD9u, 0x4Au, 0x97u, 0x52u, 0x3Cu, 0xB9u, 0x36u, 0xDAu,</div><div class="line">        0xF6u, 0xA6u, 0x14u, 0x97u, 0xDEu, 0xE6u, 0x76u, 0xBFu,</div><div class="line">        0x1Bu, 0x23u, 0xDBu, 0x68u, 0x66u, 0xEAu, 0x0Eu, 0xC6u,</div><div class="line">        0xD3u, 0x52u, 0x05u, 0x86u, 0x26u, 0x04u, 0x31u, 0xCEu,</div><div class="line">        0xCFu, 0x8Du, 0x13u, 0x84u, 0x81u, 0xF2u, 0x7Bu, 0xB7u,</div><div class="line">        0xDCu, 0x93u, 0x23u, 0x93u, 0xD1u, 0x0Cu, 0xF4u, 0xDFu,</div><div class="line">        0x37u, 0x44u, 0x3Du, 0xD7u, 0xAFu, 0xBFu, 0xAFu, 0x32u,</div><div class="line">        0xE7u, 0x31u, 0x50u, 0x70u, 0x62u, 0xC3u, 0xABu, 0x31u,</div><div class="line">        0x51u, 0x28u, 0x2Bu, 0x0Bu, 0x31u, 0xC6u, 0xD3u, 0x0Fu,</div><div class="line">        0x74u, 0xE6u, 0x31u, 0x21u, 0xF0u, 0xA3u, 0x40u, 0x5Du,</div><div class="line">        0xEDu, 0xFFu, 0xC9u, 0xEBu, 0x5Au, 0x65u, 0xF3u, 0xCBu,</div><div class="line">        0x67u, 0x50u, 0x62u, 0x2Du, 0x8Au, 0xEAu, 0xC3u, 0xBDu,</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Previously calculated SHA-256 digest of the image */</span></div><div class="line">    uint8_t sha256Digest[<a class="code" href="group__group__crypto__cli__srv__macros.html#ga82ff1a7671e4f0cf2026cbda5ef7e12a">CY_CRYPTO_SHA256_DIGEST_SIZE</a>] =</div><div class="line">    {</div><div class="line">        0xf4u, 0xcbu, 0x29u, 0x53u, 0xadu, 0xc2u, 0xbdu, 0x49u,</div><div class="line">        0x6bu, 0x43u, 0x28u, 0x2bu, 0x63u, 0xb7u, 0x0du, 0x16u,</div><div class="line">        0xa9u, 0xd4u, 0x90u, 0x65u, 0x6eu, 0x7bu, 0x6du, 0xb7u,</div><div class="line">        0x0bu, 0x17u, 0xefu, 0x60u, 0x02u, 0x12u, 0x0fu, 0x90u</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Temporary decryption buffer */</span></div><div class="line">    uint8_t rsaOutput[RSA_MODULO_DATA_SIZE];</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a> verResult;</div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line"></div><div class="line">    cy_publicKey.publicKeyStruct.moduloPtr = cy_publicKey.moduloData;</div><div class="line">    cy_publicKey.publicKeyStruct.pubExpPtr = cy_publicKey.expData;</div><div class="line"></div><div class="line">    <span class="comment">/* Reverse the signature generated by openssl, CRYPTO IP is Little-Endian */</span></div><div class="line">    <a class="code" href="group__group__crypto__lld__hw__functions.html#ga5d74ed1e6161b72e972fac828fa3aea9">Cy_Crypto_Core_InvertEndianness</a>(rsaEncryptedSign, RSA_MODULO_DATA_SIZE);</div><div class="line"></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__asymmetric__functions.html#gae83f35c8c5a35e9b7321ada249d40d95">Cy_Crypto_Core_Rsa_Proc</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             &amp;cy_publicKey.publicKeyStruct, <span class="comment">/* Pointer to key */</span></div><div class="line">                             rsaEncryptedSign,        <span class="comment">/* Pointer to signature */</span></div><div class="line">                             <span class="keyword">sizeof</span>(rsaEncryptedSign),   <span class="comment">/* size of signature */</span></div><div class="line">                             rsaOutput);    <span class="comment">/* Pointer to decrypted signature */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Reverse the decrypted signature */</span></div><div class="line">    <a class="code" href="group__group__crypto__lld__hw__functions.html#ga5d74ed1e6161b72e972fac828fa3aea9">Cy_Crypto_Core_InvertEndianness</a>(rsaOutput, RSA_MODULO_DATA_SIZE);</div><div class="line"></div><div class="line">    <span class="comment">/* Verify decrypted signature by calculated SHA digest from data image */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__asymmetric__functions.html#gae8aee459272ad30568e9c13a4c5dc729">Cy_Crypto_Core_Rsa_Verify</a>(</div><div class="line">                             CRYPTO_HW,</div><div class="line">                             &amp;verResult,    <span class="comment">/* Pointer to verification result */</span></div><div class="line">                             <a class="code" href="group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbba2212390919051b39d22d567c508c6d1f">CY_CRYPTO_MODE_SHA256</a>,              <span class="comment">/* Hash mode */</span></div><div class="line">                             sha256Digest, <span class="comment">/* Pointer to hash digest of image */</span></div><div class="line">                             rsaOutput,     <span class="comment">/* Pointer to decrypted signature */</span></div><div class="line">                             <span class="keyword">sizeof</span>(rsaOutput));         <span class="comment">/* Size of signature */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__crypto__enums.html#ggaf08f93b8b21962a60f119157337b2113ae4b7e089501db168bf6ef127b8dbcb21">CY_CRYPTO_RSA_VERIFY_SUCCESS</a> == verResult)</div><div class="line">    {</div><div class="line">        <span class="comment">/* Verification OK */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Verification FAILED */</span></div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -283,6 +366,7 @@ Functions</h2></td></tr>
 
 <p>Calculation constant coefficients to to speed-up Montgomery algorithm. </p>
 <p>These coefficients are: coefficient for Barrett reduction, binary inverse of the modulo, result of (2^moduloLength mod modulo)</p>
+<p>For CAT1C devices when D-Cache is enabled parameters key(moduloPtr, barretCoefPtr, inverseModuloPtr and  rBarPtr) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -291,6 +375,119 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga072945ffa6f5e33f9dd95753cbca58d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga072945ffa6f5e33f9dd95753cbca58d8">&#9670;&nbsp;</a></span>Cy_Crypto_Core_ECC_MakePrivateKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_ECC_MakePrivateKey </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>&#160;</td>
+          <td class="paramname"><em>curveID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a>&#160;</td>
+          <td class="paramname"><em>GetRandomDataFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>randomDataInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make a new ECC private key. </p>
+<p>For CAT1C devices when D-Cache is enabled parameter key must align and end in 32 byte boundary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
+    <tr><td class="paramname">curveID</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>.</td></tr>
+    <tr><td class="paramname">key</td><td>[out] Destination of the newly created key.</td></tr>
+    <tr><td class="paramname">GetRandomDataFunc</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a>.</td></tr>
+    <tr><td class="paramname">randomDataInfo</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga7f2794ea5588d819aa19a1c1cfeec209"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7f2794ea5588d819aa19a1c1cfeec209">&#9670;&nbsp;</a></span>Cy_Crypto_Core_ECC_MakePublicKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_ECC_MakePublicKey </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>&#160;</td>
+          <td class="paramname"><em>curveID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>privateKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *&#160;</td>
+          <td class="paramname"><em>publicKey</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make a new ECC public key. </p>
+<p>For CAT1C devices when D-Cache is enabled parameters privateKey and x &amp; y of publicKey must align and end in 32 byte boundary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
+    <tr><td class="paramname">curveID</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>.</td></tr>
+    <tr><td class="paramname">privateKey</td><td>[out] Destination of the newly created key.</td></tr>
+    <tr><td class="paramname">publicKey</td><td>See <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
 
 </div>
 </div>
@@ -404,6 +601,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sign a message digest. </p>
+<p>For CAT1C devices when D-Cache is enabled parameters hash, sign, messageKey and key( k, x&amp;y of pubkey) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -470,6 +668,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Verify an ECC signature. </p>
+<p>For CAT1C devices when D-Cache is enabled parameters sig, hash and key( x&amp;y of pubkey) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -478,117 +677,6 @@ Functions</h2></td></tr>
     <tr><td class="paramname">hashlen</td><td>The length of the hash (octets).</td></tr>
     <tr><td class="paramname">stat</td><td>Result of signature, 1==valid, 0==invalid.</td></tr>
     <tr><td class="paramname">key</td><td>The corresponding public ECC key. See <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
-
-</div>
-</div>
-<a id="ga072945ffa6f5e33f9dd95753cbca58d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga072945ffa6f5e33f9dd95753cbca58d8">&#9670;&nbsp;</a></span>Cy_Crypto_Core_ECC_MakePrivateKey()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_ECC_MakePrivateKey </td>
-          <td>(</td>
-          <td class="paramtype">CRYPTO_Type *&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>&#160;</td>
-          <td class="paramname"><em>curveID</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a>&#160;</td>
-          <td class="paramname"><em>GetRandomDataFunc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>randomDataInfo</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Make a new ECC private key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
-    <tr><td class="paramname">curveID</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>.</td></tr>
-    <tr><td class="paramname">key</td><td>[out] Destination of the newly created key.</td></tr>
-    <tr><td class="paramname">GetRandomDataFunc</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a>.</td></tr>
-    <tr><td class="paramname">randomDataInfo</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
-
-</div>
-</div>
-<a id="ga7f2794ea5588d819aa19a1c1cfeec209"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7f2794ea5588d819aa19a1c1cfeec209">&#9670;&nbsp;</a></span>Cy_Crypto_Core_ECC_MakePublicKey()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_ECC_MakePublicKey </td>
-          <td>(</td>
-          <td class="paramtype">CRYPTO_Type *&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>&#160;</td>
-          <td class="paramname"><em>curveID</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint8_t *&#160;</td>
-          <td class="paramname"><em>privateKey</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *&#160;</td>
-          <td class="paramname"><em>publicKey</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Make a new ECC public key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
-    <tr><td class="paramname">curveID</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>.</td></tr>
-    <tr><td class="paramname">privateKey</td><td>[out] Destination of the newly created key.</td></tr>
-    <tr><td class="paramname">publicKey</td><td>See <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a>.</td></tr>
   </table>
   </dd>
 </dl>

@@ -135,6 +135,9 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.20 </td><td>Updated <a class="el" href="group__group__syslib__functions.html#gaad1c32546fdb0e3c6fa8b46fb95843b5" title="The function delays by the specified number of milliseconds. ">Cy_SysLib_Delay()</a> to perform correctly, enable <a class="el" href="group__group__syslib__functions.html#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977" title="This function returns the silicon unique ID. ">Cy_SysLib_GetUniqueId()</a> API for CAT1B, coverity fixes and documentation enhancements. <br />
+ Added CY_SECTION_INIT_CODECOPY_START and CY_SECTION_INIT_CODECOPY_END macro to move block of code from flash to sram during startup init. Currently it only supports in IAR build. </td><td>Bug Fixes and Enhancements.  </td></tr>
+<tr>
 <td>3.10 </td><td>CAT1B, CAT1C, CAT1D devices support.<br />
 Added new API <a class="el" href="group__group__syslib__functions.html#gabc2fac2da2d735bedac2a57d45d53fac" title="This function will set Warm boot entry point address to a location read by BootROM. ">Cy_Syslib_SetWarmBootEntryPoint()</a> to set the warm boot entry point address to a location read by BootROM.<br />
  To get the accurate delay, updated <a class="el" href="group__group__syslib__functions.html#gaad1c32546fdb0e3c6fa8b46fb95843b5" title="The function delays by the specified number of milliseconds. ">Cy_SysLib_Delay()</a>, <a class="el" href="group__group__syslib__functions.html#ga9d2ffe4829c636ad78eaae5043fd6ae6" title="The function delays by the specified number of microseconds. ">Cy_SysLib_DelayUs()</a> with a calibration factor. </td><td>Support for new devices.  </td></tr>
@@ -153,7 +156,7 @@ Added new API <a class="el" href="group__group__syslib__functions.html#gabc2fac2
 <tr>
 <td>Noted that implementation of CY_ASSERT() was changed back in version 2.50, so that <a class="el" href="group__group__syslib__functions.html#ga0fe70e0948f5d2b2fb1615b85b0d7d7a" title="This function stores the ASSERT location of the file name (including path to file) and line number in...">Cy_SysLib_AssertFailed()</a> function is not called and user application may need to be updated. </td><td>Documentation update.  </td></tr>
 <tr>
-<td>Removed the issue related to the malloc() failure to report error for the case when requested allocation size is bigger than the heap size. Refer to the <a class="el" href="group__group__system__config.html#group_system_config_heap_stack_config_gcc">ARM GCC</a> section for the more details. Removed empty Known Issues section. </td><td>Documentation update and clarification.  </td></tr>
+<td>Removed the issue related to the malloc() failure to report error for the case when requested allocation size is bigger than the heap size. Refer to the <a class="el" href="group__group__system__config__cm4.html#group_system_config_heap_stack_config_gcc">ARM GCC</a> section for the more details. Removed empty Known Issues section. </td><td>Documentation update and clarification.  </td></tr>
 <tr>
 <td>Fixed/Documented MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
 <tr>

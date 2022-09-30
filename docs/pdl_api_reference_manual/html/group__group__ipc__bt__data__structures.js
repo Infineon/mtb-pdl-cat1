@@ -90,13 +90,15 @@ var group__group__ipc__bt__data__structures =
     [ "cy_stc_ipc_msg_pmresp_t", "group__group__ipc__bt__data__structures.html#ga60e334f45e027dc943cca913b2220926", null ],
     [ "cy_stc_ipc_msg_res_access_req_t", "group__group__ipc__bt__data__structures.html#gaea0b0bf7457a09edd93c5d751e7cfb32", null ],
     [ "cy_stc_ipc_msg_res_access_resp_t", "group__group__ipc__bt__data__structures.html#gaefbe07b6897b7eb7eaa399bd452b54bb", null ],
+    [ "cy_stc_ipc_msg_clklf_switch_t", "group__group__ipc__bt__data__structures.html#ga990eec415febe49c2e1c2d5f45c5fb30", null ],
     [ "dummy1", "group__group__ipc__bt__data__structures.html#ga415d5081c9377679ca45754df50b537f", null ],
-    [ "mode", "group__group__ipc__bt__data__structures.html#gaf294e94ca5176720ef5e5cbedc95ca47", null ],
-    [ "dummy2", "group__group__ipc__bt__data__structures.html#ga359dcb04f9be7bf0e1943e8ed4778968", null ],
+    [ "mode", "group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4", null ],
+    [ "dummy2", "group__group__ipc__bt__data__structures.html#ga0fa8c6c127a25610178cfc976824d60d", null ],
     [ "dummy3", "group__group__ipc__bt__data__structures.html#ga0f2e8215958b996a6b41cddf753f985a", null ],
     [ "trng", "group__group__ipc__bt__data__structures.html#ga963cc9b049052f63a6d729476f981e74", null ],
     [ "pm_op", "group__group__ipc__bt__data__structures.html#ga4d86c98d880302bcd100d538f3d8932b", null ],
     [ "pm_resp", "group__group__ipc__bt__data__structures.html#gac34be590865187dfc7373a4e42b96bb7", null ],
     [ "access_ctrl", "group__group__ipc__bt__data__structures.html#ga27c4742b2cdc6d74847b81b5c8a43bbe", null ],
-    [ "result", "group__group__ipc__bt__data__structures.html#ga36692bbc61358ebc0e37a6fc6a395d28", null ]
+    [ "result", "group__group__ipc__bt__data__structures.html#ga36692bbc61358ebc0e37a6fc6a395d28", null ],
+    [ "param", "group__group__ipc__bt__data__structures.html#gaba18f3d521fde3af39c58b809a9c7ef0", null ]
 ];

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--****************************************************************************
+* \file smif_v3.cypersonality
+* \version 1.0
+*
+* \brief
+* Quad Serial Peripheral Interface (QSPI) personality description file.
+* This supports CAT1D Devices
+*
+********************************************************************************
+* \copyright
+* Copyright 2022 Cypress Semiconductor Corporation
+* SPDX-License-Identifier: Apache-2.0
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*****************************************************************************-->
+
+<Personality id="smif_v3" name="Quad Serial Peripheral Interface (QSPI)" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
+  <Dependencies>
+    <IpBlock name="mxsmif">
+        <Version major="5" />
+    </IpBlock>
+    <Resource name="smif" />
+  </Dependencies>
+  <ExposedMembers>
+      <ExposedMember key="smif_ip_version" paramId="smif_ip_version" />
+  </ExposedMembers>
+  <Parameters>
+    <!-- PDL documentation -->
+    <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__smif.html" linkText="Open SMIF Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
+    <ParamRange  id="smif_ip_version" name="smif_ip_version" group="Internal" default="`${getVersion()}`" min="1" max="1000" resolution="1" visible="false" editable="false" desc="SMIF IP Version." />
+
+    <!-- Clocks -->
+    <ParamSignal port="clk_pll_normal_smif0[0]" name="CORE0 Interface Clock" group="Clocks" visible="true" desc="Transmission interface clock. Divides HF clock supplied internally by 2" canBeEmpty="false" />
+    <ParamSignal port="clk_pll_normal_smif1[0]" name="CORE1 Interface Clock" group="Clocks" visible="true" desc="Transmission interface clock. Divides HF clock supplied internally by 2" canBeEmpty="true" />
+    <ParamString id="smifIfSource" name="smifIfSource" group="Internal" default="`${getBlockFromSignal(&quot;clk_pll_normal_smif0[0]&quot;)}`" visible="false" editable="false" desc="Interface Source Clock Resource" />
+    <ParamRange  id="smifIfClkHz" name="smifIfClkHz" group="Internal" default="`${getExposedMember(smifIfSource, &quot;frequency&quot;)}`" min="1" max="200000000" resolution="1" visible="false" editable="false" desc="SMIF IF clock frequency in Hz." />
+ 
+    <!-- External tools -->
+    <ParamString id="cfgFileName" name="cfgFileName" group="External Tools" default="design.cyqspi" visible="false" editable="false" desc="" />
+    <ParamString id="cfgFilePath" name="cfgFilePath" group="External Tools" default="`${cy_design_path() . &quot;/&quot; . cfgFileName}`" visible="false" editable="false" desc="" />
+    
+    <ParamCustom id="configurator" name="QSPI Configurator" group="External Tools" default="0" path="`${cy_tools_path(&quot;qspi-configurator&quot;) . &quot;/qspi-configurator&quot;}`" modal="false" visible="true" editable="true" desc="Launch QSPI Configurator tool">
+      <Arg value="`${&quot;--config=&quot; . cfgFilePath}`" />
+      <Arg value="`${&quot;--output-dir=&quot; . cy_codegen_path()}`" />
+      <Arg value="`${&quot;--library=&quot; . cy_libs_file()}`" />
+    </ParamCustom>
+    <!-- SPI Data -->
+    <ParamSignal port="smif0_spihb_data0_pad[0]" name="SPI Data[0]" group="CORE-0 Data Lines" visible="`${hasVisibleOption(&quot;smif0_spihb_data0_pad[0]&quot;)}`" desc="Data line 0 to be used by the QSPI block, must be used in conjunction with Data line 1" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_data1_pad[0]" name="SPI Data[1]" group="CORE-0 Data Lines" visible="`${hasVisibleOption(&quot;smif0_spihb_data1_pad[0]&quot;)}`" desc="Data line 1 to be used by the QSPI block, must be used in conjunction with Data line 0" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_data2_pad[0]" name="SPI Data[2]" group="CORE-0 Data Lines" visible="`${hasVisibleOption(&quot;smif0_spihb_data2_pad[0]&quot;)}`" desc="Data line 2 to be used by the QSPI block, must be used in conjunction with Data line 3" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_data3_pad[0]" name="SPI Data[3]" group="CORE-0 Data Lines" visible="`${hasVisibleOption(&quot;smif0_spihb_data3_pad[0]&quot;)}`" desc="Data line 3 to be used by the QSPI block, must be used in conjunction with Data line 2" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_data4_pad[0]" name="SPI Data[4]" group="CORE-0 Data Lines" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;smif0_spihb_data4_pad[0]&quot;)}`" desc="Data line 4 to be used by the QSPI block, must be used in conjunction with Data line 5" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_data5_pad[0]" name="SPI Data[5]" group="CORE-0 Data Lines" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;smif0_spihb_data5_pad[0]&quot;)}`" desc="Data line 5 to be used by the QSPI block, must be used in conjunction with Data line 4" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_data6_pad[0]" name="SPI Data[6]" group="CORE-0 Data Lines" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;smif0_spihb_data6_pad[0]&quot;)}`" desc="Data line 6 to be used by the QSPI block, must be used in conjunction with Data line 7" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_data7_pad[0]" name="SPI Data[7]" group="CORE-0 Data Lines" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;smif0_spihb_data7_pad[0]&quot;)}`" desc="Data line 7 to be used by the QSPI block, must be used in conjunction with Data line 6" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <!-- CORE0 SPI Select -->
+    <ParamSignal port="smif0_spihb_select0[0]" name="SPI Slave Select 0" group="CORE-0 Slave Select" visible="`${hasVisibleOption(&quot;smif0_spihb_select0[0]&quot;)}`" desc="Select signal 0 to specifiy which memory device to communicate with" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_select1[0]" name="SPI Slave Select 1" group="CORE-0 Slave Select" visible="`${hasVisibleOption(&quot;smif0_spihb_select1[0]&quot;)}`" desc="Select signal 1 to specifiy which memory device to communicate with" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_select2[0]" name="SPI Slave Select 2" group="CORE-0 Slave Select" visible="`${hasVisibleOption(&quot;smif0_spihb_select2[0]&quot;)}`" desc="Select signal 2 to specifiy which memory device to communicate with" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif0_spihb_select3[0]" name="SPI Slave Select 3" group="CORE-0 Slave Select" visible="`${hasVisibleOption(&quot;smif0_spihb_select3[0]&quot;)}`" desc="Select signal 3 to specifiy which memory device to communicate with" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <!-- CORE-0 DMA Triggers -->
+    <ParamSignal port="smif0_tr_rx_req[0]" name="RX Trigger Output" group="CORE-0 DMA Triggers" visible="true" desc="Enables the RX trigger output terminal (smif0_tr_rx_req)" canBeEmpty="true" />
+    <ParamRange id="rxTriggerLevel" name="RX FIFO Trigger Level" group="CORE-0 DMA Triggers" default="0" min="0" max="7" resolution="1" visible="true" editable="true" desc="The level that can trigger the RX FIFO to trigger an interrupt or a DMA request" />
+    <ParamSignal port="smif0_tr_tx_req[0]" name="TX Trigger Output" group="CORE-0 DMA Triggers" visible="true" desc="enables the TX trigger output terminal (smif0_tr_tx_req)" canBeEmpty="true" />
+    <ParamRange id="txTriggerLevel" name="TX FIFO Trigger Level" group="CORE-0 DMA Triggers" default="0" min="0" max="7" resolution="1" visible="true" editable="true" desc="The level that can trigger the TX FIFO to trigger an interrupt or a DMA request" />
+
+    <!-- CORE 1 Data Lines -->
+    <ParamSignal port="smif1_spihb_data0_pad[0]" name="SPI Data[0]" group="CORE-1 Data Lines" visible="`${hasVisibleOption(&quot;smif1_spihb_data0_pad[0]&quot;)}`" desc="Data line 0 to be used by the QSPI block, must be used in conjunction with Data line 1" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_data1_pad[0]" name="SPI Data[1]" group="CORE-1 Data Lines" visible="`${hasVisibleOption(&quot;smif1_spihb_data1_pad[0]&quot;)}`" desc="Data line 1 to be used by the QSPI block, must be used in conjunction with Data line 0" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_data2_pad[0]" name="SPI Data[2]" group="CORE-1 Data Lines" visible="`${hasVisibleOption(&quot;smif1_spihb_data2_pad[0]&quot;)}`" desc="Data line 2 to be used by the QSPI block, must be used in conjunction with Data line 3" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_data3_pad[0]" name="SPI Data[3]" group="CORE-1 Data Lines" visible="`${hasVisibleOption(&quot;smif1_spihb_data3_pad[0]&quot;)}`" desc="Data line 3 to be used by the QSPI block, must be used in conjunction with Data line 2" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_data4_pad[0]" name="SPI Data[4]" group="CORE-1 Data Lines" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;smif1_spihb_data4_pad[0]&quot;)}`" desc="Data line 4 to be used by the QSPI block, must be used in conjunction with Data line 5" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_data5_pad[0]" name="SPI Data[5]" group="CORE-1 Data Lines" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;smif1_spihb_data5_pad[0]&quot;)}`" desc="Data line 5 to be used by the QSPI block, must be used in conjunction with Data line 4" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_data6_pad[0]" name="SPI Data[6]" group="CORE-1 Data Lines" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;smif1_spihb_data6_pad[0]&quot;)}`" desc="Data line 6 to be used by the QSPI block, must be used in conjunction with Data line 7" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_data7_pad[0]" name="SPI Data[7]" group="CORE-1 Data Lines" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;smif1_spihb_data7_pad[0]&quot;)}`" desc="Data line 7 to be used by the QSPI block, must be used in conjunction with Data line 6" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_STRONG" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <!-- CORE1 SPI Select -->
+    <ParamSignal port="smif1_spihb_select0[0]" name="SPI Slave Select 0" group="CORE-1 Slave Select" visible="`${hasVisibleOption(&quot;smif1_spihb_select0[0]&quot;)}`" desc="Select signal 0 to specifiy which memory device to communicate with" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_select1[0]" name="SPI Slave Select 1" group="CORE-1 Slave Select" visible="`${hasVisibleOption(&quot;smif1_spihb_select1[0]&quot;)}`" desc="Select signal 1 to specifiy which memory device to communicate with" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_select2[0]" name="SPI Slave Select 2" group="CORE-1 Slave Select" visible="`${hasVisibleOption(&quot;smif1_spihb_select2[0]&quot;)}`" desc="Select signal 2 to specifiy which memory device to communicate with" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="smif1_spihb_select3[0]" name="SPI Slave Select 3" group="CORE-1 Slave Select" visible="`${hasVisibleOption(&quot;smif1_spihb_select3[0]&quot;)}`" desc="Select signal 3 to specifiy which memory device to communicate with" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <!-- CORE-1 DMA Triggers -->
+    <ParamSignal port="smif1_tr_rx_req[0]" name="RX Trigger Output" group="CORE-1 DMA Triggers" visible="true" desc="Enables the RX trigger output terminal (smif1_tr_rx_req)" canBeEmpty="true" />
+    <ParamRange id="rxTriggerLevel" name="RX FIFO Trigger Level" group="CORE-1 DMA Triggers" default="0" min="0" max="7" resolution="1" visible="true" editable="true" desc="The level that can trigger the RX FIFO to trigger an interrupt or a DMA request" />
+    <ParamSignal port="smif1_tr_tx_req[0]" name="TX Trigger Output" group="CORE-1 DMA Triggers" visible="true" desc="enables the TX trigger output terminal (smif1_tr_tx_req)" canBeEmpty="true" />
+    <ParamRange id="txTriggerLevel" name="TX FIFO Trigger Level" group="CORE-1 DMA Triggers" default="0" min="0" max="7" resolution="1" visible="true" editable="true" desc="The level that can trigger the TX FIFO to trigger an interrupt or a DMA request" />
+
+    <!-- Interrupt -->
+    <ParamBool id="isrAlignment" name="Memory Mode Alignment Error" group="Interrupt" default="false" visible="true" editable="true" desc="An alignment error in the memory mode (XIP mode) is set as an interrupt cause" />
+    <ParamBool id="isrUnderflow" name="RX Data FIFO Underflow" group="Interrupt" default="false" visible="true" editable="true" desc="The Rx Data FIFO underflow condition is set as an interrupt cause" />
+    <ParamBool id="isrCmdOverflow" name="TX Command FIFO Overflow" group="Interrupt" default="false" visible="true" editable="true" desc="The TX command FIFO overflow condition is set as an interrupt cause" />
+    <ParamBool id="isrDataOverflow" name="TX Data FIFO Overflow" group="Interrupt" default="false" visible="true" editable="true" desc="The TX data FIFO overflow condition is set as an interrupt cause" />
+
+
+    <!-- SMIF instance number -->
+    <ParamString id="InstNumber" name="InstNumber" group="Internal" default="`${getInstNumber(&quot;smif&quot;)}`" visible="false" editable="false" desc="SMIF Instance name number." />
+    
+    <!-- Other -->
+    <ParamBool id="inFlash" name="Store Config in Flash" group="Advanced" default="true" visible="true" editable="true" desc="Controls whether the configuration structure is stored in flash (const, true) or SRAM (not const, false)." />
+
+    <!-- Helpers -->
+    <!-- CORE0 -->
+    <Repeat count="8">
+      <ParamBool id="smif0_hasConnection$idx" name="" group="Hidden" default="`${hasConnection(&quot;smif0_spihb_data$idx_pad&quot;, 0)}`" visible="false" editable="false" desc="" />
+    </Repeat>
+    <Repeat count="4">
+      <ParamBool id="smif0_hasSelect$idx" name="" group="Hidden" default="`${hasConnection(&quot;smif0_spihb_select$idx&quot;, 0)}`" visible="false" editable="false" desc="" />
+    </Repeat>
+    <ParamBool id="smif0_allDataConnected" name="" group="Hidden" default="`${smif0_hasConnection0 &amp;&amp; smif0_hasConnection2 &amp;&amp; smif0_hasConnection4 &amp;&amp; smif0_hasConnection6}`" visible="false" editable="false" desc="" />
+    <ParamBool id="smif0_requireMultipleSelects" name="" group="Hidden" default="`${!smif0_allDataConnected &amp;&amp; ((smif0_hasConnection0 &amp;&amp; smif0_hasConnection4) || (smif0_hasConnection0 &amp;&amp; smif0_hasConnection6) || (smif0_hasConnection2 &amp;&amp; smif0_hasConnection4) || (smif0_hasConnection2 &amp;&amp; smif0_hasConnection6))}`" visible="false" editable="false" desc="" />
+    <ParamBool id="smif0_allDataConnected" name="" group="Hidden" default="`${smif0_hasConnection0 &amp;&amp; smif0_hasConnection2 &amp;&amp; smif0_hasConnection4 &amp;&amp; smif0_hasConnection6}`" visible="false" editable="false" desc="" />
+    <!-- CORE1 -->
+    <Repeat count="8">
+      <ParamBool id="smif1_hasConnection$idx" name="" group="Hidden" default="`${hasConnection(&quot;smif1_spihb_data$idx_pad&quot;, 0)}`" visible="false" editable="false" desc="" />
+    </Repeat>
+    <Repeat count="4">
+      <ParamBool id="smif1_hasSelect$idx" name="" group="Hidden" default="`${hasConnection(&quot;smif1_spihb_select$idx&quot;, 0)}`" visible="false" editable="false" desc="" />
+    </Repeat>
+    <ParamBool id="smif1_allDataConnected" name="" group="Hidden" default="`${smif1_hasConnection0 &amp;&amp; smif1_hasConnection2 &amp;&amp; smif1_hasConnection4 &amp;&amp; smif1_hasConnection6}`" visible="false" editable="false" desc="" />
+    <ParamBool id="smif1_requireMultipleSelects" name="" group="Hidden" default="`${!smif1_allDataConnected &amp;&amp; ((smif1_hasConnection0 &amp;&amp; smif1_hasConnection4) || (smif1_hasConnection0 &amp;&amp; smif1_hasConnection6) || (smif1_hasConnection2 &amp;&amp; smif1_hasConnection4) || (smif1_hasConnection2 &amp;&amp; smif1_hasConnection6))}`" visible="false" editable="false" desc="" />
+  
+  </Parameters>
+  
+  <DRCs>  
+    <DRC type="ERROR" text="SPI Data[0] and SPI Data[1] must be used together" condition="`${smif0_hasConnection0 != smif0_hasConnection1 &amp;&amp; smif0_hasConnection0}`" paramId="smif0_spihb_data1_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[0] and SPI Data[1] must be used together" condition="`${smif0_hasConnection0 != smif0_hasConnection1 &amp;&amp; smif0_hasConnection1}`" paramId="smif0_spihb_data0_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[2] and SPI Data[3] must be used together" condition="`${smif0_hasConnection2 != smif0_hasConnection3 &amp;&amp; smif0_hasConnection2}`" paramId="smif0_spihb_data3_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[2] and SPI Data[3] must be used together" condition="`${smif0_hasConnection2 != smif0_hasConnection3 &amp;&amp; smif0_hasConnection3}`" paramId="smif0_spihb_data2_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[4] and SPI Data[5] must be used together" condition="`${smif0_hasConnection4 != smif0_hasConnection5 &amp;&amp; smif0_hasConnection4}`" paramId="smif0_spihb_data5_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[4] and SPI Data[5] must be used together" condition="`${smif0_hasConnection4 != smif0_hasConnection5 &amp;&amp; smif0_hasConnection5}`" paramId="smif0_spihb_data4_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[6] and SPI Data[7] must be used together" condition="`${smif0_hasConnection6 != smif0_hasConnection7 &amp;&amp; smif0_hasConnection6}`" paramId="smif0_spihb_data6_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[6] and SPI Data[7] must be used together" condition="`${smif0_hasConnection6 != smif0_hasConnection7 &amp;&amp; smif0_hasConnection7}`" paramId="smif0_spihb_data5_pad[0]" />
+    <DRC type="ERROR" text="At least two SPI Data signal must be connected" condition="`${!(smif0_hasConnection0 || smif0_hasConnection2 || smif0_hasConnection4 || smif0_hasConnection6)}`" paramId="smif0_spihb_data0_pad[0]" />
+    <DRC type="ERROR" text="At least two SPI Data signal must be connected" condition="`${!(smif0_hasConnection1 || smif0_hasConnection3 || smif0_hasConnection5 || smif0_hasConnection7)}`" paramId="smif0_spihb_data1_pad[0]" />
+    <DRC type="ERROR" text="At least one SPI Select signal must be connected" condition="`${!(smif0_requireMultipleSelects || smif0_hasSelect0 || smif0_hasSelect1 || smif0_hasSelect2 || smif0_hasSelect3)}`" paramId="smif0_spihb_select0[0]" />
+    <DRC type="ERROR" text="At least two SPI Select signal must be connected" condition="`${smif0_requireMultipleSelects &amp;&amp; !((smif0_hasSelect0 &amp;&amp; smif0_hasSelect1) || (smif0_hasSelect0 &amp;&amp; smif0_hasSelect2) || (smif0_hasSelect0 &amp;&amp; smif0_hasSelect3) || (smif0_hasSelect1 &amp;&amp; smif0_hasSelect2) || (smif0_hasSelect1 &amp;&amp; smif0_hasSelect3) || (smif0_hasSelect2 &amp;&amp; smif0_hasSelect3))}`" paramId="smif0_spihb_select0[0]"/>
+    <DRC type="ERROR" text="SPI Data[0] and SPI Data[1] must be used together" condition="`${smif1_hasConnection0 != smif1_hasConnection1 &amp;&amp; smif1_hasConnection0}`" paramId="smif1_spihb_data1_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[0] and SPI Data[1] must be used together" condition="`${smif1_hasConnection0 != smif1_hasConnection1 &amp;&amp; smif1_hasConnection1}`" paramId="smif1_spihb_data0_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[2] and SPI Data[3] must be used together" condition="`${smif1_hasConnection2 != smif1_hasConnection3 &amp;&amp; smif1_hasConnection2}`" paramId="smif1_spihb_data3_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[2] and SPI Data[3] must be used together" condition="`${smif1_hasConnection2 != smif1_hasConnection3 &amp;&amp; smif1_hasConnection3}`" paramId="smif1_spihb_data2_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[4] and SPI Data[5] must be used together" condition="`${smif1_hasConnection4 != smif1_hasConnection5 &amp;&amp; smif1_hasConnection4}`" paramId="smif1_spihb_data5_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[4] and SPI Data[5] must be used together" condition="`${smif1_hasConnection4 != smif1_hasConnection5 &amp;&amp; smif1_hasConnection5}`" paramId="smif1_spihb_data4_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[6] and SPI Data[7] must be used together" condition="`${smif1_hasConnection6 != smif1_hasConnection7 &amp;&amp; smif1_hasConnection6}`" paramId="smif1_spihb_data6_pad[0]" />
+    <DRC type="ERROR" text="SPI Data[6] and SPI Data[7] must be used together" condition="`${smif1_hasConnection6 != smif1_hasConnection7 &amp;&amp; smif1_hasConnection7}`" paramId="smif1_spihb_data5_pad[0]" />
+  </DRCs>
+  
+  <ConfigFirmware>
+    <!-- External tools -->
+    <ConfigTool value="`${cy_tools_path(&quot;qspi-configurator&quot;) . &quot;/qspi-configurator-cli&quot;}`" include="true">
+      <Arg value="`${&quot;--config=&quot; . cfgFilePath}`" />
+      <Arg value="`${&quot;--output-dir=&quot; . cy_codegen_path()}`" />
+    </ConfigTool>
+    
+    <ConfigInclude value="cy_smif.h" include="true" />
+    <ConfigInclude value="cycfg_qspi_memslot.h" include="true" />
+    <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+
+    <ConfigDefine name="SMIF_HW" value="`${toUpper(INST_NAME)}`_CORE0_HW" public="true" include="true" />    
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_HW" value="SMIF`${InstNumber}`_CORE0" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_IRQ" value="smif_0_smif0_interrupt_IRQn" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_MEMORY_MODE_ALIGMENT_ERROR" value="`${isrAlignment ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_RX_DATA_FIFO_UNDERFLOW" value="`${isrUnderflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_TX_COMMAND_FIFO_OVERFLOW" value="`${isrCmdOverflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_TX_DATA_FIFO_OVERFLOW" value="`${isrDataOverflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_RX_FIFO_TRIGEER_LEVEL" value="(`${rxTriggerLevel}`UL)" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_TX_FIFO_TRIGEER_LEVEL" value="(`${txTriggerLevel}`UL)" public="true" include="true" />
+
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_DATALINES0_1" value="`${smif0_hasConnection0 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_DATALINES2_3" value="`${smif0_hasConnection2 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_DATALINES4_5" value="`${smif0_hasConnection4 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_DATALINES6_7" value="`${smif0_hasConnection6 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_SS0" value="`${smif0_hasSelect0 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_SS1" value="`${smif0_hasSelect1 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_SS2" value="`${smif0_hasSelect2 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_SS3" value="`${smif0_hasSelect3 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE0_DESELECT_DELAY" value="7" public="true" include="true" />
+
+    <!-- CORE-1 -->
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_HW" value="SMIF`${InstNumber}`_CORE1" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_IRQ" value="smif_0_smif1_interrupt_IRQn" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_MEMORY_MODE_ALIGMENT_ERROR" value="`${isrAlignment ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_RX_DATA_FIFO_UNDERFLOW" value="`${isrUnderflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_TX_COMMAND_FIFO_OVERFLOW" value="`${isrCmdOverflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_TX_DATA_FIFO_OVERFLOW" value="`${isrDataOverflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_RX_FIFO_TRIGEER_LEVEL" value="(`${rxTriggerLevel}`UL)" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_TX_FIFO_TRIGEER_LEVEL" value="(`${txTriggerLevel}`UL)" public="true" include="true" />
+
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_DATALINES0_1" value="`${smif0_hasConnection0 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_DATALINES2_3" value="`${smif0_hasConnection2 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_DATALINES4_5" value="`${smif0_hasConnection4 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_DATALINES6_7" value="`${smif0_hasConnection6 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_SS0" value="`${smif0_hasSelect0 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_SS1" value="`${smif0_hasSelect1 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_SS2" value="`${smif0_hasSelect2 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_SS3" value="`${smif0_hasSelect3 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_CORE1_DESELECT_DELAY" value="7" public="true" include="true" />
+
+    <ConfigDefine name="SMIF_config" value="`${toUpper(INST_NAME) . &quot;_CORE0_config&quot;}`" public="true" include="true" />
+    <ConfigStruct name="`${toUpper(INST_NAME) . &quot;_CORE0_config&quot;}`" type="cy_stc_smif_config_t" const="`${inFlash}`" public="true" include="true">
+      <Member name="mode" value="(uint32_t)CY_SMIF_NORMAL" />
+      <Member name="deselectDelay" value="`${toUpper(INST_NAME)}`_CORE0_DESELECT_DELAY" />
+      <Member name="rxClockSel" value="(uint32_t)CY_SMIF_SEL_INVERTED_FEEDBACK_CLK" />
+      <Member name="blockEvent" value="(uint32_t)CY_SMIF_BUS_ERROR" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${toUpper(INST_NAME) . &quot;_CORE1_config&quot;}`" type="cy_stc_smif_config_t" const="`${inFlash}`" public="true" include="true">
+      <Member name="mode" value="(uint32_t)CY_SMIF_NORMAL" />
+      <Member name="deselectDelay" value="`${toUpper(INST_NAME)}`_CORE1_DESELECT_DELAY" />
+      <Member name="rxClockSel" value="(uint32_t)CY_SMIF_SEL_INVERTED_FEEDBACK_CLK" />
+      <Member name="blockEvent" value="(uint32_t)CY_SMIF_BUS_ERROR" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${toUpper(INST_NAME)}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="type" value="CYHAL_RSC_SMIF" />
+      <Member name="block_num" value="`${getInstNumber(&quot;smif&quot;)}`U" />
+      <Member name="channel_num" value="0U" />
+    </ConfigStruct>
+    
+    <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${toUpper(INST_NAME)}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
+  </ConfigFirmware>
+</Personality>

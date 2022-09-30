@@ -105,7 +105,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga6c7174e2333a100e9669319035e65e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver major version. <br /></td></tr>
 <tr class="separator:ga6c7174e2333a100e9669319035e65e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0f1780c6c3e9ef443f1b56bcf7566800"><td class="memItemLeft" align="right" valign="top"><a id="ga0f1780c6c3e9ef443f1b56bcf7566800"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__macros.html#ga0f1780c6c3e9ef443f1b56bcf7566800">CY_FLASH_DRV_VERSION_MINOR</a>&#160;&#160;&#160;60</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__macros.html#ga0f1780c6c3e9ef443f1b56bcf7566800">CY_FLASH_DRV_VERSION_MINOR</a>&#160;&#160;&#160;70</td></tr>
 <tr class="memdesc:ga0f1780c6c3e9ef443f1b56bcf7566800"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver minor version. <br /></td></tr>
 <tr class="separator:ga0f1780c6c3e9ef443f1b56bcf7566800"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8d66ff720033b079f855b683cb6b0988"><td class="memItemLeft" align="right" valign="top"><a id="ga8d66ff720033b079f855b683cb6b0988"></a>
@@ -113,15 +113,15 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga8d66ff720033b079f855b683cb6b0988"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLASH PDL ID. <br /></td></tr>
 <tr class="separator:ga8d66ff720033b079f855b683cb6b0988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2f23d8b551ffad8f48e9d24c5e7e7c24"><td class="memItemLeft" align="right" valign="top"><a id="ga2f23d8b551ffad8f48e9d24c5e7e7c24"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__macros.html#ga2f23d8b551ffad8f48e9d24c5e7e7c24">CY_FLASH_ID_INFO</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__flash__macros.html#ga8d66ff720033b079f855b683cb6b0988">CY_FLASH_ID</a> | <a class="el" href="group__group__syslib__macros__status__codes.html#ga0ba3882d87b982ff4358b6f0b7a95556">CY_PDL_STATUS_INFO</a> )</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__macros.html#ga2f23d8b551ffad8f48e9d24c5e7e7c24">CY_FLASH_ID_INFO</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__flash__macros.html#ga8d66ff720033b079f855b683cb6b0988">CY_FLASH_ID</a> | CY_PDL_STATUS_INFO )</td></tr>
 <tr class="memdesc:ga2f23d8b551ffad8f48e9d24c5e7e7c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return prefix for FLASH driver function status codes. <br /></td></tr>
 <tr class="separator:ga2f23d8b551ffad8f48e9d24c5e7e7c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga35b95c0f3e98f5afffe4da7923b97103"><td class="memItemLeft" align="right" valign="top"><a id="ga35b95c0f3e98f5afffe4da7923b97103"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__macros.html#ga35b95c0f3e98f5afffe4da7923b97103">CY_FLASH_ID_WARNING</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__flash__macros.html#ga8d66ff720033b079f855b683cb6b0988">CY_FLASH_ID</a> | <a class="el" href="group__group__syslib__macros__status__codes.html#gaa58a2f0e42403136f010e7982e6e5b7f">CY_PDL_STATUS_WARNING</a>)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__macros.html#ga35b95c0f3e98f5afffe4da7923b97103">CY_FLASH_ID_WARNING</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__flash__macros.html#ga8d66ff720033b079f855b683cb6b0988">CY_FLASH_ID</a> | CY_PDL_STATUS_WARNING)</td></tr>
 <tr class="memdesc:ga35b95c0f3e98f5afffe4da7923b97103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return prefix for FLASH driver function warning return values. <br /></td></tr>
 <tr class="separator:ga35b95c0f3e98f5afffe4da7923b97103"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad99538138fea8f6bea8019392b2ff6de"><td class="memItemLeft" align="right" valign="top"><a id="gad99538138fea8f6bea8019392b2ff6de"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__macros.html#gad99538138fea8f6bea8019392b2ff6de">CY_FLASH_ID_ERROR</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__flash__macros.html#ga8d66ff720033b079f855b683cb6b0988">CY_FLASH_ID</a> | <a class="el" href="group__group__syslib__macros__status__codes.html#gaea5a4ae400ef551a3ef0b15a13ba8070">CY_PDL_STATUS_ERROR</a>)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__macros.html#gad99538138fea8f6bea8019392b2ff6de">CY_FLASH_ID_ERROR</a>&#160;&#160;&#160;(uint32_t)( <a class="el" href="group__group__flash__macros.html#ga8d66ff720033b079f855b683cb6b0988">CY_FLASH_ID</a> | CY_PDL_STATUS_ERROR)</td></tr>
 <tr class="memdesc:gad99538138fea8f6bea8019392b2ff6de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return prefix for FLASH driver function error return values. <br /></td></tr>
 <tr class="separator:gad99538138fea8f6bea8019392b2ff6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

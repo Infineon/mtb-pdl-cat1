@@ -9,7 +9,7 @@ var searchData=
   ['uart_20transmit_20status',['UART Transmit Status',['../group__group__scb__uart__macros__transmit__status.html',1,'']]],
   ['uart_20tx_20fifo_20statuses',['UART TX FIFO Statuses',['../group__group__scb__uart__macros__tx__fifo__status.html',1,'']]],
   ['unique_20id',['Unique ID',['../group__group__syslib__macros__unique__id.html',1,'']]],
-  ['user_20settings',['User Settings',['../group__group__system__config__user__settings__macro.html',1,'']]],
+  ['user_20settings_20macros',['User Settings Macros',['../group__group__system__config__user__settings__macro.html',1,'']]],
   ['usbfs_20_20_20_20_20_20_20_20_28usb_20full_2dspeed_20device_29',['USBFS        (USB Full-Speed Device)',['../group__group__usbfs__dev__drv.html',1,'']]],
   ['u',['u',['../struct_b_t_h_c_i___s_c_o___h_d_r__t.html#a89d07d86383a363be8f482a25d11daa8',1,'BTHCI_SCO_HDR_t']]],
   ['uartmode',['uartMode',['../structcy__stc__scb__uart__config__t.html#ae3ffcd78ef51b5dd068bd87ef129d78e',1,'cy_stc_scb_uart_config_t']]],

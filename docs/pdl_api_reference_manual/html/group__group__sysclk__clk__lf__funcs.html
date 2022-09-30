@@ -121,7 +121,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The watchdog timer (WDT) must be unlocked before calling this function.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The watchdog timer (WDT) must be unlocked before calling this function.</dd>
+<dd>
+It takes four cycles of the originally selected clock to switch away from it. Do not disable the original clock during this time.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: LFCLK source needs to be updated to the ILO. */</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a724311d4501aedcbd0699a3302aabaf9">CY_SYSCLK_CLKLF_IN_ILO</a> != <a class="code" href="group__group__sysclk__clk__lf__funcs.html#gaf97003fc6866058e298a9ce6905d6b70">Cy_SysClk_ClkLfGetSource</a>())</div><div class="line">    {</div><div class="line">        <a class="code" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054">Cy_SysClk_ClkLfSetSource</a>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a724311d4501aedcbd0699a3302aabaf9">CY_SYSCLK_CLKLF_IN_ILO</a>);</div><div class="line">    }</div></div><!-- fragment --></dd></dl>
 
 </div>

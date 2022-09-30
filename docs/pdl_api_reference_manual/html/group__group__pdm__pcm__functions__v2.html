@@ -212,7 +212,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>error / status code. See <a class="el" href="group__group__pdm__pcm__enums__v2.html#ga8ef640550e81684b9c1b7a8af1cfd355">cy_en_pdm_pcm_status_t</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>error / status code. See <a class="el" href="group__group__pdm__pcm__enums__v2.html#ga8ef640550e81684b9c1b7a8af1cfd355">cy_en_pdm_pcm_status_t</a>.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga1392e066f0b764c9a71a9fc30bc6a33c">Cy_PDM_PCM_Channel_Init</a>(PDM0, &amp;channel_0_config, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -250,7 +251,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>error / status code. See <a class="el" href="group__group__pdm__pcm__enums__v2.html#ga8ef640550e81684b9c1b7a8af1cfd355">cy_en_pdm_pcm_status_t</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>error / status code. See <a class="el" href="group__group__pdm__pcm__enums__v2.html#ga8ef640550e81684b9c1b7a8af1cfd355">cy_en_pdm_pcm_status_t</a>.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    status = <a class="code" href="group__group__pdm__pcm__functions.html#ga72f994cbd634988b0016f464720b3559">Cy_PDM_PCM_Init</a>(PDM0, &amp;pdm_0_config);</div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__pdm__pcm__enums__v2.html#gga8ef640550e81684b9c1b7a8af1cfd355aa19a67e822e56e6646241c57396f86a4">CY_PDM_PCM_SUCCESS</a> != status)</div><div class="line">    {</div><div class="line">        <span class="comment">//handle Error</span></div><div class="line">    }</div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -329,10 +331,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
-    <tr><td class="paramname">channel_num</td><td>channel number to be de initialized. </td></tr>
+    <tr><td class="paramname">channel_num</td><td>channel number to be de initialized.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga5a2ba75f753a63b956417ff7a614a878">Cy_PDM_PCM_Channel_DeInit</a>(PDM0, &amp;channel_0_config, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -355,10 +358,11 @@ Functions</h2></td></tr>
 <p>Uninitializes the PDM-PCM module. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
+    <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__group__pdm__pcm__functions.html#gab516ee1cbdb2327b995d6ea079ad6209">Cy_PDM_PCM_DeInit</a>(PDM0);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -392,10 +396,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
-    <tr><td class="paramname">channel_num</td><td>Channel number to be activated </td></tr>
+    <tr><td class="paramname">channel_num</td><td>Channel number to be activated</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#gab6dc3079c2689ccdc2d1ae035d326a4b">Cy_PDM_PCM_Activate_Channel</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -429,10 +434,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
-    <tr><td class="paramname">channel_num</td><td>Channel number to be deactivated </td></tr>
+    <tr><td class="paramname">channel_num</td><td>Channel number to be deactivated</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga0c533b9429885661b8ba5b1b721a2413">Cy_PDM_PCM_DeActivate_Channel</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -466,10 +472,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
-    <tr><td class="paramname">rate</td><td>Halve rate sampling or Full rate sampling <a class="el" href="group__group__pdm__pcm__enums__v2.html#ga6772333ee7eab35a0f8b1d9db5239302">cy_en_pdm_pcm_halve_rate_sel_t</a>. </td></tr>
+    <tr><td class="paramname">rate</td><td>Halve rate sampling or Full rate sampling <a class="el" href="group__group__pdm__pcm__enums__v2.html#ga6772333ee7eab35a0f8b1d9db5239302">cy_en_pdm_pcm_halve_rate_sel_t</a>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga75b89156790c4150d164d9e82077bda9">Cy_PDM_PCM_SetRateSampling</a>(PDM0, <a class="code" href="group__group__pdm__pcm__enums__v2.html#gga6772333ee7eab35a0f8b1d9db5239302a3de2f63d9f6e0212f7042282e69e6c40">CY_PDM_PCM_RATE_FULL</a>);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -503,10 +510,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
-    <tr><td class="paramname">channel_num</td><td>Channel number to be enabled </td></tr>
+    <tr><td class="paramname">channel_num</td><td>Channel number to be enabled</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#gab27cd36939fc7d4872af7ca796ff8afc">Cy_PDM_PCM_Channel_Enable</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -540,10 +548,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
-    <tr><td class="paramname">channel_num</td><td>Channel number to be disabled </td></tr>
+    <tr><td class="paramname">channel_num</td><td>Channel number to be disabled</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga130f6ad178dafb56399e2c5b10914e36">Cy_PDM_PCM_Channel_Disable</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -584,10 +593,11 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address </td></tr>
     <tr><td class="paramname">channel_num</td><td>Channel number for which the CIC filter Decimation code to be set </td></tr>
-    <tr><td class="paramname">decimcode</td><td>decimation code value to be set. <a class="el" href="group__group__pdm__pcm__enums__v2.html#gaa43345298364b2951b275e21ded1b454">cy_en_pdm_pcm_ch_cic_decimcode_t</a>. </td></tr>
+    <tr><td class="paramname">decimcode</td><td>decimation code value to be set. <a class="el" href="group__group__pdm__pcm__enums__v2.html#gaa43345298364b2951b275e21ded1b454">cy_en_pdm_pcm_ch_cic_decimcode_t</a>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#gab1a8ae72fd10550f73190d29254466c6">Cy_PDM_PCM_Channel_Set_Cic_DecimCode</a>(PDM0, channel_num, <a class="code" href="group__group__pdm__pcm__enums__v2.html#ggaa43345298364b2951b275e21ded1b454a83e636ee260a3b2e15ad08055ffb10d1">CY_PDM_PCM_CHAN_CIC_DECIM_8</a>);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -636,10 +646,11 @@ Functions</h2></td></tr>
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address </td></tr>
     <tr><td class="paramname">channel_num</td><td>Channel number for which the FIR0 Decimation code and the filter to be set. </td></tr>
     <tr><td class="paramname">decimcode</td><td>Decimation code value to be set. <a class="el" href="group__group__pdm__pcm__enums__v2.html#gaf32821b068ff1292891ad11066bd9d4c">cy_en_pdm_pcm_ch_fir0_decimcode_t</a>. </td></tr>
-    <tr><td class="paramname">scale</td><td>Scale value to be set. </td></tr>
+    <tr><td class="paramname">scale</td><td>Scale value to be set.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U; <span class="comment">// Channel number used.</span></div><div class="line">    uint8_t scale = 22U; <span class="comment">// scale should be in the range of 1 to 31</span></div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#gaa746b85af2c98146a2243ed5725642ba">Cy_PDM_PCM_Channel_Set_Fir0</a>(PDM0, channel_num, <a class="code" href="group__group__pdm__pcm__enums__v2.html#ggaf32821b068ff1292891ad11066bd9d4ca6b81f687d69f814abcb017738e7a0494">CY_PDM_PCM_CHAN_FIR0_DECIM_4</a>, scale);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -687,10 +698,11 @@ Functions</h2></td></tr>
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address </td></tr>
     <tr><td class="paramname">channel_num</td><td>Channel number for which the FIR1 Decimation code and the filter to be set. </td></tr>
     <tr><td class="paramname">decimcode</td><td>Decimation code value to be set. <a class="el" href="group__group__pdm__pcm__enums__v2.html#ga2b59920bd0f1a3b4051da1f358d502db">cy_en_pdm_pcm_ch_fir1_decimcode_t</a>. </td></tr>
-    <tr><td class="paramname">scale</td><td>Scale value to be set. </td></tr>
+    <tr><td class="paramname">scale</td><td>Scale value to be set.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U; <span class="comment">// Channel number used.</span></div><div class="line">    uint8_t scale = 22U; <span class="comment">// scale should be in the range of 1 to 31</span></div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga37ee85d46d7b457dbd395f85ea6a08c0">Cy_PDM_PCM_Channel_Set_Fir1</a>(PDM0, channel_num, <a class="code" href="group__group__pdm__pcm__enums__v2.html#gga2b59920bd0f1a3b4051da1f358d502dba4136e0f22233114f2394b15c8915c85a">CY_PDM_PCM_CHAN_FIR1_DECIM_2</a>, scale);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -732,10 +744,11 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address </td></tr>
     <tr><td class="paramname">channel_num</td><td>Channel number for which DC block coef to be set. </td></tr>
-    <tr><td class="paramname">coef</td><td>coef value to be set. <a class="el" href="group__group__pdm__pcm__enums__v2.html#gac55eec2f1536ad7fc1ce84b85d47623b">cy_en_pdm_pcm_ch_dcblock_coef_t</a>. </td></tr>
+    <tr><td class="paramname">coef</td><td>coef value to be set. <a class="el" href="group__group__pdm__pcm__enums__v2.html#gac55eec2f1536ad7fc1ce84b85d47623b">cy_en_pdm_pcm_ch_dcblock_coef_t</a>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U; <span class="comment">// Channel number used.</span></div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#gaef40c0a59e0526aeb8422b1bd7c281e8">Cy_PDM_PCM_Channel_Set_DCblock</a>(PDM0, channel_num, <a class="code" href="group__group__pdm__pcm__enums__v2.html#ggac55eec2f1536ad7fc1ce84b85d47623babd51382c228360d542b743058c74ef9b">CY_PDM_PCM_CHAN_DCBLOCK_CODE_8</a>);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -776,10 +789,11 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address </td></tr>
     <tr><td class="paramname">channel_num</td><td>Channel number </td></tr>
-    <tr><td class="paramname">interrupt</td><td>Interrupt bit mask <a class="el" href="group__group__pdm__pcm__macros__interrupt__masks__v2.html">Interrupt Masks</a>. </td></tr>
+    <tr><td class="paramname">interrupt</td><td>Interrupt bit mask <a class="el" href="group__group__pdm__pcm__macros__interrupt__masks__v2.html">Interrupt Masks</a>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <span class="comment">/* CY_PDM_PCM_INTR_MASK defines mask for all available interrupt sources. </span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_TRIGGER</span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_FIR_OVERFLOW</span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_OVERFLOW</span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_IF_OVERFLOW</span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_UNDERFLOW */</span></div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#gaafa3890077ed58d45f1cf9563f7e1f45">Cy_PDM_PCM_Channel_SetInterruptMask</a>(PDM0, channel_num, CY_PDM_PCM_INTR_MASK);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -856,7 +870,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The interrupt bit mask <a class="el" href="group__group__pdm__pcm__macros__interrupt__masks__v2.html">Interrupt Masks</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The interrupt bit mask <a class="el" href="group__group__pdm__pcm__macros__interrupt__masks__v2.html">Interrupt Masks</a>.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <span class="comment">/* Cy_PDM_PCM_Init, Cy_PDM_PCM_Channel_Init and  Cy_PDM_PCM_Channel_Enable are pre-requisites */</span></div><div class="line">    <span class="keyword">volatile</span> uint32_t int_stat;</div><div class="line">    int_stat = <a class="code" href="group__group__pdm__pcm__functions__v2.html#gad2c78890e56af3ea9c461319b114f74a">Cy_PDM_PCM_Channel_GetInterruptStatusMasked</a>(PDM0, ch);</div><div class="line">    <span class="keywordflow">if</span>(CY_PDM_PCM_INTR_RX_TRIGGER &amp; int_stat)</div><div class="line">    {</div><div class="line">        <span class="keywordflow">for</span>(i=0; i &lt; RX_FIFO_TRIG_LEVEL; i++)</div><div class="line">        {</div><div class="line">            int32_t data = (int32_t)<a class="code" href="group__group__pdm__pcm__functions__v2.html#gaa37c5f02dff3717b3b7385c71303298e">Cy_PDM_PCM_Channel_ReadFifo</a>(PDM0, ch);</div><div class="line">            <span class="comment">// data can be stored and used as pcm data</span></div><div class="line">        }</div><div class="line">    }</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga9d8941e8d86fd989404a753e30dc91cd">Cy_PDM_PCM_Channel_ClearInterrupt</a>(PDM0, channel_num, CY_PDM_PCM_INTR_MASK);</div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -894,7 +909,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The interrupt bit mask <a class="el" href="group__group__pdm__pcm__macros__interrupt__masks__v2.html">Interrupt Masks</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The interrupt bit mask <a class="el" href="group__group__pdm__pcm__macros__interrupt__masks__v2.html">Interrupt Masks</a>.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <span class="comment">/* Cy_PDM_PCM_Init, Cy_PDM_PCM_Channel_Init and  Cy_PDM_PCM_Channel_Enable are pre-requisites */</span></div><div class="line">    <span class="keyword">volatile</span> uint32_t int_stat;</div><div class="line">    int_stat = <a class="code" href="group__group__pdm__pcm__functions__v2.html#gad2c78890e56af3ea9c461319b114f74a">Cy_PDM_PCM_Channel_GetInterruptStatusMasked</a>(PDM0, ch);</div><div class="line">    <span class="keywordflow">if</span>(CY_PDM_PCM_INTR_RX_TRIGGER &amp; int_stat)</div><div class="line">    {</div><div class="line">        <span class="keywordflow">for</span>(i=0; i &lt; RX_FIFO_TRIG_LEVEL; i++)</div><div class="line">        {</div><div class="line">            int32_t data = (int32_t)<a class="code" href="group__group__pdm__pcm__functions__v2.html#gaa37c5f02dff3717b3b7385c71303298e">Cy_PDM_PCM_Channel_ReadFifo</a>(PDM0, ch);</div><div class="line">            <span class="comment">// data can be stored and used as pcm data</span></div><div class="line">        }</div><div class="line">    }</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga9d8941e8d86fd989404a753e30dc91cd">Cy_PDM_PCM_Channel_ClearInterrupt</a>(PDM0, channel_num, CY_PDM_PCM_INTR_MASK);</div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -935,10 +951,11 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address </td></tr>
     <tr><td class="paramname">channel_num</td><td>Channel number </td></tr>
-    <tr><td class="paramname">interrupt</td><td>The interrupt bit mask <a class="el" href="group__group__pdm__pcm__macros__interrupt__masks__v2.html">Interrupt Masks</a>. </td></tr>
+    <tr><td class="paramname">interrupt</td><td>The interrupt bit mask <a class="el" href="group__group__pdm__pcm__macros__interrupt__masks__v2.html">Interrupt Masks</a>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <span class="comment">/* CY_PDM_PCM_INTR_MASK defines mask for all available interrupt sources. </span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_TRIGGER</span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_FIR_OVERFLOW</span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_OVERFLOW</span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_IF_OVERFLOW</span></div><div class="line"><span class="comment">       CY_PDM_PCM_INTR_RX_UNDERFLOW */</span></div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga9d8941e8d86fd989404a753e30dc91cd">Cy_PDM_PCM_Channel_ClearInterrupt</a>(PDM0, channel_num, CY_PDM_PCM_INTR_MASK);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -1020,7 +1037,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The current number of used FIFO words (range is 0 - 63). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The current number of used FIFO words (range is 0 - 63).</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U; <span class="comment">// Channel number used.</span></div><div class="line">    uint8_t num_in_fifo = <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga4a06565fe7ccb40ba26b52fce82fee4d">Cy_PDM_PCM_Channel_GetNumInFifo</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -1058,7 +1076,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The data word read from the FIFO is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The data word read from the FIFO is returned.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U;</div><div class="line">    <span class="comment">/* Cy_PDM_PCM_Init, Cy_PDM_PCM_Channel_Init and  Cy_PDM_PCM_Channel_Enable are pre-requisites */</span></div><div class="line">    <span class="keyword">volatile</span> uint32_t int_stat;</div><div class="line">    int_stat = <a class="code" href="group__group__pdm__pcm__functions__v2.html#gad2c78890e56af3ea9c461319b114f74a">Cy_PDM_PCM_Channel_GetInterruptStatusMasked</a>(PDM0, ch);</div><div class="line">    <span class="keywordflow">if</span>(CY_PDM_PCM_INTR_RX_TRIGGER &amp; int_stat)</div><div class="line">    {</div><div class="line">        <span class="keywordflow">for</span>(i=0; i &lt; RX_FIFO_TRIG_LEVEL; i++)</div><div class="line">        {</div><div class="line">            int32_t data = (int32_t)<a class="code" href="group__group__pdm__pcm__functions__v2.html#gaa37c5f02dff3717b3b7385c71303298e">Cy_PDM_PCM_Channel_ReadFifo</a>(PDM0, ch);</div><div class="line">            <span class="comment">// data can be stored and used as pcm data</span></div><div class="line">        }</div><div class="line">    }</div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga9d8941e8d86fd989404a753e30dc91cd">Cy_PDM_PCM_Channel_ClearInterrupt</a>(PDM0, channel_num, CY_PDM_PCM_INTR_MASK);</div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -1092,10 +1111,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
-    <tr><td class="paramname">channel_num</td><td>Channel number </td></tr>
+    <tr><td class="paramname">channel_num</td><td>Channel number</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U; <span class="comment">// Channel number used.</span></div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#gabb59f7b95337165c47c09903f9d725c5">Cy_PDM_PCM_Channel_FreezeFifo</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -1129,10 +1149,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the PDM-PCM instance address. </td></tr>
-    <tr><td class="paramname">channel_num</td><td>Channel number </td></tr>
+    <tr><td class="paramname">channel_num</td><td>Channel number</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U; <span class="comment">// Channel number used.</span></div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga5021b0ed0ea27ad4f4244d6998990fb2">Cy_PDM_PCM_Channel_UnfreezeFifo</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -1170,7 +1191,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Silent FIFO value is read and returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Silent FIFO value is read and returned.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U; <span class="comment">// Channel number used.</span></div><div class="line">    <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga55c2c7d2ea9d771760276a683fba7c7a">Cy_PDM_PCM_Channel_ReadFifoSilent</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -1208,7 +1230,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if channel is active, false when stopped. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if channel is active, false when stopped.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    uint8_t channel_num = 0U; <span class="comment">// Channel number used.</span></div><div class="line">    <span class="keywordtype">bool</span> channel_state = <a class="code" href="group__group__pdm__pcm__functions__v2.html#ga9dfa44a1d588f0d78efb99e0fcd2002f">Cy_PDM_PCM_Channel_GetCurrentState</a>(PDM0, channel_num);</div><div class="line"></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

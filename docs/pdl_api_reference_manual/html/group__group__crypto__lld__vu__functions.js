@@ -1,6 +1,7 @@
 var group__group__crypto__lld__vu__functions =
 [
     [ "Cy_Crypto_Core_Cleanup", "group__group__crypto__lld__vu__functions.html#ga578cecebde8bce42aba5657d36b809ee", null ],
+    [ "Cy_Crypto_Core_Shutdown", "group__group__crypto__lld__vu__functions.html#ga65d42e0ff144c74133e83f158767337a", null ],
     [ "Cy_Crypto_Core_Vu_SetMemValue", "group__group__crypto__lld__vu__functions.html#gad21cfd7efa413ac522736348d3e28813", null ],
     [ "Cy_Crypto_Core_Vu_GetMemValue", "group__group__crypto__lld__vu__functions.html#ga656498f4aad29b0c489b098093fde8d3", null ],
     [ "Cy_Crypto_Core_Vu_IsRegZero", "group__group__crypto__lld__vu__functions.html#gaa7e7823e7b0d5a6e279bf90e405aec9e", null ],

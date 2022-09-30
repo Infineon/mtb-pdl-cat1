@@ -132,6 +132,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga0a3a89bbd8f8ec28159d675928bd345a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sd__host__macros__present__status.html#ga0a3a89bbd8f8ec28159d675928bd345a">CY_SD_HOST_DAT_3_0</a>&#160;&#160;&#160;(0x00F00000UL)</td></tr>
 <tr class="memdesc:ga0a3a89bbd8f8ec28159d675928bd345a"><td class="mdescLeft">&#160;</td><td class="mdescRight">DAT[3:0] Line Signal Level.  <a href="#ga0a3a89bbd8f8ec28159d675928bd345a">More...</a><br /></td></tr>
 <tr class="separator:ga0a3a89bbd8f8ec28159d675928bd345a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76efbc8545e77fb3e9597e2e2c7ff287"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sd__host__macros__present__status.html#ga76efbc8545e77fb3e9597e2e2c7ff287">CY_SD_HOST_DAT_0_Msk</a>&#160;&#160;&#160;(0x00100000UL)</td></tr>
+<tr class="memdesc:ga76efbc8545e77fb3e9597e2e2c7ff287"><td class="mdescLeft">&#160;</td><td class="mdescRight">DAT[0] Line Signal Level.  <a href="#ga76efbc8545e77fb3e9597e2e2c7ff287">More...</a><br /></td></tr>
+<tr class="separator:ga76efbc8545e77fb3e9597e2e2c7ff287"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8a9fbdbfc4567abf546aeccdc126628c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sd__host__macros__present__status.html#ga8a9fbdbfc4567abf546aeccdc126628c">CY_SD_HOST_CMD_LINE_LVL</a>&#160;&#160;&#160;(0x01000000UL)</td></tr>
 <tr class="memdesc:ga8a9fbdbfc4567abf546aeccdc126628c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command-Line Signal Level.  <a href="#ga8a9fbdbfc4567abf546aeccdc126628c">More...</a><br /></td></tr>
 <tr class="separator:ga8a9fbdbfc4567abf546aeccdc126628c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -358,6 +361,23 @@ Macros</h2></td></tr>
 
 <p>DAT[3:0] Line Signal Level. </p>
 <p>This bit is used to check the DAT line level to recover from errors and for debugging. These bits reflect the value of the sd_dat_in (lower nibble) signal. </p>
+
+</div>
+</div>
+<a id="ga76efbc8545e77fb3e9597e2e2c7ff287"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga76efbc8545e77fb3e9597e2e2c7ff287">&#9670;&nbsp;</a></span>CY_SD_HOST_DAT_0_Msk</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SD_HOST_DAT_0_Msk&#160;&#160;&#160;(0x00100000UL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DAT[0] Line Signal Level. </p>
+<p>This bit is used to check the DAT0 line level to check R1b response. This bit reflects the value of the sd_dat_in[0] signal. </p>
 
 </div>
 </div>

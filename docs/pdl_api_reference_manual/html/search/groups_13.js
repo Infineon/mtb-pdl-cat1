@@ -9,6 +9,6 @@ var searchData=
   ['uart_20transmit_20status',['UART Transmit Status',['../group__group__scb__uart__macros__transmit__status.html',1,'']]],
   ['uart_20tx_20fifo_20statuses',['UART TX FIFO Statuses',['../group__group__scb__uart__macros__tx__fifo__status.html',1,'']]],
   ['unique_20id',['Unique ID',['../group__group__syslib__macros__unique__id.html',1,'']]],
-  ['user_20settings',['User Settings',['../group__group__system__config__user__settings__macro.html',1,'']]],
+  ['user_20settings_20macros',['User Settings Macros',['../group__group__system__config__user__settings__macro.html',1,'']]],
   ['usbfs_20_20_20_20_20_20_20_20_28usb_20full_2dspeed_20device_29',['USBFS        (USB Full-Speed Device)',['../group__group__usbfs__dev__drv.html',1,'']]]
 ];

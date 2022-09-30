@@ -16,7 +16,8 @@ var group__group__crypto__enums =
       [ "CY_CRYPTO_MODE_SHA384", "group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbbaee6fd7c5cb8fc743d71cd22a6e04bda6", null ],
       [ "CY_CRYPTO_MODE_SHA512", "group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbba86845eacafa89d066fc4127ea1fba8ad", null ],
       [ "CY_CRYPTO_MODE_SHA512_256", "group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbbac5c408943c962483aa59880cf0cab8f6", null ],
-      [ "CY_CRYPTO_MODE_SHA512_224", "group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbba64c4e139243a031289798db708f301a8", null ]
+      [ "CY_CRYPTO_MODE_SHA512_224", "group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbba64c4e139243a031289798db708f301a8", null ],
+      [ "CY_CRYPTO_MODE_SHA_NONE", "group__group__crypto__enums.html#gga66ead9efce36e261e978cad722bf2dbba6858fa313d4ff3ae2cf3e54b65c497bf", null ]
     ] ],
     [ "cy_en_crypto_rsa_ver_result_t", "group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113", [
       [ "CY_CRYPTO_RSA_VERIFY_SUCCESS", "group__group__crypto__enums.html#ggaf08f93b8b21962a60f119157337b2113ae4b7e089501db168bf6ef127b8dbcb21", null ],
@@ -33,6 +34,7 @@ var group__group__crypto__enums =
       [ "CY_CRYPTO_NOT_INITIALIZED", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aada5f7aa9eafb13f5da321c6b37e7ed7f34", null ],
       [ "CY_CRYPTO_HW_NOT_ENABLED", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aadaf2db23e4ab23f9e6a850ec22dd9fa09d", null ],
       [ "CY_CRYPTO_NOT_SUPPORTED", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aada3bba593d15daa1e8e07acd1c5d110af2", null ],
-      [ "CY_CRYPTO_BAD_PARAMS", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aada254861d7a75c5e292718d39dbbe84319", null ]
+      [ "CY_CRYPTO_BAD_PARAMS", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aada254861d7a75c5e292718d39dbbe84319", null ],
+      [ "CY_CRYPTO_TRNG_UNHEALTHY", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aada484eb660ef0b18cbb9f5aaca53030b85", null ]
     ] ]
 ];

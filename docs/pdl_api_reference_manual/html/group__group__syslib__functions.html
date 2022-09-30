@@ -114,12 +114,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga1691f4df41994e7ed9c30ec6495d925f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#ga1691f4df41994e7ed9c30ec6495d925f">Cy_SysLib_ClearFlashCacheAndBuffer</a> (void)</td></tr>
 <tr class="memdesc:ga1691f4df41994e7ed9c30ec6495d925f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function invalidates the flash cache and buffer.  <a href="#ga1691f4df41994e7ed9c30ec6495d925f">More...</a><br /></td></tr>
 <tr class="separator:ga1691f4df41994e7ed9c30ec6495d925f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">Cy_SysLib_GetUniqueId</a> (void)</td></tr>
-<tr class="memdesc:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the silicon unique ID.  <a href="#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">More...</a><br /></td></tr>
-<tr class="separator:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadc7497a4146c1881fe54b655b4324297"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gadc7497a4146c1881fe54b655b4324297">Cy_SysLib_SoftResetCM4</a> (void)</td></tr>
 <tr class="memdesc:gadc7497a4146c1881fe54b655b4324297"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs a CM4 Core software reset using the CM4_PWR_CTL register.  <a href="#gadc7497a4146c1881fe54b655b4324297">More...</a><br /></td></tr>
 <tr class="separator:gadc7497a4146c1881fe54b655b4324297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">Cy_SysLib_GetUniqueId</a> (void)</td></tr>
+<tr class="memdesc:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the silicon unique ID.  <a href="#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">More...</a><br /></td></tr>
+<tr class="separator:gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadb2c8e123ba3a0376a14871e58230321"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syslib__enumerated__types.html#ga97d0b049220b931606e2ae2e144994e1">cy_en_syslib_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gadb2c8e123ba3a0376a14871e58230321">Cy_SysLib_ResetBackupDomain</a> (void)</td></tr>
 <tr class="memdesc:gadb2c8e123ba3a0376a14871e58230321"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets the backup domain power to avoid the ILO glitch.  <a href="#gadb2c8e123ba3a0376a14871e58230321">More...</a><br /></td></tr>
 <tr class="separator:gadb2c8e123ba3a0376a14871e58230321"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,7 +181,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The function delays by the specified number of milliseconds. </p>
-<p>By default, the number of cycles to delay is calculated based on the <a class="el" href="group__group__system__config__globals.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a>.</p>
+<p>By default, the number of cycles to delay is calculated based on the <a class="el" href="group__group__startup__config__globals.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">milliseconds</td><td>The number of milliseconds to delay.</td></tr>
@@ -211,7 +211,7 @@ The Calibration factor is to correct the delay in cases where CPU's use branch p
 </div><div class="memdoc">
 
 <p>The function delays by the specified number of microseconds. </p>
-<p>By default, the number of cycles to delay is calculated based on the <a class="el" href="group__group__system__config__globals.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a>.</p>
+<p>By default, the number of cycles to delay is calculated based on the <a class="el" href="group__group__startup__config__globals.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">microseconds</td><td>The number of microseconds to delay.</td></tr>
@@ -268,7 +268,7 @@ The Calibration factor is to correct the delay in cases where CPU's use branch p
 </div><div class="memdoc">
 
 <p>The function is same as <a class="el" href="group__group__syslib__functions.html#ga9d2ffe4829c636ad78eaae5043fd6ae6">Cy_SysLib_DelayUs</a>. </p>
-<p>However, this API is declared WEAK providing option for user to overwrite the imlementation based on target RTOS.</p>
+<p>However, this API is declared WEAK providing option for user to overwrite the implementation based on target RTOS.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">microseconds</td><td>The number of microseconds to delay. </td></tr>
@@ -295,12 +295,14 @@ The Calibration factor is to correct the delay in cases where CPU's use branch p
 </div><div class="memdoc">
 
 <p>Delays for the specified number of cycles. </p>
-<p>The function is implemented in the assembler for each supported compiler. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The function is implemented in the assembler for each supported compiler.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cycles</td><td>The number of cycles to delay. </td></tr>
+    <tr><td class="paramname">cycles</td><td>The number of cycles to delay.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>While using for CAT1C devices, where the CPU supports branch prediction, this API needs to be called as below Cy_SysLib_DelayCycles(cycles * CY_SYSLIB_DELAY_CALIBRATION_FACTOR); For Example:- CY_SYSLIB_DELAY_CALIBRATION_FACTOR = 1 for CM0P, CM33 and CM4. CY_SYSLIB_DELAY_CALIBRATION_FACTOR = 2 for CM7_0 and CM7_1. </dd></dl>
 
 </div>
 </div>
@@ -399,29 +401,6 @@ This API is available for devices having M4CPUSS IP. </dd></dl>
 
 </div>
 </div>
-<a id="gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">&#9670;&nbsp;</a></span>Cy_SysLib_GetUniqueId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64_t Cy_SysLib_GetUniqueId </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function returns the silicon unique ID. </p>
-<p>The ID includes Die lot[3]#, Die Wafer#, Die X, Die Y, Die Sort#, Die Minor and Die Year.</p>
-<dl class="section return"><dt>Returns</dt><dd>A combined 64-bit unique ID. [63:57] - DIE_YEAR [56:56] - DIE_MINOR [55:48] - DIE_SORT [47:40] - DIE_Y [39:32] - DIE_X [31:24] - DIE_WAFER [23:16] - DIE_LOT[2] [15: 8] - DIE_LOT[1] [ 7: 0] - DIE_LOT[0]</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for devices having M4CPUSS IP. </dd></dl>
-
-</div>
-</div>
 <a id="gadc7497a4146c1881fe54b655b4324297"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gadc7497a4146c1881fe54b655b4324297">&#9670;&nbsp;</a></span>Cy_SysLib_SoftResetCM4()</h2>
 
@@ -447,6 +426,31 @@ This function will not reset CM0+ Core. </dd>
 This function waits for an IPC channel release state.</dd>
 <dd>
 This API is available for devices having M4CPUSS IP. </dd></dl>
+
+</div>
+</div>
+<a id="gaaa8fb5b7a16fbdfd60cf44d5d8f2c977"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">&#9670;&nbsp;</a></span>Cy_SysLib_GetUniqueId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t Cy_SysLib_GetUniqueId </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the silicon unique ID. </p>
+<p>The ID includes Die lot[3]#, Die Wafer#, Die X, Die Y, Die Sort#, Die Minor and Die Year.</p>
+<dl class="section return"><dt>Returns</dt><dd>A combined 64-bit unique ID. [63:57] - DIE_YEAR [56:56] - DIE_MINOR [55:48] - DIE_SORT [47:40] - DIE_Y [39:32] - DIE_X [31:24] - DIE_WAFER [23:16] - DIE_LOT[2] [15: 8] - DIE_LOT[1] [ 7: 0] - DIE_LOT[0]</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for devices having M4CPUSS and CY_IP_M33SYSCPUSS IP.</dd>
+<dd>
+For CY_IP_M33SYSCPUSS IP, EFUSE must be in enabled state before calling this API. </dd></dl>
 
 </div>
 </div>
@@ -517,11 +521,25 @@ This function also resets the WCO trimming value - use the <a class="el" href="g
 <tr>
 <td>CY_SYSLIB_RESET_SWWDT3 </td><td>CY_SYSLIB_RESET_SWWDT3 </td><td>CY_SYSLIB_RESET_SWWDT3 </td><td>0x00100 (bit8) </td></tr>
 <tr>
+<td></td><td></td><td></td><td>0x00200 (bit9) </td></tr>
+<tr>
+<td></td><td></td><td></td><td>0x00400 (bit10) </td></tr>
+<tr>
+<td></td><td></td><td></td><td>0x00800 (bit11) </td></tr>
+<tr>
+<td></td><td></td><td></td><td>0x01000 (bit12) </td></tr>
+<tr>
+<td></td><td></td><td></td><td>0x02000 (bit13) </td></tr>
+<tr>
+<td></td><td></td><td></td><td>0x04000 (bit14) </td></tr>
+<tr>
+<td></td><td></td><td></td><td>0x08000 (bit15) </td></tr>
+<tr>
 <td></td><td>CY_SYSLIB_RESET_HFCLK_LOSS </td><td>CY_SYSLIB_RESET_XRES </td><td>0x10000 (bit16) </td></tr>
 <tr>
 <td></td><td>CY_SYSLIB_RESET_HFCLK_ERR </td><td>CY_SYSLIB_RESET_BODVDDD </td><td>0x20000 (bit17) </td></tr>
 <tr>
-<td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>CY_SYSLIB_RESET_BODVDDA </td><td>0x40000 (bit18) </td></tr>
+<td></td><td></td><td>CY_SYSLIB_RESET_BODVDDA </td><td>0x40000 (bit18) </td></tr>
 <tr>
 <td></td><td></td><td>CY_SYSLIB_RESET_BODVCCD </td><td>0x80000 (bit19) </td></tr>
 <tr>
@@ -539,11 +557,15 @@ This function also resets the WCO trimming value - use the <a class="el" href="g
 <tr>
 <td></td><td></td><td>CY_SYSLIB_RESET_PMIC </td><td>0x4000000 (bit26) </td></tr>
 <tr>
+<td></td><td></td><td></td><td>0x8000000 (bit27) </td></tr>
+<tr>
 <td></td><td></td><td>CY_SYSLIB_RESET_PXRES </td><td>0x10000000 (bit28) </td></tr>
 <tr>
 <td></td><td></td><td>CY_SYSLIB_RESET_STRUCT_XRES </td><td>0x20000000 (bit29) </td></tr>
 <tr>
 <td></td><td></td><td>CY_SYSLIB_RESET_PORVDDD </td><td>0x40000000 (bit30) </td></tr>
+<tr>
+<td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>CY_SYSLIB_RESET_HIB_WAKEUP </td><td>0x80000000 (bit31) </td></tr>
 </table>
 <dl class="section note"><dt>Note</dt><dd>This not is available for devices having M33SYSCPUSS IP CY_SYSLIB_RESET_CSV_WCO_LOSS, CY_SYSLIB_RESET_HFCLK_LOSS and CY_SYSLIB_RESET_HFCLK_ERR causes of a system reset available only if WCO CSV present in the device. </dd></dl>
 

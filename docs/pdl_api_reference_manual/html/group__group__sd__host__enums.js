@@ -102,5 +102,32 @@ var group__group__sd__host__enums =
       [ "CY_SD_HOST_PERMANENT", "group__group__sd__host__enums.html#gga7b5d22232dfd02d7e11ecf4100232a38acd877f6a8811cb5161a89b06dd535ab5", null ],
       [ "CY_SD_HOST_ENABLE_TEMPORARY", "group__group__sd__host__enums.html#gga7b5d22232dfd02d7e11ecf4100232a38a7554ae84f5ca74721480c28148bcafed", null ],
       [ "CY_SD_HOST_DISABLE_TEMPORARY", "group__group__sd__host__enums.html#gga7b5d22232dfd02d7e11ecf4100232a38a8384faea2722f24857a98ed3f242f539", null ]
+    ] ],
+    [ "cy_en_sd_host_r1_response_t", "group__group__sd__host__enums.html#ga0b6028f95a0398b84b9e3c214c1ab6ae", [
+      [ "CY_SD_HOST_AKE_SEQ_ERROR_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aeac94e2fcb642d1ff21ec9e2ea266b586a", null ],
+      [ "CY_SD_HOST_APP_CMD_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea999cd3d29728ecb194ab9ff714567004", null ],
+      [ "CY_SD_HOST_FX_EVENT_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea48ef13f28700d541177e4aa2e83a4a76", null ],
+      [ "CY_SD_HOST_READY_FOR_DATA_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aeaa55d4d29a6b39242dea25f87b38368ff", null ],
+      [ "CY_SD_HOST_CURRENT_STATE_0_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea231494f20ad0466691e7d7032563f0df", null ],
+      [ "CY_SD_HOST_CURRENT_STATE_1_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea6e9b292ed572b0a31987dc28f33f88f0", null ],
+      [ "CY_SD_HOST_CURRENT_STATE_2_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea86ba38505b61f47e48efaaccf42e2ea2", null ],
+      [ "CY_SD_HOST_CURRENT_STATE_3_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aeaf05916f3d6c7bacf4fdd7a49d1f38f2e", null ],
+      [ "CY_SD_HOST_ERASE_RESET_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea896d4e6763399f3b6e5dae5d71e3fb80", null ],
+      [ "CY_SD_HOST_CARD_ECC_DISABLED_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea7e43ad85cfda28460cbc423742ce74cd", null ],
+      [ "CY_SD_HOST_WP_ERASE_SKIP_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aeab44cd8afc12b0d7626d5cc8f720bc6b5", null ],
+      [ "CY_SD_HOST_CSD_OVERWRITE_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea6778fb3e76e21d50edae55c667e7de62", null ],
+      [ "CY_SD_HOST_ERROR_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea1fe721ab90a3bc17333b1593f6428016", null ],
+      [ "CY_SD_HOST_CC_ERROR_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea0b112402fefbea974b30993ec7d75f57", null ],
+      [ "CY_SD_HOST_CARD_ECC_FAILED_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea813ce95eea9331eda38410fc361a80d4", null ],
+      [ "CY_SD_HOST_ILLEGAL_COMMAND_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aeaf1267ead9663ae154b832adb07fa4877", null ],
+      [ "CY_SD_HOST_COM_CRC_ERROR_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea9dd977b18e6c2a3540f3ee7488dcc4e7", null ],
+      [ "CY_SD_HOST_LOCK_UNLOCK_FAILED_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea7472c44a5f90665d7420064724bea97f", null ],
+      [ "CY_SD_HOST_CARD_IS_LOCKED_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aead53dd8c347c9ff98c00085500f7bb6c7", null ],
+      [ "CY_SD_HOST_WP_VIOLATION_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea8d9a666cf4bc188ca720cc62eaf4996e", null ],
+      [ "CY_SD_HOST_ERASE_PARAM_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea506db8c4cb6af1653a0973008652e7e3", null ],
+      [ "CY_SD_HOST_ERASE_SEQ_ERROR_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea801fa0619d156f149fd9f058655e8025", null ],
+      [ "CY_SD_HOST_BLOCK_LEN_ERROR_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aeab7619a9a2a03f110af315256340b47a2", null ],
+      [ "CY_SD_HOST_ADDRESS_ERROR_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aea3330abe6429e9193f732e2853b1552b1", null ],
+      [ "CY_SD_HOST_OUT_OF_RANGE_R1_RESP", "group__group__sd__host__enums.html#gga0b6028f95a0398b84b9e3c214c1ab6aeae5a0faa9860869afc2904facfccc215f", null ]
     ] ]
 ];

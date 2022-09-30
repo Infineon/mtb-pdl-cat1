@@ -36,11 +36,20 @@ var group__group__rtc__enums =
       [ "CY_RTC_ALARM_DISABLE", "group__group__rtc__enums.html#gga813b21db7e39f0af025d70c38dbd1a0ea005c967377909e0c8c92bbcdc3c161bf", null ],
       [ "CY_RTC_ALARM_ENABLE", "group__group__rtc__enums.html#gga813b21db7e39f0af025d70c38dbd1a0ea12ed08320d23dfe654f029d34972539b", null ]
     ] ],
-    [ "cy_rtc_clk_select_sources_t", "group__group__rtc__enums.html#ga80121694c2c29336d673a1c401725310", [
-      [ "CY_RTC_CLK_SELECT_WCO", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a93b4396c0bab2d5e25228c8ffe53bc8c", null ],
-      [ "CY_RTC_CLK_SELECT_ALTBAK", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a261ab8c2da0f1d1f5a38729fea0cc7e1", null ],
-      [ "CY_RTC_CLK_SELECT_ILO", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a1f71ed937334fcebc3edca826cacbda6", null ],
-      [ "CY_RTC_CLK_SELECT_LPECO_PRESCALER", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a6ba43c7552d0a1b0867f5200a519f1a2", null ],
-      [ "CY_RTC_CLK_SELECT_PILO", "group__group__rtc__enums.html#gga80121694c2c29336d673a1c401725310a6bc54987a5d16de34245545744294a67", null ]
+    [ "cy_en_rtc_clk_select_sources_t", "group__group__rtc__enums.html#ga6620485d475a6116576bd6981e01108e", [
+      [ "CY_RTC_CLK_SELECT_WCO", "group__group__rtc__enums.html#gga6620485d475a6116576bd6981e01108ea93b4396c0bab2d5e25228c8ffe53bc8c", null ],
+      [ "CY_RTC_CLK_SELECT_ALTBAK", "group__group__rtc__enums.html#gga6620485d475a6116576bd6981e01108ea261ab8c2da0f1d1f5a38729fea0cc7e1", null ],
+      [ "CY_RTC_CLK_SELECT_ILO", "group__group__rtc__enums.html#gga6620485d475a6116576bd6981e01108ea1f71ed937334fcebc3edca826cacbda6", null ],
+      [ "CY_RTC_CLK_SELECT_LPECO_PRESCALER", "group__group__rtc__enums.html#gga6620485d475a6116576bd6981e01108ea6ba43c7552d0a1b0867f5200a519f1a2", null ],
+      [ "CY_RTC_CLK_SELECT_PILO", "group__group__rtc__enums.html#gga6620485d475a6116576bd6981e01108ea6bc54987a5d16de34245545744294a67", null ]
+    ] ],
+    [ "cy_en_rtc_calib_sign_t", "group__group__rtc__enums.html#ga27d0d203e4fec44e87b25fdaedb8a534", [
+      [ "CY_RTC_CALIB_SIGN_NEGATIVE", "group__group__rtc__enums.html#gga27d0d203e4fec44e87b25fdaedb8a534a10415631d556b940945a90590fb389e2", null ],
+      [ "CY_RTC_CALIB_SIGN_POSITIVE", "group__group__rtc__enums.html#gga27d0d203e4fec44e87b25fdaedb8a534aa1bbed19a0673b7f1aa5e74a17bf31e1", null ]
+    ] ],
+    [ "cy_en_rtc_calib_sel_t", "group__group__rtc__enums.html#ga3401259c29686278c4311b75ebc70f55", [
+      [ "CY_RTC_CAL_SEL_CAL512", "group__group__rtc__enums.html#gga3401259c29686278c4311b75ebc70f55ad45a5219aeb8db13d8ca5366a130f814", null ],
+      [ "CY_RTC_CAL_SEL_CAL2", "group__group__rtc__enums.html#gga3401259c29686278c4311b75ebc70f55ae8b4a199de5ac3d5fb75ad2bae69109f", null ],
+      [ "CY_RTC_CAL_SEL_CAL1", "group__group__rtc__enums.html#gga3401259c29686278c4311b75ebc70f55a3b2075ca7dfffd8926032ce886a76cf5", null ]
     ] ]
 ];

@@ -88,9 +88,79 @@ $(document).ready(function(){initNavTree('structcy__stc__mcwdt__config__t.html',
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <div class="textblock"><p>The MCWDT component configuration structure. </p>
+<dl class="section note"><dt>Note</dt><dd>Below structure variables are available for CAT1A, CAT1B and CAT1D devices. </dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a29cbf0eb91478db57ec30e1198c655f6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a29cbf0eb91478db57ec30e1198c655f6">c0LowerLimit</a></td></tr>
+<tr class="memdesc:a29cbf0eb91478db57ec30e1198c655f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 lower limit value, for reset or fault.  <a href="#a29cbf0eb91478db57ec30e1198c655f6">More...</a><br /></td></tr>
+<tr class="separator:a29cbf0eb91478db57ec30e1198c655f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab75542a5647e7b174503ceeb7816d9b1"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#ab75542a5647e7b174503ceeb7816d9b1">c0UpperLimit</a></td></tr>
+<tr class="memdesc:ab75542a5647e7b174503ceeb7816d9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 upper limit value, for reset or fault.  <a href="#ab75542a5647e7b174503ceeb7816d9b1">More...</a><br /></td></tr>
+<tr class="separator:ab75542a5647e7b174503ceeb7816d9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97c5ea567369b7116b9698251cc5f01d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a97c5ea567369b7116b9698251cc5f01d">c0WarnLimit</a></td></tr>
+<tr class="memdesc:a97c5ea567369b7116b9698251cc5f01d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 warn limit value, for interrupt.  <a href="#a97c5ea567369b7116b9698251cc5f01d">More...</a><br /></td></tr>
+<tr class="separator:a97c5ea567369b7116b9698251cc5f01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acda0c1beffce606386fdaaa732e137b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#acda0c1beffce606386fdaaa732e137b5">c0LowerAction</a></td></tr>
+<tr class="memdesc:acda0c1beffce606386fdaaa732e137b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 action.  <a href="#acda0c1beffce606386fdaaa732e137b5">More...</a><br /></td></tr>
+<tr class="separator:acda0c1beffce606386fdaaa732e137b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a640f5a5c1f15f8909e4b6acb1a6ac2dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a640f5a5c1f15f8909e4b6acb1a6ac2dc">c0UpperAction</a></td></tr>
+<tr class="memdesc:a640f5a5c1f15f8909e4b6acb1a6ac2dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 action.  <a href="#a640f5a5c1f15f8909e4b6acb1a6ac2dc">More...</a><br /></td></tr>
+<tr class="separator:a640f5a5c1f15f8909e4b6acb1a6ac2dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad469b285b675e52d06cb90619f9f461c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#ad469b285b675e52d06cb90619f9f461c">c0WarnAction</a></td></tr>
+<tr class="memdesc:ad469b285b675e52d06cb90619f9f461c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 warn action.  <a href="#ad469b285b675e52d06cb90619f9f461c">More...</a><br /></td></tr>
+<tr class="separator:ad469b285b675e52d06cb90619f9f461c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0eaf9072b8a1ac1330245d18993aea0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#af0eaf9072b8a1ac1330245d18993aea0">c0AutoService</a></td></tr>
+<tr class="memdesc:af0eaf9072b8a1ac1330245d18993aea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 Auto Service parameter enabled/disabled.  <a href="#af0eaf9072b8a1ac1330245d18993aea0">More...</a><br /></td></tr>
+<tr class="separator:af0eaf9072b8a1ac1330245d18993aea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff5b14b8b4b1e1e206462fbcb5bf1869"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#aff5b14b8b4b1e1e206462fbcb5bf1869">c0SleepDeepPause</a></td></tr>
+<tr class="memdesc:aff5b14b8b4b1e1e206462fbcb5bf1869"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 Auto Service parameter enabled/disabled.  <a href="#aff5b14b8b4b1e1e206462fbcb5bf1869">More...</a><br /></td></tr>
+<tr class="separator:aff5b14b8b4b1e1e206462fbcb5bf1869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17587c6643251620d4cb49bf1695cebf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a17587c6643251620d4cb49bf1695cebf">c0DebugRun</a></td></tr>
+<tr class="memdesc:a17587c6643251620d4cb49bf1695cebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 Auto Service parameter enabled/disabled.  <a href="#a17587c6643251620d4cb49bf1695cebf">More...</a><br /></td></tr>
+<tr class="separator:a17587c6643251620d4cb49bf1695cebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75ceca5b062425ab581ece2a22bfcd43"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a75ceca5b062425ab581ece2a22bfcd43">c1LowerLimit</a></td></tr>
+<tr class="memdesc:a75ceca5b062425ab581ece2a22bfcd43"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 lower limit value, for reset or fault.  <a href="#a75ceca5b062425ab581ece2a22bfcd43">More...</a><br /></td></tr>
+<tr class="separator:a75ceca5b062425ab581ece2a22bfcd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59646c4010a201312ba9f25c963dd324"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a59646c4010a201312ba9f25c963dd324">c1UpperLimit</a></td></tr>
+<tr class="memdesc:a59646c4010a201312ba9f25c963dd324"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 upper limit value, for reset or fault.  <a href="#a59646c4010a201312ba9f25c963dd324">More...</a><br /></td></tr>
+<tr class="separator:a59646c4010a201312ba9f25c963dd324"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc9e1b3ed03c37c14c722ce846b491d0"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#afc9e1b3ed03c37c14c722ce846b491d0">c1WarnLimit</a></td></tr>
+<tr class="memdesc:afc9e1b3ed03c37c14c722ce846b491d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 warn limit value, for interrupt.  <a href="#afc9e1b3ed03c37c14c722ce846b491d0">More...</a><br /></td></tr>
+<tr class="separator:afc9e1b3ed03c37c14c722ce846b491d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22ed2f53359476361a96a28833fffcb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a22ed2f53359476361a96a28833fffcb3">c1LowerAction</a></td></tr>
+<tr class="memdesc:a22ed2f53359476361a96a28833fffcb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#1 action.  <a href="#a22ed2f53359476361a96a28833fffcb3">More...</a><br /></td></tr>
+<tr class="separator:a22ed2f53359476361a96a28833fffcb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaec8f225c946da9e4567a0412d9a2b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#afaec8f225c946da9e4567a0412d9a2b7">c1UpperAction</a></td></tr>
+<tr class="memdesc:afaec8f225c946da9e4567a0412d9a2b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#1 action.  <a href="#afaec8f225c946da9e4567a0412d9a2b7">More...</a><br /></td></tr>
+<tr class="separator:afaec8f225c946da9e4567a0412d9a2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8aa78e60c6c4eae6c8d2d99c8df774"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#afd8aa78e60c6c4eae6c8d2d99c8df774">c1WarnAction</a></td></tr>
+<tr class="memdesc:afd8aa78e60c6c4eae6c8d2d99c8df774"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#1 warn action.  <a href="#afd8aa78e60c6c4eae6c8d2d99c8df774">More...</a><br /></td></tr>
+<tr class="separator:afd8aa78e60c6c4eae6c8d2d99c8df774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad023c1bd26677a2f6690f69359d0c006"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#ad023c1bd26677a2f6690f69359d0c006">c1AutoService</a></td></tr>
+<tr class="memdesc:ad023c1bd26677a2f6690f69359d0c006"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#1 Auto Service parameter enabled/disabled.  <a href="#ad023c1bd26677a2f6690f69359d0c006">More...</a><br /></td></tr>
+<tr class="separator:ad023c1bd26677a2f6690f69359d0c006"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d161ec46066bba5807738db1beb8c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a77d161ec46066bba5807738db1beb8c3">c1SleepDeepPause</a></td></tr>
+<tr class="memdesc:a77d161ec46066bba5807738db1beb8c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#1 Auto Service parameter enabled/disabled.  <a href="#a77d161ec46066bba5807738db1beb8c3">More...</a><br /></td></tr>
+<tr class="separator:a77d161ec46066bba5807738db1beb8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c43f49a46860ce63982516cb5493095"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a6c43f49a46860ce63982516cb5493095">c1DebugRun</a></td></tr>
+<tr class="memdesc:a6c43f49a46860ce63982516cb5493095"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#1 Auto Service parameter enabled/disabled.  <a href="#a6c43f49a46860ce63982516cb5493095">More...</a><br /></td></tr>
+<tr class="separator:a6c43f49a46860ce63982516cb5493095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa0c6b70606c621843efa0e7ab31dcd"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a2fa0c6b70606c621843efa0e7ab31dcd">c2ToggleBit</a></td></tr>
+<tr class="memdesc:a2fa0c6b70606c621843efa0e7ab31dcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#2 Period / Toggle Bit value.  <a href="#a2fa0c6b70606c621843efa0e7ab31dcd">More...</a><br /></td></tr>
+<tr class="separator:a2fa0c6b70606c621843efa0e7ab31dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a465c2e48dba8eebb4617220c304e4291"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#gad2667a60c671e6f199cdbf47cf2fbeaf">cy_en_mcwdt_cnt2_action_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a465c2e48dba8eebb4617220c304e4291">c2Action</a></td></tr>
+<tr class="memdesc:a465c2e48dba8eebb4617220c304e4291"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#2 mode.  <a href="#a465c2e48dba8eebb4617220c304e4291">More...</a><br /></td></tr>
+<tr class="separator:a465c2e48dba8eebb4617220c304e4291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc18556733b84f674e1e138f25413d3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#acc18556733b84f674e1e138f25413d3f">c2SleepDeepPause</a></td></tr>
+<tr class="memdesc:acc18556733b84f674e1e138f25413d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#2 Auto Service parameter enabled/disabled.  <a href="#acc18556733b84f674e1e138f25413d3f">More...</a><br /></td></tr>
+<tr class="separator:acc18556733b84f674e1e138f25413d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a260c4480ab637fcec69c892443d64031"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a260c4480ab637fcec69c892443d64031">c2DebugRun</a></td></tr>
+<tr class="memdesc:a260c4480ab637fcec69c892443d64031"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#2 Auto Service parameter enabled/disabled.  <a href="#a260c4480ab637fcec69c892443d64031">More...</a><br /></td></tr>
+<tr class="separator:a260c4480ab637fcec69c892443d64031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2b1c7199e702b4f2e60850625cd43f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__mcwdt__enums.html#ga56cabdb0b4e42968be47b13bbe6bebad">cy_en_mcwdt_select_core_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#ad2b1c7199e702b4f2e60850625cd43f2">coreSelect</a></td></tr>
+<tr class="memdesc:ad2b1c7199e702b4f2e60850625cd43f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selecting the the core.  <a href="#ad2b1c7199e702b4f2e60850625cd43f2">More...</a><br /></td></tr>
+<tr class="separator:ad2b1c7199e702b4f2e60850625cd43f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a85bf2e1ee7c1e0b65b993f9876644a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a8a85bf2e1ee7c1e0b65b993f9876644a">c0Match</a></td></tr>
 <tr class="memdesc:a8a85bf2e1ee7c1e0b65b993f9876644a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 match comparison value, for interrupt or watchdog timeout.  <a href="#a8a85bf2e1ee7c1e0b65b993f9876644a">More...</a><br /></td></tr>
 <tr class="separator:a8a85bf2e1ee7c1e0b65b993f9876644a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,12 +179,6 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a87441d235211ab6805a649c755382b0c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a87441d235211ab6805a649c755382b0c">c2Mode</a></td></tr>
 <tr class="memdesc:a87441d235211ab6805a649c755382b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#2 mode.  <a href="#a87441d235211ab6805a649c755382b0c">More...</a><br /></td></tr>
 <tr class="separator:a87441d235211ab6805a649c755382b0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29cbf0eb91478db57ec30e1198c655f6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a29cbf0eb91478db57ec30e1198c655f6">c0LowerLimit</a></td></tr>
-<tr class="memdesc:a29cbf0eb91478db57ec30e1198c655f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit for sub-counter 0 of this MCWDT.  <a href="#a29cbf0eb91478db57ec30e1198c655f6">More...</a><br /></td></tr>
-<tr class="separator:a29cbf0eb91478db57ec30e1198c655f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75ceca5b062425ab581ece2a22bfcd43"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a75ceca5b062425ab581ece2a22bfcd43">c1LowerLimit</a></td></tr>
-<tr class="memdesc:a75ceca5b062425ab581ece2a22bfcd43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit for sub-counter 0 of this MCWDT.  <a href="#a75ceca5b062425ab581ece2a22bfcd43">More...</a><br /></td></tr>
-<tr class="separator:a75ceca5b062425ab581ece2a22bfcd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e3060fbaed364ce5a9238203ef56b2c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a6e3060fbaed364ce5a9238203ef56b2c">c0LowerLimitMode</a></td></tr>
 <tr class="memdesc:a6e3060fbaed364ce5a9238203ef56b2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watchdog Counter Action on service before lower limit.  <a href="#a6e3060fbaed364ce5a9238203ef56b2c">More...</a><br /></td></tr>
 <tr class="separator:a6e3060fbaed364ce5a9238203ef56b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,17 +188,14 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a781ac34b84012d5f73b2cb3f31da87bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a781ac34b84012d5f73b2cb3f31da87bf">c0c1carryoutconfig</a></td></tr>
 <tr class="memdesc:a781ac34b84012d5f73b2cb3f31da87bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carryout behaviour that applies when counter 0 and 1 are cascaded false: carry out on counter 0 match, true: carry out on counter 0 roll-over.  <a href="#a781ac34b84012d5f73b2cb3f31da87bf">More...</a><br /></td></tr>
 <tr class="separator:a781ac34b84012d5f73b2cb3f31da87bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e5dd3cb461862ea6d8cad3c314bc7a1"><td class="memItemLeft" align="right" valign="top"><a id="a3e5dd3cb461862ea6d8cad3c314bc7a1"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a3e5dd3cb461862ea6d8cad3c314bc7a1">c0c1matchconfig</a></td></tr>
-<tr class="memdesc:a3e5dd3cb461862ea6d8cad3c314bc7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matching behaviour that applies when counter 0 and 1 are cascaded false: Match based on counter 1 alone, true: Match based on counter 1 and 0 simulataneously. <br /></td></tr>
+<tr class="memitem:a3e5dd3cb461862ea6d8cad3c314bc7a1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a3e5dd3cb461862ea6d8cad3c314bc7a1">c0c1matchconfig</a></td></tr>
+<tr class="memdesc:a3e5dd3cb461862ea6d8cad3c314bc7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matching behaviour that applies when counter 0 and 1 are cascaded false: Match based on counter 1 alone, true: Match based on counter 1 and 0 simultaneously.  <a href="#a3e5dd3cb461862ea6d8cad3c314bc7a1">More...</a><br /></td></tr>
 <tr class="separator:a3e5dd3cb461862ea6d8cad3c314bc7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95177ba86f640f0bc6793f128e10ba5e"><td class="memItemLeft" align="right" valign="top"><a id="a95177ba86f640f0bc6793f128e10ba5e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a95177ba86f640f0bc6793f128e10ba5e">c1c2carryoutconfig</a></td></tr>
-<tr class="memdesc:a95177ba86f640f0bc6793f128e10ba5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carryout behaviour that applies when counter 1 and 2 are cascaded false: carry out on counter 1 match, true: carry out on counter 1 roll-over. <br /></td></tr>
+<tr class="memitem:a95177ba86f640f0bc6793f128e10ba5e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a95177ba86f640f0bc6793f128e10ba5e">c1c2carryoutconfig</a></td></tr>
+<tr class="memdesc:a95177ba86f640f0bc6793f128e10ba5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carryout behaviour that applies when counter 1 and 2 are cascaded false: carry out on counter 1 match, true: carry out on counter 1 roll-over.  <a href="#a95177ba86f640f0bc6793f128e10ba5e">More...</a><br /></td></tr>
 <tr class="separator:a95177ba86f640f0bc6793f128e10ba5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e46030f3b224f71fa0984d4431f2f51"><td class="memItemLeft" align="right" valign="top"><a id="a7e46030f3b224f71fa0984d4431f2f51"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a7e46030f3b224f71fa0984d4431f2f51">c1c2matchconfig</a></td></tr>
-<tr class="memdesc:a7e46030f3b224f71fa0984d4431f2f51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matching behaviour that applies when counter 1 and 2 are cascaded false: Match based on counter 1 alone, true: Match based on counter 2 and 1 simulataneously. <br /></td></tr>
+<tr class="memitem:a7e46030f3b224f71fa0984d4431f2f51"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a7e46030f3b224f71fa0984d4431f2f51">c1c2matchconfig</a></td></tr>
+<tr class="memdesc:a7e46030f3b224f71fa0984d4431f2f51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matching behaviour that applies when counter 1 and 2 are cascaded false: Match based on counter 1 alone, true: Match based on counter 2 and 1 simultaneously.  <a href="#a7e46030f3b224f71fa0984d4431f2f51">More...</a><br /></td></tr>
 <tr class="separator:a7e46030f3b224f71fa0984d4431f2f51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a168d84879f11013356318556afdb59d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__mcwdt__config__t.html#a168d84879f11013356318556afdb59d7">c0ClearOnMatch</a></td></tr>
 <tr class="memdesc:a168d84879f11013356318556afdb59d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sub-counter#0 Clear On Match parameter enabled/disabled.  <a href="#a168d84879f11013356318556afdb59d7">More...</a><br /></td></tr>
@@ -150,6 +211,401 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 <tr class="separator:adfdf759ca33d5bdec9cc21a4d9fa23bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
+<a id="a29cbf0eb91478db57ec30e1198c655f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29cbf0eb91478db57ec30e1198c655f6">&#9670;&nbsp;</a></span>c0LowerLimit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t cy_stc_mcwdt_config_t::c0LowerLimit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 lower limit value, for reset or fault. </p>
+<p>Lower limit for sub-counter 0 of this MCWDT.</p>
+<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C devices</p>
+<p>Range: 0 - 65535. Only for CAT1B devices </p>
+
+</div>
+</div>
+<a id="ab75542a5647e7b174503ceeb7816d9b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab75542a5647e7b174503ceeb7816d9b1">&#9670;&nbsp;</a></span>c0UpperLimit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t cy_stc_mcwdt_config_t::c0UpperLimit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 upper limit value, for reset or fault. </p>
+<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a97c5ea567369b7116b9698251cc5f01d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97c5ea567369b7116b9698251cc5f01d">&#9670;&nbsp;</a></span>c0WarnLimit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t cy_stc_mcwdt_config_t::c0WarnLimit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 warn limit value, for interrupt. </p>
+<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="acda0c1beffce606386fdaaa732e137b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acda0c1beffce606386fdaaa732e137b5">&#9670;&nbsp;</a></span>c0LowerAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a> cy_stc_mcwdt_config_t::c0LowerAction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 action. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a640f5a5c1f15f8909e4b6acb1a6ac2dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a640f5a5c1f15f8909e4b6acb1a6ac2dc">&#9670;&nbsp;</a></span>c0UpperAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a> cy_stc_mcwdt_config_t::c0UpperAction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 action. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="ad469b285b675e52d06cb90619f9f461c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad469b285b675e52d06cb90619f9f461c">&#9670;&nbsp;</a></span>c0WarnAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a> cy_stc_mcwdt_config_t::c0WarnAction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 warn action. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a>. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="af0eaf9072b8a1ac1330245d18993aea0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0eaf9072b8a1ac1330245d18993aea0">&#9670;&nbsp;</a></span>c0AutoService</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a> cy_stc_mcwdt_config_t::c0AutoService</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 Auto Service parameter enabled/disabled. </p>
+<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="aff5b14b8b4b1e1e206462fbcb5bf1869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff5b14b8b4b1e1e206462fbcb5bf1869">&#9670;&nbsp;</a></span>c0SleepDeepPause</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a> cy_stc_mcwdt_config_t::c0SleepDeepPause</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 Auto Service parameter enabled/disabled. </p>
+<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a17587c6643251620d4cb49bf1695cebf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17587c6643251620d4cb49bf1695cebf">&#9670;&nbsp;</a></span>c0DebugRun</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a> cy_stc_mcwdt_config_t::c0DebugRun</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 Auto Service parameter enabled/disabled. </p>
+<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a75ceca5b062425ab581ece2a22bfcd43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75ceca5b062425ab581ece2a22bfcd43">&#9670;&nbsp;</a></span>c1LowerLimit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t cy_stc_mcwdt_config_t::c1LowerLimit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 lower limit value, for reset or fault. </p>
+<p>Lower limit for sub-counter 0 of this MCWDT.</p>
+<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C devices</p>
+<p>Range: 0 - 65535. Only for CAT1B devices </p>
+
+</div>
+</div>
+<a id="a59646c4010a201312ba9f25c963dd324"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59646c4010a201312ba9f25c963dd324">&#9670;&nbsp;</a></span>c1UpperLimit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t cy_stc_mcwdt_config_t::c1UpperLimit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 upper limit value, for reset or fault. </p>
+<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="afc9e1b3ed03c37c14c722ce846b491d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc9e1b3ed03c37c14c722ce846b491d0">&#9670;&nbsp;</a></span>c1WarnLimit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t cy_stc_mcwdt_config_t::c1WarnLimit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#0 warn limit value, for interrupt. </p>
+<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a22ed2f53359476361a96a28833fffcb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22ed2f53359476361a96a28833fffcb3">&#9670;&nbsp;</a></span>c1LowerAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a> cy_stc_mcwdt_config_t::c1LowerAction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#1 action. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="afaec8f225c946da9e4567a0412d9a2b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaec8f225c946da9e4567a0412d9a2b7">&#9670;&nbsp;</a></span>c1UpperAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a> cy_stc_mcwdt_config_t::c1UpperAction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#1 action. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="afd8aa78e60c6c4eae6c8d2d99c8df774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd8aa78e60c6c4eae6c8d2d99c8df774">&#9670;&nbsp;</a></span>c1WarnAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a> cy_stc_mcwdt_config_t::c1WarnAction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#1 warn action. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a>. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="ad023c1bd26677a2f6690f69359d0c006"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad023c1bd26677a2f6690f69359d0c006">&#9670;&nbsp;</a></span>c1AutoService</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a> cy_stc_mcwdt_config_t::c1AutoService</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#1 Auto Service parameter enabled/disabled. </p>
+<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a77d161ec46066bba5807738db1beb8c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d161ec46066bba5807738db1beb8c3">&#9670;&nbsp;</a></span>c1SleepDeepPause</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a> cy_stc_mcwdt_config_t::c1SleepDeepPause</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#1 Auto Service parameter enabled/disabled. </p>
+<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a6c43f49a46860ce63982516cb5493095"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c43f49a46860ce63982516cb5493095">&#9670;&nbsp;</a></span>c1DebugRun</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a> cy_stc_mcwdt_config_t::c1DebugRun</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#1 Auto Service parameter enabled/disabled. </p>
+<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a2fa0c6b70606c621843efa0e7ab31dcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa0c6b70606c621843efa0e7ab31dcd">&#9670;&nbsp;</a></span>c2ToggleBit <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t cy_stc_mcwdt_config_t::c2ToggleBit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#2 Period / Toggle Bit value. </p>
+<p>Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a465c2e48dba8eebb4617220c304e4291"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a465c2e48dba8eebb4617220c304e4291">&#9670;&nbsp;</a></span>c2Action</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#gad2667a60c671e6f199cdbf47cf2fbeaf">cy_en_mcwdt_cnt2_action_t</a> cy_stc_mcwdt_config_t::c2Action</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#2 mode. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#gad2667a60c671e6f199cdbf47cf2fbeaf">cy_en_mcwdt_cnt2_action_t</a>. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="acc18556733b84f674e1e138f25413d3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc18556733b84f674e1e138f25413d3f">&#9670;&nbsp;</a></span>c2SleepDeepPause</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a> cy_stc_mcwdt_config_t::c2SleepDeepPause</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#2 Auto Service parameter enabled/disabled. </p>
+<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="a260c4480ab637fcec69c892443d64031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a260c4480ab637fcec69c892443d64031">&#9670;&nbsp;</a></span>c2DebugRun</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga9340c18ad286dce4f2b24c6c6487060f">cy_en_mcwdt_enable_t</a> cy_stc_mcwdt_config_t::c2DebugRun</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sub-counter#2 Auto Service parameter enabled/disabled. </p>
+<p>Only for CAT1C devices </p>
+
+</div>
+</div>
+<a id="ad2b1c7199e702b4f2e60850625cd43f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2b1c7199e702b4f2e60850625cd43f2">&#9670;&nbsp;</a></span>coreSelect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__mcwdt__enums.html#ga56cabdb0b4e42968be47b13bbe6bebad">cy_en_mcwdt_select_core_t</a> cy_stc_mcwdt_config_t::coreSelect</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selecting the the core. </p>
+<p>The DeepSleep of the core pauses this MCWDT counter Only for CAT1C devices </p>
+
+</div>
+</div>
 <a id="a8a85bf2e1ee7c1e0b65b993f9876644a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a85bf2e1ee7c1e0b65b993f9876644a">&#9670;&nbsp;</a></span>c0Match</h2>
 
@@ -163,7 +619,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#0 match comparison value, for interrupt or watchdog timeout. </p>
-<p>Range: 0 - 65535 for c0ClearOnMatch = 0 and 1 - 65535 for c0ClearOnMatch = 1. </p>
+<p>Range: 0 - 65535 for c0ClearOnMatch = 0 and 1 - 65535 for c0ClearOnMatch = 1. For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
@@ -180,7 +636,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#1 match comparison value, for interrupt or watchdog timeout. </p>
-<p>Range: 0 - 65535 for c1ClearOnMatch = 0 and 1 - 65535 for c1ClearOnMatch = 1. </p>
+<p>Range: 0 - 65535 for c1ClearOnMatch = 0 and 1 - 65535 for c1ClearOnMatch = 1. For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
@@ -197,7 +653,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#0 mode. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221ac5e6ba86a3e2637ca4dbd241797af501">CY_MCWDT_MODE_NONE</a>, <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a65e32652347cf8dae1d32691ff284b40">CY_MCWDT_MODE_INT</a>, <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a82a90fe28c73fea40f874c6a6dc496b6">CY_MCWDT_MODE_RESET</a> and <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221aed455256dd3dbc0d6fe095bc97cd2216">CY_MCWDT_MODE_INT_RESET</a>. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221ac5e6ba86a3e2637ca4dbd241797af501">CY_MCWDT_MODE_NONE</a>, <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a65e32652347cf8dae1d32691ff284b40">CY_MCWDT_MODE_INT</a>, <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a82a90fe28c73fea40f874c6a6dc496b6">CY_MCWDT_MODE_RESET</a> and <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221aed455256dd3dbc0d6fe095bc97cd2216">CY_MCWDT_MODE_INT_RESET</a>. For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
@@ -214,12 +670,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#1 mode. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221ac5e6ba86a3e2637ca4dbd241797af501">CY_MCWDT_MODE_NONE</a>, <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a65e32652347cf8dae1d32691ff284b40">CY_MCWDT_MODE_INT</a>, <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a82a90fe28c73fea40f874c6a6dc496b6">CY_MCWDT_MODE_RESET</a> and <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221aed455256dd3dbc0d6fe095bc97cd2216">CY_MCWDT_MODE_INT_RESET</a>. </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221ac5e6ba86a3e2637ca4dbd241797af501">CY_MCWDT_MODE_NONE</a>, <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a65e32652347cf8dae1d32691ff284b40">CY_MCWDT_MODE_INT</a>, <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a82a90fe28c73fea40f874c6a6dc496b6">CY_MCWDT_MODE_RESET</a> and <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221aed455256dd3dbc0d6fe095bc97cd2216">CY_MCWDT_MODE_INT_RESET</a>. For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
 <a id="ae430f8011ed0ccdd4eb03ff0dcc2529c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae430f8011ed0ccdd4eb03ff0dcc2529c">&#9670;&nbsp;</a></span>c2ToggleBit</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae430f8011ed0ccdd4eb03ff0dcc2529c">&#9670;&nbsp;</a></span>c2ToggleBit <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +687,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#2 Period / Toggle Bit value. </p>
-<p>Range: 0 - 31. </p>
+<p>Range: 0 - 31. For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
@@ -248,41 +704,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#2 mode. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221ac5e6ba86a3e2637ca4dbd241797af501">CY_MCWDT_MODE_NONE</a> and <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a65e32652347cf8dae1d32691ff284b40">CY_MCWDT_MODE_INT</a>. </p>
-
-</div>
-</div>
-<a id="a29cbf0eb91478db57ec30e1198c655f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29cbf0eb91478db57ec30e1198c655f6">&#9670;&nbsp;</a></span>c0LowerLimit</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t cy_stc_mcwdt_config_t::c0LowerLimit</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Lower limit for sub-counter 0 of this MCWDT. </p>
-<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. Range: 0 - 65535. </dd></dl>
-
-</div>
-</div>
-<a id="a75ceca5b062425ab581ece2a22bfcd43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75ceca5b062425ab581ece2a22bfcd43">&#9670;&nbsp;</a></span>c1LowerLimit</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t cy_stc_mcwdt_config_t::c1LowerLimit</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Lower limit for sub-counter 0 of this MCWDT. </p>
-<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. Range: 0 - 65535. </dd></dl>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221ac5e6ba86a3e2637ca4dbd241797af501">CY_MCWDT_MODE_NONE</a> and <a class="el" href="group__group__mcwdt__enums.html#ggaa3ab9dd24dfec93a9982f06b5d7f0221a65e32652347cf8dae1d32691ff284b40">CY_MCWDT_MODE_INT</a>. For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
@@ -299,7 +721,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>Watchdog Counter Action on service before lower limit. </p>
-<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. Range: 0 - 2., 0 - Do nothing, 1 - Assert WDT_INTx, 2 - Assert WDT Reset </dd></dl>
+<p>Range: 0 - 2., 0 - Do nothing, 1 - Assert WDT_INTx, 2 - Assert WDT Reset. Only for CAT1B devices </p>
 
 </div>
 </div>
@@ -316,7 +738,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>Watchdog Counter Action on service before lower limit. </p>
-<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B devices. Range: 0 - 2., 0 - Do nothing, 1 - Assert WDT_INTx, 2 - Assert WDT Reset </dd></dl>
+<p>Range: 0 - 2., 0 - Do nothing, 1 - Assert WDT_INTx, 2 - Assert WDT Reset. Only for CAT1B devices </p>
 
 </div>
 </div>
@@ -333,7 +755,58 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>Carryout behaviour that applies when counter 0 and 1 are cascaded false: carry out on counter 0 match, true: carry out on counter 0 roll-over. </p>
-<dl class="section note"><dt>Note</dt><dd>This parameter is available for devices having MXS40SSRSS IP. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This parameter is available for devices having MXS40SSRSS IP. Only for CAT1B devices </dd></dl>
+
+</div>
+</div>
+<a id="a3e5dd3cb461862ea6d8cad3c314bc7a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e5dd3cb461862ea6d8cad3c314bc7a1">&#9670;&nbsp;</a></span>c0c1matchconfig</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_mcwdt_config_t::c0c1matchconfig</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Matching behaviour that applies when counter 0 and 1 are cascaded false: Match based on counter 1 alone, true: Match based on counter 1 and 0 simultaneously. </p>
+<p>Only for CAT1B devices </p>
+
+</div>
+</div>
+<a id="a95177ba86f640f0bc6793f128e10ba5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95177ba86f640f0bc6793f128e10ba5e">&#9670;&nbsp;</a></span>c1c2carryoutconfig</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_mcwdt_config_t::c1c2carryoutconfig</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Carryout behaviour that applies when counter 1 and 2 are cascaded false: carry out on counter 1 match, true: carry out on counter 1 roll-over. </p>
+<p>Only for CAT1B devices </p>
+
+</div>
+</div>
+<a id="a7e46030f3b224f71fa0984d4431f2f51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e46030f3b224f71fa0984d4431f2f51">&#9670;&nbsp;</a></span>c1c2matchconfig</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_mcwdt_config_t::c1c2matchconfig</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Matching behaviour that applies when counter 1 and 2 are cascaded false: Match based on counter 1 alone, true: Match based on counter 2 and 1 simultaneously. </p>
+<p>Only for CAT1B devices </p>
 
 </div>
 </div>
@@ -350,6 +823,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#0 Clear On Match parameter enabled/disabled. </p>
+<p>For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
@@ -366,6 +840,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#1 Clear On Match parameter enabled/disabled. </p>
+<p>For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
@@ -382,6 +857,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#1 is clocked by LFCLK or from sub-counter#0 cascade. </p>
+<p>For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>
@@ -398,6 +874,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div><div class="memdoc">
 
 <p>The sub-counter#2 is clocked by LFCLK or from sub-counter#1 cascade. </p>
+<p>For CAT1A, CAT1B and CAT1D devices </p>
 
 </div>
 </div>

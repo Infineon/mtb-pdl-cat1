@@ -35,7 +35,7 @@ See the [PDL API Reference Manual Getting Started section](https://infineon.gith
 * [Peripheral Driver Library API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
 * [ModusToolbox Software Environment, Quick Start Guide, Documentation, and Videos](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/)
 * [ModusToolbox Device Configurator Tool Guide](https://www.infineon.com/dgdl/Infineon-ModusToolbox_Device_Configurator_Guide_4-UserManual-v01_00-EN.pdf?fileId=8ac78c8c7d718a49017d99ab297631cb)
-* [AN210781 Getting Started with PSoC 6 MCU with Bluetooth Low Energy (BLE) Connectivity](http://www.cypress.com/an210781)
+* [AN210781 Getting Started with PSoC 6 MCU with Bluetooth Low Energy (BLE) Connectivity](https://www.infineon.com/dgdl/Infineon-AN210781_Getting_Started_with_PSoC_6_MCU_with_Bluetooth_Low_Energy_(BLE)_Connectivity_on_PSoC_Creator-ApplicationNotes-v05_00-EN.pdf?fileId=8ac78c8c7cdc391c017d0d311f536528)
 * [PSoC 6 Technical Reference Manuals](https://edit.infineon.com/cms/en/search.html#!term=psoc6%20technical%20reference%20manual&view=downloads)
 * [PSoC 6 MCU Datasheets](https://edit.infineon.com/cms/en/search.html?intc=searchkwr-return#!view=downloads&term=psoc6&doc_group=Data%20Sheet)
 * [CYW20829](https://www.infineon.com/cms/en/product/promopages/airoc20829)
