@@ -102,7 +102,7 @@ This version of PDL was validated for compatibility with the following Software 
 
 | Software and Tools                                                            | Version      |
 | :---                                                                          | :----        |
-| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.3.0        |
+| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.3.1        |
 | [Infineon HAL](https://github.com/Infineon/mtb-hal-cat1)                      | 2.2.0        |
 | CMSIS                                                                         | 5.8.0        |
 | GCC Compiler                                                                  | 10.3.1       |
