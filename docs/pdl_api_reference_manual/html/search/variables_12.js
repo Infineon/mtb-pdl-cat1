@@ -29,6 +29,7 @@ var searchData=
   ['trng',['trng',['../group__group__ipc__bt__data__structures.html#ga963cc9b049052f63a6d729476f981e74',1,'cy_ipc_bt.h']]],
   ['trout',['trOut',['../structcy__stc__sar__fifo__config__t.html#a798e7ec238251184eea792036cf7239f',1,'cy_stc_sar_fifo_config_t']]],
   ['trtimer',['trTimer',['../structcy__stc__sar__config__t.html#a22262b17c5688d6c5acc9212d23b9ba0',1,'cy_stc_sar_config_t']]],
+  ['tsusecondinccb',['tsuSecondInccb',['../structcy__stc__ethif__cb__t.html#ae95964ed0d2fff216675f7c257e8f24e',1,'cy_stc_ethif_cb_t']]],
   ['tx_5fconfig',['tx_config',['../structcy__stc__tdm__config__t.html#a5124d3ceb59c78480f465a6f6f76575f',1,'cy_stc_tdm_config_t']]],
   ['txalignment',['txAlignment',['../structcy__stc__i2s__config__t.html#a5f3d11cd3e68da381d548c3a98b52e36',1,'cy_stc_i2s_config_t']]],
   ['txbufferaddress',['txBufferAddress',['../structcy__stc__smif__context__t.html#acff2aacf21f0f0f0acbd52bc1bcf116c',1,'cy_stc_smif_context_t']]],
@@ -40,11 +41,12 @@ var searchData=
   ['txchannels',['txChannels',['../structcy__stc__i2s__config__t.html#ad805d382b09d9bdb91c923f874ae0b37',1,'cy_stc_i2s_config_t']]],
   ['txchecksum_5ferror',['txChecksum_error',['../structcy__stc__lin__test__error__config__t.html#a53ad35075e509fea7c2ef6a5f412acdc',1,'cy_stc_lin_test_error_config_t']]],
   ['txchecksumstop_5ferror',['txChecksumStop_error',['../structcy__stc__lin__test__error__config__t.html#ac491f844a9f6f78e708b8df8c91cd247',1,'cy_stc_lin_test_error_config_t']]],
-  ['txcompletecb',['txCompleteCb',['../structcy__stc__smif__context__t.html#a71a18df866cf403b715696915290a8d0',1,'cy_stc_smif_context_t']]],
+  ['txcompletecb',['txcompletecb',['../structcy__stc__ethif__cb__t.html#a2c80af26283f9990960cf17f593b04c4',1,'cy_stc_ethif_cb_t::txcompletecb()'],['../structcy__stc__smif__context__t.html#a71a18df866cf403b715696915290a8d0',1,'cy_stc_smif_context_t::txCompleteCb()']]],
   ['txdatastop_5ferror',['txDataStop_error',['../structcy__stc__lin__test__error__config__t.html#a3fbddf38deab6a0ace7f4569ecef30d0',1,'cy_stc_lin_test_error_config_t']]],
   ['txdatawidth',['txDataWidth',['../structcy__stc__scb__spi__config__t.html#a6c1579d6d98af6a80e6810a98b8d5f26',1,'cy_stc_scb_spi_config_t']]],
   ['txdmatrigger',['txDmaTrigger',['../structcy__stc__i2s__config__t.html#a92218e90b918ad769b857376fd322f3b',1,'cy_stc_i2s_config_t']]],
   ['txenabled',['txEnabled',['../structcy__stc__i2s__config__t.html#ae8ca5293003aa3425e04539009983b1f',1,'cy_stc_i2s_config_t']]],
+  ['txerrorcb',['txerrorcb',['../structcy__stc__ethif__cb__t.html#ad66352cf5cf6bc1ed3bce7a15503a714',1,'cy_stc_ethif_cb_t']]],
   ['txfifointenablemask',['txFifoIntEnableMask',['../structcy__stc__scb__spi__config__t.html#a22bfdf22686ed7f0220cb0fd42ec9abf',1,'cy_stc_scb_spi_config_t::txFifoIntEnableMask()'],['../structcy__stc__scb__uart__config__t.html#ae26c57833e5fc79caab39ba246a5e373',1,'cy_stc_scb_uart_config_t::txFifoIntEnableMask()']]],
   ['txfifotriggerlevel',['txFifoTriggerLevel',['../structcy__stc__i2s__config__t.html#aea3ab9716a65392148d0d72c6566c200',1,'cy_stc_i2s_config_t::txFifoTriggerLevel()'],['../structcy__stc__scb__spi__config__t.html#a7238f0cb999b242c6aeb8a3c552bf8eb',1,'cy_stc_scb_spi_config_t::txFifoTriggerLevel()'],['../structcy__stc__scb__uart__config__t.html#a2a061c925fe7610533730fa206d7d9c2',1,'cy_stc_scb_uart_config_t::txFifoTriggerLevel()']]],
   ['txmastermode',['txMasterMode',['../structcy__stc__i2s__config__t.html#affb22af190ce98c200f23fec3dcad294',1,'cy_stc_i2s_config_t']]],
@@ -60,5 +62,6 @@ var searchData=
   ['txwatchdogvalue',['txWatchdogValue',['../structcy__stc__i2s__config__t.html#a10cc840e19829c3e2cdc97a30ff34f64',1,'cy_stc_i2s_config_t']]],
   ['txwordlength',['txWordLength',['../structcy__stc__i2s__config__t.html#aadfece214c934881a93cb49090b31aeb',1,'cy_stc_i2s_config_t']]],
   ['txwspulsewidth',['txWsPulseWidth',['../structcy__stc__i2s__config__t.html#ac57fdc45c9e083bcac17e1ca847f6015',1,'cy_stc_i2s_config_t']]],
-  ['type',['type',['../structcy__stc__crypto__ecc__key.html#aa68f4c207007e6e1256d6bf1994f59d3',1,'cy_stc_crypto_ecc_key::type()'],['../structcy__stc__flash__computehash__config__t.html#a0cc1990fd5886542d95fb82812be8fea',1,'cy_stc_flash_computehash_config_t::type()'],['../structcy__stc__seglcd__disp__t.html#a92e348e14cdae68278381927802b48fc',1,'cy_stc_seglcd_disp_t::type()'],['../structcy__stc__syspm__callback__t.html#a566582fa98bed63f19108164d62e6c8f',1,'cy_stc_syspm_callback_t::type()']]]
+  ['type',['type',['../structcy__stc__crypto__ecc__key.html#aa68f4c207007e6e1256d6bf1994f59d3',1,'cy_stc_crypto_ecc_key::type()'],['../structcy__stc__flash__computehash__config__t.html#a0cc1990fd5886542d95fb82812be8fea',1,'cy_stc_flash_computehash_config_t::type()'],['../structcy__stc__seglcd__disp__t.html#a92e348e14cdae68278381927802b48fc',1,'cy_stc_seglcd_disp_t::type()'],['../structcy__stc__syspm__callback__t.html#a566582fa98bed63f19108164d62e6c8f',1,'cy_stc_syspm_callback_t::type()']]],
+  ['typefilter',['typeFilter',['../structcy__stc__ethif__filter__config__t.html#a448cd8f945c5f9db4a361a96b703874f',1,'cy_stc_ethif_filter_config_t']]]
 ];

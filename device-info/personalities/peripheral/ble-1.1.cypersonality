@@ -34,7 +34,7 @@
   <ExposedMembers />
   <Parameters>
     <!-- BLESS documentation on GitHub -->
-    <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="https://cypresssemiconductorco.github.io/bless/ble_api_reference_manual/html/index.html" linkText="Open BLE Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
+    <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="https://Infineon.github.io/bless/ble_api_reference_manual/html/index.html" linkText="Open BLE Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
    <!-- Core Selector -->
     <ParamChoice id="BleCore" name="Target CPU core" group="Core Selector" default="4" visible="false" editable="false" desc="Configure the target CPU core for BLE middleware." >

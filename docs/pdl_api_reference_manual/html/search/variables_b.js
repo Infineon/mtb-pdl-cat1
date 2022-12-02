@@ -17,6 +17,7 @@ var searchData=
   ['lowvoltagesignaling',['lowVoltageSignaling',['../structcy__stc__sd__host__sd__card__config__t.html#a100a6eaaadfd0c1736c8d3331a0f3d8b',1,'cy_stc_sd_host_sd_card_config_t']]],
   ['lposcdsmode',['lpOscDsMode',['../structcy__stc__sysanalog__deep__sleep__config__t.html#a0b1fec83f438609ac1e1b5389d597aaf',1,'cy_stc_sysanalog_deep_sleep_config_t']]],
   ['lr',['lr',['../structcy__stc__fault__frame__t.html#a2194671c2c38dc854a05b2851110aa0a',1,'cy_stc_fault_frame_t']]],
+  ['lsbsubnsinc',['lsbSubNsInc',['../structcy__stc__ethif__timer__increment__t.html#a1ff166f4a2cc9d3829af52eedbe1b095',1,'cy_stc_ethif_timer_increment_t']]],
   ['lsclk',['lsClk',['../structcy__stc__seglcd__config__t.html#a77554e22d4f2ad59e59841a6e6faf3d5',1,'cy_stc_seglcd_config_t']]],
   ['lutcfg0',['lutCfg0',['../structcy__stc__smartio__config__t.html#aef2b7f0a6046e13c757acbcef7c729f1',1,'cy_stc_smartio_config_t']]],
   ['lutcfg1',['lutCfg1',['../structcy__stc__smartio__config__t.html#a29a89d5dd32bf090e54092377a502af4',1,'cy_stc_smartio_config_t']]],

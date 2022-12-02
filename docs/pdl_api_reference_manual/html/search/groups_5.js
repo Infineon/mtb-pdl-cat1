@@ -23,6 +23,8 @@ var searchData=
   ['functions',['Functions',['../group__group__dma__functions.html',1,'']]],
   ['functions',['Functions',['../group__group__dmac__functions.html',1,'']]],
   ['functions',['Functions',['../group__group__efuse__functions.html',1,'']]],
+  ['functions',['Functions',['../group__group__ephy__functions.html',1,'']]],
+  ['functions',['Functions',['../group__group__ethif__functions.html',1,'']]],
   ['functions',['Functions',['../group__group__evtgen__functions.html',1,'']]],
   ['flash_20_20_20_20_20_20_20_20_28flash_20system_20routine_29',['Flash        (Flash System Routine)',['../group__group__flash.html',1,'']]],
   ['flash_20configuration',['Flash configuration',['../group__group__flash__config__macros.html',1,'']]],

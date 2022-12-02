@@ -10,6 +10,7 @@ var searchData=
   ['maxsectornum',['maxSectorNum',['../structcy__stc__sd__host__context__t.html#aedeba1076cd1d558b97df8503d632890',1,'cy_stc_sd_host_context_t']]],
   ['maxsema',['maxSema',['../structcy__stc__ipc__sema__t.html#a5f5f482e9c7bf7992001adb225f5d811',1,'cy_stc_ipc_sema_t']]],
   ['mclkdiv',['mclkDiv',['../structcy__stc__pdm__pcm__config__t.html#af5db074ab09640dea5acd161f0760e99',1,'cy_stc_pdm_pcm_config_t']]],
+  ['mdcpclkdiv',['mdcPclkDiv',['../structcy__stc__ethif__mac__config__t.html#a25b860d095d4966661b850e0d77210ed',1,'cy_stc_ethif_mac_config_t']]],
   ['memconfig',['memConfig',['../structcy__stc__smif__block__config__t.html#a848414c2aff53f59f55f0e9c9a4be083',1,'cy_stc_smif_block_config_t']]],
   ['memcount',['memCount',['../structcy__stc__smif__block__config__t.html#ae864772e8d80652cdaed72ce128069b8',1,'cy_stc_smif_block_config_t']]],
   ['memmappedsize',['memMappedSize',['../structcy__stc__smif__mem__config__t.html#aebefac335a407c6db19b06c278df33a6',1,'cy_stc_smif_mem_config_t']]],

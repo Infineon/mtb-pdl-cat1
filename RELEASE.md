@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.0.0
+# MTB CAT1 Peripheral Driver Library v3.1.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,63 +8,24 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## Implementation Details
 
-* Support for CAT1C devices.
-* New PSoC 6A 256K MPNs added: CYS0644AFNI-S2D43
+* Support for Ethernet in CAT1C devices.
 
 ## Build Changes
 
 ## Personalities Changes
 
-* Updated all existing personalities for version 3.0.
-* New Personalities: aref_v2-1.0, emusb-1.0, evtgen-1.0, cpuss-1.0, eco_prescaler-1.0, ilo-3.0, memclock-1.0.
-
 ## Added Drivers
 
-Following drivers are added for CAT1C device support:
-* [EVTGEN](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__evtgen.html)
-* [LVD-HT](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lvd__ht.html)
-* [SAR2](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sar2.html)
-* [Startup CAT1C](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__system__config__cm7.html)
-* [SysFault](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysfault.html)
+Following drivers are added for Ethernet support in CAT1C device:
+* [EMAC](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ethif.html)
+* [EPHY](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ephy.html)
 
 
 ## Updated Drivers
 
-* [ADCMic 1.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__adcmic.html)
-* [CAN FD 1.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__canfd.html)
-* [Crypto 2.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
-* [Cryptolite 2.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
-* [CTB 2.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ctb.html)
-* [DMA 2.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__dma.html)
-* [EFUSE 2.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__efuse.html)
-* [FLASH 3.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
-* [GPIO 1.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
-* [IPC 1.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
-* [LIN 1.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lin.html)
-* [LPCOMP 1.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lpcomp.html)
-* [LVD 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lvd.html)
-* [MCWDT 1.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
-* [PDM_PCM_v2 1.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pdm__pcm__v2.html)
-* [PRA 2.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pra.html)
-* [PROT 1.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__prot.html)
-* [RTC 2.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__rtc.html)
-* [SAR 2.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sar.html)
-* [SCB 3.00](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
-* [SDHOST 2.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sd__host.html)
-* [SMIF 2.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [SYSCLK 3.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSINT 1.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
-* [SYSLIB 3.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
-* [SYSTICK 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__arm__system__timer.html)
-* [SYSPM 5.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [TRIGMUX 1.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__trigmux.html)
-* [WDT 1.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__wdt.html)
+* [SYSPM 5.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
 
 ### Drivers with patch version updates
-
-* [CSD 1.20.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__csd.html)
-* [DMAC 1.30.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__dmac.html)
-* [USBFS 2.20.3](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__usbfs__dev__drv.html)
 
 ### Obsoleted part numbers
 
@@ -102,7 +63,7 @@ This version of PDL was validated for compatibility with the following Software 
 
 | Software and Tools                                                            | Version      |
 | :---                                                                          | :----        |
-| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.3.1        |
+| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.3.0        |
 | [Infineon HAL](https://github.com/Infineon/mtb-hal-cat1)                      | 2.2.0        |
 | CMSIS                                                                         | 5.8.0        |
 | GCC Compiler                                                                  | 10.3.1       |
@@ -117,11 +78,10 @@ This version of PDL was validated for compatibility with the following Software 
 * [ModusToolbox Software Environment, Quick Start Guide, Documentation, and Videos](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/)
 * [ModusToolbox Device Configurator Tool Guide](https://www.infineon.com/dgdl/Infineon-ModusToolbox_Device_Configurator_Guide_4-UserManual-v01_00-EN.pdf?fileId=8ac78c8c7d718a49017d99ab297631cb)
 * [AN210781 Getting Started with PSoC 6 MCU with Bluetooth Low Energy (BLE) Connectivity](https://www.infineon.com/dgdl/Infineon-AN210781_Getting_Started_with_PSoC_6_MCU_with_Bluetooth_Low_Energy_(BLE)_Connectivity_on_PSoC_Creator-ApplicationNotes-v05_00-EN.pdf?fileId=8ac78c8c7cdc391c017d0d311f536528)
-* [PSoC 6 Technical Reference Manuals](https://edit.infineon.com/cms/en/search.html#!term=psoc6%20technical%20reference%20manual&view=downloads)
-* [PSoC 6 MCU Datasheets](https://edit.infineon.com/cms/en/search.html?intc=searchkwr-return#!view=downloads&term=psoc6&doc_group=Data%20Sheet)
+* [PSoC 6](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu/)
 * [CYW20829](https://www.infineon.com/cms/en/product/promopages/airoc20829)
 * [TV-II-BH8/BH4](https://www.infineon.com/cms/en/product/microcontroller/32-bit-traveo-t2g-arm-cortex-microcontroller/)
-* [XMC7000](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/)
+* [XMC7000](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/32-bit-xmc7000-industrial-microcontroller-arm-cortex-m7/)
 * [Infineon](http://www.infineon.com)
 
 ---

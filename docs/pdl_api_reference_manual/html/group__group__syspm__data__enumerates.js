@@ -13,6 +13,10 @@ var group__group__syspm__data__enumerates =
       [ "CY_SYSPM_WAIT_FOR_INTERRUPT", "group__group__syspm__data__enumerates.html#ggaae6a9f528630a2d69bb70b3bced1f0acadf47e50b6700c08b6f9e7e70bb525541", null ],
       [ "CY_SYSPM_WAIT_FOR_EVENT", "group__group__syspm__data__enumerates.html#ggaae6a9f528630a2d69bb70b3bced1f0acacc703b5685bd7283204add2ff91487a5", null ]
     ] ],
+    [ "cy_en_syspm_dsram_checks_t", "group__group__syspm__data__enumerates.html#gacf9bb0bb5be207ed5e2e87d6c41dbb40", [
+      [ "CY_SYSPM_PRE_DSRAM", "group__group__syspm__data__enumerates.html#ggacf9bb0bb5be207ed5e2e87d6c41dbb40a55c07433ab203ab5c9d55a4125615c09", null ],
+      [ "CY_SYSPM_POST_DSRAM", "group__group__syspm__data__enumerates.html#ggacf9bb0bb5be207ed5e2e87d6c41dbb40ab02e4e2ebf2a49fd646e9a76011b02c5", null ]
+    ] ],
     [ "cy_en_syspm_hibernate_wakeup_source_t", "group__group__syspm__data__enumerates.html#ga369b76c2e602edf09ede9f8f804e066e", [
       [ "CY_SYSPM_HIBERNATE_LPCOMP0_LOW", "group__group__syspm__data__enumerates.html#gga369b76c2e602edf09ede9f8f804e066ea21ccdb0596ce5097ca95c700e46e24cf", null ],
       [ "CY_SYSPM_HIBERNATE_LPCOMP0_HIGH", "group__group__syspm__data__enumerates.html#gga369b76c2e602edf09ede9f8f804e066ea5dbe774244382f2a853050d758a58219", null ],

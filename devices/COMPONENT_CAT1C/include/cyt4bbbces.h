@@ -660,9 +660,9 @@ typedef enum {
 #define CY_IP_MXEFUSE                   1u
 #define CY_IP_MXEFUSE_INSTANCES         1u
 #define CY_IP_MXEFUSE_VERSION           2u
-/*#define CY_IP_MXETH                     1u
+#define CY_IP_MXETH                     1u
 #define CY_IP_MXETH_INSTANCES           1u
-#define CY_IP_MXETH_VERSION             2u*/
+#define CY_IP_MXETH_VERSION             2u
 #define CY_IP_MXEVTGEN                  1u
 #define CY_IP_MXEVTGEN_INSTANCES        1u
 #define CY_IP_MXEVTGEN_VERSION          1u

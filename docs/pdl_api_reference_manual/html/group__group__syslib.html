@@ -108,12 +108,12 @@ $(document).ready(function(){initNavTree('group__group__syslib.html','');});
 <h1><a class="anchor" id="group_syslib_configuration"></a>
 Configuration Considerations</h1>
 <p><b> Assertion Usage </b> <br />
- Use the CY_ASSERT() macro to check expressions that must be true if the program is running correctly. It is a convenient way to insert sanity checks. The CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/cypresssemiconductorco/core-lib">Cypress Core Library (core-lib)</a>. The macro behavior is as follows: if the expression passed to the macro is false, the CPU is halted. <br />
+ Use the CY_ASSERT() macro to check expressions that must be true if the program is running correctly. It is a convenient way to insert sanity checks. The CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a>. The macro behavior is as follows: if the expression passed to the macro is false, the CPU is halted. <br />
  Starting from the driver version 2.50, the CY_ASSERT macro was moved to the Cypress Core Library (core-lib). Also, the CY_ASSERT implementation was changed not to call <a class="el" href="group__group__syslib__functions.html#ga0fe70e0948f5d2b2fb1615b85b0d7d7a" title="This function stores the ASSERT location of the file name (including path to file) and line number in...">Cy_SysLib_AssertFailed()</a> function, so user application that relied on that should take this change into account. <br />
 </p>
 <p>The PDL source code uses this assert mechanism extensively. It is recommended that you enable asserts when debugging firmware. <br />
 <b> Assertion Classes and Levels </b> <br />
- The <a href="https://github.com/cypresssemiconductorco/core-lib">Cypress Core Library</a> defines three assert classes, which correspond to different kinds of parameters. There is a corresponding assert "level" for each class. </p><table class="doxtable">
+ The <a href="https://github.com/Infineon/core-lib">Cypress Core Library</a> defines three assert classes, which correspond to different kinds of parameters. There is a corresponding assert "level" for each class. </p><table class="doxtable">
 <tr>
 <th>Class Macro</th><th>Level Macro</th><th>Type of check </th></tr>
 <tr>
@@ -160,7 +160,7 @@ Added new API <a class="el" href="group__group__syslib__functions.html#gabc2fac2
 <tr>
 <td>Fixed/Documented MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
 <tr>
-<td>2.60.1 </td><td>Updated the Configuration Considerations section with the information that CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/cypresssemiconductorco/core-lib">Cypress Core Library (core-lib)</a> </td><td>Documentation update and clarification.  </td></tr>
+<td>2.60.1 </td><td>Updated the Configuration Considerations section with the information that CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a> </td><td>Documentation update and clarification.  </td></tr>
 <tr>
 <td rowspan="2">2.60 </td><td>Updated the following functions for the PSoC 64 devices: <a class="el" href="group__group__syslib__functions.html#ga1691f4df41994e7ed9c30ec6495d925f">Cy_SysLib_ClearFlashCacheAndBuffer</a>, <a class="el" href="group__group__syslib__functions.html#gaebb4e952584f0c428f58f7b4dbd3ceff">Cy_SysLib_ClearResetReason</a>, <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a>. </td><td>Added PSoC 64 device support.  </td></tr>
 <tr>
@@ -170,7 +170,7 @@ Added new API <a class="el" href="group__group__syslib__functions.html#gabc2fac2
 <tr>
 <td>2.50.1 </td><td>Used the core library defines for the message codes forming. </td><td>Improve PDL code base.  </td></tr>
 <tr>
-<td>2.50 </td><td>Moved following macros to the core library: CY_LO8,CY_HI8,CY_LO16,CY_HI16,CY_SWAP_ENDIAN16,CY_SWAP_ENDIAN32, CY_SWAP_ENDIAN64,CY_GET_REG8,CY_SET_REG8,CY_GET_REG16,CY_SET_REG16, CY_GET_REG24,CY_SET_REG24,CY_GET_REG32,CY_SET_REG32,_CLR_SET_FLD32U, CY_REG32_CLR_SET,_CLR_SET_FLD16U,CY_REG16_CLR_SET,_CLR_SET_FLD8U, CY_REG8_CLR_SET,_BOOL2FLD,_FLD2BOOL,CY_SYSLIB_DIV_ROUND, CY_SYSLIB_DIV_ROUNDUP,CY_NOINIT,CY_SECTION,CY_UNUSED,CY_NOINLINE, CY_ALIGN,CY_RAMFUNC_BEGIN,CY_RAMFUNC_END. Use at least version 1.1 of the core library: <a href="https://github.com/cypresssemiconductorco/core-lib">https://github.com/cypresssemiconductorco/core-lib</a>. </td><td>Improve PDL code base.  </td></tr>
+<td>2.50 </td><td>Moved following macros to the core library: CY_LO8,CY_HI8,CY_LO16,CY_HI16,CY_SWAP_ENDIAN16,CY_SWAP_ENDIAN32, CY_SWAP_ENDIAN64,CY_GET_REG8,CY_SET_REG8,CY_GET_REG16,CY_SET_REG16, CY_GET_REG24,CY_SET_REG24,CY_GET_REG32,CY_SET_REG32,_CLR_SET_FLD32U, CY_REG32_CLR_SET,_CLR_SET_FLD16U,CY_REG16_CLR_SET,_CLR_SET_FLD8U, CY_REG8_CLR_SET,_BOOL2FLD,_FLD2BOOL,CY_SYSLIB_DIV_ROUND, CY_SYSLIB_DIV_ROUNDUP,CY_NOINIT,CY_SECTION,CY_UNUSED,CY_NOINLINE, CY_ALIGN,CY_RAMFUNC_BEGIN,CY_RAMFUNC_END. Use at least version 1.1 of the core library: <a href="https://github.com/Infineon/core-lib">https://github.com/Infineon/core-lib</a>. </td><td>Improve PDL code base.  </td></tr>
 <tr>
 <td>2.40.1 </td><td>Correct the CY_RAMFUNC_BEGIN macro for the IAR compiler. </td><td>Removed the IAR compiler warning.  </td></tr>
 <tr>

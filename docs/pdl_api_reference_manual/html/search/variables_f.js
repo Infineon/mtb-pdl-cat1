@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['paddr',['pAddr',['../structcy__stc__ethif__buff__addr__t.html#a2a3b510bef595a3cc31ca94065bad6e3',1,'cy_stc_ethif_buff_addr_t']]],
   ['param',['param',['../group__group__ipc__bt__data__structures.html#gaba18f3d521fde3af39c58b809a9c7ef0',1,'cy_ipc_bt.h']]],
   ['params_5flen',['params_len',['../struct_b_t_h_c_i___e_v_e_n_t___h_d_r__t.html#a0494632c5a27b7f98eae01341fa44502',1,'BTHCI_EVENT_HDR_t']]],
   ['parity',['parity',['../structcy__stc__scb__spi__config__t.html#a49f106ff0d3a5772ff90dd07629ead46',1,'cy_stc_scb_spi_config_t::parity()'],['../structcy__stc__scb__uart__config__t.html#a8105fe188535ea1d434fcf4449f8f3f5',1,'cy_stc_scb_uart_config_t::parity()']]],
@@ -28,6 +29,7 @@ var searchData=
   ['pgaoutcm',['pgaOutCm',['../structcy__stc__adcmic__mic__config__t.html#a6a19db490bdbc02e1d2002dc134689a5',1,'cy_stc_adcmic_mic_config_t']]],
   ['phiainput',['phiAInput',['../structcy__stc__tcpwm__quaddec__config__t.html#a9bccb40249e89734807ee65b11c642fe',1,'cy_stc_tcpwm_quaddec_config_t']]],
   ['phibinput',['phiBInput',['../structcy__stc__tcpwm__quaddec__config__t.html#a4f96c057c83a5371220063f1d0fd433b',1,'cy_stc_tcpwm_quaddec_config_t']]],
+  ['phyid',['phyId',['../structcy__stc__ephy__t.html#addebf8e275d005549d3c2637a48c9b6d',1,'cy_stc_ephy_t']]],
   ['piloenable',['piloEnable',['../structcy__stc__pra__system__config__t.html#aa45ddad91cfcee24d451cb6164eac2b0',1,'cy_stc_pra_system_config_t']]],
   ['pinaddress',['pinAddress',['../structcy__stc__sar2__channel__config__t.html#a4f6314e95c3a7779d57518e3ed5192af',1,'cy_stc_sar2_channel_config_t']]],
   ['pipeintmask',['pipeIntMask',['../structcy__stc__ipc__pipe__ep__t.html#a3c7ff466d80e337695bfccefcba143d1',1,'cy_stc_ipc_pipe_ep_t']]],
@@ -73,7 +75,12 @@ var searchData=
   ['programcmd',['programCmd',['../structcy__stc__smif__mem__device__cfg__t.html#a2b0704e5bdb427719203b8f3d175d219',1,'cy_stc_smif_mem_device_cfg_t']]],
   ['programsize',['programSize',['../structcy__stc__smif__mem__device__cfg__t.html#a8666d1b28383b0e87d4efecd3ac69885',1,'cy_stc_smif_mem_device_cfg_t']]],
   ['programtime',['programTime',['../structcy__stc__smif__mem__device__cfg__t.html#a5156e88b285cfe78f4ff4e42194a70c0',1,'cy_stc_smif_mem_device_cfg_t']]],
+  ['prxqbuffpool',['pRxQbuffPool',['../structcy__stc__ethif__mac__config__t.html#a9dad12f393ec758b69561da3734c98c5',1,'cy_stc_ethif_mac_config_t']]],
   ['psr',['psr',['../structcy__stc__fault__frame__t.html#a570892fc2df70d3214c02a2a55ea310f',1,'cy_stc_fault_frame_t']]],
+  ['pstctimerincvalue',['pstcTimerIncValue',['../structcy__stc__ethif__tsu__config__t.html#a6d4a8a4956917fdfa04a987ff228c02d',1,'cy_stc_ethif_tsu_config_t']]],
+  ['pstctimervalue',['pstcTimerValue',['../structcy__stc__ethif__tsu__config__t.html#ae97748f1850218c3c27f1c1a68a5e3ea',1,'cy_stc_ethif_tsu_config_t']]],
+  ['pstctsuconfig',['pstcTSUConfig',['../structcy__stc__ethif__mac__config__t.html#adfd75433d23d888eb974afc2081c7a8e',1,'cy_stc_ethif_mac_config_t']]],
+  ['pstcwrapperconfig',['pstcWrapperConfig',['../structcy__stc__ethif__mac__config__t.html#a4dc190233f2228c8461ec0e775693cc2',1,'cy_stc_ethif_mac_config_t']]],
   ['pti',['pti',['../structcy__stc__ipc__msg__alloc__t.html#ade74ccf691e0446d58c29d3769fbed1f',1,'cy_stc_ipc_msg_alloc_t::pti()'],['../structcy__stc__ipc__msg__buff__t.html#a998760d917551ec525a5bb5005ff18b5',1,'cy_stc_ipc_msg_buff_t::pti()'],['../structcy__stc__ipc__msg__short__t.html#a9533b68b1a8a747e579a2e968cf4d259',1,'cy_stc_ipc_msg_short_t::pti()']]],
   ['pubkey',['pubkey',['../structcy__stc__crypto__ecc__key.html#afb96fbe3e9ba91a3744cfcb5d653e7f5',1,'cy_stc_crypto_ecc_key']]],
   ['pumpdivider',['pumpDivider',['../structcy__stc__pra__system__config__t.html#a8a1f577b37aa90ac61f76bf04cb2d836',1,'cy_stc_pra_system_config_t']]],

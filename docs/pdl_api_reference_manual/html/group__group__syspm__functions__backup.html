@@ -111,6 +111,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gad101a96506a0ea0ef62f2a09af94be55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__backup.html#gad101a96506a0ea0ef62f2a09af94be55">Cy_SysPm_BackupWordReStore</a> (uint32_t wordIndex, uint32_t *wordDstPointer, uint32_t wordSize)</td></tr>
 <tr class="memdesc:gad101a96506a0ea0ef62f2a09af94be55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores supported number of words(SRSS_BACKUP_NUM_BREG) in Backup Domain.  <a href="#gad101a96506a0ea0ef62f2a09af94be55">More...</a><br /></td></tr>
 <tr class="separator:gad101a96506a0ea0ef62f2a09af94be55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0d4a41fe70f20ca3ea7b2e78994004ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__backup.html#ga0d4a41fe70f20ca3ea7b2e78994004ae">Cy_SysPm_SetupDeepSleepRAM</a> (<a class="el" href="group__group__syspm__data__enumerates.html#gacf9bb0bb5be207ed5e2e87d6c41dbb40">cy_en_syspm_dsram_checks_t</a> dsramCheck, uint32_t *dsramIntState)</td></tr>
+<tr class="memdesc:ga0d4a41fe70f20ca3ea7b2e78994004ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements Pre and Post Deepsleep RAM Setup.  <a href="#ga0d4a41fe70f20ca3ea7b2e78994004ae">More...</a><br /></td></tr>
+<tr class="separator:ga0d4a41fe70f20ca3ea7b2e78994004ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0ad6666907cdc8668196bc5e849cd7f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__backup.html#ga0ad6666907cdc8668196bc5e849cd7f1">Cy_SysPm_CpuEnterRAMOffDeepSleep</a> (void)</td></tr>
 <tr class="memdesc:ga0ad6666907cdc8668196bc5e849cd7f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets executing CPU to the Deep Sleep mode forceful RAM OFF.  <a href="#ga0ad6666907cdc8668196bc5e849cd7f1">More...</a><br /></td></tr>
 <tr class="separator:ga0ad6666907cdc8668196bc5e849cd7f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -327,6 +330,49 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B &amp; CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga0d4a41fe70f20ca3ea7b2e78994004ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0d4a41fe70f20ca3ea7b2e78994004ae">&#9670;&nbsp;</a></span>Cy_SysPm_SetupDeepSleepRAM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a> Cy_SysPm_SetupDeepSleepRAM </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__syspm__data__enumerates.html#gacf9bb0bb5be207ed5e2e87d6c41dbb40">cy_en_syspm_dsram_checks_t</a>&#160;</td>
+          <td class="paramname"><em>dsramCheck</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>dsramIntState</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implements Pre and Post Deepsleep RAM Setup. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dsramCheck</td><td>CY_SYSPM_PRE_DSRAM or CY_SYSPM_POST_DSRAM</td></tr>
+    <tr><td class="paramname">dsramIntState</td><td>Variable to save the interrupt state before and after Deepsleep RAM.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>CY_SYSPM_SUCCESS - Deepsleep RAM checks are successful</li>
+<li>CY_SYSPM_CANCELED - Operation was canceled. Call the function again until the function returns CY_SYSPM_SUCCESS.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
 
 </div>
 </div>

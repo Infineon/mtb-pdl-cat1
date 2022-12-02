@@ -279,10 +279,10 @@
 *   * <a href="https://infineon.github.io/csdidac/csdidac_api_reference_manual/html/index.html">
 *     <b>CSDIDAC Middleware API Reference Guide</b></a>
 *
-*   * <a href="https://documentation.infineon.com/html/modustoolbox-software/en/latest/tool-guide/ModusToolbox_CapSense_Configurator_Guide.html">
+*   * <a href="https://www.infineon.com/dgdl/Infineon-ModusToolbox_CAPSENSE_Configurator_5.0_User_Guide-UserManual-v01_00-EN.pdf?fileId=8ac78c8c8386267f0183a960b36a598c&utm_source=cypress&utm_medium=referral&utm_campaign=202110_globe_en_all_integration-files&redirId=180685">
 *     <b>ModusToolbox&trade; CAPSENSE&trade; Configurator Tool Guide</b></a>
 *
-*   * <a href="https://documentation.infineon.com/html/modustoolbox-software/en/latest/tool-guide/ModusToolbox_CapSense_Tuner_Guide.html">
+*   * <a href="https://www.infineon.com/dgdl/Infineon-ModusToolbox_CAPSENSE_Configurator_5.0_User_Guide-UserManual-v01_00-EN.pdf?fileId=8ac78c8c8386267f0183a960b36a598c&utm_source=cypress&utm_medium=referral&utm_campaign=202110_globe_en_all_integration-files&redirId=180685">
 *     <b>ModusToolbox&trade; CAPSENSE&trade; Tuner Tool Guide</b></a>
 *
 *   * <a href="https://www.infineon.com/dgdl/Infineon-AN85951_PSoC_4_and_PSoC_6_MCU_CapSense_Design_Guide-ApplicationNotes-v27_00-EN.pdf?fileId=8ac78c8c7cdc391c017d0723535d4661">
@@ -293,7 +293,7 @@
 *   * <a href="https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software">
 *     <b>ModusToolbox&trade; Software Environment, Quick Start Guide, Documentation, and Videos</b></a>
 *
-*   * <a href="https://documentation.infineon.com/html/modustoolbox-software/en/latest/tool-guide/ModusToolbox_Device_Configurator_Guide.html">
+*   * <a href="https://www.infineon.com/dgdl/Infineon-ModusToolbox_CAPSENSE_Configurator_5.0_User_Guide-UserManual-v01_00-EN.pdf?fileId=8ac78c8c8386267f0183a960b36a598c&utm_source=cypress&utm_medium=referral&utm_campaign=202110_globe_en_all_integration-files&redirId=180685">
 *     <b>ModusToolbox&trade; Device Configurator Tool Guide</b></a>
 *
 * * General Information:

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.80
+* \version 5.90
 *
 * Provides the function definitions for the power management API.
 *
@@ -847,6 +847,13 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>5.90</td>
+*     <td>
+*           Added new function \ref Cy_SysPm_SetupDeepSleepRAM().
+*     </td>
+*     <td>Added support for DSRAM Setup for CAT1B devices.</td>
+*   </tr>
+*   <tr>
 *     <td rowspan="4">5.80</td>
 *     <td>
 *         Support for CAT1C devices.
@@ -1639,7 +1646,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       80
+#define CY_SYSPM_DRV_VERSION_MINOR       90
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -1770,6 +1777,9 @@ extern "C" {
 #define CY_SYSPM_IS_DEEPSLEEP_MODE_VALID(mode)             (((mode) == CY_SYSPM_DEEPSLEEP)     || \
                                                             ((mode) == CY_SYSPM_DEEPSLEEP_RAM) || \
                                                             ((mode) == CY_SYSPM_DEEPSLEEP_OFF))
+/* Macro to validate parameters in Cy_SysPm_SetupDeepSleepRAM() function */
+#define CY_SYSPM_IS_DSRAM_CHECK_VALID(dsramCheck)          (((dsramCheck) == CY_SYSPM_PRE_DSRAM) || \
+                                                            ((dsramCheck) == CY_SYSPM_POST_DSRAM))
 
 /* Macro to validate parameters in Cy_SysPm_CoreBuckSetVoltage() & Cy_SysPm_CoreBuckConfig functions */
 #define CY_SYSPM_IS_CORE_BUCK_VOLTAGE_VALID(voltage)    (((voltage) == CY_SYSPM_CORE_BUCK_VOLTAGE_0_76V) || \
@@ -2245,6 +2255,22 @@ typedef enum
     CY_SYSPM_WAIT_FOR_INTERRUPT,    /**< Wait for an interrupt. */
     CY_SYSPM_WAIT_FOR_EVENT         /**< Wait for an event. */
 } cy_en_syspm_waitfor_t;
+
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+/**
+* This enumeration is used to distinguish between the pre and post checks required during DS-RAM.
+*/
+/**
+* \note
+* This enum is available for CAT1B devices.
+**/
+
+typedef enum
+{
+    CY_SYSPM_PRE_DSRAM,             /**< Pre DSRAM Checks. */
+    CY_SYSPM_POST_DSRAM             /**< Post DSRAM Checks. */
+} cy_en_syspm_dsram_checks_t;
+#endif
 
 /** This enumeration is used to configure wakeup sources for the System Hibernate
 *   power mode.
@@ -6909,7 +6935,30 @@ void Cy_SysPm_BackupWordStore(uint32_t wordIndex, uint32_t *wordSrcPointer, uint
 void Cy_SysPm_BackupWordReStore(uint32_t wordIndex, uint32_t *wordDstPointer, uint32_t wordSize);
 #endif
 
-#if defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetupDeepSleepRAM
+****************************************************************************//**
+*
+* Implements Pre and Post Deepsleep RAM Setup.
+*
+* \param dsramCheck
+* CY_SYSPM_PRE_DSRAM or CY_SYSPM_POST_DSRAM
+*
+* \param dsramIntState
+* Variable to save the interrupt state before and after Deepsleep RAM.
+*
+* \return
+* - CY_SYSPM_SUCCESS - Deepsleep RAM checks are successful
+* - CY_SYSPM_CANCELED - Operation was canceled. Call the function again until
+*   the function returns CY_SYSPM_SUCCESS.
+*
+* \note
+* This API is available for CAT1B devices.
+*
+*******************************************************************************/
+cy_en_syspm_status_t Cy_SysPm_SetupDeepSleepRAM(cy_en_syspm_dsram_checks_t dsramCheck, uint32_t *dsramIntState);
+
 /*******************************************************************************
 * Function Name: Cy_SysPm_CpuEnterRAMOffDeepSleep
 ****************************************************************************//**
@@ -6927,8 +6976,8 @@ void Cy_SysPm_BackupWordReStore(uint32_t wordIndex, uint32_t *wordDstPointer, ui
 * Management State, not to be used by the customers.
 *
 *******************************************************************************/
-
 cy_en_syspm_status_t Cy_SysPm_CpuEnterRAMOffDeepSleep(void);
+
 #endif
 
 

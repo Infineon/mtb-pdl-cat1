@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v2.c
-* \version 5.80
+* \version 5.90
 *
 * This driver provides the source code for API power management.
 *
@@ -497,8 +497,6 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
     }
     else
     {
-        //TBD Check if PDCM Dependencies are set properly
-
         /* Call the registered callback functions with the CY_SYSPM_CHECK_READY
         *  parameter
         */
@@ -563,6 +561,87 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
             if (pmCallbackRoot[cbDeepSleepRootIdx] != NULL)
             {
                 (void) Cy_SysPm_ExecuteCallback((cy_en_syspm_callback_type_t)cbDeepSleepRootIdx, CY_SYSPM_CHECK_FAIL);
+            }
+        }
+    }
+    return retVal;
+}
+
+cy_en_syspm_status_t Cy_SysPm_SetupDeepSleepRAM(cy_en_syspm_dsram_checks_t dsramCheck, uint32_t *dsramIntState)
+{
+    uint32_t cbDeepSleepRootIdx = (uint32_t) Cy_SysPm_GetDeepSleepMode();
+    cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
+
+    CY_ASSERT_L3(CY_SYSPM_IS_DSRAM_CHECK_VALID(dsramCheck));
+    CY_ASSERT_L3(CY_SYSPM_IS_DEEPSLEEP_MODE_VALID(cbDeepSleepRootIdx));
+
+    //Check if LPM is ready
+    if(!Cy_SysPm_IsLpmReady())
+    {
+        retVal = CY_SYSPM_FAIL;
+    }
+    else
+    {
+        if(dsramCheck == CY_SYSPM_PRE_DSRAM)
+        {
+            /* Call the registered callback functions with the CY_SYSPM_CHECK_READY
+            *  parameter
+            */
+            if (pmCallbackRoot[cbDeepSleepRootIdx] != NULL)
+            {
+                retVal = Cy_SysPm_ExecuteCallback((cy_en_syspm_callback_type_t)cbDeepSleepRootIdx, CY_SYSPM_CHECK_READY);
+            }
+
+            /* The CPU can switch into the Deep Sleep power mode only when
+            *  all executed registered callback functions with the CY_SYSPM_CHECK_READY
+            *  parameter return CY_SYSPM_SUCCESS
+            */
+            if (retVal == CY_SYSPM_SUCCESS)
+            {
+                /* Call the registered callback functions with the
+                * CY_SYSPM_BEFORE_TRANSITION parameter
+                */
+                *dsramIntState = Cy_SysLib_EnterCriticalSection();
+
+                if (pmCallbackRoot[cbDeepSleepRootIdx] != NULL)
+                {
+                    (void) Cy_SysPm_ExecuteCallback((cy_en_syspm_callback_type_t)cbDeepSleepRootIdx, CY_SYSPM_BEFORE_TRANSITION);
+                }
+                    /* The CPU enters Deep Sleep mode upon execution of WFI/WFE
+                     * use Cy_SysPm_SetDeepSleepMode to set various deepsleep modes TBD*/
+                    SCB_SCR |= SCB_SCR_SLEEPDEEP_Msk;
+
+            }
+            else
+            {
+                /* Execute callback functions with the CY_SYSPM_CHECK_FAIL parameter to
+                *  undo everything done in the callback with the CY_SYSPM_CHECK_READY
+                *  parameter
+                */
+                if (pmCallbackRoot[cbDeepSleepRootIdx] != NULL)
+                {
+                    (void) Cy_SysPm_ExecuteCallback((cy_en_syspm_callback_type_t)cbDeepSleepRootIdx, CY_SYSPM_CHECK_FAIL);
+                }
+            }
+        }
+        else
+        {
+            /* Call the registered callback functions with the CY_SYSPM_AFTER_DS_WFI_TRANSITION
+            *  parameter
+            */
+            if (pmCallbackRoot[cbDeepSleepRootIdx] != NULL)
+            {
+                (void) Cy_SysPm_ExecuteCallback((cy_en_syspm_callback_type_t)cbDeepSleepRootIdx, CY_SYSPM_AFTER_DS_WFI_TRANSITION);
+            }
+
+            Cy_SysLib_ExitCriticalSection(*dsramIntState);
+
+            /* Call the registered callback functions with the CY_SYSPM_AFTER_TRANSITION
+            *  parameter
+            */
+            if (pmCallbackRoot[cbDeepSleepRootIdx] != NULL)
+            {
+                (void) Cy_SysPm_ExecuteCallback((cy_en_syspm_callback_type_t)cbDeepSleepRootIdx, CY_SYSPM_AFTER_TRANSITION);
             }
         }
     }

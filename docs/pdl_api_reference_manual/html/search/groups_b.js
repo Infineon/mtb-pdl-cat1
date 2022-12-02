@@ -13,6 +13,8 @@ var searchData=
   ['macros',['Macros',['../group__group__dma__macros.html',1,'']]],
   ['macros',['Macros',['../group__group__dmac__macros.html',1,'']]],
   ['macros',['Macros',['../group__group__efuse__macros.html',1,'']]],
+  ['macros',['Macros',['../group__group__ephy__macros.html',1,'']]],
+  ['macros',['Macros',['../group__group__ethif__macros.html',1,'']]],
   ['macro',['Macro',['../group__group__evtgen__macros.html',1,'']]],
   ['macros',['Macros',['../group__group__flash__macros.html',1,'']]],
   ['macros',['Macros',['../group__group__gpio__macros.html',1,'']]],

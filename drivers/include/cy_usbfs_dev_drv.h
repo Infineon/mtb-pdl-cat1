@@ -63,7 +63,7 @@
 *
 * <b>The primary usage model for the USBFS driver is to provide a defined API
 * interface to
-* <a href="https://cypresssemiconductorco.github.io/usbdev/usbfs_dev_api_reference_manual/html/index.html" target="_blank">
+* <a href="https://Infineon.github.io/usbdev/usbfs_dev_api_reference_manual/html/index.html" target="_blank">
 * USB Device Middleware</a> component that works on top of it.</b> \n
 * The driver also provides an API interface for the application to implement the required
 * functionality:

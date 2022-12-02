@@ -7,5 +7,6 @@ var group__group__syspm__functions__backup =
     [ "Cy_SysPm_BackupSuperCapCharge", "group__group__syspm__functions__backup.html#ga8ec1e64a405842b4b5bd62a418dfad1f", null ],
     [ "Cy_SysPm_BackupWordStore", "group__group__syspm__functions__backup.html#gaaad0d60d7cd653e0651f6eb4e66ab02f", null ],
     [ "Cy_SysPm_BackupWordReStore", "group__group__syspm__functions__backup.html#gad101a96506a0ea0ef62f2a09af94be55", null ],
+    [ "Cy_SysPm_SetupDeepSleepRAM", "group__group__syspm__functions__backup.html#ga0d4a41fe70f20ca3ea7b2e78994004ae", null ],
     [ "Cy_SysPm_CpuEnterRAMOffDeepSleep", "group__group__syspm__functions__backup.html#ga0ad6666907cdc8668196bc5e849cd7f1", null ]
 ];

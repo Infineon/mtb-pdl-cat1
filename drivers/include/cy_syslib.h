@@ -55,7 +55,7 @@
 * Use the CY_ASSERT() macro to check expressions that must be true if the
 * program is running correctly. It is a convenient way to insert sanity checks.
 * The CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the
-* <a href="https://github.com/cypresssemiconductorco/core-lib">Cypress Core Library (core-lib)</a>.
+* <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a>.
 * The macro behavior is as follows: if the expression passed
 *  to the macro is false, the CPU is halted. \n
 *
@@ -68,7 +68,7 @@
 * The PDL source code uses this assert mechanism extensively. It is recommended
 * that you enable asserts when debugging firmware. \n
 * <b> Assertion Classes and Levels </b> <br />
-* The <a href="https://github.com/cypresssemiconductorco/core-lib">Cypress Core Library</a>
+* The <a href="https://github.com/Infineon/core-lib">Cypress Core Library</a>
 * defines three assert classes, which correspond to different
 * kinds of parameters. There is a corresponding assert "level" for each class.
 * <table class="doxtable">
@@ -184,7 +184,7 @@
 *     <td>2.60.1</td>
 *     <td>Updated the Configuration Considerations section with the information that
 *         CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the
-*         <a href="https://github.com/cypresssemiconductorco/core-lib">Cypress Core Library (core-lib)</a>
+*         <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a>
 *     <td>Documentation update and clarification.</td>
 *   </tr>
 *   <tr>
@@ -218,7 +218,7 @@
 *         CY_REG8_CLR_SET,_BOOL2FLD,_FLD2BOOL,CY_SYSLIB_DIV_ROUND,
 *         CY_SYSLIB_DIV_ROUNDUP,CY_NOINIT,CY_SECTION,CY_UNUSED,CY_NOINLINE,
 *         CY_ALIGN,CY_RAMFUNC_BEGIN,CY_RAMFUNC_END.
-*         Use at least version 1.1 of the core library: https://github.com/cypresssemiconductorco/core-lib.
+*         Use at least version 1.1 of the core library: https://github.com/Infineon/core-lib.
 *     <td>Improve PDL code base.</td>
 *   </tr>
 *   <tr>

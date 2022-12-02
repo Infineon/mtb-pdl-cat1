@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v3.c
-* \version 5.80
+* \version 5.90
 *
 * This driver provides the source code for API power management.
 *

@@ -35,7 +35,7 @@
   </ExposedMembers>
 
   <Parameters>
-    <ParamDoc id="doc" name="Configuration Help" group="Overview" default="https://cypresssemiconductorco.github.io/lpa/lpa_api_reference_manual/html/index.html" linkText="Open Low Power Assistant Documentation" visible="true" desc="Open the Low Power Assistant Documentation." />
+    <ParamDoc id="doc" name="Configuration Help" group="Overview" default="https://Infineon.github.io/lpa/lpa_api_reference_manual/html/index.html" linkText="Open Low Power Assistant Documentation" visible="true" desc="Open the Low Power Assistant Documentation." />
 
     <!-- Host wake settings -->
     <ParamBool id="hostWake" name="Enable" group="Host Wake Configuration" default="true" visible="true" editable="true" desc="Enable host wake configuration." />
