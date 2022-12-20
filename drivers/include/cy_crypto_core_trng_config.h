@@ -1,6 +1,6 @@
 /***************************************************************************//**
-* \file cy_crypto_core_trng_config_v1.h
-* \version 2.60
+* \file cy_crypto_core_trng_config.h
+* \version 2.70
 *
 * \brief
 *  This file provides internal (not public) constants and parameters
@@ -26,8 +26,10 @@
 *******************************************************************************/
 
 
-#if !defined (CY_CRYPTO_CORE_TRNG_CONFIG_V1_H)
-#define CY_CRYPTO_CORE_TRNG_CONFIG_V1_H
+#if !defined (CY_CRYPTO_CORE_TRNG_CONFIG_H)
+#define CY_CRYPTO_CORE_TRNG_CONFIG_H
+
+#include "cy_crypto_core_trng.h"
 
 #if defined (CY_IP_MXCRYPTO)
 
@@ -46,7 +48,7 @@ extern "C" {
 * ...
 * "255": sample clock is "clk_sys"/256.
 */
-#define CY_CRYPTO_V1_TR_SAMPLE_CLOCK_DIV      (0UL)
+#define CY_CRYPTO_DEF_TR_SAMPLE_CLOCK_DIV          (0UL)
 
 /**
 * Specifies the clock divider used to produce reduced bits.
@@ -57,7 +59,7 @@ extern "C" {
 *
 * The reduced bits are considered random bits and shifted into TR_RESULT0.DATA32.
 */
-#define CY_CRYPTO_V1_TR_RED_CLOCK_DIV         (0UL)
+#define CY_CRYPTO_DEF_TR_RED_CLOCK_DIV                  (0UL)
 
 /**
 * Specifies an initialization delay: a number of removed/dropped samples before
@@ -74,7 +76,7 @@ extern "C" {
 *
 * The TR_INITIALIZED interrupt cause is set to '1', when the initialization delay is passed.
 */
-#define CY_CRYPTO_V1_TR_INIT_DELAY            (3UL)
+#define CY_CRYPTO_DEF_TR_INIT_DELAY                        (3UL)
 
 /**
 * Specifies if the "von Neumann corrector" is disabled or enabled:
@@ -90,7 +92,7 @@ extern "C" {
 * is 1/4 of the reduced bit frequency (reduced bits are processed in pairs,
 * and half of the pairs do NOT produce a bit).
 */
-#define CY_CRYPTO_V1_TR_VON_NEUMANN_CORR      (1UL)
+#define CY_CRYPTO_DEF_TR_VON_NEUMANN_CORR            (1UL)
 
 /**
 * Specifies if the TRNG functionality is stopped on an adaptive proportion test
@@ -98,7 +100,7 @@ extern "C" {
 * '0': Functionality is stopped (TR_CTL1 fields are set to '0' by HW).
 * '1': Functionality is NOT stopped.
 */
-#define CY_CRYPTO_V1_TR_STOP_ON_AP_DETECT     (1UL)
+#define CY_CRYPTO_DEF_TR_STOP_ON_AP_DETECT          (1UL)
 
 /**
 * Specifies if the TRNG functionality is stopped on a repetition count test detection
@@ -106,34 +108,34 @@ extern "C" {
 * '0': Functionality is stopped (TR_CTL1 fields are set to '0' by HW).
 * '1': Functionality is NOT stopped.
 */
-#define CY_CRYPTO_V1_TR_STOP_ON_RC_DETECT     (1UL)
+#define CY_CRYPTO_DEF_TR_STOP_ON_RC_DETECT          (1UL)
 
 /** FW sets this field to '1' to enable the ring oscillator with 11 inverters. */
-#define CY_CRYPTO_V1_TR_RO11_EN               (1UL)
+#define CY_CRYPTO_DEF_TR_RO11_EN                              (1UL)
 
 /** FW sets this field to '1' to enable the ring oscillator with 15 inverters. */
-#define CY_CRYPTO_V1_TR_RO15_EN               (1UL)
+#define CY_CRYPTO_DEF_TR_RO15_EN                              (1UL)
 
 /**
 * FW sets this field to '1' to enable the fixed Galois ring oscillator
 * with 15 inverters.
 */
-#define CY_CRYPTO_V1_TR_GARO15_EN             (1UL)
+#define CY_CRYPTO_DEF_TR_GARO15_EN                          (1UL)
 
 /**
 * FW sets this field to '1' to enable the programmable Galois ring oscillator with up
 * to 31 inverters. The TR_GARO_CTL register specifies the programmable polynomial.
 */
-#define CY_CRYPTO_V1_TR_GARO31_EN             (1UL)
+#define CY_CRYPTO_DEF_TR_GARO31_EN             (1UL)
 
 /** FW sets this field to '1' to enable the fixed Fibonacci ring oscillator with 15 inverters. */
-#define CY_CRYPTO_V1_TR_FIRO15_EN             (1UL)
+#define CY_CRYPTO_DEF_TR_FIRO15_EN                          (1UL)
 
 /**
 * FW sets this field to '1' to enable the programmable Fibonacci ring oscillator
 * with up to 31 inverters. The TR_FIRO_CTL register specifies the programmable polynomial.
 */
-#define CY_CRYPTO_V1_TR_FIRO31_EN             (1UL)
+#define CY_CRYPTO_DEF_TR_FIRO31_EN                          (1UL)
 
 /**
 * The polynomial for programmable Galois ring oscillator. The polynomial is represented
@@ -141,7 +143,7 @@ extern "C" {
 * so that the more significant bits (bit 30 and down) contain the polynomial and the less
 * significant bits (bit 0 and up) contain padding '0's.
 */
-#define CY_CRYPTO_V1_TR_GARO                  (1UL)
+#define CY_CRYPTO_DEF_TR_GARO                                    (0x04c11db7)
 
 /**
 * The polynomial for the programmable Fibonacci ring oscillator. The polynomial is represented
@@ -149,7 +151,7 @@ extern "C" {
 * be aligned so that the more significant bits (bit 30 and down) contain the polynomial
 * and the less significant bits (bit 0 and up) contain padding '0's.
 */
-#define CY_CRYPTO_V1_TR_FIRO                  (1UL)
+#define CY_CRYPTO_DEF_TR_FIRO                                    (0x04c11db7)
 
 /**
 * Selection of the bit stream:
@@ -158,7 +160,7 @@ extern "C" {
 * "2": TR bit stream.
 * "3": Undefined.
 */
-#define CY_CRYPTO_V1_TR_BITSTREAM_SEL         (0UL)
+#define CY_CRYPTO_DEF_TR_BITSTREAM_SEL                  (CY_CRYPTO_TRMON_BS_TR)
 
 /**
 * Adaptive proportion (AP) test enable:
@@ -167,7 +169,7 @@ extern "C" {
 *
 * On AP detection, HW sets this field to '0' and sets INTR.TR_AP_DETECT to '1.
 */
-#define CY_CRYPTO_V1_TR_START_AP              (0UL)
+#define CY_CRYPTO_DEF_TR_START_AP                            (0UL)
 
 /**
 * Repetition count (RC) test enable:
@@ -176,7 +178,7 @@ extern "C" {
 *
 * On RC detection, HW sets this field to '0' and sets INTR.TR_RC_DETECT to '1.
 */
-#define CY_CRYPTO_V1_TR_START_RC              (0UL)
+#define CY_CRYPTO_DEF_TR_START_RC                            (0UL)
 
 /**
 * Cut-off count (legal range is [1, 255]):
@@ -185,7 +187,7 @@ extern "C" {
 * ...
 * "255": 255 repetitions.
 */
-#define CY_CRYPTO_V1_TR_CUTOFF_COUNT8         (1UL)
+#define CY_CRYPTO_DEF_TR_CUTOFF_COUNT8                  (255UL)
 
 /**
 * Cut-off count (legal range is [1, 65535]).
@@ -194,7 +196,7 @@ extern "C" {
 * ...
 * "65535": 65535 occurrences.
 */
-#define CY_CRYPTO_V1_TR_CUTOFF_COUNT16        (1UL)
+#define CY_CRYPTO_DEF_TR_CUTOFF_COUNT16                (65535UL)
 
 /**
 * The window size (minus 1) :
@@ -202,39 +204,8 @@ extern "C" {
 * ...
 * "65535": 65536 bits.
 */
-#define CY_CRYPTO_V1_TR_WINDOW_SIZE           (1UL)
 
-/** The composed value for the TR_CTL0 register */
-#define CY_CRYPTO_V1_TR_CTL0_VAL    (_VAL2FLD(CRYPTO_TR_CTL0_SAMPLE_CLOCK_DIV, CY_CRYPTO_V1_TR_SAMPLE_CLOCK_DIV) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL0_RED_CLOCK_DIV, CY_CRYPTO_V1_TR_RED_CLOCK_DIV) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL0_INIT_DELAY, CY_CRYPTO_V1_TR_INIT_DELAY) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL0_VON_NEUMANN_CORR, CY_CRYPTO_V1_TR_VON_NEUMANN_CORR) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL0_STOP_ON_AP_DETECT, CY_CRYPTO_V1_TR_STOP_ON_AP_DETECT) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL0_STOP_ON_RC_DETECT, CY_CRYPTO_V1_TR_STOP_ON_RC_DETECT))
-
-/** The composed value for the TR_CTL1 register */
-#define CY_CRYPTO_V1_TR_CTL1_VAL    (_VAL2FLD(CRYPTO_TR_CTL1_RO11_EN, CY_CRYPTO_V1_TR_RO11_EN) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL1_RO15_EN, CY_CRYPTO_V1_TR_RO15_EN) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL1_GARO15_EN, CY_CRYPTO_V1_TR_GARO15_EN) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL1_GARO31_EN, CY_CRYPTO_V1_TR_GARO31_EN) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL1_FIRO15_EN, CY_CRYPTO_V1_TR_FIRO15_EN) | \
-                                  _VAL2FLD(CRYPTO_TR_CTL1_FIRO31_EN, CY_CRYPTO_V1_TR_FIRO31_EN))
-
-#define CY_CRYPTO_V1_TR_CTL1_DISABLE_VAL      (0UL)
-
-/** The composed value for the TR_MON_CTL register */
-#define CY_CRYPTO_V1_TR_BTSTR_SEL    (_VAL2FLD(CRYPTO_TR_MON_CTL_BITSTREAM_SEL, CY_CRYPTO_V1_TR_BITSTREAM_SEL))
-
-/** The composed value for the TR_MON_CMD register */
-#define CY_CRYPTO_V1_TR_START_MON    (_VAL2FLD(CRYPTO_TR_MON_CMD_START_AP, CY_CRYPTO_V1_TR_START_AP) | \
-                                   _VAL2FLD(CRYPTO_TR_MON_CMD_START_RC, CY_CRYPTO_V1_TR_START_RC))
-
-/** The composed value for the TR_MON_RC_CTL register */
-#define CY_CRYPTO_V1_TR_RC_CUTOFF    (_VAL2FLD(CRYPTO_TR_MON_RC_CTL_CUTOFF_COUNT8, CY_CRYPTO_V1_TR_CUTOFF_COUNT8))
-
-/** The composed value for the TR_MON_AP_CTL register */
-#define CY_CRYPTO_V1_TR_AC_CUTOFF    (_VAL2FLD(CRYPTO_TR_MON_AP_CTL_CUTOFF_COUNT16, CY_CRYPTO_V1_TR_CUTOFF_COUNT16) | \
-                                   _VAL2FLD(CRYPTO_TR_MON_AP_CTL_WINDOW_SIZE, CY_CRYPTO_V1_TR_WINDOW_SIZE))
+#define CY_CRYPTO_DEF_TR_WINDOW_SIZE           (65535UL)
 
 
 #endif /* #if (CPUSS_CRYPTO_TR == 1) */
@@ -245,7 +216,7 @@ extern "C" {
 
 #endif /* CY_IP_MXCRYPTO */
 
-#endif /* #if !defined (CY_CRYPTO_CORE_TRNG_CONFIG_V1_H) */
+#endif /* #if !defined (CY_CRYPTO_CORE_TRNG_CONFIG_H) */
 
 
 /* [] END OF FILE */

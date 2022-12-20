@@ -1,5 +1,6 @@
 var NAVTREEINDEX33 =
 {
+"structcy__stc__sar__fifo__config__t.html#a4af34e10a403b00b5817fa7ac623a784":[4,31,2,1,2],
 "structcy__stc__sar__fifo__config__t.html#a68216d6d436b60bd4ed50baebbb55c04":[4,31,2,1,1],
 "structcy__stc__sar__fifo__config__t.html#a798e7ec238251184eea792036cf7239f":[4,31,2,1,4],
 "structcy__stc__sar__fifo__config__t.html#afcab699456bc1b55943f2a8de86a7253":[4,31,2,1,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX33 =
 "structcy__stc__smif__mem__device__cfg__t.html#a35330244a98f847507496b3f5cbff5aa":[4,37,2,0,2,0],
 "structcy__stc__smif__mem__device__cfg__t.html#a386fbd008f608cf037756c486cb902ab":[4,37,2,0,2,14],
 "structcy__stc__smif__mem__device__cfg__t.html#a4347b12d2f61a36f2ee4c62bbd756cb5":[4,37,2,0,2,5],
-"structcy__stc__smif__mem__device__cfg__t.html#a456a87e11eb3e32c7211b547d49fb747":[4,37,2,0,2,3],
-"structcy__stc__smif__mem__device__cfg__t.html#a4e784af10fe9c014e4303990a5fa8171":[4,37,2,0,2,4]
+"structcy__stc__smif__mem__device__cfg__t.html#a456a87e11eb3e32c7211b547d49fb747":[4,37,2,0,2,3]
 };

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_pdcm.h
-* \version 5.90
+* \version 5.91
 *
 * This file provides the header for PDCM driver, where the APIs are used
 * by Syspm driver and BTSS driver.
@@ -103,7 +103,7 @@ typedef enum
 /** Driver major version */
 #define CY_PD_PDCM_DRV_VERSION_MAJOR       5
 /** Driver minor version */
-#define CY_PD_PDCM_DRV_VERSION_MINOR       80
+#define CY_PD_PDCM_DRV_VERSION_MINOR       91
 
 /** Macro to validate the SDR number in Cy_Syspm_LdoSdrConfigure() function */
 #define CY_SYSPM_IS_PDCM_ID_VALID(id)    (((id) == CY_PD_PDCM_MAIN)     || \

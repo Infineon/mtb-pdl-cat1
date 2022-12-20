@@ -143,7 +143,7 @@
 
     <!--Config-->
     <ParamBool id="inFlash" name="Store Config in Flash" group="Advanced" default="true" visible="true" editable="true" desc="Controls whether the configuration structure is stored in flash (const, true) or SRAM (not const, false)." />
-    <ParamBool id="hasDigitalConnection" name="Has digital connection" group="Internal" default="`${hasConnection(&quot;digital_in&quot;, 0) || hasConnection(&quot;digital_out&quot;, 0) || hasConnection(&quot;digital_inout&quot;, 0)}`" visible="false" editable="false" desc="" />
+    <ParamBool id="hasDigitalOrAnalogConnection" name="Has digital or analog connection" group="Internal" default="`${hasConnection(&quot;digital_in&quot;, 0) || hasConnection(&quot;digital_out&quot;, 0) || hasConnection(&quot;digital_inout&quot;, 0) || hasConnection(&quot;analog&quot;, 0)}`" visible="false" editable="false" desc="" />
     <ParamRange id="port" name="Port number" group="Internal" default="`${getInstNumber(&quot;port&quot;)}`" min="0" max="127" resolution="1" visible="false" editable="false" desc="" />
     <ParamRange id="pin" name="Pin number" group="Internal" default="`${getInstNumber(&quot;pin&quot;)}`" min="0" max="7" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="blockName" name="Block name" group="Internal" default="`${&quot;ioss_0_port_&quot; . port . &quot;_pin_&quot; . pin}`" visible="false" editable="false" desc="" />
@@ -165,7 +165,7 @@
   
   <ConfigFirmware>
     <ConfigInclude value="cy_gpio.h" include="true" />
-    <ConfigInclude value="cycfg_routing.h" include="`${hasDigitalConnection}`" />
+    <ConfigInclude value="cycfg_routing.h" include="`${hasDigitalOrAnalogConnection}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_PORT" value="`${isSMIFPortsEnabled ? smifPortString : &quot;GPIO_PRT&quot;. port}`" public="true" include="true" />

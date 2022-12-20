@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.90
+* \version 5.91
 *
 * Provides the function definitions for the power management API.
 *
@@ -847,6 +847,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>5.91</td>
+*     <td>Updated \ref Cy_SysPm_Init() function.</td>
+*     <td>To remove the clearing of reset reason.</td>
+*   </tr>
+*   <tr>
 *     <td>5.90</td>
 *     <td>
 *           Added new function \ref Cy_SysPm_SetupDeepSleepRAM().
@@ -1646,7 +1651,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       90
+#define CY_SYSPM_DRV_VERSION_MINOR       91
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))

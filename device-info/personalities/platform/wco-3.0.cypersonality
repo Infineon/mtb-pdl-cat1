@@ -37,6 +37,7 @@
   <ExposedMembers>
     <ExposedMember key="frequency" paramId="frequency" />
     <ExposedMember key="accuracy"  paramId="accuracyPct" />
+    <ExposedMember key="suppressCodeGen" paramId="suppressWcoCodeGen" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -88,6 +89,9 @@
     <ParamString id="gpio_in_pin" name="gpio_in_pin" group="General" default="`${getInstFromLocation(getParamValue(&quot;wco_in[0]&quot;), &quot;pin&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="gpio_out_port" name="gpio_out_port" group="General" default="`${getInstFromLocation(getParamValue(&quot;wco_out[0]&quot;), &quot;port&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="gpio_out_pin" name="gpio_out_pin" group="General" default="`${getInstFromLocation(getParamValue(&quot;wco_out[0]&quot;), &quot;pin&quot;)}`" visible="false" editable="false" desc="" />
+    <!-- ExposedMember -->
+    <ParamBool id="suppressWcoCodeGen" name="Suppress WCO PIN Configuration Code Generation" group="Internal" default="true"
+            visible="false" editable="false" desc="Prevents pins connected to this personality to generate configuration code" />
   </Parameters>
 
   <DRCs>

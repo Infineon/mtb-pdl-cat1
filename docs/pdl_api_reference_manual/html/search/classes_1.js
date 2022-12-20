@@ -47,6 +47,7 @@ var searchData=
   ['cy_5fstc_5fcrypto_5frsa_5fpub_5fkey_5ft',['cy_stc_crypto_rsa_pub_key_t',['../structcy__stc__crypto__rsa__pub__key__t.html',1,'']]],
   ['cy_5fstc_5fcrypto_5fserver_5fcontext_5ft',['cy_stc_crypto_server_context_t',['../structcy__stc__crypto__server__context__t.html',1,'']]],
   ['cy_5fstc_5fcrypto_5fsha_5fstate_5ft',['cy_stc_crypto_sha_state_t',['../structcy__stc__crypto__sha__state__t.html',1,'']]],
+  ['cy_5fstc_5fcrypto_5ftrng_5fconfig_5ft',['cy_stc_crypto_trng_config_t',['../structcy__stc__crypto__trng__config__t.html',1,'']]],
   ['cy_5fstc_5fcryptolite_5fcontext_5fsha256_5ft',['cy_stc_cryptolite_context_sha256_t',['../structcy__stc__cryptolite__context__sha256__t.html',1,'']]],
   ['cy_5fstc_5fcsd_5fconfig_5ft',['cy_stc_csd_config_t',['../structcy__stc__csd__config__t.html',1,'']]],
   ['cy_5fstc_5fcsd_5fcontext_5ft',['cy_stc_csd_context_t',['../structcy__stc__csd__context__t.html',1,'']]],

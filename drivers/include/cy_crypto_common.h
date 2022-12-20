@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_common.h
-* \version 2.60
+* \version 2.70
 *
 * \brief
 *  This file provides common constants and parameters
@@ -49,7 +49,7 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         60
+#define CY_CRYPTO_DRV_VERSION_MINOR         70
 
 
 /* Enable SHA functionality */
@@ -972,6 +972,182 @@ typedef struct
 #endif /* (CPUSS_CRYPTO_PR == 1) && defined(CY_CRYPTO_CFG_PRNG_C) */
 
 #if (CPUSS_CRYPTO_TR == 1) && defined(CY_CRYPTO_CFG_TRNG_C)
+/** \cond INTERNAL */
+#define CY_CRYPTO_TR_RO_ENABLE           (1U)
+#define CY_CRYPTO_TR_RO_DISABLE          (0U)
+/** \endcond */
+
+/** \cond INTERNAL */
+typedef enum
+{
+    /** "Selection of the ring oscillator (RO) source: */
+    CY_CRYPTO_TR_SRC_RO11 = 0,  /**< "0": fixed RO 11 bit. */
+    CY_CRYPTO_TR_SRC_RO15,      /**< "1": fixed RO 15 bit. */
+    CY_CRYPTO_TR_SRC_GARO15,    /**< "2": fixed Galois RO 15 bit. */
+    CY_CRYPTO_TR_SRC_GARO31,    /**< "3": flexible Galois RO 31 bit. */
+    CY_CRYPTO_TR_SRC_FIRO15,    /**< "4": fixed Fibonacci RO 15 bit. */
+    CY_CRYPTO_TR_SRC_FIRO31     /**< "5": flexible Fibonacci RO 31 bit. */
+} cy_en_crypto_trng_ro_sel_t;
+/** \endcond */
+
+/******************************************
+ * Configuration structure
+ ******************************************/
+/** \cond INTERNAL */
+typedef enum
+{
+    /** "Selection of the bitstream: */
+    CY_CRYPTO_TRMON_BS_DAS = 0, /**< "0": DAS bitstream. */
+    CY_CRYPTO_TRMON_BS_RED,     /**< "1": RED bitstream. */
+    CY_CRYPTO_TRMON_BS_TR,      /**< "2": TR bitstream.  */
+    CY_CRYPTO_TRMON_BS_UNDEF    /**< "3": Undefined.     */
+} cy_en_crypto_trng_bs_sel_t;
+/** \endcond */
+
+/** The structure for storing the TRNG configuration.
+*/
+typedef struct
+{
+    /** \cond INTERNAL */
+    /**
+     * "Specifies the clock divider that is used to sample oscillator data.
+     * This clock divider is wrt. "clk_sys".
+     * "0": sample clock is "clk_sys".
+     * "1": sample clock is "clk_sys"/2.
+     * 
+     * "255": sample clock is "clk_sys"/256. */
+    uint8_t sampleClockDiv;
+    /**
+     * "Specifies the clock divider that is used to produce reduced bits.
+     * "0": 1 reduced bit is produced for each sample.
+     * "1": 1 reduced bit is produced for each 2 samples.
+     * 
+     * "255": 1 reduced bit is produced for each 256 samples. */
+    uint8_t reducedClockDiv;
+    /**
+     * Specifies an initialization delay: number of removed/dropped samples
+     * before reduced bits are generated. This field should be programmed
+     * in the range [1, 255]. After starting the oscillators,
+     * at least the first 2 samples should be removed/dropped to clear the state
+     * of internal synchronizers. In addition, it is advised to drop
+     * at least the second 2 samples from the oscillators (to circumvent
+     * the semi-predictable oscillator startup behavior).
+     *
+     * This result in the default field value of "3".
+     * Field encoding is as follows:
+     * "0": 1 sample is dropped.
+     * "1": 2 samples are dropped.
+     * 
+     * "255": 256 samples are dropped.
+     *
+     * The TR_INITIALIZED interrupt cause is set to '1', when
+     * the initialization delay is passed. */
+    uint8_t initDelay;
+    /**
+     * "Specifies if the "von Neumann corrector" is disabled or enabled:
+     * '0': disabled.
+     * '1': enabled.
+     * The "von Neumann corrector" post-processes the reduced bits
+     * to remove a '0' or '1' bias. The corrector operates on reduced bit pairs
+     * ("oldest bit, newest bit"):
+     * "00": no bit is produced.
+     * "01": '0' bit is produced (oldest bit).
+     * "10": '1' bit is produced (oldest bit).
+     * "11": no bit is produced.
+     * Note that the corrector produces bits at a random pace and at a frequency
+     * that is 1/4 of the reduced bit frequency (reduced bits are processed
+     * in pairs, and half of the pairs do NOT produce a bit). */
+    bool    vnCorrectorEnable;
+    /**
+     * Specifies if TRNG functionality is stopped on an adaptive proportion
+     * test detection (when HW sets INTR.TR_AP_DETECT to '1'):
+     * '0': Functionality is NOT stopped.
+     * '1': Functionality is stopped (TR_CTL1 fields are set to '0' by HW). */
+    bool    stopOnAPDetect;
+    /**
+     * Specifies if TRNG functionality is stopped on a repetition
+     * count test detection (when HW sets INTR.TR_RC_DETECT to '1'):
+     * '0': Functionality is NOT stopped.
+     * '1': Functionality is stopped (TR_CTL1 fields are set to '0' by HW). */
+    bool    stopOnRCDetect;
+
+    /**
+     * FW sets this field to '1' to enable the ring oscillator with 11 inverters.
+     */
+    bool    ro11Enable;
+    /**
+     * FW sets this field to '1' to enable the ring oscillator with 15 inverters.
+     */
+    bool    ro15Enable;
+    /**
+     * FW sets this field to '1' to enable the fixed Galois ring oscillator
+     * with 15 inverters. */
+    bool    garo15Enable;
+    /**
+     * FW sets this field to '1' to enable the programmable Galois ring
+     * oscillator with up to 31 inverters. The TR_GARO_CTL register specifies
+     * the programmable polynomial. */
+    bool    garo31Enable;
+    /**
+     * FW sets this field to '1' to enable the fixed Fibonacci ring oscillator
+     * with 15 inverters. */
+    bool    firo15Enable;
+    /**
+     * FW sets this field to '1' to enable the programmable Fibonacci ring
+     * oscillator with up to 31 inverters. The TR_FIRO_CTL register specifies
+     * the programmable polynomial. */
+    bool    firo31Enable;
+
+    /**
+     * Polynomial for programmable Galois ring oscillator.
+     * The polynomial is represented WITHOUT
+     * the high order bit (this bit is always assumed '1').
+     * The polynomial should be aligned such that the more
+     * significant bits (bit 30 and down) contain the polynomial
+     * and the less significant bits (bit 0 and up) contain padding '0's. */
+    uint32_t garo31Poly;
+
+    /**
+     * Polynomial for programmable Fibonacci ring oscillator.
+     * The polynomial is represented WITHOUT
+     * the high order bit (this bit is always assumed '1').
+     * The polynomial should be aligned such that the more
+     * significant bits (bit 30 and down) contain the polynomial
+     * and the less significant bits (bit 0 and up) contain padding '0's. */
+    uint32_t firo31Poly;
+
+    /**
+     * Selection of the bitstream:
+     * "0": DAS bitstream.
+     * "1": RED bitstream.
+     * "2": TR bitstream.
+     * "3": Undefined.  */
+    cy_en_crypto_trng_bs_sel_t monBitStreamSelect;
+
+    /**
+     * Cutoff count (legal range is [1, 255]):
+     * "0": Illegal.
+     * "1": 1 repetition.
+     * ..
+     * "255": 255 repetitions. */
+    uint8_t monCutoffCount8;
+
+    /**
+     * Cutoff count (legal range is [1, 65535]).
+     * "0": Illegal.
+     * "1": 1 occurrence.
+     * ...
+     * "65535": 65535 occurrences. */
+    uint16_t monCutoffCount16;
+    /**
+     * Window size (minus 1) :
+     * "0": 1 bit.
+     * ...
+     * "65535": 65536 bits. */
+    uint16_t monWindowSize;
+    /** \endcond */
+} cy_stc_crypto_trng_config_t;
+
 /** The structure for storing the TRNG context.
 * All fields for the context structure are internal. Firmware never reads or
 * writes these values. Firmware allocates the structure and provides the

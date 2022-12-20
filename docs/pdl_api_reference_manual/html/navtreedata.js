@@ -58,11 +58,11 @@ var NAVTREEINDEX =
 "group__group__tdm__functions.html#gafe9e280668c9453c2e50730dd679fae0",
 "group__group__usbfs__dev__hal__functions__ep0__service.html",
 "structcy__stc__crypto__config__t.html#a52ff77b99e58e9f238f260a50740be7b",
-"structcy__stc__ethif__filter__config__t.html",
-"structcy__stc__ipc__bt__context__t.html#a8c88cad2a74dc9fed3aaf3cef642d1f3",
-"structcy__stc__ppu__sl__cfg__t.html#aa636bf5343a8309110ec1337906ea07c",
-"structcy__stc__sar__fifo__config__t.html#a68216d6d436b60bd4ed50baebbb55c04",
-"structcy__stc__smif__mem__device__cfg__t.html#a5126d2926b18f7bddf7861165957a041"
+"structcy__stc__ethif__cb__t.html#ae95964ed0d2fff216675f7c257e8f24e",
+"structcy__stc__ipc__bt__context__t.html#a8a9bb1232c8a49c94115d36735e74e3b",
+"structcy__stc__ppu__sl__cfg__t.html#a65a3a0084a64f3b39da01c9a64fcf45b",
+"structcy__stc__sar__fifo__config__t.html#a4af34e10a403b00b5817fa7ac623a784",
+"structcy__stc__smif__mem__device__cfg__t.html#a4e784af10fe9c014e4303990a5fa8171"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -36,6 +36,7 @@
   <ExposedMembers>
     <ExposedMember key="frequency" paramId="frequency" />
     <ExposedMember key="accuracy"  paramId="accuracyPct" />
+    <ExposedMember key="suppressCodeGen" paramId="suppressWcoCodeGen" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -56,6 +57,8 @@
     
     <ParamString id="gpio_port" name="gpio_port" group="Internal" default="`${getInstFromLocation(getParamValue(&quot;ext_clk[0]&quot;), &quot;port&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="gpio_pin" name="gpio_pin" group="Internal" default="`${getInstFromLocation(getParamValue(&quot;ext_clk[0]&quot;), &quot;pin&quot;)}`" visible="false" editable="false" desc="" />
+    <ParamBool id="suppressWcoCodeGen" name="Suppress WCO PIN Configuration Code Generation" group="Internal" default="true"
+            visible="false" editable="false" desc="Prevents pins connected to this personality to generate configuration code" />
   </Parameters>
   <DRCs>
     <!-- For ULP mode, Fextclk_max = 50 MHz. For LP mode, Fextclk_max = 100 MHz or Fcpu_max (if Fcpu_max < 100 MHz) -->

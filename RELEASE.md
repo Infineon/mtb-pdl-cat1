@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.1.0
+# MTB CAT1 Peripheral Driver Library v3.2.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,24 +8,25 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## Implementation Details
 
-* Support for Ethernet in CAT1C devices.
+* TRNG enchacements to support health monitor check.
+* Bug fixes
 
 ## Build Changes
 
 ## Personalities Changes
 
+* Updated eco-3.0.cypersonality, extclk-3.0.cypersonality, wco-3.0.cypersonality, pin-3.0.cypersonality, and sar-6.0.cypersonality
+
 ## Added Drivers
-
-Following drivers are added for Ethernet support in CAT1C device:
-* [EMAC](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ethif.html)
-* [EPHY](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ephy.html)
-
 
 ## Updated Drivers
 
-* [SYSPM 5.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [SYSPM 5.91](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [CRYPTO 2.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
 
 ### Drivers with patch version updates
+
+* [SegLCD 1.10.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__seglcd.html)
 
 ### Obsoleted part numbers
 

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_vu.h
-* \version 2.60
+* \version 2.70
 *
 * \brief
 *  This file provides the headers to the API for the utils

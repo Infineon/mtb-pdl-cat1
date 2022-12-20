@@ -1,5 +1,6 @@
 var NAVTREEINDEX34 =
 {
+"structcy__stc__smif__mem__device__cfg__t.html#a4e784af10fe9c014e4303990a5fa8171":[4,37,2,0,2,4],
 "structcy__stc__smif__mem__device__cfg__t.html#a5126d2926b18f7bddf7861165957a041":[4,37,2,0,2,13],
 "structcy__stc__smif__mem__device__cfg__t.html#a5156e88b285cfe78f4ff4e42194a70c0":[4,37,2,0,2,18],
 "structcy__stc__smif__mem__device__cfg__t.html#a6dabae268837d0cffde9c25b4efe455d":[4,37,2,0,2,1],

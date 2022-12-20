@@ -544,7 +544,7 @@
       
       <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
         <Member name="type" value="CYHAL_RSC_ADC" />
-        <Member name="block_num" value="0" />
+        <Member name="block_num" value="`${inst}`" />
         <Member name="channel_num" value="0" />
       </ConfigStruct>
       

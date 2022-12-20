@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.h
-* \version 2.60
+* \version 2.70
 *
 * \brief
 *  This file provides the public interface for the Crypto driver.
@@ -249,6 +249,11 @@
 * \section group_crypto_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td> 2.7</td>
+*     <td>Added TRNG enhancements to support health monitor check.</td>
+*     <td>Driver enhancement and new feature addition.</td>
+*   </tr>
 *   <tr>
 *     <td> 2.6</td>
 *     <td>

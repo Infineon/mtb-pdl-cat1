@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v2.c
-* \version 5.90
+* \version 5.91
 *
 * This driver provides the source code for API power management.
 *
@@ -142,11 +142,6 @@ void Cy_SysPm_Init(void)
 
         /* Set Default mode to DEEPSLEEP */
         (void)Cy_SysPm_SetDeepSleepMode(CY_SYSPM_MODE_DEEPSLEEP);
-
-        /* Clear Reset reason, this ensures that API:Cy_SysPm_IsSystemDeepsleep works
-         * fine to capture the DEEP SLEEP state from which system has wake up.
-         */
-        Cy_SysLib_ClearResetReason();
     }
     else
     {
