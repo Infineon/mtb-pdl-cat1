@@ -37,7 +37,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 18.1', 11, \
-            'Checked manually, base pointer will not exceed register range.');
+            'Checked manually, base pointer will not exceed register range.')
 
 /** \cond internal */
 
@@ -5400,7 +5400,7 @@ cy_en_sd_host_status_t Cy_SD_Host_GetBlockCount(SDHC_Type *base,
 }
 
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.1');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.1')
 
 #if defined(__cplusplus)
 }

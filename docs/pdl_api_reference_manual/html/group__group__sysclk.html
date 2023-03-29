@@ -81,8 +81,7 @@ $(document).ready(function(){initNavTree('group__group__sysclk.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#groups">API Reference</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#groups">API Reference</a>  </div>
   <div class="headertitle">
 <div class="title">SysClk (System Clock)</div>  </div>
 </div><!--header-->
@@ -116,6 +115,10 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td rowspan="2">3.60 </td><td>Support for CAT1D devices is added </td><td>New devices support added  </td></tr>
+<tr>
+<td>Remove local structure initialization to avoid optimization </td><td>Code cleanup  </td></tr>
 <tr>
 <td>3.50 </td><td>Bug fixes and few new APIs addition.<br />
 Newly added APIs: <br />
@@ -151,7 +154,7 @@ Newly added APIs: <br />
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#gaa92e2b0dd3f211143fd66edf70fcd2ae" title="Enables the 400M PLL. ">Cy_SysClk_Pll400MEnable()</a></li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga156fecfbaecb9d502c74529f910fe24b" title="Reports whether or not the selected 400M PLL is enabled. ">Cy_SysClk_Pll400MIsEnabled()</a></li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga5455c05316aa399ef5afacf7648a3cf1" title="Reports whether or not the selected 400M PLL is locked. ">Cy_SysClk_Pll400MLocked()</a></li>
-<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8e300a347373de8ab2c7d2ca89b05dee" title="Reports whether or not the selected 200M PLL lost its lock since the last time this function was call...">Cy_SysClk_Pll400MLostLock()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8e300a347373de8ab2c7d2ca89b05dee" title="Reports whether or not the selected 400M PLL lost its lock since the last time this function was call...">Cy_SysClk_Pll400MLostLock()</a></li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27" title="Disables the selected 200M PLL. ">Cy_SysClk_Pll200MDisable()</a></li>
 <li><a class="el" href="group__group__sysclk__iho__funcs.html#gae014bbd531b0612fc784cdcf15784564" title="Enables the IHO during deepsleep mode. ">Cy_SysClk_IhoDeepsleepEnable()</a></li>
 <li><a class="el" href="group__group__sysclk__iho__funcs.html#ga9de913cc5f378cba22fa53d77ab30b98" title="Reports whether or not the selected IHO is enabled during deepsleep mode. ">Cy_SysClk_IhoIsDeepsleepEnabled()</a></li>
@@ -398,41 +401,7 @@ API Reference</h2></td></tr>
 <tr class="memitem:group__group__sysclk__clk__mem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__mem.html">Mem Clock</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__mem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock for the Memories. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga4d15feb4b518e976266c4d44f5cc8791"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk.html#ga4d15feb4b518e976266c4d44f5cc8791">cy_en_imo_in_sources_t</a> { <br />
-&#160;&#160;<a class="el" href="group__group__sysclk.html#gga4d15feb4b518e976266c4d44f5cc8791ae153d55c566dce7842ea98e48acaf154">CY_SYSCLK_IMO_IN_4MHz</a> = 0U, 
-<br />
-&#160;&#160;<a class="el" href="group__group__sysclk.html#gga4d15feb4b518e976266c4d44f5cc8791ac458c9e7ee2b7e9d50a90884492c3dff">CY_SYSCLK_IMO_IN_2MHz</a> = 1U
-<br />
- }<tr class="memdesc:ga4d15feb4b518e976266c4d44f5cc8791"><td class="mdescLeft">&#160;</td><td class="mdescRight">IMO frequency select sources.  <a href="group__group__sysclk.html#ga4d15feb4b518e976266c4d44f5cc8791">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga4d15feb4b518e976266c4d44f5cc8791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="ga4d15feb4b518e976266c4d44f5cc8791"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4d15feb4b518e976266c4d44f5cc8791">&#9670;&nbsp;</a></span>cy_en_imo_in_sources_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="group__group__sysclk.html#ga4d15feb4b518e976266c4d44f5cc8791">cy_en_imo_in_sources_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>IMO frequency select sources. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga4d15feb4b518e976266c4d44f5cc8791ae153d55c566dce7842ea98e48acaf154"></a>CY_SYSCLK_IMO_IN_4MHz&#160;</td><td class="fielddoc"><p>4MHz selected for IMO </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga4d15feb4b518e976266c4d44f5cc8791ac458c9e7ee2b7e9d50a90884492c3dff"></a>CY_SYSCLK_IMO_IN_2MHz&#160;</td><td class="fielddoc"><p>2MHz selected for IMO </p>
-</td></tr>
-</table>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

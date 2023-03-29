@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_pdcm.c
-* \version 5.91
+* \version 5.92
 *
 * This file provides the source code for PDCM driver, where the API's are used
 * by Syspm driver and BTSS driver.
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined(CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+#if defined(CY_IP_MXS40SSRSS) || defined(CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 
 #include <stdbool.h>
 #include <cy_syspm_pdcm.h>

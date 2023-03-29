@@ -762,6 +762,7 @@ __STATIC_INLINE void Cy_LPComp_ClearInterrupt(LPCOMP_Type* base, uint32_t interr
 {
     CY_ASSERT_L2(CY_LPCOMP_IS_INTR_VALID(interrupt));
     LPCOMP_INTR(base) |= interrupt;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) LPCOMP_INTR(base);
 }
 

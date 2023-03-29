@@ -21,7 +21,7 @@
 #ifndef PPU_V1_H
 #define PPU_V1_H
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 
 /*!
  * \cond

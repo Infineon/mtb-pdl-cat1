@@ -221,6 +221,7 @@
     <DRC type="ERROR" text="The input voltage of VDDBUCK is set to `${vddbuckMv}` which is out of range. The value must be between 1700 and VDDA (`${vddaMv}`)." condition="`${(vddbuckMv &gt; vddaMv)}`" />
     <DRC type="ERROR" text="The input voltage of VDDIO0 is set to `${vddio0Mv}` which is out of range. The value must be between 1700 and VDDA (`${vddaMv}`)." condition="`${(vddio0Mv &gt; vddaMv)}`" />
     <DRC type="ERROR" text="The input voltage of VDDIO1 is set to `${vddio1Mv}` which is out of range. The value must be between 1700 and VDDA (`${vddaMv}`)." condition="`${(vddio1Mv &gt; vddaMv)}`" />
+    <DRC type="WARNING" text="SMIF Config shouldnt be in FLASH when DS-RAM is selected as System Idle Power Mode" condition="`${(idlePwrMode eq CY_CFG_PWR_MODE_DEEPSLEEP_RAM) &amp;&amp; (getExposedMember(&quot;smif[0]&quot;, &quot;inFlash&quot;) eq true)}`" />
   </DRCs>
 
   <!-- Generated firmware -->

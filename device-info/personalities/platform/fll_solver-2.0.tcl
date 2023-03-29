@@ -30,8 +30,9 @@ const ARG_MANUAL_IDX_SRC_FREQ 1
 const ARG_MANUAL_IDX_MULT 2
 const ARG_MANUAL_IDX_DIV 3
 const ARG_MANUAL_IDX_LOCK_TOLERANCE 4
-const ARG_MANUAL_IDX_WCO_SRC 5
-const ARG_MANUAL_IDX_SRC_ACCURACY 6
+const ARG_MANUAL_IDX_EN_OUT_DIV 5
+const ARG_MANUAL_IDX_WCO_SRC 6
+const ARG_MANUAL_IDX_SRC_ACCURACY 7
 
 const MIN_CCO_OUTPUT_FREQ 48
 const MIN_OUTPUT_FREQ [expr {$::MIN_CCO_OUTPUT_FREQ / 2}]
@@ -108,6 +109,7 @@ proc parse_and_run_manual {} {
     set mult [lindex $::argv $::ARG_MANUAL_IDX_MULT]
     set div [lindex $::argv $::ARG_MANUAL_IDX_DIV]
     set lockTol [lindex $::argv $::ARG_MANUAL_IDX_LOCK_TOLERANCE]
+	set enOutDiv [lindex $::argv $::ARG_MANUAL_IDX_EN_OUT_DIV]
     set wcoIsSource [string is true [lindex $::argv $::ARG_MANUAL_IDX_WCO_SRC]]
     set srcAccuracyPercent [lindex $::argv $::ARG_MANUAL_IDX_SRC_ACCURACY]
     if {![string is double $srcFreqMHz] || ![string is double $srcAccuracyPercent]} {
@@ -126,7 +128,7 @@ proc parse_and_run_manual {} {
     if {$retVal != $::SUCCESS} {
         return $retVal
     }
-    return [solve_manual $srcFreqMHz $mult $div $lockTol $wcoIsSource [expr {abs($srcAccuracyPercent / 100.0)}]]
+    return [solve_manual $srcFreqMHz $mult $div $lockTol $enOutDiv $wcoIsSource [expr {abs($srcAccuracyPercent / 100.0)}]]
 }
 
 proc solve_auto {srcFreqMHz targetFreqMHz wcoIsSource srcAccuracy} {
@@ -188,10 +190,10 @@ proc solve_auto {srcFreqMHz targetFreqMHz wcoIsSource srcAccuracy} {
     return $::SUCCESS
 }
 
-proc solve_manual {srcFreqMHz configFllMult configRefDiv configLockTolerance wcoIsSource srcAccuracy} {
+proc solve_manual {srcFreqMHz configFllMult configRefDiv configLockTolerance configenOutDiv wcoIsSource srcAccuracy} {
     # constants indexed by ccoIdx
     # 1. Output division by 2 is always required.
-    set configEnableOutputDiv $::OUTPUT_DIV_ENABLED
+    set configEnableOutputDiv [expr {$configenOutDiv ? 1 : 0}]
     set outputDiv [expr {$configEnableOutputDiv ? 2 : 1}]
     set actualFreq [expr {(($srcFreqMHz * $configFllMult) / $configRefDiv) / $outputDiv}]
     # 2. Compute the target CCO frequency from the target output frequency and output division.

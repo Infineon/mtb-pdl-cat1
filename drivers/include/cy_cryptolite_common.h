@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_common.h
-* \version 2.0
+* \version 2.10
 *
 * \brief
 *  This file provides common constants and parameters
@@ -41,20 +41,29 @@ extern "C" {
 #include <stdlib.h>
 
 #include "cy_cryptolite_hw.h"
+#include "cy_cryptolite_config.h"
 
 /**
 * \addtogroup group_cryptolite_macros
 * \{
 */
 /** Driver major version */
-#define CY_CRYPTOLITE_DRV_VERSION_MAJOR         1
+#define CY_CRYPTOLITE_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTOLITE_DRV_VERSION_MINOR         0
+#define CY_CRYPTOLITE_DRV_VERSION_MINOR         10
 
 /** Cryptolite Driver PDL ID */
 #define CY_CRYPTOLITE_ID                        CY_PDL_DRV_ID(0x74u)
 /** \} group_cryptolite_macros */
+
+/** \cond INTERNAL */
+
+
+/* Calculates the actual size in bytes of the bits value */
+#define CY_CRYPTOLITE_BYTE_SIZE_OF_BITS(x)      (uint32_t)(((uint32_t)(x) + 7U) >> 3U)
+
+/** \endcond */
 
 /**
 * \addtogroup group_cryptolite_enums
@@ -65,16 +74,23 @@ extern "C" {
 typedef enum
 {
     /** Operation completed successfully. */
-    CY_CRYPTOLITE_SUCCESS             = 0x00u,
+    CY_CRYPTOLITE_SUCCESS               = 0x00u,
     /** The Crypto operation parameters are incorrect. */
-    CY_CRYPTOLITE_BAD_PARAMS          = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x01u,
+    CY_CRYPTOLITE_BAD_PARAMS            = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x01u,
     /** The Crypto HW is busy. */
-    CY_CRYPTOLITE_HW_BUSY             = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x02u,
+    CY_CRYPTOLITE_HW_BUSY               = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x02u,
     /** The Crypto AHB bus error. */
-    CY_CRYPTOLITE_BUS_ERROR           = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x03u,
+    CY_CRYPTOLITE_BUS_ERROR             = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x03u,
     /** The Crypto feature not supported error. */
-    CY_CRYPTOLITE_NOT_SUPPORTED       = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x04u
-
+    CY_CRYPTOLITE_NOT_SUPPORTED         = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x04u,
+   /** The size of input data is not multiple of 16. */
+    CY_CRYPTOLITE_SIZE_NOT_X16          = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x05u,
+    /** The Address passed is not aligned to 4 bytes. */
+    CY_CRYPTOLITE_ALIGNMENT_ERROR       = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x06u,
+    /** The TRNG is not enabled. */
+    CY_CRYPTOLITE_TRNG_NOT_ENABLED      = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x07u,
+    /** The TRNG is unhealthy. */
+    CY_CRYPTOLITE_TRNG_UNHEALTHY        = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR   | 0x08u,
 } cy_en_cryptolite_status_t;
 
 /** \} group_cryptolite_enums */
@@ -94,7 +110,11 @@ typedef struct cy_stc_cryptolite_descr_t {
 } cy_stc_cryptolite_descr_t;
 /** \endcond */
 
-/** \cond INTERNAL */
+
+/**
+* \addtogroup group_cryptolite_enums
+* \{
+*/
 /** Defines modes of SHA method */
 typedef enum
 {
@@ -107,19 +127,33 @@ typedef enum
     CY_CRYPTOLITE_MODE_SHA512_224    = 0x06u,   /**< Sets the SHA512/224 mode */
     CY_CRYPTOLITE_MODE_SHA_NONE      = 0x07u,   /**< Sets the SHA NONE mode */
 } cy_en_cryptolite_sha_mode_t;
-/** \endcond */
+
 
 /** Signature verification status */
 typedef enum
 {
+    /** The signature is valid */
     CY_CRYPTOLITE_SIG_VALID     = 0x05555555u,
+    /** The signature is invalid */
     CY_CRYPTOLITE_SIG_INVALID   = 0x0AAAAAAAu,
 } cy_en_cryptolite_sig_verify_result_t;
 
+/** \} group_cryptolite_enums */
 
 
-/*Check: Remove once mem alloc are fixed*/
-#define BIT_SIZE (256)
+#if defined(CY_CRYPTOLITE_CFG_ECP_DP_SECP521R1_ENABLED)
+    #define BIT_SIZE ((uint32_t)521)
+#elif defined(CY_CRYPTOLITE_CFG_ECP_DP_SECP384R1_ENABLED)
+    #define BIT_SIZE ((uint32_t)384)
+#elif defined(CY_CRYPTOLITE_CFG_ECP_DP_SECP256R1_ENABLED)
+    #define BIT_SIZE ((uint32_t)256)
+#elif defined(CY_CRYPTOLITE_CFG_ECP_DP_SECP224R1_ENABLED)
+    #define BIT_SIZE ((uint32_t)224)
+#elif defined(CY_CRYPTOLITE_CFG_ECP_DP_SECP192R1_ENABLED)
+    #define BIT_SIZE ((uint32_t)192)
+#else
+    #define BIT_SIZE ((uint32_t)256)
+#endif
 
 typedef enum cy_en_cryptolite_ecc_red_mul_algs_t {
     CY_CRYPTOLITE_NIST_P_CURVE_SPECIFIC_RED_ALG = 0,
@@ -128,8 +162,21 @@ typedef enum cy_en_cryptolite_ecc_red_mul_algs_t {
 } cy_en_cryptolite_ecc_red_mul_algs_t;
 
 
-#define CY_CRYPTOLITE_CFG_SHA_C
-#define CY_CRYPTOLITE_CFG_SHA2_256_ENABLED
+/**
+* \addtogroup group_cryptolite_enums
+* \{
+*/
+
+/** Defines the direction of the Crypto methods */
+typedef enum
+{
+    /** The forward mode, plain text will be encrypted into cipher text */
+    CY_CRYPTOLITE_ENCRYPT   = 0x00u,
+    /** The reverse mode, cipher text will be decrypted into plain text */
+    CY_CRYPTOLITE_DECRYPT   = 0x01u
+} cy_en_cryptolite_dir_mode_t;
+
+/** \} group_cryptolite_enums */
 
 
 #if defined(__cplusplus)

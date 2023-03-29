@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.40
+* \version 2.50
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -224,6 +224,11 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.50</td>
+*     <td>Future functionality support for Hyperbus devices.</td>
+*     <td>Code Enhancements.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="4">2.40</td>
 *     <td>Enhanced \ref Cy_SMIF_MemEraseSector to compute sector boundary for erase operation and \n
@@ -578,7 +583,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       40
+#define CY_SMIF_DRV_VERSION_MINOR       50
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
@@ -689,7 +694,9 @@ extern "C" {
                                              (CY_SMIF_SEL_INTERNAL_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
                                              (CY_SMIF_SEL_INVERTED_INTERNAL_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
                                              (CY_SMIF_SEL_FEEDBACK_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
-                                             (CY_SMIF_SEL_INVERTED_FEEDBACK_CLK == (cy_en_smif_clk_select_t)(clkSel)))
+                                             (CY_SMIF_SEL_INVERTED_FEEDBACK_CLK == (cy_en_smif_clk_select_t)(clkSel)) ||\
+                                             (CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK == (cy_en_smif_clk_select_t)(clkSel))  || \
+                                             (CY_SMIF_SEL_SPHB_RWDS_CLK == (cy_en_smif_clk_select_t)(clkSel)))
 #else
 #define CY_SMIF_CLOCK_SEL_VALID(clkSel)     ((CY_SMIF_SEL_INTERNAL_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
                                              (CY_SMIF_SEL_INVERTED_INTERNAL_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
@@ -760,6 +767,9 @@ extern "C" {
 
 #define CY_SMIF_CMD_MMIO_FIFO_WR_RX_COUNT_Msk        (0x0000FFFFUL)   /* DATA[15:0]      RX count             */
 #define CY_SMIF_CMD_MMIO_FIFO_WR_RX_COUNT_Pos        (0UL)            /* [0]             RX count             */
+
+#define CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_RWDS_Msk      (0x00800000UL)   /* DATA[23]     Dummy RWDS             */
+#define CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_RWDS_Pos      (23UL)            /* [23]            Dummy RWDS             */
 #else
 /* SMIF->TX_CMD_FIFO_WR  */
 #define CY_SMIF_TX_CMD_FIFO_WR_MODE_POS         (18U)   /* [19:18]  Command data mode */
@@ -829,6 +839,20 @@ typedef enum
     CY_SMIF_WAIT_STATES         = 1UL
 } cy_en_smif_error_event_t;
 
+/** Specifies the delay line used for RX data capturing with  */
+typedef enum
+{
+    CY_SMIF_1_NEW_SEL_PER_TAP  = 0, /**< 1 of these new delay cells per tap providing:
+    granularity  of  max.  ~0.22ns */
+    CY_SMIF_1_SEL_PER_TAP  = 1, /**< 1 cell per tap providing:
+    granularity of max. ~0.4ns */
+    CY_SMIF_2_SEL_PER_TAP  = 2, /**< 2 cells per tap providing:
+    granularity of max. ~0.8ns */
+    CY_SMIF_4_SEL_PER_TAP  = 3, /**< 4 cells per tap providing:
+    granularity of max. ~1.6ns */
+    CY_SMIF_NO_DELAY_SEL       = 0xFF,/**< No delay line (disabled) */
+} cy_en_smif_delay_line_t;
+
 /** The data line-selection options for a slave device. */
 typedef enum
 {
@@ -860,6 +884,16 @@ typedef enum
     CY_SMIF_NORMAL,         /**< Command mode (MMIO mode). */
     CY_SMIF_MEMORY          /**< XIP (eXecute In Place) mode. */
 } cy_en_smif_mode_t;
+
+/**
+* \note
+* This enum is available for CAT1B, CAT1C and CAT1D devices.
+**/
+typedef enum
+{
+    CY_SMIF_DELAY_TAP_DISABLE = 0,    /**< The SMIF Delay tap disable */
+    CY_SMIF_DELAY_TAP_ENABLE = 1,    /**< The SMIF Delay tap enable */
+} cy_en_smif_delay_tap_t;
 
 /** The SMIF transfer status return values. */
 typedef enum
@@ -914,6 +948,7 @@ typedef enum
     CY_SMIF_NO_OE_BIT       = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x82U,
     /** SMIF is currently busy and cannot accept the request */
     CY_SMIF_BUSY            = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x83U,
+    CY_SMIF_GENERAL_ERROR   = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x84U,  /**< Some general error */
 } cy_en_smif_status_t;
 
 /** The SMIF slave select definitions for the driver API. Each slave select is
@@ -956,6 +991,8 @@ typedef enum
    CY_SMIF_SEL_INVERTED_FEEDBACK_CLK = 3U,   /**< The SMIF feedback inverted clock */
    CY_SMIF_SEL_INTERNAL_CLK     = 4U,  /**< The SMIF internal clock */
    CY_SMIF_SEL_INVERTED_INTERNAL_CLK = 5U,  /**< The SMIF internal inverted clock */
+   CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK = 6U,  /**< The SMIF internal inverted clock */
+   CY_SMIF_SEL_SPHB_RWDS_CLK = 7U,  /**< The SMIF internal inverted clock */
 } cy_en_smif_clk_select_t;
 #endif
 #if (CY_IP_MXSMIF_VERSION==1) || defined (CY_DOXYGEN)
@@ -1097,6 +1134,8 @@ typedef struct
     uint32_t blockEvent;        /**< Specifies what happens when there is a Read  
                                 * from an empty RX FIFO or a Write to a full 
                                 * TX FIFO. \ref cy_en_smif_error_event_t. */
+    cy_en_smif_delay_tap_t delayTapEnable;      /**<  Delay tap can be enabled or disabled \ref cy_en_smif_delay_tap_t. */
+    cy_en_smif_delay_line_t delayLineSelect;    /**< set line selection which is input. \ref cy_en_smif_delay_line_t */ 
 } cy_stc_smif_config_t;
 
 /** The SMIF internal context data. The user must not modify it. */
@@ -1144,6 +1183,15 @@ typedef struct
     * This parameter is available for CAT1B, CAT1C and CAT1D devices.
     **/
     cy_en_smif_data_rate_t  preXIPDataRate; /**< preferred XIP data rate */
+    /**
+    * \note
+    * This parameter is available for CAT1B, CAT1C and CAT1D devices for Hyperflash/HyperRAM.
+    **/
+    uint32_t dummyCycles; /**< preferred dummy cycles per transaction */
+    /** Determines if the device is memory-mapped, enables the Autodetect
+     * using the SFDP, enables the write capability, or enables the crypto
+     * support for this memory slave */
+    uint32_t flags;
 #endif /* CY_IP_MXSMIF_VERSION */
 } cy_stc_smif_context_t;
 
@@ -1245,7 +1293,11 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
 void Cy_SMIF_DeviceTransfer_SetMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave, cy_en_smif_merge_timeout_t timeout);
 void Cy_SMIF_DeviceTransfer_ClearMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave);
 
-#endif /* CY_IP_MXSMIF_VERSION */
+#if (CY_IP_MXSMIF_VERSION == 2U)
+cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel);
+uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base);
+#endif /* (CY_IP_MXSMIF_VERSION==2) */
+#endif /* CY_IP_MXSMIF_VERSION>=2*/
 
 __STATIC_INLINE void Cy_SMIF_Disable(SMIF_Type *base);
 __STATIC_INLINE void  Cy_SMIF_SetInterruptMask(SMIF_Type *base, uint32_t interrupt);
@@ -1278,12 +1330,16 @@ cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_s
 cy_en_smif_status_t Cy_SMIF_ConvertSlaveSlotToIndex(cy_en_smif_slave_select_t ss, uint32_t *device_idx);
 #if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
 void Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode);
+cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t size);
+uint16_t Cy_SMIF_GetMasterDLP(SMIF_Type *base);
+uint8_t Cy_SMIF_GetMasterDLPSize(SMIF_Type *base);
+uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit);
 #endif
 /** \addtogroup group_smif_functions_syspm_callback
 * The driver supports SysPm callback for Deep Sleep and Hibernate transition.
 * \{
 */
-#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 cy_en_syspm_status_t Cy_SMIF_DeepSleepCallback(cy_stc_syspm_callback_params_t *callbackParams, cy_en_syspm_callback_mode_t mode);
 cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *callbackParams, cy_en_syspm_callback_mode_t mode);
 #endif

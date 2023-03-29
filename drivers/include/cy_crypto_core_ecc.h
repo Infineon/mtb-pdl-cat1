@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC
@@ -40,7 +40,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 5, \
-'Since CY_CRYPTO_ECC_MAX_SIZE is decided by curve type, use of #undef will not make it ambiguous that which macros exist at a particular point within a translation unit.');
+'Since CY_CRYPTO_ECC_MAX_SIZE is decided by curve type, use of #undef will not make it ambiguous that which macros exist at a particular point within a translation unit.')
 
 #if (CPUSS_CRYPTO_VU == 1) && defined (CY_CRYPTO_CFG_ECP_C)
 
@@ -174,7 +174,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_VerifyHash(CRYPTO_Type *base,
 
 #endif /* (CPUSS_CRYPTO_VU == 1) && defined (CY_CRYPTO_CFG_ECP_C) */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 20.5');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 20.5')
 
 #if defined(__cplusplus)
 }

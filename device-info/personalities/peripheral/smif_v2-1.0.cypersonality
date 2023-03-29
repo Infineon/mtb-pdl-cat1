@@ -34,7 +34,9 @@
     </IpBlock>
     <Resource name="smif" />
   </Dependencies>
-  <ExposedMembers />
+  <ExposedMembers>
+    <ExposedMember key="inFlash" paramId="inFlash" />
+  </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__smif.html" linkText="Open SMIF Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />

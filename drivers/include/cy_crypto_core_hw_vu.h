@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hw_vu.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides constants and function prototypes
@@ -38,7 +38,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 23, \
-'Since value of CY_CRYPTO_V1 is decided by PDL device agnostic / hardware specific model, controlling expression will not have an invariant value.');
+'Since value of CY_CRYPTO_V1 is decided by PDL device agnostic / hardware specific model, controlling expression will not have an invariant value.')
 
 #if (CPUSS_CRYPTO_VU == 1)
 
@@ -1133,7 +1133,7 @@ __STATIC_INLINE void CY_CRYPTO_VU_RESTORE_REG (CRYPTO_Type *base, uint32_t rdst,
 
 #endif /* #if (CPUSS_CRYPTO_VU == 1) */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3')
 
 #if defined(__cplusplus)
 }

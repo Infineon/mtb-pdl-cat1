@@ -45,7 +45,7 @@
     <ParamBool id="modeIsHost" name="modeIsHost" group="Internal" default="`${mode eq Host}`" visible="false" editable="false" desc="USB Mode is Host" />
 
     <!-- Documentation -->
-    <ParamDoc id="emUsbDoc" name="Configuration Help" group="Overview" default="`${modeIsHost ? &quot;https://infineon.github.io/emusb-host/api_reference_manual/html/index.html&quot; : &quot;https://infineon.github.io/emusb-device/api_reference_manual/html/index.html&quot;}`" linkText="`${modeIsHost ? &quot;Open emUSB-Host Documentation&quot; : &quot;Open emUSB-Device Documentation&quot;}`" visible="true" desc="Open the USB Documentation" />
+    <ParamDoc id="emUsbDoc" name="Configuration Help" group="Overview" default="`${modeIsHost ? &quot;https://infineon.github.io/emusb-host/html/index.html&quot; : &quot;https://infineon.github.io/emusb-device/html/index.html&quot;}`" linkText="`${modeIsHost ? &quot;Open emUSB-Host Documentation&quot; : &quot;Open emUSB-Device Documentation&quot;}`" visible="true" desc="Open the USB Documentation" />
 
     <!-- USB Hf clock configuration -->
     <ParamSignal port="clk_usb_host[0]" name="Clock" group="Connections" visible="`${modeIsHost}`" desc="The clock to operate this block" canBeEmpty="`${modeIsDevice}`" />

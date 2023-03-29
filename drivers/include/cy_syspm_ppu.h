@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_ppu.h
-* \version 5.91
+* \version 5.92
 *
 * This file provides header for ARM PPU Power Domain Platform Dependant
 * specific driver.
@@ -66,7 +66,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 
 #include <stdint.h>
 #include "ppu_v1.h"
@@ -121,7 +121,7 @@ cy_pd_ppu_device_status_t cy_pd_ppu_get_ds_fail_device(struct ppu_v1_reg *ppu);
 
 /** \} group_syspm_ppu_functions */
 
-#endif /* CY_IP_MXS28SRSS, CY_IP_MXS40SSRSS */
+#endif /* CY_IP_MXS28SRSS, CY_IP_MXS40SSRSS, CY_IP_MXS22SRSS */
 
 #endif /* CY_PD_PPU_H */
 

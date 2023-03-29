@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.c
-* \version 5.91
+* \version 5.92
 *
 * This driver provides the source code for API power management.
 *
@@ -33,9 +33,9 @@
 
 #if defined (CY_DEVICE_SECURE)
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 17.2', 4, \
-'Checked manually. All the recursive cycles are handled properly.');
+'Checked manually. All the recursive cycles are handled properly.')
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 18.6', 3, \
-'Checked manually. Assignment of Local to global variable does not create any issue.');
+'Checked manually. Assignment of Local to global variable does not create any issue.')
 #endif
 
 #if ((CY_CPU_CORTEX_M0P) && (defined(CY_DEVICE_SECURE)))
@@ -584,11 +584,11 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
         #if (CY_CPU_CORTEX_M0P)
             /* Check if there is a pending syscall */
             CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 13.5', 1, \
-            'Inspected manually, no side effect during functions call.');
+            'Inspected manually, no side effect during functions call.')
             if (Cy_IPC_Drv_IsLockAcquired(Cy_IPC_Drv_GetIpcBaseAddress(CY_IPC_CHAN_SYSCALL_CM0)) ||
                 Cy_IPC_Drv_IsLockAcquired(Cy_IPC_Drv_GetIpcBaseAddress(CY_IPC_CHAN_SYSCALL_CM4)))
             {
-                CY_MISRA_BLOCK_END('MISRA C-2012 Rule 13.5');
+                CY_MISRA_BLOCK_END('MISRA C-2012 Rule 13.5')
                 /* Do not put the CPU into Deep Sleep and return pending status */
                 retVal = CY_SYSPM_SYSCALL_PENDING;
             }
@@ -2637,8 +2637,8 @@ void Cy_SysPm_BackupSuperCapCharge(cy_en_syspm_sc_charge_key_t key)
 }
 
 #if defined (CY_DEVICE_SECURE)
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2');
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.6');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2')
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.6')
 #endif
 
 #endif

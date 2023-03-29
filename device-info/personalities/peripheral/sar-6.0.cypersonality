@@ -335,7 +335,7 @@
     <ParamBool id="chanIdEn" name="Channel ID Enable" group="Fifo" default="false" visible="`${fifoEn}`" editable="true" desc="The channel number is included into the FIFO read word" />
     <ParamBool id="clrTrRd" name="Clear Trigger/Interrupt on read" group="Fifo" default="false" visible="`${fifoEn}`" editable="true" desc="Enable for FIFO read clearing the FIFO level trigger and level interrupt" />
     <ParamRange id="level" name="Level" group="Fifo" default="64" min="1" max="`${chain ? (hasBlock(&quot;pass[0].saradc[0].sar[&quot; . (inst + 2) . &quot;]&quot;) ? 
-                                                                                         (hasBlock(&quot;pass[0].saradc[0].sar[&quot; . (inst + 3) . &quot;]&quot;) ? 256 : 192) : 128) : 64}`"
+                                                                                          (hasBlock(&quot;pass[0].saradc[0].sar[&quot; . (inst + 3) . &quot;]&quot;) ? 256 : 192) : 128) : 64}`"
                 resolution="1" visible="`${fifoEn}`" editable="true" desc="A trigger (and optional interrupt) event occurs when the number of FIFO entries overcomes the Level setting" />
     <ParamBool id="trOut" name="Trigger on Level" group="Fifo" default="false" visible="`${fifoEn}`" editable="true" desc="SAR output trigger is set by the FIFO level condition" />
 
@@ -427,13 +427,13 @@
       <DRC type="ERROR" text="The Timer should be enabled to generate SOC trigger signal" condition="`${verGt1 &amp;&amp; soc_en &amp;&amp; trTimer &amp;&amp; !isBlockUsed(&quot;pass[0].timer[0]&quot;)}`" >
         <FixIt action="ENABLE_BLOCK" target="pass[0].timer[0]" value="mxs40timer-1.0" valid="true" />
       </DRC>
-      <DRC type="ERROR" text="The Level value is too high - there are no four FIFOs chained together. Either lower the Level parameter to 191 or include the fourth FIFOs into the chain"
-        condition="`${(level &gt; 191) &amp;&amp; 
+      <DRC type="ERROR" text="The Level value is too high - there are no four FIFOs chained together. Either lower the Level parameter to 192 or include the fourth FIFOs into the chain"
+        condition="`${(level &gt; 192) &amp;&amp; 
           !((hasBlock(instP3Rcs) ? isBlockUsed(instP3Rcs) ? getExposedMember(instP3Rcs, &quot;isChained&quot;) : false : false ) &amp;&amp;
             (hasBlock(instP2Rcs) ? isBlockUsed(instP2Rcs) ? getExposedMember(instP2Rcs, &quot;isChained&quot;) : false : false ) &amp;&amp; 
             (hasBlock(instP2Rcs) ? isBlockUsed(instP1Rcs) ? getExposedMember(instP1Rcs, &quot;isChained&quot;) : false : false ))}`" paramId="level" />
-      <DRC type="ERROR" text="The Level value is too high - there are no three FIFOs chained together. Either lower the Level parameter to 127 or include the third FIFOs into the chain"
-        condition="`${(level &gt; 127) &amp;&amp; (level &lt; 192) &amp;&amp;
+      <DRC type="ERROR" text="The Level value is too high - there are no three FIFOs chained together. Either lower the Level parameter to 128 or include the third FIFOs into the chain"
+        condition="`${(level &gt; 128) &amp;&amp; (level &lt; 192) &amp;&amp;
           !((hasBlock(instP2Rcs) ? isBlockUsed(instP2Rcs) ? getExposedMember(instP2Rcs, &quot;isChained&quot;) : false : false ) &amp;&amp; 
             (hasBlock(instP2Rcs) ? isBlockUsed(instP1Rcs) ? getExposedMember(instP1Rcs, &quot;isChained&quot;) : false : false ))}`" paramId="level" />
       <DRC type="ERROR" text="If interleaved averaging mode is used, the Differential Result Format should be the same as the Single-Ended Result Format." condition="`${(avg_mode eq CY_SAR_AVG_MODE_INTERLEAVED) &amp;&amp; (((diff_format eq CY_SAR_DIFFERENTIAL_UNSIGNED) &amp;&amp; (se_format eq CY_SAR_SINGLE_ENDED_SIGNED)) || ((diff_format eq CY_SAR_DIFFERENTIAL_SIGNED) &amp;&amp; (se_format eq CY_SAR_SINGLE_ENDED_UNSIGNED)))}`" paramId="avg_mode"/>
@@ -544,7 +544,7 @@
       
       <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
         <Member name="type" value="CYHAL_RSC_ADC" />
-        <Member name="block_num" value="`${inst}`" />
+        <Member name="block_num" value="0" />
         <Member name="channel_num" value="0" />
       </ConfigStruct>
       

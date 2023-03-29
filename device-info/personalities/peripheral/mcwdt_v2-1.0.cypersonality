@@ -119,6 +119,7 @@
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="MCWDT`${InstNumber}`" public="true" include="true" />
+    <ConfigDefine name="`${INST_NAME}`_IRQ" value="srss_interrupt_mcwdt_`${InstNumber}`_IRQn" public="true" include="true" />
     <ConfigStruct name="`${INST_NAME . &quot;_config&quot;}`" type="cy_stc_mcwdt_config_t" const="`${inFlash}`" public="true" include="true" >
       <Member name="c0LowerLimit" value="`${C0LowerLimit}`U" />
       <Member name="c0UpperLimit" value="`${C0UpperLimit}`U" />

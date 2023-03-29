@@ -40,7 +40,7 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk.html" linkText="Open SysClk Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
-    <ParamRange id="frequency" name="Frequency (MHz)" group="Internal" default="`${&quot;mxs40ssrss&quot; eq getIpBlockName() ? 48000000 : 50000000}`" min="48000000" max="50000000" resolution="1" visible="false" editable="false" desc="The nominal output frequency" />
+    <ParamRange id="frequency" name="Frequency (MHz)" group="Internal" default="`${&quot;mxs40ssrss&quot; eq getIpBlockName() ? 48000000 : 12000000}`" min="12000000" max="50000000" resolution="1" visible="false" editable="false" desc="The nominal output frequency" />
     <ParamChoice id="accuracy" name="Accuracy" group="Internal" default="1" visible="false" editable="false" desc="The expected accuracy of the output frequency">
       <Entry name="1%" value="1" visible="true" />
       <Entry name="0.25%" value="0.25" visible="true" />

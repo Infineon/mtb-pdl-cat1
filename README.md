@@ -2,7 +2,7 @@
 
 ### Overview
 The Cypress PDL simplifies software development for CAT1 family of devices.
-The PDL integrates device header files, startup code, and 
+The PDL integrates device header files, and 
 peripheral drivers into a single package. The drivers abstract the hardware functions into a set of 
 easy-to-use APIs. These are fully documented in the [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html). 
 

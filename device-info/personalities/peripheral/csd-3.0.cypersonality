@@ -251,7 +251,7 @@
         desc="Pin connection for CSD IdacB Channel"
         visible="`${CsdIdacEnable &amp;&amp; CsdIdacBEnable &amp;&amp; !IdacBbusOnly}`"
         canBeEmpty="`${!(CsdIdacEnable &amp;&amp; CsdIdacBEnable &amp;&amp; !IdacBbusOnly)}`"
-        group="CSDIDAC Channels`" repeatCount="1"/>
+        group="CSDIDAC Channels" repeatCount="1"/>
     </ParamMux>
 
     <Repeat count="256">

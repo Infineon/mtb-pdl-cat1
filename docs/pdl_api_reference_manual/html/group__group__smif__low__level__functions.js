@@ -47,5 +47,9 @@ var group__group__smif__low__level__functions =
     [ "Cy_SMIF_SetCryptoEnable", "group__group__smif__low__level__functions.html#gab65ee303c9b39e383297dae50e1efba1", null ],
     [ "Cy_SMIF_SetCryptoDisable", "group__group__smif__low__level__functions.html#gad5d21a6411e7b0a176394b39d54c6eeb", null ],
     [ "Cy_SMIF_ConvertSlaveSlotToIndex", "group__group__smif__low__level__functions.html#ga5252ac741f6ba0122748d89d907d87f6", null ],
-    [ "Cy_SMIF_SetRxCaptureMode", "group__group__smif__low__level__functions.html#gace72b4bce3960215436d0b60c0cf1ce4", null ]
+    [ "Cy_SMIF_SetRxCaptureMode", "group__group__smif__low__level__functions.html#gace72b4bce3960215436d0b60c0cf1ce4", null ],
+    [ "Cy_SMIF_SetMasterDLP", "group__group__smif__low__level__functions.html#ga6ecd1075db9d75ae45f4eb437dbfed8d", null ],
+    [ "Cy_SMIF_GetMasterDLP", "group__group__smif__low__level__functions.html#ga338f6c1d218cd2093c48254995f6f06b", null ],
+    [ "Cy_SMIF_GetMasterDLPSize", "group__group__smif__low__level__functions.html#ga220136f6a2fe90ea720c3e1577f96421", null ],
+    [ "Cy_SMIF_GetTapNumCapturedCorrectDLP", "group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644", null ]
 ];

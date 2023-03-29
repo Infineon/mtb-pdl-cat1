@@ -994,18 +994,18 @@ void Cy_LPComp_GetTrim(LPCOMP_Type const * base, cy_en_lpcomp_channel_t channel,
     if (CY_LPCOMP_CHANNEL_0 == channel)
     {
         trim->enable =   _FLD2BOOL(LPCOMP_CMP0_OFFSET_TRIM_CMP0_EN,        LPCOMP_CMP0_OFFSET_TRIM(base));
-        CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.3', 2, 'Intentional typecast of uint32_t to enum');
+        CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.3', 2, 'Intentional typecast of uint32_t to enum')
         trim->polarity =  _FLD2VAL(LPCOMP_CMP0_OFFSET_TRIM_CMP0_POLARITY,  LPCOMP_CMP0_OFFSET_TRIM(base));
         trim->magnitude = _FLD2VAL(LPCOMP_CMP0_OFFSET_TRIM_CMP0_MAGNITUDE, LPCOMP_CMP0_OFFSET_TRIM(base));
-        CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.3');
+        CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.3')
     }
     else
     {
         trim->enable =   _FLD2BOOL(LPCOMP_CMP1_OFFSET_TRIM_CMP1_EN,        LPCOMP_CMP1_OFFSET_TRIM(base));
-        CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.3', 2, 'Intentional typecast of uint32_t to enum');
+        CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.3', 2, 'Intentional typecast of uint32_t to enum')
         trim->polarity =  _FLD2VAL(LPCOMP_CMP1_OFFSET_TRIM_CMP1_POLARITY,  LPCOMP_CMP1_OFFSET_TRIM(base));
         trim->magnitude = _FLD2VAL(LPCOMP_CMP1_OFFSET_TRIM_CMP1_MAGNITUDE, LPCOMP_CMP1_OFFSET_TRIM(base));
-        CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.3');
+        CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.3')
     }
 }
 

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ephy.h
-* \version 1.0
+* \version 1.10
 *
 * Provides an API declaration of the Ethernet Generic PHY driver
 *
@@ -55,6 +55,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.10</td>
+*     <td>Updated \ref Cy_EPHY_Configure() function and Added new macros for BMSR register.</td>
+*     <td>Bug fixes and support enhancement for 1Gbps configuration.</td>
+*   </tr>
+*   <tr>
 *     <td>1.0</td>
 *     <td>Initial version</td>
 *     <td></td>
@@ -89,7 +94,7 @@ extern "C" {
 #define CY_EPHY_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_EPHY_DRV_VERSION_MINOR       0
+#define CY_EPHY_DRV_VERSION_MINOR       10
 
 /** EPHY driver ID */
 #define CY_EPHY_ID CY_PDL_DRV_ID(0x70U)
@@ -143,6 +148,12 @@ extern "C" {
 #define PHYBMSR_REMOTE_FAULT_Pos        (4UL)
 #define PHYBMSR_AN_COMPLETE_Msk         (0x0020UL) /**< 1 = Auto-Negotiation process completed. 0 = Auto-Negotiation process not complete. */
 #define PHYBMSR_AN_COMPLETE_Pos         (5UL)
+#define PHYBMSR_EXT_STATUS_Msk          (0x0100UL) /**< 1 = Extended status present in Reg.15  0 = Extended status not present. */
+#define PHYBMSR_EXT_STATUS_Pos          (8UL)
+#define PHYBMSR_100BASE_T2_HD_Msk       (0x0200UL)  /**< 1 = PHY able to perform half duplex 100BASE-T2. 0 = PHY not able to perform half duplex 100BASE-T2. */
+#define PHYBMSR_100BASE_T2_HD_Pos       (9UL)
+#define PHYBMSR_100BASE_T2_FD_Msk       (0x0400UL)  /**< 1 = PHY able to perform full duplex 100BASE-T2. 0 = PHY not able to perform full duplex 100BASE-T2. */
+#define PHYBMSR_100BASE_T2_FD_Pos       (10UL)
 #define PHYBMSR_10BASE_T_HD_Msk         (0x0800UL) /**< 10BASE-T Half Duplex Capable */
 #define PHYBMSR_10BASE_T_HD_Pos         (11UL)
 #define PHYBMSR_10BASE_T_FD_Msk         (0x1000UL) /**< 10BASE-T Full Duplex Capable */

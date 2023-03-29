@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_sema.h
-* \version 1.80
+* \version 1.90
 *
 * \brief
 * Header file for IPC SEM functions
@@ -33,7 +33,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
+#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || (defined (CY_IP_MXIPC) && (CY_IPC_INSTANCES > 1U))
 
 #include "cy_ipc_drv.h"
 #include <stdbool.h>
@@ -141,7 +141,7 @@ uint32_t Cy_IPC_Sema_GetMaxSems(void);
 
 /** \} group_ipc_sema_functions */
 
-#endif /* CY_IP_M4CPUSS  || CY_IP_M7CPUSS*/
+#endif /* CY_IP_M4CPUSS  || CY_IP_M7CPUSS  || (defined (CY_IP_MXIPC) && (CY_IPC_INSTANCES > 1U)) */
 
 #endif /* CY_IPC_SEMA_H  */
 

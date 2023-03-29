@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2018-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -36,8 +36,6 @@
 #include "cy_crypto_server.h"
 #include "cy_dma.h"
 #include "cy_dmac.h"
-#include "cy_ephy.h"
-#include "cy_ethif.h"
 #include "cy_gpio.h"
 #include "cy_sar2.h"
 #include "cy_scb_ezi2c.h"
@@ -62,6 +60,8 @@
 #include "cy_i2s.h"
 #include "cy_pdm_pcm_v2.h"
 #include "cy_rtc.h"
+#include "cy_ephy.h"
+#include "cy_ethif.h"
 #include "cy_evtgen.h"
 #include "cy_ipc_drv.h"
 #include "cy_ipc_pipe.h"

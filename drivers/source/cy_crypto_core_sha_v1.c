@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_sha_v1.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code to the API for the SHA method
@@ -379,41 +379,45 @@ cy_en_crypto_status_t Cy_Crypto_Core_V1_Sha_Update(CRYPTO_Type *base,
 {
     cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
 
+    if(messageSize == 0UL)
+    {
+        return CY_CRYPTO_SUCCESS;
+    }
+
     if ((hashState != NULL) && (message != NULL))
     {
         if (hashState->blockSize != 0U)
         {
+
+            hashState->messageSize += messageSize;
+
+            uint32_t hashBlockIdx  = hashState->blockIdx;
+            uint32_t hashBlockSize = hashState->blockSize;
+
+            /* Processing the fully filled blocks with remaining buffer data */
+            while ((hashBlockIdx + messageSize) >= hashBlockSize)
+            {
+                uint32_t tempBlockSize = hashBlockSize - hashBlockIdx;
+
+                Cy_Crypto_Core_V1_MemCpy(base, (void *)((uint32_t)hashState->block + hashBlockIdx), (void const*)message, (uint16_t)tempBlockSize);
+
+                Cy_Crypto_Core_V1_Sha_ProcessBlock(base, hashState, hashState->block);
+
+                messageSize -= tempBlockSize;
+                message += tempBlockSize;
+
+                hashBlockIdx = 0U;
+            }
+
+            /* The remaining block will be calculated in the Finish function. */
+            hashState->blockIdx = hashBlockIdx + messageSize;
+
+            /* Copy the end of the message to the block */
             if (messageSize != 0U)
             {
-                hashState->messageSize += messageSize;
-
-                uint32_t hashBlockIdx  = hashState->blockIdx;
-                uint32_t hashBlockSize = hashState->blockSize;
-
-                /* Processing the fully filled blocks with remaining buffer data */
-                while ((hashBlockIdx + messageSize) >= hashBlockSize)
-                {
-                    uint32_t tempBlockSize = hashBlockSize - hashBlockIdx;
-
-                    Cy_Crypto_Core_V1_MemCpy(base, (void *)((uint32_t)hashState->block + hashBlockIdx), (void const*)message, (uint16_t)tempBlockSize);
-
-                    Cy_Crypto_Core_V1_Sha_ProcessBlock(base, hashState, hashState->block);
-
-                    messageSize -= tempBlockSize;
-                    message += tempBlockSize;
-
-                    hashBlockIdx = 0U;
-                }
-
-                /* The remaining block will be calculated in the Finish function. */
-                hashState->blockIdx = hashBlockIdx + messageSize;
-
-                /* Copy the end of the message to the block */
-                if (messageSize != 0U)
-                {
-                    Cy_Crypto_Core_V1_MemCpy(base, (void *)((uint32_t)hashState->block + hashBlockIdx), (void const*)message, (uint16_t)messageSize);
-                }
+                Cy_Crypto_Core_V1_MemCpy(base, (void *)((uint32_t)hashState->block + hashBlockIdx), (void const*)message, (uint16_t)messageSize);
             }
+        
 
             tmpResult = CY_CRYPTO_SUCCESS;
         }

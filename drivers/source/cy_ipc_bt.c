@@ -36,7 +36,7 @@
 #include <stdio.h>
 
 CY_MISRA_DEVIATE_BLOCK_START('ARRAY_VS_SINGLETON', 1, \
-'Checked manually. Using pointer as an array will not corrupt or misinterpret adjacent memory locations.');
+'Checked manually. Using pointer as an array will not corrupt or misinterpret adjacent memory locations.')
 
 //#define BTIPC_DBG_L0
 //#define BTIPC_DBG_L1
@@ -1588,5 +1588,5 @@ cy_en_btipcdrv_status_t Cy_bt_PrintStatus (cy_stc_ipc_bt_context_t *btIpcContext
     return CY_BT_IPC_DRV_SUCCESS;
 }
 #endif
-CY_MISRA_BLOCK_END('ARRAY_VS_SINGLETON');
+CY_MISRA_BLOCK_END('ARRAY_VS_SINGLETON')
 #endif

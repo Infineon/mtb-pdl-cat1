@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysfault.h
-* \version 1.0
+* \version 1.10
 *
 * \brief
 * Provides an API declaration of the SysFault driver.
@@ -31,12 +31,12 @@
 * The SysFault driver provides an API to configure the Fault reporting structure.
 * The functions and other declarations used in this driver are in cy_sysfault.h.
 * You can include cy_pdl.h to get access to all functions and declarations in the PDL.
-* This driver is only available for CAT1C devices.
+* This driver is only available for CAT1C, CAT1D devices.
 *
 * The Fault subsystem contains information about faults that occur in the system.
 * The fault subsystem captures only faults and it does not take any action to correct it.
 * The subsystem can cause a reset, give a pulse indication, or trigger another peripheral.
-* CAT1C uses a centralized fault report structure. The centralized nature allows for a
+* CAT1C, CAT1D uses a centralized fault report structure. The centralized nature allows for a
 * system-wide consistent handling of faults, which simplifies software development as
 * follows only a single fault interrupt handler is required. The fault report structure
 * provides the fault source and additional fault-specific information from a single set
@@ -48,7 +48,7 @@
 *
 * Fault IP provides fault report structure. Fault report structures capture faults.
 * The number of fault report structures is specified by a design time configuration
-* parameter (FAULT_NR). In CAT1C there are four instances of fault structures, each fault
+* parameter (FAULT_NR). In CAT1C, CAT1D there are two instances of fault structures, each fault
 * report structure has a dedicated set of MMIO control and status registers and captures
 * a single fault. A fault report structure provides the fault source and additional fault
 * specific information from a single set of MMIO registers. The fault structures capture
@@ -85,6 +85,11 @@
 * \section group_sysfault_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*    <tr>
+*     <td>1.10</td>
+*     <td>Updated macro related to driver enablement for CAT1C without any functional impact</td>
+*     <td>Code Enhancement</td>
+*   </tr>
 *   <tr>
 *     <td>1.0</td>
 *     <td>Initial version</td>
@@ -104,7 +109,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M7CPUSS)
+#if defined(CY_IP_MXS40FAULT) || defined (CY_IP_MXFAULT)
 
 #include "cy_syslib.h"
 #include "cy_device_headers.h"
@@ -127,7 +132,7 @@ extern "C" {
 #define CY_SYSFAULT_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_SYSFAULT_DRV_VERSION_MINOR    0
+#define CY_SYSFAULT_DRV_VERSION_MINOR    10
 
 /** Driver ID */
 #define CY_SYSFAULT_ID CY_PDL_DRV_ID     (0x76U)

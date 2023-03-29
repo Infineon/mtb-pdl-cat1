@@ -159,6 +159,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gae8e864267855dd674d618bba19733ce3"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__counter.html#gae8e864267855dd674d618bba19733ce3">Cy_TCPWM_Counter_EnableCompare1Swap</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32_t cntNum, bool enable)</td></tr>
 <tr class="memdesc:gae8e864267855dd674d618bba19733ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the comparison swap of compare1 and compareBuf1 when the comparison value is true.  <a href="#gae8e864267855dd674d618bba19733ce3">More...</a><br /></td></tr>
 <tr class="separator:gae8e864267855dd674d618bba19733ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2abece06e0b8d5fe890886ad883e7a41"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__counter.html#ga2abece06e0b8d5fe890886ad883e7a41">Cy_TCPWM_Counter_EnableSwap</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32_t cntNum, bool enable)</td></tr>
+<tr class="memdesc:ga2abece06e0b8d5fe890886ad883e7a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT.  <a href="#ga2abece06e0b8d5fe890886ad883e7a41">More...</a><br /></td></tr>
+<tr class="separator:ga2abece06e0b8d5fe890886ad883e7a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga6068a06ddc8a07c67bb6df86e920944c"></a>
@@ -1113,6 +1116,50 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is a need to enable the compare swapping feature for</span></div><div class="line"><span class="comment">     * the first (index = 256) counter of Group 1 of TCPWM0 block.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_GRP1_CNT0_NUM   (256UL)</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__tcpwm__functions__counter.html#gae8e864267855dd674d618bba19733ce3">Cy_TCPWM_Counter_EnableCompare1Swap</a>(TCPWM0, MY_TCPWM_GRP1_CNT0_NUM, <span class="keyword">true</span>);</div><div class="line">    <span class="comment">/* Now the Compare1Val and Compare1BufVal values can be swapped using Cy_TCPWM_TriggerCapture1 */</span></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga2abece06e0b8d5fe890886ad883e7a41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2abece06e0b8d5fe890886ad883e7a41">&#9670;&nbsp;</a></span>Cy_TCPWM_Counter_EnableSwap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_TCPWM_Counter_EnableSwap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>cntNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a TCPWM instance.</td></tr>
+    <tr><td class="paramname">cntNum</td><td>The Counter instance number in the selected TCPWM.</td></tr>
+    <tr><td class="paramname">enable</td><td>true = swap enabled; false = swap disabled </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

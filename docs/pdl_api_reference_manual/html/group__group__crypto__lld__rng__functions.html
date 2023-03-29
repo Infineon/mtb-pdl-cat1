@@ -96,6 +96,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ga612915c3ba5d4148960c2454e9418d55"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__rng__functions.html#ga612915c3ba5d4148960c2454e9418d55">Cy_Crypto_Core_Prng</a> (CRYPTO_Type *base, uint32_t max, uint32_t *randomNum)</td></tr>
 <tr class="memdesc:ga612915c3ba5d4148960c2454e9418d55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a Pseudo Random Number.  <a href="#ga612915c3ba5d4148960c2454e9418d55">More...</a><br /></td></tr>
 <tr class="separator:ga612915c3ba5d4148960c2454e9418d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga932cb553e263239ea301064704224042"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__rng__functions.html#ga932cb553e263239ea301064704224042">Cy_Crypto_Core_Trng_Init</a> (CRYPTO_Type *base, <a class="el" href="structcy__stc__crypto__trng__config__t.html">cy_stc_crypto_trng_config_t</a> *config)</td></tr>
+<tr class="memdesc:ga932cb553e263239ea301064704224042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the TRNG hardware submodule.  <a href="#ga932cb553e263239ea301064704224042">More...</a><br /></td></tr>
+<tr class="separator:ga932cb553e263239ea301064704224042"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8af6d05b8e2805a2228e263f4f4f4bf8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__rng__functions.html#ga8af6d05b8e2805a2228e263f4f4f4bf8">Cy_Crypto_Core_Trng_DeInit</a> (CRYPTO_Type *base)</td></tr>
+<tr class="memdesc:ga8af6d05b8e2805a2228e263f4f4f4bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all TRNG registers by setting it to hardware default values.  <a href="#ga8af6d05b8e2805a2228e263f4f4f4bf8">More...</a><br /></td></tr>
+<tr class="separator:ga8af6d05b8e2805a2228e263f4f4f4bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0656d4596d1f6ddc7babd8a716176bc8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__rng__functions.html#ga0656d4596d1f6ddc7babd8a716176bc8">Cy_Crypto_Core_Trng_Start</a> (CRYPTO_Type *base, uint32_t dataSize)</td></tr>
+<tr class="memdesc:ga0656d4596d1f6ddc7babd8a716176bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a random number generation.  <a href="#ga0656d4596d1f6ddc7babd8a716176bc8">More...</a><br /></td></tr>
+<tr class="separator:ga0656d4596d1f6ddc7babd8a716176bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga72a81a52665ed7404d9c4e3ed3036b80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__rng__functions.html#ga72a81a52665ed7404d9c4e3ed3036b80">Cy_Crypto_Core_Trng_ReadData</a> (CRYPTO_Type *base, uint32_t *randomData)</td></tr>
+<tr class="memdesc:ga72a81a52665ed7404d9c4e3ed3036b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads in blocking mode a generated random number.  <a href="#ga72a81a52665ed7404d9c4e3ed3036b80">More...</a><br /></td></tr>
+<tr class="separator:ga72a81a52665ed7404d9c4e3ed3036b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab80f93878b181bb72bc0adf31b7eda15"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__rng__functions.html#gab80f93878b181bb72bc0adf31b7eda15">Cy_Crypto_Core_Trng</a> (CRYPTO_Type *base, uint32_t GAROPol, uint32_t FIROPol, uint32_t max, uint32_t *randomNum)</td></tr>
 <tr class="memdesc:gab80f93878b181bb72bc0adf31b7eda15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a True Random Number.  <a href="#gab80f93878b181bb72bc0adf31b7eda15">More...</a><br /></td></tr>
 <tr class="separator:gab80f93878b181bb72bc0adf31b7eda15"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,6 +210,154 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Initialization seed values for Pseudo Random Generator */</span></div><div class="line"><span class="preprocessor">    #define LFSR32_INITSTATE      (0xd8959bc9)</span></div><div class="line"><span class="preprocessor">    #define LFSR31_INITSTATE      (0x2bb911f8)</span></div><div class="line"><span class="preprocessor">    #define LFSR29_INITSTATE      (0x060c31b7)</span></div><div class="line"></div><div class="line"><span class="preprocessor">    #define MAX_PRNG_VALUE        (255UL)</span></div><div class="line"></div><div class="line">    <span class="comment">/* Generated Random Number */</span></div><div class="line">    uint32_t rndNum = 0;</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line">    <span class="comment">/* Initialize Pseudo Random Generator */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__rng__functions.html#ga2ed2909fd8b7fe5cba913e3154759b89">Cy_Crypto_Core_Prng_Init</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             LFSR32_INITSTATE,   <span class="comment">/* Seed value for first LFSR */</span></div><div class="line">                             LFSR31_INITSTATE,  <span class="comment">/* Seed value for second LFSR */</span></div><div class="line">                             LFSR29_INITSTATE);  <span class="comment">/* Seed value for third LFSR */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Generate a Pseudo Random number in specified range */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__rng__functions.html#ga612915c3ba5d4148960c2454e9418d55">Cy_Crypto_Core_Prng</a>(</div><div class="line">                             CRYPTO_HW,</div><div class="line">                             MAX_PRNG_VALUE,       <span class="comment">/* Range of random number */</span></div><div class="line">                             &amp;rndNum); <span class="comment">/* Pointer to generated random number */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga932cb553e263239ea301064704224042"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga932cb553e263239ea301064704224042">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Trng_Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Crypto_Core_Trng_Init </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__trng__config__t.html">cy_stc_crypto_trng_config_t</a> *&#160;</td>
+          <td class="paramname"><em>config</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the TRNG hardware submodule. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>If the TRNG submodule is initialized previously, the <a class="el" href="group__group__crypto__lld__rng__functions.html#ga8af6d05b8e2805a2228e263f4f4f4bf8">Cy_Crypto_Core_Trng_DeInit()</a> must be called before calling this function.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">config</td><td>The pointer to the configuration structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga8af6d05b8e2805a2228e263f4f4f4bf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8af6d05b8e2805a2228e263f4f4f4bf8">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Trng_DeInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Crypto_Core_Trng_DeInit </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears all TRNG registers by setting it to hardware default values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Clears all TRNG registers by setting it to hardware default values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga0656d4596d1f6ddc7babd8a716176bc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0656d4596d1f6ddc7babd8a716176bc8">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Trng_Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Trng_Start </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>dataSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts a random number generation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">dataSize</td><td>The maximum length of a random number, in the range [0, 32] bits.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The error / status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga72a81a52665ed7404d9c4e3ed3036b80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga72a81a52665ed7404d9c4e3ed3036b80">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Trng_ReadData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Trng_ReadData </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>randomData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads in blocking mode a generated random number. </p>
+<dl class="section note"><dt>Note</dt><dd>Call this API only after <a class="el" href="group__group__crypto__lld__rng__functions.html#ga0656d4596d1f6ddc7babd8a716176bc8" title="Starts a random number generation. ">Cy_Crypto_Core_Trng_Start()</a> is successful.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">randomData</td><td>The pointer to a generated true random number. Must be 4-byte aligned.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The error / status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
 
 </div>
 </div>

@@ -46,7 +46,7 @@
     <ParamBool id="srcNotUsed" name="Clock Source Enabled" group="Internal" default="`${!isBlockUsed(sourceClockRsc)}`" visible="false" editable="false" desc="" />
     <ParamBool id="error" name="Clock Error" group="Internal" default="`${srcNotUsed || getExposedMember(sourceClockRsc, &quot;error&quot;)}`" visible="false" editable="false" desc="" />
     <!-- Use default values in case of error -->
-    <ParamRange id="sourceFreq" name="sourceFrequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="150000000" resolution="1" visible="false" editable="false" desc="" />
+    <ParamRange id="sourceFreq" name="sourceFrequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="`${((&quot;mxs40srss_ver3&quot; eq getIpBlockName()) ? 200000000 : 150000000)}`" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="accuracy"  name="Accuracy"  group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;accuracy&quot;) : 0}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceFrequencyInfo" name="Source Clock" group="General" default="CLK_HF0 (`${formatFrequency(sourceFreq,accuracy)}`)" visible="true" editable="false" desc="Source clock frequency" />
 

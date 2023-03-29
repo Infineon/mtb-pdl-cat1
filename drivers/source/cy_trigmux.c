@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_trigmux.c
-* \version 1.50
+* \version 1.60
 *
 * \brief Trigger mux API.
 *
@@ -29,7 +29,7 @@
 #include "cy_trigmux.h"
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 4, \
-'CY_PERI_V1 is not available for CAT1B devices.');
+'CY_PERI_V1 is not available for CAT1B devices.')
 
 #define CY_TRIGMUX_IS_TRIGTYPE_VALID(trigType)  (((trigType) == TRIGGER_TYPE_EDGE) || \
                                                  ((trigType) == TRIGGER_TYPE_LEVEL))
@@ -41,10 +41,18 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 4, \
 #define CY_TRIGMUX_IS_CYCLES_VALID(cycles)      ((CY_PERI_V1 && CY_TRIGMUX_V1_IS_CYCLES_VALID(cycles)) || \
                                                                 CY_TRIGMUX_V2_IS_CYCLES_VALID(cycles))
 
+# if defined (CY_IP_MXSPERI) && (CY_IP_MXSPERI_INSTANCES == 2)
+#define CY_TRIGMUX_INTRIG_MASK                  (PERI_TR_CMD_GROUP_SEL_Msk | PERI_TR_GR_TR_OUT_CTL_TR_SEL_Msk | PERI_INSTANCE_1_IDENT_Msk)
+#else
 #define CY_TRIGMUX_INTRIG_MASK                  (PERI_TR_CMD_GROUP_SEL_Msk | PERI_TR_GR_TR_OUT_CTL_TR_SEL_Msk)
+#endif /* (CY_IP_MXSPERI) && (CY_IP_MXSPERI_INSTANCES==2) */
 #define CY_TRIGMUX_IS_INTRIG_VALID(inTrg)       (0UL == ((inTrg) & (uint32_t)~CY_TRIGMUX_INTRIG_MASK))
 
+# if defined (CY_IP_MXSPERI) && (CY_IP_MXSPERI_INSTANCES == 2)
+#define CY_TRIGMUX_OUTTRIG_MASK                 (PERI_TR_CMD_OUT_SEL_Msk | PERI_TR_CMD_GROUP_SEL_Msk | CY_PERI_TR_CTL_SEL_Msk | PERI_INSTANCE_1_IDENT_Msk)
+#else
 #define CY_TRIGMUX_OUTTRIG_MASK                 (PERI_TR_CMD_OUT_SEL_Msk | PERI_TR_CMD_GROUP_SEL_Msk | CY_PERI_TR_CTL_SEL_Msk)
+#endif /* (CY_IP_MXSPERI) && (CY_IP_MXSPERI_INSTANCES==2) */
 #define CY_TRIGMUX_IS_OUTTRIG_VALID(outTrg)     ((0UL == ((outTrg) & (uint32_t)~CY_TRIGMUX_OUTTRIG_MASK)) && \
                                                  (0UL != ((outTrg) & PERI_TR_CMD_OUT_SEL_Msk)))
 
@@ -61,7 +69,11 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 4, \
                                                  (0UL != ((oneTrg) & (PERI_V2_TR_CMD_GROUP_SEL_Msk & (uint32_t)~PERI_TR_CMD_GROUP_SEL_Msk))))
 #endif
 
+# if defined (CY_IP_MXSPERI) && (CY_IP_MXSPERI_INSTANCES == 2U)
+#define CY_TRIGMUX_TRIGLINE_MASK                (PERI_TR_CMD_OUT_SEL_Msk | CY_PERI_TR_CMD_GROUP_SEL_Msk | CY_PERI_TR_CTL_SEL_Msk | PERI_INSTANCE_1_IDENT_Msk)
+#else
 #define CY_TRIGMUX_TRIGLINE_MASK                (PERI_TR_CMD_OUT_SEL_Msk | CY_PERI_TR_CMD_GROUP_SEL_Msk | CY_PERI_TR_CTL_SEL_Msk)
+#endif /* (CY_IP_MXSPERI) && (CY_IP_MXSPERI_INSTANCES == 2U) */
 #define CY_TRIGMUX_IS_TRIGLINE_VALID(trgLn)     (0U == ((trgLn) & (uint32_t)~CY_TRIGMUX_TRIGLINE_MASK))
 
 #define CY_TRIGMUX_TR_CTL(outTrig)              (PERI_TR_GR_TR_CTL(_FLD2VAL(CY_PERI_TR_CMD_GROUP_SEL, outTrig), \
@@ -366,7 +378,18 @@ cy_en_trigmux_status_t Cy_TrigMux_SwTrigger(uint32_t trigLine, uint32_t cycles)
             }
             else if (CY_TRIGGER_TWO_CYCLES == cycles) /* mxperi_v2 or later, 2 cycles pulse */
             {
+#if defined(CY_IP_MXSPERI_INSTANCES) && (CY_IP_MXSPERI_INSTANCES == 2U)
+                if (trigLine & PERI_INSTANCE_1_IDENT_Msk)
+                {
+                    PERI1_TR_CMD = trCmd | PERI_V2_TR_CMD_TR_EDGE_Msk;
+                }
+                else
+                {
+                    PERI_TR_CMD = trCmd | PERI_V2_TR_CMD_TR_EDGE_Msk;
+                }
+#else
                 PERI_TR_CMD = trCmd | PERI_V2_TR_CMD_TR_EDGE_Msk;
+#endif
             }
             else if (CY_TRIGGER_INFINITE == cycles) /* mxperi_v2 or later, infinite activating */
             {
@@ -392,7 +415,7 @@ cy_en_trigmux_status_t Cy_TrigMux_SwTrigger(uint32_t trigLine, uint32_t cycles)
     return retVal;
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3')
 
 #endif /* CY_IP_MXSPERI, CY_IP_MXPERI */
 

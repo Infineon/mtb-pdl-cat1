@@ -31,12 +31,12 @@
 #include "cy_rtc.h"
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 2.2', 3, \
-'The unused code due to weak implementation can be overwritten further and then interrupt handler can call it.');
+'The unused code due to weak implementation can be overwritten further and then interrupt handler can call it.')
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (CY_IP_MXS40SRSS_RTC_VERSION >= 3)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS_RTC_VERSION) && (CY_IP_MXS40SRSS_RTC_VERSION >= 3))
 #define CONVERT_BCD_TO_DEC(bcdNum) (bcdNum)
 #define CONVERT_DEC_TO_BCD(decNum) (decNum)
 #else
@@ -1595,7 +1595,7 @@ cy_en_rtc_status_t Cy_RTC_CalibrationControlEnable(uint8_t calib_val, cy_en_rtc_
         BACKUP_CAL_CTL =
         _VAL2FLD(BACKUP_CAL_CTL_CALIB_VAL, calib_val)  |
         _VAL2FLD(BACKUP_CAL_CTL_CALIB_SIGN, (uint32_t)calib_sign) |
-#if defined (CY_IP_MXS40SSRSS) || (CY_IP_MXS40SRSS_RTC_VERSION >= 2)
+#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS_RTC_VERSION) && (CY_IP_MXS40SRSS_RTC_VERSION >= 2))
         _VAL2FLD(BACKUP_CAL_CTL_CAL_SEL, (uint32_t)calib_sel) |
 #endif
         _VAL2FLD(BACKUP_CAL_CTL_CAL_OUT, 1U);
@@ -1893,7 +1893,7 @@ static uint32_t RelativeToFixed(cy_stc_rtc_dst_format_t const *convertDst)
 }
 #endif
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 2.2');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 2.2')
 #endif /* CY_IP_MXS40SRSS_RTC, CY_IP_MXS28SRSS, CY_IP_MXS40SSRSS */
 
 /* [] END OF FILE */

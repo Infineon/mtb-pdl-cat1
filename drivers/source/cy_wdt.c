@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_wdt.c
-* \version 1.50
+* \version 1.60
 *
 *  This file provides the source code to the API for the WDT driver.
 *

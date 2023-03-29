@@ -37,6 +37,21 @@ const cy_stc_device_t* cy_device;
 /* Platform and peripheral block configuration */
 const cy_stc_device_t cy_deviceIpBlockCfg ;
 
+const uint32_t IPC_CHANNELS_NR[CY_IPC_INSTANCES] =
+{
+    CY_IPC_IP0_CH,
+};
+
+const uint32_t IPC_IRQ_NR[CY_IPC_INSTANCES] =
+{
+    CY_IPC_IP0_INT,
+};
+
+const uint32_t IPC_BASE_PTR[CY_IPC_INSTANCES] =
+{
+    IPC_BASE,
+};
+
 /******************************************************************************
 * Function Name: Cy_PDL_Init
 ****************************************************************************//**

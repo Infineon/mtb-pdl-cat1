@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_sysint.c
-* \version 1.80
+* \version 1.90 
 *
 * \brief
 * Provides an API implementation of the SysInt driver.
@@ -30,8 +30,10 @@
 
 #include "cy_sysint.h"
 
-#ifndef CY_PDL_TZ_ENABLED
-static uint32_t *__ns_vector_table_rw_ptr = (uint32_t*)&__ns_vector_table_rw;
+#if (CY_CPU_CORTEX_M0P) || defined(CY_PDL_TZ_ENABLED)
+static uint32_t *__vector_table_rw_ptr = (uint32_t*)&__s_vector_table_rw;
+#else
+static uint32_t *__vector_table_rw_ptr = (uint32_t*)&__ns_vector_table_rw;
 #endif
 
 #if ((defined(CY_CPU_CORTEX_M0P) && (CY_CPU_CORTEX_M0P)) && !defined(CY_IP_M0SECCPUSS))
@@ -82,13 +84,10 @@ cy_en_sysint_status_t Cy_SysInt_Init(const cy_stc_sysint_t* config, cy_israddres
     if(NULL != config)
     {
         CY_ASSERT_L3(CY_SYSINT_IS_PRIORITY_VALID(config->intrPriority));
-        
+
         NVIC_SetPriority(config->intrSrc, config->intrPriority);
-#ifdef CY_PDL_TZ_ENABLED
-        if (SCB->VTOR == (uint32_t)__s_vector_table)
-#else        
-        if (SCB->VTOR == (uint32_t)__ns_vector_table_rw_ptr)
-#endif
+
+        if (SCB->VTOR == (uint32_t)__vector_table_rw_ptr)
         {
             (void)Cy_SysInt_SetVector(config->intrSrc, userIsr);
         }
@@ -97,58 +96,42 @@ cy_en_sysint_status_t Cy_SysInt_Init(const cy_stc_sysint_t* config, cy_israddres
     {
         status = CY_SYSINT_BAD_PARAM;
     }
-    
+
     return(status);
 }
 
-
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.1', 2, \
+'IRQn of essential type enum is used as an operand to the arithmetic operator +')
 cy_israddress Cy_SysInt_SetVector(IRQn_Type IRQn, cy_israddress userIsr)
 {
     cy_israddress prevIsr;
-#ifdef CY_PDL_TZ_ENABLED
-    uint32_t *ptr;
-    if (SCB->VTOR == (uint32_t)__s_vector_table)
+
+    if (SCB->VTOR == (uint32_t)__vector_table_rw_ptr)
     {
         CY_ASSERT_L1(CY_SYSINT_IS_VECTOR_VALID(userIsr));
-        prevIsr = (cy_israddress)__s_vector_table[CY_INT_IRQ_BASE + IRQn];
-        ptr = (uint32_t*)&__s_vector_table[CY_INT_IRQ_BASE + IRQn];
-        *ptr = (uint32_t) userIsr;
+        CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.4','left hand operand 16U is not the same as that of the right operand IRQn(enum)');
+        prevIsr = (cy_israddress)__vector_table_rw_ptr[CY_INT_IRQ_BASE + (uint32_t)IRQn];
+        __vector_table_rw_ptr[CY_INT_IRQ_BASE + (uint32_t)IRQn] = (uint32_t)userIsr;
     }
-#else
-    if (SCB->VTOR == (uint32_t)__ns_vector_table_rw_ptr)
-    {
-        CY_ASSERT_L1(CY_SYSINT_IS_VECTOR_VALID(userIsr));
-        prevIsr = (cy_israddress)__ns_vector_table_rw_ptr[CY_INT_IRQ_BASE + (uint32_t)IRQn];
-        __ns_vector_table_rw_ptr[CY_INT_IRQ_BASE + (uint32_t)IRQn] = (uint32_t)userIsr;
-    }
-#endif
     else
     {
-        /* vector table is always loaded to non secure SRAM, so there is no need to return 
+        /* vector table is always loaded to non secure SRAM, so there is no need to return
         the non-secure ROM vector */
         prevIsr = NULL;
     }
 
     return (prevIsr);
 }
-
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.1')
 
 cy_israddress Cy_SysInt_GetVector(IRQn_Type IRQn)
 {
     cy_israddress currIsr;
-    
-#ifdef CY_PDL_TZ_ENABLED
-    /* Return the SRAM ISR address only if it was moved to __ramVectors */
-    if (SCB->VTOR == (uint32_t)__s_vector_table)
+
+    if (SCB->VTOR == (uint32_t)__vector_table_rw_ptr)
     {
-        currIsr = (cy_israddress)__s_vector_table[CY_INT_IRQ_BASE + (uint32_t)IRQn];
+        currIsr = (cy_israddress)__vector_table_rw_ptr[CY_INT_IRQ_BASE + (uint32_t)IRQn];
     }
-#else
-    if (SCB->VTOR == (uint32_t)__ns_vector_table_rw_ptr)
-    {
-        currIsr = (cy_israddress)__ns_vector_table_rw_ptr[CY_INT_IRQ_BASE + (uint32_t)IRQn];
-    }
-#endif    
     else
     {
         /* vector table is always loaded to non-secure SRAM, so there is no need to return

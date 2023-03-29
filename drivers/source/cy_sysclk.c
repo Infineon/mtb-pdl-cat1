@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.c
-* \version 3.50
+* \version 3.60
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -33,9 +33,9 @@
 
 #if defined (CY_DEVICE_SECURE)
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 17.2', 24, \
-'Checked manually. All the recursive cycles are handled properly.');
+'Checked manually. All the recursive cycles are handled properly.')
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 18.6', 6, \
-'Checked manually. Assignment of Local to global variable does not create any issue.');
+'Checked manually. Assignment of Local to global variable does not create any issue.')
 #endif
 
 cy_en_sysclk_status_t
@@ -2860,8 +2860,8 @@ uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath)
 }
 
 #if defined (CY_DEVICE_SECURE)
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2');
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.6');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2')
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.6')
 #endif
 
 #endif

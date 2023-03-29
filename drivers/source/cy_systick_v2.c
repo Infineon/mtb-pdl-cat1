@@ -137,7 +137,7 @@ void Cy_SysTick_SetClockSource(cy_en_systick_clock_source_t clockSource)
     }
     else
     {
-#ifdef CY_PDL_TZ_ENABLEDs
+#ifdef CY_PDL_TZ_ENABLED
         CPUSS_SYSTICK_S_CTL = _VAL2FLD(CPUSS_SYSTICK_S_CTL_CLOCK_SOURCE, (uint32_t) clockSource);
 #else
         CPUSS_SYSTICK_NS_CTL = _VAL2FLD(CPUSS_SYSTICK_NS_CTL_CLOCK_SOURCE, (uint32_t) clockSource);

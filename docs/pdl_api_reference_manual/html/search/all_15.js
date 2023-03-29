@@ -1,6 +1,7 @@
 var searchData=
 [
   ['vector_20unit_20_28vu_29',['Vector Unit (VU)',['../group__group__crypto__lld__vu.html',1,'']]],
+  ['vector_20unit_20_28vu_29',['Vector Unit (VU)',['../group__group__cryptolite__lld__vu.html',1,'']]],
   ['voltage_20trip_20mode',['Voltage trip mode',['../group__group__gpio__vtrip.html',1,'']]],
   ['voltage_20trip_20automotive_20compatible_20mode',['Voltage trip automotive compatible mode',['../group__group__gpio__vtrip__auto.html',1,'']]],
   ['vaddr',['vAddr',['../structcy__stc__ethif__buff__addr__t.html#af715c8256cf20ae100d9a5ced2544f38',1,'cy_stc_ethif_buff_addr_t']]],

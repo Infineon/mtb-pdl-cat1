@@ -17,5 +17,6 @@ var group__group__tcpwm__input__selection =
     [ "CY_TCPWM_INPUT_TRIG_12", "group__group__tcpwm__input__selection.html#gaebe56546700f098c04c3b7540bb4b039", null ],
     [ "CY_TCPWM_INPUT_TRIG_13", "group__group__tcpwm__input__selection.html#gab72f09ee77ffc56587d3ad52e421cbb8", null ],
     [ "CY_TCPWM_INPUT_TRIG", "group__group__tcpwm__input__selection.html#ga3eae2f9a75c2a13503c7c7f58503a1d9", null ],
+    [ "CY_TCPWM_INPUT_TRIG_WITH_INST", "group__group__tcpwm__input__selection.html#ga15e94cf62ecc35aa76894c61c3d3aa6c", null ],
     [ "CY_TCPWM_INPUT_CREATOR", "group__group__tcpwm__input__selection.html#gab72d2611582663c0cad83e2dc87daf81", null ]
 ];

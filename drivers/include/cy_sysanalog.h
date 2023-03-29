@@ -269,7 +269,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 19, \
-'PASS_Type will typecast to either PASS_V1_Type or PASS_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'PASS_Type will typecast to either PASS_V1_Type or PASS_V2_Type but not both on PDL initialization based on the target device at compile time.')
 
 /** \addtogroup group_sysanalog_macros
 * \{
@@ -946,7 +946,7 @@ __STATIC_INLINE uint32_t Cy_SysAnalog_TimerGetPeriod(const PASS_Type * base)
 /** \} */
 
 /** \} group_sysanalog_functions */
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
 #if defined(__cplusplus)
 }

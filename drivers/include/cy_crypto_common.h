@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_common.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides common constants and parameters
@@ -49,7 +49,7 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         70
+#define CY_CRYPTO_DRV_VERSION_MINOR         60
 
 
 /* Enable SHA functionality */
@@ -71,6 +71,10 @@ extern "C" {
 
 #if !defined(CPUSS_CRYPTO_CHACHA) && defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
 #define CPUSS_CRYPTO_CHACHA (0)
+#endif
+
+#if !defined(CPUSS_CRYPTO_GCM) && defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+#define CPUSS_CRYPTO_GCM (0)
 #endif
 
 /** \cond INTERNAL */
@@ -129,6 +133,9 @@ extern "C" {
 
 /** Defines size of the AES block, in four-byte words */
 #define CY_CRYPTO_AES_BLOCK_SIZE_U32      (uint32_t)(CY_CRYPTO_AES_BLOCK_SIZE / 4UL)
+
+/** Defines the Crypto AES GCM IV size (in bytes) */
+#define CY_CRYPTO_AES_GCM_IV_SIZE          (12u)
 
 #endif /* defined(CY_CRYPTO_CFG_AES_C) */
 
@@ -508,7 +515,7 @@ typedef enum
     /** The Crypto operation parameters are incorrect. */
     CY_CRYPTO_BAD_PARAMS          = CY_CRYPTO_ID | CY_PDL_STATUS_ERROR   | 0x0Bu,
 
-    /** The key for the DES method is weak. */
+    /** TRNG generated is not a healthy random number. */
     CY_CRYPTO_TRNG_UNHEALTHY      = CY_CRYPTO_ID | CY_PDL_STATUS_WARNING | 0x0Cu
 
 } cy_en_crypto_status_t;
@@ -694,6 +701,66 @@ typedef struct
 } cy_stc_crypto_aes_state_t;
 #endif /* (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_AES_C) */
 
+#if (CPUSS_CRYPTO_GCM == 1u) && defined(CY_CRYPTO_CFG_GCM_C)
+
+/** The structure for storing the AES GCM state.
+* All fields for this structure are internal. Firmware never reads or
+* writes these values. Firmware allocates the structure and provides the
+* address of the structure to the driver in the function calls. Firmware must
+* ensure that the defined instance of this structure remains in scope
+* while the drive is in use.
+*/
+
+/* The structure to define used memory buffers */
+typedef struct
+{
+    /** \cond INTERNAL */
+    /** AES ECB buffer */
+    cy_stc_crypto_aes_buffers_t aes_buffer;
+    /** AES GCM Hash Subkey */
+    uint8_t  h[CY_CRYPTO_AES_BLOCK_SIZE];  
+    /** AES GCM Initial Counter BLock*/               
+    uint8_t  icb[CY_CRYPTO_AES_BLOCK_SIZE];
+    /** AES GCM Counter Block */
+    uint8_t  cb[CY_CRYPTO_AES_BLOCK_SIZE];     
+    /** AES GCM Ghash buffer Block */                           
+    uint8_t  y[CY_CRYPTO_AES_BLOCK_SIZE];   
+    /** AES GCM temp buffer for AAD data */                           
+    uint8_t  temp[CY_CRYPTO_AES_BLOCK_SIZE]; 
+    /** AES GCM aes data buffer*/                           
+    uint8_t  aes_data[CY_CRYPTO_AES_BLOCK_SIZE]; 
+    /** \endcond */
+} cy_stc_crypto_aes_gcm_buffers_t;
+
+typedef struct cy_stc_crypto_aes_gcm_state
+{
+    /** \cond INTERNAL */
+    /** AES GCM hash key pointer */
+    uint8_t *h;  
+    /**AES GCM Initial Counter block */
+    uint8_t *icb;
+    /** AES GCM Counter block */
+    uint8_t *cb; 
+    /** Pointer to ghash buffer */                               
+    uint8_t *y; 
+    /** pointer to temp buffer*/  
+    uint8_t *temp; 
+    /**Pointer to hold the last AES block*/
+    uint8_t *aes_data; 
+    /** AES GCM total data processed*/
+    uint32_t data_size; 
+    /** AES GCM total AAD data processed*/                      
+    uint32_t aad_size;
+    /**Mode of the AES GCM operation */
+    cy_en_crypto_dir_mode_t mode;
+    /**Pointer to the AES buffer*/
+    cy_stc_crypto_aes_buffers_t *aes_buffer;
+    /**AES state*/
+    cy_stc_crypto_aes_state_t  aesState;    
+    /** \endcond */                    
+} cy_stc_crypto_aes_gcm_state_t;
+
+#endif /* (CPUSS_CRYPTO_GCM == 1) && defined(CY_CRYPTO_CFG_GCM_C)*/
 #if (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_SHA_C)
 
 /** The structure for storing the SHA state.
@@ -983,8 +1050,8 @@ typedef enum
     /** "Selection of the ring oscillator (RO) source: */
     CY_CRYPTO_TR_SRC_RO11 = 0,  /**< "0": fixed RO 11 bit. */
     CY_CRYPTO_TR_SRC_RO15,      /**< "1": fixed RO 15 bit. */
-    CY_CRYPTO_TR_SRC_GARO15,    /**< "2": fixed Galois RO 15 bit. */
-    CY_CRYPTO_TR_SRC_GARO31,    /**< "3": flexible Galois RO 31 bit. */
+    CY_CRYPTO_TR_SRC_GARO15,    /**< "2": fixed Galouis RO 15 bit. */
+    CY_CRYPTO_TR_SRC_GARO31,    /**< "3": flexible Galouis RO 31 bit. */
     CY_CRYPTO_TR_SRC_FIRO15,    /**< "4": fixed Fibonacci RO 15 bit. */
     CY_CRYPTO_TR_SRC_FIRO31     /**< "5": flexible Fibonacci RO 31 bit. */
 } cy_en_crypto_trng_ro_sel_t;
@@ -1366,6 +1433,13 @@ typedef struct
     uint8_t round;
     /** \endcond */
 } cy_stc_crypto_chacha_state_t;
+
+#endif
+
+#if (CPUSS_CRYPTO_VU == 1) && defined(CY_CRYPTO_CFG_POLY1305_ENABLED)
+
+/** Defines the poly1305 block size (in bytes) */
+#define CY_CRYPTO_POLY1305_BLOCK_SIZE         (16u)
 
 #endif
 

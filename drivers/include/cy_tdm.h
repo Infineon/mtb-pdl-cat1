@@ -169,10 +169,10 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 14, \
-'Checked manually, passed true or false in _BOOL2FLD for appropriate functionality.');
+'Checked manually, passed true or false in _BOOL2FLD for appropriate functionality.')
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.1', 14, \
-'Checked manually, passed true or false in _BOOL2FLD for appropriate functionality.');
+'Checked manually, passed true or false in _BOOL2FLD for appropriate functionality.')
 
 /******************************************************************************
  * Macro definitions                                                          *
@@ -1086,6 +1086,7 @@ __STATIC_INLINE void Cy_AudioTDM_ClearTxInterrupt( TDM_TX_STRUCT_Type * base, ui
     CY_ASSERT_L2(CY_I2S_TDM_INTR_TX_MASK_VALID(interrupt));
 
     TDM_STRUCT_TX_INTR_TX(base) = interrupt;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) TDM_STRUCT_TX_INTR_TX(base);
 }
 
@@ -1202,6 +1203,7 @@ __STATIC_INLINE void Cy_AudioTDM_ClearRxInterrupt( TDM_RX_STRUCT_Type * base, ui
     CY_ASSERT_L2(CY_I2S_TDM_INTR_RX_MASK_VALID(interrupt));
 
     TDM_STRUCT_RX_INTR_RX(base) = interrupt;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) TDM_STRUCT_RX_INTR_RX(base);
 
 }
@@ -1314,9 +1316,9 @@ __STATIC_INLINE void Cy_AudioTDM_ClearRxTriggerInterruptMask( TDM_RX_STRUCT_Type
 
 /** \} group_tdm */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.1');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.1')
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3')
 
 #endif /* CY_IP_MXTDM */
 /* [] END OF FILE */

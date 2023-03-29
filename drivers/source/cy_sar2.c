@@ -19,7 +19,7 @@
 #if defined (CY_IP_MXS40EPASS_ESAR)
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 6, \
-'Checked manually. Type cast to int8_t made intentionally.');
+'Checked manually. Type cast to int8_t made intentionally.')
 
 #define GET_SFLASH_VALUE(x)                     CY_GET_REG16(x)
 #define GET_TRIM_VALUE(x)                       (GET_SFLASH_VALUE(x) & 0xFFFFu)
@@ -899,10 +899,10 @@ double Cy_SAR2_CalculateDieTemperature(cy_en_sar2_vdda_range_t VDDARange, uint16
         
         /* Calculate the predicted temperature */
         bSqrMin4ac = (double) ( pow(coeffB, 2.0)) - (((4.0)*(coeffA))*(coeffC - tempScaleValue));
-        CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.3', 2, 'Intentional typecast of bSqrMin4ac to uint32_t ');
+        CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.3', 2, 'Intentional typecast of bSqrMin4ac to uint32_t ')
         tempRootNeg = ((-coeffB)-((double)sqrtf(bSqrMin4ac))) / ((2.0)*(coeffA));
         tempRootPos = ((-coeffB)+((double)sqrtf(bSqrMin4ac))) / ((2.0)*(coeffA));
-        CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.3');
+        CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.3')
         /* Select the root that lies between the Hot and Cold temperature sort values [-40 degC, 150 degC] */
         if((tempRootPos < (adcTempValues.hotValue)) && (tempRootPos > (adcTempValues.coldValue)))
         {
@@ -948,6 +948,6 @@ double Cy_SAR2_CalculateDieTemperature(cy_en_sar2_vdda_range_t VDDARange, uint16
     return tempInDegreeC;
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
 
 #endif /* CY_IP_MXS40EPASS_ESAR */

@@ -30,7 +30,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 81, \
-'SAR_Type will typecast to either SAR_V1_Type or SAR_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'SAR_Type will typecast to either SAR_V1_Type or SAR_V2_Type but not both on PDL initialization based on the target device at compile time.')
 
 #define CHAN_NUM(chan)           ((chan) < CY_SAR_NUM_CHANNELS)
 #define IS_RIGHT_ALIGN           (!_FLD2BOOL(SAR_SAMPLE_CTRL_LEFT_ALIGN, SAR_SAMPLE_CTRL(base)))
@@ -1602,7 +1602,7 @@ cy_en_sar_status_t Cy_SAR_ScanCountEnable(const SAR_Type * base)
 
     return (retVal);
 }
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
 
 #if defined(__cplusplus)

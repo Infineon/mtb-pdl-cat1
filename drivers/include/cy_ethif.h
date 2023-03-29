@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ethif.h
-* \version 1.0
+* \version 1.10
 *
 * Provides an API declaration of the Ethernet Interface driver
 *
@@ -77,6 +77,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.10</td>
+*     <td>Updated an internal API and fixed MISRA 2012 violations.</td>
+*     <td>MISRA 2012 compliance and code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>1.0</td>
 *     <td>Initial version</td>
 *     <td></td>
@@ -115,7 +120,7 @@ extern "C" {
 #define CY_ETHIF_DRV_VERSION_MAJOR        1
 
 /** Driver minor version */
-#define CY_ETHIF_DRV_VERSION_MINOR        0
+#define CY_ETHIF_DRV_VERSION_MINOR        10
 
 /** Eth driver ID */
 #define CY_ETHIF_ID                     CY_PDL_DRV_ID(0x71U)

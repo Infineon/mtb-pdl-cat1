@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite.h
-* \version 2.0
+* \version 2.10
 *
 * \brief
 *  This file provides interface header
@@ -28,22 +28,28 @@
 * \addtogroup group_cryptolite
 * \{
 * \note IP Supported: CRYPTOLITE
+* \note Availability of Cryptolite Algorithms will be chip specific, Refer to individual API for availability.
 * \note Device Categories: CAT1B. Please refer <a href="usergroup1.html">Device Catalog</a>.
 *
-* The Cryptolite driver provides a public API to perform SHA256 hash
-* calculation, using a cryptolite hardware IP block to accelerate operation.
+* The PDL Cryptolite driver provides a public API to perform hardware accelerated cryptographic calculations. 
 *
 * The functions and other declarations used in this driver are in cy_cryptolite.h.
 * You can also include cy_pdl.h to get access to all functions and declarations in the PDL.
 *
-* The Cryptolite driver supports only SHA256.
+* The Cryptolite driver supports AES (128bits), SHA-256, HMAC-SHA256, TRNG, RSA and ECDSA.
 *
-* \section group_cryptolite_sha256_configuration_considerations Configuration Considerations
+* \section group_cryptolite_configuration_considerations Configuration Considerations
 *
-* Firmware sets up a cryptographic operation by passing in the required data as
-* parameters in the function call.
+* User can enable/disable cryptographic functionality based on the project
+* requirements. To do so, create a configuration header file to configure cryptographic
+* functionalities and define a macro CY_CRYPTOLITE_USER_CONFIG_FILE with configuration
+* header file name and add to project environment. If CY_CRYPTOLITE_USER_CONFIG_FILE macro
+* is not defined in project environment, firmware will enable all available
+* cryptographic functionalities.
 *
-* Cryptolite SHA256 function require a context. A context is a data
+*Firmware sets up a cryptographic operation by passing in the required data as parameters in the function calls.
+*
+* All Cryptolite function require a context. A context is a data
 * structure that the driver uses for its operations. Firmware declares a
 * context (allocates memory) but does not write or read the values in that
 * context. In effect, the context is a scratch pad you provide to the driver.
@@ -76,12 +82,117 @@
 *     (https://csrc.nist.gov/csrc/media/publications/fips/180/2/archive/2002-08-01/documents/fips180-2.pdf).
 *     </td>
 *   </tr>
+*   <tr>
+*     <td>Plaintext</td>
+*     <td>An unencrypted message</td>
+*   </tr>
+*
+*   <tr>
+*     <td>Ciphertext</td>
+*     <td>An encrypted message</td>
+*   </tr>
+*
+*   <tr>
+*     <td>Block Cipher</td>
+*     <td>An encryption function for fixed-size blocks of data.
+*     This function takes a fixed-size key and a block of plaintext data from
+*     the message and encrypts it to generate ciphertext. Block ciphers are
+*     reversible. The function performed on a block of encrypted data will
+*     decrypt that data.</td>
+*   </tr>
+*
+*   <tr>
+*     <td>Block Cipher Mode</td>
+*     <td>A mode of encrypting a message using block ciphers for messages of an
+*     arbitrary length. The message is padded so that its length is an integer
+*     multiple of the block size. ECB (Electronic Code Book), CBC (Cipher Block
+*     Chaining), and CFB (Cipher Feedback) are all modes of using block ciphers
+*     to create an encrypted message of an arbitrary length.
+*     </td>
+*   </tr>
+*   <tr>
+*     <td>Advanced Encryption Standard (AES)</td>
+*     <td>The [AES standard] (https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf)
+*     specifies the Rijndael algorithm, a symmetric block
+*     cipher that can process 128-bit data blocks, using cipher keys with
+*     128-, 192-, and 256-bit lengths. Rijndael was designed to handle
+*     additional block sizes and key lengths. However, they are not adopted in
+*     this standard. AES is also used for message authentication.
+*     </td>
+*   </tr>
+*   <tr>
+*     <td>Message Authentication Code (MAC)</td>
+*     <td>MACs are used to verify that a received message has not been altered.
+*     This is done by first computing a MAC value at the sender's end and
+*     appending it to the transmitted message. When the message is received,
+*     the MAC is computed again and checked against the MAC value transmitted
+*     with the message. If they do not match, the message has been altered.
+*     Either a Hash algorithm (such as SHA) or a block cipher (such as AES) can
+*     be used to produce the MAC value. Keyed MAC schemes use a Secret Key
+*     along with the message, thus the Key value must be known to be able to
+*     compute the MAC value.</td>
+*   </tr>
+*
+*   <tr>
+*     <td>Hash Message Authentication Code (HMAC)</td>
+*     <td>A specific type of message authentication code (MAC) that involves a
+*     cryptographic hash function and a secret cryptographic key.
+*     It computes the MAC value using a Hash algorithm.
+*     For more information see [The Keyed-Hash Message Authentication Code standard]
+*     (https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.198-1.pdf)
+*     </td>
+*   </tr>
+*   <tr>
+*     <td>True Random Number Generator (TRNG)</td>
+*     <td>A block that generates a number that is statistically random and based
+*     on some physical random variation. The number cannot be duplicated by
+*     running the process again.</td>
+*   </tr>
+*
+*   <tr>
+*     <td>Symmetric Key Cryptography</td>
+*     <td>Uses a common, known key to encrypt and decrypt messages (a shared
+*     secret between sender and receiver). An efficient method used for
+*     encrypting and decrypting messages after the authenticity of the other
+*     party has been established. AES is well-known symmetric cryptography methods.</td>
+*   </tr>
+*
+*   <tr>
+*     <td>Asymmetric Key Cryptography</td>
+*     <td>Also referred to as Public Key encryption. To receive a message,
+*     you publish a very large public key (up to 4096 bits currently). The
+*     public key is described by the pair (n, e) where n is a product of
+*     two randomly chosen primes p and q. The exponent e is a random integer
+*     1 < e < Q where Q = (p-1) (q-1). The private key d is uniquely defined
+*     by the integer 1 < d < Q so that ed congruent with 1 (mod Q ). To send
+*     a message to the publisher of the public key, you encrypt the message
+*     with the public key. This message can now be decrypted only with the
+*     private key. The message is now sent over any channel to the recipient
+*     who can decrypt it with the private (secret) key. The same process is
+*     used to send messages to the sender of the original message. The
+*     asymmetric cryptography relies on the mathematical impracticality
+*     (usually related to the processing power available at any given time)
+*     of factoring the keys.
+*     </td>
+*   </tr>
 *
 * </table>
 *
 * \section group_cryptolite_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.10</td>
+*     <td>
+*         <ul>
+*         <li>Added HMAC-SHA256 & AES(128 bit) support.</li>
+*         <li>Added TRNG support.</li>
+*         <li>Added RSA signature verification support upto 4096 bit</li>
+*         <li>Added ECDSA signature verification support for SECP256R1 & SECP384R1</li>
+*         </ul>
+*     </td>
+*     <td></td>
+*   </tr>
 *   <tr>
 *     <td>2.0</td>
 *     <td>Renamed the sha256 context structure from  cy_stc_cryptolite_context_sha_t to cy_stc_cryptolite_context_sha256_t </td>
@@ -97,6 +208,26 @@
 *   \{
 *     \defgroup group_cryptolite_lld_sha_functions Functions
 *   \}
+*   \defgroup group_cryptolite_lld_hmac Message Authenticatiopn Code (HMAC)
+*   \{
+*     \defgroup group_cryptolite_lld_hmac_functions Functions
+*   \}
+*   \defgroup group_cryptolite_lld_aes Symmetric Key Algorithm (AES)
+*   \{
+*     \defgroup group_cryptolite_lld_aes_functions Functions
+*   \}
+*   \defgroup group_cryptolite_lld_asymmetric Asymmetric Key Algorithm (RSA,ECP,ECDSA)
+*   \{
+*     \defgroup group_cryptolite_lld_asymmetric_functions Functions
+*   \}
+*   \defgroup group_cryptolite_lld_random_number Random Number Generation(TRNG)
+*   \{
+*     \defgroup group_cryptolite_lld_rng_functions Functions
+*   \}
+*   \defgroup group_cryptolite_lld_vu Vector Unit (VU)
+*   \{
+*     \defgroup group_cryptolite_lld_vu_functions Functions
+*   \}
 * \defgroup group_cryptolite_data_structures Common Data Structures
 * \defgroup group_cryptolite_enums Common Enumerated Types
 * \defgroup group_cryptolite_macros Macros
@@ -110,6 +241,12 @@
 #if defined (CY_IP_MXCRYPTOLITE)
 
 #include "cy_cryptolite_sha256.h"
+#include "cy_cryptolite_hmac.h"
+#include "cy_cryptolite_ecdsa.h"
+#include "cy_cryptolite_rsa.h"
+#include "cy_cryptolite_trng.h"
+#include "cy_cryptolite_aes.h"
+
 
 #endif /* CY_IP_MXCRYPTOLITE */
 

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_uart.h
-* \version 3.0
+* \version 3.10
 *
 * Provides UART API declarations of the SCB driver.
 *
@@ -498,7 +498,7 @@ typedef struct stc_scb_uart_config
 
     /** Specifies the number of bits to detect a break condition */
     uint32_t    breakWidth;
-#if(((CY_IP_MXSCB_VERSION>=2) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
+#if(((defined (CY_IP_MXSCB_VERSION) && (CY_IP_MXSCB_VERSION>=2)) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
     /** Specifies the low or high level pulse detection for break condition */
     /**
     * \note

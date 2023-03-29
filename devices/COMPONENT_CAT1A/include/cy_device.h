@@ -220,7 +220,9 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define CY_SRSS_NUM_CLKPATH                 ((uint32_t)(cy_device->srssNumClkpath))
 #define CY_SRSS_NUM_PLL                     ((uint32_t)(cy_device->srssNumPll))
 #define CY_SRSS_NUM_HFROOT                  ((uint32_t)(cy_device->srssNumHfroot))
+#define CY_SRSS_PLL_PRESENT                 SRSS_NUM_PLL
 #define CY_SRSS_PLL400M_PRESENT             0
+#define CY_SRSS_DPLL_LP_PRESENT             0
 
 #define SRSS_PWR_CTL                        (((SRSS_V1_Type *) SRSS)->PWR_CTL)
 #define SRSS_PWR_HIBERNATE                  (((SRSS_V1_Type *) SRSS)->PWR_HIBERNATE)
@@ -1012,8 +1014,14 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define CY_IPC_STRUCT_PTR_FOR_IP(ipcIndex, base)            ((IPC_STRUCT_Type*)((uint32_t)(base) + (sizeof(IPC_STRUCT_Type) * (ipcIndex))))
 #define CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base)   &(((IPC_Type *)base)->INTR_STRUCT[ipcIntrIndex])
 
+#define CY_IPC_INSTANCES                       1U
 #define CY_IPC_CHANNELS                        (uint32_t)(cy_device->cpussIpcNr)
 #define CY_IPC_INTERRUPTS                      (uint32_t)(cy_device->cpussIpcIrqNr)
+#define CY_IPC_CHANNELS_PER_INSTANCE           CY_IPC_CHANNELS
+#define CY_IPC_INTERRUPTS_PER_INSTANCE         CY_IPC_INTERRUPTS
+
+/* ipcChannel comprises of total number of channels present in all IPC IP instances */
+#define CY_IPC_PIPE_CHANNEL_NUMBER_WITHIN_INSTANCE(ipcChannel) (((ipcChannel)<CY_IPC_CHANNELS_PER_INSTANCE)?(ipcChannel):((ipcChannel)%CY_IPC_CHANNELS_PER_INSTANCE))
 
 /* IPC channel definitions  */
 #define CY_IPC_CHAN_SYSCALL_CM0             (0U)  /* System calls for the CM0 processor */

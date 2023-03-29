@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -42,14 +42,11 @@ typedef struct {
    __IM uint8_t  RESERVED;
   __IOM uint8_t  SI_REVISION_ID;                /*!< 0x00000001 Indicates Silicon Revision ID of the device */
   __IOM uint16_t SILICON_ID;                    /*!< 0x00000002 Indicates Silicon ID of the device */
-   __IM uint16_t RESERVED1[5];
-  __IOM uint8_t  SYSCALL_ERASE_PROT;            /*!< 0x0000000E Controls the behavior for Erase All and Erase Sector system
-                                                                calls */
-   __IM uint8_t  RESERVED2[153];
+   __IM uint32_t RESERVED1[41];
   __IOM uint32_t SFLASH_SVN;                    /*!< 0x000000A8 SFLASH Subversion */
-   __IM uint32_t RESERVED3[84];
+   __IM uint32_t RESERVED2[84];
   __IOM uint32_t FB_FLAGS;                      /*!< 0x000001FC Flash boot flags */
-   __IM uint16_t RESERVED4[551];
+   __IM uint16_t RESERVED3[551];
   __IOM uint16_t EPASS_TEMP_TRIM_TEMP_ROOMSORT; /*!< 0x0000064E On Chip temperature measured using external currents and
                                                                 external ADC at ROOM */
   __IOM uint16_t EPASS_TEMP_TRIM_DIODE_ROOMSORT; /*!< 0x00000650 Temperature sensor calibration data for VDDA=3.3V, Temperature
@@ -68,7 +65,7 @@ typedef struct {
                                                                 sensor diode voltage at HOT */
   __IOM uint16_t EPASS_TEMP_TRIM_VBG_HOTCLASS;  /*!< 0x0000065E Temperature sensor calibration data for VDDA=3.3V, Bandgap
                                                                 voltage at HOT */
-   __IM uint16_t RESERVED5[5];
+   __IM uint16_t RESERVED4[5];
   __IOM uint16_t EPASS_TEMP_TRIM_DIODE_ROOMSORT_5V; /*!< 0x0000066A Temperature sensor calibration data for VDDA=5V, Temperature
                                                                 sensor diode voltage at ROOM */
   __IOM uint16_t EPASS_TEMP_TRIM_VBG_ROOMSORT_5V; /*!< 0x0000066C Temperature sensor calibration data for VDDA=5V, Bandgap
@@ -81,30 +78,30 @@ typedef struct {
                                                                 sensor diode voltage at HOT */
   __IOM uint16_t EPASS_TEMP_TRIM_VBG_HOTCLASS_5V; /*!< 0x00000674 Temperature sensor calibration data for VDDA=5V, Bandgap
                                                                 voltage at HOT */
-   __IM uint16_t RESERVED6[93];
+   __IM uint16_t RESERVED5[93];
   __IOM uint32_t SRSS_PWR_OFFSET;               /*!< 0x00000730 SRSS_PWR_OFFSET */
   __IOM uint32_t SRSS_PWR_TRIM_HT_PWRSYS_INTERNAL; /*!< 0x00000734 Trim settings when the supply is intended to come from the
                                                                 internal regulators */
   __IOM uint32_t SRSS_PWR_TRIM_HT_PWRSYS_EXTERNAL; /*!< 0x00000738 Trim settings for the regulators so they do not interfere with
                                                                 external supply */
-   __IM uint32_t RESERVED7[49];
+   __IM uint32_t RESERVED6[49];
   __IOM uint32_t USER_FREE_ROW0[128];           /*!< 0x00000800 USER_FREE_ROW0 */
   __IOM uint32_t USER_FREE_ROW1[128];           /*!< 0x00000A00 USER_FREE_ROW1 */
   __IOM uint32_t USER_FREE_ROW2[128];           /*!< 0x00000C00 USER_FREE_ROW2 */
   __IOM uint32_t USER_FREE_ROW3[128];           /*!< 0x00000E00 USER_FREE_ROW3 */
-   __IM uint32_t RESERVED8[512];
+   __IM uint32_t RESERVED7[512];
   __IOM uint32_t SFLASH_UPDATE_MARKER[2];       /*!< 0x00001800 Markers for storing SFLASH programming states */
-   __IM uint32_t RESERVED9[510];
+   __IM uint32_t RESERVED8[510];
   __IOM uint32_t FLASH_BOOT_OBJECT_SIZE;        /*!< 0x00002000 Flash Boot - Object Size */
   __IOM uint32_t FLASH_BOOT_APP_ID;             /*!< 0x00002004 Flash Boot - Application ID/Version */
-   __IM uint32_t RESERVED10[4];
+   __IM uint32_t RESERVED9[4];
   __IOM uint32_t FLASH_BOOT_VERSION_LOW;        /*!< 0x00002018 Flash Boot - Version Low */
   __IOM uint32_t FLASH_BOOT_FAMILY_ID;          /*!< 0x0000201C Flash Boot - Family ID */
-   __IM uint32_t RESERVED11[4344];
+   __IM uint32_t RESERVED10[4344];
   __IOM uint8_t  PUBLIC_KEY[3072];              /*!< 0x00006400 Public key for signature verification (max RSA key size 4096) */
-   __IM uint32_t RESERVED12[384];
+   __IM uint32_t RESERVED11[384];
   __IOM uint32_t APP_PROT_SETTINGS[128];        /*!< 0x00007600 Application protection settings (4*128=512 bytes) */
-   __IM uint32_t RESERVED13[256];
+   __IM uint32_t RESERVED12[256];
   __IOM uint32_t TOC2_OBJECT_SIZE;              /*!< 0x00007C00 Object size in bytes for CRC calculation starting from offset
                                                                 0x00 */
   __IOM uint32_t TOC2_MAGIC_NUMBER;             /*!< 0x00007C04 Magic number(0x01211220) */
@@ -120,13 +117,13 @@ typedef struct {
   __IOM uint32_t TOC2_SECOND_CMX_1_USER_APP_ADDR; /*!< 0x00007C20 Address of Second CM4 or CM7 core1 User Application Object */
   __IOM uint32_t TOC2_FIRST_CMX_2_USER_APP_ADDR; /*!< 0x00007C24 Address of First CM4 or CM7 core2 User Application Object */
   __IOM uint32_t TOC2_SECOND_CMX_2_USER_APP_ADDR; /*!< 0x00007C28 Address of Second CM4 or CM7 core2 User Application Object */
-   __IM uint32_t RESERVED14[52];
+   __IM uint32_t RESERVED13[52];
   __IOM uint32_t TOC2_SECURITY_UPDATES_MARKER;  /*!< 0x00007CFC Marker for Security Updates */
   __IOM uint32_t TOC2_SHASH_OBJECTS;            /*!< 0x00007D00 Number of additional objects to be verified for SECURE_HASH */
   __IOM uint32_t TOC2_SIGNATURE_VERIF_KEY;      /*!< 0x00007D04 Address of signature verification key (0 if none).The object is
                                                                 signature specific key. It is the public key in case of RSA */
   __IOM uint32_t TOC2_APP_PROTECTION_ADDR;      /*!< 0x00007D08 Address of  Application Protection */
-   __IM uint32_t RESERVED15[58];
+   __IM uint32_t RESERVED14[58];
   __IOM uint32_t TOC2_REVISION;                 /*!< 0x00007DF4 Indicates TOC2 Revision. It is not used now. */
   __IOM uint32_t TOC2_FLAGS;                    /*!< 0x00007DF8 Controls default configuration */
 } SFLASH_Type;                                  /*!< Size = 32252 (0x7DFC) */
@@ -138,9 +135,6 @@ typedef struct {
 /* SFLASH.SILICON_ID */
 #define SFLASH_SILICON_ID_ID_Pos                0UL
 #define SFLASH_SILICON_ID_ID_Msk                0xFFFFUL
-/* SFLASH.SYSCALL_ERASE_PROT */
-#define SFLASH_SYSCALL_ERASE_PROT_DATA_Pos      0UL
-#define SFLASH_SYSCALL_ERASE_PROT_DATA_Msk      0xFFUL
 /* SFLASH.SFLASH_SVN */
 #define SFLASH_SFLASH_SVN_DATA32_Pos            0UL
 #define SFLASH_SFLASH_SVN_DATA32_Msk            0xFFFFFFFFUL

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_adcmic.h
-* \version 1.0
+* \version 1.10
 *
 * Provides an API declaration of the ADCMic driver.
 *
@@ -203,6 +203,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.10</td>
+*     <td>The ADCMic PDL driver ID \ref CY_ADCMIC_ID is updated</td>
+*     <td>Avoiding possible driver ID collisions</td>
+*   </tr>
+*   <tr>
 *     <td>1.0</td>
 *     <td>
 *       The cy_en_adcmic_source_t is renamed to \ref cy_en_adcmic_mode_t.<br>
@@ -320,10 +325,10 @@ extern "C" {
 #define CY_ADCMIC_DRV_VERSION_MAJOR            1
 
 /** Driver minor version */
-#define CY_ADCMIC_DRV_VERSION_MINOR            0
+#define CY_ADCMIC_DRV_VERSION_MINOR            10
 
 /** ADCMic PDL ID */
-#define CY_ADCMIC_ID                           CY_PDL_DRV_ID(0x48U)
+#define CY_ADCMIC_ID                           CY_PDL_DRV_ID(0x4CU)
 
 /**
 * \addtogroup group_adcmic_macros_interrupt
@@ -1203,6 +1208,7 @@ __STATIC_INLINE uint32_t Cy_ADCMic_GetInterruptStatus(MXS40ADCMIC_Type const * b
 __STATIC_INLINE void Cy_ADCMic_ClearInterrupt(MXS40ADCMIC_Type * base, uint32_t intrMask)
 {
     base->ADCMIC_INTR = intrMask & CY_ADCMIC_INTR;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) base->ADCMIC_INTR;
 }
 

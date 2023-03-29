@@ -39,7 +39,7 @@
 #endif /* defined (CY_DEVICE_SECURE) */
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 2, \
-'IPC_STRUCT_Type will typecast to either IPC_STRUCT_V1_Type or IPC_STRUCT_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'IPC_STRUCT_Type will typecast to either IPC_STRUCT_V1_Type or IPC_STRUCT_V2_Type but not both on PDL initialization based on the target device at compile time.')
 
 /***************************************
 * Data Structure definitions
@@ -1407,7 +1407,7 @@ uint32_t Cy_Flash_GetExternalStatus(void)
     return (flashContext.opcode);
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* CY_IP_M4CPUSS */
 
 /* [] END OF FILE */

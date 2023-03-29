@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_sha256.c
-* \version 2.0
+* \version 2.10
 *
 * \brief
 *  Provides API implementation of the Cryptolite SHA256 PDL driver.
@@ -352,7 +352,7 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Finish(CRYPTOLITE_Type *base,
                                     uint8_t *digest,
                                     cy_stc_cryptolite_context_sha256_t *cfContext)
 {
-    cy_en_cryptolite_status_t err = CY_CRYPTOLITE_SUCCESS;
+    cy_en_cryptolite_status_t err = CY_CRYPTOLITE_BAD_PARAMS;
     uint8_t *hashptr;
     uint32_t idx;
     uint64_t totalMessageSizeInBits;
@@ -511,7 +511,7 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Run(CRYPTOLITE_Type *base,
 {
     cy_en_cryptolite_status_t err = CY_CRYPTOLITE_BAD_PARAMS;
     /* Input parameters verification */
-    if ((NULL == base) || (NULL == cfContext) || (NULL == digest) || ((NULL == message) && (0UL == messageSize)))
+    if ((NULL == base) || (NULL == cfContext) || (NULL == digest) || ((NULL == message) && (0UL != messageSize)))
     {
         return err;
     }

@@ -269,9 +269,17 @@
     <ParamString id="pclk" name="PCLK" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? getBlockFromSignal(&quot;clock_counter_en[0]&quot;):getBlockFromSignal(&quot;clock[0]&quot;)}`" visible="false" editable="false" desc="Connected peripheral clock divider (PCLK)" />
     <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? hasConnection(&quot;clock_counter_en&quot;, 0) &amp;&amp; isBlockUsed(pclk) : hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${hasVisibleOption(&quot;clock_counter_en[0]&quot;) ? &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCK_COUNTER_EN&quot; . cntInst : &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCKS&quot; . cntInst}`" visible="false" editable="false" desc="" />
+
+    <!-- Clock Frequency -->
+    <ParamString id="sourceClock" name="sourceClock" group="General" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? (getBlockFromSignal(&quot;clock[0]&quot;)) : (getBlockFromSignal(&quot;clock_counter_en[0]&quot;))}`" visible="false" editable="false" desc="Source Clock Resource" />
+    <ParamRange  id="tcpwmClkHz" name="tcpwmClkHz" group="General" default="`${getExposedMember(sourceClock, &quot;frequency&quot;)}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="TCPWM clock frequency in Hz" />
+
   </Parameters>
 
   <DRCs>
+    <DRC type="ERROR" paramId="clock_en[0]" text="Maximum input clock signal frequency supported is 100 Mhz. Please fix input clock setting." condition="`${(hasVisibleOption(&quot;clock[0]&quot;)) &amp;&amp; (tcpwmClkHz &gt; 100000000)}`" />
+    <DRC type="ERROR" paramId="clock_counter_en[0]" text="Maximum input clock signal frequency supported is 100 Mhz. Please fix input clock setting." condition="`${(hasVisibleOption(&quot;clock_counter_en[0]&quot;)) &amp;&amp; (tcpwmClkHz &gt; 100000000)}`" />
+ 
     <!--Compare0 DRC-->
     <DRC type="INFO" text="Compare 0 value have to be less or equal to Period" condition="`${(QuadMode eq CY_TCPWM_QUADDEC_MODE_RANGE1_CMP) &amp;&amp; (Compare0 > Period)}`" paramId="Compare0" />
 	<!--CompareBuff0 DRC-->

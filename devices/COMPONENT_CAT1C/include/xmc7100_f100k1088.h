@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -566,6 +566,8 @@ typedef enum {
 #define __MPU_PRESENT                   1       /*!< MPU present or not */
 #define __FPU_PRESENT                   1       /*!< FPU present or not */
 #define __CM0P_PRESENT                  1       /*!< CM0P present or not */
+#define __CM7_0_PRESENT                 1       /*!< CM7_0 present or not */
+#define __CM7_1_PRESENT                 0       /*!< CM7_1 present or not */
 #define __DTCM_PRESENT                  1       /*!< Data Tightly Coupled Memory is present or not */
 #define __ICACHE_PRESENT                1       /*!< Instruction Cache present or not */
 #define __DCACHE_PRESENT                1       /*!< Data Cache present or not */
@@ -582,29 +584,29 @@ typedef enum {
 #define CY_ROM_MIRROR_BASE              0x01000000UL
 #define CY_ROM_MIRROR_SIZE              0x00010000UL
 #define CY_FLASH_LG_SBM_BASE            0x10000000UL
-#define CY_FLASH_LG_SBM_SIZE            0x003F0000UL
+#define CY_FLASH_LG_SBM_SIZE            0x000F0000UL
 #define CY_FLASH_LG_DBM0_BASE           0x10000000UL
-#define CY_FLASH_LG_DBM0_SIZE           0x001F8000UL
-#define CY_FLASH_SM_DBM0_BASE           0x101F8000UL
+#define CY_FLASH_LG_DBM0_SIZE           0x00078000UL
+#define CY_FLASH_SM_DBM0_BASE           0x10078000UL
 #define CY_FLASH_SM_DBM0_SIZE           0x00010000UL
-#define CY_FLASH_SM_SBM_BASE            0x103F0000UL
+#define CY_FLASH_SM_SBM_BASE            0x100F0000UL
 #define CY_FLASH_SM_SBM_SIZE            0x00020000UL
 #define CY_FLASH_LG_DBM1_BASE           0x12000000UL
-#define CY_FLASH_LG_DBM1_SIZE           0x001F8000UL
-#define CY_FLASH_SM_DBM1_BASE           0x121F8000UL
+#define CY_FLASH_LG_DBM1_SIZE           0x00078000UL
+#define CY_FLASH_SM_DBM1_BASE           0x12078000UL
 #define CY_FLASH_SM_DBM1_SIZE           0x00010000UL
 #define CY_WFLASH_LG_SBM_BASE           0x14000000UL
-#define CY_WFLASH_LG_SBM_SIZE           0x00030000UL
+#define CY_WFLASH_LG_SBM_SIZE           0x00018000UL
 #define CY_WFLASH_LG_DBM0_BASE          0x14000000UL
-#define CY_WFLASH_LG_DBM0_SIZE          0x00018000UL
-#define CY_WFLASH_SM_DBM0_BASE          0x14018000UL
-#define CY_WFLASH_SM_DBM0_SIZE          0x00008000UL
-#define CY_WFLASH_SM_SBM_BASE           0x14030000UL
-#define CY_WFLASH_SM_SBM_SIZE           0x00010000UL
+#define CY_WFLASH_LG_DBM0_SIZE          0x0000C000UL
+#define CY_WFLASH_SM_DBM0_BASE          0x1400C000UL
+#define CY_WFLASH_SM_DBM0_SIZE          0x00004000UL
+#define CY_WFLASH_SM_SBM_BASE           0x14018000UL
+#define CY_WFLASH_SM_SBM_SIZE           0x00008000UL
 #define CY_WFLASH_LG_DBM1_BASE          0x15000000UL
-#define CY_WFLASH_LG_DBM1_SIZE          0x00018000UL
-#define CY_WFLASH_SM_DBM1_BASE          0x15018000UL
-#define CY_WFLASH_SM_DBM1_SIZE          0x00008000UL
+#define CY_WFLASH_LG_DBM1_SIZE          0x0000C000UL
+#define CY_WFLASH_SM_DBM1_BASE          0x1500C000UL
+#define CY_WFLASH_SM_DBM1_SIZE          0x00004000UL
 #define CY_OTPFLASH_BASE                0x16000000UL
 #define CY_OTPFLASH_SIZE                0x00008000UL
 #define CY_SFLASH_BASE                  0x17000000UL

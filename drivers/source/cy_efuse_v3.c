@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_efuse_v3.c
-* \version 2.20
+* \version 2.30
 *
 * \brief
 * Provides API implementation of the eFuse version_3 driver.
@@ -153,7 +153,7 @@ cy_en_efuse_status_t Cy_EFUSE_WriteBit(EFUSE_Type *base, uint32_t bitPos, uint32
 
     if (0UL == (EFUSE_CMD(base) & EFUSE_CMD_START_Msk))
     {
-        uint8_t readByte;
+        uint8_t readByte = 0;
         /* NOTE: This only supports 4 EFUSE macros */
         uint32_t byteAddr  = offset / EFUSE_MACRO_NUM;
         uint32_t macroAddr = offset % EFUSE_MACRO_NUM;

@@ -7,7 +7,7 @@
 *
 * \brief
 * ECO prescaler personality description file.
-* It supports CAT1C devices.
+* It supports CAT1C and CAT1D devices.
 *
 ********************************************************************************
 * \copyright
@@ -30,7 +30,7 @@
 
 <Personality id="eco_prescaler" name="ECO Prescaler" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss_ver3" />
+    <IpBlock name="mxs40srss_ver3,mxs22srss" />
     <Resource name="srss\.clock\.ecoprescaler" />
   </Dependencies>
   <ExposedMembers>

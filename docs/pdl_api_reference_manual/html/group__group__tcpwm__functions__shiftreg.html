@@ -150,6 +150,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga371b9f1aaf90d7ec07bf096de7639cc6"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__shiftreg.html#ga371b9f1aaf90d7ec07bf096de7639cc6">Cy_TCPWM_ShiftReg_LineOutStatus</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> const *base, uint32_t cntNum, uint32_t shiftRegOutSelect)</td></tr>
 <tr class="memdesc:ga371b9f1aaf90d7ec07bf096de7639cc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current level of the selected Shift Register output line.  <a href="#ga371b9f1aaf90d7ec07bf096de7639cc6">More...</a><br /></td></tr>
 <tr class="separator:ga371b9f1aaf90d7ec07bf096de7639cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2f8fce9abfa511020e6f8b696b476e0"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__shiftreg.html#gaa2f8fce9abfa511020e6f8b696b476e0">Cy_TCPWM_Shiftreg_EnableSwap</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32_t cntNum, bool enable)</td></tr>
+<tr class="memdesc:gaa2f8fce9abfa511020e6f8b696b476e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT.  <a href="#gaa2f8fce9abfa511020e6f8b696b476e0">More...</a><br /></td></tr>
+<tr class="separator:gaa2f8fce9abfa511020e6f8b696b476e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gac0b638d2ea8e28da947179477295d40b"></a>
@@ -976,6 +979,50 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The current Shift Register output line level.</dd></dl>
 <div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is a need to check current level of</span></div><div class="line"><span class="comment">     * Shift Register Line output for the first (index = 0) counter of the TCPWM0 block</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_SHIFTREG_NUM   (0UL)</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__tcpwm__functions__shiftreg.html#ga371b9f1aaf90d7ec07bf096de7639cc6">Cy_TCPWM_ShiftReg_LineOutStatus</a>(TCPWM0, MY_TCPWM_SHIFTREG_NUM, <a class="code" href="group__group__tcpwm__shiftreg__output__line.html#gab986a547d63cb7bf43a7357279019705">CY_TCPWM_SHIFTREG_LINE_OUT</a>))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Shift Register Line is High */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Shift Register Line is Low */</span></div><div class="line">    }</div></div><!-- fragment -->
+</div>
+</div>
+<a id="gaa2f8fce9abfa511020e6f8b696b476e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa2f8fce9abfa511020e6f8b696b476e0">&#9670;&nbsp;</a></span>Cy_TCPWM_Shiftreg_EnableSwap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_TCPWM_Shiftreg_EnableSwap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>cntNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a TCPWM instance.</td></tr>
+    <tr><td class="paramname">cntNum</td><td>The Counter instance number in the selected TCPWM.</td></tr>
+    <tr><td class="paramname">enable</td><td>true = swap enabled; false = swap disabled </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 </div><!-- contents -->

@@ -6701,6 +6701,11 @@ Note: Typically, when SW updates the current descriptor pointer CH_CURR_PTR, it 
         <description>interrupt indicating BTSS has encountered exception</description>
         <value>68</value>
       </interrupt>
+      <interrupt>
+        <name>crypto_interrupt_trng</name>
+        <description>Crypto TRNG Interrupt</description>
+        <value>69</value>
+      </interrupt>
       <registers>
         <register>
           <name>IDENTITY</name>
@@ -15066,6 +15071,63 @@ All CRYPTO component master transactions use the PC field for the protection con
           </fields>
         </register>
         <register>
+          <name>AES_DESCR</name>
+          <description>AES descriptor pointer</description>
+          <addressOffset>0x40</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0x0</resetMask>
+          <fields>
+            <field>
+              <name>PTR</name>
+              <description>AES descriptor pointer. The descriptor points to a structure with 32-bit words:
+Word 0: Pointer to a 128-bit AES key.
+Word 1: Pointer to a 128-bit source/plaintext.
+Word 2: Pointer to a 128-bit destination/ciphertext.
+
+A write to this register automatically starts a 128-bit AES encryption in ECB mode. The write ONLY takes effect when the IP is NOT busy (STATUS.BUSY is '0'). The write will be made pending/blocked as long as the IP is busy.
+
+Note: the pointers must be 4B aligned.
+
+Note: HW updates this field when the AES engine is busy.</description>
+              <bitRange>[31:2]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>VU_DESCR</name>
+          <description>VU descriptor pointer</description>
+          <addressOffset>0x80</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0x0</resetMask>
+          <fields>
+            <field>
+              <name>PTR</name>
+              <description>VU descriptor pointer. The descriptor points to a structure with 32-bit words:
+Word 0: Control word. Specifies operand size in 32-bit word multiples.
+- WORD[7:0]: Source operand 0 32-bit words (minus 1).
+- WORD[15:8]: Source operand 1 32-bit words (minus 1).
+- WORD[24:16]: Destination operand 32-bit words (minus 1).
+- WORD[31:28]: Opcode. '0': multiplication (MUL), '1': addition (ADD), '2': subtraction (SUB), '3': exclusive or (XOR), '4': binary multiplication (XMUL), '5': logical shift right by 1 (LSR1), '6': logical shift left by 1 (LSL1), '7': logical shift right (LSR), '8': conditional syubtraction (COND_SUB). '9': move (MOV).
+Word 1: Pointer to source 0.
+Word 2: Pointer to source 1.
+Word 3: Pointer to destination.
+
+A write to this register automatically starts a VU operation. The write ONLY takes effect when the IP is NOT busy (STATUS.BUSY is '0'). The write will be made pending/blocked as long as the IP is busy.
+
+Note: the pointers must be 4B aligned.
+
+Note: HW updates this field when the VU engine is busy.</description>
+              <bitRange>[31:2]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
           <name>SHA_DESCR</name>
           <description>SHA descriptor pointer</description>
           <addressOffset>0xC0</addressOffset>
@@ -15164,6 +15226,532 @@ Note: The error is sticky. This allows SW to check for an error after a series o
               <name>BUS_ERROR</name>
               <description>Logical and of corresponding INTR_ERROR and INTR_ERROR_MASK fields.</description>
               <bitRange>[0:0]</bitRange>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_CTL0</name>
+          <description>TRNG control 0</description>
+          <addressOffset>0x100</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x33030000</resetValue>
+          <resetMask>0x33FFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>SAMPLE_CLOCK_DIV</name>
+              <description>Specifies the clock divider that is used to sample oscillator data. This clock divider is wrt. The IP clock.
+'0': sample clock is the IP clock.
+'1': sample clock is the IP clock divided by 2.
+...
+'255': sample clock is the IP clock divided by 256.</description>
+              <bitRange>[7:0]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RED_CLOCK_DIV</name>
+              <description>Specifies the clock divider that is used to produce reduced bits. 
+'0': 1 reduced bit is produced for each sample.
+'1': 1 reduced bit is produced for each 2 samples.
+...
+'255': 1 reduced bit is produced for each 256 samples.
+
+The reduced bits are considered random bits and shifted into TRNG_RESULT.DATA.</description>
+              <bitRange>[15:8]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>INIT_DELAY</name>
+              <description>Specifies an initialization delay: number of removed/dropped samples before reduced bits are generated. This field should be programmed in the range [1, 255]. After starting the oscillators, at least the first 2 samples should be removed/dropped to clear the state of internal synchronizers. In addition, it is advised to drop at least the second 2 samples from the oscillators (to circumvent the semi-predictable oscillator startup behavior). This result in the default field value of '3'. Field encoding is as follows:
+'0': 1 sample is dropped.
+'1': 2 samples are dropped.
+...
+'255': 256 samples are dropped.
+
+The INTR.INITIALIZED interrupt cause is set to '1', when the initialization delay is passed.</description>
+              <bitRange>[23:16]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>VON_NEUMANN_CORR</name>
+              <description>Specifies if the 'von Neumann corrector' is disabled or enabled:
+'0': disabled.
+'1': enabled.
+The 'von Neumann corrector' post-processes the reduced bits to remove a '0' or '1' bias. The corrector operates on reduced bit pairs ('oldest bit, newest bit'):
+'00': no bit is produced.
+'01': '0' bit is produced (oldest bit).
+'10': '1' bit is produced (oldest bit).
+'11': no bit is produced.
+Note that the corrector produces bits at a random pace and at a frequency that is 1/4 of the reduced bit frequency (reduced bits are processed in pairs, and half of the pairs do NOT produce a bit).</description>
+              <bitRange>[24:24]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FEEDBACK_EN</name>
+              <description>Specifies if the feedback of the reducution state is enabled:
+'0': Disabled.
+'1': Enabled.
+
+Note: This field is added in the 'mxcryptolite' IP to address CDT#337111, in which it was observed that the reduction state feedback reduces  the effectiveness of the 'von Neumann corrector'. The default value is '1' to provide backward compatibility.</description>
+              <bitRange>[25:25]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>STOP_ON_AP_DETECT</name>
+              <description>Specifies if TRNG functionality is stopped on an adaptive proportion test detection (when HW sets INTR_ERROR.TRNG_AP_DETECT to '1'):
+'0': Functionality is NOT stopped.
+'1': Functionality is stopped (TRNG_CTL1 fields are set to '0' by HW). The DAS bitstream is set to '0'.</description>
+              <bitRange>[28:28]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>STOP_ON_RC_DETECT</name>
+              <description>Specifies if TRNG functionality is stopped on a repetition count test detection (when HW sets INTR_ERROR.TRNG_RC_DETECT to '1'):
+'0': Functionality is NOT stopped.
+'1': Functionality is stopped (TRNG_CTL1 fields are set to '0' by HW). The DAS bitstream is set to '0'.</description>
+              <bitRange>[29:29]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_CTL1</name>
+          <description>TRNG control 1</description>
+          <addressOffset>0x104</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0x3F</resetMask>
+          <fields>
+            <field>
+              <name>RO11_EN</name>
+              <description>FW sets this field to '1' to enable the ring oscillator with 11 inverters.</description>
+              <bitRange>[0:0]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RO15_EN</name>
+              <description>FW sets this field to '1' to enable the ring oscillator with 15 inverters.</description>
+              <bitRange>[1:1]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>GARO15_EN</name>
+              <description>FW sets this field to '1' to enable the fixed Galois ring oscillator with 15 inverters.</description>
+              <bitRange>[2:2]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>GARO31_EN</name>
+              <description>FW sets this field to '1' to enable the programmable Galois ring oscillator with up to 31 inverters. The TRNG_GARO_CTL register specifies the programmable polynomial.</description>
+              <bitRange>[3:3]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FIRO15_EN</name>
+              <description>FW sets this field to '1' to enable the fixed Fibonacci ring oscillator with 15 inverters.</description>
+              <bitRange>[4:4]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FIRO31_EN</name>
+              <description>FW sets this field to '1' to enable the programmable Fibonacci ring oscillator with up to 31 inverters. The TRNG_FIRO_CTL register specifies the programmable polynomial.</description>
+              <bitRange>[5:5]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_STATUS</name>
+          <description>TRNG status</description>
+          <addressOffset>0x10C</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0x1</resetMask>
+          <fields>
+            <field>
+              <name>INITIALIZED</name>
+              <description>Reflects the state of the true random number generator:
+'0': Not initialized (TRNG_CTL0.INIT_DELAY has NOT passed).
+'1': Initialized (TRNG_CTL0.INIT_DELAY has passed).</description>
+              <bitRange>[0:0]</bitRange>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_RESULT</name>
+          <description>TRNG result</description>
+          <addressOffset>0x110</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0x0</resetMask>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <description>Generated 32-bit true random number. The INTR.DATA_AVAILABLE interrupt cause is activated when the number is generated.</description>
+              <bitRange>[31:0]</bitRange>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_GARO_CTL</name>
+          <description>TRNG GARO control</description>
+          <addressOffset>0x120</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x21F81910</resetValue>
+          <resetMask>0x7FFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>POLYNOMIAL</name>
+              <description>Polynomial for programmable Galois ring oscillator. The polynomial is represented WITHOUT the high order bit (this bit is always assumed '1'). The polynomial should be aligned such that the more significant bits (bit 30 and down) contain the polynomial and the less significant bits (bit 0 and up) contain padding '0's.
+
+Note: Default value per GESC#113.</description>
+              <bitRange>[30:0]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_FIRO_CTL</name>
+          <description>TRNG FIRO control</description>
+          <addressOffset>0x124</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x696F0221</resetValue>
+          <resetMask>0x7FFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>POLYNOMIAL</name>
+              <description>Polynomial for programmable Fibonacci ring oscillator. The polynomial is represented WITHOUT the high order bit (this bit is always assumed '1'). The polynomial should be aligned such that the more significant bits (bit 30 and down) contain the polynomial and the less significant bits (bit 0 and up) contain padding '0's.
+
+Note: Default value per GESC#113.</description>
+              <bitRange>[30:0]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_MON_CTL</name>
+          <description>TRNG monitor control</description>
+          <addressOffset>0x140</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x2</resetValue>
+          <resetMask>0x303</resetMask>
+          <fields>
+            <field>
+              <name>BITSTREAM_SEL</name>
+              <description>Selection of the bitstream:
+'0': DAS bitstream.
+'1': RED bitstream.
+'2': TR bitstream.
+'3': Undefined.</description>
+              <bitRange>[1:0]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>AP</name>
+              <description>Adaptive proportion (AP) test enable:
+'0': Disabled.
+'1': Enabled.
+
+On a AP detection, HW sets this field to '0' and sets INTR_ERROR.TRNG_AP_DETECT to '1.</description>
+              <bitRange>[8:8]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RC</name>
+              <description>Repetition count (RC) test enable:
+'0': Disabled.
+'1': Enabled.
+
+On a RC detection, HW sets this field to '0' and sets INTR_ERROR.TRNG_RC_DETECT to '1.</description>
+              <bitRange>[9:9]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_MON_RC_CTL</name>
+          <description>TRNG monitor RC control</description>
+          <addressOffset>0x150</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0xFF</resetValue>
+          <resetMask>0xFF</resetMask>
+          <fields>
+            <field>
+              <name>CUTOFF_COUNT8</name>
+              <description>Cutoff count (legal range is [1, 255]):
+'0': Illegal.
+'1': 1 repetition.
+...
+'255': 255 repetitions.</description>
+              <bitRange>[7:0]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_MON_RC_STATUS0</name>
+          <description>TRNG monitor RC status 0</description>
+          <addressOffset>0x158</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0x1</resetMask>
+          <fields>
+            <field>
+              <name>BIT</name>
+              <description>Current active bit value:
+'0': '0'.
+'1': '1'.
+
+This field is only valid when TRNG_MON_RC_STATUS1.REP_COUNT is NOT equal to '0'.</description>
+              <bitRange>[0:0]</bitRange>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_MON_RC_STATUS1</name>
+          <description>TRNG monitor RC status 1</description>
+          <addressOffset>0x15C</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0xFF</resetMask>
+          <fields>
+            <field>
+              <name>REP_COUNT</name>
+              <description>Number of repetitions of the current active bit counter:
+'0': 0 repetitions.
+...
+'255': 255 repetitions.</description>
+              <bitRange>[7:0]</bitRange>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_MON_AP_CTL</name>
+          <description>TRNG monitor AP control</description>
+          <addressOffset>0x160</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0xFFFFFFFF</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>CUTOFF_COUNT16</name>
+              <description>Cutoff count (legal range is [1, 65535]).
+'0': Illegal.
+'1': 1 occurrence.
+...
+'65535': 65535 occurrences.</description>
+              <bitRange>[15:0]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>WINDOW_SIZE</name>
+              <description>Window size (minus 1) :
+'0': 1 bit.
+...
+'65535': 65536 bits.</description>
+              <bitRange>[31:16]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_MON_AP_STATUS0</name>
+          <description>TRNG monitor AP status 0</description>
+          <addressOffset>0x168</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0x1</resetMask>
+          <fields>
+            <field>
+              <name>BIT</name>
+              <description>Current active bit value:
+'0': '0'.
+'1': '1'.
+
+This field is only valid when TRNG_MON_AP_STATUS1.OCC_COUNT is NOT equal to '0'.</description>
+              <bitRange>[0:0]</bitRange>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TRNG_MON_AP_STATUS1</name>
+          <description>TRNG monitor AP status 1</description>
+          <addressOffset>0x16C</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>OCC_COUNT</name>
+              <description>Number of occurrences of the current active bit counter:
+'0': 0 occurrences
+...
+'65535': 65535 occurrences</description>
+              <bitRange>[15:0]</bitRange>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>WINDOW_INDEX</name>
+              <description>Counter to keep track of the current index in the window (counts from '0' to TRNG_MON_AP_CTL.WINDOW_SIZE to '0').</description>
+              <bitRange>[31:16]</bitRange>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>INTR_TRNG</name>
+          <description>TRNG interrupt</description>
+          <addressOffset>0x1F0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0xF</resetMask>
+          <fields>
+            <field>
+              <name>INITIALIZED</name>
+              <description>This interrupt cause is activated (HW sets the field to '1') when the TRNG is initialized.</description>
+              <bitRange>[0:0]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DATA_AVAILABLE</name>
+              <description>This interrupt cause is activated (HW sets the field to '1') when 32 bits of TRNG data becomes available in TRNG_RESULT.</description>
+              <bitRange>[1:1]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>AP_DETECT</name>
+              <description>This interrupt cause is activated (HW sets the field to '1') when the TRNG monitor detects an 'adaptive proportion' error.</description>
+              <bitRange>[2:2]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RC_DETECT</name>
+              <description>This interrupt cause is activated (HW sets the field to '1') when the TRNG monitor detects an 'repetition count' error.</description>
+              <bitRange>[3:3]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>INTR_TRNG_SET</name>
+          <description>TRNG Interrupt set</description>
+          <addressOffset>0x1F4</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0xF</resetMask>
+          <fields>
+            <field>
+              <name>INITIALIZED</name>
+              <description>SW writes a '1' to this field to set the corresponding field in interrupt request register.</description>
+              <bitRange>[0:0]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DATA_AVAILABLE</name>
+              <description>SW writes a '1' to this field to set the corresponding field in interrupt request register.</description>
+              <bitRange>[1:1]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>AP_DETECT</name>
+              <description>SW writes a '1' to this field to set the corresponding field in interrupt request register.</description>
+              <bitRange>[2:2]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RC_DETECT</name>
+              <description>SW writes a '1' to this field to set the corresponding field in interrupt request register.</description>
+              <bitRange>[3:3]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>INTR_TRNG_MASK</name>
+          <description>TRNG Interrupt mask</description>
+          <addressOffset>0x1F8</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0xF</resetMask>
+          <fields>
+            <field>
+              <name>INITIALIZED</name>
+              <description>Mask bit for corresponding field in interrupt request register.</description>
+              <bitRange>[0:0]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DATA_AVAILABLE</name>
+              <description>Mask bit for corresponding field in interrupt request register.</description>
+              <bitRange>[1:1]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>AP_DETECT</name>
+              <description>Mask bit for corresponding field in interrupt request register.</description>
+              <bitRange>[2:2]</bitRange>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RC_DETECT</name>
+              <description>Mask bit for corresponding field in interrupt request register.</description>
+              <bitRange>[3:3]</bitRange>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>INTR_TRNG_MASKED</name>
+          <description>TRNG Interrupt masked</description>
+          <addressOffset>0x1FC</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0xF</resetMask>
+          <fields>
+            <field>
+              <name>INITIALIZED</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <bitRange>[0:0]</bitRange>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>DATA_AVAILABLE</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <bitRange>[1:1]</bitRange>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>AP_DETECT</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <bitRange>[2:2]</bitRange>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>RC_DETECT</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <bitRange>[3:3]</bitRange>
               <access>read-only</access>
             </field>
           </fields>
@@ -15420,61 +16008,6 @@ See PORT_SEL0 for connection details.</description>
             </fields>
           </register>
         </cluster>
-        <register>
-          <dim>64</dim>
-          <dimIncrement>4</dimIncrement>
-          <name>AMUX_SPLIT_CTL[%s]</name>
-          <description>AMUX splitter cell control</description>
-          <addressOffset>0x2000</addressOffset>
-          <size>32</size>
-          <access>read-write</access>
-          <resetValue>0x0</resetValue>
-          <resetMask>0x77</resetMask>
-          <fields>
-            <field>
-              <name>SWITCH_AA_SL</name>
-              <description>T-switch control for Left AMUXBUSA switch:
-'0': switch open.
-'1': switch closed.</description>
-              <bitRange>[0:0]</bitRange>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SWITCH_AA_SR</name>
-              <description>T-switch control for Right AMUXBUSA switch:
-'0': switch open.
-'1': switch closed.</description>
-              <bitRange>[1:1]</bitRange>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SWITCH_AA_S0</name>
-              <description>T-switch control for AMUXBUSA vssa/ground switch:
-'0': switch open.
-'1': switch closed.</description>
-              <bitRange>[2:2]</bitRange>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SWITCH_BB_SL</name>
-              <description>T-switch control for Left AMUXBUSB switch.</description>
-              <bitRange>[4:4]</bitRange>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SWITCH_BB_SR</name>
-              <description>T-switch control for Right AMUXBUSB switch.</description>
-              <bitRange>[5:5]</bitRange>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>SWITCH_BB_S0</name>
-              <description>T-switch control for AMUXBUSB vssa/ground switch.</description>
-              <bitRange>[6:6]</bitRange>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
         <register>
           <name>MONITOR_CTL_0</name>
           <description>Power/Ground Monitor cell control 0</description>
@@ -20675,7 +21208,7 @@ FIFO 0 can be operated in blocking or in overwrite mode (see Section 3.4.2).
                   <name>F0FL</name>
                   <description>Rx FIFO 0 Fill Level
 Number of elements stored in Rx FIFO 0, range 0 to 64.
-When the software reading the value immediately after writing to RXF0A.F0AI, this value should be read twice to ensure that the update is refracted.</description>
+When the software reading the value immediately after writing to RXF0A.F0AI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[6:0]</bitRange>
                   <access>read-only</access>
                 </field>
@@ -20684,7 +21217,7 @@ When the software reading the value immediately after writing to RXF0A.F0AI, thi
                   <description>Rx FIFO 0 Get Index
 Rx FIFO 0 read index pointer, range 0 to 63.
 This field is updated by the software writing to RXF0A.F0AI.
-When the software reading the value immediately after writing to RXF0A.F0AI, this value should be read twice to ensure that the update is refracted.</description>
+When the software reading the value immediately after writing to RXF0A.F0AI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[13:8]</bitRange>
                   <access>read-only</access>
                 </field>
@@ -20812,7 +21345,7 @@ FIFO 1 can be operated in blocking or in overwrite mode (see Section 3.4.2).
                   <name>F1FL</name>
                   <description>Rx FIFO 1 Fill Level
 Number of elements stored in Rx FIFO 1, range 0 to 64.
-When the software reading the value immediately after writing to RXF1A.F1AI, this value should be read twice to ensure that the update is refracted.</description>
+When the software reading the value immediately after writing to RXF1A.F1AI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[6:0]</bitRange>
                   <access>read-only</access>
                 </field>
@@ -20821,7 +21354,7 @@ When the software reading the value immediately after writing to RXF1A.F1AI, thi
                   <description>Rx FIFO 1 Get Index
 Rx FIFO 1 read index pointer, range 0 to 63.
 This field is updated by the software writing to RXF1A.F1AI.
-When the software reading the value immediately after writing to RXF1A.F1AI, this value should be read twice to ensure that the update is refracted.</description>
+When the software reading the value immediately after writing to RXF1A.F1AI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[13:8]</bitRange>
                   <access>read-only</access>
                 </field>
@@ -21263,7 +21796,7 @@ The Tx Event FIFO elements are indexed from 0 to EFS-1</description>
                   <name>EFFL</name>
                   <description>Event FIFO Fill Level
 Number of elements stored in Tx Event FIFO, range 0 to 32.
-When the software reading the value immediately after writing to TXEFA.EFAI, this value should be read twice to ensure that the update is refracted.</description>
+When the software reading the value immediately after writing to TXEFA.EFAI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[5:0]</bitRange>
                   <access>read-only</access>
                 </field>
@@ -21272,7 +21805,7 @@ When the software reading the value immediately after writing to TXEFA.EFAI, thi
                   <description>Event FIFO Get Index
 Tx Event FIFO read index pointer, range 0 to 31.
 This field is updated by the software writing to TXEFA.EFAI.
-When the software reading the value immediately after writing to TXEFA.EFAI, this value should be read twice to ensure that the update is refracted.</description>
+When the software reading the value immediately after writing to TXEFA.EFAI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[12:8]</bitRange>
                   <access>read-only</access>
                 </field>

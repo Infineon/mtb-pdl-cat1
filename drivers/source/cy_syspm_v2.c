@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v2.c
-* \version 5.91
+* \version 5.92
 *
 * This driver provides the source code for API power management.
 *
@@ -579,6 +579,9 @@ cy_en_syspm_status_t Cy_SysPm_SetupDeepSleepRAM(cy_en_syspm_dsram_checks_t dsram
     {
         if(dsramCheck == CY_SYSPM_PRE_DSRAM)
         {
+            /* Clear the Warm Boot Entry status Flag */
+            Cy_SysLib_ClearDSRAMWarmBootEntryStatus();
+
             /* Call the registered callback functions with the CY_SYSPM_CHECK_READY
             *  parameter
             */
@@ -1135,6 +1138,19 @@ cy_en_syspm_core_buck_mode_t Cy_SysPm_CoreBuckGetMode(void)
     return (cy_en_syspm_core_buck_mode_t)(_FLD2VAL(SRSS_PWR_CBUCK_CTL_CBUCK_MODE, SRSS_PWR_CBUCK_CTL));
 }
 
+void Cy_SysPm_CoreBuckSetInrushLimit(cy_en_syspm_core_inrush_limit_t inrushLimit)
+{
+    CY_ASSERT_L2(CY_SYSPM_IS_CORE_BUCK_INRUSH_LIMIT_VALID(inrushLimit));
+
+    CY_REG32_CLR_SET(SRSS_PWR_CBUCK_CTL3, SRSS_PWR_CBUCK_CTL3_CBUCK_INRUSH_SEL, inrushLimit);
+}
+
+cy_en_syspm_core_inrush_limit_t Cy_SysPm_CoreBuckGetInrushLimit(void)
+{
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to cy_en_syspm_core_inrush_limit_t enum.');
+    return (cy_en_syspm_core_inrush_limit_t)(_FLD2VAL(SRSS_PWR_CBUCK_CTL3_CBUCK_INRUSH_SEL, SRSS_PWR_CBUCK_CTL3));
+}
+
 cy_en_syspm_status_t Cy_SysPm_CoreBuckConfig(cy_stc_syspm_core_buck_params_t *config)
 {
     CY_ASSERT_L2(CY_SYSPM_IS_CORE_BUCK_VOLTAGE_VALID(config->voltageSel));
@@ -1184,23 +1200,54 @@ void Cy_SysPm_SdrConfigure(cy_en_syspm_sdr_t sdr, cy_stc_syspm_sdr_params_t *con
 
     if(sdr == CY_SYSPM_SDR_0)
     {
+        cy_en_syspm_sdr_voltage_t currSdr0Volt = Cy_SysPm_SdrGetVoltage(CY_SYSPM_SDR_0);
+
         CY_ASSERT_L2(CY_SYSPM_IS_SDR_VOLTAGE_VALID(config->sdr0DpSlpVoltSel));
         CY_ASSERT_L2(CY_SYSPM_IS_CORE_BUCK_VOLTAGE_VALID(config->coreBuckDpSlpVoltSel));
         CY_ASSERT_L2(CY_SYSPM_IS_CORE_BUCK_MODE_VALID(config->coreBuckDpSlpMode));
 
-        if(IsVoltageChangePossible())
+        /* High to Low voltage --> TRIM first , Set Voltage next */
+        if(config->sdrVoltSel < ((uint8_t)currSdr0Volt))
         {
-            SetMemoryVoltageTrims((cy_en_syspm_sdr_voltage_t)config->sdrVoltSel);
+            if(IsVoltageChangePossible())
+            {
+                SetMemoryVoltageTrims((cy_en_syspm_sdr_voltage_t)config->sdrVoltSel);
+            }
+
+            SRSS_PWR_SDR0_CTL =  _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_VSEL, config->coreBuckVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_MODE, config->coreBuckMode) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_VSEL, config->sdrVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_DPSLP_VSEL, config->coreBuckDpSlpVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_DPSLP_MODE, config->coreBuckDpSlpMode) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_DPSLP_VSEL, config->sdr0DpSlpVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_ALLOW_BYPASS, ((config->sdr0Allowbypass) ? 1UL : 0UL));
+
         }
+        else if(config->sdrVoltSel > ((uint8_t)currSdr0Volt))  /* Low to High voltage --> Set Voltage first , Trim next */
+        {
+            SRSS_PWR_SDR0_CTL =  _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_VSEL, config->coreBuckVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_MODE, config->coreBuckMode) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_VSEL, config->sdrVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_DPSLP_VSEL, config->coreBuckDpSlpVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_DPSLP_MODE, config->coreBuckDpSlpMode) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_DPSLP_VSEL, config->sdr0DpSlpVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_ALLOW_BYPASS, ((config->sdr0Allowbypass) ? 1UL : 0UL));
 
-
-        SRSS_PWR_SDR0_CTL =  _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_VSEL, config->coreBuckVoltSel) |
-                             _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_MODE, config->coreBuckMode) |
-                             _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_VSEL, config->sdrVoltSel) |
-                             _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_DPSLP_VSEL, config->coreBuckDpSlpVoltSel) |
-                             _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_DPSLP_MODE, config->coreBuckDpSlpMode) |
-                             _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_DPSLP_VSEL, config->sdr0DpSlpVoltSel) |
-                             _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_ALLOW_BYPASS, ((config->sdr0Allowbypass) ? 1UL : 0UL));
+            if(IsVoltageChangePossible())
+            {
+                SetMemoryVoltageTrims((cy_en_syspm_sdr_voltage_t)config->sdrVoltSel);
+            }
+        }
+        else
+        {
+            SRSS_PWR_SDR0_CTL =  _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_VSEL, config->coreBuckVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_MODE, config->coreBuckMode) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_VSEL, config->sdrVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_DPSLP_VSEL, config->coreBuckDpSlpVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_CBUCK_DPSLP_MODE, config->coreBuckDpSlpMode) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_DPSLP_VSEL, config->sdr0DpSlpVoltSel) |
+                              _VAL2FLD(SRSS_PWR_SDR0_CTL_SDR0_ALLOW_BYPASS, ((config->sdr0Allowbypass) ? 1UL : 0UL));
+        }
     }
     else
     {
@@ -1223,12 +1270,30 @@ void Cy_SysPm_SdrSetVoltage(cy_en_syspm_sdr_t sdr, cy_en_syspm_sdr_voltage_t vol
 
     if(sdr == CY_SYSPM_SDR_0)
     {
-        if(IsVoltageChangePossible())
+        cy_en_syspm_sdr_voltage_t currSdr0Volt = Cy_SysPm_SdrGetVoltage(CY_SYSPM_SDR_0);
+        /* High to Low voltage --> Set TRIM's first , Set Voltage next */
+        if(voltage < currSdr0Volt)
         {
-            SetMemoryVoltageTrims(voltage);
-        }
+            if(IsVoltageChangePossible())
+            {
+                SetMemoryVoltageTrims(voltage);
+            }
 
-        CY_REG32_CLR_SET(SRSS_PWR_SDR0_CTL, SRSS_PWR_SDR0_CTL_SDR0_VSEL, voltage);
+            CY_REG32_CLR_SET(SRSS_PWR_SDR0_CTL, SRSS_PWR_SDR0_CTL_SDR0_VSEL, voltage);
+        }
+        /* Low to High voltage --> Set Voltage first , Set TRIM's next */
+        else if (voltage > currSdr0Volt)
+        {
+            CY_REG32_CLR_SET(SRSS_PWR_SDR0_CTL, SRSS_PWR_SDR0_CTL_SDR0_VSEL, voltage);
+
+            if(IsVoltageChangePossible())
+            {
+                SetMemoryVoltageTrims(voltage);
+            }
+        }
+        else
+        {
+        }
     }
     else
     {
@@ -1902,13 +1967,11 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterRAMOffDeepSleep(void)
 
             /* Disable SRAM Macros to save power */
             (void)Cy_SysPm_SetSRAMMacroPwrModeInline(CY_SYSPM_SRAM0_MEMORY, (uint32_t)CY_SYSPM_SRAM0_MACRO_0, CY_SYSPM_SRAM_PWR_MODE_OFF);
-            (void)Cy_SysPm_SetSRAMMacroPwrModeInline(CY_SYSPM_SRAM0_MEMORY, (uint32_t)CY_SYSPM_SRAM0_MACRO_1, CY_SYSPM_SRAM_PWR_MODE_OFF);
 
             __WFI();
 
             /* Enable SRAM Macros as DEEPSLEEP_RAM might have failed if we reach this point */
             (void)Cy_SysPm_SetSRAMMacroPwrModeInline(CY_SYSPM_SRAM0_MEMORY, (uint32_t)CY_SYSPM_SRAM0_MACRO_0, CY_SYSPM_SRAM_PWR_MODE_ON);
-            (void)Cy_SysPm_SetSRAMMacroPwrModeInline(CY_SYSPM_SRAM0_MEMORY, (uint32_t)CY_SYSPM_SRAM0_MACRO_1, CY_SYSPM_SRAM_PWR_MODE_ON);
 
             /* Jump to HCI ROM app Reset handler */
             Cy_SysPm_Dsramoff_Entry();
@@ -2002,17 +2065,16 @@ static bool IsVoltageChangePossible(void)
 
     bool retVal = false;
 
-    if(Cy_SysLib_GetDeviceRevision() != CY_SYSLIB_DEVICE_PID_20829A0)
+#if (CY_SYSLIB_GET_SILICON_REV_ID != CY_SYSLIB_20829A0_SILICON_REV)
     {
         uint32_t trimRamCheckVal = (CPUSS_TRIM_RAM_CTL & CPUSS_TRIM_RAM_CTL_WC_MASK);
-
 
         CPUSS_TRIM_RAM_CTL &= ~CPUSS_TRIM_RAM_CTL_WC_MASK;
         CPUSS_TRIM_RAM_CTL |= ((~trimRamCheckVal) & CPUSS_TRIM_RAM_CTL_WC_MASK);
 
         retVal = (trimRamCheckVal != (CPUSS_TRIM_RAM_CTL & CPUSS_TRIM_RAM_CTL_WC_MASK));
     }
-
+#endif
     return retVal;
 }
 

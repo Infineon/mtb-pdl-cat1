@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_systick.h
-* \version 1.60
+* \version 1.70
 *
 * Provides the API declarations of the SysTick driver.
 *
@@ -62,6 +62,11 @@
 *
 * <table class="doxtable">
 * <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.70</td>
+*     <td>Macro value change and enhancements.<br>
+*     <td>Bug fix and Enhancements.</td>
+*   </tr>
 *   <tr>
 *     <td>1.60</td>
 *     <td>Bug fix and Enhancements.<br>
@@ -173,13 +178,13 @@ typedef enum
 */
 
 /** Driver major version */
-#define SYSTICK_DRV_VERSION_MAJOR       1
+#define CY_SYSTICK_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define SYSTICK_DRV_VERSION_MINOR       60
+#define CY_SYSTICK_DRV_VERSION_MINOR       70
 
 /** SysTick driver ID */
-#define CY_SYSTICK_ID           CY_PDL_DRV_ID(0x19U)
+#define CY_SYSTICK_ID           CY_PDL_DRV_ID(0x79U)
 
 /** Number of the callbacks assigned to the SysTick interrupt */
 #define CY_SYS_SYST_NUM_OF_CALLBACKS         (5u)

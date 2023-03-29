@@ -6,7 +6,9 @@ var group__group__smif__data__structures =
       [ "mode", "structcy__stc__smif__config__t.html#aafd7927f913f7ce00475898ca8a032f8", null ],
       [ "deselectDelay", "structcy__stc__smif__config__t.html#a2a21acf4b0f7c82eecb82fea66f492c7", null ],
       [ "rxClockSel", "structcy__stc__smif__config__t.html#a192e6efde98ece259efad3c9e64d40f8", null ],
-      [ "blockEvent", "structcy__stc__smif__config__t.html#aa6fcae8a59c000ef79d71de06695b659", null ]
+      [ "blockEvent", "structcy__stc__smif__config__t.html#aa6fcae8a59c000ef79d71de06695b659", null ],
+      [ "delayTapEnable", "structcy__stc__smif__config__t.html#afa5b3c5dfccedf309904cd0e518e6740", null ],
+      [ "delayLineSelect", "structcy__stc__smif__config__t.html#adb8051f906732f2857cb5ecdb217c99e", null ]
     ] ],
     [ "cy_stc_smif_context_t", "structcy__stc__smif__context__t.html", [
       [ "txBufferAddress", "structcy__stc__smif__context__t.html#acff2aacf21f0f0f0acbd52bc1bcf116c", null ],
@@ -22,7 +24,9 @@ var group__group__smif__data__structures =
       [ "memReadyPollDealy", "structcy__stc__smif__context__t.html#ab4ee7c584ce14622e55be3eb0969c5fd", null ],
       [ "preCmdDataRate", "structcy__stc__smif__context__t.html#a03f1548bb9f885d5fdb0c70c5501b4cb", null ],
       [ "preCmdWidth", "structcy__stc__smif__context__t.html#a0a30a597f16545936e7970359aa6d1dc", null ],
-      [ "preXIPDataRate", "structcy__stc__smif__context__t.html#a25f3b43821e3f1a90d9f40a3efd59bad", null ]
+      [ "preXIPDataRate", "structcy__stc__smif__context__t.html#a25f3b43821e3f1a90d9f40a3efd59bad", null ],
+      [ "dummyCycles", "structcy__stc__smif__context__t.html#a6444c771d252f9a2aef8416b32317ced", null ],
+      [ "flags", "structcy__stc__smif__context__t.html#aafcdeeb0b2e035795ba29db1a05273aa", null ]
     ] ],
     [ "cy_smif_event_cb_t", "group__group__smif__data__structures.html#ga13688dde62e8977a11ab69cf6b2c39b5", null ]
 ];

@@ -1,10 +1,13 @@
 var searchData=
 [
   ['bank',['bank',['../structcy__stc__flash__checksum__config__t.html#abc8f32254fdb083f1f660cc19b2a95d0',1,'cy_stc_flash_checksum_config_t']]],
-  ['barrett_5fo',['barrett_o',['../structcy__stc__crypto__ecc__dp__type.html#a9cd2894c6d48d780736fded492222b01',1,'cy_stc_crypto_ecc_dp_type']]],
-  ['barrett_5fp',['barrett_p',['../structcy__stc__crypto__ecc__dp__type.html#a32985516423929455def0b6a6ce8523e',1,'cy_stc_crypto_ecc_dp_type']]],
+  ['barretcoefptr',['barretCoefPtr',['../structcy__stc__cryptolite__rsa__pub__key__t.html#a4e3817d3cf87f8ed81a4b6da15e31975',1,'cy_stc_cryptolite_rsa_pub_key_t']]],
+  ['barrett_5fo',['barrett_o',['../structcy__stc__crypto__ecc__dp__type.html#a9cd2894c6d48d780736fded492222b01',1,'cy_stc_crypto_ecc_dp_type::barrett_o()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a8269ad8b2502ff1a2e101d223cc10fb9',1,'cy_stc_cryptolite_ecc_dp_type::barrett_o()']]],
+  ['barrett_5fp',['barrett_p',['../structcy__stc__crypto__ecc__dp__type.html#a32985516423929455def0b6a6ce8523e',1,'cy_stc_crypto_ecc_dp_type::barrett_p()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a381f2f2cc023b8212498bc5c368d9d2d',1,'cy_stc_cryptolite_ecc_dp_type::barrett_p()']]],
   ['base',['base',['../structcy__stc__syspm__callback__params__t.html#a56076e99358e2b7c99681312108b09af',1,'cy_stc_syspm_callback_params_t::base()'],['../structcy__stc__usbfs__dev__drv__dma__config__t.html#a8f4ec9857bf5868ec58ce1383b140b5d',1,'cy_stc_usbfs_dev_drv_dma_config_t::base()']]],
   ['baseaddress',['baseAddress',['../structcy__stc__smif__mem__config__t.html#a460a4733ce1f20fc1a3f767c35b1d3db',1,'cy_stc_smif_mem_config_t']]],
+  ['betacoarse',['betaCoarse',['../structcy__stc__dpll__hp__config__t.html#aa0678d84bd2bdcf02dac9e07182be7cd',1,'cy_stc_dpll_hp_config_t']]],
+  ['betaext',['betaExt',['../structcy__stc__dpll__hp__config__t.html#a058003220283c3ee8fa9d78c1c278f46',1,'cy_stc_dpll_hp_config_t']]],
   ['bext_5fintr',['bext_intr',['../structcy__stc__ethif__intr__config__t.html#a6c21dbaf218398a1ad351123703759bf',1,'cy_stc_ethif_intr_config_t']]],
   ['bhresp_5fnot_5fok',['bhresp_not_ok',['../structcy__stc__ethif__intr__config__t.html#a368ad7f6e32eebf704fd066c5f2275df',1,'cy_stc_ethif_intr_config_t']]],
   ['bias',['bias',['../structcy__stc__seglcd__config__t.html#ab3f79d01165e2a5f3926ab943d01a789',1,'cy_stc_seglcd_config_t']]],
@@ -85,6 +88,7 @@ var searchData=
   ['bufaddr',['bufAddr',['../structcy__stc__ipc__msg__alloc__t.html#afde00853e5588a9df6c24a22f29e1d4d',1,'cy_stc_ipc_msg_alloc_t::bufAddr()'],['../structcy__stc__ipc__msg__buff__t.html#a6976335a8ccc58fa9cde0f13698184b0',1,'cy_stc_ipc_msg_buff_t::bufAddr()']]],
   ['bufcallbackptr',['bufCallbackPtr',['../structcy__stc__ipc__bt__context__t.html#add877af912f70513dd503eb0f4bb0f57',1,'cy_stc_ipc_bt_context_t::bufCallbackPtr()'],['../structcy__stc__ipc__bt__config__t.html#a4409370999cbe02db3da4ba19c0326e7',1,'cy_stc_ipc_bt_config_t::bufCallbackPtr()']]],
   ['buffer',['buffer',['../structcy__stc__scb__i2c__master__xfer__config__t.html#a17fa9b9a817e002381f07c4982abaffa',1,'cy_stc_scb_i2c_master_xfer_config_t']]],
+  ['buffer_5fswap_5fenable',['buffer_swap_enable',['../structcy__stc__tcpwm__counter__config__t.html#aa9fc33df3bb4abd1e9007aec510132dc',1,'cy_stc_tcpwm_counter_config_t::buffer_swap_enable()'],['../structcy__stc__tcpwm__pwm__config__t.html#ac3ff11bd830ec04d750938b7a6c3ca6f',1,'cy_stc_tcpwm_pwm_config_t::buffer_swap_enable()'],['../structcy__stc__tcpwm__quaddec__config__t.html#ae79cd4f4ed33ad35f44fde8258700d15',1,'cy_stc_tcpwm_quaddec_config_t::buffer_swap_enable()'],['../structcy__stc__tcpwm__shiftreg__config__t.html#a4feefe964695a6527ab32cefcf38d60c',1,'cy_stc_tcpwm_shiftreg_config_t::buffer_swap_enable()']]],
   ['bufferable',['bufferable',['../structcy__stc__dma__channel__config__t.html#aa40017613f97a28e2802e072fdf38817',1,'cy_stc_dma_channel_config_t::bufferable()'],['../structcy__stc__dmac__channel__config__t.html#ade9585ff561af6ad292932293e0bd15d',1,'cy_stc_dmac_channel_config_t::bufferable()']]],
   ['buffersize',['bufferSize',['../structcy__stc__scb__i2c__master__xfer__config__t.html#a4afeea04f622380e0c1113cc4bfbdea6',1,'cy_stc_scb_i2c_master_xfer_config_t::bufferSize()'],['../structcy__stc__usb__dev__ep__config__t.html#a55bbd3ae04492a97a780b06b2740b835',1,'cy_stc_usb_dev_ep_config_t::bufferSize()']]],
   ['buffpool',['buffPool',['../structcy__stc__ipc__bt__context__t.html#a5ff5ec67230c892696c45bfe25e41cd5',1,'cy_stc_ipc_bt_context_t::buffPool()'],['../structcy__stc__ipc__bt__save__ctxt__t.html#a3ca1879569987fa0714e24a6ffff48f3',1,'cy_stc_ipc_bt_save_ctxt_t::buffPool()']]],

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_counter.c
-* \version 1.40
+* \version 1.50
 *
 * \brief
 *  The source file of the tcpwm driver.
@@ -119,6 +119,10 @@ cy_en_tcpwm_status_t Cy_TCPWM_Counter_Init(TCPWM_Type *base, uint32_t cntNum,
                                           _VAL2FLD(TCPWM_GRP_CNT_V2_CTRL_UP_DOWN_MODE, config->countDirection) |
                                           _VAL2FLD(TCPWM_GRP_CNT_V2_CTRL_MODE, config->compareOrCapture) |
                                           (config->enableCompareSwap ? TCPWM_GRP_CNT_V2_CTRL_AUTO_RELOAD_CC0_Msk : 0UL) |
+#if (CY_IP_MXTCPWM_VERSION >= 3U)
+                                          _VAL2FLD(TCPWM_GRP_CNT_V3_CTRL_SWAP_ENABLED, config->buffer_swap_enable) |
+                                          _VAL2FLD(TCPWM_GRP_CNT_V2_CTRL_QUAD_ENCODING_MODE, config->direction_mode) |
+#endif
                                           (enabled_bit ? TCPWM_GRP_CNT_V2_CTRL_ENABLED_Msk : 0UL));
 
             if (CY_TCPWM_COUNTER_COUNT_UP == config->countDirection)

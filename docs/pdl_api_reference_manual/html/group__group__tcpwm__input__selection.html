@@ -159,11 +159,45 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__input__selection.html#ga3eae2f9a75c2a13503c7c7f58503a1d9">CY_TCPWM_INPUT_TRIG</a>(n)&#160;&#160;&#160;(n + TCPWM_TR_ONE_CNT_NR + 2U)</td></tr>
 <tr class="memdesc:ga3eae2f9a75c2a13503c7c7f58503a1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input is connected to the trigger input n - all purpose trigger. <br /></td></tr>
 <tr class="separator:ga3eae2f9a75c2a13503c7c7f58503a1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15e94cf62ecc35aa76894c61c3d3aa6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__input__selection.html#ga15e94cf62ecc35aa76894c61c3d3aa6c">CY_TCPWM_INPUT_TRIG_WITH_INST</a>(n,  m)&#160;&#160;&#160;(n + TCPWM ##m## _TR_ONE_CNT_NR + 2U)</td></tr>
+<tr class="memdesc:ga15e94cf62ecc35aa76894c61c3d3aa6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input is connected to the trigger input n - all purpose trigger, m is the TCPWM instance number.  <a href="#ga15e94cf62ecc35aa76894c61c3d3aa6c">More...</a><br /></td></tr>
+<tr class="separator:ga15e94cf62ecc35aa76894c61c3d3aa6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab72d2611582663c0cad83e2dc87daf81"><td class="memItemLeft" align="right" valign="top"><a id="gab72d2611582663c0cad83e2dc87daf81"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__input__selection.html#gab72d2611582663c0cad83e2dc87daf81">CY_TCPWM_INPUT_CREATOR</a>&#160;&#160;&#160;(0xFFFFFFFFU)</td></tr>
 <tr class="memdesc:gab72d2611582663c0cad83e2dc87daf81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input is defined by Creator, and Init() function does not need to configure input. <br /></td></tr>
 <tr class="separator:gab72d2611582663c0cad83e2dc87daf81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga15e94cf62ecc35aa76894c61c3d3aa6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga15e94cf62ecc35aa76894c61c3d3aa6c">&#9670;&nbsp;</a></span>CY_TCPWM_INPUT_TRIG_WITH_INST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_TCPWM_INPUT_TRIG_WITH_INST</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">n, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(n + TCPWM ##m## _TR_ONE_CNT_NR + 2U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Input is connected to the trigger input n - all purpose trigger, m is the TCPWM instance number. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

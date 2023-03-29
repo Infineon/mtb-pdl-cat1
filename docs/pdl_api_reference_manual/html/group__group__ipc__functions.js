@@ -19,7 +19,5 @@ var group__group__ipc__functions =
     [ "Cy_IPC_Drv_GetInterruptStatusMasked", "group__group__ipc__functions.html#ga423a1a0df8939384794e95f7e05b1e03", null ],
     [ "Cy_IPC_Drv_GetInterruptStatus", "group__group__ipc__functions.html#ga0caa401ab6f35b70e99768a0c442c71a", null ],
     [ "Cy_IPC_Drv_SetInterrupt", "group__group__ipc__functions.html#ga5fb9bd90c225d8cc4bc8c9ef1a829948", null ],
-    [ "Cy_IPC_Drv_ClearInterrupt", "group__group__ipc__functions.html#ga408e08c5842189246a35ca2be89d62ea", null ],
-    [ "Cy_IPC_Drv_GetIpcBaseAddressForIP", "group__group__ipc__functions.html#gac31654ff847b3dd14e618b3d0e3328ab", null ],
-    [ "Cy_IPC_Drv_GetIntrBaseAddrForIP", "group__group__ipc__functions.html#ga78c57570b2902a8b2a4d120b2f7c1e1d", null ]
+    [ "Cy_IPC_Drv_ClearInterrupt", "group__group__ipc__functions.html#ga408e08c5842189246a35ca2be89d62ea", null ]
 ];

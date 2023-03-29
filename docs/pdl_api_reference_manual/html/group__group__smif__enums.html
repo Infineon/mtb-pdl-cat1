@@ -112,6 +112,20 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gaf2f886b17b9d40712b212e704665341e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SMIF error-event selection.  <a href="group__group__smif__enums.html#gaf2f886b17b9d40712b212e704665341e">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gaf2f886b17b9d40712b212e704665341e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8b02cedcfc8e351babc713066562b39"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#gac8b02cedcfc8e351babc713066562b39">cy_en_smif_delay_line_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39af98b1747b2fd2c929594f9d951fcebf2">CY_SMIF_1_NEW_SEL_PER_TAP</a> = 0, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39af22fafbcafed835cfa52848b80497e42">CY_SMIF_1_SEL_PER_TAP</a> = 1, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39a401055c79b352d713745b0f3ce7e2ce2">CY_SMIF_2_SEL_PER_TAP</a> = 2, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39ad7e2094b599fee3b7fdaf4b82941c262">CY_SMIF_4_SEL_PER_TAP</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39ac31cf35a79d1c9a5d2981c031d268fc1">CY_SMIF_NO_DELAY_SEL</a> = 0xFF
+<br />
+ }<tr class="memdesc:gac8b02cedcfc8e351babc713066562b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the delay line used for RX data capturing with.  <a href="group__group__smif__enums.html#gac8b02cedcfc8e351babc713066562b39">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gac8b02cedcfc8e351babc713066562b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6d9ba2ef785b94cf542c573a51a0eb58"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga6d9ba2ef785b94cf542c573a51a0eb58">cy_en_smif_data_select_t</a> { <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6d9ba2ef785b94cf542c573a51a0eb58a7544d58a69a1a2308ebd0cac9099cd24">CY_SMIF_DATA_SEL0</a> = 0, 
 <br />
@@ -132,6 +146,13 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga2baa7c37d2cedf2e2c837facc753ab5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SMIF modes to work with an external memory.  <a href="group__group__smif__enums.html#ga2baa7c37d2cedf2e2c837facc753ab5d">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga2baa7c37d2cedf2e2c837facc753ab5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11e3351473d01a0f29bf6f3b41d3be7e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#ga11e3351473d01a0f29bf6f3b41d3be7e">cy_en_smif_delay_tap_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga11e3351473d01a0f29bf6f3b41d3be7eac6bbaee7d8f741475d222ecc46dddd0e">CY_SMIF_DELAY_TAP_DISABLE</a> = 0, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga11e3351473d01a0f29bf6f3b41d3be7eac2c7d8aaa8407dafc6145d948f7303c3">CY_SMIF_DELAY_TAP_ENABLE</a> = 1
+<br />
+ }</td></tr>
+<tr class="separator:ga11e3351473d01a0f29bf6f3b41d3be7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf65a7e26c18fcd3d3469eb083f78bb85"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__enums.html#gaf65a7e26c18fcd3d3469eb083f78bb85">cy_en_smif_txfr_status_t</a> { <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#ggaf65a7e26c18fcd3d3469eb083f78bb85af8688bbff17a71e7112aebf2b1535d44">CY_SMIF_STARTED</a>, 
 <br />
@@ -185,7 +206,9 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41ab6ceed21f5d3338e1a772300e875f9ba">CY_SMIF_NO_OE_BIT</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x82U, 
 <br />
-&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41abcf28a2ae38dd12e0457ac2de2dd50f4">CY_SMIF_BUSY</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x83U
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41abcf28a2ae38dd12e0457ac2de2dd50f4">CY_SMIF_BUSY</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x83U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a1d7590cc198727421df0fb89cb29fd0b">CY_SMIF_GENERAL_ERROR</a> = CY_SMIF_ID |CY_PDL_STATUS_ERROR | 0x84U
 <br />
  }<tr class="memdesc:ga75fb83c49239ece738cfba778165cb41"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SMIF API return values.  <a href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">More...</a><br /></td></tr>
 </td></tr>
@@ -225,6 +248,10 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951">CY_SMIF_SEL_INVERTED_INTERNAL_CLK</a> = 5U, 
 <br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a7be183a84edad0a54b9f904adde220f1">CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK</a> = 6U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a362ac834bf61cb63069dff4babdd88ba">CY_SMIF_SEL_SPHB_RWDS_CLK</a> = 7U, 
+<br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781">CY_SMIF_SEL_INTERNAL_CLK</a> = 4U, 
 <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951">CY_SMIF_SEL_INVERTED_INTERNAL_CLK</a> = 5U, 
@@ -248,6 +275,10 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781">CY_SMIF_SEL_INTERNAL_CLK</a> = 4U, 
 <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951">CY_SMIF_SEL_INVERTED_INTERNAL_CLK</a> = 5U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a7be183a84edad0a54b9f904adde220f1">CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK</a> = 6U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a362ac834bf61cb63069dff4babdd88ba">CY_SMIF_SEL_SPHB_RWDS_CLK</a> = 7U, 
 <br />
 &#160;&#160;<a class="el" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781">CY_SMIF_SEL_INTERNAL_CLK</a> = 4U, 
 <br />
@@ -384,6 +415,38 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="gac8b02cedcfc8e351babc713066562b39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac8b02cedcfc8e351babc713066562b39">&#9670;&nbsp;</a></span>cy_en_smif_delay_line_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#gac8b02cedcfc8e351babc713066562b39">cy_en_smif_delay_line_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the delay line used for RX data capturing with. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggac8b02cedcfc8e351babc713066562b39af98b1747b2fd2c929594f9d951fcebf2"></a>CY_SMIF_1_NEW_SEL_PER_TAP&#160;</td><td class="fielddoc"><p>1 of these new delay cells per tap providing: granularity of max. </p>
+<p>~0.22ns </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac8b02cedcfc8e351babc713066562b39af22fafbcafed835cfa52848b80497e42"></a>CY_SMIF_1_SEL_PER_TAP&#160;</td><td class="fielddoc"><p>1 cell per tap providing: granularity of max. </p>
+<p>~0.4ns </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac8b02cedcfc8e351babc713066562b39a401055c79b352d713745b0f3ce7e2ce2"></a>CY_SMIF_2_SEL_PER_TAP&#160;</td><td class="fielddoc"><p>2 cells per tap providing: granularity of max. </p>
+<p>~0.8ns </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac8b02cedcfc8e351babc713066562b39ad7e2094b599fee3b7fdaf4b82941c262"></a>CY_SMIF_4_SEL_PER_TAP&#160;</td><td class="fielddoc"><p>4 cells per tap providing: granularity of max. </p>
+<p>~1.6ns </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggac8b02cedcfc8e351babc713066562b39ac31cf35a79d1c9a5d2981c031d268fc1"></a>CY_SMIF_NO_DELAY_SEL&#160;</td><td class="fielddoc"><p>No delay line (disabled) </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="ga6d9ba2ef785b94cf542c573a51a0eb58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga6d9ba2ef785b94cf542c573a51a0eb58">&#9670;&nbsp;</a></span>cy_en_smif_data_select_t</h2>
 
@@ -431,6 +494,27 @@ Enumerations</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga2baa7c37d2cedf2e2c837facc753ab5da4fe852fb31547c77b31203ec5c43ca91"></a>CY_SMIF_NORMAL&#160;</td><td class="fielddoc"><p>Command mode (MMIO mode). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga2baa7c37d2cedf2e2c837facc753ab5da562131834e2b77b141db45354e8584ec"></a>CY_SMIF_MEMORY&#160;</td><td class="fielddoc"><p>XIP (eXecute In Place) mode. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga11e3351473d01a0f29bf6f3b41d3be7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga11e3351473d01a0f29bf6f3b41d3be7e">&#9670;&nbsp;</a></span>cy_en_smif_delay_tap_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__enums.html#ga11e3351473d01a0f29bf6f3b41d3be7e">cy_en_smif_delay_tap_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga11e3351473d01a0f29bf6f3b41d3be7eac6bbaee7d8f741475d222ecc46dddd0e"></a>CY_SMIF_DELAY_TAP_DISABLE&#160;</td><td class="fielddoc"><p>The SMIF Delay tap disable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga11e3351473d01a0f29bf6f3b41d3be7eac2c7d8aaa8407dafc6145d948f7303c3"></a>CY_SMIF_DELAY_TAP_ENABLE&#160;</td><td class="fielddoc"><p>The SMIF Delay tap enable. </p>
 </td></tr>
 </table>
 
@@ -521,6 +605,8 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga75fb83c49239ece738cfba778165cb41abcf28a2ae38dd12e0457ac2de2dd50f4"></a>CY_SMIF_BUSY&#160;</td><td class="fielddoc"><p>SMIF is currently busy and cannot accept the request. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="gga75fb83c49239ece738cfba778165cb41a1d7590cc198727421df0fb89cb29fd0b"></a>CY_SMIF_GENERAL_ERROR&#160;</td><td class="fielddoc"><p>Some general error. </p>
+</td></tr>
 </table>
 
 </div>
@@ -604,6 +690,10 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951"></a>CY_SMIF_SEL_INVERTED_INTERNAL_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal inverted clock. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a7be183a84edad0a54b9f904adde220f1"></a>CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal inverted clock. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a362ac834bf61cb63069dff4babdd88ba"></a>CY_SMIF_SEL_SPHB_RWDS_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal inverted clock. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781"></a>CY_SMIF_SEL_INTERNAL_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal clock. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951"></a>CY_SMIF_SEL_INVERTED_INTERNAL_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal inverted clock. </p>
@@ -640,6 +730,10 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781"></a>CY_SMIF_SEL_INTERNAL_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal clock. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951"></a>CY_SMIF_SEL_INVERTED_INTERNAL_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal inverted clock. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a7be183a84edad0a54b9f904adde220f1"></a>CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal inverted clock. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a362ac834bf61cb63069dff4babdd88ba"></a>CY_SMIF_SEL_SPHB_RWDS_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal inverted clock. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781"></a>CY_SMIF_SEL_INTERNAL_CLK&#160;</td><td class="fielddoc"><p>The SMIF internal clock. </p>
 </td></tr>

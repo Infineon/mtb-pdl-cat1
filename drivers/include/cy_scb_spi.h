@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_spi.h
-* \version 3.0
+* \version 3.10
 *
 * Provides SPI API declarations of the SCB driver.
 *
@@ -382,7 +382,7 @@ typedef enum
 } cy_en_scb_spi_polarity_t;
 
 /** SPI Parity */
-#if(((CY_IP_MXSCB_VERSION>=2) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
+#if(((defined (CY_IP_MXSCB_VERSION) && (CY_IP_MXSCB_VERSION>=2)) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
 /**
 * \note
 * This enum is available for CAT1B and CAT1C devices.
@@ -429,7 +429,7 @@ typedef struct cy_stc_scb_spi_config
     * other submodes
     */
     cy_en_scb_spi_sclk_mode_t    sclkMode;
-#if(((CY_IP_MXSCB_VERSION>=2) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
+#if(((defined (CY_IP_MXSCB_VERSION) && (CY_IP_MXSCB_VERSION>=2)) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
     /** Configures the SPI parity */
     /**
     * \note
@@ -506,7 +506,7 @@ typedef struct cy_stc_scb_spi_config
     */
     uint32_t    ssPolarity;
 
-#if(((CY_IP_MXSCB_VERSION>=2) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
+#if(((defined (CY_IP_MXSCB_VERSION) && (CY_IP_MXSCB_VERSION>=2)) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
     /**
     * Indicates the SPI SELECT setup delay (between SELECT activation and SPI clock).
     * '0': With this setting the same timing is generated as in SCB v1 block.

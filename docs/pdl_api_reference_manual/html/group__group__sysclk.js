@@ -26,9 +26,5 @@ var group__group__sysclk =
     [ "Medium Frequency Domain Clock", "group__group__sysclk__mf.html", "group__group__sysclk__mf" ],
     [ "Internal High Frequency(IHO) Clock", "group__group__sysclk__iho.html", "group__group__sysclk__iho" ],
     [ "Internal Main Oscillator(IMO) Clock", "group__group__sysclk__imo.html", "group__group__sysclk__imo" ],
-    [ "Mem Clock", "group__group__sysclk__clk__mem.html", "group__group__sysclk__clk__mem" ],
-    [ "cy_en_imo_in_sources_t", "group__group__sysclk.html#ga4d15feb4b518e976266c4d44f5cc8791", [
-      [ "CY_SYSCLK_IMO_IN_4MHz", "group__group__sysclk.html#gga4d15feb4b518e976266c4d44f5cc8791ae153d55c566dce7842ea98e48acaf154", null ],
-      [ "CY_SYSCLK_IMO_IN_2MHz", "group__group__sysclk.html#gga4d15feb4b518e976266c4d44f5cc8791ac458c9e7ee2b7e9d50a90884492c3dff", null ]
-    ] ]
+    [ "Mem Clock", "group__group__sysclk__clk__mem.html", "group__group__sysclk__clk__mem" ]
 ];

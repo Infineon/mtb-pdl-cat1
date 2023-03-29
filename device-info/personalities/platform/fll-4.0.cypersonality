@@ -75,8 +75,8 @@
     <ParamRange id="multiplier" name="Multiplier (1-262143)" group="General" default="`${getTclVar(&quot;fllMult&quot;, callSolverAuto)}`" min="`${srcNotUsed ? 0 : 1}`" max="262143" resolution="1" visible="true" editable="`${manConfig}`" desc="The feedback clock divider" />
     <ParamRange id="reference" name="Reference (1-8191)" group="General" default="`${getTclVar(&quot;refDiv&quot;, callSolverAuto)}`" min="`${srcNotUsed ? 0 : 1}`" max="8191" resolution="1" visible="true" editable="`${manConfig}`" desc="The reference clock divider" />
     <ParamRange id="tolerance" name="Lock Tolerance (0-511)" group="General" default="`${getTclVar(&quot;lockTolerance&quot;, callSolverAuto)}`" min="0" max="511" resolution="1" visible="true" editable="`${manConfig}`" desc="Lock tolerance sets the error threshold for when the FLL output is considered locked to the reference input. A high tolerance can be used to lock more quickly or to track a less accurate source.  The tolerance should be set so that the FLL does not unlock under normal conditions. The tolerance is the allowed difference between the count value for the ideal formula and the measured value" />
-    
-    <ParamString id="callSolver" name="callSolver" group="Internal" default="`${manConfig ? runTcl(&quot;fll_solver-2.0.tcl&quot; , &quot;manual&quot;, sourceFrequency / 1000000.0, multiplier, reference, tolerance, path0ClkSource eq &quot;wco&quot;, sourceAccuracy) : callSolverAuto}`" visible="false" editable="false" desc="FLL clock solver" />
+    <ParamBool id="enableOutputDivider" name="Enable FLL output Divider" group="General" default="false" visible="`${manConfig ? &quot;true&quot; : &quot;false&quot;}`" editable="true" desc="Enable FLL output Divider" />
+    <ParamString id="callSolver" name="callSolver" group="Internal" default="`${manConfig ? runTcl(&quot;fll_solver-2.0.tcl&quot; , &quot;manual&quot;, sourceFrequency / 1000000.0, multiplier, reference, tolerance, enableOutputDivider, path0ClkSource eq &quot;wco&quot;, sourceAccuracy) : callSolverAuto}`" visible="false" editable="false" desc="FLL clock solver" />
 
     <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFrequency * multiplier / (srcNotUsed ? 1 : reference) / (getTclVar(&quot;enableOutputDiv&quot;, callSolver) ? 2 : 1)}`" min="`${srcNotUsed ? 0 : 24000000}`" max="`${maxFreqHz}`" resolution="200000" visible="false" editable="false" desc="" />
     <ParamString id="solvedAccuracy" name="accuracy" group="Internal" default="`${getTclVar(&quot;accuracy&quot;, callSolver)}`" visible="false" editable="false" desc="" />
@@ -108,7 +108,7 @@
       <Member name="fllMult" value="`${multiplier}`U" />
       <Member name="refDiv" value="`${reference}`U" />
       <Member name="ccoRange" value="`${getTclVar(&quot;ccoRange&quot;, callSolver)}`" />
-      <Member name="enableOutputDiv" value="`${getTclVar(&quot;enableOutputDiv&quot;, callSolver)}`" />
+      <Member name="enableOutputDiv" value="`${manConfig ? (enableOutputDivider ? &quot;true&quot; : &quot;false&quot;) : getTclVar(&quot;enableOutputDiv&quot;, callSolver)}`" />
       <Member name="lockTolerance" value="`${tolerance}`U" />
       <Member name="igain" value="`${getTclVar(&quot;igain&quot;, callSolver)}`U" />
       <Member name="pgain" value="`${getTclVar(&quot;pgain&quot;, callSolver)}`U" />

@@ -81,7 +81,8 @@ $(document).ready(function(){initNavTree('group__group__tcpwm__data__structures_
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">Data Structures<div class="ingroups"><a class="el" href="group__group__tcpwm.html">TCPWM        (Timer Counter PWM)</a> &raquo; <a class="el" href="group__group__tcpwm__counter.html">Timer/Counter (TCPWM)</a></div></div>  </div>
 </div><!--header-->
@@ -93,7 +94,49 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__counter__config__t.html">cy_stc_tcpwm_counter_config_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter Timer configuration structure.  <a href="structcy__stc__tcpwm__counter__config__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga911ca130e2c8ca40b252bd1f7b78c3e5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5">cy_en_counter_direction_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__tcpwm__data__structures__counter.html#gga911ca130e2c8ca40b252bd1f7b78c3e5a98b350a0d43e0754c86024b834132bf0">CY_TCPWM_COUNTER_DIRECTION_DISABLE</a> = 0UL, 
+<br />
+&#160;&#160;<a class="el" href="group__group__tcpwm__data__structures__counter.html#gga911ca130e2c8ca40b252bd1f7b78c3e5a1629df1b6451083750f74319aac34952">CY_TCPWM_COUNTER_DIRECTION_FALLING</a> = 1UL, 
+<br />
+&#160;&#160;<a class="el" href="group__group__tcpwm__data__structures__counter.html#gga911ca130e2c8ca40b252bd1f7b78c3e5a00c0e775375d4f3c693685ad50a49f86">CY_TCPWM_COUNTER_DIRECTION_RISING</a> = 2UL, 
+<br />
+&#160;&#160;<a class="el" href="group__group__tcpwm__data__structures__counter.html#gga911ca130e2c8ca40b252bd1f7b78c3e5a3db1cfd0ec106c28bb64d6f954d4e5c7">CY_TCPWM_COUNTER_DIRECTION_LEVEL</a> = 3UL
+<br />
+ }<tr class="memdesc:ga911ca130e2c8ca40b252bd1f7b78c3e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter Direction modes.  <a href="group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga911ca130e2c8ca40b252bd1f7b78c3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga911ca130e2c8ca40b252bd1f7b78c3e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga911ca130e2c8ca40b252bd1f7b78c3e5">&#9670;&nbsp;</a></span>cy_en_counter_direction_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5">cy_en_counter_direction_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Counter Direction modes. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga911ca130e2c8ca40b252bd1f7b78c3e5a98b350a0d43e0754c86024b834132bf0"></a>CY_TCPWM_COUNTER_DIRECTION_DISABLE&#160;</td><td class="fielddoc"><p>Counter changes current count direction is disabled. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga911ca130e2c8ca40b252bd1f7b78c3e5a1629df1b6451083750f74319aac34952"></a>CY_TCPWM_COUNTER_DIRECTION_FALLING&#160;</td><td class="fielddoc"><p>Counter changes current count direction based on falling edge of capture0 input. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga911ca130e2c8ca40b252bd1f7b78c3e5a00c0e775375d4f3c693685ad50a49f86"></a>CY_TCPWM_COUNTER_DIRECTION_RISING&#160;</td><td class="fielddoc"><p>Counter changes current count direction based on rising edge of capture0 input. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga911ca130e2c8ca40b252bd1f7b78c3e5a3db1cfd0ec106c28bb64d6f954d4e5c7"></a>CY_TCPWM_COUNTER_DIRECTION_LEVEL&#160;</td><td class="fielddoc"><p>Counter count increase when capture0 level equal to high, counter count decrease when capture0 level equals to low. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

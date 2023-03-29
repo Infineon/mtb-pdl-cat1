@@ -863,6 +863,7 @@ __STATIC_INLINE void Cy_PDM_PCM_Channel_ClearInterrupt(PDM_Type * base, uint8_t 
 {
     CY_ASSERT_L2(CY_PDM_PCM_IS_INTR_MASK_VALID(interrupt));
     PDM_PCM_INTR_RX(base, channel_num) = interrupt;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) PDM_PCM_INTR_RX(base, channel_num);
 }
 

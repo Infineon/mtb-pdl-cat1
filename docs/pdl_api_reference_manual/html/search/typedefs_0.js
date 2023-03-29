@@ -24,6 +24,7 @@ var searchData=
   ['cy_5fisraddress',['cy_israddress',['../group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6',1,'cy_syslib.h']]],
   ['cy_5fsmif_5fevent_5fcb_5ft',['cy_smif_event_cb_t',['../group__group__smif__data__structures.html#ga13688dde62e8977a11ab69cf6b2c39b5',1,'cy_smif.h']]],
   ['cy_5fstc_5fipc_5fmsg_5fclklf_5fswitch_5ft',['cy_stc_ipc_msg_clklf_switch_t',['../group__group__ipc__bt__data__structures.html#ga990eec415febe49c2e1c2d5f45c5fb30',1,'cy_ipc_bt.h']]],
+  ['cy_5fstc_5fipc_5fmsg_5finrush_5fmode_5ft',['cy_stc_ipc_msg_inrush_mode_t',['../group__group__ipc__bt__data__structures.html#gacbedb67cf320841b1e5c460acf79a4b5',1,'cy_ipc_bt.h']]],
   ['cy_5fstc_5fipc_5fmsg_5fiocfg_5ft',['cy_stc_ipc_msg_iocfg_t',['../group__group__ipc__bt__data__structures.html#ga14c4e222019c04534ffa98969527e269',1,'cy_ipc_bt.h']]],
   ['cy_5fstc_5fipc_5fmsg_5fpmcmd_5ft',['cy_stc_ipc_msg_pmcmd_t',['../group__group__ipc__bt__data__structures.html#gab4b81151334a570c0750de07e33e1450',1,'cy_ipc_bt.h']]],
   ['cy_5fstc_5fipc_5fmsg_5fpmresp_5ft',['cy_stc_ipc_msg_pmresp_t',['../group__group__ipc__bt__data__structures.html#ga60e334f45e027dc943cca913b2220926',1,'cy_ipc_bt.h']]],

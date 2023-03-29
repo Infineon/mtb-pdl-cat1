@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_trng.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides provides constant and parameters
@@ -39,7 +39,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 2, \
-'Since value of CY_CRYPTO_V1 is decided by PDL device agnostic / hardware specific model, controlling expression will not have an invariant value.');
+'Since value of CY_CRYPTO_V1 is decided by PDL device agnostic / hardware specific model, controlling expression will not have an invariant value.')
 
 #if (CPUSS_CRYPTO_TR == 1) && defined(CY_CRYPTO_CFG_TRNG_C)
 
@@ -56,6 +56,81 @@ typedef cy_en_crypto_status_t (*cy_crypto_trng_func_t)(CRYPTO_Type *base,
 * \addtogroup group_crypto_lld_rng_functions
 * \{
 */
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Trng_Init
+****************************************************************************//**
+*
+* Initialize the TRNG hardware submodule
+*
+* \pre If the TRNG submodule is initialized previously, the
+* \ref Cy_Crypto_Core_Trng_DeInit() must be called before calling this function.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param config
+* The pointer to the configuration structure.
+*
+*******************************************************************************/
+void Cy_Crypto_Core_Trng_Init(CRYPTO_Type *base, cy_stc_crypto_trng_config_t *config);
+
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Trng_DeInit
+****************************************************************************//**
+*
+* Clears all TRNG registers by setting it to hardware default values.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+*******************************************************************************/
+void     Cy_Crypto_Core_Trng_DeInit(CRYPTO_Type *base);
+
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Trng_Start
+****************************************************************************//**
+*
+* Starts a random number generation.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param dataSize
+* The maximum length of a random number, in the range [0, 32] bits.
+*
+* \return
+* The error / status code. See \ref cy_en_crypto_status_t.
+*
+*******************************************************************************/
+cy_en_crypto_status_t Cy_Crypto_Core_Trng_Start(CRYPTO_Type *base, uint32_t dataSize);
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Trng_ReadData
+****************************************************************************//**
+*
+* Reads in blocking mode a generated random number.
+*
+* \note
+* Call this API only after Cy_Crypto_Core_Trng_Start() is successful.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param randomData
+* The pointer to a generated true random number. Must be 4-byte aligned.
+*
+* \return
+* The error / status code. See \ref cy_en_crypto_status_t.
+*
+*******************************************************************************/
+cy_en_crypto_status_t Cy_Crypto_Core_Trng_ReadData(CRYPTO_Type *base, uint32_t *randomData);
+
 
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_Trng
@@ -87,6 +162,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_Trng(CRYPTO_Type *base,
                                              uint32_t  FIROPol,
                                              uint32_t  max,
                                              uint32_t *randomNum);
+
 
 /** \} group_crypto_lld_rng_functions */
 
@@ -133,12 +209,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_Trng(CRYPTO_Type *base,
 extern const cy_stc_crypto_trng_config_t     cy_trngDefaultConfig;
 
 /** \endcond */
-
-void Cy_Crypto_Core_Trng_Init(CRYPTO_Type *base, cy_stc_crypto_trng_config_t *config);
-void     Cy_Crypto_Core_Trng_DeInit(CRYPTO_Type *base);
-
-cy_en_crypto_status_t Cy_Crypto_Core_Trng_Start(CRYPTO_Type *base, uint32_t dataSize);
-cy_en_crypto_status_t Cy_Crypto_Core_Trng_ReadData(CRYPTO_Type *base, uint32_t *randomData);
 
 __STATIC_INLINE bool Cy_Crypto_Core_Trng_IsInitialized(CRYPTO_Type *base);
 
@@ -870,7 +940,7 @@ __STATIC_INLINE uint16_t Cy_Crypto_Core_Trng_MonGetApWinSize(CRYPTO_Type *base)
 
 #endif /* #if (CPUSS_CRYPTO_TR == 1) && defined(CY_CRYPTO_CFG_TRNG_C) */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3')
 
 #if defined(__cplusplus)
 }

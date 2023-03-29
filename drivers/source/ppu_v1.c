@@ -19,7 +19,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS28SRSS) || defined(CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS28SRSS) || defined(CY_IP_MXS40SSRSS) || defined(CY_IP_MXS22SRSS)
 
 #include <stddef.h>
 #include <ppu_v1.h>

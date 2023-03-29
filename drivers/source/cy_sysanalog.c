@@ -30,7 +30,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 5, \
-'PASS_Type will typecast to either PASS_V1_Type or PASS_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'PASS_Type will typecast to either PASS_V1_Type or PASS_V2_Type but not both on PDL initialization based on the target device at compile time.')
 
 #define IS_TMR_CLK_VALID(clock)             (((clock) == CY_SYSANALOG_TIMER_CLK_PERI) || \
                                              ((clock) == CY_SYSANALOG_TIMER_CLK_DEEPSLEEP) || \
@@ -174,7 +174,7 @@ cy_en_sysanalog_status_t Cy_SysAnalog_DeepSleepInit(PASS_Type * base, const cy_s
     return result;
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
 #if defined(__cplusplus)
 }

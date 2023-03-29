@@ -100,6 +100,20 @@ $(document).ready(function(){initNavTree('group__group__ipc.html','');});
 <h1><a class="anchor" id="group_ipc_background"></a>
 Background</h1>
 <p>IPC is implemented in hardware as a collection of individual communication channels, each with a set of 32-bit registers. The IPC design implements a set of interrupts that enable each processor to notify the other that data is available, or has been processed. There is also a locking mechanism that allows only one CPU to gain access at a time.</p>
+<p>In case of devices having multiple IPC IP instances, IPC channels and IPC interrupts are associated with each other within particular IP instance. It is not possible to create an IPC mechanism where IPC channels of one IPC instance interacts with interrupts of another IPC instance. Following table describes channels and interrupts present in different devices: </p><table class="doxtable">
+<tr>
+<th>Device category</th><th>IPC IP instances</th><th>Channel numbers</th><th>Interrupt numbers </th></tr>
+<tr>
+<td>CAT1A </td><td>IPC0 ( Single instance ) </td><td>0-15 </td><td>0-15  </td></tr>
+<tr>
+<td>CAT1B </td><td>IPC0 ( Single instance ) </td><td>0-3 </td><td>0-1  </td></tr>
+<tr>
+<td>CAT1C </td><td>IPC0 ( Single instance ) </td><td>0-7 </td><td>0-7  </td></tr>
+<tr>
+<td rowspan="2">CAT1D </td><td>IPC0 ( First instance ) </td><td>0-15 </td><td>0-7  </td></tr>
+<tr>
+<td>IPC1 ( Second instance ) </td><td>16-31 </td><td>8-15  </td></tr>
+</table>
 <p>The Driver-level API manages each channel's registers to implement IPC functionality. For information on the IPC registers, see the IPC chapter of the Technical Reference Manual (TRM).</p>
 <p>At the hardware level, communication is a five-step process.</p><ol type="1">
 <li>The sending processor acquires a channel</li>
@@ -176,6 +190,10 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td rowspan="2">1.90 </td><td>Added structure <a class="el" href="group__group__ipc__bt__data__structures.html#gacbedb67cf320841b1e5c460acf79a4b5">cy_stc_ipc_msg_inrush_mode_t</a> and enum <a class="el" href="group__group__ipc__bt__enums.html#ga3e2d89ba1a5e8ec9f1b258a0dd322d71">cy_en_btipc_inrush_mode_t</a>, Modified enums <a class="el" href="group__group__ipc__bt__enums.html#ga666c35680b9e898d124a3f7f289564dd">cy_en_btipc_lpo_cmd_t</a> and <a class="el" href="group__group__ipc__bt__enums.html#ga507434e5563d48f8b3b58b0ce9146024">cy_en_btipc_hpcpti_t</a>. </td><td>Support for inrush mode selection for CAT1B.  </td></tr>
+<tr>
+<td>Added structure <a class="el" href="structcy__stc__ipc__pipe__ep__config__mask__t.html">cy_stc_ipc_pipe_ep_config_mask_t</a> and <a class="el" href="group__group__ipc__pipe__functions.html#gacac20b2ebbc99a19c21bd8f3222048a6">Cy_IPC_Pipe_EndpointInitExt</a> API. </td><td>Support for multiple instance of IPC IPs for CAT1D.  </td></tr>
 <tr>
 <td>1.80 </td><td><ul>
 <li>

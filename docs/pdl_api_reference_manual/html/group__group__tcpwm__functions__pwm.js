@@ -21,6 +21,8 @@ var group__group__tcpwm__functions__pwm =
     [ "Cy_TCPWM_PWM_LineOutStatus", "group__group__tcpwm__functions__pwm.html#ga2fa9cba4981ced19e06bcd3f790a1ea2", null ],
     [ "Cy_TCPWM_PWM_PWMDeadTime", "group__group__tcpwm__functions__pwm.html#gac6431f369b92b730db9b2d1cdd2e8c86", null ],
     [ "Cy_TCPWM_PWM_PWMDeadTimeN", "group__group__tcpwm__functions__pwm.html#ga23f94a001adb0d0cf8a85008f52333f6", null ],
+    [ "Cy_TCPWM_PWM_EnableSwap", "group__group__tcpwm__functions__pwm.html#ga28b98099ca159a2f50f07567eb43a112", null ],
+    [ "Cy_TCPWM_Configure_Dithering_Values_and_Mode", "group__group__tcpwm__functions__pwm.html#gaabe8e865042aff31edbb6d06f254ac5b", null ],
     [ "Cy_TCPWM_PWM_SetCompare1Val", "group__group__tcpwm__functions__pwm.html#gae9dfa26ff90263db912df5c8bc609460", null ],
     [ "Cy_TCPWM_PWM_GetCompare1Val", "group__group__tcpwm__functions__pwm.html#ga737ae84fde081c31bc0a74092bb79900", null ],
     [ "Cy_TCPWM_PWM_SetCompare1BufVal", "group__group__tcpwm__functions__pwm.html#ga917ec6c83509f3de84b7741fcc140c9b", null ],

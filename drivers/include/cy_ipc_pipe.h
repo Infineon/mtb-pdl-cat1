@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.h
-* \version 1.80
+* \version 1.90
 *
 *  Description:
 *   IPC Pipe Driver - This header file contains all the function prototypes,
@@ -33,7 +33,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
+#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || (defined (CY_IP_MXIPC) && (CY_IPC_INSTANCES > 1U))
 
 #include "cy_ipc_drv.h"
 #include "cy_syslib.h"
@@ -156,16 +156,34 @@ typedef struct
     cy_ipc_pipe_relcallback_ptr_t defaultReleaseCallbackPtr; /**< Pointer to default release callback function              */
 } cy_stc_ipc_pipe_ep_t;
 
+/** The Pipe endpoint configuration mask structure.
+*
+* \note
+* This structure is available only for the CAT1D devices.
+*
+*/
+typedef struct
+{
+    uint32_t    epChannel;                    /**< IPC channel number */
+    uint32_t    epIntr;                       /**< IPC interrupt number */
+    uint32_t    epIntrmask;                   /**< IPC interrupt mask. This comprises of all channels present in all IPC IP instances . */
+} cy_stc_ipc_pipe_ep_config_mask_t;
+
 /** The Pipe endpoint configuration structure. */
 typedef struct
 {
-    uint32_t    ipcNotifierNumber;      /**< Notifier */
-    uint32_t    ipcNotifierPriority;    /**< Notifier Priority */
-    uint32_t    ipcNotifierMuxNumber;   /**< CM0+ interrupt multiplexer number */
+    uint32_t    ipcNotifierNumber;             /**< Notifier. It comprises of total number of interrupts present in all instances of IPC IPs. */
+    uint32_t    ipcNotifierPriority;           /**< Notifier Priority */
+    uint32_t    ipcNotifierMuxNumber;          /**< CM0+ interrupt multiplexer number */
 
-    uint32_t    epAddress;              /**< Index in the array of endpoint structure */
+    uint32_t    epAddress;                     /**< Index in the array of endpoint structure */
+#if (CY_IPC_INSTANCES > 1U)
+    cy_stc_ipc_pipe_ep_config_mask_t epConfig; /**< Configuration mask, contains IPC channel, IPC interrupt number,
+                                                    and the interrupt mask */
+#else
     uint32_t    epConfig;               /**< Configuration mask, contains IPC channel, IPC interrupt number,
                                              and the interrupt mask */
+#endif
 } cy_stc_ipc_pipe_ep_config_t;
 
 /** The Pipe channel configuration structure. */
@@ -274,6 +292,10 @@ extern "C" {
 
 void Cy_IPC_Pipe_EndpointInit(uint32_t epAddr, cy_ipc_pipe_callback_array_ptr_t cbArray,
                               uint32_t cbCnt, uint32_t epConfig, cy_stc_sysint_t const *epInterrupt);
+#if (CY_IPC_INSTANCES > 1U) || defined (CY_DOXYGEN)
+void Cy_IPC_Pipe_EndpointInitExt(uint32_t epAddr, cy_ipc_pipe_callback_array_ptr_t cbArray,
+                              uint32_t cbCnt, cy_stc_ipc_pipe_ep_config_mask_t *epConfig, cy_stc_sysint_t const *epInterrupt);
+#endif /* CY_IPC_INSTANCES */
 cy_en_ipc_pipe_status_t  Cy_IPC_Pipe_SendMessage(uint32_t toAddr, uint32_t fromAddr, void *msgPtr,
                               cy_ipc_pipe_relcallback_ptr_t callBackPtr);
 cy_en_ipc_pipe_status_t  Cy_IPC_Pipe_RegisterCallback(uint32_t epAddr,
@@ -295,7 +317,7 @@ void                     Cy_IPC_Pipe_ExecCallback(cy_stc_ipc_pipe_ep_t * endpoin
 
 /** \} group_ipc_pipe_functions */
 
-#endif /* CY_IP_M4CPUSS  || CY_IP_M7CPUSS */
+#endif /* CY_IP_M4CPUSS  || CY_IP_M7CPUSS || (defined (CY_IP_MXIPC) && (CY_IPC_INSTANCES > 1U)) */
 
 #endif /* CY_IPC_PIPE_H  */
 

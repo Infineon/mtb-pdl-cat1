@@ -99,11 +99,67 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710a71805ae7e8c695403445f599f9b874e4">CY_CRYPTOLITE_BUS_ERROR</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x03u, 
 <br />
-&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710a5f0e28188b8e0d7486127cde0b17ec88">CY_CRYPTOLITE_NOT_SUPPORTED</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x04u
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710a5f0e28188b8e0d7486127cde0b17ec88">CY_CRYPTOLITE_NOT_SUPPORTED</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x04u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710a5abfcf04c8a3947412015fc6e02a979e">CY_CRYPTOLITE_SIZE_NOT_X16</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x05u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710adef1da88ebe0ff7163621748b9080173">CY_CRYPTOLITE_ALIGNMENT_ERROR</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x06u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710a9e8b6a2c4dac574d415dc4ddcc8e705f">CY_CRYPTOLITE_TRNG_NOT_ENABLED</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x07u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710aec18017f3ef19089a0d426167d601bb0">CY_CRYPTOLITE_TRNG_UNHEALTHY</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x08u
 <br />
  }<tr class="memdesc:gafaeb3f2fb88784222220aee907e36710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Errors of the Cryptolite block.  <a href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gafaeb3f2fb88784222220aee907e36710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9dfc40ba7980b0b0d82fcd4ceef4647f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html#ga9dfc40ba7980b0b0d82fcd4ceef4647f">cy_en_cryptolite_sha_mode_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#gga9dfc40ba7980b0b0d82fcd4ceef4647fa00c671ec859e310945cf807aa5830bf4">CY_CRYPTOLITE_MODE_SHA1</a> = 0x00u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#gga9dfc40ba7980b0b0d82fcd4ceef4647fafe8f51ebd587b87c4975f300edbc19dc">CY_CRYPTOLITE_MODE_SHA224</a> = 0x01u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#gga9dfc40ba7980b0b0d82fcd4ceef4647fa221a4c64dac27b8fa96d4a539d900ce4">CY_CRYPTOLITE_MODE_SHA256</a> = 0x02u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#gga9dfc40ba7980b0b0d82fcd4ceef4647fa42a1a8fac2b78b6562984f68861853ea">CY_CRYPTOLITE_MODE_SHA384</a> = 0x03u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#gga9dfc40ba7980b0b0d82fcd4ceef4647fa06d9941151a1a6e0d6b40be6ff74a48b">CY_CRYPTOLITE_MODE_SHA512</a> = 0x04u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#gga9dfc40ba7980b0b0d82fcd4ceef4647fa7a12a4cb5c203de4d9ea40951215ac67">CY_CRYPTOLITE_MODE_SHA512_256</a> = 0x05u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#gga9dfc40ba7980b0b0d82fcd4ceef4647fa303a58b26d4cb38b4ef76f6b5e7e46fb">CY_CRYPTOLITE_MODE_SHA512_224</a> = 0x06u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#gga9dfc40ba7980b0b0d82fcd4ceef4647fa43ac44ca402e438517aff7109ae783a3">CY_CRYPTOLITE_MODE_SHA_NONE</a> = 0x07u
+<br />
+ }<tr class="memdesc:ga9dfc40ba7980b0b0d82fcd4ceef4647f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines modes of SHA method.  <a href="group__group__cryptolite__enums.html#ga9dfc40ba7980b0b0d82fcd4ceef4647f">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga9dfc40ba7980b0b0d82fcd4ceef4647f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc6e4a5cca26d2fe19ba6d8c3429a4df"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html#gafc6e4a5cca26d2fe19ba6d8c3429a4df">cy_en_cryptolite_sig_verify_result_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafc6e4a5cca26d2fe19ba6d8c3429a4dfa04bc6bd5f495b595bb00f920859abc8c">CY_CRYPTOLITE_SIG_VALID</a> = 0x05555555u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafc6e4a5cca26d2fe19ba6d8c3429a4dfa353581c237f64d4bdceb04a44b156cd0">CY_CRYPTOLITE_SIG_INVALID</a> = 0x0AAAAAAAu
+<br />
+ }<tr class="memdesc:gafc6e4a5cca26d2fe19ba6d8c3429a4df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature verification status.  <a href="group__group__cryptolite__enums.html#gafc6e4a5cca26d2fe19ba6d8c3429a4df">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gafc6e4a5cca26d2fe19ba6d8c3429a4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5b43a01eda17c36ed35480dd44ded9c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html#gaf5b43a01eda17c36ed35480dd44ded9c">cy_en_cryptolite_dir_mode_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggaf5b43a01eda17c36ed35480dd44ded9ca6ae21effbcd68240cfcddbbff9b96ac5">CY_CRYPTOLITE_ENCRYPT</a> = 0x00u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggaf5b43a01eda17c36ed35480dd44ded9cabcf077fc433817831cf65e55edefedf7">CY_CRYPTOLITE_DECRYPT</a> = 0x01u
+<br />
+ }<tr class="memdesc:gaf5b43a01eda17c36ed35480dd44ded9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the direction of the Crypto methods.  <a href="group__group__cryptolite__enums.html#gaf5b43a01eda17c36ed35480dd44ded9c">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gaf5b43a01eda17c36ed35480dd44ded9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b051ef176b1e1a9811acbae28eb2360"><td class="memItemLeft" align="right" valign="top"><a id="ga3b051ef176b1e1a9811acbae28eb2360"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html#ga3b051ef176b1e1a9811acbae28eb2360">cy_en_cryptolite_ecc_curve_id_t</a> { <br />
+&#160;&#160;<b>CY_CRYPTOLITE_ECC_ECP_NONE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_CRYPTOLITE_ECC_ECP_SECP256R1</b>, 
+<br />
+&#160;&#160;<b>CY_CRYPTOLITE_ECC_ECP_SECP384R1</b>, 
+<br />
+&#160;&#160;<b>CY_CRYPTOLITE_ECC_ECP_CURVES_CNT</b>
+<br />
+ }<tr class="memdesc:ga3b051ef176b1e1a9811acbae28eb2360"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of supported elliptic curve IDs. <br /></td></tr>
+</td></tr>
+<tr class="separator:ga3b051ef176b1e1a9811acbae28eb2360"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="gafaeb3f2fb88784222220aee907e36710"></a>
@@ -129,6 +185,92 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710a71805ae7e8c695403445f599f9b874e4"></a>CY_CRYPTOLITE_BUS_ERROR&#160;</td><td class="fielddoc"><p>The Crypto AHB bus error. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710a5f0e28188b8e0d7486127cde0b17ec88"></a>CY_CRYPTOLITE_NOT_SUPPORTED&#160;</td><td class="fielddoc"><p>The Crypto feature not supported error. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710a5abfcf04c8a3947412015fc6e02a979e"></a>CY_CRYPTOLITE_SIZE_NOT_X16&#160;</td><td class="fielddoc"><p>The size of input data is not multiple of 16. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710adef1da88ebe0ff7163621748b9080173"></a>CY_CRYPTOLITE_ALIGNMENT_ERROR&#160;</td><td class="fielddoc"><p>The Address passed is not aligned to 4 bytes. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710a9e8b6a2c4dac574d415dc4ddcc8e705f"></a>CY_CRYPTOLITE_TRNG_NOT_ENABLED&#160;</td><td class="fielddoc"><p>The TRNG is not enabled. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710aec18017f3ef19089a0d426167d601bb0"></a>CY_CRYPTOLITE_TRNG_UNHEALTHY&#160;</td><td class="fielddoc"><p>The TRNG is unhealthy. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga9dfc40ba7980b0b0d82fcd4ceef4647f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9dfc40ba7980b0b0d82fcd4ceef4647f">&#9670;&nbsp;</a></span>cy_en_cryptolite_sha_mode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__cryptolite__enums.html#ga9dfc40ba7980b0b0d82fcd4ceef4647f">cy_en_cryptolite_sha_mode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines modes of SHA method. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga9dfc40ba7980b0b0d82fcd4ceef4647fa00c671ec859e310945cf807aa5830bf4"></a>CY_CRYPTOLITE_MODE_SHA1&#160;</td><td class="fielddoc"><p>Sets the SHA1 mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9dfc40ba7980b0b0d82fcd4ceef4647fafe8f51ebd587b87c4975f300edbc19dc"></a>CY_CRYPTOLITE_MODE_SHA224&#160;</td><td class="fielddoc"><p>Sets the SHA224 mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9dfc40ba7980b0b0d82fcd4ceef4647fa221a4c64dac27b8fa96d4a539d900ce4"></a>CY_CRYPTOLITE_MODE_SHA256&#160;</td><td class="fielddoc"><p>Sets the SHA256 mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9dfc40ba7980b0b0d82fcd4ceef4647fa42a1a8fac2b78b6562984f68861853ea"></a>CY_CRYPTOLITE_MODE_SHA384&#160;</td><td class="fielddoc"><p>Sets the SHA384 mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9dfc40ba7980b0b0d82fcd4ceef4647fa06d9941151a1a6e0d6b40be6ff74a48b"></a>CY_CRYPTOLITE_MODE_SHA512&#160;</td><td class="fielddoc"><p>Sets the SHA512 mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9dfc40ba7980b0b0d82fcd4ceef4647fa7a12a4cb5c203de4d9ea40951215ac67"></a>CY_CRYPTOLITE_MODE_SHA512_256&#160;</td><td class="fielddoc"><p>Sets the SHA512/256 mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9dfc40ba7980b0b0d82fcd4ceef4647fa303a58b26d4cb38b4ef76f6b5e7e46fb"></a>CY_CRYPTOLITE_MODE_SHA512_224&#160;</td><td class="fielddoc"><p>Sets the SHA512/224 mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9dfc40ba7980b0b0d82fcd4ceef4647fa43ac44ca402e438517aff7109ae783a3"></a>CY_CRYPTOLITE_MODE_SHA_NONE&#160;</td><td class="fielddoc"><p>Sets the SHA NONE mode. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gafc6e4a5cca26d2fe19ba6d8c3429a4df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc6e4a5cca26d2fe19ba6d8c3429a4df">&#9670;&nbsp;</a></span>cy_en_cryptolite_sig_verify_result_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__cryptolite__enums.html#gafc6e4a5cca26d2fe19ba6d8c3429a4df">cy_en_cryptolite_sig_verify_result_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Signature verification status. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggafc6e4a5cca26d2fe19ba6d8c3429a4dfa04bc6bd5f495b595bb00f920859abc8c"></a>CY_CRYPTOLITE_SIG_VALID&#160;</td><td class="fielddoc"><p>The signature is valid. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafc6e4a5cca26d2fe19ba6d8c3429a4dfa353581c237f64d4bdceb04a44b156cd0"></a>CY_CRYPTOLITE_SIG_INVALID&#160;</td><td class="fielddoc"><p>The signature is invalid. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gaf5b43a01eda17c36ed35480dd44ded9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf5b43a01eda17c36ed35480dd44ded9c">&#9670;&nbsp;</a></span>cy_en_cryptolite_dir_mode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__cryptolite__enums.html#gaf5b43a01eda17c36ed35480dd44ded9c">cy_en_cryptolite_dir_mode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the direction of the Crypto methods. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaf5b43a01eda17c36ed35480dd44ded9ca6ae21effbcd68240cfcddbbff9b96ac5"></a>CY_CRYPTOLITE_ENCRYPT&#160;</td><td class="fielddoc"><p>The forward mode, plain text will be encrypted into cipher text. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggaf5b43a01eda17c36ed35480dd44ded9cabcf077fc433817831cf65e55edefedf7"></a>CY_CRYPTOLITE_DECRYPT&#160;</td><td class="fielddoc"><p>The reverse mode, cipher text will be decrypted into plain text. </p>
 </td></tr>
 </table>
 

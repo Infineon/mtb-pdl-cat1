@@ -508,7 +508,7 @@ __STATIC_INLINE void Cy_LVD_ClearInterrupt(void)
     #else
         SRSS_SRSS_INTR = CY_LVD_SRSS_INTR_HVLVD1_MASK;
     #endif
-
+/* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
 #if defined (CY_IP_MXS40SSRSS)
     (void) SRSS_SRSS_AINTR;
 #else
@@ -647,7 +647,7 @@ __STATIC_INLINE void Cy_LVD_SetInterruptConfig(cy_en_lvd_intr_config_t lvdInterr
 #if defined (CY_IP_MXS40SSRSS)
         SRSS_PWR_LVD_CTL = _CLR_SET_FLD32U(SRSS_PWR_LVD_CTL, SRSS_PWR_LVD_CTL_HVLVD1_EDGE_SEL, lvdInterruptConfig);
 #endif
-
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) lvdInterruptConfig;
 }
 

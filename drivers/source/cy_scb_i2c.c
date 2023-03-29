@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_i2c.c
-* \version 3.0
+* \version 3.10
 *
 * Provides I2C API implementation of the SCB driver.
 *
@@ -95,7 +95,7 @@ cy_en_scb_i2c_status_t Cy_SCB_I2C_Init(CySCB_Type *base, cy_stc_scb_i2c_config_t
     /* Configure the I2C interface */
     SCB_CTRL(base) = _BOOL2FLD(SCB_CTRL_ADDR_ACCEPT, config->acceptAddrInFifo)   |
                      _BOOL2FLD(SCB_CTRL_EC_AM_MODE, config->enableWakeFromSleep);
-#if(CY_IP_MXSCB_VERSION==1)
+#if(defined (CY_IP_MXSCB_VERSION) && (CY_IP_MXSCB_VERSION==1))
     SCB_CTRL(base) |= SCB_CTRL_BYTE_MODE_Msk;
 #endif /* CY_IP_MXSCB_VERSION */
 
@@ -2279,7 +2279,7 @@ void Cy_SCB_I2C_SlaveInterrupt(CySCB_Type *base, cy_stc_scb_i2c_context_t *conte
     }
 }
 
-#if (((CY_IP_MXSCB_VERSION>=3) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
+#if (((defined (CY_IP_MXSCB_VERSION) && (CY_IP_MXSCB_VERSION>=3)) || defined (CY_IP_MXS22SCB)) || defined (CY_DOXYGEN))
 /*******************************************************************************
 * Function Name: Cy_SCB_I2C_SetStretchThreshold
 ****************************************************************************//**

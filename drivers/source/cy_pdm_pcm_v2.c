@@ -29,10 +29,10 @@
 #include "cy_pdm_pcm_v2.h"
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 14, \
-'Checked manually, passed 1 or 0 in _BOOL2FLD for appropriate functionality.');
+'Checked manually, passed 1 or 0 in _BOOL2FLD for appropriate functionality.')
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.1', 1, \
-'Checked manually, passed 1 or 0 in _BOOL2FLD for appropriate functionality.');
+'Checked manually, passed 1 or 0 in _BOOL2FLD for appropriate functionality.')
 
 /**
 * \addtogroup group_pdm_pcm_functions_v2
@@ -308,9 +308,9 @@ void Cy_PDM_PCM_DeInit(PDM_Type * base)
 
 /** \} group_pdm_pcm_functions_v2 */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.1');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.1')
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3')
 
 #endif /* CY_IP_MXPDM */
 

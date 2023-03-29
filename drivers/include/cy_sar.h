@@ -686,7 +686,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 27, \
-'SAR_Type will typecast to either SAR_V1_Type or SAR_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'SAR_Type will typecast to either SAR_V1_Type or SAR_V2_Type but not both on PDL initialization based on the target device at compile time.')
 
 /** \addtogroup group_sar_macros
 * \{
@@ -1875,7 +1875,7 @@ __STATIC_INLINE void Cy_SAR_ClearInterrupt(SAR_Type *base, uint32_t intrMask)
 {
     CY_ASSERT_L2(CY_SAR_INTRMASK(intrMask));
     SAR_INTR(base) = intrMask & CY_SAR_INTR;
-    /* Dummy read for buffered writes. */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) SAR_INTR(base);
 }
 
@@ -2042,7 +2042,7 @@ __STATIC_INLINE void Cy_SAR_ClearRangeInterrupt(SAR_Type *base, uint32_t chanMas
 
     SAR_RANGE_INTR(base) = chanMask & CY_SAR_CHANNELS_MASK;
 
-    /* Dummy read for buffered writes. */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) SAR_RANGE_INTR(base);
 }
 
@@ -2189,7 +2189,7 @@ __STATIC_INLINE void Cy_SAR_ClearSatInterrupt(SAR_Type *base, uint32_t chanMask)
 
     SAR_SATURATE_INTR(base) = chanMask & CY_SAR_CHANNELS_MASK;
 
-    /* Dummy read for buffered writes. */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) SAR_SATURATE_INTR(base);
 }
 
@@ -2546,7 +2546,8 @@ __STATIC_INLINE void Cy_SAR_ClearFifoInterrupt(const SAR_Type * base, uint32_t i
     {
         CY_ASSERT_L2(CY_SAR_FIFO_INTRMASK(intrMask));
         PASS_FIFO_INTR(base) = intrMask & CY_SAR_INTR_FIFO;
-        (void) PASS_FIFO_INTR(base); /* Dummy read for buffered writes. */
+        /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
+        (void) PASS_FIFO_INTR(base);
     }
 }
 
@@ -2788,7 +2789,7 @@ __STATIC_INLINE void Cy_SAR_SimultStop(PASS_Type *base, uint32_t sarMask)
 }
 
 /** \} group_sar_functions */
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
 #if defined(__cplusplus)
 }

@@ -6,6 +6,8 @@ var group__group__crypto__lld__hw__functions =
     [ "Cy_Crypto_Core_Enable", "group__group__crypto__lld__hw__functions.html#ga6aede3754a84e01d5e9b4227a683c24c", null ],
     [ "Cy_Crypto_Core_GetLibInfo", "group__group__crypto__lld__hw__functions.html#ga845c09ce09ca4c6df18a523a3ca26fa5", null ],
     [ "Cy_Crypto_Core_Disable", "group__group__crypto__lld__hw__functions.html#gaa25e439d33aee00d542476a82720e5cd", null ],
+    [ "Cy_Crypto_Core_Cleanup", "group__group__crypto__lld__hw__functions.html#ga578cecebde8bce42aba5657d36b809ee", null ],
+    [ "Cy_Crypto_Core_Shutdown", "group__group__crypto__lld__hw__functions.html#ga65d42e0ff144c74133e83f158767337a", null ],
     [ "Cy_Crypto_Core_InvertEndianness", "group__group__crypto__lld__hw__functions.html#ga5d74ed1e6161b72e972fac828fa3aea9", null ],
     [ "Cy_Crypto_Core_GetVuMemoryAddress", "group__group__crypto__lld__hw__functions.html#ga07acf748f85c91a73ad9b8d78a2f70a5", null ],
     [ "Cy_Crypto_Core_IsEnabled", "group__group__crypto__lld__hw__functions.html#gab4a5ca67ee625db608b6380fec04a6a3", null ],

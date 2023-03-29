@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.20
+* \version 3.30
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
@@ -91,8 +91,13 @@
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Pos    (SRSS_RES_CAUSE2_RESET_CSV_REF_Pos)
 #endif
 
+#if defined (CY_IP_MXS40SSRSS)
+/** Holds the flag to indicate if the System woke up from Warm Boot or not */
+bool cy_WakeupFromWarmBootStatus = false;
+#endif /* CY_IP_MXS40SSRSS */
+
 #if !defined(NDEBUG)
-    CY_NOINIT char_t cy_assertFileName[CY_MAX_FILE_NAME_SIZE];
+    CY_NOINIT char_t cy_assertFileName[CY_MAX_FILE_NAME_SIZE + 1];
     CY_NOINIT uint32_t cy_assertLine;
 #endif /* NDEBUG */
 
@@ -291,7 +296,7 @@ uint64_t Cy_SysLib_GetUniqueId(void)
 #endif
 
 
-#if (defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE))
+#if ((defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE)) && !defined (CY_DEVICE_BOY2)) // TBD, DRIVERS-11249
 
 #define CY_DIE_REG_EFUSE_OFFSET    0x74
 #define CY_DIE_REG_COUNT           3U
@@ -303,20 +308,28 @@ uint64_t Cy_SysLib_GetUniqueId(void)
     uint32_t dieRead[3];
     cy_en_efuse_status_t status = CY_EFUSE_ERR_UNC;
 
-    status = Cy_EFUSE_ReadWordArray(EFUSE, dieRead, CY_DIE_REG_EFUSE_OFFSET, CY_DIE_REG_COUNT);
-
-    if(status == CY_EFUSE_SUCCESS)
+    if(Cy_EFUSE_IsEnabled(EFUSE))
     {
-        uniqueIdHi = ((uint32_t)  _FLD2VAL(EFUSE_DATA_DIE_2_YEAR, dieRead[2])              << (CY_UNIQUE_ID_DIE_YEAR_Pos  - CY_UNIQUE_ID_DIE_X_Pos)) |
-                     (((uint32_t)_FLD2VAL(EFUSE_DATA_DIE_2_REVISION_ID, dieRead[2]) & 1U)  << (CY_UNIQUE_ID_DIE_MINOR_Pos - CY_UNIQUE_ID_DIE_X_Pos)) |
-                     ((uint32_t)  _FLD2VAL(EFUSE_DATA_DIE_1_SORT, dieRead[1])               << (CY_UNIQUE_ID_DIE_SORT_Pos  - CY_UNIQUE_ID_DIE_X_Pos)) |
-                     ((uint32_t)  _FLD2VAL(EFUSE_DATA_DIE_1_Y, dieRead[1])                  << (CY_UNIQUE_ID_DIE_Y_Pos     - CY_UNIQUE_ID_DIE_X_Pos)) |
-                     ((uint32_t)  _FLD2VAL(EFUSE_DATA_DIE_1_X, dieRead[1]));
 
-        uniqueIdLo = (((uint32_t) _FLD2VAL(EFUSE_DATA_DIE_0_WAFER, dieRead[0])       << CY_UNIQUE_ID_DIE_WAFER_Pos) |
-                     ((uint32_t) _FLD2VAL(EFUSE_DATA_DIE_0_LOT, dieRead[0])));
+        status = Cy_EFUSE_ReadWordArray(EFUSE, dieRead, CY_DIE_REG_EFUSE_OFFSET, CY_DIE_REG_COUNT);
 
-        return (((uint64_t) uniqueIdHi << CY_UNIQUE_ID_DIE_X_Pos) | uniqueIdLo);
+        if(status == CY_EFUSE_SUCCESS)
+        {
+            uniqueIdHi = ((uint32_t)  _FLD2VAL(EFUSE_DATA_DIE_2_YEAR, dieRead[2])              << (CY_UNIQUE_ID_DIE_YEAR_Pos  - CY_UNIQUE_ID_DIE_X_Pos)) |
+                         (((uint32_t)_FLD2VAL(EFUSE_DATA_DIE_2_REVISION_ID, dieRead[2]) & 1U)  << (CY_UNIQUE_ID_DIE_MINOR_Pos - CY_UNIQUE_ID_DIE_X_Pos)) |
+                         ((uint32_t)  _FLD2VAL(EFUSE_DATA_DIE_1_SORT, dieRead[1])               << (CY_UNIQUE_ID_DIE_SORT_Pos  - CY_UNIQUE_ID_DIE_X_Pos)) |
+                         ((uint32_t)  _FLD2VAL(EFUSE_DATA_DIE_1_Y, dieRead[1])                  << (CY_UNIQUE_ID_DIE_Y_Pos     - CY_UNIQUE_ID_DIE_X_Pos)) |
+                         ((uint32_t)  _FLD2VAL(EFUSE_DATA_DIE_1_X, dieRead[1]));
+
+            uniqueIdLo = (((uint32_t) _FLD2VAL(EFUSE_DATA_DIE_0_WAFER, dieRead[0])       << CY_UNIQUE_ID_DIE_WAFER_Pos) |
+                         ((uint32_t) _FLD2VAL(EFUSE_DATA_DIE_0_LOT, dieRead[0])));
+
+            return (((uint64_t) uniqueIdHi << CY_UNIQUE_ID_DIE_X_Pos) | uniqueIdLo);
+        }
+        else
+        {
+            return 0UL;
+        }
     }
     else
     {
@@ -345,8 +358,9 @@ void Cy_SysLib_FaultHandler(uint32_t const *faultStackAddr)
     cy_faultFrame.pc  = faultStackAddr[CY_PC_Pos];
     cy_faultFrame.psr = faultStackAddr[CY_PSR_Pos];
 
-#if (defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS))
-#if (CY_CPU_CORTEX_M4 || (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7))
+#if (defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || CY_IP_M33SYSCPUSS || CY_IP_M55APPCPUSS)
+#if (CY_CPU_CORTEX_M4 || (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7) || \
+     (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55))
     /* Stores the Configurable Fault Status Register state with the fault cause */
     cy_faultFrame.cfsr.cfsrReg = SCB->CFSR;
     /* Stores the Hard Fault Status Register */
@@ -382,7 +396,7 @@ void Cy_SysLib_FaultHandler(uint32_t const *faultStackAddr)
         cy_faultFrame.fpscr = faultStackAddr[CY_FPSCR_Pos];
     }
 #endif /* __FPU_PRESENT */
-#endif /* CY_CPU_CORTEX_M4 */
+#endif /* CY_CPU_CORTEX_M4, CY_CPU_CORTEX_M7, CY_CPU_CORTEX_M33, CY_CPU_CORTEX_M55 */
 #endif
     Cy_SysLib_ProcessingFault();
 }
@@ -475,6 +489,8 @@ uint16_t Cy_SysLib_GetDevice(void)
 {
 #ifdef CY_IP_M4CPUSS
     return ((SFLASH_FAMILY_ID == 0UL) ? CY_SYSLIB_DEVICE_PSOC6ABLE2 : SFLASH_FAMILY_ID);
+#elif defined(CY_IP_M33SYSCPUSS)
+    return CPUSS_FAMILYID;
 #else
     return 0;
 #endif
@@ -484,6 +500,16 @@ uint16_t Cy_SysLib_GetDevice(void)
 void Cy_Syslib_SetWarmBootEntryPoint(uint32_t *entryPoint, bool enable)
 {
     *(uint32_t *)CY_SYSPM_BOOTROM_ENTRYPOINT_ADDR = (uint32_t)entryPoint | (enable ? CY_SYSPM_BOOTROM_DSRAM_DBG_ENABLE_MASK : 0UL) ;
+}
+
+bool Cy_SysLib_IsDSRAMWarmBootEntry(void)
+{
+    return cy_WakeupFromWarmBootStatus;
+}
+
+void Cy_SysLib_ClearDSRAMWarmBootEntryStatus(void)
+{
+    cy_WakeupFromWarmBootStatus = false;
 }
 #endif
 

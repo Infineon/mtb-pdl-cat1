@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides the source code for the SMIF driver APIs.
@@ -111,9 +111,13 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
             SMIF_CTL(base) = (uint32_t)(_VAL2FLD(SMIF_CTL_XIP_MODE, config->mode) |
 #if (CY_IP_MXSMIF_VERSION<=3)
                            _VAL2FLD(SMIF_CTL_CLOCK_IF_RX_SEL, config->rxClockSel) |
-#endif
+#endif /*(CY_IP_MXSMIF_VERSION<=3)*/
                            _VAL2FLD(SMIF_CTL_DESELECT_DELAY, config->deselectDelay) |
-                           _VAL2FLD(SMIF_CTL_BLOCK, config->blockEvent) );
+#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
+                           _VAL2FLD(SMIF_CTL_DELAY_TAP_ENABLED, config->delayTapEnable) | 
+                           _VAL2FLD(SMIF_CTL_DELAY_LINE_SEL, config->delayLineSelect) |
+#endif /*((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))*/
+                           _VAL2FLD(SMIF_CTL_BLOCK, config->blockEvent));
         }
 
         result = CY_SMIF_SUCCESS;
@@ -1772,14 +1776,19 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
     if (cycles > 0U)
     {
         result = CY_SMIF_CMD_FIFO_FULL;
-
+        uint32_t dummyRWDS = 0U;
 #if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
         /* Select TX Clock mode SDR/DDR */
         temp = SMIF_CTL(base);
         temp &= ~(SMIF_CTL_CLOCK_IF_TX_SEL_Msk);
         SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, dataRate);
-#endif
 
+        uint32_t ifRxSel = _FLD2VAL(SMIF_CTL_CLOCK_IF_RX_SEL, SMIF_CTL(base));
+        if(ifRxSel == (uint32_t)CY_SMIF_SEL_SPHB_RWDS_CLK || ifRxSel == (uint32_t)CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK)
+        {
+             dummyRWDS = 1U;
+        }
+#endif
         /* Check if there are enough free entries in TX_CMD_FIFO */
         if  (Cy_SMIF_GetCmdFifoStatus(base) < CY_SMIF_TX_CMD_FIFO_STATUS_RANGE)
         {
@@ -1789,6 +1798,7 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY, (cycles-1UL)) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t)transferWidth)    |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) dataRate) |
+                _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_RWDS,dummyRWDS) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 0);
 
             result = CY_SMIF_SUCCESS;
@@ -2305,6 +2315,9 @@ cy_en_smif_status_t Cy_SMIF_CacheInvalidate(SMIF_Type *base,
 * \param mode
 * Rx Capture mode \ref cy_en_smif_capture_mode_t
 *
+*
+* \snippet smif/snippet/main.c snippet_SMIF_DLP
+*
 * \note
 * This API is available for CAT1D devices.
 *******************************************************************************/
@@ -2313,6 +2326,161 @@ void Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode)
     CY_ASSERT_L1(NULL != base);
 
     SMIF_CTL2(base) = _VAL2FLD(SMIF_CORE_CTL2_RX_CAPTURE_MODE, (uint32_t)mode);
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetMasterDLP
+****************************************************************************//**
+* This function sets the data learning pattern
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param dlp
+* data learning pattern (maximum 16-bit)
+*
+* \param size
+* pattern size (allowed range 1 to 16 bits)
+*
+* \return status of configuration.
+*       - \ref CY_SMIF_SUCCESS
+*       - \ref CY_SMIF_BAD_PARAM
+*
+* \snippet smif/snippet/main.c snippet_SMIF_DLP
+*
+* \note
+* This API is available for CAT1D devices with Rx Capture mode set to \ref CY_SMIF_SEL_NORMAL_SPI_WITH_DLP
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t size)
+{
+    cy_en_smif_status_t status = CY_SMIF_SUCCESS;
+
+    CY_ASSERT_L1(NULL != base);
+
+    if ((size == 0U) || (size > 16U))
+    {
+        status = CY_SMIF_BAD_PARAM;
+    }
+
+    if ( status == CY_SMIF_SUCCESS)
+    {
+        /* Clear values before writing user provided inputs */
+        SMIF_DLP_CTL(base) = (_VAL2FLD(SMIF_CORE_DLP_CTL_DLP, 0) |
+                             _VAL2FLD(SMIF_CORE_DLP_CTL_DLP_SIZE, 0));
+
+        /* Configure user inputs */
+        SMIF_DLP_CTL(base) = (_VAL2FLD(SMIF_CORE_DLP_CTL_DLP, dlp) |
+                             _VAL2FLD(SMIF_CORE_DLP_CTL_DLP_SIZE, (uint32_t)size - 1UL));
+    }
+    return status;
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_GetMasterDLP
+****************************************************************************//**
+* This function gets the data learning pattern configured.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \return Data learning pattern configured
+*
+*
+* \snippet smif/snippet/main.c snippet_SMIF_DLP
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+uint16_t Cy_SMIF_GetMasterDLP(SMIF_Type *base)
+{
+    return (uint16_t)_FLD2VAL(SMIF_CORE_DLP_CTL_DLP, SMIF_DLP_CTL(base));
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_GetMasterDLPSize
+****************************************************************************//**
+* This function gets the data learning pattern size configured.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \return Data learning pattern size configured.
+*
+* \snippet smif/snippet/main.c snippet_SMIF_DLP
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+uint8_t Cy_SMIF_GetMasterDLPSize(SMIF_Type *base)
+{
+    return (uint8_t)(_FLD2VAL(SMIF_CORE_DLP_CTL_DLP_SIZE, SMIF_DLP_CTL(base)) + 1U);
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_GetTapNumCapturedCorrectDLP
+****************************************************************************//**
+* This function gets number of delay taps used for specified data line.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param bit
+* DLP Tap selection for the bit position mapped as per \ref Cy_SMIF_SetDataSelect.
+*
+* \return Data learning pattern configured
+*
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_GetTapNumCapturedCorrectDLP
+*
+* \note
+* This API is available for CAT1D devices.
+*******************************************************************************/
+uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit)
+{
+    uint32_t delay_tap = 0;
+
+    switch(bit)
+    {
+        case 0:
+        {
+           delay_tap = _FLD2VAL(SMIF_CORE_DLP_DELAY_TAP_SEL0_DATA_BIT0_TAP_SEL, SMIF_DLP_DELAY_TAP_SEL0(base));
+        }
+        break;
+        case 1:
+        {
+           delay_tap = _FLD2VAL(SMIF_CORE_DLP_DELAY_TAP_SEL0_DATA_BIT1_TAP_SEL, SMIF_DLP_DELAY_TAP_SEL0(base));
+        }
+        break;
+        case 2:
+        {
+           delay_tap = _FLD2VAL(SMIF_CORE_DLP_DELAY_TAP_SEL0_DATA_BIT2_TAP_SEL, SMIF_DLP_DELAY_TAP_SEL0(base));
+        }
+        break;
+        case 3:
+        {
+           delay_tap = _FLD2VAL(SMIF_CORE_DLP_DELAY_TAP_SEL0_DATA_BIT3_TAP_SEL, SMIF_DLP_DELAY_TAP_SEL0(base));
+        }
+        break;
+        case 4:
+        {
+           delay_tap = _FLD2VAL(SMIF_CORE_DLP_DELAY_TAP_SEL1_DATA_BIT4_TAP_SEL, SMIF_DLP_DELAY_TAP_SEL1(base));
+        }
+        break;
+        case 5:
+        {
+           delay_tap = _FLD2VAL(SMIF_CORE_DLP_DELAY_TAP_SEL1_DATA_BIT5_TAP_SEL, SMIF_DLP_DELAY_TAP_SEL1(base));
+        }
+        break;
+        case 6:
+        {
+           delay_tap = _FLD2VAL(SMIF_CORE_DLP_DELAY_TAP_SEL1_DATA_BIT6_TAP_SEL, SMIF_DLP_DELAY_TAP_SEL1(base));
+        }
+        break;
+        case 7:
+        {
+           delay_tap = _FLD2VAL(SMIF_CORE_DLP_DELAY_TAP_SEL1_DATA_BIT7_TAP_SEL, SMIF_DLP_DELAY_TAP_SEL1(base));
+        }
+        break;
+        default:
+             delay_tap = 0;
+             break;
+    }
+    return  (uint8_t)delay_tap;
 }
 #endif
 
@@ -2439,11 +2607,11 @@ cy_en_syspm_status_t Cy_SMIF_DeepSleepCallback(cy_stc_syspm_callback_params_t *c
 #if (CY_IP_MXSMIF_VERSION == 5u)
                 if (locBase == SMIF0_CORE0)
                 {
-                    Cy_SysClk_ClkHfDisable(CY_SMIF_CORE_0_HF);
+                    (void)Cy_SysClk_ClkHfDisable(CY_SMIF_CORE_0_HF);
                 }
                 if (locBase == SMIF0_CORE1)
                 {
-                    Cy_SysClk_ClkHfDisable(CY_SMIF_CORE_1_HF);
+                    (void)Cy_SysClk_ClkHfDisable(CY_SMIF_CORE_1_HF);
                 }
 #endif
                 Cy_SMIF_Disable(locBase);
@@ -2461,11 +2629,11 @@ cy_en_syspm_status_t Cy_SMIF_DeepSleepCallback(cy_stc_syspm_callback_params_t *c
 #if (CY_IP_MXSMIF_VERSION == 5u)
             if (locBase == SMIF0_CORE0)
             {
-                Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_0_HF);
+                (void)Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_0_HF);
             }
             if (locBase == SMIF0_CORE1)
             {
-                Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_1_HF);
+                (void)Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_1_HF);
             }
 #endif
             Cy_SMIF_Enable(locBase, locContext);
@@ -2491,11 +2659,11 @@ cy_en_syspm_status_t Cy_SMIF_DeepSleepCallback(cy_stc_syspm_callback_params_t *c
 #if (CY_IP_MXSMIF_VERSION == 5u)
             if (locBase == SMIF0_CORE0)
             {
-                Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_0_HF);
+                (void)Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_0_HF);
             }
             if (locBase == SMIF0_CORE1)
             {
-                 Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_1_HF);
+                (void)Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_1_HF);
             }
 #endif
             /* Put external memory in active mode */
@@ -2578,11 +2746,11 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 #if (CY_IP_MXSMIF_VERSION == 5u)
                 if (locBase == SMIF0_CORE0)
                 {
-                    Cy_SysClk_ClkHfDisable(CY_SMIF_CORE_0_HF);
+                    (void)Cy_SysClk_ClkHfDisable(CY_SMIF_CORE_0_HF);
                 }
                 if (locBase == SMIF0_CORE1)
                 {
-                     Cy_SysClk_ClkHfDisable(CY_SMIF_CORE_1_HF);
+                    (void)Cy_SysClk_ClkHfDisable(CY_SMIF_CORE_1_HF);
                 }
 #endif
                 Cy_SMIF_Disable(locBase);
@@ -2599,11 +2767,11 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 #if (CY_IP_MXSMIF_VERSION == 5u)
             if (locBase == SMIF0_CORE0)
             {
-                Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_0_HF);
+                (void)Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_0_HF);
             }
             if (locBase == SMIF0_CORE1)
             {
-                 Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_1_HF);
+                (void)Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_1_HF);
             }
 #endif
             Cy_SMIF_Enable(locBase, locContext);
@@ -2622,11 +2790,11 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 #if (CY_IP_MXSMIF_VERSION == 5u)
             if (locBase == SMIF0_CORE0)
             {
-                Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_0_HF);
+                (void)Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_0_HF);
             }
             if (locBase == SMIF0_CORE1)
             {
-                 Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_1_HF);
+                (void)Cy_SysClk_ClkHfEnable(CY_SMIF_CORE_1_HF);
             }
 #endif
 
@@ -2643,6 +2811,62 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 
     return (retStatus);
 }
+
+
+#if (CY_IP_MXSMIF_VERSION == 2U)
+/*******************************************************************************
+* Function Name: Cy_SMIF_Set_DelayTapSel
+****************************************************************************//**
+*
+* This function sets delay tap number for the SMIF (common for all its devices).
+* To ensure compatibility with users of this API independent of the current
+* SMIF IP version, it accepts any SMIF pointer as parameter, e.g. a SMIF base
+* pointer or a SMIF_DEVICE base pointer. This means this API can be called with
+* a SMIF_DEVICE base pointer.
+*
+* \param base
+* Holds the base address of the SMIF block or SMIF_DEVICE block registers.
+*
+* \param tapSel
+* delay tap selection to be set
+*
+* \return status (see \ref cy_en_smif_status_t).
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
+{
+    if(tapSel > (SMIF_DELAY_TAPS_NR - 1U))
+    {
+      return CY_SMIF_BAD_PARAM;
+    }
+
+    SMIF_DELAY_TAP_SEL(base) = tapSel;
+
+    return CY_SMIF_SUCCESS;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_Get_DelayTapSel
+****************************************************************************//**
+*
+* This function returns delay tap number which has been set for the SMIF (common for all its devices).
+* To ensure compatibility with users of this API independent of the current
+* SMIF IP version, it accepts any SMIF pointer as parameter, e.g. a SMIF base
+* pointer or a SMIF_DEVICE base pointer. This means this API can be called with
+* a SMIF_DEVICE base pointer.
+*
+* \param base
+* Holds the base address of the SMIF block or SMIF_DEVICE block registers.
+*
+* \return read tap selection
+*
+*******************************************************************************/
+uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base)
+{
+    return (uint8_t)(SMIF_DELAY_TAP_SEL(base));
+}
+#endif /*(CY_IP_MXSMIF_VERSION==2)*/
+
 #endif /* defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) */
 
 #if defined(__cplusplus)

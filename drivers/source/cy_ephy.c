@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ephy.c
-* \version 1.0
+* \version 1.10
 *
 * Provides an API implementation of the Ethernet PHY driver
 *
@@ -61,8 +61,8 @@ cy_en_ephy_status_t Cy_EPHY_Init( cy_stc_ephy_t *phy, phy_read_handle fnRead, ph
     phy->fnPhyWrite = fnWrite;
     phy->phyId = CY_EPHY_INVALID_VALUE;
     phy->state = CY_EPHY_DOWN;
-    phy->anar=0;
-    phy->bmcr=0;
+    phy->bmcr = 0UL;
+    phy->anar = 0UL;
 
     return CY_EPHY_SUCCESS;
 }
@@ -175,7 +175,7 @@ cy_en_ephy_status_t Cy_EPHY_Reset(cy_stc_ephy_t *phy)
 *******************************************************************************/
 cy_en_ephy_status_t Cy_EPHY_Configure( cy_stc_ephy_t *phy, cy_stc_ephy_config_t *config )
 {
-    uint32_t ulConfig, ulAdvertise = 0, reg;
+    uint32_t ulConfig, reg, bmsr;
     uint32_t phyAddress = DEFAULT_PHY_ADDRESS;
     cy_en_ephy_status_t ret = CY_EPHY_SUCCESS;
 
@@ -203,13 +203,18 @@ cy_en_ephy_status_t Cy_EPHY_Configure( cy_stc_ephy_t *phy, cy_stc_ephy_config_t 
     }
     else
     {
+        /* Read Control register. */
+        phy->fnPhyRead( phyAddress, PHYREG_01_BMSR, &bmsr );
+        /* check BMSR 8th bit. All PHYs supporting 1000 Mb/s operation
+         * shall have this bit set to a logic one */
+
         ulConfig &= ~( PHYBMCR_SPEED_1000_Msk | PHYBMCR_SPEED_100_Msk | PHYBMCR_FULL_DUPLEX_Msk | PHYBMCR_AN_ENABLE_Msk);
 
         if( config->speed == ((uint32_t)CY_EPHY_SPEED_100))
         {
             ulConfig |= PHYBMCR_SPEED_100_Msk;
         }
-        else if (config->speed == ((uint32_t)CY_EPHY_SPEED_1000))
+        else if ((config->speed == ((uint32_t)CY_EPHY_SPEED_1000)) && ((bmsr & PHYBMSR_EXT_STATUS_Msk) != 0x0UL))
         {
             ulConfig |= PHYBMCR_AN_ENABLE_Msk;
             ulConfig |= PHYBMCR_SPEED_1000_Msk;
@@ -220,8 +225,8 @@ cy_en_ephy_status_t Cy_EPHY_Configure( cy_stc_ephy_t *phy, cy_stc_ephy_config_t 
         }
         else
         {
-            /* Invalid speed */
-            ret = CY_EPHY_INVALID_SPEED;
+            /* Invalid speed or bad parameter */
+            ret = CY_EPHY_ERROR;
         }
 
         if( config->duplex == ((uint32_t)CY_EPHY_DUPLEX_FULL))
@@ -243,7 +248,6 @@ cy_en_ephy_status_t Cy_EPHY_Configure( cy_stc_ephy_t *phy, cy_stc_ephy_config_t 
     {
         /* Keep these values for later use. */
         phy->bmcr = ulConfig & ~PHYBMCR_ISOLATE_Msk;
-        phy->anar = ulAdvertise;
 
         /* configure bmcr */
         phy->fnPhyWrite( phyAddress, PHYREG_00_BMCR, phy->bmcr);

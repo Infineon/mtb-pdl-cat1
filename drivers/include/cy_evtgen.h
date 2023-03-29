@@ -394,7 +394,7 @@ __STATIC_INLINE void Cy_EvtGen_ClearInterrupt(EVTGEN_Type *base, uint32_t mask)
 {
     CY_ASSERT_L1(CY_EVTGEN_IS_MASK_VALID(mask));
     CY_SET_REG32(&base->INTR, mask);
-    /* Readback for the value to take effect */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) base->INTR;
 }
 
@@ -417,7 +417,7 @@ __STATIC_INLINE void Cy_EvtGen_ClearStructInterrupt(EVTGEN_Type *base, uint8_t s
 {
     CY_ASSERT_L1(CY_EVTGEN_IS_STRUCTNUM_VALID(structNumber));
     base->INTR = EVTGEN_INTR_COMP0_Msk & (1UL << structNumber);
-    /* Readback for the value to take effect */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) base->INTR;
 }
 
@@ -529,7 +529,7 @@ __STATIC_INLINE void Cy_EvtGen_ClearInterruptDeepSleep(EVTGEN_Type *base, uint32
 {
     CY_ASSERT_L1(CY_EVTGEN_IS_MASK_VALID(mask));
     base->INTR_DPSLP = _VAL2FLD(EVTGEN_INTR_DPSLP_COMP1, mask);
-    /* Readback for the value to take effect */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) base->INTR_DPSLP;
 }
 
@@ -552,7 +552,7 @@ __STATIC_INLINE void Cy_EvtGen_ClearStructInterruptDeepSleep(EVTGEN_Type *base, 
 {
     CY_ASSERT_L1(CY_EVTGEN_IS_STRUCTNUM_VALID(structNumber));
     base->INTR_DPSLP = _VAL2FLD(EVTGEN_INTR_DPSLP_COMP1, (1UL << structNumber));
-    /* Readback for the value to take effect */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) base->INTR_DPSLP;
 }
 

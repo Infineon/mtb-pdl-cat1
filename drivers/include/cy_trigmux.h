@@ -1,6 +1,6 @@
 /*******************************************************************************
 * \file cy_trigmux.h
-* \version 1.50
+* \version 1.60
 *
 *  This file provides constants and parameter values for the Trigger multiplexer driver.
 *
@@ -168,6 +168,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.60</td>
+*     <td>Updated Cy_TrigMux_SwTrigger API and added CY_TRIGMUX_INTRIG_MASK macro.</td>
+*     <td>Support for CAT1D Devices added.</td>
+*   </tr>
+*   <tr>
 *     <td>1.50</td>
 *     <td>Updated driver to support the CAT1C family of devices.</td>
 *     <td>Added new family of devices.</td>
@@ -289,7 +294,7 @@ extern "C" {
 #define CY_TRIGMUX_DRV_VERSION_MAJOR       1
 
 /** The driver minor version */
-#define CY_TRIGMUX_DRV_VERSION_MINOR       50
+#define CY_TRIGMUX_DRV_VERSION_MINOR       60
 
 /** TRIGMUX PDL ID */
 #define CY_TRIGMUX_ID                       CY_PDL_DRV_ID(0x33UL) /**< The trigger multiplexer driver identifier */

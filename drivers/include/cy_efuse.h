@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_efuse.h
-* \version 2.20
+* \version 2.30
 *
 * Provides the API declarations of the eFuse driver.
 *
@@ -68,6 +68,11 @@
 * \section group_efuse_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.30</td>
+*     <td>Updated Cy_EFUSE_WriteBit API.</td>
+*     <td>Fix minor compilation warning.</td>
+*   </tr>
 *   <tr>
 *     <td>2.20</td>
 *     <td>Updated driver to support the CAT1C family of devices.</td>
@@ -143,7 +148,7 @@
 /** The driver major version */
 #define CY_EFUSE_DRV_VERSION_MAJOR          2
 /** The driver minor version */
-#define CY_EFUSE_DRV_VERSION_MINOR          20
+#define CY_EFUSE_DRV_VERSION_MINOR          30
 /** The eFuse driver identifier */
 #define CY_EFUSE_ID                         (CY_PDL_DRV_ID(0x1AUL))
 /** The number of bits in the byte */

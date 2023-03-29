@@ -22,5 +22,6 @@ var group__group__tcpwm__functions__counter =
     [ "Cy_TCPWM_Counter_GetCompare1BufVal", "group__group__tcpwm__functions__counter.html#ga9fd998d3efb783d7ab9c11b28d48d1a5", null ],
     [ "Cy_TCPWM_Counter_SetCompare1Val", "group__group__tcpwm__functions__counter.html#gaaee822611af74de157e5e2ec64e9eda8", null ],
     [ "Cy_TCPWM_Counter_SetCompare1BufVal", "group__group__tcpwm__functions__counter.html#ga657f6b89036053674b03e52f58ded440", null ],
-    [ "Cy_TCPWM_Counter_EnableCompare1Swap", "group__group__tcpwm__functions__counter.html#gae8e864267855dd674d618bba19733ce3", null ]
+    [ "Cy_TCPWM_Counter_EnableCompare1Swap", "group__group__tcpwm__functions__counter.html#gae8e864267855dd674d618bba19733ce3", null ],
+    [ "Cy_TCPWM_Counter_EnableSwap", "group__group__tcpwm__functions__counter.html#ga2abece06e0b8d5fe890886ad883e7a41", null ]
 ];

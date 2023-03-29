@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  Provides API implementation of the Cypress PDL Crypto driver.
@@ -643,12 +643,12 @@ cy_en_crypto_status_t Cy_Crypto_Aes_Cmac_Run(uint32_t *src,
 #if (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_SHA_C)
 
 #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
-CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.3', 1, 'Intentional typecast to int32_t.');
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.3', 1, 'Intentional typecast to int32_t.')
 static const int32_t Cy_Crypto_Sha_Digest_size[] = { CY_CRYPTO_SHA1_DIGEST_SIZE, CY_CRYPTO_SHA224_DIGEST_SIZE,
                                             CY_CRYPTO_SHA256_DIGEST_SIZE, CY_CRYPTO_SHA384_DIGEST_SIZE,
                                             CY_CRYPTO_SHA512_DIGEST_SIZE, CY_CRYPTO_SHA512_256_DIGEST_SIZE,
                                             CY_CRYPTO_SHA512_224_DIGEST_SIZE, 0};
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.3')
 #endif
 cy_en_crypto_status_t Cy_Crypto_Sha_Run(uint32_t *message,
                                         uint32_t messageSize,

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_adcmic.c
-* \version 1.0
+* \version 1.10
 *
 * Provides an API implementation of the ADCMic driver.
 *

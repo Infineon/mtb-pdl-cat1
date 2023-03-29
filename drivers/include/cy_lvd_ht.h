@@ -420,7 +420,7 @@ __STATIC_INLINE void Cy_LVD_HT_ClearInterrupt(cy_en_lvd_ht_select_t lvdNum)
     {
         SRSS_SRSS_INTR = SRSS_SRSS_INTR_HVLVD2_Msk;
     }
-
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) SRSS_SRSS_INTR;
 }
 

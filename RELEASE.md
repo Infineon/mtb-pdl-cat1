@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.2.0
+# MTB CAT1 Peripheral Driver Library v3.3.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,25 +8,46 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## Implementation Details
 
-* TRNG enchacements to support health monitor check.
+* Crypto AES GCM support for CAT1A
+* Inrush mode selection support in BT-IPC for CAT1B
+* DEEPSLEEP-RAM support addition for CAT1B
 * Bug fixes
+* MISRA 2012 fixes done for few drivers
 
 ## Build Changes
 
 ## Personalities Changes
 
-* Updated eco-3.0.cypersonality, extclk-3.0.cypersonality, wco-3.0.cypersonality, pin-3.0.cypersonality, and sar-6.0.cypersonality
+* Updated Personalities : counter_v2-1.0.cypersonality, counter-1.0.cypersonality, csd-3.0.cypersonality, emusb-1.0.cypersonality,
+  i2c-4.0.cypersonality, mcwdt_v2-1.0.cypersonality, pwm_v2-1.0.cypersonality, quaddec_v2-1.0.cypersonality, sar2-1.0.cypersonality, sar-6.0.cypersonality, shiftreg_v2-1.0.cypersonality, smif_v2-1.0.cypersonality, althf-1.1.cypersonality, bakclk-3.0.cypersonality, eco_prescaler-1.0.cypersonality, fll-4.0.cypersonality, hfclk_v2-1.0.cypersonality, iho-1.0.cypersonality, lfclk-3.0.cypersonality, mfclk-3.0.cypersonality, mfo-3.0.cypersonality, periclk-2.0.cypersonality, pin-3.0.cypersonality, power_v2-1.0.cypersonality, sysclock-3.0.cypersonality 
 
 ## Added Drivers
 
 ## Updated Drivers
 
-* [SYSPM 5.91](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [CRYPTO 2.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
+* [ADCMIC 1.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__adcmic.html)
+* [CRYPTO 2.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
+* [CRYPTOLITE 2.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
+* [EPHY 1.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ephy.html)
+* [EFUSE 2.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__efuse.html)
+* [EMAC 1.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ethif.html)
+* [GPIO 1.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
+* [IPC 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
+* [SCB 3.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
+* [SMIF 2.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
+* [SYSTICK 1.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__arm__system__timer.html)
+* [SYSCLK 3.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [SYSFAULT 1.10](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysfault.html)
+* [SYSINT 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
+* [SYSLIB 3.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
+* [SYSPM 5.92](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [TCPWM 1.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__tcpwm.html)
+* [TRIGMUX 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__trigmux.html)
+* [USBFS 2.20.3](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__usbfs__dev__drv.html)
+* [WDT 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__wdt.html)
+
 
 ### Drivers with patch version updates
-
-* [SegLCD 1.10.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__seglcd.html)
 
 ### Obsoleted part numbers
 
@@ -85,5 +106,6 @@ This version of PDL was validated for compatibility with the following Software 
 * [XMC7000](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/32-bit-xmc7000-industrial-microcontroller-arm-cortex-m7/)
 * [Infineon](http://www.infineon.com)
 
+
 ---
-© Cypress Semiconductor Corporation (an Infineon company), 2022.
+© Cypress Semiconductor Corporation (an Infineon company), 2023.

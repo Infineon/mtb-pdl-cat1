@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_cmac_v1.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code to the API for the CMAC method
@@ -48,7 +48,7 @@ extern "C" {
 #include "cy_syslib.h"
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 2, \
-'Pointer type conversion is intentional');
+'Pointer type conversion is intentional')
 
 static void Cy_Crypto_Core_V1_Cmac_CalcSubKey(uint8_t *srcDstPtr);
 
@@ -313,7 +313,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V1_Cmac(CRYPTO_Type *base,
     return (CY_CRYPTO_SUCCESS);
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
 #endif /* (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_CMAC_C) */
 

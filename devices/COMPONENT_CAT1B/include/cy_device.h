@@ -18,7 +18,7 @@
 
 
 CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 1, \
-'Checked manually. The definition is a part of linker script.');
+'Checked manually. The definition is a part of linker script.')
 
 /* Device descriptor type */
 typedef struct
@@ -54,8 +54,9 @@ typedef struct
 /* Pointer to device configuration structure */
 #define CY_DEVICE_CFG                   (&cy_deviceIpBlockCfg)
 
-#define CY_SRSS_NUM_PLL400M                 SRSS_NUM_PLL400M
+#define CY_SRSS_NUM_PLL400M                 0
 #define CY_SRSS_PLL400M_PRESENT             0
+#define CY_SRSS_DPLL_LP_PRESENT             0
 
 
 /*******************************************************************************
@@ -68,16 +69,6 @@ extern const cy_stc_device_t* cy_device;
 /*******************************************************************************
 *                   Global Extern Functions
 *******************************************************************************/
-
-#if defined(__ARMCC_VERSION)
-#define interrupt_type __attribute__((interrupt))
-#elif defined (__GNUC__)
-#define interrupt_type __attribute__((interrupt))
-#elif defined (__ICCARM__)
-#define interrupt_type __irq
-#else
-    #error "An unsupported toolchain"
-#endif  /* (__ARMCC_VERSION) */
 
 /*******************************************************************************
 *               Macro Definitions
@@ -222,6 +213,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define SMIF_DEVICE_RD_MODE_CTL(base)       (((SMIF_DEVICE_Type *)(base))->RD_MODE_CTL)
 #define SMIF_DEVICE_RD_DUMMY_CTL(base)      (((SMIF_DEVICE_Type *)(base))->RD_DUMMY_CTL)
 #define SMIF_DEVICE_RD_DATA_CTL(base)       (((SMIF_DEVICE_Type *)(base))->RD_DATA_CTL)
+#define SMIF_DEVICE_RD_BOUND_CTL(base)       (((SMIF_DEVICE_Type *)(base))->RD_BOUND_CTL)
 #define SMIF_DEVICE_WR_CMD_CTL(base)        (((SMIF_DEVICE_Type *)(base))->WR_CMD_CTL)
 #define SMIF_DEVICE_WR_ADDR_CTL(base)       (((SMIF_DEVICE_Type *)(base))->WR_ADDR_CTL)
 #define SMIF_DEVICE_WR_MODE_CTL(base)       (((SMIF_DEVICE_Type *)(base))->WR_MODE_CTL)
@@ -705,6 +697,7 @@ typedef MXAHBDMAC_Type DMAC_Type;
 #define CY_SRSS_MFO_PRESENT                 1
 #define CY_SRSS_PILO_PRESENT                SRSS_S40S_PILO_PRESENT
 #define CY_SRSS_ILO_PRESENT                 1
+#define CY_SRSS_IMO_PRESENT                 1
 #endif
 
 
@@ -1497,6 +1490,34 @@ we need to define this for version 2 only. */
 #define TCPWM_CNT_STATUS_RUNNING_Pos 31UL
 #endif
 
+#if (CY_IP_MXTCPWM_VERSION >= 3U)
+#define TCPWM_GRP_CNT_V3_CTRL_SWAP_ENABLED_Pos   TCPWM_GRP_CNT_CTRL_SWAP_ENABLE_Pos
+#define TCPWM_GRP_CNT_V3_CTRL_SWAP_ENABLED_Msk   TCPWM_GRP_CNT_CTRL_SWAP_ENABLE_Msk
+#define TCPWM_GRP_CNT_V3_CTRL_DITHEREN_Pos       TCPWM_GRP_CNT_CTRL_DITHEREN_Pos
+#define TCPWM_GRP_CNT_V3_CTRL_DITHEREN_Msk       TCPWM_GRP_CNT_CTRL_DITHEREN_Msk
+
+#define TCPWM_GRP_CNT_V3_LFSR_PLFSR_Pos          TCPWM_GRP_CNT_LFSR_PLFSR_Pos
+#define TCPWM_GRP_CNT_V3_LFSR_PLFSR_Msk          TCPWM_GRP_CNT_LFSR_PLFSR_Msk
+#define TCPWM_GRP_CNT_V3_LFSR_DLFSR_Pos          TCPWM_GRP_CNT_LFSR_DLFSR_Pos
+#define TCPWM_GRP_CNT_V3_LFSR_DLFSR_Msk          TCPWM_GRP_CNT_LFSR_DLFSR_Msk
+#define TCPWM_GRP_CNT_V3_LFSR_LIMITER_Pos        TCPWM_GRP_CNT_LFSR_LIMITER_Pos
+#define TCPWM_GRP_CNT_V3_LFSR_LIMITER_Msk        TCPWM_GRP_CNT_LFSR_LIMITER_Msk
+
+#define TCPWM_GRP_CNT_V3_ONE_GF_GF_DEPTH_Pos     TCPWM_GRP_CNT_ONE_GF_GF_DEPTH_Pos
+#define TCPWM_GRP_CNT_V3_ONE_GF_GF_DEPTH_Msk     TCPWM_GRP_CNT_ONE_GF_GF_DEPTH_Msk
+#define TCPWM_GRP_CNT_V3_ONE_GF_GFPS_DIV_Pos     TCPWM_GRP_CNT_ONE_GF_GFPS_DIV_Pos
+#define TCPWM_GRP_CNT_V3_ONE_GF_GFPS_DIV_Msk     TCPWM_GRP_CNT_ONE_GF_GFPS_DIV_Msk
+
+#define GRP0_DITHERING TCPWM_GRP_NR0_CNT_GRP_DITHERING_PRESENT
+#define GRP1_DITHERING TCPWM_GRP_NR1_CNT_GRP_DITHERING_PRESENT
+#define GRP2_DITHERING TCPWM_GRP_NR2_CNT_GRP_DITHERING_PRESENT
+#define TCPWM_GRP_DITHERING_PRESENT(grp) (((grp) == 0U)? GRP0_DITHERING : (((grp) == 1U)? GRP1_DITHERING : GRP2_DITHERING))
+
+#define TCPWM_GRP_CNT_LFSR(base, grp, cntNum)        (((TCPWM_Type *)(base))->GRP[grp].CNT[((cntNum) % 256U)].LFSR)
+#define TCPWM_GRP_CNT_ONE_GF(base, grp, cntNum, onetoone_gf)      (((TCPWM_Type *)(base))->GRP[grp].CNT[((cntNum) % 256U)].ONE_GF[onetoone_gf])
+#define TCPWM_GF_FOR_GROUP_TRIGGER(base, gfNum)      (((TCPWM_Type *)(base))->TR_ALL_GF.ALL_GF[((gfNum) % 254U)])
+
+#endif /* CY_IP_MXTCPWM_VERSION >= 3U */
 /*******************************************************************************
 *               TDM
 *******************************************************************************/
@@ -1854,8 +1875,13 @@ we need to define this for version 2 only. */
 #define CY_IPC_STRUCT_PTR_FOR_IP(ipcIndex, base)            ((IPC_STRUCT_Type*)((uint32_t)(base) + (sizeof(IPC_STRUCT_Type) * (ipcIndex))))
 #define CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base)   &(((IPC_Type *)base)->INTR_STRUCT[ipcIntrIndex])
 
+#define CY_IPC_INSTANCES                       1U
 #define CY_IPC_CHANNELS                        (uint32_t)4
 #define CY_IPC_INTERRUPTS                      (uint32_t)2
+#define CY_IPC_CHANNELS_PER_INSTANCE           CY_IPC_CHANNELS
+
+/* ipcChannel comprises of total number of channels present in all IPC IP instances */
+#define CY_IPC_PIPE_CHANNEL_NUMBER_WITHIN_INSTANCE(ipcChannel) (((ipcChannel)<CY_IPC_CHANNELS_PER_INSTANCE)?(ipcChannel):((ipcChannel)%CY_IPC_CHANNELS_PER_INSTANCE))
 
 
 /*******************************************************************************
@@ -1937,41 +1963,50 @@ we need to define this for version 2 only. */
 #define MPC_PC_NR                                RAMC0_MPC_PC_NR
 #endif
 
-typedef MS_CTL_1_2_Type                         MS_CTL_Type;
-
-#define MS_CTL_BASE MS_CTL_1_2_BASE
-#define MS_CTL MS_CTL_1_2
+/*******************************************************************************
+*                MS_CTL
+*******************************************************************************/
+#define MS_CTL_PC_CTL_VX(index)          (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->MS[(index)].CTL)
+#define MS_CTL_PC_VAL_VX(index)          (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->MS_PC[(index)].PC)
+#define MS_CTL_PC_READ_MIRROR_VX(index)  (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->MS_PC[(index)].PC_READ_MIR)
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_VX   (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->CODE_MS0_MSC_ACG_CTL)
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_VX    (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->SYS_MS0_MSC_ACG_CTL)
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_VX    (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->SYS_MS1_MSC_ACG_CTL)
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_VX     (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->EXP_MS_MSC_ACG_CTL)
+#define MS_CTL_DMAC0_MSC_ACG_CTL_VX      (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->DMAC0_MSC_ACG_CTL)
+#define MS_CTL_DMAC1_MSC_ACG_CTL_VX      (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->DMAC1_MSC_ACG_CTL)
 
 /* MS_CTL.CODE_MS0_MSC_ACG_CTL */
-#define MS_CTL_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Pos   MS_CTL_1_2_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
-#define MS_CTL_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Msk   MS_CTL_1_2_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
-#define MS_CTL_CODE_MS0_MSC_ACG_CTL_SEC_RESP_Pos        MS_CTL_1_2_CODE_MS0_MSC_ACG_CTL_SEC_RESP_Pos
-#define MS_CTL_CODE_MS0_MSC_ACG_CTL_SEC_RESP_Msk        MS_CTL_1_2_CODE_MS0_MSC_ACG_CTL_SEC_RESP_Msk
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos   MS_CTL_1_2_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk   MS_CTL_1_2_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_SEC_RESP_VX_Pos        MS_CTL_1_2_CODE_MS0_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_SEC_RESP_VX_Msk        MS_CTL_1_2_CODE_MS0_MSC_ACG_CTL_SEC_RESP_Msk
 /* MS_CTL.SYS_MS0_MSC_ACG_CTL */
-#define MS_CTL_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Pos    MS_CTL_1_2_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
-#define MS_CTL_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Msk    MS_CTL_1_2_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
-#define MS_CTL_SYS_MS0_MSC_ACG_CTL_SEC_RESP_Pos         MS_CTL_1_2_SYS_MS0_MSC_ACG_CTL_SEC_RESP_Pos
-#define MS_CTL_SYS_MS0_MSC_ACG_CTL_SEC_RESP_Msk         MS_CTL_1_2_SYS_MS0_MSC_ACG_CTL_SEC_RESP_Msk
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos    MS_CTL_1_2_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk    MS_CTL_1_2_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_SEC_RESP_VX_Pos         MS_CTL_1_2_SYS_MS0_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_SEC_RESP_VX_Msk         MS_CTL_1_2_SYS_MS0_MSC_ACG_CTL_SEC_RESP_Msk
 /* MS_CTL.SYS_MS1_MSC_ACG_CTL */
-#define MS_CTL_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_Pos    MS_CTL_1_2_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_Pos
-#define MS_CTL_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_Msk    MS_CTL_1_2_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_Msk
-#define MS_CTL_SYS_MS1_MSC_ACG_CTL_SEC_RESP_Pos         MS_CTL_1_2_SYS_MS1_MSC_ACG_CTL_SEC_RESP_Pos
-#define MS_CTL_SYS_MS1_MSC_ACG_CTL_SEC_RESP_Msk         MS_CTL_1_2_SYS_MS1_MSC_ACG_CTL_SEC_RESP_Msk
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos    MS_CTL_1_2_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk    MS_CTL_1_2_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_SEC_RESP_VX_Pos         MS_CTL_1_2_SYS_MS1_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_SEC_RESP_VX_Msk         MS_CTL_1_2_SYS_MS1_MSC_ACG_CTL_SEC_RESP_Msk
 /* MS_CTL.EXP_MS_MSC_ACG_CTL */
-#define MS_CTL_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_Pos     MS_CTL_1_2_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_Pos
-#define MS_CTL_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_Msk     MS_CTL_1_2_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_Msk
-#define MS_CTL_EXP_MS_MSC_ACG_CTL_SEC_RESP_Pos          MS_CTL_1_2_EXP_MS_MSC_ACG_CTL_SEC_RESP_Pos
-#define MS_CTL_EXP_MS_MSC_ACG_CTL_SEC_RESP_Msk          MS_CTL_1_2_EXP_MS_MSC_ACG_CTL_SEC_RESP_Msk
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos     MS_CTL_1_2_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk     MS_CTL_1_2_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_SEC_RESP_VX_Pos          MS_CTL_1_2_EXP_MS_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_SEC_RESP_VX_Msk          MS_CTL_1_2_EXP_MS_MSC_ACG_CTL_SEC_RESP_Msk
 /* MS_CTL.DMAC0_MSC_ACG_CTL */
-#define MS_CTL_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_Pos      MS_CTL_1_2_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
-#define MS_CTL_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_Msk      MS_CTL_1_2_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
-#define MS_CTL_DMAC0_MSC_ACG_CTL_SEC_RESP_Pos           MS_CTL_1_2_DMAC0_MSC_ACG_CTL_SEC_RESP_Pos
-#define MS_CTL_DMAC0_MSC_ACG_CTL_SEC_RESP_Msk           MS_CTL_1_2_DMAC0_MSC_ACG_CTL_SEC_RESP_Msk
+#define MS_CTL_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos      MS_CTL_1_2_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk      MS_CTL_1_2_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_DMAC0_MSC_ACG_CTL_SEC_RESP_VX_Pos           MS_CTL_1_2_DMAC0_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_DMAC0_MSC_ACG_CTL_SEC_RESP_VX_Msk           MS_CTL_1_2_DMAC0_MSC_ACG_CTL_SEC_RESP_Msk
 /* MS_CTL.DMAC1_MSC_ACG_CTL */
-#define MS_CTL_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_Pos      MS_CTL_1_2_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_Pos
-#define MS_CTL_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_Msk      MS_CTL_1_2_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_Msk
-#define MS_CTL_DMAC1_MSC_ACG_CTL_SEC_RESP_Pos           MS_CTL_1_2_DMAC1_MSC_ACG_CTL_SEC_RESP_Pos
-#define MS_CTL_DMAC1_MSC_ACG_CTL_SEC_RESP_Msk           MS_CTL_1_2_DMAC1_MSC_ACG_CTL_SEC_RESP_Msk
+#define MS_CTL_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos      MS_CTL_1_2_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk      MS_CTL_1_2_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_DMAC1_MSC_ACG_CTL_SEC_RESP_VX_Pos           MS_CTL_1_2_DMAC1_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_DMAC1_MSC_ACG_CTL_SEC_RESP_VX_Msk           MS_CTL_1_2_DMAC1_MSC_ACG_CTL_SEC_RESP_Msk
+
 
 /*******************************************************************************
 *                MXSRAMC
@@ -1986,7 +2021,7 @@ typedef MS_CTL_1_2_Type                         MS_CTL_Type;
 #define MXSRAMC_PWR_MACRO_CTL_LOCK_SET01               0X00000003U
 #define CY_CPUSS_RAMC0_MACRO_NR                        CPUSS_RAMC0_MACRO_NR
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 
 #endif /* CY_DEVICE_H_ */
 

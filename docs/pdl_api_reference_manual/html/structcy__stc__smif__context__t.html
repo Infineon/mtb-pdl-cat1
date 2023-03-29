@@ -141,6 +141,13 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="memitem:a25f3b43821e3f1a90d9f40a3efd59bad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga6673e9fe92675ceaddadeb41e31a5821">cy_en_smif_data_rate_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__context__t.html#a25f3b43821e3f1a90d9f40a3efd59bad">preXIPDataRate</a></td></tr>
 <tr class="memdesc:a25f3b43821e3f1a90d9f40a3efd59bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">preferred XIP data rate  <a href="#a25f3b43821e3f1a90d9f40a3efd59bad">More...</a><br /></td></tr>
 <tr class="separator:a25f3b43821e3f1a90d9f40a3efd59bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6444c771d252f9a2aef8416b32317ced"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__context__t.html#a6444c771d252f9a2aef8416b32317ced">dummyCycles</a></td></tr>
+<tr class="memdesc:a6444c771d252f9a2aef8416b32317ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">preferred dummy cycles per transaction  <a href="#a6444c771d252f9a2aef8416b32317ced">More...</a><br /></td></tr>
+<tr class="separator:a6444c771d252f9a2aef8416b32317ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafcdeeb0b2e035795ba29db1a05273aa"><td class="memItemLeft" align="right" valign="top"><a id="aafcdeeb0b2e035795ba29db1a05273aa"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__context__t.html#aafcdeeb0b2e035795ba29db1a05273aa">flags</a></td></tr>
+<tr class="memdesc:aafcdeeb0b2e035795ba29db1a05273aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the device is memory-mapped, enables the Autodetect using the SFDP, enables the write capability, or enables the crypto support for this memory slave. <br /></td></tr>
+<tr class="separator:aafcdeeb0b2e035795ba29db1a05273aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a188f98b4786f86ba5786265c9ea3d850"></a>
@@ -259,6 +266,23 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 
 <p>preferred XIP data rate </p>
 <dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="a6444c771d252f9a2aef8416b32317ced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6444c771d252f9a2aef8416b32317ced">&#9670;&nbsp;</a></span>dummyCycles</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t cy_stc_smif_context_t::dummyCycles</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>preferred dummy cycles per transaction </p>
+<dl class="section note"><dt>Note</dt><dd>This parameter is available for CAT1B, CAT1C and CAT1D devices for Hyperflash/HyperRAM. </dd></dl>
 
 </div>
 </div>

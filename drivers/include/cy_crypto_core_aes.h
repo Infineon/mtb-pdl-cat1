@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides constant and parameters for the API for the AES method
@@ -481,6 +481,505 @@ __STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_Ctr(CRYPTO_Type *base,
     return tmpResult;
 }
 #endif /* defined(CY_CRYPTO_CFG_CIPHER_MODE_CTR) */
+
+#if (CPUSS_CRYPTO_GCM == 1) && defined(CY_CRYPTO_CFG_GCM_C)
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_Init
+****************************************************************************//**
+*
+* The function to initialize AES GCM operation.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aesGCMBuffers
+* The pointer to the AES GCM buffer provided by the user. The user must not modify anything in this structure.
+*
+* \param aesGCMctx
+* The pointer to the AES GCM state structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_init_update_finish_free
+*******************************************************************************/
+
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_Init(CRYPTO_Type *base,cy_stc_crypto_aes_gcm_buffers_t *aesGCMBuffers,
+                                                      cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_Init(base, aesGCMBuffers, aesGCMctx);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_SetKey
+****************************************************************************//**
+*
+* The function to set AES GCM Key.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aesKey
+* The pointer to the AES key.
+*
+* \param keyLength
+* \ref cy_en_crypto_aes_key_length_t
+*
+* \param aesGCMctx
+* The pointer to the AES GCM state structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_init_update_finish_free
+*******************************************************************************/
+
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_SetKey(CRYPTO_Type *base, uint8_t const *aesKey, cy_en_crypto_aes_key_length_t keyLength,
+                                                      cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_SetKey(base, aesKey, keyLength, aesGCMctx);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_Start
+****************************************************************************//**
+*
+* The function to start AES GCM operation.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param mode
+* \ref cy_en_crypto_dir_mode_t 
+*
+* \param iv
+* The pointer to the Initialization vector.
+*
+* \param ivSize
+* The length of the iv.
+*
+* \param aesGCMctx
+* The pointer to the AES GCM state structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_init_update_finish_free
+*******************************************************************************/
+
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_Start(CRYPTO_Type *base, cy_en_crypto_dir_mode_t mode,
+                                                      uint8_t const *iv, uint32_t ivSize,
+                                                      cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_Start(base, mode, iv, ivSize, aesGCMctx);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_AAD_Update
+****************************************************************************//**
+*
+* The function to update the Additional Authentication Data.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aad
+* The pointer to the Additional Authentication Data.
+*
+* \param aadSize
+*  The length of the Additional Authentication Data
+*
+* \param aesGCMctx
+* The pointer to the AES GCM state structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_init_update_finish_free
+*******************************************************************************/
+
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_AAD_Update(CRYPTO_Type *base, uint8_t *aad,
+                                                                        uint32_t aadSize,
+                                                                        cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_AAD_Update(base, aad, aadSize, aesGCMctx);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_Update
+****************************************************************************//**
+*
+* The function to update the data
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param input
+* The pointer to the input data to be encrypted/decrypted.
+*
+* \param inputSize
+*  The length of the input data.
+*
+* \param output
+* The pointer to the encrypted/decrypted output data.
+*
+* \param aesGCMctx
+* The pointer to the AES GCm state structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_init_update_finish_free
+*******************************************************************************/
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_Update(CRYPTO_Type *base,  const uint8_t *input,
+                                                       uint32_t inputSize,  uint8_t *output,
+                                                       cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_Update(base, input, inputSize, output, aesGCMctx);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+
+
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_Finish
+****************************************************************************//**
+*
+* The function to finish the AES GCM operation and to calculate the tag.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param p_tag
+* The pointer to the buffer for storing tag.
+*
+* \param tagSize
+*  The length of the p_tag.
+*
+* \param aesGCMctx
+* The pointer to the AES aesGCMctx structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_init_update_finish_free
+*******************************************************************************/
+
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_Finish(CRYPTO_Type *base,  uint8_t *p_tag, 
+                                                              uint32_t tagSize, cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+
+
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_Finish(base, p_tag, tagSize, aesGCMctx);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_Free
+****************************************************************************//**
+*
+* The function to finish the encryption process and calculate tag.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aesGCMctx
+* The pointer to the AES aesGCMctx structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_init_update_finish_free
+*******************************************************************************/
+
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_Free(CRYPTO_Type *base,  cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+
+
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_Free(base, aesGCMctx);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_Encrypt_Tag
+****************************************************************************//**
+*
+* Performs the AES GCM encryption operation on the input data, iv & aad data, generates the encrypted data and TAG.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aesKey
+* The pointer to the AES key.
+*
+* \param keyLength
+* \ref cy_en_crypto_aes_key_length_t
+*
+* \param iv
+* The pointer to the Initialization vector.
+*
+* \param ivSize
+* The length of the iv.
+*
+* \param aad
+* The pointer to the Additional Authentication Data.
+*
+* \param aadSize
+*  The length of the additional Authentication Data
+*
+* \param input
+* The pointer to the input data to be encrypted/decrypted.
+*
+* \param inputSize
+*  The length of the input data.
+*
+* \param output
+* The pointer to the encrypted/decrypted output data.
+*
+* \param tag
+* The pointer to the tag.
+*
+* \param tagSize
+*  The length of the p_tag.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_Encrypt_Tag
+*******************************************************************************/
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_Encrypt_Tag(CRYPTO_Type *base, uint8_t const *aesKey, cy_en_crypto_aes_key_length_t keyLength,
+                                                            uint8_t const *iv, uint32_t ivSize, uint8_t *aad,   uint32_t aadSize, 
+                                                            const uint8_t *input,   uint32_t inputSize,  uint8_t *output, uint8_t *tag, uint32_t tagSize)
+
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_Encrypt_Tag(base, aesKey, keyLength,
+                                                          iv, ivSize, aad, aadSize, 
+                                                          input, inputSize, output, tag, tagSize);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_Aes_GCM_Decrypt_Tag
+****************************************************************************//**
+*
+* Performs the AES GCM decryption operation on the input data and verifies the TAG.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aesKey
+* The pointer to the AES key.
+*
+* \param keyLength
+* \ref cy_en_crypto_aes_key_length_t
+*
+* \param iv
+* The pointer to the Initialization vector.
+*
+* \param ivSize
+* The length of the iv.
+*
+* \param aad
+* The pointer to the Additional Authentication Data.
+*
+* \param aadSize
+*  The length of the additional Authentication Data
+*
+* \param input
+* The pointer to the input data to be encrypted/decrypted.
+*
+* \param inputSize
+*  The length of the input data.
+*
+* \param tag
+* The pointer to the tag.
+*
+* \param tagSize
+*  The length of the p_tag.
+*
+* \param output
+* The pointer to the encrypted/decrypted output data.
+*
+* \param isVerified
+* The status of the AES GCM verification.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*
+* \funcusage
+* \snippet crypto/snippet/main.c snippet_Cy_Crypto_Core_Aes_GCM_Decrypt_Tag
+*******************************************************************************/
+__STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Aes_GCM_Decrypt_Tag(CRYPTO_Type *base, uint8_t const *aesKey, cy_en_crypto_aes_key_length_t keyLength,
+                                                            uint8_t const *iv, uint32_t ivSize, uint8_t *aad,   uint32_t aadSize, 
+                                                            const uint8_t *input,   uint32_t inputSize, uint8_t *tag, uint32_t tagSize, uint8_t *output,
+                                                            cy_en_crypto_aesgcm_tag_verify_result_t * isVerified)
+{
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+
+    if (CY_CRYPTO_V1)
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
+        tmpResult = CY_CRYPTO_NOT_SUPPORTED;
+        #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
+    }
+    else
+    {
+        #if defined(CY_CRYPTO_CFG_HW_V2_ENABLE)
+        tmpResult = Cy_Crypto_Core_V2_Aes_GCM_Decrypt_Tag(base, aesKey, keyLength,
+                                                            iv, ivSize, aad, aadSize, 
+                                                            input, inputSize, tag, tagSize, output, isVerified);
+        #endif /* defined(CY_CRYPTO_CFG_HW_V2_ENABLE) */
+    }
+
+    return tmpResult;
+}
+#endif /* (CPUSS_CRYPTO_GCM == 1) && defined(CY_CRYPTO_CFG_GCM_C)*/
 
 /** \} group_crypto_lld_symmetric_functions */
 

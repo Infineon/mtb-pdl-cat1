@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['x',['x',['../structcy__stc__crypto__ecc__point.html#add55e76c8f42aec7b4274af7feeb1017',1,'cy_stc_crypto_ecc_point']]],
+  ['x',['x',['../structcy__stc__crypto__ecc__point.html#add55e76c8f42aec7b4274af7feeb1017',1,'cy_stc_crypto_ecc_point::x()'],['../structcy__stc__cryptolite__ecc__point.html#aedbd6c954ab2fb19aac7f79c5403313a',1,'cy_stc_cryptolite_ecc_point::x()']]],
   ['xcount',['xCount',['../structcy__stc__dma__descriptor__config__t.html#a23df6ae648618339b9221ad95363f328',1,'cy_stc_dma_descriptor_config_t::xCount()'],['../structcy__stc__dmac__descriptor__config__t.html#a0d2682fd8330b970ffa7221ad8b02fa9',1,'cy_stc_dmac_descriptor_config_t::xCount()']]],
   ['xctl',['xCtl',['../structcy__stc__dma__descriptor__t.html#a9b8e7779bdb78126c5267f1ad8d657ce',1,'cy_stc_dma_descriptor_t']]],
   ['xferpending',['xferPending',['../structcy__stc__scb__i2c__master__xfer__config__t.html#a2e158df2a2854d193d589021c2128aa4',1,'cy_stc_scb_i2c_master_xfer_config_t']]],

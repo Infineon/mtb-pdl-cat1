@@ -255,7 +255,7 @@
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cycfg_routing.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
-    
+
     <ConfigDefine name="`${INST_NAME}`_HW" value="TCPWM`${tcpwmInst}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${cntInst}`UL" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_MASK" value="(1UL &lt;&lt; `${cntInst}`)" public="true" include="true" />
@@ -269,7 +269,7 @@
       <Member name="compareOrCapture" value="`${CompareOrCapture}`" />
       <Member name="compare0" value="`${Compare0}`" />
       <Member name="compare1" value="`${Compare1}`" />
-      <Member name="enableCompareSwap" value="`${EnableCompareSwap}`" />
+      <Member name="enableCompareSwap" value="`${pCCeqCompare ? EnableCompareSwap : pCCeqCompare}`" />
       <Member name="interruptSources" value="`${InterruptSource}`" />
       <Member name="captureInputMode" value="`${CaptureInput eq CY_TCPWM_INPUT_DISABLED ? defineInputDisabled : CaptureInput}`" />
       <Member name="captureInput" value="`${CaptureInput eq CY_TCPWM_INPUT_DISABLED ? &quot;CY_TCPWM_INPUT_0&quot; : (definePrefix . &quot;_CAPTURE_VALUE&quot;)}`" />

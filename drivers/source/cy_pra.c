@@ -40,7 +40,7 @@
 #if defined (CY_DEVICE_SECURE) || defined (CY_DOXYGEN)
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 17.2', 4, \
-'Checked manually. All the recursive cycles are handled properly.');
+'Checked manually. All the recursive cycles are handled properly.')
 
 #define CY_PRA_REG_POLICY_WRITE_ALL   (0x00000000UL)
 #define CY_PRA_REG_POLICY_WRITE_NONE  (0xFFFFFFFFUL)
@@ -3377,7 +3377,7 @@ static cy_en_pra_status_t Cy_PRA_ValidateEntireSramPowerMode(cy_en_syspm_sram_in
 
 #endif /* (CY_CPU_CORTEX_M0P) */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2')
 
 #endif /* (CY_DEVICE_SECURE) */
 

@@ -26,6 +26,24 @@ var group__group__tcpwm__data__structures__pwm =
       [ "killInput", "structcy__stc__tcpwm__pwm__config__t.html#af1910e1d1df6bf11909f9a263051d8f7", null ],
       [ "countInputMode", "structcy__stc__tcpwm__pwm__config__t.html#a6e07285f605e430e0e0237a45fc44111", null ],
       [ "countInput", "structcy__stc__tcpwm__pwm__config__t.html#aadbc0571c713e50e3e5842b95917d18d", null ],
-      [ "swapOverflowUnderflow", "structcy__stc__tcpwm__pwm__config__t.html#a61dda857a9d8fcc73df41c9dd6b1b47d", null ]
+      [ "swapOverflowUnderflow", "structcy__stc__tcpwm__pwm__config__t.html#a61dda857a9d8fcc73df41c9dd6b1b47d", null ],
+      [ "buffer_swap_enable", "structcy__stc__tcpwm__pwm__config__t.html#ac3ff11bd830ec04d750938b7a6c3ca6f", null ],
+      [ "dithering_mode", "structcy__stc__tcpwm__pwm__config__t.html#a64814c8b94603c676a53d15e6d696c30", null ]
+    ] ],
+    [ "cy_en_group_dithering_t", "group__group__tcpwm__data__structures__pwm.html#gae5adb6cee5131cb579edb78f758ef497", [
+      [ "CY_TCPWM_GROUP_DITHERING_DISABLE", "group__group__tcpwm__data__structures__pwm.html#ggae5adb6cee5131cb579edb78f758ef497a06b8b68ab17cf79a6cab2237254c340b", null ],
+      [ "CY_TCPWM_GROUP_DITHERING_PERIOD", "group__group__tcpwm__data__structures__pwm.html#ggae5adb6cee5131cb579edb78f758ef497a351d230ce97777735720c1ab4a5abc4b", null ],
+      [ "CY_TCPWM_GROUP_DITHERING_DUTY", "group__group__tcpwm__data__structures__pwm.html#ggae5adb6cee5131cb579edb78f758ef497a7ab13af0756ad2a0df86e8ab021a2e18", null ],
+      [ "CY_TCPWM_GROUP_DITHERING_PERIOD_DUTY", "group__group__tcpwm__data__structures__pwm.html#ggae5adb6cee5131cb579edb78f758ef497a3f466d532ccb310895b8784cdfeab68e", null ]
+    ] ],
+    [ "cy_en_dithering_limiter_t", "group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c", [
+      [ "CY_GROUP_DITHERING_LIMITER_0", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79caf85671d2a1e03366b6ceaf80bf100f82", null ],
+      [ "CY_GROUP_DITHERING_LIMITER_1", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca3c3e0f816a307bcb6933bdbd490fcde0", null ],
+      [ "CY_GROUP_DITHERING_LIMITER_2", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca42c38ff7281083bb1e0737433760b000", null ],
+      [ "CY_GROUP_DITHERING_LIMITER_3", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca1bed91c76ed4572c4b91302e29efc4f1", null ],
+      [ "CY_GROUP_DITHERING_LIMITER_4", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca13f7ab1ea5a2d9183f160f5ef3d35fd8", null ],
+      [ "CY_GROUP_DITHERING_LIMITER_5", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca93d7d7ae0811fbe8c1de12eb656e49af", null ],
+      [ "CY_GROUP_DITHERING_LIMITER_6", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79cab135b0bdacfe9fb434d9aeef3ed795cf", null ],
+      [ "CY_GROUP_DITHERING_LIMITER_7", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca8dcce6fdf49c7768e365c88c4f26ca7b", null ]
     ] ]
 ];

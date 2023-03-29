@@ -209,7 +209,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 15, \
-'Value extracted from _VAL2FLD macro will not exceed enum range.');
+'Value extracted from _VAL2FLD macro will not exceed enum range.')
 
 /******************************************************************************
  * Macro definitions                                                          *
@@ -1748,6 +1748,7 @@ __STATIC_INLINE void Cy_DMA_Channel_ClearInterrupt(DW_Type * base, uint32_t chan
     CY_ASSERT_L1(CY_DMA_IS_CH_NR_VALID(base, channel));
 
     DW_CH_INTR(base, channel) = CY_DMA_INTR_MASK;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) DW_CH_INTR(base, channel);
 }
 
@@ -2018,7 +2019,7 @@ __STATIC_INLINE uint32_t Cy_DMA_Channel_GetInterruptStatusMasked(DW_Type const *
 
 /** \endcond */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
 
 #if defined(__cplusplus)
 }

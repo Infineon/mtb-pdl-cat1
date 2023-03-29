@@ -13,6 +13,7 @@ var group__group__syspm__functions__power =
     [ "Cy_SysPm_CpuEnterDeepSleep", "group__group__syspm__functions__power.html#ga5150c28fe4d2626720c1fbf74b3111ca", null ],
     [ "Cy_SysPm_SystemEnterLp", "group__group__syspm__functions__power.html#ga72531fcca015df727a163b510639a334", null ],
     [ "Cy_SysPm_SystemEnterUlp", "group__group__syspm__functions__power.html#gaca7c8f1ab6d555530a68978269198836", null ],
+    [ "Cy_SysPm_SystemEnterMf", "group__group__syspm__functions__power.html#ga1c8129f8b9bcd59c5ebe481e5b2bee0a", null ],
     [ "Cy_SysPm_SystemEnterHibernate", "group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51", null ],
     [ "Cy_SysPm_SetHibernateWakeupSource", "group__group__syspm__functions__power.html#ga2540970e6c27efa25752efc43da0d622", null ],
     [ "Cy_SysPm_ClearHibernateWakeupSource", "group__group__syspm__functions__power.html#ga5cb3a837b9c441f4806c7550e6a0b026", null ],

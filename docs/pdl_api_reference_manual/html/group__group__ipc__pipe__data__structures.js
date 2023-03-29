@@ -13,6 +13,11 @@ var group__group__ipc__pipe__data__structures =
       [ "releaseCallbackPtr", "structcy__stc__ipc__pipe__ep__t.html#ab5ea186f2fd186eafe73501dbc394f4d", null ],
       [ "defaultReleaseCallbackPtr", "structcy__stc__ipc__pipe__ep__t.html#a300a657999f3a3da0cfe51b8f17d8029", null ]
     ] ],
+    [ "cy_stc_ipc_pipe_ep_config_mask_t", "structcy__stc__ipc__pipe__ep__config__mask__t.html", [
+      [ "epChannel", "structcy__stc__ipc__pipe__ep__config__mask__t.html#ae680b2cd09aa2d25fb94504acfdce5e1", null ],
+      [ "epIntr", "structcy__stc__ipc__pipe__ep__config__mask__t.html#a924e7b891196eb474a1dbb6735d5509b", null ],
+      [ "epIntrmask", "structcy__stc__ipc__pipe__ep__config__mask__t.html#ad355292f5cd562ab1a213a68af163348", null ]
+    ] ],
     [ "cy_stc_ipc_pipe_ep_config_t", "structcy__stc__ipc__pipe__ep__config__t.html", [
       [ "ipcNotifierNumber", "structcy__stc__ipc__pipe__ep__config__t.html#a85b43b574d346e8711b0737fc317fa44", null ],
       [ "ipcNotifierPriority", "structcy__stc__ipc__pipe__ep__config__t.html#a6c4e6bb126976ea855403085c664c973", null ],

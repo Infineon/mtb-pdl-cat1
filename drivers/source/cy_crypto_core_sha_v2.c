@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_sha_v2.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code to the API for the SHA method
@@ -329,6 +329,11 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Sha_Update(CRYPTO_Type *base,
 {
     cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
 
+    if(messageSize == 0UL)
+    {
+        return CY_CRYPTO_SUCCESS;
+    }
+
     if ((hashState != NULL) && (message != NULL))
     {
 #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
@@ -338,72 +343,70 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Sha_Update(CRYPTO_Type *base,
 
         if (hashState->blockSize != 0U)
         {
+
+            hashState->messageSize += messageSize;
+
+            uint32_t hashBlockIdx  = hashState->blockIdx;
+            uint32_t hashBlockSize = hashState->blockSize;
+
+            /* Load the calculated hash from the context buffer */
+            Cy_Crypto_Core_V2_RBClear(base);
+            Cy_Crypto_Core_V2_Sync(base);
+
+            Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_LOAD0, hashState->hash, hashState->hashSize);
+            Cy_Crypto_Core_V2_RBXor(base, 0U, hashState->hashSize);
+            Cy_Crypto_Core_V2_Sync(base);
+            Cy_Crypto_Core_V2_RBSwap(base);
+
+            /* Load the remaining block from the context buffer */
+            if (hashBlockIdx != 0U)
+            {
+                Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_LOAD0, hashState->block, hashBlockIdx);
+                Cy_Crypto_Core_V2_RBXor(base, 0U, hashBlockIdx);
+                Cy_Crypto_Core_V2_Sync(base);
+            }
+
+            /* Start the hash calculating */
+            Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, message, messageSize);
+
+            /* Processing the fully filled blocks with remaining buffer data */
+            while ((hashBlockIdx + messageSize) >= hashBlockSize)
+            {
+                uint32_t tempBlockSize = hashBlockSize - hashBlockIdx;
+
+                Cy_Crypto_Core_V2_RBXor(base, hashBlockIdx, tempBlockSize);
+
+                Cy_Crypto_Core_V2_Run(base, hashState->modeHw);
+
+                messageSize -= tempBlockSize;
+
+                hashBlockIdx = 0U;
+            }
+
+            /* The remaining block will be calculated in the Finish function */
+            hashState->blockIdx = hashBlockIdx + messageSize;
+
+            /* Load the end of the message (tail that less then block size) to the register buffer */
             if (messageSize != 0U)
             {
-                hashState->messageSize += messageSize;
-
-                uint32_t hashBlockIdx  = hashState->blockIdx;
-                uint32_t hashBlockSize = hashState->blockSize;
-
-                /* Load the calculated hash from the context buffer */
-                Cy_Crypto_Core_V2_RBClear(base);
+                Cy_Crypto_Core_V2_RBXor(base, hashBlockIdx, messageSize);
                 Cy_Crypto_Core_V2_Sync(base);
-
-                Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_LOAD0, hashState->hash, hashState->hashSize);
-                Cy_Crypto_Core_V2_RBXor(base, 0U, hashState->hashSize);
-                Cy_Crypto_Core_V2_Sync(base);
-                Cy_Crypto_Core_V2_RBSwap(base);
-
-                /* Load the remaining block from the context buffer */
-                if (hashBlockIdx != 0U)
-                {
-                    Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_LOAD0, hashState->block, hashBlockIdx);
-                    Cy_Crypto_Core_V2_RBXor(base, 0U, hashBlockIdx);
-                    Cy_Crypto_Core_V2_Sync(base);
-                }
-
-                /* Start the hash calculating */
-                Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, message, messageSize);
-
-                /* Processing the fully filled blocks with remaining buffer data */
-                while ((hashBlockIdx + messageSize) >= hashBlockSize)
-                {
-                    uint32_t tempBlockSize = hashBlockSize - hashBlockIdx;
-
-                    Cy_Crypto_Core_V2_RBXor(base, hashBlockIdx, tempBlockSize);
-
-                    Cy_Crypto_Core_V2_Run(base, hashState->modeHw);
-
-                    messageSize -= tempBlockSize;
-
-                    hashBlockIdx = 0U;
-                }
-
-                /* The remaining block will be calculated in the Finish function */
-                hashState->blockIdx = hashBlockIdx + messageSize;
-
-                /* Load the end of the message (tail that less then block size) to the register buffer */
-                if (messageSize != 0U)
-                {
-                    Cy_Crypto_Core_V2_RBXor(base, hashBlockIdx, messageSize);
-                    Cy_Crypto_Core_V2_Sync(base);
-                }
-
-                /* Save the remaining data to the context buffer */
-                if (hashState->blockIdx != 0U)
-                {
-                    Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_STORE, hashState->block, hashState->blockIdx);
-                    Cy_Crypto_Core_V2_RBStore(base, 0U, hashState->blockIdx);
-                    Cy_Crypto_Core_V2_Sync(base);
-                }
-
-                /* Store the calculated hash to the context buffer */
-                Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_STORE, hashState->hash, hashState->hashSize);
-                Cy_Crypto_Core_V2_RBSwap(base);
-                Cy_Crypto_Core_V2_RBStore(base, 0U, hashState->hashSize);
-                Cy_Crypto_Core_V2_Sync(base);
-                Cy_Crypto_Core_V2_RBSwap(base);
             }
+
+            /* Save the remaining data to the context buffer */
+            if (hashState->blockIdx != 0U)
+            {
+                Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_STORE, hashState->block, hashState->blockIdx);
+                Cy_Crypto_Core_V2_RBStore(base, 0U, hashState->blockIdx);
+                Cy_Crypto_Core_V2_Sync(base);
+            }
+
+            /* Store the calculated hash to the context buffer */
+            Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_STORE, hashState->hash, hashState->hashSize);
+            Cy_Crypto_Core_V2_RBSwap(base);
+            Cy_Crypto_Core_V2_RBStore(base, 0U, hashState->hashSize);
+            Cy_Crypto_Core_V2_Sync(base);
+            Cy_Crypto_Core_V2_RBSwap(base);
 
             tmpResult = CY_CRYPTO_SUCCESS;
         }

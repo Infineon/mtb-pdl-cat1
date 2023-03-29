@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_wdt.h
-* \version 1.50
+* \version 1.60
 *
 *  This file provides constants and parameter values for the WDT driver.
 *
@@ -190,6 +190,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.60</td>
+*     <td>Updated \ref cy_en_wdt_clk_sources_t enum and added support for CAT1D.</td>
+*     <td>Code Enhancement and new device support added.</td>
+*   </tr>
+*   <tr>
 *     <td>1.50</td>
 *     <td>Added WDT_B type support required for CAT1C devices.<br>Newly added APIs:
 *         \n Cy_WDT_SetLowerLimit(),
@@ -320,7 +325,7 @@ extern "C" {
 #define CY_WDT_DRV_VERSION_MAJOR                       1
 
 /** The driver minor version */
-#define CY_WDT_DRV_VERSION_MINOR                       50
+#define CY_WDT_DRV_VERSION_MINOR                       60
 
 #if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
 /** The internal define for the first iteration of WDT unlocking */
@@ -400,11 +405,15 @@ extern "C" {
 #define CY_WDT_DEFAULT_WARN_LIMIT                     (0U)
 #endif
 
-#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 /**
 * \note
-* This Macro is available for CAT1B devices.
+* This Macro is available for CAT1B and CAT1D devices.
 **/
+#if defined (CY_IP_MXS22SRSS)
+/* Internal macro to validate match value */
+#define CY_WDT_IS_CLK_SRC_VALID(src)         (((src) == CY_WDT_CLK_SOURCE_PILO)  || \
+                                              ((src) == CY_WDT_CLK_SOURCE_BAK))
+#elif defined (CY_IP_MXS40SSRSS)
 /* Internal macro to validate match value */
 #define CY_WDT_IS_CLK_SRC_VALID(src)         (((src) == CY_WDT_CLK_SOURCE_ILO)  || \
                                               ((src) == CY_WDT_CLK_SOURCE_PILO) || \
@@ -421,16 +430,18 @@ extern "C" {
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) ||defined (CY_DOXYGEN)
 /**
 * \note
-* This enum is available for CAT1B devices.
+* This enum is available for CAT1B and CAT1D devices.
 **/
 
 typedef enum
 {
+#if defined (CY_IP_MXS40SSRSS)
     CY_WDT_CLK_SOURCE_ILO       =     0U, /**< Select the ILO as clock source to WDT */
+#endif
     CY_WDT_CLK_SOURCE_PILO      =     1U, /**< Select the PILO as clock source to WDT */
     CY_WDT_CLK_SOURCE_BAK       =     2U, /**< Select the clk_bak as clock source to WDT */
 } cy_en_wdt_clk_sources_t;
-#endif
+#endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) ||defined (CY_DOXYGEN) */
 
 #if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
 /** The wdt lower/upper limit actions. */

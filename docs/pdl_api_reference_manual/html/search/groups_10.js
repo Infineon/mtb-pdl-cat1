@@ -3,6 +3,7 @@ var searchData=
   ['register_20pointers',['Register Pointers',['../group__group__adcmic__macros__reg__pointers.html',1,'']]],
   ['rx_20interrupt_20masks',['RX Interrupt masks',['../group__group__canfd__rx__interrupt__masks.html',1,'']]],
   ['random_20number_20generation_20_28trng_2c_20prng_29',['Random Number Generation (TRNG, PRNG)',['../group__group__crypto__lld__rng.html',1,'']]],
+  ['random_20number_20generation_28trng_29',['Random Number Generation(TRNG)',['../group__group__cryptolite__lld__random__number.html',1,'']]],
   ['registers_20constants',['Registers Constants',['../group__group__csd__reg__const.html',1,'']]],
   ['reference_20current_20mode_20functions',['Reference Current Mode Functions',['../group__group__ctb__functions__aref.html',1,'']]],
   ['regulated_20output_20voltage_20level_20_28voh_29_20and_20input_20buffer_20trip_2dpoint_20of_20an_20sio_20pair',['Regulated output voltage level (Voh) and input buffer trip-point of an SIO pair',['../group__group__gpio__sio_voh.html',1,'']]],

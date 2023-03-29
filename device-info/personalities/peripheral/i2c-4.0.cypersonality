@@ -196,13 +196,29 @@
     <ParamString id="pclkSCBClockSCBENString" name="PCLK Destination Clock" group="Internal" default="PCLK_SCB`${InstNumber}`_CLOCK_SCB_EN" visible="false" editable="false" desc="String variable used only for PCLK_SCB_CLOCK_SCB_EN." />
     
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? pclkSCBClockString : pclkSCBClockSCBENString }`" visible="false" editable="false" desc="Generates PCLK connection define." />
+
+    <ParamRange id="pclkDividerValue" name="Peripheral Clock Divider" group="Internal" default="`${getExposedMember(sourceClock, &quot;divider&quot;)}`" min="0" max="`${pow(2, 24)}`" resolution="1.000" 
+                 visible="false" editable="false" desc="Connected peripheral clock divider value(PCLK)" />
+    <ParamRange id="reqPCLKDiv" name="Required Divider value" group="Internal" default="`${((scbClkHz * pclkDividerValue) / (DataRate * 1000 * 32))}`" min="0" max="`${pow(2, 24)}`" resolution="1.000" 
+                 visible="false" editable="false" desc="Required  peripheral clock divider value(PCLK)" />
+    <ParamRange id="reqClk" name="Required Clock Frequency" group="Internal" default="`${((scbClkHz * pclkDividerValue) / (reqPCLKDiv))}`" min="0" max="200000000" resolution="1" 
+                 visible="false" editable="false" desc="Required SCB clock frequency to operate with desired data rate." />
+    <ParamBool id="isReqClkPossible" name="Possibility Check" group="Internal" default="`${(DataRate &lt;= 100) ? ((reqClk &gt; 1550000) ? true : false) : ((DataRate &gt; 100) &amp;&amp; (DataRate &lt;= 400)) ? ((reqClk &gt; 7820000) ? true : false) : (Master ? ((reqClk &gt; 14320000) ? true : false) : ((reqClk &gt; 15840000) ? true : false))}`"
+                 visible="false" editable="false" desc="To check if the required clock frequency is above the minimum clock frequency to operate with the desired data rate." />
+
   </Parameters>
   
   <DRCs>  
     <!--SlaveAddressMask DRCs-->
     <DRC type="ERROR" paramId="SlaveAddressMask" text="The I2C slave address mask must be even." condition="`${(SlaveAddressMask % 2) ne 0}`" />
-    <DRC type="ERROR" paramId="clock[0]" text="The actual data rate `${actualDataRate}` kpbs is greater than desired `${DataRate}` kpbs. Increase clock divider to produce lower clock frequency or adjust desired Data Rate." condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) ) : false}`" />
-    <DRC type="ERROR" paramId="clock_scb_en[0]" text="The actual data rate `${actualDataRate}` kpbs is greater than desired `${DataRate}` kpbs. Increase clock divider to produce lower clock frequency or adjust desired Data Rate." condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) ) : false}`" />
+    <DRC type="ERROR" paramId="clock[0]" text="The actual data rate `${actualDataRate}` kpbs is greater than desired `${DataRate}` kpbs. Increase clock divider to produce lower clock frequency or adjust desired Data Rate." condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; (isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock[0]&quot;))) : false}`" >
+        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock[0]&quot;)).&quot;.intDivider&quot;}`" value="`${reqPCLKDiv}`" valid="`${isReqClkPossible}`" />     
+    </DRC>
+    <DRC type="ERROR" paramId="clock_scb_en[0]" text="The actual data rate `${actualDataRate}` kpbs is greater than desired `${DataRate}` kpbs. Increase clock divider to produce lower clock frequency or adjust desired Data Rate." condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; (isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock_scb_en[0]&quot;))) : false}`" >
+        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock_scb_en[0]&quot;)).&quot;.intDivider&quot;}`" value="`${reqPCLKDiv}`" valid="`${isReqClkPossible}`" />     
+    </DRC>
+    <DRC type="ERROR" paramId="clock[0]" text="The desired data rate cannot be supported with the current Source Clock" condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; !(isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock[0]&quot;))) : false}`" />
+    <DRC type="ERROR" paramId="clock_scb_en[0]" text="The desired data rate cannot be supported with the current Source Clock" condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; !(isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock_scb_en[0]&quot;))) : false}`" />
   </DRCs>
   
   <ConfigFirmware>

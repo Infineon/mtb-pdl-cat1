@@ -42,6 +42,7 @@ var group__group__ipc__bt__enums =
       [ "CY_BT_IPC_HPC_PM", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024a482b895a3a41cf4170817c55b3ccb4d0", null ],
       [ "CY_BT_IPC_HPC_RESACCESS", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024ae32dbd1f9490b43d8353c9abbb9bc5c9", null ],
       [ "CY_BT_IPC_HPC_LPO_SWITCH", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024ac60e56b6a1116794733da78e3327ed95", null ],
+      [ "CY_BT_IPC_HPC_INRUSH_MODE", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024af9003a6b8804b340956b9eee56fab11c", null ],
       [ "CY_BT_IPC_HPC_LONG", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024a6af3a8459d4d34d05d2de1c06193c0f3", null ]
     ] ],
     [ "cy_en_btipc_hpcmsgid_t", "group__group__ipc__bt__enums.html#gab8224a6bf48f6e76edd3aafb294420fd", [
@@ -70,7 +71,12 @@ var group__group__ipc__bt__enums =
     ] ],
     [ "cy_en_btipc_lpo_cmd_t", "group__group__ipc__bt__enums.html#ga666c35680b9e898d124a3f7f289564dd", [
       [ "CY_BT_IPC_LPO_PILO", "group__group__ipc__bt__enums.html#gga666c35680b9e898d124a3f7f289564ddaaf050f78b73493bec0feb43bc6253035", null ],
-      [ "CY_BT_IPC_LPO_WCO", "group__group__ipc__bt__enums.html#gga666c35680b9e898d124a3f7f289564dda24e339bd25a29b5076e2804e5b10fcb2", null ]
+      [ "CY_BT_IPC_LPO_WCO", "group__group__ipc__bt__enums.html#gga666c35680b9e898d124a3f7f289564dda24e339bd25a29b5076e2804e5b10fcb2", null ],
+      [ "CY_BT_IPC_LPO_WCO_BYPASS", "group__group__ipc__bt__enums.html#gga666c35680b9e898d124a3f7f289564dda81f9fea0d89e843b11be5534f2bbf950", null ]
+    ] ],
+    [ "cy_en_btipc_inrush_mode_t", "group__group__ipc__bt__enums.html#ga3e2d89ba1a5e8ec9f1b258a0dd322d71", [
+      [ "CY_BT_IPC_INRUSH_LOW", "group__group__ipc__bt__enums.html#gga3e2d89ba1a5e8ec9f1b258a0dd322d71a29f326105186e68fb38c91968473dd92", null ],
+      [ "CY_BT_IPC_INRUSH_HIGH", "group__group__ipc__bt__enums.html#gga3e2d89ba1a5e8ec9f1b258a0dd322d71a046a16865224e78caf4228306f667a5f", null ]
     ] ],
     [ "cy_en_btipc_hci_diag_msg_type_t", "group__group__ipc__bt__enums.html#ga814017d60798f7f7563a57ab425d51d9", null ]
 ];

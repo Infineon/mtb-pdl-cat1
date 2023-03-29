@@ -24,6 +24,7 @@ var group__group__tcpwm__data__structures__shiftreg =
       [ "serialInput", "structcy__stc__tcpwm__shiftreg__config__t.html#a6e62ef95e493e3b059df4c434e6ee3ea", null ],
       [ "shiftRegOnDisable", "structcy__stc__tcpwm__shiftreg__config__t.html#ac9af39713abe383b8bfbd775521aa306", null ],
       [ "trigger0Event", "structcy__stc__tcpwm__shiftreg__config__t.html#a65b35248a6057c8854ae8224fa86d2d5", null ],
-      [ "trigger1Event", "structcy__stc__tcpwm__shiftreg__config__t.html#abc1393e7d297b432cd42259c3cf2b350", null ]
+      [ "trigger1Event", "structcy__stc__tcpwm__shiftreg__config__t.html#abc1393e7d297b432cd42259c3cf2b350", null ],
+      [ "buffer_swap_enable", "structcy__stc__tcpwm__shiftreg__config__t.html#a4feefe964695a6527ab32cefcf38d60c", null ]
     ] ]
 ];

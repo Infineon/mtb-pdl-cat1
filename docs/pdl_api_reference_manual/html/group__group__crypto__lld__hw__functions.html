@@ -108,6 +108,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa25e439d33aee00d542476a82720e5cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#gaa25e439d33aee00d542476a82720e5cd">Cy_Crypto_Core_Disable</a> (CRYPTO_Type *base)</td></tr>
 <tr class="memdesc:gaa25e439d33aee00d542476a82720e5cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the operation of the CRYPTO block.  <a href="#gaa25e439d33aee00d542476a82720e5cd">More...</a><br /></td></tr>
 <tr class="separator:gaa25e439d33aee00d542476a82720e5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga578cecebde8bce42aba5657d36b809ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#ga578cecebde8bce42aba5657d36b809ee">Cy_Crypto_Core_Cleanup</a> (CRYPTO_Type *base)</td></tr>
+<tr class="memdesc:ga578cecebde8bce42aba5657d36b809ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up the Crypto block.  <a href="#ga578cecebde8bce42aba5657d36b809ee">More...</a><br /></td></tr>
+<tr class="separator:ga578cecebde8bce42aba5657d36b809ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65d42e0ff144c74133e83f158767337a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#ga65d42e0ff144c74133e83f158767337a">Cy_Crypto_Core_Shutdown</a> (CRYPTO_Type *base)</td></tr>
+<tr class="memdesc:ga65d42e0ff144c74133e83f158767337a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up the Crypto block, disable it and reset all crypto registers.  <a href="#ga65d42e0ff144c74133e83f158767337a">More...</a><br /></td></tr>
+<tr class="separator:ga65d42e0ff144c74133e83f158767337a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5d74ed1e6161b72e972fac828fa3aea9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__hw__functions.html#ga5d74ed1e6161b72e972fac828fa3aea9">Cy_Crypto_Core_InvertEndianness</a> (void *inArrPtr, uint32_t byteSize)</td></tr>
 <tr class="memdesc:ga5d74ed1e6161b72e972fac828fa3aea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reverts byte-array memory block, like:<br />
  inArr[0] &lt;&mdash;&gt; inArr[n]<br />
@@ -342,6 +348,60 @@ New memory buffer should be allocated in a memory region that is not protected b
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Check if Crypto IP is enabled */</span></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__crypto__lld__hw__functions.html#gab4a5ca67ee625db608b6380fec04a6a3">Cy_Crypto_Core_IsEnabled</a>(CRYPTO_HW)) {</div><div class="line"></div><div class="line">        <span class="comment">/* Disable Crypto HW */</span></div><div class="line">        <a class="code" href="group__group__crypto__lld__hw__functions.html#gaa25e439d33aee00d542476a82720e5cd">Cy_Crypto_Core_Disable</a>(CRYPTO_HW);</div><div class="line"></div><div class="line">        <span class="comment">/* Clear whole register file */</span></div><div class="line">        <a class="code" href="group__group__crypto__lld__hw__functions.html#ga000bf3a63e4f2ee9fb8bb3a452b87d87">Cy_Crypto_Core_ClearVuRegisters</a>(CRYPTO_HW);</div><div class="line">    }</div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga578cecebde8bce42aba5657d36b809ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga578cecebde8bce42aba5657d36b809ee">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Cleanup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Cleanup </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cleans up the Crypto block. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga65d42e0ff144c74133e83f158767337a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga65d42e0ff144c74133e83f158767337a">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Shutdown </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cleans up the Crypto block, disable it and reset all crypto registers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
 
 </div>
 </div>

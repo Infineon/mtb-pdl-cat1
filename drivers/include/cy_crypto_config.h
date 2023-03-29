@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_config.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides default configuration parameters
@@ -35,7 +35,7 @@
 #include "cy_syslib.h"
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
-'Since hardware configurations are decided by CRYPTO hardware IP version, use of #undef will not make it ambiguous that which macros exist at a particular point within a translation unit.');
+'Since hardware configurations are decided by CRYPTO hardware IP version, use of #undef will not make it ambiguous that which macros exist at a particular point within a translation unit.')
 
 #if defined(CY_CRYPTO_USER_CONFIG_FILE)
 #include CY_CRYPTO_USER_CONFIG_FILE
@@ -84,6 +84,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 /* Currently this driver supports CBC, CFB, CTR cipher modes */
 #define CY_CRYPTO_CFG_AES_C
 #define CY_CRYPTO_CFG_CMAC_C
+#define CY_CRYPTO_CFG_GCM_C
 
 /* AES Cipher modes */
 #define CY_CRYPTO_CFG_CIPHER_MODE_CBC
@@ -138,6 +139,9 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 #if (CY_IP_MXCRYPTO_VERSION == 2u)
 /* Disabled chacha20 functionality */
 //#define CY_CRYPTO_CFG_CHACHA_ENABLED
+
+/* Disabled poly1305 functionality */
+//#define CY_CRYPTO_CFG_POLY1305_ENABLED
 #endif
 
 #endif
@@ -175,6 +179,11 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 #if defined(CY_CRYPTO_CFG_CMAC_C) && !defined(CY_CRYPTO_CFG_AES_C)
 #error "CY_CRYPTO_CFG_AES_C is not defined to use CMAC calculation"
 #endif /* defined(CY_CRYPTO_CFG_CMAC_C) && !defined(CY_CRYPTO_CFG_AES_C) */
+
+/* Check GCM configuration */
+#if defined(CY_CRYPTO_CFG_GCM_C) && !defined(CY_CRYPTO_CFG_AES_C)
+#error "CY_CRYPTO_CFG_AES_C is not defined to use GCM calculation"
+#endif /* defined(CY_CRYPTO_CFG_GCM_C) && !defined(CY_CRYPTO_CFG_AES_C) */
 
 /* Check SHA configuration */
 #if (defined(CY_CRYPTO_CFG_SHA1_ENABLED) || \
@@ -243,7 +252,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 #error "CHACHA functionality is not available in HW_V1"
 #endif
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 20.5');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 20.5')
 
 #endif /* CY_IP_MXCRYPTO */
 

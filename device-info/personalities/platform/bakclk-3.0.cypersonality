@@ -6,7 +6,7 @@
 * \version 3.0
 *
 * \brief
-* CLK_BAK personality description file. It Supports CAT1A, CAT1B and CAT1C family of devices.
+* CLK_BAK personality description file. It Supports CAT1A, CAT1B, CAT1C and CAT1D family of devices.
 *
 ********************************************************************************
 * \copyright
@@ -29,7 +29,7 @@
 
 <Personality id="bakclk" name="CLK_BAK" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3" />
+    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,mxs22srss" />
     <Resource name="srss\.clock\.bakclk" />
   </Dependencies>
   <ExposedMembers>
@@ -39,13 +39,15 @@
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__clk__bak.html" linkText="Open Backup Domain Clock Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
+    <ParamBool id="isS40sWcoPresent" name="S40S_Wco Present" group="Internal" default="`${lookupExpression(&quot;BACKUP_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="PILO Present" />
+    <ParamBool id="isWcoPresent" name="S40S_Wco Present" group="Internal" default="`${lookupExpression(&quot;WCO_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="PILO Present" />
 
     <ParamChoice id="sourceClock" name="Source Clock" group="General" default="lfclk" visible="true" editable="true" desc="The clock source selection">
-      <Entry name="WCO" value="wco" visible="`${BACKUP_PRESENT}`"/>
+      <Entry name="WCO" value="wco" visible="`${(isS40sWcoPresent) || (isWcoPresent)}`"/>
       <Entry name="CLK_LF" value="lfclk" visible="true"/>
       <Entry name="ILO0" value="ilo" visible="`${(&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
       <Entry name="ILO" value="ilo" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName())}`"/>
-      <Entry name="PILO" value="pilo" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; (S40S_PILO_PRESENT)}`"/>
+      <Entry name="PILO" value="pilo" visible="`${((&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; (S40S_PILO_PRESENT)) || (&quot;mxs22srss&quot; eq getIpBlockName())}`"/>
     </ParamChoice>
     <ParamString id="sourceClockRsc" name="Source Clock Resource" group="Internal" default="`${&quot;srss[0].clock[0].&quot; . sourceClock . &quot;[0]&quot;}`" visible="false" editable="false" desc="" />
     <!-- Set an error if the source clock is not enabled or contains an error -->
@@ -65,6 +67,6 @@
     <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKBAK_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKBAK_SOURCE" value="CY_SYSCLK_BAK_IN_`${sourceClockApiName}`" public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkBakInit()" body="    Cy_SysClk_ClkBakSetSource(CY_SYSCLK_BAK_IN_`${sourceClockApiName}`);" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkBakInit()" body="    Cy_SysClk_ClkBakSetSource(CY_SYSCLK_BAK_IN_`${sourceClockApiName}`);" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

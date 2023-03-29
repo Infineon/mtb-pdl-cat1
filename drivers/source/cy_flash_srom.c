@@ -76,12 +76,12 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi(const un_srom_api_args_t* params, un_
 #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
     uint32_t size_in_bytes = Cy_Srom_Get_DataSize((cy_en_programrow_datasize_t)(params->ProgramRow.arg1.dataSize));
     CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 3, \
-'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".');
+'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".')
 
     SCB_CleanDCache_by_Addr((uint32_t*)&g_scratch, (int32_t)sizeof(g_scratch));
     SCB_CleanDCache_by_Addr((uint32_t*)params->ProgramRow.arg3.srcAddr, (int32_t)size_in_bytes);
 
-    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE) */
     // Send message by IPC
     if (Cy_IPC_Drv_SendMsgWord(syscall_ipc_struct, CY_SROM_DR_IPC_NOTIFY_STRUCT, (uint32_t)&g_scratch) != CY_IPC_DRV_SUCCESS)
@@ -100,10 +100,10 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi(const un_srom_api_args_t* params, un_
             {
 #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
                 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 1, \
-'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".');
+'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".')
                 SCB_InvalidateDCache_by_Addr ((uint32_t*)&g_scratch, (int32_t)sizeof(g_scratch));
                 SCB_InvalidateDCache_by_Addr ((uint32_t*)params->ProgramRow.arg2.dstAddr, (int32_t)size_in_bytes);
-                CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+                CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE) */
                 *resp = g_scratch.resps;
             }
@@ -178,11 +178,11 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi_NonBlock(const un_srom_api_args_t* pa
 #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
     uint32_t size_in_bytes = Cy_Srom_Get_DataSize((cy_en_programrow_datasize_t)(params->ProgramRow.arg1.dataSize));
     CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 3, \
-'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".');
+'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".')
     SCB_CleanDCache_by_Addr((uint32_t*)&g_scratch, (int32_t)sizeof(g_scratch));
     SCB_CleanDCache_by_Addr((uint32_t*)params->ProgramRow.arg3.srcAddr, (int32_t)size_in_bytes);
 
-    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE) */
     // Send message by IPC
     if (Cy_IPC_Drv_SendMsgWord(syscall_ipc_struct, CY_SROM_DR_IPC_NOTIFY_STRUCT, (uint32_t)&g_scratch) != CY_IPC_DRV_SUCCESS)
@@ -199,9 +199,9 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi_NonBlock(const un_srom_api_args_t* pa
            // Copy the contents to the memory pointed by input pointer
 #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
                 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 1, \
-'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".');
+'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".')
                 SCB_InvalidateDCache_by_Addr ((uint32_t*)params->ProgramRow.arg2.dstAddr, (int32_t)size_in_bytes);
-                CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+                CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE) */
            break;
        }
@@ -409,9 +409,9 @@ cy_en_srom_api_status_t Cy_Srom_GetApiResponse(un_srom_api_resps_t* resp)
 {
 #if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
     CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 3, \
-'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".');
+'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".')
     SCB_InvalidateDCache_by_Addr ((uint32_t*)&g_scratch, (int32_t)sizeof(g_scratch));
-    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE) */
     cy_en_srom_response_type_t type = Cy_Srom_GetResponseType();
     if(type == CY_SROM_NOT_RESPONSE)
@@ -487,15 +487,15 @@ void Cy_Srom_SetResponseHandler(cy_srom_handler handler)
 {
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.1', 3, \
-'Checked manually. Intentional  expression "NvicMux3_IRQn" of type enum is used as an operand to the arithmetic operator "<<".');
+'Checked manually. Intentional  expression "NvicMux3_IRQn" of type enum is used as an operand to the arithmetic operator "<<".')
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.4', 1, \
-'Checked manually. Intentional  expression "NvicMux3_IRQn" of type enum is used as an operand to the arithmetic operator "<<".');
+'Checked manually. Intentional  expression "NvicMux3_IRQn" of type enum is used as an operand to the arithmetic operator "<<".')
     const cy_stc_sysint_t irq_cfg = {
         .intrSrc = ((NvicMux3_IRQn << 16UL) | CY_SROM_DR_IPC_INTR_NO),
         .intrPriority = 2UL,
     };
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.4');
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.1');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.4')
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.1')
     /* set response handler */
     gp_srom_resp_handler = handler;
 

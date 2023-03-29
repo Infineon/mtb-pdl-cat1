@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysfault.c
-* \version 1.0
+* \version 1.10
 *
 * \brief
 * Provides an API implementation of the SysFault driver.
@@ -26,8 +26,7 @@
 
 #include "cy_sysfault.h"
 
-#if defined (CY_IP_M7CPUSS)
-
+#if defined(CY_IP_MXS40FAULT) || defined (CY_IP_MXFAULT)
 
 cy_en_SysFault_status_t  Cy_SysFault_Init(FAULT_STRUCT_Type *base, cy_stc_SysFault_t *config)
 {

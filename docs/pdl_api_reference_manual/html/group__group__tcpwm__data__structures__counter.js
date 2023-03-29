@@ -26,6 +26,14 @@ var group__group__tcpwm__data__structures__counter =
       [ "compare2", "structcy__stc__tcpwm__counter__config__t.html#a7dfafa68bd042a7153c3866666538cb7", null ],
       [ "compare3", "structcy__stc__tcpwm__counter__config__t.html#a7f18c6b8c77ac77bce493fc7512b9b95", null ],
       [ "trigger0Event", "structcy__stc__tcpwm__counter__config__t.html#a2b389637be2858dcff45077c501ac232", null ],
-      [ "trigger1Event", "structcy__stc__tcpwm__counter__config__t.html#addc299a4ab2e222edfa02212b84b5d46", null ]
+      [ "trigger1Event", "structcy__stc__tcpwm__counter__config__t.html#addc299a4ab2e222edfa02212b84b5d46", null ],
+      [ "buffer_swap_enable", "structcy__stc__tcpwm__counter__config__t.html#aa9fc33df3bb4abd1e9007aec510132dc", null ],
+      [ "direction_mode", "structcy__stc__tcpwm__counter__config__t.html#a8c46c09b7c7e0d2702c381a8884a7ffa", null ]
+    ] ],
+    [ "cy_en_counter_direction_t", "group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5", [
+      [ "CY_TCPWM_COUNTER_DIRECTION_DISABLE", "group__group__tcpwm__data__structures__counter.html#gga911ca130e2c8ca40b252bd1f7b78c3e5a98b350a0d43e0754c86024b834132bf0", null ],
+      [ "CY_TCPWM_COUNTER_DIRECTION_FALLING", "group__group__tcpwm__data__structures__counter.html#gga911ca130e2c8ca40b252bd1f7b78c3e5a1629df1b6451083750f74319aac34952", null ],
+      [ "CY_TCPWM_COUNTER_DIRECTION_RISING", "group__group__tcpwm__data__structures__counter.html#gga911ca130e2c8ca40b252bd1f7b78c3e5a00c0e775375d4f3c693685ad50a49f86", null ],
+      [ "CY_TCPWM_COUNTER_DIRECTION_LEVEL", "group__group__tcpwm__data__structures__counter.html#gga911ca130e2c8ca40b252bd1f7b78c3e5a3db1cfd0ec106c28bb64d6f954d4e5c7", null ]
     ] ]
 ];

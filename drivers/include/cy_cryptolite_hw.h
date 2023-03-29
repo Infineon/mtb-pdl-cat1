@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_hw.h
-* \version 2.0
+* \version 2.10
 *
 * \brief
 *  This file provides common constants and macros
@@ -39,13 +39,32 @@ extern "C" {
 
 #define REG_CRYPTOLITE_CTL(base)                         (((CRYPTOLITE_Type*)(base))->CTL)
 #define REG_CRYPTOLITE_STATUS(base)                      (((CRYPTOLITE_Type*)(base))->STATUS)
+#define REG_CRYPTOLITE_AES_DESCR(base)                   (((CRYPTOLITE_Type*)(base))->AES_DESCR)
 #define REG_CRYPTOLITE_SHA_DESCR(base)                   (((CRYPTOLITE_Type*)(base))->SHA_DESCR)
+#define REG_CRYPTOLITE_VU_DESCR(base)                    (((CRYPTOLITE_Type*)(base))->VU_DESCR)
 #define REG_CRYPTOLITE_SHA_INTR_ERROR(base)              (((CRYPTOLITE_Type*)(base))->INTR_ERROR)
 #define REG_CRYPTOLITE_SHA_INTR_ERROR_SET(base)          (((CRYPTOLITE_Type*)(base))->INTR_ERROR_SET)
 #define REG_CRYPTOLITE_SHA_INTR_ERROR_MASK(base)         (((CRYPTOLITE_Type*)(base))->INTR_ERROR_MASK)
 #define REG_CRYPTOLITE_SHA_INTR_ERROR_MASKED(base)       (((CRYPTOLITE_Type*)(base))->INTR_ERROR_MASKED)
 
-#define REG_CRYPTOLITE_DESCR(base)                      (((CRYPTOLITE_Type*)(base))->SHA_DESCR)
+#define REG_CRYPTOLITE_TRNG_CTL0(base)                     (((CRYPTOLITE_Type*)(base))->TRNG_CTL0)
+#define REG_CRYPTOLITE_TRNG_CTL1(base)                     (((CRYPTOLITE_Type*)(base))->TRNG_CTL1)
+#define REG_CRYPTOLITE_TRNG_STATUS(base)                   (((CRYPTOLITE_Type*)(base))->TRNG_STATUS)
+#define REG_CRYPTOLITE_TRNG_RESULT(base)                   (((CRYPTOLITE_Type*)(base))->TRNG_RESULT)
+#define REG_CRYPTOLITE_TRNG_GARO_CTL(base)                 (((CRYPTOLITE_Type*)(base))->TRNG_GARO_CTL)
+#define REG_CRYPTOLITE_TRNG_FIRO_CTL(base)                 (((CRYPTOLITE_Type*)(base))->TRNG_FIRO_CTL)
+#define REG_CRYPTOLITE_TRNG_MON_CTL(base)                  (((CRYPTOLITE_Type*)(base))->TRNG_MON_CTL)
+#define REG_CRYPTOLITE_TRNG_MON_RC_CTL(base)               (((CRYPTOLITE_Type*)(base))->TRNG_MON_RC_CTL)
+#define REG_CRYPTOLITE_TRNG_MON_RC_STATUS0(base)           (((CRYPTOLITE_Type*)(base))->TRNG_MON_RC_STATUS0)
+#define REG_CRYPTOLITE_TRNG_MON_RC_STATUS1(base)           (((CRYPTOLITE_Type*)(base))->TRNG_MON_RC_STATUS1)
+#define REG_CRYPTOLITE_TRNG_MON_AP_CTL(base)               (((CRYPTOLITE_Type*)(base))->TRNG_MON_AP_CTL)
+#define REG_CRYPTOLITE_TRNG_MON_AP_STATUS0(base)           (((CRYPTOLITE_Type*)(base))->TRNG_MON_AP_STATUS0)
+#define REG_CRYPTOLITE_TRNG_MON_AP_STATUS1(base)           (((CRYPTOLITE_Type*)(base))->TRNG_MON_AP_STATUS1)
+#define REG_CRYPTOLITE_INTR_TRNG(base)                     (((CRYPTOLITE_Type*)(base))->INTR_TRNG)
+#define REG_CRYPTOLITE_INTR_TRNG_SET(base)                 (((CRYPTOLITE_Type*)(base))->INTR_TRNG_SET)
+#define REG_CRYPTOLITE_INTR_TRNG_MASK(base)                (((CRYPTOLITE_Type*)(base))->INTR_TRNG_MASK)
+#define REG_CRYPTOLITE_INTR_TRNG_MASKED(base)              (((CRYPTOLITE_Type*)(base))->INTR_TRNG_MASKED)
+
 #define REG_CRYPTOLITE_INTR_ERROR(base)                 (((CRYPTOLITE_Type*)(base))->INTR_ERROR)
 #define REG_CRYPTOLITE_INTR_ERROR_SET(base)             (((CRYPTOLITE_Type*)(base))->INTR_ERROR_SET)
 #define REG_CRYPTOLITE_INTR_ERROR_MASK(base)            (((CRYPTOLITE_Type*)(base))->INTR_ERROR_MASK)

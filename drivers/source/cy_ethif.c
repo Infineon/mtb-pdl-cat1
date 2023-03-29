@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ethif.c
-* \version 1.0
+* \version 1.10
 *
 * Provides an API implementation of the ETHIF driver
 *
@@ -35,8 +35,8 @@
 extern "C" {
 #endif
 
-CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 18.1', 42, 'Overrunning array expected.');
-CY_MISRA_DEVIATE_BLOCK_START('OVERRUN', 43, 'Overrunning array expected.');
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 18.1', 42, 'Overrunning array expected.')
+CY_MISRA_DEVIATE_BLOCK_START('OVERRUN', 43, 'Overrunning array expected.')
 
 
 /***************************************
@@ -112,7 +112,7 @@ static cy_en_ethif_status_t Cy_ETHIF_DisableQueues(ETH_Type *base, cy_stc_ethif_
 /*****************************************************************************
 * Local Call back function supplied to Cadence driver
 *****************************************************************************/
-CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.4', 1, 'Intentional definition');
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.4', 1, 'Intentional definition')
 CEDI_Callbacks Cy_ETHIF_Callbacks = {
   .phyManComplete = (CEDI_CbPhyManComplete)Cy_ETHIF_EventPhyManComplete,
   .txEvent        = (CEDI_CbTxEvent)Cy_ETHIF_EventTx,
@@ -133,7 +133,7 @@ CEDI_Callbacks Cy_ETHIF_Callbacks = {
   .wolEvent       = (CEDI_CbWolEvent)Cy_ETHIF_EventWol,
   .extInpIntr     = (CEDI_CbExtInpIntr)Cy_ETHIF_EventExternalInt
 };
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.4');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.4')
 
 /*******************************************************************************
 * Function Name: Cy_ETHIF_MdioInit
@@ -511,13 +511,14 @@ cy_en_ethif_status_t Cy_ETHIF_TransmitFrame(ETH_Type *base, uint8_t * pu8TxBuffe
         //Cy_SysLib_DelayUs(1);
     }
 
+    CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 1, 'Intentional typecast of &tmpBuffAdd to CEDI_BuffAddr* struct type.')
     /* Trigger Internal transmit function  */
     u32result = cyp_ethif_gemgxlobj->queueTxBuf((void *)cyp_ethif_pd[u8EthIfInstance],
                                        u8QueueIndex,
                                        (CEDI_BuffAddr*)&tmpBuffAdd,
                                        u16Length,
                                        u8flags);
-    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
     if (0UL != u32result)
     {
@@ -707,13 +708,13 @@ cy_en_ethif_status_t Cy_ETHIF_SetFilterAddress(ETH_Type *base, cy_en_ethif_filte
 
     /* add some address filters */
 
-    CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 1, 'Intentional typecast of &config->filterAddr to CEDI_MacAddress* struct type.');
+    CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 1, 'Intentional typecast of &config->filterAddr to CEDI_MacAddress* struct type.')
     (void)cyp_ethif_gemgxlobj->setSpecificAddr((void *)cyp_ethif_pd[u8EthIfInstance],
                                         filterNo,
                                         (CEDI_MacAddress*)&config->filterAddr,
                                         config->typeFilter,
                                         config->ignoreBytes);
-    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
     return CY_ETHIF_SUCCESS;
 }
@@ -1286,7 +1287,7 @@ static cy_en_ethif_status_t Cy_ETHIF_WrapperConfig(uint8_t u8EthIfInstance, cy_s
     }
     else
     {
-        mode = 0;
+        return CY_ETHIF_BAD_PARAM;
     }
 
     srcSel =  (uint32_t)(pstcWrapperConfig->bRefClockSource);
@@ -1953,8 +1954,8 @@ static void Cy_ETHIF_EventLpi(void * pcy_privatedata)
     CY_UNUSED_PARAMETER(pcy_privatedata); /* Suppress a compiler warning about unused variables */
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.1');
-CY_MISRA_BLOCK_END('OVERRUN');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 18.1')
+CY_MISRA_BLOCK_END('OVERRUN')
 
 #if defined(__cplusplus)
 }

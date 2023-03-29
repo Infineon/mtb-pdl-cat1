@@ -153,6 +153,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga23f94a001adb0d0cf8a85008f52333f6"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__pwm.html#ga23f94a001adb0d0cf8a85008f52333f6">Cy_TCPWM_PWM_PWMDeadTimeN</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> const *base, uint32_t cntNum, uint32_t deadTime)</td></tr>
 <tr class="memdesc:ga23f94a001adb0d0cf8a85008f52333f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the dead time value for PWM_n.  <a href="#ga23f94a001adb0d0cf8a85008f52333f6">More...</a><br /></td></tr>
 <tr class="separator:ga23f94a001adb0d0cf8a85008f52333f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28b98099ca159a2f50f07567eb43a112"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__pwm.html#ga28b98099ca159a2f50f07567eb43a112">Cy_TCPWM_PWM_EnableSwap</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32_t cntNum, bool enable)</td></tr>
+<tr class="memdesc:ga28b98099ca159a2f50f07567eb43a112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT.  <a href="#ga28b98099ca159a2f50f07567eb43a112">More...</a><br /></td></tr>
+<tr class="separator:ga28b98099ca159a2f50f07567eb43a112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabe8e865042aff31edbb6d06f254ac5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__tcpwm__enums.html#ga236beaba02c8a2a1c4eec981501e7270">cy_en_tcpwm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__pwm.html#gaabe8e865042aff31edbb6d06f254ac5b">Cy_TCPWM_Configure_Dithering_Values_and_Mode</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32_t cntNum, <a class="el" href="group__group__tcpwm__data__structures__pwm.html#gae5adb6cee5131cb579edb78f758ef497">cy_en_group_dithering_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a>, uint8_t period, uint8_t duty, <a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c">cy_en_dithering_limiter_t</a> limiter)</td></tr>
+<tr class="memdesc:gaabe8e865042aff31edbb6d06f254ac5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">configures group dithering.  <a href="#gaabe8e865042aff31edbb6d06f254ac5b">More...</a><br /></td></tr>
+<tr class="separator:gaabe8e865042aff31edbb6d06f254ac5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae9dfa26ff90263db912df5c8bc609460"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__pwm.html#gae9dfa26ff90263db912df5c8bc609460">Cy_TCPWM_PWM_SetCompare1Val</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32_t cntNum, uint32_t compare1)</td></tr>
 <tr class="memdesc:gae9dfa26ff90263db912df5c8bc609460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the compare value for Compare 1 when the compare mode enabled.  <a href="#gae9dfa26ff90263db912df5c8bc609460">More...</a><br /></td></tr>
 <tr class="separator:gae9dfa26ff90263db912df5c8bc609460"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1066,6 +1072,117 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: there is a need to update deadTimeClocks for line_out</span></div><div class="line"><span class="comment">     * and line_compl_out for the first (index = 0) counter of the TCPWM0 block</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_PWM_NUM   (0UL)</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__tcpwm__functions__pwm.html#gac6431f369b92b730db9b2d1cdd2e8c86">Cy_TCPWM_PWM_PWMDeadTime</a>(TCPWM0, MY_TCPWM_PWM_NUM, 10U);</div><div class="line">    <a class="code" href="group__group__tcpwm__functions__pwm.html#ga23f94a001adb0d0cf8a85008f52333f6">Cy_TCPWM_PWM_PWMDeadTimeN</a>(TCPWM0, MY_TCPWM_PWM_NUM, 10U);</div><div class="line">    </div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga28b98099ca159a2f50f07567eb43a112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28b98099ca159a2f50f07567eb43a112">&#9670;&nbsp;</a></span>Cy_TCPWM_PWM_EnableSwap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_TCPWM_PWM_EnableSwap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>cntNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a TCPWM instance.</td></tr>
+    <tr><td class="paramname">cntNum</td><td>The Counter instance number in the selected TCPWM.</td></tr>
+    <tr><td class="paramname">enable</td><td>true = swap enabled; false = swap disabled </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaabe8e865042aff31edbb6d06f254ac5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaabe8e865042aff31edbb6d06f254ac5b">&#9670;&nbsp;</a></span>Cy_TCPWM_Configure_Dithering_Values_and_Mode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__tcpwm__enums.html#ga236beaba02c8a2a1c4eec981501e7270">cy_en_tcpwm_status_t</a> Cy_TCPWM_Configure_Dithering_Values_and_Mode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>cntNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__tcpwm__data__structures__pwm.html#gae5adb6cee5131cb579edb78f758ef497">cy_en_group_dithering_t</a>&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>period</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>duty</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c">cy_en_dithering_limiter_t</a>&#160;</td>
+          <td class="paramname"><em>limiter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>configures group dithering. </p>
+<p>applicable only when GRP_DITHERING_PRESENT and in PWM and PWM_DT mode</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a TCPWM instance.</td></tr>
+    <tr><td class="paramname">cntNum</td><td>The Counter instance number in the selected TCPWM.</td></tr>
+    <tr><td class="paramname">mode</td><td>Group Dithering See <a class="el" href="group__group__tcpwm__data__structures__pwm.html#gae5adb6cee5131cb579edb78f758ef497">cy_en_group_dithering_t</a>.</td></tr>
+    <tr><td class="paramname">period</td><td>pseudo-random value for period. Magnitude of random ness to be added to period. Should be non zero value.</td></tr>
+    <tr><td class="paramname">duty</td><td>pseudo-random value for CC0/CC1. Magnitude of random ness to be added to CC0/CC1. Should be non zero value.</td></tr>
+    <tr><td class="paramname">limiter</td><td>Group dithering limiter values <a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c">cy_en_dithering_limiter_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Error / Status code. See cy_en_tcpwm_status_t. </dd></dl>
 
 </div>
 </div>

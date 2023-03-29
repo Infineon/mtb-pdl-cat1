@@ -366,9 +366,16 @@
     <ParamBool id="pNEnCOrAssymAndC0GtP1" name="pNEnCOrAssymAndC0GtP1" desc="pNEnCOrAssymAndC0GtP1" group="Internal" default="`${((!EnableCompare0Swap) || pAlignAsymm)&amp;&amp; pC0GtP1}`" visible="false" editable="false" />
     <ParamBool id="pNePrsAndEnCAndEnP" name="pNePrsAndEnCAndEnP" desc="pNePrsAndEnCAndEnP" group="Internal" default="`${pPwmNePrs &amp;&amp; pEnCAndEnP}`" visible="false" editable="false" />
 
+    <!-- Clock Frequency -->
+    <ParamString id="sourceClock" name="sourceClock" group="General" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? (getBlockFromSignal(&quot;clock[0]&quot;)) : (getBlockFromSignal(&quot;clock_counter_en[0]&quot;))}`" visible="false" editable="false" desc="Source Clock Resource" />
+    <ParamRange  id="tcpwmClkHz" name="tcpwmClkHz" group="General" default="`${getExposedMember(sourceClock, &quot;frequency&quot;)}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="TCPWM clock frequency in Hz" />
+
   </Parameters>
   
   <DRCs>
+    <DRC type="ERROR" paramId="clock_en[0]" text="Maximum input clock signal frequency supported is 100 Mhz. Please fix input clock setting." condition="`${(hasVisibleOption(&quot;clock[0]&quot;)) &amp;&amp; (tcpwmClkHz &gt; 100000000)}`" />
+    <DRC type="ERROR" paramId="clock_counter_en[0]" text="Maximum input clock signal frequency supported is 100 Mhz. Please fix input clock setting." condition="`${(hasVisibleOption(&quot;clock_counter_en[0]&quot;)) &amp;&amp; (tcpwmClkHz &gt; 100000000)}`" />
+ 
     <!--Compare0 DRCs-->
     <DRC type="INFO" text="Compare 0 value have to be less or equal to Period 0 (Period). A value larger than period is uses to get 100% duty cycle (Left Aligned alignment) or 0% duty cycle (Right Aligned alignment)." condition="`${pPwmNePrsAndC0GtP0}`" />
     <DRC type="INFO" text="Compare 0 value have to be less or equal to Period 1. A value larger than period is uses to get 100% duty cycle (Left Aligned alignment) or 0% duty cycle (Right Aligned alignment)." condition="`${pPwmNePrs &amp;&amp; EnablePeriodSwap &amp;&amp; pNEnCOrAssymAndC0GtP1}`" />

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hw_v2.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides constants and function prototypes
@@ -38,7 +38,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 3, \
-'CRYPTO_Type will typecast to either CRYPTO_V1_Type or CRYPTO_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'CRYPTO_Type will typecast to either CRYPTO_V1_Type or CRYPTO_V2_Type but not both on PDL initialization based on the target device at compile time.')
 
 /*
  Register buffer block identifiers:
@@ -372,7 +372,7 @@ __STATIC_INLINE void Cy_Crypto_Core_V2_RunChacha(CRYPTO_Type *base, uint8_t roun
                                               ((uint32_t)(roundNum) << CY_CRYPTO_RSRC0_SHIFT));
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
 #if defined(__cplusplus)
 }

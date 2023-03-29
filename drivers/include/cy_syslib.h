@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.20
+* \version 3.30
 *
 * Provides an API declaration of the SysLib driver.
 *
@@ -118,6 +118,11 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.30</td>
+*     <td>Added \ref Cy_SysLib_IsDSRAMWarmBootEntry and \ref Cy_SysLib_ClearDSRAMWarmBootEntryStatus APIs.</td>
+*     <td>DEEPSLEEP-RAM support added for CAT1B Devices.</td>
+*   </tr>
 *   <tr>
 *     <td>3.20</td>
 *     <td>Updated Cy_SysLib_Delay() to perform correctly, enable Cy_SysLib_GetUniqueId() API for CAT1B,
@@ -337,7 +342,7 @@ extern "C" {
 #endif  /* defined( __ICCARM__ ) */
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 3, \
-'Coverity does not check the .S assembly files, the definition is a part of syslib assembly source file.');
+'Coverity does not check the .S assembly files, the definition is a part of syslib assembly source file.')
 
 /**
 * \addtogroup group_syslib_macros
@@ -422,7 +427,8 @@ typedef enum
 */
 
 #if (CY_ARM_FAULT_DEBUG == CY_ARM_FAULT_DEBUG_ENABLED)
-    #if (CY_CPU_CORTEX_M4 || (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7))
+    #if (CY_CPU_CORTEX_M4 || (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7) || \
+        (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55))
         /** Configurable Fault Status Register - CFSR */
         typedef struct
         {
@@ -487,7 +493,7 @@ typedef enum
             uint32_t usgFaultEna    :  1;   /**< SHCSR - The UsageFault enable bit, set to 1 to enable */
             uint32_t reserved4      : 13;   /**< Reserved */
         } cy_stc_fault_shcsr_t;
-    #endif /* CY_CPU_CORTEX_M4, CY_CPU_CORTEX_M7*/
+    #endif /* CY_CPU_CORTEX_M4, CY_CPU_CORTEX_M7, CY_CPU_CORTEX_M33, CY_CPU_CORTEX_M55*/
 
     /** The fault configuration structure. */
     typedef struct
@@ -500,7 +506,8 @@ typedef enum
         uint32_t lr;       /**< LR register content */
         uint32_t pc;       /**< PC register content */
         uint32_t psr;      /**< PSR register content */
-        #if (CY_CPU_CORTEX_M4 || (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7))
+        #if (CY_CPU_CORTEX_M4 || (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7) || \
+             (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55))
             union
             {
                 uint32_t cfsrReg;              /**< CFSR register content as a word */
@@ -538,7 +545,7 @@ typedef enum
                 uint32_t s15;      /**< FPU S15 register content */
                 uint32_t fpscr;    /**< FPU FPSCR register content */
             #endif /* __FPU_PRESENT */
-        #endif /* CY_CPU_CORTEX_M4, CY_CPU_CORTEX_M7*/
+        #endif /* CY_CPU_CORTEX_M4, CY_CPU_CORTEX_M7, CY_CPU_CORTEX_M33, CY_CPU_CORTEX_M55*/
     } cy_stc_fault_frame_t;
 #endif /* (CY_ARM_FAULT_DEBUG == CY_ARM_FAULT_DEBUG_ENABLED) */
 
@@ -553,7 +560,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    20
+#define CY_SYSLIB_DRV_VERSION_MINOR    30
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN
@@ -639,7 +646,7 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
 #if !defined(NDEBUG)
     /** The max size of the file name which stores the ASSERT location */
     #define CY_MAX_FILE_NAME_SIZE  (24U)
-    extern CY_NOINIT char_t cy_assertFileName[CY_MAX_FILE_NAME_SIZE];  /**< The assert buffer */
+    extern CY_NOINIT char_t cy_assertFileName[CY_MAX_FILE_NAME_SIZE + 1];  /**< The assert buffer */
     extern CY_NOINIT uint32_t cy_assertLine;                           /**< The assert line value */
 #endif /* NDEBUG */
 
@@ -652,8 +659,9 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
     #define CY_LR_Pos             (5U)     /**< The position of the LR  content in a fault structure */
     #define CY_PC_Pos             (6U)     /**< The position of the PC  content in a fault structure */
     #define CY_PSR_Pos            (7U)     /**< The position of the PSR content in a fault structure */
-    #if (CY_CPU_CORTEX_M4 || (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7)) && ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
-                               (defined (__FPU_USED   ) && (__FPU_USED    == 1U)))
+    #if (CY_CPU_CORTEX_M4 || (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7) || \
+         (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)) && \
+         ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && (defined (__FPU_USED   ) && (__FPU_USED    == 1U)))
         #define CY_FPSCR_IXC_Msk  (0x00000010U)    /**< The cumulative exception bit for floating-point exceptions */
         #define CY_FPSCR_IDC_Msk  (0x00000080U)    /**< The cumulative exception bit for floating-point exceptions */
         #define CY_S0_Pos         (8U)     /**< The position of the FPU S0 content in a fault structure */
@@ -673,7 +681,7 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
         #define CY_S14_Pos        (22U)    /**< The position of the FPU S14 content in a fault structure */
         #define CY_S15_Pos        (23U)    /**< The position of the FPU S15 content in a fault structure */
         #define CY_FPSCR_Pos      (24U)    /**< The position of the FPU FPSCR content in a fault structure */
-    #endif /* (CY_CPU_CORTEX_M4 || CY_CPU_CORTEX_M7) && __FPU_PRESENT */
+    #endif /* (CY_CPU_CORTEX_M4 || CY_CPU_CORTEX_M7 || CY_CPU_CORTEX_M33 || CY_CPU_CORTEX_M55) && __FPU_PRESENT */
 
     extern CY_NOINIT cy_stc_fault_frame_t cy_faultFrame;    /**< Fault frame structure */
 #endif /* (CY_ARM_FAULT_DEBUG == CY_ARM_FAULT_DEBUG_ENABLED) */
@@ -1461,6 +1469,32 @@ uint16_t Cy_SysLib_GetDevice(void);
 *******************************************************************************/
 void Cy_Syslib_SetWarmBootEntryPoint(uint32_t *entryPoint, bool enable);
 
+/*******************************************************************************
+* Function Name: Cy_SysLib_IsDSRAMWarmBootEntry
+****************************************************************************//**
+*
+* This function will return true if the system woke up(From DS-RAM) through
+* Warm boot, else it will return false.
+*
+* \return  Warm Boot Status.
+*
+* \note
+* This API is available for CAT1B devices.
+*
+*******************************************************************************/
+bool Cy_SysLib_IsDSRAMWarmBootEntry(void);
+
+/*******************************************************************************
+* Function Name: Cy_SysLib_ClearDSRAMWarmBootEntryStatus
+****************************************************************************//**
+*
+* This function clears the Warm Boot entry Status flag.
+*
+* \note
+* This API is available for CAT1B devices.
+*
+*******************************************************************************/
+void Cy_SysLib_ClearDSRAMWarmBootEntryStatus(void);
 #endif
 
 
@@ -1468,10 +1502,12 @@ void Cy_Syslib_SetWarmBootEntryPoint(uint32_t *entryPoint, bool enable);
 #define CY_SYSLIB_DEVICE_REV_0A       (0x21U)  /**< The device TO *A Revision ID */
 #define CY_SYSLIB_DEVICE_PSOC6ABLE2   (0x100U) /**< The PSoC6 BLE2 device Family ID */
 
-/* For CAT1B Devices */
-#define CY_SYSLIB_DEVICE_PID_20829A0  (0x11U) /**< 20829A0 PRODUCT ID(8 bits)<Minor Revision(4 bits): Major Revision(4 bits)> */
-#define CY_SYSLIB_DEVICE_PID_20829A1  (0x21U) /**< 20829A1 PRODUCT ID(8 bits)<Minor Revision(4 bits): Major Revision(4 bits)> */
+/* SILICON ID Macros */
+#define CY_SYSLIB_GET_SILICON_REV_ID         (CY_SILICON_ID & 0xFFFFUL)
 
+/* For CAT1B Devices */
+#define CY_SYSLIB_20829A0_SILICON_REV        (0x1110UL) /**< 20829A0 SILICON ID = <Major Revision((4 bits): Family ID(12 bits)> */
+#define CY_SYSLIB_20829B0_SILICON_REV        (0x2110UL) /**< 20829B0 SILICON ID = <Major Revision((4 bits): Family ID(12 bits)> */
 
 typedef uint32_t cy_status;
 /** The ARM 32-bit status value for backward compatibility with the UDB components. Do not use it in your code. */
@@ -1556,7 +1592,7 @@ typedef void (* cyisraddress)(void);
 /** \endcond */
 
 /** \} group_syslib_functions */
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 /** \cond INTERNAL */
 
 /** \endcond */

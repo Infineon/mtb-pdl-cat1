@@ -17,7 +17,7 @@
 #include "ip/cyip_cpuss.h"
 
 CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 1, \
-'Checked manually. The definition is a part of linker script.');
+'Checked manually. The definition is a part of linker script.')
 
 /* Device descriptor type */
 typedef struct
@@ -121,6 +121,8 @@ extern const cy_stc_device_t* cy_device;
 #define CY_SRSS_PLL_PRESENT                 SRSS_NUM_PLL
 #define CY_SRSS_PLL400M_PRESENT             1
 #define CY_SRSS_ALTHF_PRESENT               SRSS_ALTHF_PRESENT
+#define CY_SRSS_DPLL_LP_PRESENT             0
+#define CY_SRSS_IMO_PRESENT                 1
 
 #define CY_SRSS_ILO_COUNT                   2
 
@@ -925,6 +927,16 @@ we need to define this for version 2 only. */
 *                SMIF
 *******************************************************************************/
 
+/* Feature Flags - Start
+ * Few products have very less memory available in BOOT ROM and they do not require
+ * SFDP enumeration of Octal parts. Hence, we introduce feature flags to enable
+ * specific features only where Octal SFDP enumeration and Hyperbus devices are supported
+ * using below feature flags
+ */
+#define SMIF_OCTAL_SFDP_SUPPORT
+#define SMIF_HYPERBUS_DEVICE_SUPPORT
+/* Feature Flags - End */
+
 #define SMIF_DEVICE_CTL(base)               (((SMIF_DEVICE_Type *)(base))->CTL)
 #define SMIF_DEVICE_ADDR(base)              (((SMIF_DEVICE_Type *)(base))->ADDR)
 #define SMIF_DEVICE_ADDR_CTL(base)          (((SMIF_DEVICE_Type *)(base))->ADDR_CTL)
@@ -934,6 +946,7 @@ we need to define this for version 2 only. */
 #define SMIF_DEVICE_RD_MODE_CTL(base)       (((SMIF_DEVICE_Type *)(base))->RD_MODE_CTL)
 #define SMIF_DEVICE_RD_DUMMY_CTL(base)      (((SMIF_DEVICE_Type *)(base))->RD_DUMMY_CTL)
 #define SMIF_DEVICE_RD_DATA_CTL(base)       (((SMIF_DEVICE_Type *)(base))->RD_DATA_CTL)
+#define SMIF_DEVICE_RD_BOUND_CTL(base)       (((SMIF_DEVICE_Type *)(base))->RD_BOUND_CTL)
 #define SMIF_DEVICE_WR_CMD_CTL(base)        (((SMIF_DEVICE_Type *)(base))->WR_CMD_CTL)
 #define SMIF_DEVICE_WR_ADDR_CTL(base)       (((SMIF_DEVICE_Type *)(base))->WR_ADDR_CTL)
 #define SMIF_DEVICE_WR_MODE_CTL(base)       (((SMIF_DEVICE_Type *)(base))->WR_MODE_CTL)
@@ -958,6 +971,7 @@ we need to define this for version 2 only. */
 #define SMIF_DEVICE_IDX_WR_DATA_CTL(base, deviceIndex)     (SMIF_DEVICE_IDX(base, deviceIndex).WR_DATA_CTL)
 
 #define SMIF_CTL(base)                      (((SMIF_Type *)(base))->CTL)
+#define SMIF_DELAY_TAP_SEL(base)            (((SMIF_Type *)(base))->DELAY_TAP_SEL)
 #define SMIF_STATUS(base)                   (((SMIF_Type *)(base))->STATUS)
 #define SMIF_TX_DATA_FIFO_CTL(base)         (((SMIF_Type *)(base))->TX_DATA_FIFO_CTL)
 #define SMIF_RX_DATA_MMIO_FIFO_CTL(base)    (((SMIF_Type *)(base))->RX_DATA_MMIO_FIFO_CTL)
@@ -1642,14 +1656,25 @@ we need to define this for version 2 only. */
 #define REG_IPC_INTR_STRUCT_INTR_MASK(base)    (((IPC_INTR_STRUCT_Type*)(base))->INTR_MASK)
 #define REG_IPC_INTR_STRUCT_INTR_MASKED(base)  (((IPC_INTR_STRUCT_Type*)(base))->INTR_MASKED)
 
-#define CY_IPC_STRUCT_PTR(ipcIndex)            ((IPC_STRUCT_Type*)(IPC_BASE + (uint32_t)(sizeof(IPC_STRUCT_Type) * (ipcIndex))))
-#define CY_IPC_INTR_STRUCT_PTR(ipcIntrIndex)   &(((IPC_Type *)IPC_BASE)->INTR_STRUCT[ipcIntrIndex])
-
 #define CY_IPC_STRUCT_PTR_FOR_IP(ipcIndex, base)            ((IPC_STRUCT_Type*)((uint32_t)(base) + (sizeof(IPC_STRUCT_Type) * (ipcIndex))))
-#define CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base)   &(((IPC_Type *)base)->INTR_STRUCT[ipcIntrIndex])
+#define CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base)   &(((IPC_Type *)(base))->INTR_STRUCT[ipcIntrIndex])
 
-#define CY_IPC_CHANNELS                        (uint32_t)CPUSS_IPC_IPC_NR
-#define CY_IPC_INTERRUPTS                      (uint32_t)CPUSS_IPC_IPC_IRQ_NR
+#define CY_IPC_INSTANCES                       1U
+#define CY_IPC_CHANNELS                        CPUSS_IPC_IPC_NR
+#define CY_IPC_CHANNELS_PER_INSTANCE           CPUSS_IPC_IPC_NR
+#define CY_IPC_INTERRUPTS                      CPUSS_IPC_IPC_IRQ_NR
+#define CY_IPC_INTERRUPTS_PER_INSTANCE         CPUSS_IPC_IPC_IRQ_NR
+#define CY_IPC_IP0_CH                          CPUSS_IPC_IPC_NR
+#define CY_IPC_IP0_INT                         CPUSS_IPC_IPC_IRQ_NR
+
+extern const uint32_t IPC_CHANNELS_NR[CY_IPC_INSTANCES];
+extern const uint32_t IPC_IRQ_NR[CY_IPC_INSTANCES];
+extern const uint32_t IPC_BASE_PTR[CY_IPC_INSTANCES];
+
+#define CY_IPC_STRUCT_PTR(ipcIndex)                            CY_IPC_STRUCT_PTR_FOR_IP(((ipcIndex)%CY_IPC_CHANNELS_PER_INSTANCE), IPC_BASE_PTR[(ipcIndex-((ipcIndex)%CY_IPC_CHANNELS_PER_INSTANCE))/CY_IPC_CHANNELS_PER_INSTANCE])
+#define CY_IPC_INTR_STRUCT_PTR(ipcIntrIndex)                   CY_IPC_INTR_STRUCT_PTR_FOR_IP(((ipcIntrIndex)%CY_IPC_INTERRUPTS_PER_INSTANCE), IPC_BASE_PTR[(ipcIntrIndex-((ipcIntrIndex)%CY_IPC_INTERRUPTS_PER_INSTANCE))/CY_IPC_INTERRUPTS_PER_INSTANCE])
+/* ipcChannel comprises of total number of channels present in all IPC IP instances */
+#define CY_IPC_PIPE_CHANNEL_NUMBER_WITHIN_INSTANCE(ipcChannel) (((ipcChannel)<CY_IPC_CHANNELS_PER_INSTANCE)?(ipcChannel):((ipcChannel)%CY_IPC_CHANNELS_PER_INSTANCE))
 
 /* IPC channel definitions  */
 #define CY_IPC_CHAN_SYSCALL_CM0             (0UL)  /* System calls for the CM0 processor */
@@ -2103,6 +2128,7 @@ we need to define this for version 2 only. */
 /** Channel TR_CMD register access macro. */
 #define SAR2_CH_TR_CMD(base, channel) (((PASS_SAR_Type *)base)->CH[channel].TR_CMD)
 
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 #endif /* CY_DEVICE_H_ */
 
 /* [] END OF FILE */

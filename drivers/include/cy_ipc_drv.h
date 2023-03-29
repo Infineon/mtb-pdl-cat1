@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_drv.h
-* \version 1.80
+* \version 1.90
 *
 * Provides an API declaration of the IPC driver.
 *
@@ -57,6 +57,44 @@
 * of interrupts that enable each processor to notify the other that data is
 * available, or has been processed. There is also a locking mechanism that
 * allows only one CPU to gain access at a time.
+*
+* In case of devices having multiple IPC IP instances, IPC channels and IPC
+* interrupts are associated with each other within particular IP instance. It is not
+* possible to create an IPC mechanism where IPC channels of one IPC instance interacts
+* with interrupts of another IPC instance. Following table describes channels and
+* interrupts present in different devices:
+* <table class="doxtable">
+*   <tr><th>Device category</th><th>IPC IP instances</th><th>Channel numbers</th><th>Interrupt numbers</th></tr>
+*   <tr>
+*     <td>CAT1A</td>
+*     <td>IPC0 ( Single instance )</td>
+*     <td>0-15</td>
+*     <td>0-15</td>
+*   </tr>
+*   <tr>
+*     <td>CAT1B</td>
+*     <td>IPC0 ( Single instance )</td>
+*     <td>0-3</td>
+*     <td>0-1</td>
+*   </tr>
+*   <tr>
+*     <td>CAT1C</td>
+*     <td>IPC0 ( Single instance )</td>
+*     <td>0-7</td>
+*     <td>0-7</td>
+*   </tr>
+*   <tr>
+*     <td rowspan="2">CAT1D</td>
+*     <td>IPC0 ( First instance )</td>
+*     <td>0-15</td>
+*     <td>0-7</td>
+*   </tr>
+*   <tr>
+*     <td>IPC1 ( Second instance )</td>
+*     <td>16-31</td>
+*     <td>8-15</td>
+*   </tr>
+* </table>
 *
 * The Driver-level API manages each channel's registers to implement IPC
 * functionality. For information on the IPC registers, see the IPC chapter of
@@ -284,6 +322,16 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td rowspan="2">1.90</td>
+*     <td>Added structure \ref cy_stc_ipc_msg_inrush_mode_t and enum \ref cy_en_btipc_inrush_mode_t, Modified enums \ref cy_en_btipc_lpo_cmd_t
+*         and \ref cy_en_btipc_hpcpti_t.</td>
+*     <td>Support for inrush mode selection for CAT1B.</td>
+*   </tr>
+*   <tr>
+*     <td> Added structure \ref cy_stc_ipc_pipe_ep_config_mask_t and \ref Cy_IPC_Pipe_EndpointInitExt API.</td>
+*     <td> Support for multiple instance of IPC IPs for CAT1D.</td>
+*   </tr>
+*   <tr>
 *     <td>1.80</td>
 *     <td>
 *         <ul>
@@ -458,7 +506,7 @@
 #define CY_IPC_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_IPC_DRV_VERSION_MINOR       80
+#define CY_IPC_DRV_VERSION_MINOR       90
 
 /** Defines a value to indicate that no notification events are needed */
 #define CY_IPC_NO_NOTIFICATION         (uint32_t)(0x00000000UL)
@@ -575,7 +623,8 @@ __STATIC_INLINE void     Cy_IPC_Drv_ClearInterrupt (IPC_INTR_STRUCT_Type * base,
 *
 * \param ipcIndex
 * Represents the number of IPC structure. This is converted to the base address of
-* the IPC channel registers.
+* the IPC channel registers. This comprises of total number of channels present in
+* all IPC IP instances.
 *
 * \return
 * Returns a pointer to the base of the IPC registers.
@@ -592,38 +641,6 @@ __STATIC_INLINE IPC_STRUCT_Type* Cy_IPC_Drv_GetIpcBaseAddress (uint32_t ipcIndex
 
 
 /*******************************************************************************
-* Function Name: Cy_IPC_Drv_GetIpcBaseAddressForIP
-****************************************************************************//**
-*
-* This function takes an IPC channel index and based address of the IPC IP as
-* parameters and returns the base address the IPC registers corresponding to
-* the IPC channel in the corresponding IPC IP.
-*
-* \note The user is responsible for ensuring that ipcIndex does not exceed the
-* limits.
-*
-* \param ipcIndex
-* Represents the number of IPC structure. This is converted to the base address of
-* the IPC channel registers.
-*
-* \param base
-* Represents the pointer to the base address of the IPC IP.
-*
-* \return
-* Returns a pointer to the base of the IPC registers.
-*
-* \funcusage
-* \snippet ipc/snippet/main.c snippet_Cy_IPC_Drv_SendMsgWord
-*
-*******************************************************************************/
-__STATIC_INLINE IPC_STRUCT_Type* Cy_IPC_Drv_GetIpcBaseAddressForIP (uint32_t ipcIndex, IPC_Type *base)
-{
-    CY_ASSERT_L1(CY_IPC_CHANNELS > ipcIndex);
-    return ( (IPC_STRUCT_Type*) CY_IPC_STRUCT_PTR_FOR_IP(ipcIndex, base));
-}
-
-
-/*******************************************************************************
 * Function Name: Cy_IPC_Drv_GetIntrBaseAddr
 ****************************************************************************//**
 *
@@ -635,7 +652,8 @@ __STATIC_INLINE IPC_STRUCT_Type* Cy_IPC_Drv_GetIpcBaseAddressForIP (uint32_t ipc
 *
 * \param ipcIntrIndex
 * Represents the number of IPC interrupt structure. This is converted to the
-* base address of the IPC interrupt registers.
+* base address of the IPC interrupt registers. This comprises of total number
+* of channels present in all IPC IP instances.
 *
 * \return
 * Returns a pointer to the base of the IPC interrupt registers.
@@ -652,38 +670,6 @@ __STATIC_INLINE IPC_INTR_STRUCT_Type* Cy_IPC_Drv_GetIntrBaseAddr (uint32_t ipcIn
 
 
 /*******************************************************************************
-* Function Name: Cy_IPC_Drv_GetIntrBaseAddrForIP
-****************************************************************************//**
-*
-* This function takes an IPC interrupt structure index and based address of the
-* IPC IP as parameters and returns the base address of the IPC interrupt registers
-* corresponding to the IPC Interrupt in the corresponding IPC IP.
-*
-* \note The user is responsible for ensuring that ipcIntrIndex does not exceed the
-* limits and also pass the right base address.
-*
-* \param ipcIntrIndex
-* Represents the number of IPC interrupt structure. This is converted to the
-* base address of the IPC interrupt registers.
-*
-* \param base
-* Represents the pointer to the base address of the IPC IP.
-*
-* \return
-* Returns a pointer to the base of the IPC interrupt registers.
-*
-* \funcusage
-* \snippet ipc/snippet/main.c snippet_Cy_IPC_Drv_GetInterruptStatus
-*
-*******************************************************************************/
-__STATIC_INLINE IPC_INTR_STRUCT_Type* Cy_IPC_Drv_GetIntrBaseAddrForIP (uint32_t ipcIntrIndex, IPC_Type *base)
-{
-    CY_ASSERT_L1(CY_IPC_INTERRUPTS > ipcIntrIndex);
-    return ( (IPC_INTR_STRUCT_Type*) CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base));
-}
-
-
-/*******************************************************************************
 * Function Name: Cy_IPC_Drv_SetInterruptMask
 ****************************************************************************//**
 *
@@ -696,11 +682,13 @@ __STATIC_INLINE IPC_INTR_STRUCT_Type* Cy_IPC_Drv_GetIntrBaseAddrForIP (uint32_t 
 *
 * \param ipcReleaseMask
 * An encoded list of all IPC channels that can trigger the interrupt on a
-* release event.
+* release event. In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *
 * \param ipcNotifyMask
 * An encoded list of all IPC channels that can trigger the interrupt on a
-* notify event.
+* notify event. In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *
 * \funcusage
 * \snippet ipc/snippet/main.c snippet_Cy_IPC_Drv_GetInterruptStatusMasked
@@ -727,6 +715,8 @@ __STATIC_INLINE void  Cy_IPC_Drv_SetInterruptMask (IPC_INTR_STRUCT_Type* base,
 * the IPC interrupt number using \ref Cy_IPC_Drv_GetIntrBaseAddr.
 *
 * \return
+* In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *   The return value is encoded as follows
 *   <table>
 *   <tr><th>Interrupt sources   <th>Value
@@ -757,6 +747,8 @@ __STATIC_INLINE uint32_t Cy_IPC_Drv_GetInterruptMask(IPC_INTR_STRUCT_Type const 
 * IPC interrupt number using \ref Cy_IPC_Drv_GetIntrBaseAddr.
 *
 * \return
+* In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *   The return value is encoded as follows
 *   <table>
 *   <tr><th>Interrupt sources   <th>Value
@@ -787,6 +779,8 @@ __STATIC_INLINE uint32_t Cy_IPC_Drv_GetInterruptStatusMasked (IPC_INTR_STRUCT_Ty
 * IPC interrupt number using \ref Cy_IPC_Drv_GetIntrBaseAddr.
 *
 * \return
+* In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *   The return value is encoded as follows
 *   <table>
 *   <tr><th>Interrupt sources   <th>Value
@@ -819,11 +813,13 @@ __STATIC_INLINE uint32_t Cy_IPC_Drv_GetInterruptStatus(IPC_INTR_STRUCT_Type cons
 *
 * \param ipcReleaseMask
 * An encoded list of all IPC channels that can trigger the interrupt on a
-* release event.
+* release event. In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *
 * \param ipcNotifyMask
 * An encoded list of all IPC channels that can trigger the interrupt on a
-* notify event.
+* notify event. In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *
 * \funcusage
 * \snippet ipc/snippet/main.c snippet_Cy_IPC_Drv_SetInterrupt
@@ -851,11 +847,13 @@ __STATIC_INLINE void  Cy_IPC_Drv_SetInterrupt(IPC_INTR_STRUCT_Type* base, uint32
 *
 * \param ipcReleaseMask
 * An encoded list of all IPC channels that can trigger the interrupt on a
-* release event.
+* release event. In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *
 * \param ipcNotifyMask
 * An encoded list of all IPC channels that can trigger the interrupt on a
-* notify event.
+* notify event. In case of devices having multiple IPC IP instances, this
+* comprises of total number of channels present in only particular IPC IP.
 *
 * \funcusage
 * \snippet ipc/snippet/main.c snippet_Cy_IPC_Drv_GetInterruptStatusMasked
@@ -867,7 +865,8 @@ __STATIC_INLINE void  Cy_IPC_Drv_ClearInterrupt(IPC_INTR_STRUCT_Type* base, uint
     CY_ASSERT_L1(0UL == (ipcReleaseMask & ~(uint32_t)(IPC_STRUCT_RELEASE_INTR_RELEASE_Msk)));
     REG_IPC_INTR_STRUCT_INTR(base) =  _VAL2FLD(IPC_INTR_STRUCT_INTR_NOTIFY,  ipcNotifyMask) |
                   _VAL2FLD(IPC_INTR_STRUCT_INTR_RELEASE, ipcReleaseMask);
-    (void)REG_IPC_INTR_STRUCT_INTR(base);  /* Read the register to flush the cache */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
+    (void)REG_IPC_INTR_STRUCT_INTR(base);
 }
 
 /** \} group_ipc_functions */
@@ -890,7 +889,8 @@ __STATIC_INLINE void  Cy_IPC_Drv_ClearInterrupt(IPC_INTR_STRUCT_Type* base, uint
 * \param notifyEventIntr
 * Bit encoded list of IPC interrupt structures that are triggered
 * by a notification. Bit number correspond to number of the IPC interrupt
-* structure.
+* structure. In case of devices having multiple IPC IP instances, this
+* comprises of all IPC interrupts associated with only particular IPC IP.
 *
 * \funcusage
 * \snippet ipc/snippet/main.c snippet_Cy_IPC_Drv_LockAcquire
@@ -917,6 +917,8 @@ __STATIC_INLINE void  Cy_IPC_Drv_AcquireNotify (IPC_STRUCT_Type* base, uint32_t 
 *
 * \param notifyEventIntr
 * Bit encoded list of IPC interrupt lines that are triggered by a notification.
+* In case of devices having multiple IPC IP instances, this comprises of all IPC
+* interrupts associated with only particular IPC IP.
 *
 * \funcusage
 * \snippet ipc/snippet/main.c snippet_Cy_IPC_Drv_ReadMsgWord
@@ -1154,7 +1156,8 @@ __STATIC_INLINE uint32_t Cy_IPC_Drv_ExtractReleaseMask (uint32_t intMask)
 *
 * \param notifyEventIntr
 * Bit encoded list of IPC interrupt lines that are triggered during the release
-* action.
+* action. In case of devices having multiple IPC IP instances, this comprises of
+* all IPC interrupts associated with only particular IPC IP.
 *
 * \param msgPtr
 * The message pointer that is being sent over the IPC channel.

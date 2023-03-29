@@ -97,7 +97,7 @@
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="MCWDT_STRUCT`${InstNumber}`" public="true" include="true" />
-    <ConfigDefine name="`${INST_NAME}`_IRQ" value="srss_interrupt_mcwdt_`${InstNumber}`_IRQn" public="true" include="`${(C0Mode eq CY_MCWDT_MODE_INT) || (C0Mode eq CY_MCWDT_MODE_INT_RESET)|| (C1Mode eq CY_MCWDT_MODE_INT) || (C1Mode eq CY_MCWDT_MODE_INT_RESET) || (C2Mode eq CY_MCWDT_MODE_INT)}`" />
+    <ConfigDefine name="`${INST_NAME}`_IRQ" value="srss_interrupt_mcwdt_`${InstNumber}`_IRQn" public="true" include="`${(C0Mode eq CY_MCWDT_MODE_INT) || (C0Mode eq CY_MCWDT_MODE_INT_RESET) || (C1Mode eq CY_MCWDT_MODE_INT) || (C1Mode eq CY_MCWDT_MODE_INT_RESET) || (C2Mode eq CY_MCWDT_MODE_INT)}`" />
     <ConfigStruct name="`${INST_NAME . &quot;_config&quot;}`" type="cy_stc_mcwdt_config_t" const="`${inFlash}`" public="true" include="true" >
       <Member name="c0Match" value="`${C0Match}`U" />
       <Member name="c1Match" value="`${C1Match}`U" />

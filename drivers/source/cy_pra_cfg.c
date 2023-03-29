@@ -35,7 +35,7 @@
 #if defined (CY_DEVICE_SECURE) || defined (CY_DOXYGEN)
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 17.2', 15, \
-'Checked manually. All the recursive cycles are handled properly.');
+'Checked manually. All the recursive cycles are handled properly.')
 
 #if (CY_CPU_CORTEX_M0P)
     #include "cy_prot.h"
@@ -3206,7 +3206,7 @@ void Cy_PRA_OpenSrssMain2(void)
 
 #endif /* (CY_CPU_CORTEX_M0P) || defined (CY_DOXYGEN) */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 17.2')
 
 #endif /* (CY_DEVICE_SECURE) */
 

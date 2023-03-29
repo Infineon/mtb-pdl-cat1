@@ -38,7 +38,7 @@
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
-    <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__ble__clk.html" linkText="Open BLE ECO Clock Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
+    <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__alt__hf.html" linkText="Open ALTHF Clock Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
     <ParamRange id="frequency" name="Frequency (MHz)" group="Internal" default="24000000" min="24000000" max="24000000" resolution="1" visible="false" editable="false" desc="The nominal output frequency" />
     <ParamChoice id="accuracy" name="Accuracy" group="Internal" default="1" visible="false" editable="false" desc="The expected accuracy of the output frequency">

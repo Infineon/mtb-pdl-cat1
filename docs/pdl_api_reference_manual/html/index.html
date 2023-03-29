@@ -85,7 +85,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1>Overview</h1>
-<p>MTB CAT1 PDL provides low level device drivers for CAT1 devices. The PDL integrates device header files, startup code, and peripheral drivers into a single package. The drivers abstract the hardware functions into a set of easy-to-use APIs. These are fully documented in the PDL API Reference.</p>
+<p>MTB CAT1 PDL provides low level device drivers for CAT1 devices. The PDL integrates device header files, and peripheral drivers into a single package. The drivers abstract the hardware functions into a set of easy-to-use APIs. These are fully documented in the PDL API Reference.</p>
 <p>The PDL reduces the need to understand register usage and bit structures, thus easing software development for the extensive set of peripherals. You configure the driver for your application, and then use API calls to initialize and use the peripheral. This documentation provides technical information on each supported peripheral driver, including:</p>
 <ul>
 <li>Configuration considerations</li>
@@ -101,6 +101,16 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li><a class="el" href="device_index_page_cat1c.html">CAT1C Devices</a></li>
 </ul>
 <p>The PDL conforms to the ANSI C99 standard.</p>
+<h1>ModusToolbox&trade; Libraries</h1>
+<p>ModusToolbox&trade; software is a modern, extensible development environment supporting a wide range of Infineon microcontroller devices. It provides a flexible set of tools and a diverse, high-quality collection of application-focused software. These include configuration tools, low-level drivers, libraries, and operating system support. There are many parts of ModusToolbox™ software that are provided as libraries. The CAT1 PDL is one of those libraries. The other libraries that are closely related to CAT1 PDL are CMSIS and CAT1 HAL. </p><h3>CMSIS</h3>
+<p>The CMSIS is a hardware abstraction layer developed by Arm that help to simplify software reuse, reduce the learning curve, development costs, and time-to-market for microcontroller developers. The CAT1 PDL supports following components of CMSIS :</p><ul>
+<li><a href="https://www.keil.com/pack/doc/CMSIS/Core/html/index.html">CMSIS-Core(M)</a></li>
+<li><a href="https://www.keil.com/pack/doc/CMSIS/DSP/html/index.html">CMSIS-DSP</a></li>
+<li><a href="https://www.keil.com/pack/doc/CMSIS/NN/html/index.html">CMSIS-NN</a></li>
+</ul>
+<h3>CAT1 Hardware Abstraction Layer (HAL)</h3>
+<p>CAT1 HAL package provides a set of APIs to initialize, configure, and use the CAT1 MCU resources. Refer to <a href="https://infineon.github.io/mtb-hal-cat1/html/modules.html">MTB CAT1 HAL</a> documentation for more details on HAL APIs.</p>
+<p>Refer to the <a href="https://www.infineon.com/ModusToolboxRuntimeSoftwareReferenceGuide">ModusToolbox&trade; run-time software reference guide</a> for more details about how these libraries are used in the ModusToolbox™ ecosystem.</p>
 <h1>Copyright</h1>
 <p>Copyright 2016-2022, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation.</p>
 <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>

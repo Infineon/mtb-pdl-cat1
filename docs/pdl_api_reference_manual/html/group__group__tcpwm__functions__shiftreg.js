@@ -19,5 +19,6 @@ var group__group__tcpwm__functions__shiftreg =
     [ "Cy_TCPWM_ShiftReg_GetCounter", "group__group__tcpwm__functions__shiftreg.html#ga291cd2d49e11dc04e9823d62351a998e", null ],
     [ "Cy_TCPWM_ShiftReg_SetTaps", "group__group__tcpwm__functions__shiftreg.html#ga62e3ebf5e164e1a69c771305b0f48fd7", null ],
     [ "Cy_TCPWM_ShiftReg_GetTaps", "group__group__tcpwm__functions__shiftreg.html#ga0a85feba92416e04dac2d57f7b1657d6", null ],
-    [ "Cy_TCPWM_ShiftReg_LineOutStatus", "group__group__tcpwm__functions__shiftreg.html#ga371b9f1aaf90d7ec07bf096de7639cc6", null ]
+    [ "Cy_TCPWM_ShiftReg_LineOutStatus", "group__group__tcpwm__functions__shiftreg.html#ga371b9f1aaf90d7ec07bf096de7639cc6", null ],
+    [ "Cy_TCPWM_Shiftreg_EnableSwap", "group__group__tcpwm__functions__shiftreg.html#gaa2f8fce9abfa511020e6f8b696b476e0", null ]
 ];

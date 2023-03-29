@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_bt.h
-* \version 1.80
+* \version 1.90
 *
 * \brief
 * Provides an API declaration for the BT IPC driver.
@@ -188,6 +188,7 @@ typedef enum
     CY_BT_IPC_HPC_PM             = (0x04u),                /**<  HPC payload type PM control */
     CY_BT_IPC_HPC_RESACCESS      = (0x05u),                /**<  HPC payload type Resource Access */
     CY_BT_IPC_HPC_LPO_SWITCH     = (0x06u),                /**<  HPC payload type LPO Clk switch */
+    CY_BT_IPC_HPC_INRUSH_MODE    = (0x07u),                /**<  HPC payload type inrush mode select */
     CY_BT_IPC_HPC_LONG           = (0xFFu),                /**<  HPC payload type long message */
 } cy_en_btipc_hpcpti_t;
 
@@ -255,7 +256,17 @@ typedef enum
 {
     CY_BT_IPC_LPO_PILO          = (0x00u),                /**< LPO clk type PILO */
     CY_BT_IPC_LPO_WCO           = (0x01u),                /**< LPO clk type WCO */
+    CY_BT_IPC_LPO_WCO_BYPASS    = (0x02u),                /**< LPO clk type WCO BYPASS */
 }cy_en_btipc_lpo_cmd_t;
+
+/**
+*  This is a list of ENUMs used for cbuk inrush mode indication from MCUSS to BTSS
+*/
+typedef enum
+{
+    CY_BT_IPC_INRUSH_LOW          = (0x00u),                /**< Inrush limit low */
+    CY_BT_IPC_INRUSH_HIGH         = (0x01u),                /**< Inrush limit high */
+}cy_en_btipc_inrush_mode_t;
 
 /**
 * This is a list of ENUMs used for HCI DAIG packet type.
@@ -672,6 +683,18 @@ typedef __PACKED_STRUCT cy_stc_ipc_msg_clklf_switch_t
     uint8_t dummy2;                                 /**< Not used */
     uint32_t param;                                /**< WCO calibration offset in ppm */
 } cy_stc_ipc_msg_clklf_switch_t;
+
+/**
+* This is the definition of HPC structure to indicate cbuk inrush mode from MCU to BTSS
+*/
+typedef __PACKED_STRUCT cy_stc_ipc_msg_inrush_mode_t
+{
+    uint8_t msgId;                                  /**< Message ID for HPC message */
+    uint8_t mode;                                   /**< inrush mode 0 = LOW, 1 = HIGH */
+    uint8_t dummy1;                                 /**< Not used */
+    uint8_t dummy2;                                 /**< Not used */
+    uint32_t dummy3;                                /**< Not used */
+} cy_stc_ipc_msg_inrush_mode_t;
 /** \} group_ipc_bt_data_structures */
 
 

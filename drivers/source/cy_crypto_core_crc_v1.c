@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_crc_v1.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code for CRC API
@@ -43,7 +43,7 @@ extern "C" {
 #include "cy_syslib.h"
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 3, \
-'This piece of code is written for CRYPTO_V1_Type and will not execute for CRYPTO_V2_Type');
+'This piece of code is written for CRYPTO_V1_Type and will not execute for CRYPTO_V2_Type')
 
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_V1_Crc_Init
@@ -412,7 +412,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V1_Crc_Calc(CRYPTO_Type *base,
 
     return (CY_CRYPTO_SUCCESS);
 }
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* (CPUSS_CRYPTO_CRC == 1) && defined(CY_CRYPTO_CFG_CRC_C) */
 
 #if defined(__cplusplus)

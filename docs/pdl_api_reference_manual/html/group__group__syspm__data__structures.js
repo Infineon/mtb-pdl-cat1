@@ -25,6 +25,23 @@ var group__group__syspm__data__structures =
       [ "CY_SYSPM_CM0_CLOCK_CTL_REG", "structcy__stc__syspm__backup__regs__t.html#a02e66f69904911561a3143bbcff5627f", null ],
       [ "CY_SYSPM_CM4_CLOCK_CTL_REG", "structcy__stc__syspm__backup__regs__t.html#af4a272d28fb71f4f52b1eae964256d09", null ]
     ] ],
+    [ "cy_stc_syspm_retldo_params_t", "structcy__stc__syspm__retldo__params__t.html", [
+      [ "activeVoltSel", "structcy__stc__syspm__retldo__params__t.html#a4b14408d3890bf298288a0d5fbdb2066", null ],
+      [ "activeGain", "structcy__stc__syspm__retldo__params__t.html#aa9a66a25e8ca50871ddc7fef23c52742", null ],
+      [ "deepsleepVoltSel", "structcy__stc__syspm__retldo__params__t.html#a40a27028a1199fde1c3823cc3451e530", null ],
+      [ "deepsleepGain", "structcy__stc__syspm__retldo__params__t.html#afa7c6a983726bdb8bca4a5d4bbfa0bbc", null ]
+    ] ],
+    [ "cy_stc_syspm_sramldo_params_t", "structcy__stc__syspm__sramldo__params__t.html", [
+      [ "sramLdoEnable", "structcy__stc__syspm__sramldo__params__t.html#a61f0b7001c868113a1979f3be68b9a5f", null ],
+      [ "deepsleepSramLdoEnable", "structcy__stc__syspm__sramldo__params__t.html#a4b83333e4bef3e4b4bb35c4e93816b98", null ],
+      [ "sramLdoVoltSel", "structcy__stc__syspm__sramldo__params__t.html#a162d2acc61df6ad48d92a99b39862cc0", null ]
+    ] ],
+    [ "cy_stc_syspm_miscldo_params_t", "structcy__stc__syspm__miscldo__params__t.html", [
+      [ "miscLdoEnable", "structcy__stc__syspm__miscldo__params__t.html#a8b89396277c25c507a2d33de955d775d", null ],
+      [ "miscLdoMode", "structcy__stc__syspm__miscldo__params__t.html#a1dbdee482d59c112b2f8561e8e9d9825", null ],
+      [ "miscLdoVoltSel", "structcy__stc__syspm__miscldo__params__t.html#a000d6c49a438f6a02d7e674be8812ab4", null ],
+      [ "miscLdoVaccActTrimSel", "structcy__stc__syspm__miscldo__params__t.html#a6a5fcbe49c5998c7eb1618be54ab8a09", null ]
+    ] ],
     [ "cy_stc_syspm_warmboot_entrypoint_t", "structcy__stc__syspm__warmboot__entrypoint__t.html", [
       [ "stack_pointer", "structcy__stc__syspm__warmboot__entrypoint__t.html#af94c827b080dbbb1b820a80689ef24eb", null ],
       [ "entry_pointer", "structcy__stc__syspm__warmboot__entrypoint__t.html#a35789621c867f503c8c20d180c183bfa", null ]

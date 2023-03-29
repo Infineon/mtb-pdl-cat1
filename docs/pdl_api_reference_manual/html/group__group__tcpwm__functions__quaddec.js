@@ -25,5 +25,6 @@ var group__group__tcpwm__functions__quaddec =
     [ "Cy_TCPWM_QuadDec_GetPeriod0", "group__group__tcpwm__functions__quaddec.html#ga509f586f98d9d35393c646528f7c235c", null ],
     [ "Cy_TCPWM_QuadDec_SetPeriod1", "group__group__tcpwm__functions__quaddec.html#gaa8b2bc2968df3e99061b14001a132f09", null ],
     [ "Cy_TCPWM_QuadDec_GetPeriod1", "group__group__tcpwm__functions__quaddec.html#ga36f1cf9209dc8fb70c40d46804072c24", null ],
-    [ "Cy_TCPWM_QuadDec_TriggerIndex1", "group__group__tcpwm__functions__quaddec.html#gaf0580390faff1cb686a5cd1b9fef6cf4", null ]
+    [ "Cy_TCPWM_QuadDec_TriggerIndex1", "group__group__tcpwm__functions__quaddec.html#gaf0580390faff1cb686a5cd1b9fef6cf4", null ],
+    [ "Cy_TCPWM_QuadDec_EnableSwap", "group__group__tcpwm__functions__quaddec.html#ga6bbffc52d3ebef41c39336b4b9444341", null ]
 ];

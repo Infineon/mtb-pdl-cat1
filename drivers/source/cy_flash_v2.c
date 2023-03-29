@@ -250,7 +250,7 @@ cy_en_flashdrv_status_t Cy_Flash_Checksum(const cy_stc_flash_checksum_config_t *
     /* Prepares arguments to be passed to SROM API */
     un_srom_api_args_t apiArgs = {{ 0UL }};
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 1, \
-'Checked manually. Intentional  expression will always be true for CAT1C devices.');
+'Checked manually. Intentional  expression will always be true for CAT1C devices.')
     if(CPUSS_FLASH_SIZE >= 4096u)
     {
         apiArgs.CheckSum.arg0.opcode = (uint32_t)CY_SROM_OP_FLASH_CHECKSUM;
@@ -267,7 +267,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 1, \
         apiArgs.CheckSumLessThan4M.arg0.row_id = (uint32_t)config->rowId;
         apiArgs.CheckSumLessThan4M.arg0.bank   = (uint32_t)config->bank;
     }
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3')
     /* Call SROM API with blocking mode */
     un_srom_api_resps_t apiResp = {{ 0UL }};
     cy_en_srom_driver_status_t sromDrvStatus;

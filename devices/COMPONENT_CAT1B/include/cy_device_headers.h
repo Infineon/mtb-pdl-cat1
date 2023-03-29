@@ -33,6 +33,12 @@
     #include "cyw20829a0kml.h"
 #elif defined (CYW89829A0KML)
     #include "cyw89829a0kml.h"
+#elif defined (CYW20829B0LKML)
+    #include "cyw20829b0lkml.h"
+#elif defined (CYW20829B0KML)
+    #include "cyw20829b0kml.h"
+#elif defined (CYW89829B0KML)
+    #include "cyw89829b0kml.h"
 #else
     #error Undefined part number
 #endif

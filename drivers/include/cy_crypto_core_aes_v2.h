@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes_v2.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides constant and parameters for the API for the AES method
@@ -38,6 +38,48 @@ extern "C" {
 #endif
 
 #if (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_AES_C)
+
+#if (CPUSS_CRYPTO_GCM == 1) && defined(CY_CRYPTO_CFG_GCM_C)
+
+/** AES GCM TAG verification status */
+typedef enum
+{
+    CY_CRYPTO_TAG_VALID     = 0x05555555u,
+    CY_CRYPTO_TAG_INVALID   = 0x0AAAAAAAu,
+} cy_en_crypto_aesgcm_tag_verify_result_t;
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Init(CRYPTO_Type *base,
+                                                    cy_stc_crypto_aes_gcm_buffers_t *aesGCMBuffers,
+                                                    cy_stc_crypto_aes_gcm_state_t* aesGCMctx);
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_SetKey(CRYPTO_Type *base, uint8_t const *aesKey,
+                                                      cy_en_crypto_aes_key_length_t keyLength,
+                                                      cy_stc_crypto_aes_gcm_state_t* aesGCMctx);
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Start(CRYPTO_Type *base, cy_en_crypto_dir_mode_t mode,
+                                                     uint8_t const *iv, uint32_t ivSize,
+                                                     cy_stc_crypto_aes_gcm_state_t* aesGCMctx);
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_AAD_Update(CRYPTO_Type *base, uint8_t *aad, uint32_t aadSize,
+                                                          cy_stc_crypto_aes_gcm_state_t* aesGCMctx);
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Update(CRYPTO_Type *base, const uint8_t *input,
+                                                       uint32_t inputSize,  uint8_t *output,
+                                                       cy_stc_crypto_aes_gcm_state_t* aesGCMctx);
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Finish(CRYPTO_Type *base,  uint8_t *p_tag,   uint32_t tagSize, cy_stc_crypto_aes_gcm_state_t* aesGCMctx);
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Free(CRYPTO_Type *base,  cy_stc_crypto_aes_gcm_state_t* aesGCMctx);
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Encrypt_Tag(CRYPTO_Type *base, uint8_t const *aesKey, cy_en_crypto_aes_key_length_t keyLength,
+                                                            uint8_t const *iv, uint32_t ivSize, uint8_t *aad,   uint32_t aadSize, 
+                                                            const uint8_t *input,   uint32_t inputSize,  uint8_t *output, uint8_t *tag, uint32_t tagSize);
+                                                            
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Decrypt_Tag(CRYPTO_Type *base, uint8_t const *aesKey, cy_en_crypto_aes_key_length_t keyLength,
+                                                            uint8_t const *iv, uint32_t ivSize, uint8_t *aad,   uint32_t aadSize, 
+                                                            const uint8_t *input,   uint32_t inputSize, uint8_t *tag, uint32_t tagSize, uint8_t *output, cy_en_crypto_aesgcm_tag_verify_result_t * isVerified);
+
+#endif /* (CPUSS_CRYPTO_GCM == 1) && defined(CY_CRYPTO_CFG_GCM_C)*/
 
 void Cy_Crypto_Core_V2_Aes_LoadEncKey(CRYPTO_Type *base,
                                       cy_stc_crypto_aes_state_t const *aesState);

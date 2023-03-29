@@ -204,6 +204,19 @@ Functions</h2></td></tr>
 
 <p>Sets the divider value for a particular group. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">groupNum</td><td>Selects the PERI Group Number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Input of groupNum parameter will be CAT1D devices - enum en_peri_grp_t(devices/COMPONENT_CAT1&lt;subcategory&gt; /include/&lt;series&gt;_config.h) CAT1B/CAT1C - group number</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">divider</td><td>Selects the divider value</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B, CAT1C and CAT1D devices.</dd>
 <dd>
 Clock divider functionality is product specific, Refer to TRM before using this API Example:- For CAT1B devices Group-0 does not have the clock divider functionality. For CAT1C devices Group-0,1 and 2 does not have the clock divider functionality. For the above not supported groups this API will return success, but write will not happen. </dd></dl>
@@ -228,7 +241,15 @@ Clock divider functionality is product specific, Refer to TRM before using this 
 
 <p>Gets the divider value for a particular group. </p>
 <dl class="section return"><dt>Returns</dt><dd>Divider value</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B, CAT1C and CAT1D devices.</dd>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">groupNum</td><td>Selects the PERI Group Number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Input of groupNum parameter will be CAT1D devices - enum en_peri_grp_t(devices/COMPONENT_CAT1&lt;subcategory&gt; /include/&lt;series&gt;_config.h) CAT1B/CAT1C - group number</dd>
+<dd>
+This API is available for CAT1B, CAT1C and CAT1D devices.</dd>
 <dd>
 Clock divider functionality is product specific, Refer to TRM before using this API Example:- For CAT1B devices Group-0 does not have the clock divider functionality. For CAT1C devices Group-0,1 and 2 does not have the clock divider functionality. For the above not supported groups this API returns zero. </dd></dl>
 
@@ -270,7 +291,13 @@ Clock divider functionality is product specific, Refer to TRM before using this 
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">groupNum</td><td>Selects the PERI Group Number</td></tr>
+    <tr><td class="paramname">groupNum</td><td>Selects the PERI Group Number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Input of groupNum parameter will be CAT1D devices - enum en_peri_grp_t(devices/COMPONENT_CAT1&lt;subcategory&gt; /include/&lt;series&gt;_config.h) CAT1B/CAT1C - group number</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
     <tr><td class="paramname">slaveCtl</td><td>Selects the Slave Control Register Number</td></tr>
     <tr><td class="paramname">value</td><td>Value to be written</td></tr>
   </table>
@@ -310,7 +337,13 @@ Clock divider functionality is product specific, Refer to TRM before using this 
 <dl class="section return"><dt>Returns</dt><dd>Divider value</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">groupNum</td><td>Selects the PERI Group Number</td></tr>
+    <tr><td class="paramname">groupNum</td><td>Selects the PERI Group Number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Input of groupNum parameter will be CAT1D devices - enum en_peri_grp_t(devices/COMPONENT_CAT1&lt;subcategory&gt; /include/&lt;series&gt;_config.h) CAT1B/CAT1C - group number</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
     <tr><td class="paramname">slaveCtl</td><td>Selects the Slave Control Register Number</td></tr>
   </table>
   </dd>
@@ -355,7 +388,13 @@ Clock divider functionality is product specific, Refer to TRM before using this 
 <dl class="section return"><dt>Returns</dt><dd>Divider value</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">groupNum</td><td>Selects the PERI Group Number</td></tr>
+    <tr><td class="paramname">groupNum</td><td>Selects the PERI Group Number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Input of groupNum parameter will be CAT1D devices - enum en_peri_grp_t(devices/COMPONENT_CAT1&lt;subcategory&gt; /include/&lt;series&gt;_config.h) CAT1B/CAT1C - group number</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
     <tr><td class="paramname">slaveCtl</td><td>Selects the Slave Control Register Number</td></tr>
     <tr><td class="paramname">slaveMsk</td><td>Selects the bit position(s) that needs to be obtained</td></tr>
   </table>

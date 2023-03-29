@@ -210,7 +210,7 @@ extern "C" {
 #endif
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 12, \
-'Value extracted from _FLD2VAL macro will not exceed enum range.');
+'Value extracted from _FLD2VAL macro will not exceed enum range.')
 
 /** \addtogroup group_smartio_macros
 * \{
@@ -855,7 +855,7 @@ __STATIC_INLINE uint8_t Cy_SmartIO_GetDataReg(SMARTIO_PRT_Type* base)
 
 /** \} group_smartio_functions */
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
 
 #if defined(__cplusplus)
 }

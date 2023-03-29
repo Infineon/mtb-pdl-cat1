@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides common constants and parameters
@@ -209,7 +209,7 @@
 *   \{
 *     \defgroup group_crypto_lld_hw_functions Functions
 *   \}
-*   \defgroup group_crypto_lld_symmetric Symmetric Key Algorithms (AES, DES, TDES)
+*   \defgroup group_crypto_lld_symmetric Symmetric Key Algorithms (AES, GCM, DES, TDES)
 *   \{
 *     \defgroup group_crypto_lld_symmetric_functions Functions
 *   \}
@@ -261,6 +261,7 @@
 #include "cy_crypto_core_sha.h"
 #include "cy_crypto_core_trng.h"
 #include "cy_crypto_core_vu.h"
+
 
 #endif /* #if !defined (CY_CRYPTO_CORE_H) */
 

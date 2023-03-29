@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_usbfs_dev_drv.h
-* \version 2.20.3
+* \version 2.30
 *
 * Provides API declarations of the USBFS driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2023 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -579,6 +579,16 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>2.30</td>
+*     <td> \ref Cy_USBFS_Dev_Drv_DeInit() was updated to reduce power
+*         consumption of the USB IP block after deinitialization.
+*     </td>
+*     <td> \ref Cy_USBFS_Dev_Drv_DeInit() did not return all registers to the
+*         default value, which caused the USB IP block to consume more current
+*         when it was disabled.
+*     </td>
+*   </tr>
+*   <tr>
 *     <td>2.20.3</td>
 *     <td>Minor syntax update and spell fix.</td>
 *     <td>Updated for compliance with MISRA-C:2012 standard and fixing spell errors.</td>
@@ -717,7 +727,7 @@ extern "C" {
 #define CY_USBFS_VERSION_MAJOR      (2)
 
 /** USBFS Driver minor version */
-#define CY_USBFS_VERSION_MINOR      (20)
+#define CY_USBFS_VERSION_MINOR      (30)
 
 /** USBFS Driver identifier */
 #define CY_USBFS_ID                 CY_PDL_DRV_ID(0x3BU)

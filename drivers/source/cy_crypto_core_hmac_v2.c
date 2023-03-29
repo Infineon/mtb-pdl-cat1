@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hmac_v2.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code to the API for the HMAC method
@@ -134,7 +134,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Hmac_Start(CRYPTO_Type *base, cy_stc_cry
     cy_en_crypto_status_t status = CY_CRYPTO_SUCCESS;
 
     /* Input parameters verification */
-    if ((NULL == base) || (NULL == hmacState) || (NULL == key) || (0U == keyLength) )
+    if ((NULL == base) || (NULL == hmacState) || ((NULL == key) && (0UL != keyLength)) )
     {
         return CY_CRYPTO_BAD_PARAMS;
     }
@@ -239,15 +239,15 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Hmac_Start(CRYPTO_Type *base, cy_stc_cry
                                    )
 {
 
+    if (0UL == messageSize)
+    {
+        return CY_CRYPTO_SUCCESS;
+    }
+
     /* Input parameters verification */
     if ((NULL == base) || (NULL == hmacState) || (NULL == message))
     {
         return CY_CRYPTO_BAD_PARAMS;  
-    }
-
-    if (0UL == messageSize)
-    {
-        return CY_CRYPTO_SUCCESS;
     }
 
     return Cy_Crypto_Core_V2_Sha_Update(base, &hmacState->hashState, message, messageSize);
@@ -422,8 +422,8 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Hmac(CRYPTO_Type *base,
     Cy_Crypto_Core_V2_MemSet(base, &hmacBuffer, 0, (uint16_t)sizeof(hmacBuffer));
 
     /* Input parameters verification */
-    if ((NULL == base) || (NULL == hmac) || ((NULL == message) && (0UL == messageSize))
-        ||(NULL == key) || (0U == keyLength))
+    if ((NULL == base) || (NULL == hmac) || ((NULL == message) && (0UL != messageSize))
+        ||((NULL == key) && (0UL != keyLength)))
     {
         return status;
     }

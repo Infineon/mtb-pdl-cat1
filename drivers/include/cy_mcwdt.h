@@ -1450,6 +1450,7 @@ __STATIC_INLINE void Cy_MCWDT_ClearInterrupt(MCWDT_STRUCT_Type *base, uint32_t c
     CY_ASSERT_L2(CY_MCWDT_IS_CNTS_MASK_VALID(counters));
 
     MCWDT_INTR(base) = counters;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) MCWDT_INTR(base);
 }
 

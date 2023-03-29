@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_pwm.h
-* \version 1.40
+* \version 1.50
 *
 * \brief
 * The header file of the TCPWM PWM driver.
@@ -120,7 +120,29 @@ extern "C" {
 * \addtogroup group_tcpwm_data_structures_pwm
 * \{
 */
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+/** Group Dithering  */
+typedef enum
+{
+    CY_TCPWM_GROUP_DITHERING_DISABLE        = 0UL,   /**< Group dithering is disabled */
+    CY_TCPWM_GROUP_DITHERING_PERIOD         = 1UL,   /**< Group dithering is set to period */
+    CY_TCPWM_GROUP_DITHERING_DUTY           = 2UL,   /**< Group dithering is set to duty */
+    CY_TCPWM_GROUP_DITHERING_PERIOD_DUTY    = 3UL,   /**< Group dithering is set to period and duty */
+} cy_en_group_dithering_t;
 
+/** Group dithering limiter values */
+typedef enum
+{
+    CY_GROUP_DITHERING_LIMITER_0           = 0UL,   /**< Group dithering limiter value 0. */
+    CY_GROUP_DITHERING_LIMITER_1           = 1UL,   /**< Group dithering limiter value 1. */
+    CY_GROUP_DITHERING_LIMITER_2           = 2UL,   /**< Group dithering limiter value 2. */
+    CY_GROUP_DITHERING_LIMITER_3           = 3UL,   /**< Group dithering limiter value 3. */
+    CY_GROUP_DITHERING_LIMITER_4           = 4UL,   /**< Group dithering limiter value 4. */
+    CY_GROUP_DITHERING_LIMITER_5           = 5UL,   /**< Group dithering limiter value 5. */
+    CY_GROUP_DITHERING_LIMITER_6           = 6UL,   /**< Group dithering limiter value 6. */
+    CY_GROUP_DITHERING_LIMITER_7           = 7UL,   /**< Group dithering limiter value 7. */
+} cy_en_dithering_limiter_t;
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN) */
 /** PWM configuration structure */
 typedef struct cy_stc_tcpwm_pwm_config
 {
@@ -175,7 +197,11 @@ typedef struct cy_stc_tcpwm_pwm_config
     uint32_t    pwmOnDisable;       /**< Specifies the behavior of the PWM outputs line_out and line_compl_out while the TCPWM counter is disabled */
     uint32_t    trigger0Event;      /**< Configures which internal event generates on output trigger 0*/
     uint32_t    trigger1Event;        /**< Configures which internal event generates on output trigger 1*/
-#endif
+#endif /* (CY_IP_MXTCPWM_VERSION >= 2U) || defined (CY_DOXYGEN) */
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+    bool        buffer_swap_enable; /**< Configures swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT  */
+    cy_en_group_dithering_t dithering_mode; /**< Dithering mode is group specific configuration and will be applicable if the group supports dithering */
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN) */
 }cy_stc_tcpwm_pwm_config_t;
 /** \} group_tcpwm_data_structures_pwm */
 
@@ -406,6 +432,10 @@ __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTime (TCPWM_Type const *base, uint32_t 
 #if (CY_IP_MXTCPWM_VERSION >= 2U) || defined (CY_DOXYGEN)
 __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeN (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime);
 #endif
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+__STATIC_INLINE void Cy_TCPWM_PWM_EnableSwap(TCPWM_Type *base, uint32_t cntNum,  bool enable);
+cy_en_tcpwm_status_t Cy_TCPWM_Configure_Dithering_Values_and_Mode(TCPWM_Type *base, uint32_t cntNum, cy_en_group_dithering_t mode, uint8_t period, uint8_t duty, cy_en_dithering_limiter_t limiter);
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN) */
 /*******************************************************************************
 * Function Name: Cy_TCPWM_PWM_Enable
 ****************************************************************************//**
@@ -1110,6 +1140,29 @@ __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeN (TCPWM_Type const *base, uint32_t
 }
 #endif
 
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_TCPWM_Counter_EnableSwap
+****************************************************************************//**
+*
+* Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT.
+*
+* \param base
+* The pointer to a TCPWM instance.
+*
+* \param cntNum
+* The Counter instance number in the selected TCPWM.
+*
+* \param enable
+* true = swap enabled; false = swap disabled
+*
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_TCPWM_PWM_EnableSwap(TCPWM_Type *base, uint32_t cntNum,  bool enable)
+{
+    Cy_TCPWM_Block_EnableSwap(base, cntNum, enable);
+}
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) */
 
 /** \} group_tcpwm_functions_pwm */
 

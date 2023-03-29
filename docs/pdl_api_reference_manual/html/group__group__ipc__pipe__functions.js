@@ -1,6 +1,7 @@
 var group__group__ipc__pipe__functions =
 [
     [ "Cy_IPC_Pipe_EndpointInit", "group__group__ipc__pipe__functions.html#gad9865b8577da5a3d580bb6473f9b0912", null ],
+    [ "Cy_IPC_Pipe_EndpointInitExt", "group__group__ipc__pipe__functions.html#gacac20b2ebbc99a19c21bd8f3222048a6", null ],
     [ "Cy_IPC_Pipe_SendMessage", "group__group__ipc__pipe__functions.html#ga2a3f9b25f2227abe8cf66880c1d5d5a5", null ],
     [ "Cy_IPC_Pipe_RegisterCallback", "group__group__ipc__pipe__functions.html#ga2c998e0f6927eb99ac850daa4a2d5acc", null ],
     [ "Cy_IPC_Pipe_ExecuteCallback", "group__group__ipc__pipe__functions.html#ga7cff3c4286e6e23519d9925d394ac218", null ],

@@ -45,6 +45,8 @@
 *
 * \param releaseEventIntr
 * Bit encoded list of IPC interrupt lines that are triggered by a release event.
+* In case of devices having multiple IPC IP instances, this comprises of all IPC
+* interrupts associated with only particular IPC IP.
 *
 * \return   Status of the operation
 *   \retval CY_IPC_DRV_SUCCESS: The function executed successfully and the IPC channel
@@ -95,6 +97,8 @@ cy_en_ipcdrv_status_t Cy_IPC_Drv_LockRelease (IPC_STRUCT_Type* base, uint32_t re
 *
 * \param notifyEventIntr
 * Bit encoded list of IPC interrupt lines that are triggered by a notification.
+* In case of devices having multiple IPC IP instances, this comprises of all IPC
+* interrupts associated with only particular IPC IP.
 *
 * \param message
 * The message word that is the data placed in the IPC data register.
@@ -199,6 +203,8 @@ cy_en_ipcdrv_status_t  Cy_IPC_Drv_ReadMsgWord (IPC_STRUCT_Type const * base, uin
 *
 * \param notifyEventIntr
 * Bit encoded list of IPC interrupt lines that are triggered by a notification.
+* In case of devices having multiple IPC IP instances, this comprises of all IPC
+* interrupts associated with only particular IPC IP.
 *
 * \param message
 * The message word that is the data placed in the IPC data register.

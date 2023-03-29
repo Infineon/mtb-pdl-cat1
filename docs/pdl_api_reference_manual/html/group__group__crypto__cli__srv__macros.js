@@ -13,6 +13,7 @@ var group__group__crypto__cli__srv__macros =
     [ "CY_CRYPTO_AES_MAX_KEY_SIZE", "group__group__crypto__cli__srv__macros.html#ga1fc34034d8fbf66afdbb78b8a32c5f2f", null ],
     [ "CY_CRYPTO_AES_MAX_KEY_SIZE_U32", "group__group__crypto__cli__srv__macros.html#gabb1df1ab7218bb3ea5a11cc53bba1c3a", null ],
     [ "CY_CRYPTO_AES_BLOCK_SIZE_U32", "group__group__crypto__cli__srv__macros.html#ga195c5e119202e4f8a5ab4dfa7cd97da3", null ],
+    [ "CY_CRYPTO_AES_GCM_IV_SIZE", "group__group__crypto__cli__srv__macros.html#gaccd2d86e5a79a47f1d0319f929ea7aed", null ],
     [ "CY_CRYPTO_SHA256_BLOCK_SIZE", "group__group__crypto__cli__srv__macros.html#ga2e492aa7682a4455db7ec6545f533354", null ],
     [ "CY_CRYPTO_SHA256_PAD_SIZE", "group__group__crypto__cli__srv__macros.html#ga685d86f13540d444f9aee052d23e86db", null ],
     [ "CY_CRYPTO_SHA512_BLOCK_SIZE", "group__group__crypto__cli__srv__macros.html#gad3ac63b82ab093bc214c097c30773b21", null ],

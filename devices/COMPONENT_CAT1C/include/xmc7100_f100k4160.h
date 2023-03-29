@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -566,6 +566,8 @@ typedef enum {
 #define __MPU_PRESENT                   1       /*!< MPU present or not */
 #define __FPU_PRESENT                   1       /*!< FPU present or not */
 #define __CM0P_PRESENT                  1       /*!< CM0P present or not */
+#define __CM7_0_PRESENT                 1       /*!< CM7_0 present or not */
+#define __CM7_1_PRESENT                 0       /*!< CM7_1 present or not */
 #define __DTCM_PRESENT                  1       /*!< Data Tightly Coupled Memory is present or not */
 #define __ICACHE_PRESENT                1       /*!< Instruction Cache present or not */
 #define __DCACHE_PRESENT                1       /*!< Data Cache present or not */

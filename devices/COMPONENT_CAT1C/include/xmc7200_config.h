@@ -2441,7 +2441,6 @@ typedef enum
 #include "ip/cyip_peri_v3.h"
 #include "ip/cyip_peri_ms_v3.h"
 #include "ip/cyip_peri_pclk_v3.h"
-#include "ip/cyip_crypto.h"
 #include "ip/cyip_crypto_v2.h"
 #include "ip/cyip_cpuss.h"
 #include "ip/cyip_fault.h"

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_ppu.c
-* \version 5.91
+* \version 5.92
 *
 * This file provides the source code for ARM PPU Platform PD specific driver,
 * where the API's are used by Syspm driver for Power Management.
@@ -26,7 +26,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 
 #include <stdbool.h>
 #include <ppu_v1.h>

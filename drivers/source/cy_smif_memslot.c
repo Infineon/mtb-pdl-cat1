@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides the source code for the memory-level APIs of the SMIF driver.
@@ -125,58 +125,76 @@ cy_en_smif_status_t Cy_SMIF_MemInit(SMIF_Type *base,
                 /* Check smif memory slot configuration */
                 CY_ASSERT_L3(CY_SMIF_SLAVE_SEL_VALID(memCfg->slaveSelect));
                 CY_ASSERT_L3(CY_SMIF_DATA_SEL_VALID(memCfg->dataSelect));
-                CY_ASSERT_L1(NULL != memCfg->deviceCfg);
-                
-                device = Cy_SMIF_GetDeviceBySlot(base, memCfg->slaveSelect);
-                if (NULL != device)
+
+                #if (CY_IP_MXSMIF_VERSION >= 2)
+                context->flags = memCfg->flags;
+                #endif /* (CY_IP_MXSMIF_VERSION>=2) */
+
+                /* SPI(deviceCfg) and Hyperbus(hbdeviceCfg) are mutually exclusive and if both are initialized, priority would be for SPI(deviceCfg) */
+                if(memCfg->deviceCfg != NULL)
                 {
-                    /* The slave-slot initialization of the device control register.
-                     * Cy_SMIF_MemSfdpDetect() must work */
-                    SMIF_DEVICE_CTL(device)  = _CLR_SET_FLD32U(SMIF_DEVICE_CTL(device),
-                                                               SMIF_DEVICE_CTL_DATA_SEL,
-                                                              (uint32_t)memCfg->dataSelect);
-                    uint32_t sfdpRet = (uint32_t)CY_SMIF_SUCCESS;
-                    if (0U != (memCfg->flags & CY_SMIF_FLAG_DETECT_SFDP))
+                    device = Cy_SMIF_GetDeviceBySlot(base, memCfg->slaveSelect);
+                    if (NULL != device)
                     {
-                        sfdpRet = (uint32_t)Cy_SMIF_MemSfdpDetect(base,
-                                                memCfg->deviceCfg,
-                                                memCfg->slaveSelect,
-                                                memCfg->dataSelect,
-                                                context);
-                        if((uint32_t)CY_SMIF_SUCCESS != sfdpRet)
+                        /* The slave-slot initialization of the device control register.
+                         * Cy_SMIF_MemSfdpDetect() must work */
+                        SMIF_DEVICE_CTL(device)  = _CLR_SET_FLD32U(SMIF_DEVICE_CTL(device),
+                                                                   SMIF_DEVICE_CTL_DATA_SEL,
+                                                                  (uint32_t)memCfg->dataSelect);
+                        uint32_t sfdpRet = (uint32_t)CY_SMIF_SUCCESS;
+                        if (0U != (memCfg->flags & CY_SMIF_FLAG_DETECT_SFDP))
                         {
-                            sfdpRes |=  ((uint32_t)CY_SMIF_SFDP_FAIL << idx);
+                            sfdpRet = (uint32_t)Cy_SMIF_MemSfdpDetect(base,
+                                                    memCfg->deviceCfg,
+                                                    memCfg->slaveSelect,
+                                                    memCfg->dataSelect,
+                                                    context);
+                            if((uint32_t)CY_SMIF_SUCCESS != sfdpRet)
+                            {
+                                sfdpRes |=  ((uint32_t)CY_SMIF_SFDP_FAIL << idx);
+                            }
+                        }
+                        /* Check the size of the smif memory slot address */
+                        CY_ASSERT_L2(MEM_ADDR_SIZE_VALID(memCfg->deviceCfg->numOfAddrBytes));
+
+                        /* Check if SMIF XIP is already enabled, then do not overwrite XIP registers */
+                        if (((uint32_t)CY_SMIF_SUCCESS == sfdpRet) &&
+                             (0U != (memCfg->flags & CY_SMIF_FLAG_MEMORY_MAPPED)) &&
+                             (_FLD2VAL(SMIF_CTL_XIP_MODE, SMIF_CTL(base)) != 1U))
+                        {
+                            /* Check valid parameters for XIP */
+                            CY_ASSERT_L3(MEM_ADDR_VALID( memCfg->baseAddress, memCfg->memMappedSize));
+                            CY_ASSERT_L3(MEM_MAPPED_SIZE_VALID( memCfg->memMappedSize));
+                            
+                            XipRegInit(device, memCfg);
+                            
+    #if(CY_IP_MXSMIF_VERSION>=2)
+                            context->preXIPDataRate = memCfg->deviceCfg->readCmd->dataRate;
+    #endif /* CY_IP_MXSMIF_VERSION */
+
+                            /* The device control register initialization */
+                            SMIF_DEVICE_CTL(device) = _VAL2FLD(SMIF_DEVICE_CTL_WR_EN, ((bool)(memCfg->flags & CY_SMIF_FLAG_WRITE_ENABLE))? 1U : 0U) |
+                                          _VAL2FLD(SMIF_DEVICE_CTL_CRYPTO_EN, ((bool)(memCfg->flags & CY_SMIF_FLAG_CRYPTO_ENABLE))? 1U : 0U) |
+                                          _VAL2FLD(SMIF_DEVICE_CTL_DATA_SEL,  (uint32_t)memCfg->dataSelect) |
+    #if(CY_IP_MXSMIF_VERSION>=2)
+                                          _VAL2FLD(SMIF_DEVICE_CTL_MERGE_EN,  ((bool)(memCfg->flags & CY_SMIF_FLAG_MERGE_ENABLE))? 1U : 0U)  |
+                                          _VAL2FLD(SMIF_DEVICE_CTL_MERGE_TIMEOUT,  (uint32_t)memCfg->mergeTimeout) |
+    #endif /* CY_IP_MXSMIF_VERSION */
+                                          SMIF_DEVICE_CTL_ENABLED_Msk;
                         }
                     }
-                    /* Check the size of the smif memory slot address */
-                    CY_ASSERT_L2(MEM_ADDR_SIZE_VALID(memCfg->deviceCfg->numOfAddrBytes));
-
-                    /* Check if SMIF XIP is already enabled, then do not overwrite XIP registers */
-                    if (((uint32_t)CY_SMIF_SUCCESS == sfdpRet) &&
-                         (0U != (memCfg->flags & CY_SMIF_FLAG_MEMORY_MAPPED)) &&
-                         (_FLD2VAL(SMIF_CTL_XIP_MODE, SMIF_CTL(base)) != 1U))
+                    else
                     {
-                        /* Check valid parameters for XIP */
-                        CY_ASSERT_L3(MEM_ADDR_VALID( memCfg->baseAddress, memCfg->memMappedSize));
-                        CY_ASSERT_L3(MEM_MAPPED_SIZE_VALID( memCfg->memMappedSize));
-                        
-                        XipRegInit(device, memCfg);
-                        
-#if(CY_IP_MXSMIF_VERSION>=2)
-                        context->preXIPDataRate = memCfg->deviceCfg->readCmd->dataRate;
-#endif /* CY_IP_MXSMIF_VERSION */
-
-                        /* The device control register initialization */
-                        SMIF_DEVICE_CTL(device) = _VAL2FLD(SMIF_DEVICE_CTL_WR_EN, ((bool)(memCfg->flags & CY_SMIF_FLAG_WRITE_ENABLE))? 1U : 0U) |
-                                      _VAL2FLD(SMIF_DEVICE_CTL_CRYPTO_EN, ((bool)(memCfg->flags & CY_SMIF_FLAG_CRYPTO_ENABLE))? 1U : 0U) |
-                                      _VAL2FLD(SMIF_DEVICE_CTL_DATA_SEL,  (uint32_t)memCfg->dataSelect) |
-#if(CY_IP_MXSMIF_VERSION>=2)
-                                      _VAL2FLD(SMIF_DEVICE_CTL_MERGE_EN,  ((bool)(memCfg->flags & CY_SMIF_FLAG_MERGE_ENABLE))? 1U : 0U)  |
-                                      _VAL2FLD(SMIF_DEVICE_CTL_MERGE_TIMEOUT,  (uint32_t)memCfg->mergeTimeout) |
-#endif /* CY_IP_MXSMIF_VERSION */
-                                      SMIF_DEVICE_CTL_ENABLED_Msk;
+                        result = (uint32_t)CY_SMIF_BAD_PARAM;
+                        break;
                     }
                 }
+    #if (CY_IP_MXSMIF_VERSION>=2) && defined (SMIF_HYPERBUS_DEVICE_SUPPORT)
+                else if(memCfg->hbdeviceCfg != NULL)
+                {
+                    result = (uint32_t)Cy_SMIF_HyperBus_InitDevice(base, memCfg->hbdeviceCfg, context);
+                }
+    #endif /* (CY_IP_MXSMIF_VERSION>=2) && defined (SMIF_HYPERBUS_DEVICE_SUPPORT) */
                 else
                 {
                     result = (uint32_t)CY_SMIF_BAD_PARAM;
@@ -1962,10 +1980,10 @@ cy_en_smif_status_t Cy_SMIF_MemEraseSector(SMIF_Type *base, cy_stc_smif_mem_conf
                     sectorOffsetInRegion++;
                 }
                 /* Align end address */
-                endAddress = regionInfo->regionAddress + (sectorOffsetInRegion * regionInfo->eraseSize);
+                endAddress = regionInfo->regionAddress + (sectorOffsetInRegion * regionInfo->eraseSize) - 1UL;
 
                 /* Update length according the aligned start address and end address */
-                length = endAddress - address;
+                length = endAddress - address + 1UL;
             }
         }
         else /* Not hybrid (unified) sectors layout */

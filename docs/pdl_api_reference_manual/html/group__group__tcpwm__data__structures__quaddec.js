@@ -8,6 +8,7 @@ var group__group__tcpwm__data__structures__quaddec =
       [ "stopInputMode", "structcy__stc__tcpwm__quaddec__config__t.html#a6d8a95cce86565d2f8aa6453d038bb8d", null ],
       [ "stopInput", "structcy__stc__tcpwm__quaddec__config__t.html#a9181815a912b6c5ed2949711024410d5", null ],
       [ "phiAInput", "structcy__stc__tcpwm__quaddec__config__t.html#a9bccb40249e89734807ee65b11c642fe", null ],
-      [ "phiBInput", "structcy__stc__tcpwm__quaddec__config__t.html#a4f96c057c83a5371220063f1d0fd433b", null ]
+      [ "phiBInput", "structcy__stc__tcpwm__quaddec__config__t.html#a4f96c057c83a5371220063f1d0fd433b", null ],
+      [ "buffer_swap_enable", "structcy__stc__tcpwm__quaddec__config__t.html#ae79cd4f4ed33ad35f44fde8258700d15", null ]
     ] ]
 ];

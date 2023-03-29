@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_prng_v2.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code to the API for the PRNG
@@ -43,7 +43,7 @@ extern "C" {
 #include "cy_syslib.h"
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 2, \
-'CRYPTO_Type will typecast to either CRYPTO_V1_Type or CRYPTO_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'CRYPTO_Type will typecast to either CRYPTO_V1_Type or CRYPTO_V2_Type but not both on PDL initialization based on the target device at compile time.')
 
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_V2_Prng_Init
@@ -119,7 +119,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Prng(CRYPTO_Type *base,
     return (CY_CRYPTO_SUCCESS);
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
 #endif /* (CPUSS_CRYPTO_PR == 1) && defined(CY_CRYPTO_CFG_PRNG_C) */
 

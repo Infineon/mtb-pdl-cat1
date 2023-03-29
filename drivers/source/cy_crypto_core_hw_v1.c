@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hw_v1.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code for the HAL API for the

@@ -85,8 +85,20 @@
     <ParamChoice id="divider" name="Divider" group="General" default="1" visible="true" editable="true" desc="The source clock frequency divider">
       <Entry name="1" value="1" visible="true"/>
       <Entry name="2" value="2" visible="true"/>
+      <Entry name="3" value="3" visible="true"/>
       <Entry name="4" value="4" visible="true"/>
+      <Entry name="5" value="5" visible="true"/>
+      <Entry name="6" value="6" visible="true"/>
+      <Entry name="7" value="7" visible="true"/>
       <Entry name="8" value="8" visible="true"/>
+      <Entry name="9" value="9" visible="true"/>
+      <Entry name="10" value="10" visible="true"/>
+      <Entry name="11" value="11" visible="true"/>
+      <Entry name="12" value="12" visible="true"/>
+      <Entry name="13" value="13" visible="true"/>
+      <Entry name="14" value="14" visible="true"/>
+      <Entry name="15" value="15" visible="true"/>
+      <Entry name="16" value="16" visible="true"/>
     </ParamChoice>
     <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFreq / divider}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
     <!-- If the frequency is less than one MHz, display its value in kHz -->

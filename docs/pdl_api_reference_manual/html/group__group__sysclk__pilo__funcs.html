@@ -136,7 +136,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Enables the PILO. </p>
-<dl class="section note"><dt>Note</dt><dd>This function blocks for 1 millisecond between enabling the PILO and releasing the PILO reset. This is applicable only for CAT1A Devices.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function blocks for 1 millisecond between enabling the PILO and releasing the PILO reset.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: PILO needs to source the LFCLK.  All peripherals clocked by</span></div><div class="line"><span class="comment">                 the LFCLK are disabled and the Watchdog timer (WDT) is unlocked. */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Enable the PILO. Note: Blocks for 1 millisecond. */</span></div><div class="line">    <a class="code" href="group__group__sysclk__pilo__funcs.html#ga92e44b1390d7cabf2c597c45a5fdd309">Cy_SysClk_PiloEnable</a>();</div><div class="line"></div><div class="line">    <span class="comment">/* Set the LFCLK source to the PILO */</span></div><div class="line">    <a class="code" href="group__group__sysclk__clk__lf__funcs.html#ga446424e5edb0121a1c6c06e7d87cd054">Cy_SysClk_ClkLfSetSource</a>(<a class="code" href="group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a51a3252aefb2b8198451b0d1589e47bf">CY_SYSCLK_CLKLF_IN_PILO</a>);</div></div><!-- fragment --></dd></dl>
 
 </div>

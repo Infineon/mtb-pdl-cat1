@@ -712,6 +712,7 @@ __STATIC_INLINE void Cy_I2S_ClearTxFifo(I2S_Type * base)
 {
     REG_I2S_TX_FIFO_CTL(base) |= I2S_TX_FIFO_CTL_CLEAR_Msk;
     REG_I2S_TX_FIFO_CTL(base) &= (uint32_t) ~I2S_TX_FIFO_CTL_CLEAR_Msk;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) REG_I2S_TX_FIFO_CTL(base);
 }
 
@@ -848,6 +849,7 @@ __STATIC_INLINE void Cy_I2S_ClearRxFifo(I2S_Type * base)
 {
     REG_I2S_RX_FIFO_CTL(base)  |= I2S_RX_FIFO_CTL_CLEAR_Msk;
     REG_I2S_RX_FIFO_CTL(base)  &= (uint32_t) ~I2S_RX_FIFO_CTL_CLEAR_Msk;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) REG_I2S_RX_FIFO_CTL(base) ;
 }
 
@@ -1027,6 +1029,7 @@ __STATIC_INLINE void Cy_I2S_ClearInterrupt(I2S_Type * base, uint32_t interrupt)
 {
     CY_ASSERT_L2(CY_I2S_IS_INTR_MASK_VALID(interrupt));
     REG_I2S_INTR(base) = interrupt;
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) REG_I2S_INTR(base);
 }
 

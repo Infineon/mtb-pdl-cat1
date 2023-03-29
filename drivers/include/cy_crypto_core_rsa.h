@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_rsa.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides provides constant and parameters

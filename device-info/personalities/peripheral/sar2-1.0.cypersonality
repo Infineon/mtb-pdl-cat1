@@ -83,6 +83,8 @@
     </Repeat>
 
     <Repeat count="32">
+        <ParamString id="ch$idx_name" name="Channel Name" group="Channel $idx" default="channel_$idx" visible="`${ch$idx_en}`" editable="true" desc="Channel name. Make sure thet it is unique for the current ADC." />
+        <ParamBool id="is_adc_channel$idx_name_valid" name="Is Channel Name Valid?" group="Channel $idx" default="`${hasMatch(ch$idx_name, &quot;(^[_]+[-]+[0-9a-zA-Z]|^[a-zA-Z])[0-9a-zA-Z_]*$&quot;)}`" visible="`${debug}`" editable="false" desc="" />
         <ParamBool id="ch$idx_isHWenabled" name="Enabled" group="Channel $idx" default="false" visible="`${ch$idx_en}`" editable="true" desc="If HW is started, in scope of _Init() function, or just configured." />
         <ParamChoice id="ch$idx_triggerSelection" name="HW Trigger" group="Channel $idx" default="CY_SAR2_TRIGGER_OFF" visible="`${ch$idx_en}`" editable="true" desc="The ADC trigger mode selection." >
             <Entry name="Disabled" value="CY_SAR2_TRIGGER_OFF" visible="true" />
@@ -93,17 +95,28 @@
             <Entry name="Generic 3" value="CY_SAR2_TRIGGER_GENERIC3" visible="true" />
             <Entry name="Continuous" value="CY_SAR2_TRIGGER_CONTINUOUS" visible="true" />
         </ParamChoice>
-        <ParamSignal name="Trigger Input" port="tr_sar_gen_in[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Trigger Input" canBeEmpty="true">
+        <ParamSignal name="Trigger Input" port="tr_sar_gen_in[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Input trigger selection" canBeEmpty="true">
         </ParamSignal>
-        <ParamSignal name="Trigger Output" port="tr_sar_gen_out[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Trigger Output" canBeEmpty="true">
+         <ParamSignal name="Trigger Output" port="tr_sar_gen_out[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Output trigger selection" canBeEmpty="true">
+          <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+            <Parameter id="DriveModes" severity="DEFAULT" reason="">
+              <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+            </Parameter>
+          </Constraint>
+          <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+            <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+              <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+            </Parameter>
+          </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
         </ParamSignal>
-        <ParamSignal name="Trigger Chanel Input" port="tr_sar_ch_in[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Trigger Chanel Input" canBeEmpty="true">
+        <ParamSignal name="Trigger Chanel Input" port="tr_sar_ch_in[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Input trigger to start the channel conversion" canBeEmpty="true">
         </ParamSignal>
-        <ParamSignal name="Voltage Range Trigger Output" port="tr_sar_ch_rangevio[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Voltage Range Trigger Output" canBeEmpty="true">
+        <ParamSignal name="Voltage Range Trigger Output" port="tr_sar_ch_rangevio[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Output trigger on the voltage range event" canBeEmpty="true">
         </ParamSignal>
-        <ParamSignal name="Channel Done Trigger Output" port="tr_sar_ch_done[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Channel Done Trigger Output" canBeEmpty="true">
+        <ParamSignal name="Channel Done Trigger Output" port="tr_sar_ch_done[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Output trigger on the channel done event" canBeEmpty="true">
         </ParamSignal>
-        <ParamSignal name="Debug Freeze Input" port="tr_debug_freeze[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Debug Freeze Input" canBeEmpty="true">
+        <ParamSignal name="Debug Freeze Input" port="tr_debug_freeze[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Debug freeze input trigger selection" canBeEmpty="true">
         </ParamSignal>
         <ParamRange id="ch$idx_channelPriority" name="Priority" group="Channel $idx" default="0" min="0" max="7" resolution="1" visible="`${ch$idx_en}`" editable="true" desc="Channel priority. 0=highest, 7=lowest."/>
         <ParamChoice id="ch$idx_preenptionType" name="Preemption Type" group="Channel $idx" default="CY_SAR2_PREEMPTION_ABORT_CANCEL" visible="`${ch$idx_en}`" editable="true" desc="The ADC preemption type selection." >
@@ -117,7 +130,7 @@
             <Entry name="Pulse" value="CY_SAR2_DONE_LEVEL_PULSE" visible="true" />
             <Entry name="Level" value="CY_SAR2_DONE_LEVEL_LEVEL" visible="true" />
         </ParamChoice>
-        <ParamSignal name="Input" port="vin[$idx]" group="Channel $idx" multiSelect="true" visible="`${ch$idx_en}`" canBeEmpty="false" desc="Channel Input Voltage" />
+        <ParamSignal name="Input" port="vin[$idx]" group="Channel $idx" multiSelect="true" visible="`${ch$idx_en}`" canBeEmpty="false" desc="Channel input voltage" />
         <ParamBool id="ch$idx_extMuxEnable" name="Enable External Analog Mux" group="Channel $idx" default="false" visible="`${ch$idx_en}`" editable="true" desc="External analog mux enable." />
         <ParamChoice id="ch$idx_extMuxSelect" name="External Analog Mux Select" group="Channel $idx" default="0" visible="`${ch$idx_en &amp;&amp; ch$idx_extMuxEnable}`" editable="`${ch$idx_extMuxEnable}`" desc="External analog mux select." >
             <Entry name="EXT_MUX[x]_0" value="0" visible="true" />
@@ -175,6 +188,7 @@
   <DRCs>
       <DRC type="ERROR" text="SAR2 clock frequency, `${adcClkFreqHz &lt; 1000000 ? adcClkFreqHz / 1000.0 . &quot; kHz&quot; : adcClkFreqHz / 1000000. . &quot; MHz&quot;}`, is out of the supported range (`${clkFreqMinMHz}` to `${clkFreqMaxMHz}` MHz). Change clock frequency or VDDA voltage." condition="`${(sourceClock ne &quot;&quot;) &amp;&amp; ((adcClkFreqHz &gt; (clkFreqMaxHz)) || (adcClkFreqHz &lt; (clkFreqMinHz)))}`" paramId="clk_freq_display"/>
       <DRC type="ERROR" text="Power personality has to be enabled in order to configure and use SAR2 driver." condition="`${!isPowerEnabled}`" paramId="isPowerEnabled"/>
+      <DRC type="ERROR" repeatCount="32" text="Invalid Channel Name" condition="`${!is_adc_channel$idx_name_valid}`" paramId="ch$idx_name"/>
   </DRCs>
   <ConfigFirmware>
       <ConfigInclude value="cy_sar2.h" include="true" />
@@ -184,15 +198,19 @@
       <ConfigDefine name="`${INST_NAME}`_HW" value="PASS0_SAR`${InstNumber}`" public="true" include="true" />
 
       <ConfigDefine name="`${INST_NAME}`_CH$idx_HW" value="PASS0_SAR`${InstNumber}`_CH$idx" public="true" include="`${(channelNum &gt; $idx)}`" repeatCount="32" />
+      <ConfigDefine name="`${INST_NAME}`_`${ch$idx_name}`_HW" value="`${INST_NAME}`_CH$idx_HW" public="true" include="`${(channelNum &gt; $idx)}`" repeatCount="32" />
 
       <ConfigDefine name="`${INST_NAME}`_CH$idx_IRQ" value="pass_0_interrupts_sar_`${((32 * InstNumber) + $idx)}`_IRQn" public="true" include="`${(channelNum &gt; $idx)}`" repeatCount="32" />
+      <ConfigDefine name="`${INST_NAME}`_`${ch$idx_name}`_IRQ" value="`${INST_NAME}`_CH$idx_IRQ" public="true" include="`${(channelNum &gt; $idx)}`" repeatCount="32" />
 
       <ConfigDefine name="`${INST_NAME}`_VDDA_RANGE" value="`${(vdda &gt; 4.5) ? &quot;CY_SAR2_VDDA_4_5V_TO_5_5V&quot; : &quot;CY_SAR2_VDDA_2_7V_TO_4_5V&quot;}`" public="true" include="true" />
 
       <!-- The fitter only generates PORT_ADDR when the signal passes through an expansion mux. Other signals such as amuxbus or vmotor will not generate PORT_ADDR so define default here -->
       <ConfigDefine name="SARMUX0_CH$idx_PORT_ADDR" value="0" public="false" include="`${(InstNumber == 0) &amp;&amp; (channelNum &gt; $idx)}`" repeatCount="32" preventOverride="true" />
 
-      <ConfigStruct name="`${INST_NAME}`_channel_$idx_config" type="cy_stc_sar2_channel_config_t" const="`${inFlash}`" public="true" include="`${(channelNum &gt; $idx)}`" repeatCount="32" >
+      <ConfigDefine name="`${INST_NAME}`_`${ch$idx_name}`_IDX" value="($idxUL)" public="true" include="`${(channelNum &gt; $idx)}`" repeatCount="32" />
+
+      <ConfigStruct name="`${INST_NAME}`_`${ch$idx_name}`_config" type="cy_stc_sar2_channel_config_t" const="`${inFlash}`" public="true" include="`${(channelNum &gt; $idx)}`" repeatCount="32" >
         <Member name="channelHwEnable" value="`${ch$idx_isHWenabled}`" />
         <Member name="triggerSelection" value="`${ch$idx_triggerSelection}`" />
         <Member name="channelPriority" value="`${ch$idx_channelPriority}`U" />
@@ -230,38 +248,39 @@
         <Member name="sarMuxEnable" value="`${sarMuxEnable}`" />
         <Member name="adcEnable" value="`${adcEnable}`" />
         <Member name="sarIpEnable" value="`${sarIpEnable}`" />
-        <Member name="channelConfig" value="{`${(ch0_en ? (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_0_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch1_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_1_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch2_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_2_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch3_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_3_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch4_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_4_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch5_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_5_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch6_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_6_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch7_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_7_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch8_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_8_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch9_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_9_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch10_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_10_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch11_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_11_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch12_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_12_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch13_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_13_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch14_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_14_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch15_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_15_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch16_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_16_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch17_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_17_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch18_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_18_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch19_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_19_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch20_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_20_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch21_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_21_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch22_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_22_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch23_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_23_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch24_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_24_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch25_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_25_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch26_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_26_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch27_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_27_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch28_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_28_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch29_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_29_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch30_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_30_config,&#10;&quot; : &quot;NULL, &quot;) .
-           (ch31_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_channel_31_config&quot; : &quot;NULL&quot;)}`}" />
+        <Member name="channelConfig" value="{`${(ch0_en ? (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch0_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch1_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch1_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch2_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch2_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch3_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch3_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch4_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch4_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch5_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch5_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch6_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch6_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch7_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch7_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch8_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch8_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch9_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch9_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch10_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch10_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch11_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch11_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch12_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch12_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch13_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch13_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch14_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch14_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch15_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch15_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch16_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch16_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch17_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch17_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch18_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch18_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch19_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch19_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch20_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch20_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch21_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch21_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch22_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch22_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch23_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch23_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch24_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch24_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch25_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch25_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch26_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch26_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch27_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch27_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch28_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch28_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch29_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch29_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch30_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch30_name . &quot;_config,&#10;&quot; : &quot;NULL, &quot;) .
+            (ch31_en ? &quot;                      &quot; . (inFlash ? &quot;(cy_stc_sar2_channel_config_t *)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_&quot; . ch31_name . &quot;_config&quot; : &quot;NULL&quot;)}`}" />
+
       </ConfigStruct>
 
     <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`" />

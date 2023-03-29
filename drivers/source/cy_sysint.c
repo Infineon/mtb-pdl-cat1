@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_sysint.c
-* \version 1.80
+* \version 1.90 
 *
 * \brief
 * Provides an API implementation of the SysInt driver.
@@ -30,14 +30,14 @@
 
 #include "cy_sysint.h"
 
-CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.4', 1, 'Intentionally, the prototype and definition are in the same place.');
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.4', 1, 'Intentionally, the prototype and definition are in the same place.')
 #if defined (CY_IP_M7CPUSS)
 __WEAK cy_israddress * Cy_SysInt_SystemIrqUserTableRamPointer = NULL;
 #endif
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.4');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.4')
 
-CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.3', 1, 'Only one prototype will be picked for compilation');
-CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 2, 'Only one prototype will be picked for compilation');
+CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.3', 1, 'Only one prototype will be picked for compilation')
+CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 2, 'Only one prototype will be picked for compilation')
 #if (CY_CPU_CORTEX_M0P) || defined(CY_IP_M7CPUSS) || defined (CY_DOXYGEN)
 void Cy_SysInt_SetNmiSource(cy_en_sysint_nmi_t nmiNum, cy_en_intr_t intrSrc)
 #else
@@ -103,8 +103,8 @@ IRQn_Type Cy_SysInt_GetNmiSource(cy_en_sysint_nmi_t nmiNum)
     }
 #endif
 }
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6');
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.3')
 
 cy_en_sysint_status_t Cy_SysInt_Init(const cy_stc_sysint_t* config, cy_israddress userIsr)
 {
@@ -476,7 +476,7 @@ cy_israddress  Cy_SysInt_GetSystemIrqVector(cy_en_intr_t sysIntSrc)
     return userIsr;
 }
 
-CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 4, 'Valid Control expression conditions.');
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 4, 'Valid Control expression conditions.')
 void Cy_SysInt_EnableSystemInt(cy_en_intr_t sysIntSrc)
 {
     if (CY_CPU_CORTEX_M0P)
@@ -509,7 +509,7 @@ void Cy_SysInt_DisableSystemInt(cy_en_intr_t sysIntSrc)
         CPUSS->CM7_1_SYSTEM_INT_CTL[sysIntSrc] &= (uint32_t) ~CPUSS_CM7_1_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
     }
 }
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3')
 
 #endif
 

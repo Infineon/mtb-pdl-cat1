@@ -1100,7 +1100,7 @@ __STATIC_INLINE void Cy_SAR2_Channel_ClearInterrupt(PASS_SAR_Type * base, uint32
     CY_ASSERT_L1(CY_SAR2_CHAN_NUM_VALID(base, channel));
 
     SAR2_CH_INTR(base, channel) = (intrMask & CY_SAR2_INTR);
-    /* Dummy read for buffered writes. */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) SAR2_CH_INTR(base, channel);
 }
 

@@ -383,7 +383,7 @@
 extern "C" {
 #endif
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 24, \
-'CTBM_Type will typecast to either CTBM_V1_Type or CTBM_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'CTBM_Type will typecast to either CTBM_V1_Type or CTBM_V2_Type but not both on PDL initialization based on the target device at compile time.')
 
 /** \addtogroup group_ctb_macros
 * \{
@@ -1300,7 +1300,7 @@ __STATIC_INLINE void Cy_CTB_ClearInterrupt(CTBM_Type *base, cy_en_ctb_opamp_sel_
 
     CTBM_INTR(base) = (uint32_t) compNum;
 
-    /* Dummy read for buffered writes. */
+    /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) CTBM_INTR(base);
 }
 
@@ -1580,7 +1580,7 @@ __STATIC_INLINE void Cy_CTB_DisableRedirect(void)
 /** \} */
 
 /** \} group_ctb_functions */
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 
 #if defined(__cplusplus)
 }

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.h
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides the constants and parameter values for the memory-level
@@ -392,7 +392,96 @@ extern "C" {
 #define CMD_SEQ_OCTAL_DDR_CMD2_LEN_BYTE_OFFSET      (11U)                  /**< Octal DDR enable command 1 sequence length byte offset */
 #define CY_SMIF_SFDP_ODDR_CMD_SEQ_MAX_LEN           (8U)                   /**< Octal DDR enable command sequence maximum length */
 
-/** \cond INTERNAL */
+/* --------------------------------- HyperBus Macros ------------------------------------------- */
+#if (CY_IP_MXSMIF_VERSION>=2)
+/** Following Hyperbus commands are to be used in a sequence as specified in the Hyper Flash/RAM data sheet.
+    Please check the Command Summery section in the respective data sheet for the sequence to be followed. */
+/** LLD Command Definition */
+#define CY_SMIF_NOR_CFI_QUERY_CMD                         (0x98)           /**< HyperBus NOR CFI Query Command */
+#define CY_SMIF_NOR_CHIP_ERASE_CMD                        (0x10)           /**< HyperBus NOR Chip Erase Command */
+#define CY_SMIF_NOR_ERASE_SETUP_CMD                       (0x80)           /**< HyperBus NOR Erase Setup Command */
+#define CY_SMIF_NOR_RESET_CMD                             (0xF0)           /**< HyperBus NOR Reset Command */
+#define CY_SMIF_NOR_SECSI_SECTOR_ENTRY_CMD                (0x88)           /**< HyperBus NOR SECI Sector Entry Command */
+#define CY_SMIF_NOR_SECTOR_ERASE_CMD                      (0x30)           /**< HyperBus NOR Sector Erase Command */
+#define CY_SMIF_NOR_WRITE_BUFFER_LOAD_CMD                 (0x25)           /**< HyperBus NOR Write Buffer load Command */
+#define CY_SMIF_NOR_WRITE_BUFFER_PGM_CONFIRM_CMD          (0x29)           /**< HyperBus NOR Write Buffer Program Confirm Command */
+#define CY_SMIF_NOR_SET_CONFIG_CMD                        (0xD0)           /**< HyperBus NOR Set Config Command */
+#define CY_SMIF_NOR_BIT_FIELD_CMD                         (0xBF)           /**< HyperBus NOR Bit Field Command */
+
+#define CY_SMIF_NOR_ERASE_SUSPEND_CMD                     (0xB0)           /**< HyperBus NOR Erase Suspend Command */
+#define CY_SMIF_NOR_ERASE_RESUME_CMD                      (0x30)           /**< HyperBus NOR Erase Resume Command */
+#define CY_SMIF_NOR_PROGRAM_SUSPEND_CMD                   (0x51)           /**< HyperBus NOR Program Suspend Command */
+#define CY_SMIF_NOR_PROGRAM_RESUME_CMD                    (0x50)           /**< HyperBus NOR Program Resume Command */
+#define CY_SMIF_NOR_STATUS_REG_READ_CMD                   (0x70)           /**< HyperBus NOR Status Register Read Command */
+#define CY_SMIF_NOR_STATUS_REG_CLEAR_CMD                  (0x71)           /**< HyperBus NOR Status Register Clear Command */
+#define CY_SMIF_NOR_BLANK_CHECK_CMD                       (0x33)           /**< HyperBus NOR Blank Check Command */
+
+#define CY_SMIF_ENTER_SPI_MODE_CMD                        (0xF5)           /**< HyperBus NOR Enter SPI Mode Command */
+
+/** Command code definition */
+#define CY_SMIF_NOR_AUTOSELECT_CMD                        (0x90)           /**< HyperBus NOR Auto Select Command */
+#define CY_SMIF_NOR_PROGRAM_CMD                           (0xA0)           /**< HyperBus NOR Program Command */
+#define CY_SMIF_NOR_SECSI_SECTOR_EXIT_SETUP_CMD           (0x90)           /**< HyperBus NOR SECSI Sector Exit Setup Command */
+#define CY_SMIF_NOR_SECSI_SECTOR_EXIT_CMD                 (0x00)           /**< HyperBus NOR SECSI Sector Exit Command */
+#define CY_SMIF_NOR_UNLOCK_BYPASS_ENTRY_CMD               (0x20)           /**< HyperBus NOR Unlock Bypass Entry Command */
+#define CY_SMIF_NOR_UNLOCK_BYPASS_PROGRAM_CMD             (0xA0)           /**< HyperBus NOR Unlock Bypass Program Command */
+#define CY_SMIF_NOR_UNLOCK_BYPASS_RESET_CMD1              (0x90)           /**< HyperBus NOR Unlock Bypass Reset Command One */
+#define CY_SMIF_NOR_UNLOCK_BYPASS_RESET_CMD2              (0x00)           /**< HyperBus NOR Unlock Bypass Reset Command Two*/
+#define CY_SMIF_NOR_UNLOCK_DATA1                          (0xAA)           /**< HyperBus NOR Unlock Data One */
+#define CY_SMIF_NOR_UNLOCK_DATA2                          (0x55)           /**< HyperBus NOR Unlock Data Two */
+#define CY_SMIF_NOR_SUSPEND_CMD                           (0xB0)           /**< HyperBus NOR Suspend Command */
+#define CY_SMIF_NOR_RESUME_CMD                            (0x30)           /**< HyperBus NOR Resume Command */
+#define CY_SMIF_NOR_READ_CONFIG_CMD                       (0xC6)           /**< HyperBus NOR Read Config Command */
+#define CY_SMIF_NOR_WRITE_BUFFER_ABORT_RESET_CMD          (0xF0)           /**< HyperBus NOR Write Buffer Abort Reset Command */
+
+/** ---------------------------- Hyperbus Devise status register information -------------------- */
+
+#define CY_SMIF_DEV_RDY_MASK                              (0x80) /**< Device Ready Bit */
+#define CY_SMIF_DEV_ERASE_SUSP_MASK                       (0x40) /**< Erase Suspend Bit */
+#define CY_SMIF_DEV_ERASE_MASK                            (0x20) /**< Erase Status Bit */
+#define CY_SMIF_DEV_PROGRAM_MASK                          (0x10) /**< Program Status Bit */
+#define CY_SMIF_DEV_RFU_MASK                              (0x08) /**< Reserved */
+#define CY_SMIF_DEV_PROGRAM_SUSP_MASK                     (0x04) /**< Program Suspend Bit */
+#define CY_SMIF_DEV_SEC_LOCK_MASK                         (0x02) /**< Sector lock Bit */
+#define CY_SMIF_DEV_BANK_MASK                             (0x01) /**< Operation in current bank */
+#define CY_SMIF_DEV_CRCSSB_MASK                           (0x0100)  /**< CRC Suspend Bit, 1: suspend, 0: no suspend*/
+#define CY_SMIF_DEV_ESTAT_MASK                            (0x01)    /**< Sector Erase Status Bit (for Evaluate Erase Status)*/
+                                                                    /**<0=previous erase did not complete successfully*/
+                                                                    /**<1=previous erase completed successfully*/
+
+
+#define CY_SMIF_HB_FLASH_UNLOCK_ADDR1        0x00000555    /**< HyperBus Unlock Address One */
+#define CY_SMIF_HB_FLASH_UNLOCK_ADDR2        0x000002AA    /**< HyperBus Unlock Address Two */
+#define CY_SMIF_HB_FLASH_CFI_UNLOCK_ADDR1    0x00000055    /**< HyperBus CFI Unlock Address One */
+typedef uint32_t              CY_SMIF_FLASHDATA;           /**< HyperBus Flash Data Type */ 
+#endif /* (CY_IP_MXSMIF_VERSION>=2) */
+
+
+/** \cond INTERNAL */    
+
+#if (CY_IP_MXSMIF_VERSION>=2)                                                                
+/*****************************************************
+* Define Hyper Flash/RAM read/write macro to be used by LLD    *
+*****************************************************/
+#define CY_SMIF_FLASH_OFFSET(b,o)       (*(( (volatile CY_SMIF_FLASHDATA*)(b) ) + (o)))
+
+#if (CY_CPU_CORTEX_M7)
+  #define CY_SMIF_FLASH_WR(b,o,d)\
+  {\
+    __DMB();\
+    CY_SMIF_FLASH_OFFSET((b),(o)) = (d);\
+  }
+#else
+  #define CY_SMIF_FLASH_WR(b,o,d) CY_SMIF_FLASH_OFFSET((b),(o)) = (d)
+#endif
+#define CY_SMIF_FLASH_RD(b,o)   CY_SMIF_FLASH_OFFSET((b),(o))          
+
+#define CY_SMIF_HB_FLASH_BUF_SIZE_MULTIPLIER 1             
+#define HB_REG_SIZE_IN_HALFWORD 1
+
+#endif /* (CY_IP_MXSMIF_VERSION>=2) */
+
+
 /*******************************************************************************
 * These are legacy constants and API. They are left here just 
 * for backward compatibility.
@@ -436,6 +525,31 @@ extern "C" {
                                                              */
 #define MEM_MAPPED_SIZE_VALID(size) (((size) >= 0x10000U) && (0U == ((size)&((size)-1U))) )
 #define MEM_ADDR_SIZE_VALID(addrSize)  ((0U < (addrSize)) && ((addrSize) <= CY_SMIF_FOUR_BYTES_ADDR))
+
+/* ----------------------------------------- HyperBus Internal definitions ----------------------------------- */
+#if (CY_IP_MXSMIF_VERSION>=2)
+
+
+/* Hyperbus address format
+ *
+ */
+
+#define SMIF_HYPERBUS_ADR_LOWER_COL_ADDRESS_Pos                0UL
+#define SMIF_HYPERBUS_ADR_LOWER_COL_ADDRESS_Msk                0x7UL
+#define SMIF_HYPERBUS_ADR_BYTE_ENABLE_Pos                      13UL
+#define SMIF_HYPERBUS_ADR_BYTE_ENABLE_Msk                      0x6000UL
+#define SMIF_HYPERBUS_ADR_ROW_AND_UPPER_COL_ADDRESS_Pos        16UL
+#define SMIF_HYPERBUS_ADR_ROW_AND_UPPER_COL_ADDRESS_Msk        0xFFFF0000UL
+
+#define SMIF_HYPERBUS_CMD_ADDRESS_LAST_BYTE_Pos            0UL
+#define SMIF_HYPERBUS_CMD_ADDRESS_LAST_BYTE_Msk            0x3FUL
+#define SMIF_HYPERBUS_CMD_BURST_TYPE_Pos                   13UL
+#define SMIF_HYPERBUS_CMD_BURST_TYPE_Msk                   0x2000UL
+#define SMIF_HYPERBUS_CMD_TARGET_TYPE_Pos                  14UL
+#define SMIF_HYPERBUS_CMD_TARGET_TYPE_Msk                  0x4000UL
+#define SMIF_HYPERBUS_CMD_READ_WRITE_Pos                   15UL
+#define SMIF_HYPERBUS_CMD_READ_WRITE_Msk                   0x8000UL
+#endif /* (CY_IP_MXSMIF_VERSION>=2) */
 
 /** \endcond */
 /** \} group_smif_macros_sfdp */
@@ -527,6 +641,133 @@ typedef struct
 } cy_stc_smif_octal_ddr_en_seq_t;
 #endif
 
+
+/* ------------------------------------------------- HyperBus Enums ---------------------------------------------- */
+#if (CY_IP_MXSMIF_VERSION>=2)
+
+/** Specifies top 8 bit of read/write sequence (bit 47 ~ bit 40). only top 3 bits have meaning */
+/** bit 47: Identifies the transaction as a Read or Write. R/W#=1 indicates a Read operation and R/W#=0 indicates a Write operation. */
+/** bit 46: Indicates whether the Read or Write operation accesses the memory or register spaces. */
+/** bit 45: Indicates whether the burst will be continuous or wrapped. Burst Type=0 indicates Wrapped Burst, Burst Type=1 indicates Continuous Burst. */
+/** bit 46 is always 0, since this drive assumes accessing memory space in XIP mode */
+typedef enum
+{
+    CY_SMIF_HB_READ_WRAPPED_BURST    = 0x80, /**< bit 47 = 1: read, bit 45 = 0: wrapped burst */
+    CY_SMIF_HB_READ_CONTINUOUS_BURST = 0xA0, /**< bit 47 = 1: read, bit 45 = 1: continuous burst */
+} cy_en_smif_hb_rd_cmd_t;
+
+/** see \ref cy_en_smif_hb_rd_cmd_t */
+typedef enum
+{
+    CY_SMIF_HB_WRITE_WRAPPED_BURST    = 0x00, /**< bit 47 = 0: write, bit 45 = 0: wrapped burst */
+    CY_SMIF_HB_WRITE_CONTINUOUS_BURST = 0x20, /**< bit 47 = 0: write, bit 45 = 1: continuous burst */
+} cy_en_smif_hb_wt_cmd_t;
+
+/** Specifies hyper bus device type. FLASH or SRAM */
+typedef enum
+{
+    CY_SMIF_HB_FLASH = 0, /**< Hyper bus FLASH */
+    CY_SMIF_HB_SRAM  = 1, /**< Hyper bus SRAM */
+} cy_en_smif_hb_dev_type_t;
+
+/** The size of the device region specified by DEVICE_MASK register */
+typedef enum // casting int32_t is to avoid compiler error.
+{
+    CY_SMIF_DEVICE_1M_BYTE   = (int32_t)(0xFFF00000UL), /**< for 1M size device */
+    CY_SMIF_DEVICE_2M_BYTE   = (int32_t)(0xFFE00000UL), /**< for 2M size device */
+    CY_SMIF_DEVICE_4M_BYTE   = (int32_t)(0xFFC00000UL), /**< for 4M size device */
+    CY_SMIF_DEVICE_8M_BYTE   = (int32_t)(0xFF800000UL), /**< for 8M size device */
+    CY_SMIF_DEVICE_16M_BYTE  = (int32_t)(0xFF000000UL), /**< for 16M size device */
+    CY_SMIF_DEVICE_32M_BYTE  = (int32_t)(0xFE000000UL), /**< for 32M size device */
+    CY_SMIF_DEVICE_64M_BYTE  = (int32_t)(0xFC000000UL), /**< for 64M size device */
+    CY_SMIF_DEVICE_128M_BYTE = (int32_t)(0xF8000000UL), /**< for 128M size device */
+    CY_SMIF_DEVICE_256M_BYTE = (int32_t)(0xF0000000UL), /**< for 256M size device */
+    CY_SMIF_DEVICE_512M_BYTE = (int32_t)(0xE0000000UL), /**< for 512M size device */
+    CY_SMIF_DEVICE_1G_BYTE   = (int32_t)(0xC0000000UL), /**< for 1G size device */
+    CY_SMIF_DEVICE_2G_BYTE   = (int32_t)(0x80000000UL), /**< for 2G size device */
+    CY_SMIF_DEVICE_4G_BYTE   = (int32_t)(0x00000000UL), /**< for 4G size device */
+} cy_en_device_size_t;
+
+/** Specifies the size of a memory sub page */
+typedef enum
+{
+    SUB_PAGE_SIZE_8BYTE  = 0, /**< sub_page_size = 8 words = 16 bytes (default) */
+    SUB_PAGE_SIZE_16BYTE = 1, /**< sub_page_size = 16 words = 32 bytes */
+    SUB_PAGE_SIZE_32BYTE = 2, /**< sub_page_size = 32 words = 64 bytes */
+    SUB_PAGE_SIZE_64BYTE = 3,/**< sub_page_size = 64 words = 128 bytes */
+} en_cy_sub_page_size_t;
+
+/** Specifies the number of sub pages per page */
+typedef enum
+{
+    SUB_PAGE_1_PER_PAGE = 0, /**< 1 sub pages per page, i.e. page_size = sub_page_size */
+    SUB_PAGE_2_PER_PAGE = 1, /**< 2 sub pages per page, i.e. page_size = 2 x sub_page_size */
+    SUB_PAGE_4_PER_PAGE = 2, /**< 4 sub pages per page, i.e. page_size = 4 x sub_page_size */
+    SUB_PAGE_8_PER_PAGE = 3, /**< 8 sub pages per page, i.e. page_size = 8 x sub_page_size */
+} en_cy_sub_page_nr_t;
+
+/** Specifies the size of the XIP device address in Bytes */
+typedef enum
+{
+    CY_SMIF_XIP_ADDRESS_1_BYTE = 0, /**< 1 Byte address */
+    CY_SMIF_XIP_ADDRESS_2_BYTE = 1, /**< 2 Byte address */
+    CY_SMIF_XIP_ADDRESS_3_BYTE = 2, /**< 3 Byte address */
+    CY_SMIF_XIP_ADDRESS_4_BYTE = 3, /**< 4 Byte address */
+    CY_SMIF_XIP_ADDRESS_5_BYTE = 7, /**< 4 Byte address (spread over 5 bytes) according to Hyperbus protocol */
+} cy_en_smif_xip_addr_byte_t;
+
+/** Specify whether command to be transmitted is last one or not */
+typedef enum
+{
+    NOT_LAST_COMMAND = 0, /**< not last command */
+    LAST_COMMAND_BYTE = 1,/**< last command */
+} cy_en_smif_cmd_last_t;
+
+typedef enum
+{
+    CY_SMIF_HB_WRAPPED_BURST    = 0, /**< continue to wrap within the burst length */
+    CY_SMIF_HB_COUTINUOUS_BURST = 1, /**< output data in a sequential manner across page boundaries */
+} cy_en_hb_burst_type_t;
+
+/** read target. memory or register */
+typedef enum
+{
+    CY_SMIF_HB_TARGET_MEMORY   = 0, /**< memory */
+    CY_SMIF_HB_TARGET_REGISTER = 1, /**< register. it is used only for hyper SRAM */
+} cy_en_hb_target_t;
+
+/** read or write */
+typedef enum
+{
+    CY_SMIF_HB_WRITE   = 0, /**< write */
+    CY_SMIF_HB_READ    = 1, /**< read */
+} cy_en_hb_read_write_t;
+
+
+/* ----------------------------------------------------- HyperBus Data Structures ----------------------------------- */
+
+
+typedef struct
+{
+    cy_en_smif_hb_rd_cmd_t         xipReadCmd;         /**< read command value \ref cy_en_smif_hb_rd_cmd_t */
+    cy_en_smif_hb_wt_cmd_t         xipWriteCmd;        /**< write command value \ref cy_en_smif_hb_rd_cmd_t */
+    bool                           mergeEnable;        /**< merge enable */
+    cy_en_smif_merge_timeout_t     mergeTimeout;       /**< merge timeout value */
+    bool                           totalTimeoutEnable; /**< total timeout enable */
+    uint16_t                       totalTimeout;       /**< total timeout in clk_mem cycles */
+    cy_en_smif_hb_dev_type_t       hbDevType;          /**< hyper bus device type \ref cy_en_smif_hb_dev_type_t */
+    uint32_t                       startAddr;          /**< base address in XIP mode */
+    cy_en_device_size_t            memSize;            /**< The memory size: For densities of 2 gigabits or less - the size in bytes;
+                                                          * For densities 4 gigabits and above - bit-31 is set to 1b to define that
+                                                          * this memory is 4 gigabits and above; and other 30:0 bits define N where
+                                                          * the density is computed as 2^N bytes.
+                                                          * For example, 0x80000021 corresponds to 2^30 = 1 gigabyte.
+                                                          */
+    cy_en_smif_slave_select_t      slaveSelect;        /**< Determines the slave select where the memory device is placed */
+    cy_en_smif_data_select_t       dataSelect;         /**< The data-line selection options for a slave device */
+    uint32_t                       dummyCycles;        /**< dummy Cycles based on Frequency of operation */
+} cy_stc_smif_hbmem_device_config_t;
+#endif  /* (CY_IP_MXSMIF_VERSION>=2) */
 /**
 *
 * This configuration structure of the SMIF memory device is used to store
@@ -617,6 +858,8 @@ typedef struct
      * continuous address, starts with the overhead phases (command, address, mode, dummy cycles).
      * This configuration parameter is available for CAT1B, CAT1C and CAT1D devices. */
     cy_en_smif_merge_timeout_t mergeTimeout;
+    
+    cy_stc_smif_hbmem_device_config_t* hbdeviceCfg;  /**< The configuration of the hyperbus device */
 #endif /* CY_IP_MXSMIF_VERSION */
 
 } cy_stc_smif_mem_config_t;
@@ -735,6 +978,248 @@ cy_en_smif_status_t Cy_SMIF_MemCmdPowerDown(SMIF_Type *base,
 cy_en_smif_status_t Cy_SMIF_MemCmdReleasePowerDown(SMIF_Type *base,
                                     cy_stc_smif_mem_config_t const *memDevice,
                                     cy_stc_smif_context_t const *context);
+                                  
+#if (CY_IP_MXSMIF_VERSION>=2)
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_HyperBus_InitDevice
+****************************************************************************//**
+*
+* This function sets up SMIF registers for hyper bus memory.
+*
+* \param device
+* Holds the base address of the SMIF Device registers.
+*
+* \param config
+* Configuration to be applied to the SMIF device \ref cy_stc_smif_hbmem_device_config_t
+*
+* \param context
+* This is the pointer to the context structure \ref cy_stc_smif_context_t
+* allocated by the user. The structure is used during the SMIF
+* operation for internal configuration and data retention. The user must not
+* modify anything in this structure.
+*
+* \return
+*     - \ref CY_SMIF_BAD_PARAM
+*     - \ref CY_SMIF_SUCCESS
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_smif_hbmem_device_config_t *config, cy_stc_smif_context_t *context);
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_HyperBus_CalibrateDelay
+****************************************************************************//**
+*
+* This function reads the calibration data pattern in the Hyper memory for every
+* delay tap of the currently selected delay line and records whether it matches
+* the reference pattern. After all taps have been scanned, it determines the
+* center tap of the longest sequence of matches and applies this tap.
+*
+* \note Function assumes that any SMIF has the same number of delay taps
+*
+* \param base
+* Holds the base address of the SMIF Device registers.
+*
+* \param memConfig
+* SMIF memory configuration structure for memory mode of operation.
+*
+* \param dummyCycles
+* Dummy Cycles based on Frequency of operation
+*
+* \param calibrationDataOffsetFromBase
+* Address offset of the calibration data from the device's XIP base address
+*
+* \param context
+* Current SMIF driver context
+*
+* \return \ref cy_en_smif_status_t
+*       
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif_mem_config_t *memConfig, uint8_t dummyCycles, uint32_t calibrationDataOffsetAddress, cy_stc_smif_context_t *context);
+
+/*******************************************************************************
+* Function Cy_SMIF_HyperBus_Read
+****************************************************************************//**
+*
+* This function reads data from hyper bus memory in MMIO mode.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param memConfig
+* SMIF memory configuration structure for memory mode of operation.
+*
+* \param burstType
+* Specifies wrapped or continuous burst. \ref en_hb_bust_type_t
+*
+* \param readAddress
+* Specifies address of external device to be read.
+*
+* \param sizeInHalfWord
+* Specifies memory size to be read.
+* Note hyper bus memory have 16bit data per each address.
+*
+* \param buf
+* Pointer to buffer where read data to be stored
+*
+* \param dummyCycles
+* Dummy Cycles based on Frequency of operation
+*
+* \param dobleLat
+* double initial latency or single initial latency
+*
+* \param isblockingMode
+* Blocking mode or not. if this is true, process waits for the read finished in this
+* function. unless, the process does not wait and exit function.
+*
+* \param context
+* Passes a configuration structure that contains the transfer parameters of the
+* SMIF block.
+*
+* \return \ref cy_en_smif_status_t
+*
+*******************************************************************************/
+ cy_en_smif_status_t Cy_SMIF_HyperBus_Read(SMIF_Type *base,
+                                        cy_stc_smif_mem_config_t *memConfig,
+                                        cy_en_hb_burst_type_t burstType,
+                                        uint32_t readAddress,
+                                        uint32_t sizeInHalfWord,
+                                        uint16_t buf[],
+                                        uint32_t dummyCycles,
+                                        bool doubleLat,
+                                        bool isblockingMode,
+                                        cy_stc_smif_context_t *context);
+
+/*******************************************************************************
+* Function Cy_SMIF_HyperBus_Write
+****************************************************************************//**
+*
+* This function writes data into hyper bus memory in MMIO mode.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param memConfig
+* SMIF memory configuration structure for memory mode of operation.
+*
+* \param burstType
+* Specifies wrapped or continuous burst. \ref en_hb_bust_type_t
+*
+* \param readAddress
+* Specifies address of external device to be read.
+*
+* \param sizeInHalfWord
+* Specifies memory size to be read.
+* Note hyper bus memory have 16bit data per each address.
+*
+* \param buf
+* Pointer to buffer where read data to be stored
+*
+* \param hbDevType
+* Specifies hyper bus type. FLASH or SRAM. \ref cy_en_smif_hb_dev_type_t
+*
+* \param dummyCycles
+* Dummy Cycles based on Frequency of operation.
+*
+* \param isblockingMode
+* Blocking mode or not. if this is true, process waits for the read finished in this
+* function. unless, the process does not wait and exit function.
+*
+* \param context
+* Passes a configuration structure that contains the transfer parameters of the
+* SMIF block.
+*
+* \return \ref cy_en_smif_status_t
+*
+*******************************************************************************/
+ cy_en_smif_status_t Cy_SMIF_HyperBus_Write(SMIF_Type *base,
+                                        cy_stc_smif_mem_config_t *memConfig,
+                                        cy_en_hb_burst_type_t burstType,
+                                        uint32_t writeAddress,
+                                        uint32_t sizeInHalfWord,
+                                        uint16_t buf[],
+                                        cy_en_smif_hb_dev_type_t hbDevType,
+                                        uint32_t dummyCycles,
+                                        bool isblockingMode,
+                                        cy_stc_smif_context_t *context);
+
+/*******************************************************************************
+* Function Name: CY_SMIF_HyperBus_ReadStatus
+****************************************************************************//**
+*
+* This function reads the flash status register bits.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param memConfig
+* SMIF memory configuration structure for memory mode of operation.
+*
+* \param regStatus
+* output status register value.
+*
+* \return \ref cy_en_smif_status_t
+*
+
+*******************************************************************************/
+cy_en_smif_status_t CY_SMIF_HyperBus_ReadStatus(SMIF_Type *base, cy_stc_smif_mem_config_t *memConfig, uint16_t *regStatus, cy_stc_smif_context_t *context);
+
+/*******************************************************************************
+* Function Name: CY_SMIF_HyperBus_ClearStatus
+****************************************************************************//**
+*
+* This function clears the flash status register bits.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param memConfig
+* SMIF memory configuration structure for memory mode of operation.
+*
+* \return \ref cy_en_smif_status_t
+*
+*******************************************************************************/
+cy_en_smif_status_t CY_SMIF_HyperBus_ClearStatus(SMIF_Type *base, cy_stc_smif_mem_config_t *memConfig, cy_stc_smif_context_t *context);
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_HyperBus_EraseSector
+****************************************************************************//**
+*
+* This function Erases the data in the given sector.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param memConfig
+* SMIF memory configuration structure for memory mode of operation.
+*
+* \param offset
+* offset of the sector to be erased.
+*
+* \return \ref cy_en_smif_status_t
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_HyperBus_EraseSector(SMIF_Type *base, cy_stc_smif_mem_config_t *memConfig, uint32_t offset, cy_stc_smif_context_t *context);
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_HyperBus_EraseChip
+****************************************************************************//**
+*
+* This function Erases the data in the entire flash memory.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param memConfig
+* SMIF memory configuration structure for memory mode of operation.
+*
+* \return \ref cy_en_smif_status_t
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_HyperBus_EraseChip(SMIF_Type *base, cy_stc_smif_mem_config_t *memConfig, cy_stc_smif_context_t *context);
+
+#endif /* (CY_IP_MXSMIF_VERSION>=2) */
 
 /** \} group_smif_mem_slot_functions */
 

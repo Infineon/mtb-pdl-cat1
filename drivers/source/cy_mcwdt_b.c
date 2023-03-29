@@ -344,7 +344,7 @@ void Cy_MCWDT_SetSubCounter2Action(MCWDT_Type *base, cy_en_mcwdt_cnt2_action_t a
     MCWDT_CTR2_CONFIG(base) = _CLR_SET_FLD32U(MCWDT_CTR2_CONFIG(base), MCWDT_CTR2_CONFIG_ACTION, action);
 }
 
-CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 4, 'Intentional typecast to cy_en_mcwdt_lower_upper_action_t enum.');
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 4, 'Intentional typecast to cy_en_mcwdt_lower_upper_action_t enum.')
 /*******************************************************************************
 * Function Name: Cy_MCWDT_GetLowerAction
 ****************************************************************************//**
@@ -424,7 +424,7 @@ cy_en_mcwdt_lower_upper_action_t  Cy_MCWDT_GetUpperAction(MCWDT_Type *base, cy_e
 
     return upperLimitActionType; /* Control shouldn't reach here, fixes IAR compilation warning */
 }
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
 
 /*******************************************************************************
 * Function Name: Cy_MCWDT_GetWarnAction

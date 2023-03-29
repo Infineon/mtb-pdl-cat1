@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_quaddec.h
-* \version 1.40
+* \version 1.50
 *
 * \brief
 * The header file of the TCPWM Quadrature Decoder driver.
@@ -169,7 +169,10 @@ typedef struct cy_stc_tcpwm_quaddec_config
     uint32_t    trigger0Event;
     /** Configures which internal event generates on output trigger 1. */
     uint32_t    trigger1Event;
-#endif
+#endif /* (CY_IP_MXTCPWM_VERSION >= 2U) || defined (CY_DOXYGEN) */
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+    bool        buffer_swap_enable; /**< Configures swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT  */
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN) */
 }cy_stc_tcpwm_quaddec_config_t;
 /** \} group_tcpwm_data_structures_quaddec */
 
@@ -274,6 +277,9 @@ __STATIC_INLINE void Cy_TCPWM_QuadDec_SetPeriod1(TCPWM_Type *base, uint32_t cntN
 __STATIC_INLINE uint32_t Cy_TCPWM_QuadDec_GetPeriod1(TCPWM_Type const *base, uint32_t cntNum);
 __STATIC_INLINE void Cy_TCPWM_QuadDec_TriggerIndex1 (TCPWM_Type *base, uint32_t cntNum);
 #endif
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+__STATIC_INLINE void Cy_TCPWM_QuadDec_EnableSwap(TCPWM_Type *base, uint32_t cntNum,  bool enable);
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN) */
 
 /*******************************************************************************
 * Function Name: Cy_TCPWM_QuadDec_Enable
@@ -884,6 +890,31 @@ __STATIC_INLINE void Cy_TCPWM_QuadDec_TriggerIndex1 (TCPWM_Type *base, uint32_t 
     Cy_TCPWM_TriggerCapture0(base, cntNum);
 }
 #endif
+
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_TCPWM_QuadDec_EnableSwap
+****************************************************************************//**
+*
+* Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT.
+*
+* \param base
+* The pointer to a TCPWM instance.
+*
+* \param cntNum
+* The Counter instance number in the selected TCPWM.
+*
+* \param enable
+* true = swap enabled; false = swap disabled
+*
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_TCPWM_QuadDec_EnableSwap(TCPWM_Type *base, uint32_t cntNum,  bool enable)
+{
+    Cy_TCPWM_Block_EnableSwap(base, cntNum, enable);
+}
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) */
+
 /** \} group_tcpwm_functions_quaddec */
 
 /** \} group_tcpwm_quaddec */

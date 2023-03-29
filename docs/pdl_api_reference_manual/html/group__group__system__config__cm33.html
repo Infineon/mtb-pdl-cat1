@@ -136,6 +136,8 @@ ARM GCC</h3>
 The stack and heap sizes are defined in the linker script file: 'cyw20829_ns_flash_cbus.ld'. Change the stack size by modifying the following line:<br />
 <div class="fragment"><div class="line">STACK_SIZE = 0x00001000; </div></div><!-- fragment --> Remaining free RAM is used as heap.</li>
 </ul>
+<dl class="section note"><dt>Note</dt><dd>Correct operation of malloc and related functions depends on the working implementation of the 'sbrk' function. Newlib-nano (default C runtime library used by the GNU Arm Embedded toolchain) provides weak 'sbrk' implementation that doesn't check for heap and stack collisions during excessive memory allocations. To ensure the heap always remains within the range defined by __HeapBase and __HeapLimit linker symbols, provide a strong override for the 'sbrk' function: <div class="fragment"><div class="line"><span class="keywordtype">void</span> * _sbrk(uint32_t incr)</div><div class="line">{</div><div class="line">    <span class="keyword">extern</span> uint8_t __HeapBase, __HeapLimit;</div><div class="line">    <span class="keyword">static</span> uint8_t *heapBrk = &amp;__HeapBase;</div><div class="line">    uint8_t *prevBrk = heapBrk;</div><div class="line">    <span class="keywordflow">if</span> (incr &gt; (uint32_t)(&amp;__HeapLimit - heapBrk))</div><div class="line">    {</div><div class="line">        errno = ENOMEM;</div><div class="line">        CY_HALT();</div><div class="line">    }</div><div class="line">    heapBrk += incr;</div><div class="line">    <span class="keywordflow">return</span> prevBrk;</div><div class="line">}</div></div><!-- fragment -->For FreeRTOS-enabled multi-threaded applications, it is sufficient to include clib-support library that provides newlib-compatible implementations of 'sbrk', '__malloc_lock' and '__malloc_unlock': <br />
+ <a href="https://github.com/Infineon/clib-support">https://github.com/Infineon/clib-support</a>.</dd></dl>
 <h3><a class="anchor" id="group_system_config_heap_stack_config_arm_cm33"></a>
 ARM Compiler</h3>
 <ul>
@@ -178,8 +180,6 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version </th><th>Changes </th><th>Reason for Change  </th></tr>
-<tr>
-<td>1.2 </td><td>Added new internal functions. </td><td>Added support for DSRAM Setup for CAT1B devices.  </td></tr>
 <tr>
 <td>1.1 </td><td>Restructured documentation and internal function behaviour. </td><td>User experience enhancement.  </td></tr>
 <tr>

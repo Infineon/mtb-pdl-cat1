@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_vu.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the headers to the API for the utils
@@ -49,36 +49,6 @@ extern "C" {
 * \addtogroup group_crypto_lld_vu_functions
 * \{
 */
-
-/*******************************************************************************
-* Function Name: Cy_Crypto_Core_Cleanup
-****************************************************************************//**
-*
-* Cleans up the Crypto block.
-*
-* \param base
-* The pointer to the CRYPTO instance.
-*
-* \return
-* \ref cy_en_crypto_status_t
-*
-*******************************************************************************/
-cy_en_crypto_status_t Cy_Crypto_Core_Cleanup(CRYPTO_Type *base);
-
-/*******************************************************************************
-* Function Name: Cy_Crypto_Core_Shutdown
-****************************************************************************//**
-*
-* Cleans up the Crypto block, disable it and reset all crypto registers.
-*
-* \param base
-* The pointer to the CRYPTO instance.
-*
-* \return
-* \ref cy_en_crypto_status_t
-*
-*******************************************************************************/
-cy_en_crypto_status_t Cy_Crypto_Core_Shutdown(CRYPTO_Type *base);
 
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_Vu_SetMemValue

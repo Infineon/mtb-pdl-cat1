@@ -11,6 +11,13 @@ var group__group__smif__enums =
       [ "CY_SMIF_BUS_ERROR", "group__group__smif__enums.html#ggaf2f886b17b9d40712b212e704665341ea4ee6427df49e552167b2eb7a70f4afc4", null ],
       [ "CY_SMIF_WAIT_STATES", "group__group__smif__enums.html#ggaf2f886b17b9d40712b212e704665341ea5922917a7d181f8611ad7c42530e6b2e", null ]
     ] ],
+    [ "cy_en_smif_delay_line_t", "group__group__smif__enums.html#gac8b02cedcfc8e351babc713066562b39", [
+      [ "CY_SMIF_1_NEW_SEL_PER_TAP", "group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39af98b1747b2fd2c929594f9d951fcebf2", null ],
+      [ "CY_SMIF_1_SEL_PER_TAP", "group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39af22fafbcafed835cfa52848b80497e42", null ],
+      [ "CY_SMIF_2_SEL_PER_TAP", "group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39a401055c79b352d713745b0f3ce7e2ce2", null ],
+      [ "CY_SMIF_4_SEL_PER_TAP", "group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39ad7e2094b599fee3b7fdaf4b82941c262", null ],
+      [ "CY_SMIF_NO_DELAY_SEL", "group__group__smif__enums.html#ggac8b02cedcfc8e351babc713066562b39ac31cf35a79d1c9a5d2981c031d268fc1", null ]
+    ] ],
     [ "cy_en_smif_data_select_t", "group__group__smif__enums.html#ga6d9ba2ef785b94cf542c573a51a0eb58", [
       [ "CY_SMIF_DATA_SEL0", "group__group__smif__enums.html#gga6d9ba2ef785b94cf542c573a51a0eb58a7544d58a69a1a2308ebd0cac9099cd24", null ],
       [ "CY_SMIF_DATA_SEL1", "group__group__smif__enums.html#gga6d9ba2ef785b94cf542c573a51a0eb58aea788bbd0455b21a3a519b9e69f5e48a", null ],
@@ -20,6 +27,10 @@ var group__group__smif__enums =
     [ "cy_en_smif_mode_t", "group__group__smif__enums.html#ga2baa7c37d2cedf2e2c837facc753ab5d", [
       [ "CY_SMIF_NORMAL", "group__group__smif__enums.html#gga2baa7c37d2cedf2e2c837facc753ab5da4fe852fb31547c77b31203ec5c43ca91", null ],
       [ "CY_SMIF_MEMORY", "group__group__smif__enums.html#gga2baa7c37d2cedf2e2c837facc753ab5da562131834e2b77b141db45354e8584ec", null ]
+    ] ],
+    [ "cy_en_smif_delay_tap_t", "group__group__smif__enums.html#ga11e3351473d01a0f29bf6f3b41d3be7e", [
+      [ "CY_SMIF_DELAY_TAP_DISABLE", "group__group__smif__enums.html#gga11e3351473d01a0f29bf6f3b41d3be7eac6bbaee7d8f741475d222ecc46dddd0e", null ],
+      [ "CY_SMIF_DELAY_TAP_ENABLE", "group__group__smif__enums.html#gga11e3351473d01a0f29bf6f3b41d3be7eac2c7d8aaa8407dafc6145d948f7303c3", null ]
     ] ],
     [ "cy_en_smif_txfr_status_t", "group__group__smif__enums.html#gaf65a7e26c18fcd3d3469eb083f78bb85", [
       [ "CY_SMIF_STARTED", "group__group__smif__enums.html#ggaf65a7e26c18fcd3d3469eb083f78bb85af8688bbff17a71e7112aebf2b1535d44", null ],
@@ -48,7 +59,8 @@ var group__group__smif__enums =
       [ "CY_SMIF_CMD_NOT_FOUND", "group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a9972908ec392b0c3a3ccd2e2f837e64e", null ],
       [ "CY_SMIF_SFDP_BUFFER_INSUFFICIENT", "group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41ae7a17d3a2df0fe50b4fb8d6c6878049c", null ],
       [ "CY_SMIF_NO_OE_BIT", "group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41ab6ceed21f5d3338e1a772300e875f9ba", null ],
-      [ "CY_SMIF_BUSY", "group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41abcf28a2ae38dd12e0457ac2de2dd50f4", null ]
+      [ "CY_SMIF_BUSY", "group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41abcf28a2ae38dd12e0457ac2de2dd50f4", null ],
+      [ "CY_SMIF_GENERAL_ERROR", "group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a1d7590cc198727421df0fb89cb29fd0b", null ]
     ] ],
     [ "cy_en_smif_slave_select_t", "group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312", [
       [ "CY_SMIF_SLAVE_SELECT_0", "group__group__smif__enums.html#ggad776a0db9224477ab865254a32d9e312ae942102fb4b1a03a13ca8950b607520d", null ],
@@ -68,6 +80,8 @@ var group__group__smif__enums =
       [ "CY_SMIF_SEL_INVERTED_FEEDBACK_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2acf3a629de8ff74f250bbea4556d37f12", null ],
       [ "CY_SMIF_SEL_INTERNAL_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781", null ],
       [ "CY_SMIF_SEL_INVERTED_INTERNAL_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951", null ],
+      [ "CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a7be183a84edad0a54b9f904adde220f1", null ],
+      [ "CY_SMIF_SEL_SPHB_RWDS_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a362ac834bf61cb63069dff4babdd88ba", null ],
       [ "CY_SMIF_SEL_INTERNAL_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781", null ],
       [ "CY_SMIF_SEL_INVERTED_INTERNAL_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951", null ],
       [ "CY_SMIF_SEL_FEEDBACK_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a01562434f399951279bf855c38567d76", null ],
@@ -80,6 +94,8 @@ var group__group__smif__enums =
       [ "CY_SMIF_SEL_INVERTED_FEEDBACK_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2acf3a629de8ff74f250bbea4556d37f12", null ],
       [ "CY_SMIF_SEL_INTERNAL_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781", null ],
       [ "CY_SMIF_SEL_INVERTED_INTERNAL_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951", null ],
+      [ "CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a7be183a84edad0a54b9f904adde220f1", null ],
+      [ "CY_SMIF_SEL_SPHB_RWDS_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a362ac834bf61cb63069dff4babdd88ba", null ],
       [ "CY_SMIF_SEL_INTERNAL_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a07c9e8b3608dc15ec3fbf4ffe866a781", null ],
       [ "CY_SMIF_SEL_INVERTED_INTERNAL_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951", null ],
       [ "CY_SMIF_SEL_FEEDBACK_CLK", "group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a01562434f399951279bf855c38567d76", null ],

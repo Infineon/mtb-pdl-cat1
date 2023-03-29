@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_ezi2c.h
-* \version 3.0
+* \version 3.10
 *
 * Provides EZI2C API declarations of the SCB driver.
 *
@@ -495,10 +495,10 @@ cy_en_syspm_status_t Cy_SCB_EZI2C_HibernateCallback(cy_stc_syspm_callback_params
 
 /** \cond INTERNAL */
 /* Default registers values */
-#if ((CY_IP_MXSCB_VERSION>=2) || defined (CY_IP_MXS22SCB))
+#if ((defined (CY_IP_MXSCB_VERSION) && (CY_IP_MXSCB_VERSION>=2)) || defined (CY_IP_MXS22SCB))
 #define CY_SCB_EZI2C_I2C_CTRL   (SCB_I2C_CTRL_S_GENERAL_IGNORE_Msk | SCB_I2C_CTRL_SLAVE_MODE_Msk | \
                                  SCB_I2C_CTRL_S_READY_ADDR_ACK_Msk | SCB_I2C_CTRL_S_READY_DATA_ACK_Msk)
-#elif (CY_IP_MXSCB_VERSION==1)
+#elif (defined (CY_IP_MXSCB_VERSION) && (CY_IP_MXSCB_VERSION==1))
 #define CY_SCB_EZI2C_I2C_CTRL   (SCB_I2C_CTRL_S_GENERAL_IGNORE_Msk | SCB_I2C_CTRL_SLAVE_MODE_Msk)
 #endif /* CY_IP_MXSCB_VERSION */
 #define CY_SCB_EZI2C_RX_CTRL    (CY_SCB_I2C_RX_CTRL)

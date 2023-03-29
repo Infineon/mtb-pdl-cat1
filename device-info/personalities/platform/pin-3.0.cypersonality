@@ -147,9 +147,12 @@
     <ParamRange id="port" name="Port number" group="Internal" default="`${getInstNumber(&quot;port&quot;)}`" min="0" max="127" resolution="1" visible="false" editable="false" desc="" />
     <ParamRange id="pin" name="Pin number" group="Internal" default="`${getInstNumber(&quot;pin&quot;)}`" min="0" max="7" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="blockName" name="Block name" group="Internal" default="`${&quot;ioss_0_port_&quot; . port . &quot;_pin_&quot; . pin}`" visible="false" editable="false" desc="" />
-    <ParamBool id="isSMIFV5" name="Is SMIF IP V5" group="Internal" default="`${hasExposedMember(&quot;smif[0]&quot;, &quot;smif_ip_version&quot;) ? (getExposedMember(&quot;smif[0]&quot;, &quot;smif_ip_version&quot;) eq 5) : false}`" visible="false" editable="false" desc="Check If SMIF IP version is V5" />
-    <ParamBool id="isSMIFPortsEnabled" name="Is SMIF Ports Enabled" group="Internal" default="`${isSMIFV5 &amp;&amp; ((port eq 1) || (port eq 4))}`" visible="false" editable="false" desc="Check If SMIF is enabled" />
-    <ParamString id="smifPortString" name="SMIF Port String" group="Internal" default="`${port eq 1 ? &quot;(GPIO_PRT_Type*)SMIF0_CORE0_SMIF_HSIOM_SMIF_PRT0&quot; : &quot;SMIF0_CORE1_SMIF_HSIOM_SMIF_PRT0&quot;}`" visible="false" editable="false" desc="SMIF Port Number" />
+
+    <ParamString id="smif" name="smif" group="smif" default="`${findConnectedBlock(&quot;aux[0]&quot;, &quot;smif.core&quot;)}`" visible="false" editable="false" desc="" />
+    <ParamBool id="hasSmifConn" name="hasSmifConn" group="Internal" default="`${smif ne &quot;&quot;}`" visible="false" editable="false" desc="" />
+    <ParamString id="smifCore" name="smifCore" group="smif" default="`${ hasSmifConn ? getInstFromLocation(findConnectedBlock(&quot;aux[0]&quot;, &quot;smif.core&quot;), &quot;core&quot;) : &quot;&quot;}`" visible="false" editable="false" desc="" />
+	<ParamString id="smifPortString" name="SMIF Port String" group="Internal" default="`${hasSmifConn ? &quot;(GPIO_PRT_Type*)SMIF0_CORE&quot; . smifCore . &quot;_SMIF_GPIO_SMIF_PRT0&quot; : &quot;&quot;}`" visible="false" editable="false" desc="SMIF Port Number" />
+
   </Parameters>
   
   <DRCs>  
@@ -168,7 +171,7 @@
     <ConfigInclude value="cycfg_routing.h" include="`${hasDigitalOrAnalogConnection}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
     
-    <ConfigDefine name="`${INST_NAME}`_PORT" value="`${isSMIFPortsEnabled ? smifPortString : &quot;GPIO_PRT&quot;. port}`" public="true" include="true" />
+    <ConfigDefine name="`${INST_NAME}`_PORT" value="`${hasSmifConn ? smifPortString : &quot;GPIO_PRT&quot;. port}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_PORT_NUM" value="`${port}`U" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_PIN" value="`${pin}`U" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${pin}`U" public="true" include="true" />
@@ -176,7 +179,7 @@
     <ConfigDefine name="`${INST_NAME}`_INIT_DRIVESTATE" value="`${initialState}`" public="true" include="true" />
     <ConfigDefine name="`${blockName . &quot;_HSIOM&quot;}`" value="HSIOM_SEL_GPIO" public="true" include="true" preventOverride="true" />
     <ConfigDefine name="`${INST_NAME}`_HSIOM" value="`${blockName . &quot;_HSIOM&quot;}`" public="true" include="`${!(INST_NAME eq blockName)}`" />
-    <ConfigDefine name="`${INST_NAME}`_IRQ" value="ioss_interrupts_gpio_`${port}`_IRQn" public="true" include="`${hasIRQ}`" />
+    <ConfigDefine name="`${INST_NAME}`_IRQ" value="`${(nonSec eq 1) ? &quot;ioss_interrupts_&quot; : &quot;ioss_interrupts_sec_&quot;}`gpio_`${port}`_IRQn" public="true" include="`${hasIRQ}`" />
     <ConfigDefine name="`${INST_NAME}`_HAL_PORT_PIN" value="P`${port}`_`${pin}`" public="true" include="true" guard="defined (CY_USING_HAL)"/>
     <ConfigDefine name="`${INST_NAME}`" value="P`${port}`_`${pin}`" public="true" include="true" guard="defined (CY_USING_HAL)" />
     <ConfigDefine name="`${INST_NAME}`_HAL_IRQ" value="`${(isrTrigger eq CY_GPIO_INTR_DISABLE) ? &quot;CYHAL_GPIO_IRQ_NONE&quot; :

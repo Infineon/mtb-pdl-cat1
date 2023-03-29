@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysint.h
-* \version 1.80
+* \version 1.90
 *
 * \brief
 * Provides an API declaration of the SysInt driver
@@ -204,6 +204,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.90</td>
+*     <td>Updated \ref Cy_SysInt_Init, \ref Cy_SysInt_SetVector and \ref Cy_SysInt_GetVector APIs.</td>
+*     <td>Code Clean up.</td> 
+*   </tr>
+*   <tr>
 *     <td>1.80</td>
 *     <td>API's Cy_SysInt_SetInterruptSource(), Cy_SysInt_GetInterruptSource(), Cy_SysInt_DisconnectInterruptSource(),
 *         Cy_SysInt_SetNmiSource(), Cy_SysInt_GetNmiSource(), Cy_SysInt_SoftwareTrig(), Cy_SysInt_GetNvicConnection(),
@@ -333,10 +338,10 @@ extern "C" {
 
 #if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 2, \
-'Coverity does not check the .S assembly files, the definition is a part of startup_psoc6_04_cm4.s file.');
+'Coverity does not check the .S assembly files, the definition is a part of startup_psoc6_04_cm4.s file.')
 extern const cy_israddress __Vectors[]; /**< Vector table in flash */
 extern cy_israddress __ramVectors[]; /**< Relocated vector table in SRAM */
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 #endif /* CY_IP_M4CPUSS */
 
 /** \} group_sysint_globals */
@@ -355,7 +360,7 @@ CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6');
 #define CY_SYSINT_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_SYSINT_DRV_VERSION_MINOR    80
+#define CY_SYSINT_DRV_VERSION_MINOR    90
 
 /** SysInt driver ID */
 #define CY_SYSINT_ID CY_PDL_DRV_ID     (0x15U)
@@ -925,9 +930,9 @@ void Cy_SysInt_DisableSystemInt(cy_en_intr_t sysIntSrc);
 * \snippet sysint/snippet/main.c snippet_Cy_SysInt_SetNmiSource
 *
 *******************************************************************************/
-CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 2, 'Only one prototype will be picked for compilation');
-CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.5', 2, 'Only one prototype will be picked for compilation');
-CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.3', 2, 'Only one prototype will be picked for compilation');
+CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 2, 'Only one prototype will be picked for compilation')
+CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.5', 2, 'Only one prototype will be picked for compilation')
+CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.3', 2, 'Only one prototype will be picked for compilation')
 #if (((CY_CPU_CORTEX_M0P) || defined (CY_IP_M7CPUSS) || defined (CY_DOXYGEN)) && !defined(CY_IP_M0SECCPUSS))
 void Cy_SysInt_SetNmiSource(cy_en_sysint_nmi_t nmiNum, cy_en_intr_t devIntrSrc);
 #else
@@ -959,9 +964,9 @@ cy_en_intr_t Cy_SysInt_GetNmiSource(cy_en_sysint_nmi_t nmiNum);
 #else
 IRQn_Type Cy_SysInt_GetNmiSource(cy_en_sysint_nmi_t nmiNum);
 #endif
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.3');
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.5');
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.3')
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.5')
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 
 
 #if !(defined(CY_CPU_CORTEX_M0P) && (CY_CPU_CORTEX_M0P)) && !(defined(CY_IP_M7CPUSS))

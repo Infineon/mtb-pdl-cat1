@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -144,6 +144,7 @@ typedef enum {
 #define __ICACHE_PRESENT                0       /*!< Instruction Cache present or not */
 #define __DCACHE_PRESENT                0       /*!< Data Cache present or not */
 #define __DSP_PRESENT                   0       /*!< DSP extension present or not */
+#define __SAUREGION_PRESENT             0       /*!< SAU regions present or not */
 
 /** \} Configuration_of_CMSIS */
 
@@ -249,7 +250,7 @@ typedef enum {
 
 #define CY_DEVICE_CYW20829
 #define CY_DEVICE_SERIES_20829
-#define CY_SILICON_ID                   0x1EB41069UL
+#define CY_SILICON_ID                   0xEB421110UL
 #define CY_HF_CLK_MAX_FREQ              96000000UL
 
 

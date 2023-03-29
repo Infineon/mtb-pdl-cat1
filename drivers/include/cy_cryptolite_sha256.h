@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_sha256.h
-* \version 2.0
+* \version 2.10
 *
 * \brief
 *  This file provides common constants and parameters
@@ -106,6 +106,8 @@ typedef struct
 * \return
 * \ref cy_en_cryptolite_status_t
 *
+* \funcusage
+* \snippet cryptolite/snippet/main.c snippet_Cy_Cryptolite_Sha256_init_start_update_finish_free
 *******************************************************************************/
 cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Init(CRYPTOLITE_Type *base,
                                         cy_stc_cryptolite_context_sha256_t *cfContext);
@@ -126,6 +128,8 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Init(CRYPTOLITE_Type *base,
 * \return
 * \ref cy_en_cryptolite_status_t
 *
+* \funcusage
+* \snippet cryptolite/snippet/main.c snippet_Cy_Cryptolite_Sha256_init_start_update_finish_free
 *******************************************************************************/
 cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Start(CRYPTOLITE_Type *base,
                                         cy_stc_cryptolite_context_sha256_t *cfContext);
@@ -151,6 +155,9 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Start(CRYPTOLITE_Type *base,
 *
 * \return
 * \ref cy_en_cryptolite_status_t
+*
+* \funcusage
+* \snippet cryptolite/snippet/main.c snippet_Cy_Cryptolite_Sha256_init_start_update_finish_free
 *
 * \note There is no alignment or size restriction for message buffer, However providing
 * a four byte aligned buffer with size in multiple of \ref CY_CRYPTOLITE_SHA256_BLOCK_SIZE,
@@ -180,6 +187,8 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Update(CRYPTOLITE_Type *base,
 * \return
 * \ref cy_en_cryptolite_status_t
 *
+* \funcusage
+* \snippet cryptolite/snippet/main.c snippet_Cy_Cryptolite_Sha256_init_start_update_finish_free
 *******************************************************************************/
 cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Finish(CRYPTOLITE_Type *base,
                                uint8_t *digest,
@@ -201,6 +210,8 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Finish(CRYPTOLITE_Type *base,
 * \return
 * \ref cy_en_cryptolite_status_t
 *
+* \funcusage
+* \snippet cryptolite/snippet/main.c snippet_Cy_Cryptolite_Sha256_init_start_update_finish_free
 *******************************************************************************/
 cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Free(CRYPTOLITE_Type *base,
                                                     cy_stc_cryptolite_context_sha256_t *cfContext);
@@ -233,6 +244,9 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Sha256_Free(CRYPTOLITE_Type *base,
 *
 * \return
 * \ref cy_en_cryptolite_status_t
+*
+* \funcusage
+* \snippet cryptolite/snippet/main.c snippet_Cy_Cryptolite_Sha256_Run
 *
 * \note There is no alignment or size restriction for message buffer, However providing
 * a four byte aligned buffer with size in multiple of \ref CY_CRYPTOLITE_SHA256_BLOCK_SIZE,

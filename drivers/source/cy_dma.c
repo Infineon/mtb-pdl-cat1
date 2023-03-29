@@ -30,9 +30,9 @@
 #include "cy_dma.h"
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 5, \
-'DW_Type will typecast to either DW_V1_Type or DW_V2_Type but not both on PDL initialization based on the target device at compile time.');
+'DW_Type will typecast to either DW_V1_Type or DW_V2_Type but not both on PDL initialization based on the target device at compile time.')
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 2, \
-'Value extracted from _VAL2FLD macro will not exceed enum range.');
+'Value extracted from _VAL2FLD macro will not exceed enum range.')
 
 /*******************************************************************************
 * Function Name: Cy_DMA_Crc_Init
@@ -445,8 +445,8 @@ void Cy_DMA_Descriptor_SetDescriptorType(cy_stc_dma_descriptor_t * descriptor, c
     }
 }
 
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
 
 #endif /* CY_IP_M4CPUSS_DMA, CY_IP_MXDW */
 

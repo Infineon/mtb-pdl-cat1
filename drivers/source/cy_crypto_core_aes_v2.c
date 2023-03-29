@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes_v2.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code fro the API for the AES method
@@ -42,12 +42,810 @@ extern "C" {
 #include "cy_crypto_core_hw_v2.h"
 #include "cy_crypto_core_mem_v2.h"
 #include "cy_syslib.h"
+#include <string.h>
+
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 18, \
-'Intentional Pointer Type Conversion');
+'Intentional Pointer Type Conversion')
 
 #define CY_CRYPTO_IS_KEYLENGTH_VALID(keyLength) ((CY_CRYPTO_KEY_AES_128 == (keyLength)) || \
                                                  (CY_CRYPTO_KEY_AES_192 == (keyLength)) || \
                                                  (CY_CRYPTO_KEY_AES_256 == (keyLength)))
+
+#if (CPUSS_CRYPTO_GCM == 1) && defined(CY_CRYPTO_CFG_GCM_C)
+
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Aes_GCM_Increment_counter
+****************************************************************************//**
+*
+* The function to increase the counter.
+*
+* \param counter_block
+* The pointer to the counter to increase.
+*******************************************************************************/
+
+static void Cy_Crypto_Aes_GCM_Increment_counter(uint8_t * counter_block)
+{
+    uint32_t i;
+
+    for (i=0U; i < 4U; i++)
+    {
+        if (++(counter_block[15U - i]) != 0U)
+        {
+            break;
+        }
+    }
+
+}
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Ghash
+****************************************************************************//**
+*
+* The function to perform the GHASH multiplication operation.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param h
+* The pointer to the Hash Subkey.
+*
+* \param iv
+* The pointer to the Initialization vector.
+*
+* \param input
+* The pointer to the input data for ghash.
+*
+* \param length
+* The length of the input data.
+*
+* \param y
+* The pointer holding the current hash value and it gets updated after the ghash multiplication.
+
+*******************************************************************************/
+static void Cy_Crypto_Core_V2_Aes_GCM_Ghash(CRYPTO_Type *base, uint8_t *h,  const uint8_t *input, uint32_t length, uint8_t *y)
+
+{
+
+    uint32_t load_length;
+    static const uint8_t p_padding[] = {
+    0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+    0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+
+    // Load the Hash Sub Key H
+    Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, h, CY_CRYPTO_AES_BLOCK_SIZE);
+    Cy_Crypto_Core_V2_BlockMov_Reflect(base, CY_CRYPTO_V2_RB_BLOCK3, CY_CRYPTO_V2_RB_FF_LOAD0, CY_CRYPTO_AES_BLOCK_SIZE);
+    Cy_Crypto_Core_V2_Sync(base);
+
+    Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, y, CY_CRYPTO_AES_BLOCK_SIZE);
+    Cy_Crypto_Core_V2_BlockMov_Reflect(base, CY_CRYPTO_V2_RB_BLOCK1, CY_CRYPTO_V2_RB_FF_LOAD0, CY_CRYPTO_AES_BLOCK_SIZE);
+    Cy_Crypto_Core_V2_Sync(base);
+
+    Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, input, length);
+
+    while (length != 0U)
+    {
+        load_length = MIN (length, CY_CRYPTO_AES_BLOCK_SIZE);
+
+        // Padding for the last block if the length is not AES Block size
+        if (load_length < CY_CRYPTO_AES_BLOCK_SIZE)
+        {
+             Cy_Crypto_Core_V2_FFContinue(base, CY_CRYPTO_V2_RB_FF_LOAD0, p_padding, CY_CRYPTO_AES_BLOCK_SIZE-load_length);
+
+        }
+        
+        input  += load_length;
+        length   -= load_length;                           
+
+        Cy_Crypto_Core_V2_BlockMov_Reflect(base, CY_CRYPTO_V2_RB_BLOCK2, CY_CRYPTO_V2_RB_FF_LOAD0, CY_CRYPTO_AES_BLOCK_SIZE);
+        Cy_Crypto_Core_V2_BlockXor(base, CY_CRYPTO_V2_RB_BLOCK1, CY_CRYPTO_V2_RB_BLOCK1, CY_CRYPTO_V2_RB_BLOCK2, CY_CRYPTO_AES_BLOCK_SIZE);
+
+        // Perform the AES GHASH operation
+        Cy_Crypto_Core_V2_BlockGcm(base);
+
+   }  
+
+    // Store the calculated output value to Y
+       Cy_Crypto_Core_V2_BlockMov_Reflect(base, CY_CRYPTO_V2_RB_BLOCK1, CY_CRYPTO_V2_RB_BLOCK1, CY_CRYPTO_AES_BLOCK_SIZE);
+    Cy_Crypto_Core_V2_FFStart(base, CY_CRYPTO_V2_RB_FF_STORE, y, CY_CRYPTO_AES_BLOCK_SIZE);
+    Cy_Crypto_Core_V2_RBStore(base, CY_CRYPTO_AES_BLOCK_SIZE, CY_CRYPTO_AES_BLOCK_SIZE);
+    Cy_Crypto_Core_V2_FFStoreSync(base);
+
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Init
+****************************************************************************//**
+*
+* The function to initialize AES GCM operation.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aesGCMBuffers
+* The pointer to the AES GCM memory buffers storage.
+*
+* \param aesGCMctx
+* The pointer to the AES GCM structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Init(CRYPTO_Type *base, cy_stc_crypto_aes_gcm_buffers_t *aesGCMBuffers, cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
+
+
+    if((NULL != base) && (NULL != aesGCMBuffers) && (NULL != aesGCMctx))
+    {
+        Cy_Crypto_Core_V2_MemSet(base, aesGCMctx, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_gcm_state_t));
+        Cy_Crypto_Core_V2_MemSet(base, aesGCMBuffers, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_gcm_buffers_t));
+
+        aesGCMctx->h = aesGCMBuffers->h;
+        aesGCMctx->icb = aesGCMBuffers->icb;
+        aesGCMctx->cb = aesGCMBuffers->cb;
+        aesGCMctx->y = aesGCMBuffers->y;
+        aesGCMctx->temp = aesGCMBuffers->temp;
+        aesGCMctx->aes_data = aesGCMBuffers->aes_data;
+        aesGCMctx->aes_buffer = &aesGCMBuffers->aes_buffer;
+
+        tmpResult = CY_CRYPTO_SUCCESS;
+    }
+
+    return tmpResult;
+
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Setkey
+****************************************************************************//**
+*
+* The function to set AES GCM Key.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aes_key
+* The pointer to the AES key.
+*
+* \param keyLength
+* \ref cy_en_crypto_aes_key_length_t
+*
+* \param aesGCMctx
+* The pointer to the AES GCM structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_SetKey(CRYPTO_Type *base, uint8_t const *aesKey, cy_en_crypto_aes_key_length_t keyLength, cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
+
+    if((NULL != base) && (NULL != aesKey) && (NULL != aesGCMctx) && (NULL != aesGCMctx->aes_buffer))
+    {
+
+        tmpResult = Cy_Crypto_Core_V2_Aes_Init(base, aesKey, keyLength, &aesGCMctx->aesState,aesGCMctx->aes_buffer);
+
+        if(CY_CRYPTO_SUCCESS == tmpResult)
+        {
+            tmpResult = Cy_Crypto_Core_V2_Aes_Ecb(base, CY_CRYPTO_ENCRYPT, aesGCMctx->h, aesGCMctx->h, &aesGCMctx->aesState);
+        }
+    }
+
+    return tmpResult;
+
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Start
+****************************************************************************//**
+*
+* The function to Start AES GCM operation.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param mode
+* mode of operation encrypt/decrypt
+*
+* \param iv
+* The pointer to the Initialization vector.
+*
+* \param ivSize
+* The length of the iv.
+*
+* \param aesGCMctx
+* The pointer to the AES GCM structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Start(CRYPTO_Type *base, cy_en_crypto_dir_mode_t mode, uint8_t const *iv, uint32_t ivSize, cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+
+
+    uint64_t ivBitlen;
+    uint8_t temp[CY_CRYPTO_AES_BLOCK_SIZE] = {0u};
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
+
+
+    if((NULL != base) && ((NULL != iv) && ivSize >0U) && (NULL != aesGCMctx) && (NULL != aesGCMctx->aes_buffer))
+    {
+
+        aesGCMctx->mode = mode;
+        Cy_Crypto_Core_V2_MemSet(base, aesGCMctx->icb, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
+        Cy_Crypto_Core_V2_MemSet(base, aesGCMctx->y, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
+        Cy_Crypto_Core_V2_MemSet(base, aesGCMctx->temp, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
+
+        aesGCMctx->data_size = 0u;
+        aesGCMctx->aad_size = 0u;
+
+        if(CY_CRYPTO_AES_GCM_IV_SIZE == ivSize)
+        {
+            Cy_Crypto_Core_V2_MemCpy(base, (void*)aesGCMctx->icb, (void*)iv, (uint16_t)ivSize);
+            aesGCMctx->icb[15U] = 1U;
+        }
+
+        else
+        {
+            ivBitlen = (uint64_t)ivSize << 3U; 
+            ivBitlen = CY_SWAP_ENDIAN64(ivBitlen);
+
+            Cy_Crypto_Core_V2_MemSet(base, temp, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
+            Cy_Crypto_Core_V2_MemCpy(base, (void*)&temp[8U], (void*)&ivBitlen, 8U);
+
+            Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, iv, ivSize, aesGCMctx->icb);
+            Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, temp, CY_CRYPTO_AES_BLOCK_SIZE, aesGCMctx->icb);
+        }
+
+            Cy_Crypto_Core_V2_MemCpy(base, (void*)aesGCMctx->cb,  (void*)aesGCMctx->icb, CY_CRYPTO_AES_BLOCK_SIZE);
+
+        Cy_Crypto_Aes_GCM_Increment_counter(aesGCMctx->cb);
+        tmpResult = CY_CRYPTO_SUCCESS;
+    }
+
+    return tmpResult;
+
+}
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_AAD_Update
+****************************************************************************//**
+*
+* The function to update the Additional Authentication Data.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aad
+* The pointer to the Additional Authentication Data.
+*
+* \param aadSize
+*  The length of the additional Authentication Data
+*
+* \param aesGCMctx
+* The pointer to the AES aesGCMctx structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_AAD_Update(CRYPTO_Type *base,  uint8_t *aad,   uint32_t aadSize, cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+
+{
+    uint32_t rem_add_size;
+    uint32_t copy_size;
+    uint32_t block_count;
+    uint8_t* aad_p =  aad;
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
+
+    if(0u == aadSize)
+    {
+        return CY_CRYPTO_SUCCESS;
+    }
+
+    if((NULL != base) && (NULL != aad) && (NULL != aesGCMctx))
+    {
+
+        rem_add_size = aesGCMctx->aad_size % CY_CRYPTO_AES_BLOCK_SIZE;
+
+        if(rem_add_size + aadSize < CY_CRYPTO_AES_BLOCK_SIZE)
+        {
+            Cy_Crypto_Core_V2_MemCpy(base, (void*)&aesGCMctx->temp[rem_add_size], (void*)aad_p, (uint16_t)aadSize);
+            aesGCMctx->aad_size += aadSize;
+            
+        }
+
+        else
+        {
+            copy_size = CY_CRYPTO_AES_BLOCK_SIZE - rem_add_size;
+            Cy_Crypto_Core_V2_MemCpy(base, (void*)&aesGCMctx->temp[rem_add_size], (void*)aad_p, (uint16_t)copy_size);
+            aesGCMctx->aad_size += copy_size;
+            aadSize -=  copy_size;
+            aad_p += copy_size;
+
+            Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, aesGCMctx->temp, CY_CRYPTO_AES_BLOCK_SIZE, aesGCMctx->y);
+
+            block_count = aadSize/CY_CRYPTO_AES_BLOCK_SIZE;
+            Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, aad_p, block_count * CY_CRYPTO_AES_BLOCK_SIZE, aesGCMctx->y);
+            aad_p += block_count *CY_CRYPTO_AES_BLOCK_SIZE;
+            Cy_Crypto_Core_V2_MemCpy(base, (void*)&aesGCMctx->temp[0u], (void*)aad_p, (uint16_t)(aadSize % CY_CRYPTO_AES_BLOCK_SIZE));
+            aesGCMctx->aad_size +=  block_count *CY_CRYPTO_AES_BLOCK_SIZE + aadSize % CY_CRYPTO_AES_BLOCK_SIZE;
+
+
+        }
+        tmpResult = CY_CRYPTO_SUCCESS;
+    }
+
+
+
+    return tmpResult;
+
+
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Update
+****************************************************************************//**
+*
+* The function to update the data
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param input
+* The pointer to the input data to be encrypted/decrypted.
+*
+* \param inputSize
+*  The length of the input data.
+*
+* \param output
+* The pointer to the encrypted/decrypted output data.
+*
+* \param aesGCMctx
+* The pointer to the AES aesGCMctx structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Update(CRYPTO_Type *base, const uint8_t *input,   uint32_t inputSize,  uint8_t *output,
+                                                         cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+
+    uint32_t process_size;
+    uint32_t index=0, i=0;
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
+    uint8_t temp[CY_CRYPTO_AES_BLOCK_SIZE];
+
+    if(0u ==inputSize)
+    {
+        return CY_CRYPTO_SUCCESS;
+    }
+
+    if((NULL != base) && (NULL != input)  && (NULL != output) &&  (NULL != aesGCMctx))
+    {
+        if(aesGCMctx->aad_size %CY_CRYPTO_AES_BLOCK_SIZE != 0u)
+        {
+            Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, aesGCMctx->temp, aesGCMctx->aad_size%CY_CRYPTO_AES_BLOCK_SIZE , aesGCMctx->y);
+        }
+
+        while(inputSize != 0u)
+        {
+            if(aesGCMctx->data_size % CY_CRYPTO_AES_BLOCK_SIZE == 0u)
+            {
+                (void)Cy_Crypto_Core_V2_Aes_Ecb(base, CY_CRYPTO_ENCRYPT,  aesGCMctx->aes_data, aesGCMctx->cb, &aesGCMctx->aesState);
+                Cy_Crypto_Aes_GCM_Increment_counter(aesGCMctx->cb);
+            }
+
+            if(aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE + inputSize < CY_CRYPTO_AES_BLOCK_SIZE)
+            {
+                process_size =  aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE + inputSize;
+            }
+
+            else
+            {
+                process_size =  CY_CRYPTO_AES_BLOCK_SIZE;
+            }
+
+            for (i=aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE; i< process_size  ; i++)
+            {
+                temp[i] = aesGCMctx->aes_data[i] ^ input[index];
+
+                if(CY_CRYPTO_ENCRYPT == aesGCMctx->mode)
+                {
+                    output[index] = temp[i];
+                    aesGCMctx->aes_data[i] = output[index];
+                }
+                else
+                {
+                    aesGCMctx->aes_data[i] = input[index];
+                    output[index] = temp[i];
+                }
+
+                index++;
+            }
+            
+            inputSize -= process_size - aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE;
+            aesGCMctx->data_size += process_size - aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE;
+
+            if (aesGCMctx->data_size % CY_CRYPTO_AES_BLOCK_SIZE == 0u)
+            {
+                Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, aesGCMctx->aes_data, CY_CRYPTO_AES_BLOCK_SIZE , aesGCMctx->y);
+            }
+
+        }
+        tmpResult = CY_CRYPTO_SUCCESS;
+    }
+    
+    return tmpResult;
+}
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_tag
+****************************************************************************//**
+*
+* The function to calculate the tag.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param p_tag
+* The pointer to the buffer for storing tag.
+*
+* \param tagSize
+*  The length of the p_tag.
+*
+*
+* \param aesGCMctx
+* The pointer to the AES aesGCMctx structure allocated by the user. The user
+* must not modify anything in this structure.
+*******************************************************************************/
+static void Cy_Crypto_Core_V2_Aes_GCM_tag(CRYPTO_Type *base,  uint8_t *p_tag,   uint32_t tagSize, cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+
+   uint8_t temp_data[CY_CRYPTO_AES_BLOCK_SIZE] = {0};
+   uint32_t i=0;
+
+   uint64_t bitlen    = (uint64_t)aesGCMctx->data_size << 3U; // Bytes to bits
+   uint64_t aadbitlen = (uint64_t)aesGCMctx->aad_size << 3U; // Bytes to bits
+
+   bitlen = CY_SWAP_ENDIAN64(bitlen);
+   aadbitlen = CY_SWAP_ENDIAN64(aadbitlen);
+
+   Cy_Crypto_Core_V2_MemCpy(base, (void*)&temp_data[0u], (void*)&aadbitlen, (uint16_t)sizeof(aadbitlen));
+   Cy_Crypto_Core_V2_MemCpy(base, (void*)&temp_data[8u], (void*)&bitlen, (uint16_t)sizeof(bitlen));
+
+   Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, temp_data, CY_CRYPTO_AES_BLOCK_SIZE , aesGCMctx->y);
+
+   (void)Cy_Crypto_Core_V2_Aes_Ecb(base, CY_CRYPTO_ENCRYPT, temp_data, aesGCMctx->icb, &aesGCMctx->aesState);
+
+   for (i = 0u; i < tagSize; i++)
+    {
+      p_tag[i] = aesGCMctx->y[i] ^ temp_data[i];
+    }
+
+}
+
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Finish
+****************************************************************************//**
+*
+* The function to finish the AES GCM operation and to calculates the tag.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param p_tag
+* The pointer to the buffer for storing tag.
+*
+* \param tagSize
+*  The length of the p_tag.
+*
+* \param aesGCMctx
+* The pointer to the AES aesGCMctx structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Finish(CRYPTO_Type *base,  uint8_t *p_tag,  uint32_t tagSize, cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+
+{
+
+    cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
+
+    if ((NULL != base) && (NULL != p_tag)  && !((tagSize > CY_CRYPTO_AES_BLOCK_SIZE) || (tagSize < 4u)) &&  (NULL != aesGCMctx))
+    {
+
+        if((0u == aesGCMctx->data_size) &&  (0u != aesGCMctx->aad_size %CY_CRYPTO_AES_BLOCK_SIZE))
+        {
+
+            Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, aesGCMctx->temp, aesGCMctx->aad_size%CY_CRYPTO_AES_BLOCK_SIZE , aesGCMctx->y);
+
+        }
+
+        if(0u != aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE)
+        {
+
+            Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, aesGCMctx->aes_data, aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE , aesGCMctx->y);
+
+
+        }
+
+        Cy_Crypto_Core_V2_Aes_GCM_tag(base,  p_tag, tagSize, aesGCMctx);
+        tmpResult = CY_CRYPTO_SUCCESS;
+    }
+
+    return  tmpResult;
+
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Encrypt_Tag
+****************************************************************************//**
+*
+* The function performs the AES GCM encryption and generates the TAG
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aes_key
+* The pointer to the AES key.
+*
+* \param keyLength
+* \ref cy_en_crypto_aes_key_length_t
+*
+* \param iv
+* The pointer to the Initialization vector.
+*
+* \param ivSize
+* The length of the iv.
+*
+* \param aad
+* The pointer to the Additional Authentication Data.
+*
+* \param aadSize
+*  The length of the additional Authentication Data
+*
+* \param input
+* The pointer to the input data to be encrypted/decrypted.
+*
+* \param inputSize
+*  The length of the input data.
+*
+* \param output
+* The pointer to the encrypted/decrypted output data.
+*
+* \param tag
+* The pointer to the tag.
+*
+* \param tagSize
+*  The length of the p_tag.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Encrypt_Tag(CRYPTO_Type *base, uint8_t const *aesKey, cy_en_crypto_aes_key_length_t keyLength,
+                                                            uint8_t const *iv, uint32_t ivSize, uint8_t *aad,   uint32_t aadSize, 
+                                                            const uint8_t *input,   uint32_t inputSize,  uint8_t *output, uint8_t *tag, uint32_t tagSize)
+
+{
+
+    cy_stc_crypto_aes_gcm_state_t aesGCMctx = {0};
+    cy_stc_crypto_aes_gcm_buffers_t aesGCMBuffers = {0};
+    cy_en_crypto_status_t status = CY_CRYPTO_BAD_PARAMS;
+
+    /* Input parameters verification */
+    if ((NULL == base) || (NULL == aesKey) || ((NULL == iv) && (ivSize > 0u))
+        || ( ((NULL == input) || (NULL == output)) && (inputSize > 0u)))
+    {
+        return status;
+    }
+
+    status = Cy_Crypto_Core_V2_Aes_GCM_Init(base, &aesGCMBuffers, &aesGCMctx);
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status = Cy_Crypto_Core_V2_Aes_GCM_SetKey(base, aesKey, keyLength, &aesGCMctx);
+    }
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status = Cy_Crypto_Core_V2_Aes_GCM_Start(base, CY_CRYPTO_ENCRYPT, iv, ivSize, &aesGCMctx);
+    }
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status = Cy_Crypto_Core_V2_Aes_GCM_AAD_Update(base, aad, aadSize, &aesGCMctx);
+    }
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status = Cy_Crypto_Core_V2_Aes_GCM_Update(base, input, inputSize, output, &aesGCMctx);
+    }
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status =  Cy_Crypto_Core_V2_Aes_GCM_Finish(base, tag, tagSize, &aesGCMctx);
+    }
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status =  Cy_Crypto_Core_V2_Aes_GCM_Free(base, &aesGCMctx);
+    }
+    
+
+    return (status);
+
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Decrypt_Tag
+****************************************************************************//**
+*
+* The function performs the AES GCM decryption and verifies the TAG.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aes_key
+* The pointer to the AES key.
+*
+* \param keyLength
+* \ref cy_en_crypto_aes_key_length_t
+*
+* \param iv
+* The pointer to the Initialization vector.
+*
+* \param ivSize
+* The length of the iv.
+*
+* \param aad
+* The pointer to the Additional Authentication Data.
+*
+* \param aadSize
+*  The length of the additional Authentication Data
+*
+* \param input
+* The pointer to the input data to be encrypted/decrypted.
+*
+* \param inputSize
+*  The length of the input data.
+*
+* \param output
+* The pointer to the encrypted/decrypted output data.
+*
+* \param tag
+* The pointer to the tag.
+*
+* \param tagSize
+*  The length of the p_tag.
+*
+* \param isVerified
+* The status of the AES GCM verification.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Decrypt_Tag(CRYPTO_Type *base, uint8_t const *aesKey, cy_en_crypto_aes_key_length_t keyLength,
+                                                            uint8_t const *iv, uint32_t ivSize, uint8_t *aad,   uint32_t aadSize, 
+                                                            const uint8_t *input,   uint32_t inputSize, uint8_t *tag, uint32_t tagSize, uint8_t *output, cy_en_crypto_aesgcm_tag_verify_result_t * isVerified)
+
+{
+
+    cy_stc_crypto_aes_gcm_state_t aesGCMctx = {0};
+    cy_stc_crypto_aes_gcm_buffers_t aesGCMBuffers = {0};
+    cy_en_crypto_status_t status = CY_CRYPTO_BAD_PARAMS;
+    uint8_t expected_tag[CY_CRYPTO_AES_BLOCK_SIZE] = {0};
+    *isVerified  = CY_CRYPTO_TAG_INVALID;
+
+
+
+    /* Input parameters verification */
+    if ((NULL == base) || (NULL == aesKey) || ((NULL == iv) && (ivSize > 0u))
+        || ( ((NULL == input) || (NULL == output)) &&(inputSize > 0u)))
+    {
+        return status;
+    }
+
+    status = Cy_Crypto_Core_V2_Aes_GCM_Init(base, &aesGCMBuffers, &aesGCMctx);
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status = Cy_Crypto_Core_V2_Aes_GCM_SetKey(base, aesKey, keyLength, &aesGCMctx);
+    }
+
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status = Cy_Crypto_Core_V2_Aes_GCM_Start(base, CY_CRYPTO_DECRYPT, iv, ivSize, &aesGCMctx);
+    }
+
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status = Cy_Crypto_Core_V2_Aes_GCM_AAD_Update(base, aad, aadSize, &aesGCMctx);
+    }
+    
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status = Cy_Crypto_Core_V2_Aes_GCM_Update(base, input, inputSize, output, &aesGCMctx);
+    }
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status =  Cy_Crypto_Core_V2_Aes_GCM_Finish(base, expected_tag, tagSize, &aesGCMctx);
+    }
+
+    if(CY_CRYPTO_SUCCESS == status)
+    {
+        CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.3','from essential type "unsigned 32-bit int" to different or narrower essential type "unsigned 16-bit int');
+        if(Cy_Crypto_Core_V2_MemCmp(base, tag, expected_tag, tagSize) == 0U)
+        {
+            *isVerified = CY_CRYPTO_TAG_VALID;
+        }
+    }
+
+    if (CY_CRYPTO_SUCCESS == status)
+    {
+        status =  Cy_Crypto_Core_V2_Aes_GCM_Free(base, &aesGCMctx);
+    }
+    
+
+    return (status);
+
+}
+
+/*******************************************************************************
+* Function Name: Cy_Crypto_Core_V2_Aes_GCM_Free
+****************************************************************************//**
+*
+* The function to finish the encryption process and calculate tag.
+*
+* \param base
+* The pointer to the CRYPTO instance.
+*
+* \param aesGCMctx
+* The pointer to the AES aesGCMctx structure allocated by the user. The user
+* must not modify anything in this structure.
+*
+* \return
+* \ref cy_en_crypto_status_t
+*******************************************************************************/
+cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Free(CRYPTO_Type *base,  cy_stc_crypto_aes_gcm_state_t* aesGCMctx)
+{
+
+    if(NULL != aesGCMctx)
+    {
+
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->aes_buffer, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_gcm_buffers_t));
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_gcm_state_t));
+    }
+
+    return CY_CRYPTO_SUCCESS;
+}
+#endif /* (CPUSS_CRYPTO_GCM == 1) && defined(CY_CRYPTO_CFG_GCM_C)*/
 
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_V2_Aes_LoadEncKey
@@ -555,6 +1353,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Ctr(CRYPTO_Type *base,
     Cy_Crypto_Core_V2_MemSet(base, (void*)blockCounter, 0x00U, (uint16_t)sizeof(blockCounter));
 #else
     uint32_t blockCounter[CY_CRYPTO_AES_BLOCK_SIZE_U32] = { 0UL };
+    Cy_Crypto_Core_V2_MemSet(base, (void*)blockCounter, 0x00U, (uint16_t)sizeof(blockCounter));
 #endif
     uint64_t counter;
     uint32_t cnt;
@@ -627,7 +1426,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Ctr(CRYPTO_Type *base,
     return (CY_CRYPTO_SUCCESS);
 }
 #endif /* defined(CY_CRYPTO_CFG_CIPHER_MODE_CTR) */
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3');
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* (CPUSS_CRYPTO_AES == 1) && defined(CY_CRYPTO_CFG_AES_C) */
 
 #if defined(__cplusplus)
