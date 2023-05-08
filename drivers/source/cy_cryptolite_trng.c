@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_trng.c
-* \version 2.10
+* \version 2.20
 *
 * \brief
 *  Provides API implementation of the Cryptolite TRNG PDL driver.
@@ -96,6 +96,7 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Trng_Init(CRYPTOLITE_Type *base, cy_stc_
                                             | _VAL2FLD(CRYPTOLITE_TRNG_CTL0_RED_CLOCK_DIV, config->reducedClockDiv)
                                             | _VAL2FLD(CRYPTOLITE_TRNG_CTL0_INIT_DELAY, config->initDelay)
                                             | _VAL2FLD(CRYPTOLITE_TRNG_CTL0_VON_NEUMANN_CORR, config->vnCorrectorEnable)
+                                            | _VAL2FLD(CRYPTOLITE_TRNG_CTL0_FEEDBACK_EN, 0U)
                                             | _VAL2FLD(CRYPTOLITE_TRNG_CTL0_STOP_ON_AP_DETECT, config->stopOnAPDetect)
                                             | _VAL2FLD(CRYPTOLITE_TRNG_CTL0_STOP_ON_RC_DETECT, config->stopOnRCDetect));
 

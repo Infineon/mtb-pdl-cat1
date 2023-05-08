@@ -322,6 +322,7 @@ Functions</h2></td></tr>
 
 <p>RSA process algorithm based on the Montgomery algorithm using Barrett reduction. </p>
 <p>For CAT1C devices when D-Cache is enabled parameters message, processedMessage and key(pubExpPtr, moduloPtr, barretCoefPtr, inverseModuloPtr and  rBarPtr) must align and end in 32 byte boundary.</p>
+<p>For Modulus size greater than 2048, set the system sram memory buffer for the crypto operation and the minimum size should be 8192 bytes <a class="el" href="group__group__crypto__lld__hw__functions.html#gab3142870809b04978115aaaa2fe8c5fb">Cy_Crypto_Core_SetVuMemoryAddress</a> function for setting the system sram memory buffer.</p>
 <p><a href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29">https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

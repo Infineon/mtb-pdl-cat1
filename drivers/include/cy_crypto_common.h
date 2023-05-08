@@ -49,7 +49,7 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         60
+#define CY_CRYPTO_DRV_VERSION_MINOR         80
 
 
 /* Enable SHA functionality */

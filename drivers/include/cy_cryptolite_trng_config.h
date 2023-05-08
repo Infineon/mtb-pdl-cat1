@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_trng_config.h
-* \version 2.10
+* \version 2.20
 *
 * \brief
 *  This file provides  constants and parameters
@@ -49,7 +49,7 @@ extern "C" {
 * ...
 * "255": sample clock is "clk_sys"/256.
 */
-#define CY_CRYPTOLITE_DEF_TRNG_SAMPLE_CLOCK_DIV          (15UL)
+#define CY_CRYPTOLITE_DEF_TRNG_SAMPLE_CLOCK_DIV          (1UL)
 
 /**
 * Specifies the clock divider used to produce reduced bits.
@@ -127,7 +127,7 @@ extern "C" {
 * so that the more significant bits (bit 30 and down) contain the polynomial and the less
 * significant bits (bit 0 and up) contain padding '0's.
 */
-#define CY_CRYPTOLITE_DEF_TRNG_GARO                                    (0x21f81910)
+#define CY_CRYPTOLITE_DEF_TRNG_GARO                                    (0x21f81910U)
 
 /**
 * The polynomial for the programmable Fibonacci ring oscillator. The polynomial is represented
@@ -135,7 +135,7 @@ extern "C" {
 * be aligned so that the more significant bits (bit 30 and down) contain the polynomial
 * and the less significant bits (bit 0 and up) contain padding '0's.
 */
-#define CY_CRYPTOLITE_DEF_TRNG_FIRO                                    (0x696F0221)
+#define CY_CRYPTOLITE_DEF_TRNG_FIRO                                    (0xe6b8c3b3U)
 
 /**
 * Selection of the bit stream:

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite.h
-* \version 2.10
+* \version 2.20
 *
 * \brief
 *  This file provides interface header
@@ -181,6 +181,15 @@
 * \section group_cryptolite_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.20</td>
+*     <td>
+*         <ul>
+*         <li>Updated TRNG default config.</li>
+*         </ul>
+*     </td>
+*     <td></td>
+*   </tr>
 *   <tr>
 *     <td>2.10</td>
 *     <td>

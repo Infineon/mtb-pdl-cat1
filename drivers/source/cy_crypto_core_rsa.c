@@ -839,6 +839,9 @@ static void Cy_Crypto_Core_Rsa_expModByMont(CRYPTO_Type *base,
 * For CAT1C devices when D-Cache is enabled parameters message, processedMessage and
 * key(pubExpPtr, moduloPtr, barretCoefPtr, inverseModuloPtr and  rBarPtr) must align and end in 32 byte boundary.
 *
+* For Modulus size greater than 2048, set the system sram memory buffer for the crypto operation and the minimum size should be 8192 bytes
+* \ref Cy_Crypto_Core_SetVuMemoryAddress function for setting the system sram memory buffer.
+*
 * https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29
 *
 * \param base

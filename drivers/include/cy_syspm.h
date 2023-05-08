@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.92
+* \version 5.93
 *
 * Provides the function definitions for the power management API.
 *
@@ -847,6 +847,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>5.93</td>
+*     <td>CAT1B Syspm driver Corrections</td>
+*     <td>Syspm Driver Corrections</td>
+*   </tr>
+*   <tr>
 *     <td>5.92</td>
 *     <td>Support for CAT1D devices is added</td>
 *     <td>New devices support added</td>
@@ -1656,7 +1661,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       92
+#define CY_SYSPM_DRV_VERSION_MINOR       93
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -2008,22 +2013,9 @@ extern "C" {
                                                             ((limit) == CY_SYSPM_CORE_BUCK_INRUSH_LIMIT_100))
 
 /* Macro to validate parameters in Cy_SysPm_LdoSdrConfigure() function */
-#define CY_SYSPM_IS_SDR_VOLTAGE_VALID(voltage)          (((voltage) == CY_SYSPM_SDR_VOLTAGE_0_850V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_0_875V)  || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_0_900V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_0_925V)  || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_0_950V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_0_975V)  || \
+#define CY_SYSPM_IS_SDR_VOLTAGE_VALID(voltage)          (((voltage) == CY_SYSPM_SDR_VOLTAGE_0_900V) || \
                                                          ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_000V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_025V)  || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_050V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_075V)  || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_100V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_125V)  || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_150V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_175V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_200V) || \
-                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_225V))
+                                                         ((voltage) == CY_SYSPM_SDR_VOLTAGE_1_100V))
 
 /* Macro to validate parameters in Cy_SysPm_HvLdoConfigure() function */
 #define CY_SYSPM_IS_HVLDO_VOLTAGE_VALID(voltage)        (((voltage) == CY_SYSPM_HVLDO_VOLTAGE_1_500V) || \

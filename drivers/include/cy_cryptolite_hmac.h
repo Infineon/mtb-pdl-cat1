@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_hmac.h
-* \version 2.10
+* \version 2.20
 * \brief
 *  This file provides common constants and parameters
 *  for the Cryptolite hmac sha256 driver.

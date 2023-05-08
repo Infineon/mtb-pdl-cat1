@@ -210,7 +210,7 @@ void Cy_Crypto_Core_ClearVuRegisters(CRYPTO_Type *base)
 * The pointer to the CRYPTO instance.
 *
 * \param vuMemoryAddr
-* The memory buffer location that will be used as Crypto MEM_BUFF
+* The memory buffer location that will be used as Crypto MEM_BUFF and it should be aligned to the vuMemorySize
 *
 * \param vuMemorySize
 * The provided memory buffer size in bytes.

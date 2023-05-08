@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_btss.c
-* \version 5.92
+* \version 5.93
 *
 * Provides implementation of the BTSS PDL driver.
 *

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_ppu.h
-* \version 5.92
+* \version 5.93
 *
 * This file provides header for ARM PPU Power Domain Platform Dependant
 * specific driver.
@@ -81,7 +81,7 @@
 /** Driver major version */
 #define CY_PD_PPU_DRV_VERSION_MAJOR       5
 /** Driver minor version */
-#define CY_PD_PPU_DRV_VERSION_MINOR       91
+#define CY_PD_PPU_DRV_VERSION_MINOR       93
 
 /** PPU Device Sleep Deny Status Mask */
 #define CY_PD_PPU_DEVDENY_STATUS_MASK    (0x00000001U)

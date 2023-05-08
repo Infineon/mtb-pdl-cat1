@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_config.h
-* \version 2.10
+* \version 2.20
 *
 * \brief
 *  This file provides default configuration parameters
