@@ -640,10 +640,6 @@ Do not call this function when the PLL is enabled. If it is called, then this fu
 <dd>
 Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.</dd>
-<dd>
 This API is available only for CAT1D devices. </dd></dl>
 
 </div>
@@ -691,10 +687,6 @@ CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_UNSUPPORTED_STATE - PL
 Do not call this function when the PLL is enabled. If it is called, then this function returns immediately with an error return value and no register updates.</dd>
 <dd>
 Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.</dd>
 <dd>
 This API is available only for CAT1D devices. </dd></dl>
 
@@ -783,10 +775,6 @@ CY_SYSCLK_TIMEOUT - Timeout waiting for PLL lock <br />
 CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - PLL not configured because it is already enabled <br />
 CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd>
 <dd>
 This API is available only for CAT1D devices. </dd></dl>
 
@@ -907,12 +895,8 @@ true = lost lock</dd></dl>
 CY_SYSCLK_SUCCESS - PLL successfully disabled <br />
 CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - PLL not configured because it is already enabled <br />
 CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd></dl>
-<dl class="section user"><dt>Side Effects</dt><dd>This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT. If AUTO mode should be used, call <a class="el" href="group__group__sysclk__pll__funcs.html#gac5c498137bf7012e8e0f8b8e0dfba1f0">Cy_SysClk_PllConfigure</a> or <a class="el" href="group__group__sysclk__pll__funcs.html#gad21ad8110bfc4506947fbd0fb163d055">Cy_SysClk_PllManualConfigure</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd></dl>
+<dl class="section user"><dt>Side Effects</dt><dd>This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT. If AUTO mode should be used, call <a class="el" href="group__group__sysclk__pll__funcs.html#gacfc0cc6f44b440d63ff697132c3d9f83">Cy_SysClk_DpllLpConfigure</a> or <a class="el" href="group__group__sysclk__pll__funcs.html#ga4f8814474cc9ec207be0d0e27a1b7218">Cy_SysClk_DpllLpManualConfigure</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga071663e9443cdf59b805a8a501f1a037">Cy_SysClk_DpllLpEnable</a>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1D devices. </dd></dl>
 
 </div>
@@ -991,10 +975,6 @@ Do not call this function when the PLL is enabled. If it is called, then this fu
 <dd>
 Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
 <dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.</dd>
-<dd>
 This API is available only for CAT1D devices. </dd></dl>
 
 </div>
@@ -1042,10 +1022,6 @@ CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_UNSUPPORTED_STATE - PL
 Do not call this function when the PLL is enabled. If it is called, then this function returns immediately with an error return value and no register updates.</dd>
 <dd>
 Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is increasing.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.</dd>
 <dd>
 This API is available only for CAT1D devices. </dd></dl>
 
@@ -1134,10 +1110,6 @@ CY_SYSCLK_TIMEOUT - Timeout waiting for PLL lock <br />
 CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - PLL not configured because it is already enabled <br />
 CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd>
 <dd>
 This API is available only for CAT1D devices. </dd></dl>
 
@@ -1258,12 +1230,8 @@ true = lost lock</dd></dl>
 CY_SYSCLK_SUCCESS - PLL successfully disabled <br />
 CY_SYSCLK_BAD_PARAM - invalid clock path number CY_SYSCLK_INVALID_STATE - PLL not configured because it is already enabled <br />
 CY_SYSCLK_UNSUPPORTED_STATE - PLL is not present</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> before calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.</dd>
-<dd>
-Call <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> after calling this function if the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.</dd></dl>
-<dl class="section user"><dt>Side Effects</dt><dd>This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT. If AUTO mode should be used, call <a class="el" href="group__group__sysclk__pll__funcs.html#gac5c498137bf7012e8e0f8b8e0dfba1f0">Cy_SysClk_PllConfigure</a> or <a class="el" href="group__group__sysclk__pll__funcs.html#gad21ad8110bfc4506947fbd0fb163d055">Cy_SysClk_PllManualConfigure</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga5396ed00cc7ddeeb924bf00ee08311e5">Cy_SysClk_PllEnable</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Call <a class="el" href="group__group__startup__config__system__functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f">SystemCoreClockUpdate</a> after this function calling if it affects the CLK_HF0 frequency.</dd></dl>
+<dl class="section user"><dt>Side Effects</dt><dd>This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT. If AUTO mode should be used, call <a class="el" href="group__group__sysclk__pll__funcs.html#ga50cf7ad0cdbf271d3e968f65107e3153">Cy_SysClk_DpllHpConfigure</a> or <a class="el" href="group__group__sysclk__pll__funcs.html#ga071c4ece05958ebd30b7564e8acf762c">Cy_SysClk_DpllHpManualConfigure</a> before calling <a class="el" href="group__group__sysclk__pll__funcs.html#ga39c6f3837926a7f727f339d3c454f9b7">Cy_SysClk_DpllHpEnable</a>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1D devices. </dd></dl>
 
 </div>

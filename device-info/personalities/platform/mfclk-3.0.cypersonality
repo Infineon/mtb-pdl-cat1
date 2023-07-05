@@ -59,11 +59,11 @@
     
     <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="`${&quot;srss[0].clock[0].&quot; . sourceClock . &quot;[0]&quot;}`" visible="false" editable="false" desc="" />
     <ParamBool id="error" name="Clock Error" group="Internal" default="`${!isBlockUsed(sourceClockRsc)}`" visible="false" editable="false" desc="" />
-    <ParamRange id="sourceFreq" name="Source Frequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="2000000" resolution="1" visible="false" editable="false" desc="" />
+    <ParamRange id="sourceFreq" name="Source Frequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="`${&quot;mxs22srss&quot; eq getIpBlockName() ? &quot;25000000&quot; : &quot;2000000&quot;}`" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="accuracy" name="accuracy" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;accuracy&quot;) : 0}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceFrequencyInfo" name="Source Frequency" group="General" default="`${formatFrequency(sourceFreq,accuracy)}`" visible="true" editable="false" desc="Source clock frequency" />
-    <ParamRange id="divider" name="Divider" group="General" default="1" min="1" max="256" resolution="1" visible="true" editable="true" desc="The source clock frequency divider" />
-    <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFreq / divider}`" min="0" max="2000000" resolution="1" visible="false" editable="false" desc="" />
+    <ParamRange id="divider" name="Divider" group="General" default="1" min="`${&quot;mxs22srss&quot; eq getIpBlockName() &amp;&amp; sourceClock eq iho ? &quot;2&quot; : &quot;1&quot;}`" max="256" resolution="1" visible="true" editable="true" desc="The source clock frequency divider" />
+    <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFreq / divider}`" min="0" max="`${&quot;mxs22srss&quot; eq getIpBlockName() ? &quot;25000000&quot; : &quot;2000000&quot;}`" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${formatFrequency(frequency,accuracy)}`" visible="true" editable="false" desc="The resulting CLK_MF output clock frequency" />
     <ParamSignal port="clk_mf[0]" name="Clock Output" group="General" visible="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" desc="A medium-frequency clock output driving specific peripherals" canBeEmpty="true" />
   </Parameters>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_trng.h
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  This file provides common constants and parameters
@@ -49,8 +49,8 @@ typedef enum
     /** "Selection of the ring oscillator (RO) source: */
     CY_CRYPTOLITE_TRNG_SRC_RO11 = 0,  /**< "0": fixed RO 11 bit. */
     CY_CRYPTOLITE_TRNG_SRC_RO15,      /**< "1": fixed RO 15 bit. */
-    CY_CRYPTOLITE_TRNG_SRC_GARO15,    /**< "2": fixed Galouis RO 15 bit. */
-    CY_CRYPTOLITE_TRNG_SRC_GARO31,    /**< "3": flexible Galouis RO 31 bit. */
+    CY_CRYPTOLITE_TRNG_SRC_GARO15,    /**< "2": fixed Galois RO 15 bit. */
+    CY_CRYPTOLITE_TRNG_SRC_GARO31,    /**< "3": flexible Galois RO 31 bit. */
     CY_CRYPTOLITE_TRNG_SRC_FIRO15,    /**< "4": fixed Fibonacci RO 15 bit. */
     CY_CRYPTOLITE_TRNG_SRC_FIRO31     /**< "5": flexible Fibonacci RO 31 bit. */
 } cy_en_cryptolite_trng_ro_sel_t;

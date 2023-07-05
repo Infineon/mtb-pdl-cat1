@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_canfd.h
-* \version 1.30
+* \version 1.40
 *
 *  This file provides constants and parameter values for
 *  the CAN FD driver.
@@ -214,6 +214,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.40</td>
+*     <td>Updated APIs \ref Cy_CANFD_Init , \ref Cy_CANFD_CalcRxBufAdrs, \ref Cy_CANFD_CalcRxFifoAdrs, \ref Cy_CANFD_XidFilterSetup. </td>
+*     <td>Bug Fixes.</td>
+*   </tr>
+*   <tr>
 *     <td>1.30</td>
 *     <td>Updated \ref Cy_CANFD_Init() and \ref Cy_CANFD_DeInit() functions. Added volatile qualifier to prevent loop optimization.</td>
 *     <td>Code Enhancement.</td>
@@ -282,7 +287,7 @@ extern "C" {
 #define CY_CANFD_DRV_VERSION_MAJOR       1U
 
 /** Driver minor version */
-#define CY_CANFD_DRV_VERSION_MINOR       30U
+#define CY_CANFD_DRV_VERSION_MINOR       40U
 
 /** CAN FD driver ID */
 #define CY_CANFD_ID CY_PDL_DRV_ID(0x45U)

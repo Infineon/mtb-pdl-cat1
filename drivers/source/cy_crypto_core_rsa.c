@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_rsa.c
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides the source code to the API to calculate
@@ -242,9 +242,15 @@ cy_en_crypto_status_t Cy_Crypto_Core_Rsa_Verify_Ext(CRYPTO_Type *base,
     uint32_t psLength;
     uint32_t cmpRes = 0u;
 
-
-    switch (digestType)
+    if( (NULL == verResult) || ((NULL == digest) && (digestLength != 0UL))  || (NULL == decryptedSignature) )
     {
+        tmpResult =  CY_CRYPTO_BAD_PARAMS;
+    }
+
+    if(tmpResult == CY_CRYPTO_SUCCESS)
+    {
+        switch (digestType)
+        {
 
     #if (CPUSS_CRYPTO_SHA1 == 1) && defined(CY_CRYPTO_CFG_SHA1_ENABLED)
     case CY_CRYPTO_MODE_SHA1:
@@ -366,6 +372,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_Rsa_Verify_Ext(CRYPTO_Type *base,
     if (0u == cmpRes )
     {
         *verResult = CY_CRYPTO_RSA_VERIFY_SUCCESS;
+    }
     }
 
     return (tmpResult);

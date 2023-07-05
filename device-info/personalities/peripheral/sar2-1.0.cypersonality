@@ -93,6 +93,7 @@
             <Entry name="Generic 1" value="CY_SAR2_TRIGGER_GENERIC1" visible="true" />
             <Entry name="Generic 2" value="CY_SAR2_TRIGGER_GENERIC2" visible="true" />
             <Entry name="Generic 3" value="CY_SAR2_TRIGGER_GENERIC3" visible="true" />
+            <Entry name="Generic 4" value="CY_SAR2_TRIGGER_GENERIC4" visible="true" />
             <Entry name="Continuous" value="CY_SAR2_TRIGGER_CONTINUOUS" visible="true" />
         </ParamChoice>
         <ParamSignal name="Trigger Input" port="tr_sar_gen_in[$idx]" group="Channel $idx" visible="`${ch$idx_en}`" desc="Input trigger selection" canBeEmpty="true">

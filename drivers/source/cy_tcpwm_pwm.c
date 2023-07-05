@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_pwm.c
-* \version 1.50
+* \version 1.60
 *
 * \brief
 *  The source file of the tcpwm driver.
@@ -134,7 +134,7 @@ cy_en_tcpwm_status_t Cy_TCPWM_PWM_Init(TCPWM_Type *base, uint32_t cntNum,  cy_st
             uint32_t grp = TCPWM_GRP_CNT_GET_GRP(cntNum);
             bool enabled_bit = _FLD2BOOL(TCPWM_GRP_CNT_V2_CTRL_ENABLED, TCPWM_GRP_CNT_CTRL(base, grp, cntNum));
 #if (CY_IP_MXTCPWM_VERSION >= 3U)
-            bool dithering_present = TCPWM_GRP_DITHERING_PRESENT(grp);
+            bool dithering_present = ((bool)TCPWM_GRP_DITHERING_PRESENT(grp));
 #endif
 
             TCPWM_GRP_CNT_CTRL(base, grp, cntNum) =
@@ -149,7 +149,7 @@ cy_en_tcpwm_status_t Cy_TCPWM_PWM_Init(TCPWM_Type *base, uint32_t cntNum,  cy_st
                     (config->immediateKill ? TCPWM_GRP_CNT_V2_CTRL_PWM_IMM_KILL_Msk : 0UL) |
 #if (CY_IP_MXTCPWM_VERSION >= 3U)
                     _VAL2FLD(TCPWM_GRP_CNT_V3_CTRL_SWAP_ENABLED, config->buffer_swap_enable) |
-                    _VAL2FLD(TCPWM_GRP_CNT_V3_CTRL_DITHEREN,(dithering_present ? config->dithering_mode : 0UL)) |
+                    _VAL2FLD(TCPWM_GRP_CNT_V3_CTRL_DITHEREN,(dithering_present ? ((uint32_t)config->dithering_mode) : 0UL)) |
 #endif
                     (enabled_bit ? TCPWM_GRP_CNT_V2_CTRL_ENABLED_Msk : 0UL));
 
@@ -390,7 +390,7 @@ void Cy_TCPWM_PWM_DeInit(TCPWM_Type *base, uint32_t cntNum, cy_stc_tcpwm_pwm_con
 cy_en_tcpwm_status_t Cy_TCPWM_Configure_Dithering_Values_and_Mode(TCPWM_Type *base, uint32_t cntNum, cy_en_group_dithering_t mode, uint8_t period, uint8_t duty, cy_en_dithering_limiter_t limiter)
 {
     uint32_t grp = TCPWM_GRP_CNT_GET_GRP(cntNum);
-    bool dithering_present = TCPWM_GRP_DITHERING_PRESENT(grp);
+    bool dithering_present = ((bool)TCPWM_GRP_DITHERING_PRESENT(grp));
     if(dithering_present)
     {
         if((period == 0U) || (duty == 0U))

@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -64,7 +64,7 @@ typedef enum
 } cy_en_amux_split_t;
 
 /* Port List */
-/* PORT 0 (AUTOLVL) */
+/* PORT 0 (GPIO) */
 #define P0_0_PORT                       GPIO_PRT0
 #define P0_0_PIN                        0u
 #define P0_0_NUM                        0u
@@ -75,7 +75,7 @@ typedef enum
 #define P0_4_PIN                        4u
 #define P0_4_NUM                        4u
 
-/* PORT 2 (AUTOLVL) */
+/* PORT 2 (GPIO) */
 #define P2_0_PORT                       GPIO_PRT2
 #define P2_0_PIN                        0u
 #define P2_0_NUM                        0u
@@ -95,7 +95,7 @@ typedef enum
 #define P2_5_PIN                        5u
 #define P2_5_NUM                        5u
 
-/* PORT 5 (AUTOLVL) */
+/* PORT 5 (GPIO) */
 #define P5_0_PORT                       GPIO_PRT5
 #define P5_0_PIN                        0u
 #define P5_0_NUM                        0u
@@ -103,7 +103,7 @@ typedef enum
 #define P5_1_PIN                        1u
 #define P5_1_NUM                        1u
 
-/* PORT 6 (AUTOLVL) */
+/* PORT 6 (GPIO) */
 #define P6_2_PORT                       GPIO_PRT6
 #define P6_2_PIN                        2u
 #define P6_2_NUM                        2u
@@ -123,7 +123,7 @@ typedef enum
 #define P6_7_PIN                        7u
 #define P6_7_NUM                        7u
 
-/* PORT 7 (AUTOLVL) */
+/* PORT 7 (GPIO) */
 #define P7_0_PORT                       GPIO_PRT7
 #define P7_0_PIN                        0u
 #define P7_0_NUM                        0u
@@ -145,7 +145,7 @@ typedef enum
 #define P7_4_NUM                        4u
 #define P7_4_AMUXSEGMENT                AMUXBUS_CSD0
 
-/* PORT 9 (AUTOLVL) */
+/* PORT 9 (GPIO) */
 #define P9_0_PORT                       GPIO_PRT9
 #define P9_0_PIN                        0u
 #define P9_0_NUM                        0u
@@ -163,7 +163,7 @@ typedef enum
 #define P9_3_NUM                        3u
 #define P9_3_AMUXSEGMENT                AMUXBUS_SAR
 
-/* PORT 10 (AUTOLVL) */
+/* PORT 10 (GPIO) */
 #define P10_0_PORT                      GPIO_PRT10
 #define P10_0_PIN                       0u
 #define P10_0_NUM                       0u
@@ -183,7 +183,7 @@ typedef enum
 #define P10_5_PIN                       5u
 #define P10_5_NUM                       5u
 
-/* PORT 11 (AUTOLVL) */
+/* PORT 11 (GPIO) */
 #define P11_2_PORT                      GPIO_PRT11
 #define P11_2_PIN                       2u
 #define P11_2_NUM                       2u

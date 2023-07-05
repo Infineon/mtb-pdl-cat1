@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_sfdp.c
-* \version 2.40
+* \version 2.60
 *
 * \brief
 *  This file provides the source code for SFDP enumeration in SMIF driver.
@@ -775,7 +775,8 @@ static void SfdpGetReadCmd_1_1_8(uint8_t const sfdpBuffer[],
     cmdRead->dataWidth = CY_SMIF_WIDTH_OCTAL;
 }
 #endif
-#if (CY_IP_MXSMIF_VERSION>=2)
+/* IP version 5 DDR support will be enabled for actual silicon */
+#if ((CY_IP_MXSMIF_VERSION>=2) && (CY_IP_MXSMIF_VERSION !=5))
 /*******************************************************************************
 * Function Name: SfdpGetReadCmd_1S_4D_4D
 ****************************************************************************//**
@@ -1160,7 +1161,8 @@ static cy_en_smif_protocol_mode_t SfdpGetReadCmdParams(uint8_t const sfdpBuffer[
         if (_FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_4_4,
                       ((uint32_t) sfdpBuffer[sfdpDataIndex])))
         {
-#if (CY_IP_MXSMIF_VERSION>=2)
+/* IP version 5 DDR support will be enabled for actual silicon */
+#if ((CY_IP_MXSMIF_VERSION>=2) && (CY_IP_MXSMIF_VERSION !=5))
             if(_FLD2BOOL(CY_SMIF_SFDP_DTR_SUPPORT, (uint32_t) sfdpBuffer[sfdpDataIndex]))
             {
                 SfdpGetReadCmd_1S_4D_4D(sfdpBuffer, cmdRead);
@@ -1228,8 +1230,7 @@ static void SfdpSetVariableLatencyCmd(SMIF_Type *base,
     cy_stc_smif_mem_cmd_t *cmdReadLatency = device->readLatencyCmd;
     cy_stc_smif_mem_cmd_t *cmdWriteLatency = device->writeLatencyCmd;
     CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 1, 'uint8_t to uin32_t type conversion intentional.')
-    CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.6', 4, 'composite expression to uint32_t conversion intentional.')
-
+    
     if ((sccrMapAddr != NULL) && (cmdReadLatency != NULL) && (cmdWriteLatency != NULL))
     {
         /* SCCR Map 9th DWORD Variable Dummy Cycle Settings */
@@ -1268,7 +1269,7 @@ static void SfdpSetVariableLatencyCmd(SMIF_Type *base,
                 device->latencyCyclesRegAddr = CY_SMIF_NO_COMMAND_OR_MODE;
             }
 
-            device->latencyCyclesMask = (~(0xFFU << (latencyBits + 2U))) << latencyMaskoffset;
+            device->latencyCyclesMask = (uint32_t)((~(0xFFU << (latencyBits + 2U))) << latencyMaskoffset);
 
         }
         else
@@ -1278,7 +1279,6 @@ static void SfdpSetVariableLatencyCmd(SMIF_Type *base,
             cmdWriteLatency->command = CY_SMIF_NO_COMMAND_OR_MODE;
         }
     }
-    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.6')
     CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
 }
 #endif
@@ -1403,28 +1403,31 @@ static uint32_t SfdpGetEraseTime(uint32_t const eraseOffset, uint8_t const sfdpB
     uint32_t eraseMs = 0UL;
     uint32_t eraseTypeTypicalTime;
 
-    for (uint32_t idx = 0UL; idx < ERASE_TYPE_COUNT; idx++){
+    for (uint32_t idx = 0UL; idx < ERASE_TYPE_COUNT; idx++)
+    {
         eraseTypeTypicalTime = (readEraseTime >> (idx * ERASE_T_LENGTH))>> ERASE_T_COUNT_OFFSET;
         eraseUnits = _FLD2VAL(ERASE_T_UNITS, eraseTypeTypicalTime);
         eraseCount = _FLD2VAL(ERASE_T_COUNT, eraseTypeTypicalTime);
 
-        switch (eraseUnits)
+        if (eraseUnits == CY_SMIF_SFDP_UNIT_0)
         {
-            case CY_SMIF_SFDP_UNIT_0:
-                eraseMs = CY_SMIF_SFDP_ERASE_TIME_1MS;
-                break;
-            case CY_SMIF_SFDP_UNIT_1:
-                eraseMs = CY_SMIF_SFDP_ERASE_TIME_16MS;
-                break;
-            case CY_SMIF_SFDP_UNIT_2:
-                eraseMs = CY_SMIF_SFDP_ERASE_TIME_128MS;
-                break;
-            case CY_SMIF_SFDP_UNIT_3:
-                eraseMs = CY_SMIF_SFDP_ERASE_TIME_1S;
-                break;
-            default:
-                /* An unsupported SFDP value */
-                break;
+            eraseMs = CY_SMIF_SFDP_ERASE_TIME_1MS;
+        }
+        else if (eraseUnits == CY_SMIF_SFDP_UNIT_1) 
+        {   
+            eraseMs = CY_SMIF_SFDP_ERASE_TIME_16MS;
+        }
+        else if (eraseUnits == CY_SMIF_SFDP_UNIT_2) 
+        {   
+           eraseMs = CY_SMIF_SFDP_ERASE_TIME_128MS;
+        } 
+        else if (eraseUnits == CY_SMIF_SFDP_UNIT_3) 
+        {   
+           eraseMs = CY_SMIF_SFDP_ERASE_TIME_1S;
+        }            
+        else
+        {
+            /* An unsupported SFDP value */
         }
 
         /* Convert typical time to max time */
@@ -1461,23 +1464,25 @@ static uint32_t SfdpGetChipEraseTime(uint8_t const sfdpBuffer[])
     uint32_t chipEraseMs = 0UL;
     uint32_t eraseMul = _FLD2VAL(CY_SMIF_SFDP_ERASE_MUL_COUNT, readEraseTime);
 
-    switch (chipEraseUnits)
+    if (chipEraseUnits == CY_SMIF_SFDP_UNIT_0)
     {
-        case CY_SMIF_SFDP_UNIT_0:
-            chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_16MS;
-            break;
-        case CY_SMIF_SFDP_UNIT_1:
-            chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_256MS;
-            break;
-        case CY_SMIF_SFDP_UNIT_2:
-            chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_4S;
-            break;
-        case CY_SMIF_SFDP_UNIT_3:
-            chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_64S;
-            break;
-        default:
-            /* An unsupported SFDP value */
-            break;
+        chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_16MS;
+    }
+    else if (chipEraseUnits == CY_SMIF_SFDP_UNIT_1)
+    {      
+        chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_256MS;
+    }
+    else if (chipEraseUnits == CY_SMIF_SFDP_UNIT_2)
+    {      
+        chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_4S;
+    }
+    else if (chipEraseUnits == CY_SMIF_SFDP_UNIT_3)   
+    {
+        chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_64S;
+    }
+    else
+    {
+        /* An unsupported SFDP value */
     }
 
     /* Convert typical time to max time */
@@ -2283,7 +2288,7 @@ static cy_en_smif_protocol_mode_t GetOctalSDRParams(SMIF_Type *base,
          SfdpGetReadCmd_1_8_8(sfdpBuffer, cmdRead);
          protocol = PROTOCOL_MODE_1S_8S_8S;
     }
-    else if (_FLD2BOOL(SUPPORT_FAST_READ_1S_8S_8S_CMD,
+    else if (_FLD2BOOL(SUPPORT_FAST_READ_1S_1S_8S_CMD,
                         sfdpForBytesTableDword1))
     {
         SfdpGetReadCmd_1_1_8(sfdpBuffer, cmdRead);
@@ -2351,8 +2356,7 @@ static cy_en_smif_protocol_mode_t GetOctalDDRParams(SMIF_Type *base,
     cy_stc_smif_mem_cmd_t *cmdRead = device->readCmd;
     cy_en_smif_protocol_mode_t pMode = PROTOCOL_MODE_WRONG;
     CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 5, 'uint8_t to uin32_t type conversion intentional.')
-    CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.6', 4, 'composite expression to uint32_t conversion intentional.')
-
+    
     /* Initialize SFDP Buffer */
     for (uint32_t i = 0U; i < CY_SMIF_SFDP_LENGTH; i++)
     {
@@ -2530,7 +2534,6 @@ static cy_en_smif_protocol_mode_t GetOctalDDRParams(SMIF_Type *base,
             }
         }
     }
-    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.6')
     CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
     return pMode;
 }
@@ -2569,6 +2572,7 @@ static cy_en_smif_protocol_mode_t GetOctalDDRParams(SMIF_Type *base,
 *       - \ref CY_SMIF_SFDP_CORRUPTED_TABLE
 *       - \ref CY_SMIF_EXCEED_TIMEOUT
 *
+* \snippet smif/snippet/main.c SMIF_INIT: SFDP
 *******************************************************************************/
 
 cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
@@ -2623,7 +2627,6 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
     if (NULL != cmdSfdp)
     {
         /* Get the SDFP header and all parameter headers content into sfdpBuffer[] */
-        CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 18.6','Data receive is disabled after function return.');
         result = SfdpReadBuffer(base, cmdSfdp, sfdpAddress, slaveSelect, HEADERS_LENGTH, sfdpBuffer, context);
     }
     else
@@ -2789,7 +2792,8 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
 
                             if(octalProtocolMode != PROTOCOL_MODE_8D_8D_8D) /* Check for Octal SDR if Octal DDR was not supported */
                             {
-                                octalProtocolMode = GetOctalSDRParams(base, sfdpBuffer, device, slaveSelect, fourByteAddressBuffer[FOUR_BYTE_ADDRESS_TABLE_BYTE_0],
+                                uint32_t octal_sdr_param = Cy_SMIF_PackBytesArray(fourByteAddressBuffer, true);
+                                octalProtocolMode = GetOctalSDRParams(base, sfdpBuffer, device, slaveSelect, octal_sdr_param,
                                                              sccrMapAddr, sccrMapTableLength, context);
                             }
 

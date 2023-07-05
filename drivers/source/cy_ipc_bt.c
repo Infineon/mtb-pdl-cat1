@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_bt.c
-* \version 1.80
+* \version 1.91
 *
 * \brief
 *  This driver provides the source code for BT IPC.
@@ -1486,6 +1486,7 @@ cy_en_btipcdrv_status_t Cy_BTIPC_HCI_FIFOGet(cy_stc_ipc_bt_context_t *btIpcConte
 }
 CY_IPC_SECTION_END
 
+CY_IPC_SECTION_BEGIN
 uint16_t Cy_BTIPC_HCI_FIFOCount(cy_stc_ipc_bt_context_t *btIpcContext)
 {
     cy_stc_ipc_bt_context_t *contextPtr = btIpcContext;
@@ -1497,6 +1498,7 @@ uint16_t Cy_BTIPC_HCI_FIFOCount(cy_stc_ipc_bt_context_t *btIpcContext)
     Cy_SysLib_ExitCriticalSection(interruptState);
     return count;
 }
+CY_IPC_SECTION_END
 
 cy_en_btipcdrv_status_t Cy_BTIPC_RetrieveContext(cy_stc_ipc_bt_context_t *btIpcContext, cy_stc_ipc_bt_save_ctxt_t *pContextRet)
 {

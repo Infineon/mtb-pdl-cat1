@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysint.h
-* \version 1.90
+* \version 1.90.1
 *
 * \brief
 * Provides an API declaration of the SysInt driver
@@ -204,6 +204,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.90.1</td>
+*     <td>Fixed MISRA 2012 8.5 and 8.6 violations.</td>
+*     <td>MISRA 2012 compliance..</td>
+*   </tr>
+*   <tr>
 *     <td>1.90</td>
 *     <td>Updated \ref Cy_SysInt_Init, \ref Cy_SysInt_SetVector and \ref Cy_SysInt_GetVector APIs.</td>
 *     <td>Code Clean up.</td> 
@@ -342,8 +347,8 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 2, \
 extern const cy_israddress __Vectors[]; /**< Vector table in flash */
 extern cy_israddress __ramVectors[]; /**< Relocated vector table in SRAM */
 CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
-#endif /* CY_IP_M4CPUSS */
 
+#endif /* defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) */
 /** \} group_sysint_globals */
 
 
@@ -930,8 +935,7 @@ void Cy_SysInt_DisableSystemInt(cy_en_intr_t sysIntSrc);
 * \snippet sysint/snippet/main.c snippet_Cy_SysInt_SetNmiSource
 *
 *******************************************************************************/
-CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 2, 'Only one prototype will be picked for compilation')
-CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.5', 2, 'Only one prototype will be picked for compilation')
+
 CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.3', 2, 'Only one prototype will be picked for compilation')
 #if (((CY_CPU_CORTEX_M0P) || defined (CY_IP_M7CPUSS) || defined (CY_DOXYGEN)) && !defined(CY_IP_M0SECCPUSS))
 void Cy_SysInt_SetNmiSource(cy_en_sysint_nmi_t nmiNum, cy_en_intr_t devIntrSrc);
@@ -965,9 +969,6 @@ cy_en_intr_t Cy_SysInt_GetNmiSource(cy_en_sysint_nmi_t nmiNum);
 IRQn_Type Cy_SysInt_GetNmiSource(cy_en_sysint_nmi_t nmiNum);
 #endif
 CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.3')
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.5')
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
-
 
 #if !(defined(CY_CPU_CORTEX_M0P) && (CY_CPU_CORTEX_M0P)) && !(defined(CY_IP_M7CPUSS))
 /*******************************************************************************
@@ -1054,7 +1055,7 @@ void Cy_SysInt_SoftwareTrig(IRQn_Type IRQn);
 }
 #endif
 
-#endif /* CY_IP_M33SYSCPUSS */
+#endif /* defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || defined(CY_IP_M55APPCPUSS) */
 
 #endif /* CY_SYSINT_H */
 

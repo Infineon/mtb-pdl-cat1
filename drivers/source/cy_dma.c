@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_dma.c
-* \version 2.60
+* \version 2.70
 *
 * \brief
 * The source code file for the DMA driver.
@@ -24,6 +24,7 @@
 *******************************************************************************/
 
 #include "cy_device.h"
+#include <assert.h>
 
 #if defined (CY_IP_M4CPUSS_DMA) || defined (CY_IP_MXDW) || defined (CY_IP_M7CPUSS_DMA)
 
@@ -329,25 +330,25 @@ void Cy_DMA_Channel_DeInit(DW_Type * base, uint32_t channel)
 void Cy_DMA_Descriptor_SetNextDescriptor(cy_stc_dma_descriptor_t * descriptor, cy_stc_dma_descriptor_t const * nextDescriptor)
 {   
     CY_ASSERT_L1(descriptor);
-    switch((cy_en_dma_descriptor_type_t) _FLD2VAL(CY_DMA_CTL_TYPE, descriptor->ctl))
+    cy_en_dma_descriptor_type_t transferType = (cy_en_dma_descriptor_type_t) _FLD2VAL(CY_DMA_CTL_TYPE, descriptor->ctl);
+    
+    if (transferType == CY_DMA_SINGLE_TRANSFER)
     {
-        case CY_DMA_SINGLE_TRANSFER:
-            descriptor->xCtl = (uint32_t)nextDescriptor;
-            break;
-
-        case CY_DMA_CRC_TRANSFER:
-        case CY_DMA_1D_TRANSFER:
-            descriptor->yCtl = (uint32_t)nextDescriptor;
-            break;
-
-        case CY_DMA_2D_TRANSFER:
-            descriptor->nextPtr = (uint32_t)nextDescriptor;
-            break;
-
-        default:
-            /* Unsupported type of descriptor */
-            break;
+        descriptor->xCtl = (uint32_t)nextDescriptor;
     }
+    else if (transferType == CY_DMA_CRC_TRANSFER || transferType == CY_DMA_1D_TRANSFER)
+    {
+        descriptor->yCtl = (uint32_t)nextDescriptor;
+    }
+    else if ( transferType == CY_DMA_2D_TRANSFER)
+    {
+        descriptor->nextPtr = (uint32_t)nextDescriptor;
+    }
+    else
+    {
+       /* Unsupported type of descriptor */
+    }
+
 }
 
 
@@ -376,26 +377,25 @@ cy_stc_dma_descriptor_t * Cy_DMA_Descriptor_GetNextDescriptor(cy_stc_dma_descrip
 {
     cy_stc_dma_descriptor_t * retVal = NULL;
     CY_ASSERT_L1(descriptor);
-    switch((cy_en_dma_descriptor_type_t) _FLD2VAL(CY_DMA_CTL_TYPE, descriptor->ctl))
+    cy_en_dma_descriptor_type_t transferType = (cy_en_dma_descriptor_type_t) _FLD2VAL(CY_DMA_CTL_TYPE, descriptor->ctl);
+    
+    if (transferType == CY_DMA_SINGLE_TRANSFER)
     {
-        case CY_DMA_SINGLE_TRANSFER:
-            retVal = (cy_stc_dma_descriptor_t*) descriptor->xCtl;
-            break;
-
-        case CY_DMA_CRC_TRANSFER:
-        case CY_DMA_1D_TRANSFER:
-            retVal = (cy_stc_dma_descriptor_t*) descriptor->yCtl;
-            break;
-
-        case CY_DMA_2D_TRANSFER:
-            retVal = (cy_stc_dma_descriptor_t*) descriptor->nextPtr;
-            break;
-
-        default:
-            /* An unsupported type of the descriptor */
-            break;
+        retVal = (cy_stc_dma_descriptor_t*) descriptor->xCtl;
     }
-
+    else if (transferType == CY_DMA_CRC_TRANSFER ||  transferType == CY_DMA_1D_TRANSFER)
+    {
+        retVal = (cy_stc_dma_descriptor_t*) descriptor->yCtl;
+    }   
+    else if (transferType == CY_DMA_2D_TRANSFER)
+    {
+        retVal = (cy_stc_dma_descriptor_t*) descriptor->nextPtr;
+    }
+    else
+    {
+       /* An unsupported type of the descriptor */
+    }       
+    
     return (retVal);
 }
 

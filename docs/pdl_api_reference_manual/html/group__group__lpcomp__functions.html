@@ -824,19 +824,26 @@ The mode of the interrupt is restored after the block is enabled and appropriate
     <tr><td class="paramname">inputP</td><td>Positive input selection:<ul>
 <li>CY_LPCOMP_SW_GPIO (0x01u);</li>
 <li>CY_LPCOMP_SW_AMUXBUSA (0x02u) - Hi-Z in Hibernate mode;</li>
-<li>CY_LPCOMP_SW_AMUXBUSB (0x04u) - Hi-Z in Hibernate mode.</li>
-</ul>
-</td></tr>
-    <tr><td class="paramname">inputN</td><td>Negative input selection:<ul>
-<li>CY_LPCOMP_SW_GPIO (0x01u);</li>
-<li>CY_LPCOMP_SW_AMUXBUSA (0x02u) - Hi-Z in Hibernate mode;</li>
-<li>CY_LPCOMP_SW_AMUXBUSB (0x04u) - Hi-Z in Hibernate mode;</li>
-<li>CY_LPCOMP_SW_LOCAL_VREF (0x08u) - the negative input only for a crude REF.</li>
+<li>CY_LPCOMP_SW_AMUXBUSB (0x04u) - Hi-Z in Hibernate mode. </li>
 </ul>
 </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>: the option AMUXBUS should NOT be selected in case of usage device from CAT1D family.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputN</td><td>Negative input selection:<ul>
+<li>CY_LPCOMP_SW_GPIO (0x01u);</li>
+<li>CY_LPCOMP_SW_AMUXBUSA (0x02u) - Hi-Z in Hibernate mode;</li>
+<li>CY_LPCOMP_SW_AMUXBUSB (0x04u) - Hi-Z in Hibernate mode;</li>
+<li>CY_LPCOMP_SW_LOCAL_VREF (0x08u) - the negative input only for a crude REF. </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>: the option AMUXBUS should NOT be selected in case of usage device from CAT1D family.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>

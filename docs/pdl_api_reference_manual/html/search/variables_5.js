@@ -22,7 +22,6 @@ var searchData=
   ['enablecompareswap',['enableCompareSwap',['../structcy__stc__tcpwm__counter__config__t.html#aab6a68f7f1e9673c6e66eec4e0cbacdb',1,'cy_stc_tcpwm_counter_config_t::enableCompareSwap()'],['../structcy__stc__tcpwm__pwm__config__t.html#aac5323478b85196369c2327a04998060',1,'cy_stc_tcpwm_pwm_config_t::enableCompareSwap()']]],
   ['enablecrccheck',['enableCrcCheck',['../structcy__stc__sd__host__cmd__config__t.html#ac097ce5d0f154bd548028997e698a876',1,'cy_stc_sd_host_cmd_config_t']]],
   ['enablects',['enableCts',['../structcy__stc__scb__uart__config__t.html#a23f93e077ac4de987f18193e18f7944c',1,'cy_stc_scb_uart_config_t']]],
-  ['enabledcosd',['enableDcoSd',['../structcy__stc__dpll__lp__config__t.html#abd5692919f38ad45c13c71f2ac4cb886',1,'cy_stc_dpll_lp_config_t']]],
   ['enabledigitalfilter',['enableDigitalFilter',['../structcy__stc__scb__i2c__config__t.html#a1414232f520fb70d07f67218c627a586',1,'cy_stc_scb_i2c_config_t']]],
   ['enabledma',['enableDma',['../structcy__stc__sd__host__data__config__t.html#a8c6205390c0288816bcf15adab9a5b0d',1,'cy_stc_sd_host_data_config_t::enableDma()'],['../structcy__stc__sd__host__write__read__config__t.html#abe4883ca2cfbcc2a2ffe01ad99bd4f99',1,'cy_stc_sd_host_write_read_config_t::enableDma()']]],
   ['enableendpoint',['enableEndpoint',['../structcy__stc__usb__dev__ep__config__t.html#a9832618b80c22557e26288c46c903346',1,'cy_stc_usb_dev_ep_config_t']]],

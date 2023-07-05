@@ -48,8 +48,10 @@
     <ParamDoc id="emUsbDoc" name="Configuration Help" group="Overview" default="`${modeIsHost ? &quot;https://infineon.github.io/emusb-host/html/index.html&quot; : &quot;https://infineon.github.io/emusb-device/html/index.html&quot;}`" linkText="`${modeIsHost ? &quot;Open emUSB-Host Documentation&quot; : &quot;Open emUSB-Device Documentation&quot;}`" visible="true" desc="Open the USB Documentation" />
 
     <!-- USB Hf clock configuration -->
-    <ParamSignal port="clk_usb_host[0]" name="Clock" group="Connections" visible="`${modeIsHost}`" desc="The clock to operate this block" canBeEmpty="`${modeIsDevice}`" />
-    <ParamSignal port="clk_usb_dev[0]" name="Clock" group="Connections" visible="`${modeIsDevice}`" desc="The clock to operate this block" canBeEmpty="`${modeIsHost}`" />
+    <ParamSignal port="clk_usb_host[0]" name="Clock" group="Connections" visible="`${modeIsHost}`" desc="The clock to operate this block" canBeEmpty="true" />
+    <ParamBool id="clkUsbHostIsConnected" name="clkUsbHostIsConnected" group="Internal" default="`${hasConnection(&quot;clk_usb_host&quot;, 0)}`" visible="`${debug}`" editable="false" desc="Check if clk_usb_host[0] is connected" />
+    <ParamSignal port="clk_usb_dev[0]" name="Clock" group="Connections" visible="`${modeIsDevice}`" desc="The clock to operate this block" canBeEmpty="true" />
+    <ParamBool id="clkUsbDeviceIsConnected" name="clkUsbDeviceIsConnected" group="Internal" default="`${hasConnection(&quot;clk_usb_dev&quot;, 0)}`" visible="`${debug}`" editable="false" desc="Check if clk_usb_dev[0] is connected" />
 
     <ParamString id="usbHfSource" name="usbHfSource" group="Internal" default="`${modeIsHost ? getBlockFromSignal(&quot;clk_usb_host[0]&quot;) : getBlockFromSignal(&quot;clk_usb_dev[0]&quot;)}`" visible="false" editable="false" desc="Select Hf clock source" />
     <ParamRange  id="usbHfHz" name="usbHfHz" group="Internal" default="`${getExposedMember(usbHfSource, &quot;frequency&quot;)}`" min="0" max="200000000" resolution="1" visible="false" editable="false" desc="USB HF clock frequency in Hz." />
@@ -109,17 +111,26 @@
     <ParamString id="usbRstClkFreq" name="Clock (Bus Reset) real frequency" group="Connections" default="`${checkDivFreq . &quot;Hz +/-&quot; . checkDivAccur . &quot;%&quot;}`" visible="`${debug &amp;&amp; modeIsDevice}`" editable="false" desc="Real frequency of the connected clock" />
 
     <!-- Pins configuration -->
-    <ParamSignal port="usb_dp_pad[0]" name="D+" group="Connections" visible="true" desc="USB Data plus signal (USBDP)."  canBeEmpty="false" />
-    <ParamSignal port="usb_dm_pad[0]" name="D-" group="Connections" visible="true" desc="USB Data minus signal (USBDM)." canBeEmpty="false" />
-
+    <ParamSignal port="usb_dp_pad[0]" name="D+" group="Connections" visible="true" desc="USB Data plus signal (USBDP)."  canBeEmpty="true" />
+    <ParamBool id="usbDpIsConnected" name="usbDpIsConnected" group="Internal" default="`${hasConnection(&quot;usb_dp_pad&quot;, 0)}`" visible="`${debug}`" editable="false" desc="Check if D+ is connected" />
+    <ParamSignal port="usb_dm_pad[0]" name="D-" group="Connections" visible="true" desc="USB Data minus signal (USBDM)." canBeEmpty="true" />
+    <ParamBool id="usbDmIsConnected" name="usbDmIsConnected" group="Internal" default="`${hasConnection(&quot;usb_dm_pad&quot;, 0)}`" visible="`${debug}`" editable="false" desc="Check if D- is connected" />
   </Parameters>
 
   <DRCs>
-    <DRC type="WARNING" text="`${&quot;CLK_HF3 does not meet the requirements. The frequency must be in the range 48 MHz -/+ &quot; . usbHfAccuracy * 100 . &quot; % or the maximum deviation in the range &quot; . usbHfAccuracyLower . &quot;-&quot; . usbHfAccuracyUp . &quot;] Hz&quot;}`" condition="`${(usbHfRealAccuracyUp &gt; usbHfAccuracyUp) || (usbHfRealAccuracyLower &lt; usbHfAccuracyLower)}`" location="`${usbHfSource}`" paramId="frequencyInfo">
+    <DRC type="WARNING" text="`${&quot;CLK_HF3 does not meet the requirements. The frequency must be in the range 48 MHz +/- &quot; . usbHfAccuracy * 100 . &quot; % or the maximum deviation in the range &quot; . usbHfAccuracyLower . &quot;-&quot; . usbHfAccuracyUp . &quot;] Hz&quot;}`" condition="`${(usbHfRealAccuracyUp &gt; usbHfAccuracyUp) || (usbHfRealAccuracyLower &lt; usbHfAccuracyLower)}`" location="`${usbHfSource}`" paramId="frequencyInfo">
     </DRC>
-    <DRC type="ERROR" text="Clock (Bus Reset) does not meet the requirements. The clock accuracy be +/- 0.25 %." condition="`${divCalcResult eq 2}`" paramId="frequencyInfo">
+    <DRC type="ERROR" text="Clock (Bus Reset) does not meet the requirements. The clock accuracy must be +/- 0.25 %." condition="`${divCalcResult eq 2}`" paramId="frequencyInfo">
     </DRC>
     <DRC type="ERROR" text="Clock (Bus Reset) does not meet the requirements. This frequency cannot be generated in the required range [99750-100250] Hz" condition="`${divCalcResult eq 1}`" paramId="frequencyInfo">
+    </DRC>
+    <DRC type="ERROR" text="USB Data plus signal (USBDP) must be always connected" condition="`${!usbDpIsConnected}`" paramId="usb_dp_pad[0]">
+    </DRC>
+    <DRC type="ERROR" text="USB Data minus signal (USBDM) must be always connected" condition="`${!usbDmIsConnected}`" paramId="usb_dm_pad[0]">
+    </DRC>
+    <DRC type="ERROR" text="Clock for USB must be always connected" condition="`${modeIsDevice ? !clkUsbDeviceIsConnected : false}`" paramId="clk_usb_dev[0]">
+    </DRC>
+    <DRC type="ERROR" text="Clock for USB must be always connected" condition="`${modeIsDevice ? false : !clkUsbHostIsConnected}`" paramId="clk_usb_host[0]">
     </DRC>
   </DRCs>
 

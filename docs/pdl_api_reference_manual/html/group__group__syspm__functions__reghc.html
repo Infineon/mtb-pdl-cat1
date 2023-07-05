@@ -171,6 +171,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa6f970a2976b4cfd81993031202a5e45"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__reghc.html#gaa6f970a2976b4cfd81993031202a5e45">Cy_SysPm_ReghcIsCircuitEnabledAndOperating</a> (void)</td></tr>
 <tr class="memdesc:gaa6f970a2976b4cfd81993031202a5e45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the REGHC circuit is enabled and operating.  <a href="#gaa6f970a2976b4cfd81993031202a5e45">More...</a><br /></td></tr>
 <tr class="separator:gaa6f970a2976b4cfd81993031202a5e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09c461654f8d41bb0badd96bbfb4c7ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__reghc.html#ga09c461654f8d41bb0badd96bbfb4c7ad">Cy_SysPm_ReghcConfigure</a> (<a class="el" href="group__group__syspm__data__enumerates.html#gab5444f2635fc73eeec99898e007f19b2">cy_en_syspm_reghc_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a>, <a class="el" href="group__group__syspm__data__enumerates.html#gac4232e669b5d9530d35ed285dc947e31">cy_en_syspm_reghc_vadj_t</a> vadj)</td></tr>
+<tr class="memdesc:ga09c461654f8d41bb0badd96bbfb4c7ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures REGHC.  <a href="#ga09c461654f8d41bb0badd96bbfb4c7ad">More...</a><br /></td></tr>
+<tr class="separator:ga09c461654f8d41bb0badd96bbfb4c7ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b2da4b8c544a0f8f65efe191346af26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__reghc.html#ga8b2da4b8c544a0f8f65efe191346af26">Cy_SysPm_ReghcDeConfigure</a> (void)</td></tr>
+<tr class="memdesc:ga8b2da4b8c544a0f8f65efe191346af26"><td class="mdescLeft">&#160;</td><td class="mdescRight">De-Configures REGHC.  <a href="#ga8b2da4b8c544a0f8f65efe191346af26">More...</a><br /></td></tr>
+<tr class="separator:ga8b2da4b8c544a0f8f65efe191346af26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga5b38bd09eff10c6be3819a1049def9ed"></a>
@@ -799,6 +805,77 @@ Functions</h2></td></tr>
 
 <p>Indicates the REGHC circuit is enabled and operating. </p>
 <dl class="section return"><dt>Returns</dt><dd>false: REGHC Disabled true: REGHC Enabled and Operating</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga09c461654f8d41bb0badd96bbfb4c7ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga09c461654f8d41bb0badd96bbfb4c7ad">&#9670;&nbsp;</a></span>Cy_SysPm_ReghcConfigure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a> Cy_SysPm_ReghcConfigure </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__syspm__data__enumerates.html#gab5444f2635fc73eeec99898e007f19b2">cy_en_syspm_reghc_mode_t</a>&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__syspm__data__enumerates.html#gac4232e669b5d9530d35ed285dc947e31">cy_en_syspm_reghc_vadj_t</a>&#160;</td>
+          <td class="paramname"><em>vadj</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures REGHC. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td><a class="el" href="group__group__syspm__data__enumerates.html#gab5444f2635fc73eeec99898e007f19b2">cy_en_syspm_reghc_mode_t</a>.</td></tr>
+    <tr><td class="paramname">vadj</td><td><a class="el" href="group__group__syspm__data__enumerates.html#gac4232e669b5d9530d35ed285dc947e31">cy_en_syspm_reghc_vadj_t</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>CY_SYSPM_SUCCESS - REGHC Configured Successfully</li>
+<li>CY_SYSPM_TIMEOUT - REGHC Configuration Failed</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices.</dd>
+<dd>
+This API takes care of the sequence needed for changing from Linear Regulator to REGHC with External Transistor, this API do not support changing to REGHC with External PMIC. </dd></dl>
+
+</div>
+</div>
+<a id="ga8b2da4b8c544a0f8f65efe191346af26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8b2da4b8c544a0f8f65efe191346af26">&#9670;&nbsp;</a></span>Cy_SysPm_ReghcDeConfigure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a> Cy_SysPm_ReghcDeConfigure </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>De-Configures REGHC. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>CY_SYSPM_SUCCESS - REGHC De-Configured Successfully</li>
+<li>CY_SYSPM_TIMEOUT - REGHC De-Configuration Failed</li>
+</ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1C devices. </dd></dl>
 
 </div>

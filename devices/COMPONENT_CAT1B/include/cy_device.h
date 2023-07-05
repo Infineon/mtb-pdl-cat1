@@ -54,10 +54,6 @@ typedef struct
 /* Pointer to device configuration structure */
 #define CY_DEVICE_CFG                   (&cy_deviceIpBlockCfg)
 
-#define CY_SRSS_NUM_PLL400M                 0
-#define CY_SRSS_PLL400M_PRESENT             0
-#define CY_SRSS_DPLL_LP_PRESENT             0
-
 
 /*******************************************************************************
 *                   Global Variables
@@ -147,7 +143,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 /*******************************************************************************
 *                SMIF
 *******************************************************************************/
-#if (CY_IP_MXSMIF_VERSION>=3)
+#if ((defined(CY_IP_MXSMIF_VERSION)) && (CY_IP_MXSMIF_VERSION>=3))
 /* For backward compatibility of API, use first crypto device as default device */
 #define SMIF_CRYPTO_CMD(base)            (((SMIF_Type*) base)->SMIF_CRYPTO_BLOCK[0].CRYPTO_CMD)
 #define SMIF_CRYPTO_ADDR(base)           (((SMIF_Type*) base)->SMIF_CRYPTO_BLOCK[0].CRYPTO_ADDR)
@@ -453,6 +449,7 @@ typedef MXAHBDMAC_Type DMAC_Type;
 #define GPIO_PRT_SLEW_EXT(base)            (((GPIO_PRT_Type*)(base))->CFG_SLEW_EXT)
 #define GPIO_PRT_DRIVE_EXT0(base)          (((GPIO_PRT_Type*)(base))->CFG_DRIVE_EXT0)
 #define GPIO_PRT_DRIVE_EXT1(base)          (((GPIO_PRT_Type*)(base))->CFG_DRIVE_EXT1)
+#define GPIO_PRT_CFG_IN_AUTOLVL(base)      (((GPIO_PRT_Type*)(base))->CFG_IN_AUTOLVL)
 
 #define CY_HSIOM_BASE                      ((uint32_t)HSIOM_BASE)
 
@@ -659,6 +656,109 @@ typedef MXAHBDMAC_Type DMAC_Type;
 #define EFUSE_SEQ_PROGRAM_CTL_7(base)                (((EFUSE_Type *) (base))->SEQ_PROGRAM_CTL_7)
 #define EFUSE_BOOTROW(base)                          (((EFUSE_Type *) (base))->BOOTROW)
 
+/*******************************************************************************
+*                FAULT
+*******************************************************************************/
+
+#define FAULT_CTL(base)                         (((FAULT_STRUCT_Type *)(base))->CTL)
+#define FAULT_STATUS(base)                      (((FAULT_STRUCT_Type *)(base))->STATUS)
+#define FAULT_DATA(base)                        (((FAULT_STRUCT_Type *)(base))->DATA)
+#define FAULT_PENDING0(base)                    (((FAULT_STRUCT_Type *)(base))->PENDING0)
+#define FAULT_PENDING1(base)                    (((FAULT_STRUCT_Type *)(base))->PENDING1)
+#define FAULT_PENDING2(base)                    (((FAULT_STRUCT_Type *)(base))->PENDING2)
+#define FAULT_MASK0(base)                       (((FAULT_STRUCT_Type *)(base))->MASK0)
+#define FAULT_MASK1(base)                       (((FAULT_STRUCT_Type *)(base))->MASK1)
+#define FAULT_MASK2(base)                       (((FAULT_STRUCT_Type *)(base))->MASK2)
+#define FAULT_INTR(base)                        (((FAULT_STRUCT_Type *)(base))->INTR)
+#define FAULT_INTR_SET(base)                    (((FAULT_STRUCT_Type *)(base))->INTR_SET)
+#define FAULT_INTR_MASK(base)                   (((FAULT_STRUCT_Type *)(base))->INTR_MASK)
+#define FAULT_INTR_MASKED(base)                 (((FAULT_STRUCT_Type *)(base))->INTR_MASKED)
+
+/**
+  * \brief Instances of Fault data register.
+  */
+typedef enum
+{
+    CY_SYSFAULT_MPU_0                =   0,     /* Bus master 0 MPU/SMPU. */
+    CY_SYSFAULT_MPU_1                =   1,     /* Bus master 1 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_2                =   2,     /* Bus master 2 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_3                =   3,     /* Bus master 3 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_4                =   4,     /* Bus master 4 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_5                =   5,     /* Bus master 5 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_6                =   6,     /* Bus master 6 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_7                =   7,     /* Bus master 7 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_8                =   8,     /* Bus master 8 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_9                =   9,     /* Bus master 9 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_10               =  10,     /* Bus master 10 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_11               =  11,     /* Bus master 11 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_12               =  12,     /* Bus master 12 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_13               =  13,     /* Bus master 13 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_14               =  14,     /* Bus master 14 MPU. See MPU_0 description. */
+    CY_SYSFAULT_MPU_15               =  15,     /* Bus master 15 MPU. See MPU_0 description. */
+    CY_SYSFAULT_CM4_SYS_MPU          =  16,     /* CM4 system bus AHB-Lite interface MPU. See MPU_0 description. */
+    CY_SYSFAULT_CM4_CODE_MPU         =  17,     /* CM4 code bus AHB-Lite interface MPU for non flash controller accesses. See MPU_0 description. */
+    CM4_CODE_FLASHC_MPU              =  18,     /* CM4 code bus AHB-Lite interface MPU for flash controller accesses. See MPU_0 description. */
+    CY_SYSFAULT_MS_PPU_4             =  25,     /* Peripheral interconnect, master interface 4 PPU. See MS_PPU_0 description. */
+    CY_SYSFAULT_PERI_ECC             =  26,     /* Peripheral interconnect, protection structures SRAM, correctable ECC error: */
+    CY_SYSFAULT_PERI_NC_ECC          =  27,     /* Peripheral interconnect, protection structures SRAM, non-correctable ECC error. */
+    CY_SYSFAULT_MS_PPU_0             =  28,     /* Peripheral interconnect, master interface 0 PPU. */
+    CY_SYSFAULT_MS_PPU_1             =  29,     /* Peripheral interconnect, master interface 1 PPU. See MS_PPU_0 description. */
+    CY_SYSFAULT_MS_PPU_2             =  30,     /* Peripheral interconnect, master interface 2 PPU. See MS_PPU_0 description. */
+    CY_SYSFAULT_MS_PPU_3             =  31,     /* Peripheral interconnect, master interface 3 PPU. See MS_PPU_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_0        =  32,     /* Peripheral group 0 fault detection. */
+    CY_SYSFAULT_GROUP_FAULT_1        =  33,     /* Peripheral group 1 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_2        =  34,     /* Peripheral group 2 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_3        =  35,     /* Peripheral group 3 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_4        =  36,     /* Peripheral group 4 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_5        =  37,     /* Peripheral group 5 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_6        =  38,     /* Peripheral group 6 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_7        =  39,     /* Peripheral group 7 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_8        =  40,     /* Peripheral group 8 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_9        =  41,     /* Peripheral group 9 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_10       =  42,     /* Peripheral group 10 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_11       =  43,     /* Peripheral group 11 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_12       =  44,     /* Peripheral group 12 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_13       =  45,     /* Peripheral group 13 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_14       =  46,     /* Peripheral group 14 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_GROUP_FAULT_15       =  47,     /* Peripheral group 15 fault detection. See GROUP_FAULT_0 description. */
+    CY_SYSFAULT_FLASHC_MAIN_BUS_ERROR  =  48,   /* Flash controller, main interface, bus error: */
+    CY_SYSFAULT_FLASHC_MAIN_C_ECC    =  49,     /* Flash controller, main interface, correctable ECC error: */
+    CY_SYSFAULT_FLASHC_MAIN_NC_ECC   =  50,     /* Flash controller, main interface, non-correctable ECC error.  See FLASHC_MAIN_C_ECC description. */
+    CY_SYSFAULT_FLASHC_WORK_BUS_ERROR  =  51,   /* Flash controller, work interface, bus error. See FLASHC_MAIN_BUS_ERROR description. */
+    CY_SYSFAULT_FLASHC_WORK_C_ECC    =  52,     /* Flash controller, work interface, correctable ECC error: */
+    CY_SYSFAULT_FLASHC_WORK_NC_ECC   =  53,     /* Flash controller, work interface, non-correctable ECC error. See FLASHC_WORK_C_ECC description. */
+    CY_SYSFAULT_FLASHC_CM0_CA_C_ECC  =  54,     /* Flash controller, CM0+ cache, correctable ECC error: */
+    CY_SYSFAULT_FLASHC_CM0_CA_NC_ECC  =  55,    /* Flash controller, CM0+ cache, non-correctable ECC error.  See FLASHC_CM0_CA_C_ECC description. */
+    CY_SYSFAULT_FLASHC_CM4_CA_C_ECC  =  56,     /* Flash controller, CM4 cache, correctable ECC error. See FLASHC_CM0_CA_C_ECC description. */
+    CY_SYSFAULT_FLASHC_CM4_CA_NC_ECC =  57,     /* Flash controller, CM4 cache, non-correctable ECC error. See FLASHC_CM0_CA_C_ECC description.. */
+    CY_SYSFAULT_RAMC0_C_ECC          =  58,     /* System SRAM 0 correctable ECC error: */
+    CY_SYSFAULT_RAMC0_NC_ECC         =  59,     /* System SRAM 0 non-correctable ECC error.  See RAMC0_C_ECC description. */
+    CY_SYSFAULT_RAMC1_C_ECC          =  60,     /* System SRAM 1 correctable ECC error. See RAMC0_C_ECC description. */
+    CY_SYSFAULT_RAMC1_NC_ECC         =  61,     /* System SRAM 1 non-correctable ECC error. See RAMC0_C_ECC description. */
+    CY_SYSFAULT_RAMC2_C_ECC          =  62,     /* System SRAM 2 correctable ECC error. See RAMC0_C_ECC description. */
+    CY_SYSFAULT_RAMC2_NC_ECC         =  63,     /* System SRAM 2 non-correctable ECC error. See RAMC0_C_ECC description. */
+    CY_SYSFAULT_CRYPTO_C_ECC         =  64,     /* Cryptography SRAM correctable ECC error. */
+    CY_SYSFAULT_CRYPTO_NC_ECC        =  65,     /* Cryptography SRAM non-correctable ECC error. See CRYPTO_C_ECC description. */
+    CY_SYSFAULT_DW0_C_ECC            =  70,     /* DataWire 0 SRAM 1 correctable ECC error: */
+    CY_SYSFAULT_DW0_NC_ECC           =  71,     /* DataWire 0 SRAM 1 non-correctable ECC error. See DW0_C_ECC description. */
+    CY_SYSFAULT_DW1_C_ECC            =  72,     /* DataWire 1 SRAM 1 correctable ECC error. See DW0_C_ECC description. */
+    CY_SYSFAULT_DW1_NC_ECC           =  73,     /* DataWire 1 SRAM 1 non-correctable ECC error. See DW0_C_ECC description. */
+    CY_SYSFAULT_FM_SRAM_C_ECC        =  74,     /* eCT Flash SRAM (for embedded operations) correctable ECC error: */
+    CY_SYSFAULT_FM_SRAM_NC_ECC       =  75,     /* eCT Flash SRAM non-correctable ECC error: See FM_SRAM_C_ECC description. */
+    CY_SYSFAULT_CAN0_C_ECC           =  80,     /* CAN controller 0 MRAM correctable ECC error: */
+    CY_SYSFAULT_CAN0_NC_ECC          =  81,     /* CAN controller 0 MRAM non-correctable ECC error: */
+    CY_SYSFAULT_CAN1_C_ECC           =  82,     /* CAN controller 1 MRAM correctable ECC error. See CAN0_C_ECC description. */
+    CY_SYSFAULT_CAN1_NC_ECC          =  83,     /* CAN controller 1 MRAM non-correctable ECC error. See CAN0_NC_ECC description. */
+    CY_SYSFAULT_CAN2_C_ECC           =  84,     /* CAN controller 2 MRAM correctable ECC error. See CAN0_C_ECC description.. */
+    CY_SYSFAULT_CAN2_NC_ECC          =  85,     /* CAN controller 2 MRAM non-correctable ECC error. See CAN0_NC_ECC description. */
+    CY_SYSFAULT_SRSS_CSV             =  90,     /* SRSS Clock SuperVisor (CSV) violation detected. Multiple CSV can detect a violation at the same time. */
+    CY_SYSFAULT_SRSS_SSV             =  91,     /* SRSS Clock SuperVisor (CSV) violation detected. Multiple CSV can detect a violation at the same time. */
+    CY_SYSFAULT_SRSS_MCWDT0          =  92,     /* SRSS Multi-Counter Watch Dog Timer (MCWDT) #0 violation detected. Multiple counters can detect a violation at the same time. */
+    CY_SYSFAULT_SRSS_MCWDT1          =  93,     /* SRSS Multi-Counter Watch Dog Timer (MCWDT) #1 violation detected. See SRSS_MCWDT0 description. */
+    CY_SYSFAULT_SRSS_MCWDT2          =  94,     /* SRSS Multi-Counter Watch Dog Timer (MCWDT) #2 violation detected. See SRSS_MCWDT0 description. */
+    CY_SYSFAULT_SRSS_MCWDT3          =  95,     /* SRSS Multi-Counter Watch Dog Timer (MCWDT) #3 violation detected. See SRSS_MCWDT0 description. */
+    CY_SYSFAULT_NO_FAULT             =  96
+} cy_en_SysFault_source_t;
 
 /*******************************************************************************
 *                PROFILE
@@ -679,6 +779,28 @@ typedef MXAHBDMAC_Type DMAC_Type;
 *                SRSS
 *******************************************************************************/
 
+#define CY_SRSS_NUM_PLL400M                 0
+#define CY_SRSS_PLL400M_PRESENT             0
+#if defined (CY_DEVICE_BOY2)
+#define CY_SRSS_DPLL_LP_PRESENT             SRSS_NUM_DPLL250
+#define SRSS_NUM_DPLL_LP                    SRSS_NUM_DPLL250
+#define CY_SYSCLK_HF_MAX_FREQ(hfNum)        (240000000U)
+#define CY_MXS40SSRSS_VER_1_2               1UL
+#define SRSS_DPLL_LP_FRAC_BIT_COUNT         (24ULL)
+#define SRSS_CLK_ROOT_SELECT_ROOT_DIV       SRSS_CLK_ROOT_SELECT_ROOT_DIV_INT
+#define PWRMODE_PWR_SELECT                  (((PWRMODE_Type *) PWRMODE)->CLK_SELECT)
+#define SRSS_CLK_DPLL_LP_CONFIG(pllNum)     (((SRSS_Type *) SRSS)->CLK_DPLL_LP[pllNum].CONFIG)
+#define SRSS_CLK_DPLL_LP_CONFIG2(pllNum)    (((SRSS_Type *) SRSS)->CLK_DPLL_LP[pllNum].CONFIG2)
+#define SRSS_CLK_DPLL_LP_CONFIG3(pllNum)    (((SRSS_Type *) SRSS)->CLK_DPLL_LP[pllNum].CONFIG3)
+#define SRSS_CLK_DPLL_LP_CONFIG4(pllNum)    (((SRSS_Type *) SRSS)->CLK_DPLL_LP[pllNum].CONFIG4)
+#define SRSS_CLK_DPLL_LP_CONFIG5(pllNum)    (((SRSS_Type *) SRSS)->CLK_DPLL_LP[pllNum].CONFIG5)
+#define SRSS_CLK_DPLL_LP_CONFIG6(pllNum)    (((SRSS_Type *) SRSS)->CLK_DPLL_LP[pllNum].CONFIG6)
+#define SRSS_CLK_DPLL_LP_CONFIG7(pllNum)    (((SRSS_Type *) SRSS)->CLK_DPLL_LP[pllNum].CONFIG7)
+#define SRSS_CLK_DPLL_LP_STATUS(pllNum)     (((SRSS_Type *) SRSS)->CLK_DPLL_LP[pllNum].STATUS)
+#else
+#define CY_SRSS_DPLL_LP_PRESENT             0
+#define CY_MXS40SSRSS_VER_1_2               0UL
+#endif
 #define CY_SRSS_NUM_CLKPATH                 SRSS_NUM_CLKPATH
 #define CY_SRSS_NUM_PLL                     SRSS_NUM_TOTAL_PLL
 #define CY_SRSS_NUM_HFROOT                  SRSS_NUM_HFROOT
@@ -718,12 +840,14 @@ typedef MXAHBDMAC_Type DMAC_Type;
 #define CY_SYSCLK_MAX_FREQ_HF2             48000000U
 #define CY_SYSCLK_MAX_FREQ_HF3             24000000U
 
+
+#if defined (CY_DEVICE_CYW20829)
 #define CY_SYSCLK_HF_MAX_FREQ(hfNum)       (((hfNum) == 0U) ?  (CY_SYSCLK_MAX_FREQ_HF0) : \
                                            (((hfNum) == 1U) ?  (CY_SYSCLK_MAX_FREQ_HF1) : \
                                            (((hfNum) == 2U) ?  (CY_SYSCLK_MAX_FREQ_HF2) : \
                                            (((hfNum) == 3U) ?  (CY_SYSCLK_MAX_FREQ_HF3) : \
                                            (0U)))))
-
+#endif
 
 /* Technology Independant Register set */
 #define SRSS_CLK_DSI_SELECT                 (((SRSS_Type *) SRSS)->CLK_DSI_SELECT)
@@ -753,6 +877,7 @@ typedef MXAHBDMAC_Type DMAC_Type;
 #define SRSS_CLK_TRIM_ILO_CTL               (((SRSS_Type *) SRSS)->CLK_TRIM_ILO_CTL)
 #define SRSS_CLK_PILO_CONFIG                (((SRSS_Type *) SRSS)->CLK_PILO_CONFIG)
 #define SRSS_CLK_ECO_CONFIG                 (((SRSS_Type *) SRSS)->CLK_ECO_CONFIG)
+#define SRSS_CLK_ECO_CONFIG2                (((SRSS_Type *) SRSS)->CLK_ECO_CONFIG2)
 #define SRSS_CLK_MFO_CONFIG                 (((SRSS_Type *) SRSS)->CLK_MFO_CONFIG)
 #define SRSS_CLK_IHO_CONFIG                 (((SRSS_Type *) SRSS)->CLK_IHO_CONFIG)
 #define SRSS_CLK_ALTHF_CTL                  (((SRSS_Type *) SRSS)->CLK_ALTHF_CTL)
@@ -1122,8 +1247,12 @@ typedef MXAHBDMAC_Type DMAC_Type;
 /*******************************************************************************
 *                PERI-GROUP
 *******************************************************************************/
+#if defined (CY_DEVICE_BOY2)
+#define CY_PERI_GROUP_NR                        6
+#else
 #define CY_PERI_GROUP_NR                        4
 #define CY_PERI_BLESS_GROUP_NR                  3
+#endif /* CY_DEVICE_BOY2 */
 
 #ifndef PERI0_BASE
 #define PERI0_BASE PERI_BASE
@@ -1193,12 +1322,19 @@ typedef MXAHBDMAC_Type DMAC_Type;
 #define PERI0_PCLK_GR_NUM_3_CLK_HF_NUM              (1U)
 #define PERI0_PCLK_GR_NUM_4_CLK_HF_NUM              (2U)
 #define PERI0_PCLK_GR_NUM_5_CLK_HF_NUM              (3U)
+#if defined (CY_DEVICE_BOY2)
+#define PERI0_PCLK_GR_NUM_6_CLK_HF_NUM              (4U)
+#else
 #define PERI0_PCLK_GR_NUM_6_CLK_HF_NUM              (1U)
+#endif
 
 
 #if defined (CY_IP_MXS40SSRSS)
 #define CY_SYSPM_BOOTROM_ENTRYPOINT_ADDR        ((uint32_t)(&BACKUP_BREG_SET1[0])) /* Boot ROM will check this address for locating the entry point after Warm Boot */
 #define CY_SYSPM_BOOTROM_DSRAM_DBG_ENABLE_MASK 0x00000001U
+#endif
+#ifndef BOY2_PSVP
+#define ENABLE_MEM_VOLTAGE_TRIMS
 #endif
 
 
@@ -1517,6 +1653,47 @@ we need to define this for version 2 only. */
 #define TCPWM_GRP_CNT_ONE_GF(base, grp, cntNum, onetoone_gf)      (((TCPWM_Type *)(base))->GRP[grp].CNT[((cntNum) % 256U)].ONE_GF[onetoone_gf])
 #define TCPWM_GF_FOR_GROUP_TRIGGER(base, gfNum)      (((TCPWM_Type *)(base))->TR_ALL_GF.ALL_GF[((gfNum) % 254U)])
 
+/* MOTIF */
+
+#define TCPWM_MOTIF_PCONF(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PCONF)
+#define TCPWM_MOTIF_PSUS(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PSUS)
+#define TCPWM_MOTIF_PRUNS(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PRUNS)
+#define TCPWM_MOTIF_PRUN(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PRUN)
+#define TCPWM_MOTIF_MDR(base)                 (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MDR)
+#define TCPWM_MOTIF_HIST(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->HIST)
+#define TCPWM_MOTIF_HMEC(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->HMEC)
+#define TCPWM_MOTIF_HALP(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->HALP)
+#define TCPWM_MOTIF_HALPS(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->HALPS)
+#define TCPWM_MOTIF_HOSC(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->HOSC)
+#define TCPWM_MOTIF_MCM(base)                 (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCM)
+#define TCPWM_MOTIF_MCSM(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCSM)
+#define TCPWM_MOTIF_MCMS(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCMS)
+#define TCPWM_MOTIF_MCMC(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCMC)
+#define TCPWM_MOTIF_MCMF(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCMF)
+#define TCPWM_MOTIF_MCPF(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCPF)
+#define TCPWM_MOTIF_MOSC(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MOSC)
+#define TCPWM_MOTIF_QDC(base)                 (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->QDC)
+#define TCPWM_MOTIF_QOSC(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->QOSC)
+#define TCPWM_MOTIF_MCMEC(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCMEC)
+#define TCPWM_MOTIF_PFLG(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PFLG)
+#define TCPWM_MOTIF_PFLGE(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PFLGE)
+#define TCPWM_MOTIF_SPFLG(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->SPFLG)
+#define TCPWM_MOTIF_RPFLG(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->RPFLG)
+#define TCPWM_MOTIF_MCSM1(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCSM1)
+#define TCPWM_MOTIF_MCSM2(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCSM2)
+#define TCPWM_MOTIF_MCSM3(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCSM3)
+#define TCPWM_MOTIF_MCSM4(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCSM4)
+#define TCPWM_MOTIF_MCSM5(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->MCSM5)
+#define TCPWM_MOTIF_CLUT(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->CLUT)
+#define TCPWM_MOTIF_SLUT(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->SLUT)
+#define TCPWM_MOTIF_PDBG(base)                (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PDBG)
+#define TCPWM_MOTIF_PLP0S(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PLP0S)
+#define TCPWM_MOTIF_PLP1S(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PLP1S)
+#define TCPWM_MOTIF_PLP2S(base)               (((TCPWM_MOTIF_GRP_MOTIF_Type *)(base))->PLP2S)
+
+#ifndef TCPWM_TR_ONE_CNT_NR
+#define TCPWM_TR_ONE_CNT_NR TCPWM_CNT_TR_ONE_CNT_NR
+#endif
 #endif /* CY_IP_MXTCPWM_VERSION >= 3U */
 /*******************************************************************************
 *               TDM
@@ -1869,21 +2046,24 @@ we need to define this for version 2 only. */
 #define CY_IPC_INTR_STRUCT_PTR(ipcIntrIndex)   ((IPC_INTR_STRUCT_Type *)((void*)(((uint8_t*)&(BTSS_DATA_RAM_IPC->MXIPC_INTR_0)) + (sizeof(IPC_INTR_STRUCT_Type) * (ipcIntrIndex)))))
 #else
 #define CY_IPC_STRUCT_PTR(ipcIndex)            ((IPC_STRUCT_Type*)(IPC_BASE + (sizeof(IPC_STRUCT_Type) * (ipcIndex))))
-#define CY_IPC_INTR_STRUCT_PTR(ipcIntrIndex)   &(((IPC_Type *)IPC_BASE)->INTR_STRUCT[ipcIntrIndex])
+#define CY_IPC_INTR_STRUCT_PTR(ipcIntrIndex)   (&(((IPC_Type *)IPC_BASE)->INTR_STRUCT[ipcIntrIndex]))
 #endif
 
 #define CY_IPC_STRUCT_PTR_FOR_IP(ipcIndex, base)            ((IPC_STRUCT_Type*)((uint32_t)(base) + (sizeof(IPC_STRUCT_Type) * (ipcIndex))))
-#define CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base)   &(((IPC_Type *)base)->INTR_STRUCT[ipcIntrIndex])
+#define CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base)   (&(((IPC_Type *)base)->INTR_STRUCT[ipcIntrIndex]))
 
-#define CY_IPC_INSTANCES                       1U
-#define CY_IPC_CHANNELS                        (uint32_t)4
-#define CY_IPC_INTERRUPTS                      (uint32_t)2
+#define CY_IPC_INSTANCES                       (1U)
+#define CY_IPC_CHANNELS                        ((uint32_t)4)
+#define CY_IPC_INTERRUPTS                      ((uint32_t)2)
 #define CY_IPC_CHANNELS_PER_INSTANCE           CY_IPC_CHANNELS
+#define CY_IPC_INTERRUPTS_PER_INSTANCE         CY_IPC_INTERRUPTS
 
 /* ipcChannel comprises of total number of channels present in all IPC IP instances */
-#define CY_IPC_PIPE_CHANNEL_NUMBER_WITHIN_INSTANCE(ipcChannel) (((ipcChannel)<CY_IPC_CHANNELS_PER_INSTANCE)?(ipcChannel):((ipcChannel)%CY_IPC_CHANNELS_PER_INSTANCE))
+#define CY_IPC_PIPE_CHANNEL_NUMBER_WITHIN_INSTANCE(ipcChannel)  (ipcChannel%CY_IPC_CHANNELS_PER_INSTANCE)
+#define CY_IPC_PIPE_INTR_NUMBER_WITHIN_INSTANCE(ipcIntr)        (ipcIntr%CY_IPC_INTERRUPTS_PER_INSTANCE)
 
-
+#define CY_IPC_CH_MASK(chIndex)         (0x1u << (chIndex % CY_IPC_CHANNELS_PER_INSTANCE))
+#define CY_IPC_INTR_MASK(intrIndex)     (0x1u << (intrIndex % CY_IPC_INTERRUPTS_PER_INSTANCE))
 /*******************************************************************************
 *                LIN
 *******************************************************************************/
@@ -1966,6 +2146,51 @@ we need to define this for version 2 only. */
 /*******************************************************************************
 *                MS_CTL
 *******************************************************************************/
+#ifdef _CYIP_MS_CTL_2_1_V2_H_
+
+#define MS_CTL_PC_CTL_VX(index)          (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->MS[(index)].CTL)
+#define MS_CTL_PC_VAL_VX(index)          (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->MS_PC[(index)].PC)
+#define MS_CTL_PC_READ_MIRROR_VX(index)  (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->MS_PC[(index)].PC_READ_MIR)
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_VX   (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->CODE_MS0_MSC_ACG_CTL)
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_VX    (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->SYS_MS0_MSC_ACG_CTL)
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_VX    (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->SYS_MS1_MSC_ACG_CTL)
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_VX     (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->EXP_MS_MSC_ACG_CTL)
+#define MS_CTL_DMAC0_MSC_ACG_CTL_VX      (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->DMAC0_MSC_ACG_CTL)
+#define MS_CTL_DMAC1_MSC_ACG_CTL_VX      (((MS_CTL_2_1_Type*) MS_CTL_2_1_BASE)->DMAC1_MSC_ACG_CTL)
+
+/* MS_CTL.CODE_MS0_MSC_ACG_CTL */
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos   MS_CTL_2_1_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk   MS_CTL_2_1_CODE_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_SEC_RESP_VX_Pos        MS_CTL_2_1_CODE_MS0_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_CODE_MS0_MSC_ACG_CTL_SEC_RESP_VX_Msk        MS_CTL_2_1_CODE_MS0_MSC_ACG_CTL_SEC_RESP_Msk
+/* MS_CTL.SYS_MS0_MSC_ACG_CTL */
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos    MS_CTL_2_1_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk    MS_CTL_2_1_SYS_MS0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_SEC_RESP_VX_Pos         MS_CTL_2_1_SYS_MS0_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_SYS_MS0_MSC_ACG_CTL_SEC_RESP_VX_Msk         MS_CTL_2_1_SYS_MS0_MSC_ACG_CTL_SEC_RESP_Msk
+/* MS_CTL.SYS_MS1_MSC_ACG_CTL */
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos    MS_CTL_2_1_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk    MS_CTL_2_1_SYS_MS1_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_SEC_RESP_VX_Pos         MS_CTL_2_1_SYS_MS1_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_SYS_MS1_MSC_ACG_CTL_SEC_RESP_VX_Msk         MS_CTL_2_1_SYS_MS1_MSC_ACG_CTL_SEC_RESP_Msk
+/* MS_CTL.EXP_MS_MSC_ACG_CTL */
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos     MS_CTL_2_1_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk     MS_CTL_2_1_EXP_MS_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_SEC_RESP_VX_Pos          MS_CTL_2_1_EXP_MS_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_EXP_MS_MSC_ACG_CTL_SEC_RESP_VX_Msk          MS_CTL_2_1_EXP_MS_MSC_ACG_CTL_SEC_RESP_Msk
+/* MS_CTL.DMAC0_MSC_ACG_CTL */
+#define MS_CTL_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos      MS_CTL_2_1_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk      MS_CTL_2_1_DMAC0_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_DMAC0_MSC_ACG_CTL_SEC_RESP_VX_Pos           MS_CTL_2_1_DMAC0_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_DMAC0_MSC_ACG_CTL_SEC_RESP_VX_Msk           MS_CTL_2_1_DMAC0_MSC_ACG_CTL_SEC_RESP_Msk
+/* MS_CTL.DMAC1_MSC_ACG_CTL */
+#define MS_CTL_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_VX_Pos      MS_CTL_2_1_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_Pos
+#define MS_CTL_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_VX_Msk      MS_CTL_2_1_DMAC1_MSC_ACG_CTL_CFG_GATE_RESP_Msk
+#define MS_CTL_DMAC1_MSC_ACG_CTL_SEC_RESP_VX_Pos           MS_CTL_2_1_DMAC1_MSC_ACG_CTL_SEC_RESP_Pos
+#define MS_CTL_DMAC1_MSC_ACG_CTL_SEC_RESP_VX_Msk           MS_CTL_2_1_DMAC1_MSC_ACG_CTL_SEC_RESP_Msk
+
+#else
+
 #define MS_CTL_PC_CTL_VX(index)          (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->MS[(index)].CTL)
 #define MS_CTL_PC_VAL_VX(index)          (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->MS_PC[(index)].PC)
 #define MS_CTL_PC_READ_MIRROR_VX(index)  (((MS_CTL_1_2_Type*) MS_CTL_1_2_BASE)->MS_PC[(index)].PC_READ_MIR)
@@ -2007,6 +2232,8 @@ we need to define this for version 2 only. */
 #define MS_CTL_DMAC1_MSC_ACG_CTL_SEC_RESP_VX_Pos           MS_CTL_1_2_DMAC1_MSC_ACG_CTL_SEC_RESP_Pos
 #define MS_CTL_DMAC1_MSC_ACG_CTL_SEC_RESP_VX_Msk           MS_CTL_1_2_DMAC1_MSC_ACG_CTL_SEC_RESP_Msk
 
+#endif
+
 
 /*******************************************************************************
 *                MXSRAMC
@@ -2020,6 +2247,15 @@ we need to define this for version 2 only. */
 #define MXSRAMC_PWR_MACRO_CTL_LOCK_CLR1                0X00000002U
 #define MXSRAMC_PWR_MACRO_CTL_LOCK_SET01               0X00000003U
 #define CY_CPUSS_RAMC0_MACRO_NR                        CPUSS_RAMC0_MACRO_NR
+
+/*******************************************************************************
+*                PPC
+*******************************************************************************/
+
+#ifdef _CYIP_PPC_V2_H_
+#define PPC_Type PPC_PPC_Type
+#define PPC_CTL_RESP_CFG_Msk PPC_PPC_CTL_RESP_CFG_Msk
+#endif
 
 CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 

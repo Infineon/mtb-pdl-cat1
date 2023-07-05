@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.h
-* \version 1.90
+* \version 1.91
 *
 *  Description:
 *   IPC Pipe Driver - This header file contains all the function prototypes,
@@ -148,7 +148,7 @@ typedef struct
 
     IPC_STRUCT_Type *ipcPtr;           /**< Pointer to receive IPC channel ( If ipcPtr == NULL, cannot receive )      */
     IPC_INTR_STRUCT_Type *ipcIntrPtr;  /**< Pointer to IPC interrupt, needed to clear the interrupt                   */
-    uint32_t         busy;             /**< Endpoint busy flag.  If sent no messages can be sent from this endpoint   */
+    uint32_t         busy;             /**< Endpoint busy flag.  If set no messages can be sent from this endpoint   */
     uint32_t         clientCount;      /**< Client count and size of MsgCallback array                                */
 
     cy_ipc_pipe_callback_array_ptr_t callbackArray; /**< Pointer to array of callback functions, one for each Client  */
@@ -156,6 +156,7 @@ typedef struct
     cy_ipc_pipe_relcallback_ptr_t defaultReleaseCallbackPtr; /**< Pointer to default release callback function              */
 } cy_stc_ipc_pipe_ep_t;
 
+#if (CY_IPC_INSTANCES > 1U) || defined (CY_DOXYGEN)
 /** The Pipe endpoint configuration mask structure.
 *
 * \note
@@ -168,6 +169,7 @@ typedef struct
     uint32_t    epIntr;                       /**< IPC interrupt number */
     uint32_t    epIntrmask;                   /**< IPC interrupt mask. This comprises of all channels present in all IPC IP instances . */
 } cy_stc_ipc_pipe_ep_config_mask_t;
+#endif /* (CY_IPC_INSTANCES > 1U) */
 
 /** The Pipe endpoint configuration structure. */
 typedef struct

@@ -51,5 +51,7 @@ var group__group__smif__low__level__functions =
     [ "Cy_SMIF_SetMasterDLP", "group__group__smif__low__level__functions.html#ga6ecd1075db9d75ae45f4eb437dbfed8d", null ],
     [ "Cy_SMIF_GetMasterDLP", "group__group__smif__low__level__functions.html#ga338f6c1d218cd2093c48254995f6f06b", null ],
     [ "Cy_SMIF_GetMasterDLPSize", "group__group__smif__low__level__functions.html#ga220136f6a2fe90ea720c3e1577f96421", null ],
-    [ "Cy_SMIF_GetTapNumCapturedCorrectDLP", "group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644", null ]
+    [ "Cy_SMIF_GetTapNumCapturedCorrectDLP", "group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644", null ],
+    [ "Cy_SMIF_SetSelectedDelayTapSel", "group__group__smif__low__level__functions.html#ga1dbf0729412c7dfd76644969592ccd55", null ],
+    [ "Cy_SMIF_GetSelectedDelayTapSel", "group__group__smif__low__level__functions.html#gac18b090fdeb706017c0440961dc398c3", null ]
 ];

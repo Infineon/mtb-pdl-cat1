@@ -68,9 +68,12 @@
     
     <ParamBool id="isPllUsed" name="Is PLL Used" group="Internal" default="`${ (&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 0 : ((&quot;mxs40srss&quot; eq getIpBlockName()) ? (sourceClockNumber &gt; 0) &amp;&amp; (sourceClockNumber &lt;= NUM_PLL) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-1) . &quot;]&quot;) : (sourceClockNumber &gt; NUM_PLL) &amp;&amp; (sourceClockNumber &lt;= (NUM_PLL + NUM_PLL400M)) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-3) . &quot;]&quot;)) }`" visible="false" editable="false" desc="" />
 
+    <ParamBool id="isPll250mUsed" name="Is PLL-250MHz Used" group="Internal" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? ((sourceClockNumber ne 0 &amp;&amp; sourceClockNumber &lt;= NUM_DPLL250) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll250m[&quot; . (sourceClockNumber - 1 ) . &quot;]&quot;)) : false) : false}`" visible="false" editable="false" desc="" />
+
     <ParamString id="sourceClock" name="Source clock resource" group="Internal" default="`${isFllUsed ? &quot;fll[0]&quot; :
                                                                                             isPll400mUsed ? &quot;pll400m[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
                                                                                             isPllUsed &amp;&amp; (&quot;mxs40srss&quot; eq getIpBlockName()) ? &quot;pll[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
+                                                                                            isPll250mUsed &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()) ? &quot;pll[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
                                                                                             isPllUsed &amp;&amp; (&quot;mxs40srss_ver3&quot; eq getIpBlockName()) ? &quot;pll[&quot; . (sourceClockNumber-(NUM_PLL+1)) . &quot;]&quot; :
                                                                                                         &quot;pathmux[&quot; . sourceClockNumber . &quot;]&quot;}`" visible="false" editable="false" desc="" />
 
@@ -87,8 +90,20 @@
     <ParamChoice id="divider" name="Divider" group="General" default="1" visible="true" editable="true" desc="The source clock frequency divider">
       <Entry name="1" value="1" visible="true"/>
       <Entry name="2" value="2" visible="true"/>
+      <Entry name="3" value="3" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
       <Entry name="4" value="4" visible="true"/>
+      <Entry name="5" value="5" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="6" value="6" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="7" value="7" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
       <Entry name="8" value="8" visible="true"/>
+      <Entry name="9" value="9" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="10" value="10" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="11" value="11" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="12" value="12" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="13" value="13" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="14" value="14" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="15" value="15" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
+      <Entry name="16" value="16" visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? true : false) : false}`"/>
     </ParamChoice>
     <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFreq / divider}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
     <!-- If the frequency is less than one MHz, display its value in kHz -->
@@ -137,7 +152,7 @@
     <DRC type="ERROR" text="The IMO cannot be disabled." condition="`${(clockInst eq 0) &amp;&amp; !isBlockUsed(&quot;srss[0].clock[0].imo[0]&quot;)}`" location="srss[0].clock[0]">
       <FixIt action="ENABLE_BLOCK" target="srss[0].clock[0].imo[0]" value="" valid="true" />
     </DRC>
-	<DRC type="ERROR" text="CLK_HF2 should be equal to 48MHz." condition="`${((clockInst == 2) &amp;&amp; (frequency ne 48000000) &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()))}`" />
+	<DRC type="ERROR" text="CLK_HF2 should be equal to 48MHz." condition="`${((clockInst == 2) &amp;&amp; (frequency ne 48000000) &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; NUM_TOTAL_PLL eq 0)}`" />
 	<DRC type="ERROR" text="CLK_HF3 should be less than 24MHz." condition="`${((clockInst == 3) &amp;&amp; (frequency &gt; 24000000) &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()))}`" />
     <!--DRC type="ERROR" text="Only one connection between the clock system and GPIO pins is possible, either EXTCLK or CLK_HF4." condition="`${hasConnection(&quot;root_clk&quot;, 0) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].ext[0]&quot;)}`" /-->
   </DRCs>

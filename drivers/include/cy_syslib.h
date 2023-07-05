@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.30
+* \version 3.40
 *
 * Provides an API declaration of the SysLib driver.
 *
@@ -118,6 +118,17 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">3.40</td>
+*     <td>
+*         Newly added API \ref Cy_SysLib_GetDeviceLCS and enum \ref cy_en_syslib_lcs_mode_t
+*     </td>
+*     <td>Support of LCS added for CAT1D devices .</td>
+*   </tr>
+*   <tr>
+*     <td>Updated API \ref Cy_SysLib_SetWaitStates and added new macros.</td>
+*     <td>Enabled wait-states API for CAT1C devices.</td>
+*   </tr>
 *   <tr>
 *     <td>3.30</td>
 *     <td>Added \ref Cy_SysLib_IsDSRAMWarmBootEntry and \ref Cy_SysLib_ClearDSRAMWarmBootEntryStatus APIs.</td>
@@ -420,6 +431,20 @@ typedef enum
     CY_SYSLIB_UNKNOWN       = CY_SYSLIB_ID | CY_PDL_STATUS_ERROR | 0xFFUL     /**< Unknown status code */
 } cy_en_syslib_status_t;
 
+/** The Life  Cycle Stage(LCS) enum. */
+typedef enum
+{
+    CY_SYSLIB_LCS_VIRGIN              = 0x000UL,    /**< LCS Mode: VIRGIN */
+    CY_SYSLIB_LCS_SORT                = 0x003UL,    /**< LCS Mode: SORT */
+    CY_SYSLIB_LCS_PROVISIONED         = 0x00FUL,    /**< LCS Mode: PROVISIONED */
+    CY_SYSLIB_LCS_NORMAL_PROVISIONED  = 0xC0FUL,    /**< LCS Mode: NORMAL-PROVISIONED*/
+    CY_SYSLIB_LCS_NORMAL              = 0xC03UL,    /**< LCS Mode: NORMAL */
+    CY_SYSLIB_LCS_SECURE              = 0xC3FUL,    /**< LCS Mode: SECURE */
+    CY_SYSLIB_LCS_NORMAL_NO_SECURE    = 0xCC3UL,    /**< LCS Mode: NORMAL_NO_SECURE */
+    CY_SYSLIB_LCS_RMA                 = 0xF3FUL,    /**< LCS Mode: RMA */
+    CY_SYSLIB_LCS_CORRUPTED           = 0xFFFFUL,   /**< LCS Mode: CORRUPTED */
+} cy_en_syslib_lcs_mode_t;
+
 /** \} group_syslib_enumerated_types */
 /**
 * \addtogroup group_syslib_data_structures
@@ -560,7 +585,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    30
+#define CY_SYSLIB_DRV_VERSION_MINOR    40
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN
@@ -579,6 +604,28 @@ typedef enum
 #define CY_SECTION_RAMFUNC_END
 #endif
 #endif
+
+#if (CY_CPU_CORTEX_M7 || CY_CPU_CORTEX_M55)
+/** Define start of the function placed to the ITCM area by the linker */
+#ifndef CY_SECTION_ITCM_BEGIN
+#define CY_SECTION_ITCM_BEGIN CY_SECTION(".cy_itcm")
+#endif
+
+/** Define end of the function placed to the ITCM area by the linker */
+#ifndef CY_SECTION_ITCM_END
+#define CY_SECTION_ITCM_END
+#endif
+
+/** Define start of the function placed to the DTCM area by the linker */
+#ifndef CY_SECTION_DTCM_BEGIN
+#define CY_SECTION_DTCM_BEGIN CY_SECTION(".cy_dtcm")
+#endif
+
+/** Define end of the function placed to the DTCM area by the linker */
+#ifndef CY_SECTION_DTCM_END
+#define CY_SECTION_DTCM_END
+#endif
+#endif /* CY_CPU_CORTEX_M7, CY_CPU_CORTEX_M55 */
 
 /** Define start of the code block to be copied to SRAM by the linker during init */
 #ifndef CY_SECTION_INIT_CODECOPY_BEGIN
@@ -601,6 +648,11 @@ typedef enum
 /** Define variable to be placed to the shared SRAM area by the linker */
 #ifndef CY_SECTION_SHAREDMEM
 #define CY_SECTION_SHAREDMEM CY_SECTION(".cy_sharedmem")
+#endif
+
+/** Define variable to be placed to the secured shared SRAM area by the linker */
+#ifndef CY_SECTION_SHAREDMEM_SEC
+#define CY_SECTION_SHAREDMEM_SEC CY_SECTION(".cy_sharedmem_sec")
 #endif
 
 /** Define start of function placed to the bootstrap area by the linker */
@@ -1231,6 +1283,7 @@ void Cy_SysLib_ClearResetReason(void);
 #if defined(CY_INIT_CODECOPY_ENABLE)
 CY_SECTION_INIT_CODECOPY_BEGIN
 #endif
+
 /*******************************************************************************
 * Function Name: Cy_SysLib_GetResetStatus
 ****************************************************************************//**
@@ -1257,7 +1310,6 @@ __STATIC_INLINE cy_en_syslib_status_t Cy_SysLib_GetResetStatus (void)
 {
     return ((0UL == (BACKUP_RESET & BACKUP_RESET_RESET_Msk)) ? CY_SYSLIB_SUCCESS : CY_SYSLIB_INVALID_STATE);
 }
-
 
 #if defined (CY_IP_MXS40SRSS)
 /*******************************************************************************
@@ -1446,7 +1498,20 @@ uint8_t Cy_SysLib_GetDeviceRevision(void);
 *******************************************************************************/
 uint16_t Cy_SysLib_GetDevice(void);
 
-#if  defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+#if defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SysLib_GetDeviceLCS
+****************************************************************************//**
+*
+* This function returns LCS of Device.
+*
+* \return  \ref cy_en_syslib_lcs_mode_t
+*
+*******************************************************************************/
+cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(void);
+#endif /* defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN) */
+
+#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_Syslib_SetWarmBootEntryPoint
 ****************************************************************************//**

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.c
-* \version 3.60
+* \version 3.70
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -1161,6 +1161,12 @@ uint32_t Cy_SysClk_EcoGetStatus(void)
       CY_SYSCLK_ECOSTAT_STABLE : (SRSS_CLK_ECO_STATUS_ECO_OK_Msk & SRSS_CLK_ECO_STATUS));
 }
 
+#if (defined (CY_IP_MXS40SRSS)&& (CY_IP_MXS40SRSS_VERSION < 3))
+void Cy_SysClk_EcoSetFrequency(uint32_t freq)
+{
+    ecoFrequency = freq; /* Store the ECO frequency */
+}
+#endif /* (defined (CY_IP_MXS40SRSS)&& (CY_IP_MXS40SRSS_VERSION < 3)) */
 
 cy_en_sysclk_status_t Cy_SysClk_EcoConfigure(uint32_t freq, uint32_t cSum, uint32_t esr, uint32_t driveLevel)
 {

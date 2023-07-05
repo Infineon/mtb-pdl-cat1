@@ -102,6 +102,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gadfa3c02cbe77ad372bb9c7c9c5e4024f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__ppu__functions.html#gadfa3c02cbe77ad372bb9c7c9c5e4024f">cy_pd_ppu_set_power_mode</a> (struct ppu_v1_reg *ppu, uint32_t <a class="el" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a>)</td></tr>
 <tr class="memdesc:gadfa3c02cbe77ad372bb9c7c9c5e4024f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the required power mode of the particular PPU.  <a href="#gadfa3c02cbe77ad372bb9c7c9c5e4024f">More...</a><br /></td></tr>
 <tr class="separator:gadfa3c02cbe77ad372bb9c7c9c5e4024f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad0c77c7391189f11074d3f83c26168f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__ppu__functions.html#gad0c77c7391189f11074d3f83c26168f0">cy_pd_ppu_set_static_power_mode</a> (struct ppu_v1_reg *ppu, uint32_t <a class="el" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a>)</td></tr>
+<tr class="memdesc:gad0c77c7391189f11074d3f83c26168f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the required static power mode of the particular PPU.  <a href="#gad0c77c7391189f11074d3f83c26168f0">More...</a><br /></td></tr>
+<tr class="separator:gad0c77c7391189f11074d3f83c26168f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7fce14f1a71df1fc7f00cd3da46f4418"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__ppu__functions.html#ga7fce14f1a71df1fc7f00cd3da46f4418">cy_pd_ppu_reset</a> (struct ppu_v1_reg *ppu)</td></tr>
 <tr class="memdesc:ga7fce14f1a71df1fc7f00cd3da46f4418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the PD using PPU.  <a href="#ga7fce14f1a71df1fc7f00cd3da46f4418">More...</a><br /></td></tr>
 <tr class="separator:ga7fce14f1a71df1fc7f00cd3da46f4418"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,7 +132,7 @@ Functions</h2></td></tr>
 <p>Initializes the PD PPU Driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done, it will point to one of the below PPUs: MAIN_PPU CPUSS_PPU SRAM_PPU</td></tr>
+    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done.</td></tr>
   </table>
   </dd>
 </dl>
@@ -156,7 +159,7 @@ Functions</h2></td></tr>
 <p>Gets the programmed power mode of the particular PPU. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done, it will point to one of the below PPUs. MAIN_PPU CPUSS_PPU SRAM_PPU</td></tr>
+    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done.</td></tr>
   </table>
   </dd>
 </dl>
@@ -183,7 +186,7 @@ Functions</h2></td></tr>
 <p>Gets the current power mode of the particular PPU. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done, it will point to one of the below PPUs: MAIN_PPU CPUSS_PPU SRAM_PPU</td></tr>
+    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done.</td></tr>
   </table>
   </dd>
 </dl>
@@ -220,7 +223,45 @@ Functions</h2></td></tr>
 <p>Sets the required power mode of the particular PPU. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done, it will point to one of the below PPUs: MAIN_PPU CPUSS_PPU SRAM_PPU</td></tr>
+    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done.</td></tr>
+    <tr><td class="paramname">mode</td><td>Contains the future power mode to be set for the PPU.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the PD PPU API status <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="gad0c77c7391189f11074d3f83c26168f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad0c77c7391189f11074d3f83c26168f0">&#9670;&nbsp;</a></span>cy_pd_ppu_set_static_power_mode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a> cy_pd_ppu_set_static_power_mode </td>
+          <td>(</td>
+          <td class="paramtype">struct ppu_v1_reg *&#160;</td>
+          <td class="paramname"><em>ppu</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the required static power mode of the particular PPU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done.</td></tr>
     <tr><td class="paramname">mode</td><td>Contains the future power mode to be set for the PPU.</td></tr>
   </table>
   </dd>
@@ -248,7 +289,7 @@ Functions</h2></td></tr>
 <p>Resets the PD using PPU. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done, it will point to one of the below PPUs: MAIN_PPU CPUSS_PPU SRAM_PPU</td></tr>
+    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done.</td></tr>
   </table>
   </dd>
 </dl>
@@ -275,7 +316,7 @@ Functions</h2></td></tr>
 <p>Gets the PPU's device ID(s) which caused the Deepsleep Failure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done, it will point to one of the below PPUs: MAIN_PPU CPUSS_PPU SRAM_PPU</td></tr>
+    <tr><td class="paramname">ppu</td><td>This parameter contains PPU base pointer for which the initialization has to be done.</td></tr>
   </table>
   </dd>
 </dl>

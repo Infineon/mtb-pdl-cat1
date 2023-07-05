@@ -60,6 +60,7 @@ var searchData=
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__mf__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__peripheral__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__pump__enums.html',1,'']]],
+  ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__pwr__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__timer__enums.html',1,'']]],
   ['external_20crystal_20oscillator_20_28eco_29',['External Crystal Oscillator (ECO)',['../group__group__sysclk__eco.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__eco__enums.html',1,'']]],

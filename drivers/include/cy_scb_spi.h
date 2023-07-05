@@ -123,6 +123,10 @@
 *
 * \snippet scb/spi_snippet/main.c SPI_CFG_DATA_RATE_MASTER
 *
+* \note
+* In CAT1D devices, to avoid potential metastable conditions at 50 MHz, set
+* clock to 200 MHz, oversample to 4 and median filter to 1.
+*
 * <b>Refer to the technical reference manual (TRM) section SPI sub-section
 * Oversampling and Bit Rate to get information about how to configure SPI to run
 * with desired data rate</b>.

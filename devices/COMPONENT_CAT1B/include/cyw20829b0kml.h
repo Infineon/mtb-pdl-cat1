@@ -155,23 +155,14 @@ typedef enum {
 /* Memory Blocks */
 #define CY_ROM_BASE                     0x00000000UL
 #define CY_ROM_SIZE                     0x00010000UL
-#define CY_ROM_SECURE_OFFSET            0x10000000UL
-#define CY_ROM_REMAP_OFFSET             0x00000000UL
-#define CY_ROM_REMAP_SECURE_OFFSET      0x10000000UL
 #define CY_CAN0MRAM_BASE                0x40450000UL
 #define CY_CAN0MRAM_SIZE                0x00010000UL
 #define CY_EFUSE_BASE                   0x40810800UL
 #define CY_EFUSE_SIZE                   0x00000200UL
 #define CY_XIP_BASE                     0x60000000UL
 #define CY_XIP_SIZE                     0x08000000UL
-#define CY_XIP_SECURE_OFFSET            0x70000000UL
-#define CY_XIP_REMAP_OFFSET             0x08000000UL
-#define CY_XIP_REMAP_SECURE_OFFSET      0x18000000UL
 #define CY_SRAM0_BASE                   0x20000000UL
 #define CY_SRAM0_SIZE                   0x00040000UL
-#define CY_SRAM0_SECURE_OFFSET          0x30000000UL
-#define CY_SRAM0_REMAP_OFFSET           0x04000000UL
-#define CY_SRAM0_REMAP_SECURE_OFFSET    0x14000000UL
 
 #include "system_cat1b.h"                       /*!< Category 1B System */
 

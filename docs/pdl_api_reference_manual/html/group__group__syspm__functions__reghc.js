@@ -26,5 +26,7 @@ var group__group__syspm__functions__reghc =
     [ "Cy_SysPm_ReghcDisablePmicInDeepSleep", "group__group__syspm__functions__reghc.html#ga2394eba4a2c01dd7635264064c9ecc1d", null ],
     [ "Cy_SysPm_ReghcEnablePmicInDeepSleep", "group__group__syspm__functions__reghc.html#gaaeefdc910ed08e7ad971a768a1689900", null ],
     [ "Cy_SysPm_ReghcIsOcdWithinLimits", "group__group__syspm__functions__reghc.html#ga0b5ea65f1366f12e007c16693f51909e", null ],
-    [ "Cy_SysPm_ReghcIsCircuitEnabledAndOperating", "group__group__syspm__functions__reghc.html#gaa6f970a2976b4cfd81993031202a5e45", null ]
+    [ "Cy_SysPm_ReghcIsCircuitEnabledAndOperating", "group__group__syspm__functions__reghc.html#gaa6f970a2976b4cfd81993031202a5e45", null ],
+    [ "Cy_SysPm_ReghcConfigure", "group__group__syspm__functions__reghc.html#ga09c461654f8d41bb0badd96bbfb4c7ad", null ],
+    [ "Cy_SysPm_ReghcDeConfigure", "group__group__syspm__functions__reghc.html#ga8b2da4b8c544a0f8f65efe191346af26", null ]
 ];

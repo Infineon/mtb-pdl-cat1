@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_syspm_v3.c
-* \version 5.93
+* \version 5.94
 *
 * This driver provides the source code for API power management.
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -84,6 +84,12 @@
 * Cy_SysPm_SystemSetMinRegulatorCurrent() function
 */
 #define WAIT_DELAY_TRIES                (100U)
+
+/* The internal define of the tries number in the
+* Cy_Syspm_ReghcConfigure(), Cy_Syspm_ReghcDeConfigure() functions
+*/
+#define REGHC_WAIT_DELAY_TRIES_US        (20U)
+
 
 /* The internal define of the tries number in the
 * Cy_SysPm_SystemSetMinRegulatorCurrent() function
@@ -1303,6 +1309,7 @@ bool Cy_SysPm_Cm7IsDeepSleep(uint8_t core)
     return status;
 }
 
+
 bool Cy_SysPm_Cm7IsLowPower(uint8_t core)
 {
     bool status = false;
@@ -1328,6 +1335,12 @@ bool Cy_SysPm_Cm0IsActive(void)
     return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM0_ACTIVE) != 0u);
 }
 
+
+bool Cy_SysPm_Cm0IsLowPower(void)
+{
+    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM0_LOWPOWER) != 0u);
+}
+
 bool Cy_SysPm_Cm0IsSleep(void)
 {
     return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM0_SLEEP) != 0u);
@@ -1336,11 +1349,6 @@ bool Cy_SysPm_Cm0IsSleep(void)
 bool Cy_SysPm_Cm0IsDeepSleep(void)
 {
     return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM0_DEEPSLEEP) != 0u);
-}
-
-bool Cy_SysPm_Cm0IsLowPower(void)
-{
-    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM0_LOWPOWER) != 0u);
 }
 
 bool Cy_SysPm_IsSystemLp(void)
@@ -1796,6 +1804,73 @@ bool Cy_SysPm_ReghcIsCircuitEnabledAndOperating(void)
     return (_FLD2BOOL(SRSS_PWR_REGHC_STATUS_REGHC_CKT_OK, SRSS_PWR_REGHC_STATUS));
 }
 
+cy_en_syspm_status_t Cy_SysPm_ReghcConfigure(cy_en_syspm_reghc_mode_t mode, cy_en_syspm_reghc_vadj_t vadj)
+{
+    cy_en_syspm_status_t retVal = CY_SYSPM_TIMEOUT;
+    uint32_t timeOut = REGHC_WAIT_DELAY_TRIES_US;
+
+    /* Current support is for External Transistor mode only */
+    CY_ASSERT_L3(mode == CY_SYSPM_REGHC_MODE_TRANSISTOR);
+
+    /* a. Write PWR_REGHC_CTL.REGHC_MODE = 0 to configure the external transistor mode. */
+    Cy_SysPm_ReghcSelectMode(mode);
+
+    /* b. Write PWR_REGHC_CTL.REGHC_TRANS_USE_OCD = 1 */
+    //HW default is "1"
+
+    /* c. Write PWR_REGHC_CTL.REGHC_VADJ to the required feedback setting.*/
+    Cy_SysPm_ReghcAdjustOutputVoltage(vadj);
+
+    /* d. Write PWR_REGHC_CTL.REGHC_CONFIGURED = 1. */
+    Cy_SysPm_ReghcSetConfigured();
+
+    /* e. Execute the system call (LoadRegulatorTrims) to change internal regulator trims. */
+    //HW takes care
+
+    /* f. Write PWR_REGHC_CTL2.REGHC_EN = 1. */
+    Cy_SysPm_ReghcEnable();
+
+    /* g. Wait until PWR_REGHC_STATUS.REGHC_SEQ_BUSY = 0 and PWR_REGHC_STATUS.REGHC_ENABLED = 1.
+     * This should occur within 15us.
+     */
+    while (((true == Cy_SysPm_ReghcIsSequencerBusy()) || (false == Cy_SysPm_ReghcIsEnabled())) && (0U != timeOut))
+    {
+        Cy_SysLib_DelayUs(1U);
+        timeOut--;
+    }
+
+    if (0U != timeOut)
+    {
+        retVal= CY_SYSPM_SUCCESS;
+    }
+
+    return retVal;
+}
+
+cy_en_syspm_status_t Cy_SysPm_ReghcDeConfigure(void)
+{
+    cy_en_syspm_status_t retVal = CY_SYSPM_TIMEOUT;
+    uint32_t timeOut = REGHC_WAIT_DELAY_TRIES_US;
+
+    /* a. Write PWR_REGHC_CTL2.REGHC_EN = 0. */
+    Cy_SysPm_ReghcDisable();
+
+    /* b. Wait until PWR_REGHC_STATUS.REGHC_SEQ_BUSY = 0 and PWR_REGHC_STATUS.REGHC_ENABLED = 0.
+     * This should occur within 10 us.
+     */
+    while (((true == Cy_SysPm_ReghcIsSequencerBusy()) || (true == Cy_SysPm_ReghcIsEnabled())) && (0U != timeOut))
+    {
+        Cy_SysLib_DelayUs(1U);
+        timeOut--;
+    }
+
+    if (0U != timeOut)
+    {
+        retVal= CY_SYSPM_SUCCESS;
+    }
+
+    return retVal;
+}
 
 #endif /* (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3) */
 

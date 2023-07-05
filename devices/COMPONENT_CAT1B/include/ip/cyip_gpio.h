@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -88,7 +88,8 @@ typedef struct {
    __IM uint32_t VDD_PWRSW_STATUS;              /*!< 0x00008024 Power switch status */
    __IM uint32_t RESERVED2[54];
   __IOM uint32_t VDD_PWRSW_CTL;                 /*!< 0x00008100 Power Switch control */
-} GPIO_Type;                                    /*!< Size = 33028 (0x8104) */
+  __IOM uint32_t VDD_MODE_SEL;                  /*!< 0x00008104 Supply mode select for 3.3V domains */
+} GPIO_Type;                                    /*!< Size = 33032 (0x8108) */
 
 
 /* GPIO_PRT.OUT */
@@ -563,6 +564,9 @@ typedef struct {
 #define GPIO_VDD_PWRSW_CTL_MODEHV_LOCK_Msk      0xFF0000UL
 #define GPIO_VDD_PWRSW_CTL_MODEHV_Pos           31UL
 #define GPIO_VDD_PWRSW_CTL_MODEHV_Msk           0x80000000UL
+/* GPIO.VDD_MODE_SEL */
+#define GPIO_VDD_MODE_SEL_MODE_SEL_Pos          0UL
+#define GPIO_VDD_MODE_SEL_MODE_SEL_Msk          0xFFFFUL
 
 
 #endif /* _CYIP_GPIO_H_ */

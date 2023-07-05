@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_hb_flash.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the source code for the Hyper Bus APIs of the SMIF driver.
@@ -103,13 +103,13 @@ static uint32_t Cy_SMIF_Reverse4ByteEndian(uint32_t in)
 *
 * base: Holds the base address of the SMIF base registers.
 *
-* config: Configuration to be applied to the SMIF device \ref cy_stc_device_hb_config_t
+* memCfg: Configuration to be applied to the SMIF device \ref cy_stc_smif_mem_config_t
 *
 *******************************************************************************/
-cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_smif_hbmem_device_config_t *config, cy_stc_smif_context_t *context)
+cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_smif_mem_config_t *memCfg, cy_stc_smif_context_t *context)
 {
-    //cy_stc_smif_hbmem_device_config_t * config = memCfg->hbdeviceCfg;
-    SMIF_DEVICE_Type volatile * dev = Cy_SMIF_GetDeviceBySlot(base, config->slaveSelect);
+    cy_stc_smif_hbmem_device_config_t *config = memCfg->hbdeviceCfg;
+    SMIF_DEVICE_Type volatile * dev = Cy_SMIF_GetDeviceBySlot(base, memCfg->slaveSelect);
     
     /* Check if SMIF XIP is enabled */
     if ((_FLD2VAL(SMIF_CTL_XIP_MODE, SMIF_CTL(base)) != 1U) && (0U != (context->flags & CY_SMIF_FLAG_MEMORY_MAPPED)))
@@ -156,7 +156,7 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_sm
         SMIF_DEVICE_WR_DATA_CTL(dev) = (_VAL2FLD(SMIF_DEVICE_WR_DATA_CTL_WIDTH, CY_SMIF_WIDTH_OCTAL) |
                                         _VAL2FLD(SMIF_DEVICE_WR_DATA_CTL_DDR_MODE, CY_SMIF_DDR));
 
-        SMIF_DEVICE_ADDR(dev) = (SMIF_DEVICE_ADDR_ADDR_Msk & config->startAddr);
+        SMIF_DEVICE_ADDR(dev) = (SMIF_DEVICE_ADDR_ADDR_Msk & memCfg->baseAddress);
 
         /* Convert the size in the mask */
         SMIF_DEVICE_MASK(dev)= SMIF_DEVICE_MASK_MASK_Msk & (~((uint32_t)(config->memSize)) + 1UL);
@@ -175,11 +175,9 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_sm
     /* The device control register initialization */
     SMIF_DEVICE_CTL(dev) = _VAL2FLD(SMIF_DEVICE_CTL_WR_EN, 1U) |
                   _VAL2FLD(SMIF_DEVICE_CTL_CRYPTO_EN, 0U) |
-                  _VAL2FLD(SMIF_DEVICE_CTL_DATA_SEL,  (uint32_t)config->dataSelect) |
-                  _VAL2FLD(SMIF_DEVICE_CTL_MERGE_EN,  config->mergeEnable)  |
-                  _VAL2FLD(SMIF_DEVICE_CTL_MERGE_TIMEOUT,  (uint32_t)config->mergeTimeout) |
-                  _VAL2FLD(SMIF_DEVICE_CTL_TOTAL_TIMEOUT_EN,  config->totalTimeoutEnable)  |
-                  _VAL2FLD(SMIF_DEVICE_CTL_TOTAL_TIMEOUT,  (uint32_t)config->totalTimeout) |
+                  _VAL2FLD(SMIF_DEVICE_CTL_DATA_SEL,  CY_SMIF_DATA_SEL0) |
+                  _VAL2FLD(SMIF_DEVICE_CTL_MERGE_EN,  ((bool)(memCfg->flags & CY_SMIF_FLAG_MERGE_ENABLE))? 1U : 0U)  |
+                  _VAL2FLD(SMIF_DEVICE_CTL_MERGE_TIMEOUT,  (uint32_t)memCfg->mergeTimeout) |
                   SMIF_DEVICE_CTL_ENABLED_Msk;
 
     return CY_SMIF_SUCCESS;
@@ -409,10 +407,10 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif
 * \param buf
 * Pointer to buffer where read data to be stored
 *
-* \param lcCode
-* Latency code. This value should be set also to the hyper bus device.
+* \param dummyCycles
+* Number of dummy cycles required before actual read data.
 *
-* \param dobleLat
+* \param doubleLat
 * double initial latency or single initial latency
 *
 * \param isblockingMode
@@ -467,8 +465,8 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_Read(SMIF_Type *base,
 * \param burstType
 * Specifies wrapped or continuous burst. \ref en_hb_bust_type_t
 *
-* \param readAddress
-* Specifies address of external device to be read.
+* \param writeAddress
+* Specifies address of external device to be write.
 *
 * \param sizeInHalfWord
 * Specifies memory size to be read.
@@ -480,8 +478,8 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_Read(SMIF_Type *base,
 * \param hbDevType
 * Specifies hyper bus type. FLASH or SRAM. \ref cy_en_smif_hb_dev_type_t
 *
-* \param lcCode
-* Latency code. This value should be set also to the hyper bus device.
+* \param dummyCycles
+* Number of dummyCycles to be inserted before write operation.
 *
 * \param isblockingMode
 * Blocking mode or not. if this is true, process waits for the read finished in this

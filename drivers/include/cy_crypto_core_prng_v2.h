@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_prng_v2.h
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides provides constant and parameters for the API of the PRNG

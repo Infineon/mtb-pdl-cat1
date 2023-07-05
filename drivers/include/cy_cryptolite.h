@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite.h
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  This file provides interface header
@@ -182,6 +182,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>2.30</td>
+*     <td>Updated APIs \ref Cy_Cryptolite_ECC_VerifyHash and \ref Cy_Cryptolite_Aes_Ctr.</td>
+*     <td>Support for ECDSA verify for HASHZERO message added and MISRA 2012 violation fix</td>
+*   </tr>
+*   <tr>
 *     <td>2.20</td>
 *     <td>
 *         <ul>
@@ -217,7 +222,7 @@
 *   \{
 *     \defgroup group_cryptolite_lld_sha_functions Functions
 *   \}
-*   \defgroup group_cryptolite_lld_hmac Message Authenticatiopn Code (HMAC)
+*   \defgroup group_cryptolite_lld_hmac Message Authentication Code (HMAC)
 *   \{
 *     \defgroup group_cryptolite_lld_hmac_functions Functions
 *   \}

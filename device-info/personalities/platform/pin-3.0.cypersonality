@@ -177,7 +177,7 @@
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${pin}`U" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_DRIVEMODE" value="`${DriveModes}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_INIT_DRIVESTATE" value="`${initialState}`" public="true" include="true" />
-    <ConfigDefine name="`${blockName . &quot;_HSIOM&quot;}`" value="HSIOM_SEL_GPIO" public="true" include="true" preventOverride="true" />
+    <ConfigDefine name="`${blockName . &quot;_HSIOM&quot;}`" value="`${hasSmifConn ? &quot;HSIOM_SEL_ACT_15&quot; : &quot;HSIOM_SEL_GPIO&quot;}`" public="true" include="true" preventOverride="true" />
     <ConfigDefine name="`${INST_NAME}`_HSIOM" value="`${blockName . &quot;_HSIOM&quot;}`" public="true" include="`${!(INST_NAME eq blockName)}`" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="`${(nonSec eq 1) ? &quot;ioss_interrupts_&quot; : &quot;ioss_interrupts_sec_&quot;}`gpio_`${port}`_IRQn" public="true" include="`${hasIRQ}`" />
     <ConfigDefine name="`${INST_NAME}`_HAL_PORT_PIN" value="P`${port}`_`${pin}`" public="true" include="true" guard="defined (CY_USING_HAL)"/>

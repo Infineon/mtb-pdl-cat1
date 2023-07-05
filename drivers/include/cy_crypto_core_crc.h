@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_crc.h
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides the headers for CRC API

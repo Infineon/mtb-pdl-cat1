@@ -205,6 +205,10 @@ extern const cy_stc_device_t * cy_device;
 
 void Cy_PDL_Init(const cy_stc_device_t * device);
 
+/*******************************************************************************
+*               Generic Macro Definitions
+*******************************************************************************/
+#define GET_ALIAS_ADDRESS(addr)             (uint32_t)(addr)
 
 /*******************************************************************************
 *               Register Access Helper Macros
@@ -1009,19 +1013,20 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define REG_IPC_INTR_STRUCT_INTR_MASKED(base)  (((IPC_INTR_STRUCT_Type*)(base))->INTR_MASKED)
 
 #define CY_IPC_STRUCT_PTR(ipcIndex)            ((IPC_STRUCT_Type*)(cy_device->ipcBase + (cy_device->ipcStructSize * (ipcIndex))))
-#define CY_IPC_INTR_STRUCT_PTR(ipcIntrIndex)   &(((IPC_Type *)cy_device->ipcBase)->INTR_STRUCT[ipcIntrIndex])
+#define CY_IPC_INTR_STRUCT_PTR(ipcIntrIndex)   (&(((IPC_Type *)cy_device->ipcBase)->INTR_STRUCT[ipcIntrIndex]))
 
 #define CY_IPC_STRUCT_PTR_FOR_IP(ipcIndex, base)            ((IPC_STRUCT_Type*)((uint32_t)(base) + (sizeof(IPC_STRUCT_Type) * (ipcIndex))))
-#define CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base)   &(((IPC_Type *)base)->INTR_STRUCT[ipcIntrIndex])
+#define CY_IPC_INTR_STRUCT_PTR_FOR_IP(ipcIntrIndex, base)   (&(((IPC_Type *)base)->INTR_STRUCT[ipcIntrIndex]))
 
-#define CY_IPC_INSTANCES                       1U
-#define CY_IPC_CHANNELS                        (uint32_t)(cy_device->cpussIpcNr)
-#define CY_IPC_INTERRUPTS                      (uint32_t)(cy_device->cpussIpcIrqNr)
+#define CY_IPC_INSTANCES                       (1U)
+#define CY_IPC_CHANNELS                        ((uint32_t)(cy_device->cpussIpcNr))
+#define CY_IPC_INTERRUPTS                      ((uint32_t)(cy_device->cpussIpcIrqNr))
 #define CY_IPC_CHANNELS_PER_INSTANCE           CY_IPC_CHANNELS
 #define CY_IPC_INTERRUPTS_PER_INSTANCE         CY_IPC_INTERRUPTS
 
 /* ipcChannel comprises of total number of channels present in all IPC IP instances */
-#define CY_IPC_PIPE_CHANNEL_NUMBER_WITHIN_INSTANCE(ipcChannel) (((ipcChannel)<CY_IPC_CHANNELS_PER_INSTANCE)?(ipcChannel):((ipcChannel)%CY_IPC_CHANNELS_PER_INSTANCE))
+#define CY_IPC_PIPE_CHANNEL_NUMBER_WITHIN_INSTANCE(ipcChannel) (((ipcChannel)%CY_IPC_CHANNELS_PER_INSTANCE)) //(ipcChannel%CY_IPC_CHANNELS_PER_INSTANCE)
+#define CY_IPC_PIPE_INTR_NUMBER_WITHIN_INSTANCE(ipcIntr)       (((ipcIntr)%CY_IPC_INTERRUPTS_PER_INSTANCE))
 
 /* IPC channel definitions  */
 #define CY_IPC_CHAN_SYSCALL_CM0             (0U)  /* System calls for the CM0 processor */

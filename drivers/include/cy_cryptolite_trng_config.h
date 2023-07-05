@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_trng_config.h
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  This file provides  constants and parameters

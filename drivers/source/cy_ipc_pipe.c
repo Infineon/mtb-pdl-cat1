@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.c
-* \version 1.80
+* \version 1.91
 *
 *  Description:
 *   IPC Pipe Driver - This source file includes code for the Pipe layer on top
@@ -34,8 +34,6 @@
 static cy_stc_ipc_pipe_ep_t * cy_ipc_pipe_epArray = NULL;
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 12, \
 'Intentional typecast to IRQn_Type enum.')
-CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 9.1', 5, \
-'Taking True and False branch')
 
 /*******************************************************************************
 * Function Name: Cy_IPC_Pipe_Config
@@ -154,7 +152,7 @@ void Cy_IPC_Pipe_Init(cy_stc_ipc_pipe_config_t const *config)
     epConfigDataB = config->ep1ConfigData;
 
 /* New Implementation which supports all devices */
-#if ((defined (CY_CPU_CORTEX_M33) || defined (CY_CPU_CORTEX_M55)) && (CY_IPC_INSTANCES > 1))
+#if (CY_IPC_INSTANCES > 1)
     /* Configure CM33 interrupts */
     if(epConfigDataA.ipcNotifierNumber < CY_IPC_IP0_INT)
     {
@@ -446,13 +444,13 @@ cy_en_ipc_pipe_status_t Cy_IPC_Pipe_SendMessage(uint32_t toAddr, uint32_t fromAd
     fromEp = &cy_ipc_pipe_epArray[fromAddr];
 
     /* Create the release mask for the "fromAddr" channel's interrupt channel */
-    releaseMask =  (uint32_t)(1UL << CY_IPC_PIPE_CHANNEL_NUMBER_WITHIN_INSTANCE(fromEp->intrChan));
+    releaseMask =  (uint32_t)(1UL << CY_IPC_PIPE_INTR_NUMBER_WITHIN_INSTANCE(fromEp->intrChan));
 
     /* Shift into position */
     releaseMask = _VAL2FLD(CY_IPC_PIPE_MSG_RELEASE, releaseMask);
 
     /* Create the notify mask for the "toAddr" channel's interrupt channel */
-    notifyMask  =  (uint32_t)(1UL << (toEp->intrChan));
+    notifyMask  =  (uint32_t)(1UL << CY_IPC_PIPE_INTR_NUMBER_WITHIN_INSTANCE(toEp->intrChan));
 
     /* Check if IPC channel valid */
     if( toEp->ipcPtr != NULL)
@@ -650,6 +648,7 @@ void Cy_IPC_Pipe_ExecuteCallback(uint32_t epAddr)
 void Cy_IPC_Pipe_ExecCallback(cy_stc_ipc_pipe_ep_t * endpoint)
 {
     uint32_t *msgPtr = NULL;
+    uint32_t *msgTempPtr = NULL;
     uint32_t clientID;
     uint32_t shadowIntr;
     uint32_t releaseMask = (uint32_t)0;
@@ -674,8 +673,9 @@ void Cy_IPC_Pipe_ExecCallback(cy_stc_ipc_pipe_ep_t * endpoint)
         if ( Cy_IPC_Drv_IsLockAcquired (endpoint->ipcPtr) )
         {
             /* Extract Client ID  */
-            if( CY_IPC_DRV_SUCCESS == Cy_IPC_Drv_ReadMsgPtr (endpoint->ipcPtr, (void **)&msgPtr))
+            if( CY_IPC_DRV_SUCCESS == Cy_IPC_Drv_ReadMsgPtr (endpoint->ipcPtr, (void **)&msgTempPtr))
             {
+                msgPtr = (uint32_t *)GET_ALIAS_ADDRESS(msgTempPtr);
                 #if (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7) && (defined (CY_IP_M7CPUSS))
                     SCB_InvalidateDCache_by_Addr(msgPtr, (int32_t)sizeof(*msgPtr));
                 #endif
@@ -792,7 +792,6 @@ cy_en_ipc_pipe_status_t Cy_IPC_Pipe_EndpointResume(uint32_t epAddr)
 
     return (CY_IPC_PIPE_SUCCESS);
 }
-CY_MISRA_BLOCK_END('MISRA C-2012 Rule 9.1')
 CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
 #endif
 /* [] END OF FILE */

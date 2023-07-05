@@ -10,7 +10,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2022 Cypress Semiconductor Corporation
+* Copyright 2022-2023 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +29,7 @@
 <Personality id="mxs40smif_intrinsic" name="Quad Serial Peripheral Interface (QSPI) Intrinsic" intrinsic="true" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
     <IpBlock name="mxsmif,mxsmif_ver2_s40e">
+        <Version major="5" />
         <Version major="3" />
         <Version major="2" />
         <Version major="1" />

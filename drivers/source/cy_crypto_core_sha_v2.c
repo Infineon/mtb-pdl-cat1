@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_sha_v2.c
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides the source code to the API for the SHA method
@@ -601,7 +601,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Sha(CRYPTO_Type *base,
 
 #else
     /* Allocate maximal space for the structure which stores the SHA buffers */
-    cy_stc_crypto_v2_sha_buffers_t shaBuffers = {{ 0 }, { 0 }};
+    cy_stc_crypto_v2_sha_buffers_t shaBuffers = {{0,},{0,}};
     /* Allocate space for the structure which stores the SHA context */
     cy_stc_crypto_sha_state_t hashState = { 0 };
 #endif

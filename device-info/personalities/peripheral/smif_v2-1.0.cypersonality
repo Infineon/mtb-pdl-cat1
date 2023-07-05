@@ -211,6 +211,7 @@
     <ConfigTool value="`${cy_tools_path(&quot;qspi-configurator&quot;) . &quot;/qspi-configurator-cli&quot;}`" include="true">
       <Arg value="`${&quot;--config=&quot; . cfgFilePath}`" />
       <Arg value="`${&quot;--output-dir=&quot; . cy_codegen_path()}`" />
+      <Arg value="`${&quot;--library=&quot; . cy_libs_file()}`" />
     </ConfigTool>
     
     <ConfigInclude value="cy_smif.h" include="true" />

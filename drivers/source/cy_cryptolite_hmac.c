@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_hmac.c
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  Provides API implementation of the Cryptolite HAMC-SHA256 PDL driver.

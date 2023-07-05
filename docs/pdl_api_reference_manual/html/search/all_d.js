@@ -4,8 +4,6 @@ var searchData=
   ['name',['name',['../structcy__stc__crypto__ecc__dp__type.html#ab82d2c5a88601262a08abccf2a78c335',1,'cy_stc_crypto_ecc_dp_type::name()'],['../structcy__stc__cryptolite__ecc__dp__type.html#ad5bf579e41568aab380db9e411fb9615',1,'cy_stc_cryptolite_ecc_dp_type::name()']]],
   ['nanosecs',['nanosecs',['../structcy__stc__ethif__1588__timer__val__t.html#afce762b494cd4513e3e47d7508c5cc36',1,'cy_stc_ethif_1588_timer_val_t']]],
   ['nanosecsinc',['nanoSecsInc',['../structcy__stc__ethif__timer__increment__t.html#a48a0c950b515d91f408643471b391039',1,'cy_stc_ethif_timer_increment_t']]],
-  ['ndiv',['nDiv',['../structcy__stc__dpll__hp__config__t.html#a641a2165833046cdd23c8b0048cd22be',1,'cy_stc_dpll_hp_config_t']]],
-  ['ndivfract',['nDivFract',['../structcy__stc__dpll__hp__config__t.html#a275a2371308891194efd7d2a3cc92999',1,'cy_stc_dpll_hp_config_t']]],
   ['negativereload',['negativeReload',['../structcy__stc__sar2__channel__config__t.html#a5e9fbf1dad620008b001fe34265cb04e',1,'cy_stc_sar2_channel_config_t']]],
   ['nextdescriptor',['nextDescriptor',['../structcy__stc__dma__descriptor__config__t.html#a6bbdfa16f3b38866a9e6d4242814b45e',1,'cy_stc_dma_descriptor_config_t::nextDescriptor()'],['../structcy__stc__dmac__descriptor__config__t.html#a99cb4784bc632bd6f7144a972e7b9509',1,'cy_stc_dmac_descriptor_config_t::nextDescriptor()']]],
   ['nextitm',['nextItm',['../structcy__stc__syspm__callback__t.html#a491e913ae8b54d0a61f2ac6959abf8ab',1,'cy_stc_syspm_callback_t']]],

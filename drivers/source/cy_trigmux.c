@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_trigmux.c
-* \version 1.60
+* \version 1.60.1
 *
 * \brief Trigger mux API.
 *
@@ -379,7 +379,7 @@ cy_en_trigmux_status_t Cy_TrigMux_SwTrigger(uint32_t trigLine, uint32_t cycles)
             else if (CY_TRIGGER_TWO_CYCLES == cycles) /* mxperi_v2 or later, 2 cycles pulse */
             {
 #if defined(CY_IP_MXSPERI_INSTANCES) && (CY_IP_MXSPERI_INSTANCES == 2U)
-                if (trigLine & PERI_INSTANCE_1_IDENT_Msk)
+                if (0UL != (trigLine & PERI_INSTANCE_1_IDENT_Msk))
                 {
                     PERI1_TR_CMD = trCmd | PERI_V2_TR_CMD_TR_EDGE_Msk;
                 }

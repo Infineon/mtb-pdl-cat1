@@ -1,7 +1,9 @@
 var searchData=
 [
+  ['acccntlock',['accCntLock',['../structcy__stc__dpll__lp__config__t.html#a755e60dbe94ac02e7cd31a69283ecc32',1,'cy_stc_dpll_lp_config_t']]],
   ['acceptaddrinfifo',['acceptAddrInFifo',['../structcy__stc__scb__i2c__config__t.html#a9074db87cce95b20f6adbaf905e05f98',1,'cy_stc_scb_i2c_config_t::acceptAddrInFifo()'],['../structcy__stc__scb__uart__config__t.html#a74ad4d501763b438b7903fb04e9df1b1',1,'cy_stc_scb_uart_config_t::acceptAddrInFifo()']]],
   ['access_5fctrl',['access_ctrl',['../group__group__ipc__bt__data__structures.html#ga27c4742b2cdc6d74847b81b5c8a43bbe',1,'cy_ipc_bt.h']]],
+  ['accmode',['accMode',['../structcy__stc__dpll__lp__config__t.html#a0ebd45067b369e50454b87b7438b5c39',1,'cy_stc_dpll_lp_config_t']]],
   ['ackgeneraladdr',['ackGeneralAddr',['../structcy__stc__scb__i2c__config__t.html#a7a705499e24c5dade7143d1c339389af',1,'cy_stc_scb_i2c_config_t']]],
   ['acquirenotifierchannel',['acquireNotifierChannel',['../structcy__stc__crypto__config__t.html#abaea23dcf6f3e7c467646f73b2f9772d',1,'cy_stc_crypto_config_t']]],
   ['acquirenotifierconfig',['acquireNotifierConfig',['../structcy__stc__crypto__config__t.html#abd4789ed2371b4b38395295401248b34',1,'cy_stc_crypto_config_t']]],
@@ -18,8 +20,6 @@ var searchData=
   ['algo',['algo',['../structcy__stc__crypto__ecc__dp__type.html#a21a15ceafa7b448925b7239872aad5a9',1,'cy_stc_crypto_ecc_dp_type::algo()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a79d4b2004dac03ffd65081cea80a9692',1,'cy_stc_cryptolite_ecc_dp_type::algo()']]],
   ['allocbuffer',['allocBuffer',['../structcy__stc__usb__dev__ep__config__t.html#a5ba21ba730ec10df131e46e469b4aee9',1,'cy_stc_usb_dev_ep_config_t']]],
   ['almen',['almEn',['../structcy__stc__rtc__alarm__t.html#a55f2ba5a1be0d9425f9742e4f6a932c8',1,'cy_stc_rtc_alarm_t']]],
-  ['alphacoarse',['alphaCoarse',['../structcy__stc__dpll__hp__config__t.html#ac8b58bc445f7d57fff98101f4d3e7fad',1,'cy_stc_dpll_hp_config_t']]],
-  ['alphaext',['alphaExt',['../structcy__stc__dpll__hp__config__t.html#a3347f5dd8f1daa9be0e54ba945beac8c',1,'cy_stc_dpll_hp_config_t']]],
   ['althfclkfreq',['altHFclkFreq',['../structcy__stc__pra__system__config__t.html#a6dd0cc3cdc69074a75f9335ca3a5ff70',1,'cy_stc_pra_system_config_t']]],
   ['althfcload',['altHFcLoad',['../structcy__stc__pra__system__config__t.html#af03bdcd914aaa17fc530c9c1264e46f7',1,'cy_stc_pra_system_config_t']]],
   ['althfsysclkdiv',['altHFsysClkDiv',['../structcy__stc__pra__system__config__t.html#a70301630eba570879b56a0859b4deda8',1,'cy_stc_pra_system_config_t']]],

@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -36,9 +36,10 @@
 #define TCPWM_GRP_CNT_SECTION_SIZE              0x00000100UL
 #define TCPWM_GRP_SECTION_SIZE                  0x00010000UL
 #define TCPWM_TR_ALL_GF_SECTION_SIZE            0x00000400UL
+#define TCPWM_TR_ALL_SYNC_BYPASS_SECTION_SIZE   0x00000040UL
 #define TCPWM_MOTIF_GRP_MOTIF_SECTION_SIZE      0x00000200UL
 #define TCPWM_MOTIF_GRP_SECTION_SIZE            0x00004000UL
-#define TCPWM_SECTION_SIZE                      0x000B0000UL
+#define TCPWM_SECTION_SIZE                      0x00100000UL
 
 /**
   * \brief Timer/Counter/PWM Counter Module (TCPWM_GRP_CNT)
@@ -73,7 +74,8 @@ typedef struct {
    __IM uint32_t INTR_MASKED;                   /*!< 0x0000007C Interrupt masked request register */
   __IOM uint32_t LFSR;                          /*!< 0x00000080 LFSR register */
   __IOM uint32_t ONE_GF[8];                     /*!< 0x00000084 Glitch filter register for one to one trigger */
-   __IM uint32_t RESERVED3[23];
+  __IOM uint32_t TR_ONE_SYNC_BYPASS;            /*!< 0x000000A4 Sync bypass register for one to one trigger */
+   __IM uint32_t RESERVED3[22];
 } TCPWM_GRP_CNT_Type;                           /*!< Size = 256 (0x100) */
 
 /**
@@ -90,6 +92,14 @@ typedef struct {
   __IOM uint32_t ALL_GF[254];                   /*!< 0x00000000 Glitch filter register for All Group Triggers */
    __IM uint32_t RESERVED[2];
 } TCPWM_TR_ALL_GF_Type;                         /*!< Size = 1024 (0x400) */
+
+/**
+  * \brief Glitch filter module for group trigger (TCPWM_TR_ALL_SYNC_BYPASS)
+  */
+typedef struct {
+  __IOM uint32_t TR_ALL_SYNC_BYPASS[8];         /*!< 0x00000000 Trigger Sync bypass for group trigger */
+   __IM uint32_t RESERVED[8];
+} TCPWM_TR_ALL_SYNC_BYPASS_Type;                /*!< Size = 64 (0x40) */
 
 /**
   * \brief MOTIF Module (TCPWM_MOTIF_GRP_MOTIF)
@@ -153,7 +163,9 @@ typedef struct {
 typedef struct {
         TCPWM_GRP_Type GRP[8];                  /*!< 0x00000000 Group of counters */
         TCPWM_TR_ALL_GF_Type TR_ALL_GF;         /*!< 0x00080000 Glitch filter module for group trigger */
-   __IM uint32_t RESERVED[32512];
+   __IM uint32_t RESERVED[16128];
+        TCPWM_TR_ALL_SYNC_BYPASS_Type TR_ALL_SYNC_BYPASS; /*!< 0x00090000 Glitch filter module for group trigger */
+   __IM uint32_t RESERVED1[16368];
         TCPWM_MOTIF_GRP_Type MOTIF_GRP[8];      /*!< 0x000A0000 Group of MOTIF module */
 } TCPWM_Type;                                   /*!< Size = 786432 (0xC0000) */
 
@@ -201,6 +213,8 @@ typedef struct {
 #define TCPWM_GRP_CNT_CTRL_MODE_Msk             0x7000000UL
 #define TCPWM_GRP_CNT_CTRL_KILL_LINE_POLARITY_Pos 27UL
 #define TCPWM_GRP_CNT_CTRL_KILL_LINE_POLARITY_Msk 0x18000000UL
+#define TCPWM_GRP_CNT_CTRL_DBG_SUS_EN_Pos       29UL
+#define TCPWM_GRP_CNT_CTRL_DBG_SUS_EN_Msk       0x20000000UL
 #define TCPWM_GRP_CNT_CTRL_DBG_FREEZE_EN_Pos    30UL
 #define TCPWM_GRP_CNT_CTRL_DBG_FREEZE_EN_Msk    0x40000000UL
 #define TCPWM_GRP_CNT_CTRL_ENABLED_Pos          31UL
@@ -376,6 +390,9 @@ typedef struct {
 #define TCPWM_GRP_CNT_ONE_GF_GF_DEPTH_Msk       0x7UL
 #define TCPWM_GRP_CNT_ONE_GF_GFPS_DIV_Pos       3UL
 #define TCPWM_GRP_CNT_ONE_GF_GFPS_DIV_Msk       0x18UL
+/* TCPWM_GRP_CNT.TR_ONE_SYNC_BYPASS */
+#define TCPWM_GRP_CNT_TR_ONE_SYNC_BYPASS_SYNC_BYPASS_Pos 0UL
+#define TCPWM_GRP_CNT_TR_ONE_SYNC_BYPASS_SYNC_BYPASS_Msk 0xFFUL
 
 
 /* TCPWM_TR_ALL_GF.ALL_GF */
@@ -383,6 +400,11 @@ typedef struct {
 #define TCPWM_TR_ALL_GF_ALL_GF_GF_DEPTH_Msk     0x7UL
 #define TCPWM_TR_ALL_GF_ALL_GF_GFPS_DIV_Pos     3UL
 #define TCPWM_TR_ALL_GF_ALL_GF_GFPS_DIV_Msk     0x18UL
+
+
+/* TCPWM_TR_ALL_SYNC_BYPASS.TR_ALL_SYNC_BYPASS */
+#define TCPWM_TR_ALL_SYNC_BYPASS_TR_ALL_SYNC_BYPASS_SYNC_BYPASS_Pos 0UL
+#define TCPWM_TR_ALL_SYNC_BYPASS_TR_ALL_SYNC_BYPASS_SYNC_BYPASS_Msk 0xFFFFFFFFUL
 
 
 /* TCPWM_MOTIF_GRP_MOTIF.PCONF */

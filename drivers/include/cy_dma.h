@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_dma.h
-* \version 2.60
+* \version 2.70
 *
 * \brief
 * The header file of the DMA driver.
@@ -103,6 +103,11 @@
 *
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.70</td>
+*     <td>Updated \ref Cy_DMA_Descriptor_SetNextDescriptor and \ref Cy_DMA_Descriptor_GetNextDescriptor.</td>
+*     <td>Coverity bug fixes.</td>
+*   </tr>
 *   <tr>
 *     <td>2.60</td>
 *     <td>Fixed MISRA 2012 violations and minor documentation update.</td>
@@ -224,7 +229,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 15, \
 #define CY_DMA_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_DMA_DRV_VERSION_MINOR       60
+#define CY_DMA_DRV_VERSION_MINOR       70
 
 /** The DMA driver identifier */
 #define CY_DMA_ID                      (CY_PDL_DRV_ID(0x13U))

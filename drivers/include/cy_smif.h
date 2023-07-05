@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.50
+* \version 2.60
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -224,6 +224,19 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="3">2.60</td>
+*     <td>Modified  private APIs </td>
+*     <td>MISRA-10.6 violation and Bug fixes.</td>
+*   </tr>
+*   <tr>
+*     <td>Added new API \ref Cy_SMIF_SetSelectedDelayTapSel and \ref Cy_SMIF_GetSelectedDelayTapSel.</td>
+*     <td>Support for CAT1D devices.</td>
+*   </tr>
+*   <tr>
+*     <td>Modified \ref Cy_SMIF_MemWrite and \ref Cy_SMIF_MemDeInit APIs.</td>
+*     <td>Code Enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td>2.50</td>
 *     <td>Future functionality support for Hyperbus devices.</td>
@@ -583,7 +596,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       50
+#define CY_SMIF_DRV_VERSION_MINOR       60
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
@@ -1081,6 +1094,20 @@ typedef enum
 
 #endif /* CY_IP_MXSMIF_VERSION */
 
+/** Specifies the data line index. */
+typedef enum
+{
+    CY_SMIF_DATA_BIT0_TAP_SEL = 0U, /**< Data line zero. */
+    CY_SMIF_DATA_BIT1_TAP_SEL = 1U, /**< Data line one. */
+    CY_SMIF_DATA_BIT2_TAP_SEL = 2U, /**< Data line two. */
+    CY_SMIF_DATA_BIT3_TAP_SEL = 3U, /**< Data line three. */
+    CY_SMIF_DATA_BIT4_TAP_SEL = 4U, /**< Data line four. */
+    CY_SMIF_DATA_BIT5_TAP_SEL = 5U, /**< Data line five. */
+    CY_SMIF_DATA_BIT6_TAP_SEL = 6U, /**< Data line six. */
+    CY_SMIF_DATA_BIT7_TAP_SEL = 7U, /**< Data line seven. */
+} cy_en_smif_mem_data_line_t;
+
+
 /** \cond INTERNAL */
 /*******************************************************************************
 * These are legacy macros. They are left here just for backward compatibility.
@@ -1334,6 +1361,12 @@ cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t si
 uint16_t Cy_SMIF_GetMasterDLP(SMIF_Type *base);
 uint8_t Cy_SMIF_GetMasterDLPSize(SMIF_Type *base);
 uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit);
+#endif
+#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
+void Cy_SMIF_SetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave,
+                                    cy_en_smif_mem_data_line_t data_line, uint8_t tapSel);
+uint8_t Cy_SMIF_GetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave,
+                                       cy_en_smif_mem_data_line_t data_line);
 #endif
 /** \addtogroup group_smif_functions_syspm_callback
 * The driver supports SysPm callback for Deep Sleep and Hibernate transition.
@@ -1841,6 +1874,10 @@ __STATIC_INLINE void Cy_SMIF_PushTxFifo(SMIF_Type *baseaddr, cy_stc_smif_context
     /* Check if all bytes are sent */
     if (0u == buffCounter)
     {
+        #if (CY_IP_MXSMIF_VERSION >= 5) /* DRIVERS-12031 */
+        Cy_SMIF_SetTxFifoTriggerLevel(baseaddr, 0U);
+        #endif
+
         /* Disable the TR_TX_REQ interrupt */
         Cy_SMIF_SetInterruptMask(baseaddr, Cy_SMIF_GetInterruptMask(baseaddr) & ~SMIF_INTR_TR_TX_REQ_Msk);
 

@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_lpcomp.h
-* \version 1.50
+* \version 1.60
 *
 *  This file provides constants and parameter values for the Low Power Comparator driver.
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -118,15 +118,23 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
-*     <td>1.50</td>
-*     <td> * Minor improvement in implementation of disabling functionality for the comparator.
-*          * Documented MISRA C-2012 violation of the Rule 10.3.
-*     </td>
-*     <td>
-*         * Power drive mode for the comparator is restored to the level before disabling,
-*           instead of initial level.
-*         * MISRA C-2012 compliance.
-*     </td>
+*     <td rowspan="2">1.60</td>
+*     <td>Fix in hibernate callback function.</td>
+*     <td>The low power comparator was unable to wake-up the system from hibernate state.</td>
+*   </tr>
+*   <tr>
+*     <td>Documentation update and clarification.</td>
+*     <td>The code snippet in chapter Low Power Support was updated after validation.</td>
+*   </tr>
+*   <tr>
+*     <td rowspan="2">1.50</td>
+*     <td> Minor improvement in implementation of disabling functionality for the comparator.</td>
+*     <td> Power drive mode for the comparator is restored to the level before disabling,
+*             instead of initial level.</td>
+*   </tr>
+*   <tr>
+*     <td> Documented MISRA C-2012 violation of the Rule 10.3.</td>
+*     <td> MISRA C-2012 compliance.</td>
 *   </tr>
 *   <tr>
 *     <td>1.40</td>
@@ -225,7 +233,7 @@ extern "C"
 #define CY_LPCOMP_DRV_VERSION_MAJOR       1
 
 /** Driver minor version. */
-#define CY_LPCOMP_DRV_VERSION_MINOR       50
+#define CY_LPCOMP_DRV_VERSION_MINOR       60
 
 /******************************************************************************
 * API Constants

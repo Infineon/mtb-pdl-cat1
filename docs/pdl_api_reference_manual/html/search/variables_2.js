@@ -6,8 +6,6 @@ var searchData=
   ['barrett_5fp',['barrett_p',['../structcy__stc__crypto__ecc__dp__type.html#a32985516423929455def0b6a6ce8523e',1,'cy_stc_crypto_ecc_dp_type::barrett_p()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a381f2f2cc023b8212498bc5c368d9d2d',1,'cy_stc_cryptolite_ecc_dp_type::barrett_p()']]],
   ['base',['base',['../structcy__stc__syspm__callback__params__t.html#a56076e99358e2b7c99681312108b09af',1,'cy_stc_syspm_callback_params_t::base()'],['../structcy__stc__usbfs__dev__drv__dma__config__t.html#a8f4ec9857bf5868ec58ce1383b140b5d',1,'cy_stc_usbfs_dev_drv_dma_config_t::base()']]],
   ['baseaddress',['baseAddress',['../structcy__stc__smif__mem__config__t.html#a460a4733ce1f20fc1a3f767c35b1d3db',1,'cy_stc_smif_mem_config_t']]],
-  ['betacoarse',['betaCoarse',['../structcy__stc__dpll__hp__config__t.html#aa0678d84bd2bdcf02dac9e07182be7cd',1,'cy_stc_dpll_hp_config_t']]],
-  ['betaext',['betaExt',['../structcy__stc__dpll__hp__config__t.html#a058003220283c3ee8fa9d78c1c278f46',1,'cy_stc_dpll_hp_config_t']]],
   ['bext_5fintr',['bext_intr',['../structcy__stc__ethif__intr__config__t.html#a6c21dbaf218398a1ad351123703759bf',1,'cy_stc_ethif_intr_config_t']]],
   ['bhresp_5fnot_5fok',['bhresp_not_ok',['../structcy__stc__ethif__intr__config__t.html#a368ad7f6e32eebf704fd066c5f2275df',1,'cy_stc_ethif_intr_config_t']]],
   ['bias',['bias',['../structcy__stc__seglcd__config__t.html#ab3f79d01165e2a5f3926ab943d01a789',1,'cy_stc_seglcd_config_t']]],

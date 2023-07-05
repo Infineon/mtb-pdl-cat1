@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_syspm_v4.c
-* \version 5.93
+* \version 5.94
 *
 * This driver provides the source code for API power management.
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -31,6 +31,8 @@
 #include "cy_syspm.h"
 
 #include "cy_syspm_ppu.h"
+
+#include "cy_rram.h"
 
 
 
@@ -97,59 +99,69 @@
 #define CY_SYSPM_CBUCK_BUSY_RETRY_COUNT         (100U)
 #define CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_MS      (1U)
 
-/* Define for ROM trim for 0.9V */
-#define CPUSS_TRIM_ROM_VOLT_0_900         (0x00000012U)
+/* SRAM TRIM Values
+*/
+#define RAM_TRIM_VAL_A      0x0000000AU
+#define RAM_TRIM_VAL_B      0x0000000BU
+#define RAM_TRIM_VAL_C      0x0000000CU
+#define RAM_TRIM_VAL_F      0x0000000FU
+#define RAM_TRIM_VAL_1B     0x0000001BU
+#define RAM_TRIM_VAL_2D     0x0000002DU
+#define RAM_TRIM_VAL_3F     0x0000003FU
+#define RAM_TRIM_VAL_202    0x00000202U
+#define RAM_TRIM_VAL_203    0x00000203U
+#define RAM_TRIM_VAL_204    0x00000204U
+#define RAM_TRIM_VAL_206    0x00000206U
+#define RAM_TRIM_VAL_207    0x00000207U
+#define RAM_TRIM_VAL_20A    0x0000020AU
+#define RAM_TRIM_VAL_20B    0x0000020BU
+#define RAM_TRIM_VAL_20C    0x0000020CU
+#define RAM_TRIM_VAL_20F    0x0000020FU
+#define RAM_TRIM_VAL_21A    0x0000021AU
+#define RAM_TRIM_VAL_21B    0x0000021BU
+#define RAM_TRIM_VAL_21F    0x0000021FU
+#define RAM_TRIM_VAL_22D    0x0000022DU
+#define RAM_TRIM_VAL_23D    0x0000023DU
+#define RAM_TRIM_VAL_23F    0x0000023FU
+#define RAM_TRIM_VAL_342    0x00000342U
+#define RAM_TRIM_VAL_343    0x00000343U
+#define RAM_TRIM_VAL_603    0x00000603U
+#define RAM_TRIM_VAL_604    0x00000604U
+#define RAM_TRIM_VAL_605    0x00000605U
+#define RAM_TRIM_VAL_606    0x00000606U
+#define RAM_TRIM_VAL_607    0x00000607U
+#define RAM_TRIM_VAL_60B    0x0000060BU
+#define RAM_TRIM_VAL_60C    0x0000060CU
+#define RAM_TRIM_VAL_60F    0x0000060FU
+#define RAM_TRIM_VAL_61B    0x0000061BU
+#define RAM_TRIM_VAL_61C    0x0000061CU
+#define RAM_TRIM_VAL_61D    0x0000061DU
+#define RAM_TRIM_VAL_61F    0x0000061FU
+#define RAM_TRIM_VAL_62D    0x0000062DU
+#define RAM_TRIM_VAL_63D    0x0000063DU
+#define RAM_TRIM_VAL_63F    0x0000063FU
+#define RAM_TRIM_VAL_743    0x00000743U
+#define RAM_TRIM_VAL_E3F    0x00000E3FU
+#define RAM_TRIM_VAL_1E3F   0x00001E3FU
 
-/* Define for ROM trim for 1.0V */
-#define CPUSS_TRIM_ROM_VOLT_1_000         (0x00000012U)
-
-/* Define for ROM trim for 1.1V */
-#define CPUSS_TRIM_ROM_VOLT_1_100         (0x00000013U)
-
-/* Define for RAM trim for 0.9V */
-#define CPUSS_TRIM_RAM_VOLT_0_900         (0x00006012U)
-
-/* Define for RAM trim for 1.0V */
-#define CPUSS_TRIM_RAM_VOLT_1_000         (0x00005012U)
-
-/* Define for RAM trim for 1.1V */
-#define CPUSS_TRIM_RAM_VOLT_1_100         (0x00004013U)
-
-/* Mask for the RAM write check bits */
-#define CPUSS_TRIM_RAM_CTL_WC_MASK        (0x3UL << 10U)
 
 /*******************************************************************************
 *       Internal Variables
 *******************************************************************************/
 
 /* Array of the callback roots */
-static cy_stc_syspm_callback_t* pmCallbackRoot[CALLBACK_ROOT_NR] = {(void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0};
+static cy_stc_syspm_callback_t* pmCallbackRoot[CALLBACK_ROOT_NR] = {(void *)0U, (void *)0U, (void *)0U, (void *)0U, (void *)0U, (void *)0U, (void *)0U, (void *)0U};
 
 /* The array of the pointers to failed callback */
-static cy_stc_syspm_callback_t* failedCallback[CALLBACK_ROOT_NR] = {(void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0, (void *)0};
+static cy_stc_syspm_callback_t* failedCallback[CALLBACK_ROOT_NR] = {(void *)0U, (void *)0U, (void *)0U, (void *)0U, (void *)0U, (void *)0U, (void *)0U, (void *)0U};
 
 
 void Cy_SysPm_Init(void)
 {
     if(CY_SYSPM_WARM_BOOT_MODE != Cy_SysPm_GetBootMode())
     {
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_MAIN_BASE); /* Suppress a compiler warning about unused return value */
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_PD1_BASE); /* Suppress a compiler warning about unused return value */
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_SRAM0_BASE); /* Suppress a compiler warning about unused return value */
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_SRAM1_BASE); /* Suppress a compiler warning about unused return value */
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_SYSCPU_BASE); /* Suppress a compiler warning about unused return value */
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_APPSS_BASE); /* Suppress a compiler warning about unused return value */
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_APPCPU_BASE); /* Suppress a compiler warning about unused return value */
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE); /* Suppress a compiler warning about unused return value */
-        (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_U55_BASE); /* Suppress a compiler warning about unused return value */
-
         /* Set Default mode to DEEPSLEEP */
         (void)Cy_SysPm_SetDeepSleepMode(CY_SYSPM_MODE_DEEPSLEEP);
-
-        /* Clear Reset reason, this ensures that API:Cy_SysPm_IsSystemDeepsleep works
-         * fine to capture the DEEP SLEEP state from which system has wake up.
-         */
-        Cy_SysLib_ClearResetReason();
     }
     else
     {
@@ -160,9 +172,7 @@ void Cy_SysPm_Init(void)
         {
             (void)Cy_SysPm_ExecuteCallback(((cy_en_syspm_callback_type_t)CY_SYSPM_DEEPSLEEP_RAM), CY_SYSPM_AFTER_TRANSITION); /* Suppress a compiler warning about unused return value */
         }
-
     }
-
 }
 
 cy_en_syspm_status_t Cy_SysPm_CpuEnterSleep(cy_en_syspm_waitfor_t waitFor)
@@ -228,7 +238,7 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterSleep(cy_en_syspm_waitfor_t waitFor)
 }
 
 
-cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode)
+cy_en_syspm_status_t Cy_SysPm_SetSysDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_FAIL;
 
@@ -237,14 +247,14 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
         case CY_SYSPM_MODE_DEEPSLEEP:
         {
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_MAIN_BASE, (uint32_t)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM0_BASE, (uint32_t)CY_SYSTEM_SRAM0_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM1_BASE, (uint32_t)CY_SYSTEM_SRAM1_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SYSCPU_BASE, (uint32_t)CY_SYSTEM_SYSCPU_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPSS_BASE, (uint32_t)CY_SYSTEM_APPSS_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPU_BASE, (uint32_t)CY_SYSTEM_APPCPU_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_SOCMEM_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_U55_BASE, (uint32_t)CY_SYSTEM_U55_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
+
+#if (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)
+            SCS_CPPWR &= ~(SCS_CPPWR_SU10_Msk);
+#endif
+
             retVal = CY_SYSPM_SUCCESS;
         }
         break;
@@ -252,14 +262,14 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
         case CY_SYSPM_MODE_DEEPSLEEP_RAM:
         {
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_MAIN_BASE, (uint32_t)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM0_BASE, (uint32_t)CY_SYSTEM_SRAM0_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM1_BASE, (uint32_t)CY_SYSTEM_SRAM1_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SYSCPU_BASE, (uint32_t)CY_SYSTEM_SYSCPU_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPSS_BASE, (uint32_t)CY_SYSTEM_APPSS_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPU_BASE, (uint32_t)CY_SYSTEM_APPCPU_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_SOCMEM_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_U55_BASE, (uint32_t)CY_SYSTEM_U55_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
+
+#if (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)
+            SCS_CPPWR |= SCS_CPPWR_SU10_Msk;
+#endif
+
             retVal = CY_SYSPM_SUCCESS;
         }
         break;
@@ -267,14 +277,14 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
         case CY_SYSPM_MODE_DEEPSLEEP_OFF:
         {
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_MAIN_BASE, (uint32_t)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM0_BASE, (uint32_t)CY_SYSTEM_SRAM0_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM1_BASE, (uint32_t)CY_SYSTEM_SRAM1_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SYSCPU_BASE, (uint32_t)CY_SYSTEM_SYSCPU_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPSS_BASE, (uint32_t)CY_SYSTEM_APPSS_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPU_BASE, (uint32_t)CY_SYSTEM_APPCPU_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_SOCMEM_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_U55_BASE, (uint32_t)CY_SYSTEM_U55_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
+
+#if (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)
+            SCS_CPPWR |= SCS_CPPWR_SU10_Msk;
+#endif
+
             retVal = CY_SYSPM_SUCCESS;
         }
         break;
@@ -285,6 +295,96 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
     }
     return retVal;
 }
+
+
+cy_en_syspm_status_t Cy_SysPm_SetAppDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode)
+{
+    cy_en_syspm_status_t retVal = CY_SYSPM_FAIL;
+
+    switch(deepSleepMode)
+    {
+        case CY_SYSPM_MODE_DEEPSLEEP:
+        {
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPU_BASE, (uint32_t)CY_SYSTEM_APPCPU_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPSS_BASE, (uint32_t)CY_SYSTEM_APPSS_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+
+        case CY_SYSPM_MODE_DEEPSLEEP_RAM:
+        {
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPU_BASE, (uint32_t)CY_SYSTEM_APPCPU_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPSS_BASE, (uint32_t)CY_SYSTEM_APPSS_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+
+        case CY_SYSPM_MODE_DEEPSLEEP_OFF:
+        {
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPU_BASE, (uint32_t)CY_SYSTEM_APPCPU_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
+            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPSS_BASE, (uint32_t)CY_SYSTEM_APPSS_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+
+        default:
+            retVal = CY_SYSPM_BAD_PARAM;
+        break;
+    }
+    return retVal;
+}
+
+cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode)
+{
+    return Cy_SysPm_SetSysDeepSleepMode(deepSleepMode);
+}
+
+cy_en_syspm_status_t Cy_SysPm_SetSOCMEMDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode)
+{
+    cy_en_syspm_status_t retVal = CY_SYSPM_FAIL;
+
+    switch(deepSleepMode)
+    {
+        case CY_SYSPM_MODE_DEEPSLEEP:
+        {
+            if(cy_pd_ppu_get_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE) == PPU_V1_MODE_ON)
+            {
+                (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_SOCMEM_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
+            }
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+
+        case CY_SYSPM_MODE_DEEPSLEEP_RAM:
+        {
+            if(cy_pd_ppu_get_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE) == PPU_V1_MODE_ON)
+            {
+                (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
+            }
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+
+        case CY_SYSPM_MODE_DEEPSLEEP_OFF:
+        {
+            if(cy_pd_ppu_get_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE) == PPU_V1_MODE_ON)
+            {
+                (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
+            }
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+
+        default:
+            retVal = CY_SYSPM_BAD_PARAM;
+        break;
+    }
+    return retVal;
+}
+
 
 cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void)
 {
@@ -398,6 +498,9 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
             {
                 (void) Cy_SysPm_ExecuteCallback((cy_en_syspm_callback_type_t)cbDeepSleepRootIdx, CY_SYSPM_BEFORE_TRANSITION);
             }
+
+                Cy_Syspm_SetRAMTrimsPreDS();
+
                 /* The CPU enters Deep Sleep mode upon execution of WFI/WFE
                  * use Cy_SysPm_SetDeepSleepMode to set various deepsleep modes */
                 SCB_SCR |= SCB_SCR_SLEEPDEEP_Msk;
@@ -410,6 +513,8 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
                 {
                     __WFE();
                 }
+
+            Cy_Syspm_SetRAMTrimsPostDS();
 
             Cy_SysLib_ExitCriticalSection(interruptState);
         }
@@ -523,7 +628,8 @@ cy_en_syspm_status_t Cy_SysPm_SystemSetMinRegulatorCurrent(void)
     */
     if (Cy_SysPm_IsLpmReady())
     {
-        SRSS_PWR_CTL2 |= (SRSS_PWR_CTL2_BGREF_LPMODE_Msk);
+        SRSS_PWR_CTL2 |= (SRSS_PWR_CTL2_BGREF_LPMODE_Msk |
+                          SRSS_PWR_CTL2_PORBOD_LPMODE_Msk);
 
         /* This wait time allows the circuits to remove their dependence on
         *  the Active mode circuits, such as active Reference
@@ -552,7 +658,8 @@ cy_en_syspm_status_t Cy_SysPm_SystemSetNormalRegulatorCurrent(void)
     */
 
     /* Bring Regulators Power Circuit out of LPMODE */
-    SRSS_PWR_CTL2 &= (uint32_t)~(SRSS_PWR_CTL2_REFSYS_VBUF_DIS_Msk);
+    SRSS_PWR_CTL2 &= (uint32_t)~(SRSS_PWR_CTL2_REFSYS_VBUF_DIS_Msk      |
+                                 SRSS_PWR_CTL2_PORBOD_LPMODE_Msk);
 
     /* This wait time allows setting active Reference */
     Cy_SysLib_DelayUs(ACT_REF_SETTLE_DELAY_US);
@@ -577,10 +684,12 @@ cy_en_syspm_status_t Cy_SysPm_SystemSetNormalRegulatorCurrent(void)
 
 }
 
+
 bool Cy_SysPm_SystemIsMinRegulatorCurrentSet(void)
 {
     return ((0U != _FLD2VAL(SRSS_PWR_CTL2_REFSYS_VBUF_DIS, SRSS_PWR_CTL2)) ? false : true);
 }
+
 
 cy_en_syspm_status_t Cy_SysPm_LdoSetMode(cy_en_syspm_ldo_mode_t mode)
 {
@@ -1026,6 +1135,26 @@ cy_en_syspm_status_t Cy_SysPm_SramLdoStatus(void)
     return retVal;
 }
 
+void Cy_SysPm_SramLdoEnable(bool enable)
+{
+    CY_REG32_CLR_SET(SRSS_PWR_SRAMLDO_CTL, SRSS_PWR_SRAMLDO_CTL_SRAMLDO_EN, (enable ? 1U : 0U));
+}
+
+cy_en_syspm_status_t Cy_SysPm_SramLdoSetVoltage(cy_en_syspm_sramldo_voltage_t voltage)
+{
+    CY_ASSERT_L2(CY_SYSPM_IS_SRAMLDO_VOLTAGE_VALID(voltage));
+
+    CY_REG32_CLR_SET(SRSS_PWR_SRAMLDO_CTL, SRSS_PWR_SRAMLDO_CTL_SRAMLDO_VOUT, voltage);
+
+    return Cy_SysPm_SramLdoStatus();
+}
+
+cy_en_syspm_sramldo_voltage_t Cy_SysPm_SramLdoGetVoltage(void)
+{
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to cy_en_syspm_sramldo_voltage_t enum.');
+    return (cy_en_syspm_sramldo_voltage_t)(_FLD2VAL(SRSS_PWR_SRAMLDO_CTL_SRAMLDO_VOUT, SRSS_PWR_SRAMLDO_CTL));
+}
+
 cy_en_syspm_status_t Cy_SysPm_SramLdoConfigure(cy_stc_syspm_sramldo_params_t *sramLdoParam)
 {
     CY_ASSERT_L2(CY_SYSPM_IS_SRAMLDO_VOLTAGE_VALID(sramLdoParam->sramLdoVoltSel));
@@ -1034,7 +1163,7 @@ cy_en_syspm_status_t Cy_SysPm_SramLdoConfigure(cy_stc_syspm_sramldo_params_t *sr
 
     CY_REG32_CLR_SET(SRSS_PWR_SRAMLDO_CTL, SRSS_PWR_SRAMLDO_CTL_SRAMLDO_DPSLP_EN, (sramLdoParam->deepsleepSramLdoEnable ? 1U : 0U));
 
-    CY_REG32_CLR_SET(SRSS_PWR_RETLDO_CTL, SRSS_PWR_SRAMLDO_CTL_SRAMLDO_VOUT, sramLdoParam->sramLdoVoltSel);
+    CY_REG32_CLR_SET(SRSS_PWR_SRAMLDO_CTL, SRSS_PWR_SRAMLDO_CTL_SRAMLDO_VOUT, sramLdoParam->sramLdoVoltSel);
 
     return Cy_SysPm_SramLdoStatus();
 }
@@ -1339,16 +1468,19 @@ void Cy_SysPm_DeepSleepIoUnfreeze(void)
     /* Unfreeze IO's which are frozen during DEEPSLEEP-RAM/OFF
     * Entry
     */
+    /* For PD0 */
     SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_FREEZE_DPSLP_Msk;
+
+    /* For PD1 */
+    SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_FREEZE_DPSLP_PD1_Msk;
 
     Cy_SysLib_ExitCriticalSection(interruptState);
 }
 
 bool Cy_SysPm_DeepSleepIoIsFrozen(void)
 {
-    return (0U != _FLD2VAL(SRSS_PWR_CTL2_FREEZE_DPSLP, SRSS_PWR_CTL2));
+    return ((0U != _FLD2VAL(SRSS_PWR_CTL2_FREEZE_DPSLP, SRSS_PWR_CTL2)) || (0U != _FLD2VAL(SRSS_PWR_CTL2_FREEZE_DPSLP_PD1, SRSS_PWR_CTL2)));
 }
-
 
 void Cy_SysPm_CpuSendWakeupEvent(void)
 {
@@ -1360,36 +1492,157 @@ bool Cy_SysPm_IsLpmReady(void)
     return (_FLD2BOOL(SRSS_PWR_CTL_LPM_READY, SRSS_PWR_CTL)? true : false);
 }
 
+cy_en_syspm_status_t Cy_SysPm_SetSOCMemPartActivePwrMode(cy_en_syspm_socmem_sram_partition_index_t socmemSramPartNum, cy_en_syspm_socmem_sram_pwr_mode_t socmemSramPwrMode)
+{
+    CY_ASSERT_L3((socmemSramPwrMode == CY_SYSPM_SOCMEM_SRAM_ACTIVE_MODE_ON) || (socmemSramPwrMode == CY_SYSPM_SOCMEM_SRAM_ACTIVE_MODE_OFF));
+    CY_ASSERT_L3(socmemSramPartNum < CY_SOCMEM_PARTITION_NR);
+
+    /* Unlock PWR Partition Control */
+    /* Clear bit 0(CLR0)*/
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_CLR0;
+    /* Clear bit 1(CLR1)*/
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_CLR1;
+
+    switch(socmemSramPwrMode)
+    {
+        case CY_SYSPM_SOCMEM_SRAM_ACTIVE_MODE_ON:
+        {
+            CY_REG32_CLR_SET(SOCMEM_PWR_PARTITION_CTL(socmemSramPartNum), SOCMEM_PWR_PARTITION_CTL_ACT_OFF,  0UL);
+        }
+        break;
+
+        case CY_SYSPM_SOCMEM_SRAM_ACTIVE_MODE_OFF:
+        {
+            CY_REG32_CLR_SET(SOCMEM_PWR_PARTITION_CTL(socmemSramPartNum), SOCMEM_PWR_PARTITION_CTL_ACT_OFF,  1UL);
+        }
+        break;
+
+        default:
+        {
+            CY_ASSERT_L3(false);
+        }
+        break;
+    }
+
+    /* Wait for the PWR_DONE status */
+    while(!_FLD2BOOL(SOCMEM_PWR_STATUS_PWR_DONE, SOCMEM_PWR_STATUS)){}
+
+    /* Lock PWR Partition Control(Set SET01) */
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_SET01;
+
+    return CY_SYSPM_SUCCESS;
+}
+
+cy_en_syspm_status_t Cy_SysPm_SetSOCMemPartDsPwrMode(cy_en_syspm_socmem_sram_partition_index_t socmemSramPartNum, cy_en_syspm_socmem_sram_pwr_mode_t socmemSramPwrMode)
+{
+    CY_ASSERT_L3((socmemSramPwrMode == CY_SYSPM_SOCMEM_SRAM_DS_MODE_RET_ON) || (socmemSramPwrMode == CY_SYSPM_SOCMEM_SRAM_DS_MODE_RET_OFF));
+    CY_ASSERT_L3(socmemSramPartNum < CY_SOCMEM_PARTITION_NR);
+
+    /* Unlock PWR Partition Control */
+    /* Clear bit 0(CLR0)*/
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_CLR0;
+    /* Clear bit 1(CLR1)*/
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_CLR1;
+
+    switch(socmemSramPwrMode)
+    {
+        case CY_SYSPM_SOCMEM_SRAM_DS_MODE_RET_ON:
+        {
+            CY_REG32_CLR_SET(SOCMEM_PWR_PARTITION_CTL(socmemSramPartNum), SOCMEM_PWR_PARTITION_CTL_RET_OFF,  0UL);
+        }
+        break;
+
+        case CY_SYSPM_SOCMEM_SRAM_DS_MODE_RET_OFF:
+        {
+            CY_REG32_CLR_SET(SOCMEM_PWR_PARTITION_CTL(socmemSramPartNum), SOCMEM_PWR_PARTITION_CTL_RET_OFF,  1UL);
+        }
+        break;
+
+        default:
+        {
+            CY_ASSERT_L3(false);
+        }
+        break;
+    }
+
+    /* Lock PWR Partition Control(Set SET01) */
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_SET01;
+
+    return CY_SYSPM_SUCCESS;
+}
+
+
+cy_en_syspm_socmem_sram_pwr_mode_t Cy_SysPm_GetSOCMemSramPartActivePwrMode(cy_en_syspm_socmem_sram_partition_index_t socmemSramPartNum)
+{
+    cy_en_syspm_socmem_sram_pwr_mode_t value;
+
+    CY_ASSERT_L3(socmemSramPartNum < CY_SOCMEM_PARTITION_NR);
+
+    /* Unlock PWR Partition Control */
+    /* Clear bit 0(CLR0)*/
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_CLR0;
+    /* Clear bit 1(CLR1)*/
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_CLR1;
+
+
+    value = (((SOCMEM_PWR_PARTITION_CTL(socmemSramPartNum) & (SOCMEM_PWR_PARTITION_CTL_ACT_OFF_Msk)) != 0UL) ? CY_SYSPM_SOCMEM_SRAM_ACTIVE_MODE_OFF:CY_SYSPM_SOCMEM_SRAM_ACTIVE_MODE_ON);
+
+    /* Lock PWR Partition Control(Set SET01) */
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_SET01;
+
+    return value;
+}
+
+cy_en_syspm_socmem_sram_pwr_mode_t Cy_SysPm_GetSOCMemSramPartDsPwrMode(cy_en_syspm_socmem_sram_partition_index_t socmemSramPartNum)
+{
+    cy_en_syspm_socmem_sram_pwr_mode_t value;
+
+    CY_ASSERT_L3(socmemSramPartNum < CY_SOCMEM_PARTITION_NR);
+
+    /* Unlock PWR Partition Control */
+    /* Clear bit 0(CLR0)*/
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_CLR0;
+    /* Clear bit 1(CLR1)*/
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_CLR1;
+
+
+    value = (((SOCMEM_PWR_PARTITION_CTL(socmemSramPartNum) & (SOCMEM_PWR_PARTITION_CTL_RET_OFF_Msk)) != 0UL) ? CY_SYSPM_SOCMEM_SRAM_DS_MODE_RET_OFF:CY_SYSPM_SOCMEM_SRAM_DS_MODE_RET_ON);
+
+    /* Lock PWR Partition Control(Set SET01) */
+    SOCMEM_PWR_PARTITION_CTL_LOCK = SOCMEM_PWR_PARTITION_CTL_LOCK_SET01;
+
+    return value;
+}
+
+
 /* This API is an inline version of Cy_SysPm_SetSRAMMacroPwrMode */
 __STATIC_FORCEINLINE cy_en_syspm_status_t Cy_SysPm_SetSRAMMacroPwrModeInline(cy_en_syspm_sram_index_t sramNum, uint32_t sramMacroNum, cy_en_syspm_sram_pwr_mode_t sramPwrMode)
 {
-    CY_ASSERT_L3(sramNum == CY_SYSPM_SRAM0_MEMORY);
+    CY_ASSERT_L3((sramNum == CY_SYSPM_SRAM0_MEMORY) || (sramNum == CY_SYSPM_SRAM1_MEMORY));
     CY_ASSERT_L3((sramPwrMode == CY_SYSPM_SRAM_PWR_MODE_ON) || (sramPwrMode == CY_SYSPM_SRAM_PWR_MODE_OFF));
-    CY_ASSERT_L3(sramMacroNum < CY_CPUSS_RAMC0_MACRO_NR);
-
-    CY_UNUSED_PARAM(sramNum);
+    CY_ASSERT_L3(sramMacroNum < CY_CPUSS_RAMC_MACRO_NR(sramNum));
 
     /* Unlock PWR MACRO Control */
     /* Clear bit 0(CLR0)*/
-    MXSRAMC_PWR_MACRO_CTL_LOCK = MXSRAMC_PWR_MACRO_CTL_LOCK_CLR0;
+    MXSRAMC_PWR_MACRO_CTL_LOCK(sramNum) = MXSRAMC_PWR_MACRO_CTL_LOCK_CLR0;
     /* Clear bit 1(CLR1)*/
-    MXSRAMC_PWR_MACRO_CTL_LOCK = MXSRAMC_PWR_MACRO_CTL_LOCK_CLR1;
+    MXSRAMC_PWR_MACRO_CTL_LOCK(sramNum) = MXSRAMC_PWR_MACRO_CTL_LOCK_CLR1;
 
     if(sramPwrMode == CY_SYSPM_SRAM_PWR_MODE_ON)
     {
         /* Enable the Macro Number */
-        MXSRAMC_PWR_MACRO_CTL &= ~(0x1UL << (uint32_t)sramMacroNum);
+        MXSRAMC_PWR_MACRO_CTL(sramNum) &= ~(0x1UL << (uint32_t)sramMacroNum);
     }
     else
     {
         /* Disable the Macro Number */
-        MXSRAMC_PWR_MACRO_CTL |= (0x1UL << (uint32_t)sramMacroNum);
+        MXSRAMC_PWR_MACRO_CTL(sramNum) |= (0x1UL << (uint32_t)sramMacroNum);
     }
     /* Wait for the PWR_DONE status */
-    while(!_FLD2BOOL(RAMC_STATUS_PWR_DONE, MXSRAMC_STATUS)){}
+    while(!_FLD2BOOL(RAMC_STATUS_PWR_DONE, MXSRAMC_STATUS(sramNum))){}
 
     /* Lock PWR MACRO Control(Set SET01) */
-    MXSRAMC_PWR_MACRO_CTL_LOCK = MXSRAMC_PWR_MACRO_CTL_LOCK_SET01;
+    MXSRAMC_PWR_MACRO_CTL_LOCK(sramNum) = MXSRAMC_PWR_MACRO_CTL_LOCK_SET01;
 
     return CY_SYSPM_SUCCESS;
 }
@@ -1403,21 +1656,19 @@ cy_en_syspm_sram_pwr_mode_t Cy_SysPm_GetSRAMMacroPwrMode(cy_en_syspm_sram_index_
 {
     cy_en_syspm_sram_pwr_mode_t value;
 
-    CY_ASSERT_L3(sramNum == CY_SYSPM_SRAM0_MEMORY);
-    CY_ASSERT_L3(sramMacroNum < CY_CPUSS_RAMC0_MACRO_NR);
-
-    CY_UNUSED_PARAM(sramNum);
+    CY_ASSERT_L3((sramNum == CY_SYSPM_SRAM0_MEMORY) || (sramNum == CY_SYSPM_SRAM1_MEMORY));
+    CY_ASSERT_L3(sramMacroNum < CY_CPUSS_RAMC_MACRO_NR(sramNum));
 
     /* Unlock PWR MACRO Control */
     /* Clear bit 0(CLR0)*/
-    MXSRAMC_PWR_MACRO_CTL_LOCK = MXSRAMC_PWR_MACRO_CTL_LOCK_CLR0;
+    MXSRAMC_PWR_MACRO_CTL_LOCK(sramNum) = MXSRAMC_PWR_MACRO_CTL_LOCK_CLR0;
     /* Clear bit 1(CLR1)*/
-    MXSRAMC_PWR_MACRO_CTL_LOCK = MXSRAMC_PWR_MACRO_CTL_LOCK_CLR1;
+    MXSRAMC_PWR_MACRO_CTL_LOCK(sramNum) = MXSRAMC_PWR_MACRO_CTL_LOCK_CLR1;
 
-    value = ((MXSRAMC_PWR_MACRO_CTL & (0x1UL << (uint32_t)sramMacroNum)) != 0UL) ? CY_SYSPM_SRAM_PWR_MODE_OFF:CY_SYSPM_SRAM_PWR_MODE_ON;
+    value = (((MXSRAMC_PWR_MACRO_CTL(sramNum) & (0x1UL << (uint32_t)sramMacroNum)) != 0UL) ? CY_SYSPM_SRAM_PWR_MODE_OFF:CY_SYSPM_SRAM_PWR_MODE_ON);
 
     /* Lock PWR MACRO Control(Set SET01) */
-    MXSRAMC_PWR_MACRO_CTL_LOCK = MXSRAMC_PWR_MACRO_CTL_LOCK_SET01;
+    MXSRAMC_PWR_MACRO_CTL_LOCK(sramNum) = MXSRAMC_PWR_MACRO_CTL_LOCK_SET01;
 
     return value;
 
@@ -1426,13 +1677,14 @@ cy_en_syspm_sram_pwr_mode_t Cy_SysPm_GetSRAMMacroPwrMode(cy_en_syspm_sram_index_
 
 cy_en_syspm_status_t Cy_SysPm_SetSRAMPwrMode(cy_en_syspm_sram_index_t sramNum, cy_en_syspm_sram_pwr_mode_t sramPwrMode)
 {
-    CY_ASSERT_L3(sramNum == CY_SYSPM_SRAM0_MEMORY);
+    uint8_t macroNum;
+    CY_ASSERT_L3((sramNum == CY_SYSPM_SRAM0_MEMORY) || (sramNum == CY_SYSPM_SRAM1_MEMORY));
     CY_ASSERT_L3((sramPwrMode == CY_SYSPM_SRAM_PWR_MODE_ON) || (sramPwrMode == CY_SYSPM_SRAM_PWR_MODE_OFF));
 
-    CY_UNUSED_PARAM(sramNum);
-
-    (void)Cy_SysPm_SetSRAMMacroPwrMode(CY_SYSPM_SRAM0_MEMORY, (uint32_t)CY_SYSPM_SRAM0_MACRO_0, sramPwrMode);
-    (void)Cy_SysPm_SetSRAMMacroPwrMode(CY_SYSPM_SRAM0_MEMORY, (uint32_t)CY_SYSPM_SRAM0_MACRO_1, sramPwrMode);
+    for(macroNum = 0; (macroNum < CY_CPUSS_RAMC_MACRO_NR(sramNum));macroNum++)
+    {
+        (void)Cy_SysPm_SetSRAMMacroPwrMode(sramNum, (uint32_t)macroNum, sramPwrMode);
+    }
 
     return CY_SYSPM_SUCCESS;
 }
@@ -1457,10 +1709,380 @@ bool Cy_SysPm_IsSystemMf(void)
     return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_SYSTEM_MF) != 0U);
 }
 
+static void Cy_Syspm_SetTRIMRAMCtl(uint8_t index, uint32_t trimValue)
+{
+    SRSS_TRIM_RAM_CTL(index) = trimValue;
+}
+
+static void Cy_SysPm_SystemEnterLpToDs(void)
+{
+    /* LP to DS Sequence */
+
+    /* LP->DS(1) */
+    /* Change frequency to 4MHz */
+    /* TBD */
+
+    /* LP->DS(2) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_203);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_203);
+
+    /* LP->DS(3) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_207);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_207);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_20F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_20F);
+
+    /* LP->DS(4) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_20F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_20F);
+
+    /* LP->DS(5) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_21F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_21F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_21F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_21F);
+
+    /* LP->DS(6) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_23F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_23F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_23F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_23F);
+
+    /* LP->DS(7) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_63F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_63F);
+
+    /* LP->DS(8) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_E3F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_E3F);
+
+    /* LP->DS(9) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_1E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_1E3F);
+}
+
+static void Cy_SysPm_SystemEnterDsToLp(void)
+{
+    /* DS to LP Sequence */
+
+    /* DS->LP(2) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_E3F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_63F);
+
+    /* DS->LP(3) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_63F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_23F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_23F);
+
+    /* DS->LP(4) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_23F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_23F);
+
+    /* DS->LP(5) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_21F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_21F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_21F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_21F);
+
+    /* DS->LP(6) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_21B);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_21B);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_21B);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_21B);
+
+    /* DS->LP(7) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_21A);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_21A);
+
+    /* DS->LP(8) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_20A);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_20A);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_20B);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_20B);
+
+    /* DS->LP(9) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_202);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_202);
+
+    /* DS->LP(10) */
+    /* Change frequency to 400MHz */
+    /* TBD */
+}
+
+static void Cy_SysPm_SystemEnterMfToDs(void)
+{
+    /* MF to DS Sequence */
+
+    /* MF->DS(1) */
+    /* Change frequency to 4MHz */
+    /* TBD */
+
+    /* MF->DS(2) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_605);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_605);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_605);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_605);
+
+    /* MF->DS(3) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_607);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_607);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_607);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_607);
+
+    /* MF->DS(4) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_60F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_60F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_60F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_60F);
+
+    /* MF->DS(5) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_61F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_61F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_61F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_61F);
+
+    /* MF->DS(6) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_63F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_63F);
+
+    /* MF->DS(7) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_E3F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_E3F);
+
+    /* MF->DS(8) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_1E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_1E3F);
+
+}
+
+static void Cy_SysPm_SystemEnterDsToMf(void)
+{
+    /* DS to MF Sequence */
+
+    /* DS->MF(2) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_E3F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_63F);
+
+    /* DS->MF(3) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_63F);
+
+    /* DS->MF(4) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_61F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_61F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_61F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_61F);
+
+    /* DS->MF(5) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_61D);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_61D);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_61D);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_61D);
+
+    /* DS->MF(6) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_61C);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_61C);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_61C);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_61C);
+
+    /* DS->MF(7) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_60C);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_60C);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_60C);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_60C);
+
+    /* DS->MF(8) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_604);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_604);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_604);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_604);
+
+    /* DS->MF(9) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_202);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_202);
+
+    /* DS->MF(10) */
+    /* Change frequency to 120MHz */
+    /* TBD */
+}
+
+
+static void Cy_SysPm_SystemEnterUlpToDs(void)
+{
+    /* ULP to DS Sequence */
+
+    /* ULP->DS(1) */
+    /* Change frequency to 4MHz */
+    /* TBD */
+
+    /* ULP->DS(2) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_607);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_607);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_607);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_607);
+
+    /* ULP->DS(3) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_60F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_60F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_60F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_60F);
+
+    /* ULP->DS(4) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_61F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_61F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_61F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_61F);
+
+    /* ULP->DS(5) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_63F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_63F);
+
+    /* ULP->DS(6) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_E3F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_E3F);
+
+    /* ULP->DS(7) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_1E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_1E3F);
+
+}
+
+static void Cy_SysPm_SystemEnterDsToUlp(void)
+{
+    /* DS to ULP Sequence */
+
+    /* DS->ULP(2) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_E3F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_E3F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_63F);
+
+    /* DS->ULP(3) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_63F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_63F);
+
+    /* DS->ULP(4) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_61F);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_61F);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_61F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_61F);
+
+    /* DS->ULP(5) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_61B);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_61B);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_61B);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_61B);
+
+    /* DS->ULP(6) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_60B);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_60B);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_60B);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_60B);
+
+    /* DS->ULP(7) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_603);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_603);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_603);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_603);
+
+    /* DS->ULP(8) */
+    /* Change frequency to 50MHz */
+    /* TBD */
+}
+
+void Cy_Syspm_SetRAMTrimsPreDS(void)
+{
+    if(Cy_SysPm_IsSystemLp())
+    {
+        Cy_SysPm_SystemEnterLpToDs();
+    }
+    else if(Cy_SysPm_IsSystemMf())
+    {
+        Cy_SysPm_SystemEnterMfToDs();
+    }
+    else if(Cy_SysPm_IsSystemUlp())
+    {
+        Cy_SysPm_SystemEnterUlpToDs();
+    }
+    else
+    {
+        /* Do Nothing */
+    }
+}
+
+void Cy_Syspm_SetRAMTrimsPostDS(void)
+{
+    if(Cy_SysPm_IsSystemLp())
+    {
+        Cy_SysPm_SystemEnterDsToLp();
+    }
+    else if(Cy_SysPm_IsSystemMf())
+    {
+        Cy_SysPm_SystemEnterDsToMf();
+    }
+    else if(Cy_SysPm_IsSystemUlp())
+    {
+        Cy_SysPm_SystemEnterDsToUlp();
+    }
+    else
+    {
+        /* Do Nothing */
+    }
+}
+
 static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToMf(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
-
+    
     /* LP to MF Sequence */
 
     /* 1) M33 send IPC to m0seccpuss - Operating mode change target */
@@ -1469,29 +2091,85 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToMf(void)
     /* 2) Retention Level change */
     //TBD
 
-    /* 3) Reduce the frequency so it is at least ??% (400MHz to <=??MHz) below the static timing closure limits at the new voltage setting for SRAM timing margin */
-    //TBD
+    /* 3) Reduce the frequency so it is at least ??% (400MHz to <=75MHz) below the static timing closure limits at the new voltage setting for SRAM timing margin */
+   (void) Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_DIVIDE_BY_6);//i.e. 66.66MHz, Assuming 400MHz as source clock to HF0.
 
     /* 4) SRAM trim updates - LP->MF(2) through LP->MF(5) */
-    //TBD
+    /* LP->MF(2) */
+    Cy_Syspm_SetTRIMRAMCtl(0U, RAM_TRIM_VAL_343);
+    Cy_Syspm_SetTRIMRAMCtl(1U, RAM_TRIM_VAL_343);
+
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_206);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_206);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_20F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_20F);
+
+    Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_3F);
+    Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_3F);
+
+    Cy_Syspm_SetTRIMRAMCtl(8U, RAM_TRIM_VAL_B);
+
+    /* LP->MF(3) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_204);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_204);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_20C);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_20C);
+
+    Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_2D);
+    Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_2D);
+
+    /* LP->MF(4) */
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_204);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_204);
+
+    /* LP->MF(5) */
+    Cy_Syspm_SetTRIMRAMCtl(0U, RAM_TRIM_VAL_743);
+    Cy_Syspm_SetTRIMRAMCtl(1U, RAM_TRIM_VAL_743);
+
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_604);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_604);
+
+    Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_22D);
+    Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_22D);
 
     /* 5) Change the voltage */
-    //TBD
+    Cy_SysPm_CoreBuckSetProfile(CY_SYSPM_CORE_BUCK_PROFILE_MF);
 
-    /* 6) SRAM trim updates - LP->MF(7) */
-    //TBD
+    if(CY_SYSPM_SUCCESS != Cy_SysPm_CoreBuckStatus())
+    {
+        retVal = CY_SYSPM_FAIL;
+    }
+    else
+    {
+        retVal = Cy_SysPm_SramLdoSetVoltage(CY_SYSPM_SRAMLDO_VOLTAGE_0_80V);
 
-    /* 7) M33 send IPC to m0seccpuss - Voltage at target level */
-    //TBD
+        if((CY_SYSPM_SUCCESS != retVal) || (CY_SYSPM_SUCCESS != Cy_SysPm_SramLdoStatus()))
+        {
+            retVal = CY_SYSPM_FAIL;
+        }
+        else
+        {
+            /* 6) SRAM trim updates - LP->MF(7) */
+            /* LP->MF(7) */
+            Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_604);
+            Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_604);
 
-    /* 8) Change RRAM to MF mode  */
-    //TBD
+            /* 7) M33 send IPC to m0seccpuss - Voltage at target level */
+            //TBD
 
-    /* 9) Change Frequency  */
-    //TBD
+            /* 8) Change RRAM to MF mode  */
+            Cy_RRAM_SetVoltageMode(RRAMC0, CY_RRAM_VMODE_MF);
 
-    /* 10) M33 sends IPC to m0seccpuss - Frequency at target level */
-    //TBD
+            /* 9) Change Frequency  */
+           (void) Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_DIVIDE_BY_3);//Set to 133.33MHz
+
+            /* 10) M33 sends IPC to m0seccpuss - Frequency at target level */
+            //TBD
+        }
+    }
+
 
     return retVal;
 }
@@ -1499,7 +2177,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToMf(void)
 static cy_en_syspm_status_t Cy_SysPm_SystemEnterMfToLp(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
-
+    
     /* MF to LP Sequence */
 
     /* 1) M33 send IPC to m0seccpuss - Operating mode change target */
@@ -1508,29 +2186,89 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterMfToLp(void)
     /* 2) Retention Level change */
     //TBD
 
-    /* 3) Reduce frequency by at least ??% (120MHz to <=??MHz) for SRAM timing margin */
-    //TBD
+    /* 3) Reduce frequency by at least 38% (120MHz to <=75MHz) for SRAM timing margin */
+    (void) Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_DIVIDE_BY_6);//i.e. 66.66MHz, Assuming 400MHz as source clock to HF0.
 
     /* 4) SRAM trim updates - MF->LP(2) through MF->LP(5) */
-    //TBD
+    /* MF->LP(2) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_606);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_606);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_606);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_606);
+
+    Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_23F);
+    Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_23F);
+
+    /* MF->LP(3) */
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_607);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_607);
+
+    /* MF->LP(4) */
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_60F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_60F);
+
+    /* MF->LP(5) */
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_20F);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_20F);
 
     /* 5) Change the voltage */
-    //TBD
+    Cy_SysPm_CoreBuckSetProfile(CY_SYSPM_CORE_BUCK_PROFILE_LP);
 
-    /* 6) SRAM trim updates - MF->LP(7) & MF->LP(8) */
-    //TBD
+    if(CY_SYSPM_SUCCESS != Cy_SysPm_CoreBuckStatus())
+    {
+        retVal = CY_SYSPM_FAIL;
+    }
+    else
+    {
+        retVal = Cy_SysPm_SramLdoSetVoltage(CY_SYSPM_SRAMLDO_VOLTAGE_0_90V);
 
-    /* 7) M33 send IPC to m0seccpuss - Voltage at target level */
-    //TBD
+        if((CY_SYSPM_SUCCESS != retVal) || (CY_SYSPM_SUCCESS != Cy_SysPm_SramLdoStatus()))
+        {
+            retVal = CY_SYSPM_FAIL;
+        }
+        else
+        {
+            /* 6) SRAM trim updates - MF->LP(7) & MF->LP(8) */
+            /* MF->LP(7) */
+            Cy_Syspm_SetTRIMRAMCtl(0U, RAM_TRIM_VAL_343);
+            Cy_Syspm_SetTRIMRAMCtl(1U, RAM_TRIM_VAL_343);
 
-    /* 8) Change RRAM to LP mode  */
-    //TBD
+            Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_206);
+            Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_206);
 
-    /* 9) Change Frequency  */
-    //TBD
+            Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_3F);
+            Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_3F);
 
-    /* 10) M33 sends IPC to m0seccpuss - Frequency at target level */
-    //TBD
+            Cy_Syspm_SetTRIMRAMCtl(8U, RAM_TRIM_VAL_A);
+
+            /* MF->LP(8) */
+            Cy_Syspm_SetTRIMRAMCtl(0U, RAM_TRIM_VAL_342);
+            Cy_Syspm_SetTRIMRAMCtl(1U, RAM_TRIM_VAL_342);
+
+            Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_202);
+            Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_202);
+
+            Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_20B);
+            Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_20B);
+
+            Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_1B);
+            Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_1B);
+
+            /* 7) M33 send IPC to m0seccpuss - Voltage at target level */
+            //TBD
+
+            /* 8) Change RRAM to LP mode  */
+            Cy_RRAM_SetVoltageMode(RRAMC0, CY_RRAM_VMODE_LP);
+
+            /* 9) Change Frequency  */
+            (void) Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_NO_DIVIDE);//Set to 400MHz
+
+            /* 10) M33 sends IPC to m0seccpuss - Frequency at target level */
+            //TBD
+        }
+    }
+
 
     return retVal;
 }
@@ -1538,7 +2276,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterMfToLp(void)
 static cy_en_syspm_status_t Cy_SysPm_SystemEnterUlpToMf(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
-
+   
     /* ULP to MF Sequence */
 
     /* 1) M33 send IPC to m0seccpuss - Operating mode change target */
@@ -1547,37 +2285,77 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterUlpToMf(void)
     /* 2) Retention Level change */
     //TBD
 
-    /* 3) Reduce frequency by at least 12% (50MHz to <=44MHz) for SRAM timing margin */
-    //TBD
+    /* 3) ULP->MF(1), Reduce frequency by at least 18% (50MHz to <= 41MHz) for SRAM timing margin */
+    (void) Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_DIVIDE_BY_10); //i.e. 40MHz, Assuming 400MHz as source clock to HF0.
 
     /* 4) SRAM trim updates - ULP->MF(3) through ULP->MF(5) */
-    //TBD
+    /* ULP->MF(3) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_607);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_607);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_607);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_607);
+
+    Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_63D);
+    Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_63D);
+
+    Cy_Syspm_SetTRIMRAMCtl(8U, RAM_TRIM_VAL_F);
+
+    /* ULP->MF(4) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_606);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_606);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_606);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_606);
+
+    Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_62D);
+    Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_62D);
+
+    Cy_Syspm_SetTRIMRAMCtl(8U, RAM_TRIM_VAL_B);
+
+    /* ULP->MF(5) */
+    Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_604);
+    Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_604);
+
+    Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_604);
+    Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_604);
 
     /* 5) Change the voltage */
-    //TBD
+    Cy_SysPm_CoreBuckSetProfile(CY_SYSPM_CORE_BUCK_PROFILE_MF);
 
-    /* 6) SRAM trim updates - ULP->MF(7) */
-    //TBD
+    if(CY_SYSPM_SUCCESS != Cy_SysPm_CoreBuckStatus())
+    {
+        retVal = CY_SYSPM_FAIL;
+    }
+    else
+    {
+        /* 5.1 Disable the SRAMLDO allowing CBUCK to supply SRAM Core */
+        Cy_SysPm_SramLdoEnable(false);
 
-    /* 7) M33 send IPC to m0seccpuss - Voltage at target level */
-    //TBD
+        /* 6) SRAM trim updates - ULP->MF(7) */
+        Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_22D);
+        Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_22D);
 
-    /* 8) Change RRAM to MF mode  */
-    //TBD
 
-    /* 9) Change Frequency  */
-    //TBD
+        /* 7) M33 send IPC to m0seccpuss - Voltage at target level */
+        //TBD
 
-    /* 10) M33 sends IPC to m0seccpuss - Frequency at target level */
-    //TBD
+        /* 8) Change RRAM to MF mode  */
+        Cy_RRAM_SetVoltageMode(RRAMC0, CY_RRAM_VMODE_MF);
 
+        /* 9) Change Frequency  */
+        (void) Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_DIVIDE_BY_3);//TBD-Set to 120MHz
+
+        /* 10) M33 sends IPC to m0seccpuss - Frequency at target level */
+        //TBD
+    }
     return retVal;
 }
 
 static cy_en_syspm_status_t Cy_SysPm_SystemEnterMfToUlp(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
-
+    
     /* MF to ULP Sequence */
 
     /* 1) M33 send IPC to m0seccpuss - Operating mode change target */
@@ -1586,29 +2364,78 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterMfToUlp(void)
     /* 2) Retention Level change */
     //TBD
 
-    /* 3) Reduce the operating frequency so it is at least 12% (50MHz to 44MHz) below the static timing closure limits at the new voltage setting for SRAM timing margin. */
-    //TBD
+    /* 3) Reduce the operating frequency so it is at least 66% (120MHz to 41MHz) */
+    (void) Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_DIVIDE_BY_10); //i.e. 40MHz, Assuming 400MHz as source clock to HF0.
 
-    /* 4) SRAM trim updates - MF->ULP(2) through MF->ULP(3) */
-    //TBD
+    /* MF->ULP(2) */
+    Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_23D);
+    Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_23D);
+
+    Cy_Syspm_SetTRIMRAMCtl(8U, RAM_TRIM_VAL_F);
+
+    /* MF->ULP(3) */
+    Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_63D);
+    Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_63D);
 
     /* 5) Change the voltage */
-    //TBD
+    /* 5.1 Enable the SRAMLDO to supply SRAM Core  */
+    Cy_SysPm_SramLdoEnable(true);
 
-    /* 6) SRAM trim updates - ULP->MF(7) */
-    //TBD
+    if(CY_SYSPM_SUCCESS != Cy_SysPm_SramLdoStatus())
+    {
+        retVal = CY_SYSPM_FAIL;
+    }
+    else
+    {
+        /* 5.2 Select the ULP voltage profile */
+        Cy_SysPm_CoreBuckSetProfile(CY_SYSPM_CORE_BUCK_PROFILE_ULP);
 
-    /* 7) M33 send IPC to m0seccpuss - Voltage at target level */
-    //TBD
+        if(CY_SYSPM_SUCCESS != Cy_SysPm_CoreBuckStatus())
+        {
+            retVal = CY_SYSPM_FAIL;
+        }
+        else
+        {
+            /* 6) SRAM trim updates - MF->ULP(5) & MF->ULP(7) */
+            /* MF->ULP(5) */
+            Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_606);
+            Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_606);
+            
+            Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_606);
+            Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_606);
+            
+            Cy_Syspm_SetTRIMRAMCtl(6U, RAM_TRIM_VAL_61D);
+            Cy_Syspm_SetTRIMRAMCtl(7U, RAM_TRIM_VAL_61D);
+            
+            Cy_Syspm_SetTRIMRAMCtl(8U, RAM_TRIM_VAL_C);
 
-    /* 8) Change RRAM to ULP mode  */
-    //TBD
+            /* MF->ULP(6) */
+            Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_607);
+            Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_607);
+            
+            Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_607);
+            Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_607);
 
-    /* 9) Change Frequency  */
-    //TBD
+            /* MF->ULP(7) */
+            Cy_Syspm_SetTRIMRAMCtl(2U, RAM_TRIM_VAL_603);
+            Cy_Syspm_SetTRIMRAMCtl(3U, RAM_TRIM_VAL_603);
 
-    /* 10) M33 sends IPC to m0seccpuss - Frequency at target level */
-    //TBD
+            Cy_Syspm_SetTRIMRAMCtl(4U, RAM_TRIM_VAL_603);
+            Cy_Syspm_SetTRIMRAMCtl(5U, RAM_TRIM_VAL_603);
+
+            /* 7) M33 send IPC to m0seccpuss - Voltage at target level */
+            //TBD
+
+            /* 8) Change RRAM to ULP mode  */
+            Cy_RRAM_SetVoltageMode(RRAMC0, CY_RRAM_VMODE_ULP);
+
+            /* 9) Change Frequency  */
+            (void) Cy_SysClk_ClkHfSetDivider(0U, CY_SYSCLK_CLKHF_DIVIDE_BY_8);//Set to 50MHz
+
+            /* 10) M33 sends IPC to m0seccpuss - Frequency at target level */
+            //TBD
+        }
+    }
 
     return retVal;
 }
@@ -1645,12 +2472,16 @@ cy_en_syspm_status_t Cy_SysPm_SystemEnterLp(void)
 
         if(Cy_SysPm_IsSystemMf())
         {
-            Cy_SysPm_SystemEnterMfToLp();
+           (void) Cy_SysPm_SystemEnterMfToLp();
         }
         else if(Cy_SysPm_IsSystemUlp())
         {
-            Cy_SysPm_SystemEnterUlpToMf();
-            Cy_SysPm_SystemEnterMfToLp();
+            (void) Cy_SysPm_SystemEnterUlpToMf();
+            (void) Cy_SysPm_SystemEnterMfToLp();
+        }
+        else
+        {
+            /*Block added to avoid MISRA errors */
         }
 
         Cy_SysLib_ExitCriticalSection(interruptState);
@@ -1708,12 +2539,16 @@ cy_en_syspm_status_t Cy_SysPm_SystemEnterUlp(void)
 
         if(Cy_SysPm_IsSystemMf())
         {
-            Cy_SysPm_SystemEnterMfToUlp();
+           (void) Cy_SysPm_SystemEnterMfToUlp();
         }
         else if(Cy_SysPm_IsSystemLp())
         {
-            Cy_SysPm_SystemEnterLpToMf();
-            Cy_SysPm_SystemEnterMfToUlp();
+           (void) Cy_SysPm_SystemEnterLpToMf();
+           (void) Cy_SysPm_SystemEnterMfToUlp();
+        }
+        else
+        {
+           /*Block added to avoid MISRA errors */
         }
 
         Cy_SysLib_ExitCriticalSection(interruptState);
@@ -1771,11 +2606,15 @@ cy_en_syspm_status_t Cy_SysPm_SystemEnterMf(void)
 
         if(Cy_SysPm_IsSystemLp())
         {
-            Cy_SysPm_SystemEnterLpToMf();
+           (void) Cy_SysPm_SystemEnterLpToMf();
         }
         else if(Cy_SysPm_IsSystemUlp())
         {
-            Cy_SysPm_SystemEnterUlpToMf();
+           (void) Cy_SysPm_SystemEnterUlpToMf();
+        }
+        else
+        {
+            /*Block added to avoid MISRA errors */
         }
 
         Cy_SysLib_ExitCriticalSection(interruptState);
@@ -1828,7 +2667,69 @@ uint32_t Cy_SysPm_ReadStatus(void)
         pmStatus |= CY_SYSPM_STATUS_SYSTEM_MF;
     }
 
+    /* Check whether CM33 is in the deep sleep mode*/
+    if((0u != _FLD2VAL(MXCM33_CM33_STATUS_SLEEPING, MXCM33_CM33_STATUS)) &&
+       (0u != _FLD2VAL(MXCM33_CM33_STATUS_SLEEPDEEP, MXCM33_CM33_STATUS)))
+    {
+        pmStatus |= (uint32_t) CY_SYSPM_STATUS_CM33_DEEPSLEEP;
+    }
+    /* Check whether CM33 is in the sleep mode*/
+    else if (0u != _FLD2VAL(MXCM33_CM33_STATUS_SLEEPING, MXCM33_CM33_STATUS))
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM33_SLEEP;
+    }
+    else
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM33_ACTIVE;
+    }
+
+    /* Check whether CM55 is in the deep sleep mode*/
+    if((0u != _FLD2VAL(MXCM55_CM55_STATUS_SLEEPING, MXCM55_CM55_STATUS)) &&
+       (0u != _FLD2VAL(MXCM55_CM55_STATUS_SLEEPDEEP, MXCM55_CM55_STATUS)))
+    {
+        pmStatus |= (uint32_t) CY_SYSPM_STATUS_CM55_DEEPSLEEP;
+    }
+    /* Check whether CM33 is in the sleep mode*/
+    else if (0u != _FLD2VAL(MXCM55_CM55_STATUS_SLEEPING, MXCM55_CM55_STATUS))
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM55_SLEEP;
+    }
+    else
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM55_ACTIVE;
+    }
+
     return pmStatus;
+}
+
+bool Cy_SysPm_Cm33IsActive(void)
+{
+    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM33_ACTIVE) != 0u);
+}
+
+bool Cy_SysPm_Cm33IsSleep(void)
+{
+    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM33_SLEEP) != 0u);
+}
+
+bool Cy_SysPm_Cm33IsDeepSleep(void)
+{
+    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM33_DEEPSLEEP) != 0u);
+}
+
+bool Cy_SysPm_Cm55IsActive(void)
+{
+    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM55_ACTIVE) != 0u);
+}
+
+bool Cy_SysPm_Cm55IsSleep(void)
+{
+    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM55_SLEEP) != 0u);
+}
+
+bool Cy_SysPm_Cm55IsDeepSleep(void)
+{
+    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM55_DEEPSLEEP) != 0u);
 }
 
 

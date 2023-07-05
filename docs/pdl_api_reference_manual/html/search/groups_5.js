@@ -79,6 +79,7 @@ var searchData=
   ['functions',['Functions',['../group__group__sysclk__clk__peri__funcs.html',1,'']]],
   ['functions',['Functions',['../group__group__sysclk__clk__peripheral__funcs.html',1,'']]],
   ['functions',['Functions',['../group__group__sysclk__clk__pump__funcs.html',1,'']]],
+  ['functions',['Functions',['../group__group__sysclk__clk__pwr__funcs.html',1,'']]],
   ['functions',['Functions',['../group__group__sysclk__clk__slow__funcs.html',1,'']]],
   ['functions',['Functions',['../group__group__sysclk__clk__timer__funcs.html',1,'']]],
   ['functions',['Functions',['../group__group__sysclk__eco__funcs.html',1,'']]],

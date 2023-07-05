@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_sysint.c
-* \version 1.90 
+* \version 1.90.1 
 *
 * \brief
 * Provides an API implementation of the SysInt driver.

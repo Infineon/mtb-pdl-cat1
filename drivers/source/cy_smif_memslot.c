@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the source code for the memory-level APIs of the SMIF driver.
@@ -30,6 +30,7 @@
 #if defined (CY_IP_MXSMIF)
 
 #include "cy_smif_memslot.h"
+#include "cy_gpio.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -141,6 +142,15 @@ cy_en_smif_status_t Cy_SMIF_MemInit(SMIF_Type *base,
                         SMIF_DEVICE_CTL(device)  = _CLR_SET_FLD32U(SMIF_DEVICE_CTL(device),
                                                                    SMIF_DEVICE_CTL_DATA_SEL,
                                                                   (uint32_t)memCfg->dataSelect);
+
+                        /* Before SFDP Enumeration, configure SMIF dedicated Clock and RWDS lines */
+                        #if (CY_IP_MXSMIF_VERSION >= 5)
+                        SMIF_CLK_HSIOM(base) = ((uint32_t)(HSIOM_SEL_ACT_15)) | (((uint32_t)HSIOM_SEL_ACT_15) << 8U);
+                        SMIF_RWDS_HSIOM(base) = (uint32_t)HSIOM_SEL_ACT_15;
+                        SMIF_CLK_DRIVEMODE(base) = CY_GPIO_DM_STRONG | (CY_GPIO_DM_STRONG << 4U);
+                        SMIF_RWDS_DRIVEMODE(base) = CY_GPIO_DM_PULLDOWN;
+                        #endif
+
                         uint32_t sfdpRet = (uint32_t)CY_SMIF_SUCCESS;
                         if (0U != (memCfg->flags & CY_SMIF_FLAG_DETECT_SFDP))
                         {
@@ -192,7 +202,7 @@ cy_en_smif_status_t Cy_SMIF_MemInit(SMIF_Type *base,
     #if (CY_IP_MXSMIF_VERSION>=2) && defined (SMIF_HYPERBUS_DEVICE_SUPPORT)
                 else if(memCfg->hbdeviceCfg != NULL)
                 {
-                    result = (uint32_t)Cy_SMIF_HyperBus_InitDevice(base, memCfg->hbdeviceCfg, context);
+                    result = (uint32_t)Cy_SMIF_HyperBus_InitDevice(base, memCfg, context);
                 }
     #endif /* (CY_IP_MXSMIF_VERSION>=2) && defined (SMIF_HYPERBUS_DEVICE_SUPPORT) */
                 else
@@ -225,6 +235,13 @@ void Cy_SMIF_MemDeInit(SMIF_Type *base)
 {
     /* Configure the SMIF device slots to the default values. The default value is 0 */
     uint32_t deviceIndex;
+
+#if (CY_IP_MXSMIF_VERSION >= 5)
+    SMIF_CLK_HSIOM(base) = (uint32_t)HSIOM_SEL_GPIO;
+    SMIF_RWDS_HSIOM(base) = (uint32_t)HSIOM_SEL_GPIO;
+    SMIF_CLK_DRIVEMODE(base) = CY_GPIO_DM_ANALOG | (CY_GPIO_DM_ANALOG << 8U);
+    SMIF_RWDS_DRIVEMODE(base) = CY_GPIO_DM_ANALOG;
+#endif
 
     for(deviceIndex = 0UL; deviceIndex < (uint32_t)SMIF_DEVICE_NR; deviceIndex++)
     {
@@ -438,7 +455,7 @@ bool Cy_SMIF_MemIsBusy(SMIF_Type *base, cy_stc_smif_mem_config_t const *memDevic
                         CY_SMIF_TX_NOT_LAST_BYTE,
                         context);
 
-            if(CY_SMIF_SUCCESS == readStsResult)
+            if ((CY_SMIF_SUCCESS == readStsResult) &&  (device->readStsRegWipCmd->dummyCycles > 0U))
             {
                 readStsResult = Cy_SMIF_SendDummyCycles_Ext(base,
                     device->readStsRegWipCmd->addrWidth,
@@ -615,6 +632,7 @@ cy_en_smif_status_t Cy_SMIF_MemQuadEnable(SMIF_Type *base,
 *
 * \note Check \ref group_smif_usage_rules for any usage restriction
 *
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_MemOctalEnable
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_MemOctalEnable(SMIF_Type *base,
                                     cy_stc_smif_mem_config_t const *memDevice,
@@ -1833,7 +1851,37 @@ cy_en_smif_status_t Cy_SMIF_MemWrite(SMIF_Type *base, cy_stc_smif_mem_config_t c
             {
                 ValueToByteArray(address, &addrArray[0], 0UL,
                                  memConfig->deviceCfg->numOfAddrBytes);
+#if (CY_IP_MXSMIF_VERSION>=2)
+                status = Cy_SMIF_TransmitCommand_Ext(base,
+                                                (uint16_t)(cmdProgram->command | cmdProgram->commandH << 8),
+                                                (bool)cmdProgram->commandH,
+                                                cmdProgram->cmdWidth, cmdProgram->cmdRate,
+                                                (const uint8_t *)addrArray, memConfig->deviceCfg->numOfAddrBytes,
+                                                cmdProgram->addrWidth, cmdProgram->addrRate,
+                                                memConfig->slaveSelect, CY_SMIF_TX_NOT_LAST_BYTE, context);
 
+                if((CY_SMIF_SUCCESS == status) && (CY_SMIF_NO_COMMAND_OR_MODE != cmdProgram->mode))
+                {
+                    status = Cy_SMIF_TransmitCommand_Ext(base,
+                                                     (uint16_t)cmdProgram->mode, false,
+                                                     cmdProgram->modeWidth, cmdProgram->modeRate,
+                                                     NULL, CY_SMIF_CMD_WITHOUT_PARAM, CY_SMIF_WIDTH_NA,
+                                                     cmdProgram->modeRate, memConfig->slaveSelect,
+                                                     CY_SMIF_TX_NOT_LAST_BYTE, context);
+                }
+
+                if((CY_SMIF_SUCCESS == status) && (cmdProgram->dummyCycles > 0U))
+                {
+                    status = Cy_SMIF_SendDummyCycles_Ext(base, cmdProgram->dataWidth, cmdProgram->dataRate, cmdProgram->dummyCycles);
+                }
+
+                if(CY_SMIF_SUCCESS == status)
+                {
+                    status = Cy_SMIF_TransmitDataBlocking_Ext(base,
+                                                         (uint8_t *)txBuffer, chunk,
+                                                         cmdProgram->dataWidth, cmdProgram->dataRate, context);
+                }
+#else
                 status = Cy_SMIF_TransmitCommand(base,
                                                  (uint8_t)cmdProgram->command,
                                                  cmdProgram->cmdWidth,
@@ -1870,7 +1918,7 @@ cy_en_smif_status_t Cy_SMIF_MemWrite(SMIF_Type *base, cy_stc_smif_mem_config_t c
                                                          cmdProgram->dataWidth,
                                                          context);
                 }
-                    
+#endif /* CY_IP_MXSMIF_VERSION */
                 if(CY_SMIF_SUCCESS == status)
                 {
                     /* Check if the memory has completed the write operation. ProgramTime is in microseconds */
@@ -2183,6 +2231,7 @@ cy_en_smif_status_t Cy_SMIF_MemEraseChip(SMIF_Type *base, cy_stc_smif_mem_config
 *        - \ref CY_SMIF_SUCCESS
 *        - \ref CY_SMIF_EXCEED_TIMEOUT
 *
+* \snippet smif/snippet/main.c SMIF_API: PowerDown
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_MemCmdPowerDown(SMIF_Type *base,
                                     cy_stc_smif_mem_config_t const *memDevice,
@@ -2230,6 +2279,7 @@ cy_en_smif_status_t Cy_SMIF_MemCmdPowerDown(SMIF_Type *base,
 *        - \ref CY_SMIF_SUCCESS
 *        - \ref CY_SMIF_EXCEED_TIMEOUT
 *
+* \snippet smif/snippet/main.c SMIF_API: PowerDown
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_MemCmdReleasePowerDown(SMIF_Type *base,
                                     cy_stc_smif_mem_config_t const *memDevice,

@@ -1,5 +1,8 @@
 var NAVTREEINDEX14 =
 {
+"group__group__sar__functions__basic.html#ga5c053a77ca29519ca29da56da7eaeebe":[4,31,1,0,0],
+"group__group__sar__functions__basic.html#ga5d7a3489629382b1e46477c034bbb2d0":[4,31,1,0,7],
+"group__group__sar__functions__basic.html#ga65876b1a551f1d189b4abcdb24ff82fa":[4,31,1,0,1],
 "group__group__sar__functions__basic.html#ga859687d40491a053c7fd8d489244f2ac":[4,31,1,0,9],
 "group__group__sar__functions__basic.html#ga92cb7f3c5947df6e47b59f1b2796883c":[4,31,1,0,4],
 "group__group__sar__functions__basic.html#ga977c6fb6f81ee39d27eae43c0e45d85c":[4,31,1,0,6],
@@ -246,8 +249,5 @@ var NAVTREEINDEX14 =
 "group__group__scb__common__macros___spi_intr_statuses.html#gadf0b2f19c9e0e81d64be7e852c31c4aa":[4,33,0,0,6,0],
 "group__group__scb__common__macros__i2c__intr.html":[4,33,0,0,5],
 "group__group__scb__common__macros__i2c__intr.html#gaf212f54c911e5c5b31f0b311f5730b40":[4,33,0,0,5,0],
-"group__group__scb__common__macros__intr__cause.html":[4,33,0,0,0],
-"group__group__scb__common__macros__intr__cause.html#ga1e7d3f256737c7b3fb49d7c724ff4830":[4,33,0,0,0,4],
-"group__group__scb__common__macros__intr__cause.html#ga2a726fb94c754f042539cdb9265231f4":[4,33,0,0,0,5],
-"group__group__scb__common__macros__intr__cause.html#ga5d901d6c4bef30176cd6ae517fb44dd5":[4,33,0,0,0,3]
+"group__group__scb__common__macros__intr__cause.html":[4,33,0,0,0]
 };

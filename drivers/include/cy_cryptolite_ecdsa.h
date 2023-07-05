@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_ecdsa.h
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  This file provides constant and parameters
@@ -259,7 +259,7 @@ cy_en_cryptolite_status_t Cy_Cryptolite_ECC_Free(CRYPTOLITE_Type *base,
 *
 * Verify an ECC signature.
 * sig, hash and key must be in little endian.
-* Cy_Cryptolite_InvertEndianness() function is used for converting the endianess.
+* Cy_Cryptolite_InvertEndianness() function is used for converting the endianness.
 * \note This API is not available in CYW20829 A0 CAT1B device
 *
 * \param base

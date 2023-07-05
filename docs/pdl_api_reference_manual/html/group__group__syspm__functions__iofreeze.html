@@ -199,9 +199,10 @@ Functions</h2></td></tr>
 <p>Checks whether IOs are frozen during DEEPSLEEP-RAM/OFF. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>True if IOs are frozen.</li>
-<li>False if IOs are unfrozen. </li>
+<li>False if IOs are unfrozen.</li>
 </ul>
 </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1B and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -224,7 +225,8 @@ Functions</h2></td></tr>
 <p>This function unfreezes the I/O cells that are automatically frozen when DEEPSLEEP-RAM/OFF is entered. </p>
 <p>I/O cells remain frozen after a wakeup from DEEPSLEEP_RAM/OFF mode until the firmware unfreezes them by calling this function.</p>
 <p>If the firmware must retain the data value on the pin, then the value must be read and re-written to the pin's port data register before calling this function. Furthermore, the drive mode must be re-programmed before the pins are unfrozen. If this is not done, the pin will change to the default state the moment the freeze is removed.</p>
-<p>Note that I/O cell configuration can be changed while frozen. The new configuration becomes effective only after the pins are unfrozen. </p>
+<p>Note that I/O cell configuration can be changed while frozen. The new configuration becomes effective only after the pins are unfrozen.</p>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1B and CAT1D devices. </dd></dl>
 
 </div>
 </div>

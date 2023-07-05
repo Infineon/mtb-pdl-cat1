@@ -156,6 +156,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gad2d48d4af03eafea0c103905249e8254"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__common.html#gad2d48d4af03eafea0c103905249e8254">Cy_TCPWM_InputTriggerSetup</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32 cntNum, <a class="el" href="group__group__tcpwm__enums.html#ga17d594ed5788e1fc2de2eae9982fc9dc">cy_en_tcpwm_trigselect_t</a> triggerSelect, uint32_t edgeSelect, uint32_t triggerSignal)</td></tr>
 <tr class="memdesc:gad2d48d4af03eafea0c103905249e8254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up a trigger input signal for a specific TCPWM counter.  <a href="#gad2d48d4af03eafea0c103905249e8254">More...</a><br /></td></tr>
 <tr class="separator:gad2d48d4af03eafea0c103905249e8254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1d580c145e6e0a2bcccb3bc4c5e5b0aa"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__common.html#ga1d580c145e6e0a2bcccb3bc4c5e5b0aa">Cy_TCPWM_OutputTriggerSetup</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32 cntNum, <a class="el" href="group__group__tcpwm__enums.html#ga302d5f1c0546c77304bfed7a8abf0cdb">cy_en_tcpwm_output_trigselect_t</a> trigger0event, <a class="el" href="group__group__tcpwm__enums.html#ga302d5f1c0546c77304bfed7a8abf0cdb">cy_en_tcpwm_output_trigselect_t</a> trigger1event)</td></tr>
+<tr class="memdesc:ga1d580c145e6e0a2bcccb3bc4c5e5b0aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up a trigger output signal for a specific TCPWM counter event.  <a href="#ga1d580c145e6e0a2bcccb3bc4c5e5b0aa">More...</a><br /></td></tr>
+<tr class="separator:ga1d580c145e6e0a2bcccb3bc4c5e5b0aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga03bd95ef7188f3da6f51e043e2bbd1ea"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__tcpwm__enums.html#ga236beaba02c8a2a1c4eec981501e7270">cy_en_tcpwm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__common.html#ga03bd95ef7188f3da6f51e043e2bbd1ea">Cy_TCPWM_SetDebugFreeze</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32 cntNum, bool enable)</td></tr>
 <tr class="memdesc:ga03bd95ef7188f3da6f51e043e2bbd1ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables the Debug Freeze feature for the specified counter.  <a href="#ga03bd95ef7188f3da6f51e043e2bbd1ea">More...</a><br /></td></tr>
 <tr class="separator:ga03bd95ef7188f3da6f51e043e2bbd1ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,7 +166,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga9cce3f9a4b4f0d381565599279a7dd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT.  <a href="#ga9cce3f9a4b4f0d381565599279a7dd18">More...</a><br /></td></tr>
 <tr class="separator:ga9cce3f9a4b4f0d381565599279a7dd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf9f0d31c8b48fee5b82904f8e70e3db4"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__common.html#gaf9f0d31c8b48fee5b82904f8e70e3db4">Cy_TCPWM_InputTriggerSetupWithGF</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32 cntNum, <a class="el" href="group__group__tcpwm__enums.html#ga17d594ed5788e1fc2de2eae9982fc9dc">cy_en_tcpwm_trigselect_t</a> triggerSelect, uint32_t edgeSelect, uint32_t triggerSignal, <a class="el" href="group__group__tcpwm__enums.html#ga3df0a640c4def803d2145a235a4e92f5">cy_en_gf_depth_support_value_t</a> dsvalue)</td></tr>
-<tr class="memdesc:gaf9f0d31c8b48fee5b82904f8e70e3db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up a trigger input signal for a specific TCPWM counter and Glitch filter cnfiguration for that trigger.  <a href="#gaf9f0d31c8b48fee5b82904f8e70e3db4">More...</a><br /></td></tr>
+<tr class="memdesc:gaf9f0d31c8b48fee5b82904f8e70e3db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up a trigger input signal for a specific TCPWM counter and Glitch filter configuration for that trigger.  <a href="#gaf9f0d31c8b48fee5b82904f8e70e3db4">More...</a><br /></td></tr>
 <tr class="separator:gaf9f0d31c8b48fee5b82904f8e70e3db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -1058,8 +1061,59 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Trigger signal for general purpose trigger is calculated as below. <a class="el" href="group__group__tcpwm__input__selection.html#ga3eae2f9a75c2a13503c7c7f58503a1d9" title="Input is connected to the trigger input n - all purpose trigger. ">CY_TCPWM_INPUT_TRIG(n)</a> = (n + TCPWM_TR_ONE_CNT_NR + 2U) For devices with more than one instance of TCPWM <a class="el" href="group__group__tcpwm__input__selection.html#ga15e94cf62ecc35aa76894c61c3d3aa6c" title="Input is connected to the trigger input n - all purpose trigger, m is the TCPWM instance number...">CY_TCPWM_INPUT_TRIG_WITH_INST(n, m)</a> is used where m is the TCPWM instance number.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Start multiple counters synchronously</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define GRP0_CNT0_NUM   (0UL)</span></div><div class="line"><span class="preprocessor">    #define GRP0_CNT1_NUM   (1UL)</span></div><div class="line"><span class="preprocessor">    #define GRP0_CNT2_NUM   (2UL)</span></div><div class="line"><span class="preprocessor">    #define TCPWM0_TR_IN0   (0x40000200u) </span><span class="comment">/* tcpwm[0].tr_in[0] */</span><span class="preprocessor"></span></div><div class="line"></div><div class="line">    <span class="comment">/* Set up input trigger start for all 3 counters to CY_TCPWM_INPUT_TRIG(0) </span></div><div class="line"><span class="comment">       Trigger signal for general purpose trigger is calculated as below.</span></div><div class="line"><span class="comment">       CY_TCPWM_INPUT_TRIG(n)  = (n + TCPWM_TR_ONE_CNT_NR + 2U)</span></div><div class="line"><span class="comment">       For devices with more than one instance of TCPWM</span></div><div class="line"><span class="comment">       CY_TCPWM_INPUT_TRIG_WITH_INST(n, m) is used where m is the TCPWM instance number.</span></div><div class="line"><span class="comment">       Cy_TCPWM_InputTriggerSetup(TCPWM1, GRP0_CNT2_NUM, CY_TCPWM_INPUT_TR_START, CY_TCPWM_INPUT_LEVEL, CY_TCPWM_INPUT_TRIG_WITH_INST(0,1));</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <a class="code" href="group__group__tcpwm__functions__common.html#gad2d48d4af03eafea0c103905249e8254">Cy_TCPWM_InputTriggerSetup</a>(TCPWM0, GRP0_CNT0_NUM, <a class="code" href="group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcae75c3855ed4b926fd65e57c9fcaeba68">CY_TCPWM_INPUT_TR_START</a>, <a class="code" href="group__group__tcpwm__input__modes.html#ga6f8ffc8c36941d7d44290147032fd33b">CY_TCPWM_INPUT_LEVEL</a>, <a class="code" href="group__group__tcpwm__input__selection.html#ga3eae2f9a75c2a13503c7c7f58503a1d9">CY_TCPWM_INPUT_TRIG</a>(0));</div><div class="line">    <a class="code" href="group__group__tcpwm__functions__common.html#gad2d48d4af03eafea0c103905249e8254">Cy_TCPWM_InputTriggerSetup</a>(TCPWM0, GRP0_CNT1_NUM, <a class="code" href="group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcae75c3855ed4b926fd65e57c9fcaeba68">CY_TCPWM_INPUT_TR_START</a>, <a class="code" href="group__group__tcpwm__input__modes.html#ga6f8ffc8c36941d7d44290147032fd33b">CY_TCPWM_INPUT_LEVEL</a>, <a class="code" href="group__group__tcpwm__input__selection.html#ga3eae2f9a75c2a13503c7c7f58503a1d9">CY_TCPWM_INPUT_TRIG</a>(0));</div><div class="line">    <a class="code" href="group__group__tcpwm__functions__common.html#gad2d48d4af03eafea0c103905249e8254">Cy_TCPWM_InputTriggerSetup</a>(TCPWM0, GRP0_CNT2_NUM, <a class="code" href="group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcae75c3855ed4b926fd65e57c9fcaeba68">CY_TCPWM_INPUT_TR_START</a>, <a class="code" href="group__group__tcpwm__input__modes.html#ga6f8ffc8c36941d7d44290147032fd33b">CY_TCPWM_INPUT_LEVEL</a>, <a class="code" href="group__group__tcpwm__input__selection.html#ga3eae2f9a75c2a13503c7c7f58503a1d9">CY_TCPWM_INPUT_TRIG</a>(0));</div><div class="line"></div><div class="line">    <span class="comment">/* Trigger through Software to start all 3 counters synchronously */</span></div><div class="line">    <a class="code" href="group__group__trigmux__functions.html#gad3c1d26d25a47bc4beca499bf0407c80">Cy_TrigMux_SwTrigger</a>(TCPWM0_TR_IN0, <a class="code" href="group__group__trigmux__macros.html#ga9347a341f6903dee749841fae0dcb4a5">CY_TRIGGER_TWO_CYCLES</a>);</div><div class="line"></div></div><!-- fragment --></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Trigger signal for general purpose trigger is calculated as below. CY_TCPWM_INPUT_TRIG(n) = (n + TCPWM_TR_ONE_CNT_NR + 2U) For devices with more than one instance of TCPWM <a class="el" href="group__group__tcpwm__input__selection.html#ga15e94cf62ecc35aa76894c61c3d3aa6c" title="Input is connected to the trigger input n - all purpose trigger, m is the TCPWM instance number...">CY_TCPWM_INPUT_TRIG_WITH_INST(n, m)</a> is used where m is the TCPWM instance number.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Start multiple counters synchronously</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define GRP0_CNT0_NUM   (0UL)</span></div><div class="line"><span class="preprocessor">    #define GRP0_CNT1_NUM   (1UL)</span></div><div class="line"><span class="preprocessor">    #define GRP0_CNT2_NUM   (2UL)</span></div><div class="line"><span class="preprocessor">    #define TCPWM0_TR_IN0   (0x40000200u) </span><span class="comment">/* tcpwm[0].tr_in[0] */</span><span class="preprocessor"></span></div><div class="line"></div><div class="line"><span class="preprocessor">    #if (CY_IP_MXTCPWM_VERSION &gt;= 2U)</span></div><div class="line">    <span class="comment">/* Set up input trigger start for all 3 counters to CY_TCPWM_INPUT_TRIG(0) </span></div><div class="line"><span class="comment">       Trigger signal for general purpose trigger is calculated as below.</span></div><div class="line"><span class="comment">       CY_TCPWM_INPUT_TRIG(n)  = (n + TCPWM_TR_ONE_CNT_NR + 2U)</span></div><div class="line"><span class="comment">       For devices with more than one instance of TCPWM</span></div><div class="line"><span class="comment">       CY_TCPWM_INPUT_TRIG_WITH_INST(n, m) is used where m is the TCPWM instance number.</span></div><div class="line"><span class="comment">       Cy_TCPWM_InputTriggerSetup(TCPWM1, GRP0_CNT2_NUM, CY_TCPWM_INPUT_TR_START, CY_TCPWM_INPUT_LEVEL, CY_TCPWM_INPUT_TRIG_WITH_INST(0,1));</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <a class="code" href="group__group__tcpwm__functions__common.html#gad2d48d4af03eafea0c103905249e8254">Cy_TCPWM_InputTriggerSetup</a>(TCPWM0, GRP0_CNT0_NUM, <a class="code" href="group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcae75c3855ed4b926fd65e57c9fcaeba68">CY_TCPWM_INPUT_TR_START</a>, <a class="code" href="group__group__tcpwm__input__modes.html#ga6f8ffc8c36941d7d44290147032fd33b">CY_TCPWM_INPUT_LEVEL</a>, CY_TCPWM_INPUT_TRIG(0));</div><div class="line">    <a class="code" href="group__group__tcpwm__functions__common.html#gad2d48d4af03eafea0c103905249e8254">Cy_TCPWM_InputTriggerSetup</a>(TCPWM0, GRP0_CNT1_NUM, <a class="code" href="group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcae75c3855ed4b926fd65e57c9fcaeba68">CY_TCPWM_INPUT_TR_START</a>, <a class="code" href="group__group__tcpwm__input__modes.html#ga6f8ffc8c36941d7d44290147032fd33b">CY_TCPWM_INPUT_LEVEL</a>, CY_TCPWM_INPUT_TRIG(0));</div><div class="line">    <a class="code" href="group__group__tcpwm__functions__common.html#gad2d48d4af03eafea0c103905249e8254">Cy_TCPWM_InputTriggerSetup</a>(TCPWM0, GRP0_CNT2_NUM, <a class="code" href="group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcae75c3855ed4b926fd65e57c9fcaeba68">CY_TCPWM_INPUT_TR_START</a>, <a class="code" href="group__group__tcpwm__input__modes.html#ga6f8ffc8c36941d7d44290147032fd33b">CY_TCPWM_INPUT_LEVEL</a>, CY_TCPWM_INPUT_TRIG(0));</div><div class="line"></div><div class="line"><span class="preprocessor">    #endif </span><span class="comment">/*(CY_IP_MXTCPWM_VERSION &gt;= 2U) */</span><span class="preprocessor"></span></div><div class="line">    </div><div class="line">    <span class="comment">/* Trigger through Software to start all 3 counters synchronously */</span></div><div class="line">    <a class="code" href="group__group__trigmux__functions.html#gad3c1d26d25a47bc4beca499bf0407c80">Cy_TrigMux_SwTrigger</a>(TCPWM0_TR_IN0, <a class="code" href="group__group__trigmux__macros.html#ga9347a341f6903dee749841fae0dcb4a5">CY_TRIGGER_TWO_CYCLES</a>);</div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga1d580c145e6e0a2bcccb3bc4c5e5b0aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1d580c145e6e0a2bcccb3bc4c5e5b0aa">&#9670;&nbsp;</a></span>Cy_TCPWM_OutputTriggerSetup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_TCPWM_OutputTriggerSetup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32&#160;</td>
+          <td class="paramname"><em>cntNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__tcpwm__enums.html#ga302d5f1c0546c77304bfed7a8abf0cdb">cy_en_tcpwm_output_trigselect_t</a>&#160;</td>
+          <td class="paramname"><em>trigger0event</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__tcpwm__enums.html#ga302d5f1c0546c77304bfed7a8abf0cdb">cy_en_tcpwm_output_trigselect_t</a>&#160;</td>
+          <td class="paramname"><em>trigger1event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up a trigger output signal for a specific TCPWM counter event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a TCPWM instance.</td></tr>
+    <tr><td class="paramname">cntNum</td><td>The Counter instance number in the selected TCPWM.</td></tr>
+    <tr><td class="paramname">trigger0event</td><td>Selects internal events for output trigger out0 generation. see <a class="el" href="group__group__tcpwm__enums.html#ga302d5f1c0546c77304bfed7a8abf0cdb">cy_en_tcpwm_output_trigselect_t</a></td></tr>
+    <tr><td class="paramname">trigger1event</td><td>Selects internal events for output trigger out1 generation. see <a class="el" href="group__group__tcpwm__enums.html#ga302d5f1c0546c77304bfed7a8abf0cdb">cy_en_tcpwm_output_trigselect_t</a> </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1203,7 +1257,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets up a trigger input signal for a specific TCPWM counter and Glitch filter cnfiguration for that trigger. </p>
+<p>Sets up a trigger input signal for a specific TCPWM counter and Glitch filter configuration for that trigger. </p>
 <p>This API is used to handle software triggering of multiple counters synchronously.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

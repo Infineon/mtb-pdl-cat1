@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ethif.c
-* \version 1.10
+* \version 1.10.1
 *
 * Provides an API implementation of the ETHIF driver
 *
@@ -30,6 +30,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "cdn_errno.h"
+#include "cedi.h"
+#include "edd_int.h"
 
 #if defined(__cplusplus)
 extern "C" {

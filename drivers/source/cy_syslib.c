@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.30
+* \version 3.40
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
@@ -65,6 +65,9 @@
 #define CY_DELAY_1M_THRESHOLD           (1000000u)
 #define CY_DELAY_1M_MINUS_1_THRESHOLD   (CY_DELAY_1M_THRESHOLD - 1u)
 
+#elif defined(CY_IP_M7CPUSS)
+#define CY_SYSLIB_LP_SLOW_WS_0_FREQ_MAX      (100UL)
+
 #endif
 
 #if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3))
@@ -83,7 +86,7 @@
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Pos    (SRSS_RES_CAUSE2_RESET_CSV_REF_Pos)
 #endif
 
-#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || defined(CY_IP_MXS22SSRSS)
+#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || defined(CY_IP_MXS22SRSS)
 /* RESET_CAUSE2 macro for CAT1B, CAT1D devices */
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Msk    (SRSS_RES_CAUSE2_RESET_CSV_HF_Msk)
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Pos    (SRSS_RES_CAUSE2_RESET_CSV_HF_Pos)
@@ -91,10 +94,10 @@
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Pos    (SRSS_RES_CAUSE2_RESET_CSV_REF_Pos)
 #endif
 
-#if defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 /** Holds the flag to indicate if the System woke up from Warm Boot or not */
 bool cy_WakeupFromWarmBootStatus = false;
-#endif /* CY_IP_MXS40SSRSS */
+#endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) */
 
 #if !defined(NDEBUG)
     CY_NOINIT char_t cy_assertFileName[CY_MAX_FILE_NAME_SIZE + 1];
@@ -199,7 +202,6 @@ cy_en_syslib_status_t Cy_SysLib_ResetBackupDomain(void)
     return (Cy_SysLib_GetResetStatus());
 }
 
-
 uint32_t Cy_SysLib_GetResetReason(void)
 {
     uint32_t retVal = SRSS_RES_CAUSE;
@@ -209,7 +211,7 @@ uint32_t Cy_SysLib_GetResetReason(void)
         retVal |= CY_SYSLIB_RESET_HIB_WAKEUP;
     }
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) ||  defined(CY_IP_MXS22SSRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) ||  defined(CY_IP_MXS22SRSS)
     if(0U != _FLD2VAL(CY_SRSS_RES_CAUSE2_CSV_LOSS, SRSS_RES_CAUSE2))
     {
         retVal |= CY_SYSLIB_RESET_CSV_LOSS_WAKEUP;
@@ -296,7 +298,7 @@ uint64_t Cy_SysLib_GetUniqueId(void)
 #endif
 
 
-#if ((defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE)) && !defined (CY_DEVICE_BOY2)) // TBD, DRIVERS-11249
+#if (defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE))
 
 #define CY_DIE_REG_EFUSE_OFFSET    0x74
 #define CY_DIE_REG_COUNT           3U
@@ -423,12 +425,20 @@ CY_SECTION_INIT_CODECOPY_BEGIN
 
 void Cy_SysLib_SetWaitStates(bool ulpMode, uint32_t clkHfMHz)
 {
-#ifdef CY_IP_M4CPUSS
-#if !((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
+#if defined(CY_IP_M4CPUSS) || defined(CY_IP_M7CPUSS)
+#if !((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) || defined(CY_IP_M7CPUSS)
     uint32_t waitStates;
     uint32_t freqMax;
 
+#if defined(CY_IP_M7CPUSS)
+    CY_ASSERT_L1(ulpMode == false);
+#endif
+
+#if defined(CY_IP_M7CPUSS)
+    freqMax = CY_SYSLIB_LP_SLOW_WS_0_FREQ_MAX;
+#else
     freqMax = ulpMode ? CY_SYSLIB_ULP_SLOW_WS_0_FREQ_MAX : CY_SYSLIB_LP_SLOW_WS_0_FREQ_MAX;
+#endif
     waitStates = (clkHfMHz <= freqMax) ? 0UL : 1UL;
 
     /* ROM */
@@ -448,6 +458,19 @@ void Cy_SysLib_SetWaitStates(bool ulpMode, uint32_t clkHfMHz)
     #endif /* defined (RAMC2_PRESENT) && (RAMC2_PRESENT == 1UL) */
 
     /* Flash */
+#if defined(CY_IP_M7CPUSS)
+    if (clkHfMHz <= CY_SYSLIB_LP_SLOW_WS_0_FREQ_MAX)
+    {
+        waitStates = 0UL;
+    }
+    else
+    {
+        waitStates = 1UL;
+    }
+
+    FLASHC_FLASH_CTL = _CLR_SET_FLD32U(FLASHC_FLASH_CTL, FLASHC_FLASH_CTL_WS, waitStates);
+
+#else
     if (ulpMode)
     {
         waitStates =  (clkHfMHz <= CY_SYSLIB_FLASH_ULP_WS_0_FREQ_MAX) ? 0UL :
@@ -463,11 +486,13 @@ void Cy_SysLib_SetWaitStates(bool ulpMode, uint32_t clkHfMHz)
     }
 
     FLASHC_FLASH_CTL = _CLR_SET_FLD32U(FLASHC_FLASH_CTL, FLASHC_FLASH_CTL_MAIN_WS, waitStates);
+#endif
+
 #else
     (void) ulpMode;
     (void) clkHfMHz;
-#endif /* !((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
-#endif
+#endif /* !((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) || defined(CY_IP_M7CPUSS) */
+#endif /* defined(CY_IP_M4CPUSS) || defined(CY_IP_M7CPUSS) */
 
     (void) ulpMode;
     (void) clkHfMHz;
@@ -496,7 +521,7 @@ uint16_t Cy_SysLib_GetDevice(void)
 #endif
 }
 
-#if  defined (CY_IP_MXS40SSRSS)
+#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 void Cy_Syslib_SetWarmBootEntryPoint(uint32_t *entryPoint, bool enable)
 {
     *(uint32_t *)CY_SYSPM_BOOTROM_ENTRYPOINT_ADDR = (uint32_t)entryPoint | (enable ? CY_SYSPM_BOOTROM_DSRAM_DBG_ENABLE_MASK : 0UL) ;
@@ -510,6 +535,34 @@ bool Cy_SysLib_IsDSRAMWarmBootEntry(void)
 void Cy_SysLib_ClearDSRAMWarmBootEntryStatus(void)
 {
     cy_WakeupFromWarmBootStatus = false;
+}
+#endif
+
+
+#if defined(CY_IP_MXS22SRSS)
+cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(void)
+{
+    cy_en_syslib_lcs_mode_t lcsMode;
+
+    lcsMode = (cy_en_syslib_lcs_mode_t)CY_GET_REG32(SRSS_DECODED_LCS_DATA);
+
+    switch (lcsMode)
+    {
+        case CY_SYSLIB_LCS_VIRGIN:
+        case CY_SYSLIB_LCS_SORT:
+        case CY_SYSLIB_LCS_PROVISIONED:
+        case CY_SYSLIB_LCS_NORMAL_PROVISIONED:
+        case CY_SYSLIB_LCS_NORMAL:
+        case CY_SYSLIB_LCS_SECURE:
+        case CY_SYSLIB_LCS_NORMAL_NO_SECURE:
+        case CY_SYSLIB_LCS_RMA:
+        break;
+        default:
+            lcsMode = CY_SYSLIB_LCS_CORRUPTED;
+        break;
+    }
+
+    return lcsMode;
 }
 #endif
 

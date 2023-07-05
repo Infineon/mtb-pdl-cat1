@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_common.h
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides common constants and parameters
@@ -49,7 +49,7 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         80
+#define CY_CRYPTO_DRV_VERSION_MINOR         90
 
 
 /* Enable SHA functionality */
@@ -751,6 +751,8 @@ typedef struct cy_stc_crypto_aes_gcm_state
     uint32_t data_size; 
     /** AES GCM total AAD data processed*/                      
     uint32_t aad_size;
+    /** AES GCM partial AAD data processed flag*/                      
+    bool partial_aad_processed;
     /**Mode of the AES GCM operation */
     cy_en_crypto_dir_mode_t mode;
     /**Pointer to the AES buffer*/
@@ -1050,8 +1052,8 @@ typedef enum
     /** "Selection of the ring oscillator (RO) source: */
     CY_CRYPTO_TR_SRC_RO11 = 0,  /**< "0": fixed RO 11 bit. */
     CY_CRYPTO_TR_SRC_RO15,      /**< "1": fixed RO 15 bit. */
-    CY_CRYPTO_TR_SRC_GARO15,    /**< "2": fixed Galouis RO 15 bit. */
-    CY_CRYPTO_TR_SRC_GARO31,    /**< "3": flexible Galouis RO 31 bit. */
+    CY_CRYPTO_TR_SRC_GARO15,    /**< "2": fixed Galois RO 15 bit. */
+    CY_CRYPTO_TR_SRC_GARO31,    /**< "3": flexible Galois RO 31 bit. */
     CY_CRYPTO_TR_SRC_FIRO15,    /**< "4": fixed Fibonacci RO 15 bit. */
     CY_CRYPTO_TR_SRC_FIRO31     /**< "5": flexible Fibonacci RO 31 bit. */
 } cy_en_crypto_trng_ro_sel_t;

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysfault.h
-* \version 1.10
+* \version 1.20
 *
 * \brief
 * Provides an API declaration of the SysFault driver.
@@ -85,6 +85,11 @@
 * \section group_sysfault_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.20</td>
+*     <td>Updated \ref Cy_SysFault_GetErrorSource API and added new macro</td>
+*     <td>MISRA 10.8 fix and code enhancement</td>
+*   </tr>
 *    <tr>
 *     <td>1.10</td>
 *     <td>Updated macro related to driver enablement for CAT1C without any functional impact</td>
@@ -110,7 +115,6 @@
 #include "cy_device.h"
 
 #if defined(CY_IP_MXS40FAULT) || defined (CY_IP_MXFAULT)
-
 #include "cy_syslib.h"
 #include "cy_device_headers.h"
 
@@ -118,6 +122,10 @@
 extern "C" {
 #endif
 
+#if defined (CY_IP_MXS22SRSS)
+#define cy_en_SysFault_source_t en_sysfault_source_t
+#define CY_SYSFAULT_NO_FAULT (((uint8_t)M33SYSCPUSS_RRAMC_MMIO_PC_LOCK_FAULT) + 1U)
+#endif
 
 /*******************************************************************************
 *       Function Constants
@@ -132,7 +140,7 @@ extern "C" {
 #define CY_SYSFAULT_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_SYSFAULT_DRV_VERSION_MINOR    10
+#define CY_SYSFAULT_DRV_VERSION_MINOR    20
 
 /** Driver ID */
 #define CY_SYSFAULT_ID CY_PDL_DRV_ID     (0x76U)

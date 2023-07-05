@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_ecdsa.c
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  This file provides constant and parameters
@@ -832,7 +832,10 @@ cy_en_cryptolite_status_t Cy_Cryptolite_ECC_VerifyHash(CRYPTOLITE_Type *base,
             Crypto_SetNumber(p_qx, (uint8_t *)key->pubkey.x, bytesize);
             Crypto_SetNumber(p_qy, (uint8_t *)key->pubkey.y, bytesize);
             // u1 * G
-            Cryptolite_EC_NistP_PointMul(base, cfContext, p_gx, p_gy, p_u1, p_o, (int)bitsize);
+            if(!isHashZero)
+            {
+                Cryptolite_EC_NistP_PointMul(base, cfContext, p_gx, p_gy, p_u1, p_o, (int)bitsize);
+            }
 
             // reload order since p_o is modified by Crypto_EC_JacobianEcScalarMul_coZ (!!!!)
             Crypto_SetNumber(p_o, (uint8_t *) eccDp->order, bytesize);

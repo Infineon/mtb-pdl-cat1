@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.60
+* \version 3.70
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,11 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.70</td>
+*     <td>Added new APIs \ref Cy_SysClk_ClkPwrSetDivider, \ref Cy_SysClk_ClkPwrGetDivider, \ref Cy_SysClk_ClkPwrGetFrequency, \ref Cy_SysClk_ClkPwrSetSource, \ref Cy_SysClk_ClkPwrGetSource. \n and enum \ref cy_en_clkpwr_in_sources_t </td>
+*     <td>Support Added for future devices of the CAT1B.</td>
+*   </tr>
 *  <tr>
 *     <td rowspan="2">3.60</td>
 *     <td>Support for CAT1D devices is added</td>
@@ -530,7 +535,7 @@
 *
 *   - They may have different frequency ranges.
 *   - The PLL starts up more slowly and consumes more current than the FLL.
-*   - The PLL requires a higher frequency source clock than PLL.
+*   - The PLL requires a higher frequency source clock than FLL.
 *   ![](sysclk_pll.png)
 *
 *   The SysClk driver supports two models for configuring the PLL. The first
@@ -848,6 +853,13 @@
 
 *   \defgroup group_sysclk_clk_mem_funcs   Functions
 * \}
+* \defgroup group_sysclk_clk_pwr         Power Clock
+* \{
+*   Clock for the power architecture components.
+
+*   \defgroup group_sysclk_clk_pwr_funcs   Functions
+*   \defgroup group_sysclk_clk_pwr_enums    Enumerated Types
+* \}
 
 */
 
@@ -877,7 +889,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   60
+#define  CY_SYSCLK_DRV_VERSION_MINOR   70
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 
@@ -904,15 +916,7 @@ extern "C" {
 **/
 /** IHO clock frequency */
 #define CY_SYSCLK_IHO_FREQ  (48000000UL) /* Hz */
-
-#elif defined (CY_IP_MXS22SRSS)
-/**
-* \note
-* This macro is available for CAT1D devices.
-**/
-/** IHO clock frequency */
-#define CY_SYSCLK_IHO_FREQ  (12000000UL) /* Hz for PSVP */
-#endif /* CY_IP_MXS40SSRSS,CY_IP_MXS28SRSS*/
+#endif /* CY_IP_MXS40SSRSS*/
 
 
 #if defined (CY_IP_MXS40SRSS)
@@ -1126,11 +1130,11 @@ typedef struct
 
 /** \} group_sysclk_macros */
 
-#if defined (CY_IP_MXS40SRSS)  || defined (CY_IP_MXS22SRSS)
+#if defined (CY_IP_MXS40SRSS)  || defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))
 /** \cond */
 /**
 * \note
-* This macro is available for CAT1A and CAT1D devices.
+* This macro is available for CAT1A, CAT1D, CAT1B devices.
 **/
 #define SRSS_CLK_ECO_STATUS_Msk (SRSS_CLK_ECO_STATUS_ECO_OK_Msk | SRSS_CLK_ECO_STATUS_ECO_READY_Msk)
 /** \endcond */
@@ -1175,7 +1179,27 @@ typedef enum
 * \addtogroup group_sysclk_eco_funcs
 * \{
 */
- #if defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS)
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SysClk_EcoSetFrequency
+****************************************************************************//**
+*
+* Stores the external crystal oscillator (ECO) frequency in a global variable
+* within Sysclk driver.
+*
+* \param freq Operating frequency of the crystal in Hz.
+* Valid range: 16000000...35000000 (16..35 MHz).
+*
+* \note
+* This API is available for CAT1A devices.
+*
+*******************************************************************************/
+void Cy_SysClk_EcoSetFrequency(uint32_t freq);
+#endif /* (defined (CY_IP_MXS40SRSS)&& (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_DOXYGEN) */
+
+ #if defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) || \
+     (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))
+
 
 /*******************************************************************************
 * Function Name: Cy_SysClk_EcoConfigure
@@ -1278,7 +1302,7 @@ typedef enum
 * \endverbatim
 *
 * \note
-* This API is available for CAT1A,CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_EcoConfigure
@@ -1337,7 +1361,7 @@ cy_en_sysclk_status_t Cy_SysClk_EcoEnable(uint32_t timeoutus);
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_EcoEnable
 *
 * \note
-* This API is available for CAT1A & CAT1C devices.
+* This API is available for CAT1A, CAT1C devices.
 *
 *******************************************************************************/
 uint32_t Cy_SysClk_EcoGetFrequency(void);
@@ -1354,7 +1378,7 @@ uint32_t Cy_SysClk_EcoGetFrequency(void);
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_EcoDisable
 *
 * \note
-* This API is available for CAT1A & CAT1C devices.
+* This API is available for CAT1A, CAT1C devices.
 *
 *******************************************************************************/
 void Cy_SysClk_EcoDisable(void);
@@ -1372,16 +1396,16 @@ void Cy_SysClk_EcoDisable(void);
 * CY_SYSCLK_ECOSTAT_STABLE = ECO has fully stabilized
 *
 * \note
-* This API is available for CAT1A & CAT1C devices.
+* This API is available for CAT1A, CAT1C devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_EcoGetStatus
 *
 *******************************************************************************/
 uint32_t Cy_SysClk_EcoGetStatus(void);
-#endif /* defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) */
+#endif /* defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))*/
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS)
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))
 
 /*******************************************************************************
 * Function Name: Cy_SysClk_EcoPrescaleConfigure
@@ -1424,7 +1448,7 @@ cy_en_sysclk_status_t Cy_SysClk_EcoPrescaleConfigure(uint32_t enable, uint32_t i
 *******************************************************************************/
 bool Cy_SysClk_EcoPrescaleIsEnabled(void);
 
-#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) */
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))*/
 
 #if defined (CY_IP_MXS28SRSS)
 /*******************************************************************************
@@ -2017,8 +2041,7 @@ uint32_t Cy_SysClk_FllGetFrequency(void);
 /* ========================================================================== */
 /* ===========================    PLL SECTION    ============================ */
 /* ========================================================================== */
-#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS22SRSS)
-
+#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
 /**
 * \addtogroup group_sysclk_pll_structs
 * \{
@@ -2033,7 +2056,7 @@ typedef struct
     cy_en_fll_pll_output_mode_t outputMode; /**< CLK_PLL_CONFIG register, BYPASS_SEL bits */
 } cy_stc_pll_config_t;
 
-#if defined (CY_IP_MXS22SRSS) || defined(CY_DOXYGEN)
+#if defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL)) || defined(CY_DOXYGEN)
 /** Structure containing information for configuration of a DPLL-LP.
 */
 /**
@@ -2047,14 +2070,15 @@ typedef struct
     uint8_t                         outputDiv;     /**< CONFIG register, OUTPUT_DIV bits */
     bool                            pllDcoMode;    /**< CONFIG register, PLL_DCO_MODE bit */
     cy_en_fll_pll_output_mode_t     outputMode;    /**< CONFIG register, BYPASS_SEL bits */
-    uint32_t                        fracDiv;       /**< CONFIG2 register, FRAC_DIV bits, only for CAT1D devices */
-    bool                            fracDitherEn;  /**< CONFIG2 register, FRAC_DITHER_EN bit, only for CAT1D devices */
-    bool                            fracEn;        /**< CONFIG2 register, FRAC_EN bit, only for CAT1D devices */
-    uint32_t                        sscgDepth;     /**< CONFIG3 register, SSCG_DEPTH bits, only for CAT1D devices */
-    uint8_t                         sscgRate;      /**< CONFIG3 register, SSCG_RATE bits, only for CAT1D devices */
-    bool                            sscgDitherEn;  /**< CONFIG3 register, SSCG_DITHER_EN bit, only for CAT1D devices */
-    bool                            sscgMode;      /**< CONFIG3 register, SSCG_MODE bit, only for CAT1D devices */
-    bool                            sscgEn;        /**< CONFIG3 register, SSCG_EN bit, only for CAT1D devices */
+    uint32_t                        fracDiv;       /**< CONFIG2 register, FRAC_DIV bits, only for CAT1B(B2),CAT1D devices */
+    bool                            fracDitherEn;  /**< CONFIG2 register, FRAC_DITHER_EN bit, only for CAT1B(B2),CAT1D devices */
+    bool                            fracEn;        /**< CONFIG2 register, FRAC_EN bit, only for CAT1B(B2),CAT1D devices */
+    uint32_t                        sscgDepth;     /**< CONFIG3 register, SSCG_DEPTH bits, only for CAT1B(B2),CAT1D devices */
+    uint8_t                         sscgRate;      /**< CONFIG3 register, SSCG_RATE bits, only for CAT1B(B2),CAT1D devices */
+    bool                            sscgDitherEn;  /**< CONFIG3 register, SSCG_DITHER_EN bit, only for CAT1B(B2),CAT1D devices */
+    bool                            sscgMode;      /**< CONFIG3 register, SSCG_MODE bit, only for CAT1B(B2),CAT1D devices */
+    bool                            sscgEn;        /**< CONFIG3 register, SSCG_EN bit, only for CAT1B(B2),CAT1D devices */
+#if defined (CY_IP_MXS22SRSS)
     uint32_t                        dcoCode;       /**< CONFIG4 register, DCO_CODE bits, only for CAT1D devices */
     bool                            disableBias;   /**< CONFIG4 register, PLL_CS_PB2_DIS bit, only for CAT1D devices */
     bool                            enableDcoSd;   /**< CONFIG4 register, DCO_SD_EN bit, only for CAT1D devices */
@@ -2064,8 +2088,28 @@ typedef struct
     uint32_t                        kpInt;         /**< CONFIG5 register, Gain of P/I loop filter integrator path for INT operation. only for CAT1D devices */
     uint32_t                        kpFrac;        /**< CONFIG5 register, Gain of P/I loop filter integrator path for FRACT operation. only for CAT1D devices */
     uint32_t                        kpSscg;        /**< CONFIG5 register, Gain of P/I loop filter integrator path for SSCG operation. only for CAT1D devices */
+#else
+    uint32_t                        dcoCode;       /**< CONFIG4 register, DCO_CODE bits, only for CAT1B(B2), devices */
+    uint32_t                        accMode;       /**< CONFIG4 register, ACC_MODE bits, only for CAT1B(B2), devices */
+    uint32_t                        tdcMode;       /**< CONFIG4 register, TDC_MODE bits, only for CAT1B(B2), devices */
+    uint32_t                        pllTg;         /**< CONFIG4 register, PLL_TG bits, only for CAT1B(B2), devices */
+    bool                            accCntLock;    /**< CONFIG4 register, ACC_CNT_LOCK bits, only for CAT1B(B2), devices */
+    uint32_t                        kiInt;         /**< CONFIG5 register, KI_INT bits, only for CAT1B(B2), devices */
+    uint32_t                        kpInt;         /**< CONFIG5 register, KP_INT bits, only for CAT1B(B2), devices */
+    uint32_t                        kiAccInt;      /**< CONFIG5 register, KI_ACC_INT bits, only for CAT1B(B2), devices */
+    uint32_t                        kpAccInt;      /**< CONFIG5 register, KP_ACC_INT bits, only for CAT1B(B2), devices */
+    uint32_t                        kiFrac;       /**< CONFIG6 register, KI_FRACT bits, only for CAT1B(B2), devices */
+    uint32_t                        kpFrac;       /**< CONFIG6 register, KP_FRACT bits, only for CAT1B(B2), devices */
+    uint32_t                        kiAccFrac;    /**< CONFIG6 register, KI_ACC_FRACT bits, only for CAT1B(B2), devices */
+    uint32_t                        kpAccFrac;    /**< CONFIG7 register, KP_ACC_FRACT bits, only for CAT1B(B2), devices */
+    uint32_t                        kiSscg;        /**< CONFIG7 register, KI_SSCG bits, only for CAT1B(B2), devices */
+    uint32_t                        kpSscg;        /**< CONFIG7 register, KP_SSCG bits, only for CAT1B(B2), devices */
+    uint32_t                        kiAccSscg;     /**< CONFIG7 register, KI_ACC_SSCG bits, only for CAT1B(B2), devices */
+    uint32_t                        kpAccSscg;     /**< CONFIG7 register, KP_ACC_SSCG bits, only for CAT1B(B2), devices */
+#endif
 } cy_stc_dpll_lp_config_t;
 
+#if defined (CY_IP_MXS22SRSS)
 /** DPLL-HP wait mode selection enum.
 * See CONFIG2 register, bits MODE_SEL.
 */
@@ -2135,14 +2179,14 @@ typedef struct
     bool                            dcEnRingOsc;   /**< DUTYCAL_CTRL register, CTRL_RG_EN bit, Enables ring oscillator for duty cycle digitization */
     bool                            dcEn;          /**< DUTYCAL_CTRL register, EN bit, Enables duty cycle calibration */
 }cy_stc_dpll_hp_config_t;
-
+#endif
 #endif
 
 /** Structure containing information for manual configuration of a PLL.
 */
 typedef struct
 {
-#if defined (CY_IP_MXS40SRSS) || defined(CY_DOXYGEN)
+#if defined (CY_IP_MXS40SRSS) ||defined(CY_DOXYGEN)
     uint8_t                         feedbackDiv;   /**< CLK_PLL_CONFIG register, FEEDBACK_DIV (P) bits */
     uint8_t                         referenceDiv;  /**< CLK_PLL_CONFIG register, REFERENCE_DIV (Q) bits */
     uint8_t                         outputDiv;     /**< CLK_PLL_CONFIG register, OUTPUT_DIV bits */
@@ -2158,10 +2202,11 @@ typedef struct
     uint8_t                         sscgRate;      /**< CLK_PLL_CONFIG3 register, SSCG_RATE bits, only for CAT1C devices */
     bool                            sscgEn;        /**< CLK_PLL_CONFIG3 register, SSCG_EN bit, only for CAT1C devices */
 #endif
-#if defined (CY_IP_MXS22SRSS) || defined(CY_DOXYGEN)
+#if defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL)) || defined(CY_DOXYGEN)
     cy_stc_dpll_lp_config_t   *lpPllCfg; /**< DPLL-LP configuration */
+#if defined (CY_IP_MXS22SRSS)
     cy_stc_dpll_hp_config_t   *hpPllCfg; /**< DPLL-HP configuration */
-
+#endif
 #endif
 } cy_stc_pll_manual_config_t;
 /** \} group_sysclk_pll_structs */
@@ -2510,7 +2555,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllDisable(uint32_t clkPath);
 uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath);
 
 
-#if defined(CY_IP_MXS22SRSS)  || defined(CY_DOXYGEN)
+#if defined(CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL)) || defined(CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_SysClk_DpllLpConfigure
@@ -2549,14 +2594,6 @@ uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath);
 * if it affects the CLK_HF0 frequency.
 *
 * \note
-* Call \ref Cy_SysLib_SetWaitStates before calling this function if
-* the PLL is the source of CLK_HF0 and the PLL frequency is increasing.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates after calling this function if
-* the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.
-*
-* \note
 * This API is available only for CAT1D devices.
 *
 *******************************************************************************/
@@ -2590,14 +2627,6 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpConfigure(uint32_t pllNum, const cy_stc_pl
 * \note
 * Call \ref SystemCoreClockUpdate after this function calling
 * if it affects the CLK_HF0 frequency.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates before calling this function if
-* the PLL is the source of CLK_HF0 and the PLL frequency is increasing.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates after calling this function if
-* the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.
 *
 * \note
 * This API is available only for CAT1D devices.
@@ -2651,14 +2680,6 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpGetConfiguration(uint32_t pllNum, cy_stc_p
 * \note
 * Call \ref SystemCoreClockUpdate after this function calling
 * if it affects the CLK_HF0 frequency.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates before calling this function if
-* the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates after calling this function if
-* the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.
 *
 * \note
 * This API is available only for CAT1D devices.
@@ -2743,18 +2764,10 @@ bool Cy_SysClk_DpllLpLostLock(uint32_t pllNum);
 * Call \ref SystemCoreClockUpdate after this function calling
 * if it affects the CLK_HF0 frequency.
 *
-* \note
-* Call \ref Cy_SysLib_SetWaitStates before calling this function if
-* the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates after calling this function if
-* the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.
-*
 * \sideeffect
 * This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT.
-* If AUTO mode should be used, call \ref Cy_SysClk_PllConfigure or
-* \ref Cy_SysClk_PllManualConfigure before calling \ref Cy_SysClk_PllEnable.
+* If AUTO mode should be used, call \ref Cy_SysClk_DpllLpConfigure or
+* \ref Cy_SysClk_DpllLpManualConfigure before calling \ref Cy_SysClk_DpllLpEnable.
 *
 * \note
 * This API is available only for CAT1D devices.
@@ -2779,6 +2792,7 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpDisable(uint32_t pllNum);
 *******************************************************************************/
 uint32_t Cy_SysClk_DpllLpGetFrequency(uint32_t pllNum);
 
+#if defined(CY_IP_MXS22SRSS) || defined(CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_SysClk_DpllHpConfigure
@@ -2817,14 +2831,6 @@ uint32_t Cy_SysClk_DpllLpGetFrequency(uint32_t pllNum);
 * if it affects the CLK_HF0 frequency.
 *
 * \note
-* Call \ref Cy_SysLib_SetWaitStates before calling this function if
-* the PLL is the source of CLK_HF0 and the PLL frequency is increasing.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates after calling this function if
-* the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.
-*
-* \note
 * This API is available only for CAT1D devices.
 *
 *******************************************************************************/
@@ -2858,14 +2864,6 @@ cy_en_sysclk_status_t Cy_SysClk_DpllHpConfigure(uint32_t pllNum, const cy_stc_pl
 * \note
 * Call \ref SystemCoreClockUpdate after this function calling
 * if it affects the CLK_HF0 frequency.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates before calling this function if
-* the PLL is the source of CLK_HF0 and the PLL frequency is increasing.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates after calling this function if
-* the PLL is the source of CLK_HF0 and the PLL frequency is decreasing.
 *
 * \note
 * This API is available only for CAT1D devices.
@@ -2919,14 +2917,6 @@ cy_en_sysclk_status_t Cy_SysClk_DpllHpGetConfiguration(uint32_t pllNum, cy_stc_p
 * \note
 * Call \ref SystemCoreClockUpdate after this function calling
 * if it affects the CLK_HF0 frequency.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates before calling this function if
-* the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates after calling this function if
-* the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.
 *
 * \note
 * This API is available only for CAT1D devices.
@@ -3011,18 +3001,10 @@ bool Cy_SysClk_DpllHpLostLock(uint32_t pllNum);
 * Call \ref SystemCoreClockUpdate after this function calling
 * if it affects the CLK_HF0 frequency.
 *
-* \note
-* Call \ref Cy_SysLib_SetWaitStates before calling this function if
-* the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is increasing.
-*
-* \note
-* Call \ref Cy_SysLib_SetWaitStates after calling this function if
-* the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.
-*
 * \sideeffect
 * This function sets PLL bypass mode to CY_SYSCLK_FLLPLL_OUTPUT_INPUT.
-* If AUTO mode should be used, call \ref Cy_SysClk_PllConfigure or
-* \ref Cy_SysClk_PllManualConfigure before calling \ref Cy_SysClk_PllEnable.
+* If AUTO mode should be used, call \ref Cy_SysClk_DpllHpConfigure or
+* \ref Cy_SysClk_DpllHpManualConfigure before calling \ref Cy_SysClk_DpllHpEnable.
 *
 * \note
 * This API is available only for CAT1D devices.
@@ -3048,7 +3030,7 @@ cy_en_sysclk_status_t Cy_SysClk_DpllHpDisable(uint32_t pllNum);
 uint32_t Cy_SysClk_DpllHpGetFrequency(uint32_t pllNum);
 
 #endif
-
+#endif
 
 #if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)
 
@@ -4046,6 +4028,7 @@ void Cy_SysClk_IloSrcHibernateOn(uint32_t iloNum, bool on);
 * \addtogroup group_sysclk_pilo_funcs
 * \{
 */
+
 /*******************************************************************************
 * Function Name: Cy_SysClk_PiloEnable
 ****************************************************************************//**
@@ -4089,6 +4072,7 @@ bool Cy_SysClk_PiloIsEnabled(void);
 *******************************************************************************/
 void Cy_SysClk_PiloDisable(void);
 
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_SysClk_PiloSetTrim
@@ -4115,8 +4099,10 @@ void Cy_SysClk_PiloSetTrim(uint32_t trimVal);
 *
 *******************************************************************************/
 uint32_t Cy_SysClk_PiloGetTrim(void);
+#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3) */
 
-#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
+
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysClk_PiloBackupEnable
 ****************************************************************************//**
@@ -4140,7 +4126,7 @@ void Cy_SysClk_PiloBackupEnable(void);
 *
 *******************************************************************************/
 void Cy_SysClk_PiloBackupDisable(void);
-#endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN) */
+#endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN) */
 
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
 
@@ -4181,21 +4167,24 @@ void Cy_SysClk_PiloTcscDisable(void);
 * \addtogroup group_sysclk_alt_hf_funcs
 * \{
 */
-
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysClk_AltHfGetFrequency
 ****************************************************************************//**
 *
 * Reports the frequency of the Alternative High-Frequency Clock
 *
+* \note
+* This API is available for CAT1A and CAT1B devices.
+*
 * \funcusage
 * \snippet bleclk/snippet/main.c BLE ECO clock API: Cy_BLE_EcoConfigure()
 *
 *******************************************************************************/
 uint32_t Cy_SysClk_AltHfGetFrequency(void);
+#endif
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS)
-
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysClk_AltHfEnable
 ****************************************************************************//**
@@ -4218,6 +4207,9 @@ cy_en_sysclk_status_t Cy_SysClk_AltHfEnable(uint32_t timeoutus);
 *
 * Reports if ALTHF is enabled or not
 *
+* \note
+* This API is available for CAT1B devices.
+*
 * \return Status of ALTHF \n
 * true = Enabled \n
 * false = Not Enabled
@@ -4225,7 +4217,7 @@ cy_en_sysclk_status_t Cy_SysClk_AltHfEnable(uint32_t timeoutus);
 *******************************************************************************/
 bool Cy_SysClk_IsAltHfEnabled(void);
 
-#endif /* defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) */
+#endif /* defined (CY_IP_MXS40SSRSS) */
 
 /** \} group_sysclk_alt_hf_funcs */
 
@@ -4495,6 +4487,7 @@ bool Cy_SysClk_ClkMeasurementCountersDone(void);
 * \{
 */
 
+#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_SysClk_IloTrim
@@ -4514,6 +4507,7 @@ bool Cy_SysClk_ClkMeasurementCountersDone(void);
 *
 *******************************************************************************/
 int32_t Cy_SysClk_IloTrim(uint32_t iloFreq);
+#endif
 
 #if  defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
 /*******************************************************************************
@@ -4546,6 +4540,8 @@ void Cy_SysClk_IloSetTrim(uint32_t trimVal);
 uint32_t Cy_SysClk_IloGetTrim(void);
 
 #endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN) */
+
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_SysClk_PiloTrim
@@ -4608,6 +4604,9 @@ void Cy_SysClk_PiloInitialTrim(void);
 *
 *******************************************************************************/
 void Cy_SysClk_PiloUpdateTrimStep(void);
+
+#endif /* defined (CY_IP_MXS40SRSS) */
+
 /** \} group_sysclk_trim_funcs */
 
 
@@ -4934,22 +4933,34 @@ void Cy_SysClk_WcoBypass(cy_en_wco_bypass_modes_t bypass);
 * Medium frequency (clkMf) input sources. See CLK_MF_SELECT register, MFCLK_SEL bits.
 * Used with functions \ref Cy_SysClk_ClkMfSetSource, and \ref Cy_SysClk_ClkMfGetSource.
 */
+#if defined(CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
+
 typedef enum
 {
-    CY_SYSCLK_CLKMF_IN_MFO               = 0U, /**< clkMf is sourced by the internal low speed oscillator (ILO) */
+    CY_SYSCLK_CLKMF_IN_IMO               = 0U, /**< clkMf is sourced by the internal low speed oscillator (IMO) */
     CY_SYSCLK_CLKMF_IN_ILO               = 1U, /**< clkMf is sourced by the internal low speed oscillator (ILO) */
     CY_SYSCLK_CLKMF_IN_WCO               = 2U, /**< clkMf is sourced by the watch crystal oscillator (WCO) */
     CY_SYSCLK_CLKMF_IN_ALTLF             = 3U, /**< clkMf is sourced by the Alternate Low Frequency Clock (ALTLF) */
     CY_SYSCLK_CLKMF_IN_PILO              = 4U, /**< clkMf is sourced by the precision low speed oscillator (PILO) */
-#if defined(CY_IP_MXS22SRSS)
     CY_SYSCLK_CLKMF_IN_ECO_PRESCALER     = 5U, /**< clkMf is sourced by the External Clock Oscillator (ECO Prescaler) */
     CY_SYSCLK_CLKMF_IN_IHO               = 6U, /**< clkMf is sourced by the internal high speed oscillator (IHO) */
+} cy_en_clkmf_in_sources_t;
+
 #else
+
+typedef enum
+{
+    CY_SYSCLK_CLKMF_IN_MFO               = 0U, /**< clkMf is sourced by the internal low speed oscillator (MFO) */
+    CY_SYSCLK_CLKMF_IN_ILO               = 1U, /**< clkMf is sourced by the internal low speed oscillator (ILO) */
+    CY_SYSCLK_CLKMF_IN_WCO               = 2U, /**< clkMf is sourced by the watch crystal oscillator (WCO) */
+    CY_SYSCLK_CLKMF_IN_ALTLF             = 3U, /**< clkMf is sourced by the Alternate Low Frequency Clock (ALTLF) */
+    CY_SYSCLK_CLKMF_IN_PILO              = 4U, /**< clkMf is sourced by the precision low speed oscillator (PILO) */
     CY_SYSCLK_CLKMF_IN_ILO1              = 5U, /**< clkMf is sourced by the precision low speed oscillator (ILO1) */
     CY_SYSCLK_CLKMF_IN_ECO_PRESCALER     = 6U, /**< clkMf is sourced by the External Clock Oscillator (ECO Prescaler) */
     CY_SYSCLK_CLKMF_IN_LPECO             = 7U, /**< clkMf is sourced by the External Clock Oscillator (LPECO) */
-#endif
 } cy_en_clkmf_in_sources_t;
+
+#endif
 
 #endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || defined (CY_DOXYGEN) */
 
@@ -4959,6 +4970,8 @@ typedef enum
 * \addtogroup group_sysclk_mf_funcs
 * \{
 */
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_DOXYGEN)
+
 /*******************************************************************************
 * Function Name: Cy_SysClk_MfoEnable
 ****************************************************************************//**
@@ -5002,7 +5015,7 @@ bool Cy_SysClk_MfoIsEnabled(void);
 *
 *******************************************************************************/
 void Cy_SysClk_MfoDisable(void);
-
+#endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_DOXYGEN) */
 
 /** \cond internal */
 #define CY_SYSCLK_MF_DIVIDER_MIN                  (1U)
@@ -5013,14 +5026,25 @@ void Cy_SysClk_MfoDisable(void);
  * \note
  * This macro is available for CAT1B and CAT1D devices.
  **/
+#if defined(CY_IP_MXS22SRSS)
+#define CY_SYSCLK_IF_MF_SOURCE_VALID(mfClkSrc)    (((mfClkSrc) == CY_SYSCLK_CLKMF_IN_WCO)     || \
+                                                    ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_PILO) || \
+                                                    ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_IHO) || \
+                                                    ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_ECO_PRESCALER))
+
+#else
+
 #define CY_SYSCLK_IF_MF_SOURCE_VALID(mfClkSrc)    (((mfClkSrc) == CY_SYSCLK_CLKMF_IN_MFO)     || \
                                                     ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_ILO) || \
                                                     ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_WCO) || \
                                                     ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_ALTLF) || \
-                                                    ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_PILO))
+                                                    ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_PILO) || \
+                                                    ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_ILO1) || \
+                                                    ((mfClkSrc) == CY_SYSCLK_CLKMF_IN_ECO_PRESCALER))
 
 #endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || defined(CY_IP_MXS22SRSS)*/
 
+#endif
 /** \endcond */
 
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined(CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
@@ -5209,7 +5233,7 @@ typedef enum
 * clkHf divider values. See CLK_ROOT_SELECT registers, bits ROOT_DIV.
 * Used with functions \ref Cy_SysClk_ClkHfSetDivider and \ref Cy_SysClk_ClkHfGetDivider.
 */
-#if defined (CY_IP_MXS22SRSS)
+#if defined (CY_IP_MXS22SRSS) || (defined (CY_MXS40SSRSS_VER_1_2) && (CY_MXS40SSRSS_VER_1_2 > 0UL))
 typedef enum
 {
     CY_SYSCLK_CLKHF_NO_DIVIDE    = 0U,    /**< don't divide clkHf */
@@ -5227,7 +5251,8 @@ typedef enum
     CY_SYSCLK_CLKHF_DIVIDE_BY_13 = 12U,    /**< divide clkHf by 13 */
     CY_SYSCLK_CLKHF_DIVIDE_BY_14 = 13U,   /**< divide clkHf by 14 */
     CY_SYSCLK_CLKHF_DIVIDE_BY_15 = 14U,   /**< divide clkHf by 15 */
-    CY_SYSCLK_CLKHF_DIVIDE_BY_16 = 15U    /**< divide clkHf by 16 */
+    CY_SYSCLK_CLKHF_DIVIDE_BY_16 = 15U,   /**< divide clkHf by 16 */
+    CY_SYSCLK_CLKHF_MAX_DIVIDER           /**< Max divider */
 } cy_en_clkhf_dividers_t;
 #else
 typedef enum
@@ -5235,7 +5260,8 @@ typedef enum
     CY_SYSCLK_CLKHF_NO_DIVIDE   = 0U,    /**< don't divide clkHf */
     CY_SYSCLK_CLKHF_DIVIDE_BY_2 = 1U,    /**< divide clkHf by 2 */
     CY_SYSCLK_CLKHF_DIVIDE_BY_4 = 2U,    /**< divide clkHf by 4 */
-    CY_SYSCLK_CLKHF_DIVIDE_BY_8 = 3U     /**< divide clkHf by 8 */
+    CY_SYSCLK_CLKHF_DIVIDE_BY_8 = 3U,    /**< divide clkHf by 8 */
+    CY_SYSCLK_CLKHF_MAX_DIVIDER          /**< Max divider */
 } cy_en_clkhf_dividers_t;
 #endif
 /** \} group_sysclk_clk_hf_enums */
@@ -5901,6 +5927,34 @@ uint32_t Cy_SysClk_PeriGroupGetSlaveCtl(uint32_t groupNum, cy_en_peri_grp_sl_ctl
 *******************************************************************************/
 bool Cy_SysClk_IsPeriGroupSlaveCtlSet(uint32_t groupNum,cy_en_peri_grp_sl_ctl_num_t slaveCtl, uint32_t slaveMsk);
 
+#if defined (CY_IP_MXS22SRSS)
+/*******************************************************************************
+* Function Name: Cy_SysClk_PeriGroupSlaveInit
+****************************************************************************//**
+*
+* Initializes an IP
+*
+* \param periNum Selects the PERI Number
+*
+* \param groupNum Selects the PERI Group Number
+* \note
+* Input of groupNum parameter will be
+* CAT1D devices - enum en_peri_grp_t(devices/COMPONENT_CAT1\<subcategory\>
+* /include/\<series\>_config.h)
+* CAT1B/CAT1C   - group number
+*
+* \param slaveNum Selects the bit position of the IP that needs to be enabled
+*
+* \param clkHfNum Selects the CLK_HF number that needs to be enabled for
+* the IP to get enabled.
+*
+* \note
+* This API is available only for CAT1D devices.
+*
+*******************************************************************************/
+void Cy_SysClk_PeriGroupSlaveInit(uint32_t periNum, uint32_t groupNum, uint32_t slaveNum, uint32_t clkHfNum);
+
+#endif /* defined (CY_IP_MXS22SRSS) */
 
 /** \} group_sysclk_clk_peripheral_funcs */
 #endif /* defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))  || defined (CY_IP_MXS22SRSS) */
@@ -7306,6 +7360,119 @@ cy_en_clkbak_in_sources_t Cy_SysClk_ClkBakGetSource(void);
 #define CY_SYSCLK_DIV_ROUNDUP(a, b) (CY_SYSLIB_DIV_ROUNDUP((a),(b)))
 /** \endcond */
 
+/* ========================================================================== */
+/* ==========================     Clock Power SECTION    =============================*/
+/* ========================================================================== */
+/**
+* \addtogroup group_sysclk_clk_pwr_enums
+* \{
+*/
+#if (defined (CY_IP_MXS40SSRSS) && (CY_MXS40SSRSS_VER_1_2 > 0UL)) || defined(CY_DOXYGEN)
+/**
+* \note
+* This Enumeration is only available for CAT1B(B2) devices.
+**/
+/**
+* Clock power input sources. See PWRMODE_CLK_SELECT register, PWR_MUX bits.
+* Used with functions \ref Cy_SysClk_ClkPwrSetSource, and \ref Cy_SysClk_ClkPwrGetSource.
+*/
+
+typedef enum
+{
+    CY_SYSCLK_CLKPWR_IN_IMO   = 0U, /**< clkPwr is sourced by the internal main oscillator (IMO) */
+    CY_SYSCLK_CLKPWR_IN_IHO   = 1U, /**< clkPwr is sourced by the internal high speed oscillator (IHO) */
+} cy_en_clkpwr_in_sources_t;
+
+/** \} group_sysclk_clk_pwr_enums */
+
+/** \cond internal */
+#define CY_SYSCLK_CLKPWR_DIVIDER_MIN                  (1U)
+#define CY_SYSCLK_CLKPWR_DIVIDER_MAX                  (256U)
+#define CY_SYSCLK_IS_CLKPWR_DIVIDER_VALID(locDiv)     ((CY_SYSCLK_CLKPWR_DIVIDER_MIN <= (locDiv)) && ((locDiv) <= CY_SYSCLK_CLKPWR_DIVIDER_MAX))
+
+#define CY_SYSCLK_IF_CLKPWR_SOURCE_VALID(pwrClkSrc)    (((pwrClkSrc) == CY_SYSCLK_CLKPWR_IN_IMO) || \
+                                                         ((pwrClkSrc) == CY_SYSCLK_CLKPWR_IN_IHO))
+/** \endcond */
+
+/**
+* \addtogroup group_sysclk_clk_pwr_funcs
+* \{
+*/
+/*******************************************************************************
+* Function Name: Cy_SysClk_ClkPwrSetDivider
+****************************************************************************//**
+*
+* Sets the clock divider for Power clock.
+*
+* \param divider divider value between 1 and 256.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_ClkPwrSetDivider
+*
+*******************************************************************************/
+void Cy_SysClk_ClkPwrSetDivider(uint32_t divider);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_ClkPwrGetDivider
+****************************************************************************//**
+*
+* Returns the clock divider of Power clock.
+*
+* \return divider value in range 1..256.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_ClkPwrSetDivider
+*
+*******************************************************************************/
+uint32_t Cy_SysClk_ClkPwrGetDivider(void);
+
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_ClkPwrGetFrequency
+****************************************************************************//**
+*
+* Reports the output clock signal frequency of Power clock.
+*
+* \return The frequency, in Hz.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_ClkPwrSetDivider
+*
+*******************************************************************************/
+uint32_t Cy_SysClk_ClkPwrGetFrequency(void);
+
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_ClkPwrSetSource
+****************************************************************************//**
+*
+* Sets the source for the Power clock.
+*
+* \param source \ref cy_en_clkpwr_in_sources_t
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_ClkPwrSetSource
+*
+*******************************************************************************/
+void Cy_SysClk_ClkPwrSetSource(cy_en_clkpwr_in_sources_t source);
+
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_ClkPwrGetSource
+****************************************************************************//**
+*
+* Reports the source for the Power clock.
+*
+* \return \ref cy_en_clkpwr_in_sources_t
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_ClkPwrSetSource
+*
+*******************************************************************************/
+cy_en_clkpwr_in_sources_t Cy_SysClk_ClkPwrGetSource(void);
+#endif
+
+/** \} group_sysclk_clk_pwr_funcs */
 
 #if defined(__cplusplus)
 }

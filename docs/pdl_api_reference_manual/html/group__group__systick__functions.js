@@ -11,6 +11,8 @@ var group__group__systick__functions =
     [ "Cy_NsSysTick_Disable", "group__group__systick__functions.html#ga5e17caf26c439a21e5dc5b7164909f4a", null ],
     [ "Cy_SysTick_EnableInterrupt", "group__group__systick__functions.html#ga36398b8c61a500994e90096f92b4e694", null ],
     [ "Cy_SysTick_DisableInterrupt", "group__group__systick__functions.html#ga0948cb7614955d41fabc1885d258ddad", null ],
+    [ "Cy_NsSysTick_EnableInterrupt", "group__group__systick__functions.html#ga6c57ab9eb1027fef897bf85237cc21b2", null ],
+    [ "Cy_NsSysTick_DisableInterrupt", "group__group__systick__functions.html#gafe9fc6d47acf31d335c010dc7b083bb2", null ],
     [ "Cy_SysTick_SetReload", "group__group__systick__functions.html#ga1825a0f6b0f66b0219f4940003e35ca7", null ],
     [ "Cy_SysTick_GetReload", "group__group__systick__functions.html#ga6bde70df57ef74ca13af8c3f0a0b035d", null ],
     [ "Cy_SysTick_GetValue", "group__group__systick__functions.html#gabd317e3d43304ce55f361b31c36d6ffa", null ],

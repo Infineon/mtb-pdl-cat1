@@ -73,6 +73,9 @@
   <RemoveListWounding name="ETH_REMOVED">
     <Block name="eth"/>
   </RemoveListWounding>
+  <RemoveListWounding name="CXPI_REMOVED">
+    <Block name="cxpi"/>
+  </RemoveListWounding>
   <IndexResourceWounding name="DAC8_REMOVED">
     <ResourceIndex index="0">
       <Block name="csd.idac0" />

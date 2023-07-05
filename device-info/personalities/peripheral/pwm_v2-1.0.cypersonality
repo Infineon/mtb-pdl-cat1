@@ -28,7 +28,7 @@
 
 <Personality id="mxs40pwm_ver2" name="PWM" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxtcpwm_ver2" />
+    <IpBlock name="mxtcpwm_ver2,mxtcpwm" />
     <Resource name="tcpwm\.group\.cnt" />
   </Dependencies>
   <ExposedMembers />

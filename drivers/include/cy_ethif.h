@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ethif.h
-* \version 1.10
+* \version 1.10.1
 *
 * Provides an API declaration of the Ethernet Interface driver
 *
@@ -77,6 +77,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.10.1</td>
+*     <td>Build warning fixes due to redefinitions.</td>
+*     <td>Bug fixes.</td>
+*   </tr>
+*   <tr>
 *     <td>1.10</td>
 *     <td>Updated an internal API and fixed MISRA 2012 violations.</td>
 *     <td>MISRA 2012 compliance and code enhancement.</td>
@@ -103,10 +108,6 @@
 
 #include <stddef.h>
 #include "cy_syslib.h"
-#include "cdn_errno.h"
-#include "cedi.h"
-#include "emac_regs_macro.h"
-#include "edd_int.h"
 
 #if defined(__cplusplus)
 extern "C" {

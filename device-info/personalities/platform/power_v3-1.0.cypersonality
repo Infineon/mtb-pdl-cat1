@@ -52,11 +52,50 @@
       <Entry name="Minimum Current LDO" value="CY_SYSPM_LDO_MODE_MIN" visible="true" />
     </ParamChoice>
 
-     <!-- <ParamChoice id="regulatorMode" name="Enable External Regulator Output" group="General" default="transistorEnable" visible="true" editable="true" desc="Enable External Regulator Output."> 
-      <Entry name="External Transistor" value="transistorEnable" visible="true" />
-      <Entry name="External PMIC" value="pmicEnable" visible="true" />
-    </ParamChoice>-->
-    <ParamBool id="transistorEnable" name="Enable External Transistor Output" group="General" default="false" visible="true" editable="true" desc="Enables an external Transistor to provide VDDD power to the device." />
+    <ParamBool id="transistorEnable" name="Enable REGHC" group="REGHC Controls" default="false" visible="true" editable="true" desc="Enables REGHC." />
+
+	<ParamChoice id="reghcMode" name="REGHC Mode" group="REGHC Controls" default="`${CY_SYSPM_REGHC_MODE_TRANSISTOR}`" visible="`${transistorEnable}`" editable="false"
+      desc="Selects the mode for REGHC.">
+      <Entry name="External Transistor Mode" value="CY_SYSPM_REGHC_MODE_TRANSISTOR" visible="true" />
+      <Entry name="External PMIC Mode" value="CY_SYSPM_REGHC_MODE_PMIC" visible="true" />
+    </ParamChoice>
+
+    <ParamRange id="vadjMv"    name="VADJ Voltage (mV)"    group="REGHC Controls" default="1100" min="1020" max="1175" resolution="5" visible="`${transistorEnable}`" editable="true" desc="VADJ voltage in millivolts." />
+
+    <ParamString id="vadjVoltMacro" name="VADJ Voltage Macro" group="Internal" default="`${vadjMv eq &quot;1020&quot;    ? &quot;CY_SYSPM_REGHC_VADJ_1_020V&quot;   :
+                                                                                   vadjMv eq &quot;1025&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_025V&quot;   :
+                                                                                   vadjMv eq &quot;1030&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_030V&quot;   :
+                                                                                   vadjMv eq &quot;1035&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_035V&quot;   :
+																				   vadjMv eq &quot;1040&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_040V&quot;   :
+																				   vadjMv eq &quot;1045&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_045V&quot;   :
+																				   vadjMv eq &quot;1050&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_050V&quot;   :
+																				   vadjMv eq &quot;1055&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_055V&quot;   :
+																				   vadjMv eq &quot;1060&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_060V&quot;   :
+																				   vadjMv eq &quot;1065&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_065V&quot;   :
+																				   vadjMv eq &quot;1070&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_070V&quot;   :
+																				   vadjMv eq &quot;1075&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_075V&quot;   :
+																				   vadjMv eq &quot;1080&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_080V&quot;   :
+																				   vadjMv eq &quot;1085&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_085V&quot;   :
+																				   vadjMv eq &quot;1090&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_090V&quot;   :
+																				   vadjMv eq &quot;1095&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_095V&quot;   :
+																				   vadjMv eq &quot;1100&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_100V&quot;   :
+																				   vadjMv eq &quot;1105&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_105V&quot;   :
+																				   vadjMv eq &quot;1110&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_110V&quot;   :
+																				   vadjMv eq &quot;1115&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_115V&quot;   :
+																				   vadjMv eq &quot;1120&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_120V&quot;   :
+																				   vadjMv eq &quot;1125&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_125V&quot;   :
+																				   vadjMv eq &quot;1130&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_130V&quot;   :
+																				   vadjMv eq &quot;1135&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_135V&quot;   :
+																				   vadjMv eq &quot;1140&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_140V&quot;   :
+																				   vadjMv eq &quot;1145&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_145V&quot;   :
+																				   vadjMv eq &quot;1150&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_150V&quot;   :
+																				   vadjMv eq &quot;1155&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_155V&quot;   :
+																				   vadjMv eq &quot;1160&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_160V&quot;   :
+																				   vadjMv eq &quot;1165&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_165V&quot;   :
+																				   vadjMv eq &quot;1170&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_170V&quot;   :
+																				   vadjMv eq &quot;1175&quot;   ? &quot;CY_SYSPM_REGHC_VADJ_1_175V&quot;   :
+																				   &quot;CY_SYSPM_REGHC_VADJ_1_100V&quot;}`" visible="false" editable="false" desc="VADJ Voltage Macro." />
+
 
     <ParamChoice id="backupSrc" name="vBackup Source" group="General" default="VDDD" visible="true" editable="false"
       desc="Selects whether the backup power domain is driven by a dedicated supply (e.g. super-cap or battery), or tied to VDDD.">
@@ -142,9 +181,9 @@
     <ParamBool id="usingUlp" name="usingUlp" group="Internal" default="false" visible="false" editable="false" desc="" />
     <ParamBool id="deepsleepWhenIdle" name="deepsleepWhenIdle" group="Internal" default="`${idlePwrMode eq CY_CFG_PWR_MODE_DEEPSLEEP}`" visible="false" editable="false" desc="" />
 
-    <ParamSignal port="reghc_isense_inp[0]" name="External PS CTL0" group="Wakeup Pins" visible="`${transistorEnable}`"
+    <ParamSignal port="reghc_isense_inp[0]" name="External PS CTL0" group="REGHC Pins" visible="`${(transistorEnable eq true) &amp;&amp; (reghcMode eq CY_SYSPM_REGHC_MODE_TRANSISTOR)}`"
       desc="Positive terminal of the current sense resistor" canBeEmpty="true" >
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="`${transistorEnable}`" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="`${(transistorEnable eq true) &amp;&amp; (reghcMode eq CY_SYSPM_REGHC_MODE_TRANSISTOR)}`">
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_PULLUP" />
         </Parameter>
@@ -152,9 +191,9 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
 
-    <ParamSignal port="reghc_isense_inm[0]" name="External PS CTL1" group="Wakeup Pins" visible="`${transistorEnable}`"
+    <ParamSignal port="reghc_isense_inm[0]" name="External PS CTL1" group="REGHC Pins" visible="`${(transistorEnable eq true) &amp;&amp; (reghcMode eq CY_SYSPM_REGHC_MODE_TRANSISTOR)}`"
       desc="Negative terminal of the current sense resistor" canBeEmpty="true" >
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="`${transistorEnable}`" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="`${(transistorEnable eq true) &amp;&amp; (reghcMode eq CY_SYSPM_REGHC_MODE_TRANSISTOR)}`">
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_PULLUP" />
         </Parameter>
@@ -178,7 +217,7 @@
     <DRC type="ERROR" text="The input voltage of VDDD is set to `${vdddMv}` which is out of range. The value must be between 1700 and VDDA (`${vddaMv}`)." condition="`${(vdddMv &gt; vddaMv)}`" />
     <DRC type="ERROR" text="The input voltage of VDDIO0 is set to `${vddio0Mv}` which is out of range. The value must be between 1700 and VDDA (`${vddaMv}`)." condition="`${(vddio0Mv &gt; vddaMv)}`" />
     <DRC type="ERROR" text="The input voltage of VDDIO1 is set to `${vddio1Mv}` which is out of range. The value must be between 1700 and VDDA (`${vddaMv}`)." condition="`${(vddio1Mv &gt; vddaMv)}`" />
-    <DRC type="ERROR" text="Assign External PS CTL 0/1 to a signal from Wakeup Pins section or uncheck Enable External Transistor output from General section." condition="`${(transistorEnable &amp;&amp; !hasConnection(&quot;reghc_isense_inp&quot;, 0)) &amp;&amp; (transistorEnable &amp;&amp; !hasConnection(&quot;reghc_isense_inm&quot;, 0))}`" />
+    <DRC type="ERROR" text="Assign External PS CTL 0/1 to a signal from REGHC Pins section or uncheck Enable External Transistor output from General section." condition="`${(transistorEnable &amp;&amp; !hasConnection(&quot;reghc_isense_inp&quot;, 0)) &amp;&amp; (transistorEnable &amp;&amp; !hasConnection(&quot;reghc_isense_inm&quot;, 0))}`" />
   </DRCs>
 
   <!-- Generated firmware -->
@@ -204,6 +243,9 @@
     <ConfigDefine name="CY_CFG_PWR_VDDD_MV"                public="true" value="`${vdddMv}`" include="true" />
     <ConfigDefine name="CY_CFG_PWR_VDDIO0_MV"              public="true" value="`${vddio0Mv}`" include="true" />
     <ConfigDefine name="CY_CFG_PWR_VDDIO1_MV"              public="true" value="`${vddio1Mv}`" include="true" />
+    <ConfigDefine name="CY_CFG_PWR_REGHC_ENABLED"          public="true" value="`${transistorEnable}`" include="true" />
+	<ConfigDefine name="CY_CFG_PWR_REGHC_MODE"             public="true" value="`${transistorEnable ? reghcMode : 0xFF}`" include="true" />
+	<ConfigDefine name="CY_CFG_PWR_REGHC_TRANS_VADJ_VOLT"  public="true" value="`${transistorEnable ? vadjVoltMacro : 0}`" include="true" />
 
     <ConfigFunction signature="__STATIC_INLINE void init_cycfg_power(void)" body="
    /* **Reset the Backup domain on POR, XRES, BOD only if Backup domain is supplied by VDDD** */&#xA;
@@ -217,6 +259,11 @@
            }&#xA;
        #endif /* CY_CFG_SYSCLK_ILO_ENABLED */&#xA;
    #endif /* CY_CFG_PWR_VBACKUP_USING_VDDD */&#xA;&#xA;
+   /* **REGHC Configuration** */&#xA;
+   #if (CY_CFG_PWR_REGHC_ENABLED)&#xA;
+       Cy_SysPm_ReghcConfigure(CY_CFG_PWR_REGHC_MODE, CY_CFG_PWR_REGHC_TRANS_VADJ_VOLT);&#xA;
+   #endif /* CY_CFG_PWR_REGHC_ENABLED */&#xA;&#xA;
+
    /* **System Active Low Power Profile(LPACTIVE/LPSLEEP) Configuration** */&#xA;
    #if (CY_CFG_PWR_SYS_LP_PROFILE_MODE)&#xA;
        Cy_SysPm_SystemLpActiveEnter();&#xA;

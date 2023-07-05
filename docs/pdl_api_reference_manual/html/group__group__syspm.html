@@ -435,7 +435,17 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
-<td>5.93 </td><td>CAT1B Syspm driver Corrections </td><td>Syspm Driver Corrections  </td></tr>
+<td rowspan="4">5.94 </td><td>Newly added APIs <a class="el" href="group__group__syspm__functions__general.html#ga338c546bbd9227c75ada5bc85b1bf615">Cy_SysPm_SetSOCMemPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gaaf1abb0c8670b67d9bfb299d9d77a990">Cy_SysPm_SetSOCMemPartDsPwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#ga2851806aea4e38ff40c277841c07572c">Cy_SysPm_GetSOCMemSramPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gac056944172fccc3eb347a6ce4d62f320">Cy_SysPm_GetSOCMemSramPartDsPwrMode</a>  </td><td>Support of SOCMEM control for CAT1D devices added .  </td></tr>
+<tr>
+<td>Newly added APIs <a class="el" href="group__group__syspm__functions__reghc.html#ga09c461654f8d41bb0badd96bbfb4c7ad">Cy_SysPm_ReghcConfigure</a>, <a class="el" href="group__group__syspm__functions__reghc.html#ga8b2da4b8c544a0f8f65efe191346af26">Cy_SysPm_ReghcDeConfigure</a>. </td><td>Added REGHC configuration support for CAT1C devices .  </td></tr>
+<tr>
+<td>Newly added APIs <a class="el" href="group__group__syspm__functions__power.html#ga32b4d52191d6bd433a43e17f7b795c58">Cy_SysPm_SetSysDeepSleepMode</a>, <a class="el" href="group__group__syspm__functions__power.html#ga5bf456009a867946d735f682724d9aa6">Cy_SysPm_SetAppDeepSleepMode</a>, <a class="el" href="group__group__syspm__ppu__functions.html#gad0c77c7391189f11074d3f83c26168f0">cy_pd_ppu_set_static_power_mode</a>. </td><td>DEEPSLEEP support for CAT1D devices added.  </td></tr>
+<tr>
+<td>Newly added APIs <a class="el" href="group__group__syspm__functions__power__status.html#ga985529756aefbf864a9efa20f1817abd">Cy_SysPm_Cm33IsActive</a>, <a class="el" href="group__group__syspm__functions__power__status.html#ga99ec4f23581a115cbcc0a05a272283a4">Cy_SysPm_Cm33IsSleep</a>, <a class="el" href="group__group__syspm__functions__power__status.html#gaecc0551908eb1b88e112405926d57426">Cy_SysPm_Cm33IsDeepSleep</a>, <a class="el" href="group__group__syspm__functions__power__status.html#ga8b7b6d090865e9fb8ef55fce2a8b2a46">Cy_SysPm_Cm55IsActive</a>, <a class="el" href="group__group__syspm__functions__power__status.html#ga9d1b52153b2107bd69f799cd6b34f2f1">Cy_SysPm_Cm55IsSleep</a>. </td><td>Support for Core status check added for CAT1D devices .  </td></tr>
+<tr>
+<td>Newly added APIs <a class="el" href="group__group__syspm__functions__buck.html#ga3d3c9380ff6ce7c138037ce2036ee298">Cy_SysPm_SramLdoEnable</a>, <a class="el" href="group__group__syspm__functions__buck.html#ga211c09a725f1fab9881158120fbeff3d">Cy_SysPm_SramLdoSetVoltage</a>, <a class="el" href="group__group__syspm__functions__buck.html#gafd2104ec9ac05913ed5146a21b2a709b">Cy_SysPm_SramLdoGetVoltage</a>. </td><td>Support for SRAMLDO Regulator added for CAT1D devices .  </td></tr>
+<tr>
+<td>5.93 </td><td>Bug fix in definition of LPCOMP1 as wake-up source. </td><td>The low power comparator #1 was unable to wake-up the system from hibernate state.  </td></tr>
 <tr>
 <td>5.92 </td><td>Support for CAT1D devices is added </td><td>New devices support added  </td></tr>
 <tr>
@@ -452,7 +462,7 @@ Changelog</h1>
 <li><a class="el" href="group__group__syspm__functions__ldo.html#ga5d545d75711f6aa1889ec5faa871d9fb" title="Returns the current core LDO regulator operating mode. ">Cy_SysPm_LdoGetMode()</a></li>
 <li><a class="el" href="group__group__syspm__functions__ldo.html#ga9902e6f64bd939f234fe15612d0f1da8" title="Reads the current status of the core LDO regulator. ">Cy_SysPm_LdoIsEnabled()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#gaedc88873d19449d733cb529453c9cdc5" title="Checks if CM7 is in the active mode. ">Cy_SysPm_Cm7IsActive()</a></li>
-<li><a class="el" href="group__group__syspm__functions__power__status.html#ga0df948c8addc2c24d32895388d64374f" title="Checks if the CM4 is in the sleep mode. ">Cy_SysPm_Cm7IsSleep()</a></li>
+<li><a class="el" href="group__group__syspm__functions__power__status.html#ga0df948c8addc2c24d32895388d64374f" title="Checks if the CM7 is in the sleep mode. ">Cy_SysPm_Cm7IsSleep()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#ga3ac97e5b392cb7b1bd9f7e7ca62da6a6" title="Checks if the CM7 is in the deep sleep mode. ">Cy_SysPm_Cm7IsDeepSleep()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#ga64d56b385c6d692ff16f4f408a649e5c" title="Checks if the CM7 is in the low power mode. ">Cy_SysPm_Cm7IsLowPower()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#ga21d2910a7f711e336996948780074f0d" title="Checks if the CM0+ is in CPU Active mode. ">Cy_SysPm_Cm0IsActive()</a></li>

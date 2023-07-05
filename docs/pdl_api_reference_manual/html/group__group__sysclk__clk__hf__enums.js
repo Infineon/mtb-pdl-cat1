@@ -22,6 +22,7 @@ var group__group__sysclk__clk__hf__enums =
       [ "CY_SYSCLK_CLKHF_NO_DIVIDE", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4a996f9d53d3d78eda51e71dd65b1990c0", null ],
       [ "CY_SYSCLK_CLKHF_DIVIDE_BY_2", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4a1e878b1bea7bc9f0996bb51808042dfc", null ],
       [ "CY_SYSCLK_CLKHF_DIVIDE_BY_4", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4a03fb6627acd67df27258169fef6c7902", null ],
-      [ "CY_SYSCLK_CLKHF_DIVIDE_BY_8", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4ab24eafa784b1cc50c94072e6be0dd4b8", null ]
+      [ "CY_SYSCLK_CLKHF_DIVIDE_BY_8", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4ab24eafa784b1cc50c94072e6be0dd4b8", null ],
+      [ "CY_SYSCLK_CLKHF_MAX_DIVIDER", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4ae4bbc554d81061e4e08c65bbbc241140", null ]
     ] ]
 ];

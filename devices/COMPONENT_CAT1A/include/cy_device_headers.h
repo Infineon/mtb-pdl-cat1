@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -363,6 +363,26 @@
     #include "cy8c4588azq_h685.h"
 #elif defined (CY8C4588AZQ_H686)
     #include "cy8c4588azq_h686.h"
+#elif defined (CY8C6244FMI_S4D93)
+    #include "cy8c6244fmi_s4d93.h"
+#elif defined (CY8C6244FMI_S4D73)
+    #include "cy8c6244fmi_s4d73.h"
+#elif defined (CY8C6244FMI_S4D53)
+    #include "cy8c6244fmi_s4d53.h"
+#elif defined (CY8C6244FMI_S4D03)
+    #include "cy8c6244fmi_s4d03.h"
+#elif defined (CY8C6244FMQ_S4D93)
+    #include "cy8c6244fmq_s4d93.h"
+#elif defined (CY8C6144FMI_S4F93)
+    #include "cy8c6144fmi_s4f93.h"
+#elif defined (CY8C6144FMI_S4F73)
+    #include "cy8c6144fmi_s4f73.h"
+#elif defined (CY8C6144FMI_S4F53)
+    #include "cy8c6144fmi_s4f53.h"
+#elif defined (CY8C6144FMI_S4F03)
+    #include "cy8c6144fmi_s4f03.h"
+#elif defined (CY8C6144FMQ_S4F93)
+    #include "cy8c6144fmq_s4f93.h"
 #else
     #include "cy_device_common.h"
 #endif

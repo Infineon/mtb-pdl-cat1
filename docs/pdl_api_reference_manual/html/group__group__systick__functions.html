@@ -123,6 +123,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0948cb7614955d41fabc1885d258ddad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__systick__functions.html#ga0948cb7614955d41fabc1885d258ddad">Cy_SysTick_DisableInterrupt</a> (void)</td></tr>
 <tr class="memdesc:ga0948cb7614955d41fabc1885d258ddad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the SysTick interrupt.  <a href="#ga0948cb7614955d41fabc1885d258ddad">More...</a><br /></td></tr>
 <tr class="separator:ga0948cb7614955d41fabc1885d258ddad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6c57ab9eb1027fef897bf85237cc21b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__systick__functions.html#ga6c57ab9eb1027fef897bf85237cc21b2">Cy_NsSysTick_EnableInterrupt</a> (void)</td></tr>
+<tr class="memdesc:ga6c57ab9eb1027fef897bf85237cc21b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the Non-Secure SysTick interrupt.  <a href="#ga6c57ab9eb1027fef897bf85237cc21b2">More...</a><br /></td></tr>
+<tr class="separator:ga6c57ab9eb1027fef897bf85237cc21b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe9fc6d47acf31d335c010dc7b083bb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__systick__functions.html#gafe9fc6d47acf31d335c010dc7b083bb2">Cy_NsSysTick_DisableInterrupt</a> (void)</td></tr>
+<tr class="memdesc:gafe9fc6d47acf31d335c010dc7b083bb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the Non-Secure SysTick interrupt.  <a href="#gafe9fc6d47acf31d335c010dc7b083bb2">More...</a><br /></td></tr>
+<tr class="separator:gafe9fc6d47acf31d335c010dc7b083bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1825a0f6b0f66b0219f4940003e35ca7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__systick__functions.html#ga1825a0f6b0f66b0219f4940003e35ca7">Cy_SysTick_SetReload</a> (uint32_t value)</td></tr>
 <tr class="memdesc:ga1825a0f6b0f66b0219f4940003e35ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value the counter is set to on a startup and after it reaches zero.  <a href="#ga1825a0f6b0f66b0219f4940003e35ca7">More...</a><br /></td></tr>
 <tr class="separator:ga1825a0f6b0f66b0219f4940003e35ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -427,6 +433,50 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 <p>Disables the SysTick interrupt. </p>
 <dl class="section user"><dt>Side Effects</dt><dd>Clears the SysTick count flag if it was set </dd></dl>
+
+</div>
+</div>
+<a id="ga6c57ab9eb1027fef897bf85237cc21b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6c57ab9eb1027fef897bf85237cc21b2">&#9670;&nbsp;</a></span>Cy_NsSysTick_EnableInterrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_NsSysTick_EnableInterrupt </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the Non-Secure SysTick interrupt. </p>
+<dl class="section user"><dt>Side Effects</dt><dd>Clears the SysTick count flag if it was set</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>It is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gafe9fc6d47acf31d335c010dc7b083bb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafe9fc6d47acf31d335c010dc7b083bb2">&#9670;&nbsp;</a></span>Cy_NsSysTick_DisableInterrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_NsSysTick_DisableInterrupt </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables the Non-Secure SysTick interrupt. </p>
+<dl class="section user"><dt>Side Effects</dt><dd>Clears the SysTick count flag if it was set</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>It is available for CAT1B devices. </dd></dl>
 
 </div>
 </div>

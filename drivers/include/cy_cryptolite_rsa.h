@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_rsa.h
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  This file provides provides constant and parameters
@@ -114,9 +114,9 @@ typedef struct
         be allocated by user with size moduloLength */
     uint8_t *rBarPtr;
 
-    /** when set to 'true', pre-calculated coefs must be provided in 'barretCoefPtr, 'inverseModuloPtr' and 'rBarPtr',
+    /** when set to 'true', pre-calculated coefficients must be provided in 'barretCoefPtr, 'inverseModuloPtr' and 'rBarPtr',
         can be calculated by  Cy_Cryptolite_Rsa_Coef API .
-        When set to 'false', all the acceleration step coefs will be calculated as part of \ref Cy_Cryptolite_Rsa_Proc */
+        When set to 'false', all the acceleration step coefficients will be calculated as part of \ref Cy_Cryptolite_Rsa_Proc */
     bool preCalculatedCoeff;
 
 } cy_stc_cryptolite_rsa_pub_key_t;

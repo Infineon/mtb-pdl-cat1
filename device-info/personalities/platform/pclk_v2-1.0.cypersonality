@@ -48,7 +48,7 @@
 
     <!-- Get the name of the source clock resource -->
     <ParamString id="sourceClockRscV1" name="Source Clock Resource V1" group="Internal" default="`${getInstNumber(&quot;group&quot;) eq 0 ? &quot;srss[0].clock[0].hfclk[0]&quot; : &quot;srss[0].clock[0].hfclk[1]&quot;}`" visible="false" editable="false" desc="" />
-    <ParamString id="sourceClockRscV2" name="Source Clock Resource V2" group="Internal" default="`${getInstNumber(&quot;peri&quot;) eq 0 ?
+    <ParamString id="sourceClockRscV2" name="Source Clock Resource V2" group="Internal" default="`${hasBlock(&quot;peri[1]&quot;) ? (getInstNumber(&quot;peri&quot;) eq 0 ?
                                                                                               (getInstNumber(&quot;group&quot;) eq 0 ? &quot;srss[0].clock[0].hfclk[0]&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 1 ? &quot;srss[0].clock[0].hfclk[10]&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 2 ? &quot;srss[0].clock[0].hfclk[9]&quot; :
@@ -57,11 +57,23 @@
                                                                                                getInstNumber(&quot;group&quot;) eq 5 ? &quot;srss[0].clock[0].hfclk[10]&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 6 ? &quot;srss[0].clock[0].hfclk[13]&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 7 ? &quot;srss[0].clock[0].hfclk[1]&quot; :
-                                                                                               &quot;srss[0].clock[0].hfclk[11]&quot;) :
+																							   getInstNumber(&quot;group&quot;) eq 8 ? &quot;srss[0].clock[0].hfclk[11]&quot; :
+																							   getInstNumber(&quot;group&quot;) eq 9 ? &quot;srss[0].clock[0].hfclk[13]&quot; :
+                                                                                               &quot;srss[0].clock[0].hfclk[1]&quot;) :
                                                                                               (getInstNumber(&quot;group&quot;) eq 0 ? &quot;srss[0].clock[0].hfclk[1]&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 1 ? &quot;srss[0].clock[0].hfclk[7]&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 2 ? &quot;srss[0].clock[0].hfclk[5]&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 3 ? &quot;srss[0].clock[0].hfclk[6]&quot; :
+																							   getInstNumber(&quot;group&quot;) eq 4 ? &quot;srss[0].clock[0].hfclk[0]&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 5 ? &quot;srss[0].clock[0].hfclk[2]&quot; :
+                                                                                               &quot;srss[0].clock[0].hfclk[0]&quot;)) :
+																							  (getInstNumber(&quot;group&quot;) eq 0 ? &quot;srss[0].clock[0].hfclk[0]&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 1 ? &quot;srss[0].clock[0].hfclk[1]&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 2 ? &quot;srss[0].clock[0].hfclk[0]&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 3 ? &quot;srss[0].clock[0].hfclk[1]&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 4 ? &quot;srss[0].clock[0].hfclk[2]&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 5 ? &quot;srss[0].clock[0].hfclk[3]&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 6 ? &quot;srss[0].clock[0].hfclk[4]&quot; :
                                                                                                &quot;srss[0].clock[0].hfclk[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockRscV3" name="Source Clock Resource V3" group="Internal" default="`${getInstNumber(&quot;group&quot;) eq 0 ? &quot;srss[0].clock[0].periclk[0]&quot; : &quot;srss[0].clock[0].hfclk[2]&quot;}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockRsc" name="Source Clock Resource" group="Internal" default="`${&quot;mxsperi&quot; eq getIpBlockName() ? (getVersion() eq 1 ? sourceClockRscV1 : sourceClockRscV2) : sourceClockRscV3 }`" visible="false" editable="false" desc="" />
@@ -74,7 +86,7 @@
     <ParamRange  id="sourceFreq" name="sourceFrequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="accuracy" name="accuracy" group="General" default="`${!error ? getExposedMember(sourceClockRsc, &quot;accuracy&quot;) : 0}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceFreqInfoV1" name="Source Clock V1" group="Internal" default="`${getInstNumber(&quot;group&quot;) eq 0 ? &quot;CLK_HF0&quot; : &quot;CLK_HF1&quot;}` (`${formatFrequency(sourceFreq,accuracy)}`)" visible="false" editable="false" desc="Source clock frequency" />
-    <ParamString id="sourceFreqInfoV2" name="Source Clock V2" group="Internal" default="`${getInstNumber(&quot;peri&quot;) eq 0 ?
+    <ParamString id="sourceFreqInfoV2" name="Source Clock V2" group="Internal" default="`${hasBlock(&quot;peri[1]&quot;) ? (getInstNumber(&quot;peri&quot;) eq 0 ?
                                                                                               (getInstNumber(&quot;group&quot;) eq 0 ? &quot;CLK_HF0&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 1 ? &quot;CLK_HF10&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 2 ? &quot;CLK_HF9&quot; :
@@ -83,15 +95,27 @@
                                                                                                getInstNumber(&quot;group&quot;) eq 5 ? &quot;CLK_HF10&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 6 ? &quot;CLK_HF13&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 7 ? &quot;CLK_HF1&quot; :
-                                                                                               &quot;CLK_HF11&quot;) :
+                                                                                               getInstNumber(&quot;group&quot;) eq 8 ? &quot;CLK_HF11&quot; :
+																							   getInstNumber(&quot;group&quot;) eq 9 ? &quot;CLK_HF13&quot; :
+																							   &quot;CLK_HF1&quot;) :
                                                                                               (getInstNumber(&quot;group&quot;) eq 0 ? &quot;CLK_HF1&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 1 ? &quot;CLK_HF7&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 2 ? &quot;CLK_HF5&quot; :
                                                                                                getInstNumber(&quot;group&quot;) eq 3 ? &quot;CLK_HF6&quot; :
-                                                                                               &quot;CLK_HF0&quot;)}`  (`${formatFrequency(sourceFreq,accuracy)}`)" visible="false" editable="false" desc="Source clock frequency" />
+                                                                                               getInstNumber(&quot;group&quot;) eq 4 ? &quot;CLK_HF0&quot; :
+																							   getInstNumber(&quot;group&quot;) eq 5 ? &quot;CLK_HF2&quot; :
+																							   &quot;CLK_HF0&quot;)) : 
+																							  (getInstNumber(&quot;group&quot;) eq 0 ? &quot;CLK_HF0&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 1 ? &quot;CLK_HF1&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 2 ? &quot;CLK_HF0&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 3 ? &quot;CLK_HF1&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 4 ? &quot;CLK_HF2&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 5 ? &quot;CLK_HF3&quot; :
+                                                                                               getInstNumber(&quot;group&quot;) eq 6 ? &quot;CLK_HF4&quot; :
+																							   &quot;CLK_HF0&quot;)}`  (`${formatFrequency(sourceFreq,accuracy)}`)" visible="false" editable="false" desc="Source clock frequency" />
     <ParamString id="sourceFreqInfoV3" name="Source Clock V3" group="Internal" default="`${getInstNumber(&quot;group&quot;) eq 0 ? &quot;CLK_PERI&quot; : &quot;CLK_HF2&quot;}` (`${formatFrequency(sourceFreq,accuracy)}`)" visible="false" editable="false" desc="Source clock frequency" />
-    <ParamString id="sourceFreqInfo" name="Source Clock" group="General" default="`${&quot;mxsperi&quot; eq getIpBlockName() ? (getVersion() eq 1 ? sourceFreqInfoV1 : sourceFreqInfoV2) : sourceFreqInfoV3}`" visible="true" editable="false" desc="Source clock frequency" />
 
+    <ParamString id="sourceFreqInfo" name="Source Clock" group="General" default="`${&quot;mxsperi&quot; eq getIpBlockName() ? (getVersion() eq 1 ? sourceFreqInfoV1 : sourceFreqInfoV2) : sourceFreqInfoV3}`" visible="true" editable="false" desc="Source clock frequency" />
     <!-- Get the peripheral clock divider type, width and number -->
     <ParamChoice id="type" name="Divider type" group="Internal" default="`${getBlockType(2)}`" visible="false" editable="false" desc="">
       <Entry name="div_8"    value="div_8"    visible="true" />
@@ -133,10 +157,75 @@
   </Parameters>
   
   <DRCs>
-    <DRC type="ERROR" text="CLK_HF1 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[1]&quot;) &amp;&amp; (getInstNumber(&quot;group&quot;) &gt; 0) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName())}`" >
+    <DRC type="ERROR" text="CLK_HF1 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;)  &gt; 0) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 1)}`" >
       <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[1]&quot;}`" value="" valid="true" />
     </DRC>
-    <DRC type="ERROR" text="CLK_HF2 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[2]&quot;) &amp;&amp; (getInstNumber(&quot;group&quot;) &gt; 0) &amp;&amp; (&quot;mxperi_ver3&quot; eq getIpBlockName())}`" >
+
+    <DRC type="ERROR" text="CLK_HF1 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[1]&quot;) &amp;&amp; hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 7) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[1]&quot;}`" value="" valid="true" />
+    </DRC>
+    <DRC type="ERROR" text="CLK_HF1 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 1) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 0) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[1]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF1 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[1]&quot;) &amp;&amp; !hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 1) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[1]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF1 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[1]&quot;) &amp;&amp; !hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 3) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[1]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF2 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[2]&quot;) &amp;&amp; !hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 4) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[2]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF3 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[3]&quot;) &amp;&amp; !hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 5) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[3]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF4 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[4]&quot;) &amp;&amp; !hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 6) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[4]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF5 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[5]&quot;) &amp;&amp; hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 3) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[5]&quot;}`" value="" valid="true" />
+    </DRC>
+    <DRC type="ERROR" text="CLK_HF5 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[5]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 1) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 2) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[5]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF6 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[6]&quot;) &amp;&amp; hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 4) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[6]&quot;}`" value="" valid="true" />
+    </DRC>
+    <DRC type="ERROR" text="CLK_HF6 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[6]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 1) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 3) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[6]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF7 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[7]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 1) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 1) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[7]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF9 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[9]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 2) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[9]&quot;}`" value="" valid="true" />
+    </DRC>
+
+    <DRC type="ERROR" text="CLK_HF10 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[10]&quot;) &amp;&amp; hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 1) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[10]&quot;}`" value="" valid="true" />
+    </DRC>
+    <DRC type="ERROR" text="CLK_HF10 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[10]&quot;) &amp;&amp; hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 5) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[10]&quot;}`" value="" valid="true" />
+    </DRC>
+
+	<DRC type="ERROR" text="CLK_HF11 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[11]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 8) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[11]&quot;}`" value="" valid="true" />
+    </DRC>
+
+	<DRC type="ERROR" text="CLK_HF13 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[13]&quot;) &amp;&amp; hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 6) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+      <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[13]&quot;}`" value="" valid="true" />
+    </DRC>
+
+	<DRC type="ERROR" text="CLK_HF2 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[2]&quot;) &amp;&amp; (getInstNumber(&quot;group&quot;) &gt; 0) &amp;&amp; (&quot;mxperi_ver3&quot; eq getIpBlockName())}`" >
       <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[2]&quot;}`" value="" valid="true" />
     </DRC>
   </DRCs>

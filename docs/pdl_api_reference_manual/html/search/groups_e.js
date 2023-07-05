@@ -18,6 +18,7 @@ var searchData=
   ['peripheral_20clock',['Peripheral Clock',['../group__group__sysclk__clk__peri.html',1,'']]],
   ['peripherals_20clock_20dividers',['Peripherals Clock Dividers',['../group__group__sysclk__clk__peripheral.html',1,'']]],
   ['pump_20clock',['Pump Clock',['../group__group__sysclk__clk__pump.html',1,'']]],
+  ['power_20clock',['Power Clock',['../group__group__sysclk__clk__pwr.html',1,'']]],
   ['precision_20internal_20low_2dspeed_20oscillator_20_28pilo_29',['Precision Internal Low-Speed Oscillator (PILO)',['../group__group__sysclk__pilo.html',1,'']]],
   ['phase_20locked_20loop_20_28pll_29',['Phase Locked Loop (PLL)',['../group__group__sysclk__pll.html',1,'']]],
   ['pmic',['PMIC',['../group__group__syspm__functions__pmic.html',1,'']]],

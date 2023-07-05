@@ -19,6 +19,7 @@ var group__group__syslib__macros =
     [ "CY_SECTION_INIT_CODECOPY_BEGIN", "group__group__syslib__macros.html#ga05d6029120643ca76b079fdf2fd1ea12", null ],
     [ "CY_SECTION_INIT_CODECOPY_END", "group__group__syslib__macros.html#ga10926a1e1ebe0e4c7b2024a80cf93266", null ],
     [ "CY_SECTION_SHAREDMEM", "group__group__syslib__macros.html#ga2b993962501511509b8b00983f63a3db", null ],
+    [ "CY_SECTION_SHAREDMEM_SEC", "group__group__syslib__macros.html#gaffa03f0f4964652cf1e8981829e56214", null ],
     [ "CY_MAX_FILE_NAME_SIZE", "group__group__syslib__macros.html#gae55b339d6807f66fad9f51d463d44b0b", null ],
     [ "CY_R0_Pos", "group__group__syslib__macros.html#gae43177fc1f4a6fcb65e3893ff492ae44", null ],
     [ "CY_R1_Pos", "group__group__syslib__macros.html#ga2c9c49ab9747ac458f2cc19cd8e8e0b8", null ],

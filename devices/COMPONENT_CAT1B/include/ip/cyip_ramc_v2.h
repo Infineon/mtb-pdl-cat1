@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -44,14 +44,7 @@ typedef struct {
                                                                 the security owner PC. The error response configuration is
                                                                 located in CFG.RESPONSE, only one such configuration exists
                                                                 applying to all protection contexts in the system. */
-   __IM uint32_t RESERVED[3];
-  __IOM uint32_t INTR;                          /*!< 0x00000010 Interrupt */
-  __IOM uint32_t INTR_SET;                      /*!< 0x00000014 Interrupt set */
-  __IOM uint32_t INTR_MASK;                     /*!< 0x00000018 Interrupt mask */
-   __IM uint32_t INTR_MASKED;                   /*!< 0x0000001C Interrupt masked */
-   __IM uint32_t INTR_INFO1;                    /*!< 0x00000020 Infor about violation */
-   __IM uint32_t INTR_INFO2;                    /*!< 0x00000024 Infor about violation */
-   __IM uint32_t RESERVED1[54];
+   __IM uint32_t RESERVED[63];
   __IOM uint32_t CTRL;                          /*!< 0x00000100 Control register with lock bit and auto-increment only
                                                                 (Separate CTRL for each PC depends on access_pc) */
    __IM uint32_t BLK_MAX;                       /*!< 0x00000104 Max value of block-based index register */
@@ -59,9 +52,9 @@ typedef struct {
   __IOM uint32_t BLK_IDX;                       /*!< 0x0000010C Index of 32-block group accessed through BLK_LUT (Separate IDX
                                                                 for each PC depending on access_pc) */
   __IOM uint32_t BLK_LUT;                       /*!< 0x00000110 NS status for 32 blocks at BLK_IDX with PC=<access_pc> */
-   __IM uint32_t RESERVED2[59];
+   __IM uint32_t RESERVED1[59];
   __IOM uint32_t ROT_CTRL;                      /*!< 0x00000200 Control register with lock bit and auto-increment only */
-  __IOM uint32_t ROT_CFG;                       /*!< 0x00000204 Sets block-size to match memory size (external memory only) */
+   __IM uint32_t RESERVED2;
    __IM uint32_t ROT_BLK_MAX;                   /*!< 0x00000208 Max value of block-based index register for ROT */
    __IM uint32_t ROT_BLK_CFG;                   /*!< 0x0000020C Same as BLK_CFG */
   __IOM uint32_t ROT_BLK_IDX;                   /*!< 0x00000210 Index of 8-block group accessed through ROT_BLK_LUT_* */
@@ -98,36 +91,6 @@ typedef struct {
 /* RAMC_MPC.CFG */
 #define RAMC_MPC_CFG_RESPONSE_Pos               4UL
 #define RAMC_MPC_CFG_RESPONSE_Msk               0x10UL
-/* RAMC_MPC.INTR */
-#define RAMC_MPC_INTR_VIOLATION_Pos             0UL
-#define RAMC_MPC_INTR_VIOLATION_Msk             0x1UL
-/* RAMC_MPC.INTR_SET */
-#define RAMC_MPC_INTR_SET_VIOLATION_Pos         0UL
-#define RAMC_MPC_INTR_SET_VIOLATION_Msk         0x1UL
-/* RAMC_MPC.INTR_MASK */
-#define RAMC_MPC_INTR_MASK_VIOLATION_Pos        0UL
-#define RAMC_MPC_INTR_MASK_VIOLATION_Msk        0x1UL
-/* RAMC_MPC.INTR_MASKED */
-#define RAMC_MPC_INTR_MASKED_VIOLATION_Pos      0UL
-#define RAMC_MPC_INTR_MASKED_VIOLATION_Msk      0x1UL
-/* RAMC_MPC.INTR_INFO1 */
-#define RAMC_MPC_INTR_INFO1_VALUE_Pos           0UL
-#define RAMC_MPC_INTR_INFO1_VALUE_Msk           0xFFFFFFFFUL
-/* RAMC_MPC.INTR_INFO2 */
-#define RAMC_MPC_INTR_INFO2_HMASTER_Pos         0UL
-#define RAMC_MPC_INTR_INFO2_HMASTER_Msk         0xFFFFUL
-#define RAMC_MPC_INTR_INFO2_HNONSEC_Pos         16UL
-#define RAMC_MPC_INTR_INFO2_HNONSEC_Msk         0x10000UL
-#define RAMC_MPC_INTR_INFO2_CFG_NS_Pos          17UL
-#define RAMC_MPC_INTR_INFO2_CFG_NS_Msk          0x20000UL
-#define RAMC_MPC_INTR_INFO2_HWRITE_Pos          18UL
-#define RAMC_MPC_INTR_INFO2_HWRITE_Msk          0x40000UL
-#define RAMC_MPC_INTR_INFO2_HAUSER_Pos          24UL
-#define RAMC_MPC_INTR_INFO2_HAUSER_Msk          0xF000000UL
-#define RAMC_MPC_INTR_INFO2_SECURITY_VIOLATION_Pos 30UL
-#define RAMC_MPC_INTR_INFO2_SECURITY_VIOLATION_Msk 0x40000000UL
-#define RAMC_MPC_INTR_INFO2_ACCESS_VIOLATION_Pos 31UL
-#define RAMC_MPC_INTR_INFO2_ACCESS_VIOLATION_Msk 0x80000000UL
 /* RAMC_MPC.CTRL */
 #define RAMC_MPC_CTRL_AUTO_INC_Pos              8UL
 #define RAMC_MPC_CTRL_AUTO_INC_Msk              0x100UL
@@ -214,9 +177,6 @@ typedef struct {
 #define RAMC_MPC_ROT_CTRL_AUTO_INC_Msk          0x100UL
 #define RAMC_MPC_ROT_CTRL_LOCK_Pos              31UL
 #define RAMC_MPC_ROT_CTRL_LOCK_Msk              0x80000000UL
-/* RAMC_MPC.ROT_CFG */
-#define RAMC_MPC_ROT_CFG_BLOCK_SIZE_Pos         0UL
-#define RAMC_MPC_ROT_CFG_BLOCK_SIZE_Msk         0xFUL
 /* RAMC_MPC.ROT_BLK_MAX */
 #define RAMC_MPC_ROT_BLK_MAX_VALUE_Pos          0UL
 #define RAMC_MPC_ROT_BLK_MAX_VALUE_Msk          0xFFFFFFFFUL

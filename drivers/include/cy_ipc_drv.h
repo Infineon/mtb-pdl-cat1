@@ -1,7 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_drv.h
-* \version 1.90
-*
+* \version 1.91
 * Provides an API declaration of the IPC driver.
 *
 ********************************************************************************
@@ -322,6 +321,12 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.91</td>
+*     <td>Updated \ref Cy_IPC_Sema_Set, \ref Cy_IPC_Sema_Clear, \ref Cy_IPC_Sema_Status, \ref Cy_IPC_Sema_GetMaxSems APIs 
+*      \n Added new macros</td>
+*     <td>Support for CAT1D devices added.</td>
+*   </tr>
+*   <tr>
 *     <td rowspan="2">1.90</td>
 *     <td>Added structure \ref cy_stc_ipc_msg_inrush_mode_t and enum \ref cy_en_btipc_inrush_mode_t, Modified enums \ref cy_en_btipc_lpo_cmd_t
 *         and \ref cy_en_btipc_hpcpti_t.</td>
@@ -506,7 +511,7 @@
 #define CY_IPC_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_IPC_DRV_VERSION_MINOR       90
+#define CY_IPC_DRV_VERSION_MINOR       91
 
 /** Defines a value to indicate that no notification events are needed */
 #define CY_IPC_NO_NOTIFICATION         (uint32_t)(0x00000000UL)

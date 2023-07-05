@@ -518,7 +518,7 @@ treated.">
       <Member name="rxFIFO1Config" value="&amp;`${INST_NAME . &quot;_rxFifo1Config&quot;}`" />
       <Member name="noOfRxBuffers" value="`${noOfRxBuffers}`U" />
       <Member name="noOfTxBuffers" value="`${noOfTxBuffers}`U" />
-      <Member name="messageRAMaddress" value="CY_CAN0MRAM_BASE + `${messageRAMaddress}`U" />
+      <Member name="messageRAMaddress" value="CY_CAN`${instNumber}`MRAM_BASE + `${messageRAMaddress}`U" />
       <Member name="messageRAMsize" value="`${messageRAMsize}`U" />
     </ConfigStruct>
 

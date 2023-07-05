@@ -61,16 +61,13 @@
     </ParamChoice>
     
     <!-- If the FLL/PLL are enabled, their output drive the corresponding clock path -->
-    <ParamBool id="isFllUsed" name="Is FLL Used" group="Internal" default="`${(sourceClockNumber eq 0) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].fll[0]&quot;)}`" visible="false" editable="false" desc="" />
-
-    <ParamBool id="isPll400mUsed" name="Is PLL-400MHz Used" group="Internal" default="`${(sourceClockNumber &gt; 0) &amp;&amp; (sourceClockNumber &lt;= NUM_DPLL_HP) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].dpll250m[&quot; . (sourceClockNumber-1) . &quot;]&quot;)}`" visible="false" editable="false" desc="" />
+    <ParamBool id="isPll250mUsed" name="Is PLL-250MHz Used" group="Internal" default="`${(sourceClockNumber &lt; NUM_DPLL_LP) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll250m[&quot; . (sourceClockNumber) . &quot;]&quot;)}`" visible="false" editable="false" desc="" />
+    <ParamBool id="isPll500mUsed" name="Is PLL-500MHz Used" group="Internal" default="`${(sourceClockNumber eq NUM_DPLL_LP) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll500m[&quot; . (sourceClockNumber - (NUM_DPLL_LP)) . &quot;]&quot;)}`" visible="false" editable="false" desc="" />
     
-    <ParamBool id="isPllUsed" name="Is PLL Used" group="Internal" default="`${(sourceClockNumber &gt; NUM_DPLL_LP) &amp;&amp; (sourceClockNumber &lt;= (NUM_DPLL_LP + NUM_DPLL_HP)) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-3) . &quot;]&quot;)}`" visible="false" editable="false" desc="" />
-
-    <ParamString id="sourceClock" name="Source clock resource" group="Internal" default="`${isFllUsed ? &quot;fll[0]&quot; :
-	                                                                                        isPll400mUsed ? &quot;pll400m[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
-                                                                                            isPllUsed ? &quot;pll[&quot; . (sourceClockNumber-(NUM_DPLL_LP+1)) . &quot;]&quot; :
-                                                                                                        &quot;pathmux[&quot; . sourceClockNumber . &quot;]&quot;}`" visible="false" editable="false" desc="" />
+    <ParamString id="sourceClock" name="Source clock resource" group="Internal" default="`${isPll250mUsed ? &quot;pll250m[&quot; . (sourceClockNumber) . &quot;]&quot; :
+                                                                                            (sourceClockNumber eq NUM_DPLL_LP) ? isPll500mUsed ? &quot;pll500m[&quot; . (sourceClockNumber - (NUM_DPLL_LP)) . &quot;]&quot; :
+                                                                                            &quot;pathmux[&quot; . sourceClockNumber . &quot;]&quot; :
+																							&quot;pathmux[&quot; . sourceClockNumber . &quot;]&quot;}`" visible="false" editable="false" desc="" />
 
     <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="srss[0].clock[0].`${sourceClock}`" visible="false" editable="false" desc="" />
 

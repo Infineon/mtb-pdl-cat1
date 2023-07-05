@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_sha_v2.h
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides constants and function prototypes
@@ -84,11 +84,10 @@ typedef struct
 {
     /* Allocates CRYPTO_MAX_BLOCK_SIZE Bytes for the block. */
     uint32_t block[CY_CRYPTO_SHA_MAX_BLOCK_SIZE / 4u];
-
-    /* Allocates CRYPTO_MAX_HASH_SIZE Bytes for the hash. */
     uint32_t hash[CY_CRYPTO_SHA_MAX_HASH_SIZE / 4u];
     
 } cy_stc_crypto_v2_sha_buffers_t;
+
 
 cy_en_crypto_status_t Cy_Crypto_Core_V2_Sha_Init(CRYPTO_Type *base,
                                 cy_stc_crypto_sha_state_t *hashState,

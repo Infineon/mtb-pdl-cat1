@@ -79,7 +79,6 @@ var searchData=
   ['cy_5fstc_5fdmac_5fchannel_5fconfig_5ft',['cy_stc_dmac_channel_config_t',['../structcy__stc__dmac__channel__config__t.html',1,'']]],
   ['cy_5fstc_5fdmac_5fdescriptor_5fconfig_5ft',['cy_stc_dmac_descriptor_config_t',['../structcy__stc__dmac__descriptor__config__t.html',1,'']]],
   ['cy_5fstc_5fdmac_5fdescriptor_5ft',['cy_stc_dmac_descriptor_t',['../structcy__stc__dmac__descriptor__t.html',1,'']]],
-  ['cy_5fstc_5fdpll_5fhp_5fconfig_5ft',['cy_stc_dpll_hp_config_t',['../structcy__stc__dpll__hp__config__t.html',1,'']]],
   ['cy_5fstc_5fdpll_5flp_5fconfig_5ft',['cy_stc_dpll_lp_config_t',['../structcy__stc__dpll__lp__config__t.html',1,'']]],
   ['cy_5fstc_5fefuse_5fdata_5ft',['cy_stc_efuse_data_t',['../structcy__stc__efuse__data__t.html',1,'']]],
   ['cy_5fstc_5fephy_5fconfig_5ft',['cy_stc_ephy_config_t',['../structcy__stc__ephy__config__t.html',1,'']]],

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_sema.h
-* \version 1.90
+* \version 1.91
 *
 * \brief
 * Header file for IPC SEM functions
@@ -75,6 +75,15 @@
 
 #define CY_IPC_SEMA_PER_WORD    (uint32_t)32u   /**< 32 semaphores per word */
 
+#if defined(CY_IPC_SECURE_SEMA_DEVICE) || defined(CY_DOXYGEN)
+/** Convert normal to secure semaphore number */
+#define CY_IPC_SEMA_SEC(sema)       (0x10000000UL | (sema))
+/** Check valid secure semaphore */
+#define CY_IPC_SEMA_IS_SEC(sema)    (((sema) & 0x10000000UL) != 0UL)
+/** Returns normal semaphore number */
+#define CY_IPC_SEMA_GET_NUM(sema)   ((sema) & (~(0x10000000UL)))
+#endif /* CY_IPC_SECURE_SEMA_DEVICE */
+
 /** \} group_ipc_sema_macros */
 
 /**
@@ -115,6 +124,10 @@ typedef struct
     uint32_t maxSema;
     /** Pointer to semaphores array  */
     uint32_t *arrayPtr;
+#if defined (CY_IP_MXIPC) && (CY_IPC_INSTANCES > 1U)
+    /** Pointer to secure semaphores array  */
+    uint32_t *arrayPtr_sec;
+#endif
 } cy_stc_ipc_sema_t;
 
 /** \} group_ipc_sema_enums */

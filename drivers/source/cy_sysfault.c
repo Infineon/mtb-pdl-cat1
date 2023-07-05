@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysfault.c
-* \version 1.10
+* \version 1.20
 *
 * \brief
 * Provides an API implementation of the SysFault driver.
@@ -59,7 +59,8 @@ cy_en_SysFault_source_t Cy_SysFault_GetErrorSource(FAULT_STRUCT_Type *base)
     }
     else
     {
-        return CY_SYSFAULT_NO_FAULT;
+        CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to cy_en_SysFault_source_t enum.');
+        return (cy_en_SysFault_source_t)CY_SYSFAULT_NO_FAULT;
     }
 
 }

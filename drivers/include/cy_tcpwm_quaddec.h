@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_quaddec.h
-* \version 1.50
+* \version 1.60
 *
 * \brief
 * The header file of the TCPWM Quadrature Decoder driver.

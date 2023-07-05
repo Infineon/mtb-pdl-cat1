@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.h
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the constants and parameter values for the memory-level
@@ -751,20 +751,13 @@ typedef struct
 {
     cy_en_smif_hb_rd_cmd_t         xipReadCmd;         /**< read command value \ref cy_en_smif_hb_rd_cmd_t */
     cy_en_smif_hb_wt_cmd_t         xipWriteCmd;        /**< write command value \ref cy_en_smif_hb_rd_cmd_t */
-    bool                           mergeEnable;        /**< merge enable */
-    cy_en_smif_merge_timeout_t     mergeTimeout;       /**< merge timeout value */
-    bool                           totalTimeoutEnable; /**< total timeout enable */
-    uint16_t                       totalTimeout;       /**< total timeout in clk_mem cycles */
     cy_en_smif_hb_dev_type_t       hbDevType;          /**< hyper bus device type \ref cy_en_smif_hb_dev_type_t */
-    uint32_t                       startAddr;          /**< base address in XIP mode */
     cy_en_device_size_t            memSize;            /**< The memory size: For densities of 2 gigabits or less - the size in bytes;
                                                           * For densities 4 gigabits and above - bit-31 is set to 1b to define that
                                                           * this memory is 4 gigabits and above; and other 30:0 bits define N where
                                                           * the density is computed as 2^N bytes.
                                                           * For example, 0x80000021 corresponds to 2^30 = 1 gigabyte.
                                                           */
-    cy_en_smif_slave_select_t      slaveSelect;        /**< Determines the slave select where the memory device is placed */
-    cy_en_smif_data_select_t       dataSelect;         /**< The data-line selection options for a slave device */
     uint32_t                       dummyCycles;        /**< dummy Cycles based on Frequency of operation */
 } cy_stc_smif_hbmem_device_config_t;
 #endif  /* (CY_IP_MXSMIF_VERSION>=2) */
@@ -990,8 +983,8 @@ cy_en_smif_status_t Cy_SMIF_MemCmdReleasePowerDown(SMIF_Type *base,
 * \param device
 * Holds the base address of the SMIF Device registers.
 *
-* \param config
-* Configuration to be applied to the SMIF device \ref cy_stc_smif_hbmem_device_config_t
+* \param memCfg
+* Configuration to be applied to the SMIF device \ref cy_stc_smif_mem_config_t
 *
 * \param context
 * This is the pointer to the context structure \ref cy_stc_smif_context_t
@@ -1003,8 +996,10 @@ cy_en_smif_status_t Cy_SMIF_MemCmdReleasePowerDown(SMIF_Type *base,
 *     - \ref CY_SMIF_BAD_PARAM
 *     - \ref CY_SMIF_SUCCESS
 *
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_HyperBus
+*
 *******************************************************************************/
-cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_smif_hbmem_device_config_t *config, cy_stc_smif_context_t *context);
+cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_smif_mem_config_t *memCfg, cy_stc_smif_context_t *context);
 
 /*******************************************************************************
 * Function Name: Cy_SMIF_HyperBus_CalibrateDelay
@@ -1034,6 +1029,7 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_sm
 *
 * \return \ref cy_en_smif_status_t
 *       
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_HyperBus
 *
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif_mem_config_t *memConfig, uint8_t dummyCycles, uint32_t calibrationDataOffsetAddress, cy_stc_smif_context_t *context);
@@ -1066,7 +1062,7 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif
 * \param dummyCycles
 * Dummy Cycles based on Frequency of operation
 *
-* \param dobleLat
+* \param doubleLat
 * double initial latency or single initial latency
 *
 * \param isblockingMode
@@ -1078,6 +1074,8 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif
 * SMIF block.
 *
 * \return \ref cy_en_smif_status_t
+*
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_HyperBus
 *
 *******************************************************************************/
  cy_en_smif_status_t Cy_SMIF_HyperBus_Read(SMIF_Type *base,
@@ -1106,8 +1104,8 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif
 * \param burstType
 * Specifies wrapped or continuous burst. \ref en_hb_bust_type_t
 *
-* \param readAddress
-* Specifies address of external device to be read.
+* \param writeAddress
+* Specifies address of external device to be write.
 *
 * \param sizeInHalfWord
 * Specifies memory size to be read.
@@ -1131,6 +1129,8 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif
 * SMIF block.
 *
 * \return \ref cy_en_smif_status_t
+*
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_HyperBus
 *
 *******************************************************************************/
  cy_en_smif_status_t Cy_SMIF_HyperBus_Write(SMIF_Type *base,
@@ -1198,6 +1198,8 @@ cy_en_smif_status_t CY_SMIF_HyperBus_ClearStatus(SMIF_Type *base, cy_stc_smif_me
 * offset of the sector to be erased.
 *
 * \return \ref cy_en_smif_status_t
+*
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_HyperBus
 *
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_HyperBus_EraseSector(SMIF_Type *base, cy_stc_smif_mem_config_t *memConfig, uint32_t offset, cy_stc_smif_context_t *context);

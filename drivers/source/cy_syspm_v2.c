@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_syspm_v2.c
-* \version 5.93
+* \version 5.94
 *
 * This driver provides the source code for API power management.
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -39,9 +39,11 @@
 *******************************************************************************/
 __WEAK void Cy_SysPm_Dsramoff_Entry(void);
 
+#ifdef ENABLE_MEM_VOLTAGE_TRIMS
 /* RAM and ROM Voltage TRIM functions */
 static void SetMemoryVoltageTrims(cy_en_syspm_sdr_voltage_t voltage);
 static bool IsVoltageChangePossible(void);
+#endif /* ENABLE_MEM_VOLTAGE_TRIMS */
 
 /*******************************************************************************
 *       Internal Defines
@@ -143,18 +145,6 @@ void Cy_SysPm_Init(void)
         /* Set Default mode to DEEPSLEEP */
         (void)Cy_SysPm_SetDeepSleepMode(CY_SYSPM_MODE_DEEPSLEEP);
     }
-    else
-    {
-        /* Call the registered callback functions with the CY_SYSPM_AFTER_TRANSITION
-        *  parameter
-        */
-        if (pmCallbackRoot[CY_SYSPM_DEEPSLEEP_RAM] != NULL)
-        {
-            (void)Cy_SysPm_ExecuteCallback(((cy_en_syspm_callback_type_t)CY_SYSPM_DEEPSLEEP_RAM), CY_SYSPM_AFTER_TRANSITION); /* Suppress a compiler warning about unused return value */
-        }
-
-    }
-
 }
 
 cy_en_syspm_status_t Cy_SysPm_CpuEnterSleep(cy_en_syspm_waitfor_t waitFor)
@@ -1189,6 +1179,7 @@ cy_en_syspm_status_t Cy_SysPm_CoreBuckStatus(void)
     return retVal;
 }
 
+#ifdef ENABLE_MEM_VOLTAGE_TRIMS
 void Cy_SysPm_SdrConfigure(cy_en_syspm_sdr_t sdr, cy_stc_syspm_sdr_params_t *config)
 {
     CY_ASSERT_L2(CY_SYSPM_IS_SDR_NUM_VALID(sdr));
@@ -1302,6 +1293,7 @@ void Cy_SysPm_SdrSetVoltage(cy_en_syspm_sdr_t sdr, cy_en_syspm_sdr_voltage_t vol
 
     CY_SYSPM_CORE_BUCK_PAUSE_ENABLE(0U);
 }
+#endif /* ENABLE_MEM_VOLTAGE_TRIMS */
 
 cy_en_syspm_sdr_voltage_t Cy_SysPm_SdrGetVoltage(cy_en_syspm_sdr_t sdr)
 {
@@ -1998,7 +1990,7 @@ void Cy_SysPm_TriggerSoftReset(void)
     SRSS_RES_SOFT_CTL = SRSS_RES_SOFT_CTL_TRIGGER_SOFT_Msk;
 }
 
-
+#ifdef ENABLE_MEM_VOLTAGE_TRIMS
 /*******************************************************************************
 * Function Name: SetMemoryVoltageTrims
 ****************************************************************************//**
@@ -2077,7 +2069,7 @@ static bool IsVoltageChangePossible(void)
 #endif
     return retVal;
 }
-
+#endif /* ENABLE_MEM_VOLTAGE_TRIMS */
 
 #endif
 /* [] END OF FILE */

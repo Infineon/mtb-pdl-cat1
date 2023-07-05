@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_ppu.c
-* \version 5.93
+* \version 5.94
 *
 * This file provides the source code for ARM PPU Platform PD specific driver,
 * where the API's are used by Syspm driver for Power Management.
@@ -47,10 +47,7 @@
 *
 *  \param ppu
 *  This parameter contains PPU base pointer for which the initialization has 
-*  to be done, it will point to one of the below PPUs:
-*  MAIN_PPU
-*  CPUSS_PPU
-*  SRAM_PPU
+*  to be done.
 *
 *  \return the PD PPU API status \ref cy_en_syspm_status_t.
 *
@@ -72,10 +69,7 @@ cy_en_syspm_status_t cy_pd_ppu_init(struct ppu_v1_reg *ppu)
 *
 *  \param ppu
 *  This parameter contains PPU base pointer for which the initialization has 
-*  to be done, it will point to one of the below PPUs.
-*  MAIN_PPU
-*  CPUSS_PPU
-*  SRAM_PPU
+*  to be done.
 *
 *  \return Returns the PPU Programmed Power mode
 *
@@ -96,10 +90,7 @@ enum ppu_v1_mode cy_pd_ppu_get_programmed_power_mode(struct ppu_v1_reg *ppu)
 *
 *  \param ppu
 *  This parameter contains PPU base pointer for which the initialization has 
-*  to be done, it will point to one of the below PPUs:
-*  MAIN_PPU
-*  CPUSS_PPU
-*  SRAM_PPU
+*  to be done.
 *
 *  \return Returns the PPU Current Power mode
 *
@@ -119,10 +110,7 @@ enum ppu_v1_mode cy_pd_ppu_get_power_mode(struct ppu_v1_reg *ppu)
 *
 *  \param ppu
 *  This parameter contains PPU base pointer for which the initialization has 
-*  to be done, it will point to one of the below PPUs:
-*  MAIN_PPU
-*  CPUSS_PPU
-*  SRAM_PPU
+*  to be done.
 *
 *  \param mode
 *  Contains the future power mode to be set for the PPU.
@@ -143,6 +131,36 @@ cy_en_syspm_status_t cy_pd_ppu_set_power_mode(struct ppu_v1_reg *ppu, uint32_t m
 }
 
 /*******************************************************************************
+* Function Name: cy_pd_ppu_set_static_power_mode
+****************************************************************************//**
+*
+* Sets the required static power mode of the particular PPU.
+*
+*  \param ppu
+*  This parameter contains PPU base pointer for which the initialization has
+*  to be done.
+*
+*  \param mode
+*  Contains the future power mode to be set for the PPU.
+*
+*  \return the PD PPU API status \ref cy_en_syspm_status_t.
+*
+*******************************************************************************/
+
+cy_en_syspm_status_t cy_pd_ppu_set_static_power_mode(struct ppu_v1_reg *ppu, uint32_t mode)
+{
+    cy_en_syspm_status_t status = CY_SYSPM_INVALID_STATE;
+    CY_ASSERT(ppu != NULL);
+    CY_ASSERT(mode < PPU_V1_MODE_COUNT);
+
+    (void)ppu_v1_set_power_mode(ppu, (enum ppu_v1_mode) mode); /* Suppress a compiler warning about unused return value */
+
+    return status;
+}
+
+
+
+/*******************************************************************************
 * Function Name: cy_pd_ppu_reset
 ****************************************************************************//**
 *
@@ -150,10 +168,7 @@ cy_en_syspm_status_t cy_pd_ppu_set_power_mode(struct ppu_v1_reg *ppu, uint32_t m
 *
 *  \param ppu
 *  This parameter contains PPU base pointer for which the initialization has 
-*  to be done, it will point to one of the below PPUs:
-*  MAIN_PPU
-*  CPUSS_PPU
-*  SRAM_PPU
+*  to be done.
 *
 *  \return the PD PPU API status \ref cy_en_syspm_status_t.
 *
@@ -181,10 +196,7 @@ cy_en_syspm_status_t cy_pd_ppu_reset(struct ppu_v1_reg *ppu)
 *
 *  \param ppu
 *  This parameter contains PPU base pointer for which the initialization has
-*  to be done, it will point to one of the below PPUs:
-*  MAIN_PPU
-*  CPUSS_PPU
-*  SRAM_PPU
+*  to be done.
 *
 *  \return Returns the PPU's device ID which caused the Deepsleep Failure
 *

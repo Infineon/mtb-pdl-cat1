@@ -16,7 +16,7 @@
 *
 *     http://www.apache.org/licenses/LICENSE-2.0
 *
-* Unless required by applicable law or agreed to in writing, softwar3
+* Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
@@ -117,7 +117,7 @@ typedef enum
 /** Driver major version */
 #define CY_PD_PDCM_DRV_VERSION_MAJOR       5
 /** Driver minor version */
-#define CY_PD_PDCM_DRV_VERSION_MINOR       93
+#define CY_PD_PDCM_DRV_VERSION_MINOR       91
 
 /** Macro to validate the PDCM PPU ID in API's : /ref cy_pd_pdcm_get_dependency, /ref cy_pd_pdcm_set_dependency() and /ref cy_pd_pdcm_clear_dependency */
 #if defined (CY_IP_MXS22SRSS)

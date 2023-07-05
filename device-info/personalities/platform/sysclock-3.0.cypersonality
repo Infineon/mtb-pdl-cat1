@@ -579,8 +579,8 @@
     <ConfigInstruction value="" include="`${is40srssAvailable}`"  />
 
     <!-- Configure flash wait states -->
-    <ConfigInstruction value="    /* Set worst case memory wait states (! ultra low power, 150 MHz), will update at the end */" include="`${is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysLib_SetWaitStates(false, 150UL);" include="`${is40srssAvailable}`"  />
+    <ConfigInstruction value="    /* Set worst case memory wait states (! ultra low power, 150 MHz), will update at the end */" include="`${is40srssAvailable || is40srss_ver3Available}`"  />
+    <ConfigInstruction value="    Cy_SysLib_SetWaitStates(false, 150UL);" include="`${is40srssAvailable || is40srss_ver3Available}`"  />
 
     <!-- Configure power options -->
     <ConfigInstruction value="#ifdef CY_CFG_PWR_ENABLED" include="true"  />
@@ -593,8 +593,8 @@
     <ConfigInstruction value="" include="true"  />
 
     <!-- Reset and configure platform clocks -->
-	<ConfigInstruction value="    /* Disable FLL */" include="`${is40srss_ver3Available || is40srssAvailable || is40ssrssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_FllDeInit();" include="`${is40srss_ver3Available || is40srssAvailable || is40ssrssAvailable}`"  />
+	<ConfigInstruction value="/* Disable FLL */" include="`${is40srss_ver3Available || is40srssAvailable || is40ssrssAvailable}`"  />
+    <ConfigInstruction value="Cy_SysClk_FllDeInit();" include="`${is40srss_ver3Available || is40srssAvailable || is40ssrssAvailable}`" />
     <ConfigInstruction value="" include="`${is40srss_ver3Available || is40srssAvailable || is40ssrssAvailable}`"  />
 	
     <ConfigInstruction value="    /* Reset the core clock path to default and disable all the FLLs/PLLs */" include="`${is40srssAvailable}`"  />
@@ -959,6 +959,12 @@
     <ConfigInstruction value="        Cy_SysLib_SetWaitStates(CY_CFG_PWR_USING_ULP != 0, CY_CFG_SYSCLK_CLKHF0_FREQ_MHZ);" include="`${is40srssAvailable}`"  />
     <ConfigInstruction value="    #endif" include="`${is40srssAvailable}`"  />
     <ConfigInstruction value="" include="`${is40srssAvailable}`"  />
+
+    <ConfigInstruction value="    /* Set accurate flash wait states */" include="`${is40srss_ver3Available}`"  />
+    <ConfigInstruction value="    #if (defined (CY_CFG_PWR_ENABLED) &amp;&amp; defined (CY_CFG_SYSCLK_CLKHF1_ENABLED))" include="`${is40srss_ver3Available}`"  />
+    <ConfigInstruction value="        Cy_SysLib_SetWaitStates(false, CY_CFG_SYSCLK_CLKHF1_FREQ_MHZ);" include="`${is40srss_ver3Available}`"  />
+    <ConfigInstruction value="    #endif" include="`${is40srss_ver3Available}`"  />
+    <ConfigInstruction value="" include="`${is40srss_ver3Available}`"  />
 
     <!-- Update System Core Clock values -->
     <ConfigInstruction value="    /* Update System Core Clock values for correct Cy_SysLib_Delay functioning */" include="`${is40srssAvailable}`"  />

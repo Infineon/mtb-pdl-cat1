@@ -209,7 +209,7 @@
     </ParamSignal>
 
     <ParamString id="sourceClock" name="sourceClock" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? (getBlockFromSignal(&quot;clock[0]&quot;)) : (getBlockFromSignal(&quot;clock_scb_en[0]&quot;))}`" visible="false" editable="false" desc="Source Clock Resource" />
-    <ParamRange  id="scbClkHz" name="scbClkHz" group="Internal" default="`${getExposedMember(sourceClock, &quot;frequency&quot;)}`" min="0" max="200000000" resolution="1" visible="false" editable="false" desc="SCB clock frequency in kHz" />
+    <ParamRange  id="scbClkHz" name="scbClkHz" group="Internal" default="`${(sourceClock ne &quot;&quot;) ? getExposedMember(sourceClock, &quot;frequency&quot;) : &quot;1&quot;}`" min="0" max="200000000" resolution="1" visible="false" editable="false" desc="SCB clock frequency in kHz" />
     <ParamBool id="pClkDiv8" name="pClkDiv8" group="Internal" default="`${getExposedMember(sourceClock, &quot;type&quot;) eq &quot;CY_SYSCLK_DIV_8_BIT&quot;}`" visible="false" editable="false" desc="Source clock uses 8-bit divider." />
 
     <ParamSignal port="uart_rx[0]" name="RX" group="Connections" visible="`${!SmartCard &amp;&amp; hasVisibleOption(&quot;uart_rx[0]&quot;)}`" desc="The receive input receives the serial data from another device on the serial bus." canBeEmpty="true">
@@ -281,7 +281,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="tr_tx_req[0]" name="TX Trigger Output" group="Connections" visible="`${hasVisibleOption(&quot;uart_tx[0]&quot;)}`" desc="Connects SCB TX trigger output to the DMA. Configure RX FIFO Level to define this output behavior." canBeEmpty="true" >
+    <ParamSignal port="tr_tx_req[0]" name="TX Trigger Output" group="Connections" visible="`${hasVisibleOption(&quot;uart_tx[0]&quot;)}`" desc="Connects SCB TX trigger output to the DMA. Configure TX FIFO Level to define this output behavior." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -297,7 +297,7 @@
 
     <!--Baud Rate-->
     <ParamRange id="actualBaudRate" name="Actual Baud Rate (bps)" group="Actual Baud Rate" default="`${scbClkHz/OversampleFinal}`" min="0" max="4294967295" resolution="1" visible="true" editable="false" desc="The actual baud rate displays the baud rate at which the UART operates with current settings." />
-    <ParamRange id="BaudRateAccuracy" name="Baud Rate Accuracy (%)" group="Actual Baud Rate" default="`${(abs(BaudRate - actualBaudRate) / BaudRate) * 100}`" min="0" max="200000000" resolution="0.001" visible="true" editable="false" desc="Deviation of actual baud rate from desired baud rate (does not include Clk_Peri accuracy)." />
+    <ParamRange id="BaudRateAccuracy" name="Baud Rate Accuracy (%)" group="Actual Baud Rate" default="`${(sourceClock ne &quot;&quot;) ? ((abs(BaudRate - actualBaudRate) / BaudRate) * 100) : ((abs(BaudRate) / BaudRate) * 100)}`" min="0" max="200000000" resolution="0.001" visible="true" editable="false" desc="Deviation of actual baud rate from desired baud rate (does not include Clk_Peri accuracy)." />
     <ParamString id="ClkFreq" name="Clock Frequency" group="Actual Baud Rate" default="`${(scbClkHz &lt; 1000000) ? (scbClkHz / 1000.0) . &quot; kHz&quot; : (scbClkHz / 1000000.0) . &quot; MHz&quot;}`" visible="true" editable="false" desc="Frequency of the connected clock" />
 
     <ParamRange id="RxTriggerLevel" name="RX FIFO Level" group="Trigger Level" default="63" min="0" max="`${FifoLevelMax}`" resolution="1" visible="true" editable="true" desc="This parameter determines the behavior of the signal which drives the RX FIFO Above Level interrupt source and the RX Trigger Output as follows: the signal remains active until the number of data elements in the RX FIFO is greater than the value of the RX FIFO Level. For example, the RX FIFO has 8 data elements and the RX FIFO level is 0. The signal remains active until all data elements are read from the RX FIFO. The range: 0 – `${FifoLevelByte}` (when Data Width is less or equal 8), and 0 - `${FifoLevelHalfword}` otherwise." />

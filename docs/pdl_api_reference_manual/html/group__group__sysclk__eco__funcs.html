@@ -90,6 +90,9 @@ $(document).ready(function(){initNavTree('group__group__sysclk__eco__funcs.html'
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga4ff4c716a35e5077d000120d0994ad7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__eco__funcs.html#ga4ff4c716a35e5077d000120d0994ad7b">Cy_SysClk_EcoSetFrequency</a> (uint32_t freq)</td></tr>
+<tr class="memdesc:ga4ff4c716a35e5077d000120d0994ad7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the external crystal oscillator (ECO) frequency in a global variable within Sysclk driver.  <a href="#ga4ff4c716a35e5077d000120d0994ad7b">More...</a><br /></td></tr>
+<tr class="separator:ga4ff4c716a35e5077d000120d0994ad7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9d94ac55503404a0bdaf017fe33ecdbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__eco__funcs.html#ga9d94ac55503404a0bdaf017fe33ecdbd">Cy_SysClk_EcoConfigure</a> (uint32_t freq, uint32_t cSum, uint32_t esr, uint32_t driveLevel)</td></tr>
 <tr class="memdesc:ga9d94ac55503404a0bdaf017fe33ecdbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the external crystal oscillator (ECO) trim bits based on crystal characteristics.  <a href="#ga9d94ac55503404a0bdaf017fe33ecdbd">More...</a><br /></td></tr>
 <tr class="separator:ga9d94ac55503404a0bdaf017fe33ecdbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,6 +116,33 @@ Functions</h2></td></tr>
 <tr class="separator:ga6b6d1333ee4c882360f7a932c13a3e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga4ff4c716a35e5077d000120d0994ad7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4ff4c716a35e5077d000120d0994ad7b">&#9670;&nbsp;</a></span>Cy_SysClk_EcoSetFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_EcoSetFrequency </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>freq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stores the external crystal oscillator (ECO) frequency in a global variable within Sysclk driver. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">freq</td><td>Operating frequency of the crystal in Hz. Valid range: 16000000...35000000 (16..35 MHz).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices. </dd></dl>
+
+</div>
+</div>
 <a id="ga9d94ac55503404a0bdaf017fe33ecdbd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga9d94ac55503404a0bdaf017fe33ecdbd">&#9670;&nbsp;</a></span>Cy_SysClk_EcoConfigure()</h2>
 
@@ -228,7 +258,7 @@ Functions</h2></td></tr>
 *           else INT(atrim / 2)
 * </pre></dd>
 <dd>
-This API is available for CAT1A,CAT1C and CAT1D devices.</dd></dl>
+This API is available for CAT1A, CAT1C and CAT1D devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: ECO needs to be configured. The ECO pins are configured using</span></div><div class="line"><span class="comment">                 the gpio driver (SRSS_ECO_IN_PIN, SRSS_ECO_OUT_PIN). The ECO</span></div><div class="line"><span class="comment">                 crystal has the following characteristics:</span></div><div class="line"><span class="comment">                   Frequency: 17.2032 MHz</span></div><div class="line"><span class="comment">                   Parallel load crystal capacitance: 22 pF</span></div><div class="line"><span class="comment">                   Crystal shunt capacitance: 7 pF</span></div><div class="line"><span class="comment">                   Effective series resistance: 40 Ohm</span></div><div class="line"><span class="comment">                   Drive level: 500 uW */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Disable the ECO before configuring */</span></div><div class="line">    <a class="code" href="group__group__sysclk__eco__funcs.html#gab97a44bef89cdc85e5bcdc80098c1cef">Cy_SysClk_EcoDisable</a>();</div><div class="line"></div><div class="line">    <span class="comment">/* Configure the ECO with its characteristics */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> != <a class="code" href="group__group__sysclk__eco__funcs.html#ga9d94ac55503404a0bdaf017fe33ecdbd">Cy_SysClk_EcoConfigure</a>(17203200UL,  <span class="comment">/* 17.2032 MHz */</span></div><div class="line">                                                   29UL,        <span class="comment">/* 7 pF C0 + 22 pF Cload */</span></div><div class="line">                                                   40UL,        <span class="comment">/* 40 Ohms */</span></div><div class="line">                                                   500UL))      <span class="comment">/* 500 uW */</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Enable the ECO with a timeout of 3000 microseconds */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> != <a class="code" href="group__group__sysclk__eco__funcs.html#gaadd2986e0b77ab0a714e4127ef1693f6">Cy_SysClk_EcoEnable</a>(3000UL))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div></div><!-- fragment --></dd></dl>
 
 </div>
@@ -291,7 +321,7 @@ Take into account the possible platform specific clkHf (and further clocking cha
 <dl class="section return"><dt>Returns</dt><dd>The frequency of the ECO.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the ECO is not enabled or stable - a zero is returned.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: ECO is successfully configured and needs to be enabled. The</span></div><div class="line"><span class="comment">                 ECO pins are configured using the gpio driver</span></div><div class="line"><span class="comment">                 (SRSS_ECO_IN_PIN, SRSS_ECO_OUT_PIN). */</span></div><div class="line"></div><div class="line">    uint32_t ecofreq = 0UL; <span class="comment">/* Variable to store the ECO frequency */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Enable the ECO with a timeout of 1000 microseconds */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> == <a class="code" href="group__group__sysclk__eco__funcs.html#gaadd2986e0b77ab0a714e4127ef1693f6">Cy_SysClk_EcoEnable</a>(1000UL))</div><div class="line">    {</div><div class="line">        ecofreq = <a class="code" href="group__group__sysclk__eco__funcs.html#ga392db1f8d8504409017a3fedb95b8ee2">Cy_SysClk_EcoGetFrequency</a>();</div><div class="line">        <span class="comment">/* Now ecofreq contains an actual ECO frequency */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Set the path muxes and configure the downstream clocks. For example,</span></div><div class="line"><span class="comment">       the ECO can source the FLL through path 0 clock or it can source the PLL</span></div><div class="line"><span class="comment">       through path 1 clock. */</span></div></div><!-- fragment --> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A &amp; CAT1C devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -314,7 +344,7 @@ Take into account the possible platform specific clkHf (and further clocking cha
 <p>Disables the external crystal oscillator (ECO). </p>
 <p>This function should not be called if the ECO is sourcing clkHf[0].</p>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: ECO sources path 2 clock, which sources HFCLK2. The ECO needs</span></div><div class="line"><span class="comment">                 to be disabled and replaced with the IMO for HFCLK2 */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Update the path 2 clock to IMO */</span></div><div class="line">    (void)<a class="code" href="group__group__sysclk__path__src__funcs.html#ga517f603266062d0013947ea950ed5b60">Cy_SysClk_ClkPathSetSource</a>(2UL, <a class="code" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a01c7cbab413a99daa41d2fb7a0340955">CY_SYSCLK_CLKPATH_IN_IMO</a>);</div><div class="line"></div><div class="line">    <span class="comment">/* Disable the ECO */</span></div><div class="line">    <a class="code" href="group__group__sysclk__eco__funcs.html#gab97a44bef89cdc85e5bcdc80098c1cef">Cy_SysClk_EcoDisable</a>();</div></div><!-- fragment --> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A &amp; CAT1C devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -338,7 +368,7 @@ Take into account the possible platform specific clkHf (and further clocking cha
 <dl class="section return"><dt>Returns</dt><dd>CY_SYSCLK_ECOSTAT_AMPLITUDE = ECO does not have sufficient amplitude <br />
 CY_SYSCLK_ECOSTAT_INACCURATE = ECO has sufficient amplitude but may not be meeting accuracy and duty cycle specifications <br />
 CY_SYSCLK_ECOSTAT_STABLE = ECO has fully stabilized</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A &amp; CAT1C devices.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1C devices.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Query the status of the ECO */</span></div><div class="line"></div><div class="line">    uint32_t ecoStatus = <a class="code" href="group__group__sysclk__eco__funcs.html#ga55bbf5f409d57259aff005b29be026e0">Cy_SysClk_EcoGetStatus</a>();</div><div class="line"></div><div class="line">    <span class="comment">/* Perform action based on the ECO status */</span></div><div class="line">    <span class="keywordflow">switch</span>(ecoStatus)</div><div class="line">    {</div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__sysclk__ecostatus.html#ga1eb088e2bce67f0b1c8e8956d12ee6d9">CY_SYSCLK_ECOSTAT_AMPLITUDE</a>:</div><div class="line">            <span class="comment">/* Amplitude is not sufficient. Try waiting longer before</span></div><div class="line"><span class="comment">               attempting to reconfigure the ECO */</span></div><div class="line">        <span class="keywordflow">break</span>;</div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__sysclk__ecostatus.html#ga9890a5835f8dea7ae3596ea242911ae1">CY_SYSCLK_ECOSTAT_INACCURATE</a>:</div><div class="line">            <span class="comment">/* Amplitude is correct but the ECO is not yet stable. Try</span></div><div class="line"><span class="comment">               waiting longer before attempting to reconfigure the ECO */</span></div><div class="line">        <span class="keywordflow">break</span>;</div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__sysclk__ecostatus.html#ga1fbb771899bde3d2a8914bdfab9d47a0">CY_SYSCLK_ECOSTAT_STABLE</a>:</div><div class="line">            <span class="comment">/* ECO is stable and ready for use */</span></div><div class="line">        <span class="keywordflow">break</span>;</div><div class="line">        <span class="keywordflow">default</span>:</div><div class="line">            <span class="comment">/* Invalid state. Perform error handling. */</span></div><div class="line">        <span class="keywordflow">break</span>;</div><div class="line">    }</div></div><!-- fragment --></dd></dl>
 
 </div>

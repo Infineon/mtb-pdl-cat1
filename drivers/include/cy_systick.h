@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_systick.h
-* \version 1.70
+* \version 1.70.1
 *
 * Provides the API declarations of the SysTick driver.
 *
@@ -62,6 +62,11 @@
 *
 * <table class="doxtable">
 * <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*    <tr>
+*     <td>1.70.1</td>
+*     <td>Updated driver guards.<br>
+*     <td>Bug fixes.</td>
+*   </tr>
 *   <tr>
 *     <td>1.70</td>
 *     <td>Macro value change and enhancements.<br>
@@ -332,7 +337,7 @@ void Cy_SysTick_SetClockSource(cy_en_systick_clock_source_t clockSource);
 cy_en_systick_clock_source_t Cy_SysTick_GetClockSource(void);
 
 
-#if defined (CY_PDL_TZ_ENABLED) || defined (CY_DOXYGEN)
+#if (defined(CY_PDL_TZ_ENABLED) && (defined(__SAUREGION_PRESENT) && (__SAUREGION_PRESENT == 1))) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_NssysTick_Enable
 ****************************************************************************//**
@@ -397,7 +402,7 @@ void Cy_SysTick_EnableInterrupt(void);
 void Cy_SysTick_DisableInterrupt(void);
 
 
-#ifdef CY_PDL_TZ_ENABLED
+#if (defined(CY_PDL_TZ_ENABLED) && (defined(__SAUREGION_PRESENT) && (__SAUREGION_PRESENT == 1))) || defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_NsSysTick_EnableInterrupt

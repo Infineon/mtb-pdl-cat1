@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.h
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides the public interface for the Crypto driver.
@@ -250,17 +250,22 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
-*     <td> 2.8</td>
+*     <td> 2.90</td>
+*     <td>Updated internal APIs and bug fixes.</td>
+*     <td>Fixed GCM initialization and coverity bugs.</td>
+*   </tr>
+*   <tr>
+*     <td> 2.80</td>
 *     <td>Added AES GCM support.</td>
 *     <td>Driver enhancement.</td>
 *   </tr>
 *   <tr>
-*     <td> 2.7</td>
+*     <td> 2.70</td>
 *     <td>Added TRNG enhancements to support health monitor check.</td>
 *     <td>Driver enhancement and new feature addition.</td>
 *   </tr>
 *   <tr>
-*     <td> 2.6</td>
+*     <td> 2.60</td>
 *     <td>
 *         <ul>
 *         <li>Added support for compile time crypto functionality selection with user defined

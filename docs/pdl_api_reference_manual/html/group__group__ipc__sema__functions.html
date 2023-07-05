@@ -247,7 +247,13 @@ Functions</h2></td></tr>
 <p>It first acquires the IPC channel that is used for all the semaphores, sets the semaphore if it is cleared, then releases the IPC channel used for the semaphore.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">semaNumber</td><td>The semaphore number to acquire.</td></tr>
+    <tr><td class="paramname">semaNumber</td><td>The semaphore number to acquire. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>CAT1D has two shared memories. One is a secure memory area which is accessible from secure domains only. Another memory area which is accessible from both secure and non-secure domains. To use secure area for semaphore, user has to use <a class="el" href="group__group__ipc__sema__macros.html#gaeee9d0615136825d9e421cc0d579357c">CY_IPC_SEMA_SEC</a> macro to create a secure semaphore.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
     <tr><td class="paramname">preemptable</td><td>When this parameter is enabled the function can be preempted by another task or other forms of context switching in an RTOS environment.</td></tr>
   </table>
   </dd>
@@ -264,6 +270,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: set semaphore #MY_SEMA_NUM to inform the other core</span></div><div class="line"><span class="comment">     * of the intention to perform some action.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_SEMA_NUM (3UL)</span></div><div class="line"></div><div class="line">    <span class="keywordflow">switch</span> (<a class="code" href="group__group__ipc__sema__functions.html#ga455867cd3b817d61d355f0407221a9a9">Cy_IPC_Sema_Set</a>(MY_SEMA_NUM, <span class="keyword">false</span>))</div><div class="line">    {</div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a3aa7b86b286b7666ee4482ae040d6d1b">CY_IPC_SEMA_SUCCESS</a>:</div><div class="line">            <span class="comment">/* The semaphore is set successfully */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a626c7f517e6dbd4f20281b4fa42300ed">CY_IPC_SEMA_LOCKED</a>:</div><div class="line">            <span class="comment">/* The semaphore channel is busy or locked by another process */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a21f1c980ff46f66bd0bef3ff5958204b">CY_IPC_SEMA_NOT_ACQUIRED</a>:</div><div class="line">            <span class="comment">/* Semaphore is already set */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a143eff28bd0bc98a860fce473075d1ac">CY_IPC_SEMA_OUT_OF_RANGE</a>:</div><div class="line">            <span class="comment">/* The semaphore number is not valid */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;</div><div class="line">    }</div></div><!-- fragment --></dd></dl>
+<p>check cy_semaIpcStruct != NULL </p>
 
 </div>
 </div>
@@ -297,7 +304,13 @@ Functions</h2></td></tr>
 <p>It first acquires the IPC channel that is used for all the semaphores, clears the semaphore if it is set, then releases the IPC channel used for the semaphores.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">semaNumber</td><td>The index of the semaphore to release.</td></tr>
+    <tr><td class="paramname">semaNumber</td><td>The index of the semaphore to release. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>CAT1D has two shared memories. One is a secure memory area which is accessible from secure domains only. Another memory area which is accessible from both secure and non-secure domains. To use secure area for semaphore, user has to use <a class="el" href="group__group__ipc__sema__macros.html#gaeee9d0615136825d9e421cc0d579357c">CY_IPC_SEMA_SEC</a> macro to create a secure semaphore.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
     <tr><td class="paramname">preemptable</td><td>When this parameter is enabled the function can be preempted by another task or other forms of context switching in an RTOS environment.</td></tr>
   </table>
   </dd>
@@ -314,6 +327,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: action is completed. Clear the semaphore #MY_SEMA_NUM to inform</span></div><div class="line"><span class="comment">     * the other core that the action is already completed.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_SEMA_NUM (3UL)</span></div><div class="line"></div><div class="line">    <span class="keywordflow">switch</span> (<a class="code" href="group__group__ipc__sema__functions.html#gaec88ff547d0d3185e7336c78a7411781">Cy_IPC_Sema_Clear</a>(MY_SEMA_NUM, <span class="keyword">false</span>))</div><div class="line">    {</div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a3aa7b86b286b7666ee4482ae040d6d1b">CY_IPC_SEMA_SUCCESS</a>:</div><div class="line">            <span class="comment">/* The semaphore is cleared successfully */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a626c7f517e6dbd4f20281b4fa42300ed">CY_IPC_SEMA_LOCKED</a>:</div><div class="line">            <span class="comment">/* The semaphore channel is busy or locked by another process */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a21f1c980ff46f66bd0bef3ff5958204b">CY_IPC_SEMA_NOT_ACQUIRED</a>:</div><div class="line">            <span class="comment">/*Semaphore is already cleared */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a143eff28bd0bc98a860fce473075d1ac">CY_IPC_SEMA_OUT_OF_RANGE</a>:</div><div class="line">            <span class="comment">/* The semaphore number is not valid */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;</div><div class="line">    }</div></div><!-- fragment --></dd></dl>
+<p>check cy_semaIpcStruct != NULL </p>
 
 </div>
 </div>
@@ -336,10 +350,11 @@ Functions</h2></td></tr>
 <p>This function returns the status of the semaphore. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">semaNumber</td><td>The index of the semaphore to return status.</td></tr>
+    <tr><td class="paramname">semaNumber</td><td>The index of the semaphore to return status. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>CAT1D has two shared memories. One is a secure memory area which is accessible from secure domains only. Another memory area which is accessible from both secure and non-secure domains. To use secure area for semaphore, user has to use <a class="el" href="group__group__ipc__sema__macros.html#gaeee9d0615136825d9e421cc0d579357c">CY_IPC_SEMA_SEC</a> macro to create a secure semaphore.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Status of the operation </dd></dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
@@ -350,6 +365,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: check the state of semaphore #3. */</span></div><div class="line"><span class="preprocessor">    #define MY_SEMA_NUM (3UL)</span></div><div class="line"></div><div class="line">    <span class="keywordflow">switch</span> (<a class="code" href="group__group__ipc__sema__functions.html#gaaa39cd088ef1e2ee9cd0555ae733c98f">Cy_IPC_Sema_Status</a>(MY_SEMA_NUM))</div><div class="line">    {</div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a920300a84a7ca2e96ce187423ac2eb18">CY_IPC_SEMA_STATUS_LOCKED</a>:</div><div class="line">            <span class="comment">/* The semaphore is in the set state */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9af009b6acf4579107d5384100f9f2e60c">CY_IPC_SEMA_STATUS_UNLOCKED</a>:</div><div class="line">            <span class="comment">/* The semaphore is in the cleared state */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a143eff28bd0bc98a860fce473075d1ac">CY_IPC_SEMA_OUT_OF_RANGE</a>:</div><div class="line">            <span class="comment">/* The semaphore number is not valid */</span></div><div class="line">            <span class="keywordflow">break</span>;</div><div class="line"></div><div class="line">        <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;</div><div class="line">    }</div></div><!-- fragment --></dd></dl>
+<p>check cy_semaIpcStruct != NULL </p>
 
 </div>
 </div>

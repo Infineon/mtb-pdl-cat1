@@ -1,6 +1,6 @@
 /*******************************************************************************
 * \file cy_lpcomp.c
-* \version 1.50
+* \version 1.60
 *
 * \brief
 *  This file provides the driver code to the API for the Low Power Comparator
@@ -8,7 +8,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -637,6 +637,7 @@ void Cy_LPComp_SetHysteresis(LPCOMP_Type* base, cy_en_lpcomp_channel_t channel, 
 *   * CY_LPCOMP_SW_GPIO (0x01u);
 *   * CY_LPCOMP_SW_AMUXBUSA (0x02u) - Hi-Z in Hibernate mode;
 *   * CY_LPCOMP_SW_AMUXBUSB (0x04u) - Hi-Z in Hibernate mode.
+* \note: the option AMUXBUS should NOT be selected in case of usage device from CAT1D family.
 *
 * \param inputN
 *   Negative input selection:
@@ -644,6 +645,7 @@ void Cy_LPComp_SetHysteresis(LPCOMP_Type* base, cy_en_lpcomp_channel_t channel, 
 *   * CY_LPCOMP_SW_AMUXBUSA   (0x02u) - Hi-Z in Hibernate mode;
 *   * CY_LPCOMP_SW_AMUXBUSB   (0x04u) - Hi-Z in Hibernate mode;
 *   * CY_LPCOMP_SW_LOCAL_VREF (0x08u) - the negative input only for a crude REF.
+* \note: the option AMUXBUS should NOT be selected in case of usage device from CAT1D family.
 *
 * \return None.
 *
@@ -932,11 +934,10 @@ cy_en_syspm_status_t Cy_LPComp_HibernateCallback(cy_stc_syspm_callback_params_t 
             if (0u != enabled_status)
             {
                 /* Disable the low-power comparator block when there is no wake-up source from any channel. */
-                if( (!(((_FLD2VAL(LPCOMP_CMP0_CTRL_MODE0, LPCOMP_CMP0_CTRL(locBase))) == (uint32_t)CY_LPCOMP_MODE_ULP) &&
-                        _FLD2BOOL(CY_LPCOMP_WAKEUP_PIN0, SRSS_PWR_HIBERNATE))) ||
-                      ((_FLD2VAL(LPCOMP_CMP1_CTRL_MODE1, LPCOMP_CMP1_CTRL(locBase)) == (uint32_t)CY_LPCOMP_MODE_ULP) &&
-                        _FLD2BOOL(CY_LPCOMP_WAKEUP_PIN1, SRSS_PWR_HIBERNATE)))
-
+                if(!(((_FLD2VAL(LPCOMP_CMP0_CTRL_MODE0, LPCOMP_CMP0_CTRL(locBase)) == (uint32_t)CY_LPCOMP_MODE_ULP) &&
+                       _FLD2BOOL(CY_LPCOMP_WAKEUP_PIN0, SRSS_PWR_HIBERNATE)) ||
+                     ((_FLD2VAL(LPCOMP_CMP1_CTRL_MODE1, LPCOMP_CMP1_CTRL(locBase)) == (uint32_t)CY_LPCOMP_MODE_ULP) &&
+                       _FLD2BOOL(CY_LPCOMP_WAKEUP_PIN1, SRSS_PWR_HIBERNATE))))
                 {
                     /* Disable the low-power comparator block to avoid leakage. */
                     Cy_LPComp_GlobalDisable(locBase);

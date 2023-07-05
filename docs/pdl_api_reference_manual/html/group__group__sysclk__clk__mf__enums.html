@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('group__group__sysclk__clk__mf__enums.h
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:gab217cdbbda6d1b5c9cd109c3e8bf5bfb"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__mf__enums.html#gab217cdbbda6d1b5c9cd109c3e8bf5bfb">cy_en_clkmf_in_sources_t</a> { <br />
-&#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfbaeac3b98e0963eb2bca0bfcb523526068">CY_SYSCLK_CLKMF_IN_MFO</a> = 0U, 
+&#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfba58bd3012a8260e8336318204da31d912">CY_SYSCLK_CLKMF_IN_IMO</a> = 0U, 
 <br />
 &#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfba5a0ac277a07487a8c9d71cb66f05e11c">CY_SYSCLK_CLKMF_IN_ILO</a> = 1U, 
 <br />
@@ -101,11 +101,9 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfbab744340b7dc57efca67976c1cac32853">CY_SYSCLK_CLKMF_IN_PILO</a> = 4U, 
 <br />
-&#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfba9da742813daeda9100895b84f0b94d29">CY_SYSCLK_CLKMF_IN_ILO1</a> = 5U, 
+&#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfba9993f880b9bbd0d777fbd2ef7f320f63">CY_SYSCLK_CLKMF_IN_ECO_PRESCALER</a> = 5U, 
 <br />
-&#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfba9993f880b9bbd0d777fbd2ef7f320f63">CY_SYSCLK_CLKMF_IN_ECO_PRESCALER</a> = 6U, 
-<br />
-&#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfbab80b603125ae2a27ce637d567e8b2728">CY_SYSCLK_CLKMF_IN_LPECO</a> = 7U
+&#160;&#160;<a class="el" href="group__group__sysclk__clk__mf__enums.html#ggab217cdbbda6d1b5c9cd109c3e8bf5bfbacc685cf80e8c72d1fc680555831734e4">CY_SYSCLK_CLKMF_IN_IHO</a> = 6U
 <br />
  }<tr class="memdesc:gab217cdbbda6d1b5c9cd109c3e8bf5bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Medium frequency (clkMf) input sources.  <a href="group__group__sysclk__clk__mf__enums.html#gab217cdbbda6d1b5c9cd109c3e8bf5bfb">More...</a><br /></td></tr>
 </td></tr>
@@ -127,7 +125,7 @@ Enumerations</h2></td></tr>
 <p>Medium frequency (clkMf) input sources. </p>
 <dl class="section note"><dt>Note</dt><dd>This Enumeration is available for CAT1B devices. See CLK_MF_SELECT register, MFCLK_SEL bits. Used with functions <a class="el" href="group__group__sysclk__mf__funcs.html#gaacb30352c5e747c40be8f15b673ee54a">Cy_SysClk_ClkMfSetSource</a>, and <a class="el" href="group__group__sysclk__mf__funcs.html#ga336ac15ebc0e4d002717b0b15cd04bed">Cy_SysClk_ClkMfGetSource</a>. </dd></dl>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab217cdbbda6d1b5c9cd109c3e8bf5bfbaeac3b98e0963eb2bca0bfcb523526068"></a>CY_SYSCLK_CLKMF_IN_MFO&#160;</td><td class="fielddoc"><p>clkMf is sourced by the internal low speed oscillator (ILO) </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab217cdbbda6d1b5c9cd109c3e8bf5bfba58bd3012a8260e8336318204da31d912"></a>CY_SYSCLK_CLKMF_IN_IMO&#160;</td><td class="fielddoc"><p>clkMf is sourced by the internal low speed oscillator (IMO) </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggab217cdbbda6d1b5c9cd109c3e8bf5bfba5a0ac277a07487a8c9d71cb66f05e11c"></a>CY_SYSCLK_CLKMF_IN_ILO&#160;</td><td class="fielddoc"><p>clkMf is sourced by the internal low speed oscillator (ILO) </p>
 </td></tr>
@@ -137,11 +135,9 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ggab217cdbbda6d1b5c9cd109c3e8bf5bfbab744340b7dc57efca67976c1cac32853"></a>CY_SYSCLK_CLKMF_IN_PILO&#160;</td><td class="fielddoc"><p>clkMf is sourced by the precision low speed oscillator (PILO) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggab217cdbbda6d1b5c9cd109c3e8bf5bfba9da742813daeda9100895b84f0b94d29"></a>CY_SYSCLK_CLKMF_IN_ILO1&#160;</td><td class="fielddoc"><p>clkMf is sourced by the precision low speed oscillator (ILO1) </p>
-</td></tr>
 <tr><td class="fieldname"><a id="ggab217cdbbda6d1b5c9cd109c3e8bf5bfba9993f880b9bbd0d777fbd2ef7f320f63"></a>CY_SYSCLK_CLKMF_IN_ECO_PRESCALER&#160;</td><td class="fielddoc"><p>clkMf is sourced by the External Clock Oscillator (ECO Prescaler) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggab217cdbbda6d1b5c9cd109c3e8bf5bfbab80b603125ae2a27ce637d567e8b2728"></a>CY_SYSCLK_CLKMF_IN_LPECO&#160;</td><td class="fielddoc"><p>clkMf is sourced by the External Clock Oscillator (LPECO) </p>
+<tr><td class="fieldname"><a id="ggab217cdbbda6d1b5c9cd109c3e8bf5bfbacc685cf80e8c72d1fc680555831734e4"></a>CY_SYSCLK_CLKMF_IN_IHO&#160;</td><td class="fielddoc"><p>clkMf is sourced by the internal high speed oscillator (IHO) </p>
 </td></tr>
 </table>
 

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm.h
-* \version 1.50
+* \version 1.60
 *
 * The header file of the TCPWM driver.
 *
@@ -199,6 +199,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.60</td>
+*     <td>Newly Added \ref Cy_TCPWM_OutputTriggerSetup API and code enhancement. </td>
+*     <td>Glitch filter support added for TCPWM version 3 and above.</td>
+*   </tr>
+*   <tr>
 *     <td>1.50</td>
 *     <td>
 *         <ul>
@@ -317,7 +322,7 @@ extern "C" {
 #define CY_TCPWM_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_TCPWM_DRV_VERSION_MINOR       50
+#define CY_TCPWM_DRV_VERSION_MINOR       60
 
 
 /******************************************************************************
@@ -349,13 +354,15 @@ extern "C" {
 #define CY_TCPWM_INPUT_TRIG_13          (15U) /**< Input is connected to the trigger input 13 */
 
 #if (CY_IP_MXTCPWM_VERSION >= 2U) || defined(CY_DOXYGEN)
-#define CY_TCPWM_INPUT_TRIG(n) (n + TCPWM_TR_ONE_CNT_NR + 2U) /**< Input is connected to the trigger input n - all purpose trigger */
-#endif
 
 #ifndef TCPWM_TR_ONE_CNT_NR
 #define CY_TCPWM_INPUT_TRIG_WITH_INST(n,m) (n + TCPWM ##m## _TR_ONE_CNT_NR + 2U) /**< Input is connected to the trigger input n - all purpose trigger,
-                                                                                   *   m is the TCPWM instance number.*/
-#endif
+                                                                                  *   m is the TCPWM instance number.*/
+#else
+#define CY_TCPWM_INPUT_TRIG(n) (n + TCPWM_TR_ONE_CNT_NR + 2U) /**< Input is connected to the trigger input n - all purpose trigger */
+
+#endif /* TCPWM_TR_ONE_CNT_NR */
+#endif /* (CY_IP_MXTCPWM_VERSION >= 2U) || defined(CY_DOXYGEN) */
 
 /** Input is defined by Creator, and Init() function does not need to configure input */
 #define CY_TCPWM_INPUT_CREATOR          (0xFFFFFFFFU)
@@ -393,6 +400,10 @@ extern "C" {
 #define CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH   (4U)
 /** Output trigger generates the same signal as line_out */
 #define CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT    (5U)
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+/** Output trigger generates signal on compare/capture 0 or  event */
+#define CY_TCPWM_CNT_TRIGGER_ON_CC0_OR_CC1_MATCH   (6U)
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN) */
 /** Output trigger disabled */
 #define CY_TCPWM_CNT_TRIGGER_ON_DISABLED    (7U)
 /** \} group_tcpwm_output_trigger_modes */
@@ -478,6 +489,21 @@ typedef enum
     CY_TCPWM_INPUT_TR_CAPTURE1        = 0x05U   /**< Capture 1 */
 } cy_en_tcpwm_trigselect_t;
 
+/** TCPWM output Triggers */
+typedef enum
+{
+    CY_TCPWM_OUTPUT_TR_OVERFLOW       = 0x00U,  /**< Overflow Event */
+    CY_TCPWM_OUTPUT_TR_UNDERFLOW      = 0x01U,  /**< Underflow Event */
+    CY_TCPWM_OUTPUT_TR_TC_EVENT       = 0x02U,  /**< Terminal Count Event */
+    CY_TCPWM_OUTPUT_TR_CC0_MATCH      = 0x03U,  /**< Compare Match 0 Event */
+    CY_TCPWM_OUTPUT_TR_CC1_MATCH      = 0x04U,  /**< Compare Match 1 Event */
+    CY_TCPWM_OUTPUT_TR_LINE_OUT       = 0x05U,  /**< PWM Output Signal Line Out */
+#if (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN)
+    CY_TCPWM_OUTPUT_TR_CC0ORCC1_MATCH = 0x06U,  /**< Compare Match 0 Event or Compare Match 1 Event  */
+#endif /* (CY_IP_MXTCPWM_VERSION >= 3U) || defined (CY_DOXYGEN) */
+    CY_TCPWM_OUTPUT_TR_DISABLED       = 0x07U   /**< Trigger Out Disabled */
+} cy_en_tcpwm_output_trigselect_t;
+
 /** TCPWM status definitions */
 typedef enum
 {
@@ -541,6 +567,7 @@ __STATIC_INLINE void Cy_TCPWM_TriggerCapture0(TCPWM_Type *base, uint32_t cntNum)
 __STATIC_INLINE void Cy_TCPWM_TriggerCapture1(TCPWM_Type *base, uint32_t cntNum);
 __STATIC_INLINE bool Cy_TCPWM_GetTrigPinLevel (TCPWM_Type const *base, uint32_t cntNum, cy_en_tcpwm_trigselect_t triggerSelect);
 __STATIC_INLINE void Cy_TCPWM_InputTriggerSetup (TCPWM_Type *base, uint32 cntNum, cy_en_tcpwm_trigselect_t triggerSelect, uint32_t edgeSelect, uint32_t triggerSignal);
+__STATIC_INLINE void Cy_TCPWM_OutputTriggerSetup (TCPWM_Type *base, uint32 cntNum, cy_en_tcpwm_output_trigselect_t trigger0event, cy_en_tcpwm_output_trigselect_t trigger1event);
 __STATIC_INLINE cy_en_tcpwm_status_t Cy_TCPWM_SetDebugFreeze (TCPWM_Type *base, uint32 cntNum, bool enable);
 #endif
 /** \cond INTERNAL */
@@ -1441,6 +1468,36 @@ __STATIC_INLINE void Cy_TCPWM_InputTriggerSetup (TCPWM_Type *base, uint32 cntNum
 
 
 /*******************************************************************************
+* Function Name: Cy_TCPWM_OutputTriggerSetup
+****************************************************************************//**
+*
+* Sets up a trigger output signal for a specific TCPWM counter event.
+*
+* \param base
+* The pointer to a TCPWM instance.
+*
+* \param cntNum
+* The Counter instance number in the selected TCPWM.
+*
+* \param trigger0event
+* Selects internal events for output trigger out0 generation. see \ref cy_en_tcpwm_output_trigselect_t
+*
+* \param trigger1event
+* Selects internal events for output trigger out1 generation. see \ref cy_en_tcpwm_output_trigselect_t
+*
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_TCPWM_OutputTriggerSetup (TCPWM_Type *base, uint32 cntNum, cy_en_tcpwm_output_trigselect_t trigger0event, cy_en_tcpwm_output_trigselect_t trigger1event)
+{
+    uint32_t grp = TCPWM_GRP_CNT_GET_GRP(cntNum);
+
+    TCPWM_GRP_CNT_TR_OUT_SEL(base, grp, cntNum) =
+                    (_VAL2FLD(TCPWM_GRP_CNT_V2_TR_OUT_SEL_OUT0, trigger0event) |
+                     _VAL2FLD(TCPWM_GRP_CNT_V2_TR_OUT_SEL_OUT1, trigger1event));
+
+}
+
+/*******************************************************************************
 * Function Name: Cy_TCPWM_SetDebugFreeze
 ****************************************************************************//**
 *
@@ -1514,7 +1571,7 @@ __STATIC_INLINE void Cy_TCPWM_Block_EnableSwap(TCPWM_Type *base, uint32_t cntNum
 ****************************************************************************//**
 *
 * Sets up a trigger input signal for a specific TCPWM counter and
-* Glitch filter cnfiguration for that trigger. This API is used to
+* Glitch filter configuration for that trigger. This API is used to
 * handle software triggering of multiple counters synchronously.
 *
 * \param base
@@ -1572,7 +1629,7 @@ __STATIC_INLINE void Cy_TCPWM_InputTriggerSetupWithGF (TCPWM_Type *base, uint32 
         uint32_t gfNum = triggerSignal - 2U - TCPWM_TR_ONE_CNT_NR;
         /* Based on the number of general purpose glitch filters available,
            only those corresponding general purpose triggers can be connected to the general purpose glitch filters */
-        if(gfNum <= TCPWM_TR_ALL_GF_NR)
+        if(gfNum <= TCPWM_TR_ALL_GF_TR_ALL_GF_NR)
         {
             TCPWM_GF_FOR_GROUP_TRIGGER(base, gfNum) = (_VAL2FLD(TCPWM_TR_ALL_GF_ALL_GF_GF_DEPTH, depth) |
                                                    _VAL2FLD(TCPWM_TR_ALL_GF_ALL_GF_GFPS_DIV, prescalar));

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_pra_cfg.c
-* \version 2.40
+* \version 2.40.1
 *
 * \brief The source code file for the PRA driver.  The API is not intended to
 * be used directly by user application.

@@ -18046,34 +18046,22 @@ Traveo II: full encoding is shown in CFG_IN_AUTOLVL.VTRIP_SEL0_1</description>
                 <enumeratedValues>
                   <enumeratedValue>
                     <name>DRIVE_SEL_ZERO</name>
-                    <description>Traveo II: GPIO_STD/GPIO_ENH: Full drive strengh: GPIO drives current at its max rated spec.
-Traveo II:_GPIO_SMC: GPIO_SMC default mode.
-Traveo II:_HSIO_STD: HSIO default mode.
-PSoC 6: GPIO cells and HSIO_STD cells: Full drive strength: GPIO drives current at its max rated spec.</description>
+                    <description>Please refer to architecture TRM section I/O System</description>
                     <value>0</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>DRIVE_SEL_ONE</name>
-                    <description>Traveo II: GPIO_STD/GPIO_ENH: Full drive strengh: GPIO drives current at its max rated spec.
-Traveo II:_GPIO_SMC: GPIO full drive strength.
-Traveo II:_HSIO_STD: GPIO full drive strength.
-PSoC 6: GPIO cells and HSIO_STD cells: 1/2 drive strength: GPIO drives current at 1/2 of its max rated spec</description>
+                    <description>Please refer to architecture TRM section I/O System</description>
                     <value>1</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>DRIVE_SEL_TWO</name>
-                    <description>Traveo II: GPIO_STD/GPIO_ENH: 1/2 drive strength: GPIO drives current at 1/2 of its max rated spec.
-Traveo II:_GPIO_SMC: GPIO 1/2 drive strength.
-Traveo II:_HSIO_STD: GPIO 1/2 drive strength.
-PSoC 6: GPIO cells and HSIO_STD cells: 1/4 drive strength. GPIO drives current at 1/4 of its max rated spec.</description>
+                    <description>Please refer to architecture TRM section I/O System</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>DRIVE_SEL_THREE</name>
-                    <description>Traveo II: GPIO_STD/GPIO_ENH: 1/4 drive strength: GPIO drives current at 1/4 of its max rated spec.
-Traveo II:_GPIO_SMC: GPIO 1/4 drive strength.
-Traveo II:_HSIO_STD: GPIO 1/4 drive strength.
-PSoC 6: GPIO cells and HSIO_STD cells: 1/8 drive strength. GPIO drives current at 1/8 of its max rated spec.</description>
+                    <description>Please refer to architecture TRM section I/O System</description>
                     <value>3</value>
                   </enumeratedValue>
                 </enumeratedValues>

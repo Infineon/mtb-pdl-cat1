@@ -9536,8 +9536,8 @@ Note: This bit is a write-once bit until the next reset.  Avoid changing any oth
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
-                  <name>RSVD</name>
-                  <description>N/A</description>
+                  <name>VBACKUP</name>
+                  <description>Selects VBACKUP</description>
                   <value>2</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -10353,7 +10353,7 @@ On top of that the actual clock startup delay and the margin for accuracy of bot
                   <enumeratedValues>
                     <enumeratedValue>
                       <name>FAULT</name>
-                      <description>N/A</description>
+                      <description>Generate a fault</description>
                       <value>0</value>
                     </enumeratedValue>
                     <enumeratedValue>
@@ -11482,7 +11482,7 @@ On top of that the actual clock startup delay and the margin for accuracy of bot
                   <enumeratedValues>
                     <enumeratedValue>
                       <name>FAULT</name>
-                      <description>N/A</description>
+                      <description>Generate a fault</description>
                       <value>0</value>
                     </enumeratedValue>
                     <enumeratedValue>
@@ -27687,7 +27687,7 @@ In I2C slave mode, only bits 7 down to 1 are used. This reflects the organizatio
               <name>DATA</name>
               <description>Data read from the receiver FIFO. Reading a data frame will remove the data frame from the FIFO; i.e. behavior is similar to that of a POP operation. Note that when CTRL.MEM_WIDTH is '0', only DATA[7:0] are used and when CTRL.MEM_WIDTH is '1', only DATA[15:0] are used.
 
-This register has a side effect when read by software: a data frame is removed from the FIFO. This may be undesirable during debug; i.e. a read during debug should NOT have a side effect. To this end, the IP uses the AHB-Lite 'hmaster[0]' input signal. When this signal is '1' in the address cycle of a bus transfer, a read transfer will not have a side effect. As a result, a read from this register will not remove a data frame from the FIFO. As a result, a read from this register behaves as a read from the SCB_RX_FIFO_RD_SILENT register.
+This register has a side effect when read by software: a data frame is removed from the FIFO. This may be undesirable during debug; i.e. a read during debug should NOT have a side effect. To this end, the IP uses the AHB-Lite 'hmaster[3:0]' input signal. When this signal is '1' in the address cycle of a bus transfer, a read transfer will not have a side effect. As a result, a read from this register will not remove a data frame from the FIFO. As a result, a read from this register behaves as a read from the SCB_RX_FIFO_RD_SILENT register.
 
 A read from an empty RX FIFO sets INTR_RX.UNDERFLOW to '1'.</description>
               <bitRange>[31:0]</bitRange>
@@ -35458,7 +35458,7 @@ Note: when all channels are disabled the pattern generator is switched off</desc
 
 '1': Enabled.
 
-Note: when all receivers are disabled, the SRAMs are driven into low power mode, if supported by the SRAM. When exiting such low power mode software needs to allow for a certain power up time before SRAM can be used, i.e. before ACTIVE can be asserted. The power up time is equivalent to the system SRAM power up time specified in the CPUSS.RAM_PWR_DELAY_CTL register (or equivalent for platforms other than MXS40).</description>
+Note: when all receivers are disabled, the SRAMs are driven into low power mode, if supported by the SRAM. When exiting such low power mode software needs to allow for a certain power up time before SRAM can be used, i.e. before ACTIVE can be asserted. The power up time is equivalent to the system SRAM power up time specified in the CPUSS.RAM_PWR_DELAY_CTL register.</description>
                 <bitRange>[31:31]</bitRange>
                 <access>read-write</access>
               </field>
@@ -35517,13 +35517,13 @@ Note: in all cases a SAMPLE_DELAY value that brings the capture edge close to th
 '0': CIC filter PCM frequency is 1/2 * PDM frequency. CIC PCM values are in the range [-0x10, 0x10].
 '1': CIC filter PCM frequency is 1/4 * PDM frequency. CIC PCM values are in the range [-0x200, 0x200].
 '2': CIC filter PCM frequency is 1/8 * PDM frequency. CIC PCM values are in the range [-0x4000, 0x4000].
-'3': CIC filter PCM frequency is 1/16 * PDM frequency. CIC PCM values are in the range [-0x8:0000, 0x8:0000].
-'4': CIC filter PCM frequency is 1/32 * PDM frequency. CIC PCM values are in the range [-0x100:0000, 0x100:0000].
+'3': CIC filter PCM frequency is 1/16 * PDM frequency. CIC PCM values are in the range [-0x80000, 0x80000].
+'4': CIC filter PCM frequency is 1/32 * PDM frequency. CIC PCM values are in the range [-0x1000000, 0x1000000].
 '5'-'7': Illegal values.
 
 Note: The CIC filter functionality includes offsetting logic to ensure that 'digital silence' on the PDM interface (an alternating pattern of '0', '1', '0', '1' ... PDM  values) results in CIC filter PCM values of '0'. Similarly, a pattern of '0', '0', '0', ... PDM values results in minimum CIC PCM value (-0x100:0000 when DECIMATION is '4') and a pattern of '1', '1', '1', ... PDM values results in maximum CIC PCM value (0x100:0000 when DECIMATION is '4').
 
-Note: The IP's desired 'clk_sys' frequency is a function of the PDM interface clock, the CIC filter decimation (CIC_CTL.DECIM_CODE[]) and the FIR filter decimation (FIR_CTL.DECIM_CODE[]).</description>
+Note: The desired 'clk_sys' frequency is a function of the PDM interface clock, the CIC filter decimation (CIC_CTL.DECIM_CODE[]) and the FIR filter decimation (FIR_CTL.DECIM_CODE[]).</description>
                 <bitRange>[2:0]</bitRange>
                 <access>read-write</access>
                 <enumeratedValues>
@@ -35661,7 +35661,7 @@ Note: This filter is disabled by default, and typically only used for sample fre
             <fields>
               <field>
                 <name>DECIM2</name>
-                <description>FIR 1 filter decimation. The FIR filter PCM frequency is a fraction of the CIC filter PCM frequency:
+                <description>FIR 1 filter decimation. The FIR filter PCM frequency is a fraction of the FIR0 filter PCM frequency:
 '0': FIR 1 filter PCM frequency is 1 * FIR 0 filter PCM frequency. The FIR filter is performed for every FIR 0 filter PCM sample.
 '1': FIR 1 filter PCM frequency is 1/2 * FIR 0 filter PCM frequency. The FIR filter is performed for every second FIR 0 filter PCM sample.
 '2': FIR 1 filter PCM frequency is 1/3 * FIR 0 filter PCM frequency. The FIR filter is performed for every third FIR 0 filter PCM sample.

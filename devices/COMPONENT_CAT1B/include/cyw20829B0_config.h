@@ -691,7 +691,7 @@ typedef enum
 #define CPUSS_PROMC_MATCH_ADDR_SIZE     12u
 /* Initial value of the first patchable address in the ROM. This address and the
    following higher addresses are patchable if the function is enabled. */
-#define CPUSS_PROMC_SROM_BOUNDARY       4096u
+#define CPUSS_PROMC_SROM_BOUNDARY       0x00001000u
 /* Flash Controller Present or not ('0' : no, '1': yes) */
 #define CPUSS_FLASHC_PRESENT            0u
 /* Flash data output word size (in Bytes) */
@@ -862,34 +862,34 @@ typedef enum
 #define CPUSS_ROM_TRIM_WIDTH            5u
 /* ROM trim register default (for both ARM and Synopsys 0x0000_0002; for BRCM
    0x0000_0000) */
-#define CPUSS_ROM_TRIM_DEFAULT          18u
+#define CPUSS_ROM_TRIM_DEFAULT          19u
 /* RAM trim register width (for ARM 8, for SNPS 15, for BRCM 16) For SNPS: SRAM
    will get its trim value from trim[15:0] and RF from trim [31:16] */
 #define CPUSS_RAM_TRIM_WIDTH            32u
 /* RAM trim register default (for ARM 0x0000_0062 and for Synopsys 0x0000_6012,
    for BRCM 0x0000_0000) */
-#define CPUSS_RAM_TRIM_DEFAULT          16403u
+#define CPUSS_RAM_TRIM_DEFAULT          0x00004013u
 /* RAM Trim control-2 register present or not; 1-present; 0-not present; Place
    holder for S22 SRAM memories. */
 #define CPUSS_TRIM_RAM_CTL2_PRESENT     0u
 /* RAM trim register width Place holder for S22 SRAM memories. */
 #define CPUSS_RAM_TRIM_WIDTH2           32u
 /* RAM trim register default. Place holder for S22 SRAM memories. */
-#define CPUSS_RAM_TRIM_DEFAULT2         24594u
+#define CPUSS_RAM_TRIM_DEFAULT2         0x00006012u
 /* RAM Trim control-3 register present or not; 1-present; 0-not present; Place
    holder for S22 SRAM memories. */
 #define CPUSS_TRIM_RAM_CTL3_PRESENT     0u
 /* RAM trim register width Place holder for S22 SRAM memories. */
 #define CPUSS_RAM_TRIM_WIDTH3           32u
 /* RAM trim register default. Place holder for S22 SRAM memories. */
-#define CPUSS_RAM_TRIM_DEFAULT3         24594u
+#define CPUSS_RAM_TRIM_DEFAULT3         0x00006012u
 /* RAM Trim control-4 register present or not; 1-present; 0-not present; Place
    holder for S22 SRAM memories. */
 #define CPUSS_TRIM_RAM_CTL4_PRESENT     0u
 /* RAM trim register width Place holder for S22 SRAM memories. */
 #define CPUSS_RAM_TRIM_WIDTH4           32u
 /* RAM trim register default. Place holder for S22 SRAM memories. */
-#define CPUSS_RAM_TRIM_DEFAULT4         24594u
+#define CPUSS_RAM_TRIM_DEFAULT4         0x00006012u
 /* Specifies the CM33-0 CACHE SRAM POWER SWITCH is present or not; 0: Not present;
    1: Present; */
 #define CPUSS_CM33_0_CACHE_SWITCH_PRESENT 1u
@@ -937,7 +937,7 @@ typedef enum
 /* IP MMIO registers base address in the system address space (32-bit Byte address
    at a 64 kB multiple). The IP MMIO registers occupy a 64 kB memory region in
    the system address space. */
-#define CRYPTOLITE_ADDR_BASE            1076035584u
+#define CRYPTOLITE_ADDR_BASE            0x40230000u
 /* ECC present or not ('0': no, '1': yes). */
 #define CRYPTOLITE_ECC_PRESENT          0u
 /* True random number generation component support ('0': no, '1': yes). */
@@ -1372,7 +1372,7 @@ typedef enum
 #define PERI_GROUP_PRESENT0_PERI_GROUP_CLOCK_PRESENT 0u
 /* Default value for SL_CTL register value on POR. Group-0 it is 32'hFFFF_FFFF
    Group-1 to Group-15 it is 32'h000_0000 */
-#define PERI_GROUP_PRESENT0_PERI_GROUP_SL_CTL_DEFAULT 4294967295u
+#define PERI_GROUP_PRESENT0_PERI_GROUP_SL_CTL_DEFAULT 0xFFFFFFFFu
 /* Clock control functionality present ('0': no, '1': yes) */
 #define PERI_GROUP_PRESENT1_PERI_GROUP_CLOCK_PRESENT 1u
 /* Default value for SL_CTL register value on POR. Group-0 it is 32'hFFFF_FFFF
@@ -2112,14 +2112,14 @@ typedef enum
    memory region (to ensure a connection to the ARM CM4 CPU ICode/DCode memory
    region [0x0000:0000, 0x1fff:ffff]). The external memory devices are located
    within the SMIF XIP memory region. */
-#define SMIF_SMIF_XIP_ADDR              1610612736u
+#define SMIF_SMIF_XIP_ADDR              0x60000000u
 /* Capacity of the SMIF XIP memory region. The capacity must be a power of 2 and
    greater or equal than 64 KB). The more significant bits of this parameter are
    '1' and the lesser significant bits of this parameter are '0'. E.g.,
    0xfff0:0000 specifies a 1 MB memory region. Legal values are {0xffff:0000,
    0xfffe:0000, 0xfffc:0000, 0xfff8:0000, 0xfff0:0000, 0xffe0:0000, ...,
    0x8000:0000, 0x0000:0000}. */
-#define SMIF_SMIF_XIP_MASK              4160749568u
+#define SMIF_SMIF_XIP_MASK              0xF8000000u
 /* Cryptography (AES) support. This is a 1-bit parameter: '0' = no support, '1' =
    support. */
 #define SMIF_CRYPTO                     1u
@@ -2230,7 +2230,7 @@ typedef enum
    DIRECT_MUX defaults to IMO. If bit[0] is high, the DIRECT_MUX selects the
    output of ROOT_MUX. For backward compatibility, M33-only systems can have all
    mask bits high. In all cases, must have bit[0]==1 to start the chip. */
-#define SRSS_MASK_DIRECTMUX_DEF         65535u
+#define SRSS_MASK_DIRECTMUX_DEF         0x0000FFFFu
 /* Mask of which HFCLK roots are enabled when the debugger requests power up
    (CDBGPWRUPREQ). For each clock root i, SRSS enables the clock in response to
    CDBGPWRUPREQ, if bit[i] of mask is high. SRSS automatically enables clk_hf0,

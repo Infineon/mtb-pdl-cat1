@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.h
-* \version 1.80
+* \version 1.90
 *
 * Provides an API declaration of the GPIO driver
 *
@@ -103,6 +103,11 @@
 * \section group_gpio_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.90</td>
+*     <td>Updated APIs \ref Cy_GPIO_Port_Init, \ref Cy_GPIO_Port_Deinit, \ref Cy_GPIO_GetDrivemode.</td>
+*     <td>Fixed coverity defects.</td>
+*   </tr>   
 *   <tr>
 *     <td rowspan="2">1.80</td>
 *     <td>Updated \ref Cy_GPIO_SetDrivemode and \ref Cy_GPIO_GetDrivemode APIs.</td>
@@ -231,7 +236,7 @@ extern "C" {
 #define CY_GPIO_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_GPIO_DRV_VERSION_MINOR      80
+#define CY_GPIO_DRV_VERSION_MINOR      90
 
 /** GPIO driver ID */
 #define CY_GPIO_ID CY_PDL_DRV_ID(0x16U)
@@ -391,7 +396,7 @@ typedef struct
 #define CY_GPIO_CFG_DM_WIDTH_MASK              (0xFUL)    /**< Single pin mask for drive mode width in CFG/CFG_OUT3 register */
 #define CY_GPIO_CFG_DM_NO_INBUF_MASK           (0x07UL)   /**< Single pin mask for drive mode ( without input buffer ) in CFG register */
 #define CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK        (0x01UL)   /**< Single pin mask for VTRIP selection in CFG IN register */
-#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U))
+#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U)) || defined(CY_IP_MXS40SIOSS_VERSION)
 #define CY_GPIO_CFG_IN_VTRIP_SEL_1_MASK        (0x01UL)   /**< Single pin mask for VTRIP selection in CFG IN AUTOLVL register */
 #endif /* CY_IP_MXS40IOSS_VERSION */
 #define CY_GPIO_CFG_IN_VTRIP_SEL_MASK          CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK   /**< Single pin mask for VTRIP selection in CFG IN register */
@@ -822,7 +827,7 @@ void Cy_GPIO_SetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum);
 void Cy_GPIO_SetVtrip(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetVtrip(GPIO_PRT_Type* base, uint32_t pinNum);
-#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U)) || defined (CY_DOXYGEN)
+#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U)) || defined(CY_IP_MXS40SIOSS_VERSION) || defined (CY_DOXYGEN)
 void Cy_GPIO_SetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum);
 #endif /* CY_IP_MXS40IOSS_VERSION */
@@ -938,10 +943,9 @@ __STATIC_INLINE void Cy_GPIO_SetHSIOM_SecPin(GPIO_PRT_Type* base, uint32_t pinNu
     portAddrSecHSIOM = (HSIOM_SECURE_PRT_Type*)(CY_HSIOM_SECURE_BASE + (HSIOM_SECURE_PRT_SECTION_SIZE * portNum));
 
 #if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION >= 5)
-    if ((base == (GPIO_PRT_Type*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0) || (base == (GPIO_PRT_Type*)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0))
+    if ((base == (GPIO_PRT_Type*)((void*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0)) || (base == (GPIO_PRT_Type*)((void*)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0)))
     {
-        portNum = 0;
-        portAddrSecHSIOM = (HSIOM_SECURE_PRT_Type*)((base == (GPIO_PRT_Type*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0) ? SMIF0_CORE0_SMIF_HSIOM_SMIF_SECURE_PRT0 : SMIF0_CORE1_SMIF_HSIOM_SMIF_SECURE_PRT0);
+        portAddrSecHSIOM = (HSIOM_SECURE_PRT_Type*)((void*)((base == (GPIO_PRT_Type*)((void*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0)) ? ((void*)SMIF0_CORE0_SMIF_HSIOM_SMIF_SECURE_PRT0) : ((void*)SMIF0_CORE1_SMIF_HSIOM_SMIF_SECURE_PRT0)));
     }
 #endif
 
@@ -981,10 +985,9 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetHSIOM_SecPin(GPIO_PRT_Type* base, uint32_t p
     portAddrSecHSIOM = (HSIOM_SECURE_PRT_Type*)(CY_HSIOM_SECURE_BASE + (HSIOM_SECURE_PRT_SECTION_SIZE * portNum));
 
 #if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION >= 5)
-        if ((base == (GPIO_PRT_Type*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0) || (base == (GPIO_PRT_Type*)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0))
+        if ((base == (GPIO_PRT_Type*)((void*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0)) || (base == (GPIO_PRT_Type*)((void*)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0)))
         {
-            portNum = 0;
-            portAddrSecHSIOM = (HSIOM_SECURE_PRT_Type*)((base == (GPIO_PRT_Type*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0) ? SMIF0_CORE0_SMIF_HSIOM_SMIF_SECURE_PRT0 : SMIF0_CORE1_SMIF_HSIOM_SMIF_SECURE_PRT0);
+            portAddrSecHSIOM = (HSIOM_SECURE_PRT_Type*)((void*)((base == (GPIO_PRT_Type*)((void*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0)) ? ((void*)SMIF0_CORE0_SMIF_HSIOM_SMIF_SECURE_PRT0) : ((void*)SMIF0_CORE1_SMIF_HSIOM_SMIF_SECURE_PRT0)));
         }
 #endif
 

@@ -194,7 +194,7 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
     
-    <ParamSignal port="card_detect_n[0]" name="Card Detect" group="Inputs" visible="true" desc="The card detect pin. Note: You can use any GPIO custom pin for Card Detect. Add the SD Host driver Cy_SD_Host_IsCardConnected() function with the __WEAK type to your code. This function could read the value from any GPIO pin and return true when the card is connected. For more information see the Cy_SD_Host_IsCardConnected() function description." canBeEmpty="true" >
+    <ParamSignal port="card_detect_n[0]" name="Card Detect" group="Inputs" visible="`${hasVisibleOption(&quot;card_detect_n[0]&quot;)}`" desc="The card detect pin. Note: You can use any GPIO custom pin for Card Detect. Add the SD Host driver Cy_SD_Host_IsCardConnected() function with the __WEAK type to your code. This function could read the value from any GPIO pin and return true when the card is connected. For more information see the Cy_SD_Host_IsCardConnected() function description." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_HIGHZ" />
@@ -233,7 +233,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="card_mech_write_prot[0]" name="Card Mechanical Write Protect" group="Inputs" visible="true" desc="The card mechanical write protect pin." canBeEmpty="true" >
+    <ParamSignal port="card_mech_write_prot[0]" name="Card Mechanical Write Protect" group="Inputs" visible="`${hasVisibleOption(&quot;card_mech_write_prot[0]&quot;)}`" desc="The card mechanical write protect pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_HIGHZ" />

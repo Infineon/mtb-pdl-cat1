@@ -111,6 +111,18 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__sema__macros.html#ga7c011c5126248439921e442aab3c6b23">CY_IPC_SEMA_PER_WORD</a>&#160;&#160;&#160;(uint32_t)32u</td></tr>
 <tr class="memdesc:ga7c011c5126248439921e442aab3c6b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">32 semaphores per word <br /></td></tr>
 <tr class="separator:ga7c011c5126248439921e442aab3c6b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeee9d0615136825d9e421cc0d579357c"><td class="memItemLeft" align="right" valign="top"><a id="gaeee9d0615136825d9e421cc0d579357c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__sema__macros.html#gaeee9d0615136825d9e421cc0d579357c">CY_IPC_SEMA_SEC</a>(sema)&#160;&#160;&#160;(0x10000000UL | (sema))</td></tr>
+<tr class="memdesc:gaeee9d0615136825d9e421cc0d579357c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert normal to secure semaphore number. <br /></td></tr>
+<tr class="separator:gaeee9d0615136825d9e421cc0d579357c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae77a1fa3d41e30e83d62f702e433f6fa"><td class="memItemLeft" align="right" valign="top"><a id="gae77a1fa3d41e30e83d62f702e433f6fa"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__sema__macros.html#gae77a1fa3d41e30e83d62f702e433f6fa">CY_IPC_SEMA_IS_SEC</a>(sema)&#160;&#160;&#160;(((sema) &amp; 0x10000000UL) != 0UL)</td></tr>
+<tr class="memdesc:gae77a1fa3d41e30e83d62f702e433f6fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check valid secure semaphore. <br /></td></tr>
+<tr class="separator:gae77a1fa3d41e30e83d62f702e433f6fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d896102a4bcf40ba80a2878fe2edb82"><td class="memItemLeft" align="right" valign="top"><a id="ga9d896102a4bcf40ba80a2878fe2edb82"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ipc__sema__macros.html#ga9d896102a4bcf40ba80a2878fe2edb82">CY_IPC_SEMA_GET_NUM</a>(sema)&#160;&#160;&#160;((sema) &amp; (~(0x10000000UL)))</td></tr>
+<tr class="memdesc:ga9d896102a4bcf40ba80a2878fe2edb82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns normal semaphore number. <br /></td></tr>
+<tr class="separator:ga9d896102a4bcf40ba80a2878fe2edb82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides the source code for the SMIF driver APIs.
@@ -1104,8 +1104,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) cmdDataRate) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint8_t)((cmd >> 8U) & 0x00FFU)) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, 0U) |
-                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE,
-                     ((0UL == paramSize) ? completeTxfr : 0UL)) ;
+                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 0U);
 
              SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t) cmdTxfrWidth) |
@@ -1306,6 +1305,10 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
             context->transferStatus = (uint32_t) CY_SMIF_SEND_BUSY;
             context->preCmdDataRate        = dataDataRate;
             context->preCmdWidth           = transferWidth;
+
+            #if (CY_IP_MXSMIF_VERSION >= 5) /* DRIVERS-12031 */
+            Cy_SMIF_SetTxFifoTriggerLevel(base, 1U);
+            #endif
 
             /* Enable the TR_TX_REQ interrupt */
             Cy_SMIF_SetInterruptMask(base,
@@ -2505,6 +2508,7 @@ uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit)
 * \note This API is not supported on CAT1A devices.
 * \note External memory should also support this mode of transfer.
 *
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_MergeTimeout
 *******************************************************************************/
 void Cy_SMIF_DeviceTransfer_SetMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave, cy_en_smif_merge_timeout_t timeout)
 {
@@ -2530,7 +2534,8 @@ void Cy_SMIF_DeviceTransfer_SetMergeTimeout(SMIF_Type *base, cy_en_smif_slave_se
 *
 * \note This API is not supported on CAT1A devices.
 * \note External memory should also support this mode of transfer.
-
+*
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_MergeTimeout
 *******************************************************************************/
 void Cy_SMIF_DeviceTransfer_ClearMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave)
 {
@@ -2540,6 +2545,164 @@ void Cy_SMIF_DeviceTransfer_ClearMergeTimeout(SMIF_Type *base, cy_en_smif_slave_
     temp &= ~(SMIF_DEVICE_CTL_MERGE_EN_Msk | SMIF_DEVICE_CTL_MERGE_TIMEOUT_Msk);
     SMIF_DEVICE_CTL(device) = temp;
 }
+#endif
+#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetSelectedDelayTapSel
+****************************************************************************//**
+*
+* This function sets delay tap for a particular data line.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param slave
+* Holds the slave select line for which delay tap setting should be applied for.
+*
+* \param data_line
+* Holds the data line for which delay tap setting should be applied for.
+*
+* \param tapSel
+* tap selection value where lower nibble indicates the delay tap setting for positive clock phase
+* and higher nibble indicates the setting for negative clock phase delay tap selection.
+*
+* \note This API is supported on CAT1D devices.
+*
+*******************************************************************************/
+void Cy_SMIF_SetSelectedDelayTapSel(SMIF_Type *base,
+                                                cy_en_smif_slave_select_t slave,
+                                                cy_en_smif_mem_data_line_t data_line,
+                                                uint8_t tapSel)
+{
+    SMIF_DEVICE_Type volatile * device = Cy_SMIF_GetDeviceBySlot(base, slave);
+
+    switch(data_line)
+    {
+       case CY_SMIF_DATA_BIT0_TAP_SEL:
+           {
+               SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT0_TAP_SEL_POS, tapSel);
+               break;
+           }
+       case CY_SMIF_DATA_BIT1_TAP_SEL:
+           {
+               SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT1_TAP_SEL_POS, tapSel);
+               break;
+           }
+       case CY_SMIF_DATA_BIT2_TAP_SEL:
+           {
+               SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT2_TAP_SEL_POS, tapSel);
+               break;
+           }
+       case CY_SMIF_DATA_BIT3_TAP_SEL:
+           {
+              SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT3_TAP_SEL_POS, tapSel);
+              break;
+           }
+       case CY_SMIF_DATA_BIT4_TAP_SEL:
+           {
+               SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT4_TAP_SEL_POS, tapSel);
+               break;
+           }
+       case CY_SMIF_DATA_BIT5_TAP_SEL:
+           {
+               SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT5_TAP_SEL_POS, tapSel);
+               break;
+           }
+       case CY_SMIF_DATA_BIT6_TAP_SEL:
+           {
+               SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT6_TAP_SEL_POS, tapSel);
+               break;
+           }
+       case CY_SMIF_DATA_BIT7_TAP_SEL:
+           {
+               SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT7_TAP_SEL_POS, tapSel);
+               break;
+           }
+        default:
+        {
+            /* Unsupported data line index */
+            break;
+        }
+    }
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_GetSelectedDelayTapSel
+****************************************************************************//**
+*
+* This function gets delay tap set for a particular data line.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param slave
+* Holds the slave select line for which delay tap setting should be retrieved.
+*
+* \param data_line
+* Holds the data line for which delay tap setting should be retrieved.
+*
+* \return uint8_t
+* tap selection value where lower nibble indicates the delay tap setting for positive clock phase
+* and higher nibble indicates the setting for negative clock phase delay tap selection.
+*
+* \note This API is supported on CAT1D devices.
+*
+*******************************************************************************/
+uint8_t Cy_SMIF_GetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave, cy_en_smif_mem_data_line_t data_line)
+{
+    SMIF_DEVICE_Type volatile * device = Cy_SMIF_GetDeviceBySlot(base, slave);
+    uint8_t delay_tap = 0;
+
+    switch(data_line)
+    {
+       case CY_SMIF_DATA_BIT0_TAP_SEL:
+           {
+               delay_tap =(uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT0_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device)));
+               break;
+           }
+       case CY_SMIF_DATA_BIT1_TAP_SEL:
+           {
+               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT1_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device)));
+               break;
+           }
+       case CY_SMIF_DATA_BIT2_TAP_SEL:
+           {
+               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT2_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device)));
+               break;
+           }
+       case CY_SMIF_DATA_BIT3_TAP_SEL:
+           {
+               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT3_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device)));
+               break;
+           }
+       case CY_SMIF_DATA_BIT4_TAP_SEL:
+           {
+               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT4_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device)));
+               break;
+           }
+       case CY_SMIF_DATA_BIT5_TAP_SEL:
+           {
+               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT5_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device)));
+               break;
+           }
+       case CY_SMIF_DATA_BIT6_TAP_SEL:
+           {
+               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT6_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device)));
+               break;
+           }
+       case CY_SMIF_DATA_BIT7_TAP_SEL:
+           {
+               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT7_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device)));
+               break;
+           }
+       default:
+        {
+            /* Unsupported data line index */
+            break;
+        }
+    }
+    return delay_tap;
+}
+
 #endif
 
 #if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
@@ -2832,6 +2995,7 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 *
 * \return status (see \ref cy_en_smif_status_t).
 *
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_DelayTapSel
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
 {
@@ -2860,6 +3024,7 @@ cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
 *
 * \return read tap selection
 *
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_DelayTapSel
 *******************************************************************************/
 uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base)
 {

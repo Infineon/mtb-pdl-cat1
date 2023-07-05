@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -436,10 +436,18 @@ typedef enum
 #define USBDP_PIN                       0u
 #define USBDP_NUM                       0u
 #define USBDP_AMUXSEGMENT               AMUXBUS_NOISY
+#define P14_0_PORT                      GPIO_PRT14
+#define P14_0_PIN                       0u
+#define P14_0_NUM                       0u
+#define P14_0_AMUXSEGMENT               AMUXBUS_NOISY
 #define USBDM_PORT                      GPIO_PRT14
 #define USBDM_PIN                       1u
 #define USBDM_NUM                       1u
 #define USBDM_AMUXSEGMENT               AMUXBUS_NOISY
+#define P14_1_PORT                      GPIO_PRT14
+#define P14_1_PIN                       1u
+#define P14_1_NUM                       1u
+#define P14_1_AMUXSEGMENT               AMUXBUS_NOISY
 
 /* Analog Connections */
 #define CSD_CMODPADD_PORT               7u

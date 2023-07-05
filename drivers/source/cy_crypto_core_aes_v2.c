@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes_v2.c
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides the source code fro the API for the AES method
@@ -237,6 +237,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_SetKey(CRYPTO_Type *base, uint8_
 
         if(CY_CRYPTO_SUCCESS == tmpResult)
         {
+            Cy_Crypto_Core_V2_MemSet(base, aesGCMctx->h, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
             tmpResult = Cy_Crypto_Core_V2_Aes_Ecb(base, CY_CRYPTO_ENCRYPT, aesGCMctx->h, aesGCMctx->h, &aesGCMctx->aesState);
         }
     }
@@ -291,6 +292,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Start(CRYPTO_Type *base, cy_en_c
 
         aesGCMctx->data_size = 0u;
         aesGCMctx->aad_size = 0u;
+        aesGCMctx->partial_aad_processed = false;
 
         if(CY_CRYPTO_AES_GCM_IV_SIZE == ivSize)
         {
@@ -441,7 +443,13 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Update(CRYPTO_Type *base, const 
     {
         if(aesGCMctx->aad_size %CY_CRYPTO_AES_BLOCK_SIZE != 0u)
         {
-            Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, aesGCMctx->temp, aesGCMctx->aad_size%CY_CRYPTO_AES_BLOCK_SIZE , aesGCMctx->y);
+            if(aesGCMctx->partial_aad_processed == false)
+            {
+                Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, aesGCMctx->h, aesGCMctx->temp, aesGCMctx->aad_size%CY_CRYPTO_AES_BLOCK_SIZE , aesGCMctx->y);
+                aesGCMctx->partial_aad_processed = true;
+            }
+
+
         }
 
         while(inputSize != 0u)
@@ -838,8 +846,13 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Free(CRYPTO_Type *base,  cy_stc_
 
     if(NULL != aesGCMctx)
     {
-
-        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->aes_buffer, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_gcm_buffers_t));
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->aes_buffer, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_buffers_t));
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->h, 0U, CY_CRYPTO_AES_BLOCK_SIZE);
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->icb, 0U, CY_CRYPTO_AES_BLOCK_SIZE);
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->cb, 0U, CY_CRYPTO_AES_BLOCK_SIZE);
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->y, 0U, CY_CRYPTO_AES_BLOCK_SIZE);
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->temp, 0U, CY_CRYPTO_AES_BLOCK_SIZE);
+        Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx->aes_data, 0U, CY_CRYPTO_AES_BLOCK_SIZE);
         Cy_Crypto_Core_V2_MemSet(base, (void*)aesGCMctx, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_gcm_state_t));
     }
 
@@ -937,7 +950,10 @@ void Cy_Crypto_Core_V2_Aes_LoadDecKey(CRYPTO_Type *base,
 *******************************************************************************/
 cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Free(CRYPTO_Type *base, cy_stc_crypto_aes_state_t *aesState)
 {
-    Cy_Crypto_Core_V2_MemSet(base, (void *)aesState->buffers, 0u, ((uint16_t)sizeof(cy_stc_crypto_aes_buffers_t)));
+    if(aesState->buffers != NULL)
+    {
+        Cy_Crypto_Core_V2_MemSet(base, (void *)aesState->buffers, 0u, ((uint16_t)sizeof(cy_stc_crypto_aes_buffers_t)));
+    }
     Cy_Crypto_Core_V2_MemSet(base, (void *)aesState, 0u, ((uint16_t)sizeof(cy_stc_crypto_aes_state_t)));
 
     return (CY_CRYPTO_SUCCESS);

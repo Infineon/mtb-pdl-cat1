@@ -1,6 +1,6 @@
 /*******************************************************************************
 * \file cy_trigmux.h
-* \version 1.60
+* \version 1.60.1
 *
 *  This file provides constants and parameter values for the Trigger multiplexer driver.
 *
@@ -167,6 +167,11 @@
 * \section group_trigmux_Changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.60.1</td>
+*     <td>Updated \ref Cy_TrigMux_SwTrigger API.</td>
+*     <td>Coverity error fixes.</td>
+*   </tr>
 *   <tr>
 *     <td>1.60</td>
 *     <td>Updated Cy_TrigMux_SwTrigger API and added CY_TRIGMUX_INTRIG_MASK macro.</td>

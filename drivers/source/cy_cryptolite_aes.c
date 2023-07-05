@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_aes.c
-* \version 2.20
+* \version 2.30
 *
 * \brief
 *  Provides API implementation of the Cryptolite AES PDL driver.
@@ -568,7 +568,7 @@ cy_en_cryptolite_status_t Cy_Cryptolite_Aes_Ctr(CRYPTOLITE_Type *base,
     {
 
         /* In this mode, (CTR) is always an encryption! */
-        tmpResult = Cy_Cryptolite_Aes_ProcessBlock(base, aesState, streamBuff, blockCounter);
+        tmpResult = Cy_Cryptolite_Aes_ProcessBlock(base, aesState, (uint32_t*)((void*)streamBuff), (uint32_t*)((void*)blockCounter));
 
         if(CY_CRYPTOLITE_SUCCESS != tmpResult){
             break;
