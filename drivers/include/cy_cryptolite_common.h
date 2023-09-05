@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_common.h
-* \version 2.30
+* \version 2.40
 *
 * \brief
 *  This file provides common constants and parameters
@@ -51,7 +51,7 @@ extern "C" {
 #define CY_CRYPTOLITE_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTOLITE_DRV_VERSION_MINOR         30
+#define CY_CRYPTOLITE_DRV_VERSION_MINOR         40
 
 /** Cryptolite Driver PDL ID */
 #define CY_CRYPTOLITE_ID                        CY_PDL_DRV_ID(0x74u)

@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.4.0
+# MTB CAT1 Peripheral Driver Library v3.6.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,44 +8,29 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## Implementation Details
 
-* Cryptolite Support for ECDSA verify for HASHZERO message added.
-* CAT1C:Enabled wait-states API.
-* Glitch filter support added for TCPWM version 3 and above.
-* CAT1A: Added new 80-m-csp package mpns in PSoC 6-256K family. MPNs starting with CY8C6144FMI, CY8C6244FMI.
+* CAT1B: CYW20829 Enhancements
+* CAT1B: CYW20829 DSRAM support for ARM Compiler
+* CAT1B Defect Fix: For API Cy_WDT_SetIgnoreBits, valid input range is changed to 0-21 for CAT1B devices, this will change the API's behaviour, follow the API documentation and use this API accordingly.
 
 ## Build Changes
 
 ## Personalities Changes
-* Added Personalities : smartio-4.0.cypersonality
-* Updated Personalities : bakclk-3.0.cypersonality, timerclk-3.0.cypersonality, tickclk-3.0.cypersonality, sysclock-3.0.cypersonality, power_v3-1.0.cypersonality, power_v2-1.0.cypersonality, pin-3.0.cypersonality, pclk_v2-1.0.cypersonality,
-  mfclk-3.0.cypersonality, hfclk-3.0.cypersonality, hfclk_v2-1.0.cypersonality, eco-3.0.cypersonality, uart-3.0.cypersonality, tdm-1.1.cypersonality, smif_v2-1.0.cypersonality, smartio-3.0.cypersonality, sd_host-1.0.cypersonality, pwm_v2-1.0.cypersonality, pdm_pcm_v2-3.0.cypersonality, mcwdt-3.0.cypersonality, i2c-4.0.cypersonality, canfd-3.0.cypersonality
+* Updated Personalities : pilo-3.0.cypersonality, power_v2-1.0.cypersonality
 
 ## Added Drivers
 
-## Updated Drivers
 
-* [CANFD 1.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__canfd.html)
-* [CRYPTO 2.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
-* [CRYPTOLITE 2.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
-* [DMA 2.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__dma.html)
-* [GPIO 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
-* [IPC 1.91](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
-* [LPCOMP 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lpcomp.html)
-* [SMIF 2.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [SYSCLK 3.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSFAULT 1.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysfault.html)
-* [SYSLIB 3.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
-* [SYSPM 5.94](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [TCPWM 1.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__tcpwm.html)
+## Updated Drivers
+* [SYSCLK 3.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [CRYPTOLITE 2.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
+* [SYSPM 5.95](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [WDT 1.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__wdt.html)
+
 
 ### Drivers with patch version updates
+* [EFUSE 2.30.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__efuse.html)
 
-* [ETHIF 1.10.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ephy.html)
-* [PRA 2.40.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pra.html)
-* [SMARTIO 1.0.3](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smartio.html)
-* [SYSINT 1.90.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
-* [SYSTICK 1.70.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__arm__system__timer.html)
-* [TRIGMUX 1.60.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__trigmux.html)
+
 ### Obsoleted part numbers
 
 The ModusToolbox Device Configurator can not create the designs targeting the obsolete PSoC 6 part numbers.

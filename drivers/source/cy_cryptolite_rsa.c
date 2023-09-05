@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_rsa.c
-* \version 2.30
+* \version 2.40
 *
 * \brief
 *  This file provides provides constant and parameters

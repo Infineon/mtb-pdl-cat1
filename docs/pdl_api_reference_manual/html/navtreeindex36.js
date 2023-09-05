@@ -1,5 +1,9 @@
 var NAVTREEINDEX36 =
 {
+"structcy__stc__syspm__backup__regs__t.html#a02e66f69904911561a3143bbcff5627f":[4,43,5,2,8],
+"structcy__stc__syspm__backup__regs__t.html#a04be592ea14d7b5e84bb8d92739fb8cb":[4,43,5,2,4],
+"structcy__stc__syspm__backup__regs__t.html#a4f58edd2bbb9f9d7438f7dd692b20c77":[4,43,5,2,1],
+"structcy__stc__syspm__backup__regs__t.html#a5068cbfd2936c39e7e7724378f266016":[4,43,5,2,5],
 "structcy__stc__syspm__backup__regs__t.html#a65d069c377b68b7d08385fcf58bfa05b":[4,43,5,2,7],
 "structcy__stc__syspm__backup__regs__t.html#a6bc5a15177c3023affabce875d1eeb0b":[4,43,5,2,0],
 "structcy__stc__syspm__backup__regs__t.html#a7d21a7fc1a0698e3b6ccd239bf0f61d7":[4,43,5,2,3],

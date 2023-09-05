@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_aes.c
-* \version 2.30
+* \version 2.40
 *
 * \brief
 *  Provides API implementation of the Cryptolite AES PDL driver.

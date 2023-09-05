@@ -91,7 +91,8 @@ $(document).ready(function(){initNavTree('group__group__efuse.html','');});
 <p>The functions and other declarations used in this driver are in cy_efuse.h. You can include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
 <p>The eFuse driver enables reading the state of any bit.</p><ul>
 <li>CAT1A devices does not support writing to eFuse memory. Writing an eFuse bit is typically done by a production programmer. Fuses are programmed via the PSoC Programmer tool that parses the hex file and extracts the necessary information; the fuse data must be located at the dedicated section in the hex file. For more details see <a href="http://www.cypress.com/documentation/programming-specifications/psoc-6-programming-specifications">PSoC 6 Programming Specifications</a></li>
-<li>CAT1B devices support writing to eFuse memory.</li>
+<li>CAT1B devices support writing to eFuse memory. <dl class="section note"><dt>Note</dt><dd>Blowing eFuses is normally performed during device provisioning; eFuses are not intended to be programmed by the customer</dd></dl>
+</li>
 <li>CAT1C devices does not support writing to eFuse memory.</li>
 </ul>
 <p>One eFuse macro consists of 256 bits (32 * 8). Consult the device-specific datasheet to determine how many macros a device has. These are implemented as a regular Advanced High-performance Bus (AHB) peripheral with the following characteristics:</p><ul>
@@ -109,6 +110,8 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.30.1 </td><td>Minor documentation updates. </td><td>Added a note for CAT1B family of devices.  </td></tr>
 <tr>
 <td>2.30 </td><td>Updated Cy_EFUSE_WriteBit API. </td><td>Fix minor compilation warning.  </td></tr>
 <tr>

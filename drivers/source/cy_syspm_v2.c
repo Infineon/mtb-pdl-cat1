@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v2.c
-* \version 5.94
+* \version 5.95
 *
 * This driver provides the source code for API power management.
 *
@@ -466,6 +466,14 @@ cy_en_syspm_boot_mode_t Cy_SysPm_GetBootMode(void)
     return ((cy_en_syspm_boot_mode_t)deepSleepWakeMode);
 }
 
+/*Weak declaration allows for both RTOS and non-RTOS based
+ * implementation to handle any context store before WFI
+ * This PDL implements a weak handler for non-RTOS based deep sleep */
+__WEAK void Cy_SysPm_StoreDSContext_Wfi(void)
+{
+    __WFI();
+}
+
 cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
 {
     uint32_t interruptState;
@@ -510,7 +518,14 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
 
                 if(waitFor != CY_SYSPM_WAIT_FOR_EVENT)
                 {
-                    __WFI();
+                    if (cbDeepSleepRootIdx == (uint32_t)CY_SYSPM_MODE_DEEPSLEEP_RAM)
+                    {
+                        Cy_SysPm_StoreDSContext_Wfi();
+                    }
+                    else
+                    {
+                        __WFI();
+                    }
                 }
                 else
                 {
@@ -1807,7 +1822,7 @@ void Cy_SysPm_BackupWordReStore(uint32_t wordIndex, uint32_t *wordDstPointer, ui
 
     while(wordSize != 0UL)
     {
-    
+
         if(wordIndex < CY_SRSS_BACKUP_BREG1_START_POS)
         {
             *wordDstPointer = BACKUP_BREG_SET0[wordIndex];
@@ -1989,6 +2004,12 @@ void Cy_SysPm_TriggerSoftReset(void)
 {
     SRSS_RES_SOFT_CTL = SRSS_RES_SOFT_CTL_TRIGGER_SOFT_Msk;
 }
+
+void Cy_SysPm_TriggerXRes(void)
+{
+    SRSS_RES_PXRES_CTL = SRSS_RES_PXRES_CTL_PXRES_TRIGGER_Msk;
+}
+
 
 #ifdef ENABLE_MEM_VOLTAGE_TRIMS
 /*******************************************************************************

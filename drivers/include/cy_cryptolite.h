@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite.h
-* \version 2.30
+* \version 2.40
 *
 * \brief
 *  This file provides interface header
@@ -181,6 +181,11 @@
 * \section group_cryptolite_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.40</td>
+*     <td>Updated value of CY_CRYPTOLITE_DEF_TRNG_GARO macro.</td>
+*     <td>Usability enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td>2.30</td>
 *     <td>Updated APIs \ref Cy_Cryptolite_ECC_VerifyHash and \ref Cy_Cryptolite_Aes_Ctr.</td>

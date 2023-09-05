@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_wdt.h
-* \version 1.60
+* \version 1.70
 *
 *  This file provides constants and parameter values for the WDT driver.
 *
@@ -190,6 +190,13 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.70</td>
+*     <td>For API Cy_WDT_SetIgnoreBits, valid input range is changed to 0-21 for CAT1B devices, this will change the API's behaviour, follow the API documentation and use this API accordingly.<br>
+          Added \ref Cy_WDT_ResetCounter new API and few macros.<br>
+          Updated \ref Cy_WDT_SetClkSource.</td>
+*     <td>Usability enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>1.60</td>
 *     <td>Updated \ref cy_en_wdt_clk_sources_t enum and added support for CAT1D.</td>
 *     <td>Code Enhancement and new device support added.</td>
@@ -213,7 +220,7 @@
 *   <tr>
 *     <td>1.40</td>
 *     <td>CAT1B, CAT1C devices support.<br>
-*         Newly added API's Cy_WDT_SetClkSource() to configure the WDT clock source, Cy_WDT_GetClkSource() to get the WDT clock source configured, 
+*         Newly added API's Cy_WDT_SetClkSource() to configure the WDT clock source, Cy_WDT_GetClkSource() to get the WDT clock source configured,
 *         Cy_WDT_SetMatchBits() to configure the bit position above which the bits will be ignored for match, Cy_WDT_GetMatchBits() to get the bit position above which the bits will be ignored for match.</td>
 *     <td>Support for new devices.</td>
 *   </tr>
@@ -325,7 +332,7 @@ extern "C" {
 #define CY_WDT_DRV_VERSION_MAJOR                       1
 
 /** The driver minor version */
-#define CY_WDT_DRV_VERSION_MINOR                       60
+#define CY_WDT_DRV_VERSION_MINOR                       70
 
 #if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
 /** The internal define for the first iteration of WDT unlocking */
@@ -361,19 +368,27 @@ extern "C" {
 /* Internal macro to validate match value */
 #define CY_WDT_IS_IGNORE_BITS_ABOVE_VALID(bitPos)     ((bitPos) < SRSS_NUM_WDT_A_BITS)
 
+/** The WDT maximum Ignore Bits */
+#define WDT_MAX_IGNORE_BITS                      (SRSS_NUM_WDT_A_BITS - 1U)
+
 #else
 /** The WDT maximum match value */
 #define WDT_MAX_MATCH_VALUE                      (0xFFFFuL)
+
+ /** The WDT maximum Ignore Bits */
+#define WDT_MAX_IGNORE_BITS                      (0xFuL)
 #endif
 
-/** The WDT maximum Ignore Bits */
-#define WDT_MAX_IGNORE_BITS                      (0xFuL)
 
  /* Internal macro to validate match value */
  #define CY_WDT_IS_MATCH_VAL_VALID(match)        ((match) <= WDT_MAX_MATCH_VALUE)
 
 /* Internal macro to validate match value */
 #define CY_WDT_IS_IGNORE_BITS_VALID(bitsNum)     ((bitsNum) <= WDT_MAX_IGNORE_BITS)
+
+/* The WDT needs 4 cycles to switch away from existing source.
+ * The source clock of wdt is fixed to 32KHz. So 4 cycles become 122us */
+#define CY_WDT_SRC_CLK_SWITCH_DELAY              (122UL)
 
 #if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
 /** The WDT default match value */
@@ -500,6 +515,7 @@ __STATIC_INLINE void Cy_WDT_Enable(void);
 __STATIC_INLINE void Cy_WDT_Disable(void);
 __STATIC_INLINE bool Cy_WDT_IsEnabled(void);
 __STATIC_INLINE uint32_t Cy_WDT_GetCount(void);
+__STATIC_INLINE void Cy_WDT_ResetCounter(void);
 __STATIC_INLINE void Cy_WDT_MaskInterrupt(void);
 __STATIC_INLINE void Cy_WDT_UnmaskInterrupt(void);
 
@@ -658,6 +674,8 @@ __STATIC_INLINE void Cy_WDT_SetClkSource(cy_en_wdt_clk_sources_t src)
     if (false == Cy_WDT_Locked())
     {
         SRSS_WDT_CTL = _CLR_SET_FLD32U((SRSS_WDT_CTL), SRSS_WDT_CTL_WDT_CLK_SEL, src);
+        /** Adding 4 cycle delay */
+        Cy_SysLib_DelayUs((uint16_t)CY_WDT_SRC_CLK_SWITCH_DELAY);
     }
 }
 
@@ -687,7 +705,7 @@ __STATIC_INLINE cy_en_wdt_clk_sources_t Cy_WDT_GetClkSource(void)
 *
 * \return The bit position above which the bits will be ignored for match.
 *
-* \note
+* \note\
 * This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
@@ -718,6 +736,22 @@ __STATIC_INLINE uint32_t Cy_WDT_GetCount(void)
 #endif
 }
 
+/*******************************************************************************
+* Function Name: Cy_WDT_ResetCounter
+****************************************************************************//**
+*
+* Resets the WDT counter value.
+*
+* \note
+* This API must be called only after WDT is disabled, else the writes will be
+* ignored if WDT is enabled.
+*
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_WDT_ResetCounter(void)
+{
+    SRSS_WDT_CNT = 0x0U;
+}
 
 /*******************************************************************************
 * Function Name: Cy_WDT_MaskInterrupt

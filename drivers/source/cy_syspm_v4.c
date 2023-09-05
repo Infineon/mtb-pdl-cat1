@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v4.c
-* \version 5.94
+* \version 5.95
 *
 * This driver provides the source code for API power management.
 *
@@ -1692,6 +1692,11 @@ cy_en_syspm_status_t Cy_SysPm_SetSRAMPwrMode(cy_en_syspm_sram_index_t sramNum, c
 void Cy_SysPm_TriggerSoftReset(void)
 {
     SRSS_RES_SOFT_CTL = SRSS_RES_SOFT_CTL_TRIGGER_SOFT_Msk;
+}
+
+void Cy_SysPm_TriggerXRes(void)
+{
+    SRSS_RES_PXRES_CTL = SRSS_RES_PXRES_CTL_PXRES_TRIGGER_Msk;
 }
 
 bool Cy_SysPm_IsSystemLp(void)

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.70
+* \version 3.80
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,11 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.80</td>
+*     <td>Added \ref Cy_SysClk_PiloOkay new API and few macros. Updated \ref Cy_SysClk_PiloEnable.</td>
+*     <td>Usability enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td>3.70</td>
 *     <td>Added new APIs \ref Cy_SysClk_ClkPwrSetDivider, \ref Cy_SysClk_ClkPwrGetDivider, \ref Cy_SysClk_ClkPwrGetFrequency, \ref Cy_SysClk_ClkPwrSetSource, \ref Cy_SysClk_ClkPwrGetSource. \n and enum \ref cy_en_clkpwr_in_sources_t </td>
@@ -889,7 +894,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   70
+#define  CY_SYSCLK_DRV_VERSION_MINOR   80
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 
@@ -4126,6 +4131,20 @@ void Cy_SysClk_PiloBackupEnable(void);
 *
 *******************************************************************************/
 void Cy_SysClk_PiloBackupDisable(void);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_PiloOkay
+****************************************************************************//**
+*
+* Reports the status of the PILO.
+*
+* \return
+* true = okay \n
+* false = not okay
+*
+*******************************************************************************/
+bool Cy_SysClk_PiloOkay(void);
+
 #endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN) */
 
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)

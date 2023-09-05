@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_wdt_b.c
-* \version 1.60
+* \version 1.70
 *
 *  This file provides the source code to the API for the WDT version B driver.
 *

@@ -1,6 +1,6 @@
 /***************************************************************************//**
-* \file cy_sysclk.c
-* \version 3.70
+* \file cy_sysclk_v2.c
+* \version 3.80
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -1193,11 +1193,18 @@ void Cy_SysClk_WcoBypass(cy_en_wco_bypass_modes_t bypass)
 /* ===========================    PILO SECTION    =========================== */
 /* ========================================================================== */
 
+#define CY_SYSCLK_PILO_STARTUP_DELAY 250U
+#define CY_SYSCLK_PILO_TEST_COUNT 10U
+#define CY_SYSCLK_PILO_TEST_DELAY 100U
+
 void Cy_SysClk_PiloEnable(void)
 {
 #if (defined (CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     SRSS_CLK_PILO_CONFIG |= SRSS_CLK_PILO_CONFIG_PILO_EN_Msk; /* 1 = enable */
 #endif
+
+    /* Max 150us is needed for PILO Startup */
+    Cy_SysLib_DelayUs(CY_SYSCLK_PILO_STARTUP_DELAY);
 }
 #if defined (CY_IP_MXS40SSRSS)
 void Cy_SysClk_PiloBackupEnable(void)
@@ -1232,6 +1239,17 @@ void Cy_SysClk_PiloTcscDisable(void)
 #endif
 }
 
+bool Cy_SysClk_PiloOkay(void)
+{
+    SRSS_CLK_OUTPUT_FAST = SLOW_SEL_OUTPUT_INDEX;
+    SRSS_CLK_OUTPUT_SLOW = (uint32_t)CY_SYSCLK_MEAS_CLK_PILO;
+    SRSS_CLK_CAL_CNT1 = CY_SYSCLK_PILO_TEST_COUNT;
+
+    /* Wait atleast two PILO clock cycles before reading CAL_CLK1_PRESENT bit */
+    Cy_SysLib_DelayUs(CY_SYSCLK_PILO_TEST_DELAY);
+
+    return (_FLD2BOOL(SRSS_CLK_CAL_CNT1_CAL_CLK1_PRESENT, SRSS_CLK_CAL_CNT1));
+}
 #endif /* defined (CY_IP_MXS40SSRSS) */
 
 bool Cy_SysClk_PiloIsEnabled(void)

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.94
+* \version 5.95
 *
 * Provides the function definitions for the power management API.
 *
@@ -147,7 +147,7 @@
 * <b>C) CAT1C Architecture</b>:
 *
 * 1) CAT1C MCU's can operate in different power modes that are intended to minimize
-* the average power consumption in an application. The power modes supported by 
+* the average power consumption in an application. The power modes supported by
 * CATC devices in the order of decreasing power consumption are:
 * * <b>ACTIVE </b> - all peripherals are available
 * * <b>Low-Power Active (LPACTIVE) profile </b>- Low-power profile of Active mode where
@@ -846,6 +846,11 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>5.95</td>
+*     <td>Added new APIs \ref Cy_SysPm_StoreDSContext_Wfi, \ref Cy_SysPm_TriggerXRes and few macros.</td>
+*     <td>Usability enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="4">5.94</td>
 *     <td>
@@ -1684,7 +1689,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       94
+#define CY_SYSPM_DRV_VERSION_MINOR       95
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -2421,7 +2426,7 @@ extern "C" {
 /** The system is MF Low Power mode */
 #define CY_SYSPM_STATUS_SYSTEM_MF        ((uint32_t) ((uint32_t)0x08UL << 24U))
 
-/** The wait time for transition of the device from the Active into 
+/** The wait time for transition of the device from the Active into
 * the LPActive (Low Power Active)
 */
 #define CY_SYSPM_ACTIVE_TO_LP_WAIT_US           (1u)
@@ -2432,13 +2437,13 @@ extern "C" {
 */
 #define CY_SYSPM_LP_TO_ACTIVE_WAIT_BEFORE_US    (8u)
 
-/** The wait delay time which occurs after the Active reference is settled. 
+/** The wait delay time which occurs after the Active reference is settled.
 * This delay is used in transition the device from Active into the
 * LPACTIVE (Low Power Active) mode
 */
 #define CY_SYSPM_LP_TO_ACTIVE_WAIT_AFTER_US    (1u)
 
-/** The internal define of the tries number in the Cy_SysPm_ExitLpMode() 
+/** The internal define of the tries number in the Cy_SysPm_ExitLpMode()
 * function
  */
 #define CY_SYSPM_WAIT_DELAY_TRYES                        (100u)
@@ -2919,7 +2924,7 @@ typedef enum
 * This enumeration is used to select the output voltage for the
 * RETLDO.
 */
-/* 
+/*
 RETLDO Voltage Level table:
 
 -------------------------------------------------
@@ -4252,8 +4257,24 @@ cy_en_syspm_status_t Cy_SysPm_SystemLpActiveExit(void);
 bool Cy_SysPm_IsSystemLpActiveEnabled(void);
 #endif
 
-#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SysPm_StoreDSContext_Wfi
+****************************************************************************//**
+*
+* Allow users to implement any context store required before entering deep sleep
+* in RTOS based builds, It is defined weak to allow callers override the default
+* PDL implementation.
+*
+* \note
+* This API is available for CAT1B devices.
+*
+*******************************************************************************/
 
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+__WEAK void Cy_SysPm_StoreDSContext_Wfi(void);
+#endif
+
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysPm_SetDeepSleepMode
 ****************************************************************************//**
@@ -4511,6 +4532,18 @@ cy_en_syspm_boot_mode_t Cy_SysPm_GetBootMode(void);
 *
 *******************************************************************************/
 void Cy_SysPm_TriggerSoftReset(void);
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_TriggerXRes
+****************************************************************************//**
+*
+* Triggers the XRES  reset.
+*
+* \note
+* This API is available for CAT1B and CAT1D devices.
+*
+*******************************************************************************/
+void Cy_SysPm_TriggerXRes(void);
 
 #endif
 
@@ -5738,7 +5771,7 @@ bool Cy_SysPm_ReghcIsEnabled(void);
 * Function Name: Cy_SysPm_ReghcIsStatusOk
 ****************************************************************************//**
 *
-* Indicates the PMIC status is ok.  This includes polarity adjustment according 
+* Indicates the PMIC status is ok.  This includes polarity adjustment according
 * to REGHC_PMIC_STATUS_POLARITY.
 *
 * \return
@@ -5756,7 +5789,7 @@ bool Cy_SysPm_ReghcIsStatusOk(void);
 * Function Name: Cy_SysPm_ReghcIsSequencerBusy
 ****************************************************************************//**
 *
-* Indicates whether the REGHC circuit is busy. Indicates the REGHC enable/disable 
+* Indicates whether the REGHC circuit is busy. Indicates the REGHC enable/disable
 * sequencer is busy transitioning to/from REGHC.
 *
 * \return
@@ -7584,13 +7617,13 @@ cy_en_syspm_core_inrush_limit_t Cy_SysPm_CoreBuckGetInrushLimit(void);
 *
 * Configures the Core Buck Regulator
 *
-* \note 
+* \note
 * Core buck voltage and mode are selected based on a voting system by the
 * following 5 requesters
 * Deepsleep Requester, SDR0 DS Requester, SDR0 Requester, SDR1 Requester and
 * Extra Requester.
 * The requesters may all request different voltages and CBUCK modes.
-* When multiple requesters are used for a profile, the requests are harmonized 
+* When multiple requesters are used for a profile, the requests are harmonized
 * into a composite request according to rules:
 *  - The composite CBUCK voltage request is the maximum voltage from all
 *    enabled requesters.
@@ -7623,7 +7656,7 @@ cy_en_syspm_status_t Cy_SysPm_CoreBuckConfig(cy_stc_syspm_core_buck_params_t *co
 *     settings defined by the extra requester.  This allows other requester
 *     settings to be changed without changing the internal setting of an active
 *     profile.  This can be used to change the target voltage of an enabled
-*     stepdown regulator. 
+*     stepdown regulator.
 *   - To participate in requester harmonization as an extra requester.
 *     This can be used to restrict the composite settings higher than the
 *     hardware would normally choose according to the harmonization rules.
@@ -7705,8 +7738,8 @@ bool Cy_SysPm_LdoIsEnabled(void);
 *
 * Configures the SDR(Step Down Regulator)
 *
-* \note 
-*  The CBUCK voltage selection must be 60mV higher than the SDR output or the 
+* \note
+*  The CBUCK voltage selection must be 60mV higher than the SDR output or the
 * regulator output may bypass.
 *
 * \param sdr
@@ -7733,8 +7766,8 @@ void Cy_SysPm_SdrConfigure(cy_en_syspm_sdr_t sdr, cy_stc_syspm_sdr_params_t *con
 *
 * Set the SDR(Step Down Regulator) Voltage
 *
-* \note 
-*  The CBUCK voltage selection must be 60mV higher than the SDR output or the 
+* \note
+*  The CBUCK voltage selection must be 60mV higher than the SDR output or the
 * regulator output may bypass.
 *
 * \param sdr
@@ -7781,7 +7814,7 @@ cy_en_syspm_sdr_voltage_t Cy_SysPm_SdrGetVoltage(cy_en_syspm_sdr_t sdr);
 *
 * Enable the SDR(Step Down Regulator)
 *
-* \note 
+* \note
 * Applicable for only SDR1, whereas SDR0 is always enabled.
 *
 * \param sdr

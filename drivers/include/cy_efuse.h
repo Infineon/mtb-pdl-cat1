@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_efuse.h
-* \version 2.30
+* \version 2.30.1
 *
 * Provides the API declarations of the eFuse driver.
 *
@@ -44,7 +44,9 @@
 *   dedicated section in the hex file. For more details see
 *   [PSoC 6 Programming Specifications]
 *   (http://www.cypress.com/documentation/programming-specifications/psoc-6-programming-specifications)
-* - CAT1B devices support writing to eFuse memory.
+* - CAT1B devices support writing to eFuse memory. 
+*     \note Blowing eFuses is normally performed during device provisioning; eFuses are not intended to be 
+*     programmed by the customer
 * - CAT1C devices does not support writing to eFuse memory.
 *
 * One eFuse macro consists of 256 bits (32 * 8).
@@ -68,6 +70,11 @@
 * \section group_efuse_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.30.1</td>
+*     <td>Minor documentation updates.</td>
+*     <td>Added a note for CAT1B family of devices.</td>
+*   </tr>
 *   <tr>
 *     <td>2.30</td>
 *     <td>Updated Cy_EFUSE_WriteBit API.</td>
