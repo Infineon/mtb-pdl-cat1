@@ -1,5 +1,13 @@
 var NAVTREEINDEX19 =
 {
+"group__group__smif.html":[4,37],
+"group__group__smif__data__structures.html":[4,37,2],
+"group__group__smif__data__structures.html#ga13688dde62e8977a11ab69cf6b2c39b5":[4,37,2,4],
+"group__group__smif__data__structures__memslot.html":[4,37,2,0],
+"group__group__smif__enums.html":[4,37,3],
+"group__group__smif__enums.html#ga11e3351473d01a0f29bf6f3b41d3be7e":[4,37,3,5],
+"group__group__smif__enums.html#ga159307bb2b563a18f87dcf492a2bcc75":[4,37,3,9],
+"group__group__smif__enums.html#ga2baa7c37d2cedf2e2c837facc753ab5d":[4,37,3,4],
 "group__group__smif__enums.html#ga58cf90a88ebb49c269bc67295d6e5cc3":[4,37,3,17],
 "group__group__smif__enums.html#ga6673e9fe92675ceaddadeb41e31a5821":[4,37,3,15],
 "group__group__smif__enums.html#ga686921944cbda1b19deb3c24363e7d9b":[4,37,3,13],
@@ -241,13 +249,5 @@ var NAVTREEINDEX19 =
 "group__group__smif__macros__sfdp.html#ga251b89ab595cf308d4d2998ddf3bc66a":[4,37,0,3,58],
 "group__group__smif__macros__sfdp.html#ga252ebb6447d2f43a499d8f6b85888501":[4,37,0,3,101],
 "group__group__smif__macros__sfdp.html#ga25c08a505e1830e8eaf0308eb8e790eb":[4,37,0,3,99],
-"group__group__smif__macros__sfdp.html#ga265c08b6182889afadf26bc1629c2778":[4,37,0,3,78],
-"group__group__smif__macros__sfdp.html#ga27f627f8419b7265fa0a00b5dc442d1b":[4,37,0,3,131],
-"group__group__smif__macros__sfdp.html#ga284f0e68c4cfbfa2cd46cc1dfee3612d":[4,37,0,3,148],
-"group__group__smif__macros__sfdp.html#ga2aa33d55100666d0a7a619efbd4eab08":[4,37,0,3,51],
-"group__group__smif__macros__sfdp.html#ga2b05569a97d0d1d5e2961f8e8c19a95e":[4,37,0,3,67],
-"group__group__smif__macros__sfdp.html#ga2b764687c78e7ce71bed89e5f997e95e":[4,37,0,3,13],
-"group__group__smif__macros__sfdp.html#ga2cbe5d3d58393050e07c9327de388ac8":[4,37,0,3,170],
-"group__group__smif__macros__sfdp.html#ga303321aceb0b9761a38656001231e391":[4,37,0,3,174],
-"group__group__smif__macros__sfdp.html#ga307346f0cafaf56418f4710ea096312c":[4,37,0,3,181]
+"group__group__smif__macros__sfdp.html#ga265c08b6182889afadf26bc1629c2778":[4,37,0,3,78]
 };

@@ -12,7 +12,6 @@
         "COMPONENT_PSOC6_04": "devices/COMPONENT_CAT1A/svd/psoc6_04.svd",
         "COMPONENT_CYW20829": "devices/COMPONENT_CAT1B/svd/cyw20829.svd",
         "COMPONENT_CAT1C4M": "devices/COMPONENT_CAT1C/svd/cat1c4m.svd",
-        "COMPONENT_CAT1C8M": "devices/COMPONENT_CAT1C/svd/cat1c8m.svd",
-        "COMPONENT_CAT1D": "devices/COMPONENT_CAT1D/svd/pse84.svd"}
+        "COMPONENT_CAT1C8M": "devices/COMPONENT_CAT1C/svd/cat1c8m.svd"}
     }
 }

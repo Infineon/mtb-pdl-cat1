@@ -1,5 +1,13 @@
 var NAVTREEINDEX35 =
 {
+"structcy__stc__scb__spi__config__t.html":[4,33,3,2,0],
+"structcy__stc__scb__spi__config__t.html#a22bfdf22686ed7f0220cb0fd42ec9abf":[4,33,3,2,0,21],
+"structcy__stc__scb__spi__config__t.html#a49f106ff0d3a5772ff90dd07629ead46":[4,33,3,2,0,3],
+"structcy__stc__scb__spi__config__t.html#a4a8fa24b12a399b989276d7c6fa42837":[4,33,3,2,0,10],
+"structcy__stc__scb__spi__config__t.html#a4fc24e3daa02dc8a81de14341a954110":[4,33,3,2,0,0],
+"structcy__stc__scb__spi__config__t.html#a53fea8be8ff446f4cdbfba9be4d07948":[4,33,3,2,0,13],
+"structcy__stc__scb__spi__config__t.html#a6c1579d6d98af6a80e6810a98b8d5f26":[4,33,3,2,0,7],
+"structcy__stc__scb__spi__config__t.html#a7238f0cb999b242c6aeb8a3c552bf8eb":[4,33,3,2,0,20],
 "structcy__stc__scb__spi__config__t.html#a75c45e3e4b63c4bba526de72ac9850ce":[4,33,3,2,0,1],
 "structcy__stc__scb__spi__config__t.html#a7d9321758074460909ddaf8805f77fd8":[4,33,3,2,0,11],
 "structcy__stc__scb__spi__config__t.html#a7de07d4e2900e6773c541632fecfe611":[4,33,3,2,0,2],
@@ -241,13 +249,5 @@ var NAVTREEINDEX35 =
 "structcy__stc__sysanalog__config__t.html#a6acb3f932ccad3cf52ad98f0dc86eec2":[4,38,3,0,2],
 "structcy__stc__sysanalog__deep__sleep__config__t.html":[4,38,3,1],
 "structcy__stc__sysanalog__deep__sleep__config__t.html#a032102087dcc28d995a76f1284dadc41":[4,38,3,1,4],
-"structcy__stc__sysanalog__deep__sleep__config__t.html#a0b1fec83f438609ac1e1b5389d597aaf":[4,38,3,1,0],
-"structcy__stc__sysanalog__deep__sleep__config__t.html#aaf94b94ad68f0a10ba67ac54f374ab6e":[4,38,3,1,1],
-"structcy__stc__sysanalog__deep__sleep__config__t.html#ac4a80761e972ea11cf8ddeab9c4c4de0":[4,38,3,1,3],
-"structcy__stc__sysanalog__deep__sleep__config__t.html#adbd49c009abf856cd0c271a87f0d2004":[4,38,3,1,2],
-"structcy__stc__sysint__t.html":[4,41,3,0],
-"structcy__stc__sysint__t.html#a204a8f07adf056c8d3dd818136da853f":[4,41,3,0,0],
-"structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7":[4,41,3,0,1],
-"structcy__stc__sysint__t.html#a97b1a2acb12257a8b213a5e971ceae3d":[4,41,3,0,2],
-"structcy__stc__syspm__backup__regs__t.html":[4,43,5,2]
+"structcy__stc__sysanalog__deep__sleep__config__t.html#a0b1fec83f438609ac1e1b5389d597aaf":[4,38,3,1,0]
 };

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash_srom.h
-* \version 3.70
+* \version 3.80
 *
 * \brief
 * Provides declaration of API controlling the SROM APIs.

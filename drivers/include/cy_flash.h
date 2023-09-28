@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.h
-* \version 3.70
+* \version 3.80
 *
 * Provides the API declarations of the Flash driver.
 *
@@ -251,6 +251,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>3.80</td>
+*     <td>Dual bank support added for CAT1A devices.</td>
+*     <td>Newly added APIs \ref Cy_Flashc_SetMain_Flash_Mapping , \ref Cy_Flashc_SetWork_Flash_Mapping for CAT1A and CAT1C devices.</td>
+*   </tr>
+*   <tr>
 *     <td>3.70</td>
 *     <td>Fixed MISRA 2012 violations and Documentation Update.</td>
 *     <td>MISRA 2012 compliance.</td>
@@ -401,7 +406,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
+#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || defined (CY_IP_MXS40FLASHC)
 
 #include "cy_ipc_drv.h"
 #include "cy_syslib.h"
@@ -425,7 +430,7 @@ extern "C" {
 #define CY_FLASH_DRV_VERSION_MAJOR       3
 
 /** Driver minor version */
-#define CY_FLASH_DRV_VERSION_MINOR       70
+#define CY_FLASH_DRV_VERSION_MINOR       80
 
 #define CY_FLASH_ID               (CY_PDL_DRV_ID(0x14UL))                          /**< FLASH PDL ID */
 
@@ -521,18 +526,6 @@ typedef enum
     CY_FLASH_CA_CM0P_REGION
 } cy_en_region_t;
 
-typedef enum
-{
-    CY_FLASH_SINGLE_BANK_MODE = 0U,
-    CY_FLASH_DUAL_BANK_MODE = 1U
-} cy_en_bankmode_t;
-
-typedef enum
-{
-    CY_FLASH_MAPPING_A = 0U,
-    CY_FLASH_MAPPING_B = 1U
-} cy_en_maptype_t;
-
 /** \endcond */
 #endif // (defined(CY_IP_MXFLASHC_VERSION_ECT))
 
@@ -571,6 +564,23 @@ typedef enum cy_en_flashdrv_status
     CY_FLASH_DRV_SROM_API_TIMEOUT         =   ( CY_FLASH_ID_ERROR + 0x10UL)  /**< Time out happens after calling srom API driver */
 } cy_en_flashdrv_status_t;
 
+
+
+#if (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) || defined (CY_IP_M7CPUSS)
+/** Flash Dual bank mode configuration */
+typedef enum
+{
+    CY_FLASH_SINGLE_BANK_MODE = 0U, /**< Single Bank Mode */
+    CY_FLASH_DUAL_BANK_MODE = 1U    /**< Dual Bank Mode   */
+} cy_en_bankmode_t;
+
+/** Flash Dual bank mode Mapping configuration */
+typedef enum
+{
+    CY_FLASH_MAPPING_A = 0U,  /**< Mapping A */
+    CY_FLASH_MAPPING_B = 1U   /**< Mapping B */
+} cy_en_maptype_t;
+#endif /* (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) || defined (CY_IP_M7CPUSS) */
 
 #if !defined (CY_FLASH_RWW_DRV_SUPPORT_DISABLED)
     /** Flash notification configuration structure */
@@ -1103,7 +1113,14 @@ cy_en_flashdrv_status_t Cy_Flash_OperationStatus(void);
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flashc_InjectECC(cy_en_region_t region, uint32_t address, uint8_t parity);
 
+/** \} group_flash_functions */
 
+#endif /* (defined(CY_IP_MXFLASHC_VERSION_ECT)) */
+/**
+* \addtogroup group_flash_functions
+* \{
+*/
+#if (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) || defined (CY_IP_M7CPUSS)
 /*******************************************************************************
 * Function Name: Cy_Flashc_SetWorkBankMode
 ****************************************************************************//**
@@ -1166,10 +1183,33 @@ void Cy_Flashc_SetMainBankMode(cy_en_bankmode_t mode);
 *******************************************************************************/
 cy_en_bankmode_t Cy_Flashc_GetMainBankMode(void);
 
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetMain_Flash_Mapping
+****************************************************************************//**
+*
+* \brief Sets mapping for main flash region. Applicable only in Dual Bank mode of Main flash region
+*
+* \param mapping mapping to be set
+*
+* \return none
+*******************************************************************************/
+void Cy_Flashc_SetMain_Flash_Mapping(cy_en_maptype_t mapping);
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetWork_Flash_Mapping
+****************************************************************************//**
+*
+* \brief Sets mapping for work flash region. Applicable only in Dual Bank mode of Work flash region
+*
+* \param mapping mapping to be set
+*
+* \return none
+*******************************************************************************/
+void Cy_Flashc_SetWork_Flash_Mapping(cy_en_maptype_t mapping);
+
+#endif /* (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) || defined (CY_IP_M7CPUSS) */
 
 /** \} group_flash_functions */
-
-#endif
 
 #if ((!defined(CY_IP_MXFLASHC_VERSION_ECT)) || defined(CY_DOXYGEN))
 

@@ -1,5 +1,13 @@
 var NAVTREEINDEX27 =
 {
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca5100ba43a518d8f0f6977e8421d672cd":[4,45,0,3,0,2],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca5a4e13feb26547488d0a274d34a4b5d7":[4,45,0,3,0,1],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca65e1829f540f9b0846bc0ad357d48d2e":[4,45,0,3,0,6],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca68ef36ad8f1f97c074d8171f7a527f0f":[4,45,0,3,0,3],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca96c7db882ecc10e489278a8263b71338":[4,45,0,3,0,4],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcade433f03721499f683cad3ef9cce2484":[4,45,0,3,0,5],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcae75c3855ed4b926fd65e57c9fcaeba68":[4,45,0,3,0,0],
+"group__group__tcpwm__enums.html#gga236beaba02c8a2a1c4eec981501e7270a51f56f747deff67f94f3036a5074f626":[4,45,0,3,2,2],
 "group__group__tcpwm__enums.html#gga236beaba02c8a2a1c4eec981501e7270ae445f943c46a8d517be923816b8459c9":[4,45,0,3,2,1],
 "group__group__tcpwm__enums.html#gga236beaba02c8a2a1c4eec981501e7270af9807d578257fa9f0d29cd86ef2c71ea":[4,45,0,3,2,0],
 "group__group__tcpwm__enums.html#gga302d5f1c0546c77304bfed7a8abf0cdba06feffe04ed553af947e22077c5ab73c":[4,45,0,3,1,1],
@@ -241,13 +249,5 @@ var NAVTREEINDEX27 =
 "group__group__tcpwm__pwm__run__modes.html":[4,45,2,0,0],
 "group__group__tcpwm__pwm__run__modes.html#ga537b61bf0f4aa10ccd90ca0adf51d625":[4,45,2,0,0,0],
 "group__group__tcpwm__pwm__run__modes.html#gae979ff949eef746fe7c44905897f43f9":[4,45,2,0,0,1],
-"group__group__tcpwm__pwm__status.html":[4,45,2,0,8],
-"group__group__tcpwm__pwm__status.html#ga30aa30ef821418b4e8f6df4bc8cead91":[4,45,2,0,8,2],
-"group__group__tcpwm__pwm__status.html#gac28b67391ec51fe3b8f4fbecd1b85508":[4,45,2,0,8,0],
-"group__group__tcpwm__pwm__status.html#gac593946986fb3fa4eefff715136be1d4":[4,45,2,0,8,1],
-"group__group__tcpwm__quaddec.html":[4,45,3],
-"group__group__tcpwm__quaddec__capture__mode.html":[4,45,3,0,2],
-"group__group__tcpwm__quaddec__capture__mode.html#ga2cb469576a865808359b94472212fdb1":[4,45,3,0,2,1],
-"group__group__tcpwm__quaddec__capture__mode.html#gadba620a2c63dd73dbaecaac505b65ae3":[4,45,3,0,2,0],
-"group__group__tcpwm__quaddec__mode.html":[4,45,3,0,0]
+"group__group__tcpwm__pwm__status.html":[4,45,2,0,8]
 };

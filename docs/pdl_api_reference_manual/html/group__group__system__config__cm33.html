@@ -124,7 +124,7 @@ Device Initialization</h2>
 <p>Before switching execution to the non-secure application code, the ROM code needs to initialize the stack pointer MSP_NS for the non-secure code. This value is picked form the first entry in the non-secure bootstrap's vector table __ns_vector_table. Once the non-secure stack is initialized, the ROM code will call the non-secure code entry point which is nothing but the Reset_Handler. Address of this function is picked form the second entry in the non-secure vector table __ns_vector_table and type casting it to function pointer.</p>
 <p>In the non-secure Reset_Handler, the vector table is copied to RAM area and then the address of the vector table is set to VTOR register. This calls SystemInit function which internally calls Cy_PDL_Init, Cy_SystemInit and SystemCoreClockUpdate functions. Then it calls C runtime initialization function which calls main function of the application code.</p>
 <p>Below sequence diagram captures the initialization process in the startup code. </p><div class="image">
-<img src="explorer_ns_startup.png"/>
+<img src="cm33_ns_startup.png" alt="cm33_ns_startup.png"/>
 </div>
 <h2><a class="anchor" id="group_system_config_heap_stack_config_cm33"></a>
 Heap and Stack Configuration</h2>

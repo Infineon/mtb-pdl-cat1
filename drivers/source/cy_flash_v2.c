@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash_v2.c
-* \version 1.0
+* \version 3.80
 *
 * \brief
 * Provides the public functions for the API for the Flash Driver.
@@ -1532,6 +1532,37 @@ cy_en_bankmode_t Cy_Flashc_GetMainBankMode(void)
     }
 }
 
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetMain_Flash_Mapping
+****************************************************************************//**
+*
+* \brief Sets mapping for main flash region. Applicable only in Dual Bank mode of Main flash region
+*
+* \param mapping mapping to be set
+*
+* \return none
+*******************************************************************************/
+void Cy_Flashc_SetMain_Flash_Mapping(cy_en_maptype_t mapping)
+{
+    FLASHC_FLASH_CTL &= ~FLASHC_FLASH_CTL_MAIN_MAP_Msk;
+    FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_MAIN_MAP, mapping);
+}
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetWork_Flash_Mapping
+****************************************************************************//**
+*
+* \brief Sets mapping for work flash region. Applicable only in Dual Bank mode of Work flash region
+*
+* \param mapping mapping to be set
+*
+* \return none
+*******************************************************************************/
+void Cy_Flashc_SetWork_Flash_Mapping(cy_en_maptype_t mapping)
+{
+    FLASHC_FLASH_CTL &= ~FLASHC_FLASH_CTL_WORK_MAP_Msk;
+    FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_WORK_MAP, mapping);
+}
 
 #endif // defined(CY_IP_MXFLASHC_VERSION_ECT)
 

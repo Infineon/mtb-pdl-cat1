@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.6.0
+# MTB CAT1 Peripheral Driver Library v3.7.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -8,27 +8,24 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ## Implementation Details
 
-* CAT1B: CYW20829 Enhancements
-* CAT1B: CYW20829 DSRAM support for ARM Compiler
-* CAT1B Defect Fix: For API Cy_WDT_SetIgnoreBits, valid input range is changed to 0-21 for CAT1B devices, this will change the API's behaviour, follow the API documentation and use this API accordingly.
+* CAT1A: Dual Bank Support added in Flash driver for CAT1A. Note that this feature is not supported on PSoC 64 devices.
+* CAT1A: Correction done in the SCB instances of MPN CYBLE-416045-02-device 
+* Personality re-structuring: Personality supporting Schema v8 added. Personalities_8.0 is a copy of ‘personalities’ with needed personalities updated to use schema v8. In order to allow for personalities in a single device support library to be able to control if they are available on the MCU and/or companion-connectivity devices in a design, the ‘Dependencies’ section of the personality file has been expanded. These personalities can specify the required operating mode for the device for it to be valid on it. The valid operating mode values: MCU, COMPANION_CONNECTIVITY. These personalities are available in folder _device-info/personalities_8.0_. Personalities supporting schema v8 are visible in MTB 3.1. For backward compatibility with MTB 3.0, this release will also have older personalities in folder _device-info/personalities_. 
+* Personality fixes: The schema v8 personalities include minor fixes over the personalities with older schema. In future releases, all the personality fixes will be done in schema v8 personalities.
 
 ## Build Changes
 
 ## Personalities Changes
-* Updated Personalities : pilo-3.0.cypersonality, power_v2-1.0.cypersonality
+* Updated Personalities (in 8.0 folder): imo-3.0.cypersonality, eco-3.0.cypersonality
 
 ## Added Drivers
 
 
 ## Updated Drivers
-* [SYSCLK 3.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [CRYPTOLITE 2.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
-* [SYSPM 5.95](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [WDT 1.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__wdt.html)
-
+* [FLASH 3.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
 
 ### Drivers with patch version updates
-* [EFUSE 2.30.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__efuse.html)
+
 
 
 ### Obsoleted part numbers

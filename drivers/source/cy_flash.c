@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.c
-* \version 3.70
+* \version 3.80
 *
 * \brief
 * Provides the public functions for the API for the PSoC 6 Flash Driver.
@@ -1406,6 +1406,123 @@ uint32_t Cy_Flash_GetExternalStatus(void)
 {
     return (flashContext.opcode);
 }
+
+#if (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2))
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetWorkBankMode
+****************************************************************************//**
+*
+* Sets bank mode for work flash
+*
+* mode bank mode to be set
+*
+*******************************************************************************/
+void Cy_Flashc_SetWorkBankMode(cy_en_bankmode_t mode)
+{
+    if(CY_FLASH_DUAL_BANK_MODE == mode)
+    {
+        FLASHC_FLASH_CTL |= FLASHC_V2_FLASH_CTL_WORK_BANK_MODE_Msk;
+    }
+    else
+    {
+        FLASHC_FLASH_CTL &= (uint32_t) ~FLASHC_V2_FLASH_CTL_WORK_BANK_MODE_Msk;
+    }
+}
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_GetWorkBankMode
+****************************************************************************//**
+*
+* Gets current bank mode for work flash
+*
+*******************************************************************************/
+cy_en_bankmode_t Cy_Flashc_GetWorkBankMode(void)
+{
+   uint32_t bank_mode = _FLD2VAL(FLASHC_V2_FLASH_CTL_WORK_BANK_MODE, FLASHC_FLASH_CTL);
+   if(bank_mode == 0UL)
+    {
+        return CY_FLASH_SINGLE_BANK_MODE;
+    }
+    else
+    {
+        return CY_FLASH_DUAL_BANK_MODE;
+    }
+}
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetMainBankMode
+****************************************************************************//**
+*
+*  Sets bank mode for main flash
+*
+*  mode bank mode to be set
+*
+*******************************************************************************/
+void Cy_Flashc_SetMainBankMode(cy_en_bankmode_t mode)
+{
+   if(CY_FLASH_DUAL_BANK_MODE == mode)
+    {
+        FLASHC_FLASH_CTL |= FLASHC_V2_FLASH_CTL_MAIN_BANK_MODE_Msk;
+    }
+    else
+    {
+        FLASHC_FLASH_CTL &= (uint32_t) ~FLASHC_V2_FLASH_CTL_MAIN_BANK_MODE_Msk;
+    }
+}
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_GetMainBankMode
+****************************************************************************//**
+*
+*  Gets current bank mode for main flash
+*
+*******************************************************************************/
+cy_en_bankmode_t Cy_Flashc_GetMainBankMode(void)
+{
+    uint32_t bank_mode = _FLD2VAL(FLASHC_V2_FLASH_CTL_MAIN_BANK_MODE, FLASHC_FLASH_CTL);
+    if(bank_mode == 0UL)
+    {
+        return CY_FLASH_SINGLE_BANK_MODE;
+    }
+    else
+    {
+        return CY_FLASH_DUAL_BANK_MODE;
+    }
+}
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetMain_Flash_Mapping
+****************************************************************************//**
+*
+* \brief Sets mapping for main flash region. Applicable only in Dual Bank mode of Main flash region
+*
+* \param mapping mapping to be set
+*
+* \return none
+*******************************************************************************/
+void Cy_Flashc_SetMain_Flash_Mapping(cy_en_maptype_t mapping)
+{
+    FLASHC_FLASH_CTL &= ~FLASHC_V2_FLASH_CTL_MAIN_MAP_Msk;
+    FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_V2_FLASH_CTL_MAIN_MAP, mapping);
+}
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetWork_Flash_Mapping
+****************************************************************************//**
+*
+* \brief Sets mapping for work flash region. Applicable only in Dual Bank mode of Work flash region
+*
+* \param mapping mapping to be set
+*
+* \return none
+*******************************************************************************/
+void Cy_Flashc_SetWork_Flash_Mapping(cy_en_maptype_t mapping)
+{
+    FLASHC_FLASH_CTL &= ~FLASHC_V2_FLASH_CTL_WORK_MAP_Msk;
+    FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_V2_FLASH_CTL_WORK_MAP, mapping);
+}
+
+#endif /* (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) */
 
 CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
 #endif /* CY_IP_M4CPUSS */

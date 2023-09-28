@@ -20,6 +20,8 @@ var group__group__flash__functions =
     [ "Cy_Flashc_GetWorkBankMode", "group__group__flash__functions.html#ga7a96bc07b10d09564724f39661b5f01c", null ],
     [ "Cy_Flashc_SetMainBankMode", "group__group__flash__functions.html#gaba1e7ca437a12c0df27007de2f3768b8", null ],
     [ "Cy_Flashc_GetMainBankMode", "group__group__flash__functions.html#ga95483efb2b8e1c38ec6b6f990f15c5e9", null ],
+    [ "Cy_Flashc_SetMain_Flash_Mapping", "group__group__flash__functions.html#ga61b907d56c35da075b1353f9f53ea0cc", null ],
+    [ "Cy_Flashc_SetWork_Flash_Mapping", "group__group__flash__functions.html#ga383d2ae70270ed056e50d72cc81cd4d3", null ],
     [ "Cy_Flash_EraseRow", "group__group__flash__functions.html#ga6b9753a9fca6ebea833cbc4af7f0d681", null ],
     [ "Cy_Flash_StartEraseRow", "group__group__flash__functions.html#ga36c8da8da155cd73eaf3359f3f81af02", null ],
     [ "Cy_Flash_EraseSubsector", "group__group__flash__functions.html#gadb9cf4bec4ce4202604823cf0feb70ac", null ],

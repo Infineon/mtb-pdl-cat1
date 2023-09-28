@@ -1,5 +1,13 @@
 var NAVTREEINDEX29 =
 {
+"group__group__trigmux__red__in__enums.html":[4,47,2,0,0],
+"group__group__trigmux__red__in__enums.html#ga12c31375190bc0514087329459a98c75":[4,47,2,0,0,0],
+"group__group__trigmux__red__in__enums.html#ga28f2e8d127108d1e6c0b28a3dbae8952":[4,47,2,0,0,3],
+"group__group__trigmux__red__in__enums.html#ga4371dee9d2673a49cd958fa20d80ea57":[4,47,2,0,0,2],
+"group__group__trigmux__red__in__enums.html#ga6235aceb9decb5b4a876258fd493ca55":[4,47,2,0,0,4],
+"group__group__trigmux__red__in__enums.html#ga94e34b021e546998b3652898e741d749":[4,47,2,0,0,5],
+"group__group__trigmux__red__in__enums.html#ga986ffa0c3771f4d50a6dd56f08715e38":[4,47,2,0,0,1],
+"group__group__trigmux__red__out__enums.html":[4,47,2,0,1],
 "group__group__trigmux__red__out__enums.html#ga4575cc74a26d492459a7c64585d71e8d":[4,47,2,0,1,2],
 "group__group__trigmux__red__out__enums.html#ga47c65d0dba7e53d53ea15b427299cb71":[4,47,2,0,1,1],
 "group__group__trigmux__red__out__enums.html#gab62578d32fbe9b3db527cadb62fc7b83":[4,47,2,0,1,4],
@@ -241,13 +249,5 @@ var NAVTREEINDEX29 =
 "struct_t_c_p_w_m___type.html":[4,45,0,2,0],
 "structcy__en__canfd__fifo__config__t.html":[4,3,2,15],
 "structcy__en__canfd__fifo__config__t.html#a182249c9eb66def21e9163229580be84":[4,3,2,15,2],
-"structcy__en__canfd__fifo__config__t.html#aaba082750410c1baed2f939fe0dacf89":[4,3,2,15,1],
-"structcy__en__canfd__fifo__config__t.html#acf2f42d5327a4bd343d0b5bb0a80d444":[4,3,2,15,3],
-"structcy__en__canfd__fifo__config__t.html#af31f828a227fa2050eb5f85f1a1560b0":[4,3,2,15,0],
-"structcy__stc___sys_fault__t.html":[4,40,2,0],
-"structcy__stc___sys_fault__t.html#a27254af68e1ff952a603516824007ebd":[4,40,2,0,1],
-"structcy__stc___sys_fault__t.html#a2a471babc64bc486f46e0ce47e7b9ed6":[4,40,2,0,0],
-"structcy__stc___sys_fault__t.html#a4918fb6fa6c96bcc62b0e7332eb68903":[4,40,2,0,2],
-"structcy__stc__adcmic__biquad__config__t.html":[4,1,2,1],
-"structcy__stc__adcmic__biquad__config__t.html#a0199d1529933b8ff92d6a3a4d5b8b59b":[4,1,2,1,8]
+"structcy__en__canfd__fifo__config__t.html#aaba082750410c1baed2f939fe0dacf89":[4,3,2,15,1]
 };

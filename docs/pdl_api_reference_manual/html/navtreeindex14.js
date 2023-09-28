@@ -1,5 +1,13 @@
 var NAVTREEINDEX14 =
 {
+"group__group__sar__functions.html#ga4da8c284be6d652454bd35c8a07d22c5":[4,31,1,10],
+"group__group__sar__functions.html#ga8b1d25e53ea0afb54c136e03780f839b":[4,31,1,12],
+"group__group__sar__functions.html#ga939ae97436fb8ca44e6f61554d361101":[4,31,1,11],
+"group__group__sar__functions__basic.html":[4,31,1,0],
+"group__group__sar__functions__basic.html#ga09f2185e586c580e622a252580793a25":[4,31,1,0,3],
+"group__group__sar__functions__basic.html#ga1397031ccf2c1f8a5a95a77f9362e1d1":[4,31,1,0,5],
+"group__group__sar__functions__basic.html#ga397abcd1a595c0846971769a8fe2d564":[4,31,1,0,10],
+"group__group__sar__functions__basic.html#ga4b8bb939483fac5768910156075d4264":[4,31,1,0,2],
 "group__group__sar__functions__basic.html#ga5c053a77ca29519ca29da56da7eaeebe":[4,31,1,0,0],
 "group__group__sar__functions__basic.html#ga5d7a3489629382b1e46477c034bbb2d0":[4,31,1,0,7],
 "group__group__sar__functions__basic.html#ga65876b1a551f1d189b4abcdb24ff82fa":[4,31,1,0,1],
@@ -241,13 +249,5 @@ var NAVTREEINDEX14 =
 "group__group__scb__common__macros.html#ga151ae77db4fc084055c0fd3abaa2c677":[4,33,0,0,12],
 "group__group__scb__common__macros.html#ga3b69cded7913c23737b78d8728e7a3be":[4,33,0,0,10],
 "group__group__scb__common__macros.html#ga70d5fa77cf7e42bf5b5c19f0761454ed":[4,33,0,0,8],
-"group__group__scb__common__macros.html#ga9542eb5bb86deb8c5b229f503766d91b":[4,33,0,0,11],
-"group__group__scb__common__macros.html#gab50a7b4a1b916c7ecfcc38ac8d5fdea0":[4,33,0,0,9],
-"group__group__scb__common__macros.html#gac3e63ee1464db3c202e3474f54e1ab94":[4,33,0,0,14],
-"group__group__scb__common__macros.html#gaeeb6adf88a24d31476f0cd19c7403af5":[4,33,0,0,13],
-"group__group__scb__common__macros___spi_intr_statuses.html":[4,33,0,0,6],
-"group__group__scb__common__macros___spi_intr_statuses.html#gadf0b2f19c9e0e81d64be7e852c31c4aa":[4,33,0,0,6,0],
-"group__group__scb__common__macros__i2c__intr.html":[4,33,0,0,5],
-"group__group__scb__common__macros__i2c__intr.html#gaf212f54c911e5c5b31f0b311f5730b40":[4,33,0,0,5,0],
-"group__group__scb__common__macros__intr__cause.html":[4,33,0,0,0]
+"group__group__scb__common__macros.html#ga9542eb5bb86deb8c5b229f503766d91b":[4,33,0,0,11]
 };

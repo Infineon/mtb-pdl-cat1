@@ -1,5 +1,13 @@
 var NAVTREEINDEX22 =
 {
+"group__group__sysclk__clk__timer__funcs.html#ga37599d3c7ed1d0433565e4ce66351bcc":[4,39,20,0,3],
+"group__group__sysclk__clk__timer__funcs.html#ga3c024720aee53bd450eb68377a35bbf6":[4,39,20,0,4],
+"group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829":[4,39,20,0,0],
+"group__group__sysclk__clk__timer__funcs.html#ga47723df14931fa6403b7d3948dec3857":[4,39,20,0,2],
+"group__group__sysclk__clk__timer__funcs.html#gaa442df3e80e5c2dc763508731b155876":[4,39,20,0,5],
+"group__group__sysclk__clk__timer__funcs.html#gaa9fa2ca0beada63a72bdc86dae9e5896":[4,39,20,0,7],
+"group__group__sysclk__eco.html":[4,39,3],
+"group__group__sysclk__eco__enums.html":[4,39,3,1],
 "group__group__sysclk__eco__funcs.html":[4,39,3,0],
 "group__group__sysclk__eco__funcs.html#ga392db1f8d8504409017a3fedb95b8ee2":[4,39,3,0,3],
 "group__group__sysclk__eco__funcs.html#ga4ff4c716a35e5077d000120d0994ad7b":[4,39,3,0,0],
@@ -241,13 +249,5 @@ var NAVTREEINDEX22 =
 "group__group__sysfault__macros.html#ga2b8fd076f3cd8691de7e5374d63ce10a":[4,40,0,0],
 "group__group__sysfault__macros.html#ga97c547e7d5df8fa524f9d924229c16f7":[4,40,0,1],
 "group__group__sysint.html":[4,41],
-"group__group__sysint__data__structures.html":[4,41,3],
-"group__group__sysint__enums.html":[4,41,4],
-"group__group__sysint__enums.html#ga01619b224f9d5c23915e51783ea184c8":[4,41,4,2],
-"group__group__sysint__enums.html#ga07f7e918a4abcd8e1da910e9642e6ccb":[4,41,4,3],
-"group__group__sysint__enums.html#ga7e1129cd8a196f4284d41db3e82ad5c8":[4,41,4,1],
-"group__group__sysint__enums.html#ga8010dee187715cab833c8564fccedc20":[4,41,4,0],
-"group__group__sysint__enums.html#gga01619b224f9d5c23915e51783ea184c8ad832bf40b083bde34b586c79fbc11270":[4,41,4,2,1],
-"group__group__sysint__enums.html#gga01619b224f9d5c23915e51783ea184c8af7db469e7f8cd5cb7917d1324005eb89":[4,41,4,2,0],
-"group__group__sysint__enums.html#gga07f7e918a4abcd8e1da910e9642e6ccba78887a60dfeccd3c9cc5c2fd2eba2f34":[4,41,4,3,2]
+"group__group__sysint__data__structures.html":[4,41,3]
 };

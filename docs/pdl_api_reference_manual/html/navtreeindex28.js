@@ -1,5 +1,13 @@
 var NAVTREEINDEX28 =
 {
+"group__group__tcpwm__pwm__status.html#ga30aa30ef821418b4e8f6df4bc8cead91":[4,45,2,0,8,2],
+"group__group__tcpwm__pwm__status.html#gac28b67391ec51fe3b8f4fbecd1b85508":[4,45,2,0,8,0],
+"group__group__tcpwm__pwm__status.html#gac593946986fb3fa4eefff715136be1d4":[4,45,2,0,8,1],
+"group__group__tcpwm__quaddec.html":[4,45,3],
+"group__group__tcpwm__quaddec__capture__mode.html":[4,45,3,0,2],
+"group__group__tcpwm__quaddec__capture__mode.html#ga2cb469576a865808359b94472212fdb1":[4,45,3,0,2,1],
+"group__group__tcpwm__quaddec__capture__mode.html#gadba620a2c63dd73dbaecaac505b65ae3":[4,45,3,0,2,0],
+"group__group__tcpwm__quaddec__mode.html":[4,45,3,0,0],
 "group__group__tcpwm__quaddec__mode.html#ga1bde5608416e3470da46565196e2f2e3":[4,45,3,0,0,0],
 "group__group__tcpwm__quaddec__mode.html#ga9ffa391176e0e8461921b3ad21f43315":[4,45,3,0,0,1],
 "group__group__tcpwm__quaddec__mode.html#gabeed5586b7a7ca17b952a77288939851":[4,45,3,0,0,2],
@@ -241,13 +249,5 @@ var NAVTREEINDEX28 =
 "group__group__trigmux__out__enums.html#gab2ae3f7239f51084541d2c7b36741f8f":[4,47,2,3,1],
 "group__group__trigmux__out__enums.html#gadaaa85478707dbd42cb9defa95e01af6":[4,47,2,3,4],
 "group__group__trigmux__out__enums.html#gae053a6b0e446f2f40154db38ddb01f1d":[4,47,2,3,2],
-"group__group__trigmux__red__enums.html":[4,47,2,0],
-"group__group__trigmux__red__in__enums.html":[4,47,2,0,0],
-"group__group__trigmux__red__in__enums.html#ga12c31375190bc0514087329459a98c75":[4,47,2,0,0,0],
-"group__group__trigmux__red__in__enums.html#ga28f2e8d127108d1e6c0b28a3dbae8952":[4,47,2,0,0,3],
-"group__group__trigmux__red__in__enums.html#ga4371dee9d2673a49cd958fa20d80ea57":[4,47,2,0,0,2],
-"group__group__trigmux__red__in__enums.html#ga6235aceb9decb5b4a876258fd493ca55":[4,47,2,0,0,4],
-"group__group__trigmux__red__in__enums.html#ga94e34b021e546998b3652898e741d749":[4,47,2,0,0,5],
-"group__group__trigmux__red__in__enums.html#ga986ffa0c3771f4d50a6dd56f08715e38":[4,47,2,0,0,1],
-"group__group__trigmux__red__out__enums.html":[4,47,2,0,1]
+"group__group__trigmux__red__enums.html":[4,47,2,0]
 };

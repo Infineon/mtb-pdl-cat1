@@ -147,6 +147,22 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gae3ceedae602af2dd75864cf38246f496"><td class="mdescLeft">&#160;</td><td class="mdescRight">This enum has the return values of the Flash driver.  <a href="group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gae3ceedae602af2dd75864cf38246f496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b49a26d6a69b3f5100da484c7566446"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__enumerated__types.html#ga2b49a26d6a69b3f5100da484c7566446">cy_en_bankmode_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#gga2b49a26d6a69b3f5100da484c7566446a25788d8acf76335ea1eea7244c71b5cb">CY_FLASH_SINGLE_BANK_MODE</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#gga2b49a26d6a69b3f5100da484c7566446af721d88c620ecc22a21e8124a64e3ec2">CY_FLASH_DUAL_BANK_MODE</a> = 1U
+<br />
+ }<tr class="memdesc:ga2b49a26d6a69b3f5100da484c7566446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash Dual bank mode configuration.  <a href="group__group__flash__enumerated__types.html#ga2b49a26d6a69b3f5100da484c7566446">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga2b49a26d6a69b3f5100da484c7566446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga977f3c56b8510500b008063d8cc5e543"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__enumerated__types.html#ga977f3c56b8510500b008063d8cc5e543">cy_en_maptype_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#gga977f3c56b8510500b008063d8cc5e543a79ae35280549cd91fc4893c4c7597c74">CY_FLASH_MAPPING_A</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#gga977f3c56b8510500b008063d8cc5e543aa31b22aab7b2f5c6982caf5eea711b45">CY_FLASH_MAPPING_B</a> = 1U
+<br />
+ }<tr class="memdesc:ga977f3c56b8510500b008063d8cc5e543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash Dual bank mode Mapping configuration.  <a href="group__group__flash__enumerated__types.html#ga977f3c56b8510500b008063d8cc5e543">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga977f3c56b8510500b008063d8cc5e543"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0c1a15e58947caee9ca19fb13208437f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__enumerated__types.html#ga0c1a15e58947caee9ca19fb13208437f">cy_en_flash_programrow_datasize_t</a> { <br />
 &#160;&#160;<a class="el" href="group__group__flash__enumerated__types.html#gga0c1a15e58947caee9ca19fb13208437fa99ad8f87adfd7cd1904977c278e9dc35">CY_FLASH_PROGRAMROW_DATA_SIZE_8BIT</a> = (0x00UL), 
 <br />
@@ -335,6 +351,50 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a69649db27a5846b1ea5ef4aa13671eae"></a>CY_FLASH_DRV_SECTOR_SUSPEND&#160;</td><td class="fielddoc"><p>Returned when Program operation is called on sector which is suspended from erase (SROM STATUS CODE: 0xF0000091) </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggae3ceedae602af2dd75864cf38246f496a0dd6e04b5ebc9674697ace8969cb4e73"></a>CY_FLASH_DRV_SROM_API_TIMEOUT&#160;</td><td class="fielddoc"><p>Time out happens after calling srom API driver. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga2b49a26d6a69b3f5100da484c7566446"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2b49a26d6a69b3f5100da484c7566446">&#9670;&nbsp;</a></span>cy_en_bankmode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__flash__enumerated__types.html#ga2b49a26d6a69b3f5100da484c7566446">cy_en_bankmode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flash Dual bank mode configuration. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga2b49a26d6a69b3f5100da484c7566446a25788d8acf76335ea1eea7244c71b5cb"></a>CY_FLASH_SINGLE_BANK_MODE&#160;</td><td class="fielddoc"><p>Single Bank Mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga2b49a26d6a69b3f5100da484c7566446af721d88c620ecc22a21e8124a64e3ec2"></a>CY_FLASH_DUAL_BANK_MODE&#160;</td><td class="fielddoc"><p>Dual Bank Mode. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga977f3c56b8510500b008063d8cc5e543"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga977f3c56b8510500b008063d8cc5e543">&#9670;&nbsp;</a></span>cy_en_maptype_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__flash__enumerated__types.html#ga977f3c56b8510500b008063d8cc5e543">cy_en_maptype_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flash Dual bank mode Mapping configuration. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga977f3c56b8510500b008063d8cc5e543a79ae35280549cd91fc4893c4c7597c74"></a>CY_FLASH_MAPPING_A&#160;</td><td class="fielddoc"><p>Mapping A. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga977f3c56b8510500b008063d8cc5e543aa31b22aab7b2f5c6982caf5eea711b45"></a>CY_FLASH_MAPPING_B&#160;</td><td class="fielddoc"><p>Mapping B. </p>
 </td></tr>
 </table>
 

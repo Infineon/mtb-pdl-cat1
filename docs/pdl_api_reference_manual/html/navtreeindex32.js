@@ -1,5 +1,13 @@
 var NAVTREEINDEX32 =
 {
+"structcy__stc__ethif__mac__config__t.html#a3589274834f6989f91303380121b779a":[4,12,2,9,21],
+"structcy__stc__ethif__mac__config__t.html#a3e0fe83a65a60e96e4f2d9ecb8af329f":[4,12,2,9,10],
+"structcy__stc__ethif__mac__config__t.html#a3edcd93a3928cd02d9226e2534df0470":[4,12,2,9,1],
+"structcy__stc__ethif__mac__config__t.html#a4dc190233f2228c8461ec0e775693cc2":[4,12,2,9,15],
+"structcy__stc__ethif__mac__config__t.html#a528d9c87aeba3d10e39a179337929a36":[4,12,2,9,6],
+"structcy__stc__ethif__mac__config__t.html#a638e0ac00c462a4260b07768b49a7631":[4,12,2,9,0],
+"structcy__stc__ethif__mac__config__t.html#a77b1955b1d393f316d608446472a033c":[4,12,2,9,19],
+"structcy__stc__ethif__mac__config__t.html#a9d5cad156d1011eecf94cfd0d16ada9e":[4,12,2,9,14],
 "structcy__stc__ethif__mac__config__t.html#a9dad12f393ec758b69561da3734c98c5":[4,12,2,9,23],
 "structcy__stc__ethif__mac__config__t.html#ab0f6001cd74d9cc8778b7b72a6f5ff6f":[4,12,2,9,5],
 "structcy__stc__ethif__mac__config__t.html#ab16be6f2d24b6308b1c7aee7f9d7734a":[4,12,2,9,7],
@@ -241,13 +249,5 @@ var NAVTREEINDEX32 =
 "structcy__stc__ipc__msg__short__t.html#a9089ad9d208838e29d1a797bca10f067":[4,18,3,2,2,5],
 "structcy__stc__ipc__msg__short__t.html#a9533b68b1a8a747e579a2e968cf4d259":[4,18,3,2,2,0],
 "structcy__stc__ipc__msg__short__t.html#aa19be0c14f3394c731589a2711bf72f2":[4,18,3,2,2,1],
-"structcy__stc__ipc__msg__short__t.html#ace5f95ff37248bf61e3fcff82f2f8697":[4,18,3,2,2,4],
-"structcy__stc__ipc__msg__short__t.html#acf0ffac858fa62c9451b2aea740521e9":[4,18,3,2,2,3],
-"structcy__stc__ipc__msg__short__t.html#afa10a3bcdb4c559605164005e3899d59":[4,18,3,2,2,2],
-"structcy__stc__ipc__pipe__config__t.html":[4,18,2,2,3],
-"structcy__stc__ipc__pipe__config__t.html#a9027c672e8ad600c381c33feecf10e94":[4,18,2,2,3,3],
-"structcy__stc__ipc__pipe__config__t.html#a9d8f58b169ab2e50427ece461550d22c":[4,18,2,2,3,2],
-"structcy__stc__ipc__pipe__config__t.html#ac585fb98c4029e06b8153e4e5d64f165":[4,18,2,2,3,0],
-"structcy__stc__ipc__pipe__config__t.html#aec89378774fd910f4037abf56114d868":[4,18,2,2,3,4],
-"structcy__stc__ipc__pipe__config__t.html#aefa7a75db152315e2e3e3ae46820a4ce":[4,18,2,2,3,1]
+"structcy__stc__ipc__msg__short__t.html#ace5f95ff37248bf61e3fcff82f2f8697":[4,18,3,2,2,4]
 };

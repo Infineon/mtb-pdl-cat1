@@ -1,5 +1,13 @@
 var NAVTREEINDEX15 =
 {
+"group__group__scb__common__macros.html#gab50a7b4a1b916c7ecfcc38ac8d5fdea0":[4,33,0,0,9],
+"group__group__scb__common__macros.html#gac3e63ee1464db3c202e3474f54e1ab94":[4,33,0,0,14],
+"group__group__scb__common__macros.html#gaeeb6adf88a24d31476f0cd19c7403af5":[4,33,0,0,13],
+"group__group__scb__common__macros___spi_intr_statuses.html":[4,33,0,0,6],
+"group__group__scb__common__macros___spi_intr_statuses.html#gadf0b2f19c9e0e81d64be7e852c31c4aa":[4,33,0,0,6,0],
+"group__group__scb__common__macros__i2c__intr.html":[4,33,0,0,5],
+"group__group__scb__common__macros__i2c__intr.html#gaf212f54c911e5c5b31f0b311f5730b40":[4,33,0,0,5,0],
+"group__group__scb__common__macros__intr__cause.html":[4,33,0,0,0],
 "group__group__scb__common__macros__intr__cause.html#ga1e7d3f256737c7b3fb49d7c724ff4830":[4,33,0,0,0,4],
 "group__group__scb__common__macros__intr__cause.html#ga2a726fb94c754f042539cdb9265231f4":[4,33,0,0,0,5],
 "group__group__scb__common__macros__intr__cause.html#ga5d901d6c4bef30176cd6ae517fb44dd5":[4,33,0,0,0,3],
@@ -241,13 +249,5 @@ var NAVTREEINDEX15 =
 "group__group__scb__spi__high__level__functions.html#ga31e7821f7edc301ea6cf195da3c51498":[4,33,3,1,1,1],
 "group__group__scb__spi__high__level__functions.html#ga6fdbb98ef7faddc5025fab510fb1617e":[4,33,3,1,1,0],
 "group__group__scb__spi__high__level__functions.html#ga95069817e25be749ae989e5d7131f8d0":[4,33,3,1,1,2],
-"group__group__scb__spi__interrupt__functions.html":[4,33,3,1,3],
-"group__group__scb__spi__interrupt__functions.html#ga0adeb497479d79c9ecea8169cfaff114":[4,33,3,1,3,0],
-"group__group__scb__spi__interrupt__functions.html#ga5594391e0d6a0b020355761826de2e78":[4,33,3,1,3,1],
-"group__group__scb__spi__low__level__functions.html":[4,33,3,1,2],
-"group__group__scb__spi__low__level__functions.html#ga085a0e7fb73b9feb3b66ca5017449e6b":[4,33,3,1,2,10],
-"group__group__scb__spi__low__level__functions.html#ga169c313a3508261fa76e6b6600cce726":[4,33,3,1,2,0],
-"group__group__scb__spi__low__level__functions.html#ga399842a2931b7c6cd85446a72cc2f81b":[4,33,3,1,2,12],
-"group__group__scb__spi__low__level__functions.html#ga50acb3879906a729e5821fcc87d4f017":[4,33,3,1,2,7],
-"group__group__scb__spi__low__level__functions.html#ga6899c2b1dd9f868a7fb625b03a7ee594":[4,33,3,1,2,4]
+"group__group__scb__spi__interrupt__functions.html":[4,33,3,1,3]
 };
