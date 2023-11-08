@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('structcy__stc__mcwdt__config__t.html',
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <div class="textblock"><p>The MCWDT component configuration structure. </p>
-<dl class="section note"><dt>Note</dt><dd>Below structure variables are available for CAT1A, CAT1B and CAT1D devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Below structure variables are available for CAT1A (except TVIIBE), CAT1B and CAT1D devices. </dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
@@ -225,7 +225,7 @@ Data Fields</h2></td></tr>
 
 <p>The sub-counter#0 lower limit value, for reset or fault. </p>
 <p>Lower limit for sub-counter 0 of this MCWDT.</p>
-<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C devices</p>
+<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C and TVIIBE devices</p>
 <p>Range: 0 - 65535. Only for CAT1B devices </p>
 
 </div>
@@ -243,7 +243,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 upper limit value, for reset or fault. </p>
-<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C devices </p>
+<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -260,7 +260,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 warn limit value, for interrupt. </p>
-<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C devices </p>
+<p>Range: 0 - 65535 for c0AutoService = 0 and 1 - 65535 for c0AutoService = 1. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -277,7 +277,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 action. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C devices </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -294,7 +294,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 action. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C devices </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -311,7 +311,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 warn action. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a>. Only for CAT1C devices </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a>. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -328,7 +328,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 Auto Service parameter enabled/disabled. </p>
-<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+<p>Range: FALSE - TRUE. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -345,7 +345,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 Auto Service parameter enabled/disabled. </p>
-<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+<p>Range: FALSE - TRUE. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -362,7 +362,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 Auto Service parameter enabled/disabled. </p>
-<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+<p>Range: FALSE - TRUE. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -380,7 +380,7 @@ Data Fields</h2></td></tr>
 
 <p>The sub-counter#0 lower limit value, for reset or fault. </p>
 <p>Lower limit for sub-counter 0 of this MCWDT.</p>
-<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C devices</p>
+<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C and TVIIBE devices</p>
 <p>Range: 0 - 65535. Only for CAT1B devices </p>
 
 </div>
@@ -398,7 +398,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 upper limit value, for reset or fault. </p>
-<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C devices </p>
+<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -415,7 +415,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#0 warn limit value, for interrupt. </p>
-<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C devices </p>
+<p>Range: 0 - 65535 for c1AutoService = 0 and 1 - 65535 for c1AutoService = 1. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -432,7 +432,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#1 action. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C devices </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -449,7 +449,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#1 action. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C devices </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga57fd8960981e53e849e7c7bcf2b85797">cy_en_mcwdt_lower_upper_action_t</a>. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -466,7 +466,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#1 warn action. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a>. Only for CAT1C devices </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#ga58533cd6bd007e9a966e0c22ec228c67">cy_en_mcwdt_warn_action_t</a>. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -483,7 +483,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#1 Auto Service parameter enabled/disabled. </p>
-<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+<p>Range: FALSE - TRUE. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -500,7 +500,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#1 Auto Service parameter enabled/disabled. </p>
-<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+<p>Range: FALSE - TRUE. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -517,7 +517,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#1 Auto Service parameter enabled/disabled. </p>
-<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+<p>Range: FALSE - TRUE. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -534,7 +534,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#2 Period / Toggle Bit value. </p>
-<p>Only for CAT1C devices </p>
+<p>Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -551,7 +551,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#2 mode. </p>
-<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#gad2667a60c671e6f199cdbf47cf2fbeaf">cy_en_mcwdt_cnt2_action_t</a>. Only for CAT1C devices </p>
+<p>It can have the following values: <a class="el" href="group__group__mcwdt__enums.html#gad2667a60c671e6f199cdbf47cf2fbeaf">cy_en_mcwdt_cnt2_action_t</a>. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -568,7 +568,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#2 Auto Service parameter enabled/disabled. </p>
-<p>Range: FALSE - TRUE. Only for CAT1C devices </p>
+<p>Range: FALSE - TRUE. Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -585,7 +585,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The sub-counter#2 Auto Service parameter enabled/disabled. </p>
-<p>Only for CAT1C devices </p>
+<p>Only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>
@@ -602,7 +602,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Selecting the the core. </p>
-<p>The DeepSleep of the core pauses this MCWDT counter Only for CAT1C devices </p>
+<p>The DeepSleep of the core pauses this MCWDT counter only for CAT1C and TVIIBE devices </p>
 
 </div>
 </div>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.c
-* \version 1.90
+* \version 1.100
 *
 * Provides an API implementation of the GPIO driver
 *
@@ -1740,7 +1740,7 @@ uint32_t Cy_GPIO_GetVtrip(GPIO_PRT_Type* base, uint32_t pinNum)
     return (tempReg >> pinNum) & CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK;
 }
 
-#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U)) || defined(CY_IP_MXS40SIOSS_VERSION) || defined (CY_DOXYGEN)
+#if (defined (GPIO_AUTOLVL_AVAIL) || defined (CY_DOXYGEN))
 /*******************************************************************************
 * Function Name: Cy_GPIO_SetVtripAuto
 ****************************************************************************//**
@@ -1762,8 +1762,10 @@ uint32_t Cy_GPIO_GetVtrip(GPIO_PRT_Type* base, uint32_t pinNum)
 * not thread safe as the resource is shared among multiple pins on a port.
 *
 * \note
-* This API is available for CAT1B and CAT1C devices.
+* This API is available for CAT1B and CAT1C devices. TVIIBE also supports this functionality.
 *
+* \funcusage
+* \snippet gpio/snippet/main.c snippet_Cy_GPIO_SetVtripSel
 *******************************************************************************/
 void Cy_GPIO_SetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 {
@@ -1777,7 +1779,6 @@ void Cy_GPIO_SetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     vtripSel = tempReg | ((value & CY_GPIO_CFG_IN_VTRIP_SEL_1_MASK) << pinNum);
     GPIO_PRT_CFG_IN_AUTOLVL(base) = vtripSel;
 }
-
 
 /*******************************************************************************
 * Function Name: Cy_GPIO_GetVtripAuto
@@ -1809,7 +1810,8 @@ uint32_t Cy_GPIO_GetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum)
 
     return (tempReg >> pinNum) & CY_GPIO_CFG_IN_VTRIP_SEL_1_MASK;
 }
-#endif /* CY_IP_MXS40IOSS_VERSION */
+#endif /* AUTOLVL_AVAIL */
+
 /*******************************************************************************
 * Function Name: Cy_GPIO_SetSlewRate
 ****************************************************************************//**

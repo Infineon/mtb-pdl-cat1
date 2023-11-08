@@ -29,7 +29,7 @@
 
 <Personality id="mcwdt_v2" name="Multi-counter watchdog" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss_ver3" />
+    <IpBlock name="mxs40srss_ver2,mxs40srss_ver3" />
     <Resource name="srss\.mcwdt" />
   </Dependencies>
   <ExposedMembers />
@@ -104,7 +104,8 @@
 	<ParamChoice id="CoreSelect" name="MCWDT Core Select" group="Common" default="CY_MCWDT_PAUSED_BY_NO_CORE" visible="true" editable="true" desc="Select which core the current MCWDT needs to allocated.">
       <Entry name="No Core" value="CY_MCWDT_PAUSED_BY_NO_CORE" visible="true" />
       <Entry name="CM0" value="CY_MCWDT_PAUSED_BY_DPSLP_CM0" visible="true" />
-      <Entry name="CM7_0" value="CY_MCWDT_PAUSED_BY_DPSLP_CM7_0" visible="true" />
+      <Entry name="CM4" value="CY_MCWDT_PAUSED_BY_DPSLP_CM4" visible="`${hasCore(&quot;CORE_NAME_CM4_0&quot;)}`" />
+      <Entry name="CM7_0" value="CY_MCWDT_PAUSED_BY_DPSLP_CM7_0" visible="`${hasCore(&quot;CORE_NAME_CM7_0&quot;)}`" />
       <Entry name="CM7_1" value="CY_MCWDT_PAUSED_BY_DPSLP_CM7_1" visible="`${hasCore(&quot;CORE_NAME_CM7_1&quot;)}`" />
     </ParamChoice>
 	

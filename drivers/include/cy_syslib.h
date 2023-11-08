@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.40
+* \version 3.50
 *
 * Provides an API declaration of the SysLib driver.
 *
@@ -118,6 +118,13 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.50</td>
+*     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
+*          Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1.</td>
+*          Some pre-processor checks for if the device has a CM4 now also require device to not be HT_Variant to exclude TVIIBE and CAT1C devices.</td>
+*     <td>Code enhancement and support for new devices.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">3.40</td>
 *     <td>
@@ -585,7 +592,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    40
+#define CY_SYSLIB_DRV_VERSION_MINOR    50
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN
@@ -848,10 +855,11 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
 /** The reset has occurred on a wakeup from Hibernate power mode. */
 #define CY_SYSLIB_RESET_HIB_WAKEUP      (0x80000000U)
 
-#ifdef CY_IP_M7CPUSS
+
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 /**
 * \note
-* Below macro are available for devices having CY_IP_M7CPUSS IP.
+* Below macros are available for devices having CY_IP_MXS40SRSS_VERSION greater than or equal to 2.
 **/
 /** External XRES pin was asserted. This is a high-voltage cause bit that blocks recording of other high-voltage cause bits, except RESET_PORVDDD. */
 #define CY_SYSLIB_RESET_XRES             (0x10000U)
@@ -1150,7 +1158,8 @@ void Cy_SysLib_SoftResetCM4(void);
 #endif /* CY_CPU_CORTEX_M0P */
 #endif
 
-#if defined(CY_IP_M4CPUSS) || (defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE)) || defined (CY_DOXYGEN)
+#if (defined(CY_IP_M4CPUSS) && !(defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u))) || \
+    (defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE)) || defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_SysLib_GetUniqueId
@@ -1328,7 +1337,7 @@ __STATIC_INLINE cy_en_syslib_status_t Cy_SysLib_GetResetStatus (void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_SysLib_GetWcoTrim (void)
 {
-#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3)
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)
     return 0;
 #else
     return (BACKUP_TRIM & BACKUP_TRIM_TRIM_Msk);
@@ -1353,7 +1362,7 @@ __STATIC_INLINE uint32_t Cy_SysLib_GetWcoTrim (void)
 __STATIC_INLINE void Cy_SysLib_SetWcoTrim (uint32_t wcoTrim)
 {
     CY_UNUSED_PARAMETER(wcoTrim);
-#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3))
+#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS28SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2))
     BACKUP_TRIM = wcoTrim & BACKUP_TRIM_TRIM_Msk;
 #endif
 }

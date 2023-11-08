@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.h
-* \version 3.80
+* \version 3.90
 *
 * Provides the API declarations of the Flash driver.
 *
@@ -251,6 +251,14 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>3.90</td>
+*     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
+*       Updated pre-processor check to only include code if ECT flash is not used.<br>
+*       In cy_flash_srom, changed pre-processor checks from using CM7 availability to using MXFLASHC ver. to determine flash hardware availability.<br>
+*       In cy_flash_srom, added interrupt compatibility for CM4 devices.</td>
+*     <td>Code enhancement and support for new devices.</td>
+*   </tr> 
+*   <tr>
 *     <td>3.80</td>
 *     <td>Dual bank support added for CAT1A devices.</td>
 *     <td>Newly added APIs \ref Cy_Flashc_SetMain_Flash_Mapping , \ref Cy_Flashc_SetWork_Flash_Mapping for CAT1A and CAT1C devices.</td>
@@ -430,7 +438,7 @@ extern "C" {
 #define CY_FLASH_DRV_VERSION_MAJOR       3
 
 /** Driver minor version */
-#define CY_FLASH_DRV_VERSION_MINOR       80
+#define CY_FLASH_DRV_VERSION_MINOR       90
 
 #define CY_FLASH_ID               (CY_PDL_DRV_ID(0x14UL))                          /**< FLASH PDL ID */
 

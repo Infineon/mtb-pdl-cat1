@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.c
-* \version 5.95
+* \version 5.100
 *
 * This driver provides the source code for API power management.
 *
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 1)
 
 #include "cy_syspm.h"
 #include "cy_ipc_drv.h"

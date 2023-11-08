@@ -30,7 +30,7 @@
 
 <Personality id="timerclk" name="CLK_TIMER" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,mxs22srss" />
+    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,mxs22srss,mxs40srss_ver2" />
     <Resource name="srss\.clock\.timerclk" />
   </Dependencies>
   <ExposedMembers>

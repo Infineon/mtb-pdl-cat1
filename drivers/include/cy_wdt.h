@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_wdt.h
-* \version 1.70
+* \version 1.80
 *
 *  This file provides constants and parameter values for the WDT driver.
 *
@@ -190,6 +190,12 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.80</td>
+*     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
+*          MXS40SRSS_VERSION compares now expect &lt; or &gt;= 2, previously 3.</td>
+*     <td>Code enhancement and support for new devices.</td>
+*   </tr>
+*   <tr>
 *     <td>1.70</td>
 *     <td>For API Cy_WDT_SetIgnoreBits, valid input range is changed to 0-21 for CAT1B devices, this will change the API's behaviour, follow the API documentation and use this API accordingly.<br>
           Added \ref Cy_WDT_ResetCounter new API and few macros.<br>
@@ -332,9 +338,9 @@ extern "C" {
 #define CY_WDT_DRV_VERSION_MAJOR                       1
 
 /** The driver minor version */
-#define CY_WDT_DRV_VERSION_MINOR                       70
+#define CY_WDT_DRV_VERSION_MINOR                       80
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 /** The internal define for the first iteration of WDT unlocking */
 #define CY_SRSS_WDT_LOCK_BIT0                           ((uint32_t)0x01U)
 
@@ -390,7 +396,7 @@ extern "C" {
  * The source clock of wdt is fixed to 32KHz. So 4 cycles become 122us */
 #define CY_WDT_SRC_CLK_SWITCH_DELAY              (122UL)
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 /** The WDT default match value */
 /**
 * \note
@@ -458,7 +464,7 @@ typedef enum
 } cy_en_wdt_clk_sources_t;
 #endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) ||defined (CY_DOXYGEN) */
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 /** The wdt lower/upper limit actions. */
 /**
 * \note
@@ -519,7 +525,7 @@ __STATIC_INLINE void Cy_WDT_ResetCounter(void);
 __STATIC_INLINE void Cy_WDT_MaskInterrupt(void);
 __STATIC_INLINE void Cy_WDT_UnmaskInterrupt(void);
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3) || defined (CY_IP_MXS22SRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2) || defined (CY_IP_MXS22SRSS)
 void Cy_WDT_SetMatch(uint32_t match);
 void Cy_WDT_SetIgnoreBits(uint32_t bitsNum);
 __STATIC_INLINE uint32_t Cy_WDT_GetMatch(void);
@@ -534,7 +540,7 @@ __STATIC_INLINE uint32_t Cy_WDT_GetMatchBits(void);
 
 #endif
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 void Cy_WDT_SetLowerLimit(uint32_t match);
 void Cy_WDT_SetUpperLimit(uint32_t match);
 void Cy_WDT_SetWarnLimit(uint32_t match);
@@ -561,7 +567,7 @@ void Cy_WDT_SetService(void);
 *******************************************************************************/
 __STATIC_INLINE void Cy_WDT_Enable(void)
 {
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
     SRSS_WDT_CTL |= WDT_CTL_ENABLE_Msk;
 #else
     SRSS_WDT_CTL |= _VAL2FLD(SRSS_WDT_CTL_WDT_EN, 1U);
@@ -581,7 +587,7 @@ __STATIC_INLINE void Cy_WDT_Enable(void)
 *******************************************************************************/
 __STATIC_INLINE void Cy_WDT_Disable(void)
 {
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
     SRSS_WDT_CTL &= ((uint32_t) ~(_VAL2FLD(WDT_CTL_ENABLE, 1U)));
 #else
     SRSS_WDT_CTL &= ((uint32_t) ~(_VAL2FLD(SRSS_WDT_CTL_WDT_EN, 1U)));
@@ -602,14 +608,14 @@ __STATIC_INLINE void Cy_WDT_Disable(void)
 *******************************************************************************/
 __STATIC_INLINE bool Cy_WDT_IsEnabled(void)
 {
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
     return _FLD2BOOL(WDT_CTL_ENABLE, SRSS_WDT_CTL);
 #else
     return _FLD2BOOL(SRSS_WDT_CTL_WDT_EN, SRSS_WDT_CTL);
 #endif
 }
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3) || defined (CY_IP_MXS22SRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2) || defined (CY_IP_MXS22SRSS)
 
 /*******************************************************************************
 * Function Name: Cy_WDT_GetMatch
@@ -705,7 +711,7 @@ __STATIC_INLINE cy_en_wdt_clk_sources_t Cy_WDT_GetClkSource(void)
 *
 * \return The bit position above which the bits will be ignored for match.
 *
-* \note\
+* \note
 * This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
@@ -715,7 +721,7 @@ __STATIC_INLINE uint32_t Cy_WDT_GetMatchBits(void)
 }
 #endif
 
-#endif /*defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3) */
+#endif /*defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2) */
 
 
 /*******************************************************************************
@@ -729,7 +735,7 @@ __STATIC_INLINE uint32_t Cy_WDT_GetMatchBits(void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_WDT_GetCount(void)
 {
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
     return ((uint32_t) _FLD2VAL(WDT_CNT_CNT, SRSS_WDT_CNT));
 #else
     return ((uint32_t) _FLD2VAL(SRSS_WDT_CNT_COUNTER, SRSS_WDT_CNT));
@@ -763,7 +769,7 @@ __STATIC_INLINE void Cy_WDT_ResetCounter(void)
 *******************************************************************************/
 __STATIC_INLINE void Cy_WDT_MaskInterrupt(void)
 {
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
     SRSS_WDT_INTR_MASK &= ~WDT_INTR_MASK_WDT_Msk;
 #else
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
@@ -785,7 +791,7 @@ __STATIC_INLINE void Cy_WDT_MaskInterrupt(void)
 *******************************************************************************/
 __STATIC_INLINE void Cy_WDT_UnmaskInterrupt(void)
 {
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
     SRSS_WDT_INTR_MASK |= WDT_INTR_MASK_WDT_Msk;
 #else
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)

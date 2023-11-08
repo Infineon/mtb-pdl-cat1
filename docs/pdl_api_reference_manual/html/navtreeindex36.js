@@ -1,14 +1,5 @@
 var NAVTREEINDEX36 =
 {
-"structcy__stc__sysanalog__deep__sleep__config__t.html#aaf94b94ad68f0a10ba67ac54f374ab6e":[4,38,3,1,1],
-"structcy__stc__sysanalog__deep__sleep__config__t.html#ac4a80761e972ea11cf8ddeab9c4c4de0":[4,38,3,1,3],
-"structcy__stc__sysanalog__deep__sleep__config__t.html#adbd49c009abf856cd0c271a87f0d2004":[4,38,3,1,2],
-"structcy__stc__sysint__t.html":[4,41,3,0],
-"structcy__stc__sysint__t.html#a204a8f07adf056c8d3dd818136da853f":[4,41,3,0,0],
-"structcy__stc__sysint__t.html#a6b8e5744e04c2bb15c10afdb8a96d6b7":[4,41,3,0,1],
-"structcy__stc__sysint__t.html#a97b1a2acb12257a8b213a5e971ceae3d":[4,41,3,0,2],
-"structcy__stc__syspm__backup__regs__t.html":[4,43,5,2],
-"structcy__stc__syspm__backup__regs__t.html#a02e66f69904911561a3143bbcff5627f":[4,43,5,2,8],
 "structcy__stc__syspm__backup__regs__t.html#a04be592ea14d7b5e84bb8d92739fb8cb":[4,43,5,2,4],
 "structcy__stc__syspm__backup__regs__t.html#a4f58edd2bbb9f9d7438f7dd692b20c77":[4,43,5,2,1],
 "structcy__stc__syspm__backup__regs__t.html#a5068cbfd2936c39e7e7724378f266016":[4,43,5,2,5],

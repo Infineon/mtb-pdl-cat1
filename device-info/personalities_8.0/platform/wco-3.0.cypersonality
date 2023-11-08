@@ -30,7 +30,7 @@
 
 <Personality id="wco" name="WCO" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,mxs22srss" />
+    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver2,mxs40srss_ver3,mxs22srss" />
     <IpBlock name="mxs40ioss,mxs40sioss,mxs22ioss" />
     <Resource name="srss\.clock\.wco" />
   </Dependencies>

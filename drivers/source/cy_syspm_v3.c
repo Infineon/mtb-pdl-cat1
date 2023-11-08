@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v3.c
-* \version 5.95
+* \version 5.100
 *
 * This driver provides the source code for API power management.
 *
@@ -26,7 +26,7 @@
 #include "cy_device.h"
 #include "cy_sysclk.h"
 
-#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)
 
 #include "cy_syspm.h"
 
@@ -97,6 +97,8 @@
 #define CY_SYSPM_CBUCK_BUSY_RETRY_COUNT         (100U)
 #define CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_MS      (1U)
 
+/* Mask for checking the CM4 Deep Sleep status */
+#define CM4_DEEPSLEEP_MASK     (CPUSS_CM4_STATUS_SLEEPING_Msk | CPUSS_CM4_STATUS_SLEEPDEEP_Msk)
 
 
 /*******************************************************************************
@@ -529,8 +531,11 @@ cy_en_syspm_status_t Cy_SysPm_LdoSetMode(cy_en_syspm_ldo_mode_t mode)
         case CY_SYSPM_LDO_MODE_DISABLED:
         {
             /* Disable the LDO, Deep Sleep, nWell, and Retention regulators */
-            SRSS_PWR_CTL2 |= (_VAL2FLD(SRSS_PWR_CTL2_DPSLP_REG_DIS, 1U) |
-                             _VAL2FLD(SRSS_PWR_CTL2_LINREG_DIS, 1U));
+            SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_LINREG_DIS_Msk;
+            #if ((defined (SRSS_ULP_VARIANT)) && (SRSS_ULP_VARIANT == 1u))
+            /* Only set this bit if the deep sleep regulator is supported. */
+            SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_DPSLP_REG_DIS_Msk;
+            #endif
 
             retVal = CY_SYSPM_SUCCESS;
         }
@@ -1004,7 +1009,8 @@ void Cy_SysPm_BackupEnableVoltageMeasurement(void)
 
 void Cy_SysPm_BackupDisableVoltageMeasurement(void)
 {
-#if (SRSS_BACKUP_VBCK_PRESENT)
+/* The MXS40SRSSv2 does have VBCK present, but is not compatible with the VBACKUP_MEAS register bit. */
+#if (SRSS_BACKUP_VBCK_PRESENT && (CY_IP_MXS40SRSS_VERSION != 2u))
     BACKUP_CTL &= ((uint32_t) ~BACKUP_CTL_VBACKUP_MEAS_Msk);
 #endif
 }
@@ -1028,6 +1034,8 @@ void Cy_SysPm_BackupSuperCapCharge(cy_en_syspm_sc_charge_key_t key)
 #endif
 }
 
+/* These functions are only available for devices that contain the SRSS_BACKUP IP. */
+#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (defined (SRSS_BACKUP_PRESENT) && (SRSS_BACKUP_PRESENT == 1u)))
 void Cy_SysPm_BackupWordStore(uint32_t wordIndex, uint32_t *wordSrcPointer, uint32_t wordSize)
 {
     CY_ASSERT_L3(CY_SYSPM_IS_WORD_INDEX_VALID(wordIndex));
@@ -1057,6 +1065,7 @@ void Cy_SysPm_BackupWordReStore(uint32_t wordIndex, uint32_t *wordDstPointer, ui
         wordSize--;
     }
 }
+#endif  /* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (defined (SRSS_BACKUP_PRESENT) && (SRSS_BACKUP_PRESENT == 1u))) */
 
 cy_en_syspm_status_t Cy_SysPm_SetSRAMMacroPwrMode(cy_en_syspm_sram_index_t sramNum, uint32_t sramMacroNum, cy_en_syspm_sram_pwr_mode_t sramPwrMode)
 {
@@ -1189,6 +1198,7 @@ uint32_t Cy_SysPm_ReadStatus(void)
     uint32_t pmStatus = 0u;
     interruptState = Cy_SysLib_EnterCriticalSection();
 
+    #if defined(CY_IP_M7CPUSS) && (CY_IP_M7CPUSS == 1u)
     /* Check whether CM7_0 is in the deep sleep mode*/
     if((0u != _FLD2VAL(CPUSS_CM7_0_STATUS_SLEEPING, CPUSS_CM7_0_STATUS)) &&
        (0u != _FLD2VAL(CPUSS_CM7_0_STATUS_SLEEPDEEP, CPUSS_CM7_0_STATUS)))
@@ -1220,28 +1230,45 @@ uint32_t Cy_SysPm_ReadStatus(void)
     {
         pmStatus |= CY_SYSPM_STATUS_CM7_1_ACTIVE;
     }
-
-
-    /* Check whether CM0p is in the deep sleep mode*/
-    if((0u != _FLD2VAL(CPUSS_CM0_STATUS_SLEEPING, CPUSS_CM0_STATUS)) &&
-       (0u != _FLD2VAL(CPUSS_CM0_STATUS_SLEEPDEEP, CPUSS_CM0_STATUS)))
+    #elif defined(CY_IP_M4CPUSS) && (CY_IP_M4CPUSS == 1u)
+    /* Check whether CM4 is in Deep Sleep mode */
+    if ((CPUSS_CM4_STATUS & CM4_DEEPSLEEP_MASK) == CM4_DEEPSLEEP_MASK)
     {
-        pmStatus |= (uint32_t) CY_SYSPM_STATUS_CM0_DEEPSLEEP;
+        pmStatus |= CY_SYSPM_STATUS_CM4_DEEPSLEEP;
     }
-    /* Check whether CM0p is in the sleep mode*/
-    else if (0u != _FLD2VAL(CPUSS_CM0_STATUS_SLEEPING, CPUSS_CM0_STATUS))
+    /* Check whether CM4 is in Sleep mode */
+    else if(0U != _FLD2VAL(CPUSS_CM4_STATUS_SLEEPING, CPUSS_CM4_STATUS))
     {
-        pmStatus |= CY_SYSPM_STATUS_CM0_SLEEP;
+        pmStatus |= CY_SYSPM_STATUS_CM4_SLEEP;
     }
     else
     {
-        pmStatus |= CY_SYSPM_STATUS_CM0_ACTIVE;
+        pmStatus |= CY_SYSPM_STATUS_CM4_ACTIVE;
+    }
+    #endif
+
+
+    /* Check whether CM0p is in the sleep or deep sleep mode*/
+    if (0u != _FLD2VAL(CPUSS_CM0_STATUS_SLEEPING, CPUSS_CM0_STATUS))
+    {
+        if (0u != _FLD2VAL(CPUSS_CM0_STATUS_SLEEPDEEP, CPUSS_CM0_STATUS))
+        {
+            pmStatus |= (uint32_t) CY_SYSPM_STATUS_CM0_DEEPSLEEP;
+        }
+        else
+        {
+            pmStatus |= (uint32_t) CY_SYSPM_STATUS_CM0_SLEEP;
+        }
+    }
+    else
+    {
+        pmStatus |= (uint32_t) CY_SYSPM_STATUS_CM0_ACTIVE;
     }
 
     /* Check whether the device is in LPACTIVE mode or not */
     if(Cy_SysPm_IsSystemLpActiveEnabled())
     {
-        pmStatus |= CY_SYSPM_STATUS_SYSTEM_LOWPOWER;
+        pmStatus |= (uint32_t) CY_SYSPM_STATUS_SYSTEM_LOWPOWER;
     }
 
     Cy_SysLib_ExitCriticalSection(interruptState);
@@ -1249,6 +1276,7 @@ uint32_t Cy_SysPm_ReadStatus(void)
     return(pmStatus);
 }
 
+#if defined(CY_IP_M7CPUSS) && (CY_IP_M7CPUSS == 1u)
 bool Cy_SysPm_Cm7IsActive(uint8_t core)
 {
     bool status = false;
@@ -1310,35 +1338,31 @@ bool Cy_SysPm_Cm7IsDeepSleep(uint8_t core)
 }
 
 
-bool Cy_SysPm_Cm7IsLowPower(uint8_t core)
+#endif // defined(CY_IP_M7CPUSS) && (CY_IP_M7CPUSS == 1u)
+
+#if defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS == 1u)
+bool Cy_SysPm_Cm4IsActive(void)
 {
-    bool status = false;
-
-    if(core == CORE_CM7_0)
-    {
-        return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_0_LOWPOWER) != 0u);
-    }
-    else if(core == CORE_CM7_1)
-    {
-        return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_1_LOWPOWER) != 0u);
-    }
-    else
-    {
-        /* CM7 Not active */
-    }
-
-    return status;
+    return ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM4_ACTIVE) != 0U);
 }
+
+
+bool Cy_SysPm_Cm4IsSleep(void)
+{
+    return ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM4_SLEEP) != 0U);
+}
+
+
+bool Cy_SysPm_Cm4IsDeepSleep(void)
+{
+    return ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM4_DEEPSLEEP) != 0U);
+}
+
+#endif // defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS == 1u)
 
 bool Cy_SysPm_Cm0IsActive(void)
 {
     return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM0_ACTIVE) != 0u);
-}
-
-
-bool Cy_SysPm_Cm0IsLowPower(void)
-{
-    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM0_LOWPOWER) != 0u);
 }
 
 bool Cy_SysPm_Cm0IsSleep(void)
@@ -1356,7 +1380,8 @@ bool Cy_SysPm_IsSystemLp(void)
     return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_SYSTEM_LOWPOWER) != 0u);
 }
 
-
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2u)) || \
+    ((defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2u)) && (defined (SRSS_BACKUP_VBCK_PRESENT) && (SRSS_BACKUP_VBCK_PRESENT == 1u)))
 void Cy_SysPm_PmicEnable(void)
 {
     if(CY_SYSPM_PMIC_UNLOCK_KEY == _FLD2VAL(BACKUP_PMIC_CTL_UNLOCK, BACKUP_PMIC_CTL))
@@ -1436,6 +1461,8 @@ bool Cy_SysPm_PmicIsLocked(void)
 {
     return((_FLD2VAL(BACKUP_PMIC_CTL_UNLOCK, BACKUP_PMIC_CTL) == CY_SYSPM_PMIC_UNLOCK_KEY) ? false : true);
 }
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2u)) || \
+    ((defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2u)) && (defined (SRSS_BACKUP_VBCK_PRESENT) && (SRSS_BACKUP_VBCK_PRESENT == 1u))) */
 
 void Cy_SysPm_OvdEnable(cy_en_syspm_ovd_sel_t ovdSel)
 {
@@ -1646,6 +1673,8 @@ bool Cy_SySPm_IsDeepSleepRegEnabled(void)
     return(0u == _FLD2VAL(SRSS_PWR_CTL2_DPSLP_REG_DIS, SRSS_PWR_CTL2));
 }
 
+/* High Current Regulator is not available in version 2 of the MXS40SRSS IP block. */
+#if (defined (SRSS_S40E_REGHC_PRESENT) && (SRSS_S40E_REGHC_PRESENT == 1u)) || (defined (SRSS_S40E_HTREGHC_PRESENT) && (SRSS_S40E_HTREGHC_PRESENT == 1u))
 void Cy_SysPm_ReghcSelectMode(cy_en_syspm_reghc_mode_t mode)
 {
     CY_REG32_CLR_SET(SRSS_PWR_REGHC_CTL, SRSS_PWR_REGHC_CTL_REGHC_MODE, mode);
@@ -1872,6 +1901,10 @@ cy_en_syspm_status_t Cy_SysPm_ReghcDeConfigure(void)
     return retVal;
 }
 
-#endif /* (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3) */
+
+#endif  /* (SRSS_S40E_REGHC_PRESENT == 1u) || (SRSS_S40E_HTREGHC_PRESENT == 1u) */
+
+
+#endif /* (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2) */
 
 /* [] END OF FILE */

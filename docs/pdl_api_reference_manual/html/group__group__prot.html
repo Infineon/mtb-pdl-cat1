@@ -198,6 +198,11 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.90 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
+ Updated conditions in pre-processor check for if the device has a CM4 to also check for for MXPERI ver. 1.<br />
+ Cleaned up redundant code.<br />
+ Bug fix: Updates some API availability based on the PERI version. Some devices may have a reduced set of functions available. If code called APIs not appropriate for the version of PERI, that code will not build without updating to reflect new API availability. Please note, however, that if code was calling those APIs and the functions are no longer available, there will be no functional difference as the calls were available before but did nothing if the device hardware didn't support the function. This change makes the API accurately reflect hardware capability. </td><td>Code enhancement and support for new devices.  </td></tr>
+<tr>
 <td>1.80 </td><td><a class="el" href="group__group__prot__functions__ppu__prog__v2.html#ga37f73e968bc327a33ae55eab02c315ac">Cy_Prot_ConfigPpuProgSlaveAddr()</a>, <a class="el" href="group__group__prot__functions__ppu__prog__v2.html#ga93cd67a67fecfb39b3df272b9f64a780">Cy_Prot_EnablePpuProgSlaveRegion()</a> <a class="el" href="group__group__prot__functions__ppu__prog__v2.html#gacd5db7ab07edb2943e6f0c2486c6c6d0">Cy_Prot_DisablePpuProgSlaveRegion()</a> APIs are only available for PSoC6 devices </td><td>MISRA C-2012 compliance and Move PERI version-1 APIs to supported devices  </td></tr>
 <tr>
 <td>1.70 </td><td>Added support for CAT1C devices.  </td><td>New device added.   </td></tr>

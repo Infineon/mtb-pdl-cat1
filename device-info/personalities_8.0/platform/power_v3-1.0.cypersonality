@@ -31,7 +31,7 @@
 
 <Personality id="power_v3" name="Power Settings" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss_ver3" />
+    <IpBlock name="mxs40srss_ver3,mxs40srss_ver2" />
     <Resource name="srss\.power" />
   </Dependencies>
   <ExposedMembers>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysint.h
-* \version 1.90.1
+* \version 1.100
 *
 * \brief
 * Provides an API declaration of the SysInt driver
@@ -204,6 +204,13 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.100</td>
+*     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
+*          Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1.</td>
+*          Added support for CM0+/CM4 dual core devices. Previously only supported CM0+/CM7 devices.</td>
+*     <td>Code enhancement and support for new devices.</td>
+*   </tr>
+*   <tr>
 *     <td>1.90.1</td>
 *     <td>Fixed MISRA 2012 8.5 and 8.6 violations.</td>
 *     <td>MISRA 2012 compliance..</td>
@@ -365,7 +372,7 @@ CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 #define CY_SYSINT_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_SYSINT_DRV_VERSION_MINOR    90
+#define CY_SYSINT_DRV_VERSION_MINOR    100
 
 /** SysInt driver ID */
 #define CY_SYSINT_ID CY_PDL_DRV_ID     (0x15U)
@@ -418,7 +425,7 @@ typedef enum
 typedef struct {
 #if defined (CY_IP_M7CPUSS)
     uint32_t        intrSrc;        /**< Bit 0-15 indicate system interrupt and bit 16-31 will indicate the CPU IRQ */
-#else /* CY_IP_M7CPUSS */
+#else
     IRQn_Type       intrSrc;        /**< Interrupt source */
 #endif
 #if (CY_CPU_CORTEX_M0P) && defined (CY_IP_M4CPUSS)
@@ -428,6 +435,14 @@ typedef struct {
 } cy_stc_sysint_t;
 
 /** \} group_sysint_data_structures */
+
+#if defined (CY_IP_M7CPUSS)
+#define CY_SYSINT_INTRSRC_MASK           (0xFFFFUL)  /**< Bit 0-15 indicate system interrupt and bit 16-31 will indicate the CPU IRQ */
+#define CY_SYSINT_INTRSRC_MUXIRQ_SHIFT   (16UL)      /**< Bit 0-15 indicate system interrupt and bit 16-31 will indicate the CPU IRQ */
+#else   /* Applicable for Mux'ed IRQ CM4 interrupts */
+#define CY_SYSINT_INTRSRC_MASK           (0x0FFFUL)  /**< Bit 0-11 indicate system interrupt and bit 12-15 will indicate the CPU IRQ */
+#define CY_SYSINT_INTRSRC_MUXIRQ_SHIFT   (12UL)      /**< Bit 0-11 indicate system interrupt and bit 12-15 will indicate the CPU IRQ */
+#endif /* defined (CY_IP_M7CPUSS) */
 
 
 /***************************************
@@ -539,12 +554,12 @@ cy_en_sysint_status_t Cy_SysInt_Init(const cy_stc_sysint_t* config, cy_israddres
 *
 * \brief Changes the ISR vector for the interrupt.
 *
-* CM0+/CM4:<br/>
+* CM0+/CM4 (non-TVIIBE):<br/>
 * This function relies on the assumption that the vector table is
 * relocated to __ramVectors[RAM_VECTORS_SIZE] in SRAM. Otherwise it will
 * return the address of the default ISR location in the flash vector table.
 *
-* CM0+/CM7:<br/>
+* CM0+/CM7 and TVIIBE CM0+/CM4:<br/>
 * This function relies on the assumption that the vector table is
 * relocated to __ramVectors[RAM_VECTORS_SIZE] in SRAM. Otherwise it will
 * return the address of the default ISR location in the flash vector table.
@@ -643,7 +658,7 @@ cy_israddress Cy_SysInt_SetVector(IRQn_Type IRQn, cy_israddress userIsr);
 cy_israddress Cy_SysInt_GetVector(IRQn_Type IRQn);
 
 
-#if (((CY_CPU_CORTEX_M0P) || defined (CY_IP_M7CPUSS) || defined (CY_DOXYGEN)) && !defined(CY_IP_M0SECCPUSS))
+#if (((CY_CPU_CORTEX_M0P) || defined (CY_IP_M7CPUSS) || (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION == 2) && (CPUSS_SYSTEM_IRQ_PRESENT)) || defined (CY_DOXYGEN)) && !defined(CY_IP_M0SECCPUSS))
 /*******************************************************************************
 * Function Name: Cy_SysInt_SetInterruptSource
 ****************************************************************************//**
@@ -667,7 +682,7 @@ cy_israddress Cy_SysInt_GetVector(IRQn_Type IRQn);
 *******************************************************************************/
 void Cy_SysInt_SetInterruptSource(IRQn_Type IRQn, cy_en_intr_t devIntrSrc);
 
-#if defined(CY_IP_M4CPUSS) && (CY_CPU_CORTEX_M0P) || defined (CY_DOXYGEN)
+#if (defined (CY_IP_M4CPUSS) && (CY_CPU_CORTEX_M0P)) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysInt_GetInterruptSource
 ****************************************************************************//**
@@ -774,7 +789,7 @@ cy_en_intr_t Cy_SysInt_GetInterruptActive(IRQn_Type IRQn);
 void Cy_SysInt_DisconnectInterruptSource(IRQn_Type IRQn, cy_en_intr_t devIntrSrc);
 #endif
 
-#if defined (CY_IP_M7CPUSS) || defined (CY_DOXYGEN)
+#if defined (CY_IP_M7CPUSS) || (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION == 2u) && (CPUSS_SYSTEM_IRQ_PRESENT)) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysInt_InitExtIRQ
 ****************************************************************************//**
@@ -790,7 +805,7 @@ void Cy_SysInt_DisconnectInterruptSource(IRQn_Type IRQn, cy_en_intr_t devIntrSrc
 * \param userIsr
 * Address of the ISR
 *
-* \note This function is available for CAT1C CM0/CM7 core.
+* \note This function is available for CAT1C CM0/CM7 cores, and CAT1A TVIIBE CM0/CM4 cores.
 *
 * \return
 * Initialization status
@@ -818,7 +833,7 @@ cy_en_sysint_status_t Cy_SysInt_InitExtIRQ(const cy_stc_sysint_t* config, cy_isr
 * \param userIsr
 * Address of the ISR
 *
-* \note This function is available for CAT1C CM0/CM7 core.
+* \note This function is available for CAT1C CM0/CM7 cores, and CAT1A TVIIBE CM0/CM4 cores.
 *
 * \return
 * Initialization status
@@ -831,6 +846,7 @@ cy_en_sysint_status_t Cy_SysInt_InitExtIRQ(const cy_stc_sysint_t* config, cy_isr
 cy_en_sysint_status_t Cy_SysInt_InitIntIRQ(const cy_stc_sysint_t* config, cy_israddress userIsr);
 
 
+#if (defined (CPUSS_SYSTEM_IRQ_PRESENT) && (CPUSS_SYSTEM_IRQ_PRESENT == 1u)) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysInt_SetSystemIrqVector
 ****************************************************************************//**
@@ -840,7 +856,7 @@ cy_en_sysint_status_t Cy_SysInt_InitIntIRQ(const cy_stc_sysint_t* config, cy_isr
 * \param sysIntSrc
 * Interrupt source
 *
-* \note This function is available for CAT1C CM0/CM7 core.
+* \note This function is available for CAT1C CM0/CM7 cores.
 *
 * \param userIsr
 * Address of the ISR to set in the interrupt vector table
@@ -860,13 +876,14 @@ void  Cy_SysInt_SetSystemIrqVector(cy_en_intr_t sysIntSrc, cy_israddress userIsr
 * \param sysIntSrc
 * Interrupt source
 *
-* \note This function is available for CAT1C CM0/CM7 core.
+* \note This function is available for CAT1C CM0/CM7 cores.
 *
 * \return
 * Address of the ISR in the interrupt vector table
 *
 *******************************************************************************/
 cy_israddress  Cy_SysInt_GetSystemIrqVector(cy_en_intr_t sysIntSrc);
+#endif /* (defined (CPUSS_SYSTEM_IRQ_PRESENT) && (CPUSS_SYSTEM_IRQ_PRESENT == 1u)) || defined (CY_DOXYGEN) */
 
 
 /*******************************************************************************
@@ -878,7 +895,7 @@ cy_israddress  Cy_SysInt_GetSystemIrqVector(cy_en_intr_t sysIntSrc);
 * \param sysIntSrc
 * System interrupt source to be enabled.
 *
-* \note This function is available for CAT1C CM0/CM7 core.
+* \note This function is available for CAT1C CM0/CM7 cores, and CAT1A TVIIBE CM0/CM4 cores.
 *
 * \return none
 *
@@ -895,7 +912,7 @@ void Cy_SysInt_EnableSystemInt(cy_en_intr_t sysIntSrc);
 * \param sysIntSrc
 * System interrupt source to be disabled.
 *
-* \note This function is available for CAT1C CM0/CM7 core.
+* \note This function is available for CAT1C CM0/CM7 cores, and CAT1A TVIIBE CM0/CM4 cores.
 *
 * \return none
 *

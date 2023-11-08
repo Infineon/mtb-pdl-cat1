@@ -1,28 +1,76 @@
-# MTB CAT1 Peripheral Driver Library v3.7.0
+# MTB CAT1 Peripheral Driver Library v3.8.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
 for a complete description of the Peripheral Driver Library.
 
-Some restrictions apply to the PSoC 64 devices configuration. Please refer to [PRA (Protected Register Access)](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pra.html) driver documentation for the details.
 
 ## Implementation Details
 
-* CAT1A: Dual Bank Support added in Flash driver for CAT1A. Note that this feature is not supported on PSoC 64 devices.
-* CAT1A: Correction done in the SCB instances of MPN CYBLE-416045-02-device 
-* Personality re-structuring: Personality supporting Schema v8 added. Personalities_8.0 is a copy of ‘personalities’ with needed personalities updated to use schema v8. In order to allow for personalities in a single device support library to be able to control if they are available on the MCU and/or companion-connectivity devices in a design, the ‘Dependencies’ section of the personality file has been expanded. These personalities can specify the required operating mode for the device for it to be valid on it. The valid operating mode values: MCU, COMPANION_CONNECTIVITY. These personalities are available in folder _device-info/personalities_8.0_. Personalities supporting schema v8 are visible in MTB 3.1. For backward compatibility with MTB 3.0, this release will also have older personalities in folder _device-info/personalities_. 
-* Personality fixes: The schema v8 personalities include minor fixes over the personalities with older schema. In future releases, all the personality fixes will be done in schema v8 personalities.
+* CAT1A: Adds Traveo II Body Entry device support.  Devices added:
+
+cyt2b73cas cyt2b74bae cyt2b74bas cyt2b74cae cyt2b74cas cyt2b75bae cyt2b75bas cyt2b75cae cyt2b75cas cyt2b77bae
+cyt2b77bas cyt2b77cae cyt2b77cas cyt2b78bae cyt2b78bas cyt2b78cae cyt2b78cas cyt2bl3bae cyt2bl3bas cyt2bl3cae
+cyt2bl3cas cyt2bl4bae cyt2bl4bas cyt2bl4cae cyt2bl4cas cyt2bl5bae cyt2bl5bas cyt2bl5cae cyt2bl5cas cyt2bl7bae
+cyt2bl7bas cyt2bl7cae cyt2bl7cas cyt2bl8bae cyt2bl8bas cyt2bl8cae cyt2bl8cas 
+
+* Updates drivers to support Traveo II B-E devices.  (See drivers list below.)
+* Updates personalities for Traveo II B-E devices.
+* Updates IP headers with new-to-CAT1A IP to support Traveo II B-E devices.
+* Adds linker scripts and adjusts cat1a system/startup code to work with Traveo II B-E devices.
+* CAT1C: Removes some CAT1C SysPm APIs that were not hardware compatible with XMC7xxx devices.
+* In order to provide CAT1A support for the TVIIBE PERIv2 hardware, and still provide CAT1A/CAT1B/CAT1B compatibility with cy_sysclk_v2, PERI_DIV_n_NR macros have been renamed to PERI_CLK_GR_DIV_n_NR.  Any application code using the old macros must be updated to use the new macro names.
+* Personality fixes: Some personality fixes where IP from other categories overlapped with TVIIBE (mostly CAT1C) were applied to schema v8 personalities.
+* Bug fix: Updates Prot driver API availability based on the PERI version. Some devices may have a reduced set of functions available.  If code called APIs not appropriate for the version of PERI, that code will not build without updating to reflect new API availability.  Please note, however, that if code was calling those APIs and the functions are no longer available, there will be no functional difference as the calls were available before but did nothing if the device hardware didn't support the function.
 
 ## Build Changes
 
-## Personalities Changes
-* Updated Personalities (in 8.0 folder): imo-3.0.cypersonality, eco-3.0.cypersonality
+## Personality Changes
+* Updated Personalities (in 8.0 folder):
+  * peripheral:
+    * evtgen-1.0.cypersonality
+    * mcwdt_v2-1.0.cypersonality
+    * rtc-3.0.cypersonality
+  * platform:
+    * bakclk-3.0.cypersonality
+    * eco-3.0.cypersonality
+    * eco_prescaler-1.0.cypersonality
+    * extclk-3.0.cypersonality
+    * fastclk-2.0.cypersonality
+    * fll-4.0.cypersonality
+    * hfclk-3.0.cypersonality
+    * ilo-3.0.cypersonality
+    * imo-3.0.cypersonality 
+    * lfclk-3.0.cypersonality
+    * memclk-1.0.cypersonality
+    * pathmux-3.0.cypersonality
+    * periclk-2.0.cypersonality
+    * pll-3.0.cypersonality
+    * pll400-1.0.cypersonality
+    * power_v3-1.0.cypersonality
+    * slowclk-2.0.cypersonality
+    * sysclock-3.0.cypersonality
+    * tickclk-3.0.cypersonality
+    * timerclk-3.0.cypersonality
+    * wco-3.0.cypersonality
 
 ## Added Drivers
-
+* No new drivers required for TVIIBE.
 
 ## Updated Drivers
-* [FLASH 3.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
+* Flash
+* GPIO
+* IPC
+* LVD
+* MCWDT
+* PROT
+* RTC
+* SysClk
+* SysInt
+* SysLib
+* SysPm
+* WDT
+* BLE_CLK
 
 ### Drivers with patch version updates
 
@@ -30,24 +78,14 @@ Some restrictions apply to the PSoC 64 devices configuration. Please refer to [P
 
 ### Obsoleted part numbers
 
-The ModusToolbox Device Configurator can not create the designs targeting the obsolete PSoC 6 part numbers.
-
-Below is a list of PSoC 6 part numbers obsoleted in psoc6pdl release-v1.6.0, with the suggested next best alternative:
-
-| Obsoleted part number | Next best alternative |
-| :---                  | :----                 |
-| CY8C624AAZI-D44       | CY8C624AAZI-S2D44     |
-| CY8C624AFNI-D43       | CY8C624AFNI-S2D43     |
-| CY8C624ABZI-D04       | CY8C624ABZI-S2D04     |
-| CY8C624ABZI-D14       | CY8C624ABZI-S2D14     |
-| CY8C624AAZI-D14       | CY8C624AAZI-S2D14     |
-| CY8C6248AZI-D14       | CY8C6248AZI-S2D14     |
-| CY8C6248BZI-D44       | CY8C6248BZI-S2D44     |
-| CY8C6248AZI-D44       | CY8C6248AZI-S2D44     |
-| CY8C6248FNI-D43       | CY8C6248FNI-S2D43     |
-| CY8C624ALQI-D42       | N/A                   |
 
 ## Known Issues
+* CAT1A: In device-configurator, certain IP is not completely available for some devices as some combinations of pin connections are not valid.
+  * CYT2BL4BAS/CYT2BL4CAE: SCB6 is complete only for UART, cannot support I2C, EZI2C, or SPI.
+  * CYT2BL3CAE, CYT2B7CAE: SCB1 is complete only for UART, cannot support I2C, EZI2C, or SPI.
+  * On the following devices: CAN FD 0 Channel 3, CAN FD 1 Channel 1, CAN FD 1 Channel 3 is not available (no signal for CAN Rx Pin available).
+    * CYT2BL4BAS, CYT2BL3CAE, CYT2BL3CAS, CYT2BL4CAE, CYT2BL3BAE, CYT2BL4BAE, CYT2BL4CAS, CYT2BL3BAS, CYT2B73BAS, CYT2B73CAS, CYT2B73BAE
+* Traveo II B-E: Does not support emulated eeprom.
 * CAT1A: On soft reset, user need to reset back up domain using Cy_SysLib_ResetBackupDomain() to receive Cy_RTC_CenturyInterrupt() callback on Century roll over.
 * On building with tools 2.2, user get warning related to the older version of tools used. To avoid this warning, user is advised to migrate to newer tools version or keep working with previous version of this library.  The warning generated is as follows:
   * _#warning "(Library) The referenced 'device support library' contains newer content than is supported. Either downgrade the version of the 'device support library' referenced or upgrade the version of tools being used_
@@ -65,8 +103,8 @@ This version of PDL was validated for compatibility with the following Software 
 
 | Software and Tools                                                            | Version      |
 | :---                                                                          | :----        |
-| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.3.0        |
-| [Infineon HAL](https://github.com/Infineon/mtb-hal-cat1)                      | 2.4.0        |
+| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.4.1        |
+| [Infineon HAL](https://github.com/Infineon/mtb-hal-cat1)                      | 2.5.4        |
 | CMSIS                                                                         | 5.8.0        |
 | GCC Compiler                                                                  | 11.3.1       |
 | IAR Compiler                                                                  | 9.3          |
@@ -83,6 +121,7 @@ This version of PDL was validated for compatibility with the following Software 
 * [PSoC 6](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu/)
 * [CYW20829](https://www.infineon.com/cms/en/product/promopages/airoc20829)
 * [TV-II-BH8/BH4](https://www.infineon.com/cms/en/product/microcontroller/32-bit-traveo-t2g-arm-cortex-microcontroller/)
+* [TV-II-BE1/BE4](https://www.infineon.com/cms/en/product/microcontroller/32-bit-traveo-t2g-arm-cortex-microcontroller/)
 * [XMC7000](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/32-bit-xmc7000-industrial-microcontroller-arm-cortex-m7/)
 * [Infineon](http://www.infineon.com)
 

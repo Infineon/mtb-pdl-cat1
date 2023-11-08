@@ -1094,7 +1094,7 @@ typedef enum
 #define PERI_CLOCK_CTL(instNum, grNum, periNum)                  ((PERI_PCLK_GR_Type*) &PERI_PCLK_REG_BASE(instNum)->GR[grNum])->CLOCK_CTL[periNum]
 #define PERI_DIV_CMD(instNum, grNum)                             ((PERI_PCLK_GR_Type*) &PERI_PCLK_REG_BASE(instNum)->GR[grNum])->DIV_CMD
 
-#define PERI_DIV_8_NR(instNum, grNum)           (((instNum) == 0U) ? \
+#define PERI_PCLK_GR_DIV_8_NR(instNum, grNum)     (((instNum) == 0U) ? \
                                                   (((grNum) <= 3U) ? \
                                                   ((uint32_t)(((((uint32_t)PERI0_PERI_PCLK_PCLK_GROUP_NR0_GR_DIV_8_VECT) |      \
                                                   (((uint32_t)PERI0_PERI_PCLK_PCLK_GROUP_NR1_GR_DIV_8_VECT) << 8U)         |    \
@@ -1117,7 +1117,7 @@ typedef enum
                                                   (((uint32_t)PERI1_PERI_PCLK_PCLK_GROUP_NR6_GR_DIV_8_VECT) << 16U)   |    \
                                                   (((uint32_t)PERI1_PERI_PCLK_PCLK_GROUP_NR7_GR_DIV_8_VECT) << 24U)) >> (((uint32_t)(grNum) - 4UL) * 8UL)) & 0xFFUL))))
 
-#define PERI_DIV_16_NR(instNum, grNum)           (((instNum) == 0U) ? \
+#define PERI_PCLK_GR_DIV_16_NR(instNum, grNum)    (((instNum) == 0U) ? \
                                                   (((grNum) <= 3U) ? \
                                                   ((uint32_t)(((((uint32_t)PERI0_PERI_PCLK_PCLK_GROUP_NR0_GR_DIV_16_VECT) |      \
                                                   (((uint32_t)PERI0_PERI_PCLK_PCLK_GROUP_NR1_GR_DIV_16_VECT) << 8U)         |    \
@@ -1140,7 +1140,7 @@ typedef enum
                                                   (((uint32_t)PERI1_PERI_PCLK_PCLK_GROUP_NR6_GR_DIV_16_VECT) << 16U)   |    \
                                                   (((uint32_t)PERI1_PERI_PCLK_PCLK_GROUP_NR7_GR_DIV_16_VECT) << 24U)) >> (((uint32_t)(grNum) - 4UL) * 8UL)) & 0xFFUL))))
 
-#define PERI_DIV_16_5_NR(instNum, grNum)         (((instNum) == 0U) ? \
+#define PERI_PCLK_GR_DIV_16_5_NR(instNum, grNum)  (((instNum) == 0U) ? \
                                                   (((grNum) <= 3U) ? \
                                                   ((uint32_t)(((((uint32_t)PERI0_PERI_PCLK_PCLK_GROUP_NR0_GR_DIV_16_5_VECT) |          \
                                                   (((uint32_t)PERI0_PERI_PCLK_PCLK_GROUP_NR1_GR_DIV_16_5_VECT) << 8U)    |    \
@@ -1163,7 +1163,7 @@ typedef enum
                                                   (((uint32_t)PERI1_PERI_PCLK_PCLK_GROUP_NR6_GR_DIV_16_5_VECT) << 16U)   |    \
                                                   (((uint32_t)PERI1_PERI_PCLK_PCLK_GROUP_NR7_GR_DIV_16_5_VECT) << 24U)) >> (((uint32_t)(grNum) - 4UL) * 8UL)) & 0xFFUL))))
 
-#define PERI_DIV_24_5_NR(instNum, grNum)         (((instNum) == 0U) ? \
+#define PERI_PCLK_GR_DIV_24_5_NR(instNum, grNum)  (((instNum) == 0U) ? \
                                                   (((grNum) <= 3U) ? \
                                                   ((uint32_t)(((((uint32_t)PERI0_PERI_PCLK_PCLK_GROUP_NR0_GR_DIV_24_5_VECT) |      \
                                                   (((uint32_t)PERI0_PERI_PCLK_PCLK_GROUP_NR1_GR_DIV_24_5_VECT) << 8U)         |    \

@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('page_freertos_overview.html','');});
 <li>Call FreeRTOS API from traceTASKSWITCHEDOUT() macro. <a href="https://www.freertos.org/FreeRTOS_Support_Forum_Archive/October_2014/freertos_How_to_wake_up_a_FreeRtos_task_from_a_high_priority_ISR_140cde98j.html">see FreeRTOS support</a></li>
 </ol>
 </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>If your system pipe (IPC) interrupt priority is less than or equal to MAX_API_CALL_INTERRUPT_PRIORITY then care must be taken with code that writes to flash (including the Flash/BLE/Emulated EEPROM/Bootloader SDK). The duration of critical sections must be kept short - see the <a class="el" href="group__group__flash.html#group_flash_configuration">Configuration Considerations</a> section of the flash driver.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>If your system pipe (IPC) interrupt priority is less than or equal to MAX_API_CALL_INTERRUPT_PRIORITY then care must be taken with code that writes to flash (including the Flash/Bluetooth<sup>&reg;</sup> LE/Emulated EEPROM/Bootloader SDK). The duration of critical sections must be kept short - see the <a class="el" href="group__group__flash.html#group_flash_configuration">Configuration Considerations</a> section of the flash driver.</dd></dl>
 <h1>Clock Frequency</h1>
 <p>FreeRTOS task scheduling and blocking is based on a tick count, which in turn is based on the clock frequency. The configCPU_CLOCK_HZ specifies the frequency. The FreeRTOSConfig.h file provided with the PDL sets this value for you as cy_delayFreqHz. This value is calculated by the system startup code.</p>
 <h1>FreeRTOS Memory Management</h1>
@@ -120,19 +120,19 @@ $(document).ready(function(){initNavTree('page_freertos_overview.html','');});
 <p>For memory schemes other than heap_3, the project uses the configTOTAL_HEAP_SIZE definition in FreeRTOSConfig.h. In this case the heap defined in the PDL linker file can be reduced to 0, if you are not using functions like printf(). Set configTOTAL_HEAP_SIZE to the size required for the application. Your application will not link if configTOTAL_HEAP_SIZE is set too high.</p>
 <p>For more details on Memory Management schemes see the <a href="http://www.freertos.org/a00111.html">FreeRTOS Documentation</a> page.</p>
 <p>The parameter configHEAP_ALLOCATION_SCHEME defines memory management scheme used in the project.</p>
-<h1>Using FreeRTOS in a PSoC Creator project</h1>
-<p>The FreeRTOS code example has projects for third-party IDEs. To use FreeRTOS with PSoC Creator, create a PSoC Creator project. Then click Project &gt; Build Setting &gt; Peripheral Driver Library, here you may choose the PDL software packages. To add FreeRTOS source files to your project, enable it as it is shown in the screenshot below: </p><div class="image">
+<h1>Using FreeRTOS in a PSoC&trade; Creator project</h1>
+<p>The FreeRTOS code example has projects for third-party IDEs. To use FreeRTOS with PSoC&trade; Creator, create a PSoC&trade; Creator project. Then click Project &gt; Build Setting &gt; Peripheral Driver Library, here you may choose the PDL software packages. To add FreeRTOS source files to your project, enable it as it is shown in the screenshot below: </p><div class="image">
 <img src="FreeRTOS_build_settings.png" alt="FreeRTOS_build_settings.png"/>
 <div class="caption">
-Figure 1. Build Settings dialog in PSoC Creator</div></div>
-<p> After selecting FreeRTOS in the PDL software package list, click OK. PSoC Creator adds the FreeRTOS source files to the project the next time you generate the application. Use "#include" statements in your code to include FreeRTOS header files. PSoC Creator does not include them automatically, because there could be order dependencies in your project.</p>
+Figure 1. Build Settings dialog in PSoC&trade; Creator</div></div>
+<p> After selecting FreeRTOS in the PDL software package list, click OK. PSoC&trade; Creator adds the FreeRTOS source files to the project the next time you generate the application. Use "#include" statements in your code to include FreeRTOS header files. PSoC&trade; Creator does not include them automatically, because there could be order dependencies in your project.</p>
 <p>When you build your code with FreeRTOS files for the first time, the compiler will issue a build warning to remind you to enter proper configuration in the FreeRTOSConfig.h file. When you have done so, remove that warning message from the FreeRTOSConfig.h file.</p>
 <div class="image">
 <img src="FreeRTOS_warning.png" alt="FreeRTOS_warning.png"/>
 <div class="caption">
 Figure 2. Build warning after first build of the project with included FreeRTOS sources</div></div>
- <h1>Using FreeRTOS in a ModusToolbox project</h1>
-<p>Use Middleware Selector with mainapp project to add FreeRTOS to existing ModusToolbox project. Open Middleware Selector and select FreeRTOS item. After selecting FreeRTOS in the Middleware list, click OK. Middleware Selector adds the FreeRTOS source files to the project. Use "#include" statements in your code to include FreeRTOS header files.</p>
+ <h1>Using FreeRTOS in a ModusToolbox&trade; project</h1>
+<p>Use Middleware Selector with mainapp project to add FreeRTOS to existing ModusToolbox&trade; project. Open Middleware Selector and select FreeRTOS item. After selecting FreeRTOS in the Middleware list, click OK. Middleware Selector adds the FreeRTOS source files to the project. Use "#include" statements in your code to include FreeRTOS header files.</p>
 <p>When you build your code with FreeRTOS files for the first time, the compiler will issue a build warning to remind you to enter proper configuration in the FreeRTOSConfig.h file. When you have done so, remove that warning message from the FreeRTOSConfig.h file. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

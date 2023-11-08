@@ -112,11 +112,11 @@ Configuration Considerations</h1>
 <p> To set up an MCWDT, provide the configuration parameters in the <a class="el" href="structcy__stc__mcwdt__config__t.html" title="The MCWDT component configuration structure. ">cy_stc_mcwdt_config_t</a> structure. Then call <a class="el" href="group__group__mcwdt__functions.html#gab8bd6fb7ec48ef294287c01e179c41df" title="Initializes the MCWDT block. ">Cy_MCWDT_Init()</a> to initialize the driver. Call <a class="el" href="group__group__mcwdt__functions.html#ga90f8d4636fc67fc8abe3bfd87ab521ac" title="Enables all specified counters. ">Cy_MCWDT_Enable()</a> to enable all specified counters.</p>
 <p>You can also set the mode of operation for any counter. If you choose interrupt mode, use <a class="el" href="group__group__mcwdt__functions.html#gaeaa26b488af90a877760cffc61ad08e3" title="Writes MCWDT interrupt mask register. ">Cy_MCWDT_SetInterruptMask()</a> with the parameter for the masks described in Macro Section. All counter interrupts are OR'd together to from a single combined MCWDT interrupt. Additionally, enable the Global interrupts and initialize the referenced interrupt by setting the priority and the interrupt vector using <a class="el" href="group__group__sysint__functions.html#gab2ff6820a898e9af3f780000054eea5d">Cy_SysInt_Init()</a> of the sysint driver.</p>
 <p>The values of the MCWDT counters can be monitored using <a class="el" href="group__group__mcwdt__functions.html#ga82cd9aad79c9faf18b7a5ada22c3f7d3" title="Reports the current counter value of the specified counter. ">Cy_MCWDT_GetCount()</a>.</p>
-<p>CAT1C devices supports MCWDT_B type of counters, which are slightly different from MCWDT, which is explained above</p>
+<p>CAT1C and TVIIBE devices support MCWDT_B type of counters, which are slightly different from MCWDT, which is explained above</p>
 <p>A simplified diagram of the MCWDT_B hardware is shown below: </p><div class="image">
 <img src="mcwdt_b.png" alt="mcwdt_b.png"/>
 </div>
-<dl class="section note"><dt>Note</dt><dd>Please refer to TRM for more information on CAT1C supported MCWDT_B counters.</dd>
+<dl class="section note"><dt>Note</dt><dd>Please refer to TRM for more information on CAT1C and TVIIBE supported MCWDT_B counters.</dd>
 <dd>
 In addition to the MCWDTs, each device has a separate watchdog timer (WDT) that can also be used to generate a watchdog reset or periodic interrupts. For more information on the WDT, see the appropriate section of the PDL.</dd></dl>
 <h1><a class="anchor" id="group_mcwdt_more_information"></a>
@@ -127,6 +127,9 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>1.80 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
+ Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1. </td><td>Code enhancement and support for new devices.  </td></tr>
 <tr>
 <td>1.70 </td><td>Added MCWDT_B type support required for CAT1C devices.<br />
 Newly added APIs: <br />

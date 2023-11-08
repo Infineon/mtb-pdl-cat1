@@ -30,7 +30,7 @@
 
 <Personality id="altsystick" name="CLK_ALT_SYS_TICK" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,m0seccpuss,m33syscpuss,m55appcpuss" />
+    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,m0seccpuss,m33syscpuss,m55appcpuss,mxs40srss_ver2" />
     <Resource name="srss\.clock\.altsystickclk|(m0seccpuss|m33syscpuss|m55appcpuss)\.(systick|systick_s|systick_ns)" />
   </Dependencies>
   <ExposedMembers>

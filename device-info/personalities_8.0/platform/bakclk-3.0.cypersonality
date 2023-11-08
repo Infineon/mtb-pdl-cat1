@@ -29,7 +29,7 @@
 
 <Personality id="bakclk" name="CLK_BAK" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,mxs22srss" />
+    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver2,mxs40srss_ver3,mxs22srss" />
     <Resource name="srss\.clock\.bakclk" />
   </Dependencies>
   <ExposedMembers>
@@ -42,13 +42,13 @@
     <ParamBool id="isS40sWcoPresent" name="S40S_Wco Present" group="Internal" default="`${lookupExpression(&quot;BACKUP_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="PILO Present" />
     <ParamBool id="isWcoPresent" name="S40S_Wco Present" group="Internal" default="`${lookupExpression(&quot;WCO_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="PILO Present" />
     <ParamBool id="is40ssrssAvailable" name="is40ssrssAvailable" group="" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
-    <ParamBool id="is40srss_ver3Available" name="is40srss_ver3Available" group="" default="`${(&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+    <ParamBool id="is40srss_ver2or3Available" name="is40srss_ver2or3Available" group="" default="`${(&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
     <ParamBool id="is22srssAvailable" name="is22srssAvailable" group="" default="`${(&quot;mxs22srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
 
     <ParamChoice id="sourceClock" name="Source Clock" group="General" default="lfclk" visible="true" editable="true" desc="The clock source selection">
       <Entry name="WCO" value="wco" visible="`${(isS40sWcoPresent) || (isWcoPresent)}`"/>
       <Entry name="CLK_LF" value="lfclk" visible="true"/>
-      <Entry name="`${is40ssrssAvailable ? &quot;ILO&quot; : &quot;ILO0&quot;}`" value="ilo" visible="`${(is40ssrssAvailable || is40srss_ver3Available)}`"/>
+      <Entry name="`${is40ssrssAvailable ? &quot;ILO&quot; : &quot;ILO0&quot;}`" value="ilo" visible="`${(is40ssrssAvailable || is40srss_ver2or3Available)}`"/>
       <Entry name="PILO" value="pilo" visible="`${((&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; (S40S_PILO_PRESENT)) || (&quot;mxs22srss&quot; eq getIpBlockName())}`"/>
     </ParamChoice>
     <ParamString id="sourceClockRsc" name="Source Clock Resource" group="Internal" default="`${&quot;srss[0].clock[0].&quot; . sourceClock . &quot;[0]&quot;}`" visible="false" editable="false" desc="" />

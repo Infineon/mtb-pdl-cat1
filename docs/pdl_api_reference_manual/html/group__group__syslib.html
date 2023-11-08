@@ -135,6 +135,9 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.50 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
+ Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1. Some pre-processor checks for if the device has a CM4 now also require device to not be HT_Variant to exclude TVIIBE and CAT1C devices. </td><td>Code enhancement and support for new devices.  </td></tr>
+<tr>
 <td rowspan="2">3.40 </td><td>Newly added API <a class="el" href="group__group__syslib__functions.html#ga794cb1ab7d37ee9dbe1712d666ceba1f">Cy_SysLib_GetDeviceLCS</a> and enum <a class="el" href="group__group__syslib__enumerated__types.html#ga3ff462c7740be4b6a2c2d9fbe4282666">cy_en_syslib_lcs_mode_t</a>  </td><td>Support of LCS added for CAT1D devices .  </td></tr>
 <tr>
 <td>Updated API <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> and added new macros. </td><td>Enabled wait-states API for CAT1C devices.  </td></tr>

@@ -81,7 +81,8 @@ $(document).ready(function(){initNavTree('group__group__sysint.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#groups">API Reference</a>  </div>
+<a href="#groups">API Reference</a> &#124;
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">SysInt (System Interrupt)</div>  </div>
 </div><!--header-->
@@ -148,6 +149,9 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.100 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
+ Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1. Added support for CM0+/CM4 dual core devices. Previously only supported CM0+/CM7 devices. </td><td>Code enhancement and support for new devices.  </td></tr>
+<tr>
 <td>1.90.1 </td><td>Fixed MISRA 2012 8.5 and 8.6 violations. </td><td>MISRA 2012 compliance..  </td></tr>
 <tr>
 <td>1.90 </td><td>Updated <a class="el" href="group__group__sysint__functions.html#gab2ff6820a898e9af3f780000054eea5d">Cy_SysInt_Init</a>, <a class="el" href="group__group__sysint__functions.html#ga6628d90db5d0e0e8801535e2f1519266">Cy_SysInt_SetVector</a> and <a class="el" href="group__group__sysint__functions.html#gac3feeb7969667eebe109ecab98dbfbb2">Cy_SysInt_GetVector</a> APIs. </td><td>Code Clean up.  </td></tr>
@@ -210,6 +214,17 @@ API Reference</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysint__enums"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint__enums.html">Enumerated Types</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga06c8142ccb50c175443ac78951ea4d21"><td class="memItemLeft" align="right" valign="top"><a id="ga06c8142ccb50c175443ac78951ea4d21"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint.html#ga06c8142ccb50c175443ac78951ea4d21">CY_SYSINT_INTRSRC_MASK</a>&#160;&#160;&#160;(0xFFFFUL)</td></tr>
+<tr class="memdesc:ga06c8142ccb50c175443ac78951ea4d21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit 0-15 indicate system interrupt and bit 16-31 will indicate the CPU IRQ. <br /></td></tr>
+<tr class="separator:ga06c8142ccb50c175443ac78951ea4d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b9f1b9de4f122495a8b6580ce500d9a"><td class="memItemLeft" align="right" valign="top"><a id="ga3b9f1b9de4f122495a8b6580ce500d9a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysint.html#ga3b9f1b9de4f122495a8b6580ce500d9a">CY_SYSINT_INTRSRC_MUXIRQ_SHIFT</a>&#160;&#160;&#160;(16UL)</td></tr>
+<tr class="memdesc:ga3b9f1b9de4f122495a8b6580ce500d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit 0-15 indicate system interrupt and bit 16-31 will indicate the CPU IRQ. <br /></td></tr>
+<tr class="separator:ga3b9f1b9de4f122495a8b6580ce500d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

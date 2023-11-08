@@ -2,7 +2,7 @@ var modules =
 [
     [ "Startup", "group__group__startup__config.html", "group__group__startup__config" ],
     [ "ADCMic       (Delta-Sigma ADC with PDM microphone support)", "group__group__adcmic.html", "group__group__adcmic" ],
-    [ "BLE ECO      (BLE ECO Clock)", "group__group__ble__clk.html", "group__group__ble__clk" ],
+    [ "BLE ECO      (Bluetooth® LE ECO Clock)", "group__group__ble__clk.html", "group__group__ble__clk" ],
     [ "CAN FD       (CAN with Flexible Data-Rate)", "group__group__canfd.html", "group__group__canfd" ],
     [ "Crypto       (Cryptography)", "group__group__crypto.html", "group__group__crypto" ],
     [ "Cryptolite   (Cryptography)", "group__group__cryptolite.html", "group__group__cryptolite" ],
@@ -44,7 +44,7 @@ var modules =
     [ "SysInt       (System Interrupt)", "group__group__sysint.html", "group__group__sysint" ],
     [ "SysLib       (System Library)", "group__group__syslib.html", "group__group__syslib" ],
     [ "SysPm        (System Power Management)", "group__group__syspm.html", "group__group__syspm" ],
-    [ "SysTick      (ARM System Timer)", "group__group__arm__system__timer.html", "group__group__arm__system__timer" ],
+    [ "SysTick      (Arm® System Timer)", "group__group__arm__system__timer.html", "group__group__arm__system__timer" ],
     [ "TCPWM        (Timer Counter PWM)", "group__group__tcpwm.html", "group__group__tcpwm" ],
     [ "TDM/I2S      (Time Division Multiplexing/Inter-IC Sound)", "group__group__tdm.html", "group__group__tdm" ],
     [ "TrigMux      (Trigger Multiplexer)", "group__group__trigmux.html", "group__group__trigmux" ],

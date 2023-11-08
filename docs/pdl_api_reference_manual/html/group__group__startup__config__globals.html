@@ -114,12 +114,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p><b>For CAT1A:</b> </p>
-<p>Holds the SlowClk (Cortex-M0+) or FastClk (Cortex-M4) system core clock, which is the system clock frequency supplied to the SysTick timer and the processor core clock. This variable implements CMSIS Core global variable. Refer to the <a href="http://www.keil.com/pack/doc/CMSIS/Core/html/group__system__init__gr.html" title="System and Clock Configuration">CMSIS documentation</a> for more details. This variable can be used by debuggers to query the frequency of the debug timer or to configure the trace clock speed.</p>
+<p>Holds the SlowClk (Cortex<sup>&reg;</sup>-M0+) or FastClk (Cortex<sup>&reg;</sup>-M4) system core clock, which is the system clock frequency supplied to the SysTick timer and the processor core clock. This variable implements CMSIS Core global variable. Refer to the <a href="http://www.keil.com/pack/doc/CMSIS/Core/html/group__system__init__gr.html" title="System and Clock Configuration">CMSIS documentation</a> for more details. This variable can be used by debuggers to query the frequency of the debug timer or to configure the trace clock speed.</p>
 <dl class="section attention"><dt>Attention</dt><dd>Compilers must be configured to avoid removing this variable in case the application program is not using it. Debugging systems require the variable to be physically present in memory so that it can be examined to configure the debugger.</dd></dl>
 <p><b>For CAT1B:</b></p>
 <p>Holds the CLK_HF0 system core clock.</p>
 <p><b>For CAT1C:</b></p>
-<p>Holds the CLK_SLOW(Cortex-M0+) or CLK_FAST0(Cortex-M7_0) or CLK_FAST(Cortex-M7_1) system core clock. </p>
+<p>Holds the CLK_SLOW(Cortex<sup>&reg;</sup>-M0+) or CLK_FAST0(Cortex<sup>&reg;</sup>-M7_0) or CLK_FAST(Cortex<sup>&reg;</sup>-M7_1) system core clock. </p>
 
 </div>
 </div>

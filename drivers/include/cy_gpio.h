@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.h
-* \version 1.90
+* \version 1.100
 *
 * Provides an API declaration of the GPIO driver
 *
@@ -103,6 +103,12 @@
 * \section group_gpio_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.100</td>
+*     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
+*       Updated pre-processor checks to check for GPIO auto-leveling capability rather than rely on IOSS version.</td>
+*     <td>Code enhancement and support for new devices.</td>
+*   </tr> 
 *   <tr>
 *     <td>1.90</td>
 *     <td>Updated APIs \ref Cy_GPIO_Port_Init, \ref Cy_GPIO_Port_Deinit, \ref Cy_GPIO_GetDrivemode.</td>
@@ -236,7 +242,7 @@ extern "C" {
 #define CY_GPIO_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_GPIO_DRV_VERSION_MINOR      90
+#define CY_GPIO_DRV_VERSION_MINOR      100
 
 /** GPIO driver ID */
 #define CY_GPIO_ID CY_PDL_DRV_ID(0x16U)
@@ -396,8 +402,13 @@ typedef struct
 #define CY_GPIO_CFG_DM_WIDTH_MASK              (0xFUL)    /**< Single pin mask for drive mode width in CFG/CFG_OUT3 register */
 #define CY_GPIO_CFG_DM_NO_INBUF_MASK           (0x07UL)   /**< Single pin mask for drive mode ( without input buffer ) in CFG register */
 #define CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK        (0x01UL)   /**< Single pin mask for VTRIP selection in CFG IN register */
-#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U)) || defined(CY_IP_MXS40SIOSS_VERSION)
-#define CY_GPIO_CFG_IN_VTRIP_SEL_1_MASK        (0x01UL)   /**< Single pin mask for VTRIP selection in CFG IN AUTOLVL register */
+#if (defined (CY_IP_MXS40IOSS) && ( \
+        (CY_IP_MXS40IOSS_VERSION == 3U) || \
+        (CY_IP_MXS40IOSS_VERSION == 2U && (defined (HT_VARIANT) && HT_VARIANT == 1U))) || \
+    defined (CY_IP_MXS40SIOSS_VERSION))
+
+    #define GPIO_AUTOLVL_AVAIL                 (1U)       /**< Specifies that the AUTOLVL registers are available on this device>**/
+    #define CY_GPIO_CFG_IN_VTRIP_SEL_1_MASK    (0x01UL)   /**< Single pin mask for VTRIP selection in CFG IN AUTOLVL register */
 #endif /* CY_IP_MXS40IOSS_VERSION */
 #define CY_GPIO_CFG_IN_VTRIP_SEL_MASK          CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK   /**< Single pin mask for VTRIP selection in CFG IN register */
 #define CY_GPIO_INTR_STATUS_MASK               (0x01UL)   /**< Single pin mask for interrupt status in INTR register */
@@ -827,7 +838,7 @@ void Cy_GPIO_SetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum);
 void Cy_GPIO_SetVtrip(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetVtrip(GPIO_PRT_Type* base, uint32_t pinNum);
-#if (defined(CY_IP_MXS40IOSS) && (CY_IP_MXS40IOSS_VERSION == 3U)) || defined(CY_IP_MXS40SIOSS_VERSION) || defined (CY_DOXYGEN)
+#if defined(GPIO_AUTOLVL_AVAIL) || defined(CY_DOXYGEN)
 void Cy_GPIO_SetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 uint32_t Cy_GPIO_GetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum);
 #endif /* CY_IP_MXS40IOSS_VERSION */

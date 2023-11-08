@@ -116,6 +116,11 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.90 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
+ Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1.<br />
+ In cy_sysclk_v2 source, added pre-processor logic to include/exclude certain SRSS versions.<br />
+ Renamed PERI_DIV Defines to PERI_PCLK_GR_DIV for CAT1B and CAT1C. Changed pre-processor logic and set initial values to 0 for grpNum, instNum, locFrac, and locDiv variables to prevent uninitialized value access. Added pre-processor logic to prevent use of PLL400M API for non-compatible devices. Added "Unsupported Core Type" warning messages. In cy_sysclk_v2 source, added API <a class="el" href="group__group__sysclk__clk__fast__funcs.html#ga414d0aa5c8df4a5b16c91614ff967e3a">Cy_SysClk_ClkFastGetDivider</a>. </td><td>Code enhancement and support for new devices.  </td></tr>
+<tr>
 <td>3.80 </td><td>Added <a class="el" href="group__group__sysclk__pilo__funcs.html#ga3a27da8dadb92695750b12f41c91be06">Cy_SysClk_PiloOkay</a> new API and few macros. Updated <a class="el" href="group__group__sysclk__pilo__funcs.html#ga92e44b1390d7cabf2c597c45a5fdd309">Cy_SysClk_PiloEnable</a>. </td><td>Usability enhancement.  </td></tr>
 <tr>
 <td>3.70 </td><td>Added new APIs <a class="el" href="group__group__sysclk__clk__pwr__funcs.html#ga67797f8c99ea82f42ee9c851c0c320cf">Cy_SysClk_ClkPwrSetDivider</a>, <a class="el" href="group__group__sysclk__clk__pwr__funcs.html#ga1e5eb62dc8e5d6e2868ad6e9ab4e10da">Cy_SysClk_ClkPwrGetDivider</a>, <a class="el" href="group__group__sysclk__clk__pwr__funcs.html#ga9c2e470db36c5e854811d539035d0ad0">Cy_SysClk_ClkPwrGetFrequency</a>, <a class="el" href="group__group__sysclk__clk__pwr__funcs.html#ga56d3459b796e0c51e85da74ba368eab7">Cy_SysClk_ClkPwrSetSource</a>, <a class="el" href="group__group__sysclk__clk__pwr__funcs.html#ga35a0804ce9e5014d36a0fdfe6edd0db2">Cy_SysClk_ClkPwrGetSource</a>. <br />
@@ -129,7 +134,7 @@ Changelog</h1>
 Newly added APIs: <br />
  <a class="el" href="group__group__sysclk__pll__funcs.html#ga219fd6d8d1d18090fe6d7002610ac021" title="Returns the output frequency of the PLL. ">Cy_SysClk_PllGetFrequency()</a> for CAT1A,CAT1C and CAT1D devices, <br />
  <a class="el" href="group__group__sysclk__pll__funcs.html#gabdf2396edece2bf47abd72603fc791e5" title="Gets the frequency of PLL200M. ">Cy_SysClk_Pll200MGetFrequency()</a> for CAT1C devices, <br />
- <a class="el" href="group__group__sysclk__pll__funcs.html#ga1e83e55b944bb47222d309ede5569d38" title="Gets the frequency of PLL400M. ">Cy_SysClk_Pll400MGetFrequency()</a> for CAT1C devices, <br />
+ Cy_SysClk_Pll400MGetFrequency() for CAT1C devices, <br />
  <a class="el" href="group__group__sysclk__imo__funcs.html#ga40861bc2380f871a06ef0600ccbd4dd5" title="Enables the IMO. ">Cy_SysClk_ImoEnable()</a> for CAT1D devices, <br />
  <a class="el" href="group__group__sysclk__imo__funcs.html#ga65e688803f1098d1d42ac635117104bc" title="Disables IMO. ">Cy_SysClk_ImoDisable()</a> for CAT1D devices, <br />
  <a class="el" href="group__group__sysclk__imo__funcs.html#gaff509bb102fcc7335d2a1c89a139e67a" title="Reports whether or not the selected IMO is enabled. ">Cy_SysClk_ImoIsEnabled()</a> for CAT1D devices, <br />
@@ -153,13 +158,13 @@ Newly added APIs: <br />
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#gaae48c98d74bbb34e049d2e8c17100685" title="Reports whether or not the selected 200M PLL is locked. ">Cy_SysClk_Pll200MLocked()</a></li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga40696a5667ca242332fb3de42b1b2994" title="Reports whether or not the selected 200M PLL lost its lock since the last time this function was call...">Cy_SysClk_Pll200MLostLock()</a></li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27" title="Disables the selected 200M PLL. ">Cy_SysClk_Pll200MDisable()</a></li>
-<li><a class="el" href="group__group__sysclk__pll__funcs.html#gad498857f6d3c3b8df8dd176391d07f6f" title="Configures 400M PLL. ">Cy_SysClk_Pll400MConfigure()</a></li>
-<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga940fd6400c3ea9f37a0b26893ae8b42b" title="Manually configures a 400M PLL based on user inputs. ">Cy_SysClk_Pll400MManualConfigure()</a></li>
-<li><a class="el" href="group__group__sysclk__pll__funcs.html#gad0d8b724b371f76ba51ed3378691d9df" title="Reports configuration settings for 400M PLL. ">Cy_SysClk_Pll400MGetConfiguration()</a></li>
-<li><a class="el" href="group__group__sysclk__pll__funcs.html#gaa92e2b0dd3f211143fd66edf70fcd2ae" title="Enables the 400M PLL. ">Cy_SysClk_Pll400MEnable()</a></li>
-<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga156fecfbaecb9d502c74529f910fe24b" title="Reports whether or not the selected 400M PLL is enabled. ">Cy_SysClk_Pll400MIsEnabled()</a></li>
-<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga5455c05316aa399ef5afacf7648a3cf1" title="Reports whether or not the selected 400M PLL is locked. ">Cy_SysClk_Pll400MLocked()</a></li>
-<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8e300a347373de8ab2c7d2ca89b05dee" title="Reports whether or not the selected 400M PLL lost its lock since the last time this function was call...">Cy_SysClk_Pll400MLostLock()</a></li>
+<li>Cy_SysClk_Pll400MConfigure()</li>
+<li>Cy_SysClk_Pll400MManualConfigure()</li>
+<li>Cy_SysClk_Pll400MGetConfiguration()</li>
+<li>Cy_SysClk_Pll400MEnable()</li>
+<li>Cy_SysClk_Pll400MIsEnabled()</li>
+<li>Cy_SysClk_Pll400MLocked()</li>
+<li>Cy_SysClk_Pll400MLostLock()</li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27" title="Disables the selected 200M PLL. ">Cy_SysClk_Pll200MDisable()</a></li>
 <li><a class="el" href="group__group__sysclk__iho__funcs.html#gae014bbd531b0612fc784cdcf15784564" title="Enables the IHO during deepsleep mode. ">Cy_SysClk_IhoDeepsleepEnable()</a></li>
 <li><a class="el" href="group__group__sysclk__iho__funcs.html#ga9de913cc5f378cba22fa53d77ab30b98" title="Reports whether or not the selected IHO is enabled during deepsleep mode. ">Cy_SysClk_IhoIsDeepsleepEnabled()</a></li>
@@ -380,13 +385,13 @@ API Reference</h2></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__slow"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slow clock is the source clock for the "slow" processor (e.g. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__alt__hf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__alt__hf.html">Alternative High-Frequency Clock</a></td></tr>
-<tr class="memdesc:group__group__sysclk__alt__hf"><td class="mdescLeft">&#160;</td><td class="mdescRight">In the BLE-enabled PSoC6 devices, the <a class="el" href="group__group__ble__clk.html">BLE ECO (BLE ECO Clock)</a> clock is connected to the system Alternative High-Frequency Clock input. <br /></td></tr>
+<tr class="memdesc:group__group__sysclk__alt__hf"><td class="mdescLeft">&#160;</td><td class="mdescRight">In the BLE-enabled PSoC6 devices, the <a class="el" href="group__group__ble__clk.html">BLE ECO (Bluetooth&reg; LE ECO Clock)</a> clock is connected to the system Alternative High-Frequency Clock input. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__clk__lf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__lf.html">Low-Frequency Clock</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__lf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The low-frequency clock is the source clock for the <a class="el" href="group__group__mcwdt.html">MCWDT (Multi-Counter Watchdog)</a> and can be the source clock for <a class="el" href="group__group__sysclk__clk__bak.html">Backup Domain Clock</a>, which drives the <a class="el" href="group__group__rtc.html">RTC (Real-Time Clock)</a>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__clk__timer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__timer.html">Timer Clock</a></td></tr>
-<tr class="memdesc:group__group__sysclk__clk__timer"><td class="mdescLeft">&#160;</td><td class="mdescRight">The timer clock can be a source for the alternative clock driving the <a class="el" href="group__group__arm__system__timer.html">SysTick (ARM System Timer)</a>. <br /></td></tr>
+<tr class="memdesc:group__group__sysclk__clk__timer"><td class="mdescLeft">&#160;</td><td class="mdescRight">The timer clock can be a source for the alternative clock driving the <a class="el" href="group__group__arm__system__timer.html">SysTick (Arm&reg; System Timer)</a>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__clk__pump"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__pump.html">Pump Clock</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__pump"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pump clock is a clock source used to provide analog precision in low voltage applications. <br /></td></tr>

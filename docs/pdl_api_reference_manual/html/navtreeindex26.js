@@ -1,15 +1,6 @@
 var NAVTREEINDEX26 =
 {
-"group__group__syspm__functions__power__status.html#ga9d1b52153b2107bd69f799cd6b34f2f1":[4,43,4,2,17],
-"group__group__syspm__functions__power__status.html#gaa04e75e763f98dd2982f0d1bd759c6a1":[4,43,4,2,2],
-"group__group__syspm__functions__power__status.html#gaa5ea8ab7f994a0cfe9268cec1f3ec91c":[4,43,4,2,12],
-"group__group__syspm__functions__power__status.html#gaacf9cb78aa18a819b22b242d552474af":[4,43,4,2,8],
-"group__group__syspm__functions__power__status.html#gac9b91aea0eac6ef221e3cc9ed425fac1":[4,43,4,2,6],
-"group__group__syspm__functions__power__status.html#gaccb337079a63ff9d3f2b70ba6ea886c3":[4,43,4,2,4],
-"group__group__syspm__functions__power__status.html#gadc84fd1eeccad0a0561b69b1278cf75b":[4,43,4,2,11],
-"group__group__syspm__functions__power__status.html#gae8cc7ef2fb7a30977a1d9100de1571ab":[4,43,4,2,10],
-"group__group__syspm__functions__power__status.html#gaecc0551908eb1b88e112405926d57426":[4,43,4,2,15],
-"group__group__syspm__functions__power__status.html#gaedc88873d19449d733cb529453c9cdc5":[4,43,4,2,19],
+"group__group__syspm__functions__power__status.html#gaedc88873d19449d733cb529453c9cdc5":[4,43,4,2,18],
 "group__group__syspm__functions__power__status.html#gaffdaf11b8565e3838c8533803eedb70e":[4,43,4,2,1],
 "group__group__syspm__functions__reghc.html":[4,43,4,9],
 "group__group__syspm__functions__reghc.html#ga02c3c224063acac4adf31d04d324d5d0":[4,43,4,9,12],
@@ -249,5 +240,14 @@ var NAVTREEINDEX26 =
 "group__group__tcpwm__enums.html#ga17d594ed5788e1fc2de2eae9982fc9dc":[4,45,0,3,0],
 "group__group__tcpwm__enums.html#ga236beaba02c8a2a1c4eec981501e7270":[4,45,0,3,2],
 "group__group__tcpwm__enums.html#ga302d5f1c0546c77304bfed7a8abf0cdb":[4,45,0,3,1],
-"group__group__tcpwm__enums.html#ga3df0a640c4def803d2145a235a4e92f5":[4,45,0,3,3]
+"group__group__tcpwm__enums.html#ga3df0a640c4def803d2145a235a4e92f5":[4,45,0,3,3],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca5100ba43a518d8f0f6977e8421d672cd":[4,45,0,3,0,2],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca5a4e13feb26547488d0a274d34a4b5d7":[4,45,0,3,0,1],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca65e1829f540f9b0846bc0ad357d48d2e":[4,45,0,3,0,6],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca68ef36ad8f1f97c074d8171f7a527f0f":[4,45,0,3,0,3],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dca96c7db882ecc10e489278a8263b71338":[4,45,0,3,0,4],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcade433f03721499f683cad3ef9cce2484":[4,45,0,3,0,5],
+"group__group__tcpwm__enums.html#gga17d594ed5788e1fc2de2eae9982fc9dcae75c3855ed4b926fd65e57c9fcaeba68":[4,45,0,3,0,0],
+"group__group__tcpwm__enums.html#gga236beaba02c8a2a1c4eec981501e7270a51f56f747deff67f94f3036a5074f626":[4,45,0,3,2,2],
+"group__group__tcpwm__enums.html#gga236beaba02c8a2a1c4eec981501e7270ae445f943c46a8d517be923816b8459c9":[4,45,0,3,2,1]
 };

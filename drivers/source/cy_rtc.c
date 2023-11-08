@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_rtc.c
-* \version 2.70
+* \version 2.80
 *
 * This file provides constants and parameter values for the APIs for the
 * Real-Time Clock (RTC).
@@ -1703,9 +1703,7 @@ static void ConstructTimeDate(cy_stc_rtc_config_t const *timeDate, uint32_t *tim
             tmpTime &= ((uint32_t) ~CY_RTC_BACKUP_RTC_TIME_RTC_PM);
         }
         tmpTime |= BACKUP_RTC_TIME_CTRL_12HR_Msk;
-        tmpTime |= 
-        (_VAL2FLD(BACKUP_RTC_TIME_RTC_HOUR, 
-        (CONVERT_DEC_TO_BCD(timeDate->hour) & ((uint32_t) ~CY_RTC_12HRS_PM_BIT))));
+        tmpTime |= (_VAL2FLD(BACKUP_RTC_TIME_RTC_HOUR, (CONVERT_DEC_TO_BCD(timeDate->hour) & ((uint32_t) ~CY_RTC_12HRS_PM_BIT))));
     }
     else
     {

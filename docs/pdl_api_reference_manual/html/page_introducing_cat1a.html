@@ -84,30 +84,66 @@ $(document).ready(function(){initNavTree('page_introducing_cat1a.html','');});
 <div class="title">Introducing CAT1A </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>PSoC 6 is Cypress’ new PSoC MCU architecture, purpose-built for the IoT. It bridges the gap between expensive, power hungry application processors and low performance MCUs. The ultra-low-power PSoC 6 MCU architecture offers the processing performance needed by IoT devices, eliminating the tradeoffs between power and performance.</p>
-<p>PSoC 6 MCU is a dual core architecture, with both microcontrollers on a single chip. It has an ARM® Cortex®-M4 for high-performance tasks, and an ARM® Cortex®-M0+ for low-power tasks. Security is built-in, protecting your IoT system.</p>
-<p>The PSoC 6 MCU architecture enables engineers to create innovative, next-generation IoT devices that take advantage of the merits of each core. Using the highly-customizable Peripheral Driver Library (PDL), you write code for either processor using a single API. In addition, the two cores share a common memory space. Inter-processor communication is simplified, both by this design, and the PDL IPC driver.</p>
-<p>The PDL provides fully-integrated support for BLE, an RTOS, a trusted execution environment, capacitive sensing, and a great deal more. In addition to the integrated peripherals, developers can leverage the unique PSoC fabric with its easy-to-use, custom, software-defined peripherals.</p>
+<div class="textblock"><p>CAT1A is a category from Infineon that includes devices of both the PSoC&trade; and TRAVEO&trade; families. It bridges the gap between expensive, power hungry application processors and low performance MCUs. These devices use a dual core architecture, with both microcontrollers on a single chip. CAT1A devices have an Arm<sup>&reg;</sup> Cortex<sup>&reg;</sup> M4 for high-performance tasks, and an Arm<sup>&reg;</sup> Cortex<sup>&reg;</sup> M0+ for low-power tasks.</p>
+<p>Devices in the CAT1A family enable engineers to create innovative, next-generation IoT devices that take advantage of the merits of each core. Using the highly-customizable Peripheral Driver Library (PDL), both processors can be programmed with a single API. In addition, the two cores share a common memory space. Inter-processor communication is simplified, both by this design, and the PDL IPC driver.</p>
+<p>For devices with hardware compatibility, the PDL API provides fully-integrated support for Bluetooth<sup>&reg;</sup> LE, an RTOS, capacitive sensing, a trusted execution environment, and more. In addition to the integrated peripherals, developers can leverage flexible functionality assignments with its easy-to-use, custom, software-defined peripherals.</p>
 <p>The combination of highly-capable MCUs with an extremely flexible driver API, extensive integrated middleware, and custom software-based peripherals, enables significant opportunity for developers to create better solutions.</p>
-<p>Extended battery life:</p><ul>
-<li>Built on an ultra-low-power 40-nm process technology</li>
-<li>Active power consumption as low as 22-uA/MHz for the Cortex-M4 core</li>
-<li>Dual-core ARM Cortex-M architecture, optimizing for power and performance</li>
-<li>Integrated high efficiency Buck converter and LDO regulator</li>
-<li>Dynamic voltage and frequency scaling (DVFS with PLL/FLL)</li>
-</ul>
 <p>Enabling innovation:</p><ul>
-<li>Best-in-class flexibility, with multiple connectivity options, such as BLE with 2 Mbps throughput and USB</li>
 <li>Fully-customizable hardware peripherals with a driver library provided as source code</li>
-<li>Software-defined peripherals to create custom analog and digital circuits within the PSoC MCU</li>
-<li>Industry leading capacitive-sensing, CapSense™</li>
-<li>XIP Quad-SPI supports on-the-fly encryption</li>
+<li>Software-defined peripherals to create custom analog and digital circuits within the MCU</li>
+<li>Industry leading capacitive-sensing, CAPSENSE&trade;</li>
 </ul>
-<p>Protection against cyber threats:</p><ul>
-<li>Integrated, hardware-based Trusted Execution Environment (TEE) with secure data storage</li>
-<li>Dedicated security coprocessor, which eliminates the need for external SoCs or memories</li>
-<li>Secure Boot capability</li>
-<li>Advanced cryptographic accelerator block supports ECC, AES128, SHA1/2/3 </li>
+<p>CAT1A supports two families of devices that share the same platform:</p>
+<p><b>PSoC&trade; 6 devices:</b> PSoC&trade; 6 is an ultra-low-power architecture which features low-power design techniques that are ideal for battery powered applications. Its dual cores, and its configurable memory and peripheral protection units, allow the PSoC&trade; 6 MCU to deliver the highest level of protection defined by the Platform Security Architecture (PSA) from Arm<sup>&reg;</sup></p>
+<ul>
+<li>
+Extended battery life: <ul>
+<li>
+Built on an ultra-low-power 40-nm process technology </li>
+<li>
+Active power consumption as low as 22-uA/MHz for the Cortex<sup>&reg;</sup>-M4 core </li>
+<li>
+Dual-core Arm<sup>&reg;</sup> Cortex<sup>&reg;</sup>-M architecture, optimizing for power and performance </li>
+<li>
+Integrated high efficiency Buck converter and LDO regulator </li>
+<li>
+Dynamic voltage and frequency scaling (DVFS with PLL/FLL) </li>
+</ul>
+</li>
+<li>
+Protection against cyber threats: <ul>
+<li>
+XIP Quad-SPI supports on-the-fly encryption </li>
+<li>
+Integrated, hardware-based Trusted Execution Environment (TEE) with secure data storage </li>
+<li>
+Dedicated security coprocessor, which eliminates the need for external SoCs or memories </li>
+<li>
+Secure Boot capability </li>
+<li>
+Advanced cryptographic accelerator block supports ECC, AES128, SHA1/2/3 </li>
+</ul>
+</li>
+<li>
+Flexibility in connectivity: <ul>
+<li>
+Bluetooth<sup>&reg;</sup> LE with 2 Mbps throughput </li>
+<li>
+USB 2.0, with a full-speed bit rate of 12 Mbps, and both CPU and DMA modes </li>
+</ul>
+</li>
+</ul>
+<p><b>TRAVEO&trade; II-B-E devices:</b> TRAVEO&trade; II Body Entry is a dual core architecture with a high-performance, high quality grade MCU platform. These devices target Industrial Drives, Robotics, Transportation (eBikes and LEVs), eV Chargers, and Heavy duty powers and construction tools applications.</p>
+<ul>
+<li>
+Power Efficiency:<br />
+ Devices in the TRAVEO&trade; family feature six power modes that enable target applications to minimize overall power consumption.  </li>
+<li>
+Cutting-edge Security Features:<br />
+ TRAVEO&trade; II-B-E provides secure communication with excellent scalability in memory size and pin count. This is done through the introduction of HSM (Hardware Security Module), dedicated Cortex<sup>&reg;</sup> M0+ for secure processing, and embedded flash in dual bank mode for FOTA requirements.  </li>
+<li>
+New to CAT1A, CAN Capability:<br />
+ Multiple, independent CAN FD controllers are included on each TRAVEO&trade; II-B-E device. Each controller supports both CAN 2.0A/B bus architectures (speeds of up to 1Mbps) and CAN Flexible Data Rate bus architectures (speeds of up to 8Mbps), which provide high-reliability communications for commercial, industrial and automotive applications.  </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

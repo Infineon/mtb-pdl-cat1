@@ -202,6 +202,11 @@ Changelog</h1>
 <tr>
 <th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.90 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
+ Updated pre-processor check to only include code if ECT flash is not used.<br />
+ In cy_flash_srom, changed pre-processor checks from using CM7 availability to using MXFLASHC ver. to determine flash hardware availability.<br />
+ In cy_flash_srom, added interrupt compatibility for CM4 devices. </td><td>Code enhancement and support for new devices.  </td></tr>
+<tr>
 <td>3.80 </td><td>Dual bank support added for CAT1A devices. </td><td>Newly added APIs <a class="el" href="group__group__flash__functions.html#ga61b907d56c35da075b1353f9f53ea0cc">Cy_Flashc_SetMain_Flash_Mapping</a> , <a class="el" href="group__group__flash__functions.html#ga383d2ae70270ed056e50d72cc81cd4d3">Cy_Flashc_SetWork_Flash_Mapping</a> for CAT1A and CAT1C devices.  </td></tr>
 <tr>
 <td>3.70 </td><td>Fixed MISRA 2012 violations and Documentation Update. </td><td>MISRA 2012 compliance.  </td></tr>

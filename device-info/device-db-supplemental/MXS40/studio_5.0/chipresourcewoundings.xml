@@ -74,16 +74,8 @@
     <Block name="eth"/>
   </RemoveListWounding>
   <RemoveListWounding name="CXPI_REMOVED">
-    <Block name="cxpi"/>
+    <Block name="cxpi.ch"/>
   </RemoveListWounding>
-  <IndexResourceWounding name="DAC8_REMOVED">
-    <ResourceIndex index="0">
-      <Block name="csd.idac0" />
-    </ResourceIndex>
-    <ResourceIndex index="1">
-      <Block name="csd.idac1" />
-    </ResourceIndex>
-  </IndexResourceWounding>
   <IndexResourceWounding name="I2S_REMOVED">
     <ResourceIndex index="0">
       <Block name="audioss[0].i2s[0]" />

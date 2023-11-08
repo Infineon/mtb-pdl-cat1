@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk_v2.c
-* \version 3.80
+* \version 3.90
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -25,12 +25,23 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) || defined (CY_IP_MXS22SRSS)
 
 #include "cy_sysclk.h"
 #include "cy_syslib.h"
 #include "cy_syspm_btss.h"
 #include <stdlib.h>
+
+/* Static variable declarations */
+/* Cy_SysClk_StartClkMeasurementCounters() input parameter saved for use later in other functions */
+static uint32_t clk1Count1;
+
+/* These variables act as locks to prevent collisions between clock measurement and entry into
+   Deep Sleep mode. See Cy_SysClk_DeepSleep(). */
+static bool clkCounting = false;
+static bool preventCounting = false;
+
+/* End static variable section */
 
 #if defined (CY_IP_MXS22SRSS)
 #define SLOW_SEL_OUTPUT_INDEX       11UL
@@ -43,15 +54,24 @@ cy_en_sysclk_status_t
                                            uint32_t dividerNum, uint32_t dividerValue)
 {
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    uint8_t grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
 
     if (dividerType == CY_SYSCLK_DIV_8_BIT)
     {
-        if ((dividerNum < (PERI_DIV_8_NR(instNum, grpNum))) &&
+        if ((dividerNum < (PERI_PCLK_GR_DIV_8_NR(instNum, grpNum))) &&
             (dividerValue <= (PERI_DIV_8_CTL_INT8_DIV_Msk >> PERI_DIV_8_CTL_INT8_DIV_Pos)))
         {
             CY_REG32_CLR_SET(PERI_DIV_8_CTL(instNum, grpNum, dividerNum), PERI_DIV_8_CTL_INT8_DIV, dividerValue);
@@ -60,7 +80,7 @@ cy_en_sysclk_status_t
     }
     else if (dividerType == CY_SYSCLK_DIV_16_BIT)
     {
-        if ((dividerNum < (PERI_DIV_16_NR(instNum, grpNum))) &&
+        if ((dividerNum < (PERI_PCLK_GR_DIV_16_NR(instNum, grpNum))) &&
             (dividerValue <= (PERI_DIV_16_CTL_INT16_DIV_Msk >> PERI_DIV_16_CTL_INT16_DIV_Pos)))
         {
             CY_REG32_CLR_SET(PERI_DIV_16_CTL(instNum, grpNum, dividerNum), PERI_DIV_16_CTL_INT16_DIV, dividerValue);
@@ -77,21 +97,28 @@ cy_en_sysclk_status_t
 uint32_t Cy_SysClk_PeriPclkGetDivider(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum)
 {
     uint32_t retVal;
-    uint8_t grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
     CY_ASSERT_L1(dividerType <= CY_SYSCLK_DIV_16_BIT);
-
     if (dividerType == CY_SYSCLK_DIV_8_BIT)
     {
-        CY_ASSERT_L1(dividerNum < PERI_DIV_8_NR(instNum, grpNum));
+        CY_ASSERT_L1(dividerNum < PERI_PCLK_GR_DIV_8_NR(instNum, grpNum));
         retVal = _FLD2VAL(PERI_DIV_8_CTL_INT8_DIV, PERI_DIV_8_CTL(instNum, grpNum, dividerNum));
     }
     else
     { /* 16-bit divider */
-        CY_ASSERT_L1(dividerNum < PERI_DIV_16_NR(instNum, grpNum));
+        CY_ASSERT_L1(dividerNum < PERI_PCLK_GR_DIV_16_NR(instNum, grpNum));
         retVal = _FLD2VAL(PERI_DIV_16_CTL_INT16_DIV, PERI_DIV_16_CTL(instNum, grpNum, dividerNum));
     }
     return (retVal);
@@ -103,15 +130,23 @@ cy_en_sysclk_status_t
                                                uint32_t dividerIntValue, uint32_t dividerFracValue)
 {
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    uint8_t grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
-
-    if (dividerType == CY_SYSCLK_DIV_16_5_BIT)
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
+#if !(defined (PERI_DIV_16_5_NR) && (PERI_DIV_16_5_NR == 0))
+    if (dividerType == CY_SYSCLK_DIV_16_5_BIT) 
     {
-        if (((uint32_t)dividerNum < (PERI_DIV_16_5_NR(instNum, grpNum))) &&
+        if (((uint32_t)dividerNum < (PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum))) &&
             (dividerIntValue <= (PERI_DIV_16_5_CTL_INT16_DIV_Msk >> PERI_DIV_16_5_CTL_INT16_DIV_Pos)) &&
             (dividerFracValue <= (PERI_DIV_16_5_CTL_FRAC5_DIV_Msk >> PERI_DIV_16_5_CTL_FRAC5_DIV_Pos)))
         {
@@ -120,9 +155,11 @@ cy_en_sysclk_status_t
             retVal = CY_SYSCLK_SUCCESS;
         }
     }
-    else if (dividerType == CY_SYSCLK_DIV_24_5_BIT)
+#endif
+#if !(defined (PERI_DIV_24_5_NR) && (PERI_DIV_24_5_NR == 0))
+    if (dividerType == CY_SYSCLK_DIV_24_5_BIT)
     {
-        if (((uint32_t)dividerNum < (PERI_DIV_24_5_NR(instNum, grpNum))) &&
+        if (((uint32_t)dividerNum < (PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum))) &&
             (dividerIntValue <= (PERI_DIV_24_5_CTL_INT24_DIV_Msk >> PERI_DIV_24_5_CTL_INT24_DIV_Pos)) &&
             (dividerFracValue <= (PERI_DIV_24_5_CTL_FRAC5_DIV_Msk >> PERI_DIV_24_5_CTL_FRAC5_DIV_Pos)))
         {
@@ -131,9 +168,9 @@ cy_en_sysclk_status_t
             retVal = CY_SYSCLK_SUCCESS;
         }
     }
-    else
-    { /* return bad parameter */
-    }
+#endif
+    /* if none of the above conditions are true, the function will return bad parameter */
+    
     return (retVal);
 }
 
@@ -141,27 +178,38 @@ cy_en_sysclk_status_t
 void Cy_SysClk_PeriPclkGetFracDivider(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum,
                                                     uint32_t *dividerIntValue, uint32_t *dividerFracValue)
 {
-    uint8_t grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
-
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
     CY_ASSERT_L1(((dividerType == CY_SYSCLK_DIV_16_5_BIT) || (dividerType == CY_SYSCLK_DIV_24_5_BIT)) && \
                  (dividerIntValue != NULL) && (dividerFracValue != NULL));
 
+#if !(defined (PERI_DIV_16_5_NR) && (PERI_DIV_16_5_NR == 0))
     if (dividerType == CY_SYSCLK_DIV_16_5_BIT)
     {
-        CY_ASSERT_L1(dividerNum < PERI_DIV_16_5_NR(instNum, grpNum));
+        CY_ASSERT_L1(dividerNum < PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum));
         *dividerIntValue  = _FLD2VAL(PERI_DIV_16_5_CTL_INT16_DIV, PERI_DIV_16_5_CTL(instNum, grpNum, dividerNum));
         *dividerFracValue = _FLD2VAL(PERI_DIV_16_5_CTL_FRAC5_DIV, PERI_DIV_16_5_CTL(instNum, grpNum, dividerNum));
     }
-    else
+#endif
+#if !(defined (PERI_DIV_24_5_NR) && (PERI_DIV_24_5_NR == 0))
+    if (dividerType == CY_SYSCLK_DIV_24_5_BIT)
     { /* 24.5-bit divider */
-        CY_ASSERT_L1(dividerNum < PERI_DIV_24_5_NR(instNum, grpNum));
+        CY_ASSERT_L1(dividerNum < PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum));
         *dividerIntValue  = _FLD2VAL(PERI_DIV_24_5_CTL_INT24_DIV, PERI_DIV_24_5_CTL(instNum, grpNum, dividerNum));
         *dividerFracValue = _FLD2VAL(PERI_DIV_24_5_CTL_FRAC5_DIV, PERI_DIV_24_5_CTL(instNum, grpNum, dividerNum));
     }
+#endif
 }
 
 
@@ -170,24 +218,41 @@ cy_en_sysclk_status_t
                                               cy_en_divider_types_t dividerType, uint32_t dividerNum)
 {
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    uint8_t grpNum    = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum    = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
     uint8_t periNum  = (uint8_t)((uint32_t)ipBlock & PERI_PCLK_PERI_NUM_Msk);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
-
+#endif
     if (CY_SYSCLK_DIV_24_5_BIT >= dividerType)
     {
-        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_DIV_8_NR(instNum, grpNum))))    ||
-            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_DIV_16_NR(instNum, grpNum))))   ||
-            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_DIV_16_5_NR(instNum, grpNum)))) ||
-            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_DIV_24_5_NR(instNum, grpNum)))))
+        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_PCLK_GR_DIV_8_NR(instNum, grpNum))))    ||
+            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_PCLK_GR_DIV_16_NR(instNum, grpNum))))   ||
+#if !(defined (PERI_DIV_16_5_NR) && (PERI_DIV_16_5_NR == 0))
+            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum)))) ||
+#endif
+            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum)))))
         {
+#if defined (CY_IP_MXS40SRSS) && (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION < 3))
+            CY_UNUSED_PARAMETER(grpNum);
+            CY_UNUSED_PARAMETER(instNum);
+            if (CY_PERI_CLOCK_NR > (uint32_t)ipBlock)
+            {
+                PERI_CLOCK_CTL[ipBlock] = _VAL2FLD(CY_PERI_CLOCK_CTL_TYPE_SEL, dividerType) |
+                                        _VAL2FLD(CY_PERI_CLOCK_CTL_DIV_SEL, dividerNum);
+
+                retVal = CY_SYSCLK_SUCCESS;
+            }
+#else
             PERI_CLOCK_CTL(instNum, grpNum, periNum) = _VAL2FLD(CY_PERI_CLOCK_CTL_TYPE_SEL, dividerType) |
                                       _VAL2FLD(CY_PERI_CLOCK_CTL_DIV_SEL, dividerNum);
 
             retVal = CY_SYSCLK_SUCCESS;
+#endif
         }
     }
     return (retVal);
@@ -196,14 +261,18 @@ cy_en_sysclk_status_t
 
 uint32_t Cy_SysClk_PeriPclkGetAssignedDivider(en_clk_dst_t ipBlock)
 {
+#if defined (CY_IP_MXS40SRSS) && (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION < 3))
+    CY_ASSERT_L1(CY_PERI_CLOCK_NR > (uint32_t)ipBlock);
+    return (PERI_CLOCK_CTL[ipBlock] & (CY_PERI_CLOCK_CTL_DIV_SEL_Msk | CY_PERI_CLOCK_CTL_TYPE_SEL_Msk));
+#else
     uint8_t grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
     uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
     uint8_t periNum  = (uint8_t)((uint32_t)ipBlock & PERI_PCLK_PERI_NUM_Msk );
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
-
-    return (PERI_CLOCK_CTL(instNum, grpNum, periNum) & (CY_PERI_CLOCK_CTL_DIV_SEL_Msk | CY_PERI_CLOCK_CTL_TYPE_SEL_Msk));
+    return (PERI_CLOCK_CTL(instNum, grpNum, periNum) & (CY_PERI_CLOCK_CTL_DIV_SEL_Msk | CY_PERI_CLOCK_CTL_TYPE_SEL_Msk));   
+#endif
 }
 
 
@@ -211,18 +280,27 @@ cy_en_sysclk_status_t
                 Cy_SysClk_PeriPclkEnableDivider(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum)
 {
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    uint8_t grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
-
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
     if (dividerType <= CY_SYSCLK_DIV_24_5_BIT)
     {
-        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_DIV_8_NR(instNum, grpNum))))    ||
-            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_DIV_16_NR(instNum, grpNum))))   ||
-            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_DIV_16_5_NR(instNum, grpNum)))) ||
-            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_DIV_24_5_NR(instNum, grpNum)))))
+        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_PCLK_GR_DIV_8_NR(instNum, grpNum))))    ||
+            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_PCLK_GR_DIV_16_NR(instNum, grpNum))))   ||
+#if !(defined (PERI_DIV_16_5_NR) && (PERI_DIV_16_5_NR == 0))
+            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum)))) ||
+#endif
+            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum)))))
         {
             /* specify the divider, make the reference = clk_peri, and enable the divider */
             PERI_DIV_CMD(instNum, grpNum) = PERI_DIV_CMD_ENABLE_Msk                         |
@@ -242,18 +320,27 @@ cy_en_sysclk_status_t
                 Cy_SysClk_PeriPclkDisableDivider(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum)
 {
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    uint32_t grpNum = (((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
-
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
     if (dividerType <= CY_SYSCLK_DIV_24_5_BIT)
     {
-        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_DIV_8_NR(instNum, grpNum))))    ||
-            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_DIV_16_NR(instNum, grpNum))))   ||
-            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_DIV_16_5_NR(instNum, grpNum)))) ||
-            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_DIV_24_5_NR(instNum, grpNum)))))
+        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_PCLK_GR_DIV_8_NR(instNum, grpNum))))    ||
+            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_PCLK_GR_DIV_16_NR(instNum, grpNum))))   ||
+#if !(defined (PERI_DIV_16_5_NR) && (PERI_DIV_16_5_NR == 0))
+            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum)))) ||
+#endif
+            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum)))))
         {
             /* specify the divider and disable it */
             PERI_DIV_CMD(instNum, grpNum) = PERI_DIV_CMD_DISABLE_Msk          |
@@ -271,18 +358,27 @@ cy_en_sysclk_status_t
                                                         cy_en_divider_types_t dividerTypePA, uint32_t dividerNumPA)
 {
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    uint32_t grpNum = (((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
-
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
     if (dividerTypePA <= CY_SYSCLK_DIV_24_5_BIT)
     {
-        if (((dividerTypePA == CY_SYSCLK_DIV_8_BIT)    && (dividerNumPA < (PERI_DIV_8_NR(instNum, grpNum))))    ||
-            ((dividerTypePA == CY_SYSCLK_DIV_16_BIT)   && (dividerNumPA < (PERI_DIV_16_NR(instNum, grpNum))))   ||
-            ((dividerTypePA == CY_SYSCLK_DIV_16_5_BIT) && (dividerNumPA < (PERI_DIV_16_5_NR(instNum, grpNum)))) ||
-            ((dividerTypePA == CY_SYSCLK_DIV_24_5_BIT) && ((dividerNumPA < (PERI_DIV_24_5_NR(instNum, grpNum))) || (dividerNumPA == 63u))))
+        if (((dividerTypePA == CY_SYSCLK_DIV_8_BIT)    && (dividerNumPA < (PERI_PCLK_GR_DIV_8_NR(instNum, grpNum))))    ||
+            ((dividerTypePA == CY_SYSCLK_DIV_16_BIT)   && (dividerNumPA < (PERI_PCLK_GR_DIV_16_NR(instNum, grpNum))))   ||
+#if !(defined (PERI_DIV_16_5_NR) && (PERI_DIV_16_5_NR == 0))
+            ((dividerTypePA == CY_SYSCLK_DIV_16_5_BIT) && (dividerNumPA < (PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum)))) ||
+#endif
+            ((dividerTypePA == CY_SYSCLK_DIV_24_5_BIT) && ((dividerNumPA < (PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum))) || (dividerNumPA == 63u))))
         {
             /* First, disable the divider that is to be phase-aligned.
                The other two parameters are checked in that function;
@@ -306,16 +402,29 @@ cy_en_sysclk_status_t
 bool Cy_SysClk_PeriPclkGetDividerEnabled(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum)
 {
     bool retVal = false;
-    uint8_t grpNum = (uint8_t)((((uint32_t)ipBlock) & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
-    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)((((uint32_t)ipBlock) & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
-
-    CY_ASSERT_L1(((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < PERI_DIV_8_NR(instNum, grpNum)))    || \
-                 ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < PERI_DIV_16_NR(instNum, grpNum)))   || \
-                 ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < PERI_DIV_16_5_NR(instNum, grpNum))) || \
-                 ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < PERI_DIV_24_5_NR(instNum, grpNum))));
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
+#if defined (PERI_DIV_16_5_NR) && (PERI_DIV_16_5_NR == 0)
+    CY_ASSERT_L1(((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < PERI_PCLK_GR_DIV_8_NR(instNum, grpNum)))    || \
+                 ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < PERI_PCLK_GR_DIV_16_NR(instNum, grpNum)))   || \
+                 ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum))));
+#else
+    CY_ASSERT_L1(((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < PERI_PCLK_GR_DIV_8_NR(instNum, grpNum)))    || \
+                 ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < PERI_PCLK_GR_DIV_16_NR(instNum, grpNum)))   || \
+                 ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum))) || \
+                 ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum))));
+#endif
 
     switch(dividerType)
     {
@@ -336,6 +445,20 @@ bool Cy_SysClk_PeriPclkGetDividerEnabled(en_clk_dst_t ipBlock, cy_en_divider_typ
             break;
     }
     return (retVal);
+}
+
+
+/* ========================================================================== */
+/* =====================    clk_peripherals SECTION    ====================== */
+/* ========================================================================== */
+
+
+uint32_t Cy_SysClk_PeriphGetFrequency(cy_en_divider_types_t dividerType, uint32_t dividerNum)
+{
+    CY_UNUSED_PARAMETER(clkCounting); /* Suppress a compiler warning about unused variables */
+
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to en_clk_dst_t enum.');
+    return Cy_SysClk_PeriPclkGetFrequency((en_clk_dst_t)PERI_PCLK_PERIPHERAL_GROUP_NUM, dividerType, dividerNum);
 }
 
 
@@ -422,11 +545,17 @@ bool Cy_SysClk_PeriphGetDividerEnabled(cy_en_divider_types_t dividerType, uint32
 /* =========================    clk_slow SECTION    ========================= */
 /* ========================================================================== */
 
-#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)
 
 uint32_t Cy_SysClk_ClkSlowGetFrequency(void)
 {
+#if defined (CY_IP_M7CPUSS)
     uint32_t locFreq = Cy_SysClk_ClkMemGetFrequency(); /* Get Mem frequency */
+#elif defined (CY_IP_M4CPUSS)
+    uint32_t locFreq = Cy_SysClk_ClkPeriGetFrequency(); /* Get Peri frequency */
+#else
+    #error "Unsupported Core Type"
+#endif
     uint32_t locDiv = 1UL + (uint32_t)Cy_SysClk_ClkSlowGetDivider(); /* Range (1-256) */
 
     /* Divide the path input frequency down and return the result */
@@ -436,22 +565,34 @@ uint32_t Cy_SysClk_ClkSlowGetFrequency(void)
 
 void Cy_SysClk_ClkSlowSetDivider(uint8_t divider)
 {
+#if defined (CY_IP_M7CPUSS)
     CY_REG32_CLR_SET(CPUSS_SLOW_CLOCK_CTL, CPUSS_SLOW_CLOCK_CTL_INT_DIV, divider);
+#elif defined (CY_IP_M4CPUSS)
+    CY_REG32_CLR_SET(CPUSS_CM0_CLOCK_CTL, CPUSS_CM0_CLOCK_CTL_SLOW_INT_DIV, divider);
+#else
+    #error "Unsupported Core Type"
+#endif
 }
 
 
 uint8_t Cy_SysClk_ClkSlowGetDivider(void)
 {
+#if defined (CY_IP_M7CPUSS)
     return ((uint8_t)_FLD2VAL(CPUSS_SLOW_CLOCK_CTL_INT_DIV, CPUSS_SLOW_CLOCK_CTL));
+#elif defined (CY_IP_M4CPUSS)
+    return ((uint8_t)_FLD2VAL(CPUSS_CM0_CLOCK_CTL_SLOW_INT_DIV, CPUSS_CM0_CLOCK_CTL));
+#else
+    #error "Unsupported Core Type"
+#endif
 }
 
-#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3) */
+#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2) */
 
 /* ========================================================================== */
 /* =========================    clk_mem SECTION    ========================= */
 /* ========================================================================== */
 
-#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)
+#if defined (CY_IP_MXS40SRSS) && defined (CY_IP_M7CPUSS)
 
 uint32_t Cy_SysClk_ClkMemGetFrequency(void)
 {
@@ -474,13 +615,13 @@ uint8_t Cy_SysClk_ClkMemGetDivider(void)
     return ((uint8_t)_FLD2VAL(CPUSS_MEM_CLOCK_CTL_INT_DIV, CPUSS_MEM_CLOCK_CTL));
 }
 
-#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3) */
+#endif /* defined (CY_IP_MXS40SRSS) && defined (CY_IP_M7CPUSS) */
 
 /* ========================================================================== */
 /* =========================    clk_pump SECTION    ========================= */
 /* ========================================================================== */
 
-#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if defined (CY_IP_MXS40SSRSS)
 void Cy_SysClk_ClkPumpSetSource(cy_en_clkpump_in_sources_t source)
 {
     CY_ASSERT_L3(source <= CY_SYSCLK_PUMP_IN_CLKPATH15);
@@ -526,7 +667,7 @@ uint32_t Cy_SysClk_ClkPumpGetFrequency(void)
             (Cy_SysClk_ClkPathGetFrequency((uint32_t)Cy_SysClk_ClkPumpGetSource()) /
              (1UL << (uint32_t)Cy_SysClk_ClkPumpGetDivider())) : 0UL);
 }
-#endif /* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) */
+#endif /* defined (CY_IP_MXS40SSRSS) */
 /* ========================================================================== */
 /* ==========================    clk_bak SECTION    ========================= */
 /* ========================================================================== */
@@ -575,7 +716,7 @@ cy_en_clklf_in_sources_t Cy_SysClk_ClkLfGetSource(void)
 /* ========================    clk_peri SECTION    ========================== */
 /* ========================================================================== */
 
-#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)
 
 uint32_t Cy_SysClk_ClkPeriGetFrequency(void)
 {
@@ -588,19 +729,34 @@ uint32_t Cy_SysClk_ClkPeriGetFrequency(void)
 
 void Cy_SysClk_ClkPeriSetDivider(uint8_t divider)
 {
+#if defined (CY_IP_M7CPUSS)
     CY_REG32_CLR_SET(CPUSS_PERI_CLOCK_CTL, CPUSS_PERI_CLOCK_CTL_INT_DIV, divider);
+#elif defined (CY_IP_M4CPUSS)
+    CY_REG32_CLR_SET(CPUSS_CM0_CLOCK_CTL, CPUSS_CM0_CLOCK_CTL_PERI_INT_DIV, divider);
+#else
+    #error "Unsupported Core Type"
+#endif
 }
 
 uint8_t Cy_SysClk_ClkPeriGetDivider(void)
 {
+#if defined (CY_IP_M7CPUSS)
     return ((uint8_t)_FLD2VAL(CPUSS_PERI_CLOCK_CTL_INT_DIV, CPUSS_PERI_CLOCK_CTL));
+#elif defined (CY_IP_M4CPUSS)
+    return ((uint8_t)_FLD2VAL(CPUSS_CM0_CLOCK_CTL_PERI_INT_DIV, CPUSS_CM0_CLOCK_CTL));
+#else
+    #error "Unsupported Core Type"
+#endif
 }
 
-#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3) */
+#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2) */
 
 /* ========================================================================== */
 /* ========================    PERI SECTION    ========================== */
 /* ========================================================================== */
+
+/* TVII B-E Parts are part of CAT1A where this API is not defined */
+#if !defined (CY_DEVICE_TVIIBE1M) && !defined (CY_DEVICE_TVIIBE4M)
 
 /** \cond INTERNAL */
 /* Mask to evaluate group number value */
@@ -770,12 +926,13 @@ void Cy_SysClk_PeriGroupSlaveInit(uint32_t periNum, uint32_t groupNum, uint32_t 
 }
 #endif
 
+#endif /* !defined (CY_DEVICE_TVIIBE1M) && !defined (CY_DEVICE_TVIIBE4M) */
 
 /* ========================================================================== */
 /* =========================    clk_fast SECTION    ========================= */
 /* ========================================================================== */
 
-#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)
+#if defined (CY_IP_MXS40SRSS) && defined (CY_IP_M7CPUSS)
 
 uint32_t Cy_SysClk_ClkFastSrcGetFrequency(uint32_t clkFastNum)
 {
@@ -820,7 +977,43 @@ void Cy_SysClk_ClkFastSrcGetDivider(uint32_t clkFastNum, uint32_t *dividerIntVal
     }
 }
 
-#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3) */
+#endif /* defined (CY_IP_MXS40SRSS) && defined (CY_IP_M7CPUSS) */
+
+#if defined (CY_IP_MXS40SRSS) && defined (CY_IP_M4CPUSS)
+
+uint32_t Cy_SysClk_ClkFastGetFrequency(void)
+{
+    uint32_t locFreq = Cy_SysClk_ClkHfGetFrequency(0UL); /* Get root frequency */
+    uint32_t locDiv = 1UL + (uint32_t)Cy_SysClk_ClkFastGetDivider(); /* fast prescaler (1-256) */
+
+    /* Divide the path input frequency down and return the result */
+    return (CY_SYSLIB_DIV_ROUND(locFreq, locDiv));
+}
+
+
+void Cy_SysClk_ClkFastSetDivider(uint8_t divider)
+{
+#if defined (CY_DEVICE_SECURE)
+    cy_en_pra_status_t retStatus;
+    retStatus = CY_PRA_FUNCTION_CALL_RETURN_PARAM(CY_PRA_MSG_TYPE_FUNC_POLICY, CY_PRA_CLK_FUNC_FAST_SET_DIVIDER, divider);
+
+    if (retStatus != CY_PRA_STATUS_SUCCESS)
+    {
+        CY_ASSERT_L1(false);
+    }
+#endif /* defined (CY_DEVICE_SECURE) */
+#if ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE)))
+    CY_REG32_CLR_SET(CPUSS_CM4_CLOCK_CTL, CPUSS_CM4_CLOCK_CTL_FAST_INT_DIV, divider);
+#endif /* ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE))) */
+}
+
+
+uint8_t Cy_SysClk_ClkFastGetDivider(void)
+{
+    return ((uint8_t)_FLD2VAL(CPUSS_CM4_CLOCK_CTL_FAST_INT_DIV, CPUSS_CM4_CLOCK_CTL));
+}
+
+#endif /* defined (CY_IP_MXS40SRSS) && defined (CY_IP_M4CPUSS) */
 
 /* ========================================================================== */
 /* =========================    clkHf[n] SECTION    ========================= */
@@ -1151,7 +1344,7 @@ cy_en_sysclk_status_t Cy_SysClk_WcoEnable(uint32_t timeoutus)
 
 bool Cy_SysClk_WcoOkay(void)
 {
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
     return (_FLD2BOOL(BACKUP_STATUS_WCO_OK, BACKUP_STATUS));
 #elif defined (CY_IP_MXS22SRSS)
     return (_FLD2BOOL(SRSS_CLK_WCO_STATUS_WCO_OK, BACKUP_WCO_STATUS));
@@ -1199,7 +1392,7 @@ void Cy_SysClk_WcoBypass(cy_en_wco_bypass_modes_t bypass)
 
 void Cy_SysClk_PiloEnable(void)
 {
-#if (defined (CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
+#if (defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT))
     SRSS_CLK_PILO_CONFIG |= SRSS_CLK_PILO_CONFIG_PILO_EN_Msk; /* 1 = enable */
 #endif
 
@@ -1216,7 +1409,7 @@ void Cy_SysClk_PiloBackupEnable(void)
 
 void Cy_SysClk_PiloBackupDisable(void)
 {
-#if defined (CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)
+#if defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT)
     /* Clear PILO_BACKUP bitfields. */
     SRSS_CLK_PILO_CONFIG &= (uint32_t)~(SRSS_CLK_PILO_CONFIG_PILO_BACKUP_Msk);
 #endif
@@ -1254,7 +1447,7 @@ bool Cy_SysClk_PiloOkay(void)
 
 bool Cy_SysClk_PiloIsEnabled(void)
 {
-#if (defined (CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
+#if (defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT))
     return (_FLD2BOOL(SRSS_CLK_PILO_CONFIG_PILO_EN, SRSS_CLK_PILO_CONFIG));
 #else
     return false;
@@ -1263,7 +1456,7 @@ bool Cy_SysClk_PiloIsEnabled(void)
 
 void Cy_SysClk_PiloDisable(void)
 {
-#if (defined (CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
+#if (defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT))
     /* Clear PILO_EN */
     SRSS_CLK_PILO_CONFIG &= (uint32_t)~(SRSS_CLK_PILO_CONFIG_PILO_EN_Msk);
 #endif
@@ -1337,7 +1530,7 @@ bool Cy_SysClk_AltLfIsEnabled(void)
 /* ===========================    ILO SECTION    ============================ */
 /* ========================================================================== */
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 
 
 /* Below ILO API's are valid for both ILO0 and ILO1 */
@@ -1439,7 +1632,7 @@ void Cy_SysClk_IloHibernateOn(bool on)
 #endif
 }
 
-#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) */
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) */
 
 
 /* ========================================================================== */
@@ -1449,8 +1642,11 @@ void Cy_SysClk_IloHibernateOn(bool on)
 
     static uint32_t cySysClkExtFreq = 0UL;
 
-
+#if defined (SRSS_HT_VARIANT)
+#define CY_SYSCLK_EXTCLK_MAX_FREQ (80000000UL) /* 80 MHz */
+#else
 #define CY_SYSCLK_EXTCLK_MAX_FREQ (100000000UL) /* 100 MHz */
+#endif
 
 
 void Cy_SysClk_ExtClkSetFrequency(uint32_t freq)
@@ -1483,7 +1679,7 @@ uint32_t Cy_SysClk_ExtClkGetFrequency(void)
 /* ===========================    ECO SECTION    ============================ */
 /* ========================================================================== */
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) || \
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) || defined (CY_IP_MXS22SRSS) || \
     (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))
 #if (CY_SRSS_ECO_PRESENT)
 static uint32_t ecoFreq = 0UL; /* Internal storage for ECO frequency user setting */
@@ -1491,7 +1687,7 @@ static uint32_t ecoFreq = 0UL; /* Internal storage for ECO frequency user settin
 
 #define CY_SYSCLK_INVALID_TRIM_VALUE (0xFFFFFFFFUL)
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) || (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))
 
 #define M_PI (3.1415927f)
 
@@ -1574,7 +1770,7 @@ static uint32_t cy_sqrt(uint32_t x)
 __STATIC_INLINE uint32_t Cy_SysClk_SelectEcoAtrim(float32_t maxAmplitude)
 {
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 
     if(maxAmplitude < 0.50f)
     {
@@ -1784,7 +1980,7 @@ __STATIC_INLINE uint32_t Cy_SysClk_SelectEcoAGCEN(float32_t maxAmplitude)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_SysClk_SelectEcoWDtrim(float32_t amplitude)
 {
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 
     if(amplitude < 0.50f)
     {
@@ -2071,7 +2267,7 @@ cy_en_sysclk_status_t Cy_SysClk_EcoConfigure(uint32_t freq, uint32_t cSum, uint3
     return(CY_SYSCLK_SUCCESS);
 }
 
-#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) */
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) */
 
 #if defined (CY_IP_MXS22SRSS)
 
@@ -2455,7 +2651,7 @@ bool Cy_SysClk_EcoPrescaleIsEnabled(void)
 #endif
 }
 
-#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) */
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) || defined (CY_IP_MXS22SRSS) */
 
 
 #if defined (CY_IP_MXS28SRSS)
@@ -2583,31 +2779,31 @@ uint32_t Cy_SysClk_IhoGetTrim(void)
 /* ========================================================================== */
 /* ===========================    IMO SECTION    ============================ */
 /* ========================================================================== */
-#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 
 void Cy_SysClk_ImoEnable(void)
 {
-#if (CY_SRSS_IMO_PRESENT)
+#if defined (CY_SRSS_IMO_PRESENT) && (CY_SRSS_IMO_PRESENT == 1)
     SRSS_CLK_IMO_CONFIG |= SRSS_CLK_IMO_CONFIG_ENABLE_Msk;
 #endif
 }
 
 void Cy_SysClk_ImoDisable(void)
 {
-#if (CY_SRSS_IMO_PRESENT)
+#if defined (CY_SRSS_IMO_PRESENT) && (CY_SRSS_IMO_PRESENT == 1)
     SRSS_CLK_IMO_CONFIG &= ~SRSS_CLK_IMO_CONFIG_ENABLE_Msk;
 #endif
 }
 
 bool Cy_SysClk_ImoIsEnabled(void)
 {
-#if (CY_SRSS_IMO_PRESENT)
+#if defined (CY_SRSS_IMO_PRESENT) && (CY_SRSS_IMO_PRESENT == 1)
     return (_FLD2BOOL(SRSS_CLK_IMO_CONFIG_ENABLE, SRSS_CLK_IMO_CONFIG));
 #else
     return false;
 #endif
 }
-#endif /* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) */
+#endif /* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) */
 
 #if defined (CY_IP_MXS40SSRSS)
 
@@ -2693,7 +2889,7 @@ uint32_t Cy_SysClk_ClkPathMuxGetFrequency(uint32_t clkPath)
             break;
 
         case CY_SYSCLK_CLKPATH_IN_ECO:
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) || \
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) || defined (CY_IP_MXS22SRSS) || \
             (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))
             freq = Cy_SysClk_EcoGetFrequency();
 #endif
@@ -2722,7 +2918,7 @@ uint32_t Cy_SysClk_ClkPathMuxGetFrequency(uint32_t clkPath)
             break;
 #endif
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
         case CY_SYSCLK_CLKPATH_IN_ILO0:
 #else
         case CY_SYSCLK_CLKPATH_IN_ILO:
@@ -2734,7 +2930,7 @@ uint32_t Cy_SysClk_ClkPathMuxGetFrequency(uint32_t clkPath)
             freq = (Cy_SysClk_WcoOkay()) ? CY_SYSCLK_WCO_FREQ : 0UL;
             break;
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
         case CY_SYSCLK_CLKPATH_IN_ILO1:
             freq = (0UL != (SRSS_CLK_ILO_CONFIG & SRSS_CLK_ILO_CONFIG_ENABLE_Msk)) ? CY_SYSCLK_ILO_FREQ : 0UL;
             break;
@@ -2799,7 +2995,7 @@ uint32_t Cy_SysClk_ClkPathGetFrequency(uint32_t clkPath)
     {
         freq = Cy_SysClk_FllGetFrequency();
     }
-#if ((CY_SRSS_PLL_PRESENT > 0U) && (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)))
+#if ((CY_SRSS_PLL_PRESENT > 0U) && (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)))
     else if (clkPath <= (CY_SRSS_NUM_PLL) && Cy_SysClk_PllIsEnabled(clkPath)) /* PLL? (always path 1...N)*/
     {
         freq = Cy_SysClk_PllGetFrequency(clkPath);
@@ -2817,7 +3013,7 @@ uint32_t Cy_SysClk_ClkPathGetFrequency(uint32_t clkPath)
 /* ========================================================================== */
 /* ===========================    FLL SECTION    ============================ */
 /* ========================================================================== */
-#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3))
+#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2))
 
 /* min and max FLL output frequencies, in Hz */
 #define  CY_SYSCLK_FLL_MIN_CCO_OUTPUT_FREQ (48000000UL)
@@ -3210,7 +3406,7 @@ uint32_t Cy_SysClk_FllGetFrequency(void)
     return 0U;
 #endif
 }
-#endif /* defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) */
+#endif /* defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2)) */
 /* ========================================================================== */
 /* ===========================    PLL SECTION    ============================ */
 /* ========================================================================== */
@@ -3247,10 +3443,16 @@ uint32_t Cy_SysClk_FllGetFrequency(void)
 #define CY_SYSCLK_PLL_MIN_IN_FREQ  (4000000UL)
 #define CY_SYSCLK_PLL_MAX_IN_FREQ  (64000000UL)
 #define CY_SYSCLK_PLL_MIN_OUT_FREQ (CY_SYSCLK_PLL_MIN_FVCO / CY_SYSCLK_PLL_MAX_OUTPUT_DIV)
+#if defined (CY_DEVICE_TVIIBE1M) || defined (CY_DEVICE_TVIIBE4M)
+#define CY_SYSCLK_PLL_MAX_OUT_FREQ (160000000UL)
+#else
 #define CY_SYSCLK_PLL_MAX_OUT_FREQ (200000000UL)
+#endif
 
 /* PLL400M */
 
+/* Only include PLL400M macros for devices that contain PLL400M IP. */
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
 /* PLL OUTPUT_DIV bitfield allowable range */
 #define CY_SYSCLK_PLL400M_MIN_OUTPUT_DIV   (2UL)
 #define CY_SYSCLK_PLL400M_MAX_OUTPUT_DIV   (16UL)
@@ -3272,6 +3474,7 @@ uint32_t Cy_SysClk_FllGetFrequency(void)
 #define CY_SYSCLK_PLL400M_MAX_IN_FREQ  (64000000UL)
 #define CY_SYSCLK_PLL400M_MIN_OUT_FREQ (25000000UL)
 #define CY_SYSCLK_PLL400M_MAX_OUT_FREQ (400000000UL)
+#endif
 
 
 
@@ -3320,14 +3523,16 @@ uint32_t Cy_SysClk_FllGetFrequency(void)
 #define CY_SYSCLK_DPLL_HP_MAX_OUT_FREQ (400000000UL)
 
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined(CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) || defined(CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
 
+/* Only include PLL400M functions for devices that contain PLL400M IP. */
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
 bool Cy_SysClk_Pll400MIsEnabled(uint32_t pllNum)
 {
     CY_UNUSED_PARAMETER(pllNum);
-#if (CY_SRSS_PLL400M_PRESENT)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
     CY_ASSERT_L1(pllNum < CY_SRSS_NUM_PLL400M);
     return (_FLD2BOOL(CLK_PLL400M_CONFIG_ENABLE, SRSS_CLK_PLL_400M_CONFIG(pllNum)));
 #else
@@ -3339,7 +3544,7 @@ bool Cy_SysClk_Pll400MIsEnabled(uint32_t pllNum)
 bool Cy_SysClk_Pll400MLocked(uint32_t pllNum)
 {
     CY_UNUSED_PARAMETER(pllNum);
-#if (CY_SRSS_PLL400M_PRESENT)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
     CY_ASSERT_L1(pllNum < CY_SRSS_NUM_PLL400M);
     return (_FLD2BOOL(CLK_PLL400M_STATUS_LOCKED, SRSS_CLK_PLL_400M_STATUS(pllNum)));
 #else
@@ -3351,7 +3556,7 @@ bool Cy_SysClk_Pll400MLocked(uint32_t pllNum)
 bool Cy_SysClk_Pll400MLostLock(uint32_t pllNum)
 {
     CY_UNUSED_PARAMETER(pllNum);
-#if (CY_SRSS_PLL400M_PRESENT)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
     CY_ASSERT_L1(pllNum < CY_SRSS_NUM_PLL400M);
 
     bool retVal = _FLD2BOOL(CLK_PLL400M_STATUS_UNLOCK_OCCURRED, SRSS_CLK_PLL_400M_STATUS(pllNum));
@@ -3367,7 +3572,7 @@ bool Cy_SysClk_Pll400MLostLock(uint32_t pllNum)
 cy_en_sysclk_status_t Cy_SysClk_Pll400MDisable(uint32_t pllNum)
 {
     CY_UNUSED_PARAMETER(pllNum);
-#if (CY_SRSS_PLL400M_PRESENT)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
 
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
 
@@ -3393,7 +3598,7 @@ cy_en_sysclk_status_t Cy_SysClk_Pll400MConfigure(uint32_t pllNum, const cy_stc_p
     CY_UNUSED_PARAMETER(pllNum);
     CY_UNUSED_PARAMETER(config);
 
-#if (CY_SRSS_PLL400M_PRESENT)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
 
     cy_en_sysclk_status_t retVal = CY_SYSCLK_SUCCESS;
 
@@ -3486,7 +3691,7 @@ cy_en_sysclk_status_t Cy_SysClk_Pll400MManualConfigure(uint32_t pllNum, const cy
     CY_UNUSED_PARAMETER(pllNum);
     CY_UNUSED_PARAMETER(config);
 
-#if (CY_SRSS_PLL400M_PRESENT)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
 
     cy_en_sysclk_status_t retVal = CY_SYSCLK_SUCCESS;
 
@@ -3541,7 +3746,7 @@ cy_en_sysclk_status_t Cy_SysClk_Pll400MGetConfiguration(uint32_t pllNum, cy_stc_
     CY_UNUSED_PARAMETER(pllNum);
     CY_UNUSED_PARAMETER(config);
 
-#if (CY_SRSS_PLL400M_PRESENT)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
 
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
 
@@ -3578,7 +3783,7 @@ cy_en_sysclk_status_t Cy_SysClk_Pll400MEnable(uint32_t pllNum, uint32_t timeoutu
 {
     CY_UNUSED_PARAMETER(pllNum);
     CY_UNUSED_PARAMETER(timeoutus);
-#if (CY_SRSS_PLL400M_PRESENT)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
 
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
     bool zeroTimeout = (timeoutus == 0UL);
@@ -3652,6 +3857,8 @@ uint32_t Cy_SysClk_Pll400MGetFrequency(uint32_t pllNum)
 
     return (freq);
 }
+
+#endif  /* defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u) */
 
 /* PLL200M */
 
@@ -4779,11 +4986,13 @@ bool Cy_SysClk_PllIsEnabled(uint32_t clkPath)
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MIsEnabled(clkPath);
     }
     else
+#endif
     {
         return Cy_SysClk_Pll200MIsEnabled(clkPath - CY_SRSS_NUM_PLL400M);
     }
@@ -4819,6 +5028,7 @@ bool Cy_SysClk_PllLocked(uint32_t clkPath)
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MLocked(clkPath);
@@ -4827,6 +5037,9 @@ bool Cy_SysClk_PllLocked(uint32_t clkPath)
     {
         return Cy_SysClk_Pll200MLocked(clkPath - CY_SRSS_NUM_PLL400M);
     }
+#else
+    return Cy_SysClk_Pll200MLocked(clkPath);
+#endif
 #endif
 }
 
@@ -4859,6 +5072,7 @@ bool Cy_SysClk_PllLostLock(uint32_t clkPath)
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MLostLock(clkPath);
@@ -4867,6 +5081,9 @@ bool Cy_SysClk_PllLostLock(uint32_t clkPath)
     {
         return Cy_SysClk_Pll200MLostLock(clkPath - CY_SRSS_NUM_PLL400M);
     }
+#else
+    return Cy_SysClk_Pll200MLostLock(clkPath);
+#endif
 #endif
 }
 
@@ -4899,6 +5116,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllDisable(uint32_t clkPath)
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MDisable(clkPath);
@@ -4907,6 +5125,9 @@ cy_en_sysclk_status_t Cy_SysClk_PllDisable(uint32_t clkPath)
     {
         return Cy_SysClk_Pll200MDisable(clkPath - CY_SRSS_NUM_PLL400M);
     }
+#else
+    return Cy_SysClk_Pll200MDisable(clkPath);
+#endif
 #endif
 }
 
@@ -4940,6 +5161,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllConfigure(uint32_t clkPath, const cy_stc_pll_
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MConfigure(clkPath, config);
@@ -4948,6 +5170,9 @@ cy_en_sysclk_status_t Cy_SysClk_PllConfigure(uint32_t clkPath, const cy_stc_pll_
     {
         return Cy_SysClk_Pll200MConfigure((clkPath - CY_SRSS_NUM_PLL400M), config);
     }
+#else
+    return Cy_SysClk_Pll200MConfigure(clkPath, config);
+#endif
 #endif
 }
 
@@ -4980,6 +5205,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllManualConfigure(uint32_t clkPath, const cy_st
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MManualConfigure(clkPath, config);
@@ -4988,6 +5214,9 @@ cy_en_sysclk_status_t Cy_SysClk_PllManualConfigure(uint32_t clkPath, const cy_st
     {
         return Cy_SysClk_Pll200MManualConfigure((clkPath - CY_SRSS_NUM_PLL400M), config);
     }
+#else
+    return Cy_SysClk_Pll200MManualConfigure(clkPath, config);
+#endif
 #endif
 }
 
@@ -5020,6 +5249,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllGetConfiguration(uint32_t clkPath, cy_stc_pll
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MGetConfiguration(clkPath, config);
@@ -5028,6 +5258,9 @@ cy_en_sysclk_status_t Cy_SysClk_PllGetConfiguration(uint32_t clkPath, cy_stc_pll
     {
         return Cy_SysClk_Pll200MGetConfiguration((clkPath - CY_SRSS_NUM_PLL400M), config);
     }
+#else
+    return Cy_SysClk_Pll200MGetConfiguration(clkPath, config);
+#endif
 #endif
 }
 
@@ -5060,6 +5293,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllEnable(uint32_t clkPath, uint32_t timeoutus)
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MEnable(clkPath, timeoutus);
@@ -5068,6 +5302,9 @@ cy_en_sysclk_status_t Cy_SysClk_PllEnable(uint32_t clkPath, uint32_t timeoutus)
     {
         return Cy_SysClk_Pll200MEnable((clkPath - CY_SRSS_NUM_PLL400M), timeoutus);
     }
+#else
+    return Cy_SysClk_Pll200MEnable(clkPath, timeoutus);
+#endif  /* defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0) */
 #endif
 }
 
@@ -5100,6 +5337,7 @@ uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath)
     clkPath--; /* to correctly access PLL config and status registers structures */
     CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
 
+#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
     if(clkPath < CY_SRSS_NUM_PLL400M)
     {
         return Cy_SysClk_Pll400MGetFrequency(clkPath);
@@ -5108,11 +5346,14 @@ uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath)
     {
         return Cy_SysClk_Pll200MGetFrequency(clkPath - CY_SRSS_NUM_PLL400M);
     }
+#else
+    return Cy_SysClk_Pll200MGetFrequency(clkPath);
+#endif
 #endif
 }
 
 
-#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) */
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) */
 
 /* ========================================================================== */
 /* ====================    Clock Measurement section    ===================== */
@@ -5138,13 +5379,6 @@ uint32_t Cy_SysClk_PllGetFrequency(uint32_t clkPath)
                                                SRSS_CLK_OUTPUT_FAST_HFCLK_SEL0_Msk | \
                                                SRSS_CLK_OUTPUT_FAST_HFCLK_SEL1_Msk)
 
-/* Cy_SysClk_StartClkMeasurementCounters() input parameter saved for use later in other functions */
-static uint32_t clk1Count1;
-
-/* These variables act as locks to prevent collisions between clock measurement and entry into
-   Deep Sleep mode. See Cy_SysClk_DeepSleep(). */
-static bool clkCounting = false;
-static bool preventCounting = false;
 
 bool Cy_SysClk_ClkMeasurementCountersDone(void)
 {
@@ -5463,19 +5697,6 @@ cy_en_syspm_status_t Cy_SysClk_DeepSleepCallback(cy_stc_syspm_callback_params_t 
 }
 
 
-/* ========================================================================== */
-/* =====================    clk_peripherals SECTION    ====================== */
-/* ========================================================================== */
-
-
-uint32_t Cy_SysClk_PeriphGetFrequency(cy_en_divider_types_t dividerType, uint32_t dividerNum)
-{
-    CY_UNUSED_PARAMETER(clkCounting); /* Suppress a compiler warning about unused variables */
-
-    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to en_clk_dst_t enum.');
-    return Cy_SysClk_PeriPclkGetFrequency((en_clk_dst_t)PERI_PCLK_PERIPHERAL_GROUP_NUM, dividerType, dividerNum);
-}
-
 /** \cond INTERNAL */
 /* Value to indicate invalid HF NUM */
 #define CY_SYSCLK_INVALID_HF_NUM (0xFFFFFFFFUL)
@@ -5484,18 +5705,24 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 18.1', 5, \
 'Suppressing taking true and false branch.')
 uint32_t Cy_Sysclk_PeriPclkGetClkHfNum(uint32_t grpNum)
 {
-    uint32_t instNum = (uint8_t)(((uint32_t)grpNum & PERI_GR_INST_NUM_Msk )>>PERI_GR_INST_NUM_Pos);
+#if (defined (CY_IP_MXS40SRSS) && (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION < 3U)))
+    /* MXPERI versions 1 & 2 do not use peri groups, this function is not compatible with PERI ver2. */
+    CY_UNUSED_PARAMETER(grpNum);
+    return CY_SYSCLK_INVALID_HF_NUM;
+#else
 
-    if(grpNum >= PERI_PCLK_GR_NUM(instNum))
+    uint32_t instNum = (uint8_t)((grpNum & PERI_GR_INST_NUM_Msk) >> PERI_GR_INST_NUM_Pos);
+
+    if (grpNum >= PERI_PCLK_GR_NUM(instNum))
     {
         return CY_SYSCLK_INVALID_HF_NUM;
     }
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3U))
+    #if defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3)
         uint32_t peri0GrpToHfArray[] = { PERI0_PCLK_GR_NUM_0_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_1_CLK_HF_NUM,
                                   };
-#elif (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
+    #elif (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
         uint32_t peri0GrpToHfArray[] = { PERI0_PCLK_GR_NUM_0_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_1_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_2_CLK_HF_NUM,
@@ -5504,7 +5731,7 @@ uint32_t Cy_Sysclk_PeriPclkGetClkHfNum(uint32_t grpNum)
                                     PERI0_PCLK_GR_NUM_5_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_6_CLK_HF_NUM
                                   };
-#elif defined (CY_IP_MXS22SRSS)
+    #elif defined (CY_IP_MXS22SRSS)
         uint32_t peri0GrpToHfArray[PERI0_PCLK_GROUP_NR] = { PERI0_PCLK_GR_NUM_0_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_1_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_2_CLK_HF_NUM,
@@ -5516,7 +5743,7 @@ uint32_t Cy_Sysclk_PeriPclkGetClkHfNum(uint32_t grpNum)
                                     PERI0_PCLK_GR_NUM_8_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_9_CLK_HF_NUM,
                                   };
-#else
+    #else
         uint32_t peri0GrpToHfArray[] = { PERI0_PCLK_GR_NUM_0_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_1_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_2_CLK_HF_NUM,
@@ -5525,52 +5752,75 @@ uint32_t Cy_Sysclk_PeriPclkGetClkHfNum(uint32_t grpNum)
                                     PERI0_PCLK_GR_NUM_5_CLK_HF_NUM,
                                     PERI0_PCLK_GR_NUM_6_CLK_HF_NUM
                                   };
-#endif
+    #endif
 
-#if defined (CY_IP_MXS22SRSS)
-    uint32_t peri1GrpToHfArray[PERI1_PCLK_GROUP_NR] = { PERI1_PCLK_GR_NUM_0_CLK_HF_NUM,
-                                PERI1_PCLK_GR_NUM_1_CLK_HF_NUM,
-                                PERI1_PCLK_GR_NUM_2_CLK_HF_NUM,
-                                PERI1_PCLK_GR_NUM_3_CLK_HF_NUM,
-                                PERI1_PCLK_GR_NUM_4_CLK_HF_NUM,
-                                PERI1_PCLK_GR_NUM_5_CLK_HF_NUM,
-                              };
+    #if defined (CY_IP_MXS22SRSS)
+        uint32_t peri1GrpToHfArray[PERI1_PCLK_GROUP_NR] = { PERI1_PCLK_GR_NUM_0_CLK_HF_NUM,
+                                    PERI1_PCLK_GR_NUM_1_CLK_HF_NUM,
+                                    PERI1_PCLK_GR_NUM_2_CLK_HF_NUM,
+                                    PERI1_PCLK_GR_NUM_3_CLK_HF_NUM,
+                                    PERI1_PCLK_GR_NUM_4_CLK_HF_NUM,
+                                    PERI1_PCLK_GR_NUM_5_CLK_HF_NUM,
+                                };
+    #endif
 
-#else
-    uint32_t peri1GrpToHfArray[] = {0};
-#endif
-
-    if(0UL == instNum)
-    {
+    #if defined (CY_IP_MXS22SRSS)
+        if(0UL == instNum)
+        {
+            return peri0GrpToHfArray[grpNum];
+        }
+        else
+        {
+            return peri1GrpToHfArray[grpNum];
+        }
+    #else
         return peri0GrpToHfArray[grpNum];
-    }
-    else
-    {
-        return peri1GrpToHfArray[grpNum];
-    }
+    #endif
+
+#endif
 }
 
 uint32_t Cy_SysClk_PeriPclkGetFrequency(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum)
 {
     uint32_t integer = 0UL;        /* Integer part of peripheral divider */
     uint32_t freq = 0UL;
-    uint32_t grpNum = (((uint32_t)ipBlock) & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos;
-    uint32_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
-    uint32_t hfNum = Cy_Sysclk_PeriPclkGetClkHfNum(grpNum | (instNum << PERI_GR_INST_NUM_Pos));
-
+    uint32_t grpNum = 0;
+    uint32_t instNum = 0;
+    uint32_t hfNum = CY_SYSCLK_INVALID_HF_NUM;
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)
+    uint32_t peri_div = 1UL + (uint32_t)Cy_SysClk_ClkPeriGetDivider();
+#endif
+#if defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION <= 2)
+    hfNum = 0UL;
+#else
+    grpNum = (((uint32_t)ipBlock) & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos;
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
 
     CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
     CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
 
-    CY_ASSERT_L1(((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < PERI_DIV_8_NR(instNum , grpNum)))    || \
-                 ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < PERI_DIV_16_NR(instNum , grpNum)))   || \
-                 ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < PERI_DIV_16_5_NR(instNum , grpNum))) || \
-                 ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < PERI_DIV_24_5_NR(instNum , grpNum))));
+    hfNum = Cy_Sysclk_PeriPclkGetClkHfNum(grpNum | (instNum << PERI_GR_INST_NUM_Pos));
+#endif
+#if defined (PERI_DIV_16_5_NR) && (PERI_DIV_16_5_NR == 0)
+    CY_ASSERT_L1(((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < PERI_PCLK_GR_DIV_8_NR(instNum , grpNum)))    || \
+                 ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < PERI_PCLK_GR_DIV_16_NR(instNum , grpNum)))   || \
+                 ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < PERI_PCLK_GR_DIV_24_5_NR(instNum , grpNum))));
+#else
+    CY_ASSERT_L1(((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < PERI_PCLK_GR_DIV_8_NR(instNum , grpNum)))    || \
+                 ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < PERI_PCLK_GR_DIV_16_NR(instNum , grpNum)))   || \
+                 ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < PERI_PCLK_GR_DIV_16_5_NR(instNum , grpNum))) || \
+                 ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < PERI_PCLK_GR_DIV_24_5_NR(instNum , grpNum))));
+#endif
 
+#if !(defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION <= 2))
     if(hfNum != CY_SYSCLK_INVALID_HF_NUM)
+#endif
     {
         freq = Cy_SysClk_ClkHfGetFrequency(hfNum); /* Get CLK_HF* frequency */
-
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)
+        /* get the peri clock tree frequency */
+        freq = CY_SYSLIB_DIV_ROUND(freq, peri_div);
+#endif
         /* get the divider value for clk_peri to the selected peripheral clock */
         switch(dividerType)
         {
@@ -5583,8 +5833,8 @@ uint32_t Cy_SysClk_PeriPclkGetFrequency(en_clk_dst_t ipBlock, cy_en_divider_type
             case CY_SYSCLK_DIV_16_5_BIT:
             case CY_SYSCLK_DIV_24_5_BIT:
                 {
-                    uint32_t locFrac;
-                    uint32_t locDiv;
+                    uint32_t locFrac = 0;
+                    uint32_t locDiv = 0;
                     uint64_t locFreq = freq * 32ULL;
                     Cy_SysClk_PeriPclkGetFracDivider(ipBlock, dividerType, dividerNum, &integer, &locFrac);
                     /* For fractional dividers, the divider is (int + 1) + frac/32 */
@@ -5599,6 +5849,8 @@ uint32_t Cy_SysClk_PeriPclkGetFrequency(en_clk_dst_t ipBlock, cy_en_divider_type
         }
     }
     CY_UNUSED_PARAMETER(clkCounting); /* Suppress a compiler warning about unused variables */
+    CY_UNUSED_PARAMETER(instNum); /* Suppress a compiler warning about unused variables */
+    CY_UNUSED_PARAMETER(grpNum); /* Suppress a compiler warning about unused variables */
 
     return (freq);
 }
@@ -5667,5 +5919,5 @@ cy_en_clkpwr_in_sources_t Cy_SysClk_ClkPwrGetSource(void)
 
 #endif
 
-#endif /* defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) */
+#endif /* defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) || defined (CY_IP_MXS22SRSS) */
 /* [] END OF FILE */

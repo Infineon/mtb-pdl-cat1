@@ -216,7 +216,6 @@ div.line.glow {
 	box-shadow: 0 0 10px cyan;
 }
 
-
 span.lineno {
 	padding-right: 4px;
 	text-align: right;
@@ -1116,6 +1115,10 @@ dl.section dd {
 	margin-bottom: 6px;
 }
 
+/** Line height override for superscripts to prevent them from changing line spacing**/
+sup {
+    line-height: 0;
+}
 
 #projectlogo
 {

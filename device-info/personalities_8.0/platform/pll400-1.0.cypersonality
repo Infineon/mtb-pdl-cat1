@@ -28,7 +28,7 @@
 
 <Personality id="mxs40pll400" name="PLL400" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss_ver3" />
+    <IpBlock name="mxs40srss_ver3,mxs40srss_ver2" />
     <Resource name="srss\.clock\.pll400m" />
   </Dependencies>
   <ExposedMembers>

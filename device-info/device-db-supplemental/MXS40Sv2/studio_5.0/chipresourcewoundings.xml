@@ -10,10 +10,19 @@
     <Block name="crypto"/>
     <Block name="cryptolite"/>
   </BooleanWounding>
+  <BooleanWounding name="ECO">
+    <Block name="srss.clock.eco"/>
+    <Block name="srss.clock.ecoprescaler"/>
+  </BooleanWounding>
+  <BooleanWounding name="WCO">
+    <Block name="srss.clock.wco"/>
+  </BooleanWounding>
+  
   <NaWounding name="BLUETOOTH">
     <Block name="btss"/>
     <Block name="srss.clock.althf"/>
   </NaWounding>
+  
   <RemoveListWounding name="SCB_REMOVED">
     <Block name="scb"/>
   </RemoveListWounding>

@@ -29,7 +29,7 @@
 
 <Personality id="pathmux" name="PATH_MUX" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,mxs22srss" />
+    <IpBlock name="mxs40srss,mxs40ssrss,mxs40srss_ver3,mxs40srss_ver2,mxs22srss" />
     <Resource name="srss\.clock\.pathmux" />
   </Dependencies>
   <ExposedMembers>
@@ -51,15 +51,15 @@
 
     <ParamRange id="clockInst" name="CLK_PATH Instance" group="Internal" default="`${getInstNumber(&quot;pathmux&quot;)}`" min="0" max="`${NUM_CLKPATH-1}`" resolution="1" visible="false" editable="false" desc="" /> 
     <ParamChoice id="sourceClock" name="Source Clock" group="General" default="`${(&quot;mxs22srss&quot; eq getIpBlockName()) ? iho : imo}`" visible="true" editable="true" desc="The clock source for Clock Path `${clockInst}`">
-      <Entry name="IMO"    value="imo"    visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) || (&quot;mxs40srss&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
+      <Entry name="IMO"    value="imo"    visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) || (&quot;mxs40srss&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
       <Entry name="ECO"    value="eco"    visible="`${hasBlock(&quot;srss[0].clock[0].eco[0]&quot;)}`"/>
       <Entry name="EXTCLK" value="ext"    visible="true"/>
       <Entry name="ALTHF"  value="althf"  visible="`${(isALTHFPresent) || (isChipTopALTHFPresent)}`"/>
       <Entry name="ILO"    value="ilo"    visible="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (isILOPresent)}`"/>
-      <Entry name="ILO0"   value="ilo0"   visible="`${(isILOPresent) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
-      <Entry name="ILO1"   value="ilo1"   visible="`${(isILOPresent) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
+      <Entry name="ILO0"   value="ilo0"   visible="`${(isILOPresent) || (&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
+      <Entry name="ILO1"   value="ilo1"   visible="`${(isILOPresent) || (&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
       <Entry name="PILO"   value="pilo"   visible="`${isPILOPresent}`"/>
-      <Entry name="WCO"    value="wco"    visible="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName()) || (isWCOPresent)}`"/>
+      <Entry name="WCO"    value="wco"    visible="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName()) || (isWCOPresent)}`"/>
       <Entry name="IHO"    value="iho"    visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) || (&quot;mxs22srss&quot; eq getIpBlockName())}`"/>
 
     </ParamChoice>
@@ -72,6 +72,7 @@
                                                                                                sourceClock eq pilo     ? &quot;PILO&quot; :
                                                                                                sourceClock eq iho      ? &quot;IHO&quot; :
                                                                                                sourceClock eq wco      ? &quot;WCO&quot; :
+                                                                                               sourceClock eq ilo0     ? &quot;ILO0&quot; :
                                                                                                                          &quot;ILO1&quot;}`" visible="false" editable="false" desc="" />
 
     <ParamString id="sourceClockNumber" name="Source Clock Number" group="Internal" default="`${sourceClock eq imo    ? 0 :

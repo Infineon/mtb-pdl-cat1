@@ -216,9 +216,9 @@ CM55<br />
 </div><div class="memdoc">
 
 <p>Changes the ISR vector for the interrupt. </p>
-<p>CM0+/CM4:<br />
+<p>CM0+/CM4 (non-TVIIBE):<br />
  This function relies on the assumption that the vector table is relocated to __ramVectors[RAM_VECTORS_SIZE] in SRAM. Otherwise it will return the address of the default ISR location in the flash vector table.</p>
-<p>CM0+/CM7:<br />
+<p>CM0+/CM7 and TVIIBE CM0+/CM4:<br />
  This function relies on the assumption that the vector table is relocated to __ramVectors[RAM_VECTORS_SIZE] in SRAM. Otherwise it will return the address of the default ISR location in the flash vector table. This function is applicable only to User Interrupts (NvicMux0_IRQn - NvicMux7_IRQn) and System Interrupts (Internal0_IRQn - Internal0_IRQn).</p>
 <p>CM33:<br />
  When called from secure world. this function relies on the assumption that the vector table is relocated to __s_vector_table_rw[] in secure SRAM. Otherwise it will return the address of the default ISR location in the secure flash/ROM vector table.</p>
@@ -489,7 +489,7 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 cores, and CAT1A TVIIBE CM0/CM4 cores.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Initialization status</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>CM0+/CM7 <br />
  The interrupt vector will be relocated only if the vector table was moved to __ramVectors in SRAM. Otherwise it is ignored. </dd></dl>
@@ -531,7 +531,7 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 cores, and CAT1A TVIIBE CM0/CM4 cores.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Initialization status</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>CM0+/CM7 <br />
  The interrupt vector will be relocated only if the vector table was moved to __ramVectors in SRAM. Otherwise it is ignored. </dd></dl>
@@ -571,7 +571,7 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 cores.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userIsr</td><td>Address of the ISR to set in the interrupt vector table</td></tr>
@@ -605,7 +605,7 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 cores.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Address of the ISR in the interrupt vector table </dd></dl>
 
 </div>
@@ -633,7 +633,7 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 cores, and CAT1A TVIIBE CM0/CM4 cores.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
 
 </div>
@@ -661,7 +661,7 @@ This function supports only devices using CPUSS_ver2 or higher.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 core.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is available for CAT1C CM0/CM7 cores, and CAT1A TVIIBE CM0/CM4 cores.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
 
 </div>

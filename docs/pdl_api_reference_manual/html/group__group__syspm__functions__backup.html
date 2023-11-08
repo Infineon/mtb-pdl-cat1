@@ -142,8 +142,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>Refer to device TRM for more detail about backup supply modes.</p>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to set only Vbackup to supply Vddbackup */</span></div><div class="line">    <span class="comment">/* Ensure there is a valid power connection on backup pin */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#gad6c5aa1ff07043550bf0e49e000e93cd">Cy_SysPm_BackupSetSupply</a>(<a class="code" href="group__group__syspm__data__enumerates.html#gga07d01979fa53fd8a53203bf362a8add1a92e63136dca5cbb468d5c756b29b96a0">CY_SYSPM_VDDBACKUP_VBACKUP</a>);</div></div><!-- fragment --></dd></dl>
+<p>Refer to device TRM for more detail about backup supply modes. Will do nothing if device TRM denotes VDDBAK_CTL register field is unavailable.</p>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to set only Vbackup to supply Vddbackup */</span></div><div class="line">    <span class="comment">/* Ensure there is a valid power connection on backup pin */</span></div><div class="line"><span class="preprocessor">#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u)))</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#gad6c5aa1ff07043550bf0e49e000e93cd">Cy_SysPm_BackupSetSupply</a>(<a class="code" href="group__group__syspm__data__enumerates.html#gga07d01979fa53fd8a53203bf362a8add1a92e63136dca5cbb468d5c756b29b96a0">CY_SYSPM_VDDBACKUP_VBACKUP</a>);</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u))) */</span><span class="preprocessor"></span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -166,7 +166,7 @@ Functions</h2></td></tr>
 <p>Returns the current backup supply (Vddback) operation mode. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current backup supply (Vddback) operation mode, see <a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>.</dd></dl>
 <p>Refer to device TRM for more detail about backup supply modes.</p>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to get the current backup supply (Vddback) operation mode */</span></div><div class="line">    <a class="code" href="group__group__syspm__data__enumerates.html#ga07d01979fa53fd8a53203bf362a8add1">cy_en_syspm_vddbackup_control_t</a> <a class="code" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a> = <a class="code" href="group__group__syspm__functions__backup.html#ga9056ecea6aa1b86d3c657bd1692a92a8">Cy_SysPm_BackupGetSupply</a>();</div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to get the current backup supply (Vddback) operation mode */</span></div><div class="line"><span class="preprocessor">#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u)))</span></div><div class="line">    <a class="code" href="group__group__syspm__data__enumerates.html#ga07d01979fa53fd8a53203bf362a8add1">cy_en_syspm_vddbackup_control_t</a> <a class="code" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a> = <a class="code" href="group__group__syspm__functions__backup.html#ga9056ecea6aa1b86d3c657bd1692a92a8">Cy_SysPm_BackupGetSupply</a>();</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u))) */</span><span class="preprocessor"></span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -188,8 +188,8 @@ Functions</h2></td></tr>
 
 <p>This function enables Vbackup supply measurement by the ADC. </p>
 <p>The function connects the Vbackup supply to AMuxBusA. The ADC input can then be connected to AMuxBusA. Note that the measured signal is scaled by 10% to allow full range measurement by the ADC.</p>
-<p>Refer to device TRM for more detail about Vbackup supply measurement.</p>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to enable Vbackup supply measurement</span></div><div class="line"><span class="comment">    * via AMuxBusA, e.g. by the internal ADC.  </span></div><div class="line"><span class="comment">    */</span></div><div class="line">    <span class="comment">/* Connect amuxbus_sar to amuxbus_main */</span></div><div class="line">    HSIOM-&gt;AMUX_SPLIT_CTL[6] = HSIOM_AMUX_SPLIT_CTL_SWITCH_AA_SL_Msk | HSIOM_AMUX_SPLIT_CTL_SWITCH_AA_SR_Msk;</div><div class="line"></div><div class="line">    <span class="comment">/* Connect amuxbus_adft0_vddd to amuxbus_main */</span></div><div class="line">    HSIOM-&gt;AMUX_SPLIT_CTL[0] = HSIOM_AMUX_SPLIT_CTL_SWITCH_AA_SL_Msk | HSIOM_AMUX_SPLIT_CTL_SWITCH_AA_SR_Msk;</div><div class="line"></div><div class="line">    <span class="comment">/* Connect Vddbackmeasure to AMuxBus */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#gad87323df5ca65d861bcb67b03c7ee594">Cy_SysPm_BackupEnableVoltageMeasurement</a>();</div></div><!-- fragment --></dd></dl>
+<p>Refer to device TRM for more detail about backup supply modes. Will do nothing if device TRM denotes VBACKUP_MEAS register field is unavailable.</p>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to enable Vbackup supply measurement</span></div><div class="line"><span class="comment">    * via AMuxBusA, e.g. by the internal ADC.  </span></div><div class="line"><span class="comment">    */</span></div><div class="line">    <span class="comment">/* Connect amuxbus_sar to amuxbus_main */</span></div><div class="line">    HSIOM-&gt;AMUX_SPLIT_CTL[6] = HSIOM_AMUX_SPLIT_CTL_SWITCH_AA_SL_Msk | HSIOM_AMUX_SPLIT_CTL_SWITCH_AA_SR_Msk;</div><div class="line"></div><div class="line">    <span class="comment">/* Connect amuxbus_adft0_vddd to amuxbus_main */</span></div><div class="line">    HSIOM-&gt;AMUX_SPLIT_CTL[0] = HSIOM_AMUX_SPLIT_CTL_SWITCH_AA_SL_Msk | HSIOM_AMUX_SPLIT_CTL_SWITCH_AA_SR_Msk;</div><div class="line"></div><div class="line">    <span class="comment">/* Connect Vddbackmeasure to AMuxBus */</span></div><div class="line"><span class="preprocessor">#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u)))</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#gad87323df5ca65d861bcb67b03c7ee594">Cy_SysPm_BackupEnableVoltageMeasurement</a>();</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u))) */</span><span class="preprocessor"></span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -210,8 +210,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The function disables Vbackup supply measurement by the ADC by disconnecting the Vbackup supply from AMuxBusA. </p>
-<p>Refer to device TRM for more detail about Vbackup supply measurement.</p>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to disable the Vbackup supply measurement by the ADC */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#ga2de08a3d7db223f4106d938843f5b846">Cy_SysPm_BackupDisableVoltageMeasurement</a>();</div></div><!-- fragment --></dd></dl>
+<p>Refer to device TRM for more detail about backup supply modes. Will do nothing if device TRM denotes VBACKUP_MEAS register field is unavailable.</p>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to disable the Vbackup supply measurement by the ADC */</span></div><div class="line"><span class="preprocessor">#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u)))</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#ga2de08a3d7db223f4106d938843f5b846">Cy_SysPm_BackupDisableVoltageMeasurement</a>();</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u))) */</span><span class="preprocessor"></span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -238,8 +238,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd>This function is used only for charging the supercapacitor. Do not use this function to charge a battery. Refer to device TRM for more detail.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to charge the supercapacitor which will</span></div><div class="line"><span class="comment">     * supply the RTC during Hibernate mode for a few hours</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#ga8ec1e64a405842b4b5bd62a418dfad1f">Cy_SysPm_BackupSuperCapCharge</a>(<a class="code" href="group__group__syspm__data__enumerates.html#ggaffbcaa784d215b003d6b95e0620b9fa7ad9281b6f6744e83f380cd0b0c7f2821c">CY_SYSPM_SC_CHARGE_ENABLE</a>);</div></div><!-- fragment --></dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This function is used only for charging the supercapacitor. Do not use this function to charge a battery. Refer to device TRM for more detail about backup supply modes. Will do nothing if device TRM denotes EN_CHARGE_KEY register field is unavailable.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: There is a need to charge the supercapacitor which will</span></div><div class="line"><span class="comment">     * supply the RTC during Hibernate mode for a few hours</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">#if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u)))</span></div><div class="line">    <a class="code" href="group__group__syspm__functions__backup.html#ga8ec1e64a405842b4b5bd62a418dfad1f">Cy_SysPm_BackupSuperCapCharge</a>(<a class="code" href="group__group__syspm__data__enumerates.html#ggaffbcaa784d215b003d6b95e0620b9fa7ad9281b6f6744e83f380cd0b0c7f2821c">CY_SYSPM_SC_CHARGE_ENABLE</a>);</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) &amp;&amp; (CY_IP_MXS40SRSS_VERSION &gt;= 2) &amp;&amp; (defined (SRSS_BACKUP_VBCK_PRESENT) &amp;&amp; (SRSS_BACKUP_VBCK_PRESENT == 1u))) */</span><span class="preprocessor"></span></div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>
@@ -284,7 +284,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B &amp; CAT1C devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A (TVIIBE only), CAT1B and CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -329,7 +329,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B &amp; CAT1C devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A (TVIIBE only), CAT1B and CAT1C devices. </dd></dl>
 
 </div>
 </div>

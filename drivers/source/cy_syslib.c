@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.40
+* \version 3.50
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
@@ -70,16 +70,16 @@
 
 #endif
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3))
-/* RESET_CAUSE2 macro for CAT1A devices */
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2))
+/* RESET_CAUSE2 macro for SRSSv1 devices (nominally CAT1A devices except TVIIBE) */
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Msk    (SRSS_RES_CAUSE2_RESET_CSV_HF_LOSS_Msk)
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Pos    (SRSS_RES_CAUSE2_RESET_CSV_HF_LOSS_Pos)
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Msk    (SRSS_RES_CAUSE2_RESET_CSV_HF_FREQ_Msk)
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Pos    (SRSS_RES_CAUSE2_RESET_CSV_HF_FREQ_Pos)
 #endif
 
-#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
-/* RESET_CAUSE2 macro for CAT1C devices */
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2))
+/* RESET_CAUSE2 macro for SRSSv2 and v3 (nominally CAT1C and TVIIBE CAT1A devices) */
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Msk    (SRSS_RES_CAUSE2_RESET_CSV_HF_Msk)
 #define CY_SRSS_RES_CAUSE2_CSV_LOSS_Pos    (SRSS_RES_CAUSE2_RESET_CSV_HF_Pos)
 #define CY_SRSS_RES_CAUSE2_CSV_ERROR_Msk    (SRSS_RES_CAUSE2_RESET_CSV_REF_Msk)
@@ -211,7 +211,7 @@ uint32_t Cy_SysLib_GetResetReason(void)
         retVal |= CY_SYSLIB_RESET_HIB_WAKEUP;
     }
 
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) ||  defined(CY_IP_MXS22SRSS)
+#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) ||  defined(CY_IP_MXS22SRSS)
     if(0U != _FLD2VAL(CY_SRSS_RES_CAUSE2_CSV_LOSS, SRSS_RES_CAUSE2))
     {
         retVal |= CY_SYSLIB_RESET_CSV_LOSS_WAKEUP;
@@ -273,8 +273,8 @@ void Cy_SysLib_SoftResetCM4(void)
 }
 #endif /* CY_CPU_CORTEX_M0P || defined (CY_DOXYGEN) */
 
-#ifdef CY_IP_M4CPUSS
 
+#if defined (CY_IP_M4CPUSS) && (!(defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u)))
 
 uint64_t Cy_SysLib_GetUniqueId(void)
 {
@@ -294,7 +294,7 @@ uint64_t Cy_SysLib_GetUniqueId(void)
 
     return (((uint64_t) uniqueIdHi << CY_UNIQUE_ID_DIE_X_Pos) | uniqueIdLo);
 }
-#endif
+#endif /* defined (CY_IP_M4CPUSS) && (!(defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u))) */
 #endif
 
 
@@ -501,9 +501,9 @@ void Cy_SysLib_SetWaitStates(bool ulpMode, uint32_t clkHfMHz)
 
 uint8_t Cy_SysLib_GetDeviceRevision(void)
 {
-#ifdef CY_IP_M4CPUSS
+#if defined (CY_IP_M4CPUSS) && !(defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u))
     return ((SFLASH_SI_REVISION_ID == 0UL) ? CY_SYSLIB_DEVICE_REV_0A : SFLASH_SI_REVISION_ID);
-#elif defined(CY_IP_M33SYSCPUSS) || defined(CY_IP_M7CPUSS)
+#elif defined(CY_IP_M33SYSCPUSS) || defined(CY_IP_M7CPUSS) || (defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u))
     return ((uint8_t)((_FLD2VAL(CPUSS_PRODUCT_ID_MINOR_REV, CPUSS_PRODUCT_ID) << 4U) | _FLD2VAL(CPUSS_PRODUCT_ID_MAJOR_REV, CPUSS_PRODUCT_ID)));
 #else
     return 0;
@@ -512,7 +512,7 @@ uint8_t Cy_SysLib_GetDeviceRevision(void)
 
 uint16_t Cy_SysLib_GetDevice(void)
 {
-#ifdef CY_IP_M4CPUSS
+#if defined (CY_IP_M4CPUSS) && !(defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u))
     return ((SFLASH_FAMILY_ID == 0UL) ? CY_SYSLIB_DEVICE_PSOC6ABLE2 : SFLASH_FAMILY_ID);
 #elif defined(CY_IP_M33SYSCPUSS)
     return CPUSS_FAMILYID;

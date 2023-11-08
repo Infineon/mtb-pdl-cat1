@@ -30,7 +30,7 @@
 
 <Personality id="eco_prescaler" name="ECO Prescaler" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss_ver3,mxs22srss,mxs40ssrss" />
+    <IpBlock name="mxs40srss_ver3,mxs22srss,mxs40ssrss,mxs40srss_ver2" />
     <Resource name="srss\.clock\.ecoprescaler" />
   </Dependencies>
   <ExposedMembers>

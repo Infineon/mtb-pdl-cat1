@@ -49,6 +49,7 @@
 #include "cy_ipc_sema.h"
 #include "cy_lpcomp.h"
 #include "cy_lvd.h"
+#include "cy_lvd_ht.h"
 #include "cy_mcwdt.h"
 #include "cy_pdm_pcm.h"
 #include "cy_pra.h"
@@ -57,6 +58,7 @@
 #include "cy_prot.h"
 #include "cy_rtc.h"
 #include "cy_sar.h"
+#include "cy_sar2.h"
 #include "cy_scb_ezi2c.h"
 #include "cy_scb_i2c.h"
 #include "cy_scb_spi.h"
@@ -79,5 +81,6 @@
 #include "cy_trigmux.h"
 #include "cy_usbfs_dev_drv.h"
 #include "cy_wdt.h"
+#include "cy_sysfault.h"
 
 #endif /* CY_PDL_H */

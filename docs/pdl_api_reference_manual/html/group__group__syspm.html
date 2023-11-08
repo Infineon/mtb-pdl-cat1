@@ -435,6 +435,11 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>5.100 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
+ Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1. API Cy_SysPm_IsDeepSleepRegEnabled is now only available for ULP variant devices.<br />
+ API Cy_SysPm_ReghcSelectMode is now only available for devices with REGHC or HTRREGHC. Previously all MXS40SRSSv3 devices.<br />
+ API Cy_SysPm_PmicEnable is now only available for MXS40SRSSv1 devices, or if BACKUP_VBCK IP is present. </td><td>Code enhancement and support for new devices.  </td></tr>
+<tr>
 <td>5.95 </td><td>Added new APIs <a class="el" href="group__group__syspm__functions__power.html#ga9d6fbca5a06b7c74d4c7734ef9a3536e">Cy_SysPm_StoreDSContext_Wfi</a>, <a class="el" href="group__group__syspm__functions__power.html#gac1b5589eaaa7ac4fda44b666cc0ff22c">Cy_SysPm_TriggerXRes</a> and few macros. </td><td>Usability enhancement.  </td></tr>
 <tr>
 <td rowspan="4">5.94 </td><td>Newly added APIs <a class="el" href="group__group__syspm__functions__general.html#ga338c546bbd9227c75ada5bc85b1bf615">Cy_SysPm_SetSOCMemPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gaaf1abb0c8670b67d9bfb299d9d77a990">Cy_SysPm_SetSOCMemPartDsPwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#ga2851806aea4e38ff40c277841c07572c">Cy_SysPm_GetSOCMemSramPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gac056944172fccc3eb347a6ce4d62f320">Cy_SysPm_GetSOCMemSramPartDsPwrMode</a>  </td><td>Support of SOCMEM control for CAT1D devices added .  </td></tr>
@@ -466,10 +471,10 @@ Changelog</h1>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#gaedc88873d19449d733cb529453c9cdc5" title="Checks if CM7 is in the active mode. ">Cy_SysPm_Cm7IsActive()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#ga0df948c8addc2c24d32895388d64374f" title="Checks if the CM7 is in the sleep mode. ">Cy_SysPm_Cm7IsSleep()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#ga3ac97e5b392cb7b1bd9f7e7ca62da6a6" title="Checks if the CM7 is in the deep sleep mode. ">Cy_SysPm_Cm7IsDeepSleep()</a></li>
-<li><a class="el" href="group__group__syspm__functions__power__status.html#ga64d56b385c6d692ff16f4f408a649e5c" title="Checks if the CM7 is in the low power mode. ">Cy_SysPm_Cm7IsLowPower()</a></li>
+<li>Cy_SysPm_Cm7IsLowPower()</li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#ga21d2910a7f711e336996948780074f0d" title="Checks if the CM0+ is in CPU Active mode. ">Cy_SysPm_Cm0IsActive()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#gaacf9cb78aa18a819b22b242d552474af" title="Checks if the CM0+ is in CPU Sleep mode. ">Cy_SysPm_Cm0IsSleep()</a></li>
-<li><a class="el" href="group__group__syspm__functions__power__status.html#gae8cc7ef2fb7a30977a1d9100de1571ab" title="Checks if the CM0+ is in the low power mode. ">Cy_SysPm_Cm0IsLowPower()</a></li>
+<li>Cy_SysPm_Cm0IsLowPower()</li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#ga04710a41511c71d5381cab1d2318a8e1" title="Checks if the CM0+ is in CPU Deep Sleep mode. ">Cy_SysPm_Cm0IsDeepSleep()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power__status.html#gaa04e75e763f98dd2982f0d1bd759c6a1" title="Checks if the system is in LP mode. ">Cy_SysPm_IsSystemLp()</a></li>
 <li><a class="el" href="group__group__syspm__functions__pmic.html#ga0a65826b5bbb61c785e3016dc4eff39b" title="Enable the external PMIC controller that supplies Vddd (if present). ">Cy_SysPm_PmicEnable()</a></li>

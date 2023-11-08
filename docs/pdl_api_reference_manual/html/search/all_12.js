@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['systick_20_20_20_20_20_20_28arm_20system_20timer_29',['SysTick      (ARM System Timer)',['../group__group__arm__system__timer.html',1,'']]],
+  ['systick_20_20_20_20_20_20_28arm_26reg_3b_20system_20timer_29',['SysTick      (Arm&amp;reg; System Timer)',['../group__group__arm__system__timer.html',1,'']]],
   ['symmetric_20key_20algorithms_20_28aes_2c_20gcm_2c_20des_2c_20tdes_29',['Symmetric Key Algorithms (AES, GCM, DES, TDES)',['../group__group__crypto__lld__symmetric.html',1,'']]],
   ['server_20data_20structures',['Server Data Structures',['../group__group__crypto__srv__data__structures.html',1,'']]],
   ['server_20functions',['Server Functions',['../group__group__crypto__srv__functions.html',1,'']]],

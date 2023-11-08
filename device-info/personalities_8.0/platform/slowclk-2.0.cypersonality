@@ -29,7 +29,7 @@
 
 <Personality id="slowclk" name="CLK_SLOW" version="2.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss,mxs40srss_ver3" />
+    <IpBlock name="mxs40srss,mxs40srss_ver3,mxs40srss_ver2" />
     <Resource name="srss\.clock\.slowclk" />
   </Dependencies>
   <ExposedMembers>
@@ -40,8 +40,10 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__clk__slow.html" linkText="Open Slow Clock Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
+    <ParamBool id="is40srss_ver2or3withCM4" name="is40srss_ver2or3withCM4" group="" default="`${((&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())) &amp;&amp; !hasBlock(&quot;srss[0].clock[0].memclk[0]&quot;) }`" visible="false" editable="false" desc="" />
+
     <!-- Source clock -->
-    <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;srss[0].clock[0].periclk[0]&quot; : &quot;srss[0].clock[0].memclk[0]&quot;}`" visible="false" editable="false" desc="" />
+    <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;srss[0].clock[0].periclk[0]&quot; : (is40srss_ver2or3withCM4) ? &quot;srss[0].clock[0].periclk[0]&quot; : &quot;srss[0].clock[0].memclk[0]&quot;}`" visible="false" editable="false" desc="" />
     <!-- Set an error if the source clock is not enabled -->
     <ParamBool id="srcNotUsed" name="Clock Source Enabled" group="Internal" default="`${!isBlockUsed(sourceClockRsc)}`" visible="false" editable="false" desc="" />
     <ParamBool id="clockError" name="Clock Error" group="Internal" default="`${&quot;mxs40srss&quot; eq getIpBlockName() ? getExposedMember(sourceClockRsc, &quot;error&quot;) : 0}`" visible="false" editable="false" desc="" />

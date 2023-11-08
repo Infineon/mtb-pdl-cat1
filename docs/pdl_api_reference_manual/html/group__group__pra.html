@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('group__group__pra.html','');});
 <li><a class="el" href="group__group__syslib.html">SysLib (System Library)</a></li>
 <li><a class="el" href="group__group__sysclk.html">SysClk (System Clock)</a></li>
 <li><a class="el" href="group__group__syspm.html">SysPm (System Power Management)</a></li>
-<li><a class="el" href="group__group__arm__system__timer.html">SysTick (ARM System Timer)</a></li>
+<li><a class="el" href="group__group__arm__system__timer.html">SysTick (Arm&reg; System Timer)</a></li>
 <li><a class="el" href="group__group__wdt.html">WDT (Watchdog Timer)</a></li>
 <li><a class="el" href="group__group__flash.html">Flash (Flash System Routine)</a></li>
 <li><a class="el" href="group__group__sysint.html">SysInt (System Interrupt)</a> (PSoC 64 CYB06xx7 devices only)</li>
@@ -131,7 +131,7 @@ The ALTHF (BLE ECO) is not allowed to source CLK_HF0 (clocks both Cortex-M0+ and
 <dd>
 The internal low-frequency clocks (ILO and PILO) are not allowed to source the CLK_HF0 directly and through PLL or FLL.</dd>
 <dd>
-The clock source for Cortex-M4 SysTick cannot be configured with the Device Configurator. Enabling CLK_ALT_SYS_TICK will result in a compilation error. SysTick still can be configured in run-time with some limitations. For more details, refer to <a class="el" href="group__group__systick__functions.html#gaa8a72d8a278e4a3a970b4c4a021f3647">Cy_SysTick_SetClockSource()</a> in <a class="el" href="group__group__arm__system__timer.html">SysTick (ARM System Timer)</a>.</dd>
+The clock source for Cortex-M4 SysTick cannot be configured with the Device Configurator. Enabling CLK_ALT_SYS_TICK will result in a compilation error. SysTick still can be configured in run-time with some limitations. For more details, refer to <a class="el" href="group__group__systick__functions.html#gaa8a72d8a278e4a3a970b4c4a021f3647">Cy_SysTick_SetClockSource()</a> in <a class="el" href="group__group__arm__system__timer.html">SysTick (Arm&reg; System Timer)</a>.</dd>
 <dd>
 When EXT_CLK is source to HF0 then the drive mode for EXT_CLK pin is hard coded to CY_GPIO_DM_HIGHZ. So user has to make sure this pin configuration is not overwritten from secure application.</dd></dl>
 <h1><a class="anchor" id="group_pra_external_clocks"></a>
@@ -185,7 +185,7 @@ Changelog</h1>
 <tr>
 <td>Fixed the location of the <a class="el" href="structcy__stc__pra__system__config__t.html">cy_stc_pra_system_config_t</a> description in the documentation.  </td><td>Documentation update.  </td></tr>
 <tr>
-<td>Corrected the reference to the <a class="el" href="group__group__arm__system__timer.html">SysTick (ARM System Timer)</a> function with the limitation description - <a class="el" href="group__group__systick__functions.html#gaa8a72d8a278e4a3a970b4c4a021f3647">Cy_SysTick_SetClockSource()</a>.  </td><td>Documentation update.  </td></tr>
+<td>Corrected the reference to the <a class="el" href="group__group__arm__system__timer.html">SysTick (Arm&reg; System Timer)</a> function with the limitation description - <a class="el" href="group__group__systick__functions.html#gaa8a72d8a278e4a3a970b4c4a021f3647">Cy_SysTick_SetClockSource()</a>.  </td><td>Documentation update.  </td></tr>
 <tr>
 <td>The state of the following clocks changes only when the requested state differs from the actual state in the hardware: HF1-HF5, TIMER, PUMP, BLE_ECO, ILO, PILO, and WCO.  </td><td>Improved the <a class="el" href="group__group__pra__functions.html#ga9eb129562cf959674d91dc11d37c374a">Cy_PRA_SystemConfig()</a> function execution time.  </td></tr>
 <tr>

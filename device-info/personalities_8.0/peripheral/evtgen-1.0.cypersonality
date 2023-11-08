@@ -36,11 +36,13 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__evtgen.html" linkText="Open EVTGEN Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
+    <ParamBool id="has_clk_hf3" name="has_clk_hf3" group="" default="`${(hasBlock(&quot;srss[0].clock[0].hfclk[3]&quot;)) }`" visible="false" editable="false" desc="" />
+
     <ParamBool id="debug" name="debug" group="Internal" default="false" visible="false" editable="false" desc="" />
     <ParamString id="InstNumber" name="InstNumber" group="Internal" default="`${getInstNumber(&quot;evtgen&quot;)}`" visible="`${debug}`" editable="false" desc="EVTGEN Instance name number." />
 
     <!-- Counter -->
-    <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="srss[0].clock[0].hfclk[3]" visible="`${debug}`" editable="false" desc="" />
+    <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="`${has_clk_hf3 ? &quot;srss[0].clock[0].hfclk[3]&quot; : &quot;srss[0].clock[0].hfclk[1]&quot;}`" visible="`${debug}`" editable="false" desc="" />
     <ParamString id="sourceLfClk" name="Low Frequency Clock" group="Internal" default="srss[0].clock[0].lfclk[0]" visible="`${debug}`" editable="false" desc="" />
 
     <ParamBool id="srcNotUsed" name="Clock Source Enabled" group="Internal" default="`${isBlockUsed(sourceClockRsc)}`" visible="`${debug}`" editable="false" desc="" />
@@ -48,7 +50,7 @@
 
     <ParamRange id="sourceFreq" name="sourceFrequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="50000000" resolution="1" visible="`${debug}`" editable="false" desc="" />
     <ParamString id="accuracy"  name="Accuracy"  group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;accuracy&quot;) : 0}`" visible="`${debug}`" editable="false" desc="" />
-    <ParamString id="sourceFrequencyInfo" name="Reference Clock" group="Counter" default="CLK_HF3 (`${formatFrequency(sourceFreq,accuracy)}`)" visible="true" editable="false" desc="Source clock frequency in Active power mode" />
+    <ParamString id="sourceFrequencyInfo" name="Reference Clock" group="Counter" default="`${has_clk_hf3 ? &quot;CLK_HF3&quot; : &quot;CLK_HF1&quot;}`" visible="true" editable="false" desc="Source clock frequency in Active power mode" />
     
     <ParamBool id="srcLfNotUsed" name="Clock Source Enabled" group="Internal" default="`${isBlockUsed(sourceLfClk)}`" visible="`${debug}`" editable="false" desc="" />
     <ParamBool id="errorLf" name="Low Frequency Error" group="Internal" default="`${!srcLfNotUsed || getExposedMember(sourceLfClk, &quot;error&quot;)}`" visible="`${debug}`" editable="false" desc="" />

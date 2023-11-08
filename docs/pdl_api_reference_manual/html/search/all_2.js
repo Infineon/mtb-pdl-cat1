@@ -103,7 +103,7 @@ var searchData=
   ['bypassenable',['bypassEnable',['../structcy__stc__pra__system__config__t.html#a2f3c8b87509eec88a8d1ff107b04b0af',1,'cy_stc_pra_system_config_t']]],
   ['bypassmask',['bypassMask',['../structcy__stc__smartio__config__t.html#a4b9c0b1f5a84c0e4e078235901cf982d',1,'cy_stc_smartio_config_t']]],
   ['byte',['byte',['../structcy__stc__ethif__mac__address__t.html#affb3384680793250b6d586c394a1899b',1,'cy_stc_ethif_mac_address_t']]],
-  ['ble_20eco_20_20_20_20_20_20_28ble_20eco_20clock_29',['BLE ECO      (BLE ECO Clock)',['../group__group__ble__clk.html',1,'']]],
+  ['ble_20eco_20_20_20_20_20_20_28bluetooth_26reg_3b_20le_20eco_20clock_29',['BLE ECO      (Bluetooth&amp;reg; LE ECO Clock)',['../group__group__ble__clk.html',1,'']]],
   ['basic_20configuration_20functions',['Basic Configuration Functions',['../group__group__ctb__functions__basic.html',1,'']]],
   ['basic_20configuration_20functions',['Basic Configuration Functions',['../group__group__ctdac__functions__basic.html',1,'']]],
   ['block_20functions',['Block Functions',['../group__group__dma__block__functions.html',1,'']]],

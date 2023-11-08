@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.c
-* \version 3.80
+* \version 3.90
 *
 * \brief
 * Provides the public functions for the API for the PSoC 6 Flash Driver.
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS)
+#if defined (CY_IP_M4CPUSS) && !defined (CY_IP_MXFLASHC_VERSION_ECT)
 
 #include "cy_flash.h"
 #include "cy_sysclk.h"

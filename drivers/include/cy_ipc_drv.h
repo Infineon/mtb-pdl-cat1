@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_drv.h
-* \version 1.91
+* \version 1.100
 * Provides an API declaration of the IPC driver.
 *
 ********************************************************************************
@@ -321,6 +321,13 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.100</td>
+*     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
+*          Added support for CM0 and CM4 core devices in cy_ipc_pipe API.<br>
+*          Replaced some hardcoded values (register size) with the relevant device defines.</td>
+*     <td>Code enhancement and support for new devices.</td>
+*   </tr>
+*   <tr>
 *     <td>1.91</td>
 *     <td>Updated \ref Cy_IPC_Sema_Set, \ref Cy_IPC_Sema_Clear, \ref Cy_IPC_Sema_Status, \ref Cy_IPC_Sema_GetMaxSems APIs 
 *      \n Added new macros</td>
@@ -511,7 +518,7 @@
 #define CY_IPC_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_IPC_DRV_VERSION_MINOR       91
+#define CY_IPC_DRV_VERSION_MINOR       100
 
 /** Defines a value to indicate that no notification events are needed */
 #define CY_IPC_NO_NOTIFICATION         (uint32_t)(0x00000000UL)
