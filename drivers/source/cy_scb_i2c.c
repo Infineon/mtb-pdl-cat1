@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_i2c.c
-* \version 3.10
+* \version 3.10.1
 *
 * Provides I2C API implementation of the SCB driver.
 *

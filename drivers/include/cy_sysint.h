@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysint.h
-* \version 1.100
+* \version 1.110
 *
 * \brief
 * Provides an API declaration of the SysInt driver
@@ -204,6 +204,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.110</td>
+*     <td>Updated API \ref Cy_SysInt_Init.</td>
+*     <td>CM0P interrupt priority bug fix.</td>
+*   </tr>
+*   <tr>
 *     <td>1.100</td>
 *     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
 *          Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1.</td>
@@ -372,7 +377,7 @@ CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 #define CY_SYSINT_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_SYSINT_DRV_VERSION_MINOR    100
+#define CY_SYSINT_DRV_VERSION_MINOR    110
 
 /** SysInt driver ID */
 #define CY_SYSINT_ID CY_PDL_DRV_ID     (0x15U)

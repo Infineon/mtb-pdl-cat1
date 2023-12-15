@@ -36,7 +36,8 @@
   </ExposedMembers>
 
   <Parameters>
-    <ParamDoc id="doc" name="Configuration Help" group="Overview" default="https://Infineon.github.io/lpa/lpa_api_reference_manual/html/index.html" linkText="Open Low Power Assistant Documentation" visible="true" desc="Open the Low Power Assistant Documentation." />
+    <ParamDoc id="doc" name="Configuration Help" group="Overview" default="https://Infineon.github.io/lpa/api_reference_manual/html/index.html" linkText="Open Low Power Assistant Documentation" visible="true" desc="Open the Low Power Assistant Documentation." />
+    <ParamBool id="lpa_enable_43022" name="lpa_enable_43022" group="Test" default="`${lookupExpression(&quot;LPA_OFFLOADS_ENABLED_BY_DEFAULT&quot;,0) == 1 ? true : false}`" visible="false" editable="false" desc="" />
 
     <!-- Host wake settings -->
     <ParamBool id="hostWake" name="Enable" group="Host Wake Configuration" default="true" visible="true" editable="true" desc="Enable host wake configuration." />
@@ -58,7 +59,7 @@
     <ParamBool id="hostIRQConnected" name="hostIRQConnected" group="Internal" default="`${hostIRQ ne &quot;&quot;}`" visible="false" editable="false" desc="True, if HOST_WAKE is connected" />
 
     <!-- ARP Offload settings -->
-    <ParamBool id="arpOffload" name="Enable" group="ARP Offload" default="false" visible="true" editable="true" desc="Enable ARP offload feature." />
+    <ParamBool id="arpOffload" name="Enable" group="ARP Offload" default="false" visible="`${!lpa_enable_43022}`" editable="true" desc="Enable ARP offload feature." />
     <ParamChoice id="arpResponse" name="ARP Offload Feature(s)" group="ARP Offload" default="0u" visible="`${arpOffload}`" editable="`${arpOffload}`" desc="Select ARP offload feature.">
       <Entry name="Disabled" value="0u" visible="true" />
       <Entry name="Host Auto Reply" value="CY_ARP_OL_HOST_AUTO_REPLY_ENABLE" visible="true" />
@@ -218,7 +219,7 @@
     <!-- HOST_WAKE Pin Configuration -->
     <ConfigDefine name="CYCFG_WIFI_HOST_WAKE_GPIO" public="true" value="`${hostIRQConnected ? hostIRQ . &quot;_HAL_PORT_PIN&quot; : &quot;CYHAL_NC_PIN_VALUE&quot;}`" include="`${hostWake}`" preventOverride="false" />
     <ConfigDefine name="CYCFG_WIFI_HOST_WAKE_IRQ_EVENT" public="true" value="`${hostIRQConnected ? hostIRQ . &quot;_HAL_IRQ&quot; : &quot;0&quot;}`" include="`${hostWake}`" preventOverride="false" />
-
+    
     <!-- Address Resolution Protocol (ARP) Offload Configuration -->
     <ConfigDefine name="CY_ARP_OL_FEATURE_AWAKE_ENABLE_MASK_0" public="true" value="(`${arpAgentEn ? (&quot;CY_ARP_OL_AGENT_ENABLE&quot;) : &quot;0u&quot;}``${arpResponse ne &quot;0u&quot; ? (&quot; | &quot;) : (&quot;&quot;)}``${arpResponse ne &quot;0u&quot; ? arpResponse : (&quot;&quot;)}``${arpSnoopHostIp ? (&quot; | CY_ARP_OL_SNOOP_ENABLE&quot;) : &quot;&quot;}`)" include="`${arpOffload}`" preventOverride="false" />
     <ConfigDefine name="CY_ARP_OL_FEATURE_SLEEP_ENABLE_MASK_0" public="true" value="(`${arpInSleep}`)" include="`${arpOffload}`" preventOverride="false" />

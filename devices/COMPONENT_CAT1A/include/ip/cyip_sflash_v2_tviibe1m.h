@@ -1,5 +1,5 @@
 /***************************************************************************//**
-* \file cyip_sflash_v2.h
+* \file cyip_sflash_v2_tviibe1m.h
 *
 * \brief
 * SFLASH IP definitions
@@ -24,8 +24,8 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CYIP_SFLASH_V2_H_
-#define _CYIP_SFLASH_V2_H_
+#ifndef _CYIP_SFLASH_V2_TVIIBE1M_H_
+#define _CYIP_SFLASH_V2_TVIIBE1M_H_
 
 #include "cyip_headers.h"
 
@@ -289,7 +289,7 @@ typedef struct {
 #define SFLASH_V2_TOC2_FLAGS_FB_BOOTLOADER_CTL_Msk 0x600UL
 
 
-#endif /* _CYIP_SFLASH_V2_H_ */
+#endif /* _CYIP_SFLASH_V2_TVIIBE1M_H_ */
 
 
 /* [] END OF FILE */

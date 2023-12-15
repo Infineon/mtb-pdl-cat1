@@ -1,8 +1,8 @@
 /***************************************************************************//**
-* \file cy8c6336lqi_blf02.h
+* \file cy8c6246bti_d54.h
 *
 * \brief
-* CY8C6336LQI-BLF02 device header
+* CY8C6246BTI-D54 device header
 *
 ********************************************************************************
 * \copyright
@@ -24,11 +24,11 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CY8C6336LQI_BLF02_H_
-#define _CY8C6336LQI_BLF02_H_
+#ifndef _CY8C6246BTI_D54_H_
+#define _CY8C6246BTI_D54_H_
 
 /**
-* \addtogroup group_device CY8C6336LQI-BLF02
+* \addtogroup group_device CY8C6246BTI-D54
 * \{
 */
 
@@ -42,6 +42,52 @@
 *******************************************************************************/
 
 typedef enum {
+#if ((defined(__GNUC__)        && (__ARM_ARCH == 6) && (__ARM_ARCH_6M__ == 1)) || \
+     (defined(__ICCARM__)      && (__CORE__ == __ARM6M__)) || \
+     (defined(__ARMCC_VERSION) && defined(__TARGET_ARCH_THUMB) && (__TARGET_ARCH_THUMB == 3)) || \
+     (defined(__ghs__)         && defined(__CORE_CORTEXM0PLUS__)))
+  /* ARM Cortex-M0+ Core Interrupt Numbers */
+  Reset_IRQn                        = -15,      /*!< -15 Reset Vector, invoked on Power up and warm reset */
+  NonMaskableInt_IRQn               = -14,      /*!< -14 Non maskable Interrupt, cannot be stopped or preempted */
+  HardFault_IRQn                    = -13,      /*!< -13 Hard Fault, all classes of Fault */
+  SVCall_IRQn                       =  -5,      /*!<  -5 System Service Call via SVC instruction */
+  PendSV_IRQn                       =  -2,      /*!<  -2 Pendable request for system service */
+  SysTick_IRQn                      =  -1,      /*!<  -1 System Tick Timer */
+  /* ARM Cortex-M0+ NVIC Mux inputs. Allow routing of device interrupts to the CM0+ NVIC */
+  NvicMux0_IRQn                     =   0,      /*!<   0 [DeepSleep] CM0+ NVIC Mux input 0 */
+  NvicMux1_IRQn                     =   1,      /*!<   1 [DeepSleep] CM0+ NVIC Mux input 1 */
+  NvicMux2_IRQn                     =   2,      /*!<   2 [DeepSleep] CM0+ NVIC Mux input 2 */
+  NvicMux3_IRQn                     =   3,      /*!<   3 [DeepSleep] CM0+ NVIC Mux input 3 */
+  NvicMux4_IRQn                     =   4,      /*!<   4 [DeepSleep] CM0+ NVIC Mux input 4 */
+  NvicMux5_IRQn                     =   5,      /*!<   5 [DeepSleep] CM0+ NVIC Mux input 5 */
+  NvicMux6_IRQn                     =   6,      /*!<   6 [DeepSleep] CM0+ NVIC Mux input 6 */
+  NvicMux7_IRQn                     =   7,      /*!<   7 [DeepSleep] CM0+ NVIC Mux input 7 */
+  NvicMux8_IRQn                     =   8,      /*!<   8 [Active] CM0+ NVIC Mux input 8 */
+  NvicMux9_IRQn                     =   9,      /*!<   9 [Active] CM0+ NVIC Mux input 9 */
+  NvicMux10_IRQn                    =  10,      /*!<  10 [Active] CM0+ NVIC Mux input 10 */
+  NvicMux11_IRQn                    =  11,      /*!<  11 [Active] CM0+ NVIC Mux input 11 */
+  NvicMux12_IRQn                    =  12,      /*!<  12 [Active] CM0+ NVIC Mux input 12 */
+  NvicMux13_IRQn                    =  13,      /*!<  13 [Active] CM0+ NVIC Mux input 13 */
+  NvicMux14_IRQn                    =  14,      /*!<  14 [Active] CM0+ NVIC Mux input 14 */
+  NvicMux15_IRQn                    =  15,      /*!<  15 [Active] CM0+ NVIC Mux input 15 */
+  NvicMux16_IRQn                    =  16,      /*!<  16 [Active] CM0+ NVIC Mux input 16 */
+  NvicMux17_IRQn                    =  17,      /*!<  17 [Active] CM0+ NVIC Mux input 17 */
+  NvicMux18_IRQn                    =  18,      /*!<  18 [Active] CM0+ NVIC Mux input 18 */
+  NvicMux19_IRQn                    =  19,      /*!<  19 [Active] CM0+ NVIC Mux input 19 */
+  NvicMux20_IRQn                    =  20,      /*!<  20 [Active] CM0+ NVIC Mux input 20 */
+  NvicMux21_IRQn                    =  21,      /*!<  21 [Active] CM0+ NVIC Mux input 21 */
+  NvicMux22_IRQn                    =  22,      /*!<  22 [Active] CM0+ NVIC Mux input 22 */
+  NvicMux23_IRQn                    =  23,      /*!<  23 [Active] CM0+ NVIC Mux input 23 */
+  NvicMux24_IRQn                    =  24,      /*!<  24 [Active] CM0+ NVIC Mux input 24 */
+  NvicMux25_IRQn                    =  25,      /*!<  25 [Active] CM0+ NVIC Mux input 25 */
+  NvicMux26_IRQn                    =  26,      /*!<  26 [Active] CM0+ NVIC Mux input 26 */
+  NvicMux27_IRQn                    =  27,      /*!<  27 [Active] CM0+ NVIC Mux input 27 */
+  NvicMux28_IRQn                    =  28,      /*!<  28 [Active] CM0+ NVIC Mux input 28 */
+  NvicMux29_IRQn                    =  29,      /*!<  29 [Active] CM0+ NVIC Mux input 29 */
+  NvicMux30_IRQn                    =  30,      /*!<  30 [Active] CM0+ NVIC Mux input 30 */
+  NvicMux31_IRQn                    =  31,      /*!<  31 [Active] CM0+ NVIC Mux input 31 */
+  unconnected_IRQn                  = 240       /*!< 240 Unconnected */
+#else
   /* ARM Cortex-M4 Core Interrupt Numbers */
   Reset_IRQn                        = -15,      /*!< -15 Reset Vector, invoked on Power up and warm reset */
   NonMaskableInt_IRQn               = -14,      /*!< -14 Non maskable Interrupt, cannot be stopped or preempted */
@@ -53,7 +99,7 @@ typedef enum {
   DebugMonitor_IRQn                 =  -4,      /*!<  -4 Debug Monitor */
   PendSV_IRQn                       =  -2,      /*!<  -2 Pendable request for system service */
   SysTick_IRQn                      =  -1,      /*!<  -1 System Tick Timer */
-  /* CY8C6336LQI-BLF02 Peripheral Interrupt Numbers */
+  /* CY8C6246BTI-D54 Peripheral Interrupt Numbers */
   ioss_interrupts_gpio_0_IRQn       =   0,      /*!<   0 [DeepSleep] GPIO Port Interrupt #0 */
   ioss_interrupts_gpio_1_IRQn       =   1,      /*!<   1 [DeepSleep] GPIO Port Interrupt #1 */
   ioss_interrupts_gpio_2_IRQn       =   2,      /*!<   2 [DeepSleep] GPIO Port Interrupt #2 */
@@ -202,12 +248,190 @@ typedef enum {
   usb_interrupt_lo_IRQn             = 145,      /*!< 145 [Active] USB Interrupt */
   pass_interrupt_dacs_IRQn          = 146,      /*!< 146 [Active] Consolidated interrrupt for all DACs */
   unconnected_IRQn                  = 240       /*!< 240 Unconnected */
+#endif
 } IRQn_Type;
 
+
+#if ((defined(__GNUC__)        && (__ARM_ARCH == 6) && (__ARM_ARCH_6M__ == 1)) || \
+     (defined(__ICCARM__)      && (__CORE__ == __ARM6M__)) || \
+     (defined(__ARMCC_VERSION) && defined(__TARGET_ARCH_THUMB) && (__TARGET_ARCH_THUMB == 3)) || \
+     (defined(__ghs__)         && defined(__CORE_CORTEXM0PLUS__)))
+
+/* CY8C6246BTI-D54 interrupts that can be routed to the CM0+ NVIC */
+typedef enum {
+  ioss_interrupts_gpio_0_IRQn       =   0,      /*!<   0 [DeepSleep] GPIO Port Interrupt #0 */
+  ioss_interrupts_gpio_1_IRQn       =   1,      /*!<   1 [DeepSleep] GPIO Port Interrupt #1 */
+  ioss_interrupts_gpio_2_IRQn       =   2,      /*!<   2 [DeepSleep] GPIO Port Interrupt #2 */
+  ioss_interrupts_gpio_3_IRQn       =   3,      /*!<   3 [DeepSleep] GPIO Port Interrupt #3 */
+  ioss_interrupts_gpio_4_IRQn       =   4,      /*!<   4 [DeepSleep] GPIO Port Interrupt #4 */
+  ioss_interrupts_gpio_5_IRQn       =   5,      /*!<   5 [DeepSleep] GPIO Port Interrupt #5 */
+  ioss_interrupts_gpio_6_IRQn       =   6,      /*!<   6 [DeepSleep] GPIO Port Interrupt #6 */
+  ioss_interrupts_gpio_7_IRQn       =   7,      /*!<   7 [DeepSleep] GPIO Port Interrupt #7 */
+  ioss_interrupts_gpio_8_IRQn       =   8,      /*!<   8 [DeepSleep] GPIO Port Interrupt #8 */
+  ioss_interrupts_gpio_9_IRQn       =   9,      /*!<   9 [DeepSleep] GPIO Port Interrupt #9 */
+  ioss_interrupts_gpio_10_IRQn      =  10,      /*!<  10 [DeepSleep] GPIO Port Interrupt #10 */
+  ioss_interrupts_gpio_11_IRQn      =  11,      /*!<  11 [DeepSleep] GPIO Port Interrupt #11 */
+  ioss_interrupts_gpio_12_IRQn      =  12,      /*!<  12 [DeepSleep] GPIO Port Interrupt #12 */
+  ioss_interrupts_gpio_13_IRQn      =  13,      /*!<  13 [DeepSleep] GPIO Port Interrupt #13 */
+  ioss_interrupts_gpio_14_IRQn      =  14,      /*!<  14 [DeepSleep] GPIO Port Interrupt #14 */
+  ioss_interrupt_gpio_IRQn          =  15,      /*!<  15 [DeepSleep] GPIO All Ports */
+  ioss_interrupt_vdd_IRQn           =  16,      /*!<  16 [DeepSleep] GPIO Supply Detect Interrupt */
+  lpcomp_interrupt_IRQn             =  17,      /*!<  17 [DeepSleep] Low Power Comparator Interrupt */
+  scb_8_interrupt_IRQn              =  18,      /*!<  18 [DeepSleep] Serial Communication Block #8 (DeepSleep capable) */
+  srss_interrupt_mcwdt_0_IRQn       =  19,      /*!<  19 [DeepSleep] Multi Counter Watchdog Timer interrupt */
+  srss_interrupt_mcwdt_1_IRQn       =  20,      /*!<  20 [DeepSleep] Multi Counter Watchdog Timer interrupt */
+  srss_interrupt_backup_IRQn        =  21,      /*!<  21 [DeepSleep] Backup domain interrupt */
+  srss_interrupt_IRQn               =  22,      /*!<  22 [DeepSleep] Other combined Interrupts for SRSS (LVD, WDT, CLKCAL) */
+  pass_interrupt_ctbs_IRQn          =  23,      /*!<  23 [DeepSleep] CTBm Interrupt (all CTBms) */
+  bless_interrupt_IRQn              =  24,      /*!<  24 [DeepSleep] Bluetooth Radio interrupt */
+  cpuss_interrupts_ipc_0_IRQn       =  25,      /*!<  25 [DeepSleep] CPUSS Inter Process Communication Interrupt #0 */
+  cpuss_interrupts_ipc_1_IRQn       =  26,      /*!<  26 [DeepSleep] CPUSS Inter Process Communication Interrupt #1 */
+  cpuss_interrupts_ipc_2_IRQn       =  27,      /*!<  27 [DeepSleep] CPUSS Inter Process Communication Interrupt #2 */
+  cpuss_interrupts_ipc_3_IRQn       =  28,      /*!<  28 [DeepSleep] CPUSS Inter Process Communication Interrupt #3 */
+  cpuss_interrupts_ipc_4_IRQn       =  29,      /*!<  29 [DeepSleep] CPUSS Inter Process Communication Interrupt #4 */
+  cpuss_interrupts_ipc_5_IRQn       =  30,      /*!<  30 [DeepSleep] CPUSS Inter Process Communication Interrupt #5 */
+  cpuss_interrupts_ipc_6_IRQn       =  31,      /*!<  31 [DeepSleep] CPUSS Inter Process Communication Interrupt #6 */
+  cpuss_interrupts_ipc_7_IRQn       =  32,      /*!<  32 [DeepSleep] CPUSS Inter Process Communication Interrupt #7 */
+  cpuss_interrupts_ipc_8_IRQn       =  33,      /*!<  33 [DeepSleep] CPUSS Inter Process Communication Interrupt #8 */
+  cpuss_interrupts_ipc_9_IRQn       =  34,      /*!<  34 [DeepSleep] CPUSS Inter Process Communication Interrupt #9 */
+  cpuss_interrupts_ipc_10_IRQn      =  35,      /*!<  35 [DeepSleep] CPUSS Inter Process Communication Interrupt #10 */
+  cpuss_interrupts_ipc_11_IRQn      =  36,      /*!<  36 [DeepSleep] CPUSS Inter Process Communication Interrupt #11 */
+  cpuss_interrupts_ipc_12_IRQn      =  37,      /*!<  37 [DeepSleep] CPUSS Inter Process Communication Interrupt #12 */
+  cpuss_interrupts_ipc_13_IRQn      =  38,      /*!<  38 [DeepSleep] CPUSS Inter Process Communication Interrupt #13 */
+  cpuss_interrupts_ipc_14_IRQn      =  39,      /*!<  39 [DeepSleep] CPUSS Inter Process Communication Interrupt #14 */
+  cpuss_interrupts_ipc_15_IRQn      =  40,      /*!<  40 [DeepSleep] CPUSS Inter Process Communication Interrupt #15 */
+  scb_0_interrupt_IRQn              =  41,      /*!<  41 [Active] Serial Communication Block #0 */
+  scb_1_interrupt_IRQn              =  42,      /*!<  42 [Active] Serial Communication Block #1 */
+  scb_2_interrupt_IRQn              =  43,      /*!<  43 [Active] Serial Communication Block #2 */
+  scb_3_interrupt_IRQn              =  44,      /*!<  44 [Active] Serial Communication Block #3 */
+  scb_4_interrupt_IRQn              =  45,      /*!<  45 [Active] Serial Communication Block #4 */
+  scb_5_interrupt_IRQn              =  46,      /*!<  46 [Active] Serial Communication Block #5 */
+  scb_6_interrupt_IRQn              =  47,      /*!<  47 [Active] Serial Communication Block #6 */
+  scb_7_interrupt_IRQn              =  48,      /*!<  48 [Active] Serial Communication Block #7 */
+  csd_interrupt_IRQn                =  49,      /*!<  49 [Active] CSD (Capsense) interrupt */
+  cpuss_interrupts_dw0_0_IRQn       =  50,      /*!<  50 [Active] CPUSS DataWire #0, Channel #0 */
+  cpuss_interrupts_dw0_1_IRQn       =  51,      /*!<  51 [Active] CPUSS DataWire #0, Channel #1 */
+  cpuss_interrupts_dw0_2_IRQn       =  52,      /*!<  52 [Active] CPUSS DataWire #0, Channel #2 */
+  cpuss_interrupts_dw0_3_IRQn       =  53,      /*!<  53 [Active] CPUSS DataWire #0, Channel #3 */
+  cpuss_interrupts_dw0_4_IRQn       =  54,      /*!<  54 [Active] CPUSS DataWire #0, Channel #4 */
+  cpuss_interrupts_dw0_5_IRQn       =  55,      /*!<  55 [Active] CPUSS DataWire #0, Channel #5 */
+  cpuss_interrupts_dw0_6_IRQn       =  56,      /*!<  56 [Active] CPUSS DataWire #0, Channel #6 */
+  cpuss_interrupts_dw0_7_IRQn       =  57,      /*!<  57 [Active] CPUSS DataWire #0, Channel #7 */
+  cpuss_interrupts_dw0_8_IRQn       =  58,      /*!<  58 [Active] CPUSS DataWire #0, Channel #8 */
+  cpuss_interrupts_dw0_9_IRQn       =  59,      /*!<  59 [Active] CPUSS DataWire #0, Channel #9 */
+  cpuss_interrupts_dw0_10_IRQn      =  60,      /*!<  60 [Active] CPUSS DataWire #0, Channel #10 */
+  cpuss_interrupts_dw0_11_IRQn      =  61,      /*!<  61 [Active] CPUSS DataWire #0, Channel #11 */
+  cpuss_interrupts_dw0_12_IRQn      =  62,      /*!<  62 [Active] CPUSS DataWire #0, Channel #12 */
+  cpuss_interrupts_dw0_13_IRQn      =  63,      /*!<  63 [Active] CPUSS DataWire #0, Channel #13 */
+  cpuss_interrupts_dw0_14_IRQn      =  64,      /*!<  64 [Active] CPUSS DataWire #0, Channel #14 */
+  cpuss_interrupts_dw0_15_IRQn      =  65,      /*!<  65 [Active] CPUSS DataWire #0, Channel #15 */
+  cpuss_interrupts_dw1_0_IRQn       =  66,      /*!<  66 [Active] CPUSS DataWire #1, Channel #0 */
+  cpuss_interrupts_dw1_1_IRQn       =  67,      /*!<  67 [Active] CPUSS DataWire #1, Channel #1 */
+  cpuss_interrupts_dw1_2_IRQn       =  68,      /*!<  68 [Active] CPUSS DataWire #1, Channel #2 */
+  cpuss_interrupts_dw1_3_IRQn       =  69,      /*!<  69 [Active] CPUSS DataWire #1, Channel #3 */
+  cpuss_interrupts_dw1_4_IRQn       =  70,      /*!<  70 [Active] CPUSS DataWire #1, Channel #4 */
+  cpuss_interrupts_dw1_5_IRQn       =  71,      /*!<  71 [Active] CPUSS DataWire #1, Channel #5 */
+  cpuss_interrupts_dw1_6_IRQn       =  72,      /*!<  72 [Active] CPUSS DataWire #1, Channel #6 */
+  cpuss_interrupts_dw1_7_IRQn       =  73,      /*!<  73 [Active] CPUSS DataWire #1, Channel #7 */
+  cpuss_interrupts_dw1_8_IRQn       =  74,      /*!<  74 [Active] CPUSS DataWire #1, Channel #8 */
+  cpuss_interrupts_dw1_9_IRQn       =  75,      /*!<  75 [Active] CPUSS DataWire #1, Channel #9 */
+  cpuss_interrupts_dw1_10_IRQn      =  76,      /*!<  76 [Active] CPUSS DataWire #1, Channel #10 */
+  cpuss_interrupts_dw1_11_IRQn      =  77,      /*!<  77 [Active] CPUSS DataWire #1, Channel #11 */
+  cpuss_interrupts_dw1_12_IRQn      =  78,      /*!<  78 [Active] CPUSS DataWire #1, Channel #12 */
+  cpuss_interrupts_dw1_13_IRQn      =  79,      /*!<  79 [Active] CPUSS DataWire #1, Channel #13 */
+  cpuss_interrupts_dw1_14_IRQn      =  80,      /*!<  80 [Active] CPUSS DataWire #1, Channel #14 */
+  cpuss_interrupts_dw1_15_IRQn      =  81,      /*!<  81 [Active] CPUSS DataWire #1, Channel #15 */
+  cpuss_interrupts_fault_0_IRQn     =  82,      /*!<  82 [Active] CPUSS Fault Structure Interrupt #0 */
+  cpuss_interrupts_fault_1_IRQn     =  83,      /*!<  83 [Active] CPUSS Fault Structure Interrupt #1 */
+  cpuss_interrupt_crypto_IRQn       =  84,      /*!<  84 [Active] CRYPTO Accelerator Interrupt */
+  cpuss_interrupt_fm_IRQn           =  85,      /*!<  85 [Active] FLASH Macro Interrupt */
+  cpuss_interrupts_cm0_cti_0_IRQn   =  86,      /*!<  86 [Active] CM0+ CTI #0 */
+  cpuss_interrupts_cm0_cti_1_IRQn   =  87,      /*!<  87 [Active] CM0+ CTI #1 */
+  cpuss_interrupts_cm4_cti_0_IRQn   =  88,      /*!<  88 [Active] CM4 CTI #0 */
+  cpuss_interrupts_cm4_cti_1_IRQn   =  89,      /*!<  89 [Active] CM4 CTI #1 */
+  tcpwm_0_interrupts_0_IRQn         =  90,      /*!<  90 [Active] TCPWM #0, Counter #0 */
+  tcpwm_0_interrupts_1_IRQn         =  91,      /*!<  91 [Active] TCPWM #0, Counter #1 */
+  tcpwm_0_interrupts_2_IRQn         =  92,      /*!<  92 [Active] TCPWM #0, Counter #2 */
+  tcpwm_0_interrupts_3_IRQn         =  93,      /*!<  93 [Active] TCPWM #0, Counter #3 */
+  tcpwm_0_interrupts_4_IRQn         =  94,      /*!<  94 [Active] TCPWM #0, Counter #4 */
+  tcpwm_0_interrupts_5_IRQn         =  95,      /*!<  95 [Active] TCPWM #0, Counter #5 */
+  tcpwm_0_interrupts_6_IRQn         =  96,      /*!<  96 [Active] TCPWM #0, Counter #6 */
+  tcpwm_0_interrupts_7_IRQn         =  97,      /*!<  97 [Active] TCPWM #0, Counter #7 */
+  tcpwm_1_interrupts_0_IRQn         =  98,      /*!<  98 [Active] TCPWM #1, Counter #0 */
+  tcpwm_1_interrupts_1_IRQn         =  99,      /*!<  99 [Active] TCPWM #1, Counter #1 */
+  tcpwm_1_interrupts_2_IRQn         = 100,      /*!< 100 [Active] TCPWM #1, Counter #2 */
+  tcpwm_1_interrupts_3_IRQn         = 101,      /*!< 101 [Active] TCPWM #1, Counter #3 */
+  tcpwm_1_interrupts_4_IRQn         = 102,      /*!< 102 [Active] TCPWM #1, Counter #4 */
+  tcpwm_1_interrupts_5_IRQn         = 103,      /*!< 103 [Active] TCPWM #1, Counter #5 */
+  tcpwm_1_interrupts_6_IRQn         = 104,      /*!< 104 [Active] TCPWM #1, Counter #6 */
+  tcpwm_1_interrupts_7_IRQn         = 105,      /*!< 105 [Active] TCPWM #1, Counter #7 */
+  tcpwm_1_interrupts_8_IRQn         = 106,      /*!< 106 [Active] TCPWM #1, Counter #8 */
+  tcpwm_1_interrupts_9_IRQn         = 107,      /*!< 107 [Active] TCPWM #1, Counter #9 */
+  tcpwm_1_interrupts_10_IRQn        = 108,      /*!< 108 [Active] TCPWM #1, Counter #10 */
+  tcpwm_1_interrupts_11_IRQn        = 109,      /*!< 109 [Active] TCPWM #1, Counter #11 */
+  tcpwm_1_interrupts_12_IRQn        = 110,      /*!< 110 [Active] TCPWM #1, Counter #12 */
+  tcpwm_1_interrupts_13_IRQn        = 111,      /*!< 111 [Active] TCPWM #1, Counter #13 */
+  tcpwm_1_interrupts_14_IRQn        = 112,      /*!< 112 [Active] TCPWM #1, Counter #14 */
+  tcpwm_1_interrupts_15_IRQn        = 113,      /*!< 113 [Active] TCPWM #1, Counter #15 */
+  tcpwm_1_interrupts_16_IRQn        = 114,      /*!< 114 [Active] TCPWM #1, Counter #16 */
+  tcpwm_1_interrupts_17_IRQn        = 115,      /*!< 115 [Active] TCPWM #1, Counter #17 */
+  tcpwm_1_interrupts_18_IRQn        = 116,      /*!< 116 [Active] TCPWM #1, Counter #18 */
+  tcpwm_1_interrupts_19_IRQn        = 117,      /*!< 117 [Active] TCPWM #1, Counter #19 */
+  tcpwm_1_interrupts_20_IRQn        = 118,      /*!< 118 [Active] TCPWM #1, Counter #20 */
+  tcpwm_1_interrupts_21_IRQn        = 119,      /*!< 119 [Active] TCPWM #1, Counter #21 */
+  tcpwm_1_interrupts_22_IRQn        = 120,      /*!< 120 [Active] TCPWM #1, Counter #22 */
+  tcpwm_1_interrupts_23_IRQn        = 121,      /*!< 121 [Active] TCPWM #1, Counter #23 */
+  udb_interrupts_0_IRQn             = 122,      /*!< 122 [Active] UDB Interrupt #0 */
+  udb_interrupts_1_IRQn             = 123,      /*!< 123 [Active] UDB Interrupt #1 */
+  udb_interrupts_2_IRQn             = 124,      /*!< 124 [Active] UDB Interrupt #2 */
+  udb_interrupts_3_IRQn             = 125,      /*!< 125 [Active] UDB Interrupt #3 */
+  udb_interrupts_4_IRQn             = 126,      /*!< 126 [Active] UDB Interrupt #4 */
+  udb_interrupts_5_IRQn             = 127,      /*!< 127 [Active] UDB Interrupt #5 */
+  udb_interrupts_6_IRQn             = 128,      /*!< 128 [Active] UDB Interrupt #6 */
+  udb_interrupts_7_IRQn             = 129,      /*!< 129 [Active] UDB Interrupt #7 */
+  udb_interrupts_8_IRQn             = 130,      /*!< 130 [Active] UDB Interrupt #8 */
+  udb_interrupts_9_IRQn             = 131,      /*!< 131 [Active] UDB Interrupt #9 */
+  udb_interrupts_10_IRQn            = 132,      /*!< 132 [Active] UDB Interrupt #10 */
+  udb_interrupts_11_IRQn            = 133,      /*!< 133 [Active] UDB Interrupt #11 */
+  udb_interrupts_12_IRQn            = 134,      /*!< 134 [Active] UDB Interrupt #12 */
+  udb_interrupts_13_IRQn            = 135,      /*!< 135 [Active] UDB Interrupt #13 */
+  udb_interrupts_14_IRQn            = 136,      /*!< 136 [Active] UDB Interrupt #14 */
+  udb_interrupts_15_IRQn            = 137,      /*!< 137 [Active] UDB Interrupt #15 */
+  pass_interrupt_sar_IRQn           = 138,      /*!< 138 [Active] SAR ADC interrupt */
+  audioss_interrupt_i2s_IRQn        = 139,      /*!< 139 [Active] I2S Audio interrupt */
+  audioss_interrupt_pdm_IRQn        = 140,      /*!< 140 [Active] PDM/PCM Audio interrupt */
+  profile_interrupt_IRQn            = 141,      /*!< 141 [Active] Energy Profiler interrupt */
+  smif_interrupt_IRQn               = 142,      /*!< 142 [Active] Serial Memory Interface interrupt */
+  usb_interrupt_hi_IRQn             = 143,      /*!< 143 [Active] USB Interrupt */
+  usb_interrupt_med_IRQn            = 144,      /*!< 144 [Active] USB Interrupt */
+  usb_interrupt_lo_IRQn             = 145,      /*!< 145 [Active] USB Interrupt */
+  pass_interrupt_dacs_IRQn          = 146,      /*!< 146 [Active] Consolidated interrrupt for all DACs */
+  disconnected_IRQn                 = 240       /*!< 240 Disconnected */
+} cy_en_intr_t;
+
+#endif
 
 /*******************************************************************************
 *                    Processor and Core Peripheral Section
 *******************************************************************************/
+
+#if ((defined(__GNUC__)        && (__ARM_ARCH == 6) && (__ARM_ARCH_6M__ == 1)) || \
+     (defined(__ICCARM__)      && (__CORE__ == __ARM6M__)) || \
+     (defined(__ARMCC_VERSION) && defined(__TARGET_ARCH_THUMB) && (__TARGET_ARCH_THUMB == 3)) || \
+     (defined(__ghs__)         && defined(__CORE_CORTEXM0PLUS__)))
+
+/* Configuration of the ARM Cortex-M0+ Processor and Core Peripherals */
+#define __CM0PLUS_REV                   0x0001U /*!< CM0PLUS Core Revision */
+#define __NVIC_PRIO_BITS                2       /*!< Number of Bits used for Priority Levels */
+#define __Vendor_SysTickConfig          0       /*!< Set to 1 if different SysTick Config is used */
+#define __VTOR_PRESENT                  1       /*!< Set to 1 if CPU supports Vector Table Offset Register */
+#define __MPU_PRESENT                   1       /*!< MPU present or not */
+
+/** \} Configuration_of_CMSIS */
+
+#include "core_cm0plus.h"                       /*!< ARM Cortex-M0+ processor and core peripherals */
+
+#else
 
 /* Configuration of the ARM Cortex-M4 Processor and Core Peripherals */
 #define __CM4_REV                       0x0001U /*!< CM4 Core Revision */
@@ -216,7 +440,7 @@ typedef enum {
 #define __VTOR_PRESENT                  1       /*!< Set to 1 if CPU supports Vector Table Offset Register */
 #define __MPU_PRESENT                   1       /*!< MPU present or not */
 #define __FPU_PRESENT                   1       /*!< FPU present or not */
-#define __CM0P_PRESENT                  0       /*!< CM0P present or not */
+#define __CM0P_PRESENT                  1       /*!< CM0P present or not */
 #define __DTCM_PRESENT                  0       /*!< Data Tightly Coupled Memory is present or not */
 #define __ICACHE_PRESENT                0       /*!< Instruction Cache present or not */
 #define __DCACHE_PRESENT                0       /*!< Data Cache present or not */
@@ -225,6 +449,7 @@ typedef enum {
 
 #include "core_cm4.h"                           /*!< ARM Cortex-M4 processor and core peripherals */
 
+#endif
 
 /* Memory Blocks */
 #define CY_ROM_BASE                     0x00000000UL
@@ -248,15 +473,15 @@ typedef enum {
 #define CY_IP_MXAUDIOSS                 1u
 #define CY_IP_MXAUDIOSS_INSTANCES       1u
 #define CY_IP_MXAUDIOSS_VERSION         1u
-#define CY_IP_MXBLESS                   1u
-#define CY_IP_MXBLESS_INSTANCES         1u
-#define CY_IP_MXBLESS_VERSION           1u
 #define CY_IP_M4CPUSS                   1u
 #define CY_IP_M4CPUSS_INSTANCES         1u
 #define CY_IP_M4CPUSS_VERSION           1u
 #define CY_IP_M4CPUSS_DMA               1u
 #define CY_IP_M4CPUSS_DMA_INSTANCES     2u
 #define CY_IP_M4CPUSS_DMA_VERSION       1u
+#define CY_IP_MXCRYPTO                  1u
+#define CY_IP_MXCRYPTO_INSTANCES        1u
+#define CY_IP_MXCRYPTO_VERSION          1u
 #define CY_IP_MXCSDV2                   1u
 #define CY_IP_MXCSDV2_INSTANCES         1u
 #define CY_IP_MXCSDV2_VERSION           1u
@@ -281,6 +506,9 @@ typedef enum {
 #define CY_IP_MXS40PASS_CTDAC           1u
 #define CY_IP_MXS40PASS_CTDAC_INSTANCES 1u
 #define CY_IP_MXS40PASS_CTDAC_VERSION   1u
+#define CY_IP_MXS40PASS_CTB             1u
+#define CY_IP_MXS40PASS_CTB_INSTANCES   1u
+#define CY_IP_MXS40PASS_CTB_VERSION     1u
 #define CY_IP_MXPERI                    1u
 #define CY_IP_MXPERI_INSTANCES          1u
 #define CY_IP_MXPERI_VERSION            1u
@@ -291,7 +519,7 @@ typedef enum {
 #define CY_IP_MXPROFILE_INSTANCES       1u
 #define CY_IP_MXPROFILE_VERSION         1u
 #define CY_IP_MXSCB                     1u
-#define CY_IP_MXSCB_INSTANCES           8u
+#define CY_IP_MXSCB_INSTANCES           9u
 #define CY_IP_MXSCB_VERSION             1u
 #define CY_IP_MXSMIF                    1u
 #define CY_IP_MXSMIF_INSTANCES          1u
@@ -308,13 +536,19 @@ typedef enum {
 #define CY_IP_MXTCPWM                   1u
 #define CY_IP_MXTCPWM_INSTANCES         2u
 #define CY_IP_MXTCPWM_VERSION           1u
+#define CY_IP_MXUDB                     1u
+#define CY_IP_MXUDB_INSTANCES           1u
+#define CY_IP_MXUDB_VERSION             1u
+#define CY_IP_MXUSBFS                   1u
+#define CY_IP_MXUSBFS_INSTANCES         1u
+#define CY_IP_MXUSBFS_VERSION           1u
 
 #include "psoc6_01_config.h"
-#include "gpio_psoc6_01_68_qfn_ble.h"
+#include "gpio_psoc6_01_124_bga.h"
 
 #define CY_DEVICE_PSOC6ABLE2
-#define CY_DEVICE_SERIES_PSOC_63
-#define CY_SILICON_ID                   0xE2512100UL
+#define CY_DEVICE_SERIES_PSOC_62
+#define CY_SILICON_ID                   0xE2712100UL
 #define CY_HF_CLK_MAX_FREQ              150000000UL
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
@@ -539,6 +773,13 @@ typedef enum {
 #define PERI_GR_PPU_SL_PERI_GR10                ((PERI_GR_PPU_SL_Type*) PERI_GR_PPU_SL_PERI_GR10_BASE)            /* 0x42A00000 */
 #define PERI_GR_PPU_SL_I2S                      ((PERI_GR_PPU_SL_Type*) PERI_GR_PPU_SL_I2S_BASE)                  /* 0x42A00040 */
 #define PERI_GR_PPU_SL_PDM                      ((PERI_GR_PPU_SL_Type*) PERI_GR_PPU_SL_PDM_BASE)                  /* 0x42A00080 */
+
+/*******************************************************************************
+*                                    CRYPTO
+*******************************************************************************/
+
+#define CRYPTO_BASE                             0x40110000UL
+#define CRYPTO                                  ((CRYPTO_Type*) CRYPTO_BASE)                                      /* 0x40110000 */
 
 /*******************************************************************************
 *                                    CPUSS
@@ -792,6 +1033,65 @@ typedef enum {
 #define SMARTIO_PRT9                            ((SMARTIO_PRT_Type*) &SMARTIO->PRT[9])                            /* 0x40330900 */
 
 /*******************************************************************************
+*                                     UDB
+*******************************************************************************/
+
+#define UDB_BASE                                0x40340000UL
+#define UDB                                     ((UDB_Type*) UDB_BASE)                                            /* 0x40340000 */
+#define UDB_WRKONE                              ((UDB_WRKONE_Type*) &UDB->WRKONE)                                 /* 0x40340000 */
+#define UDB_WRKMULT                             ((UDB_WRKMULT_Type*) &UDB->WRKMULT)                               /* 0x40341000 */
+#define UDB_UDBPAIR0                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[0])                            /* 0x40342000 */
+#define UDB_UDBPAIR1                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[1])                            /* 0x40342200 */
+#define UDB_UDBPAIR2                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[2])                            /* 0x40342400 */
+#define UDB_UDBPAIR3                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[3])                            /* 0x40342600 */
+#define UDB_UDBPAIR4                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[4])                            /* 0x40342800 */
+#define UDB_UDBPAIR5                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[5])                            /* 0x40342A00 */
+#define UDB_UDBPAIR0_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[0].UDBSNG[0])           /* 0x40342000 */
+#define UDB_UDBPAIR0_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[0].UDBSNG[1])           /* 0x40342080 */
+#define UDB_UDBPAIR1_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[1].UDBSNG[0])           /* 0x40342200 */
+#define UDB_UDBPAIR1_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[1].UDBSNG[1])           /* 0x40342280 */
+#define UDB_UDBPAIR2_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[2].UDBSNG[0])           /* 0x40342400 */
+#define UDB_UDBPAIR2_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[2].UDBSNG[1])           /* 0x40342480 */
+#define UDB_UDBPAIR3_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[3].UDBSNG[0])           /* 0x40342600 */
+#define UDB_UDBPAIR3_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[3].UDBSNG[1])           /* 0x40342680 */
+#define UDB_UDBPAIR4_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[4].UDBSNG[0])           /* 0x40342800 */
+#define UDB_UDBPAIR4_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[4].UDBSNG[1])           /* 0x40342880 */
+#define UDB_UDBPAIR5_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[5].UDBSNG[0])           /* 0x40342A00 */
+#define UDB_UDBPAIR5_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[5].UDBSNG[1])           /* 0x40342A80 */
+#define UDB_UDBPAIR0_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[0].ROUTE)                /* 0x40342100 */
+#define UDB_UDBPAIR1_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[1].ROUTE)                /* 0x40342300 */
+#define UDB_UDBPAIR2_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[2].ROUTE)                /* 0x40342500 */
+#define UDB_UDBPAIR3_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[3].ROUTE)                /* 0x40342700 */
+#define UDB_UDBPAIR4_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[4].ROUTE)                /* 0x40342900 */
+#define UDB_UDBPAIR5_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[5].ROUTE)                /* 0x40342B00 */
+#define UDB_DSI0                                ((UDB_DSI_Type*) &UDB->DSI[0])                                    /* 0x40346000 */
+#define UDB_DSI1                                ((UDB_DSI_Type*) &UDB->DSI[1])                                    /* 0x40346080 */
+#define UDB_DSI2                                ((UDB_DSI_Type*) &UDB->DSI[2])                                    /* 0x40346100 */
+#define UDB_DSI3                                ((UDB_DSI_Type*) &UDB->DSI[3])                                    /* 0x40346180 */
+#define UDB_DSI4                                ((UDB_DSI_Type*) &UDB->DSI[4])                                    /* 0x40346200 */
+#define UDB_DSI5                                ((UDB_DSI_Type*) &UDB->DSI[5])                                    /* 0x40346280 */
+#define UDB_DSI6                                ((UDB_DSI_Type*) &UDB->DSI[6])                                    /* 0x40346300 */
+#define UDB_DSI7                                ((UDB_DSI_Type*) &UDB->DSI[7])                                    /* 0x40346380 */
+#define UDB_DSI8                                ((UDB_DSI_Type*) &UDB->DSI[8])                                    /* 0x40346400 */
+#define UDB_DSI9                                ((UDB_DSI_Type*) &UDB->DSI[9])                                    /* 0x40346480 */
+#define UDB_DSI10                               ((UDB_DSI_Type*) &UDB->DSI[10])                                   /* 0x40346500 */
+#define UDB_DSI11                               ((UDB_DSI_Type*) &UDB->DSI[11])                                   /* 0x40346580 */
+#define UDB_PA0                                 ((UDB_PA_Type*) &UDB->PA[0])                                      /* 0x40347000 */
+#define UDB_PA1                                 ((UDB_PA_Type*) &UDB->PA[1])                                      /* 0x40347040 */
+#define UDB_PA2                                 ((UDB_PA_Type*) &UDB->PA[2])                                      /* 0x40347080 */
+#define UDB_PA3                                 ((UDB_PA_Type*) &UDB->PA[3])                                      /* 0x403470C0 */
+#define UDB_PA4                                 ((UDB_PA_Type*) &UDB->PA[4])                                      /* 0x40347100 */
+#define UDB_PA5                                 ((UDB_PA_Type*) &UDB->PA[5])                                      /* 0x40347140 */
+#define UDB_PA6                                 ((UDB_PA_Type*) &UDB->PA[6])                                      /* 0x40347180 */
+#define UDB_PA7                                 ((UDB_PA_Type*) &UDB->PA[7])                                      /* 0x403471C0 */
+#define UDB_PA8                                 ((UDB_PA_Type*) &UDB->PA[8])                                      /* 0x40347200 */
+#define UDB_PA9                                 ((UDB_PA_Type*) &UDB->PA[9])                                      /* 0x40347240 */
+#define UDB_PA10                                ((UDB_PA_Type*) &UDB->PA[10])                                     /* 0x40347280 */
+#define UDB_PA11                                ((UDB_PA_Type*) &UDB->PA[11])                                     /* 0x403472C0 */
+#define UDB_BCTL                                ((UDB_BCTL_Type*) &UDB->BCTL)                                     /* 0x40347800 */
+#define UDB_UDBIF                               ((UDB_UDBIF_Type*) &UDB->UDBIF)                                   /* 0x40347900 */
+
+/*******************************************************************************
 *                                    LPCOMP
 *******************************************************************************/
 
@@ -854,15 +1154,14 @@ typedef enum {
 #define LCD0                                    ((LCD_Type*) LCD0_BASE)                                           /* 0x403B0000 */
 
 /*******************************************************************************
-*                                     BLE
+*                                    USBFS
 *******************************************************************************/
 
-#define BLE_BASE                                0x403C0000UL
-#define BLE                                     ((BLE_Type*) BLE_BASE)                                            /* 0x403C0000 */
-#define BLE_RCB                                 ((BLE_RCB_Type*) &BLE->RCB)                                       /* 0x403C0000 */
-#define BLE_RCB_RCBLL                           ((BLE_RCB_RCBLL_Type*) &BLE->RCB.RCBLL)                           /* 0x403C0100 */
-#define BLE_BLELL                               ((BLE_BLELL_Type*) &BLE->BLELL)                                   /* 0x403C1000 */
-#define BLE_BLESS                               ((BLE_BLESS_Type*) &BLE->BLESS)                                   /* 0x403DF000 */
+#define USBFS0_BASE                             0x403F0000UL
+#define USBFS0                                  ((USBFS_Type*) USBFS0_BASE)                                       /* 0x403F0000 */
+#define USBFS0_USBDEV                           ((USBFS_USBDEV_Type*) &USBFS0->USBDEV)                            /* 0x403F0000 */
+#define USBFS0_USBLPM                           ((USBFS_USBLPM_Type*) &USBFS0->USBLPM)                            /* 0x403F2000 */
+#define USBFS0_USBHOST                          ((USBFS_USBHOST_Type*) &USBFS0->USBHOST)                          /* 0x403F4000 */
 
 /*******************************************************************************
 *                                     SMIF
@@ -886,6 +1185,7 @@ typedef enum {
 #define SCB4_BASE                               0x40650000UL
 #define SCB5_BASE                               0x40660000UL
 #define SCB6_BASE                               0x40670000UL
+#define SCB7_BASE                               0x40680000UL
 #define SCB8_BASE                               0x40690000UL
 #define SCB0                                    ((CySCB_Type*) SCB0_BASE)                                         /* 0x40610000 */
 #define SCB1                                    ((CySCB_Type*) SCB1_BASE)                                         /* 0x40620000 */
@@ -894,6 +1194,7 @@ typedef enum {
 #define SCB4                                    ((CySCB_Type*) SCB4_BASE)                                         /* 0x40650000 */
 #define SCB5                                    ((CySCB_Type*) SCB5_BASE)                                         /* 0x40660000 */
 #define SCB6                                    ((CySCB_Type*) SCB6_BASE)                                         /* 0x40670000 */
+#define SCB7                                    ((CySCB_Type*) SCB7_BASE)                                         /* 0x40680000 */
 #define SCB8                                    ((CySCB_Type*) SCB8_BASE)                                         /* 0x40690000 */
 
 /*******************************************************************************
@@ -946,9 +1247,9 @@ typedef enum {
 #define I2S                                     I2S0
 #define PDM                                     PDM0
 
-/** \} CY8C6336LQI-BLF02 */
+/** \} CY8C6246BTI-D54 */
 
-#endif /* _CY8C6336LQI_BLF02_H_ */
+#endif /* _CY8C6246BTI_D54_H_ */
 
 
 /* [] END OF FILE */

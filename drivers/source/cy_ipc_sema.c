@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_sema.c
-* \version 1.100
+* \version 1.110
 *
 *  Description:
 *   IPC Semaphore Driver - This source file contains the source code for the

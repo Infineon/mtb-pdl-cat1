@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_ppu.h
-* \version 5.100
+* \version 5.110
 *
 * This file provides header for ARM PPU Power Domain Platform Dependant
 * specific driver.

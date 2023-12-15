@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_btss.h
-* \version 5.100
+* \version 5.110
 *
 * Provides the API declarations of the BTSS driver.
 *
@@ -147,6 +147,18 @@ cy_en_btss_status_t Cy_BTSS_PowerDep(bool enable);
 *
 *******************************************************************************/
 cy_en_btss_status_t Cy_BTSS_CPUSSPowerDep(bool enable);
+
+/*******************************************************************************
+* Function Name: Cy_BTSS_PowerDepResetCount
+****************************************************************************//**
+*
+* Reset Power dependency use count.
+*
+* \note
+* This API can be used to reset use count to Zero when BT Reset happens.
+*
+*******************************************************************************/
+void Cy_BTSS_PowerDepResetCount(void);
 
 /*******************************************************************************
 * Function Name: Cy_BTSS_AssertReset

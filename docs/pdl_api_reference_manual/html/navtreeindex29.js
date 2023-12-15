@@ -1,5 +1,6 @@
 var NAVTREEINDEX29 =
 {
+"group__group__trigmux__red__out__enums.html#ga4575cc74a26d492459a7c64585d71e8d":[4,47,2,0,1,2],
 "group__group__trigmux__red__out__enums.html#ga47c65d0dba7e53d53ea15b427299cb71":[4,47,2,0,1,1],
 "group__group__trigmux__red__out__enums.html#gab62578d32fbe9b3db527cadb62fc7b83":[4,47,2,0,1,4],
 "group__group__trigmux__red__out__enums.html#gadeadf10e4115dcbdbc126c4874b923f8":[4,47,2,0,1,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX29 =
 "structcy__stc___sys_fault__t.html#a2a471babc64bc486f46e0ce47e7b9ed6":[4,40,2,0,0],
 "structcy__stc___sys_fault__t.html#a4918fb6fa6c96bcc62b0e7332eb68903":[4,40,2,0,2],
 "structcy__stc__adcmic__biquad__config__t.html":[4,1,2,1],
-"structcy__stc__adcmic__biquad__config__t.html#a0199d1529933b8ff92d6a3a4d5b8b59b":[4,1,2,1,8],
-"structcy__stc__adcmic__biquad__config__t.html#a08278a756e4c8bc1a57c8bc8bc99f117":[4,1,2,1,15]
+"structcy__stc__adcmic__biquad__config__t.html#a0199d1529933b8ff92d6a3a4d5b8b59b":[4,1,2,1,8]
 };

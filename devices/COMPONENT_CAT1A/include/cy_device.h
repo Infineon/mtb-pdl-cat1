@@ -51,7 +51,31 @@
 #include "ip/cyip_gpio_v2.h"
 #include "ip/cyip_hsiom.h"
 #include "ip/cyip_hsiom_v2.h"
-#include "ip/cyip_sflash.h"
+
+#if defined (COMPONENT_PSOC6_01)
+#include "ip/cyip_sflash_psoc6_01.h"
+#endif
+
+#if defined (COMPONENT_PSOC6_02)
+#include "ip/cyip_sflash_psoc6_02.h"
+#endif
+
+#if defined (COMPONENT_PSOC6_03)
+#include "ip/cyip_sflash_psoc6_03.h"
+#endif
+
+#if defined (COMPONENT_PSOC6_04)
+#include "ip/cyip_sflash_psoc6_04.h"
+#endif
+
+#if defined (COMPONENT_TVIIBE1M)
+#include "ip/cyip_sflash_v2_tviibe1m.h"
+#endif
+
+#if defined (COMPONENT_TVIIBE4M)
+#include "ip/cyip_sflash_v2_tviibe4m.h"
+#endif
+
 #include "ip/cyip_srss.h"
 #include "ip/cyip_backup.h"
 #include "ip/cyip_peri.h"
@@ -421,6 +445,10 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define CY_SRSS_PLL_PRESENT                 SRSS_NUM_PLL
 #define CY_SRSS_PLL400M_PRESENT             0
 #define CY_SRSS_DPLL_LP_PRESENT             0
+
+#ifndef CY_EM_EEPROM_SIZE
+#define CY_EM_EEPROM_SIZE                   0x00000000UL
+#endif
 
 #define SRSS_PWR_CTL                        (((SRSS_V1_Type *) SRSS)->PWR_CTL)
 #define SRSS_PWR_HIBERNATE                  (((SRSS_V1_Type *) SRSS)->PWR_HIBERNATE)

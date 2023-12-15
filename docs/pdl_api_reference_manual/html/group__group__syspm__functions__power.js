@@ -6,7 +6,7 @@ var group__group__syspm__functions__power =
     [ "Cy_SysPm_SystemLpActiveEnter", "group__group__syspm__functions__power.html#gae5b8fe608ae9052382b242d29d34d4b9", null ],
     [ "Cy_SysPm_SystemLpActiveExit", "group__group__syspm__functions__power.html#ga81d08ce12e3dd770c48e8bc23246c18f", null ],
     [ "Cy_SysPm_IsSystemLpActiveEnabled", "group__group__syspm__functions__power.html#gaedd38e42919449afe22a9e1dc2c6cac7", null ],
-    [ "Cy_SysPm_StoreDSContext_Wfi", "group__group__syspm__functions__power.html#ga9d6fbca5a06b7c74d4c7734ef9a3536e", null ],
+    [ "Cy_SysPm_StoreDSContext_Wfi", "group__group__syspm__functions__power.html#ga52a28b719c2eb4486a6444eb3932fcae", null ],
     [ "Cy_SysPm_SetDeepSleepMode", "group__group__syspm__functions__power.html#gaaff87adb57f74191a344e996517bd74b", null ],
     [ "Cy_SysPm_SetSysDeepSleepMode", "group__group__syspm__functions__power.html#ga32b4d52191d6bd433a43e17f7b795c58", null ],
     [ "Cy_SysPm_SetAppDeepSleepMode", "group__group__syspm__functions__power.html#ga5bf456009a867946d735f682724d9aa6", null ],

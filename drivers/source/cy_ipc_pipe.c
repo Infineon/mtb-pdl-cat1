@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.c
-* \version 1.100
+* \version 1.110
 *
 *  Description:
 *   IPC Pipe Driver - This source file includes code for the Pipe layer on top
@@ -436,6 +436,10 @@ void Cy_IPC_Pipe_EndpointInitExt(uint32_t epAddr, cy_ipc_pipe_callback_array_ptr
 *
 * \param msgPtr
 * Pointer to the message structure to be sent.
+* msgPtr is a 32 bit value in RRRRDDCC format.
+* CC :   First 8 bits are for client id.
+* DD :   Next 8 bits are for user code.
+* RRRR : Next 16 bits are for Release masks for both pipe endpoints interrupt channels.
 *
 * \param callBackPtr
 * Pointer to the Release callback function.

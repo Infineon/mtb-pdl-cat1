@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_pdcm.c
-* \version 5.100
+* \version 5.110
 *
 * This file provides the source code for PDCM driver, where the API's are used
 * by Syspm driver and BTSS driver.

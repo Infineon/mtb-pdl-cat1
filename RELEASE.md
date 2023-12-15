@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.8.0
+# MTB CAT1 Peripheral Driver Library v3.9.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -7,73 +7,29 @@ for a complete description of the Peripheral Driver Library.
 
 ## Implementation Details
 
-* CAT1A: Adds Traveo II Body Entry device support.  Devices added:
-
-cyt2b73cas cyt2b74bae cyt2b74bas cyt2b74cae cyt2b74cas cyt2b75bae cyt2b75bas cyt2b75cae cyt2b75cas cyt2b77bae
-cyt2b77bas cyt2b77cae cyt2b77cas cyt2b78bae cyt2b78bas cyt2b78cae cyt2b78cas cyt2bl3bae cyt2bl3bas cyt2bl3cae
-cyt2bl3cas cyt2bl4bae cyt2bl4bas cyt2bl4cae cyt2bl4cas cyt2bl5bae cyt2bl5bas cyt2bl5cae cyt2bl5cas cyt2bl7bae
-cyt2bl7bas cyt2bl7cae cyt2bl7cas cyt2bl8bae cyt2bl8bas cyt2bl8cae cyt2bl8cas 
-
-* Updates drivers to support Traveo II B-E devices.  (See drivers list below.)
-* Updates personalities for Traveo II B-E devices.
-* Updates IP headers with new-to-CAT1A IP to support Traveo II B-E devices.
-* Adds linker scripts and adjusts cat1a system/startup code to work with Traveo II B-E devices.
-* CAT1C: Removes some CAT1C SysPm APIs that were not hardware compatible with XMC7xxx devices.
-* In order to provide CAT1A support for the TVIIBE PERIv2 hardware, and still provide CAT1A/CAT1B/CAT1B compatibility with cy_sysclk_v2, PERI_DIV_n_NR macros have been renamed to PERI_CLK_GR_DIV_n_NR.  Any application code using the old macros must be updated to use the new macro names.
-* Personality fixes: Some personality fixes where IP from other categories overlapped with TVIIBE (mostly CAT1C) were applied to schema v8 personalities.
-* Bug fix: Updates Prot driver API availability based on the PERI version. Some devices may have a reduced set of functions available.  If code called APIs not appropriate for the version of PERI, that code will not build without updating to reflect new API availability.  Please note, however, that if code was calling those APIs and the functions are no longer available, there will be no functional difference as the calls were available before but did nothing if the device hardware didn't support the function.
+* CAT1A: New devices added cy8c6146bti_f54, cy8c6147bti_f54, cy8c6246bti_d54 and cy8c6247bti_d54.
+* CAT1B: CYW89829 support added.
+* CAT1B: 20829 IAR support added.
+* CAT1B: Support for 20829A0 device has been removed.
 
 ## Build Changes
 
 ## Personality Changes
 * Updated Personalities (in 8.0 folder):
   * peripheral:
-    * evtgen-1.0.cypersonality
-    * mcwdt_v2-1.0.cypersonality
-    * rtc-3.0.cypersonality
-  * platform:
-    * bakclk-3.0.cypersonality
-    * eco-3.0.cypersonality
-    * eco_prescaler-1.0.cypersonality
-    * extclk-3.0.cypersonality
-    * fastclk-2.0.cypersonality
-    * fll-4.0.cypersonality
-    * hfclk-3.0.cypersonality
-    * ilo-3.0.cypersonality
-    * imo-3.0.cypersonality 
-    * lfclk-3.0.cypersonality
-    * memclk-1.0.cypersonality
-    * pathmux-3.0.cypersonality
-    * periclk-2.0.cypersonality
-    * pll-3.0.cypersonality
-    * pll400-1.0.cypersonality
-    * power_v3-1.0.cypersonality
-    * slowclk-2.0.cypersonality
-    * sysclock-3.0.cypersonality
-    * tickclk-3.0.cypersonality
-    * timerclk-3.0.cypersonality
-    * wco-3.0.cypersonality
+    * connectivity_wifi-1.0.cypersonality
+    
 
 ## Added Drivers
-* No new drivers required for TVIIBE.
+* No new drivers added.
 
 ## Updated Drivers
-* Flash
-* GPIO
-* IPC
-* LVD
-* MCWDT
-* PROT
-* RTC
-* SysClk
-* SysInt
-* SysLib
-* SysPm
-* WDT
-* BLE_CLK
+* [SYSPM 5.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [IPC 1.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
+* [SYSINT 1.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
 
 ### Drivers with patch version updates
-
+* [SCB 3.10.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
 
 
 ### Obsoleted part numbers

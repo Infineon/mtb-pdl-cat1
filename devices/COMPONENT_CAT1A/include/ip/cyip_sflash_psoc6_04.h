@@ -1,5 +1,5 @@
 /***************************************************************************//**
-* \file cyip_sflash.h
+* \file cyip_sflash_psoc6_04.h
 *
 * \brief
 * SFLASH IP definitions
@@ -24,8 +24,8 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CYIP_SFLASH_H_
-#define _CYIP_SFLASH_H_
+#ifndef _CYIP_SFLASH_PSOC6_04_H_
+#define _CYIP_SFLASH_PSOC6_04_H_
 
 #include "cyip_headers.h"
 
@@ -521,7 +521,7 @@ typedef struct {
 #define SFLASH_RTOC2_CRC_ADDR_DATA32_Msk        0xFFFFFFFFUL
 
 
-#endif /* _CYIP_SFLASH_H_ */
+#endif /* _CYIP_SFLASH_PSOC6_04_H_ */
 
 
 /* [] END OF FILE */

@@ -1,5 +1,6 @@
 var NAVTREEINDEX28 =
 {
+"group__group__tcpwm__quaddec__mode.html#ga1bde5608416e3470da46565196e2f2e3":[4,45,3,0,0,0],
 "group__group__tcpwm__quaddec__mode.html#ga9ffa391176e0e8461921b3ad21f43315":[4,45,3,0,0,1],
 "group__group__tcpwm__quaddec__mode.html#gabeed5586b7a7ca17b952a77288939851":[4,45,3,0,0,2],
 "group__group__tcpwm__quaddec__mode.html#gaceef700ff0c4e6dd3f27c5a7ff4c8d36":[4,45,3,0,0,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX28 =
 "group__group__trigmux__red__in__enums.html#ga6235aceb9decb5b4a876258fd493ca55":[4,47,2,0,0,4],
 "group__group__trigmux__red__in__enums.html#ga94e34b021e546998b3652898e741d749":[4,47,2,0,0,5],
 "group__group__trigmux__red__in__enums.html#ga986ffa0c3771f4d50a6dd56f08715e38":[4,47,2,0,0,1],
-"group__group__trigmux__red__out__enums.html":[4,47,2,0,1],
-"group__group__trigmux__red__out__enums.html#ga4575cc74a26d492459a7c64585d71e8d":[4,47,2,0,1,2]
+"group__group__trigmux__red__out__enums.html":[4,47,2,0,1]
 };

@@ -1647,7 +1647,7 @@ typedef enum
 #define CPUSS_FLASHC_ECT                1u
 
 /* Include IP definitions */
-#include "ip/cyip_sflash_v2.h"
+#include "ip/cyip_sflash_v2_tviibe1m.h"
 #include "ip/cyip_peri_v2.h"
 #include "ip/cyip_peri_ms_v2.h"
 #include "ip/cyip_crypto_v2.h"

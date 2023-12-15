@@ -108,9 +108,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaedd38e42919449afe22a9e1dc2c6cac7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__power.html#gaedd38e42919449afe22a9e1dc2c6cac7">Cy_SysPm_IsSystemLpActiveEnabled</a> (void)</td></tr>
 <tr class="memdesc:gaedd38e42919449afe22a9e1dc2c6cac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the system is in LPACTIVE (Low Power Active)/LPSLEEP (Low Power Sleep) Profile.  <a href="#gaedd38e42919449afe22a9e1dc2c6cac7">More...</a><br /></td></tr>
 <tr class="separator:gaedd38e42919449afe22a9e1dc2c6cac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9d6fbca5a06b7c74d4c7734ef9a3536e"><td class="memItemLeft" align="right" valign="top">__WEAK void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__power.html#ga9d6fbca5a06b7c74d4c7734ef9a3536e">Cy_SysPm_StoreDSContext_Wfi</a> (void)</td></tr>
-<tr class="memdesc:ga9d6fbca5a06b7c74d4c7734ef9a3536e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allow users to implement any context store required before entering deep sleep in RTOS based builds, It is defined weak to allow callers override the default PDL implementation.  <a href="#ga9d6fbca5a06b7c74d4c7734ef9a3536e">More...</a><br /></td></tr>
-<tr class="separator:ga9d6fbca5a06b7c74d4c7734ef9a3536e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga52a28b719c2eb4486a6444eb3932fcae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__power.html#ga52a28b719c2eb4486a6444eb3932fcae">Cy_SysPm_StoreDSContext_Wfi</a> (void)</td></tr>
+<tr class="memdesc:ga52a28b719c2eb4486a6444eb3932fcae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allow users to implement any context store required before entering deep sleep in RTOS based builds, It is defined weak to allow callers override the default PDL implementation.  <a href="#ga52a28b719c2eb4486a6444eb3932fcae">More...</a><br /></td></tr>
+<tr class="separator:ga52a28b719c2eb4486a6444eb3932fcae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaff87adb57f74191a344e996517bd74b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syspm__data__enumerates.html#ga601b1cb722cb091133caf33d8ab235ca">cy_en_syspm_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__power.html#gaaff87adb57f74191a344e996517bd74b">Cy_SysPm_SetDeepSleepMode</a> (<a class="el" href="group__group__syspm__data__enumerates.html#gaeaedd0dc630a29f06d1ad3a5fbf77894">cy_en_syspm_deep_sleep_mode_t</a> deepSleepMode)</td></tr>
 <tr class="memdesc:gaaff87adb57f74191a344e996517bd74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the deepsleep mode - deepsleep or deepsleep-ram or deepsleep-off.  <a href="#gaaff87adb57f74191a344e996517bd74b">More...</a><br /></td></tr>
 <tr class="separator:gaaff87adb57f74191a344e996517bd74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -350,14 +350,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga9d6fbca5a06b7c74d4c7734ef9a3536e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9d6fbca5a06b7c74d4c7734ef9a3536e">&#9670;&nbsp;</a></span>Cy_SysPm_StoreDSContext_Wfi()</h2>
+<a id="ga52a28b719c2eb4486a6444eb3932fcae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga52a28b719c2eb4486a6444eb3932fcae">&#9670;&nbsp;</a></span>Cy_SysPm_StoreDSContext_Wfi()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">__WEAK void Cy_SysPm_StoreDSContext_Wfi </td>
+          <td class="memname">void Cy_SysPm_StoreDSContext_Wfi </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>

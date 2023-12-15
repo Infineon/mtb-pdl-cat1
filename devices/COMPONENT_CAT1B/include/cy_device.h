@@ -20,6 +20,14 @@
 CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 1, \
 'Checked manually. The definition is a part of linker script.')
 
+#ifdef _GPIO_CYW20829_56_QFN_H_
+#define _GPIO_CYW20829B0_56_QFN_H_
+#endif
+
+#ifdef _GPIO_CYW20829_40_QFN_H_
+#define _GPIO_CYW20829B0_40_QFN_H_
+#endif
+
 /* Device descriptor type */
 typedef struct
 {

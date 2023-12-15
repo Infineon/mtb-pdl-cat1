@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_bt.c
-* \version 1.100
+* \version 1.110
 *
 * \brief
 *  This driver provides the source code for BT IPC.
@@ -29,6 +29,7 @@
 #if defined (CY_IP_MXIPC)
 
 #include "cy_ipc_bt.h"
+#include "cy_syspm_btss.h"
 
 /* Should not include this. To be removed */
 #include <string.h>
@@ -120,16 +121,22 @@ void Cy_BTIPC_IRQ_Handler(cy_stc_ipc_bt_context_t *btIpcContext)
         BTIPC_LOG_L1("Release int\n");
         /* Clear the release interrupt  */
         Cy_IPC_Drv_ClearInterrupt(ipcIntrPtr, release, CY_IPC_NO_NOTIFICATION);
-#ifdef CY_BTIPC_STATS
+
         if ((release & (uint32_t)(0x1UL << contextPtr->ulChannelHPC)) != 0UL)
         {
+#ifdef CY_BTIPC_STATS
             contextPtr->ipc_hpc_release_count++;
+#endif
+            (void)Cy_BTSS_PowerDep(false);
         }
         if ((release & (uint32_t)(0x1UL << contextPtr->ulChannelHCI)) != 0UL)
         {
+#ifdef CY_BTIPC_STATS
             contextPtr->ipc_hci_release_count++;
-        }
 #endif
+            (void)Cy_BTSS_PowerDep(false);
+        }
+
         /* release callback can be added here. */
         if ((contextPtr->ulReleaseCallbackPtr) != NULL )
         {
@@ -198,7 +205,16 @@ void Cy_BTIPC_IRQ_Handler(cy_stc_ipc_bt_context_t *btIpcContext)
 #endif
             if (0xFFUL == (0xFFUL & mesg[0]))
             {
-                (void)Cy_BTIPC_HPC_RelBuffer(contextPtr, backup); /* Suppress a compiler warning about unused return value */
+
+                    (void)Cy_BTIPC_HPC_RelBuffer(contextPtr, backup); /* Suppress a compiler warning about unused return value */
+
+            }
+            /*At boot config wait BT FW does not process HPC release buffer and hence fails to release IPC channel.
+            Since we want to lock PDCM at IPC write and release only after BT does IPC CH release, we need a count reset
+            to avoid PDCM use count mismatch, which will prevent BT from doing a DS*/
+            if((cy_en_btipc_boottype_t)contextPtr->bootType == CY_BT_IPC_BOOT_FULLY_UP)
+            {
+                Cy_BTSS_PowerDepResetCount();
             }
         }
 
@@ -813,6 +829,8 @@ cy_en_btipcdrv_status_t Cy_BTIPC_HCI_Write(cy_stc_ipc_bt_context_t *btIpcContext
 #ifdef CY_BTIPC_STATS
         contextPtr->ipc_hci_cmd_count++;
 #endif
+        (void)Cy_BTSS_PowerDep(true);
+
         return CY_BT_IPC_DRV_SUCCESS;
     }
     else
@@ -875,6 +893,8 @@ cy_en_btipcdrv_status_t Cy_BTIPC_HPC_Write(cy_stc_ipc_bt_context_t *btIpcContext
 #ifdef CY_BTIPC_STATS
         contextPtr->ipc_hpc_cmd_count++;
 #endif
+        (void)Cy_BTSS_PowerDep(true);
+
         return CY_BT_IPC_DRV_SUCCESS;
     }
     else

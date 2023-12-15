@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_sysint.c
-* \version 1.100
+* \version 1.110
 *
 * \brief
 * Provides an API implementation of the SysInt driver.
@@ -118,7 +118,7 @@ cy_en_sysint_status_t Cy_SysInt_Init(const cy_stc_sysint_t* config, cy_israddres
                 if (config->intrSrc > SysTick_IRQn)
                 {
                     Cy_SysInt_SetInterruptSource(config->intrSrc, config->cm0pSrc);
-                    NVIC_SetPriority((IRQn_Type)(config->cm0pSrc), config->intrPriority);
+                    NVIC_SetPriority((IRQn_Type)(config->intrSrc), config->intrPriority);
 
 #if (defined (CPUSS_SYSTEM_IRQ_PRESENT) && (CPUSS_SYSTEM_IRQ_PRESENT == 1u))
                     (void)Cy_SysInt_SetSystemIrqVector(((cy_en_intr_t)config->cm0pSrc), userIsr);

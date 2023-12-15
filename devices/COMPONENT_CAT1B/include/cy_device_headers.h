@@ -27,11 +27,7 @@
 #ifndef _CY_DEVICE_HEADERS_H_
 #define _CY_DEVICE_HEADERS_H_
 
-#if defined (CYW20829A0LKML)
-    #include "cyw20829a0lkml.h"
-#elif defined (CYW20829A0KML)
-    #include "cyw20829a0kml.h"
-#elif defined (CYW89829A0KML)
+#if defined (CYW89829A0KML)
     #include "cyw89829a0kml.h"
 #elif defined (CYW20829B0LKML)
     #include "cyw20829b0lkml.h"
@@ -39,6 +35,8 @@
     #include "cyw20829b0kml.h"
 #elif defined (CYW89829B0KML)
     #include "cyw89829b0kml.h"
+#elif defined (CYW89829B01MKSBG)
+    #include "cyw89829b01mksbg.h"
 #else
     #error Undefined part number
 #endif

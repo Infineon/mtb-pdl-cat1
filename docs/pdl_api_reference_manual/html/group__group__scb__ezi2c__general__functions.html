@@ -388,7 +388,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Calling this function when the EZI2C slave is configured for one-address operation leads to unexpected behavior because it updates the address mask. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Calling this function when the EZI2C slave is configured for one-address operation leads to unexpected behavior because it updates the address mask.</dd>
+<dd>
+Please observe following limitation while using both primary and secondary slave addresses. EZI2C IP has single address match mask. This mask is setup as (address1 ^ address2), This can generate false address match. For example, if address1 is 0x24 and address2 is 0x10, then slave address 0x20 will also generate a false match. Hence, choose address1 and 2 such that all other slave address on the bus satisfy ((slave address) &amp; (address1 ^ address2)) != 0 </dd></dl>
 
 </div>
 </div>

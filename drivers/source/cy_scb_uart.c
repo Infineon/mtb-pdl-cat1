@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_uart.c
-* \version 3.10
+* \version 3.10.1
 *
 * Provides UART API implementation of the SCB driver.
 *

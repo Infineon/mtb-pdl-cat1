@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.100
+* \version 5.110
 *
 * Provides the function definitions for the power management API.
 *
@@ -846,6 +846,11 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>5.110</td>
+*     <td>Newly Added API \ref Cy_BTSS_PowerDepResetCount  and updated \ref Cy_BTSS_PowerDep.</td>
+*     <td>Fixed race condition in PDCM locking/release.</td>
+*   </tr>
 *   <tr>
 *     <td>5.100</td>
 *     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
@@ -1698,7 +1703,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       100
+#define CY_SYSPM_DRV_VERSION_MINOR       110
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -4281,7 +4286,7 @@ bool Cy_SysPm_IsSystemLpActiveEnabled(void);
 *******************************************************************************/
 
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
-__WEAK void Cy_SysPm_StoreDSContext_Wfi(void);
+void Cy_SysPm_StoreDSContext_Wfi(void);
 #endif
 
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)

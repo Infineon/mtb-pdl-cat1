@@ -13,8 +13,6 @@
         "COMPONENT_TVIIBE1M": "devices/COMPONENT_CAT1A/svd/tviibe1m.svd",
         "COMPONENT_TVIIBE4M": "devices/COMPONENT_CAT1A/svd/tviibe4m.svd",
         "COMPONENT_CYW20829": "devices/COMPONENT_CAT1B/svd/cyw20829.svd",
-        "COMPONENT_TVIIBE1M": "devices/COMPONENT_CAT1A/svd/tviibe1m.svd",
-        "COMPONENT_TVIIBE4M": "devices/COMPONENT_CAT1A/svd/tviibe4m.svd",
         "COMPONENT_CAT1C4M": "devices/COMPONENT_CAT1C/svd/cat1c4m.svd",
         "COMPONENT_CAT1C8M": "devices/COMPONENT_CAT1C/svd/cat1c8m.svd"}
     }

@@ -435,12 +435,14 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>5.110 </td><td>Newly Added API <a class="el" href="group__group__syspm__btss__functions.html#ga5580a2adbb633e57a1b2982f49eaea7b">Cy_BTSS_PowerDepResetCount</a> and updated <a class="el" href="group__group__syspm__btss__functions.html#ga1a3377532505060f34dcf05f79b08815">Cy_BTSS_PowerDep</a>. </td><td>Fixed race condition in PDCM locking/release.  </td></tr>
+<tr>
 <td>5.100 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
  Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1. API Cy_SysPm_IsDeepSleepRegEnabled is now only available for ULP variant devices.<br />
  API Cy_SysPm_ReghcSelectMode is now only available for devices with REGHC or HTRREGHC. Previously all MXS40SRSSv3 devices.<br />
  API Cy_SysPm_PmicEnable is now only available for MXS40SRSSv1 devices, or if BACKUP_VBCK IP is present. </td><td>Code enhancement and support for new devices.  </td></tr>
 <tr>
-<td>5.95 </td><td>Added new APIs <a class="el" href="group__group__syspm__functions__power.html#ga9d6fbca5a06b7c74d4c7734ef9a3536e">Cy_SysPm_StoreDSContext_Wfi</a>, <a class="el" href="group__group__syspm__functions__power.html#gac1b5589eaaa7ac4fda44b666cc0ff22c">Cy_SysPm_TriggerXRes</a> and few macros. </td><td>Usability enhancement.  </td></tr>
+<td>5.95 </td><td>Added new APIs <a class="el" href="group__group__syspm__functions__power.html#ga52a28b719c2eb4486a6444eb3932fcae">Cy_SysPm_StoreDSContext_Wfi</a>, <a class="el" href="group__group__syspm__functions__power.html#gac1b5589eaaa7ac4fda44b666cc0ff22c">Cy_SysPm_TriggerXRes</a> and few macros. </td><td>Usability enhancement.  </td></tr>
 <tr>
 <td rowspan="4">5.94 </td><td>Newly added APIs <a class="el" href="group__group__syspm__functions__general.html#ga338c546bbd9227c75ada5bc85b1bf615">Cy_SysPm_SetSOCMemPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gaaf1abb0c8670b67d9bfb299d9d77a990">Cy_SysPm_SetSOCMemPartDsPwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#ga2851806aea4e38ff40c277841c07572c">Cy_SysPm_GetSOCMemSramPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gac056944172fccc3eb347a6ce4d62f320">Cy_SysPm_GetSOCMemSramPartDsPwrMode</a>  </td><td>Support of SOCMEM control for CAT1D devices added .  </td></tr>
 <tr>

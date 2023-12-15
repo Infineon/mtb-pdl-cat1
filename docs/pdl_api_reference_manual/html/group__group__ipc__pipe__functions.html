@@ -296,7 +296,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">toAddr</td><td>This parameter is the address (or index in the array of endpoint structures) of the endpoint to which you are sending the message.</td></tr>
     <tr><td class="paramname">fromAddr</td><td>This parameter is the address (or index in the array of endpoint structures) of the endpoint from which the message is being sent.</td></tr>
-    <tr><td class="paramname">msgPtr</td><td>Pointer to the message structure to be sent.</td></tr>
+    <tr><td class="paramname">msgPtr</td><td>Pointer to the message structure to be sent. msgPtr is a 32 bit value in RRRRDDCC format. CC : First 8 bits are for client id. DD : Next 8 bits are for user code. RRRR : Next 16 bits are for Release masks for both pipe endpoints interrupt channels.</td></tr>
     <tr><td class="paramname">callBackPtr</td><td>Pointer to the Release callback function.</td></tr>
   </table>
   </dd>

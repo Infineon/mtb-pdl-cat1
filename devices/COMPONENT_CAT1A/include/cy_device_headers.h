@@ -153,6 +153,14 @@
     #include "cy8c6336lqi_blf42.h"
 #elif defined (CY8C6347LQI_BLD52)
     #include "cy8c6347lqi_bld52.h"
+#elif defined (CY8C6247BTI_D54)
+    #include "cy8c6247bti_d54.h"
+#elif defined (CY8C6246BTI_D54)
+    #include "cy8c6246bti_d54.h"
+#elif defined (CY8C6147BTI_F54)
+    #include "cy8c6147bti_f54.h"
+#elif defined (CY8C6146BTI_F54)
+    #include "cy8c6146bti_f54.h"
 #elif defined (CYB06447BZI_BLD54)
     #include "cyb06447bzi_bld54.h"
 #elif defined (CYB06447BZI_BLD53)

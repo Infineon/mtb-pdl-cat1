@@ -1,8 +1,8 @@
 /***************************************************************************//**
-* \file cy8c6336lqi_blf02.h
+* \file cy8c6147bti_f54.h
 *
 * \brief
-* CY8C6336LQI-BLF02 device header
+* CY8C6147BTI-F54 device header
 *
 ********************************************************************************
 * \copyright
@@ -24,11 +24,11 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CY8C6336LQI_BLF02_H_
-#define _CY8C6336LQI_BLF02_H_
+#ifndef _CY8C6147BTI_F54_H_
+#define _CY8C6147BTI_F54_H_
 
 /**
-* \addtogroup group_device CY8C6336LQI-BLF02
+* \addtogroup group_device CY8C6147BTI-F54
 * \{
 */
 
@@ -53,7 +53,7 @@ typedef enum {
   DebugMonitor_IRQn                 =  -4,      /*!<  -4 Debug Monitor */
   PendSV_IRQn                       =  -2,      /*!<  -2 Pendable request for system service */
   SysTick_IRQn                      =  -1,      /*!<  -1 System Tick Timer */
-  /* CY8C6336LQI-BLF02 Peripheral Interrupt Numbers */
+  /* CY8C6147BTI-F54 Peripheral Interrupt Numbers */
   ioss_interrupts_gpio_0_IRQn       =   0,      /*!<   0 [DeepSleep] GPIO Port Interrupt #0 */
   ioss_interrupts_gpio_1_IRQn       =   1,      /*!<   1 [DeepSleep] GPIO Port Interrupt #1 */
   ioss_interrupts_gpio_2_IRQn       =   2,      /*!<   2 [DeepSleep] GPIO Port Interrupt #2 */
@@ -230,9 +230,9 @@ typedef enum {
 #define CY_ROM_BASE                     0x00000000UL
 #define CY_ROM_SIZE                     0x00020000UL
 #define CY_SRAM_BASE                    0x08000000UL
-#define CY_SRAM_SIZE                    0x00020000UL
+#define CY_SRAM_SIZE                    0x00048000UL
 #define CY_FLASH_BASE                   0x10000000UL
-#define CY_FLASH_SIZE                   0x00080000UL
+#define CY_FLASH_SIZE                   0x00100000UL
 #define CY_EM_EEPROM_BASE               0x14000000UL
 #define CY_EM_EEPROM_SIZE               0x00008000UL
 #define CY_SFLASH_BASE                  0x16000000UL
@@ -248,15 +248,15 @@ typedef enum {
 #define CY_IP_MXAUDIOSS                 1u
 #define CY_IP_MXAUDIOSS_INSTANCES       1u
 #define CY_IP_MXAUDIOSS_VERSION         1u
-#define CY_IP_MXBLESS                   1u
-#define CY_IP_MXBLESS_INSTANCES         1u
-#define CY_IP_MXBLESS_VERSION           1u
 #define CY_IP_M4CPUSS                   1u
 #define CY_IP_M4CPUSS_INSTANCES         1u
 #define CY_IP_M4CPUSS_VERSION           1u
 #define CY_IP_M4CPUSS_DMA               1u
 #define CY_IP_M4CPUSS_DMA_INSTANCES     2u
 #define CY_IP_M4CPUSS_DMA_VERSION       1u
+#define CY_IP_MXCRYPTO                  1u
+#define CY_IP_MXCRYPTO_INSTANCES        1u
+#define CY_IP_MXCRYPTO_VERSION          1u
 #define CY_IP_MXCSDV2                   1u
 #define CY_IP_MXCSDV2_INSTANCES         1u
 #define CY_IP_MXCSDV2_VERSION           1u
@@ -281,6 +281,9 @@ typedef enum {
 #define CY_IP_MXS40PASS_CTDAC           1u
 #define CY_IP_MXS40PASS_CTDAC_INSTANCES 1u
 #define CY_IP_MXS40PASS_CTDAC_VERSION   1u
+#define CY_IP_MXS40PASS_CTB             1u
+#define CY_IP_MXS40PASS_CTB_INSTANCES   1u
+#define CY_IP_MXS40PASS_CTB_VERSION     1u
 #define CY_IP_MXPERI                    1u
 #define CY_IP_MXPERI_INSTANCES          1u
 #define CY_IP_MXPERI_VERSION            1u
@@ -291,7 +294,7 @@ typedef enum {
 #define CY_IP_MXPROFILE_INSTANCES       1u
 #define CY_IP_MXPROFILE_VERSION         1u
 #define CY_IP_MXSCB                     1u
-#define CY_IP_MXSCB_INSTANCES           8u
+#define CY_IP_MXSCB_INSTANCES           9u
 #define CY_IP_MXSCB_VERSION             1u
 #define CY_IP_MXSMIF                    1u
 #define CY_IP_MXSMIF_INSTANCES          1u
@@ -308,13 +311,19 @@ typedef enum {
 #define CY_IP_MXTCPWM                   1u
 #define CY_IP_MXTCPWM_INSTANCES         2u
 #define CY_IP_MXTCPWM_VERSION           1u
+#define CY_IP_MXUDB                     1u
+#define CY_IP_MXUDB_INSTANCES           1u
+#define CY_IP_MXUDB_VERSION             1u
+#define CY_IP_MXUSBFS                   1u
+#define CY_IP_MXUSBFS_INSTANCES         1u
+#define CY_IP_MXUSBFS_VERSION           1u
 
 #include "psoc6_01_config.h"
-#include "gpio_psoc6_01_68_qfn_ble.h"
+#include "gpio_psoc6_01_124_bga.h"
 
 #define CY_DEVICE_PSOC6ABLE2
-#define CY_DEVICE_SERIES_PSOC_63
-#define CY_SILICON_ID                   0xE2512100UL
+#define CY_DEVICE_SERIES_PSOC_61
+#define CY_SILICON_ID                   0xE2722100UL
 #define CY_HF_CLK_MAX_FREQ              150000000UL
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
@@ -539,6 +548,13 @@ typedef enum {
 #define PERI_GR_PPU_SL_PERI_GR10                ((PERI_GR_PPU_SL_Type*) PERI_GR_PPU_SL_PERI_GR10_BASE)            /* 0x42A00000 */
 #define PERI_GR_PPU_SL_I2S                      ((PERI_GR_PPU_SL_Type*) PERI_GR_PPU_SL_I2S_BASE)                  /* 0x42A00040 */
 #define PERI_GR_PPU_SL_PDM                      ((PERI_GR_PPU_SL_Type*) PERI_GR_PPU_SL_PDM_BASE)                  /* 0x42A00080 */
+
+/*******************************************************************************
+*                                    CRYPTO
+*******************************************************************************/
+
+#define CRYPTO_BASE                             0x40110000UL
+#define CRYPTO                                  ((CRYPTO_Type*) CRYPTO_BASE)                                      /* 0x40110000 */
 
 /*******************************************************************************
 *                                    CPUSS
@@ -792,6 +808,65 @@ typedef enum {
 #define SMARTIO_PRT9                            ((SMARTIO_PRT_Type*) &SMARTIO->PRT[9])                            /* 0x40330900 */
 
 /*******************************************************************************
+*                                     UDB
+*******************************************************************************/
+
+#define UDB_BASE                                0x40340000UL
+#define UDB                                     ((UDB_Type*) UDB_BASE)                                            /* 0x40340000 */
+#define UDB_WRKONE                              ((UDB_WRKONE_Type*) &UDB->WRKONE)                                 /* 0x40340000 */
+#define UDB_WRKMULT                             ((UDB_WRKMULT_Type*) &UDB->WRKMULT)                               /* 0x40341000 */
+#define UDB_UDBPAIR0                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[0])                            /* 0x40342000 */
+#define UDB_UDBPAIR1                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[1])                            /* 0x40342200 */
+#define UDB_UDBPAIR2                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[2])                            /* 0x40342400 */
+#define UDB_UDBPAIR3                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[3])                            /* 0x40342600 */
+#define UDB_UDBPAIR4                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[4])                            /* 0x40342800 */
+#define UDB_UDBPAIR5                            ((UDB_UDBPAIR_Type*) &UDB->UDBPAIR[5])                            /* 0x40342A00 */
+#define UDB_UDBPAIR0_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[0].UDBSNG[0])           /* 0x40342000 */
+#define UDB_UDBPAIR0_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[0].UDBSNG[1])           /* 0x40342080 */
+#define UDB_UDBPAIR1_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[1].UDBSNG[0])           /* 0x40342200 */
+#define UDB_UDBPAIR1_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[1].UDBSNG[1])           /* 0x40342280 */
+#define UDB_UDBPAIR2_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[2].UDBSNG[0])           /* 0x40342400 */
+#define UDB_UDBPAIR2_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[2].UDBSNG[1])           /* 0x40342480 */
+#define UDB_UDBPAIR3_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[3].UDBSNG[0])           /* 0x40342600 */
+#define UDB_UDBPAIR3_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[3].UDBSNG[1])           /* 0x40342680 */
+#define UDB_UDBPAIR4_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[4].UDBSNG[0])           /* 0x40342800 */
+#define UDB_UDBPAIR4_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[4].UDBSNG[1])           /* 0x40342880 */
+#define UDB_UDBPAIR5_UDBSNG0                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[5].UDBSNG[0])           /* 0x40342A00 */
+#define UDB_UDBPAIR5_UDBSNG1                    ((UDB_UDBPAIR_UDBSNG_Type*) &UDB->UDBPAIR[5].UDBSNG[1])           /* 0x40342A80 */
+#define UDB_UDBPAIR0_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[0].ROUTE)                /* 0x40342100 */
+#define UDB_UDBPAIR1_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[1].ROUTE)                /* 0x40342300 */
+#define UDB_UDBPAIR2_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[2].ROUTE)                /* 0x40342500 */
+#define UDB_UDBPAIR3_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[3].ROUTE)                /* 0x40342700 */
+#define UDB_UDBPAIR4_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[4].ROUTE)                /* 0x40342900 */
+#define UDB_UDBPAIR5_ROUTE                      ((UDB_UDBPAIR_ROUTE_Type*) &UDB->UDBPAIR[5].ROUTE)                /* 0x40342B00 */
+#define UDB_DSI0                                ((UDB_DSI_Type*) &UDB->DSI[0])                                    /* 0x40346000 */
+#define UDB_DSI1                                ((UDB_DSI_Type*) &UDB->DSI[1])                                    /* 0x40346080 */
+#define UDB_DSI2                                ((UDB_DSI_Type*) &UDB->DSI[2])                                    /* 0x40346100 */
+#define UDB_DSI3                                ((UDB_DSI_Type*) &UDB->DSI[3])                                    /* 0x40346180 */
+#define UDB_DSI4                                ((UDB_DSI_Type*) &UDB->DSI[4])                                    /* 0x40346200 */
+#define UDB_DSI5                                ((UDB_DSI_Type*) &UDB->DSI[5])                                    /* 0x40346280 */
+#define UDB_DSI6                                ((UDB_DSI_Type*) &UDB->DSI[6])                                    /* 0x40346300 */
+#define UDB_DSI7                                ((UDB_DSI_Type*) &UDB->DSI[7])                                    /* 0x40346380 */
+#define UDB_DSI8                                ((UDB_DSI_Type*) &UDB->DSI[8])                                    /* 0x40346400 */
+#define UDB_DSI9                                ((UDB_DSI_Type*) &UDB->DSI[9])                                    /* 0x40346480 */
+#define UDB_DSI10                               ((UDB_DSI_Type*) &UDB->DSI[10])                                   /* 0x40346500 */
+#define UDB_DSI11                               ((UDB_DSI_Type*) &UDB->DSI[11])                                   /* 0x40346580 */
+#define UDB_PA0                                 ((UDB_PA_Type*) &UDB->PA[0])                                      /* 0x40347000 */
+#define UDB_PA1                                 ((UDB_PA_Type*) &UDB->PA[1])                                      /* 0x40347040 */
+#define UDB_PA2                                 ((UDB_PA_Type*) &UDB->PA[2])                                      /* 0x40347080 */
+#define UDB_PA3                                 ((UDB_PA_Type*) &UDB->PA[3])                                      /* 0x403470C0 */
+#define UDB_PA4                                 ((UDB_PA_Type*) &UDB->PA[4])                                      /* 0x40347100 */
+#define UDB_PA5                                 ((UDB_PA_Type*) &UDB->PA[5])                                      /* 0x40347140 */
+#define UDB_PA6                                 ((UDB_PA_Type*) &UDB->PA[6])                                      /* 0x40347180 */
+#define UDB_PA7                                 ((UDB_PA_Type*) &UDB->PA[7])                                      /* 0x403471C0 */
+#define UDB_PA8                                 ((UDB_PA_Type*) &UDB->PA[8])                                      /* 0x40347200 */
+#define UDB_PA9                                 ((UDB_PA_Type*) &UDB->PA[9])                                      /* 0x40347240 */
+#define UDB_PA10                                ((UDB_PA_Type*) &UDB->PA[10])                                     /* 0x40347280 */
+#define UDB_PA11                                ((UDB_PA_Type*) &UDB->PA[11])                                     /* 0x403472C0 */
+#define UDB_BCTL                                ((UDB_BCTL_Type*) &UDB->BCTL)                                     /* 0x40347800 */
+#define UDB_UDBIF                               ((UDB_UDBIF_Type*) &UDB->UDBIF)                                   /* 0x40347900 */
+
+/*******************************************************************************
 *                                    LPCOMP
 *******************************************************************************/
 
@@ -854,15 +929,14 @@ typedef enum {
 #define LCD0                                    ((LCD_Type*) LCD0_BASE)                                           /* 0x403B0000 */
 
 /*******************************************************************************
-*                                     BLE
+*                                    USBFS
 *******************************************************************************/
 
-#define BLE_BASE                                0x403C0000UL
-#define BLE                                     ((BLE_Type*) BLE_BASE)                                            /* 0x403C0000 */
-#define BLE_RCB                                 ((BLE_RCB_Type*) &BLE->RCB)                                       /* 0x403C0000 */
-#define BLE_RCB_RCBLL                           ((BLE_RCB_RCBLL_Type*) &BLE->RCB.RCBLL)                           /* 0x403C0100 */
-#define BLE_BLELL                               ((BLE_BLELL_Type*) &BLE->BLELL)                                   /* 0x403C1000 */
-#define BLE_BLESS                               ((BLE_BLESS_Type*) &BLE->BLESS)                                   /* 0x403DF000 */
+#define USBFS0_BASE                             0x403F0000UL
+#define USBFS0                                  ((USBFS_Type*) USBFS0_BASE)                                       /* 0x403F0000 */
+#define USBFS0_USBDEV                           ((USBFS_USBDEV_Type*) &USBFS0->USBDEV)                            /* 0x403F0000 */
+#define USBFS0_USBLPM                           ((USBFS_USBLPM_Type*) &USBFS0->USBLPM)                            /* 0x403F2000 */
+#define USBFS0_USBHOST                          ((USBFS_USBHOST_Type*) &USBFS0->USBHOST)                          /* 0x403F4000 */
 
 /*******************************************************************************
 *                                     SMIF
@@ -886,6 +960,7 @@ typedef enum {
 #define SCB4_BASE                               0x40650000UL
 #define SCB5_BASE                               0x40660000UL
 #define SCB6_BASE                               0x40670000UL
+#define SCB7_BASE                               0x40680000UL
 #define SCB8_BASE                               0x40690000UL
 #define SCB0                                    ((CySCB_Type*) SCB0_BASE)                                         /* 0x40610000 */
 #define SCB1                                    ((CySCB_Type*) SCB1_BASE)                                         /* 0x40620000 */
@@ -894,6 +969,7 @@ typedef enum {
 #define SCB4                                    ((CySCB_Type*) SCB4_BASE)                                         /* 0x40650000 */
 #define SCB5                                    ((CySCB_Type*) SCB5_BASE)                                         /* 0x40660000 */
 #define SCB6                                    ((CySCB_Type*) SCB6_BASE)                                         /* 0x40670000 */
+#define SCB7                                    ((CySCB_Type*) SCB7_BASE)                                         /* 0x40680000 */
 #define SCB8                                    ((CySCB_Type*) SCB8_BASE)                                         /* 0x40690000 */
 
 /*******************************************************************************
@@ -946,9 +1022,9 @@ typedef enum {
 #define I2S                                     I2S0
 #define PDM                                     PDM0
 
-/** \} CY8C6336LQI-BLF02 */
+/** \} CY8C6147BTI-F54 */
 
-#endif /* _CY8C6336LQI_BLF02_H_ */
+#endif /* _CY8C6147BTI_F54_H_ */
 
 
 /* [] END OF FILE */
