@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -529,6 +529,7 @@ typedef enum {
 #define CY_SRAM_SIZE                    0x00020000UL
 
 #define CY_DEVICE_TVIIBE1M
+#define CY_DEVICE_SERIES_CYT2B7
 
 #include "system_psoc6.h"                       /*!< Category 1A System */
 
@@ -594,7 +595,6 @@ typedef enum {
 #include "tviibe1m_config.h"
 #include "gpio_tviibe1m_176_lqfp.h"
 
-#define CY_DEVICE_SERIES_CYT2B7
 #define CY_SILICON_ID                   0xE3EA2301UL
 #define CY_HF_CLK_MAX_FREQ              160000000UL
 

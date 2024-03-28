@@ -14,5 +14,6 @@ var group__group__dma__channel__functions =
     [ "Cy_DMA_Channel_SetInterrupt", "group__group__dma__channel__functions.html#ga1e4c217a23c7c6e8f49de1f28dfe3dbe", null ],
     [ "Cy_DMA_Channel_GetInterruptMask", "group__group__dma__channel__functions.html#ga411730b6a2653cc096ff0c6d1373efa3", null ],
     [ "Cy_DMA_Channel_SetInterruptMask", "group__group__dma__channel__functions.html#gab3e0528d8e57ee04dbbee89ffca38545", null ],
-    [ "Cy_DMA_Channel_GetInterruptStatusMasked", "group__group__dma__channel__functions.html#ga3c2d11f8314b30f83dc8987b5e18f63c", null ]
+    [ "Cy_DMA_Channel_GetInterruptStatusMasked", "group__group__dma__channel__functions.html#ga3c2d11f8314b30f83dc8987b5e18f63c", null ],
+    [ "Cy_DMA_Channel_SetSWTrigger", "group__group__dma__channel__functions.html#ga0fdf26389ba1b635c7627e7924f0a501", null ]
 ];

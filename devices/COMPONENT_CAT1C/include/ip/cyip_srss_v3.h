@@ -231,50 +231,50 @@ typedef struct {
    __IM uint32_t RESERVED10[96];
         CSV_HF_Type CSV_HF;                     /*!< 0x00001400 Clock Supervisor (CSV) registers for Root clocks */
   __IOM uint32_t CLK_SELECT;                    /*!< 0x00001500 Clock selection register */
-  __IOM uint32_t CLK_TIMER_CTL;                 /*!< 0x00001504 Timer Clock Control Register */
+   __IM uint32_t RESERVED11;
   __IOM uint32_t CLK_ILO0_CONFIG;               /*!< 0x00001508 ILO0 Configuration */
   __IOM uint32_t CLK_ILO1_CONFIG;               /*!< 0x0000150C ILO1 Configuration */
-   __IM uint32_t RESERVED11[2];
+   __IM uint32_t RESERVED12[2];
   __IOM uint32_t CLK_IMO_CONFIG;                /*!< 0x00001518 IMO Configuration */
   __IOM uint32_t CLK_ECO_CONFIG;                /*!< 0x0000151C ECO Configuration Register */
   __IOM uint32_t CLK_ECO_PRESCALE;              /*!< 0x00001520 ECO Prescaler Configuration Register */
    __IM uint32_t CLK_ECO_STATUS;                /*!< 0x00001524 ECO Status Register */
   __IOM uint32_t CLK_PILO_CONFIG;               /*!< 0x00001528 Precision ILO Configuration Register */
-   __IM uint32_t RESERVED12;
+   __IM uint32_t RESERVED13;
   __IOM uint32_t CLK_FLL_CONFIG;                /*!< 0x00001530 FLL Configuration Register */
   __IOM uint32_t CLK_FLL_CONFIG2;               /*!< 0x00001534 FLL Configuration Register 2 */
   __IOM uint32_t CLK_FLL_CONFIG3;               /*!< 0x00001538 FLL Configuration Register 3 */
   __IOM uint32_t CLK_FLL_CONFIG4;               /*!< 0x0000153C FLL Configuration Register 4 */
   __IOM uint32_t CLK_FLL_STATUS;                /*!< 0x00001540 FLL Status Register */
   __IOM uint32_t CLK_ECO_CONFIG2;               /*!< 0x00001544 ECO Configuration Register 2 */
-   __IM uint32_t RESERVED13[46];
+   __IM uint32_t RESERVED14[46];
   __IOM uint32_t CLK_PLL_CONFIG[15];            /*!< 0x00001600 PLL Configuration Register */
-   __IM uint32_t RESERVED14;
+   __IM uint32_t RESERVED15;
   __IOM uint32_t CLK_PLL_STATUS[15];            /*!< 0x00001640 PLL Status Register */
-   __IM uint32_t RESERVED15[33];
+   __IM uint32_t RESERVED16[33];
   __IOM uint32_t CSV_REF_SEL;                   /*!< 0x00001700 Select CSV Reference clock for Active domain */
-   __IM uint32_t RESERVED16[3];
+   __IM uint32_t RESERVED17[3];
         CSV_REF_Type CSV_REF;                   /*!< 0x00001710 CSV registers for the CSV Reference clock */
         CSV_LF_Type CSV_LF;                     /*!< 0x00001720 CSV registers for LF clock */
         CSV_ILO_Type CSV_ILO;                   /*!< 0x00001730 CSV registers for HVILO clock */
-   __IM uint32_t RESERVED17[48];
+   __IM uint32_t RESERVED18[48];
   __IOM uint32_t RES_CAUSE;                     /*!< 0x00001800 Reset Cause Observation Register */
   __IOM uint32_t RES_CAUSE2;                    /*!< 0x00001804 Reset Cause Observation Register 2 */
-   __IM uint32_t RESERVED18[62];
+   __IM uint32_t RESERVED19[62];
         CLK_PLL400M_Type CLK_PLL400M[15];       /*!< 0x00001900 400MHz PLL Configuration Register */
-   __IM uint32_t RESERVED19[1417];
+   __IM uint32_t RESERVED20[1417];
   __IOM uint32_t CLK_TRIM_ILO0_CTL;             /*!< 0x00003014 ILO0 Trim Register */
-   __IM uint32_t RESERVED20[60];
+   __IM uint32_t RESERVED21[60];
   __IOM uint32_t PWR_TRIM_PWRSYS_CTL;           /*!< 0x00003108 Power System Trim Register */
-   __IM uint32_t RESERVED21[2];
+   __IM uint32_t RESERVED22[2];
   __IOM uint32_t CLK_TRIM_PILO_CTL;             /*!< 0x00003114 PILO Trim Register */
   __IOM uint32_t CLK_TRIM_PILO_CTL2;            /*!< 0x00003118 PILO Trim Register 2 */
   __IOM uint32_t CLK_TRIM_PILO_CTL3;            /*!< 0x0000311C PILO Trim Register 3 */
-   __IM uint32_t RESERVED22[64];
+   __IM uint32_t RESERVED23[64];
   __IOM uint32_t CLK_TRIM_ILO1_CTL;             /*!< 0x00003220 ILO1 Trim Register */
-   __IM uint32_t RESERVED23[4983];
+   __IM uint32_t RESERVED24[4983];
         MCWDT_Type MCWDT[4];                    /*!< 0x00008000 Multi-Counter Watchdog Timer */
-   __IM uint32_t RESERVED24[3840];
+   __IM uint32_t RESERVED25[3840];
         WDT_Type WDT_STRUCT;                    /*!< 0x0000C000 Watchdog Timer */
 } SRSS_Type;                                    /*!< Size = 49280 (0xC080) */
 
@@ -851,15 +851,6 @@ typedef struct {
 #define SRSS_CLK_SELECT_PUMP_DIV_Msk            0x7000UL
 #define SRSS_CLK_SELECT_PUMP_ENABLE_Pos         15UL
 #define SRSS_CLK_SELECT_PUMP_ENABLE_Msk         0x8000UL
-/* SRSS.CLK_TIMER_CTL */
-#define SRSS_CLK_TIMER_CTL_TIMER_SEL_Pos        0UL
-#define SRSS_CLK_TIMER_CTL_TIMER_SEL_Msk        0x1UL
-#define SRSS_CLK_TIMER_CTL_TIMER_HF0_DIV_Pos    8UL
-#define SRSS_CLK_TIMER_CTL_TIMER_HF0_DIV_Msk    0x300UL
-#define SRSS_CLK_TIMER_CTL_TIMER_DIV_Pos        16UL
-#define SRSS_CLK_TIMER_CTL_TIMER_DIV_Msk        0xFF0000UL
-#define SRSS_CLK_TIMER_CTL_ENABLE_Pos           31UL
-#define SRSS_CLK_TIMER_CTL_ENABLE_Msk           0x80000000UL
 /* SRSS.CLK_ILO0_CONFIG */
 #define SRSS_CLK_ILO0_CONFIG_ILO0_BACKUP_Pos    0UL
 #define SRSS_CLK_ILO0_CONFIG_ILO0_BACKUP_Msk    0x1UL

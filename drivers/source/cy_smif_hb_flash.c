@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_hb_flash.c
-* \version 2.60
+* \version 2.70
 *
 * \brief
 *  This file provides the source code for the Hyper Bus APIs of the SMIF driver.
@@ -49,17 +49,6 @@ static void Cy_SMIF_HB_SetDummyCycles(volatile SMIF_DEVICE_Type *dev, cy_en_smif
 
 static uint32_t Cy_SMIF_Reverse4ByteEndian(uint32_t in);
 
-
-static cy_en_smif_status_t Cy_SMIF_HyperBus_MMIO_Write(SMIF_Type *base,
-                                        cy_en_smif_slave_select_t slave,
-                                        cy_en_hb_burst_type_t burstType,
-                                        uint32_t writeAddress,
-                                        uint32_t sizeInHalfWord,
-                                        uint16_t buf[],
-                                        cy_en_smif_hb_dev_type_t hbDevType,
-                                        uint32_t dummyCycle,
-                                        bool isblockingMode,
-                                        cy_stc_smif_context_t *context);
 
 static cy_en_smif_status_t Cy_SMIF_HyperBus_MMIO_Read(SMIF_Type *base,
                                         cy_en_smif_slave_select_t slave,
@@ -1047,7 +1036,7 @@ static cy_en_smif_status_t Cy_SMIF_HyperBus_MMIO_Read(SMIF_Type *base,
 * \return \ref cy_en_smif_status_t
 *
 *******************************************************************************/
-static cy_en_smif_status_t Cy_SMIF_HyperBus_MMIO_Write(SMIF_Type *base,
+cy_en_smif_status_t Cy_SMIF_HyperBus_MMIO_Write(SMIF_Type *base,
                                         cy_en_smif_slave_select_t slave,
                                         cy_en_hb_burst_type_t burstType,
                                         uint32_t writeAddress,

@@ -523,6 +523,7 @@
  
   <ConfigFirmware>
     <ConfigInclude value="cy_keyscan.h" include="true" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="MXKEYSCAN" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="keyscan_interrupt_IRQn" public="true" include="true" />
@@ -536,7 +537,26 @@
       <Member name="cpuWakeupEnable" value="`${CPUWakeupEnable}`" />
       <Member name="clkStayOn" value="`${ClkAlwaysOn}`" />
     </ConfigStruct>
- 
+
+    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="type" value="CYHAL_RSC_KEYSCAN" />
+      <Member name="block_num" value="0U" />
+      <Member name="channel_num" value="0U" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="block" value="`${MFClockEnabled ? &quot;CYHAL_CLOCK_BLOCK_MF&quot; : &quot;CYHAL_CLOCK_BLOCK_LF&quot;}`" />
+      <Member name="channel" value="0U" />
+      <Member name="reserved" value="false" />
+      <Member name="funcs" value="NULL" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_keyscan_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+    </ConfigStruct>
+    
   </ConfigFirmware>
 
 </Personality>

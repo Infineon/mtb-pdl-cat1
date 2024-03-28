@@ -37,6 +37,9 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sd__host.html" linkText="Open SD Host Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
+    <!-- Internal -->
+    <ParamString id="ip_version" name="version number" group="Internal" default="`${getVersion()}`" visible="false" editable="false" desc="" />
+
     <!-- Timing -->
     <ParamSignal port="clk_hf[0]" name="Clock" group="Timing" visible="true" desc="Input clock source of the SDHC block." canBeEmpty="false" />
     <ParamString id="sourceClock" name="sourceClock" group="General" default="`${getBlockFromSignal(&quot;clk_hf[0]&quot;)}`" visible="false" editable="false" desc="" />
@@ -76,6 +79,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="clkPin" name="clkPin" group="Internal" default="`${getBlockFromSignal(&quot;clk_card[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_cmd[0]" name="CMD" group="Inputs" visible="true" desc="The command/response pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -89,6 +93,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="cmdPin" name="cmdPin" group="Internal" default="`${getBlockFromSignal(&quot;card_cmd[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_dat_3to0[0]" name="DAT0" group="Inputs" visible="true" desc="The Data line [Bit 0] pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -102,6 +107,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data0Pin" name="data0Pin" group="Internal" default="`${getBlockFromSignal(&quot;card_dat_3to0[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_dat_3to0[1]" name="DAT1" group="Inputs" visible="`${(busWidth ne CY_SD_HOST_BUS_WIDTH_1_BIT)}`" desc="The Data line [Bit 1] pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -115,6 +121,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data1Pin" name="data1Pin" group="Internal" default="`${getBlockFromSignal(&quot;card_dat_3to0[1]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_dat_3to0[2]" name="DAT2" group="Inputs" visible="`${(busWidth ne CY_SD_HOST_BUS_WIDTH_1_BIT)}`" desc="The Data line [Bit 2] pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -128,6 +135,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data2Pin" name="data2Pin" group="Internal" default="`${getBlockFromSignal(&quot;card_dat_3to0[2]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_dat_3to0[3]" name="DAT3" group="Inputs" visible="`${(busWidth ne CY_SD_HOST_BUS_WIDTH_1_BIT)}`" desc="The Data line [Bit 3] pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -141,6 +149,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data3Pin" name="data3Pin" group="Internal" default="`${getBlockFromSignal(&quot;card_dat_3to0[3]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_dat_7to4[0]" name="DAT4" group="Inputs" visible="`${(cardType eq emmc) &amp;&amp; (InstNumber eq 1) &amp;&amp; (busWidth eq CY_SD_HOST_BUS_WIDTH_8_BIT)}`" desc="The Data line [Bit 4] pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -154,6 +163,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data4Pin" name="data4Pin" group="Internal" default="`${getBlockFromSignal(&quot;card_dat_7to4[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_dat_7to4[1]" name="DAT5" group="Inputs" visible="`${(cardType eq emmc) &amp;&amp; (InstNumber eq 1) &amp;&amp; (busWidth eq CY_SD_HOST_BUS_WIDTH_8_BIT)}`" desc="The Data line [Bit 5] pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -167,6 +177,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data5Pin" name="data5Pin" group="Internal" default="`${getBlockFromSignal(&quot;card_dat_7to4[1]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_dat_7to4[2]" name="DAT6" group="Inputs" visible="`${(cardType eq emmc) &amp;&amp; (InstNumber eq 1) &amp;&amp; (busWidth eq CY_SD_HOST_BUS_WIDTH_8_BIT)}`" desc="The Data line [Bit 6] pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -180,6 +191,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data6Pin" name="data6Pin" group="Internal" default="`${getBlockFromSignal(&quot;card_dat_7to4[2]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_dat_7to4[3]" name="DAT7" group="Inputs" visible="`${(cardType eq emmc) &amp;&amp; (InstNumber eq 1) &amp;&amp; (busWidth eq CY_SD_HOST_BUS_WIDTH_8_BIT)}`" desc="The Data line [Bit 7] pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -193,6 +205,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data7Pin" name="data7Pin" group="Internal" default="`${getBlockFromSignal(&quot;card_dat_7to4[3]&quot;)}`" visible="false" editable="false" desc="" />
     
     <ParamSignal port="card_detect_n[0]" name="Card Detect" group="Inputs" visible="`${hasVisibleOption(&quot;card_detect_n[0]&quot;)}`" desc="The card detect pin. Note: You can use any GPIO custom pin for Card Detect. Add the SD Host driver Cy_SD_Host_IsCardConnected() function with the __WEAK type to your code. This function could read the value from any GPIO pin and return true when the card is connected. For more information see the Cy_SD_Host_IsCardConnected() function description." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -207,6 +220,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="cardDetectPin" name="cardDetectPin" group="Internal" default="`${getBlockFromSignal(&quot;card_detect_n[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_emmc_reset_n[0]" name="eMMC Reset" group="Inputs" visible="`${(cardType eq emmc) &amp;&amp; (InstNumber eq 1)}`" desc="The eMMC reset pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -220,6 +234,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="emmcRstPin" name="emmcRstPin" group="Internal" default="`${getBlockFromSignal(&quot;card_emmc_reset_n[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="led_ctrl[0]" name="Led Control" group="Inputs" visible="`${enableLedControl}`" desc="The LED control pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -233,6 +248,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ledCtrlPin" name="ledCtrlPin" group="Internal" default="`${getBlockFromSignal(&quot;led_ctrl[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_mech_write_prot[0]" name="Card Mechanical Write Protect" group="Inputs" visible="`${hasVisibleOption(&quot;card_mech_write_prot[0]&quot;)}`" desc="The card mechanical write protect pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -246,6 +262,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="cardMechWriteProtPin" name="cardMechWriteProtPin" group="Internal" default="`${getBlockFromSignal(&quot;card_mech_write_prot[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="card_if_pwr_en[0]" name="Card if Power Enabled" group="Inputs" visible="`${hasVisibleOption(&quot;card_if_pwr_en[0]&quot;)}`" desc="The card if power enabled pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -259,6 +276,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="cardPwrEnPin" name="cardPwrEnPin" group="Internal" default="`${getBlockFromSignal(&quot;card_if_pwr_en[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="io_volt_sel[0]" name="IO Volt Select" group="Inputs" visible="`${hasVisibleOption(&quot;io_volt_sel[0]&quot;)}`" desc="The io volt select pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
@@ -272,6 +290,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ioVolSelPin" name="ioVolSelPin" group="Internal" default="`${getBlockFromSignal(&quot;io_volt_sel[0]&quot;)}`" visible="false" editable="false" desc="" />
     
     <ParamBool id="inFlash" name="Store Config in Flash" group="Advanced" default="true" visible="true" editable="true" desc="Controls whether the configuration structure is stored in flash (const, true) or SRAM (not const, false)." />
   </Parameters>
@@ -282,11 +301,17 @@
 
     <!--busWidth DRCs-->
     <DRC type="ERROR" text="Only eMMC supports 8 bits bus width." condition="`${(cardType ne emmc) &amp;&amp; (busWidth eq CY_SD_HOST_BUS_WIDTH_8_BIT) ? true : false}`" />
+
+    <!-- ACLK Divider -->
+        <DRC type="ERROR" text="To achieve 50 percent duty cycle a minimum of divide by 2 of assigned divider is required." condition="`${hasExposedMember(sourceClock, &quot;divider&quot;) &amp;&amp; getExposedMember(sourceClock, &quot;divider&quot;) == 1}`" />
+
   </DRCs>
   
   <ConfigFirmware>
+    <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigInclude value="cy_sd_host.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME . &quot;_HW&quot;}`" value="SDHC`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="sdhc_`${InstNumber}`_interrupt_general_IRQn" public="true" include="true" />
@@ -313,7 +338,32 @@
       <Member name="block_num" value="`${getInstNumber(&quot;sdhc&quot;)}`U" />
       <Member name="channel_num" value="0U" />
     </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="`${hasExposedMember(sourceClock, &quot;hal_block&quot;)}`" guard="defined (CY_USING_HAL)">
+      <Member name="block" value="`${getExposedMember(sourceClock, &quot;hal_block&quot;)}`" />
+      <Member name="channel" value="`${getExposedMember(sourceClock, &quot;number&quot;)}`" />
+      <Member name="reserved" value="false" />
+      <Member name="funcs" value="NULL" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_sdhc_hal_config" type="cyhal_sdhc_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="host_config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="card_config" value="&amp;`${INST_NAME}`_card_cfg" />
+      <Member name="clock" value="&amp;CYHAL_CLOCK_HF[`${getExposedMember(sourceClock, &quot;clockInst&quot;)}`]" include="`${hasExposedMember(sourceClock, &quot;clockInst&quot;)}`" />
+      <Member name="gpios" value="{.clk = `${clkPin &amp;&amp; hasExposedMember(clkPin, &quot;halPortPin&quot;) ? getExposedMember(clkPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .cmd = `${cmdPin &amp;&amp; hasExposedMember(cmdPin, &quot;halPortPin&quot;) ? getExposedMember(cmdPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .data = {`${data0Pin &amp;&amp; hasExposedMember(data0Pin, &quot;halPortPin&quot;) ? getExposedMember(data0Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data1Pin &amp;&amp; hasExposedMember(data1Pin, &quot;halPortPin&quot;) ? getExposedMember(data1Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data2Pin &amp;&amp; hasExposedMember(data2Pin, &quot;halPortPin&quot;) ? getExposedMember(data2Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data3Pin &amp;&amp; hasExposedMember(data3Pin, &quot;halPortPin&quot;) ? getExposedMember(data3Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data4Pin &amp;&amp; hasExposedMember(data4Pin, &quot;halPortPin&quot;) ? getExposedMember(data4Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data5Pin &amp;&amp; hasExposedMember(data5Pin, &quot;halPortPin&quot;) ? getExposedMember(data5Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data6Pin &amp;&amp; hasExposedMember(data6Pin, &quot;halPortPin&quot;) ? getExposedMember(data6Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data7Pin &amp;&amp; hasExposedMember(data7Pin, &quot;halPortPin&quot;) ? getExposedMember(data7Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`}, .card_detect = `${cardDetectPin &amp;&amp; hasExposedMember(cardDetectPin, &quot;halPortPin&quot;) ? getExposedMember(cardDetectPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .card_mech_write_prot = `${cardMechWriteProtPin &amp;&amp; hasExposedMember(cardMechWriteProtPin, &quot;halPortPin&quot;) ? getExposedMember(cardMechWriteProtPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .card_pwr_en = `${cardPwrEnPin &amp;&amp; hasExposedMember(cardPwrEnPin, &quot;halPortPin&quot;) ? getExposedMember(cardPwrEnPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .io_volt_sel = `${ioVolSelPin &amp;&amp; hasExposedMember(ioVolSelPin, &quot;halPortPin&quot;) ? getExposedMember(ioVolSelPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .led_ctrl = `${ledCtrlPin &amp;&amp; hasExposedMember(ledCtrlPin, &quot;halPortPin&quot;) ? getExposedMember(ledCtrlPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .emmc_reset = `${emmcRstPin &amp;&amp; hasExposedMember(emmcRstPin, &quot;halPortPin&quot;) ? getExposedMember(emmcRstPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`}" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_sdio_hal_config" type="cyhal_sdio_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="host_config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="card_config" value="&amp;`${INST_NAME}`_card_cfg" />
+      <Member name="clock" value="&amp;CYHAL_CLOCK_HF[`${getExposedMember(sourceClock, &quot;clockInst&quot;)}`]" include="`${hasExposedMember(sourceClock, &quot;clockInst&quot;)}`" />
+      <Member name="gpios" value="{.clk = `${clkPin &amp;&amp; hasExposedMember(clkPin, &quot;halPortPin&quot;) ? getExposedMember(clkPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .cmd = `${cmdPin &amp;&amp; hasExposedMember(cmdPin, &quot;halPortPin&quot;) ? getExposedMember(cmdPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`,  .data = {`${data0Pin &amp;&amp; hasExposedMember(data0Pin, &quot;halPortPin&quot;) ? getExposedMember(data0Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data1Pin &amp;&amp; hasExposedMember(data1Pin, &quot;halPortPin&quot;) ? getExposedMember(data1Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data2Pin &amp;&amp; hasExposedMember(data2Pin, &quot;halPortPin&quot;) ? getExposedMember(data2Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data3Pin &amp;&amp; hasExposedMember(data3Pin, &quot;halPortPin&quot;) ? getExposedMember(data3Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`}}" />
+    </ConfigStruct>
     
+    <ConfigInstruction value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_SDHC`${InstNumber}`_PERI_NR, CY_MMIO_SDHC`${InstNumber}`_GROUP_NR, CY_MMIO_SDHC`${InstNumber}`_SLAVE_NR, CY_MMIO_SDHC`${InstNumber}`_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriPclkAssignDivider(PCLK_SDHC`${InstNumber}`_CLK_HF, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${(ip_version &gt; 1)}`"  />
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
 </Personality>

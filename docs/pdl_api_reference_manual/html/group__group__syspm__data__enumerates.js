@@ -86,7 +86,7 @@ var group__group__syspm__data__enumerates =
       [ "CY_SYSPM_LPACTIVE_EXIT", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0aadc340202029d7f71ab02b5d2a809b05", null ],
       [ "CY_SYSPM_DEEPSLEEP_RAM", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a5bbcb5a158469ecf6205fc8f1a76f094", null ],
       [ "CY_SYSPM_DEEPSLEEP_OFF", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a96131777d17bc11f3db19b05a51b5f87", null ],
-      [ "CY_SYSPM_MF", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a9b6c7d36fe8147cb28154ca578015827", null ]
+      [ "CY_SYSPM_HP", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a37ca905b7feeb358171a4f9842b9a8cc", null ]
     ] ],
     [ "cy_en_syspm_deep_sleep_mode_t", "group__group__syspm__data__enumerates.html#gaeaedd0dc630a29f06d1ad3a5fbf77894", [
       [ "CY_SYSPM_MODE_DEEPSLEEP", "group__group__syspm__data__enumerates.html#ggaeaedd0dc630a29f06d1ad3a5fbf77894a9fc28836d1c5ae3807fc43653b36a8c0", null ],
@@ -142,9 +142,9 @@ var group__group__syspm__data__enumerates =
       [ "CY_SYSPM_CORE_BUCK_VOLTAGE_1_20V", "group__group__syspm__data__enumerates.html#gga1357884913ef3af3985fc47a82f56a03aed6c594688cd0b73a0dd31656241d168", null ]
     ] ],
     [ "cy_en_syspm_core_buck_profile_t", "group__group__syspm__data__enumerates.html#ga0ca64a38401987db1c7cefcf71235dab", [
-      [ "CY_SYSPM_CORE_BUCK_PROFILE_MF", "group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235daba11bb4db71a97c8622f2151455a0dd4c3", null ],
       [ "CY_SYSPM_CORE_BUCK_PROFILE_LP", "group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235dabaf409cef5a0feba48e7060414e7a6b069", null ],
       [ "CY_SYSPM_CORE_BUCK_PROFILE_ULP", "group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235dabaa8152ba723b4a184b3df2f996fc40bf2", null ],
+      [ "CY_SYSPM_CORE_BUCK_PROFILE_HP", "group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235daba992d92280279fb77383397e5a596bb3a", null ],
       [ "CY_SYSPM_CORE_BUCK_PROFILE_SKIP", "group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235dababa698c7bcbe064c38484083297c0162c", null ]
     ] ],
     [ "cy_en_syspm_sramldo_voltage_t", "group__group__syspm__data__enumerates.html#gabcfc6a787bace557a58cfd1319045dbe", [

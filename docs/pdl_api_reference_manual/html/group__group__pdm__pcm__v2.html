@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('group__group__pdm__pcm__v2.html','');}
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
 <dl class="section note"><dt>Note</dt><dd>IP Supported: PDM </dd>
 <dd>
-Device Categories: CAT1B. Please refer <a href="usergroup1.html">Device Catalog</a>.</dd></dl>
+Device Categories: CAT1B and CAT1D. Please refer <a href="usergroup1.html">Device Catalog</a>.</dd></dl>
 <p>The pulse-density modulation to pulse-code modulation (PDM-PCM) driver provides an API to manage PDM-PCM conversion. A PDM-PCM converter is used to convert 1-bit digital audio streaming data to PCM data.</p>
 <p>The functions and other declarations used in this driver are in cy_pdm_pcm_v2.h. You can include cy_pdl.h (ModusToolbox only) to get access to all functions and declarations in the PDL.</p>
 <p>Features:</p><ul>
@@ -113,7 +113,11 @@ Device Categories: CAT1B. Please refer <a href="usergroup1.html">Device Catalog<
 <h1><a class="anchor" id="group_pdm_pcm_configuration_considerations_v2"></a>
 Configuration Considerations</h1>
 <p>To set up a PDM-PCM, provide the configuration parameters in the <a class="el" href="structcy__stc__pdm__pcm__config__v2__t.html">cy_stc_pdm_pcm_config_v2_t</a> structure.</p>
-<p>For example, set dataStreamingEnable to true, configure rxFifoTriggerLevel, dmaTriggerEnable (depending on whether DMA is going to be used), provide clock settings (clkDiv, mclkDiv and ckoDiv), set sincDecRate to the appropriate decimation rate, wordLen, and wordBitExtension. No other parameters are necessary for this example.</p>
+<p>Input frequency from source clock and the sampling rate Fs, is expressed as follows: <br />
+ <b> CLK_IF_SRSS_FREQ = (CLOCK_CTL.CLOCK_DIV + 1) * M * Fs </b> <br />
+ where M is the oversampling rate at the PDM source </p><div class="image">
+<img src="pdm_pcm_sampling_rate.png" alt="pdm_pcm_sampling_rate.png"/>
+</div>
 <p>To initialize the PDM-PCM channels, call <a class="el" href="group__group__pdm__pcm__functions__v2.html#ga1392e066f0b764c9a71a9fc30bc6a33c">Cy_PDM_PCM_Channel_Init</a> function, providing the filled <a class="el" href="structcy__stc__pdm__pcm__channel__config__t.html">cy_stc_pdm_pcm_channel_config_t</a> structure To initialize the PDM-PCM block, call the <a class="el" href="group__group__pdm__pcm__functions__v2.html#ga26938ec1c8eb9fe737fffabfa68f33b4">Cy_PDM_PCM_Init</a> function, providing the filled <a class="el" href="structcy__stc__pdm__pcm__config__v2__t.html">cy_stc_pdm_pcm_config_v2_t</a> structure.</p>
 <p>If you use a DMA, the DMA channel should be previously configured. PDM-PCM interrupts (if applicable) can be enabled by calling <a class="el" href="group__group__pdm__pcm__functions.html#gaecd6316cef42b4c9d31b38aad0c222e6">Cy_PDM_PCM_SetInterruptMask</a>.</p>
 <p>For example, if the trigger interrupt is used during operation, the ISR should call the <a class="el" href="group__group__pdm__pcm__functions.html#ga93d86ba7f06b583502f1300eafde9783">Cy_PDM_PCM_ReadFifo</a> as many times as required for your FIFO payload. Then call <a class="el" href="group__group__pdm__pcm__functions__v2.html#ga9d8941e8d86fd989404a753e30dc91cd">Cy_PDM_PCM_Channel_ClearInterrupt</a> with appropriate parameters.</p>

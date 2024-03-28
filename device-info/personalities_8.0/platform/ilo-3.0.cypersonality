@@ -46,9 +46,9 @@
     <!-- Use HT_VARIANT to determine the accuracy of ILO --> 
     <!-- Reference: 001-98134-RevX-Book2-PartIV-SRSS, Table 5-1 -->
     <ParamChoice id="accuracy" name="Accuracy" group="General" 
-      default="`${(lookupExpression(&quot;HT_VARIANT&quot;, false) ? 5 : 10)}`"
+      default="`${(lookupExpression(&quot;HT_VARIANT&quot;, false) ? 7 : 10)}`"
       visible="false" editable="false" desc="">
-      <Entry name="5%" value="5" visible="true" /> <!-- Accuracy of ILO on MXS40E, trimmed w/o calibration -->
+      <Entry name="7%" value="7" visible="true" /> <!-- Accuracy of ILO on MXS40E, trimmed w/o calibration -->
       <Entry name="10%" value="10" visible="true" /> <!-- Accuracy of all other devices - including the MXS40S - trimmed w/o calibration -->
     </ParamChoice>
     <ParamBool id="hibernate" name="Run In Hibernate Mode" group="General" default="true" visible="`${ !iloInst ? true : false }`" editable="true" desc="Enables the ILO working in Hibernate low power mode" />

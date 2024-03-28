@@ -134,6 +134,11 @@
       <Member name="block_num" value="`${getInstNumber(&quot;ctb&quot;)}`U" />
       <Member name="channel_num" value="`${getInstNumber(&quot;oa&quot;)}`U" />
     </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_comp_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="opamp" value="&amp;`${INST_NAME . &quot;_config&quot;}`" />
+    </ConfigStruct>
     
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>

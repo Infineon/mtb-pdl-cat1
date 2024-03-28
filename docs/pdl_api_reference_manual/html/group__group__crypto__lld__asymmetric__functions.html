@@ -182,6 +182,7 @@ Functions</h2></td></tr>
 
 <p>RSA verification with checks for content, paddings and signature format. </p>
 <p>SHA digest of the message and decrypted message should be calculated before. Supports only PKCS1-v1_5 format, inside of this format supported padding using only SHA, cases with MD2 and MD5 are not supported. PKCS1-v1_5 described here, page 31: <a href="http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf">http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf</a></p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameter decryptedSignature must align and end in 32 byte boundary.</p>
 <p>Returns the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -257,7 +258,7 @@ Functions</h2></td></tr>
 
 <p>RSA verification with checks for content, paddings and signature format. </p>
 <p>SHA digest of the message and decrypted message should be calculated before. Supports only PKCS1-v1_5 format, inside of this format supported padding using only SHA, cases with MD2 and MD5 are not supported. PKCS1-v1_5 described here, page 31: <a href="http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf">http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf</a></p>
-<p>For CAT1C devices when D-Cache is enabled parameter decryptedSignature must align and end in 32 byte boundary.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameter decryptedSignature must align and end in 32 byte boundary.</p>
 <p>Returns the verification result <a class="el" href="group__group__crypto__enums.html#gaf08f93b8b21962a60f119157337b2113">cy_en_crypto_rsa_ver_result_t</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -321,8 +322,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>RSA process algorithm based on the Montgomery algorithm using Barrett reduction. </p>
-<p>For CAT1C devices when D-Cache is enabled parameters message, processedMessage and key(pubExpPtr, moduloPtr, barretCoefPtr, inverseModuloPtr and  rBarPtr) must align and end in 32 byte boundary.</p>
-<p>For Modulus size greater than 2048, set the system sram memory buffer for the crypto operation and the minimum size should be 8192 bytes <a class="el" href="group__group__crypto__lld__hw__functions.html#gab3142870809b04978115aaaa2fe8c5fb">Cy_Crypto_Core_SetVuMemoryAddress</a> function for setting the system sram memory buffer.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters message, processedMessage and key(pubExpPtr, moduloPtr, barretCoefPtr, inverseModuloPtr and  rBarPtr) must align and end in 32 byte boundary.</p>
 <p><a href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29">https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -367,7 +367,7 @@ Functions</h2></td></tr>
 
 <p>Calculation constant coefficients to to speed-up Montgomery algorithm. </p>
 <p>These coefficients are: coefficient for Barrett reduction, binary inverse of the modulo, result of (2^moduloLength mod modulo)</p>
-<p>For CAT1C devices when D-Cache is enabled parameters key(moduloPtr, barretCoefPtr, inverseModuloPtr and  rBarPtr) must align and end in 32 byte boundary.</p>
+<p>For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameters key(moduloPtr, barretCoefPtr, inverseModuloPtr and  rBarPtr) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -424,7 +424,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Make a new ECC private key. </p>
-<p>For CAT1C devices when D-Cache is enabled parameter key must align and end in 32 byte boundary.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameter key must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -478,7 +478,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Make a new ECC public key. </p>
-<p>For CAT1C devices when D-Cache is enabled parameters privateKey and x &amp; y of publicKey must align and end in 32 byte boundary.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters privateKey and x &amp; y of publicKey must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -602,7 +602,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sign a message digest. </p>
-<p>For CAT1C devices when D-Cache is enabled parameters hash, sign, messageKey and key( k, x&amp;y of pubkey) must align and end in 32 byte boundary.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters hash, sign, messageKey and key( k, x&amp;y of pubkey) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -669,7 +669,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Verify an ECC signature. </p>
-<p>For CAT1C devices when D-Cache is enabled parameters sig, hash and key( x&amp;y of pubkey) must align and end in 32 byte boundary.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters sig, hash and key( x&amp;y of pubkey) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -742,6 +742,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Elliptic curve point multiplication in GF(p). </p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameter ecpGX, ecpGY, ecpD, ecpQX &amp; ecpQY must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>

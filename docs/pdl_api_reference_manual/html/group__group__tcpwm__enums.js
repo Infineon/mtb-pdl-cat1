@@ -24,17 +24,22 @@ var group__group__tcpwm__enums =
       [ "CY_TCPWM_BAD_PARAM", "group__group__tcpwm__enums.html#gga236beaba02c8a2a1c4eec981501e7270ae445f943c46a8d517be923816b8459c9", null ],
       [ "CY_TCPWM_UNSUPPORTED_FEATURE", "group__group__tcpwm__enums.html#gga236beaba02c8a2a1c4eec981501e7270a51f56f747deff67f94f3036a5074f626", null ]
     ] ],
-    [ "cy_en_gf_depth_support_value_t", "group__group__tcpwm__enums.html#ga3df0a640c4def803d2145a235a4e92f5", [
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_0", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a33dca46f1d71ece3b8c0358e5f10966d", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_1", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a722c4d6f3a7dcb4951f2db96ab884bcc", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_2", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a10c0797f0332d56e6d990caa42670acd", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_4", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a689ab5cd7795d42f305f80066c209695", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_8", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a5f79bc39e40aa0059bd81ea9ea8c34b8", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_16", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a824966d5cc039d8ac8934fb7bb6eea90", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_32", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a387571939d687803f37c3ec22ff06c89", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_64", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5abf243144a8c2d745e53aa45d64964a53", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_128", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a2130fdbd3d6886e7a8f61d98498fe297", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_256", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a9533900ebb8345722456571a07091278", null ],
-      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_512", "group__group__tcpwm__enums.html#gga3df0a640c4def803d2145a235a4e92f5a0f704750f3d1ee0e9f297b236f62a92f", null ]
+    [ "cy_en_gf_depth_value_t", "group__group__tcpwm__enums.html#gadbc4d3602412fbbaf92175ef56258029", [
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_0", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a33dca46f1d71ece3b8c0358e5f10966d", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_1", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a722c4d6f3a7dcb4951f2db96ab884bcc", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_2", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a10c0797f0332d56e6d990caa42670acd", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_4", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a689ab5cd7795d42f305f80066c209695", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_8", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a5f79bc39e40aa0059bd81ea9ea8c34b8", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_16", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a824966d5cc039d8ac8934fb7bb6eea90", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_32", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a387571939d687803f37c3ec22ff06c89", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_64", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029abf243144a8c2d745e53aa45d64964a53", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_128", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a2130fdbd3d6886e7a8f61d98498fe297", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_256", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a9533900ebb8345722456571a07091278", null ],
+      [ "CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_512", "group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a0f704750f3d1ee0e9f297b236f62a92f", null ]
+    ] ],
+    [ "cy_en_copy_swap_config_t", "group__group__tcpwm__enums.html#ga619cd467ef63110365ad9e01785d7293", [
+      [ "CY_TCPWM_DISBALE_COPY_OR_SWAP", "group__group__tcpwm__enums.html#gga619cd467ef63110365ad9e01785d7293a06a30437183ed4979238f142e24528f0", null ],
+      [ "CY_TCPWM_COPY_CAPTUREBUFFER_VALUE_TO_CAPTURE", "group__group__tcpwm__enums.html#gga619cd467ef63110365ad9e01785d7293a48e7c6b36a95851f209b45598015a865", null ],
+      [ "CY_TCPWM_SWAP_CAPTUREBUFFER_AND_CAPTURE_VALUE", "group__group__tcpwm__enums.html#gga619cd467ef63110365ad9e01785d7293ae5dcbc42becc0db2c547168504ee8660", null ]
     ] ]
 ];

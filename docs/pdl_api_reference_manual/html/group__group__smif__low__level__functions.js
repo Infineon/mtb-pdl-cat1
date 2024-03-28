@@ -20,6 +20,7 @@ var group__group__smif__low__level__functions =
     [ "Cy_SMIF_ReceiveData_Ext", "group__group__smif__low__level__functions.html#ga2762a9749d61af95370c669561c8f042", null ],
     [ "Cy_SMIF_ReceiveDataBlocking_Ext", "group__group__smif__low__level__functions.html#ga18fc5b9f3fba366db39a16018dae9a64", null ],
     [ "Cy_SMIF_SendDummyCycles_Ext", "group__group__smif__low__level__functions.html#ga3be6006b4c0c72703db49623734eccd6", null ],
+    [ "Cy_SMIF_SendDummyCycles_With_RWDS", "group__group__smif__low__level__functions.html#ga2534063268320780e2b2e8d10221fafb", null ],
     [ "Cy_SMIF_DeviceTransfer_SetMergeTimeout", "group__group__smif__low__level__functions.html#ga194756a68fde927d8b6bbc5255177414", null ],
     [ "Cy_SMIF_DeviceTransfer_ClearMergeTimeout", "group__group__smif__low__level__functions.html#ga6d2d7ef86eccf2e7a3a2f760208bea0b", null ],
     [ "Cy_SMIF_Disable", "group__group__smif__low__level__functions.html#ga318b7c99ac2ba33e833cb4a0ab675e17", null ],
@@ -47,11 +48,11 @@ var group__group__smif__low__level__functions =
     [ "Cy_SMIF_SetCryptoEnable", "group__group__smif__low__level__functions.html#gab65ee303c9b39e383297dae50e1efba1", null ],
     [ "Cy_SMIF_SetCryptoDisable", "group__group__smif__low__level__functions.html#gad5d21a6411e7b0a176394b39d54c6eeb", null ],
     [ "Cy_SMIF_ConvertSlaveSlotToIndex", "group__group__smif__low__level__functions.html#ga5252ac741f6ba0122748d89d907d87f6", null ],
-    [ "Cy_SMIF_SetRxCaptureMode", "group__group__smif__low__level__functions.html#gace72b4bce3960215436d0b60c0cf1ce4", null ],
+    [ "Cy_SMIF_SetRxCaptureMode", "group__group__smif__low__level__functions.html#ga25746c7a8d9bd474509d10dcf48133ca", null ],
     [ "Cy_SMIF_SetMasterDLP", "group__group__smif__low__level__functions.html#ga6ecd1075db9d75ae45f4eb437dbfed8d", null ],
     [ "Cy_SMIF_GetMasterDLP", "group__group__smif__low__level__functions.html#ga338f6c1d218cd2093c48254995f6f06b", null ],
     [ "Cy_SMIF_GetMasterDLPSize", "group__group__smif__low__level__functions.html#ga220136f6a2fe90ea720c3e1577f96421", null ],
     [ "Cy_SMIF_GetTapNumCapturedCorrectDLP", "group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644", null ],
-    [ "Cy_SMIF_SetSelectedDelayTapSel", "group__group__smif__low__level__functions.html#ga1dbf0729412c7dfd76644969592ccd55", null ],
+    [ "Cy_SMIF_SetSelectedDelayTapSel", "group__group__smif__low__level__functions.html#gad090759fd4274f1ed9af72742ef7354c", null ],
     [ "Cy_SMIF_GetSelectedDelayTapSel", "group__group__smif__low__level__functions.html#gac18b090fdeb706017c0440961dc398c3", null ]
 ];

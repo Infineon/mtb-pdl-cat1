@@ -120,6 +120,9 @@
     <!-- Support RS-485 -->
     <ParamBool id="EnableTxEn" name="TX-Enable" group="Support RS-485" default="false" visible="`${!SmartCard}`" editable="true" desc="This parameter enables TX_EN output." />
 
+    <!-- Single Wire Half-Duplex Mode -->
+    <ParamBool id="EnableHalfDuplex" name="Half-Duplex Mode Enable" group="Single Wire Half-Duplex Mode" default="false" visible="`${Standard &amp;&amp;((version &gt; 3) &amp;&amp; (ipName eq &quot;mxscb&quot;))}`" editable="true" desc="This parameter enables Single Wire Half-Duplex Mode." />
+
     <!-- Hardware buffer size (defines FIFO size) -->
     <ParamRange id="hwBufferSize" name="Hardware Buffer Size" group="Internal" default="`${lookupExpression(&quot;EZ_DATA_NR&quot;)}`" min="0" max="512" resolution="1" visible="false" editable="false" desc="Hardware buffer size." />
     <ParamRange id="FifoLevelByte" name="FIFO Level (Byte)" group="Internal" default="`${(hwBufferSize / 2) - 1}`" min="1" max="512" resolution="1" visible="false" editable="false" desc="FIFO Level for byte entry." />
@@ -139,7 +142,8 @@
     <ParamRange id="RtsTriggerLevel" name="RTS Activation Level" group="Flow Control" default="63" min="0" max="`${FifoLevelMax}`" resolution="1" visible="`${!SmartCard}`" editable="true" desc="This parameter determines the behavior of the RTS signal as follows: while the RX FIFO has fewer entries than the RTS Active When, the signal remains active; otherwise, the signal becomes inactive. The range: 0 – `${FifoLevelByte}` (when Data Width is less than or equal 8), and 0 - `${FifoLevelHalfword}` otherwise." />
 
     <ParamString id="Tx_out_descr" name="tx_out description" group="Internal" default="The transmitter output drives the output serial data to another device on the serial bus." visible="false" editable="false" desc="tx_out description" />
-    <ParamString id="Rx_tx_out_descr" name="rx_tx_out description" group="Internal" default="The receive and transmit output receives and transmits data from/to another device on the bus. This pin presents if the Com Mode parameter is SmartCard. Note that Drive Mode of the connected pin must be Open Drain Drives Low." visible="false" editable="false" desc="rx_tx_out description" />
+    <ParamString id="Rx_tx_out_descr_smartcard" name="rx_tx_out description for Smartcard Mode" group="Internal" default="The receive and transmit output receives and transmits data from/to another device on the bus. This pin presents if the Com Mode parameter is SmartCard. Note that Drive Mode of the connected pin must be Open Drain Drives Low." visible="false" editable="false" desc="rx_tx_out description for Smartcard Mode" />
+    <ParamString id="Rx_tx_out_descr_halfDuplex" name="rx_tx_out description for Half Duplex Mode" group="Internal" default="The receive and transmit output receives and transmits data from/to another device on the bus. This pin presents if the Com Mode parameter is Standard Single Wire Half-Duplex Mode. Note that Drive Mode of the connected pin must be Strong Drive" visible="false" editable="false" desc="rx_tx_out description for Half Duplex Mode" />
 
     <ParamString id="Rts_out_descr" name="rts_out description" group="Internal" default="The request to send output notifies another device that this device is ready to receive data." visible="false" editable="false" desc="rts_out description" />
     <ParamString id="Tx_out_en_descr" name="tx_out_en description" group="Internal" default="The transmitter enable keeps the output level high during serial data transfer." visible="false" editable="false" desc="tx_out_en description" />
@@ -150,8 +154,9 @@
     <ParamString id="hfclockperi" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].periclk[0]" visible="false" editable="false" desc="String variable used for source peri clock." />
     <ParamString id="hfclock1" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].hfclk[1]" visible="false" editable="false" desc="String variable used for source HF clock1." />
     <ParamString id="hfclock2" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].hfclk[2]" visible="false" editable="false" desc="String variable used for source HF clock2." />
-    
-    <ParamString id="hfclocksource" name="PCLK Destination" group="Internal" default="`${((ipName ne &quot;mxs22scb&quot;) ? ((version eq 1)  ? hfclockperi : ((version eq 4) ? hfclock1 : hfclock2)) : hfclock1) }`" visible="false" editable="false" desc="Generates PCLK connection define." />
+    <ParamString id="hfclock10" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].hfclk[10]" visible="false" editable="false" desc="String variable used for source HF clock10." />
+
+    <ParamString id="hfclocksource" name="PCLK Destination" group="Internal" default="`${((ipName ne &quot;mxs22scb&quot;) ? ((version eq 1)  ? hfclockperi : ((version eq 4) ? hfclock1 : hfclock2)) : hfclock10) }`" visible="false" editable="false" desc="Generates PCLK connection define." />
     
     <ParamRange  id="clkPeriHz" name="clkPeriHz" group="Internal" default="`${getExposedMember(hfclocksource, &quot;frequency&quot;)}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="Clk_Peri frequency." />
     <ParamRange  id="uartDiv" name="uartDiv" group="Internal" default="`${clkPeriHz / cast(float, uartClkHz)}`" min="1" max="16777216" resolution="1" visible="false" editable="false" desc="UART pclk divider value." />
@@ -213,7 +218,7 @@
     <ParamRange  id="scbClkHz" name="scbClkHz" group="Internal" default="`${(sourceClock ne &quot;&quot;) ? getExposedMember(sourceClock, &quot;frequency&quot;) : &quot;1&quot;}`" min="0" max="200000000" resolution="1" visible="false" editable="false" desc="SCB clock frequency in kHz" />
     <ParamBool id="pClkDiv8" name="pClkDiv8" group="Internal" default="`${getExposedMember(sourceClock, &quot;type&quot;) eq &quot;CY_SYSCLK_DIV_8_BIT&quot;}`" visible="false" editable="false" desc="Source clock uses 8-bit divider." />
 
-    <ParamSignal port="uart_rx[0]" name="RX" group="Connections" visible="`${!SmartCard &amp;&amp; hasVisibleOption(&quot;uart_rx[0]&quot;)}`" desc="The receive input receives the serial data from another device on the serial bus." canBeEmpty="true">
+    <ParamSignal port="uart_rx[0]" name="RX" group="Connections" visible="`${!(SmartCard || EnableHalfDuplex) &amp;&amp; hasVisibleOption(&quot;uart_rx[0]&quot;)}`" desc="The receive input receives the serial data from another device on the serial bus." canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="`${!SmartCard}`" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_HIGHZ" />
@@ -240,20 +245,22 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ctsPin" name="ctsPin" group="Internal" default="`${getBlockFromSignal(&quot;uart_cts[0]&quot;)}`" visible="false" editable="false" desc="" />
 
-    <ParamSignal port="uart_tx[0]" name="`${SmartCard ? &quot;RX_TX&quot; : &quot;TX&quot;}`" group="Connections" visible="`${hasVisibleOption(&quot;uart_tx[0]&quot;)}`" desc="`${SmartCard ? Rx_tx_out_descr : Tx_out_descr}`" canBeEmpty="`${!SmartCard}`">
+    <ParamSignal port="uart_tx[0]" name="`${(SmartCard || EnableHalfDuplex) ? &quot;RX_TX&quot; : &quot;TX&quot;}`" group="Connections" visible="`${hasVisibleOption(&quot;uart_tx[0]&quot;)}`" desc="`${SmartCard ? Rx_tx_out_descr_smartcard : ( EnableHalfDuplex ? Rx_tx_out_descr_halfDuplex : Tx_out_descr)}`" canBeEmpty="`${!SmartCard}`">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
-          <Fixed value="`${SmartCard ? &quot;CY_GPIO_DM_OD_DRIVESLOW&quot; : &quot;CY_GPIO_DM_STRONG_IN_OFF&quot;}`" />
+          <Fixed value="`${SmartCard ? &quot;CY_GPIO_DM_OD_DRIVESLOW&quot; : (EnableHalfDuplex ? &quot;CY_GPIO_DM_PULLUP&quot; : &quot;CY_GPIO_DM_STRONG_IN_OFF&quot;)}`" />
         </Parameter>
       </Constraint>
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
-          <Fixed value="`${SmartCard ? &quot;CY_GPIO_DM_OD_DRIVESLOW&quot; : &quot;CY_GPIO_DM_STRONG_IN_OFF&quot;}`" />
+          <Fixed value="`${SmartCard ? &quot;CY_GPIO_DM_OD_DRIVESLOW&quot; : (EnableHalfDuplex ? &quot;CY_GPIO_DM_PULLUP&quot; : &quot;CY_GPIO_DM_STRONG_IN_OFF&quot;)}`" />
         </Parameter>
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="txPin" name="txPin" group="Internal" default="`${getBlockFromSignal(&quot;uart_tx[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal port="uart_rts[0]" name="RTS" group="Connections" visible="`${!SmartCard &amp;&amp; FlowControl &amp;&amp; hasVisibleOption(&quot;uart_rts[0]&quot;)}`" desc="`${Rts_out_descr}`" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="`${!SmartCard &amp;&amp; FlowControl}`" >
@@ -268,6 +275,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="rtsPin" name="rtsPin" group="Internal" default="`${getBlockFromSignal(&quot;uart_rts[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal port="tr_rx_req[0]" name="RX Trigger Output" group="Connections" visible="`${hasVisibleOption(&quot;uart_rx[0]&quot;)}`" desc="Connects SCB RX trigger output to the DMA. Configure RX FIFO Level to define this output behavior." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -416,6 +424,8 @@
     <ConfigInclude value="cy_scb_uart.h" include="true" />
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
 
     <ConfigDefine name="`${INST_NAME}`_HW" value="SCB`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="scb_`${InstNumber}`_interrupt_IRQn" public="true" include="true" />
@@ -425,6 +435,8 @@
       <Member name="smartCardRetryOnNack" value="`${(SmartCard &amp;&amp; SmCardRetryOnNack) ? &quot;true&quot; : &quot;false&quot;}`" />
       <Member name="irdaInvertRx" value="`${(IrDA &amp;&amp; (IrdaPolarity eq INVERTING)) ? &quot;true&quot; : &quot;false&quot;}`" />
       <Member name="irdaEnableLowPowerReceiver" value="`${(IrDA &amp;&amp; IrdaLowPower) ? &quot;true&quot; : &quot;false&quot;}`" />
+
+      <Member name="halfDuplexMode" value="`${EnableHalfDuplex}`" include="`${(version &gt; 3) &amp;&amp; (ipName eq &quot;mxscb&quot;)}`" />
 
       <Member name="oversample" value="`${(Standard || SmartCard) ? Oversample : (IrDA &amp;&amp; !IrdaLowPower) ? IrDAOversample : IrDAOversampleDefine}`" />
 
@@ -454,12 +466,27 @@
       <Member name="txFifoIntEnableMask" value="`${TxIntrMask}`UL" />
     </ConfigStruct>
 
-    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
       <Member name="type" value="CYHAL_RSC_SCB" />
       <Member name="block_num" value="`${getInstNumber(&quot;scb&quot;)}`U" />
       <Member name="channel_num" value="0U" />
     </ConfigStruct>
 
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)">
+        <Member name="block" value="`${getExposedMember(sourceClock, &quot;hal_block&quot;)}`" />
+        <Member name="channel" value="`${getExposedMember(sourceClock, &quot;number&quot;)}`" />
+        <Member name="reserved" value="false" guard="defined (CY_USING_HAL)" />
+        <Member name="funcs" value="NULL" guard="defined (CY_USING_HAL)" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_uart_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+      <Member name="gpios" value="{.pin_tx = `${txPin &amp;&amp; hasExposedMember(txPin, &quot;halPortPin&quot;) ? getExposedMember(txPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .pin_rts = `${rtsPin &amp;&amp; hasExposedMember(rtsPin, &quot;halPortPin&quot;) ? getExposedMember(rtsPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .pin_cts = `${ctsPin &amp;&amp; hasExposedMember(ctsPin, &quot;halPortPin&quot;) ? getExposedMember(ctsPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`}" guard="defined (CY_USING_HAL)" />
+    </ConfigStruct>
+
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_SCB`${InstNumber}`_PERI_NR, CY_MMIO_SCB`${InstNumber}`_GROUP_NR, CY_MMIO_SCB`${InstNumber}`_SLAVE_NR, CY_MMIO_SCB`${InstNumber}`_CLK_HF_NR);" include="`${(ipName eq &quot;mxs22scb&quot;)}`" />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${(((version &gt; 1) || (ipName eq &quot;mxs22scb&quot;)) &amp;&amp; pclkOk)}`"  />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${((version eq 1) &amp;&amp; pclkOk &amp;&amp; (ipName ne &quot;mxs22scb&quot;))}`"  />
 

@@ -28,22 +28,51 @@ var group__group__tcpwm__data__structures__pwm =
       [ "countInput", "structcy__stc__tcpwm__pwm__config__t.html#aadbc0571c713e50e3e5842b95917d18d", null ],
       [ "swapOverflowUnderflow", "structcy__stc__tcpwm__pwm__config__t.html#a61dda857a9d8fcc73df41c9dd6b1b47d", null ],
       [ "buffer_swap_enable", "structcy__stc__tcpwm__pwm__config__t.html#ac3ff11bd830ec04d750938b7a6c3ca6f", null ],
-      [ "dithering_mode", "structcy__stc__tcpwm__pwm__config__t.html#a64814c8b94603c676a53d15e6d696c30", null ]
+      [ "dithering_mode", "structcy__stc__tcpwm__pwm__config__t.html#a4d3f4e3c623df75ee33ab548cde042be", null ],
+      [ "period_dithering_value", "structcy__stc__tcpwm__pwm__config__t.html#abec323a5fdfb0108ad906667b9917344", null ],
+      [ "duty_dithering_value", "structcy__stc__tcpwm__pwm__config__t.html#aa66af7705ace986df75e080271d7e865", null ],
+      [ "limiter", "structcy__stc__tcpwm__pwm__config__t.html#a354519a53acf63c9c4db18f6f7fceb90", null ],
+      [ "hrpwm_enable", "structcy__stc__tcpwm__pwm__config__t.html#a0f75331df03880936da3305a04d19420", null ],
+      [ "hrpwm_input_freq", "structcy__stc__tcpwm__pwm__config__t.html#aacc5cf458adc0e1553949bebf2b26624", null ],
+      [ "kill_line_polarity", "structcy__stc__tcpwm__pwm__config__t.html#a022b0298ba424035adfa267923f93da6", null ],
+      [ "deadTimeClocksBuff", "structcy__stc__tcpwm__pwm__config__t.html#a7a6ed3172642d666443d4d37c71c3fe1", null ],
+      [ "deadTimeClocksBuff_linecompl_out", "structcy__stc__tcpwm__pwm__config__t.html#ac700d4f8834d9702fdcfb3478627e7e3", null ],
+      [ "glitch_filter_enable", "structcy__stc__tcpwm__pwm__config__t.html#a67a6184cfff26a9bbd37430308da4891", null ],
+      [ "gf_depth", "structcy__stc__tcpwm__pwm__config__t.html#a80fe764b1303506c68b06358482b9cf8", null ]
     ] ],
-    [ "cy_en_group_dithering_t", "group__group__tcpwm__data__structures__pwm.html#gae5adb6cee5131cb579edb78f758ef497", [
-      [ "CY_TCPWM_GROUP_DITHERING_DISABLE", "group__group__tcpwm__data__structures__pwm.html#ggae5adb6cee5131cb579edb78f758ef497a06b8b68ab17cf79a6cab2237254c340b", null ],
-      [ "CY_TCPWM_GROUP_DITHERING_PERIOD", "group__group__tcpwm__data__structures__pwm.html#ggae5adb6cee5131cb579edb78f758ef497a351d230ce97777735720c1ab4a5abc4b", null ],
-      [ "CY_TCPWM_GROUP_DITHERING_DUTY", "group__group__tcpwm__data__structures__pwm.html#ggae5adb6cee5131cb579edb78f758ef497a7ab13af0756ad2a0df86e8ab021a2e18", null ],
-      [ "CY_TCPWM_GROUP_DITHERING_PERIOD_DUTY", "group__group__tcpwm__data__structures__pwm.html#ggae5adb6cee5131cb579edb78f758ef497a3f466d532ccb310895b8784cdfeab68e", null ]
+    [ "cy_en_tcpwm_dithering_t", "group__group__tcpwm__data__structures__pwm.html#ga5ba36f547c6817ce1f2a5ed6e89283ff", [
+      [ "CY_TCPWM_DITHERING_DISABLE", "group__group__tcpwm__data__structures__pwm.html#gga5ba36f547c6817ce1f2a5ed6e89283ffa184ba01f25b8da6efec3a883e558ae61", null ],
+      [ "CY_TCPWM_DITHERING_PERIOD", "group__group__tcpwm__data__structures__pwm.html#gga5ba36f547c6817ce1f2a5ed6e89283ffa4a79a7cbba7cd8259444c9f22cd2734c", null ],
+      [ "CY_TCPWM_DITHERING_DUTY", "group__group__tcpwm__data__structures__pwm.html#gga5ba36f547c6817ce1f2a5ed6e89283ffa0b042dc3831108acf544ec02c5e9b93f", null ],
+      [ "CY_TCPWM_DITHERING_PERIOD_DUTY", "group__group__tcpwm__data__structures__pwm.html#gga5ba36f547c6817ce1f2a5ed6e89283ffa38b8de205630c2679848d0fcd1950e70", null ]
     ] ],
     [ "cy_en_dithering_limiter_t", "group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c", [
-      [ "CY_GROUP_DITHERING_LIMITER_0", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79caf85671d2a1e03366b6ceaf80bf100f82", null ],
-      [ "CY_GROUP_DITHERING_LIMITER_1", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca3c3e0f816a307bcb6933bdbd490fcde0", null ],
-      [ "CY_GROUP_DITHERING_LIMITER_2", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca42c38ff7281083bb1e0737433760b000", null ],
-      [ "CY_GROUP_DITHERING_LIMITER_3", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca1bed91c76ed4572c4b91302e29efc4f1", null ],
-      [ "CY_GROUP_DITHERING_LIMITER_4", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca13f7ab1ea5a2d9183f160f5ef3d35fd8", null ],
-      [ "CY_GROUP_DITHERING_LIMITER_5", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca93d7d7ae0811fbe8c1de12eb656e49af", null ],
-      [ "CY_GROUP_DITHERING_LIMITER_6", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79cab135b0bdacfe9fb434d9aeef3ed795cf", null ],
-      [ "CY_GROUP_DITHERING_LIMITER_7", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca8dcce6fdf49c7768e365c88c4f26ca7b", null ]
+      [ "CY_TCPWM_DITHERING_LIMITER_1", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca2eecdd1341a809c8219db95a13e0a984", null ],
+      [ "CY_TCPWM_DITHERING_LIMITER_2", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79caa70075b35cc9190d26ccbdd07fe9b68d", null ],
+      [ "CY_TCPWM_DITHERING_LIMITER_3", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79caa3d2becf221f3824633e559b2d63900b", null ],
+      [ "CY_TCPWM_DITHERING_LIMITER_4", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca4c2b3761444cd8a326e0368d20bd91ee", null ],
+      [ "CY_TCPWM_DITHERING_LIMITER_5", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79ca875edfba340d2f49fd8ccdb4a3569a96", null ],
+      [ "CY_TCPWM_DITHERING_LIMITER_6", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79cae10ab73e45c2a8f473563be1f6583730", null ],
+      [ "CY_TCPWM_DITHERING_LIMITER_7", "group__group__tcpwm__data__structures__pwm.html#gga3ba205fa719411684a55b9fc3ad7b79cab050b0e8f57b5721e29183a71dc30abc", null ]
+    ] ],
+    [ "cy_en_hrpwm_operating_frequency_t", "group__group__tcpwm__data__structures__pwm.html#ga8c9f3eeb107eae3ea2a485f9169e3759", [
+      [ "CY_TCPWM_HRPWM_FREQ_80MHZ_OR_100MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759ad3445cddbdd169c8c23b748651c10ea6", null ],
+      [ "CY_TCPWM_HRPWM_FREQ_150MHZ_OR_160MHZ_OR_180MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759ac1cbe45b7e0ce878fec2fcd3662a71f1", null ],
+      [ "CY_TCPWM_HRPWM_FREQ_200MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759a93e1aee612422e5691590a8f9a3ae80e", null ],
+      [ "CY_TCPWM_HRPWM_FREQ_240MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759aab125525ab01990d906dedee3fab14dd", null ]
+    ] ],
+    [ "cy_en_kill_line_polarity_t", "group__group__tcpwm__data__structures__pwm.html#ga19e8127ddd17a33fe06608855cd10c4d", [
+      [ "CY_TCPWM_LINEOUT_AND_LINECMPOUT_IS_LOW", "group__group__tcpwm__data__structures__pwm.html#gga19e8127ddd17a33fe06608855cd10c4da4489e96d5fb2192693ccecd6b3b52251", null ],
+      [ "CY_TCPWM_LINEOUT_IS_HIGH_AND_LINECMPOUT_IS_LOW", "group__group__tcpwm__data__structures__pwm.html#gga19e8127ddd17a33fe06608855cd10c4dab544a8708f31372fd8d801493e151cf9", null ],
+      [ "CY_TCPWM_LINECMPOUT_IS_HIGH_LINEOUT_IS_LOW", "group__group__tcpwm__data__structures__pwm.html#gga19e8127ddd17a33fe06608855cd10c4da0a02f0fdc317e64177c0d6be7a4d5543", null ],
+      [ "CY_TCPWM_LINEOUT_AND_LINECMPOUT_IS_HIGH", "group__group__tcpwm__data__structures__pwm.html#gga19e8127ddd17a33fe06608855cd10c4da18df07d53c406caef0834c8893814711", null ]
+    ] ],
+    [ "cy_en_line_select_config_t", "group__group__tcpwm__data__structures__pwm.html#gab0adb8ee7ffc443e3ce016aec3d447c8", [
+      [ "CY_TCPWM_OUTPUT_CONSTANT_0", "group__group__tcpwm__data__structures__pwm.html#ggab0adb8ee7ffc443e3ce016aec3d447c8a6c268b8864615e8ac0ff6086c7d5ad46", null ],
+      [ "CY_TCPWM_OUTPUT_CONSTANT_1", "group__group__tcpwm__data__structures__pwm.html#ggab0adb8ee7ffc443e3ce016aec3d447c8a055953ca2ea107432c1c39cf2e60d7cc", null ],
+      [ "CY_TCPWM_OUTPUT_PWM_SIGNAL", "group__group__tcpwm__data__structures__pwm.html#ggab0adb8ee7ffc443e3ce016aec3d447c8ab10a622c4c07bff26bd57271912f71e9", null ],
+      [ "CY_TCPWM_OUTPUT_INVERTED_PWM_SIGNAL", "group__group__tcpwm__data__structures__pwm.html#ggab0adb8ee7ffc443e3ce016aec3d447c8a91dc81f784c9b74718d12e12902e6fe7", null ],
+      [ "CY_TCPWM_OUTPUT_PORT_DEFAULT", "group__group__tcpwm__data__structures__pwm.html#ggab0adb8ee7ffc443e3ce016aec3d447c8a324edb61b898067f6a5fe5eaa53e2271", null ],
+      [ "CY_TCPWM_OUTPUT_SOURCE_MOTIF", "group__group__tcpwm__data__structures__pwm.html#ggab0adb8ee7ffc443e3ce016aec3d447c8ad1959ad6cbd6b1978e6037cf0b4ed67e", null ]
     ] ]
 ];

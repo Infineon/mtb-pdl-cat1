@@ -143,7 +143,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Function MemCpy uses Crypto HW. </p>
-<p>Memory structures should not overlap! There is no alignment restriction.</p>
+<p>Memory structures should not overlap! There is no alignment restriction. For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameters dst and src must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -195,7 +195,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Function MemSet uses Crypto HW. </p>
-<p>There is no alignment restriction.</p>
+<p>There is no alignment restriction. For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameter dst must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -247,7 +247,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Function MemCmp uses Crypto HW. </p>
-<p>There is no alignment restriction.</p>
+<p>There is no alignment restriction. For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameters src0 and src1 must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -306,7 +306,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Function MemXor uses Crypto HW. </p>
-<p>Memory structures should not overlap! There is no alignment restriction.</p>
+<p>Memory structures should not overlap! There is no alignment restriction. For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameters dst, src0 and src1 must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>

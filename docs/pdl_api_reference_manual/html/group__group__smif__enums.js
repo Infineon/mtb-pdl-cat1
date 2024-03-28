@@ -28,6 +28,12 @@ var group__group__smif__enums =
       [ "CY_SMIF_NORMAL", "group__group__smif__enums.html#gga2baa7c37d2cedf2e2c837facc753ab5da4fe852fb31547c77b31203ec5c43ca91", null ],
       [ "CY_SMIF_MEMORY", "group__group__smif__enums.html#gga2baa7c37d2cedf2e2c837facc753ab5da562131834e2b77b141db45354e8584ec", null ]
     ] ],
+    [ "cy_en_smif_dll_divider_t", "group__group__smif__enums.html#ga2562b042b3f40a6683fd84b97630ff67", [
+      [ "CY_SMIF_DLL_DIVIDE_BY_2", "group__group__smif__enums.html#gga2562b042b3f40a6683fd84b97630ff67a55d3e3a0a690d089a80f4a026df3ac64", null ],
+      [ "CY_SMIF_DLL_DIVIDE_BY_4", "group__group__smif__enums.html#gga2562b042b3f40a6683fd84b97630ff67a58b93c014bf32b105dfe79c7927c0413", null ],
+      [ "CY_SMIF_DLL_DIVIDE_BY_8", "group__group__smif__enums.html#gga2562b042b3f40a6683fd84b97630ff67ae68c1d84cbf8d5ed2a19143af11c844e", null ],
+      [ "CY_SMIF_DLL_DIVIDE_BY_16", "group__group__smif__enums.html#gga2562b042b3f40a6683fd84b97630ff67ae8f950804ef8a3af965685a2866d4767", null ]
+    ] ],
     [ "cy_en_smif_delay_tap_t", "group__group__smif__enums.html#ga11e3351473d01a0f29bf6f3b41d3be7e", [
       [ "CY_SMIF_DELAY_TAP_DISABLE", "group__group__smif__enums.html#gga11e3351473d01a0f29bf6f3b41d3be7eac6bbaee7d8f741475d222ecc46dddd0e", null ],
       [ "CY_SMIF_DELAY_TAP_ENABLE", "group__group__smif__enums.html#gga11e3351473d01a0f29bf6f3b41d3be7eac2c7d8aaa8407dafc6145d948f7303c3", null ]

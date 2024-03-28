@@ -792,9 +792,6 @@ typedef enum {
 #define CY_IP_MXEVTGEN                  1u
 #define CY_IP_MXEVTGEN_INSTANCES        1u
 #define CY_IP_MXEVTGEN_VERSION          1u
-#define CY_IP_MXFLEXRAY                 1u
-#define CY_IP_MXFLEXRAY_INSTANCES       1u
-#define CY_IP_MXFLEXRAY_VERSION         1u
 #define CY_IP_MXS40IOSS                 1u
 #define CY_IP_MXS40IOSS_INSTANCES       1u
 #define CY_IP_MXS40IOSS_VERSION         3u
@@ -2371,13 +2368,6 @@ typedef enum {
 #define CANFD1_CH2_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD1->CH[2].M_TTCAN)                 /* 0x40540400 */
 #define CANFD1_CH3_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD1->CH[3].M_TTCAN)                 /* 0x40540600 */
 #define CANFD1_CH4_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD1->CH[4].M_TTCAN)                 /* 0x40540800 */
-
-/*******************************************************************************
-*                                   FLEXRAY
-*******************************************************************************/
-
-#define FLEXRAY0_BASE                           0x40560000UL
-#define FLEXRAY0                                ((FLEXRAY_Type*) FLEXRAY0_BASE)                                   /* 0x40560000 */
 
 /*******************************************************************************
 *                                     SCB

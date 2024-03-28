@@ -96,6 +96,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga123c9a912668b999845d7619737969f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">cy_en_cryptolite_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga123c9a912668b999845d7619737969f0">Cy_Cryptolite_ECC_Free</a> (CRYPTOLITE_Type *base, <a class="el" href="structcy__stc__cryptolite__context__ecdsa__t.html">cy_stc_cryptolite_context_ecdsa_t</a> *cfContext)</td></tr>
 <tr class="memdesc:ga123c9a912668b999845d7619737969f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clean up ECC Context.  <a href="#ga123c9a912668b999845d7619737969f0">More...</a><br /></td></tr>
 <tr class="separator:ga123c9a912668b999845d7619737969f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac4780ed621723923232888685a8389a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">cy_en_cryptolite_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#gac4780ed621723923232888685a8389a9">Cy_Cryptolite_ECC_SignHash</a> (CRYPTOLITE_Type *base, <a class="el" href="structcy__stc__cryptolite__context__ecdsa__t.html">cy_stc_cryptolite_context_ecdsa_t</a> *cfContext, const uint8_t *hash, uint32_t hashlen, uint8_t *sig, const <a class="el" href="structcy__stc__cryptolite__ecc__key.html">cy_stc_cryptolite_ecc_key</a> *key, const uint8_t *messageKey)</td></tr>
+<tr class="memdesc:gac4780ed621723923232888685a8389a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to generate an ECC signature.  <a href="#gac4780ed621723923232888685a8389a9">More...</a><br /></td></tr>
+<tr class="separator:gac4780ed621723923232888685a8389a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga956dd70a876047166b391430eb7d1c58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">cy_en_cryptolite_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga956dd70a876047166b391430eb7d1c58">Cy_Cryptolite_ECC_VerifyHash</a> (CRYPTOLITE_Type *base, <a class="el" href="structcy__stc__cryptolite__context__ecdsa__t.html">cy_stc_cryptolite_context_ecdsa_t</a> *cfContext, const uint8_t *sig, uint32_t siglen, const uint8_t *hash, uint32_t hashlen, <a class="el" href="group__group__cryptolite__enums.html#gafc6e4a5cca26d2fe19ba6d8c3429a4df">cy_en_cryptolite_sig_verify_result_t</a> *stat, const <a class="el" href="structcy__stc__cryptolite__ecc__key.html">cy_stc_cryptolite_ecc_key</a> *key)</td></tr>
 <tr class="memdesc:ga956dd70a876047166b391430eb7d1c58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify an ECC signature.  <a href="#ga956dd70a876047166b391430eb7d1c58">More...</a><br /></td></tr>
 <tr class="separator:ga956dd70a876047166b391430eb7d1c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,7 +152,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Init ECC Context. </p>
-<dl class="section note"><dt>Note</dt><dd>This API is not available in CYW20829 A0 CAT1B device</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Cryptolite instance.</td></tr>
@@ -190,7 +192,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Clean up ECC Context. </p>
-<dl class="section note"><dt>Note</dt><dd>This API is not available in CYW20829 A0 CAT1B device</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Cryptolite instance.</td></tr>
@@ -200,6 +201,80 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">cy_en_cryptolite_status_t</a>.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <a class="code" href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">cy_en_cryptolite_status_t</a> status = <a class="code" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710a57cc5b1b494c182a9beaccd987d0a03d">CY_CRYPTOLITE_BAD_PARAMS</a>;</div><div class="line">    <a class="code" href="structcy__stc__cryptolite__context__ecdsa__t.html">cy_stc_cryptolite_context_ecdsa_t</a> sig_ctx;</div><div class="line">    <a class="code" href="structcy__stc__cryptolite__ecc__key.html">cy_stc_cryptolite_ecc_key</a> key;</div><div class="line">    <a class="code" href="group__group__cryptolite__enums.html#gafc6e4a5cca26d2fe19ba6d8c3429a4df">cy_en_cryptolite_sig_verify_result_t</a> verResult;</div><div class="line">    <a class="code" href="structcy__stc__cryptolite__ecc__buffer__t.html">cy_stc_cryptolite_ecc_buffer_t</a> ecdsa_buf;</div><div class="line"></div><div class="line">    uint8_t ecc_p256_signature[] = {</div><div class="line">    0x0f, 0x8c, 0x19, 0xf5, 0xaf, 0xfe, 0xa6, 0xd5, 0x93, 0xa3, 0x3e, 0x17, 0x6a, 0xa5, 0x27, 0x17,</div><div class="line">    0xbf, 0xf8, 0xd5, 0x87, 0x51, 0x65, 0xfc, 0x63, 0xe8, 0x0a, 0x2d, 0x65, 0x58, 0x0d, 0x29, 0x57,</div><div class="line">    0x89, 0xdb, 0x5f, 0xfb, 0x53, 0x97, 0xba, 0x4c, 0x67, 0x83, 0x4e, 0x27, 0x31, 0xee, 0x26, 0x8e,</div><div class="line">    0xa6, 0xf7, 0xe8, 0x38, 0x46, 0xfb, 0xb0, 0x21, 0x45, 0xb3, 0x54, 0x42, 0xdb, 0x18, 0xcf, 0x0b };</div><div class="line"></div><div class="line">    uint8_t hash_256[] =  {</div><div class="line">    0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea, 0x41, 0x41, 0x40, 0xde, 0x5d, 0xae, 0x22, 0x23,</div><div class="line">    0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c, 0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00, 0x15, 0xad };</div><div class="line"></div><div class="line">    uint8_t ecc_p256_public_key[] = {</div><div class="line">    0xde, 0xa5, 0xe4, 0x5d, 0x0e, 0xa3, 0x7f, 0xc5, 0x66, 0x23, 0x2a, 0x50, 0x8f, 0x4a, 0xd2, 0x0e,</div><div class="line">    0xa1, 0x3d, 0x47, 0xe4, 0xbf, 0x5f, 0xa4, 0xd5, 0x4a, 0x57, 0xa0, 0xba, 0x01, 0x20, 0x42, 0x08,</div><div class="line">    0x70, 0x97, 0x49, 0x6e, 0xfc, 0x58, 0x3f, 0xed, 0x8b, 0x24, 0xa5, 0xb9, 0xbe, 0x9a, 0x51, 0xde,</div><div class="line">    0x06, 0x3f, 0x5a, 0x00, 0xa8, 0xb6, 0x98, 0xa1, 0x6f, 0xd7, 0xf2, 0x9b, 0x54, 0x85, 0xf3, 0x20};</div><div class="line"></div><div class="line">    memset(&amp;key, 0, <span class="keyword">sizeof</span>(key));</div><div class="line">    memset(&amp;sig_ctx, 0, <span class="keyword">sizeof</span>(sig_ctx));</div><div class="line"></div><div class="line">    verResult = <a class="code" href="group__group__cryptolite__enums.html#ggafc6e4a5cca26d2fe19ba6d8c3429a4dfa353581c237f64d4bdceb04a44b156cd0">CY_CRYPTOLITE_SIG_INVALID</a>;</div><div class="line">    key.<a class="code" href="structcy__stc__cryptolite__ecc__key.html#a91cbc89befa5026100477d377be699ee">type</a> = PK_PUBLIC;</div><div class="line">    key.<a class="code" href="structcy__stc__cryptolite__ecc__key.html#ade76ac3957dc70b28991dd23bb7a5d99">curveID</a> = CY_CRYPTOLITE_ECC_ECP_SECP256R1;</div><div class="line">    key.<a class="code" href="structcy__stc__cryptolite__ecc__key.html#a3188e682de56a635385b997f4f6fe677">pubkey</a>.<a class="code" href="structcy__stc__cryptolite__ecc__point.html#aedbd6c954ab2fb19aac7f79c5403313a">x</a> = (<span class="keywordtype">void</span> *)ecc_p256_public_key;</div><div class="line">    key.<a class="code" href="structcy__stc__cryptolite__ecc__key.html#a3188e682de56a635385b997f4f6fe677">pubkey</a>.<a class="code" href="structcy__stc__cryptolite__ecc__point.html#a0bc996bae7233d396d2521f34ebeb4f1">y</a> = (<span class="keywordtype">void</span> *)(ecc_p256_public_key +  <span class="keyword">sizeof</span>(ecc_p256_public_key)/2);        </div><div class="line">    </div><div class="line">    Cy_Cryptolite_InvertEndianness(key.<a class="code" href="structcy__stc__cryptolite__ecc__key.html#a3188e682de56a635385b997f4f6fe677">pubkey</a>.<a class="code" href="structcy__stc__cryptolite__ecc__point.html#aedbd6c954ab2fb19aac7f79c5403313a">x</a>, <span class="keyword">sizeof</span>(ecc_p256_public_key)/2);</div><div class="line">    Cy_Cryptolite_InvertEndianness(key.<a class="code" href="structcy__stc__cryptolite__ecc__key.html#a3188e682de56a635385b997f4f6fe677">pubkey</a>.<a class="code" href="structcy__stc__cryptolite__ecc__point.html#a0bc996bae7233d396d2521f34ebeb4f1">y</a>, <span class="keyword">sizeof</span>(ecc_p256_public_key)/2);</div><div class="line"></div><div class="line">    Cy_Cryptolite_InvertEndianness(hash_256, <span class="keyword">sizeof</span>(hash_256));</div><div class="line"></div><div class="line">    Cy_Cryptolite_InvertEndianness(ecc_p256_signature, <span class="keyword">sizeof</span>(ecc_p256_signature)/2);</div><div class="line">    Cy_Cryptolite_InvertEndianness(ecc_p256_signature + <span class="keyword">sizeof</span>(ecc_p256_signature)/2, <span class="keyword">sizeof</span>(ecc_p256_signature)/2);</div><div class="line"></div><div class="line">    status = <a class="code" href="group__group__cryptolite__lld__asymmetric__functions.html#ga88dab061e7565107ca587bbb1d74dcc0">Cy_Cryptolite_ECC_Init</a>(CRYPTOLITE,&amp;sig_ctx, &amp;ecdsa_buf);</div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    status = <a class="code" href="group__group__cryptolite__lld__asymmetric__functions.html#ga956dd70a876047166b391430eb7d1c58">Cy_Cryptolite_ECC_VerifyHash</a>(CRYPTOLITE, &amp;sig_ctx, ecc_p256_signature, <span class="keyword">sizeof</span>(ecc_p256_signature), hash_256, <span class="keyword">sizeof</span>(hash_256), &amp;verResult, &amp;key);</div><div class="line">    </div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div><div class="line">    status =  <a class="code" href="group__group__cryptolite__lld__asymmetric__functions.html#ga123c9a912668b999845d7619737969f0">Cy_Cryptolite_ECC_Free</a>(CRYPTOLITE, &amp;sig_ctx);</div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors &amp; verResult to be CY_CRYPTOLITE_SIG_VALID... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gac4780ed621723923232888685a8389a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac4780ed621723923232888685a8389a9">&#9670;&nbsp;</a></span>Cy_Cryptolite_ECC_SignHash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">cy_en_cryptolite_status_t</a> Cy_Cryptolite_ECC_SignHash </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTOLITE_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__cryptolite__context__ecdsa__t.html">cy_stc_cryptolite_context_ecdsa_t</a> *&#160;</td>
+          <td class="paramname"><em>cfContext</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>hash</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>hashlen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>sig</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcy__stc__cryptolite__ecc__key.html">cy_stc_cryptolite_ecc_key</a> *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>messageKey</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to generate an ECC signature. </p>
+<p>key, hash and messageKey must be in little endian. Cy_Cryptolite_InvertEndianness() function is used for converting the endianness.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a Cryptolite instance.</td></tr>
+    <tr><td class="paramname">cfContext</td><td>The pointer to the <a class="el" href="structcy__stc__cryptolite__context__ecdsa__t.html" title="Structure defines a ecdsa context. ">cy_stc_cryptolite_context_ecdsa_t</a>.</td></tr>
+    <tr><td class="paramname">hash</td><td>The hash (message digest) to be signed.</td></tr>
+    <tr><td class="paramname">hashlen</td><td>The length of the hash (octets).</td></tr>
+    <tr><td class="paramname">sig</td><td>The pointer to the buffer to store the generated signature 'R' followed by 'S'.</td></tr>
+    <tr><td class="paramname">key</td><td>The private ECC key to sign the hash. See <a class="el" href="structcy__stc__cryptolite__ecc__key.html">cy_stc_cryptolite_ecc_key</a>.</td></tr>
+    <tr><td class="paramname">messageKey</td><td>The random number for generating the signature.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">cy_en_cryptolite_status_t</a>. </dd></dl>
 
 </div>
 </div>
@@ -266,7 +341,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Verify an ECC signature. </p>
-<p>sig, hash and key must be in little endian. Cy_Cryptolite_InvertEndianness() function is used for converting the endianness. </p><dl class="section note"><dt>Note</dt><dd>This API is not available in CYW20829 A0 CAT1B device</dd></dl>
+<p>sig, hash and key must be in little endian. Cy_Cryptolite_InvertEndianness() function is used for converting the endianness.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Cryptolite instance.</td></tr>
@@ -318,7 +393,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the RSA context. </p>
-<dl class="section note"><dt>Note</dt><dd>This API is not available in CYW20829 A0 CAT1B device</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTOLITE instance.</td></tr>
@@ -384,7 +458,7 @@ Functions</h2></td></tr>
 
 <p>RSA process algorithm based on the Montgomery algorithm using Barrett reduction. </p>
 <p><a href="https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29">https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29</a></p>
-<p>Key, message, processedMessage buffers must be 4 byte aligned and end with 4 byte boundary. </p><dl class="section note"><dt>Note</dt><dd>This API is not available in CYW20829 A0 CAT1B device</dd></dl>
+<p>Key, message, processedMessage buffers must be 4 byte aligned and end with 4 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTOLITE instance.</td></tr>
@@ -434,7 +508,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Calculation constant coefficients to speed-up Montgomery algorithm. </p>
-<p>These coefficients are: coefficient for Barrett reduction, binary inverse of the modulo, result of (2^moduloLength mod modulo) </p><dl class="section note"><dt>Note</dt><dd>This API is not available in CYW20829 A0 CAT1B device</dd></dl>
+<p>These coefficients are: coefficient for Barrett reduction, binary inverse of the modulo, result of (2^moduloLength mod modulo)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTOLITE instance.</td></tr>
@@ -474,7 +548,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Cleanup the RSA context. </p>
-<dl class="section note"><dt>Note</dt><dd>This API is not available in CYW20829 A0 CAT1B device</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTOLITE instance.</td></tr>
@@ -551,7 +624,7 @@ Functions</h2></td></tr>
 
 <p>RSA verification with checks for content, paddings and signature format. </p>
 <p>SHA digest of the message and decrypted message should be calculated before. Supports only PKCS1-v1_5 format, inside of this format supported padding using only SHA, cases with MD2 and MD5 are not supported. PKCS1-v1_5 described here, page 31: <a href="http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf">http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf</a></p>
-<p>The digest and decryptedSignature buffers must be 4 byte aligned </p><dl class="section note"><dt>Note</dt><dd>This API is not available in CYW20829 A0 CAT1B device</dd></dl>
+<p>The digest and decryptedSignature buffers must be 4 byte aligned</p>
 <p>Returns the verification result <a class="el" href="group__group__cryptolite__enums.html#gafc6e4a5cca26d2fe19ba6d8c3429a4df">cy_en_cryptolite_sig_verify_result_t</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

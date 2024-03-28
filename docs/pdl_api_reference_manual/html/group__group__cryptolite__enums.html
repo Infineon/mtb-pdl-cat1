@@ -107,7 +107,11 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710a9e8b6a2c4dac574d415dc4ddcc8e705f">CY_CRYPTOLITE_TRNG_NOT_ENABLED</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x07u, 
 <br />
-&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710aec18017f3ef19089a0d426167d601bb0">CY_CRYPTOLITE_TRNG_UNHEALTHY</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x08u
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710aec18017f3ef19089a0d426167d601bb0">CY_CRYPTOLITE_TRNG_UNHEALTHY</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x08u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710aceb78f67658eebf844627e5619ba2501">CY_CRYPTOLITE_BUFFER_NOT_ALIGNED</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x09u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggafaeb3f2fb88784222220aee907e36710a8269b002ed1c62b9e598d8d6a0156895">CY_CRYPTOLITE_HW_ERROR</a> = CY_CRYPTOLITE_ID | CY_PDL_STATUS_ERROR | 0x0Au
 <br />
  }<tr class="memdesc:gafaeb3f2fb88784222220aee907e36710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Errors of the Cryptolite block.  <a href="group__group__cryptolite__enums.html#gafaeb3f2fb88784222220aee907e36710">More...</a><br /></td></tr>
 </td></tr>
@@ -140,6 +144,14 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gafc6e4a5cca26d2fe19ba6d8c3429a4df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature verification status.  <a href="group__group__cryptolite__enums.html#gafc6e4a5cca26d2fe19ba6d8c3429a4df">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gafc6e4a5cca26d2fe19ba6d8c3429a4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa6c3a6c7b4f7e57d0aa8a70fa4b480a1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html#gaa6c3a6c7b4f7e57d0aa8a70fa4b480a1">cy_en_cryptolite_ccm_auth_result_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggaa6c3a6c7b4f7e57d0aa8a70fa4b480a1ad418e28d4e1bdd30e19cc9e0ef84e21f">CY_CRYPTOLITE_TAG_VALID</a> = 0x05555555u, 
+<br />
+&#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggaa6c3a6c7b4f7e57d0aa8a70fa4b480a1a70795fbd4ff2089255c379769a12f210">CY_CRYPTOLITE_TAG_INVALID</a> = 0x0AAAAAAAu
+<br />
+ }<tr class="memdesc:gaa6c3a6c7b4f7e57d0aa8a70fa4b480a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES CCM verification status.  <a href="group__group__cryptolite__enums.html#gaa6c3a6c7b4f7e57d0aa8a70fa4b480a1">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gaa6c3a6c7b4f7e57d0aa8a70fa4b480a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf5b43a01eda17c36ed35480dd44ded9c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html#gaf5b43a01eda17c36ed35480dd44ded9c">cy_en_cryptolite_dir_mode_t</a> { <br />
 &#160;&#160;<a class="el" href="group__group__cryptolite__enums.html#ggaf5b43a01eda17c36ed35480dd44ded9ca6ae21effbcd68240cfcddbbff9b96ac5">CY_CRYPTOLITE_ENCRYPT</a> = 0x00u, 
 <br />
@@ -150,6 +162,10 @@ Enumerations</h2></td></tr>
 <tr class="separator:gaf5b43a01eda17c36ed35480dd44ded9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3b051ef176b1e1a9811acbae28eb2360"><td class="memItemLeft" align="right" valign="top"><a id="ga3b051ef176b1e1a9811acbae28eb2360"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__enums.html#ga3b051ef176b1e1a9811acbae28eb2360">cy_en_cryptolite_ecc_curve_id_t</a> { <br />
 &#160;&#160;<b>CY_CRYPTOLITE_ECC_ECP_NONE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_CRYPTOLITE_ECC_ECP_SECP192R1</b>, 
+<br />
+&#160;&#160;<b>CY_CRYPTOLITE_ECC_ECP_SECP224R1</b>, 
 <br />
 &#160;&#160;<b>CY_CRYPTOLITE_ECC_ECP_SECP256R1</b>, 
 <br />
@@ -193,6 +209,10 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710a9e8b6a2c4dac574d415dc4ddcc8e705f"></a>CY_CRYPTOLITE_TRNG_NOT_ENABLED&#160;</td><td class="fielddoc"><p>The TRNG is not enabled. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710aec18017f3ef19089a0d426167d601bb0"></a>CY_CRYPTOLITE_TRNG_UNHEALTHY&#160;</td><td class="fielddoc"><p>The TRNG is unhealthy. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710aceb78f67658eebf844627e5619ba2501"></a>CY_CRYPTOLITE_BUFFER_NOT_ALIGNED&#160;</td><td class="fielddoc"><p>The Data in the buffer is not aligned. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafaeb3f2fb88784222220aee907e36710a8269b002ed1c62b9e598d8d6a0156895"></a>CY_CRYPTOLITE_HW_ERROR&#160;</td><td class="fielddoc"><p>The Hardware error occurred. </p>
 </td></tr>
 </table>
 
@@ -249,6 +269,28 @@ Enumerations</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggafc6e4a5cca26d2fe19ba6d8c3429a4dfa04bc6bd5f495b595bb00f920859abc8c"></a>CY_CRYPTOLITE_SIG_VALID&#160;</td><td class="fielddoc"><p>The signature is valid. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggafc6e4a5cca26d2fe19ba6d8c3429a4dfa353581c237f64d4bdceb04a44b156cd0"></a>CY_CRYPTOLITE_SIG_INVALID&#160;</td><td class="fielddoc"><p>The signature is invalid. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gaa6c3a6c7b4f7e57d0aa8a70fa4b480a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa6c3a6c7b4f7e57d0aa8a70fa4b480a1">&#9670;&nbsp;</a></span>cy_en_cryptolite_ccm_auth_result_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__cryptolite__enums.html#gaa6c3a6c7b4f7e57d0aa8a70fa4b480a1">cy_en_cryptolite_ccm_auth_result_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AES CCM verification status. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaa6c3a6c7b4f7e57d0aa8a70fa4b480a1ad418e28d4e1bdd30e19cc9e0ef84e21f"></a>CY_CRYPTOLITE_TAG_VALID&#160;</td><td class="fielddoc"><p>The Tag is valid. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggaa6c3a6c7b4f7e57d0aa8a70fa4b480a1a70795fbd4ff2089255c379769a12f210"></a>CY_CRYPTOLITE_TAG_INVALID&#160;</td><td class="fielddoc"><p>The Tag is invalid. </p>
 </td></tr>
 </table>
 

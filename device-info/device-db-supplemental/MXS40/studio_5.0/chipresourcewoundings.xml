@@ -37,6 +37,7 @@
   <NaWounding name="USB_TYPE">
     <Block name="usb"/>
   </NaWounding>
+
   <RemoveListWounding name="CAN_REMOVED">
     <Block name="can"/>
   </RemoveListWounding>
@@ -76,6 +77,10 @@
   <RemoveListWounding name="CXPI_REMOVED">
     <Block name="cxpi.ch"/>
   </RemoveListWounding>
+  <RemoveListWounding name="DMACCHANNELS_REMOVED">
+    <Block name="cpuss.dmac.chan"/>
+  </RemoveListWounding>
+
   <IndexResourceWounding name="I2S_REMOVED">
     <ResourceIndex index="0">
       <Block name="audioss[0].i2s[0]" />

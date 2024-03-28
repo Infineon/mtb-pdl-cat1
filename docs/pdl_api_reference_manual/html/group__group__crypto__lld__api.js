@@ -5,6 +5,7 @@ var group__group__crypto__lld__api =
     [ "Asymmetric Key Algorithms (RSA, ECP, ECDSA)", "group__group__crypto__lld__asymmetric.html", "group__group__crypto__lld__asymmetric" ],
     [ "Hash Operations (SHA)", "group__group__crypto__lld__sha.html", "group__group__crypto__lld__sha" ],
     [ "Message Authentication Code (CMAC, HMAC)", "group__group__crypto__lld__mac.html", "group__group__crypto__lld__mac" ],
+    [ "Key Derivative Function (HKDF)", "group__group__crypto__lld__kdf.html", "group__group__crypto__lld__kdf" ],
     [ "Cyclic Redundancy Code (CRC)", "group__group__crypto__lld__crc.html", "group__group__crypto__lld__crc" ],
     [ "Random Number Generation (TRNG, PRNG)", "group__group__crypto__lld__rng.html", "group__group__crypto__lld__rng" ],
     [ "Vector Unit (VU)", "group__group__crypto__lld__vu.html", "group__group__crypto__lld__vu" ],

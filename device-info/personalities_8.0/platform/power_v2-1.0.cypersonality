@@ -42,13 +42,20 @@
     <!-- Documentation -->
     <ParamDoc id="pdlDoc" name="SysPm API Reference" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__syspm.html" linkText="Open SysPm Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
-    <ParamChoice id="actPwrMode" name="System Active Power Profile" group="General" default="POWER_PROFILE_0" visible="true" editable="true"
+    <ParamBool id="isRegSetAPresent" name="Regulator Set A Present" group="Internal" default="`${(S40S_REGSETA_PRESENT eq 1 ? true : false)}`" visible="false" editable="false"
+      desc="This parameter check for the presence of Regulator set A." />
+
+    <ParamChoice id="actPwrMode" name="System Active Power Profile" group="General" default="`${(S40S_REGSETA_PRESENT eq 1 ? ULP : POWER_PROFILE_0)}`" visible="true" editable="true"
       desc="Selects the system operating power mode.">
-      <Entry name="Power Profile - 0    (LP MCU + Radio ON)" value="POWER_PROFILE_0" visible="true" />
-      <Entry name="Power Profile - 1    (ULP MCU + Radio ON)" value="POWER_PROFILE_1" visible="true" />
-	  <Entry name="Power Profile - 2A (LP MCU Only)" value="POWER_PROFILE_2A" visible="true" />
-	  <Entry name="Power Profile - 2B (LP MCU Only)" value="POWER_PROFILE_2B" visible="true" />
-	  <Entry name="Power Profile - 3    (ULP MCU Only)" value="POWER_PROFILE_3" visible="true" />
+      <Entry name="Power Profile - 0    (LP MCU + Radio ON)" value="POWER_PROFILE_0" visible="`${!isRegSetAPresent}`" />
+      <Entry name="Power Profile - 1    (ULP MCU + Radio ON)" value="POWER_PROFILE_1" visible="`${!isRegSetAPresent}`" />
+      <Entry name="Power Profile - 2A (LP MCU Only)" value="POWER_PROFILE_2A" visible="`${!isRegSetAPresent}`" />
+      <Entry name="Power Profile - 2B (LP MCU Only)" value="POWER_PROFILE_2B" visible="`${!isRegSetAPresent}`" />
+      <Entry name="Power Profile - 3    (ULP MCU Only)" value="POWER_PROFILE_3" visible="`${!isRegSetAPresent}`" />
+      <Entry name="ULP (Ultra Low Power Mode)" value="ULP" visible="`${isRegSetAPresent}`" />
+      <Entry name="MF (Mid Voltage Mode)" value="MF" visible="`${isRegSetAPresent}`" />
+      <Entry name="LP (Low Power Mode)" value="LP" visible="`${isRegSetAPresent}`" />
+      <Entry name="OD (Over Drive Mode)" value="OD" visible="`${isRegSetAPresent}`" />
     </ParamChoice>
 
     <ParamString id="activePowerMode" name="System Active Power Mode" group="Internal" default="`${actPwrMode eq POWER_PROFILE_0    ? &quot;LP&quot;   :
@@ -56,6 +63,9 @@
                                                                                    actPwrMode eq POWER_PROFILE_2A  ? &quot;LP&quot;   :
                                                                                    actPwrMode eq POWER_PROFILE_2B  ? &quot;LP&quot;   :
                                                                                    actPwrMode eq POWER_PROFILE_3   ? &quot;ULP&quot;   :
+                                                                                   actPwrMode eq ULP   ? &quot;ULP&quot;   :
+                                                                                   actPwrMode eq MF   ? &quot;MF&quot;   :
+                                                                                   actPwrMode eq OD   ? &quot;OD&quot;   :
 																				   &quot;LP&quot;}`" visible="false" editable="false" desc="System Active Power Mode." />
 
     <!-- Power settings -->
@@ -108,8 +118,13 @@
                                                                                    coreBuckParam eq &quot;1.0V Low Power&quot;   ? &quot;CY_SYSPM_CORE_BUCK_MODE_LP&quot;   :
 																				   &quot;CY_SYSPM_CORE_BUCK_MODE_HP&quot;}`" visible="false" editable="false" desc="Core Buck Mode Macro." />
 
-    <ParamString id="coreBuckVoltagemode" name="Core Buck Voltage and Mode" group="Operating Conditions" default="`${coreBuckParam}`" visible="true" editable="false" desc="Core Buck Voltage and Mode.." />
+    <ParamString id="ldoParam" name="LDO Parameters" group="Internal" default="`${actPwrMode eq LP    ? &quot;1.1V LP&quot;   :
+                                                                                   actPwrMode eq MF   ? &quot;1.0V MF&quot;   :
+                                                                                   actPwrMode eq OD  ? &quot;1.2V OD&quot;   :
+																				   &quot;0.9V ULP &quot;}`" visible="false" editable="false" desc="Core Buck Voltage and Mode." />
 
+    <ParamString id="coreBuckVoltagemode" name="Core Buck Voltage and Mode" group="Operating Conditions" default="`${coreBuckParam}`" visible="`${!isRegSetAPresent}`" editable="false" desc="Core Buck Voltage and Mode.." />
+    <ParamString id="ldoVoltagemode" name="LDO Voltage and Mode" group="Operating Conditions" default="`${ldoParam}`" visible="`${isRegSetAPresent}`" editable="false" desc="LDO Voltage and Mode.." />
     <!-- SDR0 Regulator -->
     <ParamString id="sdr0Param" name="SDR0 Parameters" group="Internal" default="`${actPwrMode eq POWER_PROFILE_0    ? &quot;1.1V Regulated&quot;   :
                                                                                    actPwrMode eq POWER_PROFILE_1   ? &quot;1.0V Regulated&quot;   :
@@ -124,11 +139,11 @@
                                                                                    sdr0Param eq &quot;1.0V Bypassed&quot;   ? &quot;CY_SYSPM_SDR_VOLTAGE_1_000V&quot;   :
 																				   &quot;CY_SYSPM_SDR_VOLTAGE_1_100V&quot;}`" visible="false" editable="false" desc="SDR0 Voltage Macro." />
 
-    <ParamString id="sdr0Voltagemode" name="SDR0 Regulator Voltage and Mode" group="Operating Conditions" default="`${sdr0Param}`" visible="true" editable="false" desc="SDR0 Regulator Voltage and Mode.." />
+    <ParamString id="sdr0Voltagemode" name="SDR0 Regulator Voltage and Mode" group="Operating Conditions" default="`${sdr0Param}`" visible="`${!isRegSetAPresent}`" editable="false" desc="SDR0 Regulator Voltage and Mode.." />
 
-    <ParamString id="sdr0DpSlpVoltage" name="SDR0 Regulator Deep Sleep Voltage" group="Operating Conditions" default="0.9V" visible="true" editable="false" desc="SDR0 Deep Sleep Regulator Voltage " />
+    <ParamString id="sdr0DpSlpVoltage" name="SDR0 Regulator Deep Sleep Voltage" group="Operating Conditions" default="0.9V" visible="`${!isRegSetAPresent}`" editable="false" desc="SDR0 Deep Sleep Regulator Voltage " />
 	
-	<ParamBool id="sdr0BypassModeMacro" name="SDR0 Bypass Mode Enable" group="Operating Conditions" default="true" visible="true" editable="true" desc="SDR0 bypass Mode Selection" />
+	<ParamBool id="sdr0BypassModeMacro" name="SDR0 Bypass Mode Enable" group="Operating Conditions" default="true" visible="`${!isRegSetAPresent}`" editable="true" desc="SDR0 bypass Mode Selection" />
 
     <!-- SDR1 Regulator -->
     <ParamString id="sdr1Param" name="SDR1 Parameters" group="Internal" default="`${actPwrMode eq POWER_PROFILE_0    ? &quot;1.1V Regulated&quot;   :
@@ -142,7 +157,7 @@
                                                                                    sdr1Param eq &quot;Off&quot;   ? &quot;0&quot;   :
 																				   &quot;0&quot;}`" visible="false" editable="false" desc="SDR1 Voltage Macro." />
 
-    <ParamString id="sdr1Voltagemode" name="SDR1 Regulator Voltage and Mode" group="Operating Conditions" default="`${sdr1Param}`" visible="true" editable="false" desc="SDR1 Regulator Voltage and Mode.." />
+    <ParamString id="sdr1Voltagemode" name="SDR1 Regulator Voltage and Mode" group="Operating Conditions" default="`${sdr1Param}`" visible="`${!isRegSetAPresent}`" editable="false" desc="SDR1 Regulator Voltage and Mode.." />
 
     <ParamRange id="vddaMv"    name="VDDA Voltage (mV)"    group="Operating Conditions" default="3300" min="1700" max="3600" resolution="1" visible="true" editable="true" desc="VDDA voltage in millivolts." />
     <ParamRange id="vdddMv"    name="VDDD Voltage (mV)"    group="Operating Conditions" default="3300" min="1700" max="3600" resolution="1" visible="true" editable="true" desc="VDDD voltage in millivolts." />
@@ -230,6 +245,8 @@
     <ConfigDefine name="CY_CFG_PWR_MODE_LP"             public="true" value="0x01UL" include="true" />
     <ConfigDefine name="CY_CFG_PWR_MODE_ULP"            public="true" value="0x02UL" include="true" />
     <ConfigDefine name="CY_CFG_PWR_MODE_ACTIVE"         public="true" value="0x04UL" include="true" />
+    <ConfigDefine name="CY_CFG_PWR_MODE_MF"             public="true" value="0x05UL" include="true" />
+    <ConfigDefine name="CY_CFG_PWR_MODE_OD"             public="true" value="0x06UL" include="true" />
     <ConfigDefine name="CY_CFG_PWR_MODE_SLEEP"          public="true" value="0x08UL" include="true" />
     <ConfigDefine name="CY_CFG_PWR_MODE_DEEPSLEEP"      public="true" value="0x10UL" include="true" />
     <ConfigDefine name="CY_CFG_PWR_MODE_DEEPSLEEP_RAM"  public="true" value="0x11UL" include="true" />
@@ -243,7 +260,7 @@
 	<ConfigDefine name="CY_CFG_PWR_INIT"                public="false" value="1" include="true" />
     <ConfigDefine name="CY_CFG_PWR_USING_PMIC"          public="false" value="`${pmicEnable ? 1 : 0}`" include="true" />
     <ConfigDefine name="CY_CFG_PWR_VBACKUP_USING_VDDD"  public="false" value="`${(backupSrc eq VDDD) ? 1 : 0}`" include="true" />
-	<ConfigDefine name="CY_CFG_PWR_REGULATOR_MODE_MIN"  public="false" value="`${((minCurrRegulator eq CY_SYSPM_LDO_MODE_MIN)) ? true : false}`" include="true" />
+	<ConfigDefine name="CY_CFG_PWR_REGULATOR_MODE_MIN"  public="false" value="`${((minCurrRegulator eq CY_SYSPM_LDO_MODE_MIN)) ? 1 : 0}`" include="true" />
     <ConfigDefine name="CY_CFG_PWR_USING_ULP"           public="false" value="`${usingUlp ? 1 : 0}`" include="true" />
     <!-- Operating conditions -->
     <ConfigDefine name="CY_CFG_PWR_VDDA_MV"                public="true" value="`${vddaMv}`" include="true" />
@@ -258,7 +275,7 @@
 	<ConfigDefine name="CY_CFG_PWR_SDR1_VOLT"              public="true" value="`${sdr1VoltMacro}`" include="true" />
     <ConfigDefine name="CY_CFG_PWR_SDR1_ENABLE"            public="true" value="`${sdr1VoltMacro ? true : false}`" include="true" />
 
-    <ConfigStruct name="coreBuckConfigParam" type="cy_stc_syspm_core_buck_params_t" const="false" public="false" include="true">
+    <ConfigStruct name="coreBuckConfigParam" type="cy_stc_syspm_core_buck_params_t" const="false" public="false" include="`${!isRegSetAPresent}`">
       <Member name="voltageSel" value="CY_CFG_PWR_CBUCK_VOLT" />
       <Member name="mode" value="CY_CFG_PWR_CBUCK_MODE" />
       <Member name="override" value="false" />
@@ -267,7 +284,7 @@
       <Member name="inRushLimitSel" value="0" />
     </ConfigStruct>
 
-    <ConfigStruct name="sdr0ConfigParam" type="cy_stc_syspm_sdr_params_t" const="false" public="false" include="true">
+    <ConfigStruct name="sdr0ConfigParam" type="cy_stc_syspm_sdr_params_t" const="false" public="false" include="`${!isRegSetAPresent}`">
       <Member name="coreBuckVoltSel" value="CY_CFG_PWR_CBUCK_VOLT" />
       <Member name="coreBuckMode" value="CY_CFG_PWR_CBUCK_MODE" />
 	  <Member name="coreBuckDpSlpVoltSel" value="CY_SYSPM_CORE_BUCK_VOLTAGE_0_90V" />
@@ -277,7 +294,7 @@
       <Member name="sdr0Allowbypass" value="CY_CFG_PWR_SDR0_MODE_BYPASS" />
     </ConfigStruct>
 
-    <ConfigStruct name="sdr1ConfigParam" type="cy_stc_syspm_sdr_params_t" const="false" public="false" include="true">
+    <ConfigStruct name="sdr1ConfigParam" type="cy_stc_syspm_sdr_params_t" const="false" public="false" include="`${!isRegSetAPresent}`">
       <Member name="coreBuckVoltSel" value="CY_CFG_PWR_CBUCK_VOLT" />
       <Member name="coreBuckMode" value="CY_CFG_PWR_CBUCK_MODE" />
       <Member name="sdrVoltSel" value="CY_CFG_PWR_SDR1_VOLT" />
@@ -324,6 +341,37 @@
    #elif (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP_OFF)&#xA;
        Cy_SysPm_SetDeepSleepMode(CY_SYSPM_MODE_DEEPSLEEP_OFF);&#xA;
    #endif /* CY_CFG_PWR_SYS_IDLE_MODE */"
-    public="false" include="true" />
+    public="false" include="`${!isRegSetAPresent}`" />
+<ConfigFunction signature="__STATIC_INLINE void init_cycfg_power(void)" body="
+   Cy_SysPm_Init();&#xA;
+   /* **Reset the Backup domain on POR, XRES, BOD only if Backup domain is supplied by VDDD** */&#xA;
+   #if (CY_CFG_PWR_VBACKUP_USING_VDDD)&#xA;
+       #ifdef CY_CFG_SYSCLK_ILO_ENABLED&#xA;
+           if (0u == Cy_SysLib_GetResetReason() /* POR, XRES, or BOD */)&#xA;
+           {&#xA;
+               Cy_SysLib_ResetBackupDomain();&#xA;
+               Cy_SysClk_IloDisable();&#xA;
+               Cy_SysClk_IloInit();&#xA;
+           }&#xA;
+       #endif /* CY_CFG_SYSCLK_ILO_ENABLED */&#xA;
+   #endif /* CY_CFG_PWR_VBACKUP_USING_VDDD */&#xA;&#xA;
+   /* **System Active Power Mode Profile Configuration** */&#xA;
+   /* **System Active Low Power Profile(LPACTIVE/LPSLEEP) Configuration** */&#xA;
+   #if (CY_CFG_PWR_SYS_LP_PROFILE_MODE)&#xA;
+       Cy_SysPm_SystemLpActiveEnter();&#xA;
+   #endif /* CY_CFG_PWR_SYS_ACTIVE_MODE */&#xA;&#xA;
+   /* **System Regulators Low Current Configuration** */&#xA;
+   #if (CY_CFG_PWR_REGULATOR_MODE_MIN)&#xA;
+       Cy_SysPm_SystemSetMinRegulatorCurrent();&#xA;
+   #endif /* CY_CFG_PWR_REGULATOR_MODE_MIN */&#xA;&#xA;
+   /* **System Idle Power Mode Configuration** */&#xA;
+   #if (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP)&#xA;
+       Cy_SysPm_SetDeepSleepMode(CY_SYSPM_MODE_DEEPSLEEP);&#xA;
+   #elif (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP_RAM)&#xA;
+       Cy_SysPm_SetDeepSleepMode(CY_SYSPM_MODE_DEEPSLEEP_RAM);&#xA;
+   #elif (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP_OFF)&#xA;
+       Cy_SysPm_SetDeepSleepMode(CY_SYSPM_MODE_DEEPSLEEP_OFF);&#xA;
+   #endif /* CY_CFG_PWR_SYS_IDLE_MODE */"
+    public="false" include="`${isRegSetAPresent}`" />
   </ConfigFirmware>
 </Personality>

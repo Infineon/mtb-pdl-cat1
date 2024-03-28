@@ -131,7 +131,39 @@ $(document).ready(function(){initNavTree('group__group__tcpwm.html','');});
 <p>Shift Register functionality shifts the counter value to the right. A shift register is used to apply a signal delay function which can be used eg: in detecting frequency shift keying (FSK) signals. A shift register is also used in parallel-in to serial-out data conversion and serial-in to parallel-out data conversion.</p>
 <h1><a class="anchor" id="group_tcpwm_version_information"></a>
 TCPWM Versions</h1>
-<p>There are two versions of TCPWM driver</p>
+<p>There are three versions of TCPWM driver</p>
+<p><b>TCPWM</b> <b>Version</b> <b>3</b> </p>
+<ul>
+<li>The mxtcpwm.3.0 consists of up to 2048, 16-bit or 32-bit counters</li>
+<li>Counter groups up to 8*256</li>
+<li>Counter compare, period, line_sel and dead time registers are double buffered.</li>
+<li>Parallel data path support for CC0/CC1 register through dedicated data interface (only applicable to mxtcpwm 3.1, PSoC C3 (CAT1B) do not support this)</li>
+<li>Glitch Filter with configurable depth supported on General-purpose triggers used by all counters and specific one-to-one triggers for each counter</li>
+<li>Shadow registers available for duty, period, dead time, signal and polarity</li>
+<li>Enhanced shadow update mechanism</li>
+<li>Independent control of clock pre-scalar and dead time</li>
+<li>Configurable PWM dithering on period as well as duty cycle</li>
+<li>Configurable option to continue / pause with the ability to enter passive state through kill polarity in debug mode</li>
+<li>Output state control for PWM signal during stop or kill operation synchronous to period match</li>
+<li>Independent line polarity setting for PWM signal during kill operation</li>
+<li>Support up to 4 Motion Interface (MOTIF)<ul>
+<li>Support interrupt output for each MOTIF</li>
+<li>Hall interface for direct connection to Hall sensors</li>
+<li>HW look-up table for advance motor control feedback loop operation</li>
+<li>Synchronous modulation support for multiple counters</li>
+</ul>
+</li>
+<li>Support HRPWM (High resolution PWM generation) feature in both 16-bit and 32-bit TCPWM counters (Only applicable to mxtcpwm 3.1, PSoC C3 (CAT1B) only has 4 HRPWM blocks on the 32 bit PWMs.)<ul>
+<li>HRPWM enhancements are limited to PWM and PWM_DT mode only</li>
+<li>HRPWM consists of an analog interpolator (also referred as delay element)</li>
+<li>Analog interpolator consists of delay elements which uses the input clock to generate a set of delayed phases. These delayed phases are then used to delay the edges of the incoming PWM from tcpwm.</li>
+<li>Analog interpolator is used to shift the edges of line_out and line_compl_out coming as output from the TCPWM to the analog interpolator.</li>
+<li>The LSBs are used for fractional or micro ticks for delaying the line_out and line_compl_out outputs for PERIOD/PERIOD_BUFF, CC0/CC0_BUFF, and CC1/CC1_BUFF and DT/DT_BUFF.</li>
+<li>Number of LSB bits used for fractional control is control by the design time parameter, GRP_HRPWM_WIDTH.</li>
+<li>The remaining bits given by [GRP_CNT_WIDTH-1:GRP_HRPWM_WIDTH] are used by the mxtcpwm counter.</li>
+</ul>
+</li>
+</ul>
 <p><b>TCPWM</b> <b>Version</b> <b>2</b> </p>
 <ul>
 <li>Devices CY8C61x4 and CY8C62x4 use this version.</li>
@@ -241,14 +273,36 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td rowspan="2">1.70 </td><td>Newly added enum <a class="el" href="group__group__tcpwm__enums.html#ga619cd467ef63110365ad9e01785d7293">cy_en_copy_swap_config_t</a>.<ul>
+<li>Newly added API <a class="el" href="group__group__tcpwm__functions__counter.html#gaee3f140d6da2342b0bfb26f629a98ddf">Cy_TCPWM_Counter_SetDirection_Change_Mode</a> and updated API <a class="el" href="group__group__tcpwm__functions__common.html#ga9cce3f9a4b4f0d381565599279a7dd18">Cy_TCPWM_Block_EnableSwap</a>.  </li>
+</ul>
+</td><td>Supported Glitch filter with configurable depth, HW look-up table for advance motor control, bug fixes and enhancement in reload and swap functionality.  </td></tr>
+<tr>
+<td><p class="starttd">Newly added APIs :</p><ul>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga19370f61b63e19e9c3b50dfb48ec9fe3">Cy_TCPWM_PWM_SetDT</a>, <a class="el" href="group__group__tcpwm__functions__pwm.html#ga0cb304e03b43541a6529af0782229b20">Cy_TCPWM_PWM_Configure_LineSelect</a>, <a class="el" href="group__group__tcpwm__functions__pwm.html#gae3ebd34cfb62ff24ffa18b26dfd68d31">Cy_TCPWM_PWM_Configure_LineSelectBuff</a>,</li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#gabf3eb8ea9123430dfda021b569759e55">Cy_TCPWM_PWM_EnableLineSelectSwap</a>, <a class="el" href="group__group__tcpwm__functions__pwm.html#gadeae5714cda0e42f889c7f8f90702757">Cy_TCPWM_PWM_Set_KillLinePolarity</a>, <a class="el" href="group__group__tcpwm__functions__pwm.html#ga0b559ade9579db19b0642b4b1dfb41c1">Cy_TCPWM_PWM_PWMDeadTimeBuff</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga193882e8e50e548077775e6bde7fcf8f">Cy_TCPWM_PWM_PWMDeadTimeBuffN</a>, <a class="el" href="group__group__tcpwm__functions__pwm.html#ga00caa836d8b391882405b5ec5b726903">Cy_TCPWM_PWM_SetDTBuff</a>. </li>
+</ul>
+<p>Updated the following APIs:</p><ul>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga6440d2a9dc8d85056abd62556bee7f82">Cy_TCPWM_PWM_Init</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#gab9f1093f64fc39c0be2e8917b9b610cb">Cy_TCPWM_PWM_Configure_Dithering</a></li>
+</ul>
+<p class="endtd">Newly added and updated enums:</p><ul>
+<li><a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga8c9f3eeb107eae3ea2a485f9169e3759">cy_en_hrpwm_operating_frequency_t</a></li>
+<li><a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga19e8127ddd17a33fe06608855cd10c4d">cy_en_kill_line_polarity_t</a></li>
+<li><a class="el" href="group__group__tcpwm__data__structures__pwm.html#gab0adb8ee7ffc443e3ce016aec3d447c8">cy_en_line_select_config_t</a></li>
+<li><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html">cy_stc_tcpwm_pwm_config_t</a> </li>
+</ul>
+</td><td>Support for line select, HRPWM enhancements, enhancement in DT BUFF and SWAP ENABLE handling.   </td></tr>
+<tr>
 <td>1.60 </td><td>Newly Added <a class="el" href="group__group__tcpwm__functions__common.html#ga1d580c145e6e0a2bcccb3bc4c5e5b0aa">Cy_TCPWM_OutputTriggerSetup</a> API and code enhancement.  </td><td>Glitch filter support added for TCPWM version 3 and above.  </td></tr>
 <tr>
 <td>1.50 </td><td><ul>
 <li>
-Newly Added <a class="el" href="group__group__tcpwm__enums.html#ga3df0a640c4def803d2145a235a4e92f5">cy_en_gf_depth_support_value_t</a>, <a class="el" href="group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5">cy_en_counter_direction_t</a> , <a class="el" href="group__group__tcpwm__data__structures__pwm.html#gae5adb6cee5131cb579edb78f758ef497">cy_en_group_dithering_t</a> and <a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c">cy_en_dithering_limiter_t</a> enums.<br />
+Newly Added <a class="el" href="group__group__tcpwm__enums.html#gadbc4d3602412fbbaf92175ef56258029">cy_en_gf_depth_value_t</a>, <a class="el" href="group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5">cy_en_counter_direction_t</a> , <a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga5ba36f547c6817ce1f2a5ed6e89283ff">cy_en_tcpwm_dithering_t</a> and <a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c">cy_en_dithering_limiter_t</a> enums.<br />
  </li>
 <li>
-Newly Added <a class="el" href="group__group__tcpwm__functions__common.html#ga9cce3f9a4b4f0d381565599279a7dd18">Cy_TCPWM_Block_EnableSwap</a> , <a class="el" href="group__group__tcpwm__functions__common.html#gaf9f0d31c8b48fee5b82904f8e70e3db4">Cy_TCPWM_InputTriggerSetupWithGF</a> , <a class="el" href="group__group__tcpwm__functions__counter.html#ga2abece06e0b8d5fe890886ad883e7a41">Cy_TCPWM_Counter_EnableSwap</a> , <a class="el" href="group__group__tcpwm__functions__quaddec.html#ga6bbffc52d3ebef41c39336b4b9444341">Cy_TCPWM_QuadDec_EnableSwap</a> and <a class="el" href="group__group__tcpwm__functions__shiftreg.html#gaa2f8fce9abfa511020e6f8b696b476e0">Cy_TCPWM_Shiftreg_EnableSwap</a> APIs.<br />
+Newly Added <a class="el" href="group__group__tcpwm__functions__common.html#ga9cce3f9a4b4f0d381565599279a7dd18">Cy_TCPWM_Block_EnableSwap</a> , <a class="el" href="group__group__tcpwm__functions__common.html#gaf6fb96fe51a6e4b1edeac970ba113166">Cy_TCPWM_InputTriggerSetupWithGF</a> , <a class="el" href="group__group__tcpwm__functions__counter.html#ga2abece06e0b8d5fe890886ad883e7a41">Cy_TCPWM_Counter_EnableSwap</a> , <a class="el" href="group__group__tcpwm__functions__quaddec.html#ga6bbffc52d3ebef41c39336b4b9444341">Cy_TCPWM_QuadDec_EnableSwap</a> and <a class="el" href="group__group__tcpwm__functions__shiftreg.html#gaa2f8fce9abfa511020e6f8b696b476e0">Cy_TCPWM_Shiftreg_EnableSwap</a> APIs.<br />
  </li>
 </ul>
 </td><td><ul>

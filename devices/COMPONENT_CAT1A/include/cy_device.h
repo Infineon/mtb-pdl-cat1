@@ -31,12 +31,12 @@
 
 #include "cy_device_headers.h"
 
-#if (defined(CY_DEVICE_TVIIBE1M) || (defined(CY_DEVICE_TVIIBE4M)))
+/* Use for mutual conditions when code should be included for a TVIIBE512K, TVIIBE1M, TVIIEBE2M, or TVIIBE4M device.*/
+#if (defined (CY_DEVICE_SERIES_CYT2B6) || defined (CY_DEVICE_SERIES_CYT2B7) || defined (CY_DEVICE_SERIES_CYT2B9) || defined (CY_DEVICE_SERIES_CYT2BL))
 
 /* Use to determine if compiling for a TVIIBE device. */
 #define CY_DEVICE_TVIIBE (1UL)
-/* All other IP headers are included via cy_device_headers.h for TVIIBE devices. */
-#include "ip/cyip_epass.h"
+
 /* Drivers for some TVIIBE IP require macro names with version fields.  This header
  * remaps macros from CAT1A compatible names that don't contain the version fields. */
 #include "tviibe_remaps.h"
@@ -66,14 +66,6 @@
 
 #if defined (COMPONENT_PSOC6_04)
 #include "ip/cyip_sflash_psoc6_04.h"
-#endif
-
-#if defined (COMPONENT_TVIIBE1M)
-#include "ip/cyip_sflash_v2_tviibe1m.h"
-#endif
-
-#if defined (COMPONENT_TVIIBE4M)
-#include "ip/cyip_sflash_v2_tviibe4m.h"
 #endif
 
 #include "ip/cyip_srss.h"
@@ -108,7 +100,8 @@
 #include "ip/cyip_pass.h"
 #include "ip/cyip_pass_v2.h"
 
-#endif /* (defined(CY_DEVICE_TVIIBE1M) || (defined(CY_DEVICE_TVIIBE4M))) */
+#endif /* PSoC or TVIIBE device */
+
 
 /* Device descriptor type */
 typedef struct
@@ -238,6 +231,7 @@ extern const cy_stc_device_t   cy_deviceIpBlockCfgPSoC6_02;
 extern const cy_stc_device_t   cy_deviceIpBlockCfgPSoC6_03;
 extern const cy_stc_device_t   cy_deviceIpBlockCfgPSoC6_04;
 extern const cy_stc_device_t   cy_deviceIpBlockCfgTVIIBE4M;
+extern const cy_stc_device_t   cy_deviceIpBlockCfgTVIIBE2M;
 extern const cy_stc_device_t   cy_deviceIpBlockCfgTVIIBE1M;
 extern const cy_stc_device_t * cy_device;
 
@@ -258,6 +252,10 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 *******************************************************************************/
 #define CY_DEVICE_CAT1A            /* Device Category */
 #define CY_CRYPTO_V1                        (0x20U > cy_device->cryptoVersion) /* true if the mxcrypto version is 1.x */
+
+/* Remapping the CBUS to SAHB address & Vice versa*/
+#define CY_REMAP_ADDRESS_CBUS_TO_SAHB(addr)               (addr)
+#define CY_REMAP_ADDRESS_SAHB_TO_CBUS(addr)               (addr)
 
 #define CY_SRSS_V1_3                        (0x13U == cy_device->srssVersion)
 #define CY_SRSS_MFO_PRESENT                 (CY_SRSS_V1_3)
@@ -668,7 +666,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define CY_IP_MXFLASHC_VERSION_ECT
 #endif
 
-#if defined (CY_DEVICE_TVIIBE1M) || defined (CY_DEVICE_TVIIBE4M)
+#if defined (CY_DEVICE_TVIIBE)
 #define FLASHC_FLASH_CMD                    (((FLASHC_Type *)(FLASHC))->FLASH_CMD)
 #define FLASHC_FLASH_CTL                    (((FLASHC_Type *)(FLASHC))->FLASH_CTL)
 #define FLASHC_ECC_CTL                      (((FLASHC_Type *)(FLASHC))->ECC_CTL)
@@ -790,7 +788,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 /*******************************************************************************
 *                FAULT
 *******************************************************************************/
-#if defined (CY_DEVICE_TVIIBE1M) || defined (CY_DEVICE_TVIIBE4M)
+#if defined (CY_DEVICE_TVIIBE)
 
 #if defined(CPUSS_FAULT_FAULT_NR) && (CPUSS_FAULT_FAULT_NR > 0)
 #define CY_IP_MXS40FAULT                        (1u)
@@ -833,7 +831,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 *                MCWDT
 *******************************************************************************/
 
-#if defined (CY_DEVICE_TVIIBE1M) || defined (CY_DEVICE_TVIIBE4M)
+#if defined (CY_DEVICE_TVIIBE)
 #define MCWDT_CTR_CTL(base, counter)            (((MCWDT_Type *)(base))->CTR[counter].CTL)
 #define MCWDT_CTR_LOWER_LIMIT(base, counter)    (((MCWDT_Type *)(base))->CTR[counter].LOWER_LIMIT)
 #define MCWDT_CTR_UPPER_LIMIT(base, counter)    (((MCWDT_Type *)(base))->CTR[counter].UPPER_LIMIT)
@@ -890,7 +888,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define TCPWM_CNT_TR_CTRL1(base, cntNum)     (((TCPWM_V1_Type *)(base))->CNT[cntNum].TR_CTRL1)
 #define TCPWM_CNT_TR_CTRL2(base, cntNum)     (((TCPWM_V1_Type *)(base))->CNT[cntNum].TR_CTRL2)
 
-#if (defined(CY_DEVICE_TVIIBE1M) || (defined(CY_DEVICE_TVIIBE4M)))
+#if defined (CY_DEVICE_TVIIBE)
 
 #if (CY_IP_MXTCPWM_INSTANCES == 1UL)
 #define TCPWM_GRP_CC1_PRESENT_STATUS(base) (TCPWM_GRP_NR0_CNT_GRP_CC1_PRESENT | (TCPWM_GRP_NR1_CNT_GRP_CC1_PRESENT << 1) | (TCPWM_GRP_NR2_CNT_GRP_CC1_PRESENT << 2))
@@ -914,7 +912,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define TCPWM_GRP_AMC(base, grp)                   ((((cy_device->tcpwmAMCPresent) >> (grp)) & 0x01U) != 0U)
 #define TCPWM_GRP_SMC(base, grp)                   ((((cy_device->tcpwmSMCPrecent) >> (grp)) & 0x01U) != 0U)
 
-#endif /* (defined(CY_DEVICE_TVIIBE1M) || (defined(CY_DEVICE_TVIIBE4M))) */
+#endif /* defined(CY_DEVICE_TVIIBE) */
 
 #define TCPWM_GRP_CNT_GET_GRP(cntNum)        ((cntNum )/ 256U)
 
@@ -941,7 +939,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define TCPWM_GRP_CNT_INTR_MASK(base, grp, cntNum)      (((TCPWM_V2_Type *)(base))->GRP[grp].CNT[((cntNum) % 256U)].INTR_MASK)
 #define TCPWM_GRP_CNT_INTR_MASKED(base, grp, cntNum)    (((TCPWM_V2_Type *)(base))->GRP[grp].CNT[((cntNum) % 256U)].INTR_MASKED)
 
-#if defined(CY_DEVICE_TVIIBE1M) || defined (CY_DEVICE_TVIIBE4M)
+#if defined (CY_DEVICE_TVIIBE)
 /* For backward compatibility, TCPWM_CNT_STATUS_RUNNING_Pos was set to the 
 *  value of TCPWM_GRP_CNT_V2_STATUS_RUNNING. This needs to be defined for version 2 only.
 */
@@ -1145,6 +1143,12 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 
 #define DW_CTL(base)                        (((DW_Type*)(base))->CTL)
 #define DW_STATUS(base)                     (((DW_Type const*)(base))->STATUS)
+#if (CY_IP_M4CPUSS_DMA_VERSION == 1U)
+#define DW_PENDING(base)                    (((DW_Type*)(base))->PENDING)
+#else
+#define DW_CH_STRUCT_CH_STATUS_PENDING_Msk  DW_CH_STRUCT_V2_CH_STATUS_PENDING_Msk
+#define DW_CH_STRUCT_CH_STATUS_PENDING_Pos  DW_CH_STRUCT_V2_CH_STATUS_PENDING_Pos
+#endif
 #define DW_DESCR_SRC(base)                  (((DW_Type*)(base))->ACT_DESCR_SRC)
 #define DW_DESCR_DST(base)                  (((DW_Type*)(base))->ACT_DESCR_DST)
 
@@ -1164,8 +1168,12 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define DW_CH_INTR_SET(base, chan)          (DW_CH(base, chan)->INTR_SET)
 #define DW_CH_INTR_MASK(base, chan)         (DW_CH(base, chan)->INTR_MASK)
 #define DW_CH_INTR_MASKED(base, chan)       (DW_CH(base, chan)->INTR_MASKED)
+#define DW_CH_TR_CMD(base, chan)            (DW_CH((base), (chan))->TR_CMD)
 
-
+#if defined DW_CH_STRUCT_V2_TR_CMD_ACTIVATE_Msk
+#define DW_CH_STRUCT_TR_CMD_ACTIVATE_Msk DW_CH_STRUCT_V2_TR_CMD_ACTIVATE_Msk
+#define DW_CH_STRUCT_TR_CMD_ACTIVATE_Pos DW_CH_STRUCT_V2_TR_CMD_ACTIVATE_Pos
+#endif
 /*******************************************************************************
 *                DMAC
 *******************************************************************************/

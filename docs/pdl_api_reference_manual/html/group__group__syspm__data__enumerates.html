@@ -261,7 +261,7 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a96131777d17bc11f3db19b05a51b5f87">CY_SYSPM_DEEPSLEEP_OFF</a> = 6U, 
 <br />
-&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a9b6c7d36fe8147cb28154ca578015827">CY_SYSPM_MF</a> = 7U
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a37ca905b7feeb358171a4f9842b9a8cc">CY_SYSPM_HP</a> = 7U
 <br />
  }<tr class="memdesc:ga8c2960c0164ead1cfa86e7d6846b6ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This enumeration is used to select the low power mode for which the appropriate registered callback handler will be executed.  <a href="group__group__syspm__data__enumerates.html#ga8c2960c0164ead1cfa86e7d6846b6ff0">More...</a><br /></td></tr>
 </td></tr>
@@ -373,11 +373,11 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr class="separator:ga1357884913ef3af3985fc47a82f56a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0ca64a38401987db1c7cefcf71235dab"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__data__enumerates.html#ga0ca64a38401987db1c7cefcf71235dab">cy_en_syspm_core_buck_profile_t</a> { <br />
-&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235daba11bb4db71a97c8622f2151455a0dd4c3">CY_SYSPM_CORE_BUCK_PROFILE_MF</a> = 0x00U, 
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235dabaf409cef5a0feba48e7060414e7a6b069">CY_SYSPM_CORE_BUCK_PROFILE_LP</a> = 0x00U, 
 <br />
-&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235dabaf409cef5a0feba48e7060414e7a6b069">CY_SYSPM_CORE_BUCK_PROFILE_LP</a> = 0x01U, 
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235dabaa8152ba723b4a184b3df2f996fc40bf2">CY_SYSPM_CORE_BUCK_PROFILE_ULP</a> = 0x01U, 
 <br />
-&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235dabaa8152ba723b4a184b3df2f996fc40bf2">CY_SYSPM_CORE_BUCK_PROFILE_ULP</a> = 0x02U, 
+&#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235daba992d92280279fb77383397e5a596bb3a">CY_SYSPM_CORE_BUCK_PROFILE_HP</a> = 0x02U, 
 <br />
 &#160;&#160;<a class="el" href="group__group__syspm__data__enumerates.html#gga0ca64a38401987db1c7cefcf71235dababa698c7bcbe064c38484083297c0162c">CY_SYSPM_CORE_BUCK_PROFILE_SKIP</a> = 0x11U
 <br />
@@ -1354,9 +1354,9 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0a613e2f83e3ab88e3569cf34ff0fa5912"></a>CY_SYSPM_HIBERNATE&#160;</td><td class="fielddoc"><p>The Hibernate enum callback type. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0ad0949249c31aecea66158398786eed7d"></a>CY_SYSPM_LP&#160;</td><td class="fielddoc"><p>The Low Power enum callback type, This Macro is available only for CAT1A devices. </p>
+<tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0ad0949249c31aecea66158398786eed7d"></a>CY_SYSPM_LP&#160;</td><td class="fielddoc"><p>The Low Power enum callback type, This Macro is available only for CAT1A, CAT1B(PSoC C3) devices. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0ad92c91032b83408223c30b9f2e399b71"></a>CY_SYSPM_ULP&#160;</td><td class="fielddoc"><p>The Ultra Low Power enum callback type, This Macro is available only for CAT1A devices. </p>
+<tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0ad92c91032b83408223c30b9f2e399b71"></a>CY_SYSPM_ULP&#160;</td><td class="fielddoc"><p>The Ultra Low Power enum callback type, This Macro is available only for CAT1A, CAT1B(PSoC C3) devices. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0a978a435e8e03d71dd5db847a05f4b7d8"></a>CY_SYSPM_LPACTIVE_ENTER&#160;</td><td class="fielddoc"><p>The LPACTIVE (Low Power Active)/LPSLEEP (Low Power Sleep) ENTER enum callback type, This Macro is available only for CAT1B and CAT1D devices. </p>
 </td></tr>
@@ -1366,7 +1366,7 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0a96131777d17bc11f3db19b05a51b5f87"></a>CY_SYSPM_DEEPSLEEP_OFF&#160;</td><td class="fielddoc"><p>The Deep Sleep OFF enum callback type, This Macro is available only for CAT1B and CAT1D devices. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0a9b6c7d36fe8147cb28154ca578015827"></a>CY_SYSPM_MF&#160;</td><td class="fielddoc"><p>The Medium Frequency enum callback type, This Macro is available only for CAT1D devices. </p>
+<tr><td class="fieldname"><a id="gga8c2960c0164ead1cfa86e7d6846b6ff0a37ca905b7feeb358171a4f9842b9a8cc"></a>CY_SYSPM_HP&#160;</td><td class="fielddoc"><p>The High Performance mode enum callback type, This Macro is available only for CAT1D devices. </p>
 </td></tr>
 </table>
 
@@ -1566,13 +1566,13 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This enumeration is used to select the mode for the Core Buck regulator. </p>
-<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B and CAT1D devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This enum is available only for CAT1D devices. </dd></dl>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga0ca64a38401987db1c7cefcf71235daba11bb4db71a97c8622f2151455a0dd4c3"></a>CY_SYSPM_CORE_BUCK_PROFILE_MF&#160;</td><td class="fielddoc"><p>Mode-0, MF Profile. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga0ca64a38401987db1c7cefcf71235dabaf409cef5a0feba48e7060414e7a6b069"></a>CY_SYSPM_CORE_BUCK_PROFILE_LP&#160;</td><td class="fielddoc"><p>Mode-0, LP Profile. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga0ca64a38401987db1c7cefcf71235dabaf409cef5a0feba48e7060414e7a6b069"></a>CY_SYSPM_CORE_BUCK_PROFILE_LP&#160;</td><td class="fielddoc"><p>Mode-1, LP Profile. </p>
+<tr><td class="fieldname"><a id="gga0ca64a38401987db1c7cefcf71235dabaa8152ba723b4a184b3df2f996fc40bf2"></a>CY_SYSPM_CORE_BUCK_PROFILE_ULP&#160;</td><td class="fielddoc"><p>Mode-1, ULP Profile. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga0ca64a38401987db1c7cefcf71235dabaa8152ba723b4a184b3df2f996fc40bf2"></a>CY_SYSPM_CORE_BUCK_PROFILE_ULP&#160;</td><td class="fielddoc"><p>Mode-2, ULP Profile. </p>
+<tr><td class="fieldname"><a id="gga0ca64a38401987db1c7cefcf71235daba992d92280279fb77383397e5a596bb3a"></a>CY_SYSPM_CORE_BUCK_PROFILE_HP&#160;</td><td class="fielddoc"><p>Mode-2, HP Profile. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga0ca64a38401987db1c7cefcf71235dababa698c7bcbe064c38484083297c0162c"></a>CY_SYSPM_CORE_BUCK_PROFILE_SKIP&#160;</td><td class="fielddoc"><p>Skip CBUCK Profile Usage. </p>
 </td></tr>

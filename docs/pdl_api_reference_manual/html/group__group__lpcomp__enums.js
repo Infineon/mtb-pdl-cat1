@@ -33,6 +33,7 @@ var group__group__lpcomp__enums =
     ] ],
     [ "cy_en_lpcomp_status_t", "group__group__lpcomp__enums.html#gaf31980ad7c767f9317dd498c03f2dea0", [
       [ "CY_LPCOMP_SUCCESS", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0af6aa5b0f54a00426737b5a4c5c2261c1", null ],
-      [ "CY_LPCOMP_BAD_PARAM", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0a423189ffbde1ea7514fafee46c9a89b3", null ]
+      [ "CY_LPCOMP_BAD_PARAM", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0a423189ffbde1ea7514fafee46c9a89b3", null ],
+      [ "CY_LPCOMP_TRIMM_ERR", "group__group__lpcomp__enums.html#ggaf31980ad7c767f9317dd498c03f2dea0abf375409ca5f694072ec0764ab78e070", null ]
     ] ]
 ];

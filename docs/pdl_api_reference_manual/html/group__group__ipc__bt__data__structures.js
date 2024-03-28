@@ -92,6 +92,7 @@ var group__group__ipc__bt__data__structures =
     [ "cy_stc_ipc_msg_res_access_resp_t", "group__group__ipc__bt__data__structures.html#gaefbe07b6897b7eb7eaa399bd452b54bb", null ],
     [ "cy_stc_ipc_msg_clklf_switch_t", "group__group__ipc__bt__data__structures.html#ga990eec415febe49c2e1c2d5f45c5fb30", null ],
     [ "cy_stc_ipc_msg_inrush_mode_t", "group__group__ipc__bt__data__structures.html#gacbedb67cf320841b1e5c460acf79a4b5", null ],
+    [ "cy_stc_ipc_msg_buf_remove_t", "group__group__ipc__bt__data__structures.html#ga28db7a1b0c54be99415b89dc174890ba", null ],
     [ "dummy1", "group__group__ipc__bt__data__structures.html#ga415d5081c9377679ca45754df50b537f", null ],
     [ "mode", "group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4", null ],
     [ "dummy2", "group__group__ipc__bt__data__structures.html#ga0fa8c6c127a25610178cfc976824d60d", null ],
@@ -101,5 +102,6 @@ var group__group__ipc__bt__data__structures =
     [ "pm_resp", "group__group__ipc__bt__data__structures.html#gac34be590865187dfc7373a4e42b96bb7", null ],
     [ "access_ctrl", "group__group__ipc__bt__data__structures.html#ga27c4742b2cdc6d74847b81b5c8a43bbe", null ],
     [ "result", "group__group__ipc__bt__data__structures.html#ga36692bbc61358ebc0e37a6fc6a395d28", null ],
-    [ "param", "group__group__ipc__bt__data__structures.html#gaba18f3d521fde3af39c58b809a9c7ef0", null ]
+    [ "param", "group__group__ipc__bt__data__structures.html#gaba18f3d521fde3af39c58b809a9c7ef0", null ],
+    [ "bufType", "group__group__ipc__bt__data__structures.html#gad8e5e7c640e5067c6b0e0b87a3fb090e", null ]
 ];

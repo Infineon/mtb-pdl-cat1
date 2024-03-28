@@ -195,6 +195,9 @@
       <ConfigInclude value="cy_sar2.h" include="true" />
       <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
       <ConfigInclude value="cycfg_routing.h" include="true" />
+      <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+      <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+      <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
 
       <ConfigDefine name="`${INST_NAME}`_HW" value="PASS0_SAR`${InstNumber}`" public="true" include="true" />
 
@@ -284,7 +287,29 @@
 
       </ConfigStruct>
 
+      <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+        <Member name="type" value="CYHAL_RSC_ADC" />
+        <Member name="block_num" value="`${InstNumber}`U" />
+        <Member name="channel_num" value="0U" />
+      </ConfigStruct>
+
+      <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)">
+        <Member name="block" value="`${getExposedMember(pclk, &quot;hal_block&quot;)}`" />
+        <Member name="channel" value="`${getExposedMember(pclk, &quot;number&quot;)}`" />
+        <Member name="reserved" value="false" guard="defined (CY_USING_HAL)" />
+        <Member name="funcs" value="NULL" guard="defined (CY_USING_HAL)" />
+      </ConfigStruct>
+
+      <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_adc_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+        <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+        <Member name="config" value="&amp;`${INST_NAME}`_config" />
+        <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+        <Member name="num_channels" value="`${channelNum}`" />
+        <Member name="achieved_acquisition_time" value="NULL" />
+      </ConfigStruct>
+
     <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`" />
+    <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
       
   </ConfigFirmware>
 </Personality>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.50
+* \version 3.60
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
@@ -298,13 +298,13 @@ uint64_t Cy_SysLib_GetUniqueId(void)
 #endif
 
 
-#if (defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE))
-
+#if ((defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE)) && defined (CY_UNIQE_DEVICE_ID_PRESENT_SFLASH))
 #define CY_DIE_REG_EFUSE_OFFSET    0x74
 #define CY_DIE_REG_COUNT           3U
 
 uint64_t Cy_SysLib_GetUniqueId(void)
 {
+#if (!CY_UNIQE_DEVICE_ID_PRESENT_SFLASH)
     uint32_t uniqueIdHi;
     uint32_t uniqueIdLo;
     uint32_t dieRead[3];
@@ -337,6 +337,23 @@ uint64_t Cy_SysLib_GetUniqueId(void)
     {
         return 0UL;
     }
+#else
+    uint32_t uniqueIdHi;
+    uint32_t uniqueIdLo;
+
+    uniqueIdHi = ((uint32_t) SFLASH_DIE_YEAR         << (CY_UNIQUE_ID_DIE_YEAR_Pos  - CY_UNIQUE_ID_DIE_X_Pos)) |
+                 (((uint32_t)SFLASH_DIE_MINOR & 1U) << (CY_UNIQUE_ID_DIE_MINOR_Pos - CY_UNIQUE_ID_DIE_X_Pos)) |
+                 ((uint32_t) SFLASH_DIE_SORT         << (CY_UNIQUE_ID_DIE_SORT_Pos  - CY_UNIQUE_ID_DIE_X_Pos)) |
+                 ((uint32_t) SFLASH_DIE_Y            << (CY_UNIQUE_ID_DIE_Y_Pos    - CY_UNIQUE_ID_DIE_X_Pos)) |
+                 ((uint32_t) SFLASH_DIE_X);
+
+    uniqueIdLo = ((uint32_t) SFLASH_DIE_WAFER        << CY_UNIQUE_ID_DIE_WAFER_Pos) |
+                 ((uint32_t) SFLASH_DIE_LOT(2U)      << CY_UNIQUE_ID_DIE_LOT_2_Pos) |
+                 ((uint32_t) SFLASH_DIE_LOT(1U)      << CY_UNIQUE_ID_DIE_LOT_1_Pos) |
+                 ((uint32_t) SFLASH_DIE_LOT(0U));
+
+    return (((uint64_t) uniqueIdHi << CY_UNIQUE_ID_DIE_X_Pos) | uniqueIdLo);
+#endif
 }
 #endif
 

@@ -15,5 +15,6 @@ var group__group__crypto__cli__data__structures =
     [ "cy_stc_crypto_context_crc_t", "structcy__stc__crypto__context__crc__t.html", null ],
     [ "cy_stc_crypto_context_rsa_t", "structcy__stc__crypto__context__rsa__t.html", null ],
     [ "cy_stc_crypto_context_rsa_ver_t", "structcy__stc__crypto__context__rsa__ver__t.html", null ],
-    [ "cy_stc_crypto_context_ecc_t", "structcy__stc__crypto__context__ecc__t.html", null ]
+    [ "cy_stc_crypto_context_ecc_t", "structcy__stc__crypto__context__ecc__t.html", null ],
+    [ "cy_en_crypto_aesccm_tag_verify_result_t", "group__group__crypto__cli__data__structures.html#gadf7fb2e650ab952dc25a284423e04ce9", null ]
 ];

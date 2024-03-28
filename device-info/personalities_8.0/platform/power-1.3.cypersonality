@@ -189,7 +189,7 @@
     <ConfigDefine name="CY_CFG_PWR_LDO_VOLTAGE"         public="false" value="CY_SYSPM_LDO_VOLTAGE_`${actPwrMode}`" include="`${usingLdo}`" />
     <ConfigDefine name="CY_CFG_PWR_BUCK_VOLTAGE"        public="false" value="CY_SYSPM_BUCK_OUT1_VOLTAGE_`${actPwrMode}`" include="`${!usingLdo}`" />
     <ConfigDefine name="CY_CFG_PWR_USING_ULP"           public="false" value="`${usingUlp ? 1 : 0}`" include="true" />
-    <ConfigDefine name="CY_CFG_PWR_REGULATOR_MODE_MIN"  public="false" value="`${((coreRegulator eq CY_SYSPM_LDO_MODE_MIN) || (coreRegulator eq CY_SYSPM_BUCK_MODE_MIN)) ? true : false}`" include="true" />
+    <ConfigDefine name="CY_CFG_PWR_REGULATOR_MODE_MIN"  public="false" value="`${((coreRegulator eq CY_SYSPM_LDO_MODE_MIN) || (coreRegulator eq CY_SYSPM_BUCK_MODE_MIN)) ? 1 : 0}`" include="true" />
     <ConfigDefine name="CY_CFG_PWR_BKP_ERROR"           public="false" value="6" include="true" />
 
     <!-- Operating conditions -->

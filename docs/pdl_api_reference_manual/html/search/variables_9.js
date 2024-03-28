@@ -73,5 +73,6 @@ var searchData=
   ['irdainvertrx',['irdaInvertRx',['../structcy__stc__scb__uart__config__t.html#a1c4cd968ea7897497e93dcb2ae3ad39c',1,'cy_stc_scb_uart_config_t']]],
   ['irqhandlerptr',['irqHandlerPtr',['../structcy__stc__ipc__bt__context__t.html#ae4a5e42b9bfabaf0f2927c2a783da067',1,'cy_stc_ipc_bt_context_t::irqHandlerPtr()'],['../structcy__stc__ipc__bt__config__t.html#aa7c6ef8a42611815c0177df57d986c79',1,'cy_stc_ipc_bt_config_t::irqHandlerPtr()']]],
   ['isgroupend',['isGroupEnd',['../structcy__stc__sar2__channel__config__t.html#a76e8d1014d585a327dd0f9fb3289006e',1,'cy_stc_sar2_channel_config_t']]],
+  ['ivrtrim',['ivrTrim',['../structcy__stc__dpll__hp__config__t.html#ab05cabef07016629b545a41b4f9dcaf3',1,'cy_stc_dpll_hp_config_t']]],
   ['iztat',['iztat',['../structcy__stc__sysanalog__config__t.html#a236237de19d937fe25084d160cc53df1',1,'cy_stc_sysanalog_config_t']]]
 ];

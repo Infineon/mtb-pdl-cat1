@@ -149,6 +149,7 @@
     <ConfigInclude value="cy_scb_ezi2c.h" include="true" />
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="SCB`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="scb_`${InstNumber}`_interrupt_IRQn" public="true" include="true" />
@@ -166,6 +167,20 @@
       <Member name="channel_num" value="0U" />
     </ConfigStruct>
 
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="block" value="`${getExposedMember(sourceClock, &quot;hal_block&quot;)}`" />
+      <Member name="channel" value="`${getExposedMember(sourceClock, &quot;number&quot;)}`" />
+      <Member name="reserved" value="false" />
+      <Member name="funcs" value="NULL" />
+    </ConfigStruct>
+  
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_ezi2c_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+    </ConfigStruct>
+
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_SCB`${InstNumber}`_PERI_NR, CY_MMIO_SCB`${InstNumber}`_GROUP_NR, CY_MMIO_SCB`${InstNumber}`_SLAVE_NR, CY_MMIO_SCB`${InstNumber}`_CLK_HF_NR);" include="`${(ipName eq &quot;mxs22scb&quot;)}`" />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${(((version &gt; 1) || (ipName eq &quot;mxs22scb&quot;)) &amp;&amp; pclkOk)}`"  />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${((version eq 1) &amp;&amp; pclkOk &amp;&amp; (ipName ne &quot;mxs22scb&quot;))}`"  />
 

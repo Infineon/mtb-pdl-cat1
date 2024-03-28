@@ -138,9 +138,8 @@ Changelog</h1>
 <td>1.80 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
  MXS40SRSS_VERSION compares now expect &lt; or &gt;= 2, previously 3. </td><td>Code enhancement and support for new devices.  </td></tr>
 <tr>
-<td>1.70 </td><td>For API Cy_WDT_SetIgnoreBits, valid input range is changed to 0-21 for CAT1B devices, this will change the API's behaviour, follow the API documentation and use this API accordingly.<br />
- Added <a class="el" href="group__group__wdt__functions.html#gafc27481c4455735381d4e2e64a0a081d">Cy_WDT_ResetCounter</a> new API and few macros.<br />
- Updated <a class="el" href="group__group__wdt__functions.html#gacbd12276c1d11f3ad3f462a88d4b1065">Cy_WDT_SetClkSource</a>. </td><td>Usability enhancement.  </td></tr>
+<td>1.70 </td><td>Modified <a class="el" href="group__group__wdt__functions.html#gafad1413ff11cfb3e3e2b5d9854dc793e" title="Configures the number of the most significant bits of the Watchdog timer that are not checked against...">Cy_WDT_SetIgnoreBits()</a> API to work correctly with CAT1B.<br />
+ Newly Added API : <a class="el" href="group__group__wdt__functions.html#gafc27481c4455735381d4e2e64a0a081d" title="Resets the WDT counter value. ">Cy_WDT_ResetCounter()</a> for resetting counter to zero. </td><td>Code Enhancements for CAT1B. </td><td>Added <a class="el" href="group__group__wdt__functions.html#gafc27481c4455735381d4e2e64a0a081d">Cy_WDT_ResetCounter</a> new API and few macros. </td><td>Usability enhancement.  </td></tr>
 <tr>
 <td>1.60 </td><td>Updated <a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a> enum and added support for CAT1D. </td><td>Code Enhancement and new device support added.  </td></tr>
 <tr>

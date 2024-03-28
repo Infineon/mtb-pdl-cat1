@@ -188,11 +188,14 @@
     <ParamString id="InstNumber" name="Instance Number" group="Internal" default="`${getInstNumber(&quot;audioss&quot;)}`" visible="false" editable="false" desc="PDM Instance number." />
     <ParamBool id="hasAudioss1" name="hasAudioss1" group="Internal" default="`${hasBlock(&quot;audioss[1]&quot;)}`" visible="false" editable="false" desc="Check whether device has more than one audioss" />
     
+    <ParamString id="sourceClock" name="sourceClock" group="Internal" default="`${getBlockFromSignal(&quot;clock[0]&quot;)}`" visible="false" editable="false" desc="Source Clock Resource" />
+  
   </Parameters>
   <DRCs />
   <ConfigFirmware>
     <ConfigInclude value="cy_pdm_pcm.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
 
     <ConfigDefine name="`${INST_NAME}`_HW" value="PDM`${hasAudioss1 ? InstNumber : &quot;&quot;}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="audioss_`${hasAudioss1 ? InstNumber . &quot;_&quot; : &quot;&quot;}`interrupt_pdm_IRQn" public="true" include="true" />
@@ -223,6 +226,13 @@
       <Member name="type" value="CYHAL_RSC_PDM" />
       <Member name="block_num" value="`${InstNumber}`U" />
       <Member name="channel_num" value="0U" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME . &quot;_hal_config&quot;}`" type="cyhal_pdm_pcm_configurator_t" 
+        const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME . &quot;_config&quot;}`" />
+      <Member name="clock" value="&amp;CYHAL_CLOCK_HF[`${getInstFromLocation(sourceClock, &quot;hfclk&quot;)}`]" />
     </ConfigStruct>
     
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />

@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -471,6 +471,70 @@
     #include "cyt2bl8cas.h"
 #elif defined (CYT2BL8CAE)
     #include "cyt2bl8cae.h"
+#elif defined (CYT2B93BAS)
+    #include "cyt2b93bas.h"
+#elif defined (CYT2B93BAE)
+    #include "cyt2b93bae.h"
+#elif defined (CYT2B93CAS)
+    #include "cyt2b93cas.h"
+#elif defined (CYT2B93CAE)
+    #include "cyt2b93cae.h"
+#elif defined (CYT2B94BAS)
+    #include "cyt2b94bas.h"
+#elif defined (CYT2B94BAE)
+    #include "cyt2b94bae.h"
+#elif defined (CYT2B94CAS)
+    #include "cyt2b94cas.h"
+#elif defined (CYT2B94CAE)
+    #include "cyt2b94cae.h"
+#elif defined (CYT2B95BAS)
+    #include "cyt2b95bas.h"
+#elif defined (CYT2B95BAE)
+    #include "cyt2b95bae.h"
+#elif defined (CYT2B95CAS)
+    #include "cyt2b95cas.h"
+#elif defined (CYT2B95CAE)
+    #include "cyt2b95cae.h"
+#elif defined (CYT2B97BAS)
+    #include "cyt2b97bas.h"
+#elif defined (CYT2B97BAE)
+    #include "cyt2b97bae.h"
+#elif defined (CYT2B97CAS)
+    #include "cyt2b97cas.h"
+#elif defined (CYT2B97CAE)
+    #include "cyt2b97cae.h"
+#elif defined (CYT2B98BAS)
+    #include "cyt2b98bas.h"
+#elif defined (CYT2B98BAE)
+    #include "cyt2b98bae.h"
+#elif defined (CYT2B98CAS)
+    #include "cyt2b98cas.h"
+#elif defined (CYT2B98CAE)
+    #include "cyt2b98cae.h"
+#elif defined (CYT2B63BAS)
+    #include "cyt2b63bas.h"
+#elif defined (CYT2B63BAE)
+    #include "cyt2b63bae.h"
+#elif defined (CYT2B63CAS)
+    #include "cyt2b63cas.h"
+#elif defined (CYT2B63CAE)
+    #include "cyt2b63cae.h"
+#elif defined (CYT2B64BAS)
+    #include "cyt2b64bas.h"
+#elif defined (CYT2B64BAE)
+    #include "cyt2b64bae.h"
+#elif defined (CYT2B64CAS)
+    #include "cyt2b64cas.h"
+#elif defined (CYT2B64CAE)
+    #include "cyt2b64cae.h"
+#elif defined (CYT2B65BAS)
+    #include "cyt2b65bas.h"
+#elif defined (CYT2B65BAE)
+    #include "cyt2b65bae.h"
+#elif defined (CYT2B65CAS)
+    #include "cyt2b65cas.h"
+#elif defined (CYT2B65CAE)
+    #include "cyt2b65cae.h"
 #else
     #include "cy_device_common.h"
 #endif

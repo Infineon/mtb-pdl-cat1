@@ -41,6 +41,8 @@
     <ExposedMember key="divider" paramId="divider" />
     <ExposedMember key="accuracy" paramId="accuracy" />
     <ExposedMember key="error" paramId="srcNotUsed" />
+    <ExposedMember key="hal_block" paramId="hal_block" />
+    <ExposedMember key="sourceClockRsc" paramId="sourceClockRsc" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -151,9 +153,15 @@
                                                                                    type eq div_16_5 ? &quot;16_5BIT&quot; :
                                                                                                       &quot;24_5BIT&quot;}`" visible="false" editable="false" desc="API constants for the divider type" />
 
+    <ParamString id="periHwCAT1D" name="Peri HW macro for CAT1D" group="General" default="CYHAL_CLOCK_BLOCK`${getInstNumber(&quot;peri&quot;)}`_PERIPHERAL`${getInstNumber(&quot;group&quot;)}`_`${typeApiConstHal}`" visible="false" editable="false" desc="Peri HW macro for CAT1D" />
+
+    <ParamString id="periHwCAT1ABC" name="Peri HW macro for CAT1A,B,C" group="General" default="CYHAL_CLOCK_BLOCK_PERIPHERAL`${getInstNumber(&quot;group&quot;)}`_`${typeApiConstHal}`" visible="false" editable="false" desc="Peri HW macro for CAT1A,B,C" />
+
     <ParamString id="clockSel" name="clockSel" group="Internal" default="`${typeApiConst}`, `${number}`U" visible="false" editable="false" desc="Divider type and number" />
 
     <ParamSignal port="clk[0]" name="Peripherals" group="General" visible="true" desc="This signal can be used to drive peripherals" canBeEmpty="true" />
+
+    <ParamString id="hal_block" name="hal_block" group="Internal" default="`${hasBlock(&quot;peri[1]&quot;) ? periHwCAT1D : periHwCAT1ABC}`" visible="false" editable="false" desc="" />
   </Parameters>
   
   <DRCs>
@@ -221,7 +229,7 @@
       <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[11]&quot;}`" value="" valid="true" />
     </DRC>
 
-	<DRC type="ERROR" text="CLK_HF13 clock is not enabled" condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[13]&quot;) &amp;&amp; hasBlock(&quot;peri[1]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; (getInstNumber(&quot;group&quot;) eq 6) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
+    <DRC type="ERROR" text="CLK_HF13 clock is not enabled" condition="`${hasBlock(&quot;srss[0].clock[0].hfclk[13]&quot;) &amp;&amp; !isBlockUsed(&quot;srss[0].clock[0].hfclk[13]&quot;) &amp;&amp; (getInstNumber(&quot;peri&quot;) eq 0) &amp;&amp; ((getInstNumber(&quot;group&quot;) eq 6) || (getInstNumber(&quot;group&quot;) eq 9)) &amp;&amp; (&quot;mxsperi&quot; eq getIpBlockName()) &amp;&amp; (getVersion() eq 2)}`" >
       <FixIt action="ENABLE_BLOCK" target="`${&quot;srss[0].clock[0].hfclk[13]&quot;}`" value="" valid="true" />
     </DRC>
 
@@ -234,10 +242,10 @@
     <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
     
-    <ConfigDefine name="`${INST_NAME}`_HW" value="CYHAL_CLOCK_BLOCK_PERIPHERAL`${getInstNumber(&quot;group&quot;)}`_`${typeApiConstHal}`" public="true" include="true" guard="defined (CY_USING_HAL)"/>
-    <ConfigDefine name="`${INST_NAME}`_HW" value="`${typeApiConst}`" public="true" include="true" guard="!defined (CY_USING_HAL)"/>
+    <ConfigDefine name="`${INST_NAME}`_HW" value="`${hasBlock(&quot;peri[1]&quot;) ? periHwCAT1D : periHwCAT1ABC}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined (CY_USING_HAL_LITE)"/>
+    <ConfigDefine name="`${INST_NAME}`_HW" value="`${typeApiConst}`" public="true" include="true" guard="!defined (CY_USING_HAL) &amp;&amp; !defined (CY_USING_HAL_LITE)"/>
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${number}`U" public="true" include="true" />
-    <ConfigDefine name="`${toUpper(INST_NAME)}`_GRP_NUM" value="(`${getInstNumber(&quot;group&quot;)}`U &lt;&lt; PERI_PCLK_GR_NUM_Pos)" public="true" include="true" />
+    <ConfigDefine name="`${toUpper(INST_NAME)}`_GRP_NUM" value="((`${getInstNumber(&quot;group&quot;)}`U &lt;&lt; PERI_PCLK_GR_NUM_Pos) | (`${getInstNumber(&quot;peri&quot;)}`U &lt;&lt; PERI_PCLK_INST_NUM_Pos))" public="true" include="true" />
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
       <Member name="type" value="CYHAL_RSC_CLOCK" />
       <Member name="block_num" value="`${INST_NAME}`_HW" />

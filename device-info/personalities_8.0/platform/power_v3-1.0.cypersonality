@@ -111,6 +111,9 @@
       <Entry name="System Deep Sleep" value="CY_CFG_PWR_MODE_DEEPSLEEP" visible="true" />
     </ParamChoice>
 
+    <ParamRange id="deepsleepLatency" name="Deep Sleep Latency (ms)" group="RTOS" default="0" min="0" max="1000" resolution="1" visible="true" editable="true"
+      desc="Greater between the time required to enter to and exit from the deep sleep power mode.
+            This option only applies for an RTOS based application." />
     <!-- Operating conditions -->
 
     <ParamRange id="vddaMv"    name="VDDA Voltage (mV)"    group="Operating Conditions" default="3300" min="2700" max="5500" resolution="1" visible="true" editable="true" desc="VDDA voltage in millivolts." />
@@ -231,12 +234,13 @@
     <ConfigDefine name="CY_CFG_PWR_MODE_DEEPSLEEP_RAM"  public="true" value="0x11UL" include="true" />
     <ConfigDefine name="CY_CFG_PWR_MODE_DEEPSLEEP_OFF"  public="true" value="0x12UL" include="true" />
     <ConfigDefine name="CY_CFG_PWR_SYS_IDLE_MODE"       public="true" value="`${idlePwrMode}`" include="true" />
+    <ConfigDefine name="CY_CFG_PWR_DEEPSLEEP_LATENCY"   public="true" value="`${deepsleepLatency}`UL" include="true" />
     <ConfigDefine name="CY_CFG_PWR_SYS_LP_PROFILE_MODE" public="true" value="`${enableLowPowerProfileMode ? 1 : 0}`" include="true" />
     <ConfigDefine name="CY_CFG_PWR_ENABLED"             public="false" value="1" include="true" />
 	<ConfigDefine name="CY_CFG_PWR_INIT"                public="false" value="1" include="true" />
     <!-- <ConfigDefine name="CY_CFG_PWR_USING_PMIC"          public="false" value="`${pmicEnable ? 1 : 0}`" include="true" /> -->
     <ConfigDefine name="CY_CFG_PWR_VBACKUP_USING_VDDD"  public="false" value="`${(backupSrc eq VDDD) ? 1 : 0}`" include="true" />
-	<ConfigDefine name="CY_CFG_PWR_REGULATOR_MODE_MIN"  public="false" value="`${((minCurrRegulator eq CY_SYSPM_LDO_MODE_MIN)) ? true : false}`" include="true" />
+	<ConfigDefine name="CY_CFG_PWR_REGULATOR_MODE_MIN"  public="false" value="`${((minCurrRegulator eq CY_SYSPM_LDO_MODE_MIN)) ? 1 : 0}`" include="true" />
     <ConfigDefine name="CY_CFG_PWR_USING_ULP"           public="false" value="`${usingUlp ? 1 : 0}`" include="true" />
     <!-- Operating conditions -->
     <ConfigDefine name="CY_CFG_PWR_VDDA_MV"                public="true" value="`${vddaMv}`" include="true" />

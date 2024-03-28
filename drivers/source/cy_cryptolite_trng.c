@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_trng.c
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  Provides API implementation of the Cryptolite TRNG PDL driver.

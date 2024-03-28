@@ -176,6 +176,11 @@
         <Member name="block_num" value="`${ctdac_instance}`U" />
         <Member name="channel_num" value="0U" />
       </ConfigStruct>
+
+      <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_dac_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+        <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+        <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      </ConfigStruct>
     
       <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`"  />
       <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />

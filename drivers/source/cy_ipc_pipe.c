@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.c
-* \version 1.110
+* \version 1.120
 *
 *  Description:
 *   IPC Pipe Driver - This source file includes code for the Pipe layer on top
@@ -25,7 +25,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || (defined (CY_IP_MXIPC) && (CY_IPC_INSTANCES > 1U))
+#if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS) || defined (CY_IP_MXIPC)
 
 #include "cy_ipc_pipe.h"
 
@@ -322,11 +322,11 @@ void Cy_IPC_Pipe_EndpointInit(uint32_t epAddr, cy_ipc_pipe_callback_array_ptr_t 
 
     if (NULL != epInterrupt)
     {
-        #if defined (CY_IP_M7CPUSS) || defined (CY_DEVICE_TVIIBE4M)
+        #if defined (CY_IP_M7CPUSS) || (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION == 2) && (CPUSS_SYSTEM_IRQ_PRESENT))
             endpoint->pipeIntrSrc     = (IRQn_Type)(((uint32_t)epInterrupt->intrSrc >> CY_SYSINT_INTRSRC_MUXIRQ_SHIFT) & CY_SYSINT_INTRSRC_MASK);
         #else
             endpoint->pipeIntrSrc     = epInterrupt->intrSrc;
-        #endif /* CY_IP_M7CPUSS || defined (CY_DEVICE_TVIIBE4M) */
+        #endif
     }
 }
 
@@ -408,11 +408,11 @@ void Cy_IPC_Pipe_EndpointInitExt(uint32_t epAddr, cy_ipc_pipe_callback_array_ptr
 
     if (NULL != epInterrupt)
     {
-        #if defined (CY_IP_M7CPUSS) || defined (CY_DEVICE_TVIIBE4M)
+        #if defined (CY_IP_M7CPUSS) || (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION == 2) && (CPUSS_SYSTEM_IRQ_PRESENT))
             endpoint->pipeIntrSrc     = (IRQn_Type)(((uint32_t)epInterrupt->intrSrc >> CY_SYSINT_INTRSRC_MUXIRQ_SHIFT) & CY_SYSINT_INTRSRC_MASK);
         #else
             endpoint->pipeIntrSrc     = epInterrupt->intrSrc;
-        #endif /* CY_IP_M7CPUSS || defined (CY_DEVICE_TVIIBE4M) */
+        #endif
     }
 }
 #endif /* CY_IPC_INSTANCES */

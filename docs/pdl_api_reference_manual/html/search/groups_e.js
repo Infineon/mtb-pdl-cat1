@@ -17,6 +17,7 @@ var searchData=
   ['ppu_20slave_20_28sl_29_20v1_20functions',['PPU Slave (SL) v1 Functions',['../group__group__prot__functions__ppu__sl.html',1,'']]],
   ['peripheral_20clock',['Peripheral Clock',['../group__group__sysclk__clk__peri.html',1,'']]],
   ['peripherals_20clock_20dividers',['Peripherals Clock Dividers',['../group__group__sysclk__clk__peripheral.html',1,'']]],
+  ['peripheral_20group_28mmio_20group_29_20controls',['Peripheral Group(MMIO Group) Controls',['../group__group__sysclk__clk__peripheral__group.html',1,'']]],
   ['pump_20clock',['Pump Clock',['../group__group__sysclk__clk__pump.html',1,'']]],
   ['power_20clock',['Power Clock',['../group__group__sysclk__clk__pwr.html',1,'']]],
   ['precision_20internal_20low_2dspeed_20oscillator_20_28pilo_29',['Precision Internal Low-Speed Oscillator (PILO)',['../group__group__sysclk__pilo.html',1,'']]],

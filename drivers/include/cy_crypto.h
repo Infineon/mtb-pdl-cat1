@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.h
-* \version 2.90
+* \version 2.100
 *
 * \brief
 *  This file provides the public interface for the Crypto driver.
@@ -249,6 +249,11 @@
 * \section group_crypto_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td> 2.100</td>
+*     <td>Added SHA3, HKDF, AES multistage support for modes ECB, CBC, CFB CTR added</td>
+*     <td></td>
+*   </tr>
 *   <tr>
 *     <td> 2.90</td>
 *     <td>Updated internal APIs and bug fixes.</td>

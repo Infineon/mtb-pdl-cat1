@@ -81,7 +81,8 @@ $(document).ready(function(){initNavTree('group__group__trigmux.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#groups">API Reference</a>  </div>
+<a href="#groups">API Reference</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">TrigMux (Trigger Multiplexer)</div>  </div>
 </div><!--header-->
@@ -128,7 +129,9 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
-<td>1.60.1 </td><td>Updated <a class="el" href="group__group__trigmux__functions.html#gad3c1d26d25a47bc4beca499bf0407c80">Cy_TrigMux_SwTrigger</a> API. </td><td>Coverity error fixes.  </td></tr>
+<td>1.70 </td><td>Updated <a class="el" href="group__group__trigmux.html#ga882218319ecd105dede8b382e9a1c4a4">Cy_TrigMux_SwTrigger</a> and <a class="el" href="group__group__trigmux__functions.html#ga3671fac144b75c3b3eddc5ab46ae96f6">Cy_TrigMux_Connect</a> APIs. </td><td>Performance enhancement and bug fixes.  </td></tr>
+<tr>
+<td>1.60.1 </td><td>Updated <a class="el" href="group__group__trigmux.html#ga882218319ecd105dede8b382e9a1c4a4">Cy_TrigMux_SwTrigger</a> API. </td><td>Coverity error fixes.  </td></tr>
 <tr>
 <td>1.60 </td><td>Updated Cy_TrigMux_SwTrigger API and added CY_TRIGMUX_INTRIG_MASK macro. </td><td>Support for CAT1D Devices added.  </td></tr>
 <tr>
@@ -153,14 +156,14 @@ Changelog</h1>
 <li><a class="el" href="group__group__trigmux__functions.html#ga9cf035a60df4c7073280b8ac21666b22">Cy_TrigMux_Deselect</a></li>
 <li><a class="el" href="group__group__trigmux__functions.html#ga797820d8e7c746129d354888da382498">Cy_TrigMux_SetDebugFreeze</a></li>
 </ul>
-<p class="endtd">Modified the <a class="el" href="group__group__trigmux__functions.html#gad3c1d26d25a47bc4beca499bf0407c80">Cy_TrigMux_SwTrigger</a> API function logic.  </p>
+<p class="endtd">Modified the <a class="el" href="group__group__trigmux.html#ga882218319ecd105dede8b382e9a1c4a4">Cy_TrigMux_SwTrigger</a> API function logic.  </p>
 </td><td>New devices support.  </td></tr>
 <tr>
 <td>Added register access layer. Use register access macros instead of direct register access using dereferenced pointers. </td><td>Makes register access device-independent, so that the PDL does not need to be recompiled for each supported part number.  </td></tr>
 <tr>
 <td>1.10.1 </td><td>Renamed the internal macro in <a class="el" href="group__group__trigmux__functions.html#ga3671fac144b75c3b3eddc5ab46ae96f6" title="Connects an input trigger source and output trigger. ">Cy_TrigMux_Connect()</a> function to CY_TRIGMUX_IS_TRIGTYPE_VALID. </td><td></td></tr>
 <tr>
-<td>1.10 </td><td>The input/output bit in the trigLine parameter of the <a class="el" href="group__group__trigmux__functions.html#gad3c1d26d25a47bc4beca499bf0407c80" title="This function generates a software trigger on an input trigger line. ">Cy_TrigMux_SwTrigger()</a> function is changed to 30.<br />
+<td>1.10 </td><td>The input/output bit in the trigLine parameter of the <a class="el" href="group__group__trigmux.html#ga882218319ecd105dede8b382e9a1c4a4" title="This function generates a software trigger on an input trigger line. ">Cy_TrigMux_SwTrigger()</a> function is changed to 30.<br />
  The invert parameter type is changed to bool.<br />
  Added input parameter validation to the API functions. </td><td></td></tr>
 <tr>
@@ -175,7 +178,80 @@ API Reference</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__trigmux__enums"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__trigmux__enums.html">Enumerated Types</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga882218319ecd105dede8b382e9a1c4a4"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__trigmux__enums.html#ga30a0d3f7caf6a59d3fb7a618a95ed6ae">cy_en_trigmux_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__trigmux.html#ga882218319ecd105dede8b382e9a1c4a4">Cy_TrigMux_SwTrigger</a> (uint32_t trigLine, uint32_t cycles)</td></tr>
+<tr class="memdesc:ga882218319ecd105dede8b382e9a1c4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function generates a software trigger on an input trigger line.  <a href="#ga882218319ecd105dede8b382e9a1c4a4">More...</a><br /></td></tr>
+<tr class="separator:ga882218319ecd105dede8b382e9a1c4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga882218319ecd105dede8b382e9a1c4a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga882218319ecd105dede8b382e9a1c4a4">&#9670;&nbsp;</a></span>Cy_TrigMux_SwTrigger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__trigmux__enums.html#ga30a0d3f7caf6a59d3fb7a618a95ed6ae">cy_en_trigmux_status_t</a> Cy_TrigMux_SwTrigger </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>trigLine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>cycles</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function generates a software trigger on an input trigger line. </p>
+<p>All output triggers connected to this input trigger will be triggered. The function also verifies that there is no activated trigger before generating another activation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trigLine</td><td>The input of the trigger mux.<ul>
+<li>Bit 30 represents if the signal is an input/output. When this bit is set, the trigger activation is for an output trigger from the trigger multiplexer. When this bit is reset, the trigger activation is for an input trigger to the trigger multiplexer.<br />
+</li>
+<li>For PERI_ver1 Bits 11:8 represent the trigger group selection.<br />
+</li>
+<li>For PERI_ver2 Bits 12:8 represent the trigger group selection.<br />
+ In case of output trigger line (bit 30 is set):<br />
+ For PERI_ver1:</li>
+<li>Bits 6:0 select the output trigger number in the trigger group.<br />
+ For PERI_ver2:</li>
+<li>Bits 7:0 select the output trigger number in the trigger group.<br />
+ In case of input trigger line (bit 30 is unset):</li>
+<li>Bits 7:0 select the input trigger signal for the trigger multiplexer.</li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">cycles</td><td>The number of "Clk_Peri" cycles during which the trigger remains activated.<br />
+ For PERI_ver1: The valid range of cycles is 1 ... 254.<br />
+ For PERI_ver2: The only valid value of cycles is 2 (<a class="el" href="group__group__trigmux__macros.html#ga9347a341f6903dee749841fae0dcb4a5">CY_TRIGGER_TWO_CYCLES</a>).<br />
+ Also there are special values (supported with both PERI_ver1 and PERI_ver2):<ul>
+<li>CY_TRIGGER_INFINITE - trigger remains activated until the user deactivates it by calling this function with CY_TRIGGER_DEACTIVATE parameter.</li>
+<li>CY_TRIGGER_DEACTIVATE - this is used to deactivate the trigger activated by calling this function with CY_TRIGGER_INFINITE parameter.</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status:<ul>
+<li>CY_TRIGMUX_SUCCESS: The trigger is successfully activated/deactivated.</li>
+<li>CY_TRIGMUX_INVALID_STATE: The trigger is already activated/not active.</li>
+<li>CY_TRIGMUX_BAD_PARAM: Some parameter is invalid.</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    </div><div class="line">    <span class="comment">/* Scenario: Software Trigger the DW0 channel 0 */</span></div><div class="line"><span class="preprocessor">#if (CY_IP_MXPERI_VERSION == 1U)</span></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__trigmux__enums.html#gga30a0d3f7caf6a59d3fb7a618a95ed6aea19e80892aa7755dd38c708994502d02c">CY_TRIGMUX_SUCCESS</a> != <a class="code" href="group__group__trigmux.html#ga882218319ecd105dede8b382e9a1c4a4">Cy_TrigMux_SwTrigger</a>(TRIG0_OUT_CPUSS_DW0_TR_IN0, <a class="code" href="group__group__trigmux__macros.html#ga9347a341f6903dee749841fae0dcb4a5">CY_TRIGGER_TWO_CYCLES</a>))</div><div class="line"><span class="preprocessor">#else </span><span class="comment">/* CY_IP_MXPERI_VERSION &gt; 1 */</span><span class="preprocessor"></span></div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__trigmux__enums.html#gga30a0d3f7caf6a59d3fb7a618a95ed6aea19e80892aa7755dd38c708994502d02c">CY_TRIGMUX_SUCCESS</a> != <a class="code" href="group__group__trigmux.html#ga882218319ecd105dede8b382e9a1c4a4">Cy_TrigMux_SwTrigger</a>(TRIG_OUT_MUX_0_PDMA0_TR_IN0, <a class="code" href="group__group__trigmux__macros.html#ga9347a341f6903dee749841fae0dcb4a5">CY_TRIGGER_TWO_CYCLES</a>))</div><div class="line"><span class="preprocessor">#endif </span><span class="comment">/* CY_IP_MXPERI_VERSION */</span><span class="preprocessor"></span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div><div class="line">    </div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

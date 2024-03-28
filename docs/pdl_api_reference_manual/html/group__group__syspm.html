@@ -435,16 +435,16 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
-<td>5.110 </td><td>Newly Added API <a class="el" href="group__group__syspm__btss__functions.html#ga5580a2adbb633e57a1b2982f49eaea7b">Cy_BTSS_PowerDepResetCount</a> and updated <a class="el" href="group__group__syspm__btss__functions.html#ga1a3377532505060f34dcf05f79b08815">Cy_BTSS_PowerDep</a>. </td><td>Fixed race condition in PDCM locking/release.  </td></tr>
+<td>5.120 </td><td>Added support for new device. </td><td>Added support for PSoC C3 (CAT1B).  </td></tr>
+<tr>
+<td>5.110 </td><td>Newly Added API Cy_BTSS_PowerDepResetCount and updated <a class="el" href="group__group__syspm__btss__functions.html#ga1a3377532505060f34dcf05f79b08815">Cy_BTSS_PowerDep</a>. </td><td>Fixed race condition in PDCM locking/release.  </td></tr>
 <tr>
 <td>5.100 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
  Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1. API Cy_SysPm_IsDeepSleepRegEnabled is now only available for ULP variant devices.<br />
  API Cy_SysPm_ReghcSelectMode is now only available for devices with REGHC or HTRREGHC. Previously all MXS40SRSSv3 devices.<br />
  API Cy_SysPm_PmicEnable is now only available for MXS40SRSSv1 devices, or if BACKUP_VBCK IP is present. </td><td>Code enhancement and support for new devices.  </td></tr>
 <tr>
-<td>5.95 </td><td>Added new APIs <a class="el" href="group__group__syspm__functions__power.html#ga52a28b719c2eb4486a6444eb3932fcae">Cy_SysPm_StoreDSContext_Wfi</a>, <a class="el" href="group__group__syspm__functions__power.html#gac1b5589eaaa7ac4fda44b666cc0ff22c">Cy_SysPm_TriggerXRes</a> and few macros. </td><td>Usability enhancement.  </td></tr>
-<tr>
-<td rowspan="4">5.94 </td><td>Newly added APIs <a class="el" href="group__group__syspm__functions__general.html#ga338c546bbd9227c75ada5bc85b1bf615">Cy_SysPm_SetSOCMemPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gaaf1abb0c8670b67d9bfb299d9d77a990">Cy_SysPm_SetSOCMemPartDsPwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#ga2851806aea4e38ff40c277841c07572c">Cy_SysPm_GetSOCMemSramPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gac056944172fccc3eb347a6ce4d62f320">Cy_SysPm_GetSOCMemSramPartDsPwrMode</a>  </td><td>Support of SOCMEM control for CAT1D devices added .  </td></tr>
+<td>5.95 </td><td>Added new APIs Cy_SysPm_StoreDSContext_Wfi, <a class="el" href="group__group__syspm__functions__power.html#gac1b5589eaaa7ac4fda44b666cc0ff22c">Cy_SysPm_TriggerXRes</a> and few macros. </td><td rowspan="4">5.94 Newly added APIs <a class="el" href="group__group__syspm__functions__general.html#ga338c546bbd9227c75ada5bc85b1bf615">Cy_SysPm_SetSOCMemPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gaaf1abb0c8670b67d9bfb299d9d77a990">Cy_SysPm_SetSOCMemPartDsPwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#ga2851806aea4e38ff40c277841c07572c">Cy_SysPm_GetSOCMemSramPartActivePwrMode</a>, <a class="el" href="group__group__syspm__functions__general.html#gac056944172fccc3eb347a6ce4d62f320">Cy_SysPm_GetSOCMemSramPartDsPwrMode</a>  </td><td>Support of SOCMEM control for CAT1D devices added .  </td></tr>
 <tr>
 <td>Newly added APIs <a class="el" href="group__group__syspm__functions__reghc.html#ga09c461654f8d41bb0badd96bbfb4c7ad">Cy_SysPm_ReghcConfigure</a>, <a class="el" href="group__group__syspm__functions__reghc.html#ga8b2da4b8c544a0f8f65efe191346af26">Cy_SysPm_ReghcDeConfigure</a>. </td><td>Added REGHC configuration support for CAT1C devices .  </td></tr>
 <tr>
@@ -452,7 +452,7 @@ Changelog</h1>
 <tr>
 <td>Newly added APIs <a class="el" href="group__group__syspm__functions__power__status.html#ga985529756aefbf864a9efa20f1817abd">Cy_SysPm_Cm33IsActive</a>, <a class="el" href="group__group__syspm__functions__power__status.html#ga99ec4f23581a115cbcc0a05a272283a4">Cy_SysPm_Cm33IsSleep</a>, <a class="el" href="group__group__syspm__functions__power__status.html#gaecc0551908eb1b88e112405926d57426">Cy_SysPm_Cm33IsDeepSleep</a>, <a class="el" href="group__group__syspm__functions__power__status.html#ga8b7b6d090865e9fb8ef55fce2a8b2a46">Cy_SysPm_Cm55IsActive</a>, <a class="el" href="group__group__syspm__functions__power__status.html#ga9d1b52153b2107bd69f799cd6b34f2f1">Cy_SysPm_Cm55IsSleep</a>. </td><td>Support for Core status check added for CAT1D devices .  </td></tr>
 <tr>
-<td>Newly added APIs <a class="el" href="group__group__syspm__functions__buck.html#ga3d3c9380ff6ce7c138037ce2036ee298">Cy_SysPm_SramLdoEnable</a>, <a class="el" href="group__group__syspm__functions__buck.html#ga211c09a725f1fab9881158120fbeff3d">Cy_SysPm_SramLdoSetVoltage</a>, <a class="el" href="group__group__syspm__functions__buck.html#gafd2104ec9ac05913ed5146a21b2a709b">Cy_SysPm_SramLdoGetVoltage</a>. </td><td>Support for SRAMLDO Regulator added for CAT1D devices .  </td></tr>
+<td>Newly added APIs <a class="el" href="group__group__syspm__functions__buck.html#gadaf8a1544f32636a1165db7193307f42">Cy_SysPm_SramLdoEnable</a>, <a class="el" href="group__group__syspm__functions__buck.html#ga6d4e984623a0bbe1797cc6c1dacfba46">Cy_SysPm_SramLdoSetVoltage</a>, <a class="el" href="group__group__syspm__functions__buck.html#gafd2104ec9ac05913ed5146a21b2a709b">Cy_SysPm_SramLdoGetVoltage</a>. </td><td>Support for SRAMLDO Regulator added for CAT1D devices .  </td></tr>
 <tr>
 <td>5.93 </td><td>Bug fix in definition of LPCOMP1 as wake-up source. </td><td>The low power comparator #1 was unable to wake-up the system from hibernate state.  </td></tr>
 <tr>
@@ -550,7 +550,7 @@ Changelog</h1>
 <li><a class="el" href="group__group__syspm__functions__power.html#ga81d08ce12e3dd770c48e8bc23246c18f" title="Changes the system from LPACTIVE (Low Power Active)/LPSLEEP (Low Power Sleep) Profile to ACTIVE Profi...">Cy_SysPm_SystemLpActiveExit()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power.html#gaedd38e42919449afe22a9e1dc2c6cac7" title="Checks if the system is in LPACTIVE (Low Power Active)/LPSLEEP (Low Power Sleep) Profile. ">Cy_SysPm_IsSystemLpActiveEnabled()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power.html#gaaff87adb57f74191a344e996517bd74b" title="Set the deepsleep mode - deepsleep or deepsleep-ram or deepsleep-off. ">Cy_SysPm_SetDeepSleepMode()</a></li>
-<li><a class="el" href="group__group__syspm__functions__power.html#gac80d11f681b462a49a88e3fb90cbfb9a" title="Get the deepsleep mode - deepsleep or deepsleep-ram or deepsleep-off. ">Cy_SysPm_GetDeepSleepMode()</a></li>
+<li><a class="el" href="group__group__syspm__functions__power.html#gac80d11f681b462a49a88e3fb90cbfb9a" title="Get the overall system&#39;s deepsleep mode - deepsleep or deepsleep-ram or deepsleep-off. ">Cy_SysPm_GetDeepSleepMode()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power.html#ga50b3751b0c4bc09d0385b27f95a99a39" title="Checks from which Deep Sleep mode the system has woke up. ">Cy_SysPm_GetBootMode()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power.html#ga7b9be88cbcc9d3b140c402a6feff20fe" title="Triggers the System Soft reset. ">Cy_SysPm_TriggerSoftReset()</a></li>
 <li><a class="el" href="group__group__syspm__functions__power.html#gafc7877f22758499d5d199401cd60f28f" title="This function gets the wakeup cause for Hibernate mode. ">Cy_SysPm_GetHibernateWakeupCause()</a></li>

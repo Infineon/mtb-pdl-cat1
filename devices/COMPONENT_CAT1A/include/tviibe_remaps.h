@@ -30,12 +30,13 @@
 #ifndef _TVIIBE_REMAPS_H_
 #define _TVIIBE_REMAPS_H_
 
-#if defined(CY_DEVICE_TVIIBE1M)
+/* The first section of remaps for TVIIBE512K, TVIIBE1M, and TVIIBE2M devices (SRSSv2) */
+#if defined(CY_DEVICE_SERIES_CYT2B6) || defined(CY_DEVICE_SERIES_CYT2B7) || defined(CY_DEVICE_SERIES_CYT2B9)
 
 /*******************************************************************************
 *                                    SRSS
 *******************************************************************************/
-/* SRSS 2 Additions for TVII Generated Header file */
+/* SRSSv2 remaps for what is generated in a TVII generated header file */
 #define SRSS_PWR_HIBERNATE_MASK_HIBPIN_Pos                SRSS_V2_PWR_HIBERNATE_MASK_HIBPIN_Pos
 #define SRSS_PWR_HIBERNATE_MASK_HIBPIN_Msk                SRSS_V2_PWR_HIBERNATE_MASK_HIBPIN_Msk
 #define SRSS_PWR_HIBERNATE_POLARITY_HIBPIN_Pos            SRSS_V2_PWR_HIBERNATE_POLARITY_HIBPIN_Pos
@@ -364,6 +365,10 @@
 #define MCWDT_CTR_WARN_LIMIT_WARN_LIMIT_Msk     MCWDT_CTR_V2_WARN_LIMIT_WARN_LIMIT_Msk
 #define MCWDT_CTR_WARN_LIMIT_WARN_LIMIT_Pos     MCWDT_CTR_V2_WARN_LIMIT_WARN_LIMIT_Pos
 
+#define MCWDT_INTR_MASKED_CTR0_INT_Msk          MCWDT_V2_INTR_MASKED_CTR0_INT_Msk
+#define MCWDT_INTR_MASKED_CTR1_INT_Msk          MCWDT_V2_INTR_MASKED_CTR1_INT_Msk
+#define MCWDT_INTR_MASKED_CTR2_INT_Msk          MCWDT_V2_INTR_MASKED_CTR2_INT_Msk
+
 /*******************************************************************************
 *                                    BACKUP
 *******************************************************************************/
@@ -523,6 +528,7 @@
 
 
 #elif defined(CY_DEVICE_TVIIBE4M)
+/* SRSSv3 remaps for what is generated in a TVII generated header file */
 
 /*******************************************************************************
 *                                    SRSS
@@ -892,6 +898,10 @@
 #define MCWDT_CTR_WARN_LIMIT_WARN_LIMIT_Msk     MCWDT_CTR_V3_WARN_LIMIT_WARN_LIMIT_Msk
 #define MCWDT_CTR_WARN_LIMIT_WARN_LIMIT_Pos     MCWDT_CTR_V3_WARN_LIMIT_WARN_LIMIT_Pos
 
+#define MCWDT_INTR_MASKED_CTR0_INT_Msk          MCWDT_V3_INTR_MASKED_CTR0_INT_Msk
+#define MCWDT_INTR_MASKED_CTR1_INT_Msk          MCWDT_V3_INTR_MASKED_CTR1_INT_Msk
+#define MCWDT_INTR_MASKED_CTR2_INT_Msk          MCWDT_V3_INTR_MASKED_CTR2_INT_Msk
+
 /*******************************************************************************
 *                                    BACKUP
 *******************************************************************************/
@@ -1073,7 +1083,7 @@
 /* BACKUP.BREG */
 #define BACKUP_BREG_BREG_Pos                                    BACKUP_V3_BREG_BREG_Pos
 #define BACKUP_BREG_BREG_Msk                                    BACKUP_V3_BREG_BREG_Msk
-#endif
+#endif /* CY_DEVICE_TVIIBE type */
 
 /*******************************************************************************
 *                                    CPUSS
@@ -3532,12 +3542,6 @@ typedef struct {
 #define TCPWM_GRP_CNT_INTR_MASKED_CC1_MATCH_Msk                    TCPWM_GRP_CNT_V2_INTR_MASKED_CC1_MATCH_Msk
 
 
-/*******************************************************************************
-*                                    MCWDT
-*******************************************************************************/
-#define MCWDT_INTR_MASKED_CTR0_INT_Msk                             MCWDT_V3_INTR_MASKED_CTR0_INT_Msk
-#define MCWDT_INTR_MASKED_CTR1_INT_Msk                             MCWDT_V3_INTR_MASKED_CTR1_INT_Msk
-#define MCWDT_INTR_MASKED_CTR2_INT_Msk                             MCWDT_V3_INTR_MASKED_CTR2_INT_Msk
 
 
 #endif /* _TVIIBE_REMAPS_H_ */

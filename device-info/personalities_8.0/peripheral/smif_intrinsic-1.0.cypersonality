@@ -40,15 +40,14 @@
   <Parameters>
     <ParamString id="cfgFileName" name="cfgFileName" group="External Tools" default="design.cyqspi" visible="false" editable="false" desc="" />
     <ParamString id="cfgFilePath" name="cfgFilePath" group="External Tools" default="`${cy_design_path() . &quot;/&quot; . cfgFileName}`" visible="false" editable="false" desc="" />
-    <ParamBool id="qspiUsed" name="qspiUsed" group="Internal" default="fileExists(cy_design_path() . &quot;/design.cyqspi&quot;)" visible="false" editable="false" desc="" />
+    <ParamBool id="qspiUsed" name="qspiUsed" group="Internal" default="`${fileExists(cy_design_path() . &quot;/design.cyqspi&quot;)}`" visible="false" editable="false" desc="" />
   </Parameters>
   <DRCs />
   <ConfigFirmware>
     <!-- Intention of this intrinsic SMIF personality is to generate cycfg_qspi_memslot.c/h if design.cyqspi existsCheck if design.cyqspi exists in the design.modus directory
          Also check if SMIF resource is disable to avoid generating .c/.h file twice -->
-    <ConfigTool value="`${cy_tools_path(&quot;qspi-configurator&quot;) . &quot;/qspi-configurator-cli&quot;}`" include="`${qspiUsed &amp;&amp; !isBlockUsed(&quot;smif[0]&quot;)}`">
+      <ConfigTool value="`${cy_tools_path(&quot;qspi-configurator&quot;) . &quot;/qspi-configurator-cli&quot;}`" include="`${qspiUsed || isBlockUsed(&quot;smif[0]&quot;) || isBlockUsed(&quot;smif[0].core[0]&quot;) || isBlockUsed(&quot;smif[0].core[1]&quot;)}`">
       <Arg value="`${&quot;--config=&quot; . cfgFilePath}`" />
-      <Arg value="`${&quot;--library=&quot; . cy_libs_file()}`" />
       <Arg value="`${&quot;--output-dir=&quot; . cy_codegen_path()}`" />
     </ConfigTool>
   </ConfigFirmware>

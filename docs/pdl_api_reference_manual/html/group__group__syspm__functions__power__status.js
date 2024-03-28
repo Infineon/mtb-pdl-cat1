@@ -4,6 +4,7 @@ var group__group__syspm__functions__power__status =
     [ "Cy_SysPm_IsSystemUlp", "group__group__syspm__functions__power__status.html#gaffdaf11b8565e3838c8533803eedb70e", null ],
     [ "Cy_SysPm_IsSystemLp", "group__group__syspm__functions__power__status.html#gaa04e75e763f98dd2982f0d1bd759c6a1", null ],
     [ "Cy_SysPm_IsSystemMf", "group__group__syspm__functions__power__status.html#ga40aa473cb33af8dafbbcc1a404202259", null ],
+    [ "Cy_SysPm_IsSystemHp", "group__group__syspm__functions__power__status.html#gaf1bb1905ac80bb1028911bb1c2bbf100", null ],
     [ "Cy_SysPm_Cm4IsActive", "group__group__syspm__functions__power__status.html#gaccb337079a63ff9d3f2b70ba6ea886c3", null ],
     [ "Cy_SysPm_Cm4IsSleep", "group__group__syspm__functions__power__status.html#ga4ebf9e80e8f6973f1023f54a79456cba", null ],
     [ "Cy_SysPm_Cm4IsDeepSleep", "group__group__syspm__functions__power__status.html#gac9b91aea0eac6ef221e3cc9ed425fac1", null ],

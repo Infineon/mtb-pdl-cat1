@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_sysint.c
-* \version 1.110
+* \version 1.120
 *
 * \brief
 * Provides an API implementation of the SysInt driver.
@@ -519,7 +519,6 @@ cy_en_sysint_status_t Cy_SysInt_InitIntIRQ(const cy_stc_sysint_t* config, cy_isr
     return(status);
 }
 
-#if defined (CY_IP_M7CPUSS) || (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION == 2u) && (CPUSS_SYSTEM_IRQ_PRESENT)) || defined (CY_DOXYGEN)
 void  Cy_SysInt_SetSystemIrqVector(cy_en_intr_t sysIntSrc, cy_israddress userIsr)
 {
     if (Cy_SysInt_SystemIrqUserTableRamPointer != NULL)
@@ -539,7 +538,6 @@ cy_israddress  Cy_SysInt_GetSystemIrqVector(cy_en_intr_t sysIntSrc)
 
     return userIsr;
 }
-#endif /* defined (CY_IP_M7CPUSS) || (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION == 2u) && (CPUSS_SYSTEM_IRQ_PRESENT)) || defined (CY_DOXYGEN) */
 
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 14.3', 4, 'Valid Control expression conditions.')
 void Cy_SysInt_EnableSystemInt(cy_en_intr_t sysIntSrc)

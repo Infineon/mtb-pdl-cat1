@@ -287,6 +287,7 @@
   <ConfigFirmware>
     <ConfigInclude value="cy_i2s.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="I2S`${hasAudioss1 ? InstNumber : &quot;&quot;}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="audioss_`${hasAudioss1 ? InstNumber . &quot;_&quot; : &quot;&quot;}`interrupt_i2s_IRQn" public="true" include="true" />
@@ -333,7 +334,15 @@
       <Member name="block_num" value="`${InstNumber}`U" />
       <Member name="channel_num" value="0U" />
     </ConfigStruct>
-    
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_i2s_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME . &quot;_config&quot;}`" />
+      <Member name="clock" value="&amp;CYHAL_CLOCK_HF[`${getInstFromLocation(sourceClock, &quot;hfclk&quot;)}`]" />
+      <Member name="mclk_hz_rx" value="`${extClk ? floor(i2sClk) : 0}`u" />
+      <Member name="mclk_hz_tx" value="`${extClk ? floor(i2sClk) : 0}`u" />
+    </ConfigStruct>
+
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
 

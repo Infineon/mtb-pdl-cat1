@@ -49,6 +49,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="sclkPin" name="sclkPin" group="Internal" default="`${getBlockFromSignal(&quot;spi_clk[0]&quot;)}`" visible="false" editable="false" desc="" />
     
     <ParamString id="smifIfSource" name="smifIfSource" group="Internal" default="`${getBlockFromSignal(&quot;clk_if[0]&quot;)}`" visible="false" editable="false" desc="Interface Source Clock Resource" />
     <ParamRange  id="smifIfClkHz" name="smifIfClkHz" group="Internal" default="`${getExposedMember(smifIfSource, &quot;frequency&quot;)}`" min="1" max="200000000" resolution="1" visible="false" editable="false" desc="SMIF IF clock frequency in Hz." />
@@ -73,6 +74,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data0Pin" name="data0Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_data0[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_data1[0]" name="SPI Data[1]" group="Data" visible="`${hasVisibleOption(&quot;spi_data1[0]&quot;)}`" desc="Data line 1 to be used by the QSPI block, must be used in conjunction with Data line 0" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
@@ -81,6 +83,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data1Pin" name="data1Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_data1[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_data2[0]" name="SPI Data[2]" group="Data" visible="`${hasVisibleOption(&quot;spi_data2[0]&quot;)}`" desc="Data line 2 to be used by the QSPI block, must be used in conjunction with Data line 3" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
@@ -89,6 +92,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data2Pin" name="data2Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_data2[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_data3[0]" name="SPI Data[3]" group="Data" visible="`${hasVisibleOption(&quot;spi_data3[0]&quot;)}`" desc="Data line 3 to be used by the QSPI block, must be used in conjunction with Data line 2" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
@@ -97,6 +101,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data3Pin" name="data3Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_data3[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_data4[0]" name="SPI Data[4]" group="Data" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;spi_data4[0]&quot;)}`" desc="Data line 4 to be used by the QSPI block, must be used in conjunction with Data line 5" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
@@ -105,6 +110,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data4Pin" name="data4Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_data4[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_data5[0]" name="SPI Data[5]" group="Data" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;spi_data5[0]&quot;)}`" desc="Data line 5 to be used by the QSPI block, must be used in conjunction with Data line 4" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
@@ -113,6 +119,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data5Pin" name="data5Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_data5[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_data6[0]" name="SPI Data[6]" group="Data" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;spi_data6[0]&quot;)}`" desc="Data line 6 to be used by the QSPI block, must be used in conjunction with Data line 7" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
@@ -121,6 +128,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data6Pin" name="data6Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_data6[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_data7[0]" name="SPI Data[7]" group="Data" visible="`${(CHIP_TOP.DATA8_PRESENT == 1) &amp;&amp; hasVisibleOption(&quot;spi_data7[0]&quot;)}`" desc="Data line 7 to be used by the QSPI block, must be used in conjunction with Data line 6" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer on'.">
@@ -129,6 +137,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="data7Pin" name="data7Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_data7[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <!-- Select -->
     <ParamSignal port="spi_select0[0]" name="SPI Slave Select 0" group="Slave Select" visible="`${hasVisibleOption(&quot;spi_select0[0]&quot;)}`" desc="Select signal 0 to specifiy which memory device to communicate with" canBeEmpty="true">
@@ -139,6 +148,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ssel0Pin" name="ssel0Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_select0[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_select1[0]" name="SPI Slave Select 1" group="Slave Select" visible="`${hasVisibleOption(&quot;spi_select1[0]&quot;)}`" desc="Select signal 1 to specifiy which memory device to communicate with" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
@@ -147,6 +157,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ssel1Pin" name="ssel1Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_select1[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_select2[0]" name="SPI Slave Select 2" group="Slave Select" visible="`${hasVisibleOption(&quot;spi_select2[0]&quot;)}`" desc="Select signal 2 to specifiy which memory device to communicate with" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
@@ -155,6 +166,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ssel2Pin" name="ssel2Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_select2[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamSignal port="spi_select3[0]" name="SPI Slave Select 3" group="Slave Select" visible="`${hasVisibleOption(&quot;spi_select3[0]&quot;)}`" desc="Select signal 3 to specifiy which memory device to communicate with" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
@@ -163,6 +175,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ssel3Pin" name="ssel3Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_select3[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <!-- Interrupt -->
     <ParamBool id="isrAlignment" name="Memory Mode Alignment Error" group="Interrupt" default="false" visible="true" editable="true" desc="An alignment error in the memory mode (XIP mode) is set as an interrupt cause" />
@@ -175,6 +188,9 @@
     <ParamRange id="rxTriggerLevel" name="RX FIFO Trigger Level" group="DMA Triggers" default="0" min="0" max="7" resolution="1" visible="true" editable="true" desc="The level that can trigger the RX FIFO to trigger an interrupt or a DMA request" />
     <ParamSignal port="tr_tx_req[0]" name="TX Trigger Output" group="DMA Triggers" visible="true" desc="enables the TX trigger output terminal (tr_tx_req)" canBeEmpty="true" />
     <ParamRange id="txTriggerLevel" name="TX FIFO Trigger Level" group="DMA Triggers" default="0" min="0" max="7" resolution="1" visible="true" editable="true" desc="The level that can trigger the TX FIFO to trigger an interrupt or a DMA request" />
+
+    <ParamString id="dmaRxTriggerOut" name="dmaRxTriggerOut" group="Internal" default="`${getBlockFromSignal(&quot;tr_rx_req[0]&quot;)}`" visible="false" editable="false" desc="" />
+    <ParamString id="dmaTxTriggerOut" name="dmaTxTriggerOut" group="Internal" default="`${getBlockFromSignal(&quot;tr_tx_req[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <!-- SMIF instance number -->
     <ParamString id="InstNumber" name="InstNumber" group="Internal" default="`${getInstNumber(&quot;smif&quot;)}`" visible="false" editable="false" desc="SMIF Instance name number." />
@@ -205,15 +221,10 @@
   </DRCs>
   
   <ConfigFirmware>
-    <!-- External tools -->
-    <ConfigTool value="`${cy_tools_path(&quot;qspi-configurator&quot;) . &quot;/qspi-configurator-cli&quot;}`" include="true">
-      <Arg value="`${&quot;--config=&quot; . cfgFilePath}`" />
-      <Arg value="`${&quot;--output-dir=&quot; . cy_codegen_path()}`" />
-    </ConfigTool>
-    
     <ConfigInclude value="cy_smif.h" include="true" />
     <ConfigInclude value="cycfg_qspi_memslot.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="SMIF`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="smif_interrupt_IRQn" public="true" include="true" />
@@ -221,6 +232,8 @@
     <ConfigDefine name="`${INST_NAME}`_RX_DATA_FIFO_UNDERFLOW" value="`${isrUnderflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_TX_COMMAND_FIFO_OVERFLOW" value="`${isrCmdOverflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_TX_DATA_FIFO_OVERFLOW" value="`${isrDataOverflow ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${INST_NAME}`_RX_DMA_TRIGGER_OUT_USED" value="`${dmaRxTriggerOut ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
+    <ConfigDefine name="`${INST_NAME}`_TX_DMA_TRIGGER_OUT_USED" value="`${dmaTxTriggerOut ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
 
     <ConfigDefine name="`${INST_NAME}`_RX_FIFO_TRIGEER_LEVEL" value="(`${rxTriggerLevel}`UL)" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_TX_FIFO_TRIGEER_LEVEL" value="(`${txTriggerLevel}`UL)" public="true" include="true" />
@@ -236,7 +249,7 @@
     <ConfigDefine name="`${INST_NAME}`_SS3" value="`${hasSelect3 ? &quot;(1UL)&quot; : &quot;(0UL)&quot;}`" public="true" include="true" />
 
     <ConfigDefine name="`${INST_NAME}`_DESELECT_DELAY" value="7" public="true" include="true" />
-	
+
     <ConfigStruct name="`${INST_NAME . &quot;_config&quot;}`" type="cy_stc_smif_config_t" const="`${inFlash}`" public="true" include="true" >
       <Member name="mode" value="(uint32_t)CY_SMIF_NORMAL" />
       <Member name="deselectDelay" value="`${INST_NAME}`_DESELECT_DELAY" />
@@ -248,6 +261,15 @@
       <Member name="type" value="CYHAL_RSC_SMIF" />
       <Member name="block_num" value="`${getInstNumber(&quot;smif&quot;)}`U" />
       <Member name="channel_num" value="0U" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_qspi_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;CYHAL_CLOCK_HF[`${getExposedMember(smifIfSource, &quot;clockInst&quot;)}`]" />
+      <Member name="gpios" value="{.sclk = `${sclkPin &amp;&amp; hasExposedMember(sclkPin, &quot;halPortPin&quot;) ? getExposedMember(sclkPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .ssel = {`${ssel0Pin &amp;&amp; hasExposedMember(sclkPin, &quot;halPortPin&quot;) ? getExposedMember(ssel0Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${ssel1Pin &amp;&amp; hasExposedMember(ssel1Pin, &quot;halPortPin&quot;) ? getExposedMember(ssel1Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${ssel2Pin &amp;&amp; hasExposedMember(ssel2Pin, &quot;halPortPin&quot;) ? getExposedMember(ssel2Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${ssel3Pin &amp;&amp; hasExposedMember(ssel3Pin, &quot;halPortPin&quot;) ? getExposedMember(ssel3Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`}, .io = {`${data0Pin &amp;&amp; hasExposedMember(data0Pin, &quot;halPortPin&quot;) ? getExposedMember(data0Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data1Pin &amp;&amp; hasExposedMember(data1Pin, &quot;halPortPin&quot;) ? getExposedMember(data1Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data2Pin &amp;&amp; hasExposedMember(data2Pin, &quot;halPortPin&quot;) ? getExposedMember(data2Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data3Pin &amp;&amp; hasExposedMember(data3Pin, &quot;halPortPin&quot;) ? getExposedMember(data3Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data4Pin &amp;&amp; hasExposedMember(data4Pin, &quot;halPortPin&quot;) ? getExposedMember(data4Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data5Pin &amp;&amp; hasExposedMember(data5Pin, &quot;halPortPin&quot;) ? getExposedMember(data5Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data6Pin &amp;&amp; hasExposedMember(data6Pin, &quot;halPortPin&quot;) ? getExposedMember(data6Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${data7Pin &amp;&amp; hasExposedMember(data7Pin, &quot;halPortPin&quot;) ? getExposedMember(data7Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`},}" />
+      <Member name="irqs" value="`${INST_NAME}`_MEMORY_MODE_ALIGMENT_ERROR &#60;&#60; 5 | `${INST_NAME}`_RX_DATA_FIFO_UNDERFLOW &#60;&#60; 4 | `${INST_NAME}`_TX_COMMAND_FIFO_OVERFLOW &#60;&#60; 3 | `${INST_NAME}`_TX_DATA_FIFO_OVERFLOW &#60;&#60; 2 | (uint8_t)(`${INST_NAME}`_RX_FIFO_TRIGEER_LEVEL != 0) &#60;&#60; 1 | (uint8_t)(`${INST_NAME}`_TX_FIFO_TRIGEER_LEVEL != 0) &#60;&#60; 0" />
+      <Member name="dmas" value="`${INST_NAME}`_RX_DMA_TRIGGER_OUT_USED &#60;&#60; 1 | `${INST_NAME}`_TX_DMA_TRIGGER_OUT_USED &#60;&#60; 0" />
     </ConfigStruct>
     
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />

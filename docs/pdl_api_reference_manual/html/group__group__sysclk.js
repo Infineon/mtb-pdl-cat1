@@ -17,6 +17,7 @@ var group__group__sysclk =
     [ "Fast Clock", "group__group__sysclk__clk__fast.html", "group__group__sysclk__clk__fast" ],
     [ "Peripheral Clock", "group__group__sysclk__clk__peri.html", "group__group__sysclk__clk__peri" ],
     [ "Peripherals Clock Dividers", "group__group__sysclk__clk__peripheral.html", "group__group__sysclk__clk__peripheral" ],
+    [ "Peripheral Group(MMIO Group) Controls", "group__group__sysclk__clk__peripheral__group.html", "group__group__sysclk__clk__peripheral__group" ],
     [ "Slow Clock", "group__group__sysclk__clk__slow.html", "group__group__sysclk__clk__slow" ],
     [ "Alternative High-Frequency Clock", "group__group__sysclk__alt__hf.html", "group__group__sysclk__alt__hf" ],
     [ "Low-Frequency Clock", "group__group__sysclk__clk__lf.html", "group__group__sysclk__clk__lf" ],
@@ -27,5 +28,7 @@ var group__group__sysclk =
     [ "Internal High Frequency(IHO) Clock", "group__group__sysclk__iho.html", "group__group__sysclk__iho" ],
     [ "Internal Main Oscillator(IMO) Clock", "group__group__sysclk__imo.html", "group__group__sysclk__imo" ],
     [ "Mem Clock", "group__group__sysclk__clk__mem.html", "group__group__sysclk__clk__mem" ],
-    [ "Power Clock", "group__group__sysclk__clk__pwr.html", "group__group__sysclk__clk__pwr" ]
+    [ "Power Clock", "group__group__sysclk__clk__pwr.html", "group__group__sysclk__clk__pwr" ],
+    [ "Group_sysclk_clk_hf_structs", "group__group__sysclk__clk__hf__structs.html", null ],
+    [ "Group_sysclk_clk_lf_structs", "group__group__sysclk__clk__lf__structs.html", null ]
 ];

@@ -787,7 +787,7 @@ typedef enum {
 #define CY_IP_MXEFUSE_INSTANCES         1u
 #define CY_IP_MXEFUSE_VERSION           2u
 #define CY_IP_MXETH                     1u
-#define CY_IP_MXETH_INSTANCES           2u
+#define CY_IP_MXETH_INSTANCES           1u
 #define CY_IP_MXETH_VERSION             1u
 #define CY_IP_MXEVTGEN                  1u
 #define CY_IP_MXEVTGEN_INSTANCES        1u
@@ -2312,9 +2312,7 @@ typedef enum {
 *******************************************************************************/
 
 #define ETH0_BASE                               0x40480000UL
-#define ETH1_BASE                               0x40490000UL
 #define ETH0                                    ((ETH_Type*) ETH0_BASE)                                           /* 0x40480000 */
-#define ETH1                                    ((ETH_Type*) ETH1_BASE)                                           /* 0x40490000 */
 
 /*******************************************************************************
 *                                     LIN

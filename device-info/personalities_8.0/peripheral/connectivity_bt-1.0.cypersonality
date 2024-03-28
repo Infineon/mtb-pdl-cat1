@@ -36,7 +36,7 @@
   </ExposedMembers>
 
   <Parameters>
-    <ParamDoc id="doc" name="Configuration Help" group="Overview" default="https://Infineon.github.io/lpa/lpa_api_reference_manual/html/index.html" linkText="Open Low Power Assistant Documentation" visible="true" desc="Open the Low Power Assistant Documentation" />
+    <ParamDoc id="doc" name="Configuration Help" group="Overview" default="https://infineon.github.io/lpa/api_reference_manual/html/index.html" linkText="Open Low Power Assistant Documentation" visible="true" desc="Open the Low Power Assistant Documentation" />
 
     <!-- Host wake settings -->
     <ParamBlock id="hostWakePin" blockType="ioss\.port\.pin" name="Host-Wake-Up Signal" group="Host-Wake-Up Configuration" canBeEmpty="true" visible="true" desc="Select the host IRQ signal connected to BT_HOST_WAKE signal. The pin must be enabled on the Pins tab to be added as an option to the pull-down menu. If left empty, the pin will be unconfigured." />

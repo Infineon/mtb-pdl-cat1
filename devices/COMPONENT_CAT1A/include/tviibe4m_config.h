@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -1799,9 +1799,6 @@ typedef enum
 /* Pointer to device configuration structure */
 #define CY_DEVICE_CFG                   (&cy_deviceIpBlockCfgTVIIBE4M)
 
-/* Flash memory type ('0' : SONOS, '1': ECT) */
-#define CPUSS_FLASHC_ECT                1u
-
 /* Include IP definitions */
 #include "ip/cyip_sflash_v2_tviibe4m.h"
 #include "ip/cyip_peri_v2.h"
@@ -1811,7 +1808,7 @@ typedef enum
 #include "ip/cyip_fault_v2.h"
 #include "ip/cyip_ipc_v2.h"
 #include "ip/cyip_prot_v2.h"
-#include "ip/cyip_flashc_v2.h"
+#include "ip/cyip_flashc_v2_ect.h"
 #include "ip/cyip_srss_v3.h"
 #include "ip/cyip_backup_v3.h"
 #include "ip/cyip_dw_v2.h"
@@ -1961,6 +1958,8 @@ typedef PASS_V1_Type PASS_Type;
 #define CPUSS_ROMC_MACRO_NR             1u
 /* Flash memory present or not ('0': no, '1': yes) */
 #define CPUSS_FLASHC_PRESENT            1u
+/* Flash memory type ('0' : SONOS, '1': ECT) */
+#define CPUSS_FLASHC_ECT                1u
 /* Flash main region size in KB */
 #define CPUSS_FLASH_SIZE                0x00001000u
 /* Flash work region size in KB (EEPROM emulation, data) */

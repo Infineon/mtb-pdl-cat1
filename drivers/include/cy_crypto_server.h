@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_server.h
-* \version 2.90
+* \version 2.100
 *
 * \brief
 *  This file provides the prototypes for common API

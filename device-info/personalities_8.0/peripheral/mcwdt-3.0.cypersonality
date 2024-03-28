@@ -6,12 +6,12 @@
 * \version 3.0
 *
 * \brief
-* Multi-counter watchdog personality description file. It supports CAT1A and
-* CAT1B devices.
+* Multi-counter watchdog personality description file. It supports CAT1A, CAT1B and
+* CAT1D devices.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2022 Cypress Semiconductor Corporation
+* Copyright 2018-2023 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,38 +37,38 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__mcwdt.html" linkText="Open MCWDT Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
-    <!--Counter0-->
-    <ParamChoice id="C0ClearOnMatch" name="Clear on Match" group="Counter0" default="FREE_RUNNING" visible="true" editable="true" desc="Controls whether the counter is free running, with a period of 65,536 counts, or clear on match, where the period equals the match value + 1.">
+    <!--Counter0 (16-bit)-->
+    <ParamChoice id="C0ClearOnMatch" name="Clear on Match" group="Counter0 (16-bit)" default="FREE_RUNNING" visible="true" editable="true" desc="Controls whether the counter is free running, with a period of 65,536 counts, or clear on match, where the period equals the match value + 1.">
       <Entry name="Free Running" value="FREE_RUNNING" visible="true" />
       <Entry name="Clear on Match" value="CLEAR_ON_MATCH" visible="true" />
     </ParamChoice>
-    <ParamRange id="C0Match" name="Match" group="Counter0" default="32768" min="`${(C0ClearOnMatch eq CLEAR_ON_MATCH) ? 1 : 0}`" max="65535" resolution="1" visible="true" editable="true" desc="Counter match comparison value, for interrupt or watchdog timeout. The frequency is the interrupt frequency in interrupt action mode. The period is the inverse of the frequency." />
-    <ParamChoice id="C0Mode" name="Mode" group="Counter0" default="CY_MCWDT_MODE_NONE" visible="true" editable="true" desc="Counter 0 mode.">
+    <ParamRange id="C0Match" name="Match" group="Counter0 (16-bit)" default="32768" min="`${(C0ClearOnMatch eq CLEAR_ON_MATCH) ? 1 : 0}`" max="65535" resolution="1" visible="true" editable="true" desc="Counter match comparison value, for interrupt or watchdog timeout. The frequency is the interrupt frequency in interrupt action mode. The period is the inverse of the frequency." />
+    <ParamChoice id="C0Mode" name="Mode" group="Counter0 (16-bit)" default="CY_MCWDT_MODE_NONE" visible="true" editable="true" desc="Counter 0 mode.">
       <Entry name="Interrupt" value="CY_MCWDT_MODE_INT" visible="true" />
       <Entry name="Watchdog Reset" value="CY_MCWDT_MODE_RESET" visible="true" />
       <Entry name="Three Interrupts then Watchdog Reset" value="CY_MCWDT_MODE_INT_RESET" visible="true" />
       <Entry name="No Action" value="CY_MCWDT_MODE_NONE" visible="true" />
     </ParamChoice>
     
-    <!--Counter1-->
-    <ParamChoice id="C1ClearOnMatch" name="Clear on Match" group="Counter1" default="FREE_RUNNING" visible="true" editable="true" desc="Controls whether the counter is Free Running, with a period of 65,536 counts, or clear on match, where the period equals the match value + 1.">
+    <!--Counter1 (16-bit)-->
+    <ParamChoice id="C1ClearOnMatch" name="Clear on Match" group="Counter1 (16-bit)" default="FREE_RUNNING" visible="true" editable="true" desc="Controls whether the counter is Free Running, with a period of 65,536 counts, or clear on match, where the period equals the match value + 1.">
       <Entry name="Free Running" value="FREE_RUNNING" visible="true" />
       <Entry name="Clear on Match" value="CLEAR_ON_MATCH" visible="true" />
     </ParamChoice>
-    <ParamRange id="C1Match" name="Match" group="Counter1" default="32768" min="`${(C1ClearOnMatch eq CLEAR_ON_MATCH) ? 1 : 0}`" max="65535" resolution="1" visible="true" editable="true" desc="Counter match comparison value, for interrupt or watchdog timeout. The frequency is the interrupt frequency in interrupt action mode. The period is the inverse of the frequency." />
-    <ParamChoice id="C1Mode" name="Mode" group="Counter1" default="CY_MCWDT_MODE_NONE" visible="true" editable="true" desc="Counter 1 mode.">
+    <ParamRange id="C1Match" name="Match" group="Counter1 (16-bit)" default="32768" min="`${(C1ClearOnMatch eq CLEAR_ON_MATCH) ? 1 : 0}`" max="65535" resolution="1" visible="true" editable="true" desc="Counter match comparison value, for interrupt or watchdog timeout. The frequency is the interrupt frequency in interrupt action mode. The period is the inverse of the frequency." />
+    <ParamChoice id="C1Mode" name="Mode" group="Counter1 (16-bit)" default="CY_MCWDT_MODE_NONE" visible="true" editable="true" desc="Counter 1 mode.">
       <Entry name="Interrupt" value="CY_MCWDT_MODE_INT" visible="true" />
       <Entry name="Watchdog Reset" value="CY_MCWDT_MODE_RESET" visible="true" />
       <Entry name="Three Interrupts then Watchdog Reset" value="CY_MCWDT_MODE_INT_RESET" visible="true" />
       <Entry name="No Action" value="CY_MCWDT_MODE_NONE" visible="true" />
     </ParamChoice>
     
-    <!--Counter2-->
-    <ParamChoice id="C2Mode" name="Mode" group="Counter2" default="CY_MCWDT_MODE_NONE" visible="true" editable="true" desc="Counter 2 mode.">
+    <!--Counter2 (32-bit)-->
+    <ParamChoice id="C2Mode" name="Mode" group="Counter2 (32-bit)" default="CY_MCWDT_MODE_NONE" visible="true" editable="true" desc="Counter 2 mode.">
       <Entry name="Interrupt" value="CY_MCWDT_MODE_INT" visible="true" />
       <Entry name="No Action" value="CY_MCWDT_MODE_NONE" visible="true" />
     </ParamChoice>
-    <ParamRange id="C2Period" name="Period / Toggle Bit" group="Counter2" default="16" min="0" max="31" resolution="1" visible="true" editable="true" desc="Counter 2 period (toggle bit) select. The 32 values are calculated based on the counter clock frequency divided for each of the 32 bits in the counter." />
+    <ParamRange id="C2Period" name="Period / Toggle Bit" group="Counter2 (32-bit)" default="16" min="0" max="31" resolution="1" visible="true" editable="true" desc="Counter 2 period (toggle bit) select. The 32 values are calculated based on the counter clock frequency divided for each of the 32 bits in the counter." />
     <ParamBool id="CascadeC0C1" name="Cascade C0C1" group="Cascade" default="false" visible="true" editable="true" desc="Controls whether Counter1 is clocked by LFCLK or from Counter0." />
     <ParamBool id="CascadeC1C2" name="Cascade C1C2" group="Cascade" default="false" visible="true" editable="true" desc="Controls whether Counter2 is clocked by LFCLK or from Counter1 cascade." />
 

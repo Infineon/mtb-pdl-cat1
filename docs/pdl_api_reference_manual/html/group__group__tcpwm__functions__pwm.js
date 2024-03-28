@@ -21,11 +21,19 @@ var group__group__tcpwm__functions__pwm =
     [ "Cy_TCPWM_PWM_LineOutStatus", "group__group__tcpwm__functions__pwm.html#ga2fa9cba4981ced19e06bcd3f790a1ea2", null ],
     [ "Cy_TCPWM_PWM_PWMDeadTime", "group__group__tcpwm__functions__pwm.html#gac6431f369b92b730db9b2d1cdd2e8c86", null ],
     [ "Cy_TCPWM_PWM_PWMDeadTimeN", "group__group__tcpwm__functions__pwm.html#ga23f94a001adb0d0cf8a85008f52333f6", null ],
+    [ "Cy_TCPWM_PWM_Configure_LineSelect", "group__group__tcpwm__functions__pwm.html#ga0cb304e03b43541a6529af0782229b20", null ],
+    [ "Cy_TCPWM_PWM_Configure_LineSelectBuff", "group__group__tcpwm__functions__pwm.html#gae3ebd34cfb62ff24ffa18b26dfd68d31", null ],
+    [ "Cy_TCPWM_PWM_EnableLineSelectSwap", "group__group__tcpwm__functions__pwm.html#gabf3eb8ea9123430dfda021b569759e55", null ],
+    [ "Cy_TCPWM_PWM_SetDT", "group__group__tcpwm__functions__pwm.html#ga19370f61b63e19e9c3b50dfb48ec9fe3", null ],
     [ "Cy_TCPWM_PWM_EnableSwap", "group__group__tcpwm__functions__pwm.html#ga28b98099ca159a2f50f07567eb43a112", null ],
-    [ "Cy_TCPWM_Configure_Dithering_Values_and_Mode", "group__group__tcpwm__functions__pwm.html#gaabe8e865042aff31edbb6d06f254ac5b", null ],
+    [ "Cy_TCPWM_PWM_Configure_Dithering", "group__group__tcpwm__functions__pwm.html#gab9f1093f64fc39c0be2e8917b9b610cb", null ],
+    [ "Cy_TCPWM_PWM_PWMDeadTimeBuff", "group__group__tcpwm__functions__pwm.html#ga0b559ade9579db19b0642b4b1dfb41c1", null ],
+    [ "Cy_TCPWM_PWM_PWMDeadTimeBuffN", "group__group__tcpwm__functions__pwm.html#ga193882e8e50e548077775e6bde7fcf8f", null ],
+    [ "Cy_TCPWM_PWM_SetDTBuff", "group__group__tcpwm__functions__pwm.html#ga00caa836d8b391882405b5ec5b726903", null ],
     [ "Cy_TCPWM_PWM_SetCompare1Val", "group__group__tcpwm__functions__pwm.html#gae9dfa26ff90263db912df5c8bc609460", null ],
     [ "Cy_TCPWM_PWM_GetCompare1Val", "group__group__tcpwm__functions__pwm.html#ga737ae84fde081c31bc0a74092bb79900", null ],
     [ "Cy_TCPWM_PWM_SetCompare1BufVal", "group__group__tcpwm__functions__pwm.html#ga917ec6c83509f3de84b7741fcc140c9b", null ],
     [ "Cy_TCPWM_PWM_GetCompare1BufVal", "group__group__tcpwm__functions__pwm.html#ga3cdae63dfc8b404b3353f004a20c7fe7", null ],
-    [ "Cy_TCPWM_PWM_EnableCompare1Swap", "group__group__tcpwm__functions__pwm.html#ga5edc1279c07f799258d6a68353abab08", null ]
+    [ "Cy_TCPWM_PWM_EnableCompare1Swap", "group__group__tcpwm__functions__pwm.html#ga5edc1279c07f799258d6a68353abab08", null ],
+    [ "Cy_TCPWM_PWM_Set_KillLinePolarity", "group__group__tcpwm__functions__pwm.html#gadeae5714cda0e42f889c7f8f90702757", null ]
 ];

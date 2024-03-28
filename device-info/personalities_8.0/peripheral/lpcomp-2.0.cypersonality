@@ -29,7 +29,7 @@
 
 <Personality id="lpcomp" name="Low Power Comparator" version="2.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxlpcomp_s40,mxs22lpcomp" />
+    <IpBlock name="mxlpcomp_s40,mxs22lpcomp,mxs40lpcomp" />
     <Resource name="lpcomp\.comp" />
   </Dependencies>
   <ExposedMembers />
@@ -102,8 +102,14 @@
       <Member name="channel_num" value="`${getInstNumber(&quot;comp&quot;)}`U" />
     </ConfigStruct>
     
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_comp_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="lpcomp" value="&amp;`${INST_NAME . &quot;_config&quot;}`" />
+    </ConfigStruct>
+
     <ConfigInstruction value="Cy_LPComp_UlpReferenceEnable(`${INST_NAME}`_HW);" include="`${LocalVrefInput || (PowerSpeed eq CY_LPCOMP_MODE_ULP)}`"  />
     <ConfigInstruction value="Cy_LPComp_ConnectULPReference(`${INST_NAME}`_HW, `${INST_NAME . &quot;_CHANNEL&quot;}`);" include="`${LocalVrefInput}`"  />
+    <ConfigInstruction value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_LPCOMP_PERI_NR , CY_MMIO_LPCOMP_GROUP_NR, CY_MMIO_LPCOMP_SLAVE_NR, CY_MMIO_LPCOMP_CLK_HF_NR);" include="`${(getIpBlockName() eq &quot;mxs22lpcomp&quot;)}`" />
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
 </Personality>

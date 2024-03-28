@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_rtc.h
-* \version 2.80
+* \version 2.90
 *
 * This file provides constants and parameter values for the APIs for the
 * Real-Time Clock (RTC).
@@ -226,6 +226,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>2.90</td>
+*     <td>Updated API \ref Cy_RTC_GetInterruptStatus.</td>
+*     <td>Code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>2.80</td>
 *     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
 *          Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1.</td>
@@ -371,7 +376,7 @@ extern "C" {
 #define CY_RTC_DRV_VERSION_MAJOR                    2
 
 /** Driver minor version */
-#define CY_RTC_DRV_VERSION_MINOR                    80
+#define CY_RTC_DRV_VERSION_MINOR                    90
 
 /** RTC driver retry macros */
 #define CY_RTC_ACCESS_BUSY_RETRY_COUNT    (200u)
@@ -821,7 +826,7 @@ __STATIC_INLINE void Cy_RTC_SyncToRtcAhbAlarm(uint32_t alarmTimeBcd, uint32_t al
 #define CY_RTC_TRYES_TO_SETUP_DST                    (24U)
 
 /** RTC AM/PM bit for 12H hour mode */
-#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2) || defined (CY_IP_MXS22SRSS)
 #define CY_RTC_12HRS_PM_BIT                          (0x10UL)
 #else
 #define CY_RTC_12HRS_PM_BIT                          (0x20UL)
@@ -855,7 +860,7 @@ __STATIC_INLINE void Cy_RTC_SyncToRtcAhbAlarm(uint32_t alarmTimeBcd, uint32_t al
 #define CY_RTC_TWENTY_ONE_HUNDRED_YEARS              (2100UL)
 
 /** Mask for reading RTC hour for 12H mode  */
-#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2) || defined (CY_IP_MXS22SRSS)
 #define CY_RTC_BACKUP_RTC_TIME_RTC_12HOUR            (0xf0000UL)
 #else
 #define CY_RTC_BACKUP_RTC_TIME_RTC_12HOUR            (0x1f0000UL)

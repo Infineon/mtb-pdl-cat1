@@ -446,7 +446,9 @@
       <ConfigInclude value="cycfg_routing.h" include="true" />
       <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
       <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
-
+      <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+      <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
+      
       <ConfigDefine name="`${INST_NAME}`_HW" value="`${pHWName}`" public="true" include="true" />
       <ConfigDefine name="`${INST_NAME}`_IRQ" value="pass_interrupt_sar`${verGt1 ? &quot;_&quot; . inst : &quot;&quot;}`_IRQn" public="true" include="true" />
       <ConfigDefine name="`${INST_NAME}`_CTL" value="((uint32_t)CY_SAR_VREF_PWR_100 | (uint32_t)`${vref_select}` | (uint32_t)`${vref_byp_cap ? &quot;CY_SAR_BYPASS_CAP_ENABLE&quot; : &quot;CY_SAR_BYPASS_CAP_DISABLE&quot;}` | `${vneg_select_string}` | (uint32_t)CY_SAR_CTRL_NEGVREF_HW | (uint32_t)`${compDly}` | (uint32_t)CY_SAR_COMP_PWR_100 | (uint32_t)CY_SAR_DEEPSLEEP_SARMUX_OFF | (uint32_t)CY_SAR_SARSEQ_SWITCH_ENABLE)" public="true" include="true" />
@@ -542,10 +544,25 @@
         <Member name="scanCntIntr" value="`${verGt1 ? scanCntIntr : false}`"/>
       </ConfigStruct>
       
-      <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
         <Member name="type" value="CYHAL_RSC_ADC" />
         <Member name="block_num" value="0" />
         <Member name="channel_num" value="0" />
+      </ConfigStruct>
+
+      <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="`${clk eq CY_SAR_CLK_PERI}`" guard="defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)">
+        <Member name="block" value="`${getExposedMember(pclk, &quot;hal_block&quot;)}`" />
+        <Member name="channel" value="`${getExposedMember(pclk, &quot;number&quot;)}`" />
+        <Member name="reserved" value="false" guard="defined (CY_USING_HAL)" />
+        <Member name="funcs" value="NULL" guard="defined (CY_USING_HAL)" />
+      </ConfigStruct>
+
+      <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_adc_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+        <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+        <Member name="config" value="&amp;`${INST_NAME}`_config" />
+        <Member name="clock" value="`${(clk eq CY_SAR_CLK_PERI) ? &quot;&amp;&quot; . INST_NAME . &quot;_clock&quot; : &quot;NULL&quot;}`" />
+        <Member name="num_channels" value="`${num_channels}`" />
+        <Member name="achieved_acquisition_time" value="NULL" />
       </ConfigStruct>
       
       <ConfigInstruction value="SAR_MUX_SWITCH0(`${INST_NAME}`_HW) |= CY_SAR_MUX_FW_VSSA_VMINUS;" include="`${vneg_select eq CY_SAR_NEG_SEL_VSSA_KELVIN &amp;&amp; single_ended_exists}`" />

@@ -6,8 +6,7 @@
 * \version 3.0
 *
 * \brief
-* ECO personality description file. It supports CAT1A, CAT1B, CAT1C and
-* CAT1D devices.
+* ECO personality description file. It supports CAT1A, CAT1B and CAT1C devices.
 *
 ********************************************************************************
 * \copyright
@@ -30,8 +29,8 @@
 
 <Personality id="eco" name="ECO" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="mxs40srss,mxs40srss_ver2,mxs40srss_ver3,mxs22srss,mxs40ssrss" />
-    <IpBlock name="mxs40ioss,mxs22ioss" />
+    <IpBlock name="mxs40srss,mxs40srss_ver2,mxs40srss_ver3,mxs40ssrss" />
+    <IpBlock name="mxs40ioss,mxs40sioss" />
     <Resource name="srss\.clock\.eco" />
   </Dependencies>
   <ExposedMembers>
@@ -179,6 +178,7 @@
     <ConfigDefine name="CY_CFG_SYSCLK_ECO_ESR" value="`${esr}`UL" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_ECO_DRIVE_LEVEL" value="`${driveLevel}`UL" public="false" include="true" />
     <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_EcoInit()" body="    (void)Cy_GPIO_Pin_FastInit(GPIO_PRT`${gpio_in_port}`, `${gpio_in_pin}`, CY_GPIO_DM_ANALOG, 0UL, HSIOM_SEL_GPIO);&#xA;    (void)Cy_GPIO_Pin_FastInit(GPIO_PRT`${gpio_out_port}`, `${gpio_out_pin}`, CY_GPIO_DM_ANALOG, 0UL, HSIOM_SEL_GPIO);&#xA;    if (CY_SYSCLK_BAD_PARAM == Cy_SysClk_EcoConfigure(CY_CFG_SYSCLK_ECO_FREQ, `${csum}`UL, `${esr}`UL, `${driveLevel}`UL))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_ECO_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_TIMEOUT == Cy_SysClk_EcoEnable(3000UL))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_ECO_ERROR);&#xA;    }" public="false" include="`${!error}`" guard="(!defined(CY_DEVICE_SECURE))" />
-    <ConfigInstruction value="Cy_SysClk_EcoSetFrequency(CY_CFG_SYSCLK_ECO_FREQ);" purpose="RESERVE" include="`${(&quot;mxs40srss&quot; eq getIpBlockName())}`" />
+    <ConfigInstruction value="Cy_SysClk_EcoSetFrequency(CY_CFG_SYSCLK_ECO_FREQ);" purpose="RESERVE" include="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`" />
+    <ConfigInstruction value="SystemCoreClockUpdate();" purpose="RESERVE" include="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`" />
   </ConfigFirmware>
 </Personality>

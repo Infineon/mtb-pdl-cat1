@@ -120,6 +120,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ga58bb033cfac5881d026e32643ed6c6b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga58bb033cfac5881d026e32643ed6c6b7">Cy_SysClk_IsClkHfDirectSelEnabled</a> (uint32_t clkHf)</td></tr>
 <tr class="memdesc:ga58bb033cfac5881d026e32643ed6c6b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if direct source selection as IMO for CLK_HF[[n]] is enabled/disabled.  <a href="#ga58bb033cfac5881d026e32643ed6c6b7">More...</a><br /></td></tr>
 <tr class="separator:ga58bb033cfac5881d026e32643ed6c6b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga46accf22663e93afbcd92d41fe47f613"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga46accf22663e93afbcd92d41fe47f613">Cy_SysClk_ClkHfGetMaskOnPath</a> (<a class="el" href="group__group__sysclk__clk__hf__enums.html#gabac2d6b9124a00860dcd781a922788d6">cy_en_clkhf_in_sources_t</a> clkPath)</td></tr>
+<tr class="memdesc:ga46accf22663e93afbcd92d41fe47f613"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Mask value for the HF Clocks selected and enabled for clkPath as source e.g.  <a href="#ga46accf22663e93afbcd92d41fe47f613">More...</a><br /></td></tr>
+<tr class="separator:ga46accf22663e93afbcd92d41fe47f613"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7f4310594a4441d01ac1c46df0a1234"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gad7f4310594a4441d01ac1c46df0a1234">Cy_SysClk_ClkHfAllGetMask</a> (void)</td></tr>
+<tr class="memdesc:gad7f4310594a4441d01ac1c46df0a1234"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Mask value for the all HF Clocks e.g.  <a href="#gad7f4310594a4441d01ac1c46df0a1234">More...</a><br /></td></tr>
+<tr class="separator:gad7f4310594a4441d01ac1c46df0a1234"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b86beecfee7ea5361decab70bc7e4b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga3b86beecfee7ea5361decab70bc7e4b3">Cy_SysClk_ClkHfEnableDividerWithMask</a> (uint32_t clkHfMask, <a class="el" href="group__group__sysclk__clk__hf__enums.html#gadfbf0caf87af7cd757648124fb17d1d4">cy_en_clkhf_dividers_t</a> divider)</td></tr>
+<tr class="memdesc:ga3b86beecfee7ea5361decab70bc7e4b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide all the enabled CLK_HF's with the divider value.  <a href="#ga3b86beecfee7ea5361decab70bc7e4b3">More...</a><br /></td></tr>
+<tr class="separator:ga3b86beecfee7ea5361decab70bc7e4b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4053d66942358380e99583c0ef4d99a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga4053d66942358380e99583c0ef4d99a5">Cy_SysClk_ClkHfEnableDirectMuxWithMask</a> (uint32_t clkHfMask, bool enable)</td></tr>
+<tr class="memdesc:ga4053d66942358380e99583c0ef4d99a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable/ Disable the clock path for the HF Clocks in clkHfMask in disable case ROOT path will be enabled in enable case ROOT path will be disabled.  <a href="#ga4053d66942358380e99583c0ef4d99a5">More...</a><br /></td></tr>
+<tr class="separator:ga4053d66942358380e99583c0ef4d99a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaf3041fc8333478cc7c8d869d2a535d71"></a>
@@ -454,6 +466,134 @@ Calculates the HF frequency irrespective of whether HF is enabled or not.</dd></
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True - IMO selected for CAT1A/CAT1B/CAT1C or IHO for CAT1D, False - Root Mux is selected.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A (TVIIBE only), CAT1B, CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga46accf22663e93afbcd92d41fe47f613"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga46accf22663e93afbcd92d41fe47f613">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfGetMaskOnPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_ClkHfGetMaskOnPath </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__sysclk__clk__hf__enums.html#gabac2d6b9124a00860dcd781a922788d6">cy_en_clkhf_in_sources_t</a>&#160;</td>
+          <td class="paramname"><em>clkPath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get Mask value for the HF Clocks selected and enabled for clkPath as source e.g. </p>
+<p>Mask return will have Bit 0 set if HFCLK0 is enabled and source is clkPath</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkPath</td><td>clock path</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>mask of CLKHF for which clock path is set</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available CAT1D for LP PLL </dd></dl>
+
+</div>
+</div>
+<a id="gad7f4310594a4441d01ac1c46df0a1234"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad7f4310594a4441d01ac1c46df0a1234">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfAllGetMask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_ClkHfAllGetMask </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get Mask value for the all HF Clocks e.g. </p>
+<p>Mask return will have Bit 0 set if HFCLK0 is enabled</p>
+<dl class="section return"><dt>Returns</dt><dd>mask of CLKHF</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available only for CAT1D devices </dd></dl>
+
+</div>
+</div>
+<a id="ga3b86beecfee7ea5361decab70bc7e4b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3b86beecfee7ea5361decab70bc7e4b3">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfEnableDividerWithMask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_ClkHfEnableDividerWithMask </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHfMask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__sysclk__clk__hf__enums.html#gadfbf0caf87af7cd757648124fb17d1d4">cy_en_clkhf_dividers_t</a>&#160;</td>
+          <td class="paramname"><em>divider</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Divide all the enabled CLK_HF's with the divider value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHfMask</td><td>CLKHF mask for of the Clocks</td></tr>
+    <tr><td class="paramname">divider</td><td>Divider Value <a class="el" href="group__group__sysclk__clk__hf__enums.html#gadfbf0caf87af7cd757648124fb17d1d4">cy_en_clkhf_dividers_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D devices </dd></dl>
+
+</div>
+</div>
+<a id="ga4053d66942358380e99583c0ef4d99a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4053d66942358380e99583c0ef4d99a5">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfEnableDirectMuxWithMask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_ClkHfEnableDirectMuxWithMask </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHfMask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable/ Disable the clock path for the HF Clocks in clkHfMask in disable case ROOT path will be enabled in enable case ROOT path will be disabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHfMask</td><td>CLKHF mask for of the Clocks</td></tr>
+    <tr><td class="paramname">enable</td><td>to enable or disable direct path</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available CAT1D for LP PLL, CDT_005549-196 </dd></dl>
 
 </div>
 </div>

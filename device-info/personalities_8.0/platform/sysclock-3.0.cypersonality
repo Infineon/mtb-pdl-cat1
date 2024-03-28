@@ -42,6 +42,10 @@
     <ParamBool 
       id="is40srssAvailable" name="is40srssAvailable" group="" 
       default="`${(&quot;mxs40srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+    <ParamBool
+      id="is40ssrssPllAvailable" name="is40srssAvailable" group=""
+      default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; NUM_TOTAL_PLL ne 0}`"
+      visible="false" editable="false" desc="" />
     <ParamBool 
       id="is40ssrssAvailable" name="is40ssrssAvailable" group="" 
       default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
@@ -58,6 +62,10 @@
     <ParamBool 
       id="is22srssAvailable" name="is22srssAvailable" group="" 
       default="`${(&quot;mxs22srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+    <ParamBool
+      id="is22srssNotAvailable" name="is22srssNotAvailable" group=""
+      default="`${(&quot;mxs22srss&quot; ne getIpBlockName())}`"
+      visible="false" editable="false" desc="" />
   </Parameters>
   <DRCs>
     <DRC type="ERROR" text="CLK_HF0 is not enabled." condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[0]&quot;) &amp;&amp; (is40ssrssAvailable || is40srss_ver2or3Available || is22srssAvailable)}`" >
@@ -74,7 +82,7 @@
 
     <ConfigDefine name="CY_CFG_SYSCLK_ECO_ERROR"   value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_ALTHF_ERROR" value="2" public="false" include="true" />
-    <ConfigDefine name="CY_CFG_SYSCLK_PLL_ERROR"   value="3" public="false" include="`${is40srss_ver2or3Available || is40srssAvailable || is22srssAvailable}`" />
+    <ConfigDefine name="CY_CFG_SYSCLK_PLL_ERROR"   value="3" public="false" include="`${is40srss_ver2or3Available || is40srssAvailable || is22srssAvailable || is40ssrssPllAvailable}`" />
     <ConfigDefine name="CY_CFG_SYSCLK_FLL_ERROR"   value="4" public="false" include="`${is40srss_ver2or3Available || is40srssAvailable || is40ssrssAvailable}`" />
     <ConfigDefine name="CY_CFG_SYSCLK_WCO_ERROR"   value="5" public="false" include="true" />
 
@@ -87,7 +95,8 @@
     <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_Ilo0DeInit()" body="    if(Cy_SysPm_IsBgRefCtrl())&#xA;    {&#xA;        Cy_SysPm_BgRefCtrl(false);&#xA;        Cy_WDT_Unlock();&#xA;        Cy_SysClk_IloSrcDisable(0);&#xA;        Cy_SysClk_IloSrcHibernateOn(0, false);&#xA;        Cy_WDT_Lock();&#xA;        Cy_SysPm_BgRefCtrl(true);&#xA;    }&#xA;    else&#xA;    {&#xA;        Cy_WDT_Unlock();&#xA;        Cy_SysClk_IloSrcDisable(0);&#xA;        Cy_SysClk_IloSrcHibernateOn(0, false);&#xA;        Cy_WDT_Lock();&#xA;    }" public="false" include="`${is40srss_ver2or3Available}`" guard="!defined (CY_CFG_SYSCLK_ILO0_ENABLED)"/>
     <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_Ilo1DeInit()" body="    Cy_SysClk_IloSrcDisable(1);&#xA;    Cy_SysClk_IloSrcHibernateOn(1, false);" public="false" include="`${is40srss_ver2or3Available}`" guard="!defined (CY_CFG_SYSCLK_ILO1_ENABLED)"/>
 
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_FllDeInit()" body="    Cy_SysClk_FllDisable();" public="false" include="`${is40srss_ver2or3Available || is40srssAvailable || is40ssrssAvailable}`" guard="(!defined(CY_DEVICE_SECURE))"/>
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_FllDeInit()" body="    Cy_SysClk_FllDisable();" public="false" include="`${is40srss_ver2or3Available}`" guard="((!defined(CY_DEVICE_SECURE)))"/>
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_FllDeInit()" body="    Cy_SysClk_FllDisable();" public="false" include="`${is40srssAvailable || is40ssrssAvailable}`" guard="((!defined(CY_DEVICE_SECURE)) &amp;&amp; (defined(CY_CFG_SYSCLK_FLL_ENABLED)))"/>
 
     <ConfigFunction signature="void init_cycfg_secure_struct(cy_stc_pra_system_config_t * secure_config)" body="
    #ifdef CY_CFG_PWR_ENABLED&#xA;
@@ -598,18 +607,22 @@
     <ConfigInstruction value="    Cy_SysLib_SetWaitStates(false, 150UL);" include="`${is40srssAvailable || is40srss_ver2or3Available}`"  />
 
     <!-- Configure power options -->
-    <ConfigInstruction value="#ifdef CY_CFG_PWR_ENABLED" include="true"  />
-    <ConfigInstruction value="    #ifdef CY_CFG_PWR_INIT" include="true"  />
-    <ConfigInstruction value="        init_cycfg_power();" include="true"  />
-    <ConfigInstruction value="    #else" include="true"  />
-    <ConfigInstruction value="        #warning Power system will not be configured. Update power personality to v1.20 or later." include="true"  />
-    <ConfigInstruction value="    #endif /* CY_CFG_PWR_INIT */" include="true"  />
-    <ConfigInstruction value="#endif /* CY_CFG_PWR_ENABLED */" include="true"  />
-    <ConfigInstruction value="" include="true"  />
+    <ConfigInstruction value="#ifdef CY_CFG_PWR_ENABLED" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="    #ifdef CY_CFG_PWR_INIT" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="        init_cycfg_power();" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="    #else" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="        #warning Power system will not be configured. Update power personality to v1.20 or later." include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="    #endif /* CY_CFG_PWR_INIT */" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="#endif /* CY_CFG_PWR_ENABLED */" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="" include="`${is22srssNotAvailable}`"  />
+
+    <ConfigInstruction value="#if defined(CORE_NAME_CM33_0)" include="`${is22srssAvailable}`"  />
 
     <!-- Reset and configure platform clocks -->
-	<ConfigInstruction value="    /* Disable FLL */" include="`${is40srss_ver2or3Available || is40srssAvailable || is40ssrssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_FllDeInit();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40ssrssAvailable}`"  />
+	<ConfigInstruction value="/* Disable FLL */" include="`${is40srss_ver2or3Available || is40srssAvailable || is40ssrssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_FLL_ENABLED" include="`${is40srssAvailable || is40ssrssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_FllDeInit();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40ssrssAvailable}`" />
+    <ConfigInstruction value="#endif" include="`${is40srssAvailable || is40ssrssAvailable}`"  />
     <ConfigInstruction value="" include="`${is40srss_ver2or3Available || is40srssAvailable || is40ssrssAvailable}`"  />
 
     <ConfigInstruction value="    /* Reset the core clock path to default and disable all the FLLs/PLLs */" include="`${is40srssAvailable}`"  />
@@ -656,6 +669,11 @@
 
     <!-- Enable all source clocks -->
     <ConfigInstruction value="/* Enable all source clocks */" include="true"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_IHO_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_IhoInit();" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="" include="`${is22srssAvailable}`"  />
+
     <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PILO_ENABLED" include="true"  />
     <ConfigInstruction value="    Cy_SysClk_PiloInit();" include="true"  />
     <ConfigInstruction value="#endif" include="true"  />
@@ -686,10 +704,17 @@
     <ConfigInstruction value="    #endif" include="`${is40srssAvailable}`"  />
     <ConfigInstruction value="" include="`${is40srssAvailable}`"  />
 
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_EXTCLK_ENABLED" include="true"  />
-    <ConfigInstruction value="    Cy_SysClk_ExtClkInit();" include="true"  />
-    <ConfigInstruction value="#endif" include="true"  />
-    <ConfigInstruction value="" include="true"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_EXTCLK_ENABLED" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_ExtClkInit();" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssNotAvailable}`"  />
+    <ConfigInstruction value="" include="`${is22srssNotAvailable}`"  />
+
+    <ConfigInstruction value="#ifdef CY_PDL_TZ_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_EXTCLK_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_ExtClkInit();" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
+	<ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
+	<ConfigInstruction value="" include="`${is22srssAvailable}`"  />
 
     <!-- Configure CPU clock dividers -->
     <ConfigInstruction value="    /* Configure CPU clock dividers */" include="`${is40srssAvailable||is40srss_ver2or3withCM4}`"  />
@@ -722,10 +747,17 @@
     <ConfigInstruction value="    Cy_SysClk_AltHfInit();" include="`${is40srss_ver2or3Available}`"  />
     <ConfigInstruction value="#endif" include="`${is22srssAvailable || is40srss_ver2or3Available}`"  />
     <ConfigInstruction value="" include="`${is22srssAvailable || is40srss_ver2or3Available}`"  />
-    <ConfigInstruction value="    #ifdef CY_CFG_SYSCLK_CLKPERI_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="        Cy_SysClk_ClkPeriInit();" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="    #endif" include="`${is22srssAvailable || is40srss_ver2or3Available}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_CLKPERI_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_ClkPeriInit();" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable || is40srss_ver2or3Available}`"  />
     <ConfigInstruction value="" include="`${is22srssAvailable || is40srss_ver2or3Available}`"  />
+
+    <!-- Disable All PLL's -->
+    <ConfigInstruction value="#ifdef CY_PDL_TZ_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_PllDisable(SRSS_DPLL_HP_0_PATH_NUM);" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_PllDisable(SRSS_DPLL_LP_0_PATH_NUM);" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_PllDisable(SRSS_DPLL_LP_1_PATH_NUM);" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
 
     <!-- If CLKHF0 clocked from WCO -->
     <ConfigInstruction value="    #if ((CY_CFG_SYSCLK_CLKPATH0_SOURCE_NUM == 0x6UL) &amp;&amp; (CY_CFG_SYSCLK_CLKHF0_CLKPATH_NUM == 0U))" include="`${is40srssAvailable}`"  />
@@ -818,53 +850,59 @@
     <ConfigInstruction value="    Cy_SysClk_Pll2Init();" include="`${is40srssAvailable}`"  />
     <ConfigInstruction value="#endif" include="`${is40srssAvailable}`"  />
 
-    <ConfigInstruction value="/* Configure and enable PLLs */" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL0_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll0Init();" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL1_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll1Init();" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL2_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll2Init();" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL3_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll3Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL4_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll4Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL5_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll5Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL6_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll6Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL7_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll7Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL8_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll8Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL9_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll9Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL10_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll10Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL11_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll11Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL12_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="   Cy_SysClk_Pll12Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL13_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll13Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL14_ENABLED" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="    Cy_SysClk_Pll14Init();" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
-    <ConfigInstruction value="" include="`${is40srss_ver2or3Available || is22srssAvailable || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="/* Configure and enable PLLs */" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_DPLL_HP0_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Dpll_Hp0_Init();" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
+
+    <ConfigInstruction value="/* Configure and enable PLLs */" include="`${is40srss_ver2or3Available || is40ssrssPllAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL0_ENABLED" include="`${is40srss_ver2or3Available  || is40ssrssPllAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll0Init();" include="`${is40srss_ver2or3Available || is40ssrssPllAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40ssrssPllAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL1_ENABLED" include="`${is40srss_ver2or3Available || is40ssrssPllAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll1Init();" include="`${is40srss_ver2or3Available || is40ssrssPllAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40ssrssPllAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL2_ENABLED" include="`${is40srss_ver2or3Available}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll2Init();" include="`${is40srss_ver2or3Available}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL3_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll3Init();" include="`${is40srss_ver2or3Available || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL4_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll4Init();" include="`${is40srss_ver2or3Available || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL5_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll5Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL6_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll6Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL7_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll7Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL8_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll8Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL9_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll9Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL10_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll10Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL11_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll11Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL12_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="   Cy_SysClk_Pll12Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL13_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll13Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_PLL14_ENABLED" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Pll14Init();" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+    <ConfigInstruction value="" include="`${is40srss_ver2or3Available || is40srssAvailable || is40srssAvailable}`"  />
+
     <!-- Configure HF clocks -->
     <ConfigInstruction value="/* Configure HF clocks */" include="true"  />
     <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_CLKHF1_ENABLED" include="true"  />
@@ -967,6 +1005,11 @@
     <ConfigInstruction value="#endif" include="true"  />
     <ConfigInstruction value="" include="true"  />
 
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_CLKPWR_ENABLED" include="true"  />
+    <ConfigInstruction value="    Cy_SysClk_ClkPwrInit();" include="true"  />
+    <ConfigInstruction value="#endif" include="true"  />
+    <ConfigInstruction value="" include="true"  />
+
     <ConfigInstruction value="#if (!defined(CY_DEVICE_SECURE))" include="`${is40srssAvailable}`"  />
     <!-- Configure final flash wait states -->
     <ConfigInstruction value="    /* Set accurate flash wait states */" include="`${is40srssAvailable}`"  />
@@ -1002,6 +1045,15 @@
     <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_CLKPATH0_ENABLED" include="`${is40srss_ver2or3Available || is40ssrssAvailable || is22srssAvailable}`"  />
     <ConfigInstruction value="    Cy_SysClk_ClkPath0Init();" include="`${is40srss_ver2or3Available || is40ssrssAvailable || is22srssAvailable}`"  />
     <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is40ssrssAvailable || is22srssAvailable}`"  />
+
+    <ConfigInstruction value="/* Configure and enable DPLLs */" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_DPLL_LP0_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Dpll_Lp0_Init();" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_DPLL_LP1_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_Dpll_Lp1_Init();" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="" include="`${is22srssAvailable}`"  />
 
     <!-- Reset and configure platform clocks -->
     <ConfigInstruction value="/* Configure and enable FLL */" include="`${is40srss_ver2or3Available || is40ssrssAvailable}`"  />
@@ -1039,10 +1091,35 @@
     <ConfigInstruction value="" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
 
     <ConfigInstruction value="    Cy_SysClk_EcoPrescalerInit();" include="true" guard="defined(CY_CFG_SYSCLK_ECO_PRESCALER_ENABLED)" />
+    <ConfigInstruction value="#endif /* defined(CORE_NAME_CM33_0) */" include="`${is22srssAvailable}`"  />
+
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_CLKALTSYSTICK_ENABLED" include="true"  />
+    <ConfigInstruction value="    Cy_SysClk_ClkAltSysTickInit();" include="true"  />
+    <ConfigInstruction value="#endif" include="true"  />
+    <ConfigInstruction value="" include="true"  />
+
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_ECO_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_EcoSetFrequency(CY_CFG_SYSCLK_ECO_FREQ);" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="" include="`${is22srssAvailable}`"  />
+
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_EXTCLK_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_ExtClkSetFrequency(CY_CFG_SYSCLK_EXTCLK_FREQ);" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="" include="`${is22srssAvailable}`"  />
 
     <!-- Update System Core Clock values -->
     <ConfigInstruction value="/* Update System Core Clock values for correct Cy_SysLib_Delay functioning */" include="`${is40srss_ver2or3Available || is40ssrssAvailable || is22srssAvailable}`"  />
     <ConfigInstruction value="SystemCoreClockUpdate();" include="`${is40srss_ver2or3Available || is40ssrssAvailable || is22srssAvailable}`"  />
 
+    <!-- Configure power options -->
+    <ConfigInstruction value="#ifdef CY_CFG_PWR_ENABLED" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    #ifdef CY_CFG_PWR_INIT" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="        init_cycfg_power();" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    #else" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="        #warning Power system will not be configured. Update power personality to v1.20 or later." include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="    #endif /* CY_CFG_PWR_INIT */" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="#endif /* CY_CFG_PWR_ENABLED */" include="`${is22srssAvailable}`"  />
+    <ConfigInstruction value="" include="`${is22srssAvailable}`"  />
   </ConfigFirmware>
 </Personality>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_lvd.h
-* \version 1.70
+* \version 1.80
 *
 * The header file of the LVD driver.
 *
@@ -65,6 +65,12 @@
 * \section group_lvd_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason of Change</th></tr>
+*   <tr>
+*     <td>1.80</td>
+*     <td>Added new APIs \ref Cy_LVD_SetActionConfig, \ref Cy_LVD_GetActionConfig
+*       - Added enum \ref cy_en_lvd_action_config_t.</td>
+*     <td>LVD set and get config APIs added.</td>
+*   </tr>
 *   <tr>
 *     <td>1.70</td>
 *     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
@@ -165,7 +171,7 @@ extern "C" {
 #define CY_LVD_DRV_VERSION_MAJOR       1
 
 /** The driver minor version */
-#define CY_LVD_DRV_VERSION_MINOR       70
+#define CY_LVD_DRV_VERSION_MINOR       80
 
 /** The LVD driver identifier */
 #define CY_LVD_ID                      (CY_PDL_DRV_ID(0x39U))
@@ -321,6 +327,15 @@ typedef enum
     CY_LVD_SOURCE_AMUXBUSB   = 0x4U,  /**<Selects AMUXBUSB*/
 } cy_en_lvd_source_t;
 
+/**
+ * LVD Action
+ */
+typedef enum
+{
+    CY_LVD_ACTION_INTERRUPT    = 0x0U,  /**<Select LVD Action : Interrupt */
+    CY_LVD_ACTION_FAULT        = 0x1U,  /**<Select LVD Action : Fault */
+} cy_en_lvd_action_config_t;
+
 /** \} group_lvd_enums */
 
 /** \cond internal */
@@ -357,6 +372,9 @@ typedef enum
 
 /* Added for backward Compatibility */
 #define CY_LVD_INTR        (CY_LVD_SRSS_INTR_HVLVD1_MASK)
+
+#define CY_LVD_CHECK_ACTION_CFG(actionCfg)   (((actionCfg) == CY_LVD_ACTION_INTERRUPT) || \
+                                              ((actionCfg) == CY_LVD_ACTION_FAULT))
 
 /** \endcond */
 
@@ -489,7 +507,7 @@ __STATIC_INLINE cy_en_lvd_status_t Cy_LVD_GetStatus(void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_LVD_GetInterruptStatus(void)
 {
-#if defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
     return (SRSS_SRSS_AINTR & CY_LVD_SRSS_INTR_HVLVD1_MASK);
 #else
     return (SRSS_SRSS_INTR & CY_LVD_SRSS_INTR_HVLVD1_MASK);
@@ -509,7 +527,7 @@ __STATIC_INLINE void Cy_LVD_ClearInterrupt(void)
 {
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_SET(CY_PRA_INDX_SRSS_SRSS_INTR, CY_LVD_SRSS_INTR_HVLVD1_MASK);
-    #elif defined (CY_IP_MXS40SSRSS)
+    #elif defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
         SRSS_SRSS_AINTR = CY_LVD_SRSS_INTR_HVLVD1_MASK;
     #else
         SRSS_SRSS_INTR = CY_LVD_SRSS_INTR_HVLVD1_MASK;
@@ -535,7 +553,7 @@ __STATIC_INLINE void Cy_LVD_SetInterrupt(void)
 {
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_SET(CY_PRA_INDX_SRSS_SRSS_INTR_SET, CY_LVD_SRSS_INTR_SET_HVLVD1_MASK);
-    #elif defined (CY_IP_MXS40SSRSS)
+    #elif defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
         SRSS_SRSS_AINTR_SET = CY_LVD_SRSS_INTR_SET_HVLVD1_MASK;
     #else
         SRSS_SRSS_INTR_SET = CY_LVD_SRSS_INTR_SET_HVLVD1_MASK;
@@ -555,7 +573,7 @@ __STATIC_INLINE void Cy_LVD_SetInterrupt(void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_LVD_GetInterruptMask(void)
 {
-#if defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
     return (SRSS_SRSS_AINTR_MASK & CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK);
 #else
     return (SRSS_SRSS_INTR_MASK & CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK);
@@ -575,7 +593,7 @@ __STATIC_INLINE void Cy_LVD_SetInterruptMask(void)
 {
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_CLR_SET(CY_PRA_INDX_SRSS_SRSS_INTR_MASK, SRSS_SRSS_INTR_MASK_HVLVD1, 1U);
-    #elif defined (CY_IP_MXS40SSRSS)
+    #elif defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
         SRSS_SRSS_AINTR_MASK |= CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK;
     #else
         SRSS_SRSS_INTR_MASK |= CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK;
@@ -595,7 +613,7 @@ __STATIC_INLINE void Cy_LVD_ClearInterruptMask(void)
 {
     #if CY_CPU_CORTEX_M4 && defined(CY_DEVICE_SECURE)
         CY_PRA_REG32_CLR_SET(CY_PRA_INDX_SRSS_SRSS_INTR_MASK, SRSS_SRSS_INTR_MASK_HVLVD1, 0U);
-    #elif defined (CY_IP_MXS40SSRSS)
+    #elif defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
         SRSS_SRSS_AINTR_MASK &= (uint32_t) ~CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK;
     #else
         SRSS_SRSS_INTR_MASK &= (uint32_t) ~CY_LVD_SRSS_INTR_MASK_HVLVD1_MASK;
@@ -616,7 +634,7 @@ __STATIC_INLINE void Cy_LVD_ClearInterruptMask(void)
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_LVD_GetInterruptStatusMasked(void)
 {
-#if defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
     return (SRSS_SRSS_AINTR_MASKED & CY_LVD_SRSS_INTR_MASKED_HVLVD1_MASK);
 #else
     return (SRSS_SRSS_INTR_MASKED & CY_LVD_SRSS_INTR_MASKED_HVLVD1_MASK);
@@ -653,11 +671,54 @@ __STATIC_INLINE void Cy_LVD_SetInterruptConfig(cy_en_lvd_intr_config_t lvdInterr
 #if defined (CY_IP_MXS40SSRSS)
         SRSS_PWR_LVD_CTL = _CLR_SET_FLD32U(SRSS_PWR_LVD_CTL, SRSS_PWR_LVD_CTL_HVLVD1_EDGE_SEL, lvdInterruptConfig);
 #endif
+
+#if defined (CY_IP_MXS22SRSS)
+        SRSS_PWR_LVD_CTL = _CLR_SET_FLD32U(SRSS_PWR_LVD_CTL, SRSS_PWR_LVD_CTL_HVLVD_EDGE_SEL, lvdInterruptConfig);
+#endif
+
     /* This dummy reading is necessary here. It provides a guarantee that interrupt is cleared at returning from this function. */
     (void) lvdInterruptConfig;
 }
 
-#if defined (CY_IP_MXS40SSRSS)
+#if defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_LVD_SetActionConfig
+****************************************************************************//**
+*
+*  Sets a action configuration after LVD block reaches threshold.
+*
+*  \param lvdActionConfig \ref cy_en_lvd_action_config_t.
+*
+* \note
+* This API is available only for CAT1D devices.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_LVD_SetActionConfig(cy_en_lvd_action_config_t lvdActionConfig)
+{
+    CY_ASSERT_L3(CY_LVD_CHECK_ACTION_CFG(lvdActionConfig));
+
+    SRSS_PWR_LVD_CTL = _CLR_SET_FLD32U(SRSS_PWR_LVD_CTL, SRSS_PWR_LVD_CTL_HVLVD_ACTION, lvdActionConfig);
+}
+
+/*******************************************************************************
+* Function Name: Cy_LVD_GetActionConfig
+****************************************************************************//**
+*
+*  Gets the action configured after LVD reaches threshold.
+*
+*  \return \ref cy_en_lvd_action_config_t
+*
+* \note
+* This API is available only for CAT1D devices.
+*
+*******************************************************************************/
+__STATIC_INLINE cy_en_lvd_action_config_t Cy_LVD_GetActionConfig(void)
+{
+    return (((SRSS_PWR_LVD_CTL & SRSS_PWR_LVD_CTL_HVLVD_ACTION_Msk) != 0UL) ? CY_LVD_ACTION_FAULT : CY_LVD_ACTION_INTERRUPT);
+}
+#endif
+
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name:  Cy_LVD_GetSourceVoltage
@@ -666,6 +727,9 @@ __STATIC_INLINE void Cy_LVD_SetInterruptConfig(cy_en_lvd_intr_config_t lvdInterr
 *  Returns the index of the source selected
 *
 *  \return LVD source index, \ref cy_en_lvd_source_t.
+*
+* \note
+* This API is available only for CAT1B devices.
 *
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_LVD_GetSourceVoltage(void)
@@ -682,6 +746,8 @@ __STATIC_INLINE uint32_t Cy_LVD_GetSourceVoltage(void)
 *
 *  \param source \ref cy_en_lvd_source_t.
 *
+* \note
+* This API is available only for CAT1B devices.
 *
 *******************************************************************************/
 __STATIC_INLINE void Cy_LVD_SetSourceVoltage(cy_en_lvd_source_t source)
@@ -697,7 +763,7 @@ __STATIC_INLINE void Cy_LVD_SetSourceVoltage(cy_en_lvd_source_t source)
 }
 #endif
 
-#endif /* CY_IP_MXS40SRSS */
+#endif /* (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 3)) || defined (CY_IP_MXS22SRSS) */
 
 #endif /* CY_LVD_H */
 

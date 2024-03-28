@@ -20,6 +20,8 @@ var searchData=
   ['algo',['algo',['../structcy__stc__crypto__ecc__dp__type.html#a21a15ceafa7b448925b7239872aad5a9',1,'cy_stc_crypto_ecc_dp_type::algo()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a79d4b2004dac03ffd65081cea80a9692',1,'cy_stc_cryptolite_ecc_dp_type::algo()']]],
   ['allocbuffer',['allocBuffer',['../structcy__stc__usb__dev__ep__config__t.html#a5ba21ba730ec10df131e46e469b4aee9',1,'cy_stc_usb_dev_ep_config_t']]],
   ['almen',['almEn',['../structcy__stc__rtc__alarm__t.html#a55f2ba5a1be0d9425f9742e4f6a932c8',1,'cy_stc_rtc_alarm_t']]],
+  ['alphacoarse',['alphaCoarse',['../structcy__stc__dpll__hp__config__t.html#ac8b58bc445f7d57fff98101f4d3e7fad',1,'cy_stc_dpll_hp_config_t']]],
+  ['alphaext',['alphaExt',['../structcy__stc__dpll__hp__config__t.html#a3347f5dd8f1daa9be0e54ba945beac8c',1,'cy_stc_dpll_hp_config_t']]],
   ['althfclkfreq',['altHFclkFreq',['../structcy__stc__pra__system__config__t.html#a6dd0cc3cdc69074a75f9335ca3a5ff70',1,'cy_stc_pra_system_config_t']]],
   ['althfcload',['altHFcLoad',['../structcy__stc__pra__system__config__t.html#af03bdcd914aaa17fc530c9c1264e46f7',1,'cy_stc_pra_system_config_t']]],
   ['althfsysclkdiv',['altHFsysClkDiv',['../structcy__stc__pra__system__config__t.html#a70301630eba570879b56a0859b4deda8',1,'cy_stc_pra_system_config_t']]],

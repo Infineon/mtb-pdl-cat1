@@ -563,7 +563,8 @@ For slave mode when zero value is returned the clk_scb is out of valid range. </
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function should be used at your own risk. Changing the number of clock cycles in a phase of SCL may violate the I2C specification. Make this change only while the block is disabled. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function should be used at your own risk. Changing the number of clock cycles in a phase of SCL may violate the I2C specification. Make this change only while the block is disabled.</dd></dl>
+<p>Please refer to the section <a class="el" href="group__group__scb__i2c.html#group_scb_i2c_mclk_sync">I2C Master Clock Synchronization</a> for more information. </p>
 
 </div>
 </div>
@@ -647,7 +648,7 @@ For slave mode when zero value is returned the clk_scb is out of valid range. </
 </ul>
 </dd>
 <dd>
-This API is available for CAT1B devices. </dd></dl>
+This API is available for CAT1B and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -676,7 +677,7 @@ This API is available for CAT1B devices. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The stretch count.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -704,7 +705,7 @@ This API is available for CAT1B devices. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If true, stretch is detected; false otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -732,7 +733,7 @@ This API is available for CAT1B devices. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If true, synchronization is detected; false otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -760,7 +761,7 @@ This API is available for CAT1B devices. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If true, I2C SCL is being stretch by the block, false otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B and CAT1D devices. </dd></dl>
 
 </div>
 </div>

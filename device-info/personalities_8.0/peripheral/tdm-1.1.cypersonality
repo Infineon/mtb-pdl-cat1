@@ -11,7 +11,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2022-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -30,7 +30,10 @@
 
 <Personality id="tdm" name="TDM" version="1.1" xmlns="http://cypress.com/xsd/cyhwpersonality_v8">
   <Dependencies>
-    <IpBlock name="mxtdm" />
+    <IpBlock name="mxtdm">
+        <Version major="1" />
+        <Version major="2" />
+	</IpBlock>
     <Resource name="tdm" />
     <OperatingMode value="MCU"/>
   </Dependencies>
@@ -317,7 +320,8 @@
 
   <ConfigFirmware>
     <ConfigInclude value="cy_tdm.h" include="true" />
-	<ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
+	  <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
    
     <ConfigDefine name="`${INST_NAME}`_HW" value="TDM`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_TX_HW" value="TDM_STRUCT`${InstNumber}`_TX" public="true" include="true" />
@@ -371,6 +375,28 @@
       <Member name="rx_config" value="&amp;`${INST_NAME . &quot;_rx_config&quot;}`" />
     </ConfigStruct>
 
+    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="type" value="CYHAL_RSC_TDM" />
+      <Member name="block_num" value="`${InstNumber}`U" />
+      <Member name="channel_num" value="0U" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="block" value="`${getExposedMember(sourceClock, &quot;hal_block&quot;)}`" />
+      <Member name="channel" value="`${getExposedMember(sourceClock, &quot;number&quot;)}`" />
+      <Member name="reserved" value="false" />
+      <Member name="funcs" value="NULL" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_tdm_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+      <Member name="mclk_hz_rx" value="0u" />
+      <Member name="mclk_hz_tx" value="0u" />
+    </ConfigStruct>
+
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TDM`${InstNumber}`_PERI_NR, CY_MMIO_TDM`${InstNumber}`_GROUP_NR, CY_MMIO_TDM`${InstNumber}`_SLAVE_NR, CY_MMIO_TDM`${InstNumber}`_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${pclkOk}`"  />
 
   </ConfigFirmware>

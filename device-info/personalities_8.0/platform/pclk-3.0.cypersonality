@@ -40,6 +40,8 @@
     <ExposedMember key="divider" paramId="divider" />
     <ExposedMember key="accuracy" paramId="accuracy" />
     <ExposedMember key="error" paramId="srcNotUsed" />
+    <ExposedMember key="hal_block" paramId="hal_block" />
+    <ExposedMember key="sourceClockRsc" paramId="sourceClockRsc" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -90,6 +92,13 @@
     <ParamString id="clockSel" name="clockSel" group="Internal" default="`${typeApiConst}`, `${number}`U" visible="false" editable="false" desc="Divider type and number" />
 
     <ParamSignal port="clk[0]" name="Peripherals" group="General" visible="true" desc="This signal can be used to drive peripherals" canBeEmpty="true" />
+
+    <ParamString id="typeApiConstHal" name="typeApiConst" group="Internal" default="`${type eq div_8    ? &quot;8BIT&quot;    : 
+                                                                                       type eq div_16   ? &quot;16BIT&quot;   :
+                                                                                       type eq div_16_5 ? &quot;16_5BIT&quot; :
+                                                                                                          &quot;24_5BIT&quot;}`" visible="false" editable="false" desc="API constants for the divider type" />
+
+    <ParamString id="hal_block" name="hal_block" group="Internal" default="CYHAL_CLOCK_BLOCK_PERIPHERAL_`${typeApiConstHal}`" visible="false" editable="false" desc="" />
   </Parameters>
   
   <DRCs>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.60
+* \version 2.70
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -224,6 +224,16 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">2.70</td>
+*     <td>Added enhancements related to CAT1D family.</td>
+*     <td>Support added for sending dummy cycles using RWDS line, selecting DLL speed options and RX Capture mode.</td>
+*   </tr>
+*   <tr>
+*     <td>Added API \ref Cy_SMIF_Reset_Memory, updated APIs \ref Cy_SMIF_MemInit,
+*       - \ref Cy_SMIF_MemOctalEnable, \ref Cy_SMIF_MemRead, \ref Cy_SMIF_MemWrite.</td>
+*     <td>Support added for SMIF octal DDR with RWDS and bug fixes.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="3">2.60</td>
 *     <td>Modified  private APIs </td>
@@ -596,7 +606,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       60
+#define CY_SMIF_DRV_VERSION_MINOR       70
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
@@ -686,6 +696,7 @@ extern "C" {
 #define CY_SMIF_AES128_BYTES                (16U)
 
 #define CY_SMIF_CTL_REG_DEFAULT             (0x00000300U) /* 3 - [13:12] CLOCK_IF_RX_SEL  */
+#define CY_SMIF_CTL2_REG_DEFAULT            (0x0080D000U)
 
 #define CY_SMIF_SFDP_FAIL                   (0x08U)
 #define CY_SMIF_SFDP_FAIL_SS0_POS           (0x00U)
@@ -781,8 +792,14 @@ extern "C" {
 #define CY_SMIF_CMD_MMIO_FIFO_WR_RX_COUNT_Msk        (0x0000FFFFUL)   /* DATA[15:0]      RX count             */
 #define CY_SMIF_CMD_MMIO_FIFO_WR_RX_COUNT_Pos        (0UL)            /* [0]             RX count             */
 
-#define CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_RWDS_Msk      (0x00800000UL)   /* DATA[23]     Dummy RWDS             */
-#define CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_RWDS_Pos      (23UL)            /* [23]            Dummy RWDS             */
+#define CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_READ_RWDS_Msk (0x00800000UL)   /* DATA[23]     Read with RWDS             */
+#define CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_READ_RWDS_Pos (23UL)            /* [23]        Read with RWDS             */
+
+#define CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_WRITE_RWDS_Msk (0x00200000UL)   /* DATA[21]     Write with RWDS             */
+#define CY_SMIF_CMD_MMIO_FIFO_WR_DUMMY_WRITE_RWDS_Pos (21UL)            /* [21]            Dummy RWDS             */
+
+#define CY_SMIF_CMD_MMIO_FIFO_WR_RWDS_REFRESH_Msk      (0x00100000UL)   /* DATA[20]     RWDS Refresh indicator   */
+#define CY_SMIF_CMD_MMIO_FIFO_WR_RWDS_REFRESH_Pos      (20UL)            /* [20]        RWDS Refresh indicator   */
 #else
 /* SMIF->TX_CMD_FIFO_WR  */
 #define CY_SMIF_TX_CMD_FIFO_WR_MODE_POS         (18U)   /* [19:18]  Command data mode */
@@ -897,6 +914,19 @@ typedef enum
     CY_SMIF_NORMAL,         /**< Command mode (MMIO mode). */
     CY_SMIF_MEMORY          /**< XIP (eXecute In Place) mode. */
 } cy_en_smif_mode_t;
+
+/**
+* \note
+* This enum is available for CAT1D devices.
+**/
+typedef enum
+{
+    CY_SMIF_DLL_DIVIDE_BY_2  = 0,    /**< Divides DLL Clock by 2 */
+    CY_SMIF_DLL_DIVIDE_BY_4  = 1,    /**< Divides DLL Clock by 4 */
+    CY_SMIF_DLL_DIVIDE_BY_8  = 2,    /**< Divides DLL Clock by 8 */
+    CY_SMIF_DLL_DIVIDE_BY_16 = 3,    /**< Divides DLL Clock by 16 */
+} cy_en_smif_dll_divider_t;
+
 
 /**
 * \note
@@ -1157,12 +1187,18 @@ typedef struct
                                 *   - "6": 7 clock cycles.
                                 *   - "7": 8 clock cycles. */
     uint32_t rxClockSel;        /**< Specifies the clock source for the receiver 
-                                *  clock \ref cy_en_smif_clk_select_t. */
+                                *  clock \ref cy_en_smif_clk_select_t. Used for CAT1A, CAT1B and CAT1C devices. */
     uint32_t blockEvent;        /**< Specifies what happens when there is a Read  
                                 * from an empty RX FIFO or a Write to a full 
                                 * TX FIFO. \ref cy_en_smif_error_event_t. */
-    cy_en_smif_delay_tap_t delayTapEnable;      /**<  Delay tap can be enabled or disabled \ref cy_en_smif_delay_tap_t. */
-    cy_en_smif_delay_line_t delayLineSelect;    /**< set line selection which is input. \ref cy_en_smif_delay_line_t */ 
+    cy_en_smif_delay_tap_t   delayTapEnable;      /**<  Delay tap can be enabled or disabled \ref cy_en_smif_delay_tap_t. */
+    cy_en_smif_delay_line_t  delayLineSelect;    /**< set line selection which is input. \ref cy_en_smif_delay_line_t */
+#if (CY_IP_MXSMIF_VERSION >=5)
+    uint32_t                 inputFrequencyMHz;  /**< Input frequency. Used when internal DLL is enabled for setting the speed mode */
+    bool                     enable_internal_dll; /**< Enables internal DLL. Default value by passes DLL */
+    cy_en_smif_dll_divider_t dll_divider_value;   /**< Divider value for DLL */
+    cy_en_smif_capture_mode_t rx_capture_mode;    /**< RX Capture mode used in CAT1D Devices */
+#endif
 } cy_stc_smif_config_t;
 
 /** The SMIF internal context data. The user must not modify it. */
@@ -1317,6 +1353,10 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_Ext(SMIF_Type *base,
                                                 cy_en_smif_txfr_width_t transferWidth,
                                                 cy_en_smif_data_rate_t dataRate,
                                                 uint32_t cycles);
+cy_en_smif_status_t Cy_SMIF_SendDummyCycles_With_RWDS(SMIF_Type *base,
+                                                bool read_rwds,
+                                                bool refresh_indicator,
+                                                uint32_t cycles);
 void Cy_SMIF_DeviceTransfer_SetMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave, cy_en_smif_merge_timeout_t timeout);
 void Cy_SMIF_DeviceTransfer_ClearMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave);
 
@@ -1356,14 +1396,14 @@ cy_en_smif_status_t Cy_SMIF_SetCryptoEnable(SMIF_Type *base, cy_en_smif_slave_se
 cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_ConvertSlaveSlotToIndex(cy_en_smif_slave_select_t ss, uint32_t *device_idx);
 #if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
-void Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode);
+cy_en_smif_status_t Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t size);
 uint16_t Cy_SMIF_GetMasterDLP(SMIF_Type *base);
 uint8_t Cy_SMIF_GetMasterDLPSize(SMIF_Type *base);
 uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit);
 #endif
 #if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
-void Cy_SMIF_SetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave,
+cy_en_smif_status_t Cy_SMIF_SetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave,
                                     cy_en_smif_mem_data_line_t data_line, uint8_t tapSel);
 uint8_t Cy_SMIF_GetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave,
                                        cy_en_smif_mem_data_line_t data_line);
@@ -1416,7 +1456,6 @@ __STATIC_INLINE SMIF_DEVICE_Type volatile * Cy_SMIF_GetDeviceBySlot(SMIF_Type *b
 __STATIC_INLINE void Cy_SMIF_Disable(SMIF_Type *base)
 {
     SMIF_CTL(base) &= ~SMIF_CTL_ENABLED_Msk;
-
 }
 
 
@@ -1825,34 +1864,21 @@ __STATIC_INLINE void Cy_SMIF_PushTxFifo(SMIF_Type *baseaddr, cy_stc_smif_context
             SMIF_TX_DATA_FIFO_WR1(baseaddr) = buff[0U];
 #endif /* CY_IP_MXSMIF_VERSION */
         }
-        else if(writeBytes == CY_SMIF_TWO_BYTES)
+        else if ((writeBytes == CY_SMIF_TWO_BYTES) || (writeBytes == CY_SMIF_THREE_BYTES))
         {
             SMIF_TX_DATA_FIFO_WR2(baseaddr) = Cy_SMIF_PackBytesArray(&buff[0U], false);
+            writeBytes = CY_SMIF_TWO_BYTES;
         }
-        else if(writeBytes == CY_SMIF_THREE_BYTES)
-        {
-            SMIF_TX_DATA_FIFO_WR2(baseaddr) = Cy_SMIF_PackBytesArray(&buff[0U], false);
-            SMIF_TX_DATA_FIFO_WR1(baseaddr) = buff[2U];
-        }
-        else if(writeBytes == CY_SMIF_FOUR_BYTES)
+        else if ((writeBytes == CY_SMIF_FOUR_BYTES) || (writeBytes == CY_SMIF_FIVE_BYTES))
         {
             SMIF_TX_DATA_FIFO_WR4(baseaddr) = Cy_SMIF_PackBytesArray(&buff[0U], true);
+            writeBytes = CY_SMIF_FOUR_BYTES;
         }
-        else if(writeBytes == CY_SMIF_FIVE_BYTES)
-        {
-            SMIF_TX_DATA_FIFO_WR4(baseaddr) = Cy_SMIF_PackBytesArray(&buff[0U], true);
-            SMIF_TX_DATA_FIFO_WR1(baseaddr) = buff[4U];
-        }
-        else if(writeBytes == CY_SMIF_SIX_BYTES)
+        else if ((writeBytes == CY_SMIF_SIX_BYTES) || (writeBytes == CY_SMIF_SEVEN_BYTES))
         {
             SMIF_TX_DATA_FIFO_WR4(baseaddr) = Cy_SMIF_PackBytesArray(&buff[0U], true);
             SMIF_TX_DATA_FIFO_WR2(baseaddr) = Cy_SMIF_PackBytesArray(&buff[4U], false);
-        }
-        else if(writeBytes == CY_SMIF_SEVEN_BYTES)
-        {
-            SMIF_TX_DATA_FIFO_WR4(baseaddr) = Cy_SMIF_PackBytesArray(&buff[0U], true);
-            SMIF_TX_DATA_FIFO_WR2(baseaddr) = Cy_SMIF_PackBytesArray(&buff[4U], false);
-            SMIF_TX_DATA_FIFO_WR1(baseaddr) = buff[6U];
+            writeBytes = CY_SMIF_SIX_BYTES;
         }
         else /* The  future IP block with FIFO > 8*/
         {
@@ -1862,6 +1888,7 @@ __STATIC_INLINE void Cy_SMIF_PushTxFifo(SMIF_Type *baseaddr, cy_stc_smif_context
         }
         buff = &buff[writeBytes];
         buffCounter -= writeBytes;
+
         /* Check if we already got new data in TX_FIFO */
         freeFifoBytes = CY_SMIF_TX_DATA_FIFO_STATUS_RANGE - Cy_SMIF_GetTxFifoStatus(baseaddr);
         writeBytes = (freeFifoBytes > buffCounter)? buffCounter: freeFifoBytes;
@@ -1981,6 +2008,13 @@ __STATIC_INLINE void Cy_SMIF_PopRxFifo(SMIF_Type *baseaddr, cy_stc_smif_context_
     /* Check if all bytes are received */
     if (0UL == buffCounter)
     {
+        #if (CY_IP_MXSMIF_VERSION>=2)
+        /* In case we have additional byte left out because of WORD based protocol, do a dummy read.*/
+        if(Cy_SMIF_GetRxFifoStatus(baseaddr) == 1U)
+        {
+            (void)(uint8_t)SMIF_RX_DATA_FIFO_RD1(baseaddr);
+        }
+        #endif
         /* Disable the TR_RX_REQ interrupt */
         Cy_SMIF_SetInterruptMask(baseaddr, Cy_SMIF_GetInterruptMask(baseaddr) & ~SMIF_INTR_TR_RX_REQ_Msk);
         context->transferStatus = (uint32_t) CY_SMIF_RX_COMPLETE;

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc.h
-* \version 2.90
+* \version 2.100
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC

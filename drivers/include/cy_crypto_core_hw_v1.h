@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hw_v1.h
-* \version 2.90
+* \version 2.100
 *
 * \brief
 *  This file provides constants and function prototypes

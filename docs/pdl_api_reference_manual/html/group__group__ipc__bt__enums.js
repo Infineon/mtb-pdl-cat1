@@ -43,6 +43,7 @@ var group__group__ipc__bt__enums =
       [ "CY_BT_IPC_HPC_RESACCESS", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024ae32dbd1f9490b43d8353c9abbb9bc5c9", null ],
       [ "CY_BT_IPC_HPC_LPO_SWITCH", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024ac60e56b6a1116794733da78e3327ed95", null ],
       [ "CY_BT_IPC_HPC_INRUSH_MODE", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024af9003a6b8804b340956b9eee56fab11c", null ],
+      [ "CY_BT_IPC_HPC_BUFFER_REMOVE", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024a4e7bbdd49efe80f0198b852d452962df", null ],
       [ "CY_BT_IPC_HPC_LONG", "group__group__ipc__bt__enums.html#gga507434e5563d48f8b3b58b0ce9146024a6af3a8459d4d34d05d2de1c06193c0f3", null ]
     ] ],
     [ "cy_en_btipc_hpcmsgid_t", "group__group__ipc__bt__enums.html#gab8224a6bf48f6e76edd3aafb294420fd", [

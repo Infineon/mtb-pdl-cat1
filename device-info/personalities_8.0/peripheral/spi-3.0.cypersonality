@@ -148,12 +148,37 @@
     <ParamRange id="scbClocksToOutput" name="scbClocksToOutput" group="Internal" default="`${EnableInputFilter ? 4 : 3}`" min="0" max="255" resolution="1" visible="false" editable="false" desc="The number of scb clocks to output." /> 
     <ParamRange id="spiClkPeriod" name="spiClkPeriod" group="Internal" default="`${1000000 / DataRate}`" min="0" max="1000000" resolution="1" visible="false" editable="false" desc="SPI SCLK period (units ns)." />
     
+    <!-- Connections -->
+    <ParamSignal port="clock[0]" name="Clock" group="Connections" visible="`${hasVisibleOption(&quot;clock[0]&quot;)}`" desc="Clock that operates this block." canBeEmpty="false" >
+      <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${!MasterMode}`" />
+      <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${MasterMode}`" />
+      <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_(16.5|24.5).*" valid="true" >
+        <Parameter id="fracDivider" severity="ERROR" reason="Fractional divider must be 0 for SPI interface.">
+          <Fixed value= "0" />
+        </Parameter>
+      </Constraint>     
+    </ParamSignal>
+    
+    <ParamSignal port="clock_scb_en[0]" name="Clock" group="Connections" visible="`${hasVisibleOption(&quot;clock_scb_en[0]&quot;)}`" desc="Clock that operates this block." canBeEmpty="false" >
+      <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${!MasterMode}`" />
+      <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${MasterMode}`" />
+      <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_(16.5|24.5).*" valid="true" >
+        <Parameter id="fracDivider" severity="ERROR" reason="Fractional divider must be 0 for SPI interface.">
+          <Fixed value= "0" />
+        </Parameter>
+      </Constraint>     
+    </ParamSignal>
+
+    <!-- Clock Frequency -->
+    <ParamString id="sourceClock" name="sourceClock" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? (getBlockFromSignal(&quot;clock[0]&quot;)) : (getBlockFromSignal(&quot;clock_scb_en[0]&quot;))}`" visible="false" editable="false" desc="Source Clock Resource" />
+    <ParamString id="hfclk" name="Source Clock Resource" group="Internal" default="`${getExposedMember(sourceClock, &quot;sourceClockRsc&quot;)}`" visible="false" editable="false" desc="Source Clock Resource" />
+    <ParamBool id="isClkUsed" name="isClkUsed" group="Internal" default="`${isBlockUsed(hfclk)}`" visible="false" editable="false" desc="" />
+    <ParamRange id="scbClkHz" name="scbClkHz" group="Internal" default="`${isClkUsed ? getExposedMember(sourceClock, &quot;frequency&quot;) : 0}`" min="0" max="200000000" resolution="1" visible="false" editable="false" desc="SCB clock frequency in kHz" />
+
     <!-- Get SPI Slave desired clock -->
     <ParamString id="hfclockperi" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].periclk[0]" visible="false" editable="false" desc="String variable used for source peri clock." />
-    <ParamString id="hfclock1" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].hfclk[1]" visible="false" editable="false" desc="String variable used for source HF clock1." />
-    <ParamString id="hfclock2" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].hfclk[2]" visible="false" editable="false" desc="String variable used for source HF clock2." />
-    
-    <ParamString id="hfclocksource" name="PCLK Destination" group="Internal" default="`${((ipName ne &quot;mxs22scb&quot;) ? ((version eq 1)  ? hfclockperi : ((version eq 4) ? hfclock1 : hfclock2)) : hfclock1) }`" visible="false" editable="false" desc="Generates PCLK connection define." />
+
+    <ParamString id="hfclocksource" name="PCLK Destination" group="Internal" default="`${((ipName ne &quot;mxs22scb&quot;) ? ((version eq 1)  ? hfclockperi : hfclk) : hfclk) }`" visible="false" editable="false" desc="Generates PCLK connection define." />
     
     <ParamString id="ClkPeri" name="ClkPeri" group="Internal" default="`${hfclocksource}`" visible="false" editable="false" desc="" />
     <ParamBool id="isClkPeriUsed" name="isClkPeriUsed" group="Internal" default="`${isBlockUsed(ClkPeri)}`" visible="false" editable="false" desc="" />
@@ -164,47 +189,6 @@
 
     <!-- Get SPI Master desired clock -->
     <ParamRange id="MasterClkHz" name="MasterClkHz" group="Internal" default="`${DataRate * OvsFactor * 1000}`" min="1" max="400000000" resolution="1" visible="false" editable="false" desc="Master clock to operate with desired baud rate in kHz." />
-
-    <!-- Connections -->
-    <ParamSignal port="clock[0]" name="Clock" group="Connections" visible="`${hasVisibleOption(&quot;clock[0]&quot;)}`" desc="Clock that operates this block." canBeEmpty="false" >
-      <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${!MasterMode}`" >
-        <Parameter id="intDivider" severity="ERROR" reason="The clock frequency must be `${SlaveClkHz / 1000}` kHz to operate with data rate `${DataRate}` kbps." valid="true">
-          <Fixed 
-            value= "`${isClkPeriUsed ? floor(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / SlaveClkHz) : 1}`" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${MasterMode}`" >
-        <Parameter id="intDivider" severity="ERROR" reason="The clock frequency must be `${MasterClkHz / 1000}` kHz to operate with data rate `${DataRate}` kbps." valid="true">
-          <Fixed 
-            value= "`${ceil(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / MasterClkHz)}`" />
-        </Parameter>
-      </Constraint> 
-      <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_(16.5|24.5).*" valid="true" >
-        <Parameter id="fracDivider" severity="ERROR" reason="Fractional divider must be 0 for SPI interface.">
-          <Fixed value= "0" />
-        </Parameter>
-      </Constraint>     
-    </ParamSignal>
-    
-    <ParamSignal port="clock_scb_en[0]" name="Clock" group="Connections" visible="`${hasVisibleOption(&quot;clock_scb_en[0]&quot;)}`" desc="Clock that operates this block." canBeEmpty="false" >
-      <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${!MasterMode}`" >
-        <Parameter id="intDivider" severity="ERROR" reason="The clock frequency must be `${SlaveClkHz / 1000}` kHz to operate with data rate `${DataRate}` kbps." valid="true">
-          <Fixed 
-            value= "`${isClkPeriUsed ? floor(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / SlaveClkHz) : 1}`" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${MasterMode}`" >
-        <Parameter id="intDivider" severity="ERROR" reason="The clock frequency must be `${MasterClkHz / 1000}` kHz to operate with data rate `${DataRate}` kbps." valid="true">
-          <Fixed 
-            value= "`${ceil(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / MasterClkHz)}`" />
-        </Parameter>
-      </Constraint> 
-      <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_(16.5|24.5).*" valid="true" >
-        <Parameter id="fracDivider" severity="ERROR" reason="Fractional divider must be 0 for SPI interface.">
-          <Fixed value= "0" />
-        </Parameter>
-      </Constraint>     
-    </ParamSignal>
 
     <!-- Drive mode selection -->
     <ParamString id="DmMOSI" name="DmMOSI" group="Internal" default="`${MasterMode ? &quot;CY_GPIO_DM_STRONG_IN_OFF&quot; : &quot;CY_GPIO_DM_HIGHZ&quot;}`" visible="false" editable="false" desc="Drive mode " />
@@ -230,6 +214,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="sclkPin" name="sclkPin" group="Internal" default="`${getBlockFromSignal(&quot;spi_clk[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal port="spi_mosi[0]" name="MOSI" group="Connections" visible="`${hasConnectionMosi}`" desc="The Master Output Slave Input (MOSI) signal between the master and slave devices." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -244,6 +229,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="mosiPin" name="mosiPin" group="Internal" default="`${getBlockFromSignal(&quot;spi_mosi[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal port="spi_miso[0]" name="MISO" group="Connections" visible="`${hasConnectionMiso}`" desc="The Master Input Slave Output (MOSI) signal between the slave and master devices." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -258,6 +244,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="misoPin" name="misoPin" group="Internal" default="`${getBlockFromSignal(&quot;spi_miso[0]&quot;)}`" visible="false" editable="false" desc="" />
     
     <ParamSignal port="spi_select0[0]" name="SS0" group="Connections" visible="`${isConnectableSel0}`" desc="The Master Output / Slave Input Slave Select (SS) signal. The master uses SS signal to enable Slave for the following communication." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -272,6 +259,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ssel0Pin" name="ssel0Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_select0[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal port="spi_select1[0]" name="SS1" group="Connections" visible="`${isConnectableSel1}`" desc="The Master Output / Slave Input Slave Select (SS) signal. The master uses SS signal to enable Slave for the following communication." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -286,6 +274,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ssel1Pin" name="ssel1Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_select1[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal port="spi_select2[0]" name="SS2" group="Connections" visible="`${isConnectableSel2}`" desc="The Master Output / Slave Input Slave Select (SS) signal. The master uses SS signal to enable Slave for the following communication." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -300,6 +289,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ssel2Pin" name="ssel2Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_select2[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal port="spi_select3[0]" name="SS3" group="Connections" visible="`${isConnectableSel3}`" desc="The Master Output / Slave Input Slave Select (SS) signal. The master uses SS signal to enable Slave for the following communication." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -314,6 +304,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamString id="ssel3Pin" name="ssel3Pin" group="Internal" default="`${getBlockFromSignal(&quot;spi_select3[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal port="tr_rx_req[0]" name="RX Trigger Output" group="Connections" visible="`${MasterMode ? hasConnectionMiso : hasConnectionMosi}`" desc="Connects SCB RX trigger output to the DMA. Configure RX FIFO Level to define this output behavior." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -343,10 +334,6 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
 
-    <!-- Clock Frequency -->
-    <ParamString id="sourceClock" name="sourceClock" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? (getBlockFromSignal(&quot;clock[0]&quot;)) : (getBlockFromSignal(&quot;clock_scb_en[0]&quot;))}`" visible="false" editable="false" desc="Source Clock Resource" />
-    <ParamRange id="scbClkHz" name="scbClkHz" group="Internal" default="`${isClkPeriUsed ? getExposedMember(sourceClock, &quot;frequency&quot;) : 0}`" min="0" max="200000000" resolution="1" visible="false" editable="false" desc="SCB clock frequency in kHz" />
-
     <!-- Actual data rate notes -->
     <ParamString id="SlaveActDataRateNote" name="ActualDataRateNoteSlave" group="Internal" default="This is the theoretical data rate calculated with the assumption that the master captures data on a half SCLK period after the driving edge (normal sample). If the master captures data a half SCLK period later (late sampling) then the actual data rate is twice what is displayed. To determine the data rate for your system, consult the selected device TRM." visible="false" editable="false" desc="Actual Data Rate Note Slave" />
     <ParamString id="MasterActDataRateNote" name="ActualDataRateNoteMaster" group="Internal" default="The actual data rate is calculated based only on the master configuration. To determine the data rate for your system, consult the selected device TRM." visible="false" editable="false" desc="Actual Data Rate Note Master." />
@@ -354,7 +341,7 @@
     <!-- Slave actual data rate calculations -->
     <ParamRange id="tDSO_SCB" name="tDSO" group="Internal" default="`${isClkPeriUsed ? scbClocksToOutput * (1000000000 / scbClkHz) : 0}`" min="0" max="4294967295" resolution="0.000001" visible="false" editable="false" desc="Get tDSO based on SCB clock (units ns)." />
     <ParamRange id="spiRoundTripDelay" name="spiRoundTripDelay" group="Internal" default="`${tDSO_SCB + T_DSO_INTERNAL + T_MASTER_DELAYS}`" min="0" max="4294967295" resolution="0.000001" visible="false" editable="false" desc="Get SCL to MISO round trip delay (units ns)." />
-    
+
     <ParamRange id="SlaveActualDataRate" name="Actual Slave data rate (kbps)" group="Internal" default="`${isClkPeriUsed ? 1000000 / (2 * spiRoundTripDelay) : 0}`" min="0" max="4294967295" resolution="0.001" visible="false" editable="false" desc="Actual Slave data rate (kbps)." />
 
     <!-- Master actual data rate calculations -->
@@ -421,9 +408,38 @@
     <ParamString id="pclkSCBClockSCBENString" name="PCLK Destination Clock" group="Internal" default="PCLK_SCB`${InstNumber}`_CLOCK_SCB_EN" visible="false" editable="false" desc="String variable used only for PCLK_SCB_CLOCK_SCB_EN." />
     
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? pclkSCBClockString : pclkSCBClockSCBENString }`" visible="false" editable="false" desc="Generates PCLK connection define." />
+
+    <!-- Clock Divider Config -->
+    <ParamString id="slaveDiv" name="Slave Clock Divider" group="Internal" default="`${floor((scbClkHz * getExposedMember(sourceClock, &quot;divider&quot;)) / SlaveClkHz)}`" visible="false" editable="false" desc=" " />
+    <ParamString id="clkDiv" name="Current Clock Divider" group="Internal" default="`${getExposedMember(sourceClock, &quot;divider&quot;)}`" visible="false" editable="false" desc=" " />
+    <ParamString id="slaveDivFix" name="Fix for Slave Datarate" group="Internal" default="`${(slaveDiv != clkDiv) ? true : false}`" visible="false" editable="false" desc=" " />
+    <ParamString id="overSampleFix" name="Fix for OverSample" group="Internal" default="`${ceil(scbClkHz / (DataRate * 1000))}`" visible="false" editable="false" desc=" " />
+
   </Parameters>
   
-  <DRCs>  
+  <DRCs>   
+    <!-- Slave Mode -->
+    <DRC type="INFO" paramId="clock_scb_en[0]" text="The clock frequency must be `${SlaveClkHz / 1000}` kHz to operate with data rate `${DataRate}` kbps." condition="`${((!MasterMode) &amp;&amp; (slaveDivFix) &amp;&amp; (hasVisibleOption(&quot;clock_scb_en[0]&quot;)))}`" >
+        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock_scb_en[0]&quot;)).&quot;.intDivider&quot;}`" value="`${slaveDiv}`" valid="`${true}`" />
+    </DRC>
+
+    <!-- Master Mode -->
+    <DRC type="INFO" paramId="clock_scb_en[0]" text="The clock frequency must be `${MasterClkHz / 1000}` kHz to operate with data rate `${DataRate}` kbps." condition="`${((MasterMode) &amp;&amp; ((MasterClkHz) != (scbClkHz)) &amp;&amp; (hasVisibleOption(&quot;clock_scb_en[0]&quot;)))}`" >
+        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock_scb_en[0]&quot;)).&quot;.intDivider&quot;}`" value="`${ceil((scbClkHz * getExposedMember(sourceClock, &quot;divider&quot;)) / MasterClkHz)}`" valid="`${true}`" />
+        <FixIt action="SET_PARAM" target="OvsFactor" value="`${((17 > overSampleFix) ? ((overSampleFix > (hasConnection(&quot;spi_miso&quot;, 0) ? 3 : 1)) ? overSampleFix : (hasConnection(&quot;spi_miso&quot;, 0) ? 4 : 2)) : 16)}`" valid="`${(MasterClkHz != (floor(getExposedMember(sourceClock, &quot;frequency&quot;) * getExposedMember(sourceClock, &quot;divider&quot;))))}`" />
+    </DRC>
+
+    <!-- Slave Mode -->
+    <DRC type="INFO" paramId="clock[0]" text="The clock frequency must be `${SlaveClkHz / 1000}` kHz to operate with data rate `${DataRate}` kbps." condition="`${((!MasterMode) &amp;&amp; (slaveDivFix) &amp;&amp; (hasVisibleOption(&quot;clock[0]&quot;)))}`" >
+        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock[0]&quot;)).&quot;.intDivider&quot;}`" value="`${slaveDiv}`" valid="`${(SlaveClkHz ne getExposedMember(sourceClock, &quot;frequency&quot;))}`" />
+    </DRC>
+
+    <!-- Master Mode -->
+    <DRC type="INFO" paramId="clock[0]" text="The clock frequency must be `${MasterClkHz / 1000}` kHz to operate with data rate `${DataRate}` kbps." condition="`${((MasterMode) &amp;&amp; ((MasterClkHz) != (scbClkHz)) &amp;&amp; (hasVisibleOption(&quot;clock[0]&quot;)))}`" >
+        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock[0]&quot;)).&quot;.intDivider&quot;}`" value="`${ceil((scbClkHz * getExposedMember(sourceClock, &quot;divider&quot;)) / MasterClkHz)}`" valid="`${true}`" />
+        <FixIt action="SET_PARAM" target="OvsFactor" value="`${((17 > overSampleFix) ? ((overSampleFix > (hasConnection(&quot;spi_miso&quot;, 0) ? 3 : 1)) ? overSampleFix : (hasConnection(&quot;spi_miso&quot;, 0) ? 4 : 2)) : 16)}`" valid="`${(MasterClkHz != (floor(getExposedMember(sourceClock, &quot;frequency&quot;) * getExposedMember(sourceClock, &quot;divider&quot;))))}`" />
+    </DRC>
+    
     <!--RxDataWidth and $TxDataWidth DRCs-->
     <DRC type="ERROR" text="The RX and TX Data Width must be equal for the selected Sub Mode." paramId="TxDataWidth" condition="`${((SubModeUser ne CY_SCB_SPI_NATIONAL) &amp;&amp; (RxDataWidth ne TxDataWidth)) ? true : false}`" />
 
@@ -438,13 +454,14 @@
 
     <!-- Check oversample value -->
     <DRC type="ERROR" text="Oversample between 2-16 is allowed only if MISO is not used. Otherwise oversample only between 4-16 is allowed." paramId="OvsFactor" condition="`${MasterMode ? ((!hasConnection(&quot;spi_miso&quot;, 0)) ? ((OvsFactor &lt; 2) ? true : false) : ((OvsFactor &lt; 4) ? true : false)) : false}`" />
-
   </DRCs>
   
   <ConfigFirmware>
     <ConfigInclude value="cy_scb_spi.h" include="true" />
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="SCB`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="scb_`${InstNumber}`_interrupt_IRQn" public="true" include="true" />
@@ -487,12 +504,27 @@
       <Member name="masterSlaveIntEnableMask" value="`${IntrMasterSlaveMask}`UL" />
     </ConfigStruct>
     
-    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
       <Member name="type" value="CYHAL_RSC_SCB" />
       <Member name="block_num" value="`${getInstNumber(&quot;scb&quot;)}`U" />
       <Member name="channel_num" value="0U" />
     </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)">
+      <Member name="block" value="`${getExposedMember(sourceClock, &quot;hal_block&quot;)}`" />
+      <Member name="channel" value="`${getExposedMember(sourceClock, &quot;number&quot;)}`" />
+      <Member name="reserved" value="false" guard="defined (CY_USING_HAL)" />
+      <Member name="funcs" value="NULL" guard="defined (CY_USING_HAL)" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_spi_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+      <Member name="gpios" value="{.sclk = `${sclkPin &amp;&amp; hasExposedMember(sclkPin, &quot;halPortPin&quot;) ? getExposedMember(sclkPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .ssel = {`${ssel0Pin &amp;&amp; hasExposedMember(ssel0Pin, &quot;halPortPin&quot;) ? getExposedMember(ssel0Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${ssel1Pin &amp;&amp; hasExposedMember(ssel1Pin, &quot;halPortPin&quot;) ? getExposedMember(ssel1Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${ssel2Pin &amp;&amp; hasExposedMember(ssel2Pin, &quot;halPortPin&quot;) ? getExposedMember(ssel2Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, `${ssel3Pin &amp;&amp; hasExposedMember(ssel3Pin, &quot;halPortPin&quot;) ? getExposedMember(ssel3Pin, &quot;halPortPin&quot;) : &quot;NC&quot;}`}, .mosi = `${mosiPin &amp;&amp; hasExposedMember(mosiPin, &quot;halPortPin&quot;) ? getExposedMember(mosiPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`, .miso = `${misoPin &amp;&amp; hasExposedMember(misoPin, &quot;halPortPin&quot;) ? getExposedMember(misoPin, &quot;halPortPin&quot;) : &quot;NC&quot;}`}" />
+    </ConfigStruct>
     
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_SCB`${InstNumber}`_PERI_NR, CY_MMIO_SCB`${InstNumber}`_GROUP_NR, CY_MMIO_SCB`${InstNumber}`_SLAVE_NR, CY_MMIO_SCB`${InstNumber}`_CLK_HF_NR);" include="`${(ipName eq &quot;mxs22scb&quot;)}`" />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${(((version &gt; 1) || (ipName eq &quot;mxs22scb&quot;)) &amp;&amp; pclkOk)}`"  />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${(((version eq 1) &amp;&amp; (ipName ne &quot;mxs22scb&quot;)) &amp;&amp; pclkOk)}`"  />
 

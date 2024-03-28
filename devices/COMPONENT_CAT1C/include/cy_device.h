@@ -85,6 +85,10 @@ extern const cy_stc_device_t* cy_device;
 #define CY_DEVICE_CAT1C            /* Device Category */
 #define CY_CRYPTO_V1                        (0U) /* CAT1C devices have only mxcrypto_v2 IP */
 
+/* Remapping the CBUS to SAHB address & Vice versa*/
+#define CY_REMAP_ADDRESS_CBUS_TO_SAHB(addr)               (addr)
+#define CY_REMAP_ADDRESS_SAHB_TO_CBUS(addr)               (addr)
+
 /*******************************************************************************
 *                System Level
 *******************************************************************************/
@@ -1058,6 +1062,7 @@ we need to define this for version 2 only. */
 #define DW_CH_INTR_SET(base, chan)          (DW_CH((base), (chan))->INTR_SET)
 #define DW_CH_INTR_MASK(base, chan)         (DW_CH((base), (chan))->INTR_MASK)
 #define DW_CH_INTR_MASKED(base, chan)       (DW_CH((base), (chan))->INTR_MASKED)
+#define DW_CH_TR_CMD(base, chan)            (DW_CH((base), (chan))->TR_CMD)
 
 #define DW_V2_CRC_CTL_DATA_REVERSE_Msk DW_CRC_CTL_DATA_REVERSE_Msk
 #define DW_V2_CRC_CTL_REM_REVERSE_Msk DW_CRC_CTL_REM_REVERSE_Msk
@@ -2122,8 +2127,8 @@ extern const uint32_t IPC_BASE_PTR[CY_IPC_INSTANCES];
 /** Channel WORK register access macro. */
 #define SAR2_CH_WORK(base, channel) (((PASS_SAR_Type *)base)->CH[channel].WORK)
 
-/** Channel WORK register access macro. */
-#define SAR2_CH_RESULT(base, channel) (((PASS_SAR_Type *)base)->CH[channel].WORK)
+/** Channel RESULT register access macro. */
+#define SAR2_CH_RESULT(base, channel) (((PASS_SAR_Type *)base)->CH[channel].RESULT)
 
 /** Channel GRP_STAT register access macro. */
 #define SAR2_CH_GRP_STAT(base, channel) (((PASS_SAR_Type *)base)->CH[channel].GRP_STAT)

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_hw.h
-* \version 2.40
+* \version 2.50
 *
 * \brief
 *  This file provides common constants and macros

@@ -160,6 +160,32 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamSignal port="tr_rx_req[0]" name="RX Trigger Output" group="Connections" visible="true" desc="Connects SCB RX trigger output to the DMA. Configure RX FIFO Level to define this output behavior." canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="DEFAULT" reason="">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+     <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="tr_tx_req[0]" name="TX Trigger Output" group="Connections" visible="true" desc="Connects SCB TX trigger output to the DMA. Configure TX FIFO Level to define this output behavior." canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="DEFAULT" reason="">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
 
     <!-- Clock Frequency -->
     <ParamString id="sourceClock" name="sourceClock" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? (getBlockFromSignal(&quot;clock[0]&quot;)) : (getBlockFromSignal(&quot;clock_scb_en[0]&quot;))}`" visible="false" editable="false" desc="Source Clock Resource" />
@@ -220,12 +246,18 @@
     </DRC>
     <DRC type="ERROR" paramId="clock[0]" text="The desired data rate cannot be supported with the current Source Clock" condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; !(isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock[0]&quot;))) : false}`" />
     <DRC type="ERROR" paramId="clock_scb_en[0]" text="The desired data rate cannot be supported with the current Source Clock" condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; !(isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock_scb_en[0]&quot;))) : false}`" />
+
+    <!--High/Low phase oversampling factor DRCs-->
+    <DRC type="INFO" condition="`${((ModeUser ne CY_SCB_I2C_SLAVE) &amp;&amp; (&quot;mxscb&quot; eq getIpBlockName()) &amp;&amp; (ManualDigitalFilter eq true))}`" text="Note a possible shift of the actual data rate on the I2C bus. The high phase of the SCL will be extended by: an output wire delay from SCB to I/O pin, an I2C bus tR delay, and an input wire delay (filters and synchronization). This can be avoided by: decreasing the pull-up resistor or decreasing the bus capacitance to reduce tR; reducing the 'SCL High Phase (SCB Clocks)' value." />
   </DRCs>
   
   <ConfigFirmware>
     <ConfigInclude value="cy_scb_i2c.h" include="true" />
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
+    <ConfigInclude value="cycfg_clocks.h" include="true" guard="defined (CY_USING_HAL_LITE) || defined (CY_USING_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="SCB`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="scb_`${InstNumber}`_interrupt_IRQn" public="true" include="true" />
@@ -243,12 +275,26 @@
       <Member name="highPhaseDutyCycle" value="`${HighPhaseDutyCycle}`" /> 
     </ConfigStruct>
     
-    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
       <Member name="type" value="CYHAL_RSC_SCB" />
       <Member name="block_num" value="`${getInstNumber(&quot;scb&quot;)}`U" />
       <Member name="channel_num" value="0U" />
     </ConfigStruct>
 
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)">
+      <Member name="block" value="`${getExposedMember(sourceClock, &quot;hal_block&quot;)}`" />
+      <Member name="channel" value="`${getExposedMember(sourceClock, &quot;number&quot;)}`" />
+      <Member name="reserved" value="false" guard="defined (CY_USING_HAL)" />
+      <Member name="funcs" value="NULL" guard="defined (CY_USING_HAL)" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_i2c_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+    </ConfigStruct>
+
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_SCB`${InstNumber}`_PERI_NR, CY_MMIO_SCB`${InstNumber}`_GROUP_NR, CY_MMIO_SCB`${InstNumber}`_SLAVE_NR, CY_MMIO_SCB`${InstNumber}`_CLK_HF_NR);" include="`${(ipName eq &quot;mxs22scb&quot;)}`" />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${(((version &gt; 1) || (ipName eq &quot;mxs22scb&quot;)) &amp;&amp; pclkOk)}`"  />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${((version eq 1) &amp;&amp; pclkOk &amp;&amp; (ipName ne &quot;mxs22scb&quot;))}`"  />
 

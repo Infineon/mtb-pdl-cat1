@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v3.c
-* \version 5.110
+* \version 5.120
 *
 * This driver provides the source code for API power management.
 *
@@ -1198,7 +1198,7 @@ uint32_t Cy_SysPm_ReadStatus(void)
     uint32_t pmStatus = 0u;
     interruptState = Cy_SysLib_EnterCriticalSection();
 
-    #if defined(CY_IP_M7CPUSS) && (CY_IP_M7CPUSS == 1u)
+    #if defined (CY_CPU_CORTEX_M7) && (CY_CPU_CORTEX_M7)
     /* Check whether CM7_0 is in the deep sleep mode*/
     if((0u != _FLD2VAL(CPUSS_CM7_0_STATUS_SLEEPING, CPUSS_CM7_0_STATUS)) &&
        (0u != _FLD2VAL(CPUSS_CM7_0_STATUS_SLEEPDEEP, CPUSS_CM7_0_STATUS)))
@@ -1230,7 +1230,7 @@ uint32_t Cy_SysPm_ReadStatus(void)
     {
         pmStatus |= CY_SYSPM_STATUS_CM7_1_ACTIVE;
     }
-    #elif defined(CY_IP_M4CPUSS) && (CY_IP_M4CPUSS == 1u)
+    #elif defined (CY_CPU_CORTEX_M4) && (CY_CPU_CORTEX_M4)
     /* Check whether CM4 is in Deep Sleep mode */
     if ((CPUSS_CM4_STATUS & CM4_DEEPSLEEP_MASK) == CM4_DEEPSLEEP_MASK)
     {

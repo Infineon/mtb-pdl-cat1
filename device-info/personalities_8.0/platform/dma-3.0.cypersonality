@@ -229,6 +229,12 @@
       <Member name="block_num" value="`${block}`U" />
       <Member name="channel_num" value="`${INST_NAME}`_CHANNEL" />
     </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_dma_configurator_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="dw_channel_config" value="&amp;`${INST_NAME . &quot;_channelConfig&quot;}`" />
+      <Member name="dw_descriptor_config" value="&amp;`${INST_NAME}`_Descriptor_`${DESCR_SELECTION}`_config" />
+    </ConfigStruct>
     
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>

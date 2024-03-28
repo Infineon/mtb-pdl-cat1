@@ -105,7 +105,10 @@ Configuration Considerations</h1>
 <li><a class="el" href="group__group__scb__i2c.html#group_scb_i2c_config">Configure I2C</a></li>
 <li><a class="el" href="group__group__scb__i2c.html#group_scb_i2c_pins">Assign and Configure Pins</a></li>
 <li><a class="el" href="group__group__scb__i2c.html#group_scb_i2c_clock">Assign Clock Divider</a></li>
-<li><a class="el" href="group__group__scb__i2c.html#group_scb_i2c_data_rate">Configure Data Rate</a></li>
+<li><a class="el" href="group__group__scb__i2c.html#group_scb_i2c_data_rate">Configure Data Rate</a><ul>
+<li><a class="el" href="group__group__scb__i2c.html#group_scb_i2c_mclk_sync">I2C Master Clock Synchronization</a></li>
+</ul>
+</li>
 <li><a class="el" href="group__group__scb__i2c.html#group_scb_i2c_intr">Configure Interrupt</a></li>
 <li><a class="el" href="group__group__scb__i2c.html#group_scb_i2c_enable">Enable I2C</a></li>
 </ul>
@@ -130,6 +133,21 @@ Configure Data Rate</h2>
 <b>Refer to the technical reference manual (TRM) section I2C sub-section Oversampling and Bit Rate to get information how to configure I2C to run with the desired data rate.</b></p>
 <dl class="section note"><dt>Note</dt><dd>For I2C slave, the analog filter is used for all supported data rates. <br />
 For I2C master, the analog filter is used for Standard and Fast modes and the digital filter for Fast Plus mode.</dd></dl>
+<h3><a class="anchor" id="group_scb_i2c_mclk_sync"></a>
+I2C Master Clock Synchronization</h3>
+<dl class="section note"><dt>Note</dt><dd>This info is applicable only for CAT1A devices having SCB IP version 1.</dd></dl>
+<p>The highPhaseDutyCycle counter does not start counting until the SCB detects that the SCL line is high. This is not the same as when the SCB sets the SCL high. The differences are explained by three delays:</p><ol type="1">
+<li>Output wire delay from SCB to I/O pin.</li>
+<li>I2C bus tR delay.</li>
+<li>Input wire delay (filters and synchronization).</li>
+</ol>
+<div class="image">
+<img src="i2c_scl_turnaround_path.png" alt="i2c_scl_turnaround_path.png"/>
+</div>
+<p>If the above three delays combined are greater than one clk_scb cycle, then the high phase of the SCL will be extended. This may cause the actual data rate on the I2C bus to be slower than expected. This can be avoided by:</p><ul>
+<li>Decreasing the pull-up resistor or decreasing the bus capacitance to reduce tR.</li>
+<li>Reducing the highPhaseDutyCycle value in the <a class="el" href="structcy__stc__scb__i2c__config__t.html">cy_stc_scb_i2c_config_t</a> structure.</li>
+</ul>
 <h2><a class="anchor" id="group_scb_i2c_intr"></a>
 Configure Interrupt</h2>
 <p>The interrupt is mandatory for I2C operation. The exception is the when only the <a class="el" href="group__group__scb__i2c__master__low__level__functions.html">Master Low-Level</a> functions are used. The driver provides three interrupt functions: <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga729b2fa4de4d44ea2e8995d7ca6a0c24">Cy_SCB_I2C_Interrupt</a>, <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga87512a96b0ae32bb624a5a960d64d23f">Cy_SCB_I2C_SlaveInterrupt</a>, and <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga3133d46624010df1c57a0800797aab01">Cy_SCB_I2C_MasterInterrupt</a>. One of these functions must be called in the interrupt handler for the selected SCB instance. Call <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga87512a96b0ae32bb624a5a960d64d23f">Cy_SCB_I2C_SlaveInterrupt</a> when I2C is configured to operate as a slave, <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga3133d46624010df1c57a0800797aab01">Cy_SCB_I2C_MasterInterrupt</a> when I2C is configured to operate as a master and <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga729b2fa4de4d44ea2e8995d7ca6a0c24">Cy_SCB_I2C_Interrupt</a> when I2C is configured to operate as master and slave. Using the slave- or master-specific interrupt function allows reducing the flash consumed by the I2C driver. Also this interrupt must be enabled in the NVIC otherwise it will not work. </p><dl class="section note"><dt>Note</dt><dd>The I2C driver documentation refers to the <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga729b2fa4de4d44ea2e8995d7ca6a0c24">Cy_SCB_I2C_Interrupt</a> function when interrupt processing is mandatory for the operation. This is done to simplify the readability of the driver's documentation. The application should call the slave- or master-specific interrupt functions <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga87512a96b0ae32bb624a5a960d64d23f">Cy_SCB_I2C_SlaveInterrupt</a> or <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga3133d46624010df1c57a0800797aab01">Cy_SCB_I2C_MasterInterrupt</a>, when appropriate.</dd></dl>

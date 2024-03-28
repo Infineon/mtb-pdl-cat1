@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -559,6 +559,7 @@ typedef enum {
 #define CY_SRAM_SIZE                    0x00080000UL
 
 #define CY_DEVICE_TVIIBE4M
+#define CY_DEVICE_SERIES_CYT2BL
 
 #include "system_psoc6.h"                       /*!< Category 1A System */
 
@@ -627,7 +628,6 @@ typedef enum {
 #include "tviibe4m_config.h"
 #include "gpio_tviibe4m_80_lqfp.h"
 
-#define CY_DEVICE_SERIES_CYT2BL
 #define CY_SILICON_ID                   0xEA041108UL
 #define CY_HF_CLK_MAX_FREQ              160000000UL
 
@@ -1680,13 +1680,10 @@ typedef enum {
 #define LIN0_CH2                                ((LIN_CH_Type*) &LIN0->CH[2])                                     /* 0x40508200 */
 #define LIN0_CH3                                ((LIN_CH_Type*) &LIN0->CH[3])                                     /* 0x40508300 */
 #define LIN0_CH4                                ((LIN_CH_Type*) &LIN0->CH[4])                                     /* 0x40508400 */
-#define LIN0_CH5                                ((LIN_CH_Type*) &LIN0->CH[5])                                     /* 0x40508500 */
 #define LIN0_CH6                                ((LIN_CH_Type*) &LIN0->CH[6])                                     /* 0x40508600 */
 #define LIN0_CH7                                ((LIN_CH_Type*) &LIN0->CH[7])                                     /* 0x40508700 */
 #define LIN0_CH8                                ((LIN_CH_Type*) &LIN0->CH[8])                                     /* 0x40508800 */
 #define LIN0_CH9                                ((LIN_CH_Type*) &LIN0->CH[9])                                     /* 0x40508900 */
-#define LIN0_CH10                               ((LIN_CH_Type*) &LIN0->CH[10])                                    /* 0x40508A00 */
-#define LIN0_CH11                               ((LIN_CH_Type*) &LIN0->CH[11])                                    /* 0x40508B00 */
 
 /*******************************************************************************
 *                                     CXPI
@@ -1697,7 +1694,6 @@ typedef enum {
 #define CXPI0_CH0                               ((CXPI_CH_Type*) &CXPI0->CH[0])                                   /* 0x40518000 */
 #define CXPI0_CH1                               ((CXPI_CH_Type*) &CXPI0->CH[1])                                   /* 0x40518100 */
 #define CXPI0_CH2                               ((CXPI_CH_Type*) &CXPI0->CH[2])                                   /* 0x40518200 */
-#define CXPI0_CH3                               ((CXPI_CH_Type*) &CXPI0->CH[3])                                   /* 0x40518300 */
 
 /*******************************************************************************
 *                                    CANFD
@@ -1710,7 +1706,6 @@ typedef enum {
 #define CANFD0_CH0                              ((CANFD_CH_Type*) &CANFD0->CH[0])                                 /* 0x40520000 */
 #define CANFD0_CH1                              ((CANFD_CH_Type*) &CANFD0->CH[1])                                 /* 0x40520200 */
 #define CANFD0_CH2                              ((CANFD_CH_Type*) &CANFD0->CH[2])                                 /* 0x40520400 */
-#define CANFD0_CH3                              ((CANFD_CH_Type*) &CANFD0->CH[3])                                 /* 0x40520600 */
 #define CANFD1_CH0                              ((CANFD_CH_Type*) &CANFD1->CH[0])                                 /* 0x40540000 */
 #define CANFD1_CH1                              ((CANFD_CH_Type*) &CANFD1->CH[1])                                 /* 0x40540200 */
 #define CANFD1_CH2                              ((CANFD_CH_Type*) &CANFD1->CH[2])                                 /* 0x40540400 */
@@ -1718,7 +1713,6 @@ typedef enum {
 #define CANFD0_CH0_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD0->CH[0].M_TTCAN)                 /* 0x40520000 */
 #define CANFD0_CH1_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD0->CH[1].M_TTCAN)                 /* 0x40520200 */
 #define CANFD0_CH2_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD0->CH[2].M_TTCAN)                 /* 0x40520400 */
-#define CANFD0_CH3_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD0->CH[3].M_TTCAN)                 /* 0x40520600 */
 #define CANFD1_CH0_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD1->CH[0].M_TTCAN)                 /* 0x40540000 */
 #define CANFD1_CH1_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD1->CH[1].M_TTCAN)                 /* 0x40540200 */
 #define CANFD1_CH2_M_TTCAN                      ((CANFD_CH_M_TTCAN_Type*) &CANFD1->CH[2].M_TTCAN)                 /* 0x40540400 */

@@ -36,6 +36,7 @@
   <ExposedMembers>
     <ExposedMember key="frequency" paramId="frequency" />
     <ExposedMember key="accuracy"  paramId="accuracy" />
+    <ExposedMember key="sourceClockDisplayName" paramId="sourceClockDisplayName" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -46,6 +47,7 @@
       <Entry name="CLK_HF0" value="hfclk" visible="true"/>
 	  <Entry name="IHO" value="iho" visible="true"/>
     </ParamChoice>
+    <ParamString id="sourceClockDisplayName" name="Source Clock Display Name" group="Internal" default="`${getParamValueDisplay(&quot;sourceClock&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockRsc" name="Source Clock Resource" group="Internal" default="`${&quot;srss[0].clock[0].&quot; . sourceClock . &quot;[0]&quot;}`" visible="false" editable="false" desc="" />
     <ParamBool  id="error" name="Clock Error" group="Internal" default="false" visible="false" editable="false" desc="" />
     <ParamRange id="sourceFreq" name="sourceFrequency" group="Internal" default="`${!error ? getExposedMember(sourceClockRsc, &quot;frequency&quot;) : 0}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
@@ -60,7 +62,7 @@
     <!-- Set an error if the source clock is not enabled -->
 
     <ParamRange id="timerDivider" name="Timer Divider" group="General" default="1" min="1" max="256" resolution="1" visible="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" editable="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" desc="" />
-    <ParamRange id="frequency" name="Frequency (MHz)" group="Internal" default="`${&quot;mxs22srss&quot; eq getIpBlockName() ? 1000000 : (sourceFreq / timerDivider / (sourceClock eq imo ? 8 : hf0Div))}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
+    <ParamRange id="frequency" name="Frequency (MHz)" group="Internal" default="`${&quot;mxs22srss&quot; eq getIpBlockName() ? 1000000 : (sourceFreq / (sourceClock eq imo ? timerDivider : hf0Div))}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
     <!-- If the frequency is less than one MHz, display its value in kHz -->
     <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${&quot;mxs40srss&quot; eq getIpBlockName() ? formatFrequency(frequency,accuracy) : formatFrequency(1000000)}`" visible="true" editable="false" desc="The resulting CLK_TIMER output clock frequency" />
   </Parameters>

@@ -1,6 +1,6 @@
 var group__group__ephy__functions =
 [
-    [ "Cy_EPHY_Init", "group__group__ephy__functions.html#ga5f892b8eb1bdf859f51476fe0822be46", null ],
+    [ "Cy_EPHY_Init", "group__group__ephy__functions.html#gab1637c80ec3ae7b2c4e6584dca117567", null ],
     [ "Cy_EPHY_Discover", "group__group__ephy__functions.html#ga1e7c065567753697643e27d823b12415", null ],
     [ "Cy_EPHY_Configure", "group__group__ephy__functions.html#ga4a2dcc3c1d82a0f1cbc2b699529a96f2", null ],
     [ "Cy_EPHY_GetLinkStatus", "group__group__ephy__functions.html#gab9877b438dc122749cd79a073be982a3", null ],

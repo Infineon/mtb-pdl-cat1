@@ -31,7 +31,9 @@
     <IpBlock name="mxtcpwm" />
     <Resource name="tcpwm\.cnt" />
   </Dependencies>
-  <ExposedMembers />
+  <ExposedMembers>
+    <ExposedMember key="hal_block" paramId="hal_block" />
+  </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__tcpwm__counter.html" linkText="Open Timer - Counter (TCPWM) Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
@@ -240,6 +242,7 @@
     <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="PCLK_TCPWM`${tcpwmInst}`_CLOCKS`${cntInst}`" visible="false" editable="false" desc="" />
     
+    <ParamString id="hal_block" name="hal_block" group="Internal" default="`${INST_NAME}`_hal_config" visible="false" editable="false" desc="" />
   </Parameters>
 
   <DRCs>
@@ -255,6 +258,8 @@
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cycfg_routing.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
 
     <ConfigDefine name="`${INST_NAME}`_HW" value="TCPWM`${tcpwmInst}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${cntInst}`UL" public="true" include="true" />
@@ -283,12 +288,25 @@
       <Member name="countInput" value="`${CountInput eq CY_TCPWM_INPUT_DISABLED ? &quot;CY_TCPWM_INPUT_1&quot; : (definePrefix . &quot;_COUNT_VALUE&quot;)}`" />
     </ConfigStruct>
     
-    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
       <Member name="type" value="CYHAL_RSC_TCPWM" />
       <Member name="block_num" value="`${getInstNumber(&quot;tcpwm&quot;)}`U" />
       <Member name="channel_num" value="`${getInstNumber(&quot;cnt&quot;)}`U" />
     </ConfigStruct>
-    
+
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)">
+      <Member name="block" value="`${getExposedMember(pclk, &quot;hal_block&quot;)}`" />
+      <Member name="channel" value="`${getExposedMember(pclk, &quot;number&quot;)}`" />
+      <Member name="reserved" value="false" guard="defined (CY_USING_HAL)" />
+      <Member name="funcs" value="NULL" guard="defined (CY_USING_HAL)" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_timer_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+    </ConfigStruct>
+
     <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`"  />
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>

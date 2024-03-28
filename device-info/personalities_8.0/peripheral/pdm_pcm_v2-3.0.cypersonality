@@ -296,7 +296,7 @@
     <ParamRange id="fir1Coeff13data1" name="FIR1 Coeff13 Data1" group="FIR1 Config" default="8191" min="-8192" max="8191" resolution="1" visible="`${userConfigureFIR1}`" editable="true" desc="The (symmetric) 30-taps finite impulse response (FIR) filter with 14-bit signed coefficients(in the range [-8192, 8191])." />
   
     <!-- Connections -->
-    <ParamSignal port="pdm_data[0]" name="PDM Data0" group="Inputs" visible="`${(rxChannels >= 2) || (monoChannel == 1)}`" desc="PDM Channel 1 input signal from PDM device for conversion. Can be connected to digital input pin." canBeEmpty="true" >
+    <ParamSignal port="pdm_data[3]" name="PDM Data3" group="Inputs" visible="`${(((rxChannels >= 2) || (monoChannel == 1)) &amp;&amp; (NR == 6 ))}`" desc="PDM Channel 1 input signal from PDM device for conversion. Can be connected to digital input pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_HIGHZ" />
@@ -309,7 +309,33 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="pdm_clk[0]" name="PDM Clock0" group="Outputs" visible="`${(rxChannels >= 2) || (monoChannel == 1)}`" desc="Channel 1 Clock output signal for PDM sampling. Can be connected to digital output pin." canBeEmpty="true" >
+    <ParamSignal port="pdm_clk[3]" name="PDM Clock3" group="Outputs" visible="`${(((rxChannels >= 2) || (monoChannel == 1)) &amp;&amp; (NR == 6 ))}`" desc="Channel 1 Clock output signal for PDM sampling. Can be connected to digital output pin." canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="DEFAULT" reason="">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>    
+    <ParamSignal port="pdm_data[4]" name="PDM Data4" group="Inputs" visible="`${(((rxChannels >= 2) || (monoChannel == 2)) &amp;&amp; (NR == 6 ))}`" desc="PDM Channel 1 input signal from PDM device for conversion. Can be connected to digital input pin." canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="DEFAULT" reason="">
+          <Fixed value="CY_GPIO_DM_HIGHZ" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+          <Fixed value="CY_GPIO_DM_HIGHZ" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="pdm_clk[4]" name="PDM Clock4" group="Outputs" visible="`${(((rxChannels >= 2) || (monoChannel == 2)) &amp;&amp; (NR == 6 ))}`" desc="Channel 1 Clock output signal for PDM sampling. Can be connected to digital output pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -322,7 +348,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-	<ParamSignal port="pdm_data[1]" name="PDM Data1" group="Inputs" visible="`${(rxChannels >= 2) || (monoChannel == 2)}`" desc="PDM Channel 2 input signal from PDM device for conversion. Can be connected to digital input pin." canBeEmpty="true" >
+    <ParamSignal port="pdm_data[0]" name="PDM Data0" group="Inputs" visible="`${(((rxChannels >= 2) || (monoChannel == 1)) &amp;&amp; (NR != 6 ))}`" desc="PDM Channel 1 input signal from PDM device for conversion. Can be connected to digital input pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_HIGHZ" />
@@ -335,7 +361,33 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="pdm_clk[1]" name="PDM Clock1" group="Outputs" visible="`${(rxChannels >= 2) || (monoChannel == 2)}`" desc="Channel 2 Clock output signal for PDM sampling. Can be connected to digital output pin." canBeEmpty="true" >
+    <ParamSignal port="pdm_clk[0]" name="PDM Clock0" group="Outputs" visible="`${(((rxChannels >= 2) || (monoChannel == 1)) &amp;&amp; (NR != 6 ))}`" desc="Channel 1 Clock output signal for PDM sampling. Can be connected to digital output pin." canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="DEFAULT" reason="">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+	<ParamSignal port="pdm_data[1]" name="PDM Data1" group="Inputs" visible="`${(((rxChannels >= 2) || (monoChannel == 2)) &amp;&amp; (NR != 6 ))}`" desc="PDM Channel 2 input signal from PDM device for conversion. Can be connected to digital input pin." canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="DEFAULT" reason="">
+          <Fixed value="CY_GPIO_DM_HIGHZ" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+          <Fixed value="CY_GPIO_DM_HIGHZ" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="pdm_clk[1]" name="PDM Clock1" group="Outputs" visible="`${(((rxChannels >= 2) || (monoChannel == 2)) &amp;&amp; (NR != 6 ))}`" desc="Channel 2 Clock output signal for PDM sampling. Can be connected to digital output pin." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -402,14 +454,23 @@
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="PCLK_PDM`${InstNumber}`_CLK_IF_SRSS" visible="false" editable="false" desc="Generates PCLK connection define." />
 
   </Parameters>
-  <DRCs />
+
+  <DRCs>
+      <!-- ACLK Divider -->
+      <DRC type="ERROR" text="To achieve 50 percent duty cycle a minimum of divide by 2 of assigned divider is required." condition="`${getExposedMember(sourceClock, &quot;divider&quot;) == 1}`" />
+
+  </DRCs>
+
   <ConfigFirmware>
     <ConfigInclude value="cy_pdm_pcm_v2.h" include="true" />
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
 
     <ConfigDefine name="`${INST_NAME}`_HW" value="PDM`${hasPDM0 ? InstNumber : &quot;&quot;}`" public="true" include="true" />
-    <ConfigDefine name="`${INST_NAME}`_CHANNEL_0_IRQ" value="pdm_`${hasPDM0 ? InstNumber . &quot;_&quot; : &quot;&quot;}`interrupts_0_IRQn" public="true" include="`${monoChannel == 1}`" />
-    <ConfigDefine name="`${INST_NAME}`_CHANNEL_1_IRQ" value="pdm_`${hasPDM0 ? InstNumber . &quot;_&quot; : &quot;&quot;}`interrupts_1_IRQn" public="true" include="`${(rxChannels >= 2) || (monoChannel == 2)}`" />
+    <ConfigDefine name="`${INST_NAME}`_CHANNEL_0_IRQ" value="pdm_`${hasPDM0 ? InstNumber . &quot;_&quot; : &quot;&quot;}`interrupts_0_IRQn" public="true" include="`${monoChannel == 1 &amp;&amp; (NR != 6 )}`" />
+    <ConfigDefine name="`${INST_NAME}`_CHANNEL_1_IRQ" value="pdm_`${hasPDM0 ? InstNumber . &quot;_&quot; : &quot;&quot;}`interrupts_1_IRQn" public="true" include="`${((rxChannels >= 2) || (monoChannel == 2)) &amp;&amp; (NR != 6 )}`" />
+    <ConfigDefine name="`${INST_NAME}`_CHANNEL_0_IRQ" value="pdm_`${hasPDM0 ? InstNumber . &quot;_&quot; : &quot;&quot;}`interrupts_3_IRQn" public="true" include="`${monoChannel == 1 &amp;&amp; (NR == 6 )}`" />
+    <ConfigDefine name="`${INST_NAME}`_CHANNEL_1_IRQ" value="pdm_`${hasPDM0 ? InstNumber . &quot;_&quot; : &quot;&quot;}`interrupts_4_IRQn" public="true" include="`${((rxChannels >= 2) || (monoChannel == 2)) &amp;&amp; (NR == 6 )}`" />
    
     <ConfigStruct name="`${INST_NAME . &quot;_config&quot;}`" type="cy_stc_pdm_pcm_config_v2_t" const="`${inFlash}`" public="true" include="true" >
       <Member name="clkDiv"                  value="`${clockDiv}`" />
@@ -452,7 +513,41 @@
       <Member name="dc_block_disable"       value="`${!dcBlockDisable2}`" />
       <Member name="dc_block_code"          value="`${dcBlockCode2}`" />
     </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_channel_0_obj" type="cyhal_resource_inst_t" const="true" public="true" include="`${monoChannel == 1}`" guard="defined (CY_USING_HAL)">
+      <Member name="type" value="CYHAL_RSC_PDM" />
+      <Member name="block_num" value="0U" />
+      <Member name="channel_num" value="0U" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_channel_1_obj" type="cyhal_resource_inst_t" const="true" public="true" include="`${(rxChannels >= 2) || (monoChannel == 2)}`" guard="defined (CY_USING_HAL)">
+      <Member name="type" value="CYHAL_RSC_PDM" />
+      <Member name="block_num" value="0U" />
+      <Member name="channel_num" value="1U" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="block" value="`${getExposedMember(sourceClock, &quot;hal_block&quot;)}`" />
+      <Member name="channel" value="`${getExposedMember(sourceClock, &quot;number&quot;)}`" />
+      <Member name="reserved" value="false" />
+      <Member name="funcs" value="NULL" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_channel_0_hal_config" type="cyhal_pdm_pcm_configurator_t" const="`${inFlash}`" public="true" include="`${monoChannel == 1}`" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_channel_0_obj" />
+      <Member name="config" value="&amp;`${INST_NAME . &quot;_config&quot;}`" />
+      <Member name="chan_config" value="&amp;channel_0_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_channel_1_hal_config" type="cyhal_pdm_pcm_configurator_t" const="`${inFlash}`" public="true" include="`${(rxChannels >= 2) || (monoChannel == 2)}`" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_channel_1_obj" />
+      <Member name="config" value="&amp;`${INST_NAME . &quot;_config&quot;}`" />
+      <Member name="chan_config" value="&amp;channel_1_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+    </ConfigStruct>
     
+    <ConfigInstruction value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_PDM`${InstNumber}`_PERI_NR, CY_MMIO_PDM`${InstNumber}`_GROUP_NR, CY_MMIO_PDM`${InstNumber}`_SLAVE_NR, CY_MMIO_PDM`${InstNumber}`_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
     <ConfigInstruction value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${pclkOk}`"  />
   </ConfigFirmware>
 </Personality>

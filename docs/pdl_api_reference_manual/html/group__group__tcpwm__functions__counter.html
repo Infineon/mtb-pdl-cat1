@@ -162,6 +162,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga2abece06e0b8d5fe890886ad883e7a41"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__counter.html#ga2abece06e0b8d5fe890886ad883e7a41">Cy_TCPWM_Counter_EnableSwap</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32_t cntNum, bool enable)</td></tr>
 <tr class="memdesc:ga2abece06e0b8d5fe890886ad883e7a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT.  <a href="#ga2abece06e0b8d5fe890886ad883e7a41">More...</a><br /></td></tr>
 <tr class="separator:ga2abece06e0b8d5fe890886ad883e7a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee3f140d6da2342b0bfb26f629a98ddf"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__functions__counter.html#gaee3f140d6da2342b0bfb26f629a98ddf">Cy_TCPWM_Counter_SetDirection_Change_Mode</a> (<a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *base, uint32_t cntNum, <a class="el" href="group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5">cy_en_counter_direction_t</a> direction_mode)</td></tr>
+<tr class="memdesc:gaee3f140d6da2342b0bfb26f629a98ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direction change mode Based on falling/rising edge of capture0 input.  <a href="#gaee3f140d6da2342b0bfb26f629a98ddf">More...</a><br /></td></tr>
+<tr class="separator:gaee3f140d6da2342b0bfb26f629a98ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga6068a06ddc8a07c67bb6df86e920944c"></a>
@@ -658,7 +661,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is a need to enable the compare swapping feature for</span></div><div class="line"><span class="comment">     * the first (index = 0) counter of the TCPWM0 block.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_CNT_NUM   (0UL)</span></div><div class="line">    </div><div class="line">    <a class="code" href="group__group__tcpwm__functions__counter.html#ga575b4f5ee5287ba5f9bd10b77a4b6c77">Cy_TCPWM_Counter_EnableCompare0Swap</a>(TCPWM0, MY_TCPWM_CNT_NUM, <span class="keyword">true</span>);</div><div class="line">    <span class="comment">/* Now the Compare 0 and Compare 1 values can be swapped using Cy_TCPWM_TriggerCaptureOrSwap_Single */</span></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is a need to enable the compare swapping feature for</span></div><div class="line"><span class="comment">     * the first (index = 0) counter of the TCPWM0 block.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_CNT_NUM   (0UL)</span></div><div class="line">    </div><div class="line">    <a class="code" href="group__group__tcpwm__functions__counter.html#ga575b4f5ee5287ba5f9bd10b77a4b6c77">Cy_TCPWM_Counter_EnableCompare0Swap</a>(TCPWM0, MY_TCPWM_CNT_NUM, <span class="keyword">true</span>);</div><div class="line">    <span class="comment">/* Now the Compare 0 and Compare 1 values can be swapped using Cy_TCPWM_TriggerCaptureOrSwap_Single */</span></div></div><!-- fragment --> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>From Version 3 of TCPWM, this feature is coupled with the swap enable feature (<a class="el" href="group__group__tcpwm__functions__counter.html#ga2abece06e0b8d5fe890886ad883e7a41" title="Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1...">Cy_TCPWM_Counter_EnableSwap()</a>). when both reload and swap are enabled then CC0 value is swapped with CC0 buff value. When only reload is enabled then CC0 buff value is copied to CC0. There is no action when reload is disabled. </dd></dl>
 
 </div>
 </div>
@@ -1115,7 +1119,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is a need to enable the compare swapping feature for</span></div><div class="line"><span class="comment">     * the first (index = 256) counter of Group 1 of TCPWM0 block.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_GRP1_CNT0_NUM   (256UL)</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__tcpwm__functions__counter.html#gae8e864267855dd674d618bba19733ce3">Cy_TCPWM_Counter_EnableCompare1Swap</a>(TCPWM0, MY_TCPWM_GRP1_CNT0_NUM, <span class="keyword">true</span>);</div><div class="line">    <span class="comment">/* Now the Compare1Val and Compare1BufVal values can be swapped using Cy_TCPWM_TriggerCapture1 */</span></div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is a need to enable the compare swapping feature for</span></div><div class="line"><span class="comment">     * the first (index = 256) counter of Group 1 of TCPWM0 block.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_GRP1_CNT0_NUM   (256UL)</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__tcpwm__functions__counter.html#gae8e864267855dd674d618bba19733ce3">Cy_TCPWM_Counter_EnableCompare1Swap</a>(TCPWM0, MY_TCPWM_GRP1_CNT0_NUM, <span class="keyword">true</span>);</div><div class="line">    <span class="comment">/* Now the Compare1Val and Compare1BufVal values can be swapped using Cy_TCPWM_TriggerCapture1 */</span></div></div><!-- fragment --> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>From Version 3 of TCPWM, this feature is coupled with the swap enable feature (<a class="el" href="group__group__tcpwm__functions__counter.html#ga2abece06e0b8d5fe890886ad883e7a41" title="Enables/disables swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1...">Cy_TCPWM_Counter_EnableSwap()</a>). when both reload and swap are enabled then CC1 value is swapped with CC1 buff value. When only reload is enabled then CC1 buff value is copied to CC1. There is no action when reload is disabled. </dd></dl>
 
 </div>
 </div>
@@ -1156,10 +1161,56 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a TCPWM instance.</td></tr>
     <tr><td class="paramname">cntNum</td><td>The Counter instance number in the selected TCPWM.</td></tr>
-    <tr><td class="paramname">enable</td><td>true = swap enabled; false = swap disabled </td></tr>
+    <tr><td class="paramname">enable</td><td>true = swap enabled; false = swap disabled</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>This feature is coupled with the reload feature. when both reload and swap are enabled then CC0/CC1/PERIOD/DT values are swapped with CC_BUFF/CC1_BUFF/PERIOD_BUFF/DT_BUFF values respectively When only reload is enabled then CC_BUFF/CC1_BUFF/PERIOD_BUFF/DT_BUFF values are copied to CC0/CC1/PERIOD/DT respectively. There is no action when reload is disabled. </dd></dl>
+
+</div>
+</div>
+<a id="gaee3f140d6da2342b0bfb26f629a98ddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaee3f140d6da2342b0bfb26f629a98ddf">&#9670;&nbsp;</a></span>Cy_TCPWM_Counter_SetDirection_Change_Mode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_TCPWM_Counter_SetDirection_Change_Mode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_c_p_w_m___type.html">TCPWM_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>cntNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5">cy_en_counter_direction_t</a>&#160;</td>
+          <td class="paramname"><em>direction_mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Direction change mode Based on falling/rising edge of capture0 input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a TCPWM instance.</td></tr>
+    <tr><td class="paramname">cntNum</td><td>The Counter instance number in the selected TCPWM.</td></tr>
+    <tr><td class="paramname">direction_mode</td><td>Direction change mode Based on falling/rising edge of capture0 input <a class="el" href="group__group__tcpwm__data__structures__counter.html#ga911ca130e2c8ca40b252bd1f7b78c3e5">cy_en_counter_direction_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>For TCPWM version 3 and above in compare mode, when external direction control is enabled and Capture0 input is disabled, user can use software capture0 trigger. While using this, User has to make sure that the external direction control is set to CY_TCPWM_COUNTER_DIRECTION_RISING </dd></dl>
 
 </div>
 </div>

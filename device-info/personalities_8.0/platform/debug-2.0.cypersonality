@@ -7,11 +7,11 @@
 *
 * \brief
 * Debug Access personality description file.
-* Supports CAT1A, CAT1B and CAT1C Device Families.
+* Supports CAT1A, CAT1B, CAT1C and CAT1D Device Families.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2022 Cypress Semiconductor Corporation
+* Copyright 2018-2023 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,10 +29,10 @@
 
 <Personality id="dap" name="Debug Access" version="2.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
   <Dependencies>
-    <IpBlock name="m4cpuss,m4cpuss_ver2,m33syscpuss,m7cpuss" />
-    <Resource name="cpuss\.dap" />
+    <IpBlock name="m4cpuss,m4cpuss_ver2,m33syscpuss,m7cpuss,mxdebug600" />
+    <Resource name="(cpuss\.dap)|(debug600)" />
   </Dependencies>
-  
+
   <ExposedMembers />
   
   <Parameters>
@@ -51,7 +51,7 @@
     </ParamChoice>
     <ParamBool id="traceModeSerial" name="Trace Mode - Serial" group="General" default="false" visible="`${dbgMode ne JTAG}`" editable="true" desc="Enables Serial Trace Mode." />
     <ParamString id="dbgGroup" name="dbgGroup" group="Internal" default="`${dbgMode eq SWD ? &quot;SWD&quot; : &quot;JTAG&quot;}` Pins" visible="false" editable="false" desc="" />
-    <ParamSignal port="clock_trace_in[0]" name="Clock" group="Trace Clock" visible="`${hasVisibleOption(&quot;clock_trace_in[0]&quot;) &amp;&amp; (traceModeSerial || traceModeParallel)}`" desc="Clock that operates this block." canBeEmpty="`${!traceModeSerial &amp;&amp; !traceModeParallel}`" >
+    <ParamSignal port="clock_trace_in[0]" name="Clock" group="Trace Clock" visible="`${hasVisibleOption(&quot;clock_trace_in[0]&quot;) &amp;&amp; (((dbgMode ne JTAG) &amp;&amp; traceModeSerial) || traceModeParallel)}`" desc="Clock that operates this block." canBeEmpty="`${!traceModeSerial &amp;&amp; !traceModeParallel}`" >
       <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="true" >
         <Parameter id="intDivider" severity="INFO" reason="Clock Divider must be set to 1.">
           <Fixed value="1" />
@@ -84,7 +84,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="swj_swclk_tclk[0]" name="`${dbgMode eq SWD ? &quot;SWCLK&quot; : &quot;TCLK&quot;}`" group="`${dbgGroup}`" visible="`${dbgMode ne NONE}`" desc="Reserve the pin for `${dbgMode eq SWD ? &quot;Single Wire Clock&quot; : &quot;Test Clock&quot;}`" canBeEmpty="`${dbgMode eq NONE}`">
+    <ParamSignal port="clk_swj_swclk_tclk[0]" name="`${dbgMode eq SWD ? &quot;SWCLK&quot; : &quot;TCLK&quot;}`" group="`${dbgGroup}`" visible="`${(hasVisibleOption(&quot;clk_swj_swclk_tclk[0]&quot;)) &amp;&amp; (dbgMode ne NONE)}`" desc="Reserve the pin for `${dbgMode eq SWD ? &quot;Single Wire Clock&quot; : &quot;Test Clock&quot;}`" canBeEmpty="`${dbgMode eq NONE}`">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Resistive Pull-Down. Input buffer on'.">
           <Fixed value="CY_GPIO_DM_PULLDOWN" />
@@ -92,7 +92,15 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="swj_swo_tdo[0]" name="`${dbgMode eq SWD ? &quot;SWO&quot; : &quot;TDO&quot;}`" group="`${dbgMode eq SWD ? &quot;Trace Pins&quot; : dbgGroup}`" visible="`${(dbgMode eq JTAG) || ((dbgMode eq SWD) &amp;&amp; traceModeSerial)}`" desc="Reserve the pin for `${dbgMode eq SWD ? &quot;Single Wire Output&quot; : &quot;Test Data Output&quot;}`" canBeEmpty="`${!((dbgMode eq JTAG) || ((dbgMode eq SWD) &amp;&amp; traceModeSerial))}`">
+    <ParamSignal port="swj_swclk_tclk[0]" name="`${dbgMode eq SWD ? &quot;SWCLK&quot; : &quot;TCLK&quot;}`" group="`${dbgGroup}`" visible="`${(hasVisibleOption(&quot;swj_swclk_tclk[0]&quot;)) &amp;&amp; (dbgMode ne NONE)}`" desc="Reserve the pin for `${dbgMode eq SWD ? &quot;Single Wire Clock&quot; : &quot;Test Clock&quot;}`" canBeEmpty="`${dbgMode eq NONE}`">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Resistive Pull-Down. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_PULLDOWN" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="swj_swo_tdo[0]" name="`${dbgMode eq SWD ? &quot;SWO&quot; : &quot;TDO&quot;}`" group="`${dbgMode eq SWD ? &quot;Trace Pins&quot; :  &quot;JTAG Pins&quot;}`" visible="`${(dbgMode eq JTAG) || ((dbgMode eq SWD) &amp;&amp; traceModeSerial)}`" desc="Reserve the pin for `${dbgMode eq SWD ? &quot;Single Wire Output&quot; : &quot;Test Data Output&quot;}`" canBeEmpty="`${!((dbgMode eq JTAG) || ((dbgMode eq SWD) &amp;&amp; traceModeSerial))}`">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -123,7 +131,15 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="swj_trstn[0]" name="TRSTn" group="`${dbgGroup}`" visible="`${dbgMode eq JTAG}`" desc="Reserve pin for Test Reset" canBeEmpty="true">
+    <ParamSignal port="swj_trstn[0]" name="TRSTn" group="`${dbgGroup}`" visible="`${(hasVisibleOption(&quot;swj_trstn[0]&quot;)) &amp;&amp; (dbgMode eq JTAG)}`" desc="Reserve pin for Test Reset" canBeEmpty="true">
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Resistive Pull-Up. Input buffer on'.">
+          <Fixed value="CY_GPIO_DM_PULLUP" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="rst_swj_trstn[0]" name="TRSTn" group="`${dbgGroup}`" visible="`${(hasVisibleOption(&quot;rst_swj_trstn[0]&quot;)) &amp;&amp; (dbgMode eq JTAG)}`" desc="Reserve pin for Test Reset" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Resistive Pull-Up. Input buffer on'.">
           <Fixed value="CY_GPIO_DM_PULLUP" />
@@ -182,8 +198,10 @@
     </Repeat>
     <ParamString id="pclkTraceClockString" name="PCLK Destination Clock" group="Internal" default="PCLK_CPUSS_CLOCK_TRACE_IN" visible="false" editable="false" desc="String variable used for PCLK_SCB_CLOCK." />
     <ParamString id="pclkTraceClockENString" name="PCLK Destination Clock" group="Internal" default="PCLK_CPUSS_CLOCK_TRACE_IN_POS_EN" visible="false" editable="false" desc="String variable used only for PCLK_SCB_CLOCK_SCB_EN." />
+    <ParamString id="pclkDebug600TraceClockString" name="PCLK Destination Clock" group="Internal" default="PCLK_DEBUG600_CLOCK_TRACE_IN" visible="false" editable="false" desc="String variable used only for PCLK_SCB_CLOCK_SCB_EN." />
 
-    <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${(hasMatch(getIpBlockName(), &quot;m33syscpuss.*&quot;)) ? pclkTraceClockENString : pclkTraceClockString }`" visible="false" editable="false" desc="Generates PCLK connection define." />
+    <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${(hasMatch(getIpBlockName(), &quot;m33syscpuss.*&quot;)) ?
+	                                                                               pclkTraceClockENString : (((hasMatch(getIpBlockName(), &quot;mxdebug600&quot;))) ?  pclkDebug600TraceClockString : pclkTraceClockString )}`" visible="false" editable="false" desc="Generates PCLK connection define." />
 
   </Parameters>
   

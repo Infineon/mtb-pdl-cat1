@@ -15,6 +15,8 @@ var searchData=
   ['general_20functions',['General Functions',['../group__group__smartio__functions__general.html',1,'']]],
   ['global_20variables',['Global Variables',['../group__group__startup__config__globals.html',1,'']]],
   ['global_20variables',['Global Variables',['../group__group__sysanalog__globals.html',1,'']]],
+  ['group_5fsysclk_5fclk_5fhf_5fstructs',['Group_sysclk_clk_hf_structs',['../group__group__sysclk__clk__hf__structs.html',1,'']]],
+  ['group_5fsysclk_5fclk_5flf_5fstructs',['Group_sysclk_clk_lf_structs',['../group__group__sysclk__clk__lf__structs.html',1,'']]],
   ['general_20enumerated_20types',['General Enumerated Types',['../group__group__sysclk__enums.html',1,'']]],
   ['global_20variables',['Global variables',['../group__group__sysint__globals.html',1,'']]],
   ['general_20enumerated_20types',['General Enumerated Types',['../group__group__syspm__btss__enums.html',1,'']]],

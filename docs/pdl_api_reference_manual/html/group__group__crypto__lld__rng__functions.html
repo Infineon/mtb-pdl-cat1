@@ -111,6 +111,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gab80f93878b181bb72bc0adf31b7eda15"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__rng__functions.html#gab80f93878b181bb72bc0adf31b7eda15">Cy_Crypto_Core_Trng</a> (CRYPTO_Type *base, uint32_t GAROPol, uint32_t FIROPol, uint32_t max, uint32_t *randomNum)</td></tr>
 <tr class="memdesc:gab80f93878b181bb72bc0adf31b7eda15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a True Random Number.  <a href="#gab80f93878b181bb72bc0adf31b7eda15">More...</a><br /></td></tr>
 <tr class="separator:gab80f93878b181bb72bc0adf31b7eda15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3d4fac6e5391fa6a5b20f29f49ac24b8"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__rng__functions.html#ga3d4fac6e5391fa6a5b20f29f49ac24b8">Cy_Crypto_Core_Trng_Ext</a> (CRYPTO_Type *base, uint32_t max, uint32_t *randomNum)</td></tr>
+<tr class="memdesc:ga3d4fac6e5391fa6a5b20f29f49ac24b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a True Random Number.  <a href="#ga3d4fac6e5391fa6a5b20f29f49ac24b8">More...</a><br /></td></tr>
+<tr class="separator:ga3d4fac6e5391fa6a5b20f29f49ac24b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga2ed2909fd8b7fe5cba913e3154759b89"></a>
@@ -429,6 +432,51 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Initialization polynomial values for True Random Generator.</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">        Polynomial for programmable Galois ring oscillator.</span></div><div class="line"><span class="comment">        The polynomial is represented WITHOUT the high order bit (this bit is always assumed &#39;1&#39;).</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">        GARO 31 bit polynomial (0x04c1:1db7) = x31 + x26 + x23 + x22 + x16 + x12 + x11 + x10 + x8 + x7 + x5 + x4 + x2 + x + 1</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">        Polynomial for programmable Fibonacci ring oscillator.</span></div><div class="line"><span class="comment">        The polynomial is represented WITHOUT the high order bit (this bit is always assumed &#39;1&#39;).</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">        FIRO 31 bit polynomial (0x04c1:1db7) = x31 + x26 + x23 + x22 + x16 + x12 + x11 + x10 + x8 + x7 + x5 + x4 + x2 + x + 1</span></div><div class="line"><span class="comment">    */</span></div><div class="line"><span class="preprocessor">    #define GARO31_INITSTATE      (0x04c11db7)</span></div><div class="line"><span class="preprocessor">    #define FIRO31_INITSTATE      (0x04c11db7)</span></div><div class="line"></div><div class="line"><span class="preprocessor">    #define MAX_TRNG_BIT_SIZE     (32UL)</span></div><div class="line"></div><div class="line">    <span class="comment">/* Generated Random Number */</span></div><div class="line">    uint32_t rndNum = 0;</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line"></div><div class="line">    <span class="comment">/* Generate True Random number in a specified range */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__rng__functions.html#gab80f93878b181bb72bc0adf31b7eda15">Cy_Crypto_Core_Trng</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             GARO31_INITSTATE, <span class="comment">/* Polynomial for programmable GARO */</span></div><div class="line">                             FIRO31_INITSTATE, <span class="comment">/* Polynomial for programmable FIRO */</span></div><div class="line">                             MAX_TRNG_BIT_SIZE,     <span class="comment">/* Range of random number */</span></div><div class="line">                             &amp;rndNum);  <span class="comment">/* Pointer to generated random number */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga3d4fac6e5391fa6a5b20f29f49ac24b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3d4fac6e5391fa6a5b20f29f49ac24b8">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Trng_Ext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Trng_Ext </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>randomNum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates a True Random Number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">max</td><td>The maximum length of a random number, in the range of [0, 32] bits.</td></tr>
+    <tr><td class="paramname">randomNum</td><td>The pointer to a generated true random number. Must be 4-byte aligned.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
 
 </div>
 </div>

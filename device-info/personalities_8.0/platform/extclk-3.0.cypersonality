@@ -41,12 +41,16 @@
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk.html" linkText="Open System Clock Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
+    <ParamBool id="is40ssrssAvailable" name="is40ssrssAvailable" group="" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+    <ParamBool id="is40srss_ver2or3Available" name="is40srss_ver2or3Available" group="" default="`${(&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+    <ParamBool id="is22srssAvailable" name="is22srssAvailable" group="" default="`${(&quot;mxs22srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+	<ParamBool id="is40srssAvailable" name="is40srssAvailable" group="" default="`${(&quot;mxs40srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
 
     <ParamBool id="usingUlp" name="usingUlp" group="Internal" default="`${isBlockUsed(&quot;srss[0].power[0]&quot;) &amp;&amp; getExposedMember(&quot;srss[0].power[0]&quot;, &quot;usingUlp&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="maxFrequency" name="Max Frequency (MHz)" group="Internal" default="`${getDeviceAttr(&quot;CPU_MAX_MHZ&quot;) &gt; 100 ? 100 : getDeviceAttr(&quot;CPU_MAX_MHZ&quot;)}`" visible="false" editable="false" desc="The maximum EXTCLK frequency" />
 
-    <ParamRange id="extFrequencyMin" name="Min Ext Frequency" group="General" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 0.001 : 1}`" min="0.001" max="1" resolution="0.001" visible="false" editable="false" desc="Max FLL Frequency based on platform." />
-    <ParamRange id="frequencyMin" name="Min Frequency" group="General" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 1000 : 1000000}`" min="1000" max="1000000" resolution="1" visible="false" editable="false" desc="Max FLL Frequency based on platform." />
+    <ParamRange id="extFrequencyMin" name="Min Ext Frequency" group="General" default="0.001" min="0.001" max="1" resolution="0.001" visible="false" editable="false" desc="Max FLL Frequency based on platform." />
+    <ParamRange id="frequencyMin" name="Min Frequency" group="General" default="1000" min="1000" max="1000000" resolution="1" visible="false" editable="false" desc="Max FLL Frequency based on platform." />
 	
     <ParamRange id="extFrequency" name="Frequency (MHz)" group="General" default="24.000" min="`${extFrequencyMin}`" max="`${maxFrequency}`" resolution="0.001" visible="true" editable="true" desc="" />
     <ParamRange id="frequency" name="Frequency" group="Internal" default="`${extFrequency * 1000000}`" visible="false" editable="false" min="`${frequencyMin}`" max="100000000" resolution="1" desc="" />
@@ -72,6 +76,7 @@
     <ConfigDefine name="CY_CFG_SYSCLK_EXTCLK_GPIO_PRT" value="GPIO_PRT`${gpio_port}`" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_EXTCLK_GPIO_PIN" value="`${gpio_pin}`" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_EXTCLK_GPIO_HSIOM" value="P`${gpio_port}`_`${gpio_pin}`_SRSS_EXT_CLK" public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ExtClkInit()" body="    (void)Cy_GPIO_Pin_FastInit(GPIO_PRT`${gpio_port}`, `${gpio_pin}`, CY_GPIO_DM_HIGHZ, 0UL, P`${gpio_port}`_`${gpio_pin}`_SRSS_EXT_CLK);&#xA;    Cy_SysClk_ExtClkSetFrequency(CY_CFG_SYSCLK_EXTCLK_FREQ);" public="false" include="true" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ExtClkInit()" body="    (void)Cy_GPIO_Pin_FastInit(GPIO_PRT`${gpio_port}`, `${gpio_pin}`, CY_GPIO_DM_HIGHZ, 0UL, P`${gpio_port}`_`${gpio_pin}`_SRSS_EXT_CLK);&#xA;    Cy_SysClk_ExtClkSetFrequency(CY_CFG_SYSCLK_EXTCLK_FREQ);" public="false" include="`${(is40srssAvailable || is40ssrssAvailable || is40srss_ver2or3Available)}`" guard="((!CY_CPU_CORTEX_M4) || (!defined(CY_DEVICE_SECURE)))" />
+	<ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ExtClkInit()" body="    (void)Cy_GPIO_Pin_SecFastInit(GPIO_PRT`${gpio_port}`, `${gpio_pin}`, CY_GPIO_DM_HIGHZ, 0UL, P`${gpio_port}`_`${gpio_pin}`_SRSS_EXT_CLK);&#xA;" public="false" include="`${(is22srssAvailable)}`" guard="defined(CORE_NAME_CM33_0) &amp;&amp; defined(CY_PDL_TZ_ENABLED)"  />
   </ConfigFirmware>
 </Personality>

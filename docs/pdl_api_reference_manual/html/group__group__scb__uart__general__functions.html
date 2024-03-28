@@ -120,6 +120,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga2154a54acbf4e9a5a38af3c515d4acc3"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__uart__general__functions.html#ga2154a54acbf4e9a5a38af3c515d4acc3">Cy_SCB_UART_DisableSkipStart</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base)</td></tr>
 <tr class="memdesc:ga2154a54acbf4e9a5a38af3c515d4acc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the skip start-bit functionality.  <a href="#ga2154a54acbf4e9a5a38af3c515d4acc3">More...</a><br /></td></tr>
 <tr class="separator:ga2154a54acbf4e9a5a38af3c515d4acc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67842f041cc8abbda979ee2bac1923c1"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__uart__general__functions.html#ga67842f041cc8abbda979ee2bac1923c1">Cy_SCB_UART_EnableSingleWireHalfDuplex</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base)</td></tr>
+<tr class="memdesc:ga67842f041cc8abbda979ee2bac1923c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Single Wire Half Duplex Communication.  <a href="#ga67842f041cc8abbda979ee2bac1923c1">More...</a><br /></td></tr>
+<tr class="separator:ga67842f041cc8abbda979ee2bac1923c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e6e60fdc4bd677787d72f2c079f46be"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__uart__general__functions.html#ga3e6e60fdc4bd677787d72f2c079f46be">Cy_SCB_UART_DisableSingleWireHalfDuplex</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base)</td></tr>
+<tr class="memdesc:ga3e6e60fdc4bd677787d72f2c079f46be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables Single Wire Half Duplex Communication.  <a href="#ga3e6e60fdc4bd677787d72f2c079f46be">More...</a><br /></td></tr>
+<tr class="separator:ga3e6e60fdc4bd677787d72f2c079f46be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gacbc061f623d2fafbcfffcb58c5f2db51"></a>
@@ -432,6 +438,62 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ga67842f041cc8abbda979ee2bac1923c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga67842f041cc8abbda979ee2bac1923c1">&#9670;&nbsp;</a></span>Cy_SCB_UART_EnableSingleWireHalfDuplex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_SCB_UART_EnableSingleWireHalfDuplex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables Single Wire Half Duplex Communication. </p>
+<dl class="section note"><dt>Note</dt><dd>This is applicable in standard UART submode only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the UART SCB instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for PSoC C3 (CAT1B) devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga3e6e60fdc4bd677787d72f2c079f46be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3e6e60fdc4bd677787d72f2c079f46be">&#9670;&nbsp;</a></span>Cy_SCB_UART_DisableSingleWireHalfDuplex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE void Cy_SCB_UART_DisableSingleWireHalfDuplex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables Single Wire Half Duplex Communication. </p>
+<dl class="section note"><dt>Note</dt><dd>This is applicable in standard UART submode only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the UART SCB instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for PSoC C3 (CAT1B) devices. </dd></dl>
 
 </div>
 </div>

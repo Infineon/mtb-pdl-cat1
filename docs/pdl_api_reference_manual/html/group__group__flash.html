@@ -133,6 +133,7 @@ Partially Blocking:</h2>
 <p>For CAT1C devices Flash memory controller has the dual bank mode feature. When using dual bank mode, flash memory region is split into two half banks. One is called Logical Bank 0 and the other is called Logical Bank 1 User will be able to read from a different logical bank while writing to one logical bank.</p>
 <p>For CAT1C devices Erase ROW is not supported. User has to erase the entire sector before writing to the sector.</p>
 <p>CM7 cores in CAT1C devices support Data Cache. Data Cache line is 32 bytes. User needs to make sure that the pointer passed to the following functions points to 32 byte aligned data. Cy_Flash_StartWrite, Cy_Flash_ProgramRow, Cy_Flash_Program and Cy_Flash_Program_WorkFlash. User can use CY_ALIGN(32) macro for 32 byte alignment.</p>
+<p>CAT1B devices run on single core and hence IPC is not used for erase and write operations on flash memory.</p>
 <center> <a class="anchor" id=""></a>
 <table class="doxtable">
 <caption>Table 1 - Block-out periods (timing values are valid just for the CY8C6xx6, CY8C6xx7 devices) </caption>
@@ -158,6 +159,7 @@ Figure 1 - Blocking Intervals in Flash Write operation</div></div>
 </ul>
 <p>The core that performs read/execute is blocked identically to the previous scenario - see <b>Figure 1</b>.</p>
 <p>This allows the core that initiates <a class="el" href="group__group__flash__functions.html#gafed287628c010c2258f73c5777b52292" title="Starts programming the flash row with the input data. ">Cy_Flash_StartWrite()</a> to execute for about 20% of Flash Write operation. The other core executes for about 80% of Flash Write operation.</p>
+<p>In CAT1B devices with flash IP CY_IP_MXS40FLASHC When refresh is enabled, for each row an extra 16 bytes is used for storing refresh related data. User need to make sure that this data is not corrupted while writing and erasing the row data. When refresh is enabled row size has to be considered as CY_FLASH_SIZEOF_ROW + 16Bytes</p>
 <p>Some constraints must be planned for in the Partially Blocking mode which are described in detail below.</p>
 <h2><a class="anchor" id="group_flash_config_rww_const"></a>
 Constraints for Partially Blocking Flash operations:</h2>
@@ -201,6 +203,10 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>3.100 </td><td>Added support for PSoC C3 (CAT1B).<br />
+ Added flash refresh feature.<br />
+ Added inject ecc disable and corrected address in inject ecc. </td><td>Added support for new devices, added new feature and code enhancement.  </td></tr>
 <tr>
 <td>3.90 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
  Updated pre-processor check to only include code if ECT flash is not used.<br />

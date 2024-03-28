@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash_srom.c
-* \version 3.90
+* \version 3.100
 *
 * \brief
 * Provides functions for controlling the SROM APIs.

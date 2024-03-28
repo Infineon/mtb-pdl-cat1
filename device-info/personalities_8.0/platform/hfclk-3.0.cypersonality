@@ -35,6 +35,8 @@
     <ExposedMember key="frequency" paramId="frequency" />
     <ExposedMember key="accuracy"  paramId="accuracy" />
     <ExposedMember key="error"     paramId="error" />
+    <ExposedMember key="clockInst" paramId="clockInst" />
+    <ExposedMember key="sourceClockDisplayName" paramId="sourceClockDisplayName" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -74,16 +76,16 @@
     
     <ParamBool id="isPllUsed" name="Is PLL Used" group="Internal" default="`${ (&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 0 : ((&quot;mxs40srss&quot; eq getIpBlockName()) ? (sourceClockNumber &gt; 0) &amp;&amp; (sourceClockNumber &lt;= NUM_PLL) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-1) . &quot;]&quot;) : (is40srss_ver2or3withCM4) ? (sourceClockNumber &gt; 0) &amp;&amp; (sourceClockNumber &lt;= NUM_PLL) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-1) . &quot;]&quot;) : (sourceClockNumber &gt; NUM_PLL) &amp;&amp; (sourceClockNumber &lt;= (NUM_PLL + NUM_PLL400M)) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-3) . &quot;]&quot;)) }`" visible="false" editable="false" desc="" />
 
-    <ParamBool id="isPll250mUsed" name="Is PLL-250MHz Used" group="Internal" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? ((sourceClockNumber ne 0 &amp;&amp; sourceClockNumber &lt;= NUM_DPLL250) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll250m[&quot; . (sourceClockNumber - 1 ) . &quot;]&quot;)) : false) : false}`" visible="false" editable="false" desc="" />
+    <ParamBool id="isPll250mUsed" name="Is PLL-250MHz Used" group="Internal" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? ((sourceClockNumber ne 0 &amp;&amp; sourceClockNumber &lt;= NUM_DPLL250) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].dpll250[&quot; . (sourceClockNumber - 1 ) . &quot;]&quot;)) : false) : false}`" visible="false" editable="false" desc="" />
 
     <ParamString id="sourceClock" name="Source clock resource" group="Internal" default="`${isFllUsed ? &quot;fll[0]&quot; :
                                                                                             isPll400mUsed ? &quot;pll400m[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
                                                                                             isPllUsed &amp;&amp; (&quot;mxs40srss&quot; eq getIpBlockName()) ? &quot;pll[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
-                                                                                            isPll250mUsed &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()) ? &quot;pll[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
+                                                                                            isPll250mUsed &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()) ? &quot;dpll250[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
                                                                                             isPllUsed &amp;&amp; (is40srss_ver2or3withCM4) ? &quot;pll[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
                                                                                             isPllUsed &amp;&amp; (is40srss_ver2or3Available) ? &quot;pll[&quot; . (sourceClockNumber-(NUM_PLL+1)) . &quot;]&quot; :
                                                                                                         &quot;pathmux[&quot; . sourceClockNumber . &quot;]&quot;}`" visible="false" editable="false" desc="" />
-
+    <ParamString id="sourceClockDisplayName" name="Source Clock Display Name" group="Internal" default="`${getParamValueDisplay(&quot;sourceClock&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="srss[0].clock[0].`${sourceClock}`" visible="false" editable="false" desc="" />
 
     <!-- Set an error if the source clock is not enabled or contains an error -->

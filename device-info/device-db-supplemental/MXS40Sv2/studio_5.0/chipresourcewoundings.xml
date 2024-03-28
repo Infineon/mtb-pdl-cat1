@@ -17,6 +17,12 @@
   <BooleanWounding name="WCO">
     <Block name="srss.clock.wco"/>
   </BooleanWounding>
+  <BooleanWounding name="CORDIC">
+    <Block name="cordic"/>
+  </BooleanWounding>
+  <BooleanWounding name="MOTIF">
+    <Block name="tcpwm.group.motif"/>
+  </BooleanWounding>
   
   <NaWounding name="BLUETOOTH">
     <Block name="btss"/>
@@ -43,5 +49,8 @@
   </RemoveListWounding>
   <RemoveListWounding name="I2S_REMOVED">
     <Block name="tdm"/>
+  </RemoveListWounding>
+  <RemoveListWounding name="ADC_CH_REMOVED">
+    <Block name="pass.sar.ch"/>
   </RemoveListWounding>
 </Woundings>

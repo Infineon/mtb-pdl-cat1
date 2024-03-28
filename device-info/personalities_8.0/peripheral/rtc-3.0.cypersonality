@@ -272,6 +272,12 @@
       <Member name="block_num" value="0U" />
       <Member name="channel_num" value="`${getInstNumber(&quot;rtc&quot;)}`U" />
     </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_rtc_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="dst_config" value="`${dst ? &quot;&amp;&quot; . INST_NAME . &quot;_configDst&quot; : &quot;NULL&quot;}`" />
+    </ConfigStruct>
     
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>

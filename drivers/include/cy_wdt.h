@@ -197,9 +197,10 @@
 *   </tr>
 *   <tr>
 *     <td>1.70</td>
-*     <td>For API Cy_WDT_SetIgnoreBits, valid input range is changed to 0-21 for CAT1B devices, this will change the API's behaviour, follow the API documentation and use this API accordingly.<br>
-          Added \ref Cy_WDT_ResetCounter new API and few macros.<br>
-          Updated \ref Cy_WDT_SetClkSource.</td>
+*     <td>Modified Cy_WDT_SetIgnoreBits() API to work correctly with CAT1B.<br>
+*         Newly Added API : Cy_WDT_ResetCounter() for resetting counter to zero.</td>
+*     <td>Code Enhancements for CAT1B.</td>
+*     <td>Added \ref Cy_WDT_ResetCounter new API and few macros.</td>
 *     <td>Usability enhancement.</td>
 *   </tr>
 *   <tr>

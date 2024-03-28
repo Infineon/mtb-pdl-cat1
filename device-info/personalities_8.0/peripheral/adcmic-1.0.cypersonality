@@ -133,6 +133,7 @@
     <Repeat count="8">
       <ParamSignal name="GPIO$idx" port="gpio_adc_in[$idx]" group="Connections" visible="`${dcCfg &amp;&amp; gpio$idxok}`" canBeEmpty="`${!(dcCfg &amp;&amp; gpio$idxok) || (dcIn ne CY_ADCMIC_GPIO$idx)}`" desc="GPIO$idx input for DC measurement" />
     </Repeat>
+    <ParamString id="numChannel" name="numChannel" group="Internal" default="`${(getBlockFromSignal(&quot;gpio_adc_in[0]&quot;) ? 1 : 0) + (getBlockFromSignal(&quot;gpio_adc_in[1]&quot;) ? 1 : 0) + (getBlockFromSignal(&quot;gpio_adc_in[2]&quot;) ? 1 : 0) + (getBlockFromSignal(&quot;gpio_adc_in[3]&quot;) ? 1 : 0) + (getBlockFromSignal(&quot;gpio_adc_in[4]&quot;) ? 1 : 0) + (getBlockFromSignal(&quot;gpio_adc_in[5]&quot;) ? 1 : 0) + (getBlockFromSignal(&quot;gpio_adc_in[6]&quot;) ? 1 : 0) + (getBlockFromSignal(&quot;gpio_adc_in[7]&quot;) ? 1 : 0)}`" visible="false" editable="false" desc="" />
 
     <ParamSignal name="PDM Clock" port="clk_pdm[0]" group="Connections" visible="`${pdmCfg}`" canBeEmpty="`${!pdmCfg}`" desc="PDM clock output" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
@@ -171,7 +172,9 @@
 
     <ConfigInclude value="cy_adcmic.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
-
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
+    
     <ConfigDefine name="`${INST_NAME}`_HW" value="`${hwName}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="adcmic_interrupt_adcmic_IRQn" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_FIFO_DATA_REG_PTR" value="CY_ADCMIC_FIFO_DATA_REG_PTR(`${hwName}`)" public="true" include="true" />
@@ -245,10 +248,24 @@
       <Member name="dcConfig" value="`${dcCfg ? (inFlash ? &quot;(cy_stc_adcmic_dc_config_t*)&quot; : &quot;&quot;) . &quot;&amp;&quot; . INST_NAME . &quot;_dc_config&quot; : &quot;NULL&quot;}`" />
     </ConfigStruct>
 
-    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
       <Member name="type" value="CYHAL_RSC_ADC" />
       <Member name="block_num" value="0" />
       <Member name="channel_num" value="0" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="false" public="true" include="true" guard="defined(CY_USING_HAL_LITE)">
+      <Member name="block" value="CYHAL_CLOCK_BLOCK_HF" />
+      <Member name="channel" value="`${getExposedMember(sysClkRsc, &quot;clockInst&quot;)}`" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_adc_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" guard="defined(CY_USING_HAL_LITE)" />
+      <Member name="clock" value="&amp;CYHAL_CLOCK_HF[`${getExposedMember(sysClkRsc, &quot;clockInst&quot;)}`]" guard="defined (CY_USING_HAL)" />
+      <Member name="num_channels" value="`${numChannel}`" />
+      <Member name="achieved_acquisition_time" value="NULL" />
     </ConfigStruct>
 
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />

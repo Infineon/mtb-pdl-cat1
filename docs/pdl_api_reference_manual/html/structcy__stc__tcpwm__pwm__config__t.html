@@ -180,10 +180,44 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#ac3ff11bd830ec04d750938b7a6c3ca6f">buffer_swap_enable</a></td></tr>
 <tr class="memdesc:ac3ff11bd830ec04d750938b7a6c3ca6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT. <br /></td></tr>
 <tr class="separator:ac3ff11bd830ec04d750938b7a6c3ca6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64814c8b94603c676a53d15e6d696c30"><td class="memItemLeft" align="right" valign="top"><a id="a64814c8b94603c676a53d15e6d696c30"></a>
-<a class="el" href="group__group__tcpwm__data__structures__pwm.html#gae5adb6cee5131cb579edb78f758ef497">cy_en_group_dithering_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#a64814c8b94603c676a53d15e6d696c30">dithering_mode</a></td></tr>
-<tr class="memdesc:a64814c8b94603c676a53d15e6d696c30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dithering mode is group specific configuration and will be applicable if the group supports dithering. <br /></td></tr>
-<tr class="separator:a64814c8b94603c676a53d15e6d696c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d3f4e3c623df75ee33ab548cde042be"><td class="memItemLeft" align="right" valign="top"><a id="a4d3f4e3c623df75ee33ab548cde042be"></a>
+<a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga5ba36f547c6817ce1f2a5ed6e89283ff">cy_en_tcpwm_dithering_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#a4d3f4e3c623df75ee33ab548cde042be">dithering_mode</a></td></tr>
+<tr class="memdesc:a4d3f4e3c623df75ee33ab548cde042be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dithering mode is group specific configuration and will be applicable if the group supports dithering. <br /></td></tr>
+<tr class="separator:a4d3f4e3c623df75ee33ab548cde042be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abec323a5fdfb0108ad906667b9917344"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#abec323a5fdfb0108ad906667b9917344">period_dithering_value</a></td></tr>
+<tr class="memdesc:abec323a5fdfb0108ad906667b9917344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dithering value for period LFSR.  <a href="#abec323a5fdfb0108ad906667b9917344">More...</a><br /></td></tr>
+<tr class="separator:abec323a5fdfb0108ad906667b9917344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa66af7705ace986df75e080271d7e865"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#aa66af7705ace986df75e080271d7e865">duty_dithering_value</a></td></tr>
+<tr class="memdesc:aa66af7705ace986df75e080271d7e865"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dithering value for duty LFSR.  <a href="#aa66af7705ace986df75e080271d7e865">More...</a><br /></td></tr>
+<tr class="separator:aa66af7705ace986df75e080271d7e865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a354519a53acf63c9c4db18f6f7fceb90"><td class="memItemLeft" align="right" valign="top"><a id="a354519a53acf63c9c4db18f6f7fceb90"></a>
+<a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c">cy_en_dithering_limiter_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#a354519a53acf63c9c4db18f6f7fceb90">limiter</a></td></tr>
+<tr class="memdesc:a354519a53acf63c9c4db18f6f7fceb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Magnitude of the pseudo-random value to be added to period/CC0/CC1 <a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga3ba205fa719411684a55b9fc3ad7b79c">cy_en_dithering_limiter_t</a>. <br /></td></tr>
+<tr class="separator:a354519a53acf63c9c4db18f6f7fceb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f75331df03880936da3305a04d19420"><td class="memItemLeft" align="right" valign="top"><a id="a0f75331df03880936da3305a04d19420"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#a0f75331df03880936da3305a04d19420">hrpwm_enable</a></td></tr>
+<tr class="memdesc:a0f75331df03880936da3305a04d19420"><td class="mdescLeft">&#160;</td><td class="mdescRight">If enabled, high resolution PWM path is enabled. <br /></td></tr>
+<tr class="separator:a0f75331df03880936da3305a04d19420"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacc5cf458adc0e1553949bebf2b26624"><td class="memItemLeft" align="right" valign="top"><a id="aacc5cf458adc0e1553949bebf2b26624"></a>
+<a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga8c9f3eeb107eae3ea2a485f9169e3759">cy_en_hrpwm_operating_frequency_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#aacc5cf458adc0e1553949bebf2b26624">hrpwm_input_freq</a></td></tr>
+<tr class="memdesc:aacc5cf458adc0e1553949bebf2b26624"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frequency of operation for HRPWM. <br /></td></tr>
+<tr class="separator:aacc5cf458adc0e1553949bebf2b26624"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a022b0298ba424035adfa267923f93da6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga19e8127ddd17a33fe06608855cd10c4d">cy_en_kill_line_polarity_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#a022b0298ba424035adfa267923f93da6">kill_line_polarity</a></td></tr>
+<tr class="memdesc:a022b0298ba424035adfa267923f93da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outputs line_out and line_out_compl_out while the TCPWM counter is disabled or stopped.  <a href="#a022b0298ba424035adfa267923f93da6">More...</a><br /></td></tr>
+<tr class="separator:a022b0298ba424035adfa267923f93da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a6ed3172642d666443d4d37c71c3fe1"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#a7a6ed3172642d666443d4d37c71c3fe1">deadTimeClocksBuff</a></td></tr>
+<tr class="memdesc:a7a6ed3172642d666443d4d37c71c3fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer value for the number of dead time-clocks if PWM with dead time is chosen.  <a href="#a7a6ed3172642d666443d4d37c71c3fe1">More...</a><br /></td></tr>
+<tr class="separator:a7a6ed3172642d666443d4d37c71c3fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac700d4f8834d9702fdcfb3478627e7e3"><td class="memItemLeft" align="right" valign="top"><a id="ac700d4f8834d9702fdcfb3478627e7e3"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#ac700d4f8834d9702fdcfb3478627e7e3">deadTimeClocksBuff_linecompl_out</a></td></tr>
+<tr class="memdesc:ac700d4f8834d9702fdcfb3478627e7e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of dead time-clocks for line compl out if PWM with dead time is chosen. <br /></td></tr>
+<tr class="separator:ac700d4f8834d9702fdcfb3478627e7e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67a6184cfff26a9bbd37430308da4891"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#a67a6184cfff26a9bbd37430308da4891">glitch_filter_enable</a></td></tr>
+<tr class="memdesc:a67a6184cfff26a9bbd37430308da4891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Glitch filter for input triggers.  <a href="#a67a6184cfff26a9bbd37430308da4891">More...</a><br /></td></tr>
+<tr class="separator:a67a6184cfff26a9bbd37430308da4891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fe764b1303506c68b06358482b9cf8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__tcpwm__enums.html#gadbc4d3602412fbbaf92175ef56258029">cy_en_gf_depth_value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html#a80fe764b1303506c68b06358482b9cf8">gf_depth</a></td></tr>
+<tr class="memdesc:a80fe764b1303506c68b06358482b9cf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Glitch filter depth value.  <a href="#a80fe764b1303506c68b06358482b9cf8">More...</a><br /></td></tr>
+<tr class="separator:a80fe764b1303506c68b06358482b9cf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a4d95b8b2e7841f999f6994fa0a90bd2f"></a>
@@ -506,6 +540,105 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 
 <p>If enabled, line output is set on underflow and cleared on overflow. </p>
 <p>This configuration is available only in center and asymmetric alignment modes. </p>
+
+</div>
+</div>
+<a id="abec323a5fdfb0108ad906667b9917344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abec323a5fdfb0108ad906667b9917344">&#9670;&nbsp;</a></span>period_dithering_value</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t cy_stc_tcpwm_pwm_config_t::period_dithering_value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dithering value for period LFSR. </p>
+<p>Should be non zero value. </p>
+
+</div>
+</div>
+<a id="aa66af7705ace986df75e080271d7e865"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66af7705ace986df75e080271d7e865">&#9670;&nbsp;</a></span>duty_dithering_value</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t cy_stc_tcpwm_pwm_config_t::duty_dithering_value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dithering value for duty LFSR. </p>
+<p>Should be non zero value. </p>
+
+</div>
+</div>
+<a id="a022b0298ba424035adfa267923f93da6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a022b0298ba424035adfa267923f93da6">&#9670;&nbsp;</a></span>kill_line_polarity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga19e8127ddd17a33fe06608855cd10c4d">cy_en_kill_line_polarity_t</a> cy_stc_tcpwm_pwm_config_t::kill_line_polarity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Outputs line_out and line_out_compl_out while the TCPWM counter is disabled or stopped. </p>
+
+</div>
+</div>
+<a id="a7a6ed3172642d666443d4d37c71c3fe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a6ed3172642d666443d4d37c71c3fe1">&#9670;&nbsp;</a></span>deadTimeClocksBuff</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t cy_stc_tcpwm_pwm_config_t::deadTimeClocksBuff</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer value for the number of dead time-clocks if PWM with dead time is chosen. </p>
+<p>Can be swapped with Line out on a terminal count event. </p>
+
+</div>
+</div>
+<a id="a67a6184cfff26a9bbd37430308da4891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67a6184cfff26a9bbd37430308da4891">&#9670;&nbsp;</a></span>glitch_filter_enable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_tcpwm_pwm_config_t::glitch_filter_enable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables Glitch filter for input triggers. </p>
+
+</div>
+</div>
+<a id="a80fe764b1303506c68b06358482b9cf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80fe764b1303506c68b06358482b9cf8">&#9670;&nbsp;</a></span>gf_depth</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__tcpwm__enums.html#gadbc4d3602412fbbaf92175ef56258029">cy_en_gf_depth_value_t</a> cy_stc_tcpwm_pwm_config_t::gf_depth</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Glitch filter depth value. </p>
 
 </div>
 </div>

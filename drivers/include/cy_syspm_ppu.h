@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_ppu.h
-* \version 5.110
+* \version 5.120
 *
 * This file provides header for ARM PPU Power Domain Platform Dependant
 * specific driver.
@@ -119,6 +119,7 @@ cy_en_syspm_status_t cy_pd_ppu_set_power_mode(struct ppu_v1_reg *ppu, uint32_t m
 cy_en_syspm_status_t cy_pd_ppu_set_static_power_mode(struct ppu_v1_reg *ppu, uint32_t mode);
 cy_en_syspm_status_t cy_pd_ppu_reset(struct ppu_v1_reg *ppu);
 cy_pd_ppu_device_status_t cy_pd_ppu_get_ds_fail_device(struct ppu_v1_reg *ppu);
+void cy_pd_ppu_enable_dynamic_mode(struct ppu_v1_reg *ppu, bool enable);
 
 /** \} group_syspm_ppu_functions */
 

@@ -36,6 +36,7 @@
     <ExposedMember key="frequency"     paramId="frequency" />
     <ExposedMember key="accuracy"      paramId="accuracy" />
     <ExposedMember key="sourceClock"   paramId="sourceClock" />
+    <ExposedMember key="sourceClockDisplayName" paramId="sourceClockDisplayName" />
     <ExposedMember key="error"         paramId="error" />
   </ExposedMembers>
   <Parameters>
@@ -43,7 +44,7 @@
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__path__src.html" linkText="Open Clock Path Source Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
     <ParamString id="isECOPresent" name="ECO Present" group="Internal" default="`${lookupExpression(&quot;ECO_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="ECO Present" />
-    <ParamString id="isWCOPresent" name="WCO Present" group="Internal" default="`${lookupExpression(&quot;WCO_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="WCO Present" />
+    <ParamString id="isWCOPresent" name="WCO Present" group="Internal" default="`${lookupExpression(&quot;WCO_PRESENT&quot;, 0) || hasBlock(&quot;srss[0].clock[0].wco[0]&quot;)}`" visible="false" editable="false" desc="WCO Present" />
     <ParamString id="isILOPresent" name="ILO Present" group="Internal" default="`${lookupExpression(&quot;ILO_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="ILO Present" />
     <ParamString id="isPILOPresent" name="PILO Present" group="Internal" default="`${lookupExpression(&quot;PILO_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="PILO Present" />
     <ParamString id="isALTHFPresent" name="ALTHF Present" group="Internal" default="`${lookupExpression(&quot;ALTHF_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="ALTHF Present" />
@@ -55,14 +56,15 @@
       <Entry name="ECO"    value="eco"    visible="`${hasBlock(&quot;srss[0].clock[0].eco[0]&quot;)}`"/>
       <Entry name="EXTCLK" value="ext"    visible="true"/>
       <Entry name="ALTHF"  value="althf"  visible="`${(isALTHFPresent) || (isChipTopALTHFPresent)}`"/>
-      <Entry name="ILO"    value="ilo"    visible="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (isILOPresent)}`"/>
+      <Entry name="ILO"    value="ilo"    visible="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (isILOPresent) || hasBlock(&quot;srss[0].clock[0].ilo[0]&quot;)}`"/>
       <Entry name="ILO0"   value="ilo0"   visible="`${(isILOPresent) || (&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
       <Entry name="ILO1"   value="ilo1"   visible="`${(isILOPresent) || (&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`"/>
       <Entry name="PILO"   value="pilo"   visible="`${isPILOPresent}`"/>
       <Entry name="WCO"    value="wco"    visible="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName()) || (isWCOPresent)}`"/>
       <Entry name="IHO"    value="iho"    visible="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) || (&quot;mxs22srss&quot; eq getIpBlockName())}`"/>
-
     </ParamChoice>
+
+    <ParamString id="sourceClockDisplayName" name="Source Clock Display Name" group="Internal" default="`${getParamValueDisplay(&quot;sourceClock&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockRsc" name="Source Clock Resource" group="Internal" default="`${sourceClock eq ilo1 ? &quot;srss[0].clock[0].&quot; . ilo . &quot;[1]&quot; : sourceClock eq ilo0 ? &quot;srss[0].clock[0].&quot; . ilo . &quot;[0]&quot; : &quot;srss[0].clock[0].&quot; . sourceClock . &quot;[0]&quot;}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockApiName" name="Source Clock Name" group="Internal" default="`${sourceClock eq imo      ? &quot;IMO&quot; :
                                                                                                sourceClock eq eco      ? &quot;ECO&quot; :
@@ -109,7 +111,8 @@
       <Member name="block_num" value="`${clockInst}`U" />
       <Member name="channel_num" value="0U" />
     </ConfigStruct>
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkPath`${clockInst}`Init()" body="    Cy_SysClk_ClkPathSetSource(`${clockInst}`U, CY_CFG_SYSCLK_CLKPATH`${clockInst}`_SOURCE);" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
-    <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkPath`${clockInst}`Init()" body="    Cy_SysClk_ClkPathSetSource(`${clockInst}`U, CY_CFG_SYSCLK_CLKPATH`${clockInst}`_SOURCE);" public="false" include="`${(&quot;mxs22srss&quot; ne getIpBlockName())}`" guard="(!defined(CY_DEVICE_SECURE))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkPath`${clockInst}`Init()" body="    Cy_SysClk_ClkPathSetSource(`${clockInst}`U, CY_CFG_SYSCLK_CLKPATH`${clockInst}`_SOURCE);" public="false" include="`${(&quot;mxs22srss&quot; eq getIpBlockName())}`" guard="defined(CORE_NAME_CM33_0)" />
+    <ConfigInstruction value="(void)cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
 </Personality>

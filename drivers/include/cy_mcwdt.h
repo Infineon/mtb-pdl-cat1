@@ -343,7 +343,7 @@ typedef enum
 /** The mcwdt lower limit identifiers. */
 /**
 * \note
-* This enum is available for CAT1B devices.
+* This enum is available for CAT1B and CAT1D devices.
 **/
 typedef enum
 {
@@ -1585,7 +1585,7 @@ __STATIC_INLINE uint32_t Cy_MCWDT_GetInterruptStatusMasked(MCWDT_STRUCT_Type con
 *  into account when changing the lower limit register values.
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE void Cy_MCWDT_SetLowerLimit(MCWDT_STRUCT_Type *base, cy_en_mcwdtlowerlimit_t counter, uint32_t lowerLimit, uint16_t waitUs)
@@ -1617,7 +1617,7 @@ __STATIC_INLINE void Cy_MCWDT_SetLowerLimit(MCWDT_STRUCT_Type *base, cy_en_mcwdt
 *  A Lower Limit value. Counters 0 and 1 are 16-bit counters.
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_MCWDT_GetLowerLimit(MCWDT_STRUCT_Type const *base, cy_en_mcwdtlowerlimit_t counter)
@@ -1663,7 +1663,7 @@ __STATIC_INLINE uint32_t Cy_MCWDT_GetLowerLimit(MCWDT_STRUCT_Type const *base, c
 *  \note
 *  This API must not be called while the counters are running.
 *  Prior to calling this API, the counter must be disabled.
-*  This API is available for CAT1B devices.
+*  This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE void Cy_MCWDT_SetLowerLimitMode(MCWDT_STRUCT_Type *base, cy_en_mcwdtlowerlimit_t counter, cy_en_mcwdtlowerlimitmode_t mode)
@@ -1697,7 +1697,7 @@ __STATIC_INLINE void Cy_MCWDT_SetLowerLimitMode(MCWDT_STRUCT_Type *base, cy_en_m
 *  The current lower limit mode of the counter. See enum typedef cy_en_mcwdtlowerlimitmode_t.
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE cy_en_mcwdtlowerlimitmode_t Cy_MCWDT_GetLowerLimitMode(MCWDT_STRUCT_Type const *base, cy_en_mcwdtlowerlimit_t counter)
@@ -1735,7 +1735,7 @@ __STATIC_INLINE cy_en_mcwdtlowerlimitmode_t Cy_MCWDT_GetLowerLimitMode(MCWDT_STR
 *  A 32-bit lower limit register value.
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_MCWDT_GetLowerLimitCascaded(MCWDT_STRUCT_Type const *base)
@@ -1767,7 +1767,7 @@ __STATIC_INLINE uint32_t Cy_MCWDT_GetLowerLimitCascaded(MCWDT_STRUCT_Type const 
 *   TRUE:  carry out on counter 1 rollover.
 *
 *  \note
-*  This API is available for CAT1B devices.
+*  This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE void Cy_MCWDT_SetCascadeCarryOutRollOver(MCWDT_STRUCT_Type *base, cy_en_mcwdtcascade_t counter, bool carryoutconfig)
@@ -1801,7 +1801,7 @@ __STATIC_INLINE void Cy_MCWDT_SetCascadeCarryOutRollOver(MCWDT_STRUCT_Type *base
 *  False : Rollover Disabled
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE bool Cy_MCWDT_GetCascadeCarryOutRollOver(MCWDT_STRUCT_Type const *base, cy_en_mcwdtcascade_t counter)
@@ -1847,7 +1847,7 @@ __STATIC_INLINE bool Cy_MCWDT_GetCascadeCarryOutRollOver(MCWDT_STRUCT_Type const
 *   TRUE:  Match based on counter 2 and counter 1 matching simultaneously
 *
 *  \note
-*  This API is available for CAT1B devices.
+*  This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE void Cy_MCWDT_SetCascadeMatchCombined(MCWDT_STRUCT_Type *base, cy_en_mcwdtcascade_t counter, bool matchconfig)
@@ -1879,7 +1879,7 @@ __STATIC_INLINE void Cy_MCWDT_SetCascadeMatchCombined(MCWDT_STRUCT_Type *base, c
 *  False : Combined match is disabled.
 *
 * \note
-* This API is available for CAT1B devices.
+* This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
 __STATIC_INLINE bool Cy_MCWDT_GetCascadeMatchCombined(MCWDT_STRUCT_Type const *base, cy_en_mcwdtcascade_t counter)

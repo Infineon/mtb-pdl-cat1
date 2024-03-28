@@ -116,6 +116,8 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.100 </td><td>Added support for CSV feature and fixed coverity bugs. </td><td>Added CSV feature support for CAT1D and bug fixes.  </td></tr>
+<tr>
 <td>3.90 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
  Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1.<br />
  In cy_sysclk_v2 source, added pre-processor logic to include/exclude certain SRSS versions.<br />
@@ -185,11 +187,11 @@ Newly added APIs: <br />
 <li><a class="el" href="group__group__sysclk__mf__funcs.html#ga336ac15ebc0e4d002717b0b15cd04bed" title="Reports the source for the Medium frequency clock (clkMf). ">Cy_SysClk_ClkMfGetSource()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gace8a5255f8579c17f4062dccb3ff3694" title="Enable/Disable the direct source selection as IMO for CLK_HF[[n]]. ">Cy_SysClk_ClkHfDirectSel()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga58bb033cfac5881d026e32643ed6c6b7" title="Checks if direct source selection as IMO for CLK_HF[[n]] is enabled/disabled. ">Cy_SysClk_IsClkHfDirectSelEnabled()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#ga99275f043f1a304bd579fc31783c2bd7" title="Gets the particular Slave Control value for a particular group. ">Cy_SysClk_PeriGroupGetSlaveCtl()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#ga56bf76b1f4037514461e60a7428bf8a1" title="Gets the mask value of particular slave control register for a particular group. ">Cy_SysClk_IsPeriGroupSlaveCtlSet()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peripheral__group__funcs.html#ga99275f043f1a304bd579fc31783c2bd7" title="Gets the particular Slave Control value for a particular group. ">Cy_SysClk_PeriGroupGetSlaveCtl()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peripheral__group__funcs.html#ga56bf76b1f4037514461e60a7428bf8a1" title="Gets the mask value of particular slave control register for a particular group. ">Cy_SysClk_IsPeriGroupSlaveCtlSet()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#gaf121b7b35d0c907e84289c2f7b0106bf" title="Reports the frequency of the output of a given peripheral divider. ">Cy_SysClk_PeriPclkGetFrequency()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#ga849645f956b39e9a1fc81822db691641" title="Reports the enabled/disabled state of the selected divider. ">Cy_SysClk_PeriPclkGetDividerEnabled()</a></li>
-<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#ga234568ee0ae345e5108841f4fdde2473" title="Reports the corresponding CLK_HF* number for a particular PERI PCLK group. ">Cy_Sysclk_PeriPclkGetClkHfNum()</a></li>
+<li><a class="el" href="group__group__sysclk__clk__peripheral__funcs.html#gad2f14fb681ab88c7474c39c2d31f7fc8" title="Reports the corresponding CLK_HF* number for a particular PERI PCLK group. ">Cy_Sysclk_PeriPclkGetClkHfNum()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__mem__funcs.html#gaac472fea7c35a1108a2d587e2b32400d" title="Sets the clock divider for the Mem clock. ">Cy_SysClk_ClkMemSetDivider()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__mem__funcs.html#gaeb639022805581a220f2c91cfa76b85e" title="Reports the divider value for the Mem clock. ">Cy_SysClk_ClkMemGetDivider()</a></li>
 <li><a class="el" href="group__group__sysclk__clk__mem__funcs.html#gad37e89c4cbafc9948f7e1f23ae922d04" title="Reports the frequency of the Mem clock. ">Cy_SysClk_ClkMemGetFrequency()</a></li>
@@ -381,6 +383,9 @@ API Reference</h2></td></tr>
 <tr class="memitem:group__group__sysclk__clk__peripheral"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__peripheral.html">Peripherals Clock Dividers</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__peripheral"><td class="mdescLeft">&#160;</td><td class="mdescRight">There are multiple peripheral clock dividers that, in effect, create multiple separate peripheral clocks. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__sysclk__clk__peripheral__group"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__peripheral__group.html">Peripheral Group(MMIO Group) Controls</a></td></tr>
+<tr class="memdesc:group__group__sysclk__clk__peripheral__group"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the peripherals in the SOC belongs to certain MMIO groups. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__clk__slow"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__slow.html">Slow Clock</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__slow"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slow clock is the source clock for the "slow" processor (e.g. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -413,6 +418,10 @@ API Reference</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__clk__pwr"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__pwr.html">Power Clock</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__pwr"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock for the power architecture components. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__sysclk__clk__hf__structs"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__structs.html">Group_sysclk_clk_hf_structs</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__sysclk__clk__lf__structs"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__lf__structs.html">Group_sysclk_clk_lf_structs</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

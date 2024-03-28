@@ -114,6 +114,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6b6d1333ee4c882360f7a932c13a3e90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__eco__funcs.html#ga6b6d1333ee4c882360f7a932c13a3e90">Cy_SysClk_EcoPrescaleIsEnabled</a> (void)</td></tr>
 <tr class="memdesc:ga6b6d1333ee4c882360f7a932c13a3e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports whether or not ECO Prescale is enabled.  <a href="#ga6b6d1333ee4c882360f7a932c13a3e90">More...</a><br /></td></tr>
 <tr class="separator:ga6b6d1333ee4c882360f7a932c13a3e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e7f15749a28bb1f79712e587a9822f1"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__eco__funcs.html#ga5e7f15749a28bb1f79712e587a9822f1">Cy_SysClk_EcoPrescaleGetFrequency</a> (void)</td></tr>
+<tr class="memdesc:ga5e7f15749a28bb1f79712e587a9822f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the frequency of the external crystal oscillator (ECO) prescaler.  <a href="#ga5e7f15749a28bb1f79712e587a9822f1">More...</a><br /></td></tr>
+<tr class="separator:ga5e7f15749a28bb1f79712e587a9822f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga4ff4c716a35e5077d000120d0994ad7b"></a>
@@ -139,7 +142,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A devices (excluding TVIIBE). </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A (excluding TVIIBE), CAT1B, CAT1C and CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -321,7 +324,7 @@ Take into account the possible platform specific clkHf (and further clocking cha
 <dl class="section return"><dt>Returns</dt><dd>The frequency of the ECO.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the ECO is not enabled or stable - a zero is returned.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: ECO is successfully configured and needs to be enabled. The</span></div><div class="line"><span class="comment">                 ECO pins are configured using the gpio driver</span></div><div class="line"><span class="comment">                 (SRSS_ECO_IN_PIN, SRSS_ECO_OUT_PIN). */</span></div><div class="line"></div><div class="line">    uint32_t ecofreq = 0UL; <span class="comment">/* Variable to store the ECO frequency */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Enable the ECO with a timeout of 1000 microseconds */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> == <a class="code" href="group__group__sysclk__eco__funcs.html#gaadd2986e0b77ab0a714e4127ef1693f6">Cy_SysClk_EcoEnable</a>(1000UL))</div><div class="line">    {</div><div class="line">        ecofreq = <a class="code" href="group__group__sysclk__eco__funcs.html#ga392db1f8d8504409017a3fedb95b8ee2">Cy_SysClk_EcoGetFrequency</a>();</div><div class="line">        <span class="comment">/* Now ecofreq contains an actual ECO frequency */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Set the path muxes and configure the downstream clocks. For example,</span></div><div class="line"><span class="comment">       the ECO can source the FLL through path 0 clock or it can source the PLL</span></div><div class="line"><span class="comment">       through path 1 clock. */</span></div></div><!-- fragment --> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1C devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1B(PSoC C3), CAT1C &amp; CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -443,6 +446,30 @@ CY_SYSCLK_UNSUPPORTED_STATE - ECO is not present</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>false = disabled <br />
 true = enabled</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A (TVIIBE only) and CAT1C devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga5e7f15749a28bb1f79712e587a9822f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e7f15749a28bb1f79712e587a9822f1">&#9670;&nbsp;</a></span>Cy_SysClk_EcoPrescaleGetFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_EcoPrescaleGetFrequency </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the frequency of the external crystal oscillator (ECO) prescaler. </p>
+<dl class="section return"><dt>Returns</dt><dd>The frequency of the ECO Prescaler.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the ECO is not enabled or stable - a zero is returned.</dd>
+<dd>
+This API is available for CAT1B(PSoC C3), CAT1C &amp; CAT1D devices. </dd></dl>
 
 </div>
 </div>

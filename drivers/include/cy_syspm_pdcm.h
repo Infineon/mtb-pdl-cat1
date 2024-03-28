@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_pdcm.h
-* \version 5.110
+* \version 5.120
 *
 * This file provides the header for PDCM driver, where the APIs are used
 * by Syspm driver and BTSS driver.
@@ -85,7 +85,7 @@ typedef enum
     CY_PD_PDCM_SRAM0     = 0x02UL, /**< For SRAM0 Power domain */
     CY_PD_PDCM_SRAM1     = 0x03UL, /**< For SRAM1 Power domain */
     CY_PD_PDCM_SYSCPU    = 0x04UL, /**< For SYSCPU Power domain */
-    CY_PD_PDCM_APPSS     = 0x05UL, /**< For APPSS Power domain */
+    CY_PD_PDCM_APPCPUSS  = 0x05UL, /**< For APPCPUSS Power domain */
     CY_PD_PDCM_APPCPU    = 0x06UL, /**< For APPCPU Power domain */
     CY_PD_PDCM_SOCMEM    = 0x07UL, /**< For SOCMEM Power domain */
     CY_PD_PDCM_U55       = 0x08UL, /**< For U55 Power domain */
@@ -121,19 +121,19 @@ typedef enum
 
 /** Macro to validate the PDCM PPU ID in API's : /ref cy_pd_pdcm_get_dependency, /ref cy_pd_pdcm_set_dependency() and /ref cy_pd_pdcm_clear_dependency */
 #if defined (CY_IP_MXS22SRSS)
-#define CY_SYSPM_IS_PDCM_ID_VALID(id)    (((id) == CY_PD_PDCM_MAIN)     || \
-                                           ((id) == CY_PD_PDCM_PD1)   || \
-                                           ((id) == CY_PD_PDCM_SRAM0)   || \
-                                           ((id) == CY_PD_PDCM_SRAM1)   || \
+#define CY_SYSPM_IS_PDCM_ID_VALID(id)    (((id) == CY_PD_PDCM_MAIN)      || \
+                                           ((id) == CY_PD_PDCM_PD1)      || \
+                                           ((id) == CY_PD_PDCM_SRAM0)    || \
+                                           ((id) == CY_PD_PDCM_SRAM1)    || \
                                            ((id) == CY_PD_PDCM_SYSCPU)   || \
-                                           ((id) == CY_PD_PDCM_APPSS)   || \
+                                           ((id) == CY_PD_PDCM_APPCPUSS) || \
                                            ((id) == CY_PD_PDCM_APPCPU)   || \
                                            ((id) == CY_PD_PDCM_SOCMEM)   || \
                                            ((id) == CY_PD_PDCM_U55))
 #else
-#define CY_SYSPM_IS_PDCM_ID_VALID(id)    (((id) == CY_PD_PDCM_MAIN)     || \
-                                           ((id) == CY_PD_PDCM_SRAM)   || \
-                                           ((id) == CY_PD_PDCM_CPUSS)   || \
+#define CY_SYSPM_IS_PDCM_ID_VALID(id)    (((id) == CY_PD_PDCM_MAIN)      || \
+                                           ((id) == CY_PD_PDCM_SRAM)     || \
+                                           ((id) == CY_PD_PDCM_CPUSS)    || \
                                            ((id) == CY_PD_PDCM_BTSS))
 
 #endif

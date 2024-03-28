@@ -17,6 +17,7 @@
   <!--There are no TriggerGroup type="ONE_TO_ONE" in triggers.cydata so TrigMuxSelectTemplate is not used.-->
   <TrigMuxSelectTemplate value="/* NOT USED */" />
   <Profiles>
+    <Profile displayName="Solutions" fileName="solutions" evalPriority="7" displayPriority="1" description="Solution configuration" resources="vres(\[\d+\]).*" />
     <Profile displayName="Connectivity" fileName="connectivity_wifi" evalPriority="1" displayPriority="4" description="Connectivity Wi-Fi configuration" resources="(wifi)(\[\d+\])?\..+" />
     <Profile displayName="Connectivity" fileName="connectivity_bt" evalPriority="1" displayPriority="4" description="Connectivity BT configuration" resources="(bt)(\[\d+\])?\..+" />
     <Profile displayName="Connectivity" fileName="connectivity_coex" evalPriority="1" displayPriority="4" description="Connectivity Coex configuration" resources="(coex)(\[\d+\])?\..+" />

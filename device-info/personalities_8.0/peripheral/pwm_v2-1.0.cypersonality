@@ -28,7 +28,7 @@
 
 <Personality id="mxs40pwm_ver2" name="PWM" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v8">
   <Dependencies>
-    <IpBlock name="mxtcpwm_ver2,mxtcpwm" />
+    <IpBlock name="mxtcpwm_ver2,mxs40tcpwm" />
     <Resource name="tcpwm\.group\.cnt" />
     <OperatingMode value="MCU"/>
   </Dependencies>
@@ -50,16 +50,16 @@
     <ParamString id="pCntAMCEx" name="pCntAMCEx" desc="pCntAMCEx" group="Internal" default="GRP_NR[`${pCntGroup}`].CNT.GRP_AMC_PRESENT" visible="false" editable="false" />
     <ParamBool id="pCntAMC" name="pCntAMC" desc="pCntAMC" group="Internal" default="`${lookupExpression(pCntAMCEx) eq 1}`" visible="false" editable="false" />
     
-    <ParamString id="TCPWM_version" name="TCPWM Version" group="General" default="TCPWM_ver2" visible="true" editable="false" desc="Version of the TCPWM hardware block"/>
+    <ParamString id="TCPWM_version" name="TCPWM Version" group="General" default="TCPWM_ver2" visible="false" editable="false" desc="Version of the TCPWM hardware block"/>
 
     <ParamChoice id="PwmMode" name="PWM Mode" group="General" default="CY_TCPWM_PWM_MODE_PWM" visible="true" editable="true" desc="Selects the PWM mode of operation.">
       <Entry name="PWM" value="CY_TCPWM_PWM_MODE_PWM" visible="true" />
       <Entry name="PWM Dead Time" value="CY_TCPWM_PWM_MODE_DEADTIME" visible="true" />
-      <Entry name="PWM Pseudo random" value="CY_TCPWM_PWM_MODE_PSEUDORANDOM" visible="true" />
+      <Entry name="PWM Pseudo random" value="CY_TCPWM_PWM_MODE_PSEUDORANDOM" visible="`${(&quot;mxs40tcpwm&quot; ne getIpBlockName())}`" />
     </ParamChoice>
     <ParamBool id="pPwmNePrs" name="pPwmNePrs" desc="pPwmNePrs" group="Internal" default="`${PwmMode ne CY_TCPWM_PWM_MODE_PSEUDORANDOM}`" visible="false" editable="false" />
     
-    <ParamChoice id="ClockPrescaler" name="Clock Prescaler" group="General" default="CY_TCPWM_PWM_PRESCALER_DIVBY_1" visible="`${PwmMode ne CY_TCPWM_PWM_MODE_DEADTIME}`" editable="true" desc="Divides down the input clock." >
+    <ParamChoice id="ClockPrescaler" name="Clock Prescaler" group="General" default="CY_TCPWM_PWM_PRESCALER_DIVBY_1" visible="`${(PwmMode ne CY_TCPWM_PWM_MODE_DEADTIME) || (&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" editable="true" desc="Divides down the input clock." >
       <Entry name="Divide by 1" value="CY_TCPWM_PWM_PRESCALER_DIVBY_1" visible="true" />
       <Entry name="Divide by 2" value="CY_TCPWM_PWM_PRESCALER_DIVBY_2" visible="true" />
       <Entry name="Divide by 4" value="CY_TCPWM_PWM_PRESCALER_DIVBY_4" visible="true" />
@@ -87,7 +87,37 @@
       <Entry name="One Shot" value="CY_TCPWM_PWM_ONESHOT" visible="true" />
     </ParamChoice>
     <ParamRange id="DeadClocks" name="Dead Time Clocks" group="General" default="0" min="0" max="`${(pCntAMC) ? 65535 : 255}`" resolution="1" visible="`${PwmMode eq CY_TCPWM_PWM_MODE_DEADTIME}`" editable="true" desc="Number of clock cycles of dead time between PWM outputs. Range: 0-255 on standard PWM or 0-65535 on PWM with advanced motor control." />
+    <ParamRange id="DeadClocks_compl" name="Line Compl Dead Time Clock" group="General" default="0" min="0" max="`${(pCntAMC) ? 65535 : 255}`" resolution="1" visible="`${PwmMode eq CY_TCPWM_PWM_MODE_DEADTIME}`" editable="true" desc="Number of clock cycles of dead time between PWM linecmpl outputs. Range: 0-255 on standard PWM or 0-65535 on PWM with advanced motor control." />
+    <ParamRange id="DeadClocksBuff" name="Dead Time Clocks Buff" group="General" default="0" min="0" max="`${(pCntAMC) ? 65535 : 255}`" resolution="1" visible="`${(PwmMode eq CY_TCPWM_PWM_MODE_DEADTIME) &amp;&amp; (&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" editable="true" desc="Buffered PWM Dead time values. Sames as Dead CLocks." />
+    <ParamRange id="DeadClocksBuff_compl" name="Line Compl DT Clock Buff" group="General" default="0" min="0" max="`${(pCntAMC) ? 65535 : 255}`" resolution="1" visible="`${(PwmMode eq CY_TCPWM_PWM_MODE_DEADTIME) &amp;&amp; (&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" editable="true" desc="Buffered PWM Dead time value for line compl output." />
+
     <ParamBool id="ImmediateKill" name="Immediate Kill" group="General" default="false" visible="true" editable="true" desc="If checked kill event immediately deactivates the dt_line_out and dt_line_compl_out. If not with the next module clock." />
+
+    <ParamBool id="copy_enable" name="Shadow Copy Enable" group="General" default="false" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" editable="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" desc="Specifies whether swapping mechanism between CC0 and buffered CC0, CC1 and buffered CC1, PERIOD and buffered PERIOD, DT and buffered DT are disabled. " />
+
+    <ParamChoice id="kill_line_polarity" name="Kill Line Polarity" group="General" default="CY_TCPWM_LINEOUT_AND_LINECMPOUT_IS_LOW" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" editable="true" desc="Specifies the behavior of the PWM outputs line_out and line_out_compl_out during kill." >
+      <Entry name="Line Out and Line Complimentary Out is Low" value="CY_TCPWM_LINEOUT_AND_LINECMPOUT_IS_LOW" visible="true" />
+      <Entry name="Line Out is High and Line Complimentary Out is Low" value="CY_TCPWM_LINEOUT_IS_HIGH_AND_LINECMPOUT_IS_LOW" visible="true" />
+      <Entry name="Line Out is Low and Line Complimentary Out is High" value="CY_TCPWM_LINECMPOUT_IS_HIGH_LINEOUT_IS_LOW" visible="true" />
+      <Entry name="Line Out and Line Complimentary Out is High" value="CY_TCPWM_LINEOUT_AND_LINECMPOUT_IS_HIGH" visible="true" />
+    </ParamChoice>
+
+    <!--Glitch Filter-->
+    <ParamBool id="gf_enable" name="Glitch Filter Enable" group="Glitch Filter" default="false" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" editable="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" desc="Enables Glitch filter for input triggers. The Number of glitch filters is design specific and if there is a glitch filter connected to this input trigger it will be used. " />
+
+    <ParamChoice id="gf_depth" name="Glitch Filter Depth" group="Glitch Filter" default="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_0" visible="`${(gf_enable) &amp;&amp; (&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" editable="true" desc="Glitch filter depth support values.GF depth set for one to one triggers will be applied to specific trigger and GF depth set for general purpose trigger will be applicable for all general purpose triggers" >
+      <Entry name="Depth Value 0"   value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_0"   visible="true" />
+      <Entry name="Depth Value 1"   value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_1"   visible="true" />
+      <Entry name="Depth Value 2"   value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_2"   visible="true" />
+      <Entry name="Depth Value 4"   value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_4"   visible="true" />
+      <Entry name="Depth Value 8"   value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_8"   visible="true" />
+      <Entry name="Depth Value 16"  value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_16"  visible="true" />
+      <Entry name="Depth Value 32"  value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_32"  visible="true" />
+      <Entry name="Depth Value 64"  value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_64"  visible="true" />
+      <Entry name="Depth Value 128" value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_128" visible="true" />
+      <Entry name="Depth Value 256" value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_256" visible="true" />
+      <Entry name="Depth Value 512" value="CY_GLITCH_FILTER_DEPTH_SUPPORT_VALUE_512" visible="true" />
+    </ParamChoice>
 
     <!--Period-->
     <ParamBool id="EnablePeriodSwap" name="Enable Period Swap" group="Period" default="false" visible="`${!(PwmMode eq CY_TCPWM_PWM_MODE_PSEUDORANDOM)}`" editable="true" desc="If checked the periods will be swapped at the next OV/UN when a swap event has been registered." />
@@ -106,6 +136,86 @@
     <ParamBool id="EnableCompare1Swap" name="Enable Compare 1 Swap" group="Compare" default="false" visible="`${pCntCC1}`" editable="true" desc="If checked the compare register will be swapped at the next OV/UN when a swap event has been registered." />
     <ParamRange id="Compare2" name="Compare 1" group="Compare" default="16384" min="0" max="`${pCntWidthMax}`" resolution="1" visible="`${pCntCC1}`" editable="true" desc="Sets the compare value. When the count value equals the compare the compare output pulses high. Range: 0-65535 (for 16 bit resolution) or 0–4294967295 (for 32 bit resolution)." />
     <ParamRange id="Compare3" name="Compare 1 Buff" group="Compare" default="16384" min="0" max="`${pCntWidthMax}`" resolution="1" visible="`${EnableCompare1Swap &amp;&amp; pCntCC1}`" editable="true" desc="Sets the buffered compare value. Range: 0-65535 (for 16 bit resolution) or 0–4294967295 (for 32 bit resolution)." />
+
+    <!--Dithering-->
+    <ParamString id="dithering_Ex" name="ditheringEx" desc="look up expression for dithering" group="Internal" default="GRP_NR[`${pCntGroup}`].CNT.GRP_DITHERING_PRESENT" visible="false" editable="false" />
+
+    <ParamBool id="pCntdithering" name="pCntdithering" desc="Dithering present or not" group="Internal" default="`${lookupExpression(dithering_Ex, 0) ne 0}`" visible="false" editable="false" />
+
+    <ParamChoice id="dithering_mode" name="Dithering Mode" group="Dithering" default="CY_TCPWM_DITHERING_DISABLE" visible="`${pCntdithering}`" editable="`${pCntdithering}`" desc="Sets Dithering mode for PWM and PWM DT modes" >
+      <Entry name="Dithering is Disabled" value="CY_TCPWM_DITHERING_DISABLE" visible="true" />
+      <Entry name="Period Dithering Enabled" value="CY_TCPWM_DITHERING_PERIOD" visible="true" />
+      <Entry name="Duty Dithering Enabled" value="CY_TCPWM_DITHERING_DUTY" visible="true" />
+      <Entry name="Period and Duty Dithering Enabled" value="CY_TCPWM_DITHERING_PERIOD_DUTY" visible="true" />
+    </ParamChoice>
+
+    <ParamRange id="Period_Dithering" name="Period Dithering Value" group="Dithering" default="128" min="1" max="128" resolution="1" visible="`${(dithering_mode eq CY_TCPWM_DITHERING_PERIOD) || (dithering_mode eq CY_TCPWM_DITHERING_PERIOD_DUTY)}`" editable="true" desc="Initial value for period LFSR. Should be non zero value." />
+    <ParamRange id="Duty_Dithering" name="Duty Dithering Value" group="Dithering" default="128" min="1" max="128" resolution="1" visible="`${(dithering_mode eq CY_TCPWM_DITHERING_DUTY) || (dithering_mode eq CY_TCPWM_DITHERING_PERIOD_DUTY)}`" editable="true" desc="Initail value for Duty LFSR. Should be non zero value." />
+    <ParamChoice id="limiter" name="Limiter Values" group="Dithering" default="CY_TCPWM_DITHERING_LIMITER_7" visible="`${dithering_mode ne CY_TCPWM_DITHERING_DISABLE}`" editable="true" desc="It defines the magnitude of the pseudo-random value to be added to period/CC0/CC1. When PWM alignment mode set to asymmetric CC0 and CC1, The duty width remains the same, because the same value is added to CC0 and CC1." >
+      <Entry name="limiter value 7" value="CY_TCPWM_DITHERING_LIMITER_7" visible="true" />
+      <Entry name="limiter value 6" value="CY_TCPWM_DITHERING_LIMITER_6" visible="true" />
+      <Entry name="limiter value 5" value="CY_TCPWM_DITHERING_LIMITER_5" visible="true" />
+      <Entry name="limiter value 4" value="CY_TCPWM_DITHERING_LIMITER_4" visible="true" />
+      <Entry name="limiter value 3" value="CY_TCPWM_DITHERING_LIMITER_3" visible="true" />
+      <Entry name="limiter value 2" value="CY_TCPWM_DITHERING_LIMITER_2" visible="true" />
+      <Entry name="limiter value 1" value="CY_TCPWM_DITHERING_LIMITER_1" visible="true" />
+    </ParamChoice>
+
+    <!--HRPWM-->
+    <ParamString id="hrpwm_Ex" name="hrpwmEx" desc="look up expression for hrpwm" group="Internal" default="GRP_NR[`${pCntGroup}`].CNT.GRP_HRPWM_PRESENT" visible="false" editable="false" />
+
+    <ParamBool id="pCnthrpwm" name="pCnthrpwm" desc="hrpwm present or not" group="Internal" default="`${lookupExpression(hrpwm_Ex, 0) ne 0}`" visible="false" editable="false" />
+
+    <ParamBool id="enable_hrpwm" name="Enable HRPWM" group="HRPWM" default="false" visible="`${pCnthrpwm}`" editable="true" desc="If checked enables High resolution PWM." />
+
+    <ParamChoice id="hrpwm_input_clock" name="HRPWM Operating Frequency" group="HRPWM" default="CY_TCPWM_HRPWM_FREQ_80MHZ_OR_100MHZ" visible="`${pCnthrpwm}`" editable="true" desc="Operating Frequency for HRPWM. It should be same as CLK_OUT = CLK_PERI = CLK_HF" >
+      <Entry name="80MHz or 100MHz" value="CY_TCPWM_HRPWM_FREQ_80MHZ_OR_100MHZ" visible="true" />
+      <Entry name="150MHz or 160MHz or 180MHz" value="CY_TCPWM_HRPWM_FREQ_150MHZ_OR_160MHZ_OR_180MHZ" visible="true" />
+      <Entry name="200MHz" value="CY_TCPWM_HRPWM_FREQ_200MHZ" visible="true" />
+      <Entry name="240MHz" value="CY_TCPWM_HRPWM_FREQ_240MHZ" visible="true" />
+    </ParamChoice>
+
+    <!--SMC-->
+    <ParamString id="smc_Ex" name="smcEx" desc="look up expression for hrpwm" group="SMC" default="GRP_NR[`${pCntGroup}`].CNT.GRP_SMC_PRESENT" visible="false" editable="false" />
+
+    <ParamBool id="pCntsmc" name="pCntsmc" desc="SMC present or not" group="SMC" default="`${lookupExpression(smc_Ex, 0) ne 0}`" visible="false" editable="false" />
+
+    <ParamBool id="reload_line_sel" name="Enable Line Sel Swap" desc="If checked, Line out and Line cmpl out will be swapped on a terminal count event" group="SMC" default="false" visible="`${pCntsmc}`" editable="true" />
+    <ParamChoice id="line_out_source" name="Line Out Source Signal" group="SMC" default="CY_TCPWM_OUTPUT_PWM_SIGNAL" visible="`${pCntsmc}`" editable="true" desc="Source for the output signal line_out" >
+      <Entry name="Constant 0" value="CY_TCPWM_OUTPUT_CONSTANT_0" visible="true" />
+      <Entry name="Constant 1" value="CY_TCPWM_OUTPUT_CONSTANT_1" visible="true" />
+      <Entry name="PWM Signal" value="CY_TCPWM_OUTPUT_PWM_SIGNAL" visible="true" />
+      <Entry name="Inverted PWM Signal" value="CY_TCPWM_OUTPUT_INVERTED_PWM_SIGNAL" visible="true" />
+      <Entry name="GPIO Port Default" value="CY_TCPWM_OUTPUT_PORT_DEFAULT" visible="true" />
+      <Entry name="Motif Out" value="CY_TCPWM_OUTPUT_SOURCE_MOTIF" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" />
+    </ParamChoice>
+
+    <ParamChoice id="linecompl_out_source" name="Line Compl Out Source Signal" group="SMC" default="CY_TCPWM_OUTPUT_INVERTED_PWM_SIGNAL" visible="`${pCntsmc}`" editable="true" desc="Source for the output signal linecmpl_out" >
+      <Entry name="Constant 0" value="CY_TCPWM_OUTPUT_CONSTANT_0" visible="true" />
+      <Entry name="Constant 1" value="CY_TCPWM_OUTPUT_CONSTANT_1" visible="true" />
+      <Entry name="PWM Signal" value="CY_TCPWM_OUTPUT_PWM_SIGNAL" visible="true" />
+      <Entry name="Inverted PWM Signal" value="CY_TCPWM_OUTPUT_INVERTED_PWM_SIGNAL" visible="true" />
+      <Entry name="GPIO Port Default" value="CY_TCPWM_OUTPUT_PORT_DEFAULT" visible="true" />
+      <Entry name="Motif Out" value="CY_TCPWM_OUTPUT_SOURCE_MOTIF" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" />
+    </ParamChoice>
+
+    <ParamChoice id="buff_line_out_source" name="Buf Line Out Source Signal" group="SMC" default="CY_TCPWM_OUTPUT_PWM_SIGNAL" visible="`${pCntsmc}`" editable="true" desc="Source for the output signal line_out" >
+      <Entry name="Constant 0" value="CY_TCPWM_OUTPUT_CONSTANT_0" visible="true" />
+      <Entry name="Constant 1" value="CY_TCPWM_OUTPUT_CONSTANT_1" visible="true" />
+      <Entry name="PWM Signal" value="CY_TCPWM_OUTPUT_PWM_SIGNAL" visible="true" />
+      <Entry name="Inverted PWM Signal" value="CY_TCPWM_OUTPUT_INVERTED_PWM_SIGNAL" visible="true" />
+      <Entry name="GPIO Port Default" value="CY_TCPWM_OUTPUT_PORT_DEFAULT" visible="true" />
+      <Entry name="Motif Out" value="CY_TCPWM_OUTPUT_SOURCE_MOTIF" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" />
+    </ParamChoice>
+
+    <ParamChoice id="buff_linecompl_out_source" name="Buff Line Compl Out Source Signal" group="SMC" default="CY_TCPWM_OUTPUT_INVERTED_PWM_SIGNAL" visible="`${pCntsmc}`" editable="true" desc="Source for the output signal linecmpl_out" >
+      <Entry name="Constant 0" value="CY_TCPWM_OUTPUT_CONSTANT_0" visible="true" />
+      <Entry name="Constant 1" value="CY_TCPWM_OUTPUT_CONSTANT_1" visible="true" />
+      <Entry name="PWM Signal" value="CY_TCPWM_OUTPUT_PWM_SIGNAL" visible="true" />
+      <Entry name="Inverted PWM Signal" value="CY_TCPWM_OUTPUT_INVERTED_PWM_SIGNAL" visible="true" />
+      <Entry name="GPIO Port Default" value="CY_TCPWM_OUTPUT_PORT_DEFAULT" visible="true" />
+      <Entry name="Motif Out" value="CY_TCPWM_OUTPUT_SOURCE_MOTIF" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" />
+    </ParamChoice>
 
     <!-- Event Generation -->
     <ParamBool id="pEventGenerationVisible" name="pEventGenerationVisible" group="Internal" default="`${(pCntAMC &amp;&amp; ((PwmAlignment eq CY_TCPWM_PWM_CENTER_ALIGN) || (PwmAlignment eq CY_TCPWM_PWM_ASYMMETRIC_ALIGN) || (PwmAlignment eq CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN)))}`" visible="false" editable="false" desc="" />
@@ -259,11 +369,11 @@
       <Entry name="High Impedance" value="CY_TCPWM_PWM_OUTPUT_HIGHZ" visible="true" />
       <Entry name="Retain" value="CY_TCPWM_PWM_OUTPUT_RETAIN" visible="true" />
       <Entry name="Low" value="CY_TCPWM_PWM_OUTPUT_LOW" visible="true" />
-	  <Entry name="High" value="CY_TCPWM_PWM_OUTPUT_HIGH" visible="true" />
+      <Entry name="High" value="CY_TCPWM_PWM_OUTPUT_HIGH" visible="true" />
     </ParamChoice>
     
     <!--Outputs-->
-    <ParamSignal port="line[0]" name="PWM (line)" group="Outputs" visible="true" desc="PWM output" canBeEmpty="true" >
+    <ParamSignal port="line[0]" name="PWM (line)" group="Outputs" visible="`${(&quot;mxs40tcpwm&quot; ne getIpBlockName())}`" desc="PWM output" canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -276,7 +386,34 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="line_compl[0]" name="PWM_n (line_compl)" group="Outputs" visible="true" desc="Complimentary PWM output." canBeEmpty="true" >
+    <ParamSignal port="line_compl[0]" name="PWM_n (line_compl)" group="Outputs" visible="`${(&quot;mxs40tcpwm&quot; ne getIpBlockName())}`" desc="Complimentary PWM output." canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="DEFAULT" reason="">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+
+    <ParamSignal port="tr_line[0]" name="PWM (line)" group="Outputs" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" desc="PWM output" canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="DEFAULT" reason="">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match expected.">
+          <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
+        </Parameter>
+      </Constraint>
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
+    <ParamSignal port="tr_line_compl[0]" name="PWM_n (line_compl)" group="Outputs" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName())}`" desc="Complimentary PWM output." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -409,34 +546,34 @@
     
     <!--CountInput DRCs-->
     <DRC type="ERROR" text="Count Event has to be enabled to use Count Signal." condition="`${hasConnection(&quot;count&quot;, 0) &amp;&amp; (CountInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="CountInput">
-	    <FixIt action="SET_PARAM" target="CountInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="CountInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="CountInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="CountInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
-	</DRC>
+        <FixIt action="SET_PARAM" target="CountInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="CountInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="CountInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="CountInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
+    </DRC>
 
     <!--ReloadInput DRCs-->
     <DRC type="ERROR" text="Reload Event has to be enabled to use Reload Signal." condition="`${hasConnection(&quot;reload&quot;, 0) &amp;&amp; (ReloadInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="ReloadInput">
-	    <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
-	</DRC>
+        <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
+    </DRC>
 
     <!--StartInput DRCs-->
     <DRC type="ERROR" text="Start Event has to be enabled to use Start Signal." condition="`${hasConnection(&quot;start&quot;, 0) &amp;&amp; (StartInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="StartInput">
-	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	</DRC>
+        <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+    </DRC>
 
     <!--SwapInput DRCs-->
     <DRC type="ERROR" text="Swap Event has to be enabled to use Swap Signal." condition="`${hasConnection(&quot;capture0&quot;, 0) &amp;&amp; (SwapInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="SwapInput">
-	    <FixIt action="SET_PARAM" target="SwapInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="SwapInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="SwapInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="SwapInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
-	</DRC>
+        <FixIt action="SET_PARAM" target="SwapInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="SwapInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="SwapInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="SwapInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
+    </DRC>
 
     <!--Kill0Input DRCs-->
     <DRC type="ERROR" text="Level is not supported for Stop on Kill mode." condition="`${((KillMode eq CY_TCPWM_PWM_STOP_ON_KILL) &amp;&amp; (Kill0Input eq CY_TCPWM_INPUT_LEVEL))}`" paramId="Kill0Input" />
@@ -444,11 +581,11 @@
     <DRC type="ERROR" text="Synchronous Kill mode just supports Rising Edge mode." condition="`${((Kill0Input ne CY_TCPWM_INPUT_DISABLED) &amp;&amp; pKillEqSynch &amp;&amp; (Kill0Input ne CY_TCPWM_INPUT_RISINGEDGE))}`"
     paramId="Kill0Input" />
     <DRC type="ERROR" text="Kill 0 Event has to be enabled to use Kill 0 Signal." condition="`${hasConnection(&quot;stop&quot;, 0) &amp;&amp; (Kill0Input eq CY_TCPWM_INPUT_DISABLED)}`" paramId="Kill0Input">
-	    <FixIt action="SET_PARAM" target="Kill0Input" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="Kill0Input" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="Kill0Input" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="Kill0Input" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
-	</DRC>
+        <FixIt action="SET_PARAM" target="Kill0Input" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="Kill0Input" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="Kill0Input" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="Kill0Input" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
+    </DRC>
 
     <!--Kill1Input DRCs-->
     <DRC type="ERROR" text="Level is not supported for Stop on Kill mode." condition="`${(pCntCC1 &amp;&amp;(KillMode eq CY_TCPWM_PWM_STOP_ON_KILL) &amp;&amp; (Kill1Input eq CY_TCPWM_INPUT_LEVEL))}`" paramId="Kill1Input" />
@@ -456,32 +593,32 @@
     <DRC type="ERROR" text="Synchronous Kill mode just supports Rising Edge mode." condition="`${((Kill1Input ne CY_TCPWM_INPUT_DISABLED) &amp;&amp; pCntCC1 &amp;&amp; pKillEqSynch &amp;&amp; (Kill1Input ne CY_TCPWM_INPUT_RISINGEDGE))}`"
     paramId="Kill1Input" />
     <DRC type="ERROR" text="Kill 1 Event has to be enabled to use Kill 1 Signal." condition="`${hasConnection(&quot;capture1&quot;, 0) &amp;&amp; (Kill1Input eq CY_TCPWM_INPUT_DISABLED)}`" paramId="Kill1Input">
-	    <FixIt action="SET_PARAM" target="Kill1Input" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="Kill1Input" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="Kill1Input" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="Kill1Input" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
-	</DRC>
+        <FixIt action="SET_PARAM" target="Kill1Input" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="Kill1Input" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="Kill1Input" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+        <FixIt action="SET_PARAM" target="Kill1Input" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
+    </DRC>
 
     <!--KillMode DRCs-->
     <DRC type="ERROR" text="Synchronous Kill mode is not supported for PWM Pseudo Random mode." condition="`${pKillEqSynch &amp;&amp; (PwmMode eq CY_TCPWM_PWM_MODE_PSEUDORANDOM)}`" paramId="PwmMode" />
 
-	<!--Trigger Output DRCs-->
-	<DRC type="ERROR" text="Trigger 0 Event has to be enabled to use Trigger 0 Signal." condition="`${hasConnection(&quot;tr_out0&quot;, 0) &amp;&amp; (trigger0Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED)}`" paramId="trigger0Event">
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_TC" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" valid="`${pCntCC1}`" />
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT" valid="true" />
-	</DRC>
-	<DRC type="ERROR" text="Trigger 1 Event has to be enabled to use Trigger 1 Signal." condition="`${hasConnection(&quot;tr_out1&quot;, 0) &amp;&amp; (trigger1Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED)}`" paramId="trigger1Event">
-  	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_TC" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" valid="`${pCntCC1}`" />
-	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT" valid="true" />
-	</DRC>
+    <!--Trigger Output DRCs-->
+    <DRC type="ERROR" text="Trigger 0 Event has to be enabled to use Trigger 0 Signal." condition="`${hasConnection(&quot;tr_out0&quot;, 0) &amp;&amp; (trigger0Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED)}`" paramId="trigger0Event">
+        <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" valid="true" />
+        <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" valid="true" />
+        <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_TC" valid="true" />
+        <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" valid="true" />
+        <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" valid="`${pCntCC1}`" />
+        <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT" valid="true" />
+    </DRC>
+    <DRC type="ERROR" text="Trigger 1 Event has to be enabled to use Trigger 1 Signal." condition="`${hasConnection(&quot;tr_out1&quot;, 0) &amp;&amp; (trigger1Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED)}`" paramId="trigger1Event">
+          <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW" valid="true" />
+        <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW" valid="true" />
+        <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_TC" valid="true" />
+        <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" valid="true" />
+        <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" valid="`${pCntCC1}`" />
+        <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT" valid="true" />
+    </DRC>
   </DRCs>  
 
   <ConfigFirmware>
@@ -489,6 +626,8 @@
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cycfg_routing.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="TCPWM`${tcpwmInst}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${cntInst}`UL" public="true" include="true" />
@@ -535,14 +674,46 @@
       <Member name="pwmOnDisable" value="`${PwmDisabledOutput}`" />
       <Member name="trigger0Event" value="`${trigger0Event}`" />
       <Member name="trigger1Event" value="`${trigger1Event}`" />
+      <Member name="reloadLineSelect" value="`${reload_line_sel}`" />
+      <Member name="line_out_sel" value="`${line_out_source}`" />
+      <Member name="linecompl_out_sel" value="`${linecompl_out_source}`" />
+      <Member name="line_out_sel_buff" value="`${buff_line_out_source}`" />
+      <Member name="linecompl_out_sel_buff" value="`${buff_linecompl_out_source}`" />
+      <Member name="deadTimeClocks_linecompl_out" value="`${DeadClocks_compl}`" />     
+      <Member name="hrpwm_enable" value="`${enable_hrpwm}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="hrpwm_input_freq" value="`${hrpwm_input_clock}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="kill_line_polarity" value="`${kill_line_polarity}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="deadTimeClocksBuff" value="`${DeadClocksBuff}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="deadTimeClocksBuff_linecompl_out" value="`${DeadClocksBuff_compl}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="buffer_swap_enable" value="`${copy_enable}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="glitch_filter_enable" value="`${gf_enable}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="gf_depth" value="`${gf_depth}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="dithering_mode" value="`${dithering_mode}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="period_dithering_value" value="`${Period_Dithering}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="duty_dithering_value" value="`${Duty_Dithering}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="limiter" value="`${limiter}`" guard="defined (CY_IP_MXS40TCPWM)" />
     </ConfigStruct>
     
-    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
+    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
       <Member name="type" value="CYHAL_RSC_TCPWM" />
       <Member name="block_num" value="`${(getInstNumber(&quot;tcpwm&quot;) * pMaxGroupCount) + pCntGroup}`U" />
       <Member name="channel_num" value="`${getInstNumber(&quot;cnt&quot;)}`U" />
     </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)">
+      <Member name="block" value="`${getExposedMember(pclk, &quot;hal_block&quot;)}`" />
+      <Member name="channel" value="`${getExposedMember(pclk, &quot;number&quot;)}`" />
+      <Member name="reserved" value="false" guard="defined (CY_USING_HAL)" />
+      <Member name="funcs" value="NULL" guard="defined (CY_USING_HAL)" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_pwm_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
+      <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+    </ConfigStruct>
     
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM`${tcpwmInst}`_PERI_NR, CY_MMIO_TCPWM`${tcpwmInst}`_GROUP_NR, CY_MMIO_TCPWM`${tcpwmInst}`_SLAVE_NR, CY_MMIO_TCPWM`${tcpwmInst}`_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`"  />
     <ConfigInstruction purpose="RESERVE" value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware> 

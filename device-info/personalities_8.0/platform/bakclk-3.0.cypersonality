@@ -44,9 +44,10 @@
     <ParamBool id="is40ssrssAvailable" name="is40ssrssAvailable" group="" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
     <ParamBool id="is40srss_ver2or3Available" name="is40srss_ver2or3Available" group="" default="`${(&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
     <ParamBool id="is22srssAvailable" name="is22srssAvailable" group="" default="`${(&quot;mxs22srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+	<ParamBool id="is40srssAvailable" name="is40srssAvailable" group="" default="`${(&quot;mxs40srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
 
     <ParamChoice id="sourceClock" name="Source Clock" group="General" default="lfclk" visible="true" editable="true" desc="The clock source selection">
-      <Entry name="WCO" value="wco" visible="`${(isS40sWcoPresent) || (isWcoPresent)}`"/>
+      <Entry name="WCO" value="wco" visible="`${((isS40sWcoPresent) || (isWcoPresent)) &amp;&amp; hasBlock(&quot;srss[0].clock[0].wco[0]&quot;)}`"/>
       <Entry name="CLK_LF" value="lfclk" visible="true"/>
       <Entry name="`${is40ssrssAvailable ? &quot;ILO&quot; : &quot;ILO0&quot;}`" value="ilo" visible="`${(is40ssrssAvailable || is40srss_ver2or3Available)}`"/>
       <Entry name="PILO" value="pilo" visible="`${((&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; (S40S_PILO_PRESENT)) || (&quot;mxs22srss&quot; eq getIpBlockName())}`"/>
@@ -69,6 +70,7 @@
     <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKBAK_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKBAK_SOURCE" value="CY_SYSCLK_BAK_IN_`${sourceClockApiName}`" public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkBakInit()" body="    Cy_SysClk_ClkBakSetSource(CY_SYSCLK_BAK_IN_`${sourceClockApiName}`);" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkBakInit()" body="    Cy_SysClk_ClkBakSetSource(CY_SYSCLK_BAK_IN_`${sourceClockApiName}`);" public="false" include="`${(is40srssAvailable || is40ssrssAvailable || is40srss_ver2or3Available)}`" guard="(!defined(CY_DEVICE_SECURE))" />
+	<ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkBakInit()" body="    Cy_SysClk_ClkBakSetSource(CY_SYSCLK_BAK_IN_`${sourceClockApiName}`);" public="false" include="`${(is22srssAvailable)}`" guard="defined(CORE_NAME_CM33_0)" />
   </ConfigFirmware>
 </Personality>

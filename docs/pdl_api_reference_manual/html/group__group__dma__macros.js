@@ -8,5 +8,6 @@ var group__group__dma__macros =
     [ "CY_DMA_LOOP_COUNT_MAX", "group__group__dma__macros.html#ga7633e5b4288da61f6589428f246b4cc8", null ],
     [ "CY_DMA_LOOP_INCREMENT_MIN", "group__group__dma__macros.html#gaec132b8a425557361a4be211f752f637", null ],
     [ "CY_DMA_LOOP_INCREMENT_MAX", "group__group__dma__macros.html#ga3b9d6ea8307c1f38ea86f4c02c6ec534", null ],
+    [ "CY_DMA_NO_ACTIVE_CHANNELS", "group__group__dma__macros.html#ga78440c335fe1a744b8a4e98a560a893c", null ],
     [ "CY_DMA_BWC", "group__group__dma__macros.html#gae624e46c0f60029b7b0dc5d1cbb4596e", null ]
 ];

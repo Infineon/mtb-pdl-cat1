@@ -132,6 +132,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7f74353f55fbe56cdc8c93285bbb51d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__mem__slot__functions.html#ga7f74353f55fbe56cdc8c93285bbb51d6">Cy_SMIF_MemSfdpDetect</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="structcy__stc__smif__mem__device__cfg__t.html">cy_stc_smif_mem_device_cfg_t</a> *device, <a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a> slaveSelect, <a class="el" href="group__group__smif__enums.html#ga6d9ba2ef785b94cf542c573a51a0eb58">cy_en_smif_data_select_t</a> dataSelect, <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> *context)</td></tr>
 <tr class="memdesc:ga7f74353f55fbe56cdc8c93285bbb51d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function detects the device signature for SFDP devices.  <a href="#ga7f74353f55fbe56cdc8c93285bbb51d6">More...</a><br /></td></tr>
 <tr class="separator:ga7f74353f55fbe56cdc8c93285bbb51d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacac7e5f4733100422b67fe756e24e5f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__mem__slot__functions.html#gacac7e5f4733100422b67fe756e24e5f2">Cy_SMIF_Reset_Memory</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a> slaveSelect)</td></tr>
+<tr class="memdesc:gacac7e5f4733100422b67fe756e24e5f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the weak implementation for resetting the memory.  <a href="#gacac7e5f4733100422b67fe756e24e5f2">More...</a><br /></td></tr>
+<tr class="separator:gacac7e5f4733100422b67fe756e24e5f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga997877a3ca4a218fbec1c00fc4a00138"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__mem__slot__functions.html#ga997877a3ca4a218fbec1c00fc4a00138">Cy_SMIF_MemInitSfdpMode</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, const <a class="el" href="structcy__stc__smif__mem__config__t.html">cy_stc_smif_mem_config_t</a> *memCfg, <a class="el" href="group__group__smif__enums.html#gab71e4b1f4c80b3e8c82dd85570415e44">cy_en_smif_txfr_width_t</a> maxdataWidth, <a class="el" href="group__group__smif__enums.html#ga686921944cbda1b19deb3c24363e7d9b">cy_en_smif_qer_t</a> qer_id, <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> *context)</td></tr>
 <tr class="memdesc:ga997877a3ca4a218fbec1c00fc4a00138"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function can be used for any preferred data width based command instruction set from SFDP Buffer.  <a href="#ga997877a3ca4a218fbec1c00fc4a00138">More...</a><br /></td></tr>
 <tr class="separator:ga997877a3ca4a218fbec1c00fc4a00138"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1007,6 +1010,43 @@ When the Erase command is not found the width of the command transfer (cmdWidth)
 
 </div>
 </div>
+<a id="gacac7e5f4733100422b67fe756e24e5f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacac7e5f4733100422b67fe756e24e5f2">&#9670;&nbsp;</a></span>Cy_SMIF_Reset_Memory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SMIF_Reset_Memory </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a>&#160;</td>
+          <td class="paramname"><em>slaveSelect</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is the weak implementation for resetting the memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block registers.</td></tr>
+    <tr><td class="paramname">slaveSelect</td><td>Denotes the number of the slave device to which reset has to be applied for. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ga997877a3ca4a218fbec1c00fc4a00138"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga997877a3ca4a218fbec1c00fc4a00138">&#9670;&nbsp;</a></span>Cy_SMIF_MemInitSfdpMode()</h2>
 
@@ -1291,7 +1331,7 @@ When the Erase command is not found the width of the command transfer (cmdWidth)
     <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block registers.</td></tr>
     <tr><td class="paramname">memConfig</td><td>The memory device configuration.</td></tr>
     <tr><td class="paramname">address</td><td>The address to read data from.</td></tr>
-    <tr><td class="paramname">rxBuffer</td><td>The buffer for storing the read data.</td></tr>
+    <tr><td class="paramname">rxBuffer</td><td>The buffer for storing the read data. In case of Octal DDR, address must be an even address.</td></tr>
     <tr><td class="paramname">length</td><td>The size of data to read.</td></tr>
     <tr><td class="paramname">context</td><td>This is the pointer to the context structure <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> allocated by the user. The structure is used during the SMIF operation for internal configuration and data retention. The user must not modify anything in this structure.</td></tr>
   </table>
@@ -1358,7 +1398,7 @@ When the Erase command is not found the width of the command transfer (cmdWidth)
   <table class="params">
     <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block registers.</td></tr>
     <tr><td class="paramname">memConfig</td><td>The memory device configuration.</td></tr>
-    <tr><td class="paramname">address</td><td>The address to write data at.</td></tr>
+    <tr><td class="paramname">address</td><td>The address to write data at. In case of Octal DDR, address must be an even address.</td></tr>
     <tr><td class="paramname">txBuffer</td><td>The buffer holding the data to write in the external memory.</td></tr>
     <tr><td class="paramname">length</td><td>The size of data to write.</td></tr>
     <tr><td class="paramname">context</td><td>This is the pointer to the context structure <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> allocated by the user. The structure is used during the SMIF operation for internal configuration and data retention. The user must not modify anything in this structure.</td></tr>

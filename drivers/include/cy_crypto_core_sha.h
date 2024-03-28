@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_sha.h
-* \version 2.90
+* \version 2.100
 *
 * \brief
 *  This file provides constants and function prototypes
@@ -119,8 +119,7 @@ __STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Sha(CRYPTO_Type *base,
 * The pointer to a Hash state.
 *
 * \param mode
-* One of these: CY_CRYPTO_SHA256, CY_CRYPTO_SHA1, CY_CRYPTO_SHA256_224,
-* CY_CRYPTO_SHA512, CY_CRYPTO_SHA384, CY_CRYPTO_SHA512_224, CY_CRYPTO_SHA512_256
+* One of these: \ref cy_en_crypto_sha_mode_t
 *
 * \param shaBuffers
 * The pointer to the memory buffers storage.
@@ -195,6 +194,7 @@ __STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Sha_Start(CRYPTO_Type *base
 ****************************************************************************//**
 *
 * Performs the SHA calculation on one message.
+* For CAT1C & CAT1D(CM55) devices when D-Cache is enabled parameter message must align and end in 32 byte boundary.
 *
 * \param base
 * The pointer to the CRYPTO instance.
@@ -245,6 +245,7 @@ __STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Sha_Update(CRYPTO_Type *bas
 ****************************************************************************//**
 *
 * Completes the SHA calculation.
+* For CAT1C & CAT1D(CM55) devices when D-Cache is enabled parameter digest must align and end in 32 byte boundary.
 *
 * \param base
 * The pointer to the CRYPTO instance.
@@ -286,7 +287,7 @@ __STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Sha_Finish(CRYPTO_Type *bas
 ****************************************************************************//**
 *
 * Clears the used memory buffers.
-*
+* For CAT1C & CAT1D(CM55) devices when D-Cache is enabled parameter hashState must align and end in 32 byte boundary.
 * \param base
 * The pointer to the CRYPTO instance.
 *

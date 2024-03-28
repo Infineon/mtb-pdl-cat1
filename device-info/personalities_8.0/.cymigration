@@ -410,6 +410,10 @@
     <Destination id="pclk_v2-1.0" valid="true" message="Migration is successful" defaultMapping="true">
     </Destination>
   </Source>
+  <Source id="mxaudioss_pdm-1.1">
+    <Destination id="mxaudioss_pdm-2.0" valid="true" message="Migration is successful" defaultMapping="true">
+    </Destination>
+  </Source>
   <Source id="mxs40dap-1.0">
     <Destination id="dap-2.0" valid="true" message="Migration is successful" defaultMapping="true">
         <Parameter param="traceModeParallel" value="`${value(&quot;traceEnable&quot;) ? &quot;4&quot; : &quot;0&quot;}`" />

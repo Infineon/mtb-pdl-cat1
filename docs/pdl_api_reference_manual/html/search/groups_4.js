@@ -59,6 +59,7 @@ var searchData=
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__lf__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__mf__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__peripheral__enums.html',1,'']]],
+  ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__peripheral__group__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__pump__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__pwr__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__clk__timer__enums.html',1,'']]],

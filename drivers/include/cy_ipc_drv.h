@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_drv.h
-* \version 1.110
+* \version 1.120
 * Provides an API declaration of the IPC driver.
 *
 ********************************************************************************
@@ -321,6 +321,12 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.120</td>
+*     <td>Updated APIs \ref Cy_IPC_Sema_Set, \ref Cy_IPC_Sema_Clear, \ref Cy_IPC_Sema_Status, \ref Cy_IPC_Sema_GetMaxSems.
+*       - Added enums \ref cy_stc_ipc_msg_buf_remove_t.</td>
+*     <td>Support added for HPC buffer remove command and BT IPC driver enhancements.</td>
+*   </tr>
+*   <tr>
 *     <td>1.110</td>
 *     <td>Updated internal APIs .</td>
 *     <td>Hold PDCM lock at IPC write and to unlock only after CH release by BTSS.</td>
@@ -523,7 +529,7 @@
 #define CY_IPC_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_IPC_DRV_VERSION_MINOR       110
+#define CY_IPC_DRV_VERSION_MINOR       120
 
 /** Defines a value to indicate that no notification events are needed */
 #define CY_IPC_NO_NOTIFICATION         (uint32_t)(0x00000000UL)

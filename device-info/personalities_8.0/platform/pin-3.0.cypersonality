@@ -11,7 +11,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2022-2023), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -33,12 +33,17 @@
     <IpBlock name="mxs40ioss,mxs40sioss,mxs22ioss" />
     <Resource name="ioss\.port\.pin" />
   </Dependencies>
-  <ExposedMembers/>
+  <ExposedMembers>
+    <ExposedMember key="halPortPin" paramId="pinPort" />
+  </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__gpio.html" linkText="Open GPIO Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
     <!--General-->
+    <ParamBool id="is_mxs22ioss" name="is_mxs22ioss_ip" group="Internal" default="`${(getIpBlockName() eq &quot;mxs22ioss&quot;)}`" visible="false" editable="false" desc="Internal parameter." />
+    <ParamBool id="is_mxs40sioss" name="is_mxs40sioss_ip" group="Internal" default="`${(getIpBlockName() eq &quot;mxs40sioss&quot;)}`" visible="false" editable="false" desc="Internal parameter." />
+    <ParamBool id="ipVersion" name="IP version" group="Internal" default="`${getVersion()}`" visible="false" editable="false" desc="Internal parameter." />
     <ParamString id="driveModeExtension" name="Drive Mode Extension" group="Internal" default="`${lookupExpression(&quot;GPIO.GPIO_PORT_NR[&quot; . getInstNumber(&quot;port&quot;) . &quot;].GPIO_PRT.DRIVEMODE_WIDTH&quot;, 0)}`" visible="false" editable="false" desc="The drive mode extension" />
     <ParamRange id="pullUpResAvailable" name="Pull-up resistor" group="Internal" default="`${lookupExpression(&quot;GPIO.GPIO_PORT_NR[3].GPIO_PRT.RES_CFG&quot;, 0)}`" min="-1" max="1" resolution="1" visible="false" editable="false" desc="The pull-up resistor configuration" />
     <ParamString id="secExtAvailable" name="Secure Extension" group="Internal" default="`${lookupExpression(&quot;GPIO.SECEXT&quot;, lookupExpression(&quot;SECEXT&quot;, -1))}`" visible="false" editable="false" desc="Secure extension" />
@@ -57,13 +62,13 @@
       <Entry name="Resistive Pull-Up/Down. Input buffer on"                                          value="CY_GPIO_DM_PULLUP_DOWN"                  visible="true" />
       <Entry name="Digital High-Z. Input buffer on"                                                  value="CY_GPIO_DM_HIGHZ"                        visible="true" />
       <Entry name="Analog High-Z. Input buffer off"                                                  value="CY_GPIO_DM_ANALOG"                       visible="true" />
-      <Entry name="Strong Drive/Resistive Pull-Up/High-Z based on data_out_en and data_out signals"  value="CY_GPIO_DM_CFGOUT3_STRONG_PULLUP_HIGHZ"  visible="`${(driveModeExtension eq 4)}`" />
+      <Entry name="Strong Drive/Resistive Pull-Up/High-Z"  value="CY_GPIO_DM_CFGOUT3_STRONG_PULLUP_HIGHZ"  visible="`${(driveModeExtension eq 4)}`" />
     </ParamChoice>
     <ParamChoice id="initialState" name="Initial Drive State" group="General" default="1" visible="true" editable="true" desc="This parameter specifies the pin-specific initial value written to the pin's OUT Register after a device reset/power-on." >
       <Entry name="High (1)" value="1" visible="true" />
       <Entry name="Low (0)"  value="0" visible="true" />
     </ParamChoice>
-    <ParamChoice id="nonSec" name="Secure attribute" group="General" default="1" visible="`${secExtAvailable eq 1}`" editable="true" desc="This parameter specifies the secure attribute for each pin of a port." >
+    <ParamChoice id="nonSec" name="Secure attribute" group="General" default="`${(is_mxs40sioss &amp;&amp; (ipVersion eq 1)) ? 0 : 1}`" visible="`${secExtAvailable eq 1}`" editable="true" desc="This parameter specifies the secure attribute for each pin of a port." >
       <Entry name="Non-secure access (1)" value="1" visible="true" />
       <Entry name="Secure access (0)"  value="0" visible="true" />
     </ParamChoice>
@@ -111,14 +116,25 @@
       <Entry name="Fast" value="CY_GPIO_SLEW_FAST" visible="true" />
       <Entry name="Slow" value="CY_GPIO_SLEW_SLOW" visible="true" />
     </ParamChoice>
-    <ParamChoice id="driveStrength"  name="Drive Strength" group="Output" default="CY_GPIO_DRIVE_1_2" visible="true" editable="true" desc="Drive strength can be defined to select how much of the IO driver is enabled to provide additional control of the rising and falling edge slew rates." >
+    <ParamBool id="extended_drive_sel" name="Extended Drive Strength" group="Output" default="false" visible="`${is_mxs22ioss}`" editable="`${is_mxs22ioss}`" desc="Extended Drive strength selection." />
+    <ParamChoice id="driveStrength"  name="Drive Strength" group="Output" default="CY_GPIO_DRIVE_1_2" visible="`${!extended_drive_sel}`" editable="`${!extended_drive_sel}`" desc="Drive strength can be defined to select how much of the IO driver is enabled to provide additional control of the rising and falling edge slew rates." >
       <Entry name="Full" value="CY_GPIO_DRIVE_FULL" visible="true" />
       <Entry name="1 / 2" value="CY_GPIO_DRIVE_1_2" visible="true" />
       <Entry name="1 / 4" value="CY_GPIO_DRIVE_1_4" visible="true" />
       <Entry name="1 / 8" value="CY_GPIO_DRIVE_1_8" visible="true" />
     </ParamChoice>
+    <ParamChoice id="extended_driveStrength"  name="Drive Strength" group="Output" default="CY_GPIO_DRIVE_SEL_3" visible="`${extended_drive_sel}`" editable="`${extended_drive_sel}`" desc="Drive strength can be defined to select how much of the IO driver is enabled to provide additional control of the rising and falling edge slew rates." >
+      <Entry name="7 (Full)" value="CY_GPIO_DRIVE_SEL_7" visible="true" />
+	  <Entry name="6 (7 / 8)" value="CY_GPIO_DRIVE_SEL_6" visible="true" />
+	  <Entry name="5 (3 / 4)" value="CY_GPIO_DRIVE_SEL_5" visible="true" />
+	  <Entry name="4 (5 / 8)" value="CY_GPIO_DRIVE_SEL_4" visible="true" />
+	  <Entry name="3 (1 / 2)" value="CY_GPIO_DRIVE_SEL_3" visible="true" />
+	  <Entry name="2 (3 / 8)" value="CY_GPIO_DRIVE_SEL_2" visible="true" />
+	  <Entry name="1 (1 / 4)" value="CY_GPIO_DRIVE_SEL_1" visible="true" />
+	  <Entry name="0 (1 / 8)" value="CY_GPIO_DRIVE_SEL_0" visible="true" />
+    </ParamChoice>
     <ParamBool id="sioOutputBuffer"  name="SIO Output Buffer Regulated" group="Output" default="true" visible="`${hasSIO &amp;&amp; DigitalOutput}`" editable="true" desc="Selects the output buffer mode" />
-    <ParamChoice id="pullUpRes" name="Pull-up resistor" group="Output" default="CY_GPIO_PULLUP_RES_DISABLE" visible="`${pullUpResAvailable}`" editable="true" desc="The Pull-up resistor parameter configures the additional pull-up resistors." >
+    <ParamChoice id="pullUpRes" name="Pull-up resistor" group="Output" default="CY_GPIO_PULLUP_RES_DISABLE" visible="`${pullUpResAvailable &amp;&amp; (DriveModes eq CY_GPIO_DM_CFGOUT3_STRONG_PULLUP_HIGHZ)}`" editable="true" desc="The Pull-up resistor parameter configures the additional pull-up resistors." >
       <Entry name="Disable additional Pull-up resistors" value="CY_GPIO_PULLUP_RES_DISABLE" visible="true" />
       <Entry name="570Ω pull-up resistance"              value="CY_GPIO_PULLUP_RES_570"     visible="`${hasPullUpRes}`" />
       <Entry name="720Ω pull-up resistance"              value="CY_GPIO_PULLUP_RES_720"     visible="`${hasPullUpRes}`" />
@@ -141,16 +157,21 @@
     <ParamString id="analogValue" name="Analog Connection Value" group="Internal" default="`${hasConnection(&quot;analog&quot;, 0) ? getBlockFromSignal(&quot;analog[0]&quot;) : &quot;&quot;}`" visible="false" editable="false" desc="" />
     <ParamBool id="skipConfigCodeGen" name="Skip Configuration Code Gen" group="Internal" default="`${hasConnection(&quot;analog&quot;, 0) &amp;&amp; hasExposedMember(analogValue, &quot;suppressCodeGen&quot;) &amp;&amp; getExposedMember(analogValue, &quot;suppressCodeGen&quot;)}`" visible="false" editable="false" desc="Whether configuration code generation should be skipped" />
 
+    <!-- Skip Gpio Init code gen for Non-secure for EXTCLK -->
+    <ParamBool id="skipConfigCodeGenExtClk" name="Skip Configuration Code Gen for EXT_CLK" group="Internal" default="`${is_mxs22ioss &amp;&amp;(getParamValueDisplay(&quot;digital_in[0]&quot;) eq &quot;EXTCLK ext_clk [USED]&quot;)}`" visible="false" editable="false" desc="Whether configuration code generation should be skipped" />
+
     <!--Config-->
     <ParamBool id="inFlash" name="Store Config in Flash" group="Advanced" default="true" visible="true" editable="true" desc="Controls whether the configuration structure is stored in flash (const, true) or SRAM (not const, false)." />
     <ParamBool id="hasDigitalOrAnalogConnection" name="Has digital or analog connection" group="Internal" default="`${hasConnection(&quot;digital_in&quot;, 0) || hasConnection(&quot;digital_out&quot;, 0) || hasConnection(&quot;digital_inout&quot;, 0) || hasConnection(&quot;analog&quot;, 0)}`" visible="false" editable="false" desc="" />
     <ParamRange id="port" name="Port number" group="Internal" default="`${getInstNumber(&quot;port&quot;)}`" min="0" max="127" resolution="1" visible="false" editable="false" desc="" />
     <ParamRange id="pin" name="Pin number" group="Internal" default="`${getInstNumber(&quot;pin&quot;)}`" min="0" max="7" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="blockName" name="Block name" group="Internal" default="`${&quot;ioss_0_port_&quot; . port . &quot;_pin_&quot; . pin}`" visible="false" editable="false" desc="" />
+    <ParamString id="pinPort" name="PinPort" group="Internal" default="P`${getInstNumber(&quot;port&quot;)}`_`${getInstNumber(&quot;pin&quot;)}`" visible="false" editable="false" desc="" />
 
     <ParamString id="smif" name="smif" group="smif" default="`${findConnectedBlock(&quot;aux[0]&quot;, &quot;smif.core&quot;)}`" visible="false" editable="false" desc="" />
     <ParamBool id="hasSmifConn" name="hasSmifConn" group="Internal" default="`${smif ne &quot;&quot;}`" visible="false" editable="false" desc="" />
     <ParamString id="smifCore" name="smifCore" group="smif" default="`${ hasSmifConn ? getInstFromLocation(findConnectedBlock(&quot;aux[0]&quot;, &quot;smif.core&quot;), &quot;core&quot;) : &quot;&quot;}`" visible="false" editable="false" desc="" />
+
 	<ParamString id="smifPortString" name="SMIF Port String" group="Internal" default="`${hasSmifConn ? &quot;(GPIO_PRT_Type*)SMIF0_CORE&quot; . smifCore . &quot;_SMIF_GPIO_SMIF_PRT0&quot; : &quot;&quot;}`" visible="false" editable="false" desc="SMIF Port Number" />
 
   </Parameters>
@@ -170,6 +191,7 @@
     <ConfigInclude value="cy_gpio.h" include="true" />
     <ConfigInclude value="cycfg_routing.h" include="`${hasDigitalOrAnalogConnection}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
     
     <ConfigDefine name="`${INST_NAME}`_PORT" value="`${hasSmifConn ? smifPortString : &quot;GPIO_PRT&quot;. port}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_PORT_NUM" value="`${port}`U" public="true" include="true" />
@@ -216,7 +238,7 @@
       <Member name="intMask" value="`${isrTrigger eq CY_GPIO_INTR_DISABLE ? 0 : 1}`UL" />
       <Member name="vtrip" value="`${vtrip}`" />
       <Member name="slewRate" value="`${slewRate}`" />
-      <Member name="driveSel" value="`${driveStrength}`" />
+      <Member name="driveSel" value="`${extended_drive_sel ? extended_driveStrength : driveStrength}`" />
       <Member name="vregEn" value="`${(!hasSIO) ? &quot;0UL&quot; : 
                                       sioOutputBuffer ? &quot;1UL&quot; : &quot;0UL&quot;}`" />
       <Member name="ibufMode" value="`${(!hasSIO) ? &quot;0UL&quot; : 
@@ -234,7 +256,7 @@
       <Member name="channel_num" value="`${INST_NAME}`_PIN" />
     </ConfigStruct>
     
-    <ConfigInstruction value="Cy_GPIO_Pin_Init(`${INST_NAME}`_PORT, `${INST_NAME}`_PIN, &amp;`${INST_NAME}`_config);" include="`${!skipConfigCodeGen}`" />
+    <ConfigInstruction value="Cy_GPIO_Pin_Init(`${INST_NAME}`_PORT, `${INST_NAME}`_PIN, &amp;`${INST_NAME}`_config);" include="`${(!skipConfigCodeGenExtClk) ? (!skipConfigCodeGen) : false}`" />
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
 </Personality>

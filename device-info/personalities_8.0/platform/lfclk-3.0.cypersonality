@@ -46,7 +46,11 @@
     <ParamBool id="isPiloPresent" name="Pilo Present" group="Internal" default="`${lookupExpression(&quot;PILO_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="PILO Present" />
     <ParamBool id="isS40sWcoPresent" name="S40S_Wco Present" group="Internal" default="`${lookupExpression(&quot;BACKUP_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="PILO Present" />
     <ParamBool id="isWcoPresent" name="S40S_Wco Present" group="Internal" default="`${lookupExpression(&quot;WCO_PRESENT&quot;, 0)}`" visible="false" editable="false" desc="PILO Present" />
-    <ParamBool id="is40srss_ver2or3Available" name="is40srss_ver2or3Available" group="" default="`${((&quot;mxs40srss_ver3&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver2&quot; eq getIpBlockName()))}`" visible="false" editable="false" desc="" />
+    <ParamBool id="is40ssrssAvailable" name="is40ssrssAvailable" group="" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+    <ParamBool id="is40srss_ver2or3Available" name="is40srss_ver2or3Available" group="" default="`${(&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+    <ParamBool id="is22srssAvailable" name="is22srssAvailable" group="" default="`${(&quot;mxs22srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+    <ParamBool id="is40srssAvailable" name="is40srssAvailable" group="" default="`${(&quot;mxs40srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
+
 
     <ParamChoice id="sourceClock" name="Source Clock" group="General" default="`${(is40srss_ver2or3Available) ? ilo0 : (&quot;mxs22srss&quot; eq getIpBlockName()) ? pilo : ilo}`" visible="true" editable="true" desc="The clock source for CLK_LF">
       <Entry name="ALTLF" value="altlf" visible="`${ALTLF_PRESENT}`"/>
@@ -54,7 +58,7 @@
       <Entry name="ILO0" value="ilo0" visible="`${(is40srss_ver2or3Available)}`"/>
       <Entry name="ILO1" value="ilo1" visible="`${(is40srss_ver2or3Available)}`"/>
       <Entry name="PILO" value="pilo" visible="`${(isS40sPiloPresent) || (isPiloPresent)}`"/>
-      <Entry name="WCO" value="wco" visible="`${(isS40sWcoPresent) || (isWcoPresent)}`"/>
+      <Entry name="WCO" value="wco" visible="`${((isS40sWcoPresent) || (isWcoPresent)) &amp;&amp; hasBlock(&quot;srss[0].clock[0].wco[0]&quot;)}`"/>
       <Entry name="ECO_PRESCALER" value="ecoprescaler" visible="`${hasBlock(&quot;srss[0].clock[0].eco[0]&quot;)}`"/>
     </ParamChoice>
     <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="`${sourceClock eq ilo1 ? &quot;srss[0].clock[0].&quot; . ilo . &quot;[1]&quot; : ( sourceClock eq ilo0 ? &quot;srss[0].clock[0].&quot; . ilo . &quot;[0]&quot; : &quot;srss[0].clock[0].&quot; . sourceClock . &quot;[0]&quot;)}`" visible="false" editable="false" desc="" />
@@ -80,7 +84,8 @@
     <ConfigDefine name="CY_CFG_SYSCLK_CLKLF_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKLF_FREQ_HZ" value="`${frequency}`" public="true" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKLF_SOURCE" value="CY_SYSCLK_CLKLF_IN_`${sourceClockApiName}`" public="true" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkLfInit()" body="    /* The WDT is unlocked in the default startup code */&#xA;    Cy_SysClk_ClkLfSetSource(CY_SYSCLK_CLKLF_IN_`${sourceClockApiName}`);" public="false" include="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || (&quot;mxs40ssrss&quot; eq getIpBlockName())}`" guard="(!defined(CY_DEVICE_SECURE))" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkLfInit()" body="    /* The WDT is unlocked in the default startup code */&#xA;    Cy_SysClk_ClkLfSetSource(CY_CFG_SYSCLK_CLKLF_SOURCE);" public="false" include="`${(is40srss_ver2or3Available) || (&quot;mxs22srss&quot; eq getIpBlockName())}`" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkLfInit()" body="    /* The WDT is unlocked in the default startup code */&#xA;    Cy_SysClk_ClkLfSetSource(CY_SYSCLK_CLKLF_IN_`${sourceClockApiName}`);" public="false" include="`${is40srssAvailable || is40ssrssAvailable}`" guard="(!defined(CY_DEVICE_SECURE))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkLfInit()" body="    /* The WDT is unlocked in the default startup code */&#xA;    Cy_SysClk_ClkLfSetSource(CY_CFG_SYSCLK_CLKLF_SOURCE);" public="false" include="`${(is40srss_ver2or3Available)}`" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkLfInit()" body="    /* The WDT is unlocked in the default startup code */&#xA;    Cy_SysClk_ClkLfSetSource(CY_CFG_SYSCLK_CLKLF_SOURCE);" public="false" include="`${(is22srssAvailable)}`" guard="defined(CORE_NAME_CM33_0)" />
   </ConfigFirmware>
 </Personality>

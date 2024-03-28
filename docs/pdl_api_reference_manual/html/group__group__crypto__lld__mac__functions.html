@@ -93,6 +93,21 @@ Functions</h2></td></tr>
 <tr class="memitem:ga4e225ac7b941ef415efa59b3b0c77f09"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#ga4e225ac7b941ef415efa59b3b0c77f09">Cy_Crypto_Core_Cmac</a> (CRYPTO_Type *base, uint8_t const *message, uint32_t messageSize, uint8_t const *key, <a class="el" href="group__group__crypto__enums.html#ga5402841d4798c0a82d41d8433c92b62f">cy_en_crypto_aes_key_length_t</a> keyLength, uint8_t *cmac, <a class="el" href="structcy__stc__crypto__aes__state__t.html">cy_stc_crypto_aes_state_t</a> *aesState)</td></tr>
 <tr class="memdesc:ga4e225ac7b941ef415efa59b3b0c77f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the AES Cipher-based Message Authentication Code (CMAC) on the input message with the provided key.  <a href="#ga4e225ac7b941ef415efa59b3b0c77f09">More...</a><br /></td></tr>
 <tr class="separator:ga4e225ac7b941ef415efa59b3b0c77f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8cadf0f4ea3f5c334d1fd1527aa87cd"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gad8cadf0f4ea3f5c334d1fd1527aa87cd">Cy_Crypto_Core_Cmac_Init</a> (CRYPTO_Type *base, void *cmacState, void *buffer)</td></tr>
+<tr class="memdesc:gad8cadf0f4ea3f5c334d1fd1527aa87cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function for initialization of CMAC operation.  <a href="#gad8cadf0f4ea3f5c334d1fd1527aa87cd">More...</a><br /></td></tr>
+<tr class="separator:gad8cadf0f4ea3f5c334d1fd1527aa87cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57a8eb786053f9e5048d4860a2e71474"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#ga57a8eb786053f9e5048d4860a2e71474">Cy_Crypto_Core_Cmac_Start</a> (CRYPTO_Type *base, void *cmacState, uint8_t const *aesKey, <a class="el" href="group__group__crypto__enums.html#ga5402841d4798c0a82d41d8433c92b62f">cy_en_crypto_aes_key_length_t</a> keyLength)</td></tr>
+<tr class="memdesc:ga57a8eb786053f9e5048d4860a2e71474"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts CMAC calculation.  <a href="#ga57a8eb786053f9e5048d4860a2e71474">More...</a><br /></td></tr>
+<tr class="separator:ga57a8eb786053f9e5048d4860a2e71474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11f6267d294b3e1e0ee79bebbecdc88d"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#ga11f6267d294b3e1e0ee79bebbecdc88d">Cy_Crypto_Core_Cmac_Update</a> (CRYPTO_Type *base, void *cmacState, uint8_t const *message, uint32_t messageSize)</td></tr>
+<tr class="memdesc:ga11f6267d294b3e1e0ee79bebbecdc88d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs cmac update for multi stage operation.  <a href="#ga11f6267d294b3e1e0ee79bebbecdc88d">More...</a><br /></td></tr>
+<tr class="separator:ga11f6267d294b3e1e0ee79bebbecdc88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga208277489fe3823397cb178b3e02a1fd"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#ga208277489fe3823397cb178b3e02a1fd">Cy_Crypto_Core_Cmac_Finish</a> (CRYPTO_Type *base, void *cmacState, uint8_t *cmac)</td></tr>
+<tr class="memdesc:ga208277489fe3823397cb178b3e02a1fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Completes CMAC calculation.  <a href="#ga208277489fe3823397cb178b3e02a1fd">More...</a><br /></td></tr>
+<tr class="separator:ga208277489fe3823397cb178b3e02a1fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadfd365bd45e0452a65035cc6c68ebb78"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gadfd365bd45e0452a65035cc6c68ebb78">Cy_Crypto_Core_Cmac_Free</a> (CRYPTO_Type *base, void *cmacState)</td></tr>
+<tr class="memdesc:gadfd365bd45e0452a65035cc6c68ebb78"><td class="mdescLeft">&#160;</td><td class="mdescRight">For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameter cmac must align and end in 32 byte boundary.  <a href="#gadfd365bd45e0452a65035cc6c68ebb78">More...</a><br /></td></tr>
+<tr class="separator:gadfd365bd45e0452a65035cc6c68ebb78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaca9a7ef419e6a290f9622325fb62d37e"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__mac__functions.html#gaca9a7ef419e6a290f9622325fb62d37e">Cy_Crypto_Core_Hmac</a> (CRYPTO_Type *base, uint8_t *hmac, uint8_t const *message, uint32_t messageSize, uint8_t const *key, uint32_t keyLength, <a class="el" href="group__group__crypto__enums.html#ga66ead9efce36e261e978cad722bf2dbb">cy_en_crypto_sha_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a>)</td></tr>
 <tr class="memdesc:gaca9a7ef419e6a290f9622325fb62d37e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the HMAC calculation.  <a href="#gaca9a7ef419e6a290f9622325fb62d37e">More...</a><br /></td></tr>
 <tr class="separator:gaca9a7ef419e6a290f9622325fb62d37e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,6 +199,240 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a></dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line"></div><div class="line">    uint8_t cmacKey[<a class="code" href="group__group__crypto__cli__srv__macros.html#ga0b49d7f139227541dbc20bcd2a1867a4">CY_CRYPTO_AES_256_KEY_SIZE</a>] =</div><div class="line">    {</div><div class="line">        0x60u, 0x3Du, 0xEBu, 0x10u, 0x15u, 0xCAu, 0x71u, 0xBEu,</div><div class="line">        0x2Bu, 0x73u, 0xAEu, 0xF0u, 0x85u, 0x7Du, 0x77u, 0x81u,</div><div class="line">        0x1Fu, 0x35u, 0x2Cu, 0x07u, 0x3Bu, 0x61u, 0x08u, 0xD7u,</div><div class="line">        0x2Du, 0x98u, 0x10u, 0xA3u, 0x09u, 0x14u, 0xDFu, 0xF4u</div><div class="line">    };</div><div class="line"></div><div class="line">    uint8_t cmac256PlainText[16] =</div><div class="line">    {</div><div class="line">        0x6Bu, 0xC1u, 0xBEu, 0xE2u, 0x2Eu, 0x40u, 0x9Fu, 0x96u,</div><div class="line">        0xE9u, 0x3Du, 0x7Eu, 0x11u, 0x73u, 0x93u, 0x17u, 0x2Au</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Calculated CMAC */</span></div><div class="line">    uint8_t cmac[<a class="code" href="group__group__crypto__cli__srv__macros.html#gab966285a569cc381f21ca7ebb9918128">CY_CRYPTO_AES_BLOCK_SIZE</a>] = {0};</div><div class="line"></div><div class="line">    <a class="code" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> cryptoStatus;</div><div class="line">    <a class="code" href="structcy__stc__crypto__aes__state__t.html">cy_stc_crypto_aes_state_t</a> aesState;</div><div class="line"></div><div class="line">    <span class="comment">/* CMAC from the text message using AES-256 */</span></div><div class="line">    cryptoStatus = <a class="code" href="group__group__crypto__lld__mac__functions.html#ga4e225ac7b941ef415efa59b3b0c77f09">Cy_Crypto_Core_Cmac</a>(</div><div class="line">                             CRYPTO_HW,         <span class="comment">/* Pointer to Crypto instance */</span></div><div class="line">                             cmac256PlainText,       <span class="comment">/* Pointer to plain text */</span></div><div class="line">                             <span class="keyword">sizeof</span>(cmac256PlainText),  <span class="comment">/* Size of plain text */</span></div><div class="line">                             cmacKey,            <span class="comment">/* Pointer to encryption key */</span></div><div class="line">                             <a class="code" href="group__group__crypto__enums.html#gga5402841d4798c0a82d41d8433c92b62fa3b323f55c81fca9b412fea5ed28bcb30">CY_CRYPTO_KEY_AES_256</a>, <span class="comment">/* Size of encryption key */</span></div><div class="line">                             cmac,              <span class="comment">/* Pointer to calculated CMAC */</span></div><div class="line">                             &amp;aesState);    <span class="comment">/* Pointer to AES state structure */</span></div><div class="line"></div><div class="line">    <span class="comment">/* ... check for errors... */</span></div><div class="line"></div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gad8cadf0f4ea3f5c334d1fd1527aa87cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8cadf0f4ea3f5c334d1fd1527aa87cd">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Cmac_Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Cmac_Init </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>cmacState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The function for initialization of CMAC operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">cmacState</td><td>The pointer to the structure which stores the CMAC context.</td></tr>
+    <tr><td class="paramname">buffer</td><td>The pointer to the cmac buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga57a8eb786053f9e5048d4860a2e71474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga57a8eb786053f9e5048d4860a2e71474">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Cmac_Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Cmac_Start </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>cmacState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>aesKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__enums.html#ga5402841d4798c0a82d41d8433c92b62f">cy_en_crypto_aes_key_length_t</a>&#160;</td>
+          <td class="paramname"><em>keyLength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts CMAC calculation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">cmacState</td><td>The pointer to the structure which stores the CMAC context.</td></tr>
+    <tr><td class="paramname">aesKey</td><td>The pointer to the cmac key.</td></tr>
+    <tr><td class="paramname">keyLength</td><td><a class="el" href="group__group__crypto__enums.html#ga5402841d4798c0a82d41d8433c92b62f">cy_en_crypto_aes_key_length_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga11f6267d294b3e1e0ee79bebbecdc88d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga11f6267d294b3e1e0ee79bebbecdc88d">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Cmac_Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Cmac_Update </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>cmacState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t const *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>messageSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs cmac update for multi stage operation. </p>
+<p>For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameter message must align and end in 32 byte boundary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">cmacState</td><td>The pointer to the structure which stores the CMAC context.</td></tr>
+    <tr><td class="paramname">message</td><td>The pointer to the message whose CMAC is being computed.</td></tr>
+    <tr><td class="paramname">messageSize</td><td>The size of the message whose CMAC is being computed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga208277489fe3823397cb178b3e02a1fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga208277489fe3823397cb178b3e02a1fd">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Cmac_Finish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Cmac_Finish </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>cmacState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>cmac</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Completes CMAC calculation. </p>
+<p>For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameter cmac must align and end in 32 byte boundary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmacState</td><td>The pointer to the structure which stores the CMAC context.</td></tr>
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">cmac</td><td>The pointer to the computed CMAC value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="gadfd365bd45e0452a65035cc6c68ebb78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadfd365bd45e0452a65035cc6c68ebb78">&#9670;&nbsp;</a></span>Cy_Crypto_Core_Cmac_Free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__STATIC_INLINE <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_Cmac_Free </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>cmacState</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameter cmac must align and end in 32 byte boundary. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
+    <tr><td class="paramname">cmacState</td><td>The pointer to the structure which stores the CMAC context.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> </dd></dl>
 
 </div>
 </div>
@@ -300,6 +549,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The function to initialize the HMAC operation. </p>
+<p>For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameters hmacState and hmacBuffer must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -352,6 +602,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the HMAC key. </p>
+<p>For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameters key &amp; hmacState (m0Key) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
@@ -489,6 +740,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Frees the internally stored buffers in hmac context. </p>
+<p>For CAT1C &amp; CAT1D(CM55) devices when D-Cache is enabled parameters hmacState must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to the CRYPTO instance.</td></tr>
