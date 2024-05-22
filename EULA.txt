@@ -22,8 +22,9 @@ PURCHASER.
 
     "Development Tools" means software that is intended to be installed on a
       personal computer and used to create programming code for Firmware,
-      Drivers, or Host Applications.  Examples of Development Tools are Cypress's
-      PSoC Creator software, Cypress's AIROC SDKs, and Cypress's ModusToolbox software.
+      Drivers, or Host Applications.  Examples of Development Tools are
+      Cypress's PSoC Creator software, Cypress's AIROC SDKs, and Cypress's
+      ModusToolbox software.
 
     "Firmware" means software that executes on a Cypress hardware product.
 
@@ -88,8 +89,8 @@ any Third Party Software included with the Software, either the source code
 will  be included with the Software or you may obtain the source code at no
 charge from
 <https://www.infineon.com/cms/en/design-support/software/free-and-open-source-software-foss/>.
-The applicable license terms will accompany each source code package.
-To review the license terms applicable to any Third Party Software for which
+The applicable license terms will accompany each source code package.  To
+review the license terms applicable to any Third Party Software for which
 Cypress is not required to provide you with source code, please see the
 Software's installation directory on your computer.
 

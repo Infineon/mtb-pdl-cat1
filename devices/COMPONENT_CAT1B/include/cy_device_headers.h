@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -27,52 +27,32 @@
 #ifndef _CY_DEVICE_HEADERS_H_
 #define _CY_DEVICE_HEADERS_H_
 
-#if defined (COMPONENT_SECURE_DEVICE)
-
-#if defined (BOY2_PSVP)
-    #include "boy2_psvp_s.h"
-#elif defined (BOY2_LQFP_80)
-    #include "boy2_lqfp_80_s.h"
-#elif defined (BOY2_LQFP_64)
-    #include "boy2_lqfp_64_s.h"
-#elif defined (BOY2_VQFN_64)
-    #include "boy2_vqfn_64_s.h"
-#elif defined (BOY2_VQFN_48)
-    #include "boy2_vqfn_48_s.h"
-#elif defined (BOY2_LQFP_48)
-    #include "boy2_lqfp_48_s.h"
-#else
-    #error Undefined part number
-#endif
-
-#else
-#if defined (CYW89829A0KML)
-    #include "cyw89829a0kml.h"
-#elif defined (CYW20829B0LKML)
+#if defined (CYW20829B0LKML)
     #include "cyw20829b0lkml.h"
+#elif defined (CYW89829B0022)
+    #include "cyw89829b0022.h"
+#elif defined (CYW89829B0232)
+    #include "cyw89829b0232.h"
+#elif defined (CYW20829B0000)
+    #include "cyw20829b0000.h"
+#elif defined (CYW20829B0010)
+    #include "cyw20829b0010.h"
+#elif defined (CYW20829B0021)
+    #include "cyw20829b0021.h"
+#elif defined (CYW20829A0LKML)
+    #include "cyw20829a0lkml.h"
+#elif defined (CYW20829A0KML)
+    #include "cyw20829a0kml.h"
+#elif defined (CYW89829A0KML)
+    #include "cyw89829a0kml.h"
 #elif defined (CYW20829B0KML)
     #include "cyw20829b0kml.h"
 #elif defined (CYW89829B0KML)
     #include "cyw89829b0kml.h"
-#elif defined (CYW89829B01MKSBG)
-    #include "cyw89829b01mksbg.h"
-#elif defined (BOY2_PSVP)
-    #include "boy2_psvp.h"
-#elif defined (BOY2_LQFP_80)
-    #include "boy2_lqfp_80.h"
-#elif defined (BOY2_LQFP_64)
-    #include "boy2_lqfp_64.h"
-#elif defined (BOY2_VQFN_64)
-    #include "boy2_vqfn_64.h"
-#elif defined (BOY2_VQFN_48)
-    #include "boy2_vqfn_48.h"
-#elif defined (BOY2_LQFP_48)
-    #include "boy2_lqfp_48.h"
 #else
     #error Undefined part number
 #endif
 
-#endif
 
 #endif /* _CY_DEVICE_HEADERS_H_ */
 
