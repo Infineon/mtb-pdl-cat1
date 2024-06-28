@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.c
-* \version 3.100
+* \version 3.110
 *
 * \brief
 * Provides the public functions for the API for the PSoC 6 Flash Driver.
@@ -446,6 +446,11 @@ static cy_en_flashdrv_status_t Cy_Flash_SendCmd(uint32_t mode, uint32_t microsec
             /* Notifier is ready, start of the operation */
             intr = Cy_SysLib_EnterCriticalSection();
 
+            while (0UL == _FLD2VAL(SRSS_CLK_CAL_CNT1_CAL_COUNTER_DONE, SRSS_CLK_CAL_CNT1))
+            {
+                /* wait here */
+            }
+
             if (0UL != _FLD2VAL(SRSS_CLK_CAL_CNT1_CAL_COUNTER_DONE, SRSS_CLK_CAL_CNT1))
             {
                /* Tries to acquire the IPC structure and pass the arguments to SROM API */
@@ -552,7 +557,7 @@ CY_SECTION_RAMFUNC_END
             {
                 /* Wait until the IPC structure is released by another process */
             }
-            
+
             SRSS_TST_DDFT_FAST_CTL_REG  = SRSS_TST_DDFT_FAST_CTL_MASK;
             SRSS_TST_DDFT_SLOW_CTL_REG  = SRSS_TST_DDFT_SLOW_CTL_MASK;
 
@@ -567,7 +572,7 @@ CY_SECTION_RAMFUNC_END
 
             /* Release the IPC */
             REG_IPC_STRUCT_RELEASE(CY_IPC_STRUCT_PTR(CY_IPC_CHAN_DDFT)) = 0U;
-            
+
             while (0UL == _FLD2VAL(SRSS_CLK_CAL_CNT1_CAL_COUNTER_DONE, SRSS_CLK_CAL_CNT1))
             {
                 /* Wait until the counter stops counting */
@@ -607,7 +612,7 @@ CY_SECTION_RAMFUNC_END
 
             uint32_t bookmark;
             #if ((CY_CPU_CORTEX_M4) && (defined (CY_DEVICE_SECURE)))
-                bookmark = CY_PRA_REG32_GET(CY_PRA_INDX_FLASHC_FM_CTL_BOOKMARK) & 0xffffUL; 
+                bookmark = CY_PRA_REG32_GET(CY_PRA_INDX_FLASHC_FM_CTL_BOOKMARK) & 0xffffUL;
             #else
                 bookmark = FLASHC_FM_CTL_BOOKMARK & 0xffffUL;
             #endif /* ((CY_CPU_CORTEX_M4) && (defined (CY_DEVICE_SECURE))) */
@@ -687,7 +692,7 @@ static cy_en_flashdrv_status_t Cy_Flash_Process_BootRom_Error_Code(uint32_t erro
 }
 
 
-/* These API's are call back functions from boot rom code. 
+/* These API's are call back functions from boot rom code.
    These needs to be passed to the boot rom in the init function.
    Current architecture in the PDL is not using the callback calls from boot rom.
    PDL gets the status of the operation complete by calling cyboot_is_flash_ready().

@@ -30,6 +30,7 @@
   <Dependencies>
     <IpBlock name="mxsmif,mxsmif_ver2_s40e">
         <Version major="5" />
+        <Version major="4" />
         <Version major="3" />
         <Version major="2" />
         <Version major="1" />
@@ -44,10 +45,12 @@
   </Parameters>
   <DRCs />
   <ConfigFirmware>
-    <!-- Intention of this intrinsic SMIF personality is to generate cycfg_qspi_memslot.c/h if design.cyqspi existsCheck if design.cyqspi exists in the design.modus directory
-         Also check if SMIF resource is disable to avoid generating .c/.h file twice -->
+    <!-- Intention of this intrinsic SMIF personality is to generate cycfg_qspi_memslot.c/h if design.cyqspi exists
+         Check if design.cyqspi exists in the design.modus directory
+         Also check if SMIF resource is disabled to avoid generating .c/.h file twice -->
       <ConfigTool value="`${cy_tools_path(&quot;qspi-configurator&quot;) . &quot;/qspi-configurator-cli&quot;}`" include="`${qspiUsed || isBlockUsed(&quot;smif[0]&quot;) || isBlockUsed(&quot;smif[0].core[0]&quot;) || isBlockUsed(&quot;smif[0].core[1]&quot;)}`">
       <Arg value="`${&quot;--config=&quot; . cfgFilePath}`" />
+	  <Arg value="`${&quot;--library=&quot; . cy_libs_file()}`" />
       <Arg value="`${&quot;--output-dir=&quot; . cy_codegen_path()}`" />
     </ConfigTool>
   </ConfigFirmware>

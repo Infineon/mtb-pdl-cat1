@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_sfdp.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code for SFDP enumeration in SMIF driver.
@@ -27,7 +27,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXSMIF)
+#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION <= 5)
 
 #include "cy_smif_memslot.h"
 

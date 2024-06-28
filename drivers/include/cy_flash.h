@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.h
-* \version 3.100
+* \version 3.110
 *
 * Provides the API declarations of the Flash driver.
 *
@@ -258,6 +258,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>3.110</td>
+*     <td>In Cy_Flash_SendCmd, waiting for CM0 to be ready to accept command.</td>
+*     <td></td>
+*   </tr>
+*   <tr>
 *     <td>3.100</td>
 *     <td>Added support for PSoC C3 (CAT1B).<br>
 *         Added flash refresh feature.<br>
@@ -452,7 +457,7 @@ extern "C" {
 #define CY_FLASH_DRV_VERSION_MAJOR       3
 
 /** Driver minor version */
-#define CY_FLASH_DRV_VERSION_MINOR       100
+#define CY_FLASH_DRV_VERSION_MINOR       110
 
 #define CY_FLASH_ID               (CY_PDL_DRV_ID(0x14UL))                          /**< FLASH PDL ID */
 

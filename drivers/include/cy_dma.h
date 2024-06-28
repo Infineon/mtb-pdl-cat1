@@ -695,7 +695,8 @@ __STATIC_INLINE uint32_t Cy_DMA_GetActiveChannel(DW_Type const * base)
             uint32_t max_channels = CY_DMA_CH_NR_AVAILABLE(base);
 
             /* Get Channel Pending status from individual channel status information */
-            for(uint8_t channel_nr = 0U; (channel_nr < 32U &&  channel_nr < max_channels); channel_nr++)
+            CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 14.3','channel_nr may be higher or lower than 32 depending on target device.');
+            for(uint8_t channel_nr = 0U; (channel_nr < 32U && channel_nr < max_channels); channel_nr++)
             {
                 channels_pending |= (_FLD2VAL(DW_CH_STRUCT_CH_STATUS_PENDING, DW_CH_STATUS(base, channel_nr)) << channel_nr);
             }

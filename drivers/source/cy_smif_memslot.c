@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides the source code for the memory-level APIs of the SMIF driver.
@@ -27,7 +27,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXSMIF)
+#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION <= 5)
 
 #include "cy_smif_memslot.h"
 #include "cy_gpio.h"
@@ -126,6 +126,19 @@ cy_en_smif_status_t Cy_SMIF_MemInit(SMIF_Type *base,
                 context->flags = memCfg->flags;
                 #endif /* (CY_IP_MXSMIF_VERSION>=2) */
 
+                /* Before SFDP Enumeration, configure SMIF dedicated Clock and RWDS lines */
+#if (CY_IP_MXSMIF_VERSION >= 5)
+                SMIF_CLK_HSIOM(base) = ((uint32_t)(HSIOM_SEL_ACT_15)) | (((uint32_t)HSIOM_SEL_ACT_15) << 8U);
+                SMIF_RWDS_HSIOM(base) = (uint32_t)HSIOM_SEL_ACT_15;
+                SMIF_CLK_DRIVEMODE(base) = CY_GPIO_DM_STRONG | (CY_GPIO_DM_STRONG << 4U);
+                SMIF_RWDS_DRIVEMODE(base) = CY_GPIO_DM_PULLDOWN;
+
+                /* DRIVE Strength kept as full for initial bring up.
+                   In case of power consumption impact we have to optimize this setting */
+                SMIF_CLK_DRIVE_STRENGTH(base) = ((CY_GPIO_DRIVE_FULL) | (CY_GPIO_DRIVE_FULL << 8U));
+                SMIF_RWDS_DRIVE_STRENGTH(base) = CY_GPIO_DRIVE_FULL;
+#endif
+
                 /* SPI(deviceCfg) and Hyperbus(hbdeviceCfg) are mutually exclusive and if both are initialized, priority would be for SPI(deviceCfg) */
                 if(memCfg->deviceCfg != NULL)
                 {
@@ -138,18 +151,6 @@ cy_en_smif_status_t Cy_SMIF_MemInit(SMIF_Type *base,
                                                                    SMIF_DEVICE_CTL_DATA_SEL,
                                                                   (uint32_t)memCfg->dataSelect);
 
-                        /* Before SFDP Enumeration, configure SMIF dedicated Clock and RWDS lines */
-                        #if (CY_IP_MXSMIF_VERSION >= 5)
-                        SMIF_CLK_HSIOM(base) = ((uint32_t)(HSIOM_SEL_ACT_15)) | (((uint32_t)HSIOM_SEL_ACT_15) << 8U);
-                        SMIF_RWDS_HSIOM(base) = (uint32_t)HSIOM_SEL_ACT_15;
-                        SMIF_CLK_DRIVEMODE(base) = CY_GPIO_DM_STRONG | (CY_GPIO_DM_STRONG << 4U);
-                        SMIF_RWDS_DRIVEMODE(base) = CY_GPIO_DM_PULLDOWN;
-
-                        /* DRIVE Strength kept as full for initial bring up.
-                           In case of power consumption impact we have to optimize this setting */
-                        SMIF_CLK_DRIVE_STRENGTH(base) = ((CY_GPIO_DRIVE_FULL) | (CY_GPIO_DRIVE_FULL << 8U));
-                        SMIF_RWDS_DRIVE_STRENGTH(base) = CY_GPIO_DRIVE_FULL;
-                        #endif
                         uint32_t sfdpRet = (uint32_t)CY_SMIF_SUCCESS;
                         if (0U != (memCfg->flags & CY_SMIF_FLAG_DETECT_SFDP))
                         {
@@ -180,7 +181,7 @@ cy_en_smif_status_t Cy_SMIF_MemInit(SMIF_Type *base,
     #if(CY_IP_MXSMIF_VERSION>=2)
                             context->preXIPDataRate = memCfg->deviceCfg->readCmd->dataRate;
     #endif /* CY_IP_MXSMIF_VERSION */
-    #if (CY_IP_MXSMIF_VERSION >= 5)
+    #if (CY_IP_MXSMIF_VERSION >= 4)
                             if (context->preXIPDataRate == CY_SMIF_DDR)
                             {
                                 SMIF_DEVICE_RX_CAPTURE_CONFIG(device) |= _VAL2FLD(SMIF_CORE_DEVICE_RX_CAPTURE_CONFIG_DDR_PIPELINE_POS_DAT, 1U) |
@@ -1331,7 +1332,7 @@ void Cy_SMIF_SetReadyPollingDelay(uint16_t pollTimeoutUs,
 {
     CY_ASSERT_L1(NULL != context);
 
-    context->memReadyPollDealy = pollTimeoutUs;
+    context->memReadyPollDelay = pollTimeoutUs;
 }
 
 /*******************************************************************************
@@ -1373,11 +1374,11 @@ cy_en_smif_status_t Cy_SMIF_MemIsReady(SMIF_Type *base, cy_stc_smif_mem_config_t
 
     CY_ASSERT_L1(NULL != context);
 
-    if (context->memReadyPollDealy > 0U)
+    if (context->memReadyPollDelay > 0U)
     {    
         if (isBusy)
         {
-            uint16_t pollingDelay = (timeoutUs > context->memReadyPollDealy) ? context->memReadyPollDealy : (uint16_t)timeoutUs;
+            uint16_t pollingDelay = (timeoutUs > context->memReadyPollDelay) ? context->memReadyPollDelay : (uint16_t)timeoutUs;
             do
             {
                 /* Avoid using weak function if XIP is enabled */
@@ -1661,7 +1662,7 @@ cy_en_smif_status_t Cy_SMIF_MemRead(SMIF_Type *base, cy_stc_smif_mem_config_t co
                     }
                     else
 #endif
-#if (CY_IP_MXSMIF_VERSION >= 5)
+#if (CY_IP_MXSMIF_VERSION >= 4)
                     if (_FLD2VAL(SMIF_CORE_CTL2_RX_CAPTURE_MODE, (SMIF_CTL2(base))) == (uint32_t)CY_SMIF_SEL_XSPI_HYPERBUS_WITH_DQS)
                     {
                         status = Cy_SMIF_SendDummyCycles_With_RWDS(base, true, (cmdRead->dummyCyclesPresence == CY_SMIF_PRESENT_2BYTE), cmdRead->dummyCycles);
@@ -1850,7 +1851,7 @@ cy_en_smif_status_t Cy_SMIF_MemWrite(SMIF_Type *base, cy_stc_smif_mem_config_t c
                     }
                     else
 #endif
-#if (CY_IP_MXSMIF_VERSION >= 5)
+#if (CY_IP_MXSMIF_VERSION >= 4)
                     if (_FLD2VAL(SMIF_CORE_CTL2_RX_CAPTURE_MODE, (SMIF_CTL2(base))) == (uint32_t)CY_SMIF_SEL_XSPI_HYPERBUS_WITH_DQS)
                     {
                         status = Cy_SMIF_SendDummyCycles_With_RWDS(base, false, (cmdProgram->dummyCyclesPresence == CY_SMIF_PRESENT_2BYTE), cmdProgram->dummyCycles);

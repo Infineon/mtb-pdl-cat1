@@ -32,6 +32,7 @@ var searchData=
   ['low_20level_20functions',['Low Level Functions',['../group__group__smif__low__level__functions.html',1,'']]],
   ['low_20power_20oscillator_20functions',['Low Power Oscillator Functions',['../group__group__sysanalog__functions__lposc.html',1,'']]],
   ['low_2dfrequency_20clock',['Low-Frequency Clock',['../group__group__sysclk__clk__lf.html',1,'']]],
+  ['low_2dpower_20external_20crystal_20oscillator_20_28lpeco_29',['Low-Power External Crystal Oscillator (LPECO)',['../group__group__sysclk__lpeco.html',1,'']]],
   ['low_20power_20callback',['Low Power Callback',['../group__group__sysclk__pm.html',1,'']]],
   ['low_20power_20callbacks',['Low Power Callbacks',['../group__group__syspm__functions__callback.html',1,'']]],
   ['ldo',['LDO',['../group__group__syspm__functions__ldo.html',1,'']]],

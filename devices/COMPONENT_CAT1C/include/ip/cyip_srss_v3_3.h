@@ -1,12 +1,12 @@
 /***************************************************************************//**
-* \file cyip_srss_v3.h
+* \file cyip_srss_v3_3.h
 *
 * \brief
 * SRSS IP definitions
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -24,8 +24,8 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CYIP_SRSS_V3_H_
-#define _CYIP_SRSS_V3_H_
+#ifndef _CYIP_SRSS_V3_3_H_
+#define _CYIP_SRSS_V3_3_H_
 
 #include "cyip_headers.h"
 
@@ -42,6 +42,7 @@
 #define CSV_ILO_CSV_SECTION_SIZE                0x00000010UL
 #define CSV_ILO_SECTION_SIZE                    0x00000010UL
 #define CLK_PLL400M_SECTION_SIZE                0x00000010UL
+#define CLK_DPLL400M_SECTION_SIZE               0x00000020UL
 #define MCWDT_CTR_SECTION_SIZE                  0x00000020UL
 #define MCWDT_SECTION_SIZE                      0x00000100UL
 #define WDT_SECTION_SIZE                        0x00000080UL
@@ -127,6 +128,18 @@ typedef struct {
 } CLK_PLL400M_Type;                             /*!< Size = 16 (0x10) */
 
 /**
+  * \brief 400MHz Digital PLL Configuration Register (CLK_DPLL400M)
+  */
+typedef struct {
+  __IOM uint32_t CONFIG;                        /*!< 0x00000000 400MHz Digital PLL Configuration Register */
+  __IOM uint32_t CONFIG2;                       /*!< 0x00000004 400MHz Digital PLL Configuration Register 2 */
+  __IOM uint32_t CONFIG3;                       /*!< 0x00000008 400MHz Digital PLL Configuration Register 3 */
+   __IM uint32_t RESERVED;
+  __IOM uint32_t STATUS;                        /*!< 0x00000010 400MHz Digital PLL Status Register */
+   __IM uint32_t RESERVED1[3];
+} CLK_DPLL400M_Type;                            /*!< Size = 32 (0x20) */
+
+/**
   * \brief MCWDT Configuration for Subcounter 0 and 1 (MCWDT_CTR)
   */
 typedef struct {
@@ -182,7 +195,7 @@ typedef struct {
 } WDT_Type;                                     /*!< Size = 128 (0x80) */
 
 /**
-  * \brief SRSS Core Registers (ver3) (SRSS)
+  * \brief SRSS Core Registers (ver3p3) (SRSS)
   */
 typedef struct {
    __IM uint32_t RESERVED[16];
@@ -225,56 +238,63 @@ typedef struct {
   __IOM uint32_t PWR_PMIC_CTL2;                 /*!< 0x000010C8 PMIC Control Register 2 */
    __IM uint32_t RESERVED8;
   __IOM uint32_t PWR_PMIC_CTL4;                 /*!< 0x000010D0 PMIC Control Register 4 */
-   __IM uint32_t RESERVED9[75];
+   __IM uint32_t RESERVED9[3];
+  __IOM uint32_t PWR_HIB_WAKE_CTL;              /*!< 0x000010E0 Hibernate Wakeup Mask Register */
+  __IOM uint32_t PWR_HIB_WAKE_CTL2;             /*!< 0x000010E4 Hibernate Wakeup Polarity Register */
+   __IM uint32_t RESERVED10;
+  __IOM uint32_t PWR_HIB_WAKE_CAUSE;            /*!< 0x000010EC Hibernate Wakeup Cause Register */
+   __IM uint32_t RESERVED11[68];
   __IOM uint32_t CLK_PATH_SELECT[16];           /*!< 0x00001200 Clock Path Select Register */
   __IOM uint32_t CLK_ROOT_SELECT[16];           /*!< 0x00001240 Clock Root Select Register */
-   __IM uint32_t RESERVED10[96];
+   __IM uint32_t RESERVED12[96];
         CSV_HF_Type CSV_HF;                     /*!< 0x00001400 Clock Supervisor (CSV) registers for Root clocks */
   __IOM uint32_t CLK_SELECT;                    /*!< 0x00001500 Clock selection register */
-   __IM uint32_t RESERVED11;
+   __IM uint32_t RESERVED13;
   __IOM uint32_t CLK_ILO0_CONFIG;               /*!< 0x00001508 ILO0 Configuration */
   __IOM uint32_t CLK_ILO1_CONFIG;               /*!< 0x0000150C ILO1 Configuration */
-   __IM uint32_t RESERVED12[2];
+   __IM uint32_t RESERVED14[2];
   __IOM uint32_t CLK_IMO_CONFIG;                /*!< 0x00001518 IMO Configuration */
   __IOM uint32_t CLK_ECO_CONFIG;                /*!< 0x0000151C ECO Configuration Register */
   __IOM uint32_t CLK_ECO_PRESCALE;              /*!< 0x00001520 ECO Prescaler Configuration Register */
    __IM uint32_t CLK_ECO_STATUS;                /*!< 0x00001524 ECO Status Register */
   __IOM uint32_t CLK_PILO_CONFIG;               /*!< 0x00001528 Precision ILO Configuration Register */
-   __IM uint32_t RESERVED13;
+   __IM uint32_t RESERVED15;
   __IOM uint32_t CLK_FLL_CONFIG;                /*!< 0x00001530 FLL Configuration Register */
   __IOM uint32_t CLK_FLL_CONFIG2;               /*!< 0x00001534 FLL Configuration Register 2 */
   __IOM uint32_t CLK_FLL_CONFIG3;               /*!< 0x00001538 FLL Configuration Register 3 */
   __IOM uint32_t CLK_FLL_CONFIG4;               /*!< 0x0000153C FLL Configuration Register 4 */
   __IOM uint32_t CLK_FLL_STATUS;                /*!< 0x00001540 FLL Status Register */
   __IOM uint32_t CLK_ECO_CONFIG2;               /*!< 0x00001544 ECO Configuration Register 2 */
-   __IM uint32_t RESERVED14[46];
+   __IM uint32_t RESERVED16[46];
   __IOM uint32_t CLK_PLL_CONFIG[15];            /*!< 0x00001600 PLL Configuration Register */
-   __IM uint32_t RESERVED15;
+   __IM uint32_t RESERVED17;
   __IOM uint32_t CLK_PLL_STATUS[15];            /*!< 0x00001640 PLL Status Register */
-   __IM uint32_t RESERVED16[33];
+   __IM uint32_t RESERVED18[33];
   __IOM uint32_t CSV_REF_SEL;                   /*!< 0x00001700 Select CSV Reference clock for Active domain */
-   __IM uint32_t RESERVED17[3];
+   __IM uint32_t RESERVED19[3];
         CSV_REF_Type CSV_REF;                   /*!< 0x00001710 CSV registers for the CSV Reference clock */
         CSV_LF_Type CSV_LF;                     /*!< 0x00001720 CSV registers for LF clock */
         CSV_ILO_Type CSV_ILO;                   /*!< 0x00001730 CSV registers for HVILO clock */
-   __IM uint32_t RESERVED18[48];
+   __IM uint32_t RESERVED20[48];
   __IOM uint32_t RES_CAUSE;                     /*!< 0x00001800 Reset Cause Observation Register */
   __IOM uint32_t RES_CAUSE2;                    /*!< 0x00001804 Reset Cause Observation Register 2 */
-   __IM uint32_t RESERVED19[62];
+   __IM uint32_t RESERVED21[62];
         CLK_PLL400M_Type CLK_PLL400M[15];       /*!< 0x00001900 400MHz PLL Configuration Register */
-   __IM uint32_t RESERVED20[1417];
+   __IM uint32_t RESERVED22[4];
+        CLK_DPLL400M_Type CLK_DPLL400M[15];     /*!< 0x00001A00 400MHz Digital PLL Configuration Register */
+   __IM uint32_t RESERVED23[1293];
   __IOM uint32_t CLK_TRIM_ILO0_CTL;             /*!< 0x00003014 ILO0 Trim Register */
-   __IM uint32_t RESERVED21[60];
+   __IM uint32_t RESERVED24[60];
   __IOM uint32_t PWR_TRIM_PWRSYS_CTL;           /*!< 0x00003108 Power System Trim Register */
-   __IM uint32_t RESERVED22[2];
+   __IM uint32_t RESERVED25[2];
   __IOM uint32_t CLK_TRIM_PILO_CTL;             /*!< 0x00003114 PILO Trim Register */
   __IOM uint32_t CLK_TRIM_PILO_CTL2;            /*!< 0x00003118 PILO Trim Register 2 */
   __IOM uint32_t CLK_TRIM_PILO_CTL3;            /*!< 0x0000311C PILO Trim Register 3 */
-   __IM uint32_t RESERVED23[64];
+   __IM uint32_t RESERVED26[64];
   __IOM uint32_t CLK_TRIM_ILO1_CTL;             /*!< 0x00003220 ILO1 Trim Register */
-   __IM uint32_t RESERVED24[4983];
+   __IM uint32_t RESERVED27[4983];
         MCWDT_Type MCWDT[4];                    /*!< 0x00008000 Multi-Counter Watchdog Timer */
-   __IM uint32_t RESERVED25[3840];
+   __IM uint32_t RESERVED28[3840];
         WDT_Type WDT_STRUCT;                    /*!< 0x0000C000 Watchdog Timer */
 } SRSS_Type;                                    /*!< Size = 49280 (0xC080) */
 
@@ -315,7 +335,7 @@ typedef struct {
 
 /* CSV_LF_CSV.REF_CTL */
 #define CSV_LF_CSV_REF_CTL_STARTUP_Pos          0UL
-#define CSV_LF_CSV_REF_CTL_STARTUP_Msk          0xFFUL
+#define CSV_LF_CSV_REF_CTL_STARTUP_Msk          0x1FFUL
 #define CSV_LF_CSV_REF_CTL_CSV_EN_Pos           31UL
 #define CSV_LF_CSV_REF_CTL_CSV_EN_Msk           0x80000000UL
 /* CSV_LF_CSV.REF_LIMIT */
@@ -330,7 +350,7 @@ typedef struct {
 
 /* CSV_ILO_CSV.REF_CTL */
 #define CSV_ILO_CSV_REF_CTL_STARTUP_Pos         0UL
-#define CSV_ILO_CSV_REF_CTL_STARTUP_Msk         0xFFUL
+#define CSV_ILO_CSV_REF_CTL_STARTUP_Msk         0x1FFUL
 #define CSV_ILO_CSV_REF_CTL_CSV_EN_Pos          31UL
 #define CSV_ILO_CSV_REF_CTL_CSV_EN_Msk          0x80000000UL
 /* CSV_ILO_CSV.REF_LIMIT */
@@ -379,6 +399,44 @@ typedef struct {
 #define CLK_PLL400M_STATUS_LOCKED_Msk           0x1UL
 #define CLK_PLL400M_STATUS_UNLOCK_OCCURRED_Pos  1UL
 #define CLK_PLL400M_STATUS_UNLOCK_OCCURRED_Msk  0x2UL
+
+
+/* CLK_DPLL400M.CONFIG */
+#define CLK_DPLL400M_CONFIG_FEEDBACK_DIV_Pos    0UL
+#define CLK_DPLL400M_CONFIG_FEEDBACK_DIV_Msk    0xFFUL
+#define CLK_DPLL400M_CONFIG_REFERENCE_DIV_Pos   8UL
+#define CLK_DPLL400M_CONFIG_REFERENCE_DIV_Msk   0x1F00UL
+#define CLK_DPLL400M_CONFIG_OUTPUT_DIV_Pos      16UL
+#define CLK_DPLL400M_CONFIG_OUTPUT_DIV_Msk      0x1F0000UL
+#define CLK_DPLL400M_CONFIG_LOCK_DELAY_Pos      25UL
+#define CLK_DPLL400M_CONFIG_LOCK_DELAY_Msk      0x6000000UL
+#define CLK_DPLL400M_CONFIG_BYPASS_SEL_Pos      28UL
+#define CLK_DPLL400M_CONFIG_BYPASS_SEL_Msk      0x30000000UL
+#define CLK_DPLL400M_CONFIG_ENABLE_Pos          31UL
+#define CLK_DPLL400M_CONFIG_ENABLE_Msk          0x80000000UL
+/* CLK_DPLL400M.CONFIG2 */
+#define CLK_DPLL400M_CONFIG2_FRAC_DIV_Pos       0UL
+#define CLK_DPLL400M_CONFIG2_FRAC_DIV_Msk       0xFFFFFFUL
+#define CLK_DPLL400M_CONFIG2_FRAC_DITHER_EN_Pos 28UL
+#define CLK_DPLL400M_CONFIG2_FRAC_DITHER_EN_Msk 0x70000000UL
+#define CLK_DPLL400M_CONFIG2_FRAC_EN_Pos        31UL
+#define CLK_DPLL400M_CONFIG2_FRAC_EN_Msk        0x80000000UL
+/* CLK_DPLL400M.CONFIG3 */
+#define CLK_DPLL400M_CONFIG3_SSCG_DEPTH_Pos     0UL
+#define CLK_DPLL400M_CONFIG3_SSCG_DEPTH_Msk     0x3FFUL
+#define CLK_DPLL400M_CONFIG3_SSCG_RATE_Pos      16UL
+#define CLK_DPLL400M_CONFIG3_SSCG_RATE_Msk      0x70000UL
+#define CLK_DPLL400M_CONFIG3_SSCG_DITHER_EN_Pos 24UL
+#define CLK_DPLL400M_CONFIG3_SSCG_DITHER_EN_Msk 0x1000000UL
+#define CLK_DPLL400M_CONFIG3_SSCG_MODE_Pos      28UL
+#define CLK_DPLL400M_CONFIG3_SSCG_MODE_Msk      0x10000000UL
+#define CLK_DPLL400M_CONFIG3_SSCG_EN_Pos        31UL
+#define CLK_DPLL400M_CONFIG3_SSCG_EN_Msk        0x80000000UL
+/* CLK_DPLL400M.STATUS */
+#define CLK_DPLL400M_STATUS_LOCKED_Pos          0UL
+#define CLK_DPLL400M_STATUS_LOCKED_Msk          0x1UL
+#define CLK_DPLL400M_STATUS_UNLOCK_OCCURRED_Pos 1UL
+#define CLK_DPLL400M_STATUS_UNLOCK_OCCURRED_Msk 0x2UL
 
 
 /* MCWDT_CTR.CTL */
@@ -649,6 +707,8 @@ typedef struct {
 #define SRSS_PWR_HIBERNATE_POLARITY_HIBPIN_Msk  0xF00000UL
 #define SRSS_PWR_HIBERNATE_MASK_HIBPIN_Pos      24UL
 #define SRSS_PWR_HIBERNATE_MASK_HIBPIN_Msk      0xF000000UL
+#define SRSS_PWR_HIBERNATE_SENSE_MODE_Pos       29UL
+#define SRSS_PWR_HIBERNATE_SENSE_MODE_Msk       0x20000000UL
 #define SRSS_PWR_HIBERNATE_HIBERNATE_DISABLE_Pos 30UL
 #define SRSS_PWR_HIBERNATE_HIBERNATE_DISABLE_Msk 0x40000000UL
 #define SRSS_PWR_HIBERNATE_HIBERNATE_Pos        31UL
@@ -830,6 +890,27 @@ typedef struct {
 #define SRSS_PWR_PMIC_CTL4_PMIC_VADJ_DIS_Msk    0x40000000UL
 #define SRSS_PWR_PMIC_CTL4_PMIC_DPSLP_Pos       31UL
 #define SRSS_PWR_PMIC_CTL4_PMIC_DPSLP_Msk       0x80000000UL
+/* SRSS.PWR_HIB_WAKE_CTL */
+#define SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_SRC_Pos  0UL
+#define SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_SRC_Msk  0xFFFFFFUL
+#define SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_CSV_BAK_Pos 29UL
+#define SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_CSV_BAK_Msk 0x20000000UL
+#define SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_RTC_Pos  30UL
+#define SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_RTC_Msk  0x40000000UL
+#define SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_WDT_Pos  31UL
+#define SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_WDT_Msk  0x80000000UL
+/* SRSS.PWR_HIB_WAKE_CTL2 */
+#define SRSS_PWR_HIB_WAKE_CTL2_HIB_WAKE_SRC_Pos 0UL
+#define SRSS_PWR_HIB_WAKE_CTL2_HIB_WAKE_SRC_Msk 0xFFFFFFUL
+/* SRSS.PWR_HIB_WAKE_CAUSE */
+#define SRSS_PWR_HIB_WAKE_CAUSE_HIB_WAKE_SRC_Pos 0UL
+#define SRSS_PWR_HIB_WAKE_CAUSE_HIB_WAKE_SRC_Msk 0xFFFFFFUL
+#define SRSS_PWR_HIB_WAKE_CAUSE_HIB_WAKE_CSV_BAK_Pos 29UL
+#define SRSS_PWR_HIB_WAKE_CAUSE_HIB_WAKE_CSV_BAK_Msk 0x20000000UL
+#define SRSS_PWR_HIB_WAKE_CAUSE_HIB_WAKE_RTC_Pos 30UL
+#define SRSS_PWR_HIB_WAKE_CAUSE_HIB_WAKE_RTC_Msk 0x40000000UL
+#define SRSS_PWR_HIB_WAKE_CAUSE_HIB_WAKE_WDT_Pos 31UL
+#define SRSS_PWR_HIB_WAKE_CAUSE_HIB_WAKE_WDT_Msk 0x80000000UL
 /* SRSS.CLK_PATH_SELECT */
 #define SRSS_CLK_PATH_SELECT_PATH_MUX_Pos       0UL
 #define SRSS_CLK_PATH_SELECT_PATH_MUX_Msk       0x7UL
@@ -1065,7 +1146,7 @@ typedef struct {
 #define SRSS_CLK_TRIM_ILO1_CTL_ILO1_MONTRIM_Msk 0xF00UL
 
 
-#endif /* _CYIP_SRSS_V3_H_ */
+#endif /* _CYIP_SRSS_V3_3_H_ */
 
 
 /* [] END OF FILE */

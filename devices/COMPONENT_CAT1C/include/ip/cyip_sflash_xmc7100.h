@@ -1,12 +1,12 @@
 /***************************************************************************//**
-* \file cyip_sflash_v2_xmc7100.h
+* \file cyip_sflash_xmc7100.h
 *
 * \brief
 * SFLASH IP definitions
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -24,8 +24,8 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CYIP_SFLASH_V2_XMC7100_H_
-#define _CYIP_SFLASH_V2_XMC7100_H_
+#ifndef _CYIP_SFLASH_XMC7100_H_
+#define _CYIP_SFLASH_XMC7100_H_
 
 #include "cyip_headers.h"
 
@@ -303,7 +303,7 @@ typedef struct {
 #define SFLASH_TOC2_FLAGS_FB_BOOTLOADER_CTL_Msk 0x600UL
 
 
-#endif /* _CYIP_SFLASH_V2_XMC7100_H_ */
+#endif /* _CYIP_SFLASH_XMC7100_H_ */
 
 
 /* [] END OF FILE */

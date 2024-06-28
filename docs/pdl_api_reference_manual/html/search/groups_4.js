@@ -1,6 +1,7 @@
 var searchData=
 [
   ['enumerated_20types',['Enumerated Types',['../group__group__adcmic__enums.html',1,'']]],
+  ['enumerated_20types',['Enumerated Types',['../group__group__axidmac__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__ble__clk__data__type.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__canfd__enums.html',1,'']]],
   ['error_20interrupt_20masks',['Error Interrupt masks',['../group__group__canfd__error__interrupt__masks.html',1,'']]],
@@ -68,6 +69,7 @@ var searchData=
   ['eco_20status',['ECO status',['../group__group__sysclk__ecostatus.html',1,'']]],
   ['external_20clock_20source_20_28extclk_29',['External Clock Source (EXTCLK)',['../group__group__sysclk__ext.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__fll__enums.html',1,'']]],
+  ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__lpeco__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__path__src__enums.html',1,'']]],
   ['enumerated_20types',['Enumerated Types',['../group__group__sysclk__wco__enums.html',1,'']]],
   ['enums',['Enums',['../group__group__sysfault__enums.html',1,'']]],

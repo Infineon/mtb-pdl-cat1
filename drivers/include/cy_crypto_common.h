@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_common.h
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  This file provides common constants and parameters
@@ -49,7 +49,7 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         100
+#define CY_CRYPTO_DRV_VERSION_MINOR         110
 
 
 /* Enable SHA functionality */

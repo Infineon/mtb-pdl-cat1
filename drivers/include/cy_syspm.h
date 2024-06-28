@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.120
+* \version 5.130
 *
 * Provides the function definitions for the power management API.
 *
@@ -847,6 +847,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>5.130</td>
+*     <td>Added support for new device.</td>
+*     <td>Added support for TRAVEO&trade; II Cluster (CAT1C).</td>
+*   </tr>
+*   <tr>
 *     <td>5.120</td>
 *     <td>Added support for new device.</td>
 *     <td>Added support for PSoC C3 (CAT1B).</td>
@@ -868,9 +873,11 @@
 *   <tr>
 *     <td>5.95</td>
 *     <td>Added new APIs Cy_SysPm_StoreDSContext_Wfi, \ref Cy_SysPm_TriggerXRes and few macros.</td>
-*     <td rowspan="4">5.94</td>
-*         Newly added APIs \ref Cy_SysPm_SetSOCMemPartActivePwrMode, \ref Cy_SysPm_SetSOCMemPartDsPwrMode, \ref Cy_SysPm_GetSOCMemSramPartActivePwrMode, \ref Cy_SysPm_GetSOCMemSramPartDsPwrMode
-*     </td>
+*     <td>Code enhancements .</td>
+*   </tr>
+*   <tr>
+*     <td rowspan="5">5.94</td>
+*     <td> Newly added APIs \ref Cy_SysPm_SetSOCMemPartActivePwrMode, \ref Cy_SysPm_SetSOCMemPartDsPwrMode, \ref Cy_SysPm_GetSOCMemSramPartActivePwrMode, \ref Cy_SysPm_GetSOCMemSramPartDsPwrMode </td>
 *     <td>Support of SOCMEM control for CAT1D devices added .</td>
 *   </tr>
 *   <tr>
@@ -1704,7 +1711,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       120
+#define CY_SYSPM_DRV_VERSION_MINOR       130
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -1719,7 +1726,7 @@ extern "C" {
 
 /* Macro to validate parameters in Cy_SysPm_SetHibernateWakeupSource() and for Cy_SysPm_ClearHibernateWakeupSource() function */
 #define CY_SYSPM_IS_WAKE_UP_SOURCE_VALID(wakeupSource)   (0UL == ((wakeupSource) & \
-                                                          ((uint32_t) ~(CY_SYSPM_HIB_WAKEUP_SOURSE_MASK))))
+                                                          ((uint32_t) ~(CY_SYSPM_HIB_WAKEUP_SOURCE_MASK))))
 
 
 #if defined (CY_IP_MXS40SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_BACKUP_VBCK_PRESENT == 1UL))
@@ -2282,12 +2289,19 @@ extern "C" {
 
 #endif
 
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3u) && defined (CY_IP_MXS40SRSS_VERSION_MINOR) && (CY_IP_MXS40SRSS_VERSION_MINOR >= 3u)
 /* Internal macro of all possible wakeup sources from hibernate power mode */
-#define CY_SYSPM_HIB_WAKEUP_SOURSE_MASK    (CY_SYSPM_HIBERNATE_LPCOMP0_LOW | CY_SYSPM_HIBERNATE_LPCOMP0_HIGH |\
+#define CY_SYSPM_HIB_WAKEUP_SOURCE_MASK    (SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_SRC_Msk | SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_CSV_BAK_Msk |\
+                                            SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_RTC_Msk | SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_WDT_Msk)
+#else
+/* Internal macro of all possible wakeup sources from hibernate power mode */
+#define CY_SYSPM_HIB_WAKEUP_SOURCE_MASK    (CY_SYSPM_HIBERNATE_LPCOMP0_LOW | CY_SYSPM_HIBERNATE_LPCOMP0_HIGH |\
                                             CY_SYSPM_HIBERNATE_LPCOMP1_LOW | CY_SYSPM_HIBERNATE_LPCOMP1_HIGH |\
                                             CY_SYSPM_HIBERNATE_RTC_ALARM   | CY_SYSPM_HIBERNATE_WDT |\
                                             CY_SYSPM_HIBERNATE_PIN0_LOW    | CY_SYSPM_HIBERNATE_PIN0_HIGH |\
                                             CY_SYSPM_HIBERNATE_PIN1_LOW    | CY_SYSPM_HIBERNATE_PIN1_HIGH)
+#endif
+
 
 #if defined (CY_IP_MXS40SSRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 2)) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 
@@ -2575,6 +2589,95 @@ typedef enum
 
     /** Configure a high logic level for the second wakeup-pin. See device datasheet for specific pin.*/
     CY_SYSPM_HIBERNATE_PIN1_HIGH    = (0x1U << 9)
+} cy_en_syspm_hibernate_wakeup_source_t;
+#elif defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3u) && defined (CY_IP_MXS40SRSS_VERSION_MINOR) && (CY_IP_MXS40SRSS_VERSION_MINOR >= 3u)
+
+/*  SRSSver3p3 hibernate wakeup pins and polarity are in different registers with the same bit offsets.
+    Use a flag to mark the high polarity enum values which does not overlap any fields in the PWR_HIB_WAKE_CTL register */
+#define CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG (1UL << 10U)
+
+#if defined(SRSS_NUM_HIB_WAKE) && (SRSS_NUM_HIB_WAKE > 10U)
+#error A maximum of 10 hibernate wakeup pins are supported
+#endif
+
+/**
+* \note
+* This macro is available for CAT1C (TVIIC) devices.
+**/
+
+typedef enum
+{
+    CY_SYSPM_HIBERNATE_NO_SRC       = 0UL,
+
+    /** Configure CSV_BAK as wakeup source. */
+    CY_SYSPM_HIBERNATE_CSV_BAK      = (0x1UL << 29),
+
+    /** Configure the RTC alarm as wakeup source. */
+    CY_SYSPM_HIBERNATE_RTC_ALARM    = (0x1UL << 30),
+
+    /** Configure the WDT interrupt as wakeup source. */
+    CY_SYSPM_HIBERNATE_WDT          = (0x1UL << 31),
+
+    /** Configure a low logic level for the first wakeup-pin. See device datasheet for specific pin. */
+    CY_SYSPM_HIBERNATE_PIN0_LOW     = (0x1UL << 0),
+
+    /** Configure a high logic level for the first wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN0_HIGH    = (0x1UL << 0) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 0),
+
+    /** Configure a low logic level for the second wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN1_LOW     = (0x1U << 1),
+
+    /** Configure a high logic level for the second wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN1_HIGH    = (0x1U << 1) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 1),
+
+    /** Configure a low logic level for the third wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN2_LOW     = (0x1U << 2),
+
+    /** Configure a high logic level for the third wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN2_HIGH    = (0x1U << 2) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 2),
+
+    /** Configure a low logic level for the fourth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN3_LOW     = (0x1U << 3),
+
+    /** Configure a high logic level for the fourth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN3_HIGH    = (0x1U << 3) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 3),
+
+    /** Configure a low logic level for the fifth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN4_LOW     = (0x1U << 4),
+
+    /** Configure a high logic level for the fifth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN4_HIGH    = (0x1U << 4) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 4),
+
+    /** Configure a low logic level for the sixth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN5_LOW     = (0x1U << 5),
+
+    /** Configure a high logic level for the sixth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN5_HIGH    = (0x1U << 5) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 5),
+
+    /** Configure a low logic level for the seventh wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN6_LOW     = (0x1U << 6),
+
+    /** Configure a high logic level for the seventh wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN6_HIGH    = (0x1U << 6) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 6),
+
+    /** Configure a low logic level for the eighth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN7_LOW     = (0x1U << 7),
+
+    /** Configure a high logic level for the eighth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN7_HIGH    = (0x1U << 7) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 7),
+
+    /** Configure a low logic level for the ninth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN8_LOW     = (0x1U << 8),
+
+    /** Configure a high logic level for the ninth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN8_HIGH    = (0x1U << 8) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 8),
+
+    /** Configure a low logic level for the tenth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN9_LOW     = (0x1U << 9),
+
+    /** Configure a high logic level for the tenth wakeup-pin. See device datasheet for specific pin.*/
+    CY_SYSPM_HIBERNATE_PIN9_HIGH    = (0x1U << 9) | (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 9)
+
 } cy_en_syspm_hibernate_wakeup_source_t;
 #else
 /**
@@ -5396,7 +5499,7 @@ void Cy_SysPm_SetHibernateWakeupSource(uint32_t wakeupSource);
 *******************************************************************************/
 void Cy_SysPm_ClearHibernateWakeupSource(uint32_t wakeupSource);
 
-#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3u) && defined (CY_IP_MXS40SRSS_VERSION_MINOR) && (CY_IP_MXS40SRSS_VERSION_MINOR >= 3u)) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysPm_GetHibernateWakeupCause
 ****************************************************************************//**
@@ -5407,7 +5510,7 @@ void Cy_SysPm_ClearHibernateWakeupSource(uint32_t wakeupSource);
 * Wakeup Reason \ref cy_en_syspm_hibernate_wakeup_source_t
 *
 * \note
-* This API is available for CAT1B and CAT1D devices.
+* This API is available for CAT1B, CAT1C (Traveo II Cluster) and CAT1D devices.
 *
 *******************************************************************************/
 cy_en_syspm_hibernate_wakeup_source_t Cy_SysPm_GetHibernateWakeupCause(void);
@@ -5419,7 +5522,7 @@ cy_en_syspm_hibernate_wakeup_source_t Cy_SysPm_GetHibernateWakeupCause(void);
 * This function Clears the wakeup cause register.
 *
 * \note
-* This API is available for CAT1B and CAT1D devices.
+* This API is available for CAT1B, CAT1C (Traveo II Cluster) and CAT1D devices.
 *
 *******************************************************************************/
 void Cy_SysPm_ClearHibernateWakeupCause(void);

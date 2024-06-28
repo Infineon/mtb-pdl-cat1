@@ -1,6 +1,7 @@
 var searchData=
 [
   ['macros',['Macros',['../group__group__adcmic__macros.html',1,'']]],
+  ['macros',['Macros',['../group__group__axidmac__macros.html',1,'']]],
   ['macros',['Macros',['../group__group__ble__clk__macros.html',1,'']]],
   ['macros',['Macros',['../group__group__canfd__macros.html',1,'']]],
   ['macros',['Macros',['../group__group__crypto__cli__srv__macros.html',1,'']]],

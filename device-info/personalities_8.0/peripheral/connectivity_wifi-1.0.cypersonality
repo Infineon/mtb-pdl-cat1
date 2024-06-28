@@ -82,7 +82,7 @@
 
     <!-- MQTT Offload settings -->
     <ParamBool id="mqttOffload" name="Enable" group="MQTT Offload Configuration" default="false" visible="`${lpa_enable_43022}`" editable="true" desc="Enable MQTT offload feature." />
-    <ParamString id="mqtt_wakepattern" name="MQTT wake pattern" group="MQTT Offload Configuration" default="0" visible="`${mqttOffload}`" editable="true" desc="Set the MQTT wake pattern to the WLAN." />
+    <ParamString id="mqtt_wakepattern" name="MQTT wake pattern" group="MQTT Offload Configuration" default="" visible="`${mqttOffload}`" editable="true" desc="Set the MQTT wake pattern to the WLAN." />
 
     <!-- AWS MQTT Filters -->
     <!-- TLS Configuration -->
@@ -178,9 +178,9 @@
     <!-- Wake On Wireless Packet Filter Configurations -->
     <ParamBool id="wakeonlan" name="Enable" group="WakeOnWireless LAN (WOWL)" default="false" visible="`${lpa_enable_43022}`" editable="true" desc="Enable WOL magic and net pattern settings for 43022." />
     <ParamBool id="magicpattern" name="Enable Magic Pattern" group="WakeOnWireless LAN (WOWL)" default="false" visible="`${wakeonlan}`" editable="true" desc="Enable WOL magic pattern settings for 43022." />
-    <ParamBool id="netpattern" name="Enable Net Pattern" group="WakeOnWireless LAN (WOWL)" default="false" visible="false" editable="true" desc="Enable WOL net pattern settings for 43022." />
-    <ParamString id="pattern" name="pattern" group="WOWL Filter Configuration" default="0" visible="`${netpattern &amp;&amp; wakeonlan}`" editable="true" desc="wake pattern." />
-    <ParamString id="mask" name="mask" group="WOWL Filter Configuration" default="0" visible="`${netpattern &amp;&amp; wakeonlan}`" editable="true" desc="mask." />
+    <ParamBool id="netpattern" name="Enable Net Pattern" group="WakeOnWireless LAN (WOWL)" default="false" visible="`${wakeonlan}`" editable="true" desc="Enable WOL net pattern settings for 43022." />
+    <ParamString id="pattern" name="pattern" group="WOWL Filter Configuration" default="0x" visible="`${netpattern &amp;&amp; wakeonlan}`" editable="true" desc="wake pattern." />
+    <ParamString id="mask" name="mask" group="WOWL Filter Configuration" default="0x" visible="`${netpattern &amp;&amp; wakeonlan}`" editable="true" desc="mask." />
     <ParamRange id="offset" name="offset" group="WOWL Filter Configuration" default="0" min="0" max="1500" resolution="1" visible="`${netpattern &amp;&amp; wakeonlan}`" editable="true" desc="offset." />
     <ParamBool id="wowl_enable" name="Enable WOWL" group="Internal" default="`${((netpattern || magicpattern) &amp;&amp; wakeonlan)}`" visible="false" editable="false" desc="Enable WOL net pattern settings for 43022." />
 
@@ -255,6 +255,7 @@
     <ConfigDefine name="CYCFG_ULP_SUPPORT_ENABLED" public="true" value="(1u)" include="`${ULPmodesBool}`" preventOverride="false" />
     <ConfigDefine name="CYCFG_ARP_OL_ENABLED" public="false" value="(1u)" include="`${arpOffload}`" preventOverride="false" />
     <ConfigDefine name="CYCFG_PF_OL_ENABLED" public="false" value="(1u)" include="`${pktFilterEn}`" preventOverride="false" />
+    <ConfigDefine name="CYCFG_WOWLPF_OL_ENABLED" public="true" value="(1u)" include="`${wowl_enable}`" preventOverride="false" />
     <ConfigDefine name="CYCFG_WOWL_MAGIC_PKT_ENABLED" public="true" value="(1u)" include="`${magicpattern &amp;&amp; wakeonlan}`" preventOverride="false" />
     <ConfigDefine name="CYCFG_TKO_OL_ENABLED" public="false" value="(1u)" include="`${tcpkaOffload}`" preventOverride="false" />
     <ConfigDefine name="CYCFG_WIFI_MQTT_OL_SUPPORT" public="true" value="(1u)" include="`${mqttOffload}`" preventOverride="false" />

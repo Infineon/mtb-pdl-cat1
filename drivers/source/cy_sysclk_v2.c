@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk_v2.c
-* \version 3.100
+* \version 3.110
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -2893,6 +2893,152 @@ uint32_t Cy_SysClk_EcoBleGetStatus(void)
 #endif /* defined (CY_IP_MXS28SRSS) */
 
 /* ========================================================================== */
+/* ==========================    LPECO SECTION    =========================== */
+/* ========================================================================== */
+
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) && (defined (SRSS_BACKUP_S40E_LPECO_PRESENT) && (SRSS_BACKUP_S40E_LPECO_PRESENT == 1u))
+
+#define Cy_SysClk_LpEco_PRESCALER_MAX_INT_DIV (1023u) /* 10 bit value */
+#define Cy_SysClk_LpEco_PRESCALER_MAX_FRAC_DIV (255u) /* 8 bit value */
+
+static uint32_t lpecoFrequency = 0UL; /* Internal storage for LPECO frequency user setting */
+
+void Cy_SysClk_LpEcoConfigure(cy_en_clkbak_lpeco_loadcap_range_t capValue,
+                              cy_en_clkbak_lpeco_frequency_range_t freqValue,
+                              cy_en_clkbak_lpeco_max_amplitude_t ampValue,
+                              bool ampDetEn)
+{
+    BACKUP_LPECO_CTL |= (_VAL2FLD(BACKUP_LPECO_CTL_LPECO_CRANGE, capValue) |
+                         _VAL2FLD(BACKUP_LPECO_CTL_LPECO_FRANGE, freqValue) |
+                         _VAL2FLD(BACKUP_LPECO_CTL_LPECO_AMP_SEL, ampValue) |
+                         _VAL2FLD(BACKUP_LPECO_CTL_LPECO_AMPDET_EN, (ampDetEn ? 1u : 0u)));
+}
+
+cy_en_sysclk_status_t Cy_SysClk_LpEcoEnable(uint32_t timeoutus)
+{
+    cy_en_sysclk_status_t retVal = CY_SYSCLK_INVALID_STATE;
+    bool zeroTimeout = (0U == timeoutus);
+
+    /* Invalid state error if ECO is already enabled */
+    if (0UL == (SRSS_CLK_ECO_CONFIG_ECO_EN_Msk & SRSS_CLK_ECO_CONFIG))
+    {
+        /* Enable the LPECO */
+        BACKUP_LPECO_CTL |= BACKUP_LPECO_CTL_LPECO_EN_Msk;
+
+        if (zeroTimeout)
+        {
+            /* Do not wait for the LPECO to stabilize, just exit and report success */
+            retVal = CY_SYSCLK_SUCCESS;
+        }
+        else
+        {
+            bool ampDetEn = _FLD2BOOL(BACKUP_LPECO_CTL_LPECO_AMPDET_EN, BACKUP_LPECO_CTL);
+
+            /* Wait for the LPECO to stabilize OR the timeout to expire */
+            do {
+                bool lpecoStable = Cy_SysClk_LpEcoIsReady();
+                if (ampDetEn)
+                {
+                    /* Only check the LPECO amplitude if checking is enabled */
+                    lpecoStable = lpecoStable && Cy_SysClk_LpEcoAmplitudeOkay();
+                }
+
+                if (lpecoStable)
+                {
+                    retVal = CY_SYSCLK_SUCCESS;
+                    break;
+                }
+
+                timeoutus--;
+                Cy_SysLib_DelayUs(1U);
+
+            } while (timeoutus > 0U);
+
+            if (retVal != CY_SYSCLK_SUCCESS)
+            {
+                /* If LPECO doesn't start, then disable it */
+                Cy_SysClk_LpEcoDisable();
+                retVal = CY_SYSCLK_TIMEOUT;
+            }
+        }
+    }
+
+    return retVal;
+}
+
+void Cy_SysClk_LpEcoDisable(void)
+{
+    BACKUP_LPECO_CTL &= ~BACKUP_LPECO_CTL_LPECO_EN_Msk;
+}
+
+void Cy_SysClk_LpEcoSetFrequency(uint32_t freq)
+{
+    lpecoFrequency = freq;
+}
+
+uint32_t Cy_SysClk_LpEcoGetFrequency(void)
+{
+    bool lpecoStable = Cy_SysClk_LpEcoIsReady();
+    if (_FLD2BOOL(BACKUP_LPECO_CTL_LPECO_AMPDET_EN, BACKUP_LPECO_CTL))
+    {
+        /* Only check the LPECO amplitude if checking is enabled */
+        lpecoStable = lpecoStable && Cy_SysClk_LpEcoAmplitudeOkay();
+    }
+    return (lpecoStable ? lpecoFrequency : 0UL);
+}
+
+cy_en_sysclk_status_t Cy_SysClk_LpEcoPrescaleConfigure(bool enable, uint32_t int_div, uint32_t frac_div)
+{
+    cy_en_sysclk_status_t retVal = CY_SYSCLK_INVALID_STATE;
+
+    if (enable)
+    {
+        /* Do not attempt to enable the LPECO if the inputs are invalid OR the LPECO is already enabled */
+        if ((int_div > Cy_SysClk_LpEco_PRESCALER_MAX_INT_DIV) || (frac_div > Cy_SysClk_LpEco_PRESCALER_MAX_FRAC_DIV))
+        {
+            retVal = CY_SYSCLK_BAD_PARAM;
+        }
+        else if (!Cy_SysClk_LpEcoPrescaleIsEnabled())
+        {
+            BACKUP_LPECO_PRESCALE |= (_VAL2FLD(BACKUP_LPECO_PRESCALE_LPECO_INT_DIV, int_div) |
+                                    _VAL2FLD(BACKUP_LPECO_PRESCALE_LPECO_FRAC_DIV, frac_div));
+
+            BACKUP_LPECO_CTL |= BACKUP_LPECO_CTL_LPECO_DIV_ENABLE_Msk;
+            retVal = CY_SYSCLK_SUCCESS;
+        }
+        else
+        {
+            /* Do nothing */
+        }
+    }
+    else
+    {
+        /* Disable the prescaler */
+        BACKUP_LPECO_CTL &= ~BACKUP_LPECO_CTL_LPECO_DIV_ENABLE_Msk;
+        retVal = CY_SYSCLK_SUCCESS;
+    }
+
+    return retVal;
+}
+
+bool Cy_SysClk_LpEcoPrescaleIsEnabled(void)
+{
+    return (_FLD2BOOL(BACKUP_LPECO_PRESCALE_LPECO_DIV_ENABLED, BACKUP_LPECO_PRESCALE));
+}
+
+bool Cy_SysClk_LpEcoAmplitudeOkay(void)
+{
+    return (_FLD2BOOL(BACKUP_LPECO_STATUS_LPECO_AMPDET_OK, BACKUP_LPECO_STATUS));
+}
+
+bool Cy_SysClk_LpEcoIsReady(void)
+{
+    return (_FLD2BOOL(BACKUP_LPECO_STATUS_LPECO_READY, BACKUP_LPECO_STATUS));
+}
+
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) && (defined (SRSS_BACKUP_S40E_LPECO_PRESENT) && (SRSS_BACKUP_S40E_LPECO_PRESENT == 1u)) */
+
+/* ========================================================================== */
 /* ===========================    IHO SECTION    ============================ */
 /* ========================================================================== */
 
@@ -3084,6 +3230,12 @@ uint32_t Cy_SysClk_ClkPathMuxGetFrequency(uint32_t clkPath)
             freq = Cy_SysClk_EcoGetFrequency();
 #endif
             break;
+        
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) && (defined (SRSS_BACKUP_S40E_LPECO_PRESENT) && (SRSS_BACKUP_S40E_LPECO_PRESENT == 1u))
+        case CY_SYSCLK_CLKPATH_IN_LPECO:
+            freq = Cy_SysClk_LpEcoGetFrequency();
+            break;
+#endif
 
 #if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS)
         case CY_SYSCLK_CLKPATH_IN_ALTHF:

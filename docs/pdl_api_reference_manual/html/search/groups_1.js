@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['block_20functions',['Block Functions',['../group__group__axidmac__block__functions.html',1,'']]],
   ['ble_20eco_20_20_20_20_20_20_28bluetooth_26reg_3b_20le_20eco_20clock_29',['BLE ECO      (Bluetooth&amp;reg; LE ECO Clock)',['../group__group__ble__clk.html',1,'']]],
   ['basic_20configuration_20functions',['Basic Configuration Functions',['../group__group__ctb__functions__basic.html',1,'']]],
   ['basic_20configuration_20functions',['Basic Configuration Functions',['../group__group__ctdac__functions__basic.html',1,'']]],

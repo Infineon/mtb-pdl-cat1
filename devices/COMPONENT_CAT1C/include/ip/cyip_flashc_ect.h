@@ -1,12 +1,12 @@
 /***************************************************************************//**
-* \file cyip_flashc.h
+* \file cyip_flashc_ect.h
 *
 * \brief
 * FLASHC IP definitions
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -24,8 +24,8 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CYIP_FLASHC_H_
-#define _CYIP_FLASHC_H_
+#ifndef _CYIP_FLASHC_ECT_H_
+#define _CYIP_FLASHC_ECT_H_
 
 #include "cyip_headers.h"
 
@@ -306,7 +306,7 @@ typedef struct {
 #define FLASHC_SLOW1_MS_BUFF_CTL_PREF_EN_Msk    0x40000000UL
 
 
-#endif /* _CYIP_FLASHC_H_ */
+#endif /* _CYIP_FLASHC_ECT_H_ */
 
 
 /* [] END OF FILE */

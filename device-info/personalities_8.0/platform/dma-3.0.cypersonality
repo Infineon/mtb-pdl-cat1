@@ -34,6 +34,7 @@
   </Dependencies>
   <ExposedMembers>
     <ExposedMember key="block" paramId="block" />
+    <ExposedMember key="HWbase" paramId="HWbase" />
     <ExposedMember key="channel" paramId="channel" />
     <ExposedMember key="priority" paramId="CHANNEL_PRIORITY" />
     <ExposedMember key="preemptable" paramId="PREEMPTABLE" />

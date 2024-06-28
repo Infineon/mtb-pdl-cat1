@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.10.1
+# MTB CAT1 Peripheral Driver Library v3.11.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -6,18 +6,41 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Implementation Details
-* CAT1B: New devices added: cyw20829b0000, cyw20829b0010, cyw20829b0021, cyw89829b0022, cyw89829b0232
+* CAT1C: Support for TVIIC2D6M devices: cyt4dnjbas, cyt4dnjbbs, cyt4dnjbcs, cyt4dnjbds, cyt4dnjbes, cyt4dnjbfs, cyt4dnjbgs, cyt4dnjbhs, cyt4dnjbjs, cyt4dnjbks, cyt4dnjbls, cyt4dnjbms, cyt4dnjbns, cyt4dnjbps, cyt4dnjbqs, cyt4dnjbrs
 
 ## Build Changes
 
 ## Personality Changes
-    
+* New Personalities (in 8.0 folder):
+    * eth-1.0.cypersonality
+* Updated Personalities (in 8.0 folder):
+  * peripheral:
+    * smif_v2-1.0.cypersonality
+    * emusb-1.0.cypersonality
+    * dma-3.0.cypersonality
+  * platform:
+    * axidmac-1.0.cypersonality
+    * bakclk-3.0.cypersonality
+    * dma-3.0.cypersonality
+    * lfclk-3.0.cypersonality
+    * lpeco_prescaler-1.0.cypersonality
+    * lepco-1.0.cypersonality
+    * power_v3-1.0.cypersonality
+    * sysclock-3.0.cypersonality
+    * wco-3.0.cypersonality
 
 ## Added Drivers
-* No new drivers added.
+* [AXIDMAC 1.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__axidmac.html)
 
 ## Updated Drivers
-
+* [CRYPTO 2.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
+* [FLASH 3.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
+* [IPC 1.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
+* [PROT 1.100](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__prot.html)
+* [SAR2 1.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sar2.html)
+* [SMIF 2.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
+* [SYSCLK 3.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [SYSPM 5.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
 
 ### Drivers with patch version updates
 
@@ -56,7 +79,7 @@ This version of PDL was validated for compatibility with the following Software 
 | IAR Compiler                                                                  | 9.40.2       |
 | ARM Compiler 6                                                                | 6.16         |
 | FreeRTOS                                                                      | 10.4.305     |
-| [Device Database](https://github.com/Infineon/device-db)                      | 4.15.0       |
+| [Device Database](https://github.com/Infineon/device-db)                      | 4.16.0       |
 
 ## More information
 
@@ -69,6 +92,7 @@ This version of PDL was validated for compatibility with the following Software 
 * [CYW20829](https://www.infineon.com/cms/en/product/promopages/airoc20829)
 * [TV-II-BH8/BH4](https://www.infineon.com/cms/en/product/microcontroller/32-bit-traveo-t2g-arm-cortex-microcontroller/)
 * [TV-II-BE4/BE2/BE1/BE512K](https://www.infineon.com/cms/en/product/microcontroller/32-bit-traveo-t2g-arm-cortex-microcontroller/)
+* [TV-II-C-2D-6M](https://www.infineon.com/cms/en/product/microcontroller/32-bit-traveo-t2g-arm-cortex-microcontroller/32-bit-traveo-t2g-arm-cortex-for-cluster/)
 * [XMC7000](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/32-bit-xmc7000-industrial-microcontroller-arm-cortex-m7/)
 * [Infineon](http://www.infineon.com)
 

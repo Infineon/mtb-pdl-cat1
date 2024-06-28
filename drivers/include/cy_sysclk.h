@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.100
+* \version 3.110
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -79,6 +79,21 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>3.110</td>
+*     <td>
+*         Added support for LPECO feature.<br>Newly added APIs:
+*         \n Cy_SysClk_LpEcoConfigure()
+*         \n Cy_SysClk_LpEcoEnable()
+*         \n Cy_SysClk_LpEcoDisable()
+*         \n Cy_SysClk_LpEcoSetFrequency()
+*         \n Cy_SysClk_LpEcoGetFrequency()
+*         \n Cy_SysClk_LpEcoPrescaleConfigure()
+*         \n Cy_SysClk_LpEcoPrescaleIsEnabled()
+*         \n Cy_SysClk_LpEcoAmplitudeOkay()
+*         \n Cy_SysClk_LpEcoIsReady()
+*     </td>
+*   </tr>
+*   <tr>
 *     <td>3.100</td>
 *     <td>Added support for CSV feature and fixed coverity bugs.</td>
 *     <td>Added CSV feature support for CAT1D and bug fixes.</td>
@@ -94,7 +109,7 @@
 *        Added "Unsupported Core Type" warning messages.
 *        In cy_sysclk_v2 source, added API \ref Cy_SysClk_ClkFastGetDivider.
 *     <td>Code enhancement and support for new devices.</td>
-*   </tr>   
+*   </tr>
 *   <tr>
 *     <td>3.80</td>
 *     <td>Added \ref Cy_SysClk_PiloOkay new API and few macros. Updated \ref Cy_SysClk_PiloEnable.</td>
@@ -684,6 +699,21 @@
 *   \defgroup group_sysclk_wco_funcs       Functions
 *   \defgroup group_sysclk_wco_enums       Enumerated Types
 * \}
+* \defgroup group_sysclk_lpeco             Low-Power External Crystal Oscillator (LPECO)
+* \{
+*   The LPECO provides high-frequency clocking using an external crystal connected to
+*   the LPECO_IN and LPECO_OUT pins. It can be thought of as an ECO that operates
+*   during low power modes and, when used in conjunction with the PLL, it generates
+*   CPU and peripheral clocks up to the device's maximum frequency. A fractional
+*   divider allows the real-time clock (RTC) to use the LPECO during low power modes,
+*   however, the LPECO has significantly higher current consumption than the WCO.
+*
+*   The pins connected to the external crystal must be configured to operate in analog
+*   drive mode with HSIOM connection set to GPIO control (HSIOM_SEL_GPIO).
+*
+*   \defgroup group_sysclk_lpeco_funcs       Functions
+*   \defgroup group_sysclk_lpeco_enums       Enumerated Types
+* \}
 * \defgroup group_sysclk_clk_hf          High-Frequency Clocks
 * \{
 *   Multiple high frequency clocks (CLK_HF) are available in the device. For example,
@@ -936,7 +966,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   100
+#define  CY_SYSCLK_DRV_VERSION_MINOR   110
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 
@@ -1643,6 +1673,272 @@ uint32_t Cy_SysClk_EcoBleGetStatus(void);
 
 /** \} group_sysclk_eco_funcs */
 
+
+/* ========================================================================== */
+/* ==========================    LPECO SECTION    =========================== */
+/* ========================================================================== */
+
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) && (defined (SRSS_BACKUP_S40E_LPECO_PRESENT) && (SRSS_BACKUP_S40E_LPECO_PRESENT == 1u))
+
+/**
+* \addtogroup group_sysclk_lpeco_enums
+* \{
+*/
+/**
+*   Backup domain LPECO load capacitance range.
+*/
+/**
+* \note
+* This enum is available for TVIIC devices.
+**/
+typedef enum
+{
+    CY_SYSCLK_BAK_LPECO_LCAP_5TO10PF    = 0u,   /**< Backup domain LPECO load is in range [5pF, 10pF] */
+    CY_SYSCLK_BAK_LPECO_LCAP_10TO15PF   = 1u,   /**< Backup domain LPECO load is in range (10pF, 15pF] */
+    CY_SYSCLK_BAK_LPECO_LCAP_15TO20PF   = 2u,   /**< Backup domain LPECO load is in range (15pF, 20pF] */
+    CY_SYSCLK_BAK_LPECO_LCAP_20TO25PF   = 3u,   /**< Backup domain LPECO load is in range (20pF, 25pF] */
+
+} cy_en_clkbak_lpeco_loadcap_range_t;
+
+/**
+*   Backup domain LPECO crystal frequency range.
+*/
+/**
+* \note
+* This enum is available for TVIIC devices.
+**/
+typedef enum
+{
+    CY_SYSCLK_BAK_LPECO_FREQ_4TO6MHZ     = 0u,   /**< Backup domain LPECO frequency is in range [4MHz, 6MHz) */
+    CY_SYSCLK_BAK_LPECO_FREQ_6TO8MHZ     = 1u,   /**< Backup domain LPECO frequency is in range [6MHz, 8MHz] */
+
+} cy_en_clkbak_lpeco_frequency_range_t;
+
+/**
+*   Backup domain LPECO crystal oscillation amplitude.
+*/
+/**
+* \note
+* This enum is available for TVIIC devices.
+**/
+typedef enum
+{
+    CY_SYSCLK_BAK_LPECO_AMP_MAX_1P35V    = 0u,   /**< Backup domain LPECO maximum amplitude is 1.35V. This is the lowest power setting. */
+    CY_SYSCLK_BAK_LPECO_AMP_MAX_1P8V     = 1u,   /**< Backup domain LPECO maximum amplitude is 1.8V. This is the lowest jitter setting. */
+
+} cy_en_clkbak_lpeco_max_amplitude_t;
+
+/**
+*   Backup domain LPECO minimum amplitude detection.
+*/
+/**
+* \note
+* This enum is available for TVIIC devices.
+**/
+typedef enum
+{
+    CY_SYSCLK_BAK_LPECO_AMPDET_INIT_EN      = 0u,   /**< Initially enabled, and then automatically disabled when amplitude detector detects sufficient amplitude. */
+    CY_SYSCLK_BAK_LPECO_AMPDET_ALWAYS_EN    = 1u,   /**< Keep minimum amplitude detector enabled as long as LPECO is enabled */
+
+} cy_en_clkbak_lpeco_amplitude_detect_t;
+/** \} group_sysclk_lpeco_enums */
+
+
+/**
+* \addtogroup group_sysclk_lpeco_funcs
+* \{
+*/
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoConfigure
+****************************************************************************//**
+*
+* Configures the low-power external crystal oscillator based on crystal characteristics
+*
+* \param capValue \ref cy_en_clkbak_lpeco_loadcap_range_t
+*
+* \param freqValue \ref cy_en_clkbak_lpeco_frequency_range_t
+*
+* \param ampValue \ref cy_en_clkbak_lpeco_max_amplitude_t
+*
+* \param ampDetEn Enable amplitude detection always (true) or only on init (false)
+*
+* \note
+* This API is available for TVIIC devices.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_LpEcoConfigure
+*
+*******************************************************************************/
+void Cy_SysClk_LpEcoConfigure(cy_en_clkbak_lpeco_loadcap_range_t capValue,
+                              cy_en_clkbak_lpeco_frequency_range_t freqValue,
+                              cy_en_clkbak_lpeco_max_amplitude_t ampValue,
+                              bool ampDetEn);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoEnable
+****************************************************************************//**
+*
+* Enables the low-power external crystal oscillator (LPECO). This function should
+* be called after \ref Cy_SysClk_LpEcoConfigure.
+*
+* \param timeoutus Amount of time in microseconds to wait for the LPECO to stabilize.
+* To avoid waiting for stabilization, set this parameter to 0.
+*
+* \return Error / status code: \n
+* CY_SYSCLK_SUCCESS - ECO locked \n
+* CY_SYSCLK_TIMEOUT - ECO timed out and did not lock \n
+* CY_SYSCLK_INVALID_STATE - ECO already enabled
+*
+* \note
+* Call \ref SystemCoreClockUpdate after this function calling
+* if it affects the CLK_HF0 or CLK_HF1 frequency.
+*
+* \note
+* This API is available for TVIIC devices.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_LpEcoEnable
+*
+*******************************************************************************/
+cy_en_sysclk_status_t Cy_SysClk_LpEcoEnable(uint32_t timeoutus);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoDisable
+****************************************************************************//**
+*
+* Disables the low-power external crystal oscillator (LPECO). This function
+* should not be called if the LPECO is sourcing clkHf[0] or clkHf[1].
+*
+* \note
+* This API is available for TVIIC devices.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_LpEcoDisable
+*
+*******************************************************************************/
+void Cy_SysClk_LpEcoDisable(void);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoSetFrequency
+****************************************************************************//**
+*
+* Stores the low-power external crystal oscillator (LPECO) frequency in a global
+* variable within Sysclk driver.
+*
+* \param freq Operating frequency of the crystal in Hz.
+* Valid range: 3990000...8010000 (3.99..8.01 MHz).
+*
+* \note
+* This API is available for TVIIC devices.
+*
+*******************************************************************************/
+void Cy_SysClk_LpEcoSetFrequency(uint32_t freq);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoGetFrequency
+****************************************************************************//**
+*
+* Returns the frequency of the low-power external crystal oscillator (LPECO).
+*
+* \return The frequency of the LPECO in Hz.
+*
+* \note If the LPECO is not enabled or stable - a zero is returned.
+*
+* \note
+* This API is available for TVIIC devices.
+*
+*******************************************************************************/
+uint32_t Cy_SysClk_LpEcoGetFrequency(void);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoPrescaleConfigure
+****************************************************************************//**
+*
+* Configures the low-power external crystal oscillator (LPECO) Prescaler
+* and derives clk_lpeco_prescaler
+*
+* \param enable LPECO Prescaler enable/disable.
+*
+* \param int_div 10-bit integer value. Subtract one from the desired divide value
+* when using this parameter. For example , to divide by 1, int_div should be set
+* to 0.
+*
+* \param frac_div 8-bit fraction value.
+*
+* \return Error / status code: \n
+* CY_SYSCLK_SUCCESS - LPECO prescaler configuration completed successfully \n
+* CY_SYSCLK_BAD_PARAM - One or more invalid parameters \n
+* CY_SYSCLK_INVALID_STATE - LPECO already enabled
+*
+* \note
+* This API is available for TVIIC devices.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_LpEcoPrescaleConfigure
+*
+*******************************************************************************/
+cy_en_sysclk_status_t Cy_SysClk_LpEcoPrescaleConfigure(bool enable, uint32_t int_div, uint32_t frac_div);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoPrescaleIsEnabled
+****************************************************************************//**
+*
+* Reports whether or not LPECO Prescale is enabled.
+*
+* \return
+* false = disabled \n
+* true = enabled
+*
+* \note
+* This API is available for TVIIC devices.
+*
+*******************************************************************************/
+bool Cy_SysClk_LpEcoPrescaleIsEnabled(void);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoAmplitudeOkay
+****************************************************************************//**
+*
+* Reports the current status of the low-power external crystal oscillator (LPECO)
+* amplitude detection.
+*
+* \return
+* false = Insufficient oscillation amplitude OR the amplitude detector is off \n
+* true = Sufficient oscillation amplitude is detected
+*
+* \note
+* This API is available for TVIIC devices.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_LpEcoAmplitudeOkay
+*
+*******************************************************************************/
+bool Cy_SysClk_LpEcoAmplitudeOkay(void);
+
+/*******************************************************************************
+* Function Name: Cy_SysClk_LpEcoIsReady
+****************************************************************************//**
+*
+* Indicates whether or not the low-power external crystal oscillator (LPECO)
+* has had enough time to start.
+*
+* \return
+* false = LPECO not stable \n
+* true = LPECO stable
+*
+* \note
+* This API is available for TVIIC devices.
+*
+* \funcusage
+* \snippet sysclk/snippet/main.c snippet_Cy_SysClk_LpEcoIsReady
+*
+*******************************************************************************/
+bool Cy_SysClk_LpEcoIsReady(void);
+
+/** \} group_sysclk_lpeco_funcs */
+
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) && (defined (SRSS_BACKUP_S40E_LPECO_PRESENT) && (SRSS_BACKUP_S40E_LPECO_PRESENT == 1u)) */
 
 /* ========================================================================== */
 /* ====================    INPUT MULTIPLEXER SECTION    ===================== */
@@ -6684,8 +6980,7 @@ cy_en_sysclk_status_t
 *
 * \param ipBlock specifies ip block to connect the clock divider to.
 *
-* \return The divider type and number, where bits [9:8] = type, bits[7:0] = divider
-* number within that type
+* \return The divider type and number
 *
 * \note
 * This API is available for CAT1A (TVIIBE only), CAT1B, CAT1C and CAT1D devices.
@@ -6992,8 +7287,7 @@ cy_en_sysclk_status_t
 *
 * \param ipBlock specifies ip block to connect the clock divider to.
 *
-* \return The divider type and number, where bits [7:6] = type, bits[5:0] = divider
-* number within that type
+* \return The divider type and number
 *
 * \note
 * This API is deprecated for CAT1B, CAT1C and CAT1D devices, use Cy_SysClk_PeriPclkGetAssignedDivider.

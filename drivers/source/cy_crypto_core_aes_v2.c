@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes_v2.c
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  This file provides the source code fro the API for the AES method
@@ -198,7 +198,9 @@ static cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Ccm_Initial_Block(CRYPTO_Type
          size_left >>= 8u;
     }
 
-    // Performs the CBC MAC update operation for the Initial Block data formated with flags and length
+    __DSB();
+
+    // Performs the CBC MAC update operation for the Initial Block data formatted with flags and length
     status = Cy_Crypto_Core_V2_Aes_CbcMac_Update(base, CY_CRYPTO_AES_BLOCK_SIZE, aesCcmState->y, &aesCcmState->aesCbcMacState);
     if(CY_CRYPTO_SUCCESS != status)
     {
@@ -209,6 +211,8 @@ static cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Ccm_Initial_Block(CRYPTO_Type
     {
         aesCcmState->temp[0] = (uint8_t)(aesCcmState->aadLength >> 8u) & 0xffu;
         aesCcmState->temp[1] = (uint8_t)(aesCcmState->aadLength & 0xffu);
+        __DSB();
+
         status = Cy_Crypto_Core_V2_Aes_CbcMac_Update(base, 2u, aesCcmState->temp, &aesCcmState->aesCbcMacState);
 
         if(CY_CRYPTO_SUCCESS != status)
@@ -334,6 +338,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Ccm_Start(CRYPTO_Type *base,
     Cy_Crypto_Core_V2_MemSet(base, aesCcmState->ctr, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
     aesCcmState->ctr[0] = (uint8_t)aesCcmState->L - 1u;
     aesCcmState->ctr[15] = 1u;
+
+    __DSB();
+
     Cy_Crypto_Core_V2_MemCpy(base, (void*)&aesCcmState->ctr[1], (void*)iv, (uint16_t)ivSize);
 
     Cy_Crypto_Core_V2_MemSet(base, aesCcmState->y, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
@@ -539,6 +546,15 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_Ccm_Finish(CRYPTO_Type *base, uint8_
 
     Cy_Crypto_Core_V2_MemSet(base, temp, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
     Cy_Crypto_Core_V2_MemSet(base, y, 0u, CY_CRYPTO_AES_BLOCK_SIZE);
+
+    if( aesCcmState->aadLengthProcessed % CY_CRYPTO_AES_BLOCK_SIZE != 0u && aesCcmState->isAadProcessed == false)
+    {
+        status = Cy_Crypto_Core_V2_Aes_CbcMac_Update(base,  CY_CRYPTO_AES_BLOCK_SIZE - aesCcmState->aadLengthProcessed % CY_CRYPTO_AES_BLOCK_SIZE, temp, &aesCcmState->aesCbcMacState);
+        if(CY_CRYPTO_SUCCESS != status)
+        {
+            return status;
+        }
+    }
 
     if (aesCcmState->textLength % CY_CRYPTO_AES_BLOCK_SIZE  != 0u)
     {
@@ -1128,6 +1144,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Start(CRYPTO_Type *base, cy_en_c
     /* Flush the cache */
     SCB_CleanDCache_by_Addr((volatile void *)aesGCMctx->icb,(int32_t)CY_CRYPTO_AES_BLOCK_SIZE);
 #endif
+            __DSB();
 
         }
 
@@ -1400,6 +1417,8 @@ static void Cy_Crypto_Core_V2_Aes_GCM_tag(CRYPTO_Type *base,  uint8_t *p_tag,   
 
    bitlen = CY_SWAP_ENDIAN64(bitlen);
    aadbitlen = CY_SWAP_ENDIAN64(aadbitlen);
+
+    __DSB();
 
    Cy_Crypto_Core_V2_MemCpy(base, (void*)tempRemap, (void*)&aadbitlen, (uint16_t)sizeof(aadbitlen));
    Cy_Crypto_Core_V2_MemCpy(base, (void*)(tempRemap + 8u), (void*)&bitlen, (uint16_t)sizeof(bitlen));

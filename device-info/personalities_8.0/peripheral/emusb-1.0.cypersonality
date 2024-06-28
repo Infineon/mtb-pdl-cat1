@@ -115,6 +115,27 @@
     <ParamBool id="usbDpIsConnected" name="usbDpIsConnected" group="Internal" default="`${hasConnection(&quot;usb_dp_pad&quot;, 0)}`" visible="`${debug}`" editable="false" desc="Check if D+ is connected" />
     <ParamSignal port="usb_dm_pad[0]" name="D-" group="Connections" visible="true" desc="USB Data minus signal (USBDM)." canBeEmpty="true" />
     <ParamBool id="usbDmIsConnected" name="usbDmIsConnected" group="Internal" default="`${hasConnection(&quot;usb_dm_pad&quot;, 0)}`" visible="`${debug}`" editable="false" desc="Check if D- is connected" />
+
+    <!-- DMA configuration -->
+    <ParamBool id="enableDma" name="Enable DMA mode" group="DMA" default="false" visible="true" editable="true" desc="Enable DMA mode" />
+
+    <ParamBool id="enableDmaHost" name="Enable DMA for Host" group="DMA" default="`${modeIsHost &amp;&amp; enableDma}`" visible="false" editable="false" desc="Enable DMA mode for Host" />
+    <ParamBool id="enableDmaDevice" name="Enable DMA for Device" group="DMA" default="`${modeIsDevice &amp;&amp; enableDma}`" visible="false" editable="false" desc="Enable DMA mode for Device" />
+
+    <!-- For Host mode only the EP1 is used -->
+    <Repeat count="8">
+      <ParamBool id="dmaEnable$idx" name="Enable DMA channel for EP$idx" group="DMA Channel `${$idx}`" default="false" visible="`${enableDmaDevice}`" editable="`${enableDmaDevice}`" desc="Enable DMA channel for USB EP$idx" />
+      <ParamSignal port="dma_req[$idx]" name="DMA EP$idx" group="DMA Channel `${$idx}`" visible="`${dmaEnable$idx || (enableDmaHost &amp;&amp; ($idx eq 1))}`" desc="Connect DMA channel to EP$idx" canBeEmpty="`${!(dmaEnable$idx || (enableDmaHost &amp;&amp; ($idx eq 1)))}`" >
+        <Constraint type="REQUIRE" targetLocation="cpuss(\[\d+\])?\.(dw|dmac).*" valid="`${dmaEnable$idx || (enableDmaHost &amp;&amp; ($idx eq 1))}`" />
+      </ParamSignal>
+      <ParamRange id="dmaPriority$idx" name="DMA Channel $idx Priority" group="DMA Channel `${$idx}`" default="3" min="0" max="3" resolution="1" visible="`${dmaEnable$idx || (enableDmaHost &amp;&amp; ($idx eq 1))}`" editable="true" desc="Priority of the channel in the DMA block. Lower number takes precedence." />
+      <ParamString id="dmaChannel$idx" name="DMA channel" group="Internal" default="`${dmaEnable$idx || (enableDmaHost &amp;&amp; ($idx eq 1)) ? getBlockFromSignal(&quot;dma_req[$idx]&quot;) : 0}`" visible="false" editable="false" desc="DMA channel" />
+      <ParamString id="dmaHwBase$idx" name="DMA base address" group="Internal" default="`${dmaEnable$idx || (enableDmaHost &amp;&amp; ($idx eq 1)) ? getExposedMember(dmaChannel$idx, &quot;HWbase&quot;) : 0}`" visible="false" editable="false" desc="Expose DMA address" />
+      <ParamString id="dmaChannelNum$idx" name="DMA channel num" group="Internal" default="`${dmaEnable$idx || (enableDmaHost &amp;&amp; ($idx eq 1)) ? getExposedMember(dmaChannel$idx, &quot;channel&quot;) : 0}`" visible="false" editable="false" desc="Expose DMA channel" />
+
+      <ParamSignal port="dma_burstend[$idx]"  name="DMA Burst EP$idx" group="DMA Channel `${$idx}`" visible="`${dmaEnable$idx}`" desc="Connects DMA channel completion output to USB Burst End input of endpoint $idx." canBeEmpty="`${!dmaEnable$idx}`" />
+    </Repeat>
+
   </Parameters>
 
   <DRCs>
@@ -137,6 +158,14 @@
   <ConfigFirmware>
     <ConfigInclude value="cy_sysclk.h" include="`${usbDivOk}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+
+    <ConfigDefine name="USBH_DMA_INST_ADDRESS" value="`${dmaHwBase1}`" public="true" include="`${enableDmaHost}`" />
+    <ConfigDefine name="USBH_DMA_CHANNEL_NUM" value="`${dmaChannelNum1}`U" public="true" include="`${enableDmaHost}`" />
+    <ConfigDefine name="USBH_DMA_CHANNEL_PRIORITY" value="`${dmaPriority1}`U" public="true" include="`${enableDmaHost}`" />
+
+    <ConfigDefine name="USBD_DMA_CHANNEL_PRIORITY_EP`${$idx}`" value="`${dmaPriority$idx}`U" public="true" include="`${dmaEnable$idx}`" repeatCount="8"/>
+    <ConfigDefine name="USBD_DMA_CHANNEL_ADDRESS_EP`${$idx}`" value="`${dmaHwBase$idx}`_CH_STRUCT`${dmaChannelNum$idx}`" public="true" include="`${dmaEnable$idx}`" repeatCount="8"/>
+    <ConfigDefine name="USBD_DMA_OUT_TRIG_MUX_EP`${$idx}`" value="`${INST_NAME . &quot;_dma_burstend_$idx_TRIGGER_OUT&quot;}`" public="true" include="`${dmaEnable$idx}`" repeatCount="8"/>
 
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
       <Member name="type" value="CYHAL_RSC_USB" />

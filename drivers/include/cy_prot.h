@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_prot.h
-* \version 1.90
+* \version 1.100
 *
 * \brief
 * Provides an API declaration of the Protection Unit driver
@@ -371,6 +371,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.100</td>
+*     <td>Updating implementation of internal function that configures attributes.</td>
+*     <td>Defect fix.</td>
+*   </tr>
+*   <tr>
 *     <td>1.90</td>
 *     <td>Added support for TRAVEO&trade; II Body Entry devices.<br>
 *          Updated conditions in pre-processor check for if the device has a CM4 to also check for for MXPERI ver. 1.<br>
@@ -530,7 +535,7 @@ extern "C" {
 #define CY_PROT_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_PROT_DRV_VERSION_MINOR       90
+#define CY_PROT_DRV_VERSION_MINOR       100
 
 /** Prot driver ID */
 #define CY_PROT_ID                      (CY_PDL_DRV_ID(0x30U))

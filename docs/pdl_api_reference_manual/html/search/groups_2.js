@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['channel_20functions',['Channel Functions',['../group__group__axidmac__channel__functions.html',1,'']]],
   ['can_20fd_20_20_20_20_20_20_20_28can_20with_20flexible_20data_2drate_29',['CAN FD       (CAN with Flexible Data-Rate)',['../group__group__canfd.html',1,'']]],
   ['crypto_20_20_20_20_20_20_20_28cryptography_29',['Crypto       (Cryptography)',['../group__group__crypto.html',1,'']]],
   ['client_20data_20structures',['Client Data Structures',['../group__group__crypto__cli__data__structures.html',1,'']]],

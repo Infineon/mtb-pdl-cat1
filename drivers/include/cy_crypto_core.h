@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core.h
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  This file provides common constants and parameters

@@ -66,6 +66,10 @@
       id="is22srssNotAvailable" name="is22srssNotAvailable" group=""
       default="`${(&quot;mxs22srss&quot; ne getIpBlockName())}`"
       visible="false" editable="false" desc="" />
+    <ParamBool
+      id="isLpecoAvailable" name="isLpecoAvailable" group=""
+      default="`${(&quot;mxs40srss_ver3&quot; eq getIpBlockName()) &amp;&amp; lookupExpression(&quot;S40E_LPECO_PRESENT&quot;, 0)}`"
+      visible="false" editable="false" desc="" />
   </Parameters>
   <DRCs>
     <DRC type="ERROR" text="CLK_HF0 is not enabled." condition="`${!isBlockUsed(&quot;srss[0].clock[0].hfclk[0]&quot;) &amp;&amp; (is40ssrssAvailable || is40srss_ver2or3Available || is22srssAvailable)}`" >
@@ -85,6 +89,7 @@
     <ConfigDefine name="CY_CFG_SYSCLK_PLL_ERROR"   value="3" public="false" include="`${is40srss_ver2or3Available || is40srssAvailable || is22srssAvailable || is40ssrssPllAvailable}`" />
     <ConfigDefine name="CY_CFG_SYSCLK_FLL_ERROR"   value="4" public="false" include="`${is40srss_ver2or3Available || is40srssAvailable || is40ssrssAvailable}`" />
     <ConfigDefine name="CY_CFG_SYSCLK_WCO_ERROR"   value="5" public="false" include="true" />
+    <ConfigDefine name="CY_CFG_SYSCLK_LPECO_ERROR" value="6" public="false" include="`${isLpecoAvailable}`" />
 
     <ConfigStruct name="`${INST_NAME . &quot;_secureConfig&quot;}`" type="cy_stc_pra_system_config_t" const="false" public="false" include="`${is40srssAvailable}`" guard="defined (CY_DEVICE_SECURE)" >
     </ConfigStruct>
@@ -652,11 +657,11 @@
 
 
     <!-- Enable all source clocks -->
+    <ConfigInstruction value="/* Enable all source clocks */" include="true"  />
     <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_ILO0_ENABLED" include="`${is40srss_ver2or3Available}`"  />
     <ConfigInstruction value="    Cy_SysClk_Ilo0Init();" include="`${is40srss_ver2or3Available}`"  />
     <ConfigInstruction value="#else" include="`${is40srss_ver2or3Available}`"  />
     <ConfigInstruction value="    Cy_SysClk_Ilo0DeInit();" include="`${is40srss_ver2or3Available}`"  />
-
     <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available}`"  />
     <ConfigInstruction value="" include="`${is40srss_ver2or3Available}`"  />
 
@@ -667,8 +672,6 @@
     <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available}`"  />
     <ConfigInstruction value="" include="`${is40srss_ver2or3Available}`"  />
 
-    <!-- Enable all source clocks -->
-    <ConfigInstruction value="/* Enable all source clocks */" include="true"  />
     <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_IHO_ENABLED" include="`${is22srssAvailable}`"  />
     <ConfigInstruction value="    Cy_SysClk_IhoInit();" include="`${is22srssAvailable}`"  />
     <ConfigInstruction value="#endif" include="`${is22srssAvailable}`"  />
@@ -688,6 +691,11 @@
     <ConfigInstruction value="    Cy_SysClk_EcoInit();" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
     <ConfigInstruction value="#endif" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
     <ConfigInstruction value="" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
+
+    <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_LPECO_ENABLED" include="`${isLpecoAvailable}`"  />
+    <ConfigInstruction value="    Cy_SysClk_LpecoInit();" include="`${isLpecoAvailable}`"  />
+    <ConfigInstruction value="#endif" include="`${isLpecoAvailable}`"  />
+    <ConfigInstruction value="" include="`${isLpecoAvailable}`"  />
 
     <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_CLKLF_ENABLED" include="true"  /> <!--CDT 264793-->
     <ConfigInstruction value="    Cy_SysClk_ClkLfInit();" include="true"  />
@@ -1091,6 +1099,7 @@
     <ConfigInstruction value="" include="`${is40srss_ver2or3Available || is22srssAvailable}`"  />
 
     <ConfigInstruction value="    Cy_SysClk_EcoPrescalerInit();" include="true" guard="defined(CY_CFG_SYSCLK_ECO_PRESCALER_ENABLED)" />
+    <ConfigInstruction value="    Cy_SysClk_LpecoPrescalerInit();" include="`${isLpecoAvailable}`" guard="defined(CY_CFG_SYSCLK_LPECO_PRESCALER_ENABLED)" />
     <ConfigInstruction value="#endif /* defined(CORE_NAME_CM33_0) */" include="`${is22srssAvailable}`"  />
 
     <ConfigInstruction value="#ifdef CY_CFG_SYSCLK_CLKALTSYSTICK_ENABLED" include="true"  />

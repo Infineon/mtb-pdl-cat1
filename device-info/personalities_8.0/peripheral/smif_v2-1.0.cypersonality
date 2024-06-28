@@ -40,6 +40,30 @@
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__smif.html" linkText="Open SMIF Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
+
+    <!-- General -->
+
+    <ParamChoice id="rx_clock_select" name="Receiver Clock Source" group="General" default="CY_SMIF_SEL_INVERTED_FEEDBACK_CLK" visible="`${getVersion() eq 2}`" editable="`${getVersion() eq 2}`" desc="Specifies the clock source for the receiver clock">
+      <Entry name="Output Clock"                 value="CY_SMIF_SEL_OUTPUT_CLK"             visible="true"/>
+      <Entry name="Inverted Output Clock"        value="CY_SMIF_SEL_INVERTED_OUTPUT_CLK"    visible="true"/>
+      <Entry name="Feedback Clock"               value="CY_SMIF_SEL_FEEDBACK_CLK"           visible="true"/>
+      <Entry name="Inverted Feedback Clock"      value="CY_SMIF_SEL_INVERTED_FEEDBACK_CLK"  visible="true"/>
+      <Entry name="Internal CLock"               value="CY_SMIF_SEL_INTERNAL_CLK"           visible="true"/>
+      <Entry name="Inverted Internal Clock"      value="CY_SMIF_SEL_INVERTED_INTERNAL_CLK"  visible="true"/>
+      <Entry name="Inverted HyperBus RWDS Clock" value="CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK" visible="true"/>
+      <Entry name="HyperBus RWDS Clock"          value="CY_SMIF_SEL_SPHB_RWDS_CLK"          visible="true"/>
+	</ParamChoice>
+
+    <ParamBool id="delay_tap_enable" name="Delay Tap Enable" group="General" default="false" visible="`${getVersion() eq 2}`" editable="`${getVersion() eq 2}`" desc="If checked Delay tap is enabled. " />
+
+    <ParamChoice id="delay_line_select" name="Delay Line Select" group="General" default="CY_SMIF_NO_DELAY_SEL" visible="`${getVersion() eq 2}`" editable="`${getVersion() eq 2}`" desc="Specifies the delay line used for RX data capturing with">
+      <Entry name="1 New Cell Per Tap" value="CY_SMIF_1_NEW_SEL_PER_TAP" visible="true"/>
+      <Entry name="1 Cell Per Tap" value="CY_SMIF_1_SEL_PER_TAP" visible="true"/>
+      <Entry name="2 Cell Per Tap" value="CY_SMIF_2_SEL_PER_TAP" visible="true"/>
+      <Entry name="4 Cell Per Tap" value="CY_SMIF_4_SEL_PER_TAP" visible="true"/>
+      <Entry name="No delay line" value="CY_SMIF_NO_DELAY_SEL" visible="true"/>
+	</ParamChoice>
+
     <!-- Clocks -->
     <ParamSignal port="clk_if[0]" name="Interface Clock" group="Clocks" visible="true" desc="Transmission interface clock. Divides HF clock supplied internally by 2" canBeEmpty="false" />
     <ParamSignal port="spihb_clk[0]" name="SPI Clock" group="Clocks" visible="true" desc="The Serial Clock (SCLK) to the slave devices" canBeEmpty="false">
@@ -140,7 +164,7 @@
     <ParamString id="data7Pin" name="data7Pin" group="Internal" default="`${getBlockFromSignal(&quot;spihb_data7[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <!-- SPI Select -->
-    <ParamSignal port="spihb_select0[0]" name="SPI Slave Select 0" group="Slave Select" visible="`${hasVisibleOption(&quot;spihb_select0[0]&quot;)}`" desc="Select signal 0 to specifiy which memory device to communicate with" canBeEmpty="true">
+    <ParamSignal port="spihb_select0[0]" name="SPI Slave Select 0" group="Slave Select" visible="`${hasVisibleOption(&quot;spihb_select0[0]&quot;)}`" desc="Select signal 0 to specify which memory device to communicate with" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -149,7 +173,7 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
     <ParamString id="ssel0Pin" name="ssel0Pin" group="Internal" default="`${getBlockFromSignal(&quot;spihb_select0[0]&quot;)}`" visible="false" editable="false" desc="" />
-    <ParamSignal port="spihb_select1[0]" name="SPI Slave Select 1" group="Slave Select" visible="`${hasVisibleOption(&quot;spihb_select1[0]&quot;)}`" desc="Select signal 1 to specifiy which memory device to communicate with" canBeEmpty="true">
+    <ParamSignal port="spihb_select1[0]" name="SPI Slave Select 1" group="Slave Select" visible="`${hasVisibleOption(&quot;spihb_select1[0]&quot;)}`" desc="Select signal 1 to specify which memory device to communicate with" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -158,7 +182,7 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
     <ParamString id="ssel1Pin" name="ssel1Pin" group="Internal" default="`${getBlockFromSignal(&quot;spihb_select1[0]&quot;)}`" visible="false" editable="false" desc="" />
-    <ParamSignal port="spihb_select2[0]" name="SPI Slave Select 2" group="Slave Select" visible="`${hasVisibleOption(&quot;spihb_select2[0]&quot;)}`" desc="Select signal 2 to specifiy which memory device to communicate with" canBeEmpty="true">
+    <ParamSignal port="spihb_select2[0]" name="SPI Slave Select 2" group="Slave Select" visible="`${hasVisibleOption(&quot;spihb_select2[0]&quot;)}`" desc="Select signal 2 to specify which memory device to communicate with" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -167,7 +191,7 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
     <ParamString id="ssel2Pin" name="ssel2Pin" group="Internal" default="`${getBlockFromSignal(&quot;spihb_select2[0]&quot;)}`" visible="false" editable="false" desc="" />
-    <ParamSignal port="spihb_select3[0]" name="SPI Slave Select 3" group="Slave Select" visible="`${hasVisibleOption(&quot;spihb_select3[0]&quot;)}`" desc="Select signal 3 to specifiy which memory device to communicate with" canBeEmpty="true">
+    <ParamSignal port="spihb_select3[0]" name="SPI Slave Select 3" group="Slave Select" visible="`${hasVisibleOption(&quot;spihb_select3[0]&quot;)}`" desc="Select signal 3 to specify which memory device to communicate with" canBeEmpty="true">
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="ERROR" reason="Drive Mode must be set to 'Strong Drive. Input buffer off'.">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -257,8 +281,10 @@
     <ConfigStruct name="`${INST_NAME . &quot;_config&quot;}`" type="cy_stc_smif_config_t" const="`${inFlash}`" public="true" include="true" >
       <Member name="mode" value="(uint32_t)CY_SMIF_NORMAL" />
       <Member name="deselectDelay" value="`${INST_NAME}`_DESELECT_DELAY" />
-      <Member name="rxClockSel" value="(uint32_t)CY_SMIF_SEL_INVERTED_FEEDBACK_CLK" />
+      <Member name="rxClockSel" value="`${rx_clock_select}`" />
       <Member name="blockEvent" value="(uint32_t)CY_SMIF_BUS_ERROR" />
+      <Member name="delayTapEnable" value="`${delay_tap_enable}`" />
+      <Member name="delayLineSelect" value="`${delay_line_select}`" />
     </ConfigStruct>
 
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">

@@ -116,6 +116,18 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.110 </td><td>Added support for LPECO feature.<br />
+Newly added APIs: <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#ga0133fbf2478170b6f4db1b51056686a0" title="Configures the low-power external crystal oscillator based on crystal characteristics. ">Cy_SysClk_LpEcoConfigure()</a> <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#ga582a1f2f3058d56a4df2954372639722" title="Enables the low-power external crystal oscillator (LPECO). ">Cy_SysClk_LpEcoEnable()</a> <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#ga9c4405715f1b13bd53ca0cb180260a9e" title="Disables the low-power external crystal oscillator (LPECO). ">Cy_SysClk_LpEcoDisable()</a> <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#ga24da962a1d4207bb8edd705f05385a43" title="Stores the low-power external crystal oscillator (LPECO) frequency in a global variable within Sysclk...">Cy_SysClk_LpEcoSetFrequency()</a> <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#gab4e4a9a167535a83e596db0bb7d4d7d8" title="Returns the frequency of the low-power external crystal oscillator (LPECO). ">Cy_SysClk_LpEcoGetFrequency()</a> <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#ga53ba03d3db8acd0af60ab05cec83f115" title="Configures the low-power external crystal oscillator (LPECO) Prescaler and derives clk_lpeco_prescale...">Cy_SysClk_LpEcoPrescaleConfigure()</a> <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#ga5960c34135fa51a719e693020aa6887a" title="Reports whether or not LPECO Prescale is enabled. ">Cy_SysClk_LpEcoPrescaleIsEnabled()</a> <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#gaf2206a208d012f6b41a0c223d33d52ce" title="Reports the current status of the low-power external crystal oscillator (LPECO) amplitude detection...">Cy_SysClk_LpEcoAmplitudeOkay()</a> <br />
+ <a class="el" href="group__group__sysclk__lpeco__funcs.html#gacb04faf587999a58e7785a3f53bea60b" title="Indicates whether or not the low-power external crystal oscillator (LPECO) has had enough time to sta...">Cy_SysClk_LpEcoIsReady()</a>   </td></tr>
+<tr>
 <td>3.100 </td><td>Added support for CSV feature and fixed coverity bugs. </td><td>Added CSV feature support for CAT1D and bug fixes.  </td></tr>
 <tr>
 <td>3.90 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
@@ -370,6 +382,9 @@ API Reference</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__wco"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__wco.html">Watch Crystal Oscillator (WCO)</a></td></tr>
 <tr class="memdesc:group__group__sysclk__wco"><td class="mdescLeft">&#160;</td><td class="mdescRight">The WCO is a highly accurate 32.768 kHz clock source capable of operating in all power modes (excluding the Off mode). <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__sysclk__lpeco"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__lpeco.html">Low-Power External Crystal Oscillator (LPECO)</a></td></tr>
+<tr class="memdesc:group__group__sysclk__lpeco"><td class="mdescLeft">&#160;</td><td class="mdescRight">The LPECO provides high-frequency clocking using an external crystal connected to the LPECO_IN and LPECO_OUT pins. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__sysclk__clk__hf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf.html">High-Frequency Clocks</a></td></tr>
 <tr class="memdesc:group__group__sysclk__clk__hf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiple high frequency clocks (CLK_HF) are available in the device. <br /></td></tr>

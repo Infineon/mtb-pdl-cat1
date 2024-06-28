@@ -2,6 +2,7 @@ var modules =
 [
     [ "Startup", "group__group__startup__config.html", "group__group__startup__config" ],
     [ "ADCMic       (Delta-Sigma ADC with PDM microphone support)", "group__group__adcmic.html", "group__group__adcmic" ],
+    [ "AXIDMAC      (AXI Direct Memory Access Controller)", "group__group__axidmac.html", "group__group__axidmac" ],
     [ "BLE ECO      (Bluetooth® LE ECO Clock)", "group__group__ble__clk.html", "group__group__ble__clk" ],
     [ "CAN FD       (CAN with Flexible Data-Rate)", "group__group__canfd.html", "group__group__canfd" ],
     [ "Crypto       (Cryptography)", "group__group__crypto.html", "group__group__crypto" ],

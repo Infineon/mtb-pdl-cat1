@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v3.c
-* \version 5.120
+* \version 5.130
 *
 * This driver provides the source code for API power management.
 *
@@ -57,10 +57,19 @@
                                                SRSS_PWR_HIBERNATE_MASK_HIBPIN_Msk))
 
 /** The mask for the Hibernate wakeup sources */
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3u) && defined (CY_IP_MXS40SRSS_VERSION_MINOR) && (CY_IP_MXS40SRSS_VERSION_MINOR >= 3u)
+/** The mask for the Hibernate wakeup sources, for SRSSv3p3 and above */
+#define HIBERNATE_WAKEUP_MASK               ((SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_SRC_Msk |\
+                                              SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_CSV_BAK_Msk |\
+                                              SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_RTC_Msk |\
+                                              SRSS_PWR_HIB_WAKE_CTL_HIB_WAKE_WDT_Msk))
+#else                                              
+/** The mask for the Hibernate wakeup sources */
 #define HIBERNATE_WAKEUP_MASK               ((SRSS_PWR_HIBERNATE_MASK_HIBALARM_Msk |\
                                               SRSS_PWR_HIBERNATE_MASK_HIBWDT_Msk |\
                                               SRSS_PWR_HIBERNATE_POLARITY_HIBPIN_Msk |\
                                               SRSS_PWR_HIBERNATE_MASK_HIBPIN_Msk))
+#endif
 
 /** The define to update the token to indicate the transition into Hibernate */
 #define HIBERNATE_TOKEN                    ((uint32_t) 0x1BU << SRSS_PWR_HIBERNATE_TOKEN_Pos)
@@ -415,6 +424,11 @@ cy_en_syspm_status_t Cy_SysPm_SystemEnterHibernate(void)
          */
         SRSS_PWR_HIBERNATE = (SRSS_PWR_HIBERNATE & HIBERNATE_WAKEUP_MASK) | HIBERNATE_TOKEN;
 
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3u) && defined (CY_IP_MXS40SRSS_VERSION_MINOR) && (CY_IP_MXS40SRSS_VERSION_MINOR >= 3u)
+        /* Clear Previous Wakeup Reasons */
+        Cy_SysPm_ClearHibernateWakeupCause();
+#endif
+
         /* Disable overriding by the peripherals the next pin-freeze command */
         SRSS_PWR_HIBERNATE |= SET_HIBERNATE_MODE;
 
@@ -593,6 +607,135 @@ void Cy_SysPm_SetHibernateWakeupSource(uint32_t wakeupSource)
 {
     CY_ASSERT_L3(CY_SYSPM_IS_WAKE_UP_SOURCE_VALID(wakeupSource));
 
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3u) && defined (CY_IP_MXS40SRSS_VERSION_MINOR) && (CY_IP_MXS40SRSS_VERSION_MINOR >= 3u)
+    uint32_t polarityMask = 0U;
+    uint32_t wakeSrcMask = 0U;
+
+    /* PIN0 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN0_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN0_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 0)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN0_LOW;
+        }
+    }
+
+    /* PIN1 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN1_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN1_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 1)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN1_LOW;
+        }
+    }
+
+    /* PIN2 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN2_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN2_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 2)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN2_LOW;
+        }
+    }
+
+    /* PIN3 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN3_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN3_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 3)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN3_LOW;
+        }
+    }
+
+    /* PIN4 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN4_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN4_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 4)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN4_LOW;
+        }
+    }
+
+    /* PIN5 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN5_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN5_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 5)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN5_LOW;
+        }
+    }
+
+    /* PIN6 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN6_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN6_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 6)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN6_LOW;
+        }
+    }
+
+    /* PIN7 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN7_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN7_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 7)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN7_LOW;
+        }
+    }
+
+    /* PIN8 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN8_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN8_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 8)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN8_LOW;
+        }
+    }
+
+    /* PIN9 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN9_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN9_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 9)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN9_LOW;
+        }
+    }
+
+    /* CSV_BAK */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_CSV_BAK))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_CSV_BAK;
+    }
+
+    /* RTC */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_RTC_ALARM))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_RTC_ALARM;
+    }
+
+    /* WDT */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_WDT))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_WDT;
+    }
+
+    SRSS_PWR_HIB_WAKE_CTL = (SRSS_PWR_HIB_WAKE_CTL | wakeSrcMask);
+    SRSS_PWR_HIB_WAKE_CTL2 = (SRSS_PWR_HIB_WAKE_CTL2 | polarityMask);
+
+    /* Read registers to make sure it is settled */
+    (void) SRSS_PWR_HIB_WAKE_CTL;
+    (void) SRSS_PWR_HIB_WAKE_CTL2;
+#else
     uint32_t polarityMask = 0U;
 
     if (0U != _FLD2VAL(SRSS_PWR_HIBERNATE_POLARITY_HIBPIN, wakeupSource))
@@ -623,12 +766,144 @@ void Cy_SysPm_SetHibernateWakeupSource(uint32_t wakeupSource)
 
     /* Read register to make sure it is settled */
     (void) SRSS_PWR_HIBERNATE;
+#endif
+
 }
 
 void Cy_SysPm_ClearHibernateWakeupSource(uint32_t wakeupSource)
 {
     CY_ASSERT_L3(CY_SYSPM_IS_WAKE_UP_SOURCE_VALID(wakeupSource));
 
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3u) && defined (CY_IP_MXS40SRSS_VERSION_MINOR) && (CY_IP_MXS40SRSS_VERSION_MINOR >= 3u)
+
+    uint32_t polarityMask = 0U;
+    uint32_t wakeSrcMask = 0U;
+
+    /* PIN0 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN0_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN0_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 0)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN0_LOW;
+        }
+    }
+
+    /* PIN1 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN1_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN1_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 1)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN1_LOW;
+        }
+    }
+
+    /* PIN2 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN2_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN2_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 2)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN2_LOW;
+        }
+    }
+
+    /* PIN3 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN3_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN3_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 3)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN3_LOW;
+        }
+    }
+
+    /* PIN4 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN4_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN4_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 4)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN4_LOW;
+        }
+    }
+
+    /* PIN5 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN5_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN5_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 5)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN5_LOW;
+        }
+    }
+
+    /* PIN6 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN6_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN6_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 6)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN6_LOW;
+        }
+    }
+
+    /* PIN7 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN7_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN7_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 7)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN7_LOW;
+        }
+    }
+
+    /* PIN8 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN8_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN8_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 8)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN8_LOW;
+        }
+    }
+
+    /* PIN9 */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_PIN9_LOW))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN9_LOW;
+        if (0U != (wakeupSource & (CY_SYSPM_HIBERNATE_POLARITY_HIGH_FLAG << 9)))
+        {
+            polarityMask |= (uint32_t)CY_SYSPM_HIBERNATE_PIN9_LOW;
+        }
+    }
+
+    /* CSV_BAK */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_CSV_BAK))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_CSV_BAK;
+    }
+
+    /* RTC */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_RTC_ALARM))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_RTC_ALARM;
+    }
+
+    /* WDT */
+    if (0U != (wakeupSource & (uint32_t)CY_SYSPM_HIBERNATE_WDT))
+    {
+        wakeSrcMask |= (uint32_t)CY_SYSPM_HIBERNATE_WDT;
+    }
+
+    SRSS_PWR_HIB_WAKE_CTL = (SRSS_PWR_HIB_WAKE_CTL & (~wakeSrcMask));
+    SRSS_PWR_HIB_WAKE_CTL2 = (SRSS_PWR_HIB_WAKE_CTL2 & (~polarityMask));
+
+    /* Read registers to make sure it is settled */
+    (void) SRSS_PWR_HIB_WAKE_CTL;
+    (void) SRSS_PWR_HIB_WAKE_CTL2;
+#else
     uint32_t clearWakeupSourceMask = wakeupSource & (uint32_t) ~SRSS_PWR_HIBERNATE_POLARITY_HIBPIN_Msk;
 
     if (0U != _FLD2VAL(SRSS_PWR_HIBERNATE_POLARITY_HIBPIN, wakeupSource))
@@ -659,7 +934,156 @@ void Cy_SysPm_ClearHibernateWakeupSource(uint32_t wakeupSource)
 
     /* Read register to make sure it is settled */
     (void) SRSS_PWR_HIBERNATE;
+#endif
 }
+
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 3u) && defined (CY_IP_MXS40SRSS_VERSION_MINOR) && (CY_IP_MXS40SRSS_VERSION_MINOR >= 3u)
+/* These functions are available for SRSSv3p3 and above. */
+cy_en_syspm_hibernate_wakeup_source_t Cy_SysPm_GetHibernateWakeupCause(void)
+{
+    cy_en_syspm_hibernate_wakeup_source_t wakeupSource = CY_SYSPM_HIBERNATE_NO_SRC;
+    uint32_t wakeupCause;
+    uint32_t wakeupCausePolarity;
+
+    wakeupCause = SRSS_PWR_HIB_WAKE_CAUSE;
+    wakeupCausePolarity = SRSS_PWR_HIB_WAKE_CTL2;
+
+    if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_CSV_BAK))
+    {
+        wakeupSource = CY_SYSPM_HIBERNATE_CSV_BAK;
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_RTC_ALARM))
+    {
+        wakeupSource = CY_SYSPM_HIBERNATE_RTC_ALARM;
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_WDT))
+    {
+        wakeupSource = CY_SYSPM_HIBERNATE_WDT;
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN0_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN0_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN0_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN0_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN1_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN1_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN1_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN1_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN2_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN2_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN2_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN2_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN3_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN3_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN3_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN3_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN4_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN4_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN4_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN4_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN5_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN5_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN5_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN5_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN6_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN6_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN6_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN6_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN7_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN7_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN7_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN7_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN8_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN8_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN8_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN8_LOW;
+        }
+    }
+    else if (0UL != (wakeupCause & (uint32_t)CY_SYSPM_HIBERNATE_PIN9_LOW))
+    {
+        if (0UL != (wakeupCausePolarity & (uint32_t)CY_SYSPM_HIBERNATE_PIN9_LOW))
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN9_HIGH;
+        }
+        else
+        {
+            wakeupSource = CY_SYSPM_HIBERNATE_PIN9_LOW;
+        }
+    }
+    else
+    {
+        /* No wakeup source found */
+    }
+
+    return wakeupSource;
+}
+
+void Cy_SysPm_ClearHibernateWakeupCause(void)
+{
+    uint32_t temp = SRSS_PWR_HIB_WAKE_CAUSE;
+    SRSS_PWR_HIB_WAKE_CAUSE = temp;
+}
+#endif
 
 bool Cy_SysPm_RegisterCallback(cy_stc_syspm_callback_t* handler)
 {

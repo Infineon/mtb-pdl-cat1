@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -2508,7 +2508,7 @@ typedef enum
 } en_prot_master_t;
 
 /* Include IP definitions */
-#include "ip/cyip_sflash_v2_xmc7200.h"
+#include "ip/cyip_sflash_xmc7200.h"
 #include "ip/cyip_peri_v3.h"
 #include "ip/cyip_peri_ms_v3.h"
 #include "ip/cyip_peri_pclk_v3.h"
@@ -2517,9 +2517,9 @@ typedef enum
 #include "ip/cyip_fault.h"
 #include "ip/cyip_ipc.h"
 #include "ip/cyip_prot.h"
-#include "ip/cyip_flashc.h"
-#include "ip/cyip_srss_v3.h"
-#include "ip/cyip_backup_v3.h"
+#include "ip/cyip_flashc_ect.h"
+#include "ip/cyip_srss_v3_2.h"
+#include "ip/cyip_backup_v3_2.h"
 #include "ip/cyip_dw.h"
 #include "ip/cyip_dmac.h"
 #include "ip/cyip_efuse_v2.h"

@@ -51,6 +51,7 @@
       <Entry name="CLK_LF" value="lfclk" visible="true"/>
       <Entry name="`${is40ssrssAvailable ? &quot;ILO&quot; : &quot;ILO0&quot;}`" value="ilo" visible="`${(is40ssrssAvailable || is40srss_ver2or3Available)}`"/>
       <Entry name="PILO" value="pilo" visible="`${((&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; (S40S_PILO_PRESENT)) || (&quot;mxs22srss&quot; eq getIpBlockName())}`"/>
+      <Entry name="LPECO_PRESCALER" value="lpecoprescaler" visible="`${(&quot;mxs40srss_ver3&quot; eq getIpBlockName()) &amp;&amp; lookupExpression(&quot;S40E_LPECO_PRESENT&quot;, 0)}`"/>
     </ParamChoice>
     <ParamString id="sourceClockRsc" name="Source Clock Resource" group="Internal" default="`${&quot;srss[0].clock[0].&quot; . sourceClock . &quot;[0]&quot;}`" visible="false" editable="false" desc="" />
     <!-- Set an error if the source clock is not enabled or contains an error -->

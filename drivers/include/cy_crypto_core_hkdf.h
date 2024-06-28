@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hkdf.h
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  This file provides constants and function prototypes

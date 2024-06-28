@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_domain_params.c
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC

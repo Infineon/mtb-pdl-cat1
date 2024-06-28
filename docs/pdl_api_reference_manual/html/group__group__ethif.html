@@ -89,6 +89,7 @@ $(document).ready(function(){initNavTree('group__group__ethif.html','');});
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
 <p>Ethernet is a well-defined industry specification. </p>
 <p>Ethernet MAC module transmits and receives IEEE 802.3 frames by connecting with the PHY device using MII/RMII/GMII or RGMII interface. Ethernet MAC also supports 10/100/1000 Transfer rates and IEEE 1588 time stamp feature. Infineon uses a third-party Ethernet MAC IP from Cadence GEM_GXL, which is a Gigabit Ethernet MAC.</p>
+<dl class="section note"><dt>Note</dt><dd>Ethernet MAC does not support "Wake on Lan" feature. So when the system is in deep sleep, it can't receive any Rx frames.</dd></dl>
 <p>Below block diagram shows the hardware and software partition inside the MCU. Ethernet MAC IP hardware directly interface with external ethernet PHY via MII or RMII or GMII or RGMII interface and MDIO interface is for configuring the Ethernet PHY chip/device. The software section consists of three major layers Ethernet PDL (Peripheral Driver Library), Connectivity Middleware, and Applications. Ethernet PDL implements low level driver for Ethernet MAC and a generic driver for the external Ethernet PHY chips.</p>
 <div class="image">
 <img src="ethernet_system.png" alt="ethernet_system.png"/>

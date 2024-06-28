@@ -1,12 +1,12 @@
 /***************************************************************************//**
-* \file cyip_backup_v3.h
+* \file cyip_backup_v3_2.h
 *
 * \brief
 * BACKUP IP definitions
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -24,8 +24,8 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CYIP_BACKUP_V3_H_
-#define _CYIP_BACKUP_V3_H_
+#ifndef _CYIP_BACKUP_V3_2_H_
+#define _CYIP_BACKUP_V3_2_H_
 
 #include "cyip_headers.h"
 
@@ -246,7 +246,7 @@ typedef struct {
 #define BACKUP_BREG_BREG_Msk                    0xFFFFFFFFUL
 
 
-#endif /* _CYIP_BACKUP_V3_H_ */
+#endif /* _CYIP_BACKUP_V3_2_H_ */
 
 
 /* [] END OF FILE */

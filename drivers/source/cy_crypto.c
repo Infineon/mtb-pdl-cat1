@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.c
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  Provides API implementation of the Cypress PDL Crypto driver.

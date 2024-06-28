@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.70
+* \version 2.80
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -175,8 +175,16 @@
 * With SMIF V3 IP, MMIO mode transactions are also allowed when the device is set
 * to XIP mode. However, only blocking SMIF API's are expected to be used for erase or
 * program operations as external flash will be busy for such operation and may not be
-* available for XIP at that moment. Blocking API's will ensure the transaction is complete
-* and then switch back to XIP.
+* available for XIP at that moment. User can make use of \ref Cy_SMIF_MemRead,
+* \ref Cy_SMIF_MemWrite, \ref Cy_SMIF_MemEraseSector API's which ensure that user gets
+* control only after completing the requested operation.
+* This will ensure the transaction is complete and then switch back to XIP.
+* In case user wishes to make use of low level API's like \ref Cy_SMIF_TransmitCommand_Ext,
+* \ref Cy_SMIF_TransmitData_Ext, \ref Cy_SMIF_SendDummyCycles_Ext user has to ensure the
+* code is not running already from XIP location and complete the operation before switching
+* back to XIP mode of execution. Also, user has to bound his complete SMIF operation using
+* \ref Cy_SysLib_EnterCriticalSection and \ref Cy_SysLib_ExitCriticalSection so that there is
+* no interruption for the operation due to any other interrupts.
 *
 * \snippet smif/snippet/main.c SMIF_INIT: XIP
 * \note Example of input parameters initialization is in \ref group_smif_init 
@@ -224,6 +232,11 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.80</td>
+*     <td>Added hyperbus support to CAT1C family.</td>
+*     <td>Code Enhancements.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">2.70</td>
 *     <td>Added enhancements related to CAT1D family.</td>
@@ -306,7 +319,7 @@
 *         Cy_SMIF_Bridge_SetSimpleRemapRegion()\n
 *         Cy_SMIF_Bridge_SetInterleavingRemapRegion()\n
 *         \ref Cy_SMIF_MemOctalEnable()\n
-      </td>
+*     </td>
 *     <td>Support for CAT1D devices.</td>
 *   </tr>
 *   <tr>
@@ -606,7 +619,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       70
+#define CY_SMIF_DRV_VERSION_MINOR       80
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
@@ -834,7 +847,7 @@ extern "C" {
 #define CY_SMIF_CMD_FIFO_WR_RX_COUNT_Pos        (0UL)            /* [0]             RX count             */
 #endif /* CY_IP_MXSMIF_VERSION */
 
-#if (CY_IP_MXSMIF_VERSION == 5u)
+#if (CY_IP_MXSMIF_VERSION == 5u) || (CY_IP_MXSMIF_VERSION == 4u)
 #define CY_SMIF_CORE_0_HF 3U
 #define CY_SMIF_CORE_1_HF 4U
 #endif
@@ -1193,7 +1206,7 @@ typedef struct
                                 * TX FIFO. \ref cy_en_smif_error_event_t. */
     cy_en_smif_delay_tap_t   delayTapEnable;      /**<  Delay tap can be enabled or disabled \ref cy_en_smif_delay_tap_t. */
     cy_en_smif_delay_line_t  delayLineSelect;    /**< set line selection which is input. \ref cy_en_smif_delay_line_t */
-#if (CY_IP_MXSMIF_VERSION >=5)
+#if (CY_IP_MXSMIF_VERSION >=4)
     uint32_t                 inputFrequencyMHz;  /**< Input frequency. Used when internal DLL is enabled for setting the speed mode */
     bool                     enable_internal_dll; /**< Enables internal DLL. Default value by passes DLL */
     cy_en_smif_dll_divider_t dll_divider_value;   /**< Divider value for DLL */
@@ -1229,7 +1242,7 @@ typedef struct
     /**
     * The timeout in microseconds for polling memory device on its readiness.
     */
-    uint16_t memReadyPollDealy;
+    uint16_t memReadyPollDelay;
 #if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
     /**
     * \note
@@ -1395,7 +1408,7 @@ void Cy_SMIF_SetCryptoIV(SMIF_Type *base, uint32_t *nonce);
 cy_en_smif_status_t Cy_SMIF_SetCryptoEnable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_ConvertSlaveSlotToIndex(cy_en_smif_slave_select_t ss, uint32_t *device_idx);
-#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
+#if (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN)
 cy_en_smif_status_t Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t size);
 uint16_t Cy_SMIF_GetMasterDLP(SMIF_Type *base);
@@ -1428,8 +1441,7 @@ __STATIC_INLINE void Cy_SMIF_PopRxFifo(SMIF_Type *baseaddr, cy_stc_smif_context_
 __STATIC_INLINE uint32_t Cy_SMIF_PackBytesArray(uint8_t const buff[], bool fourBytes);
 __STATIC_INLINE void Cy_SMIF_UnPackByteArray(uint32_t inValue, uint8_t outBuff[], bool fourBytes);
 __STATIC_INLINE cy_en_smif_status_t Cy_SMIF_TimeoutRun(uint32_t *timeoutUnits);
-__STATIC_INLINE SMIF_DEVICE_Type volatile * Cy_SMIF_GetDeviceBySlot(SMIF_Type *base,
-                                cy_en_smif_slave_select_t slaveSelect);
+__STATIC_INLINE SMIF_DEVICE_Type volatile * Cy_SMIF_GetDeviceBySlot(SMIF_Type *base, cy_en_smif_slave_select_t slaveSelect);
 /** \endcond */
 
 /** \} group_smif_low_level_functions */
@@ -1901,7 +1913,7 @@ __STATIC_INLINE void Cy_SMIF_PushTxFifo(SMIF_Type *baseaddr, cy_stc_smif_context
     /* Check if all bytes are sent */
     if (0u == buffCounter)
     {
-        #if (CY_IP_MXSMIF_VERSION >= 5) /* DRIVERS-12031 */
+        #if (CY_IP_MXSMIF_VERSION >= 4) /* DRIVERS-12031 */
         Cy_SMIF_SetTxFifoTriggerLevel(baseaddr, 0U);
         #endif
 

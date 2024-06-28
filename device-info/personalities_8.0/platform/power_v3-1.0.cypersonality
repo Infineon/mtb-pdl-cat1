@@ -122,45 +122,18 @@
     <ParamRange id="vddio1Mv"  name="VDDIO1 Voltage (mV)"  group="Operating Conditions" default="3300" min="2700" max="5500" resolution="1" visible="true" editable="true" desc="VDDIO1 voltage in millivolts." />
 
     <!-- Wakeup pins -->
-    <ParamSignal port="hibernate_wakeup[0]" name="Hibernate Wakeup (0)" group="Wakeup Pins" visible="`${hasVisibleOption(&quot;hibernate_wakeup[0]&quot;)}`"
-      desc="Reserve the hibernate_wakeup[0] pin to use it as the wakeup source from Hibernate power mode." canBeEmpty="true" >
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
-        <Parameter id="DriveModes" severity="DEFAULT" reason="">
-          <Fixed value="CY_GPIO_DM_PULLUP" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
-    </ParamSignal>
-
-    <ParamSignal port="hibernate_wakeup[1]" name="Hibernate Wakeup (1)" group="Wakeup Pins" visible="`${hasVisibleOption(&quot;hibernate_wakeup[1]&quot;)}`"
-      desc="Reserve the hibernate_wakeup[1] pin to use it as the wakeup source from Hibernate power mode." canBeEmpty="true" >
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
-        <Parameter id="DriveModes" severity="DEFAULT" reason="">
-          <Fixed value="CY_GPIO_DM_PULLUP" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
-    </ParamSignal>
-
-    <ParamSignal port="hibernate_wakeup[2]" name="Hibernate Wakeup (2)" group="Wakeup Pins" visible="`${hasVisibleOption(&quot;hibernate_wakeup[2]&quot;)}`"
-      desc="Reserve the hibernate_wakeup[2] pin to use it as the wakeup source from Hibernate power mode." canBeEmpty="true" >
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
-        <Parameter id="DriveModes" severity="DEFAULT" reason="">
-          <Fixed value="CY_GPIO_DM_PULLUP" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
-    </ParamSignal>
-
-    <ParamSignal port="hibernate_wakeup[3]" name="Hibernate Wakeup (3)" group="Wakeup Pins" visible="`${hasVisibleOption(&quot;hibernate_wakeup[3]&quot;)}`"
-      desc="Reserve the hibernate_wakeup[3] pin to use it as the wakeup source from Hibernate power mode." canBeEmpty="true" >
-      <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
-        <Parameter id="DriveModes" severity="DEFAULT" reason="">
-          <Fixed value="CY_GPIO_DM_PULLUP" />
-        </Parameter>
-      </Constraint>
-      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
-    </ParamSignal>
+    <!-- There are a maximum of 24 wakeup pins in SRSSv3p3 -->
+    <Repeat count="24">
+      <ParamSignal port="hibernate_wakeup[$idx]" name="Hibernate Wakeup ($idx)" group="Wakeup Pins" visible="`${hasVisibleOption(&quot;hibernate_wakeup[$idx]&quot;)}`"
+        desc="Reserve the hibernate_wakeup[$idx] pin to use it as the wakeup source from Hibernate power mode." canBeEmpty="true" >
+        <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
+          <Parameter id="DriveModes" severity="DEFAULT" reason="">
+            <Fixed value="CY_GPIO_DM_PULLUP" />
+          </Parameter>
+        </Constraint>
+        <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+      </ParamSignal>
+    </Repeat>
 
     <!--<ParamSignal port="pmic_wakeup_in[0]" name="PMIC Wakeup Input" group="Wakeup Pins" visible="`${regulatorMode eq pmicEnable}`"
       desc="Reserve the pmic_wakeup_in pin" canBeEmpty="true" >

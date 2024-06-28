@@ -32,6 +32,9 @@
 * Transfer rates and IEEE 1588 time stamp feature. Infineon uses a third-party
 * Ethernet MAC IP from Cadence GEM_GXL, which is a Gigabit Ethernet MAC.
 *
+* \note Ethernet MAC does not support "Wake on Lan" feature. So when the system is
+* in deep sleep, it can't receive any Rx frames.
+*
 * Below block diagram shows the hardware and software partition inside the MCU.
 * Ethernet MAC IP hardware directly interface with external ethernet PHY via MII
 * or RMII or GMII or RGMII interface and MDIO interface is for configuring the

@@ -1,12 +1,12 @@
 /***************************************************************************//**
-* \file cyip_sflash_v2_xmc7200.h
+* \file cyip_sflash_tviic2d6m.h
 *
 * \brief
 * SFLASH IP definitions
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -24,8 +24,8 @@
 * limitations under the License.
 *******************************************************************************/
 
-#ifndef _CYIP_SFLASH_V2_XMC7200_H_
-#define _CYIP_SFLASH_V2_XMC7200_H_
+#ifndef _CYIP_SFLASH_TVIIC2D6M_H_
+#define _CYIP_SFLASH_TVIIC2D6M_H_
 
 #include "cyip_headers.h"
 
@@ -117,8 +117,7 @@ typedef struct {
   __IOM uint32_t TOC2_SECOND_CMX_1_USER_APP_ADDR; /*!< 0x00007C20 Address of Second CM4 or CM7 core1 User Application Object */
   __IOM uint32_t TOC2_FIRST_CMX_2_USER_APP_ADDR; /*!< 0x00007C24 Address of First CM4 or CM7 core2 User Application Object */
   __IOM uint32_t TOC2_SECOND_CMX_2_USER_APP_ADDR; /*!< 0x00007C28 Address of Second CM4 or CM7 core2 User Application Object */
-   __IM uint32_t RESERVED13[52];
-  __IOM uint32_t TOC2_SECURITY_UPDATES_MARKER;  /*!< 0x00007CFC Marker for Security Updates */
+   __IM uint32_t RESERVED13[53];
   __IOM uint32_t TOC2_SHASH_OBJECTS;            /*!< 0x00007D00 Number of additional objects to be verified for SECURE_HASH */
   __IOM uint32_t TOC2_SIGNATURE_VERIF_KEY;      /*!< 0x00007D04 Address of signature verification key (0 if none).The object is
                                                                 signature specific key. It is the public key in case of RSA */
@@ -275,9 +274,6 @@ typedef struct {
 /* SFLASH.TOC2_SECOND_CMX_2_USER_APP_ADDR */
 #define SFLASH_TOC2_SECOND_CMX_2_USER_APP_ADDR_DATA32_Pos 0UL
 #define SFLASH_TOC2_SECOND_CMX_2_USER_APP_ADDR_DATA32_Msk 0xFFFFFFFFUL
-/* SFLASH.TOC2_SECURITY_UPDATES_MARKER */
-#define SFLASH_TOC2_SECURITY_UPDATES_MARKER_DATA32_Pos 0UL
-#define SFLASH_TOC2_SECURITY_UPDATES_MARKER_DATA32_Msk 0xFFFFFFFFUL
 /* SFLASH.TOC2_SHASH_OBJECTS */
 #define SFLASH_TOC2_SHASH_OBJECTS_DATA32_Pos    0UL
 #define SFLASH_TOC2_SHASH_OBJECTS_DATA32_Msk    0xFFFFFFFFUL
@@ -303,7 +299,7 @@ typedef struct {
 #define SFLASH_TOC2_FLAGS_FB_BOOTLOADER_CTL_Msk 0x600UL
 
 
-#endif /* _CYIP_SFLASH_V2_XMC7200_H_ */
+#endif /* _CYIP_SFLASH_TVIIC2D6M_H_ */
 
 
 /* [] END OF FILE */

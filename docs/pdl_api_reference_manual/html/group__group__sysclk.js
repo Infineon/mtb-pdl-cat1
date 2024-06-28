@@ -13,6 +13,7 @@ var group__group__sysclk =
     [ "Clock Trim (ILO, PILO)", "group__group__sysclk__trim.html", "group__group__sysclk__trim" ],
     [ "Low Power Callback", "group__group__sysclk__pm.html", "group__group__sysclk__pm" ],
     [ "Watch Crystal Oscillator (WCO)", "group__group__sysclk__wco.html", "group__group__sysclk__wco" ],
+    [ "Low-Power External Crystal Oscillator (LPECO)", "group__group__sysclk__lpeco.html", "group__group__sysclk__lpeco" ],
     [ "High-Frequency Clocks", "group__group__sysclk__clk__hf.html", "group__group__sysclk__clk__hf" ],
     [ "Fast Clock", "group__group__sysclk__clk__fast.html", "group__group__sysclk__clk__fast" ],
     [ "Peripheral Clock", "group__group__sysclk__clk__peri.html", "group__group__sysclk__clk__peri" ],

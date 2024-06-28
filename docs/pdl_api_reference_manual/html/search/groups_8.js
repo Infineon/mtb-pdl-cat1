@@ -3,6 +3,7 @@ var searchData=
   ['initialization_20and_20basic_20functions',['Initialization and Basic Functions',['../group__group__adcmic__functions__basic.html',1,'']]],
   ['interrupt_20functions',['Interrupt Functions',['../group__group__adcmic__functions__interrupt.html',1,'']]],
   ['interrupt_20masks',['Interrupt Masks',['../group__group__adcmic__macros__interrupt.html',1,'']]],
+  ['interrupt_20masks',['Interrupt Masks',['../group__group__axidmac__macros__interrupt__masks.html',1,'']]],
   ['interrupt_20line_20selection_20masks',['Interrupt line selection masks',['../group__group__canfd__interrupt__line__masks.html',1,'']]],
   ['initialization_20functions',['Initialization Functions',['../group__group__ctb__functions__init.html',1,'']]],
   ['interrupt_20functions',['Interrupt Functions',['../group__group__ctb__functions__interrupts.html',1,'']]],

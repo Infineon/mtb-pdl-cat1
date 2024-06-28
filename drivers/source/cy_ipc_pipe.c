@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.c
-* \version 1.120
+* \version 1.130
 *
 *  Description:
 *   IPC Pipe Driver - This source file includes code for the Pipe layer on top
@@ -179,7 +179,7 @@ void Cy_IPC_Pipe_Init(cy_stc_ipc_pipe_config_t const *config)
         ipc_intr_cypipeConfig.intrPriority     = epConfigDataA.ipcNotifierPriority;
     }
 #if !(CY_CPU_CORTEX_M0P)
-    else if(epConfigDataA.ipcNotifierNumber > CY_IPC_IP0_INT)
+    else if(epConfigDataA.ipcNotifierNumber >= CY_IPC_IP0_INT)
     {
          ipc_intr_cypipeConfig.intrSrc          = (IRQn_Type) ((int32_t)cpuss_interrupts_ipc_1_IRQn +
                                                   (int32_t)(epConfigDataA.ipcNotifierNumber - CY_IPC_IP0_INT));

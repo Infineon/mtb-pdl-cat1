@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_rsa.c
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  This file provides the source code to the API to calculate

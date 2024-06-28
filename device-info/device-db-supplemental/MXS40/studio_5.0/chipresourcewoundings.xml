@@ -80,6 +80,18 @@
   <RemoveListWounding name="DMACCHANNELS_REMOVED">
     <Block name="cpuss.dmac.chan"/>
   </RemoveListWounding>
+  <RemoveListWounding name="AUDIODAC_REMOVED">
+    <Block name="dac"/>
+  </RemoveListWounding>
+  <RemoveListWounding name="JPEG_REMOVED">
+    <Block name="jpegdec"/>
+  </RemoveListWounding>
+  <RemoveListWounding name="MIPI_REMOVED">
+    <Block name="videoss.mipi"/>
+  </RemoveListWounding>
+  <RemoveListWounding name="SMIF_REMOVED">
+    <Block name="smif.core" />
+  </RemoveListWounding>
 
   <IndexResourceWounding name="I2S_REMOVED">
     <ResourceIndex index="0">

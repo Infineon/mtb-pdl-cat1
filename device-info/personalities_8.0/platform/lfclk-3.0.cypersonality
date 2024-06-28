@@ -60,6 +60,7 @@
       <Entry name="PILO" value="pilo" visible="`${(isS40sPiloPresent) || (isPiloPresent)}`"/>
       <Entry name="WCO" value="wco" visible="`${((isS40sWcoPresent) || (isWcoPresent)) &amp;&amp; hasBlock(&quot;srss[0].clock[0].wco[0]&quot;)}`"/>
       <Entry name="ECO_PRESCALER" value="ecoprescaler" visible="`${hasBlock(&quot;srss[0].clock[0].eco[0]&quot;)}`"/>
+      <Entry name="LPECO_PRESCALER" value="lpecoprescaler" visible="`${(&quot;mxs40srss_ver3&quot; eq getIpBlockName()) &amp;&amp; lookupExpression(&quot;S40E_LPECO_PRESENT&quot;, 0)}`"/>
     </ParamChoice>
     <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="`${sourceClock eq ilo1 ? &quot;srss[0].clock[0].&quot; . ilo . &quot;[1]&quot; : ( sourceClock eq ilo0 ? &quot;srss[0].clock[0].&quot; . ilo . &quot;[0]&quot; : &quot;srss[0].clock[0].&quot; . sourceClock . &quot;[0]&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockApiName" name="Source Clock API Name" group="Internal" default="`${sourceClock eq ilo   ? &quot;ILO&quot; :
