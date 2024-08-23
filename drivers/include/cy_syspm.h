@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.130
+* \version 5.140
 *
 * Provides the function definitions for the power management API.
 *
@@ -846,6 +846,11 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>5.140</td>
+*     <td>Update to cy_en_syspm_hibernate_wakeup_source_t.</td>
+*     <td>Minor defect fixing.</td>
+*   </tr>
 *   <tr>
 *     <td>5.130</td>
 *     <td>Added support for new device.</td>
@@ -1711,7 +1716,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       130
+#define CY_SYSPM_DRV_VERSION_MINOR       140
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -2616,7 +2621,7 @@ typedef enum
     CY_SYSPM_HIBERNATE_RTC_ALARM    = (0x1UL << 30),
 
     /** Configure the WDT interrupt as wakeup source. */
-    CY_SYSPM_HIBERNATE_WDT          = (0x1UL << 31),
+    CY_SYSPM_HIBERNATE_WDT          = ((int32_t)(0x1UL << 31)),
 
     /** Configure a low logic level for the first wakeup-pin. See device datasheet for specific pin. */
     CY_SYSPM_HIBERNATE_PIN0_LOW     = (0x1UL << 0),

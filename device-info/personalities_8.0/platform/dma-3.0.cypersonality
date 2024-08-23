@@ -47,8 +47,8 @@
     <ParamString id="base" name="base address" group="Internal" default="`${getBlockType(1)}`" visible="false" editable="false" desc="" />
     <ParamString id="channel" name="channel number" group="Internal" default="`${getInstNumber(&quot;chan&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="version" name="version number" group="Internal" default="`${getVersion()}`" visible="false" editable="false" desc="" />
-
-    <ParamBool id="pVerGt1" name="pVerGt1" desc="pVerGt1" group="Internal" default="`${version &gt; 1}`" visible="false" editable="false" />
+    <!-- M7CPUSS always has DW version 2 -->
+    <ParamBool id="pVerGt1" name="pVerGt1" desc="pVerGt1" group="Internal" default="`${(version &gt; 1) || (&quot;m7cpuss&quot; eq getIpBlockName())}`" visible="false" editable="false" />
 
 
     <!--Block-->

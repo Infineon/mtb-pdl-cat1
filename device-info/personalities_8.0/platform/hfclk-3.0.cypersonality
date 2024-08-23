@@ -68,22 +68,38 @@
 
     <ParamBool id="is40srss_ver2or3Available" name="is40srss_ver2or3Available" group="" default="`${((&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName()))}`" visible="false" editable="false" desc="" />
 
-    <ParamBool id="is40srss_ver2or3withCM4" name="is40srss_ver2or3withCM4" group="" default="`${(is40srss_ver2or3Available) &amp;&amp; !hasBlock(&quot;srss[0].clock[0].memclk[0]&quot;) }`" visible="false" editable="false" desc="" />
+    <ParamRange id="numPll400M" name="NUM_PLL400M_ALL" group="Internal" desc="Variable that can be used for all categories" editable="false"
+        default="`${lookupExpression(&quot;NUM_PLL400M&quot;, 0)}`" min="0" max="14" resolution="1" visible="false" />
+
+    <ParamRange id="numTotalPll" name="NUM_TOTAL_PLL_ALL" group="Internal" desc="Variable that can be used for all categories" editable="false"
+        default="`${lookupExpression(&quot;NUM_TOTAL_PLL&quot;, lookupExpression(&quot;NUM_PLL&quot;) + numPll400M)}`" min="0" max="29" resolution="1" visible="false" />
 
     <ParamBool id="isFllUsed" name="Is FLL Used" group="Internal" default="`${(sourceClockNumber eq 0) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].fll[0]&quot;)}`" visible="false" editable="false" desc="" />
 
-    <ParamBool id="isPll400mUsed" name="Is PLL-400MHz Used" group="Internal" default="`${((&quot;mxs40srss_ver3&quot; eq getIpBlockName())) &amp;&amp; ((sourceClockNumber &gt; 0) &amp;&amp; (sourceClockNumber &lt;= NUM_PLL400M) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll400m[&quot; . (sourceClockNumber-1) . &quot;]&quot;))}`" visible="false" editable="false" desc="" />
-    
-    <ParamBool id="isPllUsed" name="Is PLL Used" group="Internal" default="`${ (&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 0 : ((&quot;mxs40srss&quot; eq getIpBlockName()) ? (sourceClockNumber &gt; 0) &amp;&amp; (sourceClockNumber &lt;= NUM_PLL) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-1) . &quot;]&quot;) : (is40srss_ver2or3withCM4) ? (sourceClockNumber &gt; 0) &amp;&amp; (sourceClockNumber &lt;= NUM_PLL) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-1) . &quot;]&quot;) : (sourceClockNumber &gt; NUM_PLL) &amp;&amp; (sourceClockNumber &lt;= (NUM_PLL + NUM_PLL400M)) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber-3) . &quot;]&quot;)) }`" visible="false" editable="false" desc="" />
+    <ParamBool id="isPll400mUsed" name="Is PLL-400MHz Used" group="Internal" 
+        default="`${((&quot;mxs40srss_ver3&quot; eq getIpBlockName())) &amp;&amp; ((sourceClockNumber &gt; 0) &amp;&amp; (sourceClockNumber &lt;= NUM_PLL400M) &amp;&amp;
+            isBlockUsed(&quot;srss[0].clock[0].pll400m[&quot; . (sourceClockNumber-1) . &quot;]&quot;))}`" visible="false" editable="false" desc="" />
+
+    <ParamBool id="isPllUsed" name="Is PLL Used" group="Internal" 
+        default="`${ (&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 0 : 
+          (sourceClockNumber &gt; numPll400M) &amp;&amp; (sourceClockNumber &lt;= numTotalPll) &amp;&amp; 
+          isBlockUsed(&quot;srss[0].clock[0].pll[&quot; . (sourceClockNumber - 1 - numPll400M) . &quot;]&quot;) }`"
+        visible="false" editable="false" desc="" />
 
     <ParamBool id="isPll250mUsed" name="Is PLL-250MHz Used" group="Internal" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (NUM_TOTAL_PLL ne 0 ? ((sourceClockNumber ne 0 &amp;&amp; sourceClockNumber &lt;= NUM_DPLL250) &amp;&amp; isBlockUsed(&quot;srss[0].clock[0].dpll250[&quot; . (sourceClockNumber - 1 ) . &quot;]&quot;)) : false) : false}`" visible="false" editable="false" desc="" />
 
+    <!-- 
+    The clock paths are always arranged in this order: [FLL] [PLL400s/DPLL250s] [PLLs] 
+      - FLL clock path indexing will always be just the sourceClockNumber, which will always be zero. Only one FLL is supported here.
+      - PLL400 indexing always comes after FLL, so just needs to subtract 1 for the FLL.
+      - PLL indexing needs to subtract 1 for FLL, and then also subtract the number of PLL400s that may be in front of the PLL clock paths (for devices with PLL but no PLL400, this will subtract zero.)
+      - PLL250 indexing always comes after the FLL, so just needs to subtract 1 for the FLL.
+    As written, sourceClock indexing does not support the combination of PLL250 and PLL400. Update indexing below if a new device requires this combination.
+    -->
     <ParamString id="sourceClock" name="Source clock resource" group="Internal" default="`${isFllUsed ? &quot;fll[0]&quot; :
                                                                                             isPll400mUsed ? &quot;pll400m[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
-                                                                                            isPllUsed &amp;&amp; (&quot;mxs40srss&quot; eq getIpBlockName()) ? &quot;pll[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
+                                                                                            isPllUsed ? &quot;pll[&quot; . (sourceClockNumber - 1 - numPll400M) . &quot;]&quot; :
                                                                                             isPll250mUsed &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()) ? &quot;dpll250[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
-                                                                                            isPllUsed &amp;&amp; (is40srss_ver2or3withCM4) ? &quot;pll[&quot; . (sourceClockNumber-1) . &quot;]&quot; :
-                                                                                            isPllUsed &amp;&amp; (is40srss_ver2or3Available) ? &quot;pll[&quot; . (sourceClockNumber-(NUM_PLL+1)) . &quot;]&quot; :
                                                                                                         &quot;pathmux[&quot; . sourceClockNumber . &quot;]&quot;}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockDisplayName" name="Source Clock Display Name" group="Internal" default="`${getParamValueDisplay(&quot;sourceClock&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="sourceClockRsc" name="Source Clock" group="Internal" default="srss[0].clock[0].`${sourceClock}`" visible="false" editable="false" desc="" />

@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.11.0
+# MTB CAT1 Peripheral Driver Library v3.11.1
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -6,41 +6,23 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Implementation Details
-* CAT1C: Support for TVIIC2D6M devices: cyt4dnjbas, cyt4dnjbbs, cyt4dnjbcs, cyt4dnjbds, cyt4dnjbes, cyt4dnjbfs, cyt4dnjbgs, cyt4dnjbhs, cyt4dnjbjs, cyt4dnjbks, cyt4dnjbls, cyt4dnjbms, cyt4dnjbns, cyt4dnjbps, cyt4dnjbqs, cyt4dnjbrs
+* CAT1C: Support for TVIIC2D6M devices: cyt4dnjbss, cyt4dnjbzs
+
 
 ## Build Changes
 
 ## Personality Changes
-* New Personalities (in 8.0 folder):
-    * eth-1.0.cypersonality
-* Updated Personalities (in 8.0 folder):
+* Updated Personalities (in 8.0 folder)
   * peripheral:
-    * smif_v2-1.0.cypersonality
-    * emusb-1.0.cypersonality
-    * dma-3.0.cypersonality
+    * canfd-3.0.cypersonality
   * platform:
-    * axidmac-1.0.cypersonality
-    * bakclk-3.0.cypersonality
     * dma-3.0.cypersonality
-    * lfclk-3.0.cypersonality
-    * lpeco_prescaler-1.0.cypersonality
-    * lepco-1.0.cypersonality
-    * power_v3-1.0.cypersonality
-    * sysclock-3.0.cypersonality
-    * wco-3.0.cypersonality
+    * hfclk-3.0.cypersonality
 
 ## Added Drivers
-* [AXIDMAC 1.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__axidmac.html)
 
 ## Updated Drivers
-* [CRYPTO 2.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
-* [FLASH 3.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
-* [IPC 1.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
-* [PROT 1.100](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__prot.html)
-* [SAR2 1.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sar2.html)
-* [SMIF 2.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [SYSCLK 3.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSPM 5.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [SYSPM 5.140](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
 
 ### Drivers with patch version updates
 
@@ -64,7 +46,10 @@ for a complete description of the Peripheral Driver Library.
 
 ## Defect Fixes
 
-See the Changelog section of each Driver in the [PDL API Reference](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/modules.html) for all fixes and updates.
+* Drivers:
+  * See the Changelog section of each Driver in the [PDL API Reference](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/modules.html) for all fixes and updates.
+* Other:
+  * system_cm7.c - Fixing assignment of the cy_Hfclk0FreqHz global variable.
 
 ## Supported Software and Tools
 
@@ -79,7 +64,7 @@ This version of PDL was validated for compatibility with the following Software 
 | IAR Compiler                                                                  | 9.40.2       |
 | ARM Compiler 6                                                                | 6.16         |
 | FreeRTOS                                                                      | 10.4.305     |
-| [Device Database](https://github.com/Infineon/device-db)                      | 4.16.0       |
+| [Device Database](https://github.com/Infineon/device-db)                      | 4.17.0       |
 
 ## More information
 

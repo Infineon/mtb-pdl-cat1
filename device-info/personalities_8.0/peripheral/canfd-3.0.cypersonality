@@ -573,8 +573,8 @@ treated.">
     <ConfigFunction signature="__WEAK void `${errorCallback}`(uint32_t errorMask)" body="    (void)errorMask;" public="false" include="`${errorCallback ne &quot;NULL&quot;}`"/>
 
     <ConfigInstruction value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_CANFD0_PERI_NR , CY_MMIO_CANFD0_GROUP_NR, CY_MMIO_CANFD0_SLAVE_NR, CY_MMIO_CANFD0_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
-    <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDstInst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${(ipblockName eq &quot;mxttcanfd_s40s&quot;) &amp;&amp; (version eq 1) &amp;&amp; pclkOk}`"  />
-    <ConfigInstruction value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDstInst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${(((ipblockName eq &quot;mxttcanfd&quot;) &amp;&amp; (version eq 3)) || ((ipblockName eq &quot;mxttcanfd_s40e&quot;) &amp;&amp; (version eq 1))) &amp;&amp; pclkOk}`"   />
+    <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDstInst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${(ipblockName eq &quot;mxttcanfd_s40s&quot;) &amp;&amp; pclkOk}`"  />
+    <ConfigInstruction value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDstInst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${((ipblockName eq &quot;mxttcanfd&quot;) || (ipblockName eq &quot;mxttcanfd_s40e&quot;)) &amp;&amp; pclkOk}`"   />
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
     
   </ConfigFirmware>
