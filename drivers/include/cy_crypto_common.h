@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_common.h
-* \version 2.110
+* \version 2.120
 *
 * \brief
 *  This file provides common constants and parameters
@@ -49,8 +49,28 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         110
+#define CY_CRYPTO_DRV_VERSION_MINOR         120
 
+
+/** Rounds off value to nearest multiple of 32 */
+#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
+#define CY_CRYPTO_ALIGN_CACHE_LINE(x) ((uint32_t)(((x) + 31) & ~31))
+#else 
+#define CY_CRYPTO_ALIGN_CACHE_LINE(x) ((uint32_t)x)
+#endif
+
+
+#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
+#define CRYPTO_MEM_ALIGN CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
+#else
+#define CRYPTO_MEM_ALIGN
+#endif
+
+#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
+#define CRYPTO_MEM_ALIGN_4  CRYPTO_MEM_ALIGN
+#else
+#define CRYPTO_MEM_ALIGN_4  CY_ALIGN(4)
+#endif
 
 /* Enable SHA functionality */
 #if !defined(CPUSS_CRYPTO_SHA) && (defined(CPUSS_CRYPTO_SHA1) || defined(CPUSS_CRYPTO_SHA2))
@@ -562,6 +582,20 @@ typedef enum
 
 } cy_en_crypto_status_t;
 
+/**
+ * EDDSA signature operation type.
+ *
+ * It identifies the signature operation type (pure, ctx or prehash).
+ */
+typedef enum cy_en_eddsa_sig_type_t
+{
+    CY_CRYPTO_EDDSA_PURE = 0,   /*!< Pure - uses the entire message, without hashing it previously. */
+    CY_CRYPTO_EDDSA_CTX,        /*!< Deterministic context - uses the entire message, without hashing it previously. */
+    CY_CRYPTO_EDDSA_PREHASH,    /*!< Pre-hashed message - uses the already hashed message. */
+    CY_CRYPTO_EDDSA_NONE        /*!< None - not a valid choice. */
+} cy_en_eddsa_sig_type_t;
+
+
 /** \} group_crypto_enums */
 
 /**
@@ -588,6 +622,9 @@ typedef enum {
 #if defined(CY_CRYPTO_CFG_ECP_DP_SECP521R1_ENABLED)
     CY_CRYPTO_ECC_ECP_SECP521R1,
 #endif /* defined(CY_CRYPTO_CFG_ECP_DP_SECP521R1_ENABLED) */
+#if defined(CY_CRYPTO_CFG_ECP_DP_ED25519_ENABLED)
+        CY_CRYPTO_ECC_ECP_ED25519,
+#endif /* defined(CY_CRYPTO_CFG_ECP_DP_ED25519_ENABLED) */
     /* Count of supported curves */
     CY_CRYPTO_ECC_ECP_CURVES_CNT
 } cy_en_crypto_ecc_curve_id_t;
@@ -720,45 +757,30 @@ typedef enum
 
 /* The structure to define used memory buffers */
 
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-typedef struct
+CRYPTO_MEM_ALIGN typedef struct
 {
     /** \cond INTERNAL */
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE) uint32_t key[CY_CRYPTO_AES_MAX_KEY_SIZE_U32];
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE) uint32_t keyInv[CY_CRYPTO_AES_MAX_KEY_SIZE_U32];
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE) uint32_t block0[CY_CRYPTO_AES_BLOCK_SIZE_U32];
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE) uint32_t block1[CY_CRYPTO_AES_BLOCK_SIZE_U32];
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE) uint32_t block2[CY_CRYPTO_AES_BLOCK_SIZE_U32];
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE) uint8_t unProcessedData[CY_CRYPTO_AES_BLOCK_SIZE];
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE) uint8_t iv[CY_CRYPTO_AES_BLOCK_SIZE];
+    CRYPTO_MEM_ALIGN uint32_t key[CY_CRYPTO_AES_MAX_KEY_SIZE_U32];
+    CRYPTO_MEM_ALIGN uint32_t keyInv[CY_CRYPTO_AES_MAX_KEY_SIZE_U32];
+    CRYPTO_MEM_ALIGN uint32_t block0[CY_CRYPTO_AES_BLOCK_SIZE_U32];
+    CRYPTO_MEM_ALIGN uint32_t block1[CY_CRYPTO_AES_BLOCK_SIZE_U32];
+    CRYPTO_MEM_ALIGN uint32_t block2[CY_CRYPTO_AES_BLOCK_SIZE_U32];
+    CRYPTO_MEM_ALIGN uint8_t unProcessedData[CY_CRYPTO_AES_BLOCK_SIZE];
+    CRYPTO_MEM_ALIGN uint8_t iv[CY_CRYPTO_AES_BLOCK_SIZE];
+    CRYPTO_MEM_ALIGN uint8_t dummy[1];
+
     /** \endcond */
 } cy_stc_crypto_aes_buffers_t;
-#else
-typedef struct
-{
-    /** \cond INTERNAL */
-    uint32_t key[CY_CRYPTO_AES_MAX_KEY_SIZE_U32];
-    uint32_t keyInv[CY_CRYPTO_AES_MAX_KEY_SIZE_U32];
-    uint32_t block0[CY_CRYPTO_AES_BLOCK_SIZE_U32];
-    uint32_t block1[CY_CRYPTO_AES_BLOCK_SIZE_U32];
-    uint32_t block2[CY_CRYPTO_AES_BLOCK_SIZE_U32];
-    uint8_t unProcessedData[CY_CRYPTO_AES_BLOCK_SIZE];
-    uint8_t iv[CY_CRYPTO_AES_BLOCK_SIZE];
-    /** \endcond */
-} cy_stc_crypto_aes_buffers_t;
-#endif
 
 
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-#endif
+
 typedef struct
 {
     /** \cond INTERNAL */
     /** AES key length */
     cy_en_crypto_aes_key_length_t keyLength;
     /** Pointer to AES work buffers */
-    cy_stc_crypto_aes_buffers_t *buffers;
+    CRYPTO_MEM_ALIGN cy_stc_crypto_aes_buffers_t *buffers;
     /** AES processed block index (for CMAC, SHA operations) */
     uint32_t blockIdx;
     /** AES unprocessed message block*/
@@ -766,9 +788,6 @@ typedef struct
     /** AES ivSize*/
     uint16_t ivSize;
     /** AES mode*/
-    #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-    #endif
     cy_en_crypto_dir_mode_t dirMode;
     /** \endcond */
 } cy_stc_crypto_aes_state_t;
@@ -785,19 +804,21 @@ typedef struct
 */
 
 /* The structure to define used memory buffers */
-typedef struct
+CRYPTO_MEM_ALIGN typedef struct
 {
     /** \cond INTERNAL */
     /** AES CBC MAC buffer */
-    cy_stc_crypto_aes_buffers_t aesCbcMacBuffer;
+    CRYPTO_MEM_ALIGN cy_stc_crypto_aes_buffers_t aesCbcMacBuffer;
     /** AES CTR buffer */
-    cy_stc_crypto_aes_buffers_t aesCtrBuffer;
+    CRYPTO_MEM_ALIGN cy_stc_crypto_aes_buffers_t aesCtrBuffer;
     /** temp buffer */
-    CY_ALIGN(4) uint8_t temp_buffer[CY_CRYPTO_AES_BLOCK_SIZE];
+    CRYPTO_MEM_ALIGN_4 uint8_t temp_buffer[CY_CRYPTO_AES_BLOCK_SIZE];
     /** Counter buffer */
-    CY_ALIGN(4) uint8_t ctr[CY_CRYPTO_AES_BLOCK_SIZE];
+    CRYPTO_MEM_ALIGN uint8_t ctr[CY_CRYPTO_AES_BLOCK_SIZE];
     /** Y buffer */
-    CY_ALIGN(4) uint8_t y[CY_CRYPTO_AES_BLOCK_SIZE];
+    CRYPTO_MEM_ALIGN uint8_t y[CY_CRYPTO_AES_BLOCK_SIZE];
+    /** Dummy */
+    CRYPTO_MEM_ALIGN uint8_t dummy[1];
     /** \endcond */
 } cy_stc_crypto_aes_ccm_buffers_t;
 
@@ -847,36 +868,30 @@ typedef struct
 */
 
 /* The structure to define used memory buffers */
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-#endif
-typedef struct
+
+CRYPTO_MEM_ALIGN typedef struct
 {
     /** \cond INTERNAL */
     /** AES ECB buffer */
     cy_stc_crypto_aes_buffers_t aes_buffer;
     /** AES GCM Hash Subkey */
-    uint8_t  h[CY_CRYPTO_AES_BLOCK_SIZE];  
+     uint8_t  h[CY_CRYPTO_AES_BLOCK_SIZE];  
     /** AES GCM Initial Counter BLock*/               
-    uint8_t  icb[CY_CRYPTO_AES_BLOCK_SIZE];
+     uint8_t  icb[CY_CRYPTO_AES_BLOCK_SIZE];
     /** AES GCM Counter Block */
-    uint8_t  cb[CY_CRYPTO_AES_BLOCK_SIZE];     
+     uint8_t  cb[CY_CRYPTO_AES_BLOCK_SIZE];     
     /** AES GCM Ghash buffer Block */                           
-    uint8_t  y[CY_CRYPTO_AES_BLOCK_SIZE];   
+    CRYPTO_MEM_ALIGN uint8_t  y[CY_CRYPTO_AES_BLOCK_SIZE];   
     /** AES GCM temp buffer for AAD data */                           
-    uint8_t  temp[CY_CRYPTO_AES_BLOCK_SIZE]; 
+    CRYPTO_MEM_ALIGN uint8_t  temp[CY_CRYPTO_AES_BLOCK_SIZE]; 
     /** AES GCM aes data buffer*/  
-    #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-    #endif                         
-    uint8_t  aes_data[CY_CRYPTO_AES_BLOCK_SIZE]; 
+    CRYPTO_MEM_ALIGN uint8_t  aes_data[CY_CRYPTO_AES_BLOCK_SIZE]; 
+    /** Dummy */
+    CRYPTO_MEM_ALIGN uint8_t dummy[1];
     /** \endcond */
 } cy_stc_crypto_aes_gcm_buffers_t;
 
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-#endif
-typedef struct cy_stc_crypto_aes_gcm_state
+CRYPTO_MEM_ALIGN typedef struct cy_stc_crypto_aes_gcm_state
 {
     /** \cond INTERNAL */
     /** AES GCM hash key pointer */
@@ -902,10 +917,9 @@ typedef struct cy_stc_crypto_aes_gcm_state
     /**Pointer to the AES buffer*/
     cy_stc_crypto_aes_buffers_t *aes_buffer;
     /**AES state*/
-    #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-    #endif
-    cy_stc_crypto_aes_state_t  aesState;    
+    CRYPTO_MEM_ALIGN cy_stc_crypto_aes_state_t  aesState;  
+    /** Dummy */
+    CRYPTO_MEM_ALIGN uint8_t dummy[1];  
     /** \endcond */                    
 } cy_stc_crypto_aes_gcm_state_t;
 
@@ -919,10 +933,7 @@ typedef struct cy_stc_crypto_aes_gcm_state
 * ensure that the defined instance of this structure remains in scope
 * while the drive is in use.
 */
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-#endif
-typedef struct
+CRYPTO_MEM_ALIGN typedef struct
 {
     /** \cond INTERNAL */
     uint32_t mode;
@@ -936,10 +947,9 @@ typedef struct
     uint64_t messageSize;
     uint32_t digestSize;
     uint32_t blockIdx;
-    #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-    CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-    #endif
-    uint8_t  const *initialHash;
+    CRYPTO_MEM_ALIGN uint8_t  const *initialHash;
+    /** Dummy */
+    CRYPTO_MEM_ALIGN uint8_t dummy[1];
     /** \endcond */
 } cy_stc_crypto_sha_state_t;
 
@@ -983,10 +993,12 @@ typedef struct
 #if (CPUSS_CRYPTO_VU == 1) && defined(CY_CRYPTO_CFG_ECP_C)
 /** A point on a ECC curve */
 typedef struct {
+    /** \cond INTERNAL */
     /** The x co-ordinate */
     void *x;
     /** The y co-ordinate */
     void *y;
+    /** \endcond */
 } cy_stc_crypto_ecc_point;
 
 /** An ECC key type */
@@ -997,6 +1009,7 @@ typedef enum cy_en_crypto_ecc_key_type {
 
 /** An ECC key */
 typedef struct {
+    /** \cond INTERNAL */
     /** Type of key, PK_PRIVATE or PK_PUBLIC */
     cy_en_crypto_ecc_key_type_t type;
     /** See \ref cy_en_crypto_ecc_curve_id_t */
@@ -1005,6 +1018,7 @@ typedef struct {
     cy_stc_crypto_ecc_point pubkey;
     /** The private key */
     void *k;
+    /** \endcond */
 } cy_stc_crypto_ecc_key;
 #endif /* (CPUSS_CRYPTO_VU == 1) && defined(CY_CRYPTO_CFG_ECP_C) */
 

@@ -183,6 +183,17 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td rowspan="2">2.120 </td><td><ul>
+<li>
+Added new enums <a class="el" href="group__group__crypto__enums.html#gab07bfdbc2dd702f0350c8c73bfe94fe9">cy_en_eddsa_sig_type_t</a> , updated enums <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> and ED25519 macros.<br />
+ </li>
+<li>
+Added new APIs <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga91665b6d177a8c3e1f902e8b2c7fd55f">Cy_Crypto_Core_ED25519_Sign</a>, <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae5c9d2e743370c2d3b284fd88de41da4">Cy_Crypto_Core_ED25519_PointMultiplication</a>, <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gaaee9926a45f48ad4576662b03e5b3964">Cy_Crypto_Core_ED25519_Verify</a>, <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga2a304423a4c37b314776c494fe2a3ef9">Cy_Crypto_Core_ED25519_MakePublicKey</a>.  </li>
+</ul>
+</td><td>Added EDDSA Hardware acceleration for CAT1A and CAT1C MCUs.  </td></tr>
+<tr>
+<td>Updated structures <a class="el" href="structcy__stc__crypto__aes__buffers__t.html">cy_stc_crypto_aes_buffers_t</a>, <a class="el" href="structcy__stc__crypto__aes__state__t.html">cy_stc_crypto_aes_state_t</a>, <a class="el" href="structcy__stc__crypto__aes__ccm__buffers__t.html">cy_stc_crypto_aes_ccm_buffers_t</a> <a class="el" href="structcy__stc__crypto__aes__gcm__buffers__t.html">cy_stc_crypto_aes_gcm_buffers_t</a>, <a class="el" href="structcy__stc__crypto__aes__gcm__state__t.html">cy_stc_crypto_aes_gcm_state_t</a>, <a class="el" href="structcy__stc__crypto__sha__state__t.html">cy_stc_crypto_sha_state_t</a>. </td><td>Fixed AES CCM, GCM and SHA algorithm issues with DCache enablement on CAT1C device.   </td></tr>
+<tr>
 <td>2.110 </td><td>Fixed data synchronization barrier issue in AES </td><td></td></tr>
 <tr>
 <td>2.100 </td><td>Added SHA3, HKDF, AES multistage support for modes ECB, CBC, CFB CTR added </td><td></td></tr>

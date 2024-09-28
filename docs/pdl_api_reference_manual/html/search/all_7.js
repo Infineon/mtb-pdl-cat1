@@ -30,7 +30,7 @@ var searchData=
   ['general_20enumerated_20types',['General Enumerated Types',['../group__group__syspm__btss__enums.html',1,'']]],
   ['general',['General',['../group__group__syspm__functions__general.html',1,'']]],
   ['global_20variables',['Global Variables',['../group__group__system__config__globals.html',1,'']]],
-  ['gx',['Gx',['../structcy__stc__crypto__ecc__dp__type.html#afaa676872b1fbc0b6e6874cfe094bf45',1,'cy_stc_crypto_ecc_dp_type::Gx()'],['../structcy__stc__cryptolite__ecc__dp__type.html#ad4198298928d9798c021e510cfdd34c1',1,'cy_stc_cryptolite_ecc_dp_type::Gx()']]],
-  ['gy',['Gy',['../structcy__stc__crypto__ecc__dp__type.html#a5e622c68bec0d723529dfe1050c2be30',1,'cy_stc_crypto_ecc_dp_type::Gy()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a7c5c14d8c41218451c9cf53b308baada',1,'cy_stc_cryptolite_ecc_dp_type::Gy()']]],
+  ['gx',['Gx',['../structcy__stc__crypto__ecc__dp__type.html#afaa676872b1fbc0b6e6874cfe094bf45',1,'cy_stc_crypto_ecc_dp_type::Gx()'],['../structcy__stc__crypto__edw__dp__type.html#a762f057b81a58a528a6bf8f1f029def8',1,'cy_stc_crypto_edw_dp_type::Gx()'],['../structcy__stc__cryptolite__ecc__dp__type.html#ad4198298928d9798c021e510cfdd34c1',1,'cy_stc_cryptolite_ecc_dp_type::Gx()']]],
+  ['gy',['Gy',['../structcy__stc__crypto__ecc__dp__type.html#a5e622c68bec0d723529dfe1050c2be30',1,'cy_stc_crypto_ecc_dp_type::Gy()'],['../structcy__stc__crypto__edw__dp__type.html#a4b7647c797a0e28aab0dc95b3e75716d',1,'cy_stc_crypto_edw_dp_type::Gy()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a7c5c14d8c41218451c9cf53b308baada',1,'cy_stc_cryptolite_ecc_dp_type::Gy()']]],
   ['getting_20started',['Getting Started',['../page_getting_started.html',1,'']]]
 ];

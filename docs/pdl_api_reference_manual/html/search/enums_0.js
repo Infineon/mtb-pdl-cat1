@@ -138,6 +138,7 @@ var searchData=
   ['cy_5fen_5fdmac_5fstatus_5ft',['cy_en_dmac_status_t',['../group__group__dmac__enums.html#ga67fe9048608517c9cdebbe0372866eb5',1,'cy_dmac.h']]],
   ['cy_5fen_5fdmac_5ftransfer_5fsize_5ft',['cy_en_dmac_transfer_size_t',['../group__group__dmac__enums.html#ga678295e9e6a31ad41feab278d0faf4d1',1,'cy_dmac.h']]],
   ['cy_5fen_5fdmac_5ftrigger_5ftype_5ft',['cy_en_dmac_trigger_type_t',['../group__group__dmac__enums.html#ga78bb44cea66b230aadd012c5bae864a3',1,'cy_dmac.h']]],
+  ['cy_5fen_5feddsa_5fsig_5ftype_5ft',['cy_en_eddsa_sig_type_t',['../group__group__crypto__enums.html#gab07bfdbc2dd702f0350c8c73bfe94fe9',1,'cy_crypto_common.h']]],
   ['cy_5fen_5fefuse_5fstatus_5ft',['cy_en_efuse_status_t',['../group__group__efuse__enumerated__types.html#gad6c57e8e4b9500208ff1f6d27f6055b0',1,'cy_efuse.h']]],
   ['cy_5fen_5fephy_5fduplex_5ft',['cy_en_ephy_duplex_t',['../group__group__ephy__enums.html#ga2bfa823cc961999293d4f74ab2bc1126',1,'cy_ephy.h']]],
   ['cy_5fen_5fephy_5fspeed_5ft',['cy_en_ephy_speed_t',['../group__group__ephy__enums.html#ga4c828fd335f3b48ca1cd3a2a12b1261a',1,'cy_ephy.h']]],

@@ -1,5 +1,14 @@
 var NAVTREEINDEX7 =
 {
+"group__group__flash__enumerated__types.html#ga2b49a26d6a69b3f5100da484c7566446":[4,16,2,2],
+"group__group__flash__enumerated__types.html#ga2fbb2b700191fe798495acf592a12cf3":[4,16,2,12],
+"group__group__flash__enumerated__types.html#ga4499f73ea80ce82d57fd4a1078ff622c":[4,16,2,10],
+"group__group__flash__enumerated__types.html#ga44cbfff5598b3e3ed4dad8713c875c14":[4,16,2,13],
+"group__group__flash__enumerated__types.html#ga48fb7f15bcb2295fdf6d4688c57dd581":[4,16,2,16],
+"group__group__flash__enumerated__types.html#ga4de68eaf1e07cfb2bc15a7e3a23570b7":[4,16,2,6],
+"group__group__flash__enumerated__types.html#ga5aa0830ca124208c5e1ecb5e95c28ee2":[4,16,2,5],
+"group__group__flash__enumerated__types.html#ga6eca51e351cd0e73a59f92b7bd9c726f":[4,16,2,17],
+"group__group__flash__enumerated__types.html#ga8b6411f289b8785e617a5072181dd136":[4,16,2,14],
 "group__group__flash__enumerated__types.html#ga977f3c56b8510500b008063d8cc5e543":[4,16,2,3],
 "group__group__flash__enumerated__types.html#gac5bfed302965242ab9d53a47dd41332f":[4,16,2,7],
 "group__group__flash__enumerated__types.html#gad20961536714c7042be66aa26794176e":[4,16,2,11],
@@ -240,14 +249,5 @@ var NAVTREEINDEX7 =
 "group__group__gpio__sio_vref.html#ga2567252dddaee096ffcb3de9816dc1ee":[4,17,0,9,3],
 "group__group__gpio__sio_vref.html#ga7068729049c6c4d4b9a5bc5b35fd5cf8":[4,17,0,9,0],
 "group__group__gpio__sio_vref.html#gaa5c0ec7f4e60d65f581e5f6544b76223":[4,17,0,9,1],
-"group__group__gpio__sio_vref.html#gad59e5727b6a9cd54d380502a3f5f8dec":[4,17,0,9,2],
-"group__group__gpio__sio_vreg.html":[4,17,0,6],
-"group__group__gpio__sio_vreg.html#ga4a90fae5df22762b5aa60b5b4e9bea85":[4,17,0,6,0],
-"group__group__gpio__sio_vreg.html#ga593d5f4da327d288ca55cadc29aa7c43":[4,17,0,6,1],
-"group__group__gpio__sio_vtrip.html":[4,17,0,8],
-"group__group__gpio__sio_vtrip.html#ga3b4be6e3a866fde6dc4fa815f1f1a65c":[4,17,0,8,2],
-"group__group__gpio__sio_vtrip.html#ga604bd3b5b4bda6fd88a434e7df3c55aa":[4,17,0,8,0],
-"group__group__gpio__sio_vtrip.html#gacf07bb869d331dacd47dee2f133cbad9":[4,17,0,8,3],
-"group__group__gpio__sio_vtrip.html#gaf531869f42bfb2c1843027669b1c990b":[4,17,0,8,1],
-"group__group__gpio__slew_rate.html":[4,17,0,3]
+"group__group__gpio__sio_vref.html#gad59e5727b6a9cd54d380502a3f5f8dec":[4,17,0,9,2]
 };

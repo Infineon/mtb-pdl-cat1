@@ -1,5 +1,14 @@
 var NAVTREEINDEX22 =
 {
+"group__group__sysanalog__enums.html#ggaa031d15d64f0d87a749bc99b3e0dc083ae6ebf1c9583b2a5264befeaf0716e747":[4,39,4,4,5],
+"group__group__sysanalog__enums.html#ggafaf730c28e19936cce24c04d525e4c31a05e5b0e0be9ccafb57efa5e4cf93eed6":[4,39,4,6,1],
+"group__group__sysanalog__enums.html#ggafaf730c28e19936cce24c04d525e4c31a140abf5dcd23d9bdabc58574e48e6070":[4,39,4,6,3],
+"group__group__sysanalog__enums.html#ggafaf730c28e19936cce24c04d525e4c31a76e86a27322341516e3ad5867e7cbbb1":[4,39,4,6,4],
+"group__group__sysanalog__enums.html#ggafaf730c28e19936cce24c04d525e4c31a8b55b8d7033e68e6bcccccb61f4c55c5":[4,39,4,6,0],
+"group__group__sysanalog__enums.html#ggafaf730c28e19936cce24c04d525e4c31acf90874d98cfb188109055e8dbcc371e":[4,39,4,6,2],
+"group__group__sysanalog__functions.html":[4,39,1],
+"group__group__sysanalog__functions.html#ga153249c7b4cea72ee334ae877a211169":[4,39,1,7],
+"group__group__sysanalog__functions.html#ga33f3a7cbdba876ae95c89c5a49bc0abb":[4,39,1,9],
 "group__group__sysanalog__functions.html#ga3f48f2c07deed100d8c945dfc9a850a9":[4,39,1,4],
 "group__group__sysanalog__functions.html#ga4deff86120f5e28e8789422797c42762":[4,39,1,3],
 "group__group__sysanalog__functions.html#ga5d6d537beaf82fddf8e06f30b1d308b3":[4,39,1,5],
@@ -240,14 +249,5 @@ var NAVTREEINDEX22 =
 "group__group__sysclk__clk__timer__enums.html#ga86912bed27349c7e5c53315a84cd040d":[4,40,22,1,0],
 "group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da1624370101fb5836357e8ed40fbc62f0":[4,40,22,1,0,4],
 "group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da18b91952dc6041dbf0d861456f295400":[4,40,22,1,0,0],
-"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da299d06724a9536592e2da244afffade2":[4,40,22,1,0,3],
-"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da53409e40e5af6949dafe0230d9912550":[4,40,22,1,0,2],
-"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040daae7d2108717f298c79173c9e22a9efa3":[4,40,22,1,0,1],
-"group__group__sysclk__clk__timer__funcs.html":[4,40,22,0],
-"group__group__sysclk__clk__timer__funcs.html#ga11eae81c891454917909bea5de9bc9a7":[4,40,22,0,1],
-"group__group__sysclk__clk__timer__funcs.html#ga34ffff27beaafa7a391f2aac5cf38bfd":[4,40,22,0,6],
-"group__group__sysclk__clk__timer__funcs.html#ga37599d3c7ed1d0433565e4ce66351bcc":[4,40,22,0,3],
-"group__group__sysclk__clk__timer__funcs.html#ga3c024720aee53bd450eb68377a35bbf6":[4,40,22,0,4],
-"group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829":[4,40,22,0,0],
-"group__group__sysclk__clk__timer__funcs.html#ga47723df14931fa6403b7d3948dec3857":[4,40,22,0,2]
+"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da299d06724a9536592e2da244afffade2":[4,40,22,1,0,3]
 };

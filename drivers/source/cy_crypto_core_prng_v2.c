@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_prng_v2.c
-* \version 2.110
+* \version 2.120
 *
 * \brief
 *  This file provides the source code to the API for the PRNG

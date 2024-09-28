@@ -174,6 +174,18 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga3a65158da3dc5cb6aa016ae599542aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Errors of the Crypto block.  <a href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga3a65158da3dc5cb6aa016ae599542aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab07bfdbc2dd702f0350c8c73bfe94fe9"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__enums.html#gab07bfdbc2dd702f0350c8c73bfe94fe9">cy_en_eddsa_sig_type_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__crypto__enums.html#ggab07bfdbc2dd702f0350c8c73bfe94fe9aea807436f195d352553020dec8ab9522">CY_CRYPTO_EDDSA_PURE</a> = 0, 
+<br />
+&#160;&#160;<a class="el" href="group__group__crypto__enums.html#ggab07bfdbc2dd702f0350c8c73bfe94fe9a22632c720d07ecd02a9f3a6bd56aeee5">CY_CRYPTO_EDDSA_CTX</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__group__crypto__enums.html#ggab07bfdbc2dd702f0350c8c73bfe94fe9a90fe983a852e7ee4edd31696cae44717">CY_CRYPTO_EDDSA_PREHASH</a>, 
+<br />
+&#160;&#160;<a class="el" href="group__group__crypto__enums.html#ggab07bfdbc2dd702f0350c8c73bfe94fe9a430cc8ec8213c7e7269b46b26e826829">CY_CRYPTO_EDDSA_NONE</a>
+<br />
+ }<tr class="memdesc:gab07bfdbc2dd702f0350c8c73bfe94fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">EDDSA signature operation type.  <a href="group__group__crypto__enums.html#gab07bfdbc2dd702f0350c8c73bfe94fe9">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gab07bfdbc2dd702f0350c8c73bfe94fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ga5402841d4798c0a82d41d8433c92b62f"></a>
@@ -325,6 +337,33 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga3a65158da3dc5cb6aa016ae599542aada484eb660ef0b18cbb9f5aaca53030b85"></a>CY_CRYPTO_TRNG_UNHEALTHY&#160;</td><td class="fielddoc"><p>TRNG generated is not a healthy random number. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga3a65158da3dc5cb6aa016ae599542aada2db0e8c5cd61b7e19a36994e14bc9056"></a>CY_CRYPTO_MEMORY_ALLOC_FAIL&#160;</td><td class="fielddoc"><p>Memory allocation for Crypto operation failed. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gab07bfdbc2dd702f0350c8c73bfe94fe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab07bfdbc2dd702f0350c8c73bfe94fe9">&#9670;&nbsp;</a></span>cy_en_eddsa_sig_type_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__crypto__enums.html#gab07bfdbc2dd702f0350c8c73bfe94fe9">cy_en_eddsa_sig_type_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EDDSA signature operation type. </p>
+<p>It identifies the signature operation type (pure, ctx or prehash). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggab07bfdbc2dd702f0350c8c73bfe94fe9aea807436f195d352553020dec8ab9522"></a>CY_CRYPTO_EDDSA_PURE&#160;</td><td class="fielddoc"><p>Pure - uses the entire message, without hashing it previously. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggab07bfdbc2dd702f0350c8c73bfe94fe9a22632c720d07ecd02a9f3a6bd56aeee5"></a>CY_CRYPTO_EDDSA_CTX&#160;</td><td class="fielddoc"><p>Deterministic context - uses the entire message, without hashing it previously. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggab07bfdbc2dd702f0350c8c73bfe94fe9a90fe983a852e7ee4edd31696cae44717"></a>CY_CRYPTO_EDDSA_PREHASH&#160;</td><td class="fielddoc"><p>Pre-hashed message - uses the already hashed message. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggab07bfdbc2dd702f0350c8c73bfe94fe9a430cc8ec8213c7e7269b46b26e826829"></a>CY_CRYPTO_EDDSA_NONE&#160;</td><td class="fielddoc"><p>None - not a valid choice. </p>
 </td></tr>
 </table>
 

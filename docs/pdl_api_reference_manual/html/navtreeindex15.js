@@ -1,5 +1,14 @@
 var NAVTREEINDEX15 =
 {
+"group__group__sar__functions__basic.html#gafe907896ffee98cc780042ad77fe71cc":[4,32,1,0,8],
+"group__group__sar__functions__config.html":[4,32,1,2],
+"group__group__sar__functions__config.html#ga1010c3aa3528648ac3715481c0339e28":[4,32,1,2,3],
+"group__group__sar__functions__config.html#ga4808c2e7e72e2648c0efbf3eb025366f":[4,32,1,2,1],
+"group__group__sar__functions__config.html#ga7fc7fe5bfdf2f43c218f839592f3afa8":[4,32,1,2,4],
+"group__group__sar__functions__config.html#gaabd68168933e0922c739ee8ebe3cddd6":[4,32,1,2,0],
+"group__group__sar__functions__config.html#gaff69993327b0aba19490c7ac9708138c":[4,32,1,2,2],
+"group__group__sar__functions__countsto.html":[4,32,1,3],
+"group__group__sar__functions__countsto.html#ga0950546e50604fc6daa33b2bdb155e5d":[4,32,1,3,3],
 "group__group__sar__functions__countsto.html#ga39cd1ae1f2f7101812199b012f22b635":[4,32,1,3,5],
 "group__group__sar__functions__countsto.html#ga5c070458f491389cab67bacb0beff85b":[4,32,1,3,0],
 "group__group__sar__functions__countsto.html#ga8f1189056459a76c4b9f9917dc3a9e6e":[4,32,1,3,2],
@@ -240,14 +249,5 @@ var NAVTREEINDEX15 =
 "group__group__scb__common__macros__intr__cause.html#ga5d901d6c4bef30176cd6ae517fb44dd5":[4,34,0,0,0,3],
 "group__group__scb__common__macros__intr__cause.html#ga717d54c8c428abae8ae134bef20627dc":[4,34,0,0,0,0],
 "group__group__scb__common__macros__intr__cause.html#gab04d89596270b716b1a7846ab970b389":[4,34,0,0,0,1],
-"group__group__scb__common__macros__intr__cause.html#gaf299c92738a2bf64475fd62c1f1ad956":[4,34,0,0,0,2],
-"group__group__scb__common__macros__master__intr.html":[4,34,0,0,4],
-"group__group__scb__common__macros__master__intr.html#ga000c649a03e9ddf9bcd048ed66924347":[4,34,0,0,4,5],
-"group__group__scb__common__macros__master__intr.html#ga1e9cf2ffa89656359a4cf76b612e5d0a":[4,34,0,0,4,2],
-"group__group__scb__common__macros__master__intr.html#ga51cae29fb790a2c6398bc6e98169448b":[4,34,0,0,4,0],
-"group__group__scb__common__macros__master__intr.html#gab8e8aacaf729d5114c26a53f956b44cb":[4,34,0,0,4,1],
-"group__group__scb__common__macros__master__intr.html#gac5ee28ccfc45d6dca4f314a39d52057a":[4,34,0,0,4,3],
-"group__group__scb__common__macros__master__intr.html#gaca9e27f194b715bd3a8977cbc8ceae4f":[4,34,0,0,4,4],
-"group__group__scb__common__macros__rx__intr.html":[4,34,0,0,2],
-"group__group__scb__common__macros__rx__intr.html#ga1cb2d0a7d0b1cc8d61047f6e18ea8253":[4,34,0,0,2,2]
+"group__group__scb__common__macros__intr__cause.html#gaf299c92738a2bf64475fd62c1f1ad956":[4,34,0,0,0,2]
 };

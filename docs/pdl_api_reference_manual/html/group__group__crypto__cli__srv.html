@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('group__group__crypto__cli__srv.html','
 <p>The functions and other declarations used in this part of the driver are in cy_crypto.h and cy_crypto_server.h. You can also include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
 <p>The firmware initializes and starts the Crypto server. The server can run on any core and works with the Crypto hardware. The Crypto server is implemented as a secure block. It performs all cryptographic operations for the client. Access to the server is through the Inter Process Communication (IPC) driver. Direct access is not allowed.</p>
 <p>The Crypto client can run on any core too. The firmware initializes and starts the client. The firmware then provides configuration data required for the desired cryptographic technique and a request that the server run the cryptographic operation.</p>
+<p>Note that Client-server model is not supported when DCache is enabled.</p>
 <p>This document contains the following topics:</p><ul>
 <li><a class="el" href="group__group__crypto__cli__srv.html#group_crypto_architecture">Architectural model</a></li>
 <li><a class="el" href="group__group__crypto__cli__srv.html#group_crypto_configuration_structure">Configuration Structure</a></li>

@@ -1,5 +1,14 @@
 var NAVTREEINDEX24 =
 {
+"group__group__sysfault__enums.html#ga84e3782fd6b0f6e67b490974c02c945f":[4,41,1,3],
+"group__group__sysfault__enums.html#ga9043fc01c3dfcd1fcad3fa52fcc931f4":[4,41,1,2],
+"group__group__sysfault__enums.html#gacc27f18e05d5cf7dbd13a6d27f0a2833":[4,41,1,0],
+"group__group__sysfault__enums.html#gga7c15f9e82a516a6a3ded2dd7f8a2e568a146db0d2d2e918cd6e2f576c0a2100b6":[4,41,1,1,2],
+"group__group__sysfault__enums.html#gga7c15f9e82a516a6a3ded2dd7f8a2e568a285289c48f1257a4e13955c889945d09":[4,41,1,1,1],
+"group__group__sysfault__enums.html#gga7c15f9e82a516a6a3ded2dd7f8a2e568a2f0413ba11df5f3fb2bc41e0c73dd477":[4,41,1,1,0],
+"group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa027020f3c50199536795d0a0abd44845":[4,41,1,3,27],
+"group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa084300996d085e02ed9e4ae9d6fb4b95":[4,41,1,3,7],
+"group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa10eb2348b21c04ec7b61062ce840575b":[4,41,1,3,16],
 "group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa18bce8f0c79837280fd12be284a125e8":[4,41,1,3,25],
 "group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa1e34bf1bb7e94421962cbb0ff59ce385":[4,41,1,3,28],
 "group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa2809c4b280ecbee813e6fed4a3298ff9":[4,41,1,3,30],
@@ -240,14 +249,5 @@ var NAVTREEINDEX24 =
 "group__group__syslib__macros__reset__cause.html#gac21bba7fa0c24ecea50d12038a2ac136":[4,43,0,2,16],
 "group__group__syslib__macros__reset__cause.html#gac7798cd7ad74e8e3dc85d8d37cdb09e1":[4,43,0,2,15],
 "group__group__syslib__macros__reset__cause.html#gad30b17c4bd7e48fd4628d4ee56cace84":[4,43,0,2,11],
-"group__group__syslib__macros__reset__cause.html#gad5f2544aa19111ecd3159a97d7dd69cf":[4,43,0,2,13],
-"group__group__syslib__macros__reset__cause.html#gaf98e87e2c0964035aa2098762724b30b":[4,43,0,2,1],
-"group__group__syslib__macros__status__codes.html":[4,43,0,0],
-"group__group__syslib__macros__status__codes.html#ga45c44ce91d1e20c64430f00fd8ad9b0e":[4,43,0,0,0],
-"group__group__syslib__macros__status__codes.html#ga50909cf27bac74dae5f45ae1a1b8da24":[4,43,0,0,1],
-"group__group__syslib__macros__unique__id.html":[4,43,0,3],
-"group__group__syslib__macros__unique__id.html#ga0c11dfff7c964b44bf2ded4b4f683a12":[4,43,0,3,6],
-"group__group__syslib__macros__unique__id.html#ga470585c6eb706f71840bbeba7e284d94":[4,43,0,3,1],
-"group__group__syslib__macros__unique__id.html#ga61b5c35d85b91504ca27989b8961c764":[4,43,0,3,0],
-"group__group__syslib__macros__unique__id.html#ga7477b15cfc5958568989caf2254ada78":[4,43,0,3,5]
+"group__group__syslib__macros__reset__cause.html#gad5f2544aa19111ecd3159a97d7dd69cf":[4,43,0,2,13]
 };

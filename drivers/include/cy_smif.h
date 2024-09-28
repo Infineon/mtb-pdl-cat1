@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.80
+* \version 2.90
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -232,6 +232,11 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.90</td>
+*     <td>Updated internal API</td>
+*     <td>Bug fixes.</td>
+*   </tr>
 *   <tr>
 *     <td>2.80</td>
 *     <td>Added hyperbus support to CAT1C family.</td>
@@ -619,7 +624,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       80
+#define CY_SMIF_DRV_VERSION_MINOR       90
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)

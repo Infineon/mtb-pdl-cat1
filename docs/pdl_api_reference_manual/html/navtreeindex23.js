@@ -1,5 +1,14 @@
 var NAVTREEINDEX23 =
 {
+"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da53409e40e5af6949dafe0230d9912550":[4,40,22,1,0,2],
+"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040daae7d2108717f298c79173c9e22a9efa3":[4,40,22,1,0,1],
+"group__group__sysclk__clk__timer__funcs.html":[4,40,22,0],
+"group__group__sysclk__clk__timer__funcs.html#ga11eae81c891454917909bea5de9bc9a7":[4,40,22,0,1],
+"group__group__sysclk__clk__timer__funcs.html#ga34ffff27beaafa7a391f2aac5cf38bfd":[4,40,22,0,6],
+"group__group__sysclk__clk__timer__funcs.html#ga37599d3c7ed1d0433565e4ce66351bcc":[4,40,22,0,3],
+"group__group__sysclk__clk__timer__funcs.html#ga3c024720aee53bd450eb68377a35bbf6":[4,40,22,0,4],
+"group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829":[4,40,22,0,0],
+"group__group__sysclk__clk__timer__funcs.html#ga47723df14931fa6403b7d3948dec3857":[4,40,22,0,2],
 "group__group__sysclk__clk__timer__funcs.html#gaa442df3e80e5c2dc763508731b155876":[4,40,22,0,5],
 "group__group__sysclk__clk__timer__funcs.html#gaa9fa2ca0beada63a72bdc86dae9e5896":[4,40,22,0,7],
 "group__group__sysclk__eco.html":[4,40,3],
@@ -240,14 +249,5 @@ var NAVTREEINDEX23 =
 "group__group__sysfault.html":[4,41],
 "group__group__sysfault__data__structures.html":[4,41,2],
 "group__group__sysfault__enums.html":[4,41,1],
-"group__group__sysfault__enums.html#ga7c15f9e82a516a6a3ded2dd7f8a2e568":[4,41,1,1],
-"group__group__sysfault__enums.html#ga84e3782fd6b0f6e67b490974c02c945f":[4,41,1,3],
-"group__group__sysfault__enums.html#ga9043fc01c3dfcd1fcad3fa52fcc931f4":[4,41,1,2],
-"group__group__sysfault__enums.html#gacc27f18e05d5cf7dbd13a6d27f0a2833":[4,41,1,0],
-"group__group__sysfault__enums.html#gga7c15f9e82a516a6a3ded2dd7f8a2e568a146db0d2d2e918cd6e2f576c0a2100b6":[4,41,1,1,2],
-"group__group__sysfault__enums.html#gga7c15f9e82a516a6a3ded2dd7f8a2e568a285289c48f1257a4e13955c889945d09":[4,41,1,1,1],
-"group__group__sysfault__enums.html#gga7c15f9e82a516a6a3ded2dd7f8a2e568a2f0413ba11df5f3fb2bc41e0c73dd477":[4,41,1,1,0],
-"group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa027020f3c50199536795d0a0abd44845":[4,41,1,3,27],
-"group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa084300996d085e02ed9e4ae9d6fb4b95":[4,41,1,3,7],
-"group__group__sysfault__enums.html#gga84e3782fd6b0f6e67b490974c02c945fa10eb2348b21c04ec7b61062ce840575b":[4,41,1,3,16]
+"group__group__sysfault__enums.html#ga7c15f9e82a516a6a3ded2dd7f8a2e568":[4,41,1,1]
 };

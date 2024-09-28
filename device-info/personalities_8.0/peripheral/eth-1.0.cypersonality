@@ -29,7 +29,7 @@
 
 <Personality id="eth" name="Ethernet" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v8">
   <Dependencies>
-    <IpBlock name="mxeth" />
+    <IpBlock name="mxeth,mxeth_ver2" />
     <Resource name="eth" />
     <OperatingMode value="MCU"/>
   </Dependencies>
@@ -46,20 +46,20 @@
     <!-- eth instance number -->
     <ParamString id="InstNumber" name="InstNumber" group="Test" default="`${getInstNumber(&quot;eth&quot;)}`" visible="false" editable="false" desc="" />
 
-    <ParamChoice id="PHYInterconnect" name="PHY Interconnect" group="Network Interface Configuration" default="`${(InstNumber) ? 2 : 0}`u" visible="true" editable="true" desc="Select the interconnect mode needed for communication. MII:0 RMII:1 GMII:2 RGMII:3 ">
+    <ParamChoice id="PHYInterconnect" name="PHY Interconnect" group="Network Interface Configuration" default="`${(InstNumber) ? 3 : 0}`u" visible="true" editable="true" desc="Select the interconnect mode needed for communication. MII:0 RMII:1 GMII:2 RGMII:3 ">
       <Entry name="MII" value="0u" visible="`${!InstNumber}`" />
       <Entry name="RMII" value="1u" visible="`${!InstNumber}`" />
       <Entry name="GMII" value="2u" visible="false" />
       <Entry name="RGMII" value="3u" visible="`${InstNumber}`" />
     </ParamChoice>
     <ParamBool id="Autonegotate" name="Enable Autonegotation" group="Network Interface Configuration" default="false" visible="true" editable="true" desc="Enable Auto negotation" />
-    <ParamChoice id="PHYspeed" name="PHY Speed" group="Network Interface Configuration" default="1u" visible="`${(!Autonegotate)}`" editable="true" desc="Select the interconnect mode needed for communication. 0:10 Mbit/sec 1: 100Mbit/sec 2: 1000Mbit/sec">
+    <ParamChoice id="PHYspeed" name="PHY Speed" group="Network Interface Configuration" default="`${(PHYInterconnect == 3u) ? 2 : 1}`u" visible="`${(!Autonegotate)}`" editable="true" desc="Select the interconnect mode needed for communication. 0:10 Mbit/sec 1: 100Mbit/sec 2: 1000Mbit/sec">
       <Entry name="10 Mbit/sec" value="0u" visible="true" />
       <Entry name="100 Mbit/sec" value="1u" visible="true" />
-      <Entry name="1000 Mbit/sec" value="2u" visible="true" />
+      <Entry name="1000 Mbit/sec" value="2u" visible="`${PHYInterconnect == 3u}`" />
     </ParamChoice>
     <ParamChoice id="PHYduplexmode" name="PHY Duplex Mode" group="Network Interface Configuration" default="1u" visible="`${(!Autonegotate)}`" editable="true" desc="Select the interconnect mode needed for communication. 0: Half Duplex 1:Full Duplex 2: Auto">
-      <Entry name="Half Duplex" value="0u" visible="true" />
+      <Entry name="Half Duplex" value="0u" visible="false" />
       <Entry name="Full Duplex" value="1u" visible="true" />
     </ParamChoice>
     <ParamString id="eth_mac_address" name="Mac Address" group="Network Interface Configuration" default="00:03:19:45:00:00" visible="true" editable="true" desc="The MAC address for the device. The values are in the hexadecimal format. Configures a hardware address of the ETH peripheral. The values require the hexadecimal format MM:MM:MM:SS:SS:SS." />

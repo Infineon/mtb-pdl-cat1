@@ -41,5 +41,11 @@ var group__group__crypto__enums =
       [ "CY_CRYPTO_BAD_PARAMS", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aada254861d7a75c5e292718d39dbbe84319", null ],
       [ "CY_CRYPTO_TRNG_UNHEALTHY", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aada484eb660ef0b18cbb9f5aaca53030b85", null ],
       [ "CY_CRYPTO_MEMORY_ALLOC_FAIL", "group__group__crypto__enums.html#gga3a65158da3dc5cb6aa016ae599542aada2db0e8c5cd61b7e19a36994e14bc9056", null ]
+    ] ],
+    [ "cy_en_eddsa_sig_type_t", "group__group__crypto__enums.html#gab07bfdbc2dd702f0350c8c73bfe94fe9", [
+      [ "CY_CRYPTO_EDDSA_PURE", "group__group__crypto__enums.html#ggab07bfdbc2dd702f0350c8c73bfe94fe9aea807436f195d352553020dec8ab9522", null ],
+      [ "CY_CRYPTO_EDDSA_CTX", "group__group__crypto__enums.html#ggab07bfdbc2dd702f0350c8c73bfe94fe9a22632c720d07ecd02a9f3a6bd56aeee5", null ],
+      [ "CY_CRYPTO_EDDSA_PREHASH", "group__group__crypto__enums.html#ggab07bfdbc2dd702f0350c8c73bfe94fe9a90fe983a852e7ee4edd31696cae44717", null ],
+      [ "CY_CRYPTO_EDDSA_NONE", "group__group__crypto__enums.html#ggab07bfdbc2dd702f0350c8c73bfe94fe9a430cc8ec8213c7e7269b46b26e826829", null ]
     ] ]
 ];

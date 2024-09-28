@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.11.1
+# MTB CAT1 Peripheral Driver Library v3.12.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -6,23 +6,21 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Implementation Details
-* CAT1C: Support for TVIIC2D6M devices: cyt4dnjbss, cyt4dnjbzs
+* CAT1C: This release enables D-CACHE on CAT1C platform by default. To disable, define flag CY_DISABLE_XMC7000_DATA_CACHE
+         in Makefile. With this feature enabled, application need to take care of Data Cache Coherency by cleaning (after write) and invalidating (before read).
+* Personality re-structuring: Personality supporting Schema v9 added. Personalities_9.0 is a copy of ‘personalities_8.0’ with 
+                              needed personalities updated to use schema v9. These personalities are available in folder device-info/personalities_9.0. Personalities supporting schema v9 are visible in MTB 3.2. For backward compatibility with MTB 3.0 and MTB 3.1, this release will also have older personalities in folder device-info/personalities.
 
 
 ## Build Changes
 
 ## Personality Changes
-* Updated Personalities (in 8.0 folder)
-  * peripheral:
-    * canfd-3.0.cypersonality
-  * platform:
-    * dma-3.0.cypersonality
-    * hfclk-3.0.cypersonality
 
 ## Added Drivers
 
 ## Updated Drivers
-* [SYSPM 5.140](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [CRYPTO 2.120](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
+* [SMIF 2.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
 
 ### Drivers with patch version updates
 
@@ -41,7 +39,6 @@ for a complete description of the Peripheral Driver Library.
 * On building with tools 2.2, user get warning related to the older version of tools used. To avoid this warning, user is advised to migrate to newer tools version or keep working with previous version of this library.  The warning generated is as follows:
   * _#warning "(Library) The referenced 'device support library' contains newer content than is supported. Either downgrade the version of the 'device support library' referenced or upgrade the version of tools being used_
 * Design configuration will not be auto migrated from smartio-3.0.cypersonality to smartio-4.0.cypersonality. So, existing projects should use smartio-3.0.cypersonality. New projects can make use of smartio-4.0.cypersonality which includes additional improvements.
-* CAT1C: This release does not support D-CACHE on CAT1C platform
 
 
 ## Defect Fixes
@@ -59,7 +56,7 @@ This version of PDL was validated for compatibility with the following Software 
 | :---                                                                          | :----        |
 | [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.4.1        |
 | [Infineon HAL](https://github.com/Infineon/mtb-hal-cat1)                      | 2.6.0        |
-| CMSIS                                                                         | 5.8.0        |
+| CMSIS                                                                         | 5.8.1        |
 | GCC Compiler                                                                  | 11.3.1       |
 | IAR Compiler                                                                  | 9.40.2       |
 | ARM Compiler 6                                                                | 6.16         |

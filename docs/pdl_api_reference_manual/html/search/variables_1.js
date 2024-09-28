@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['a',['a',['../structcy__stc__crypto__edw__dp__type.html#aaf420d53f580eb6bf61f92f6ce636caf',1,'cy_stc_crypto_edw_dp_type']]],
   ['acccntlock',['accCntLock',['../structcy__stc__dpll__lp__config__t.html#a755e60dbe94ac02e7cd31a69283ecc32',1,'cy_stc_dpll_lp_config_t']]],
   ['acceptaddrinfifo',['acceptAddrInFifo',['../structcy__stc__scb__i2c__config__t.html#a9074db87cce95b20f6adbaf905e05f98',1,'cy_stc_scb_i2c_config_t::acceptAddrInFifo()'],['../structcy__stc__scb__uart__config__t.html#a74ad4d501763b438b7903fb04e9df1b1',1,'cy_stc_scb_uart_config_t::acceptAddrInFifo()']]],
   ['access_5fctrl',['access_ctrl',['../group__group__ipc__bt__data__structures.html#ga27c4742b2cdc6d74847b81b5c8a43bbe',1,'cy_ipc_bt.h']]],
@@ -17,7 +18,7 @@ var searchData=
   ['addrrate',['addrRate',['../structcy__stc__smif__mem__cmd__t.html#ac46bf87f8daae2bae3e57330d60179c1',1,'cy_stc_smif_mem_cmd_t']]],
   ['addrtobechecked',['addrToBeChecked',['../structcy__stc__flash__blankcheck__config__t.html#afd677dde991c6663066cd14596109d38',1,'cy_stc_flash_blankcheck_config_t']]],
   ['addrwidth',['addrWidth',['../structcy__stc__smif__mem__cmd__t.html#a23d95eaa05bd12e4cbb416e1f07af5d7',1,'cy_stc_smif_mem_cmd_t']]],
-  ['algo',['algo',['../structcy__stc__crypto__ecc__dp__type.html#a21a15ceafa7b448925b7239872aad5a9',1,'cy_stc_crypto_ecc_dp_type::algo()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a79d4b2004dac03ffd65081cea80a9692',1,'cy_stc_cryptolite_ecc_dp_type::algo()']]],
+  ['algo',['algo',['../structcy__stc__crypto__ecc__dp__type.html#a21a15ceafa7b448925b7239872aad5a9',1,'cy_stc_crypto_ecc_dp_type::algo()'],['../structcy__stc__crypto__edw__dp__type.html#ade1c9096849f903a1da6d7f19f0a5c4a',1,'cy_stc_crypto_edw_dp_type::algo()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a79d4b2004dac03ffd65081cea80a9692',1,'cy_stc_cryptolite_ecc_dp_type::algo()']]],
   ['allocbuffer',['allocBuffer',['../structcy__stc__usb__dev__ep__config__t.html#a5ba21ba730ec10df131e46e469b4aee9',1,'cy_stc_usb_dev_ep_config_t']]],
   ['almen',['almEn',['../structcy__stc__rtc__alarm__t.html#a55f2ba5a1be0d9425f9742e4f6a932c8',1,'cy_stc_rtc_alarm_t']]],
   ['alphacoarse',['alphaCoarse',['../structcy__stc__dpll__hp__config__t.html#ac8b58bc445f7d57fff98101f4d3e7fad',1,'cy_stc_dpll_hp_config_t']]],

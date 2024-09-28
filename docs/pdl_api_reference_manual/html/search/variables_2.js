@@ -1,9 +1,11 @@
 var searchData=
 [
   ['bank',['bank',['../structcy__stc__flash__checksum__config__t.html#abc8f32254fdb083f1f660cc19b2a95d0',1,'cy_stc_flash_checksum_config_t']]],
+  ['barret_5fosize',['barret_osize',['../structcy__stc__crypto__edw__dp__type.html#ad2d7ef875a8c69c6dfec44ab945244b6',1,'cy_stc_crypto_edw_dp_type']]],
+  ['barret_5fpsize',['barret_psize',['../structcy__stc__crypto__edw__dp__type.html#a8e888c289f704827744f8a23065b74e0',1,'cy_stc_crypto_edw_dp_type']]],
   ['barretcoefptr',['barretCoefPtr',['../structcy__stc__cryptolite__rsa__pub__key__t.html#a4e3817d3cf87f8ed81a4b6da15e31975',1,'cy_stc_cryptolite_rsa_pub_key_t']]],
-  ['barrett_5fo',['barrett_o',['../structcy__stc__crypto__ecc__dp__type.html#a9cd2894c6d48d780736fded492222b01',1,'cy_stc_crypto_ecc_dp_type::barrett_o()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a8269ad8b2502ff1a2e101d223cc10fb9',1,'cy_stc_cryptolite_ecc_dp_type::barrett_o()']]],
-  ['barrett_5fp',['barrett_p',['../structcy__stc__crypto__ecc__dp__type.html#a32985516423929455def0b6a6ce8523e',1,'cy_stc_crypto_ecc_dp_type::barrett_p()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a381f2f2cc023b8212498bc5c368d9d2d',1,'cy_stc_cryptolite_ecc_dp_type::barrett_p()']]],
+  ['barrett_5fo',['barrett_o',['../structcy__stc__crypto__ecc__dp__type.html#a9cd2894c6d48d780736fded492222b01',1,'cy_stc_crypto_ecc_dp_type::barrett_o()'],['../structcy__stc__crypto__edw__dp__type.html#aa7864de75d91b14ae3b2e2214fb03704',1,'cy_stc_crypto_edw_dp_type::barrett_o()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a8269ad8b2502ff1a2e101d223cc10fb9',1,'cy_stc_cryptolite_ecc_dp_type::barrett_o()']]],
+  ['barrett_5fp',['barrett_p',['../structcy__stc__crypto__ecc__dp__type.html#a32985516423929455def0b6a6ce8523e',1,'cy_stc_crypto_ecc_dp_type::barrett_p()'],['../structcy__stc__crypto__edw__dp__type.html#a113a1142e458b0a79d59a295e4ce30d7',1,'cy_stc_crypto_edw_dp_type::barrett_p()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a381f2f2cc023b8212498bc5c368d9d2d',1,'cy_stc_cryptolite_ecc_dp_type::barrett_p()']]],
   ['base',['base',['../structcy__stc__syspm__callback__params__t.html#a56076e99358e2b7c99681312108b09af',1,'cy_stc_syspm_callback_params_t::base()'],['../structcy__stc__usbfs__dev__drv__dma__config__t.html#a8f4ec9857bf5868ec58ce1383b140b5d',1,'cy_stc_usbfs_dev_drv_dma_config_t::base()']]],
   ['baseaddress',['baseAddress',['../structcy__stc__smif__mem__config__t.html#a460a4733ce1f20fc1a3f767c35b1d3db',1,'cy_stc_smif_mem_config_t']]],
   ['betacoarse',['betaCoarse',['../structcy__stc__dpll__hp__config__t.html#aa0678d84bd2bdcf02dac9e07182be7cd',1,'cy_stc_dpll_hp_config_t']]],

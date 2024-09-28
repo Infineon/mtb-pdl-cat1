@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_sha_v2.c
-* \version 2.110
+* \version 2.120
 *
 * \brief
 *  This file provides the source code to the API for the SHA method
@@ -350,6 +350,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Sha_Start(CRYPTO_Type *base, cy_stc_cryp
             case CY_CRYPTO_MODE_SHA3_256:
             case CY_CRYPTO_MODE_SHA3_384:
             case CY_CRYPTO_MODE_SHA3_512:
+                        Cy_Crypto_Core_V2_MemSet(base, hashRemap, (uint8_t) 0, (uint16_t) CY_CRYPTO_SHA3_STATE_SIZE);
                         tmpResult = CY_CRYPTO_SUCCESS;
                         break;
             default:
@@ -540,7 +541,7 @@ static cy_en_crypto_status_t Cy_Crypto_Sha3_Finish(CRYPTO_Type *base,
 #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
         /* Flush the cache */
         CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to int32_t.');
-        SCB_InvalidateDCache_by_Addr((volatile void *)hashState->hash,(int32_t)(CY_CRYPTO_SHA_MAX_HASH_SIZE / 4u));
+        SCB_InvalidateDCache_by_Addr((volatile void *)hashState->hash,(int32_t)(CY_CRYPTO_SHA_MAX_HASH_SIZE));
 #endif  
 
         uint32_t hashBlockSize   = hashState->blockSize;
@@ -553,7 +554,7 @@ static cy_en_crypto_status_t Cy_Crypto_Sha3_Finish(CRYPTO_Type *base,
 #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
         /* Flush the cache */
         CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to int32_t.');
-        SCB_CleanDCache_by_Addr((volatile void *)hashState->hash,(int32_t)(CY_CRYPTO_SHA_MAX_HASH_SIZE / 4u));
+        SCB_CleanDCache_by_Addr((volatile void *)hashState->hash,(int32_t)(CY_CRYPTO_SHA_MAX_HASH_SIZE));
 #endif    
         /* Load the calculated hash state from the context buffer */
         Cy_Crypto_Core_V2_RBClear(base);
@@ -1067,9 +1068,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Sha_Free(CRYPTO_Type *base, cy_stc_crypt
             /* Clears the memory buffer. */
             Cy_Crypto_Core_V2_RBClear(base);
             Cy_Crypto_Core_V2_Sync(base);
-        #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-                    SCB_InvalidateDCache_by_Addr(hashState, (int32_t)sizeof(cy_stc_crypto_sha_state_t));
-            #endif
         }
     }
 

@@ -49,6 +49,7 @@ var searchData=
   ['cy_5fstc_5fcrypto_5fecc_5fdp_5ftype',['cy_stc_crypto_ecc_dp_type',['../structcy__stc__crypto__ecc__dp__type.html',1,'']]],
   ['cy_5fstc_5fcrypto_5fecc_5fkey',['cy_stc_crypto_ecc_key',['../structcy__stc__crypto__ecc__key.html',1,'']]],
   ['cy_5fstc_5fcrypto_5fecc_5fpoint',['cy_stc_crypto_ecc_point',['../structcy__stc__crypto__ecc__point.html',1,'']]],
+  ['cy_5fstc_5fcrypto_5fedw_5fdp_5ftype',['cy_stc_crypto_edw_dp_type',['../structcy__stc__crypto__edw__dp__type.html',1,'']]],
   ['cy_5fstc_5fcrypto_5fhmac_5fstate_5ft',['cy_stc_crypto_hmac_state_t',['../structcy__stc__crypto__hmac__state__t.html',1,'']]],
   ['cy_5fstc_5fcrypto_5fhw_5ferror_5ft',['cy_stc_crypto_hw_error_t',['../structcy__stc__crypto__hw__error__t.html',1,'']]],
   ['cy_5fstc_5fcrypto_5frsa_5fpub_5fkey_5ft',['cy_stc_crypto_rsa_pub_key_t',['../structcy__stc__crypto__rsa__pub__key__t.html',1,'']]],

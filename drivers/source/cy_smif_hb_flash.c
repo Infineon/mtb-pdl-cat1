@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_hb_flash.c
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides the source code for the Hyper Bus APIs of the SMIF driver.
@@ -1118,7 +1118,7 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_MMIO_Write(SMIF_Type *base,
     {
         if(dummyCycle > 0u)
         {
-#if (CY_IP_MXSMIF_VERSION>=4)
+#if (CY_IP_MXSMIF_VERSION>=2)
             status = Cy_SMIF_SendDummyCycles_With_RWDS(base, false, false, dummyCycle - 1U);
 #else
             status = Cy_SMIF_SendDummyCycles_Ext(base, CY_SMIF_WIDTH_OCTAL, CY_SMIF_DDR, dummyCycle - 1U);

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['d',['d',['../structcy__stc__crypto__edw__dp__type.html#adfd9ae53ece5052dec95064128054c33',1,'cy_stc_crypto_edw_dp_type']]],
   ['data',['data',['../structcy__stc__sd__host__data__config__t.html#a126a82e1490856db29d0289d7a4f7959',1,'cy_stc_sd_host_data_config_t::data()'],['../structcy__stc__sd__host__write__read__config__t.html#af2db79e86da5f8aad3b0f9c8f5809968',1,'cy_stc_sd_host_write_read_config_t::data()']]],
   ['data0',['data0',['../structcy__stc__smartio__ducfg__t.html#aaf8bfe52c9e7b52a1095c39dfe6d50ef',1,'cy_stc_smartio_ducfg_t']]],
   ['data1',['data1',['../structcy__stc__smartio__ducfg__t.html#a5e8a7354a6e2cb155d5403046e3f3f3c',1,'cy_stc_smartio_ducfg_t']]],

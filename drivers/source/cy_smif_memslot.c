@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.c
-* \version 2.80
+* \version 2.90
 *
 * \brief
 *  This file provides the source code for the memory-level APIs of the SMIF driver.

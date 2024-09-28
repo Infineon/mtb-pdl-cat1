@@ -1,5 +1,14 @@
 var NAVTREEINDEX8 =
 {
+"group__group__gpio__sio_vreg.html":[4,17,0,6],
+"group__group__gpio__sio_vreg.html#ga4a90fae5df22762b5aa60b5b4e9bea85":[4,17,0,6,0],
+"group__group__gpio__sio_vreg.html#ga593d5f4da327d288ca55cadc29aa7c43":[4,17,0,6,1],
+"group__group__gpio__sio_vtrip.html":[4,17,0,8],
+"group__group__gpio__sio_vtrip.html#ga3b4be6e3a866fde6dc4fa815f1f1a65c":[4,17,0,8,2],
+"group__group__gpio__sio_vtrip.html#ga604bd3b5b4bda6fd88a434e7df3c55aa":[4,17,0,8,0],
+"group__group__gpio__sio_vtrip.html#gacf07bb869d331dacd47dee2f133cbad9":[4,17,0,8,3],
+"group__group__gpio__sio_vtrip.html#gaf531869f42bfb2c1843027669b1c990b":[4,17,0,8,1],
+"group__group__gpio__slew_rate.html":[4,17,0,3],
 "group__group__gpio__slew_rate.html#ga1ab555b60c93c0e337f9ddd4e5a93023":[4,17,0,3,1],
 "group__group__gpio__slew_rate.html#gabb43620358101afd1663376cb3ba19b4":[4,17,0,3,0],
 "group__group__gpio__vtrip.html":[4,17,0,1],
@@ -240,14 +249,5 @@ var NAVTREEINDEX8 =
 "group__group__ipc__macros.html#ga1a1b16b5fe845ba0b2829fd253b5ff72":[4,19,0,0,3],
 "group__group__ipc__macros.html#ga3dd639f2edc5ca00b5547a32d3ad57de":[4,19,0,0,5],
 "group__group__ipc__macros.html#ga3f7a70ed9127495bf0fa4ba8135c49ba":[4,19,0,0,6],
-"group__group__ipc__macros.html#ga525c527870fec94c07c6419f3e541192":[4,19,0,0,0],
-"group__group__ipc__macros.html#ga8c02b33010a796cc0d610491bda52827":[4,19,0,0,2],
-"group__group__ipc__macros.html#gaca94e95050e9f6ad972c8d9fe3de70d0":[4,19,0,0,4],
-"group__group__ipc__macros.html#gadf29ee0e1c3166e54195273ac9e7aaff":[4,19,0,0,1],
-"group__group__ipc__macros.html#gaf63abff7189f0e7a9d95967d3da620fe":[4,19,0,0,7],
-"group__group__ipc__pipe.html":[4,19,2],
-"group__group__ipc__pipe__data__structures.html":[4,19,2,2],
-"group__group__ipc__pipe__enums.html":[4,19,2,3],
-"group__group__ipc__pipe__enums.html#ga91750337b3471d3eb01ec316358d0598":[4,19,2,3,0],
-"group__group__ipc__pipe__enums.html#gga91750337b3471d3eb01ec316358d0598a32b438fe8e90d1abbc2bf5ed207e7f65":[4,19,2,3,0,7]
+"group__group__ipc__macros.html#ga525c527870fec94c07c6419f3e541192":[4,19,0,0,0]
 };

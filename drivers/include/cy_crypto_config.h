@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_config.h
-* \version 2.110
+* \version 2.120
 *
 * \brief
 *  This file provides default configuration parameters
@@ -123,6 +123,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 #define CY_CRYPTO_CFG_ECP_DP_SECP256R1_ENABLED
 #define CY_CRYPTO_CFG_ECP_DP_SECP384R1_ENABLED
 #define CY_CRYPTO_CFG_ECP_DP_SECP521R1_ENABLED
+#define CY_CRYPTO_CFG_ECP_DP_ED25519_ENABLED
 
 /* Currently CURVE25519 support is not implemented */
 // #define CY_CRYPTO_CFG_ECP_DP_CURVE25519_ENABLED
@@ -136,6 +137,14 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 #define CY_CRYPTO_CFG_ECDSA_SIGN_C
 /* ECDSA verification */
 #define CY_CRYPTO_CFG_ECDSA_VERIFY_C
+/* EDDSA functionality */
+#define CY_CRYPTO_CFG_EDDSA_C
+/* EDDSA sign */
+#define CY_CRYPTO_CFG_EDDSA_SIGN_C
+/* EDDSA verify */
+#define CY_CRYPTO_CFG_EDDSA_VERIFY_C
+/* EDDSA key generation */
+#define CY_CRYPTO_CFG_EDDSA_GENKEY_C
 
 /* External memory use */
 //#define CY_CRYPTO_CFG_EXTERNAL_MEMORY_ENABLE

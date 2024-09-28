@@ -93,7 +93,9 @@ extern const cy_stc_device_t* cy_device;
 *                System Level
 *******************************************************************************/
 #define ENABLE_CM7_INSTRUCTION_CACHE
-//#define ENABLE_CM7_DATA_CACHE
+#if !defined CY_DISABLE_XMC7000_DATA_CACHE
+#define ENABLE_CM7_DATA_CACHE
+#endif
 
 /*******************************************************************************
 *               Generic Macro Definitions

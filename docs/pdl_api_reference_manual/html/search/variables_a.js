@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['k',['k',['../structcy__stc__crypto__ecc__key.html#ad01fbcfdfa38d51908420fdbd3c33366',1,'cy_stc_crypto_ecc_key::k()'],['../structcy__stc__cryptolite__ecc__key.html#a13f6a0efd152e7a08a442dfe4ff315b5',1,'cy_stc_cryptolite_ecc_key::k()']]],
+  ['k',['k',['../structcy__stc__cryptolite__ecc__key.html#a13f6a0efd152e7a08a442dfe4ff315b5',1,'cy_stc_cryptolite_ecc_key']]],
   ['kdiv',['kDiv',['../structcy__stc__dpll__hp__config__t.html#ac070b4097282b837558c094f5ae03cbe',1,'cy_stc_dpll_hp_config_t']]],
   ['keycode',['keyCode',['../structcy__stc__key__event.html#a380b32448606828dab08e812bc3177f7',1,'cy_stc_key_event']]],
   ['keyscan_5fpollingkeyscanhw',['keyscan_pollingKeyscanHw',['../structcy__stc__keyscan__context__t.html#abb6213614fb2a68968dc8ca32df3b17f',1,'cy_stc_keyscan_context_t']]],

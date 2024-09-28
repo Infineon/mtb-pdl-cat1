@@ -3,7 +3,7 @@ var menudata={children:[
 {text:"PDL API Reference",url:"modules.html"},
 {text:"Online Documentation",url:"usergroup0.html",children:[
 {text:"ModusToolbox™ Software",url:"https://github.com/Infineon/modustoolbox-software"},
-{text:"CMSIS Documentation",url:"https://www.keil.com/pack/doc/CMSIS/General/html/index.html"}]},
+{text:"CMSIS Documentation",url:"https://arm-software.github.io/CMSIS_5/5.8.0/General/html/index.html"}]},
 {text:"Device Catalog",url:"usergroup1.html",children:[
 {text:"CAT1A Devices",url:"device_index_page_cat1a.html",children:[
 {text:"CAT1A Device Details",url:"device_catalog_cat1a.html"}]},

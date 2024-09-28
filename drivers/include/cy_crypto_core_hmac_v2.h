@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_hmac_v2.h
-* \version 2.110
+* \version 2.120
 *
 * \brief
 *  This file provides constants and function prototypes

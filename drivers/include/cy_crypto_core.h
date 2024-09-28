@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core.h
-* \version 2.110
+* \version 2.120
 *
 * \brief
 *  This file provides common constants and parameters
@@ -213,7 +213,7 @@
 *   \{
 *     \defgroup group_crypto_lld_symmetric_functions Functions
 *   \}
-*   \defgroup group_crypto_lld_asymmetric Asymmetric Key Algorithms (RSA, ECP, ECDSA)
+*   \defgroup group_crypto_lld_asymmetric Asymmetric Key Algorithms (RSA, ECP, ECDSA, EDDSA)
 *   \{
 *       \defgroup group_crypto_lld_asymmetric_functions Functions
 *       \defgroup group_crypto_lld_asymmetric_enums Enumerated Types

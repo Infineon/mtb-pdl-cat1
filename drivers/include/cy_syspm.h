@@ -6994,7 +6994,7 @@ cy_stc_syspm_callback_t* Cy_SysPm_GetFailedCallback(cy_en_syspm_callback_type_t 
 * - False the system is is not ULP mode.
 *
 * \note
-* This API is available for CAT1A, CAT1B(BOYII) and CAT1D devices.
+* This API is available for CAT1A, CAT1B(PSoC C3) and CAT1D devices.
 *
 * \funcusage
 * \snippet syspm/snippet/main.c snippet_Cy_SysPm_IsSystemUlp
@@ -7016,7 +7016,7 @@ bool Cy_SysPm_IsSystemUlp(void);
 * - False the system is not in LP mode.
 *
 * \note
-* This API is available for CAT1A, CAT1B(BOYII), CAT1C & CAT1D devices.
+* This API is available for CAT1A, CAT1B(PSoC C3), CAT1C & CAT1D devices.
 *
 * \funcusage
 * \snippet syspm/snippet/main.c snippet_Cy_SysPm_IsSystemLp
