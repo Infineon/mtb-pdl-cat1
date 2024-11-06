@@ -41,6 +41,39 @@
  * remaps macros from CAT1A compatible names that don't contain the version fields. */
 #include "tviibe_remaps.h"
 
+#elif (defined (CY_DEVICE_SERIES_FX3G2) || defined (CY_DEVICE_SERIES_FX2G3))
+
+#include "ip/cyip_cpuss.h"
+#include "ip/cyip_cpuss_v2.h"
+#include "ip/cyip_flashc.h"
+#include "ip/cyip_flashc_v2.h"
+#include "ip/cyip_gpio.h"
+#include "ip/cyip_gpio_v5.h"
+#include "ip/cyip_hsiom.h"
+#include "ip/cyip_hsiom_v5.h"
+#include "ip/cyip_sflash_fx3g2.h"
+
+#include "ip/cyip_srss.h"
+#include "ip/cyip_srss.h"
+#include "ip/cyip_peri.h"
+#include "ip/cyip_peri_v2.h"
+#include "ip/cyip_peri_ms_v2.h"
+#include "ip/cyip_prot.h"
+#include "ip/cyip_prot_v2.h"
+#include "ip/cyip_ipc.h"
+#include "ip/cyip_ipc_v2.h"
+#include "ip/cyip_dw.h"
+#include "ip/cyip_dw_v2.h"
+#include "ip/cyip_dmac_v2.h"
+#include "ip/cyip_tdm_v2.h"
+#include "ip/cyip_mxpdm.h"
+#include "ip/cyip_canfd.h"
+#include "ip/cyip_tcpwm.h"
+#include "ip/cyip_mxs40usbhsdev.h"
+#include "ip/cyip_main_reg.h"
+#include "ip/cyip_lvdsss.h"
+#include "ip/cyip_usb32dev.h"
+
 #else /* PSoC Devices */
 
 #include "ip/cyip_cpuss.h"
@@ -123,8 +156,12 @@ typedef struct
     uint8_t  cpussVersion;
     uint8_t  cryptoVersion;
     uint8_t  dwVersion;
+    uint8_t  flashcVersion;
+    uint8_t  gpioVersion;
+    uint8_t  hsiomVersion;
     uint8_t  ipcVersion;
     uint8_t  periVersion;
+    uint8_t  protVersion;
     uint8_t  srssVersion;
     uint8_t  passVersion;
 
@@ -233,6 +270,7 @@ extern const cy_stc_device_t   cy_deviceIpBlockCfgPSoC6_04;
 extern const cy_stc_device_t   cy_deviceIpBlockCfgTVIIBE4M;
 extern const cy_stc_device_t   cy_deviceIpBlockCfgTVIIBE2M;
 extern const cy_stc_device_t   cy_deviceIpBlockCfgTVIIBE1M;
+extern const cy_stc_device_t   cy_deviceIpBlockCfgFX3G2;
 extern const cy_stc_device_t * cy_device;
 
 
@@ -258,7 +296,11 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define CY_REMAP_ADDRESS_SAHB_TO_CBUS(addr)               (addr)
 
 #define CY_SRSS_V1_3                        (0x13U == cy_device->srssVersion)
+#if (defined (CY_DEVICE_SERIES_FX3G2) || defined (CY_DEVICE_SERIES_FX2G3))
+#define CY_SRSS_MFO_PRESENT                 (0)
+#else
 #define CY_SRSS_MFO_PRESENT                 (CY_SRSS_V1_3)
+#endif /* CY_DEVICE_SERIES_FX3G2 */
 
 #if (defined(CY_DEVICE_TVIIBE))
 
@@ -1052,6 +1094,49 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define SMARTIO_PRT_DATA(base)              (((SMARTIO_PRT_Type *)(base))->DATA)
 
 
+#if (defined (CY_IP_MXTDM))
+/*******************************************************************************
+*               TDM
+*******************************************************************************/
+
+#define TDM_STRUCT_Type                     TDM_TDM_STRUCT_Type
+#define TDM_TX_STRUCT_Type                  TDM_TDM_STRUCT_TDM_TX_STRUCT_Type
+#define TDM_RX_STRUCT_Type                  TDM_TDM_STRUCT_TDM_RX_STRUCT_Type
+#define TDM_STRUCT0                         TDM0_TDM_STRUCT0
+#define TDM_STRUCT1                         TDM0_TDM_STRUCT1
+#define TDM_STRUCT0_TX                      TDM0_TDM_STRUCT0_TDM_TX_STRUCT
+#define TDM_STRUCT1_TX                      TDM0_TDM_STRUCT1_TDM_TX_STRUCT
+#define TDM_STRUCT0_RX                      TDM0_TDM_STRUCT0_TDM_RX_STRUCT
+#define TDM_STRUCT1_RX                      TDM0_TDM_STRUCT1_TDM_RX_STRUCT
+#define TDM_STRUCT_TX_CTL(base)             (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->TX_CTL)
+#define TDM_STRUCT_TX_IF_CTL(base)          (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->TX_IF_CTL)
+#define TDM_STRUCT_TX_CH_CTL(base)          (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->TX_CH_CTL)
+#define TDM_STRUCT_TX_TEST_CTL(base)        (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->TX_TEST_CTL)
+#define TDM_STRUCT_TX_ROUTE_CTL(base)       (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->TX_ROUTE_CTL)
+#define TDM_STRUCT_TX_FIFO_CTL(base)        (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->TX_FIFO_CTL)
+#define TDM_STRUCT_TX_FIFO_STATUS(base)     (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->TX_FIFO_STATUS)
+#define TDM_STRUCT_TX_FIFO_WR(base)         (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->TX_FIFO_WR)
+#define TDM_STRUCT_TX_INTR_TX(base)         (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->INTR_TX)
+#define TDM_STRUCT_TX_INTR_TX_SET(base)     (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->INTR_TX_SET)
+#define TDM_STRUCT_TX_INTR_TX_MASK(base)    (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->INTR_TX_MASK)
+#define TDM_STRUCT_TX_INTR_TX_MASKED(base)  (((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type *)(base))->INTR_TX_MASKED)
+
+#define TDM_STRUCT_RX_CTL(base)             (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_CTL)
+#define TDM_STRUCT_RX_IF_CTL(base)          (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_IF_CTL)
+#define TDM_STRUCT_RX_CH_CTL(base)          (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_CH_CTL)
+#define TDM_STRUCT_RX_TEST_CTL(base)        (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_TEST_CTL)
+#define TDM_STRUCT_RX_ROUTE_CTL(base)       (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_ROUTE_CTL)
+#define TDM_STRUCT_RX_FIFO_CTL(base)        (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_FIFO_CTL)
+#define TDM_STRUCT_RX_FIFO_STATUS(base)     (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_FIFO_STATUS)
+#define TDM_STRUCT_RX_FIFO_RD(base)         (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_FIFO_RD)
+#define TDM_STRUCT_RX_FIFO_RD_SILENT(base)  (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->RX_FIFO_RD_SILENT)
+#define TDM_STRUCT_RX_INTR_RX(base)         (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->INTR_RX)
+#define TDM_STRUCT_RX_INTR_RX_SET(base)     (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->INTR_RX_SET)
+#define TDM_STRUCT_RX_INTR_RX_MASK(base)    (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->INTR_RX_MASK)
+#define TDM_STRUCT_RX_INTR_RX_MASKED(base)  (((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type *)(base))->INTR_RX_MASKED)
+#endif /* CY_IP_MXTDM */
+
+
 /*******************************************************************************
 *                SMIF
 *******************************************************************************/
@@ -1196,7 +1281,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 /*******************************************************************************
 *                PERI
 *******************************************************************************/
-#if (defined(CY_DEVICE_TVIIBE))
+#if (defined(CY_DEVICE_TVIIBE) || defined(CY_DEVICE_SERIES_FX3G2) || defined(CY_DEVICE_SERIES_FX2G3))
 #define CY_PERI_BASE                        ((PERI_Type *) cy_device->periBase)
 #else /* (defined(CY_DEVICE_TVIIBE)) */
 #define CY_PERI_BASE                        ((PERI_V1_Type *) cy_device->periBase)
@@ -1330,7 +1415,16 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 
 #define CY_GPIO_BASE                       ((uint32_t)(cy_device->gpioBase))
 
-#if defined (CY_IP_MXS40IOSS_VERSION) && (CY_IP_MXS40IOSS_VERSION == 2)
+#if defined (CY_IP_MXS40IOSS_VERSION) && (CY_IP_MXS40IOSS_VERSION == 5)
+#define GPIO_INTR_CAUSE0                   (((GPIO_V5_Type*)(cy_device->gpioBase))->INTR_CAUSE0)
+#define GPIO_INTR_CAUSE1                   (((GPIO_V5_Type*)(cy_device->gpioBase))->INTR_CAUSE1)
+#define GPIO_INTR_CAUSE2                   (((GPIO_V5_Type*)(cy_device->gpioBase))->INTR_CAUSE2)
+#define GPIO_INTR_CAUSE3                   (((GPIO_V5_Type*)(cy_device->gpioBase))->INTR_CAUSE3)
+
+#define GPIO_PRT_V2_Type GPIO_PRT_V5_Type
+#define HSIOM_PRT_V2_Type HSIOM_PRT_V5_Type
+
+#elif defined (CY_IP_MXS40IOSS_VERSION) && (CY_IP_MXS40IOSS_VERSION == 2)
 #define GPIO_INTR_CAUSE0                   (((GPIO_V2_Type*)(cy_device->gpioBase))->INTR_CAUSE0)
 #define GPIO_INTR_CAUSE1                   (((GPIO_V2_Type*)(cy_device->gpioBase))->INTR_CAUSE1)
 #define GPIO_INTR_CAUSE2                   (((GPIO_V2_Type*)(cy_device->gpioBase))->INTR_CAUSE2)
@@ -1408,6 +1502,53 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define AUDIOSS_PDM_PRESENT
 #endif
 
+#if (defined(CY_IP_MXPDM))
+#define PDM_PCM_CTL(base)                               (((PDM_Type*)(base))->CTL)
+#define PDM_PCM_CTL_CLR(base)                           (((PDM_Type*)(base))->CTL_CLR)
+#define PDM_PCM_CTL_SET(base)                           (((PDM_Type*)(base))->CTL_SET)
+#define PDM_PCM_CLOCK_CTL(base)                           (((PDM_Type*)(base))->CLOCK_CTL)
+#define PDM_PCM_ROUTE_CTL(base)                           (((PDM_Type*)(base))->ROUTE_CTL)
+#define PDM_PCM_TEST_CTL(base)                           (((PDM_Type*)(base))->TEST_CTL)
+#define PDM_PCM_FIR0_COEFF0(base)                       (((PDM_Type*)(base))->FIR0_COEFF0)
+#define PDM_PCM_FIR0_COEFF1(base)                       (((PDM_Type*)(base))->FIR0_COEFF1)
+#define PDM_PCM_FIR0_COEFF2(base)                       (((PDM_Type*)(base))->FIR0_COEFF2)
+#define PDM_PCM_FIR0_COEFF3(base)                       (((PDM_Type*)(base))->FIR0_COEFF3)
+#define PDM_PCM_FIR0_COEFF4(base)                       (((PDM_Type*)(base))->FIR0_COEFF4)
+#define PDM_PCM_FIR0_COEFF5(base)                       (((PDM_Type*)(base))->FIR0_COEFF5)
+#define PDM_PCM_FIR0_COEFF6(base)                       (((PDM_Type*)(base))->FIR0_COEFF6)
+#define PDM_PCM_FIR0_COEFF7(base)                       (((PDM_Type*)(base))->FIR0_COEFF7)
+
+#define PDM_PCM_FIR1_COEFF0(base)                       (((PDM_Type*)(base))->FIR1_COEFF0)
+#define PDM_PCM_FIR1_COEFF1(base)                       (((PDM_Type*)(base))->FIR1_COEFF1)
+#define PDM_PCM_FIR1_COEFF2(base)                       (((PDM_Type*)(base))->FIR1_COEFF2)
+#define PDM_PCM_FIR1_COEFF3(base)                       (((PDM_Type*)(base))->FIR1_COEFF3)
+#define PDM_PCM_FIR1_COEFF4(base)                       (((PDM_Type*)(base))->FIR1_COEFF4)
+#define PDM_PCM_FIR1_COEFF5(base)                       (((PDM_Type*)(base))->FIR1_COEFF5)
+#define PDM_PCM_FIR1_COEFF6(base)                       (((PDM_Type*)(base))->FIR1_COEFF6)
+#define PDM_PCM_FIR1_COEFF7(base)                       (((PDM_Type*)(base))->FIR1_COEFF7)
+#define PDM_PCM_FIR1_COEFF8(base)                       (((PDM_Type*)(base))->FIR1_COEFF8)
+#define PDM_PCM_FIR1_COEFF9(base)                       (((PDM_Type*)(base))->FIR1_COEFF9)
+#define PDM_PCM_FIR1_COEFF10(base)                       (((PDM_Type*)(base))->FIR1_COEFF10)
+#define PDM_PCM_FIR1_COEFF11(base)                       (((PDM_Type*)(base))->FIR1_COEFF11)
+#define PDM_PCM_FIR1_COEFF12(base)                       (((PDM_Type*)(base))->FIR1_COEFF12)
+#define PDM_PCM_FIR1_COEFF13(base)                       (((PDM_Type*)(base))->FIR1_COEFF13)
+
+
+#define PDM_PCM_CH_CTL(base, chnum)                   (((PDM_Type*)(base))->CH[chnum].CTL)
+#define PDM_PCM_CH_IF_CTL(base, chnum)                   (((PDM_Type*)(base))->CH[chnum].IF_CTL)
+#define PDM_PCM_CH_CIC_CTL(base, chnum)               (((PDM_Type*)(base))->CH[chnum].CIC_CTL)
+#define PDM_PCM_CH_FIR0_CTL(base, chnum)              (((PDM_Type*)(base))->CH[chnum].FIR0_CTL)
+#define PDM_PCM_CH_FIR1_CTL(base, chnum)              (((PDM_Type*)(base))->CH[chnum].FIR1_CTL)
+#define PDM_PCM_CH_DC_BLOCK_CTL(base, chnum)          (((PDM_Type*)(base))->CH[chnum].DC_BLOCK_CTL)
+#define PDM_PCM_INTR_RX_MASK(base, chnum)             (((PDM_Type*)(base))->CH[chnum].INTR_RX_MASK)
+#define PDM_PCM_INTR_RX_MASKED(base, chnum)           (((PDM_Type*)(base))->CH[chnum].INTR_RX_MASKED)
+#define PDM_PCM_INTR_RX(base, chnum)                  (((PDM_Type*)(base))->CH[chnum].INTR_RX)
+#define PDM_PCM_INTR_RX_SET(base, chnum)              (((PDM_Type*)(base))->CH[chnum].INTR_RX_SET)
+#define PDM_PCM_RX_FIFO_STATUS(base, chnum)              (((PDM_Type*)(base))->CH[chnum].RX_FIFO_STATUS)
+#define PDM_PCM_RX_FIFO_CTL(base, chnum)                 (((PDM_Type*)(base))->CH[chnum].RX_FIFO_CTL)
+#define PDM_PCM_RX_FIFO_RD(base, chnum)                  (((PDM_Type*)(base))->CH[chnum].RX_FIFO_RD)
+#define PDM_PCM_RX_FIFO_RD_SILENT(base, chnum)           (((PDM_Type*)(base))->CH[chnum].RX_FIFO_RD_SILENT)
+#else
 #define PDM_PCM_CTL(base)                   (((PDM_V1_Type*)(base))->CTL)
 #define PDM_PCM_CMD(base)                   (((PDM_V1_Type*)(base))->CMD)
 #define PDM_PCM_CLOCK_CTL(base)             (((PDM_V1_Type*)(base))->CLOCK_CTL)
@@ -1422,6 +1563,7 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define PDM_PCM_RX_FIFO_CTL(base)           (((PDM_V1_Type*)(base))->RX_FIFO_CTL)
 #define PDM_PCM_RX_FIFO_RD(base)            (((PDM_V1_Type*)(base))->RX_FIFO_RD)
 #define PDM_PCM_RX_FIFO_RD_SILENT(base)     (((PDM_V1_Type*)(base))->RX_FIFO_RD_SILENT)
+#endif /* CY_IP_MXPDM */
 
 
 /*******************************************************************************
@@ -1943,6 +2085,91 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define USBFS_HOST_DMA_ENBL(base)           (((USBFS_V1_Type *)(base))->USBHOST.HOST_DMA_ENBL)
 #define USBFS_HOST_EP1_BLK(base)            (((USBFS_V1_Type *)(base))->USBHOST.HOST_EP1_BLK)
 #define USBFS_HOST_EP2_BLK(base)            (((USBFS_V1_Type *)(base))->USBHOST.HOST_EP2_BLK)
+
+
+#if (defined (CY_IP_MXS40USBHSDEV))
+/*******************************************************************************
+*                MXS40USBHSDEV
+*******************************************************************************/
+
+#define USBHSDEV_DEV_PWR_CS_DISCON              (1U << USBHSDEV_DEV_PWR_CS_DISCON_Pos)
+#define USBHSDEV_DEV_LPM_ATTR_RMT_WAKEUP_ENABLE (1U << USBHSDEV_DEV_LPM_ATTR_RMT_WAKEUP_ENABLE_Pos)
+#define USBHSDEV_DEV_LPM_ATTR_L2_SUSP_RMT_WAKEUP_EN (1U << USBHSDEV_DEV_LPM_ATTR_L2_SUSP_RMT_WAKEUP_EN_Pos)
+#define USBHSDEV_DEV_PWR_CS_DEV_SUSPEND         (1U << USBHSDEV_DEV_PWR_CS_DEV_SUSPEND_Pos)
+#define USBHSDEV_DEV_PWR_CS_FORCE_FS            (1U << USBHSDEV_DEV_PWR_CS_FORCE_FS_Pos)
+#define USBHSDEV_DEV_PWR_CS_SIGRSUME            (1U << USBHSDEV_DEV_PWR_CS_SIGRSUME_Pos)
+#define USBHSDEV_DEV_PWR_CS_L0_ACTIVE           (1U << USBHSDEV_DEV_PWR_CS_L0_ACTIVE_Pos)
+#define USBHSDEV_DEV_PWR_CS_L2_SUSPEND          (1U << USBHSDEV_DEV_PWR_CS_L2_SUSPEND_Pos)
+#define USBHSDEV_DEV_PWR_CS_L1_SLEEP            (1U << USBHSDEV_DEV_PWR_CS_L1_SLEEP_Pos)
+#define USBHSDEV_DEV_EPI_CS_NAK                 (1U << USBHSDEV_DEV_EPI_CS_NAK_Pos)
+#define USBHSDEV_DEV_EPO_CS_NAK                 (1U << USBHSDEV_DEV_EPO_CS_NAK_Pos)
+#define USBHSDEV_DEV_CS_SETUP_CLR_BUSY          (1U << USBHSDEV_DEV_CS_SETUP_CLR_BUSY_Pos)
+#define USBHSDEV_DEV_CS_NAKALL                  (1U << USBHSDEV_DEV_CS_NAKALL_Pos)
+#define USBHSDEV_DEV_EPI_CS_STALL               (1U << USBHSDEV_DEV_EPI_CS_STALL_Pos)
+#define USBHSDEV_DEV_EPO_CS_STALL               (1U << USBHSDEV_DEV_EPO_CS_STALL_Pos)
+#define USBHSDEV_DEV_TOGGLE_IO                  (1U << USBHSDEV_DEV_TOGGLE_IO_Pos)
+#define USBHSDEV_DEV_TOGGLE_TOGGLE_VALID        (1U << USBHSDEV_DEV_TOGGLE_TOGGLE_VALID_Pos)
+#define USBHSDEV_DEV_TOGGLE_R                   (1U << USBHSDEV_DEV_TOGGLE_R_Pos)
+#define USBHSDEV_DEV_EPO_CS_VALID               (1U << USBHSDEV_DEV_EPO_CS_VALID_Pos)
+#define USBHSDEV_DEV_EPI_CS_VALID               (1U << USBHSDEV_DEV_EPI_CS_VALID_Pos)
+#define USBHSDEV_EEPM_ENDPOINT_EGRS_FLUSH_EP    (1U << USBHSDEV_EEPM_ENDPOINT_EGRS_FLUSH_EP_Pos)
+#define USBHSDEV_EPM_CS_EGRS_FORCE_FLUSH_ALL    (1U << USBHSDEV_EPM_CS_EGRS_FORCE_FLUSH_ALL_Pos)
+#define USBHSDEV_EPM_CS_IGRS_FORCE_FLUSH_ALL    (1U << USBHSDEV_EPM_CS_IGRS_FORCE_FLUSH_ALL_Pos)
+#define USBHSDEV_DEV_EPI_CS_ZERO_MASK           (1U << USBHSDEV_DEV_EPI_CS_ZERO_MASK_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_SETADDR      (1U << USBHSDEV_DEV_CTL_INTR_MASK_SETADDR_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_SOF          (1U << USBHSDEV_DEV_CTL_INTR_MASK_SOF_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_SUSP         (1U << USBHSDEV_DEV_CTL_INTR_MASK_SUSP_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_URESET       (1U << USBHSDEV_DEV_CTL_INTR_MASK_URESET_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_HSGRANT      (1U << USBHSDEV_DEV_CTL_INTR_MASK_HSGRANT_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_SUTOK        (1U << USBHSDEV_DEV_CTL_INTR_MASK_SUTOK_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_SUDAV        (1U << USBHSDEV_DEV_CTL_INTR_MASK_SUDAV_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_ERRLIMIT     (1U << USBHSDEV_DEV_CTL_INTR_MASK_ERRLIMIT_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_URESUME      (1U << USBHSDEV_DEV_CTL_INTR_MASK_URESUME_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_STATUS_STAGE (1U << USBHSDEV_DEV_CTL_INTR_MASK_STATUS_STAGE_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_L1_SLEEP_REQ (1U << USBHSDEV_DEV_CTL_INTR_MASK_L1_SLEEP_REQ_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_L1_URESUME   (1U << USBHSDEV_DEV_CTL_INTR_MASK_L1_URESUME_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_RESETDONE    (1U << USBHSDEV_DEV_CTL_INTR_MASK_RESETDONE_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_HOST_URSUME_ARRIVED (1U << USBHSDEV_DEV_CTL_INTR_MASK_HOST_URSUME_ARRIVED_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_DPSLP        (1U << USBHSDEV_DEV_CTL_INTR_MASK_DPSLP_Pos)
+#define USBHSDEV_DEV_CTL_INTR_MASK_PID_MISMATCH_ON_NAK (1U << USBHSDEV_DEV_CTL_INTR_MASK_PID_MISMATCH_ON_NAK_Pos)
+#define USBHSDEV_DEV_CTL_INTR_SETADDR           (1U << USBHSDEV_DEV_CTL_INTR_SETADDR_Pos)
+#define USBHSDEV_DEV_CTL_INTR_SOF               (1U << USBHSDEV_DEV_CTL_INTR_SOF_Pos)
+#define USBHSDEV_DEV_CTL_INTR_SUSP              (1U << USBHSDEV_DEV_CTL_INTR_SUSP_Pos)
+#define USBHSDEV_DEV_CTL_INTR_URESET            (1U << USBHSDEV_DEV_CTL_INTR_URESET_Pos)
+#define USBHSDEV_DEV_CTL_INTR_HSGRANT           (1U << USBHSDEV_DEV_CTL_INTR_HSGRANT_Pos)
+#define USBHSDEV_DEV_CTL_INTR_SUTOK             (1U << USBHSDEV_DEV_CTL_INTR_SUTOK_Pos)
+#define USBHSDEV_DEV_CTL_INTR_SUDAV             (1U << USBHSDEV_DEV_CTL_INTR_SUDAV_Pos)
+#define USBHSDEV_DEV_CTL_INTR_ERRLIMIT          (1U << USBHSDEV_DEV_CTL_INTR_ERRLIMIT_Pos)
+#define USBHSDEV_DEV_CTL_INTR_URESUME           (1U << USBHSDEV_DEV_CTL_INTR_URESUME_Pos)
+#define USBHSDEV_DEV_CTL_INTR_STATUS_STAGE      (1U << USBHSDEV_DEV_CTL_INTR_STATUS_STAGE_Pos)
+#define USBHSDEV_DEV_CTL_INTR_L1_SLEEP_REQ      (1U << USBHSDEV_DEV_CTL_INTR_L1_SLEEP_REQ_Pos)
+#define USBHSDEV_DEV_CTL_INTR_L1_URESUME        (1U << USBHSDEV_DEV_CTL_INTR_L1_URESUME_Pos)
+#define USBHSDEV_DEV_CTL_INTR_RESETDONE         (1U << USBHSDEV_DEV_CTL_INTR_RESETDONE_Pos)
+#define USBHSDEV_DEV_CTL_INTR_HOST_URSUME_ARRIVED (1U << USBHSDEV_DEV_CTL_INTR_HOST_URSUME_ARRIVED_Pos)
+#define USBHSDEV_DEV_CTL_INTR_DPSLP             (1U << USBHSDEV_DEV_CTL_INTR_DPSLP_Pos)
+#define USBHSDEV_DEV_CTL_INTR_PID_MISMATCH_ON_NAK (1U << USBHSDEV_DEV_CTL_INTR_PID_MISMATCH_ON_NAK_Pos)
+#define USBHSDEV_DEV_EPI_CS_ZERO                (1U << USBHSDEV_DEV_EPI_CS_ZERO_Pos)
+#define USBHSDEV_DEV_EPI_CS_COMMIT              (1U << USBHSDEV_DEV_EPI_CS_COMMIT_Pos)
+#define USBHSPHY_PLL_CONTROL_1_SUPPLY_EN        (1U << USBHSPHY_PLL_CONTROL_1_SUPPLY_EN_Pos)
+#define USBHSPHY_PLL_CONTROL_1_PLL_EN           (1U << USBHSPHY_PLL_CONTROL_1_PLL_EN_Pos)
+#define USBHSPHY_CDR_CONTROL_CDR_ENABLE         (1U << USBHSPHY_CDR_CONTROL_CDR_ENABLE_Pos)
+#define USBHSPHY_AFE_CONTROL_1_CPU_DELAY_ENABLE_HS_VCCD (1U << USBHSPHY_AFE_CONTROL_1_CPU_DELAY_ENABLE_HS_VCCD_Pos)
+#define USBHSPHY_REG_1P1_CONTROL_ENABLE_LV      (1U << USBHSPHY_REG_1P1_CONTROL_ENABLE_LV_Pos)
+#define USBHSPHY_REG_2P5_CONTROL_BYPASS_MODE    (1U << USBHSPHY_REG_2P5_CONTROL_BYPASS_MODE_Pos)
+#define USBHSPHY_VREFGEN_CONTROL_ENABLE_LV      (1U << USBHSPHY_VREFGEN_CONTROL_ENABLE_LV_Pos)
+#define USBHSPHY_IREFGEN_CONTROL_ENABLE_LV      (1U << USBHSPHY_IREFGEN_CONTROL_ENABLE_LV_Pos)
+#define USBHSPHY_REG_1P1_CONTROL_SWITCH_EN      (1U << USBHSPHY_REG_1P1_CONTROL_SWITCH_EN_Pos)
+#define USBHSPHY_INTR0_ENABLE_HS_VCCD           (1U << USBHSPHY_INTR0_ENABLE_HS_VCCD_Pos)
+#define USBHSPHY_INTR0_PLL_LOCK                 (1U << USBHSPHY_INTR0_PLL_LOCK_Pos)
+#define USBHSPHY_REG_2P5_CONTROL_ENABLE_LV      (1U << USBHSPHY_REG_2P5_CONTROL_ENABLE_LV_Pos)
+#define USBHSPHY_INTR0_ENABLE_VCCD              (1U << USBHSPHY_INTR0_ENABLE_VCCD_Pos)
+#define USBHSPHY_AFE_CONTROL_1_CPU_DELAY_ENABLE_VCCD    (1U << USBHSPHY_AFE_CONTROL_1_CPU_DELAY_ENABLE_VCCD_Pos)
+#define USBHSDEV_POWER_RESETN                   (1U << USBHSDEV_POWER_RESETN_Pos)
+#define USBHSDEV_POWER_VBUS_VALID               (1U << USBHSDEV_POWER_VBUS_VALID_Pos)
+#define USBHSDEV_POWER_EPM_DCG_ENABLE           (1U << USBHSDEV_POWER_EPM_DCG_ENABLE_Pos)
+#define USBHSDEV_DEV_LPM_ATTR_NYET              (1U << USBHSDEV_DEV_LPM_ATTR_NYET_Pos)
+#endif /* CY_IP_MXS40USBHSDEV */
+
 
 #endif /* CY_DEVICE_H_ */
 

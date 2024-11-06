@@ -535,6 +535,44 @@
     #include "cyt2b65cas.h"
 #elif defined (CYT2B65CAE)
     #include "cyt2b65cae.h"
+#elif defined (CYUSB4024_BZXI)
+    #include "cyusb4024_bzxi.h"
+#elif defined (CYUSB4014_FCAXI)
+    #include "cyusb4014_fcaxi.h"
+#elif defined (CYUSB4014_BZXI)
+    #include "cyusb4014_fcaxi.h"
+#elif defined (CYUSB4013_FCAXI)
+    #include "cyusb4013_fcaxi.h"
+#elif defined (CYUSB4012_FCAXI)
+    #include "cyusb4012_fcaxi.h"
+#elif defined (CYUSB4011_FCAXI)
+    #include "cyusb4011_fcaxi.h"
+#elif defined (CYUSB3084_FCAXI)
+    #include "cyusb3084_fcaxi.h"
+#elif defined (CYUSB3083_FCAXI)
+    #include "cyusb3083_fcaxi.h"
+#elif defined (CYUSB3082_FCAXI)
+    #include "cyusb3082_fcaxi.h"
+#elif defined (CYUSB3081_FCAXI)
+    #include "cyusb3081_fcaxi.h"
+#elif defined (CYUSB3284_FCAXI)
+    #include "cyusb3284_fcaxi.h"
+#elif defined (CYUSB3282_FCAXI)
+    #include "cyusb3282_fcaxi.h"
+#elif defined (CYUSB4022_FCAXI)
+    #include "cyusb4022_fcaxi.h"
+#elif defined (CYUSB4021_FCAXI)
+    #include "cyusb4021_fcaxi.h"
+#elif defined (CYUSB2315_BF104AXI)
+    #include "cyusb2315_bf104axi.h"
+#elif defined (CYUSB2315A_BF104AXI)
+    #include "cyusb2315a_bf104axi.h"
+#elif defined (CYUSB2316_BF104AXI)
+    #include "cyusb2316_bf104axi.h"
+#elif defined (CYUSB2317_BF104AXI)
+    #include "cyusb2317_bf104axi.h"
+#elif defined (CYUSB2318_BF104AXI)
+    #include "cyusb2318_bf104axi.h"
 #else
     #include "cy_device_common.h"
 #endif

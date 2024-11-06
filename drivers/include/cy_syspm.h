@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.140
+* \version 5.150
 *
 * Provides the function definitions for the power management API.
 *
@@ -846,6 +846,11 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>5.150</td>
+*     <td>Updated Cy_SysPm_SaveRegisters and Cy_SysPm_RestoreRegisters to support parts which do not implement UDB.</td>
+*     <td>Added support for FX3G2 (CAT1A).</td>
+*   </tr>
 *   <tr>
 *     <td>5.140</td>
 *     <td>Update to cy_en_syspm_hibernate_wakeup_source_t.</td>
@@ -1716,7 +1721,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       140
+#define CY_SYSPM_DRV_VERSION_MINOR       150
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))

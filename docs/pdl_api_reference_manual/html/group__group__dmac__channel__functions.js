@@ -5,6 +5,7 @@ var group__group__dmac__channel__functions =
     [ "Cy_DMAC_Channel_SetDescriptor", "group__group__dmac__channel__functions.html#ga0ea7589df07e40e6723dc7f992e6994b", null ],
     [ "Cy_DMAC_Channel_Enable", "group__group__dmac__channel__functions.html#gab39e11c3ad72ebfd07cdd9840385769b", null ],
     [ "Cy_DMAC_Channel_Disable", "group__group__dmac__channel__functions.html#gae46d7a93ef597de25a50159b615fcaf1", null ],
+    [ "Cy_DMAC_Channel_IsEnabled", "group__group__dmac__channel__functions.html#ga4423c4dbc11bb51cb622e95fb593ee9c", null ],
     [ "Cy_DMAC_Channel_SetPriority", "group__group__dmac__channel__functions.html#ga4e68ab04d5de2d6a1b31779741aa64db", null ],
     [ "Cy_DMAC_Channel_GetPriority", "group__group__dmac__channel__functions.html#gafc275a614e5307f13e86a1d0c07e0af5", null ],
     [ "Cy_DMAC_Channel_GetCurrentSrcAddress", "group__group__dmac__channel__functions.html#ga468ad1b43f0a513ad9a44540c6c74d7d", null ],

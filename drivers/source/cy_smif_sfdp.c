@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_sfdp.c
-* \version 2.90
+* \version 2.100
 *
 * \brief
 *  This file provides the source code for SFDP enumeration in SMIF driver.

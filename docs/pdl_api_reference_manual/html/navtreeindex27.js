@@ -1,5 +1,8 @@
 var NAVTREEINDEX27 =
 {
+"group__group__syspm__functions__core__regulators.html":[4,44,4,4],
+"group__group__syspm__functions__general.html":[4,44,4,0],
+"group__group__syspm__functions__general.html#ga05204555cfdd18da26aa8e615359484f":[4,44,4,0,0],
 "group__group__syspm__functions__general.html#ga2851806aea4e38ff40c277841c07572c":[4,44,4,0,5],
 "group__group__syspm__functions__general.html#ga300fc24bbd19d12771dc2dd472658ab7":[4,44,4,0,9],
 "group__group__syspm__functions__general.html#ga338c546bbd9227c75ada5bc85b1bf615":[4,44,4,0,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX27 =
 "group__group__system__config__macro.html":[4,0,2,0],
 "group__group__system__config__macro__cm33.html":[4,0,3,0],
 "group__group__system__config__macro__cm7.html":[4,0,4,0],
-"group__group__system__config__system__macro.html":[4,0,2,0,0],
-"group__group__system__config__system__macro.html#ga25558fb7180a69e1e5395fc6a0429c47":[4,0,2,0,0,0],
-"group__group__system__config__system__macro.html#gaa5251e0e6c6ea3b5b2ef44343ad950d0":[4,0,2,0,0,1],
-"group__group__system__config__system__macro__cm33.html":[4,0,3,0,0]
+"group__group__system__config__system__macro.html":[4,0,2,0,0]
 };

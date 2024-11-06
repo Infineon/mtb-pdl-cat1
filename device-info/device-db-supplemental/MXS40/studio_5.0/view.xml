@@ -14,7 +14,8 @@
   <TrigMuxConnectTemplate value="Cy_TrigMux_Connect(${CyMarkIn}, ${CyMarkOut}, false, ${CyMarkType});" />
   <TrigMuxSelectTemplate value="Cy_TrigMux_Select(${CyMarkOut}, false, ${CyMarkType});" />
   <Profiles>
-    <Profile displayName="Solutions" fileName="solutions" evalPriority="7" displayPriority="1" description="Solution configuration" resources="vres(\[\d+\]).*" />
+    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" evalPriority="8" displayPriority="6" description="Memory configuration" resources="(vres\[\d+\]\.(reserved_memory_region|memory|security)\[\d+\].*)|(m33syscpuss\[\d+\]\.cm33.*)|(m55appcpuss\[\d+\]\.cm55.*)|(.*\.mpc\[\d+\])" />
+    <Profile displayName="Solutions" fileName="solutions" evalPriority="7" displayPriority="1" description="Solution configuration" resources="vres\[\d+\].*" />
     <Profile displayName="System" diagramType="CLOCKS" fileName="system" evalPriority="1" displayPriority="5" description="System configuration" resources="srss(\[\d+\])?\.(clock|power|eeprom)(\[\d+\])?.*|cpuss(\[\d+\])?\.dap(\[\d+\])?" />
     <Profile displayName="DMA" fileName="dmas" evalPriority="3" displayPriority="7" description="DMA configuration" resources="cpuss(\[\d+\])?\.(dw|dmac).*|axi_dmac(\[\d+\])?.*" />
     <Profile displayName="Peripheral-Clocks" fileName="clocks" evalPriority="2" displayPriority="6" description="Clock configuration" resources="peri(\[\d+\])?(\.group(\[\d+\])?)?(\.div_.*)?" />

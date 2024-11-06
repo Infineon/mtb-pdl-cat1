@@ -1,5 +1,8 @@
 var NAVTREEINDEX15 =
 {
+"group__group__sar__functions__basic.html#ga859687d40491a053c7fd8d489244f2ac":[4,32,1,0,9],
+"group__group__sar__functions__basic.html#ga92cb7f3c5947df6e47b59f1b2796883c":[4,32,1,0,4],
+"group__group__sar__functions__basic.html#ga977c6fb6f81ee39d27eae43c0e45d85c":[4,32,1,0,6],
 "group__group__sar__functions__basic.html#gafe907896ffee98cc780042ad77fe71cc":[4,32,1,0,8],
 "group__group__sar__functions__config.html":[4,32,1,2],
 "group__group__sar__functions__config.html#ga1010c3aa3528648ac3715481c0339e28":[4,32,1,2,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX15 =
 "group__group__scb__common__macros__intr__cause.html":[4,34,0,0,0],
 "group__group__scb__common__macros__intr__cause.html#ga1e7d3f256737c7b3fb49d7c724ff4830":[4,34,0,0,0,4],
 "group__group__scb__common__macros__intr__cause.html#ga2a726fb94c754f042539cdb9265231f4":[4,34,0,0,0,5],
-"group__group__scb__common__macros__intr__cause.html#ga5d901d6c4bef30176cd6ae517fb44dd5":[4,34,0,0,0,3],
-"group__group__scb__common__macros__intr__cause.html#ga717d54c8c428abae8ae134bef20627dc":[4,34,0,0,0,0],
-"group__group__scb__common__macros__intr__cause.html#gab04d89596270b716b1a7846ab970b389":[4,34,0,0,0,1],
-"group__group__scb__common__macros__intr__cause.html#gaf299c92738a2bf64475fd62c1f1ad956":[4,34,0,0,0,2]
+"group__group__scb__common__macros__intr__cause.html#ga5d901d6c4bef30176cd6ae517fb44dd5":[4,34,0,0,0,3]
 };

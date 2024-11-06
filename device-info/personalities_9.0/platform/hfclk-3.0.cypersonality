@@ -37,6 +37,8 @@
     <ExposedMember key="error"     paramId="error" />
     <ExposedMember key="clockInst" paramId="clockInst" />
     <ExposedMember key="sourceClockDisplayName" paramId="sourceClockDisplayName" />
+    <ExposedMember key="number"    paramId="number" />
+    <ExposedMember key="hal_block" paramId="hal_block" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -164,6 +166,8 @@
       </Constraint-->
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
+    <ParamRange id="number" name="HFCLK number" group="Internal" default="`${getInstNumber(&quot;hfclk&quot;)}`" min="0" max="`${NUM_HFROOT-1}`" resolution="1" visible="false" editable="false" desc="" />
+    <ParamString id="hal_block" name="hal_block" group="Internal" default="CYHAL_CLOCK_BLOCK_HF[`${number}`]" visible="false" editable="false" desc="" />
   </Parameters>
   <DRCs>
     <DRC type="ERROR" text="Source clock for CLK_HF`${clockInst}` is not enabled" condition="`${srcNotUsed}`" >

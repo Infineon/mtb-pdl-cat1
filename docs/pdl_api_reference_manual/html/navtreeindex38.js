@@ -1,5 +1,8 @@
 var NAVTREEINDEX38 =
 {
+"structcy__stc__syspm__retldo__params__t.html#aa9a66a25e8ca50871ddc7fef23c52742":[4,44,5,3,1],
+"structcy__stc__syspm__retldo__params__t.html#afa7c6a983726bdb8bca4a5d4bbfa0bbc":[4,44,5,3,3],
+"structcy__stc__syspm__sdr__params__t.html":[4,44,5,8],
 "structcy__stc__syspm__sdr__params__t.html#a05be2f266996ceaef6574e50fc38968a":[4,44,5,8,8],
 "structcy__stc__syspm__sdr__params__t.html#a19d1c7053b085f162eecb6f14f957746":[4,44,5,8,2],
 "structcy__stc__syspm__sdr__params__t.html#a3507a2da6d66b6adcc843fb11f41f11e":[4,44,5,8,1],

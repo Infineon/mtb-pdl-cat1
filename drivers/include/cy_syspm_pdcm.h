@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_pdcm.h
-* \version 5.130
+* \version 5.150
 *
 * This file provides the header for PDCM driver, where the APIs are used
 * by Syspm driver and BTSS driver.
@@ -42,6 +42,11 @@
 * \section group_syspm_pdcm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>5.150</td>
+*     <td>Version updated to match SYSPM driver.</td>
+*     <td></td>
+*   </tr>
 *   <tr>
 *     <td>1.0</td>
 *     <td>Initial version</td>
@@ -117,7 +122,7 @@ typedef enum
 /** Driver major version */
 #define CY_PD_PDCM_DRV_VERSION_MAJOR       5
 /** Driver minor version */
-#define CY_PD_PDCM_DRV_VERSION_MINOR       91
+#define CY_PD_PDCM_DRV_VERSION_MINOR       150
 
 /** Macro to validate the PDCM PPU ID in API's : /ref cy_pd_pdcm_get_dependency, /ref cy_pd_pdcm_set_dependency() and /ref cy_pd_pdcm_clear_dependency */
 #if defined (CY_IP_MXS22SRSS)

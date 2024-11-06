@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.12.0
+# MTB CAT1 Peripheral Driver Library v3.12.1
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -6,10 +6,7 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Implementation Details
-* CAT1C: This release enables D-CACHE on CAT1C platform by default. To disable, define flag CY_DISABLE_XMC7000_DATA_CACHE
-         in Makefile. With this feature enabled, application need to take care of Data Cache Coherency by cleaning (after write) and invalidating (before read).
-* Personality re-structuring: Personality supporting Schema v9 added. Personalities_9.0 is a copy of ‘personalities_8.0’ with 
-                              needed personalities updated to use schema v9. These personalities are available in folder device-info/personalities_9.0. Personalities supporting schema v9 are visible in MTB 3.2. For backward compatibility with MTB 3.0 and MTB 3.1, this release will also have older personalities in folder device-info/personalities.
+* CAT1A: Support for EZ-USB FX3G2 devices: cyusb4xxx, cyusb3xxx, cyusb2xxx
 
 
 ## Build Changes
@@ -19,14 +16,10 @@ for a complete description of the Peripheral Driver Library.
 ## Added Drivers
 
 ## Updated Drivers
-* [CRYPTO 2.120](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
-* [SMIF 2.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
 
 ### Drivers with patch version updates
 
-
 ### Obsoleted part numbers
-
 
 ## Known Issues
 * CAT1A: In device-configurator, certain IP is not completely available for some devices as some combinations of pin connections are not valid.
@@ -59,9 +52,9 @@ This version of PDL was validated for compatibility with the following Software 
 | CMSIS                                                                         | 5.8.1        |
 | GCC Compiler                                                                  | 11.3.1       |
 | IAR Compiler                                                                  | 9.40.2       |
-| ARM Compiler 6                                                                | 6.16         |
+| ARM Compiler 6                                                                | 6.22         |
 | FreeRTOS                                                                      | 10.4.305     |
-| [Device Database](https://github.com/Infineon/device-db)                      | 4.17.0       |
+| [Device Database](https://github.com/Infineon/device-db)                      | 4.18.0       |
 
 ## More information
 

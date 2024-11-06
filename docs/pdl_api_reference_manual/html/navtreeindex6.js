@@ -1,5 +1,8 @@
 var NAVTREEINDEX6 =
 {
+"group__group__dmac__enums.html#gga678295e9e6a31ad41feab278d0faf4d1a2a4263cf2e96f596937f5e46d056887b":[4,11,4,4,0],
+"group__group__dmac__enums.html#gga67fe9048608517c9cdebbe0372866eb5a28b8304c91ff9d341c6c204d7982c6ef":[4,11,4,6,1],
+"group__group__dmac__enums.html#gga67fe9048608517c9cdebbe0372866eb5a5c4b9c1a66c7776ddc98a5b3dedac160":[4,11,4,6,0],
 "group__group__dmac__enums.html#gga78bb44cea66b230aadd012c5bae864a3a11e4d6abf22cf1f92ef9345b4e500f6a":[4,11,4,1,3],
 "group__group__dmac__enums.html#gga78bb44cea66b230aadd012c5bae864a3a2686a44a26f00bc7c3eb20e73594c1be":[4,11,4,1,1],
 "group__group__dmac__enums.html#gga78bb44cea66b230aadd012c5bae864a3a274e048caf530edf7ef6159face7c486":[4,11,4,1,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX6 =
 "group__group__evtgen__macros.html#ga87b2fa85f9f91c1152fa2f18aff6f1ca":[4,15,0,2],
 "group__group__evtgen__macros.html#gadc39558d1f90fb51de57d4c8b31bc09e":[4,15,0,0],
 "group__group__flash.html":[4,16],
-"group__group__flash__config__macros.html":[4,16,0,1],
-"group__group__flash__enumerated__types.html":[4,16,2],
-"group__group__flash__enumerated__types.html#ga0c1a15e58947caee9ca19fb13208437f":[4,16,2,4],
-"group__group__flash__enumerated__types.html#ga234aa3b73c85e748298bcc3cd0fc7785":[4,16,2,9]
+"group__group__flash__config__macros.html":[4,16,0,1]
 };

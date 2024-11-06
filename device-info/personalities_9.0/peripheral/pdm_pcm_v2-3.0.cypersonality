@@ -451,13 +451,14 @@
 
     <!-- Peripheral clock divider connection -->
     <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasConnection(&quot;clk_if_srss&quot;, 0) &amp;&amp; isBlockUsed(sourceClock)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled." />
+    <ParamBool id="blockUsesPeriClock" name="PERI clock used" group="Internal" default="`${!hasMatch(sourceClock, &quot;.*hfclk.*&quot;)}`" visible="false" editable="false" desc="Checks whether block uses a PERI derived clock." />
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="PCLK_PDM`${InstNumber}`_CLK_IF_SRSS" visible="false" editable="false" desc="Generates PCLK connection define." />
 
   </Parameters>
 
   <DRCs>
       <!-- ACLK Divider -->
-      <DRC type="ERROR" text="To achieve 50 percent duty cycle a minimum of divide by 2 of assigned divider is required." condition="`${getExposedMember(sourceClock, &quot;divider&quot;) == 1}`" />
+      <DRC type="ERROR" text="To achieve 50 percent duty cycle a minimum of divide by 2 of assigned divider is required." condition="`${(blockUsesPeriClock) &amp;&amp; getExposedMember(sourceClock, &quot;divider&quot;) == 1}`" />
 
   </DRCs>
 
@@ -548,6 +549,6 @@
     </ConfigStruct>
     
     <ConfigInstruction value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_PDM`${InstNumber}`_PERI_NR, CY_MMIO_PDM`${InstNumber}`_GROUP_NR, CY_MMIO_PDM`${InstNumber}`_SLAVE_NR, CY_MMIO_PDM`${InstNumber}`_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
-    <ConfigInstruction value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${pclkOk}`"  />
+    <ConfigInstruction value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${blockUsesPeriClock}`"  />
   </ConfigFirmware>
 </Personality>

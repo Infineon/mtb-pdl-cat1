@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Woundings xml_version="1" xmlns="http://cypress.com/xsd/cychipresourcewoundings_v1">
+  <MemoryWounding name="SRAM_KB" memoryId="SRAM"/>
+  <MemoryWounding name="FLASH_KB" memoryId="FLASH"/>
+  
   <BooleanWounding name="SMIF">
     <Block name="smif"/>
   </BooleanWounding>
@@ -22,6 +25,9 @@
   </BooleanWounding>
   <BooleanWounding name="MOTIF">
     <Block name="tcpwm.group.motif"/>
+  </BooleanWounding>
+  <BooleanWounding name="HRPWM">
+    <Block name="tcpwm.group.cnt.hrpwm"/>
   </BooleanWounding>
   
   <NaWounding name="BLUETOOTH">
@@ -46,11 +52,13 @@
   </RemoveListWounding>
   <RemoveListWounding name="ADC_REMOVED">
     <Block name="adcmic"/>
+    <Block name="pass.sar"/>
   </RemoveListWounding>
   <RemoveListWounding name="I2S_REMOVED">
     <Block name="tdm"/>
   </RemoveListWounding>
   <RemoveListWounding name="ADC_CH_REMOVED">
     <Block name="pass.sar.ch"/>
+    <Block name="pass.sar.dir_sampler"/>
   </RemoveListWounding>
 </Woundings>

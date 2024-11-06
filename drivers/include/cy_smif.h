@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.90
+* \version 2.100
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -232,6 +232,11 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.100</td>
+*     <td>Updated slaveSelect validity check to allow Dual QSPI use case.</td>
+*     <td>Bug fixes.</td>
+*   </tr>
 *   <tr>
 *     <td>2.90</td>
 *     <td>Updated internal API</td>
@@ -624,7 +629,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       90
+#define CY_SMIF_DRV_VERSION_MINOR       100
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
@@ -750,7 +755,8 @@ extern "C" {
 #define CY_SMIF_SLAVE_SEL_VALID(ss)         ((CY_SMIF_SLAVE_SELECT_0 == (ss)) || \
                                              (CY_SMIF_SLAVE_SELECT_1 == (ss)) || \
                                              (CY_SMIF_SLAVE_SELECT_2 == (ss)) || \
-                                             (CY_SMIF_SLAVE_SELECT_3 == (ss)))
+                                             (CY_SMIF_SLAVE_SELECT_3 == (ss)) || \
+                                             ((CY_SMIF_SLAVE_SELECT_0 | CY_SMIF_SLAVE_SELECT_1) == (ss)))
 #define CY_SMIF_DATA_SEL_VALID(ss)          ((CY_SMIF_DATA_SEL0 == (ss)) || \
                                              (CY_SMIF_DATA_SEL1 == (ss)) || \
                                              (CY_SMIF_DATA_SEL2 == (ss)) || \

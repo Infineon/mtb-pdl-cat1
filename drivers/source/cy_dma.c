@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_dma.c
-* \version 2.80
+* \version 2.90
 *
 * \brief
 * The source code file for the DMA driver.
