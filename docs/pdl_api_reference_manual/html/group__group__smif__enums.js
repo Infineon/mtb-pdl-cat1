@@ -142,5 +142,15 @@ var group__group__smif__enums =
       [ "CY_SMIF_DATA_BIT5_TAP_SEL", "group__group__smif__enums.html#gga75fd5ed63d1828766ad5c8a7a20c52caa213e6295471b198701bd4356410c90ed", null ],
       [ "CY_SMIF_DATA_BIT6_TAP_SEL", "group__group__smif__enums.html#gga75fd5ed63d1828766ad5c8a7a20c52caa84a14307f11b6d2246c615840a6767c9", null ],
       [ "CY_SMIF_DATA_BIT7_TAP_SEL", "group__group__smif__enums.html#gga75fd5ed63d1828766ad5c8a7a20c52caa6322a47e4b628ffdfc54b1fc8f45be62", null ]
+    ] ],
+    [ "cy_en_smif_cache_attribute_t", "group__group__smif__enums.html#ga2a1121193cee4d27da9f5a354c9b14c9", [
+      [ "CY_SMIF_NON_CACHEABLE_NON_BUFFERABLE", "group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a2134a782533629403514ad51758897c9", null ],
+      [ "CY_SMIF_NON_CACHEABLE_BUFFERABLE", "group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a24709973f7c4098f1f0a2681e3b63885", null ],
+      [ "CY_SMIF_CACHEABLE_WT_WA", "group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a8442cc0ebee769c8fe97aa967e3c0e0a", null ],
+      [ "CY_SMIF_CACHEABLE_WT_RA", "group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a3248c8e3ecbcb639a81459664959f63c", null ],
+      [ "CY_SMIF_CACHEABLE_WT_RWA", "group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a3a3f438b5df399ded88202adc7d6db4a", null ],
+      [ "CY_SMIF_CACHEABLE_WB_WA", "group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a93d1766b01c0ba792fa135fd3dd82dd1", null ],
+      [ "CY_SMIF_CACHEABLE_WB_RA", "group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9adeafb25fbc51025251a56308b9ffb89c", null ],
+      [ "CY_SMIF_CACHEABLE_WB_RWA", "group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a2fb5dbad17396457183283f6f9efa62f", null ]
     ] ]
 ];

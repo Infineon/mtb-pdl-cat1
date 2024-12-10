@@ -103,7 +103,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga6a98fa4f1133264ca3add72381e7bb22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the WDT lock state.  <a href="#ga6a98fa4f1133264ca3add72381e7bb22">More...</a><br /></td></tr>
 <tr class="separator:ga6a98fa4f1133264ca3add72381e7bb22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga727d9ae6fdba36809bf631985a3eb987"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987">Cy_WDT_ClearInterrupt</a> (void)</td></tr>
-<tr class="memdesc:ga727d9ae6fdba36809bf631985a3eb987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value.  <a href="#ga727d9ae6fdba36809bf631985a3eb987">More...</a><br /></td></tr>
+<tr class="memdesc:ga727d9ae6fdba36809bf631985a3eb987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the WDT interrupt.  <a href="#ga727d9ae6fdba36809bf631985a3eb987">More...</a><br /></td></tr>
 <tr class="separator:ga727d9ae6fdba36809bf631985a3eb987"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5aafcfb34e8078ae911bb42be76a8f18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__wdt__functions.html#ga5aafcfb34e8078ae911bb42be76a8f18">Cy_WDT_ClearWatchdog</a> (void)</td></tr>
 <tr class="memdesc:ga5aafcfb34e8078ae911bb42be76a8f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears ("feeds") the watchdog, to prevent a XRES device reset.  <a href="#ga5aafcfb34e8078ae911bb42be76a8f18">More...</a><br /></td></tr>
@@ -205,9 +205,22 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the Watchdog timer to its default state. </p>
-<p>The given default setting of the WDT: The WDT is unlocked and disabled. The WDT match value is 4096. None of ignore bits are set: the whole WDT counter bits are checked against the match value.</p>
-<dl class="section user"><dt>Side Effects</dt><dd>This function clears the WDT interrupt.</dd></dl>
-<p>The given default setting of the WDT: The WDT is unlocked and disabled. The WDT Lower Limit value is set to 0 and Lower action to None. The WDT Warn Limit value is set to 0 and Warn action to None. The WDT Upper Limit value is set to 32000 (1 second) and Upper action to Reset. The WDT is locked again. </p>
+<dl class="section note"><dt>Note</dt><dd>On WDT driver version A the given default setting of the WDT:<ul>
+<li>The WDT is unlocked and disabled.</li>
+<li>The WDT match value is 4096.</li>
+<li>None of ignore bits are set: the whole WDT counter bits are checked against the match value.</li>
+<li>Side Effects: This function clears the WDT interrupt.</li>
+</ul>
+</dd>
+<dd>
+On WDT driver version B the given default setting of the WDT:<ul>
+<li>The WDT is unlocked and disabled.</li>
+<li>The WDT Lower Limit value is set to 0 and Lower action to None.</li>
+<li>The WDT Warn Limit value is set to 0 and Warn action to None.</li>
+<li>The WDT Upper Limit value is set to 32000 (1 second) and Upper action to Reset.</li>
+<li>The WDT is locked again. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -291,9 +304,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value. </p>
-<p>Two unserviced interrupts lead to a system reset (i.e. at the third match).</p>
-<p>Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value. </p>
+<p>Clears the WDT interrupt. </p>
+<dl class="section note"><dt>Note</dt><dd>On WDT driver version A it clears the WDT match flag which is set every time the WDT counter reaches a WDT match value. Unservised interrupts lead to a system reset (i.e. at the third match).</dd>
+<dd>
+On WDT driver version B it clears the WDT match flag which is set as configured by WDT action and limits. </dd></dl>
 
 </div>
 </div>
@@ -314,8 +328,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Clears ("feeds") the watchdog, to prevent a XRES device reset. </p>
-<p>This function simply call <a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987" title="Clears the WDT match flag which is set as configured by WDT action and limits. ">Cy_WDT_ClearInterrupt()</a> function.</p>
-<p>This function simply call <a class="el" href="group__group__wdt__functions.html#ga405c852c5a61c72a9492f9d0d9c04213" title="Set service of the watchdog. ">Cy_WDT_SetService()</a> function. </p>
+<dl class="section note"><dt>Note</dt><dd>On WDT driver version A this function simply call <a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987" title="Clears the WDT interrupt. ">Cy_WDT_ClearInterrupt()</a> function.</dd>
+<dd>
+On WDT driver version B this function simply call <a class="el" href="group__group__wdt__functions.html#ga405c852c5a61c72a9492f9d0d9c04213" title="Set service of the watchdog. ">Cy_WDT_SetService()</a> function. </dd></dl>
 
 </div>
 </div>

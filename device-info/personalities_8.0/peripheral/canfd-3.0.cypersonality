@@ -389,6 +389,7 @@ treated.">
     <ConfigDefine name="`${INST_NAME}`_DATA_$idx" value="$idx" public="true" include="true" repeatCount="16"/>
     <ConfigDefine name="`${INST_NAME}`_IRQ_0" value="canfd_`${instNumber}`_interrupts0_`${channel}`_IRQn" public="true" include="true"/>
     <ConfigDefine name="`${INST_NAME}`_IRQ_1" value="canfd_`${instNumber}`_interrupts1_`${channel}`_IRQn" public="true" include="true"/>
+    <ConfigDefine name="`${INST_NAME}`_CHANNEL_NUM" value="`${channel}`U" public="true" include="true" />
 
     <ConfigDefine name="`${INST_NAME}`_STD_ID_FILTER_$idx" public="false"
     include="`${numberOfSIDFilters &gt; $idx}`" repeatCount="128" value="\&#xA;{\&#xA;

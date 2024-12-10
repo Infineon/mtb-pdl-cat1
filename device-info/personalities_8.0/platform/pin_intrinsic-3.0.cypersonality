@@ -42,6 +42,6 @@
   </Parameters>
   <DRCs />  
   <ConfigFirmware>
-    <ConfigDefine name="`${INST_NAME}`" value="(P`${port}`_`${pin}`)" public="true" include="`${hasAlias &amp;&amp; !pinUsed}`" guard="defined (CY_USING_HAL)" />
+    <ConfigDefine name="`${INST_NAME}`" value="(P`${port}`_`${pin}`)" public="true" include="`${hasAlias &amp;&amp; !pinUsed}`" guard="defined (CY_USING_HAL) || (CY_USING_HAL_LITE)" />
   </ConfigFirmware>
 </Personality>

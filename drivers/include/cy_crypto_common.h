@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_common.h
-* \version 2.120
+* \version 2.130
 *
 * \brief
 *  This file provides common constants and parameters
@@ -8,7 +8,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2020-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -49,13 +49,13 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         120
+#define CY_CRYPTO_DRV_VERSION_MINOR         130
 
 
 /** Rounds off value to nearest multiple of 32 */
 #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
 #define CY_CRYPTO_ALIGN_CACHE_LINE(x) ((uint32_t)(((x) + 31) & ~31))
-#else 
+#else
 #define CY_CRYPTO_ALIGN_CACHE_LINE(x) ((uint32_t)x)
 #endif
 
@@ -279,7 +279,6 @@ extern "C" {
 /** \endcond */
 
 #endif /* (CPUSS_CRYPTO_SHA == 1) && defined(CY_CRYPTO_CFG_SHA_C) */
-
 
 #if (CPUSS_CRYPTO_VU == 1) && defined(CY_CRYPTO_CFG_RSA_C)
 
@@ -836,7 +835,7 @@ typedef struct
     /** pointer to ctr buffer */
     uint8_t *ctr;
     /** pointer to y buffer */
-    uint8_t *y;        
+    uint8_t *y;
     /** Length field Size*/
     uint32_t L;
     /** Total text size*/
@@ -875,17 +874,17 @@ CRYPTO_MEM_ALIGN typedef struct
     /** AES ECB buffer */
     cy_stc_crypto_aes_buffers_t aes_buffer;
     /** AES GCM Hash Subkey */
-     uint8_t  h[CY_CRYPTO_AES_BLOCK_SIZE];  
-    /** AES GCM Initial Counter BLock*/               
+     uint8_t  h[CY_CRYPTO_AES_BLOCK_SIZE];
+    /** AES GCM Initial Counter BLock*/
      uint8_t  icb[CY_CRYPTO_AES_BLOCK_SIZE];
     /** AES GCM Counter Block */
-     uint8_t  cb[CY_CRYPTO_AES_BLOCK_SIZE];     
-    /** AES GCM Ghash buffer Block */                           
-    CRYPTO_MEM_ALIGN uint8_t  y[CY_CRYPTO_AES_BLOCK_SIZE];   
-    /** AES GCM temp buffer for AAD data */                           
-    CRYPTO_MEM_ALIGN uint8_t  temp[CY_CRYPTO_AES_BLOCK_SIZE]; 
-    /** AES GCM aes data buffer*/  
-    CRYPTO_MEM_ALIGN uint8_t  aes_data[CY_CRYPTO_AES_BLOCK_SIZE]; 
+     uint8_t  cb[CY_CRYPTO_AES_BLOCK_SIZE];
+    /** AES GCM Ghash buffer Block */
+    CRYPTO_MEM_ALIGN uint8_t  y[CY_CRYPTO_AES_BLOCK_SIZE];
+    /** AES GCM temp buffer for AAD data */
+    CRYPTO_MEM_ALIGN uint8_t  temp[CY_CRYPTO_AES_BLOCK_SIZE];
+    /** AES GCM aes data buffer*/
+    CRYPTO_MEM_ALIGN uint8_t  aes_data[CY_CRYPTO_AES_BLOCK_SIZE];
     /** Dummy */
     CRYPTO_MEM_ALIGN uint8_t dummy[1];
     /** \endcond */
@@ -895,32 +894,32 @@ CRYPTO_MEM_ALIGN typedef struct cy_stc_crypto_aes_gcm_state
 {
     /** \cond INTERNAL */
     /** AES GCM hash key pointer */
-    uint8_t *h;  
+    uint8_t *h;
     /**AES GCM Initial Counter block */
     uint8_t *icb;
     /** AES GCM Counter block */
-    uint8_t *cb; 
-    /** Pointer to ghash buffer */                               
-    uint8_t *y; 
-    /** pointer to temp buffer*/  
-    uint8_t *temp; 
+    uint8_t *cb;
+    /** Pointer to ghash buffer */
+    uint8_t *y;
+    /** pointer to temp buffer*/
+    uint8_t *temp;
     /**Pointer to hold the last AES block*/
-    uint8_t *aes_data; 
+    uint8_t *aes_data;
     /** AES GCM total data processed*/
-    uint32_t data_size; 
-    /** AES GCM total AAD data processed*/                      
+    uint32_t data_size;
+    /** AES GCM total AAD data processed*/
     uint32_t aad_size;
-    /** AES GCM partial AAD data processed flag*/                      
+    /** AES GCM partial AAD data processed flag*/
     bool partial_aad_processed;
     /**Mode of the AES GCM operation */
     cy_en_crypto_dir_mode_t mode;
     /**Pointer to the AES buffer*/
     cy_stc_crypto_aes_buffers_t *aes_buffer;
     /**AES state*/
-    CRYPTO_MEM_ALIGN cy_stc_crypto_aes_state_t  aesState;  
+    CRYPTO_MEM_ALIGN cy_stc_crypto_aes_state_t  aesState;
     /** Dummy */
-    CRYPTO_MEM_ALIGN uint8_t dummy[1];  
-    /** \endcond */                    
+    CRYPTO_MEM_ALIGN uint8_t dummy[1];
+    /** \endcond */
 } cy_stc_crypto_aes_gcm_state_t;
 
 #endif /* (CPUSS_CRYPTO_GCM == 1) && defined(CY_CRYPTO_CFG_GCM_C)*/
@@ -980,7 +979,7 @@ typedef struct
     /* Pointer to store the key */
     uint8_t *m0Key;
 
-    /* Pointer to store the sha buffer */ 
+    /* Pointer to store the sha buffer */
     void* sha_buffer;
 
     /* Hash state*/
@@ -1253,14 +1252,14 @@ typedef struct
      * This clock divider is wrt. "clk_sys".
      * "0": sample clock is "clk_sys".
      * "1": sample clock is "clk_sys"/2.
-     * 
+     *
      * "255": sample clock is "clk_sys"/256. */
     uint8_t sampleClockDiv;
     /**
      * "Specifies the clock divider that is used to produce reduced bits.
      * "0": 1 reduced bit is produced for each sample.
      * "1": 1 reduced bit is produced for each 2 samples.
-     * 
+     *
      * "255": 1 reduced bit is produced for each 256 samples. */
     uint8_t reducedClockDiv;
     /**
@@ -1276,7 +1275,7 @@ typedef struct
      * Field encoding is as follows:
      * "0": 1 sample is dropped.
      * "1": 2 samples are dropped.
-     * 
+     *
      * "255": 256 samples are dropped.
      *
      * The TR_INITIALIZED interrupt cause is set to '1', when
@@ -1595,7 +1594,7 @@ typedef struct
 
     #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
     CY_ALIGN(__SCB_DCACHE_LINE_SIZE)
-    #endif 
+    #endif
     /** buffer to store the nonce*/
     uint8_t nonce[CHACHA_NONCE_SIZE];
     /** \endcond */
@@ -1613,7 +1612,7 @@ typedef struct
     uint8_t *key;
     /** To store the chacha key bytes used */
     uint8_t keyIndexUsed;
-     /** To store the rounds for the chacha operation*/   
+     /** To store the rounds for the chacha operation*/
     uint8_t round;
     /** \endcond */
 } cy_stc_crypto_chacha_state_t;

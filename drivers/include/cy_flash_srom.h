@@ -785,7 +785,7 @@ typedef struct
     uint32_t        : 8;
     uint32_t type   : 8; // see \ref cy_en_computehash_type_t
     uint32_t        : 8;
-    uint32_t opcode : 8; // Opecde = 0x0D
+    uint32_t opcode : 8; // Opcode = 0x0D
 } cy_stc_compute_hash_arg0_t;
 
 typedef struct

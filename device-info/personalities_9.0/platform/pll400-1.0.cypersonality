@@ -118,6 +118,6 @@
       <Member name="fracDitherEn" value="`${fracDitherEn}`" />
       <Member name="fracEn" value="`${fracEn}`" />
     </ConfigStruct>
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_Pll`${clockInst}`Init()" body="    Cy_SysClk_PllDisable(SRSS_PLL_400M_`${clockInst}`_PATH_NUM);&#xA;&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllManualConfigure(SRSS_PLL_400M_`${clockInst}`_PATH_NUM, &amp;`${INST_NAME}`_pllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllEnable(SRSS_PLL_400M_`${clockInst}`_PATH_NUM, 10000u))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }" public="false" include="true" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_Pll`${clockInst}`Init(void)" body="    Cy_SysClk_PllDisable(SRSS_PLL_400M_`${clockInst}`_PATH_NUM);&#xA;&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllManualConfigure(SRSS_PLL_400M_`${clockInst}`_PATH_NUM, &amp;`${INST_NAME}`_pllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllEnable(SRSS_PLL_400M_`${clockInst}`_PATH_NUM, 10000u))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }" public="false" include="true" />
   </ConfigFirmware>
 </Personality>

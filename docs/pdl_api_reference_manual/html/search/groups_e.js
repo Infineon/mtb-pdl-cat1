@@ -7,6 +7,7 @@ var searchData=
   ['port_20interrupt_20functions',['Port Interrupt Functions',['../group__group__gpio__functions__interrupt.html',1,'']]],
   ['pdm_5fpcm_20_20_20_20_20_20_28pdm_2dpcm_20converter_29',['PDM_PCM      (PDM-PCM Converter)',['../group__group__pdm__pcm.html',1,'']]],
   ['pdm_5fpcm_5fv2_20_20_20_28pdm_2dpcm_20converter_20v2_29',['PDM_PCM_v2   (PDM-PCM Converter v2)',['../group__group__pdm__pcm__v2.html',1,'']]],
+  ['ppc_20_20_20_20_20_20_20_20_20_20_28peripheral_20protection_20controller_29',['PPC          (Peripheral Protection Controller)',['../group__group__ppc.html',1,'']]],
   ['pra_20_20_20_20_20_20_20_20_20_20_28protected_20register_20access_29',['PRA          (Protected Register Access)',['../group__group__pra.html',1,'']]],
   ['prot_20_20_20_20_20_20_20_20_20_28protection_20unit_29',['Prot         (Protection Unit)',['../group__group__prot.html',1,'']]],
   ['ppu_20fixed_20_28fixed_29_20v2_20functions',['PPU Fixed (FIXED) v2 Functions',['../group__group__prot__functions__ppu__fixed__v2.html',1,'']]],

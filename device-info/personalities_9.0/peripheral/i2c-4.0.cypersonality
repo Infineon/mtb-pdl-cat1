@@ -37,8 +37,8 @@
     <Resource name="scb" />
     <OperatingMode value="MCU"/>
   </Dependencies>
-  <ExposedMembers />  
-  <Parameters>  
+  <ExposedMembers />
+  <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__scb__i2c.html" linkText="Open I2C (SCB) Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
@@ -77,11 +77,11 @@
 
     <!-- Slave -->
     <ParamRange id="SlaveAddress" name="Slave Address (7-bit)" group="Slave" default="8" min="8" max="120" resolution="1" visible="`${(Slave) || (MasterSlave)}`" editable="true" desc="This parameter specifies the 7-bit right justified slave address.
-    The range: 0x08-0x78." /> 
+    The range: 0x08-0x78." />
     <ParamRange id="SlaveAddressMask" name="Slave Address Mask (8-bit)" group="Slave" default="254" min="0" max="255" resolution="1" visible="`${(Slave) || (MasterSlave)}`" editable="true" desc="This parameter specifies the slave address mask. The range: 0x00-0xFE.
-    - Bit value 0 – excludes the bit from the address comparison. 
+    - Bit value 0 – excludes the bit from the address comparison.
     - Bit value 1 – the bit needs to match with the corresponding bit of the I2C slave address." />
-    
+
     <ParamBool id="AcceptGeneralCall" name="Accept General Call Address" group="Slave" default="false" visible="`${(Slave) || (MasterSlave)}`" editable="true" desc="This parameter specifies whether to accept the general call address. The general call address is ACKed when accepted and NAKed otherwise (default). The user has to register the callback function to handle the general call address." />
 
     <!-- SCB I2C clock constraints -->
@@ -92,8 +92,8 @@
     <ParamSignal port="clock[0]" name="Clock" group="Connections" visible="`${hasVisibleOption(&quot;clock[0]&quot;)}`" desc="Clock that operates this block." canBeEmpty="false" >
       <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${!ManualDataRate}`" >
         <Parameter id="intDivider" severity="ERROR" reason="The clock frequency must be within the range `${ScbClkMinMHz}` - `${ScbClkMaxMHz}` MHz to operate with Data Rate `${DataRate}` kbps." valid="`${!ManualDataRate}`">
-          <Range 
-            min="`${ceil(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / (ScbClkMaxMHz * 1000000))}`" 
+          <Range
+            min="`${ceil(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / (ScbClkMaxMHz * 1000000))}`"
             max="`${floor(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / (ScbClkMinMHz * 1000000))}`" />
         </Parameter>
       </Constraint>
@@ -104,12 +104,12 @@
       </Constraint>
     <Constraint type="ACCEPT" targetLocation=".*" valid="`${ManualDataRate}`" />
     </ParamSignal>
-    
+
     <ParamSignal port="clock_scb_en[0]" name="Clock" group="Connections" visible="`${hasVisibleOption(&quot;clock_scb_en[0]&quot;)}`" desc="Clock that operates this block." canBeEmpty="false" >
       <Constraint type="REQUIRE" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_.*" valid="`${!ManualDataRate}`" >
         <Parameter id="intDivider" severity="ERROR" reason="The clock frequency must be within the range `${ScbClkMinMHz}` - `${ScbClkMaxMHz}` MHz to operate with Data Rate `${DataRate}` kbps." valid="`${!ManualDataRate}`">
-          <Range 
-            min="`${ceil(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / (ScbClkMaxMHz * 1000000))}`" 
+          <Range
+            min="`${ceil(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / (ScbClkMaxMHz * 1000000))}`"
             max="`${floor(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / (ScbClkMinMHz * 1000000))}`" />
         </Parameter>
       </Constraint>
@@ -194,7 +194,7 @@
     <!--  I2C Master Duty Cycle constrains -->
     <ParamString id="i2c_solver" name="i2c_solver" group="Internal" default="`${runTcl(&quot;i2c_solver-2.0.tcl&quot;, Master ? &quot;Master&quot; : &quot;Slave&quot;, DataRate * 1000, scbClkHz)}`" visible="false" editable="false" desc="I2C master data rate configurator." />
     <ParamBool id="AutoDigitalFilter" name="Digital Filter" group="Internal" default="`${getTclVar(&quot;digitalFilter&quot;, i2c_solver)}`" visible="false" editable="false" desc="This parameter specifies to enable digital (3-tap median) filter. An analog filter is disabled when digital filter is enabled. It is calculated by i2c_solver." />
-    <ParamRange id="AutoLowPhaseDutyCycle" name="SCL Low Phase (SCB Clocks)" group="Internal" default="`${getTclVar(&quot;lowOversample&quot;, i2c_solver)}`" min="0" max="16" resolution="1" visible="false" editable="false" desc="This parameter defines how many SCB clocks are used to generate the SCL low phase (only applicable for the master modes). It is calculated by i2c_solver." /> 
+    <ParamRange id="AutoLowPhaseDutyCycle" name="SCL Low Phase (SCB Clocks)" group="Internal" default="`${getTclVar(&quot;lowOversample&quot;, i2c_solver)}`" min="0" max="16" resolution="1" visible="false" editable="false" desc="This parameter defines how many SCB clocks are used to generate the SCL low phase (only applicable for the master modes). It is calculated by i2c_solver." />
     <ParamRange id="AutoHighPhaseDutyCycle" name="SCL High Phase (SCB Clocks)" group="Internal" default="`${getTclVar(&quot;highOversample&quot;, i2c_solver)}`" min="0" max="16" resolution="1" visible="false" editable="false" desc="This parameter defines how many SCB clocks are used to generate the SCL high phase (only applicable for the master modes). It is calculated by i2c_solver." />
 
     <ParamBool id="DigitalFilter" name="Digital Filter" group="Internal" default="`${ManualDataRate ? ManualDigitalFilter : AutoDigitalFilter}`" visible="false" editable="false" desc="This parameter specifies to enable digital (3-tap median) filter. An analog filter is disabled when digital filter is enabled." />
@@ -218,31 +218,31 @@
 
     <!-- Peripheral clock divider connection -->
     <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? (hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(sourceClock)) : (hasConnection(&quot;clock_scb_en&quot;, 0) &amp;&amp; isBlockUsed(sourceClock)) }`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled." />
-    
+
     <ParamString id="pclkSCBClockString" name="PCLK Destination Clock" group="Internal" default="PCLK_SCB`${InstNumber}`_CLOCK" visible="false" editable="false" desc="String variable used for PCLK_SCB_CLOCK." />
     <ParamString id="pclkSCBClockSCBENString" name="PCLK Destination Clock" group="Internal" default="PCLK_SCB`${InstNumber}`_CLOCK_SCB_EN" visible="false" editable="false" desc="String variable used only for PCLK_SCB_CLOCK_SCB_EN." />
-    
+
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? pclkSCBClockString : pclkSCBClockSCBENString }`" visible="false" editable="false" desc="Generates PCLK connection define." />
 
-    <ParamRange id="pclkDividerValue" name="Peripheral Clock Divider" group="Internal" default="`${getExposedMember(sourceClock, &quot;divider&quot;)}`" min="0" max="`${pow(2, 24)}`" resolution="1.000" 
+    <ParamRange id="pclkDividerValue" name="Peripheral Clock Divider" group="Internal" default="`${getExposedMember(sourceClock, &quot;divider&quot;)}`" min="0" max="`${pow(2, 24)}`" resolution="1.000"
                  visible="false" editable="false" desc="Connected peripheral clock divider value(PCLK)" />
-    <ParamRange id="reqPCLKDiv" name="Required Divider value" group="Internal" default="`${((scbClkHz * pclkDividerValue) / (DataRate * 1000 * 32))}`" min="0" max="`${pow(2, 24)}`" resolution="1.000" 
+    <ParamRange id="reqPCLKDiv" name="Required Divider value" group="Internal" default="`${((scbClkHz * pclkDividerValue) / (DataRate * 1000 * 32))}`" min="0" max="`${pow(2, 24)}`" resolution="1.000"
                  visible="false" editable="false" desc="Required  peripheral clock divider value(PCLK)" />
-    <ParamRange id="reqClk" name="Required Clock Frequency" group="Internal" default="`${((scbClkHz * pclkDividerValue) / (reqPCLKDiv))}`" min="0" max="200000000" resolution="1" 
+    <ParamRange id="reqClk" name="Required Clock Frequency" group="Internal" default="`${((scbClkHz * pclkDividerValue) / (reqPCLKDiv))}`" min="0" max="200000000" resolution="1"
                  visible="false" editable="false" desc="Required SCB clock frequency to operate with desired data rate." />
     <ParamBool id="isReqClkPossible" name="Possibility Check" group="Internal" default="`${(DataRate &lt;= 100) ? ((reqClk &gt; 1550000) ? true : false) : ((DataRate &gt; 100) &amp;&amp; (DataRate &lt;= 400)) ? ((reqClk &gt; 7820000) ? true : false) : (Master ? ((reqClk &gt; 14320000) ? true : false) : ((reqClk &gt; 15840000) ? true : false))}`"
                  visible="false" editable="false" desc="To check if the required clock frequency is above the minimum clock frequency to operate with the desired data rate." />
 
   </Parameters>
-  
-  <DRCs>  
+
+  <DRCs>
     <!--SlaveAddressMask DRCs-->
     <DRC type="ERROR" paramId="SlaveAddressMask" text="The I2C slave address mask must be even." condition="`${(SlaveAddressMask % 2) ne 0}`" />
     <DRC type="ERROR" paramId="clock[0]" text="The actual data rate `${actualDataRate}` kpbs is greater than desired `${DataRate}` kpbs. Increase clock divider to produce lower clock frequency or adjust desired Data Rate." condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; (isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock[0]&quot;))) : false}`" >
-        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock[0]&quot;)).&quot;.intDivider&quot;}`" value="`${reqPCLKDiv}`" valid="`${isReqClkPossible}`" />     
+        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock[0]&quot;)).&quot;.intDivider&quot;}`" value="`${reqPCLKDiv}`" valid="`${isReqClkPossible}`" />
     </DRC>
     <DRC type="ERROR" paramId="clock_scb_en[0]" text="The actual data rate `${actualDataRate}` kpbs is greater than desired `${DataRate}` kpbs. Increase clock divider to produce lower clock frequency or adjust desired Data Rate." condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; (isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock_scb_en[0]&quot;))) : false}`" >
-        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock_scb_en[0]&quot;)).&quot;.intDivider&quot;}`" value="`${reqPCLKDiv}`" valid="`${isReqClkPossible}`" />     
+        <FixIt action="SET_PARAM" target="`${getBlockFromSignalValue(getParamValue(&quot;clock_scb_en[0]&quot;)).&quot;.intDivider&quot;}`" value="`${reqPCLKDiv}`" valid="`${isReqClkPossible}`" />
     </DRC>
     <DRC type="ERROR" paramId="clock[0]" text="The desired data rate cannot be supported with the current Source Clock" condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; !(isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock[0]&quot;))) : false}`" />
     <DRC type="ERROR" paramId="clock_scb_en[0]" text="The desired data rate cannot be supported with the current Source Clock" condition="`${Master ? (!ManualDataRate &amp;&amp; (actualDataRate &gt; DataRate) &amp;&amp; !(isReqClkPossible) &amp;&amp; (hasVisibleOption(&quot;clock_scb_en[0]&quot;))) : false}`" />
@@ -250,31 +250,34 @@
     <!--High/Low phase oversampling factor DRCs-->
     <DRC type="INFO" condition="`${((ModeUser ne CY_SCB_I2C_SLAVE) &amp;&amp; (&quot;mxscb&quot; eq getIpBlockName()) &amp;&amp; (ManualDigitalFilter eq true))}`" text="Note a possible shift of the actual data rate on the I2C bus. The high phase of the SCL will be extended by: an output wire delay from SCB to I/O pin, an I2C bus tR delay, and an input wire delay (filters and synchronization). This can be avoided by: decreasing the pull-up resistor or decreasing the bus capacitance to reduce tR; reducing the 'SCL High Phase (SCB Clocks)' value." />
   </DRCs>
-  
+
   <ConfigFirmware>
     <ConfigInclude value="cy_scb_i2c.h" include="true" />
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
     <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
-    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
     <ConfigInclude value="cycfg_clocks.h" include="true" guard="defined (CY_USING_HAL_LITE) || defined (CY_USING_HAL)" />
-    
+    <ConfigInclude value="mtb_hal.h" include="true" guard="defined (COMPONENT_MTB_HAL)" />
+    <ConfigInclude value="cycfg_clocks.h" include="true" guard="defined (COMPONENT_MTB_HAL)" />
+    <ConfigInclude value="mtb_hal_hw_types.h" include="true" guard="defined (COMPONENT_MTB_HAL)" />
+    <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
+
     <ConfigDefine name="`${INST_NAME}`_HW" value="SCB`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="scb_`${InstNumber}`_interrupt_IRQn" public="true" include="true" />
     <ConfigStruct name="`${INST_NAME}`_config" type="cy_stc_scb_i2c_config_t" const="`${inFlash}`" public="true" include="true" >
-      <Member name="i2cMode" value="`${ModeUser}`" />  
-      <Member name="useRxFifo" value="`${IsEnableRxFifoVisible ? (EnableRxFifo ? &quot;true&quot; : &quot;false&quot;) : &quot;false&quot;}`" />    
-      <Member name="useTxFifo" value="`${EnableTxFifo ? &quot;true&quot; : &quot;false&quot;}`" />    
+      <Member name="i2cMode" value="`${ModeUser}`" />
+      <Member name="useRxFifo" value="`${IsEnableRxFifoVisible ? (EnableRxFifo ? &quot;true&quot; : &quot;false&quot;) : &quot;false&quot;}`" />
+      <Member name="useTxFifo" value="`${EnableTxFifo ? &quot;true&quot; : &quot;false&quot;}`" />
       <Member name="slaveAddress" value="`${Master ? &quot;0U&quot; : SlaveAddress}`" />
       <Member name="slaveAddressMask" value="`${Master ? &quot;0U&quot; : SlaveAddressMask}`" />
       <Member name="acceptAddrInFifo" value="`${Slave ? (AcceptAddress ? &quot;true&quot; : &quot;false&quot;) : &quot;false&quot;}`" />
-      <Member name="ackGeneralAddr" value="`${Slave ? (AcceptGeneralCall ? &quot;true&quot; : &quot;false&quot;) : &quot;false&quot;}`" /> 
+      <Member name="ackGeneralAddr" value="`${Slave ? (AcceptGeneralCall ? &quot;true&quot; : &quot;false&quot;) : &quot;false&quot;}`" />
       <Member name="enableWakeFromSleep" value="`${EnableWakeup}`" />
-      <Member name="enableDigitalFilter" value="`${DigitalFilter ? &quot;true&quot; : &quot;false&quot;}`" /> 
-      <Member name="lowPhaseDutyCycle" value="`${LowPhaseDutyCycle}`" /> 
-      <Member name="highPhaseDutyCycle" value="`${HighPhaseDutyCycle}`" /> 
+      <Member name="enableDigitalFilter" value="`${DigitalFilter ? &quot;true&quot; : &quot;false&quot;}`" />
+      <Member name="lowPhaseDutyCycle" value="`${LowPhaseDutyCycle}`" />
+      <Member name="highPhaseDutyCycle" value="`${HighPhaseDutyCycle}`" />
     </ConfigStruct>
-    
+
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
       <Member name="type" value="CYHAL_RSC_SCB" />
       <Member name="block_num" value="`${getInstNumber(&quot;scb&quot;)}`U" />
@@ -292,6 +295,23 @@
       <Member name="resource" value="&amp;`${INST_NAME}`_obj" />
       <Member name="config" value="&amp;`${INST_NAME}`_config" />
       <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_clock_ref" type="mtb_hal_peri_div_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL)">
+      <Member name="clk_dst" value="(en_clk_dst_t)`${getExposedMember(sourceClock, &quot;instName&quot;)}`_GRP_NUM" />
+      <Member name="div_type" value="`${getExposedMember(sourceClock, &quot;instName&quot;)}`_HW" />
+      <Member name="div_num" value="`${getExposedMember(sourceClock, &quot;instName&quot;)}`_NUM" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_clock" type="mtb_hal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL)">
+      <Member name="clock_ref" value="&amp;`${INST_NAME}`_clock_ref" />
+      <Member name="interface" value="&amp;mtb_hal_clock_peri_interface" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="mtb_hal_i2c_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL) &amp;&amp; (MTB_HAL_DRIVER_AVAILABLE_I2C)">
+      <Member name="base" value="`${INST_NAME}`_HW" />
+      <Member name="config" value="&amp;`${INST_NAME}`_config" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_hal_clock" />
     </ConfigStruct>
 
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_SCB`${InstNumber}`_PERI_NR, CY_MMIO_SCB`${InstNumber}`_GROUP_NR, CY_MMIO_SCB`${InstNumber}`_SLAVE_NR, CY_MMIO_SCB`${InstNumber}`_CLK_HF_NR);" include="`${(ipName eq &quot;mxs22scb&quot;)}`" />

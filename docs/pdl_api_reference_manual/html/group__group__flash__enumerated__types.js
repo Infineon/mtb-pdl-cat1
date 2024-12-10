@@ -30,6 +30,10 @@ var group__group__flash__enumerated__types =
       [ "CY_FLASH_DRV_SECTOR_SUSPEND", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a69649db27a5846b1ea5ef4aa13671eae", null ],
       [ "CY_FLASH_DRV_SROM_API_TIMEOUT", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a0dd6e04b5ebc9674697ace8969cb4e73", null ]
     ] ],
+    [ "cy_en_flash_ecc_inject_errors_t", "group__group__flash__enumerated__types.html#ga3e93e4d7538644125468d776063080f1", [
+      [ "CY_FLASH_ECC_ERRORS_LESS_THAN_TWO", "group__group__flash__enumerated__types.html#gga3e93e4d7538644125468d776063080f1a2b0670b6b6af0f7e9a2864b93aff47af", null ],
+      [ "CY_FLASH_ECC_ERRORS_MORE_THAN_ONE", "group__group__flash__enumerated__types.html#gga3e93e4d7538644125468d776063080f1ae6bb82e4ad210d3ad9ead6617f370581", null ]
+    ] ],
     [ "cy_en_bankmode_t", "group__group__flash__enumerated__types.html#ga2b49a26d6a69b3f5100da484c7566446", [
       [ "CY_FLASH_SINGLE_BANK_MODE", "group__group__flash__enumerated__types.html#gga2b49a26d6a69b3f5100da484c7566446a25788d8acf76335ea1eea7244c71b5cb", null ],
       [ "CY_FLASH_DUAL_BANK_MODE", "group__group__flash__enumerated__types.html#gga2b49a26d6a69b3f5100da484c7566446af721d88c620ecc22a21e8124a64e3ec2", null ]
@@ -37,6 +41,12 @@ var group__group__flash__enumerated__types =
     [ "cy_en_maptype_t", "group__group__flash__enumerated__types.html#ga977f3c56b8510500b008063d8cc5e543", [
       [ "CY_FLASH_MAPPING_A", "group__group__flash__enumerated__types.html#gga977f3c56b8510500b008063d8cc5e543a79ae35280549cd91fc4893c4c7597c74", null ],
       [ "CY_FLASH_MAPPING_B", "group__group__flash__enumerated__types.html#gga977f3c56b8510500b008063d8cc5e543aa31b22aab7b2f5c6982caf5eea711b45", null ]
+    ] ],
+    [ "cy_en_flash_dual_bank_mapping_t", "group__group__flash__enumerated__types.html#gaa0dc244349caed3be34ea3bd3a92c333", [
+      [ "CY_FLASH_MAPPING_MAIN_A_WORK_A", "group__group__flash__enumerated__types.html#ggaa0dc244349caed3be34ea3bd3a92c333a1281de8f2fa40840664dce347b7f2b75", null ],
+      [ "CY_FLASH_MAPPING_MAIN_B_WORK_A", "group__group__flash__enumerated__types.html#ggaa0dc244349caed3be34ea3bd3a92c333aa384b25405c45d8fd93c0022af28f3a4", null ],
+      [ "CY_FLASH_MAPPING_MAIN_A_WORK_B", "group__group__flash__enumerated__types.html#ggaa0dc244349caed3be34ea3bd3a92c333a59c4cf736f5f34b797161a2c95abcb97", null ],
+      [ "CY_FLASH_MAPPING_MAIN_B_WORK_B", "group__group__flash__enumerated__types.html#ggaa0dc244349caed3be34ea3bd3a92c333a06ba366fe91ad90eca97fa7da3a6614b", null ]
     ] ],
     [ "cy_en_flash_programrow_datasize_t", "group__group__flash__enumerated__types.html#ga0c1a15e58947caee9ca19fb13208437f", [
       [ "CY_FLASH_PROGRAMROW_DATA_SIZE_8BIT", "group__group__flash__enumerated__types.html#gga0c1a15e58947caee9ca19fb13208437fa99ad8f87adfd7cd1904977c278e9dc35", null ],

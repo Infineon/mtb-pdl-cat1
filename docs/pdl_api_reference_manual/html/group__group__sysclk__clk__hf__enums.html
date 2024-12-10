@@ -140,6 +140,24 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:gadfbf0caf87af7cd757648124fb17d1d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">clkHf divider values.  <a href="group__group__sysclk__clk__hf__enums.html#gadfbf0caf87af7cd757648124fb17d1d4">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:gadfbf0caf87af7cd757648124fb17d1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a1f38cb2061138eb45c5caefc7bc24e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__enums.html#ga4a1f38cb2061138eb45c5caefc7bc24e">cy_en_clkhf_csv_ref_clk_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__sysclk__clk__hf__enums.html#gga4a1f38cb2061138eb45c5caefc7bc24ea6364f889216c342aecf0766541c91733">CY_SYSCLK_CLKHF_CSV_REF_IMO</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__sysclk__clk__hf__enums.html#gga4a1f38cb2061138eb45c5caefc7bc24ea70b1bf12cd11b67f61d80efc2afa1805">CY_SYSCLK_CLKHF_CSV_REF_EXT</a> = 1U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__sysclk__clk__hf__enums.html#gga4a1f38cb2061138eb45c5caefc7bc24eab33a1b8bbac3b12eee9ae7fc5770d4ec">CY_SYSCLK_CLKHF_CSV_REF_ECO</a> = 2U
+<br />
+ }<tr class="memdesc:ga4a1f38cb2061138eb45c5caefc7bc24e"><td class="mdescLeft">&#160;</td><td class="mdescRight">clkhf csv reference clock input sources.  <a href="group__group__sysclk__clk__hf__enums.html#ga4a1f38cb2061138eb45c5caefc7bc24e">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga4a1f38cb2061138eb45c5caefc7bc24e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf8d7cf42f04f1edafeba204ead24e6ac"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__enums.html#gaf8d7cf42f04f1edafeba204ead24e6ac">cy_en_clkhf_csv_action_t</a> { <br />
+&#160;&#160;<a class="el" href="group__group__sysclk__clk__hf__enums.html#ggaf8d7cf42f04f1edafeba204ead24e6aca1b52da571ff68be36ca14b61b1d94ab7">CY_SYSCLK_CLKHF_CSV_ACTION_FAULT</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="group__group__sysclk__clk__hf__enums.html#ggaf8d7cf42f04f1edafeba204ead24e6aca66f23c81dbf4989a685f5cac30f09f1e">CY_SYSCLK_CLKHF_CSV_ACTION_RESET</a> = 1U
+<br />
+ }<tr class="memdesc:gaf8d7cf42f04f1edafeba204ead24e6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">clkhf csv supported action when an anomaly is detected.  <a href="group__group__sysclk__clk__hf__enums.html#gaf8d7cf42f04f1edafeba204ead24e6ac">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gaf8d7cf42f04f1edafeba204ead24e6ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="gabac2d6b9124a00860dcd781a922788d6"></a>
@@ -217,6 +235,54 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="ggadfbf0caf87af7cd757648124fb17d1d4ab24eafa784b1cc50c94072e6be0dd4b8"></a>CY_SYSCLK_CLKHF_DIVIDE_BY_8&#160;</td><td class="fielddoc"><p>divide clkHf by 8 </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggadfbf0caf87af7cd757648124fb17d1d4ae4bbc554d81061e4e08c65bbbc241140"></a>CY_SYSCLK_CLKHF_MAX_DIVIDER&#160;</td><td class="fielddoc"><p>Max divider. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga4a1f38cb2061138eb45c5caefc7bc24e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a1f38cb2061138eb45c5caefc7bc24e">&#9670;&nbsp;</a></span>cy_en_clkhf_csv_ref_clk_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__sysclk__clk__hf__enums.html#ga4a1f38cb2061138eb45c5caefc7bc24e">cy_en_clkhf_csv_ref_clk_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>clkhf csv reference clock input sources. </p>
+<p>See register CSV_REF_SEL </p><dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B(PSOC C3), CAT1C, CAT1D devices. </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga4a1f38cb2061138eb45c5caefc7bc24ea6364f889216c342aecf0766541c91733"></a>CY_SYSCLK_CLKHF_CSV_REF_IMO&#160;</td><td class="fielddoc"><p>Reference clock is the IMO. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a1f38cb2061138eb45c5caefc7bc24ea70b1bf12cd11b67f61d80efc2afa1805"></a>CY_SYSCLK_CLKHF_CSV_REF_EXT&#160;</td><td class="fielddoc"><p>Reference clock is the external clock. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a1f38cb2061138eb45c5caefc7bc24eab33a1b8bbac3b12eee9ae7fc5770d4ec"></a>CY_SYSCLK_CLKHF_CSV_REF_ECO&#160;</td><td class="fielddoc"><p>Reference clock is ECO. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gaf8d7cf42f04f1edafeba204ead24e6ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf8d7cf42f04f1edafeba204ead24e6ac">&#9670;&nbsp;</a></span>cy_en_clkhf_csv_action_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__sysclk__clk__hf__enums.html#gaf8d7cf42f04f1edafeba204ead24e6ac">cy_en_clkhf_csv_action_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>clkhf csv supported action when an anomaly is detected. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1B(PSOC C3), CAT1C, CAT1D devices. </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaf8d7cf42f04f1edafeba204ead24e6aca1b52da571ff68be36ca14b61b1d94ab7"></a>CY_SYSCLK_CLKHF_CSV_ACTION_FAULT&#160;</td><td class="fielddoc"><p>Generates a fault. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggaf8d7cf42f04f1edafeba204ead24e6aca66f23c81dbf4989a685f5cac30f09f1e"></a>CY_SYSCLK_CLKHF_CSV_ACTION_RESET&#160;</td><td class="fielddoc"><p>Generates a Reset. </p>
 </td></tr>
 </table>
 

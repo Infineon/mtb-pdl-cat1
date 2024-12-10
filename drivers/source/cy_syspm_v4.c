@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_syspm_v4.c
-* \version 5.150
+* \version 5.160
 *
 * This driver provides the source code for API power management.
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -171,8 +171,10 @@ void Cy_SysPm_Init(void)
         (void)Cy_SysPm_SetDeepSleepMode(CY_SYSPM_MODE_DEEPSLEEP);
     }
 
+#if !defined (CY_PDL_TZ_ENABLED)
     /* Initialize IP Semaphore */
     CY_ASSERT_L2(CY_IPC_SEMA_SUCCESS == Cy_IPC_Sema_Init(IPC0_SEMA_CH_NUM, 0UL, NULL));
+#endif
 }
 
 cy_en_syspm_status_t Cy_SysPm_CpuEnterSleep(cy_en_syspm_waitfor_t waitFor)
@@ -206,6 +208,7 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterSleep(cy_en_syspm_waitfor_t waitFor)
 
         /* The CPU enters the Sleep power mode upon execution of WFI/WFE */
         SCB_SCR &= (uint32_t) ~SCB_SCR_SLEEPDEEP_Msk;
+        __DSB();                   /* Ensure completion of memory access */
 
         if(waitFor != CY_SYSPM_WAIT_FOR_EVENT)
         {
@@ -215,6 +218,10 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterSleep(cy_en_syspm_waitfor_t waitFor)
         {
             __WFE();
         }
+
+        /* Clear SCB_SCR_SLEEPDEEP flag */
+        SCB_SCR &= (uint32_t) ~SCB_SCR_SLEEPDEEP_Msk;
+
         Cy_SysLib_ExitCriticalSection(interruptState);
 
         /* Call the registered callback functions with the
@@ -250,16 +257,7 @@ cy_en_syspm_status_t Cy_SysPm_SetSysDeepSleepMode(cy_en_syspm_deep_sleep_mode_t 
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM0_BASE, (uint32_t)CY_SYSTEM_SRAM0_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM1_BASE, (uint32_t)CY_SYSTEM_SRAM1_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SYSCPU_BASE, (uint32_t)CY_SYSTEM_SYSCPU_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
-#if !defined (CY_PDL_TZ_ENABLED)
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPUSS_BASE, (uint32_t)CY_SYSTEM_APPCPUSS_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
 
-            if(cy_pd_ppu_get_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE) == PPU_V1_MODE_ON)
-            {
-                (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_SOCMEM_PPU_DEEPSLEEP_MODE); /* Suppress a compiler warning about unused return value */
-            }
-
-#endif
 #if (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)
             SCS_CPPWR &= ~(SCS_CPPWR_SU10_Msk);
 #endif
@@ -274,17 +272,6 @@ cy_en_syspm_status_t Cy_SysPm_SetSysDeepSleepMode(cy_en_syspm_deep_sleep_mode_t 
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM0_BASE, (uint32_t)CY_SYSTEM_SRAM0_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM1_BASE, (uint32_t)CY_SYSTEM_SRAM1_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SYSCPU_BASE, (uint32_t)CY_SYSTEM_SYSCPU_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-
-#if !defined (CY_PDL_TZ_ENABLED)
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPUSS_BASE, (uint32_t)CY_SYSTEM_APPCPUSS_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-
-            if(cy_pd_ppu_get_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE) == PPU_V1_MODE_ON)
-            {
-                (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_SOCMEM_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
-            }
-
-#endif
 
 #if (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)
             SCS_CPPWR |= SCS_CPPWR_SU10_Msk;
@@ -308,16 +295,6 @@ cy_en_syspm_status_t Cy_SysPm_SetSysDeepSleepMode(cy_en_syspm_deep_sleep_mode_t 
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM0_BASE, (uint32_t)CY_SYSTEM_SRAM0_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SRAM1_BASE, (uint32_t)CY_SYSTEM_SRAM1_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SYSCPU_BASE, (uint32_t)CY_SYSTEM_SYSCPU_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-#if !defined (CY_PDL_TZ_ENABLED)
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_PD1_BASE, (uint32_t)CY_SYSTEM_PD1_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-            (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_APPCPUSS_BASE, (uint32_t)CY_SYSTEM_APPCPUSS_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-
-            if(cy_pd_ppu_get_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE) == PPU_V1_MODE_ON)
-            {
-                (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_SOCMEM_BASE, (uint32_t)CY_SYSTEM_SOCMEM_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
-            }
-
-#endif
 
 #if (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)
             SCS_CPPWR |= SCS_CPPWR_SU10_Msk;
@@ -492,11 +469,26 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
 #endif
 #else
     cy_rpc_args_t rpcArgs;
-    rpcArgs.argc = 1;
-    rpcArgs.argv[0] = (uint32_t)deepSleepMode;
-    return (cy_en_syspm_status_t)Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-                (uint32_t)CY_SECURE_SERVICE_PM_SET_DS_MODE, &rpcArgs);
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 2;
+    rpcArgs.argv[0] = (uint32_t)__CORTEX_M;
+    rpcArgs.argv[1] = (uint32_t)deepSleepMode;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+                (uint32_t)CY_SECURE_SERVICE_PM_SET_DS_MODE, &rpcArgs, &rpcRetVal);
+    return (cy_en_syspm_status_t)rpcRetVal;
 #endif
+}
+
+cy_en_syspm_status_t Cy_SysPm_SetPPUDeepSleepMode(uint32_t ppu, uint32_t mode)
+{
+    cy_en_syspm_status_t retVal = CY_SYSPM_FAIL;
+
+    if(cy_pd_ppu_get_power_mode((struct ppu_v1_reg *)ppu) == PPU_V1_MODE_ON)
+    {
+        (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)ppu, (uint32_t)mode); /* Suppress a compiler warning about unused return value */
+        retVal = CY_SYSPM_SUCCESS;
+    }
+    return retVal;
 }
 
 cy_en_syspm_status_t Cy_SysPm_SetSOCMEMDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode)
@@ -586,9 +578,12 @@ cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void)
     CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to cy_en_syspm_deep_sleep_mode_t enum.');
 #else
     cy_rpc_args_t rpcArgs;
-    rpcArgs.argc = 0;
-    deepSleepMode = (cy_en_syspm_deep_sleep_mode_t)Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-                      (uint32_t)CY_SECURE_SERVICE_PM_GET_DS_MODE, &rpcArgs);
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 1;
+    rpcArgs.argv[0] = (uint32_t)__CORTEX_M;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+                      (uint32_t)CY_SECURE_SERVICE_PM_GET_DS_MODE, &rpcArgs, &rpcRetVal);
+    deepSleepMode = (cy_en_syspm_deep_sleep_mode_t)rpcRetVal;
 #endif
     return ((cy_en_syspm_deep_sleep_mode_t)deepSleepMode);
 }
@@ -671,12 +666,14 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
             /* The CPU enters Deep Sleep mode upon execution of WFI/WFE
              * use Cy_SysPm_SetDeepSleepMode to set various deepsleep modes */
             SCB_SCR |= SCB_SCR_SLEEPDEEP_Msk;
+            __DSB();                   /* Ensure completion of memory access */
 
 #if defined (CORE_NAME_CM33_0)
             /* Disable FPU for CM33-NS for DS-RAM/DS-OFF Entry to work*/
             if(((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_RAM == cbDeepSleepRootIdx) || ((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_OFF == cbDeepSleepRootIdx))
             {
                 SCB_CPACR &= ~(SCB_NS_CPACR_CP10_CP11_ENABLE);
+                __DSB();                   /* Ensure completion of memory access */
             }
 #endif
             Cy_SysPm_SetRamTrimsPreDs();
@@ -689,6 +686,9 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
                 __WFE();
             }
             Cy_SysPm_SetRamTrimsPostDs();
+
+            /* Clear SCB_SCR_SLEEPDEEP flag */
+            SCB_SCR &= (uint32_t) ~SCB_SCR_SLEEPDEEP_Msk;
 
             Cy_SysLib_ExitCriticalSection(interruptState);
         }
@@ -2122,7 +2122,7 @@ void Cy_SysPm_SetRamTrimsPostDs(void)
 static cy_en_syspm_status_t Cy_SysPm_SystemEnterHpToLp(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
-    
+
     /* HP to LP Sequence */
 
     /* 1) M33 send IPC to m0seccpuss - Operating mode change target */
@@ -2219,7 +2219,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterHpToLp(void)
 static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToHp(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
-    
+
     /* LP to HP Sequence */
 
     /* 1) M33 send IPC to m0seccpuss - Operating mode change target */
@@ -2319,7 +2319,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToHp(void)
 static cy_en_syspm_status_t Cy_SysPm_SystemEnterUlpToLp(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
-   
+
     /* ULP to LP Sequence */
 
     /* 1) M33 send IPC to m0seccpuss - Operating mode change target */
@@ -2404,7 +2404,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterUlpToLp(void)
 static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToUlp(void)
 {
     cy_en_syspm_status_t retVal = CY_SYSPM_SUCCESS;
-    
+
     /* LP to ULP Sequence */
 
     /* 1) M33 send IPC to m0seccpuss - Operating mode change target */
@@ -2452,10 +2452,10 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToUlp(void)
 
             Cy_SysPm_SetTrimRamCtl(4U, RAM_TRIM_VAL_606);
             Cy_SysPm_SetTrimRamCtl(5U, RAM_TRIM_VAL_606);
-            
+
             Cy_SysPm_SetTrimRamCtl(6U, RAM_TRIM_VAL_61D);
             Cy_SysPm_SetTrimRamCtl(7U, RAM_TRIM_VAL_61D);
-            
+
             Cy_SysPm_SetTrimRamCtl(8U, RAM_TRIM_VAL_C);
 
             /* LP->ULP(6) */

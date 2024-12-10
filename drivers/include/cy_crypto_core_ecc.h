@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc.h
-* \version 2.120
+* \version 2.130
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC
@@ -8,7 +8,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2020-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -170,13 +170,11 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_PointMultiplication(CRYPTO_Type *ba
 #endif /* defined(CY_CRYPTO_CFG_EDDSA_SIGN_C) */
 
 #if defined(CY_CRYPTO_CFG_EDDSA_VERIFY_C)
-/** \cond INTERNAL */
 cy_en_crypto_status_t Cy_Crypto_Core_ED25519_PointDecode(CRYPTO_Type *base,
                                     cy_en_crypto_ecc_curve_id_t curveID,
                                     const uint8_t *publicKey,
                                     uint8_t *pubKey_x,
                                     uint8_t *pubKey_y);
-/** \endcond */
 
 cy_en_crypto_status_t Cy_Crypto_Core_ED25519_Verify(CRYPTO_Type *base,
                                     uint8_t *sig,
@@ -248,6 +246,8 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_MakePublicKey(CRYPTO_Type *base,
 #if defined(CY_CRYPTO_ECC_MAX_SIZE)
 #define CY_CRYPTO_ECC_MAX_BYTE_SIZE        CY_CRYPTO_BYTE_SIZE_OF_BITS(CY_CRYPTO_ECC_MAX_SIZE)
 #endif /* defined(CY_CRYPTO_ECC_MAX_SIZE) */
+
+
 
 /* "Global" vector unit registers. */
 #define VR_D                               10u

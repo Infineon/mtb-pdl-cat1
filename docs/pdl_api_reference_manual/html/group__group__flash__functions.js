@@ -38,5 +38,17 @@ var group__group__flash__functions =
     [ "Cy_Flash_EraseSector", "group__group__flash__functions.html#ga23e040ae57d5c4f717b1918eda77ecc5", null ],
     [ "Cy_Flash_CalculateHash", "group__group__flash__functions.html#ga3f948f4d096b9f93488a889a011bda14", null ],
     [ "Cy_Flash_RowChecksum", "group__group__flash__functions.html#ga29ac711091186d8a7790be298fb6148b", null ],
-    [ "Cy_Flash_Init", "group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19", null ]
+    [ "Cy_Flash_Init", "group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19", null ],
+    [ "Cy_Flash_Init", "group__group__flash__functions.html#ga18d674d1c8e2fbfd32858e7d80245b3a", null ],
+    [ "Cy_Flash_Refresh", "group__group__flash__functions.html#gae3198c52d55bf7ce65e8a84d7e69284d", null ],
+    [ "Cy_Flash_Refresh_Start", "group__group__flash__functions.html#gad871c025e0a01401fe38be2ddea7c537", null ],
+    [ "Cy_Flash_Is_Refresh_Required", "group__group__flash__functions.html#ga8512c01420e7348b2f9c20844ba37d68", null ],
+    [ "Cy_Flashc_ECCEnable", "group__group__flash__functions.html#gaadbfd2e0006bd5fabfa5fa474767d538", null ],
+    [ "Cy_Flashc_ECCDisable", "group__group__flash__functions.html#ga0611a93e5a7049277c51f0c9f0f71796", null ],
+    [ "Cy_Flashc_INJ_ECCEnable", "group__group__flash__functions.html#ga23cfb60a637c0cdc2b47ce4b923642c5", null ],
+    [ "Cy_Flashc_INJ_ECCDisable", "group__group__flash__functions.html#ga47772e7ced09de23da817c7e00d7c366", null ],
+    [ "Cy_Flashc_InjectECC", "group__group__flash__functions.html#ga9d322a0d03126d4151eb76e1f89a6169", null ],
+    [ "Cy_Flashc_Get_ECC_Error", "group__group__flash__functions.html#gac2e4681eac49cdb37a2bb6755833bce3", null ],
+    [ "Cy_Flashc_Dual_Bank_Mode_Enable", "group__group__flash__functions.html#ga6db21101206f1f28fe1e76e7c8019597", null ],
+    [ "Cy_Flashc_Dual_Bank_Mode_Disable", "group__group__flash__functions.html#ga106a17527fc2ea369693ac91da916159", null ]
 ];

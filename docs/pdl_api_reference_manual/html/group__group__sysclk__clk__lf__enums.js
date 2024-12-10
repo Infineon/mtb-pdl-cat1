@@ -9,5 +9,9 @@ var group__group__sysclk__clk__lf__enums =
       [ "CY_SYSCLK_CLKLF_IN_ECO_PRESCALER", "group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a679b69412f195a2dab27ff1297274c0e", null ],
       [ "CY_SYSCLK_CLKLF_IN_LPECO_PRESCALER", "group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6a85c5c1708ff7c426facb925fc2129ead", null ],
       [ "CY_SYSCLK_CLKLF_IN_MAX", "group__group__sysclk__clk__lf__enums.html#gga8bfd6f85870f0d30d15e73b3ed820db6abb45a0815772232aa27f748e73db9700", null ]
+    ] ],
+    [ "cy_en_clklf_csv_ref_clk_t", "group__group__sysclk__clk__lf__enums.html#ga98c98ac082c2ea3d9c0c700339cfb486", [
+      [ "CY_SYSCLK_CLKLF_CSV_REF_ILO0", "group__group__sysclk__clk__lf__enums.html#gga98c98ac082c2ea3d9c0c700339cfb486aaeac149745f634d469dd1c8791cc6495", null ],
+      [ "CY_SYSCLK_CLKLF_CSV_REF_ILO1", "group__group__sysclk__clk__lf__enums.html#gga98c98ac082c2ea3d9c0c700339cfb486a576a64e0b41576d0ba240dacc45e0666", null ]
     ] ]
 ];

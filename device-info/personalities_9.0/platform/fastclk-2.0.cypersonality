@@ -121,13 +121,13 @@
     <ConfigDefine name="CY_CFG_SYSCLK_CLKFAST_`${getInstNumber(&quot;fastclk&quot;)}`_FRAC_DIVIDER" value="`${fracDivider}`"  public="false" 
       include="`${(is40srss_ver2or3Available) &amp;&amp; !is40srss_ver2or3withCM4}`" />
     <ConfigFunction 
-      signature="__STATIC_INLINE void Cy_SysClk_ClkFast_`${getInstNumber(&quot;fastclk&quot;)}`_Init()" 
+      signature="__STATIC_INLINE void Cy_SysClk_ClkFast_`${getInstNumber(&quot;fastclk&quot;)}`_Init(void)" 
       body="    Cy_SysClk_ClkFastSrcSetDivider(`${getInstNumber(&quot;fastclk&quot;)}`, CY_CFG_SYSCLK_CLKFAST_`${getInstNumber(&quot;fastclk&quot;)}`_INT_DIVIDER, CY_CFG_SYSCLK_CLKFAST_`${getInstNumber(&quot;fastclk&quot;)}`_FRAC_DIVIDER);" 
       public="false" 
       include="`${((&quot;mxs40srss_ver3&quot; eq getIpBlockName()) ) &amp;&amp; 
                    !is40srss_ver2or3withCM4}`" />
     <ConfigFunction 
-      signature="__STATIC_INLINE void Cy_SysClk_ClkFastInit()" 
+      signature="__STATIC_INLINE void Cy_SysClk_ClkFastInit(void)" 
       body="    Cy_SysClk_ClkFastSetDivider(`${divider - 1}`U);" 
       public="false" 
       include="`${(&quot;mxs40srss&quot; eq getIpBlockName()) || is40srss_ver2or3withCM4 }`" 

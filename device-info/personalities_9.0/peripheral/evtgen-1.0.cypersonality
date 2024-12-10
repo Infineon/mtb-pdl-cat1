@@ -84,8 +84,8 @@
 
     <!-- Comparator -->
     <Repeat count="16">
-      <ParamBool id="comp$idx_is_en" name="Enable" group="Comparator$idx" default="false" visible="true" editable="true" desc="Include Comparator structure $idx in scan"/>
-      <ParamSignal name="Trigger Output" port="tr_out[$idx]" group="Comparator$idx" visible="true" desc="Trigger Output" canBeEmpty="true">
+      <ParamBool id="comp$idx_is_en" name="Enable" group="Comparator$idx" default="false" visible="`${findConnectedBlock(&quot;tr_out[$idx]&quot;, &quot;port&quot;) ne &quot;&quot;}`" editable="true" desc="Include Comparator structure $idx in scan"/>
+      <ParamSignal name="Trigger Output" port="tr_out[$idx]" group="Comparator$idx" visible="`${findConnectedBlock(&quot;tr_out[$idx]&quot;, &quot;port&quot;) ne &quot;&quot;}`" desc="Trigger Output" canBeEmpty="true">
       </ParamSignal>
       <ParamBool id="triggerIsConnct$idx" name="Check Connection Trigger" group="Comparator$idx" default="`${hasConnection(&quot;tr_out&quot;, $idx)}`" visible="`${debug}`" editable="false" desc="Checks whether there is a Trigger connected and enabled." />
       <ParamBool id="comp$idx_cond_en" name="Conditions Enable" group="Comparator$idx" default="`${comp$idx_is_en || triggerIsConnct$idx}`" visible="`${debug}`" editable="false" desc="Check conditions enable comparator."/>

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['quadrature_20decoder_20specific_20functions',['Quadrature decoder specific functions',['../group__group__tcpwm__functions__motif__quaddec.html',1,'']]],
   ['quadrature_20decoder_20_28tcpwm_29',['Quadrature Decoder (TCPWM)',['../group__group__tcpwm__quaddec.html',1,'']]],
   ['quaddec_20capturemode',['QuadDec CaptureMode',['../group__group__tcpwm__quaddec__capture__mode.html',1,'']]],
   ['quaddec_20mode',['QuadDec Mode',['../group__group__tcpwm__quaddec__mode.html',1,'']]],

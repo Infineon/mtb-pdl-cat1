@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_ecdsa.c
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides constant and parameters
@@ -627,6 +627,93 @@ cy_en_cryptolite_status_t Cy_Cryptolite_ECC_Free(CRYPTOLITE_Type *base,
         cfContext->p_buf = NULL;
     }
     return CY_CRYPTOLITE_SUCCESS;
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_Cryptolite_ECC_SharedSecret
+****************************************************************************//**
+*
+* Generate a Shared Secret key from one private key and others public key.
+*
+* \param base
+* The pointer to a Cryptolite instance.
+*
+* \param cfContext
+* The pointer to the cy_stc_cryptolite_context_ecdsa_t.
+*
+* \param curveID
+* The ECC curve id.
+*
+* \param privateKey
+* The pointer to the ECC private key.
+*
+* \param key
+* The generated public ECC key. See \ref cy_stc_cryptolite_ecc_key.
+*
+* \param sharedSecret
+* The pointer to store the generated shared Secret.
+*
+* \return status code. See \ref cy_en_cryptolite_status_t.
+*
+****************************************************************************/
+cy_en_cryptolite_status_t Cy_Cryptolite_ECC_SharedSecret(CRYPTOLITE_Type *base,
+                            cy_stc_cryptolite_context_ecdsa_t *cfContext,
+                            cy_en_cryptolite_ecc_curve_id_t curveID,const uint8_t *privateKey,
+                            const cy_stc_cryptolite_ecc_key *key,
+                            uint8_t const *sharedSecret)
+{
+
+    cy_en_cryptolite_status_t result = CY_CRYPTOLITE_BAD_PARAMS;
+    const cy_stc_cryptolite_ecc_dp_type *eccDp;
+    
+    /* NULL parameters checking */
+     if ((base != NULL) && (cfContext != NULL) && (privateKey != NULL) && (key != NULL) &&
+        (key->pubkey.x != NULL) && (key->pubkey.y != NULL) && (sharedSecret != NULL))
+    {
+
+        result = CY_CRYPTOLITE_NOT_SUPPORTED;
+        eccDp = Cy_Cryptolite_ECC_GetCurveParams(curveID);
+
+        if (eccDp != NULL)
+        {
+            uint8_t *p_u1 = cfContext->p_u1;
+            uint8_t *p_o = cfContext->p_o;
+            uint8_t *p_gx = cfContext->p_gx;
+            uint8_t *p_gy = cfContext->p_gy;
+            uint8_t *my_P = cfContext->my_P;
+            uint8_t *my_BARRETT_U = cfContext->my_BARRETT_U;
+
+            uint32_t bitsize  = eccDp->size;
+            uint32_t bytesize = VU_BITS_TO_BYTES(eccDp->size);
+
+            cfContext->bitsize = bitsize;
+
+        
+            // Initialize point multiplication
+            // load prime, order and barrett coefficient
+            Cy_Cryptolite_Setnumber(my_P, (uint8_t *) eccDp->prime, bytesize);
+            Cy_Cryptolite_Setnumber(p_o, (uint8_t *) eccDp->order, bytesize);
+            Cy_Cryptolite_Setnumber(my_BARRETT_U, (uint8_t *) eccDp->barrett_p, VU_BITS_TO_BYTES(bitsize+1U));
+
+            // load base Point G
+            Cy_Cryptolite_Setnumber(p_gx, (uint8_t *) key->pubkey.x, bytesize);
+            Cy_Cryptolite_Setnumber(p_gy, (uint8_t *) key->pubkey.y, bytesize);
+            Cy_Cryptolite_Setnumber(p_u1, (uint8_t *)privateKey, bytesize);
+
+
+            Cy_Cryptolite_EC_NistP_PointMul(base, cfContext, p_gx, p_gy, p_u1, p_o, (int)bitsize);
+
+            Cy_Cryptolite_Setnumber((uint8_t *)sharedSecret, (uint8_t *) p_gx, bytesize);
+            result = CY_CRYPTOLITE_SUCCESS;
+
+        }
+        else 
+        {
+            result = CY_CRYPTOLITE_NOT_SUPPORTED;
+        } 
+    }
+    return result;
 }
 
 #if defined(CY_CRYPTOLITE_CFG_ECDSA_SIGN_C)

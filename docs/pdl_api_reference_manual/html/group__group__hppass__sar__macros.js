@@ -1,0 +1,25 @@
+var group__group__hppass__sar__macros =
+[
+    [ "Direct Sampler Masks", "group__group__hppass__sar__direct__samplers.html", "group__group__hppass__sar__direct__samplers" ],
+    [ "Muxed Sampler Masks", "group__group__hppass__sar__muxed__samplers.html", "group__group__hppass__sar__muxed__samplers" ],
+    [ "Result Interrupt Masks", "group__group__hppass__sar__result__interrupts.html", "group__group__hppass__sar__result__interrupts" ],
+    [ "Channel Indexes", "group__group__hppass__sar__chan__idx.html", "group__group__hppass__sar__chan__idx" ],
+    [ "Result Status Masks", "group__group__hppass__sar__status.html", "group__group__hppass__sar__status" ],
+    [ "Sequencer Group Trigger Collision Status Masks", "group__group__hppass__sar__trigger.html", "group__group__hppass__sar__trigger" ],
+    [ "FIFO Trigger Masks", "group__group__hppass__fifo__trigger.html", "group__group__hppass__fifo__trigger" ],
+    [ "Group_hppass_sar_limit_interrupts", "group__group__hppass__sar__limit__interrupts.html", "group__group__hppass__sar__limit__interrupts" ],
+    [ "Group_hppass_fifo_level_interrupts", "group__group__hppass__fifo__level__interrupts.html", "group__group__hppass__fifo__level__interrupts" ],
+    [ "CY_HPPASS_SAR_GRP_NUM", "group__group__hppass__sar__macros.html#ga26b5d6a733409a4d2743d3019bf4f8e6", null ],
+    [ "CY_HPPASS_SAR_CHAN_NUM", "group__group__hppass__sar__macros.html#ga875fefec192132d8ef5f23e5d9677d9c", null ],
+    [ "CY_HPPASS_SAR_SAMP_TIME_NUM", "group__group__hppass__sar__macros.html#gaee7931ac33509b2d3c1eba13d7546a29", null ],
+    [ "CY_HPPASS_SAR_LIMIT_NUM", "group__group__hppass__sar__macros.html#ga58f7a8199181c946b92cc21472e4cd10", null ],
+    [ "CY_HPPASS_SAR_DIR_SAMP_NUM", "group__group__hppass__sar__macros.html#ga14343b3c4e7058a0370ad9fb2a7714d1", null ],
+    [ "CY_HPPASS_SAR_MUX_SAMP_NUM", "group__group__hppass__sar__macros.html#gab2c382ec6d5bfcc6e235a2c03850b45e", null ],
+    [ "CY_HPPASS_FIR_NUM", "group__group__hppass__sar__macros.html#ga8c9ffa7ef542e5413b518781d428b7af", null ],
+    [ "CY_HPPASS_FIR_TAP_NUM", "group__group__hppass__sar__macros.html#ga0d3eebc2d5ca5bf30a38c2f67900fe22", null ],
+    [ "CY_HPPASS_FIFO_NUM", "group__group__hppass__sar__macros.html#ga3eb5a0b7b6fadba26974cffaded0019d", null ],
+    [ "CY_HPPASS_SAR_SAMPLERS_DISABLED", "group__group__hppass__sar__macros.html#gaa85a5aa2b1080d3631c8efee4d56ce9d", null ],
+    [ "CY_HPPASS_SAR_CHAN_RSLT_PTR", "group__group__hppass__sar__macros.html#ga4a075ee73427bdec2bda1a35f0a5b2cf", null ],
+    [ "CY_HPPASS_SAR_FIR_RSLT_PTR", "group__group__hppass__sar__macros.html#gab1503a8f3b9665fa42e04fa76d283d15", null ],
+    [ "CY_HPPASS_SAR_FIFO_READ_PTR", "group__group__hppass__sar__macros.html#ga4438d5bb5970a06e7a9c544b18ef0e27", null ]
+];

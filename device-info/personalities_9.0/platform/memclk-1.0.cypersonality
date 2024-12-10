@@ -64,6 +64,6 @@
     <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKMEM_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKMEM_DIVIDER" value="`${divider - 1}`"  public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkMemInit()" body="    Cy_SysClk_ClkMemSetDivider(`${divider - 1}`U);" public="false" include="true" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkMemInit(void)" body="    Cy_SysClk_ClkMemSetDivider(`${divider - 1}`U);" public="false" include="true" />
   </ConfigFirmware>
 </Personality>

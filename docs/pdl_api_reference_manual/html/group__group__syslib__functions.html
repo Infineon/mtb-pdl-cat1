@@ -171,6 +171,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gac340f219d12ebdccb28c370bc3740c34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gac340f219d12ebdccb28c370bc3740c34">Cy_SysLib_ClearDSRAMWarmBootEntryStatus</a> (void)</td></tr>
 <tr class="memdesc:gac340f219d12ebdccb28c370bc3740c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the Warm Boot entry Status flag.  <a href="#gac340f219d12ebdccb28c370bc3740c34">More...</a><br /></td></tr>
 <tr class="separator:gac340f219d12ebdccb28c370bc3740c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafdb346d0131659f401e2b9d83ea6864d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gafdb346d0131659f401e2b9d83ea6864d">Cy_Syslib_IsMemCacheable</a> (MPU_Type *mpu, uint32_t addr, uint32_t size)</td></tr>
+<tr class="memdesc:gafdb346d0131659f401e2b9d83ea6864d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if the memory address and the size passed falls in the non-cacheable region or not.  <a href="#gafdb346d0131659f401e2b9d83ea6864d">More...</a><br /></td></tr>
+<tr class="separator:gafdb346d0131659f401e2b9d83ea6864d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaad1c32546fdb0e3c6fa8b46fb95843b5"></a>
@@ -457,9 +460,11 @@ This API is available for devices having M4CPUSS IP. </dd></dl>
 <p>This function returns the silicon unique ID. </p>
 <p>The ID includes Die lot[3]#, Die Wafer#, Die X, Die Y, Die Sort#, Die Minor and Die Year.</p>
 <dl class="section return"><dt>Returns</dt><dd>A combined 64-bit unique ID. [63:57] - DIE_YEAR [56:56] - DIE_MINOR [55:48] - DIE_SORT [47:40] - DIE_Y [39:32] - DIE_X [31:24] - DIE_WAFER [23:16] - DIE_LOT[2] [15: 8] - DIE_LOT[1] [ 7: 0] - DIE_LOT[0]</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for devices having M4CPUSS and CY_IP_M33SYSCPUSS IP.</dd>
+<dl class="section note"><dt>Note</dt><dd>This API is available for devices having M4CPUSS, CY_IP_M33SYSCPUSS and CY_IP_M55APPCPUSS IP.</dd>
 <dd>
-For CY_IP_M33SYSCPUSS IP, EFUSE must be in enabled state before calling this API. </dd></dl>
+For CY_IP_M33SYSCPUSS IP, EFUSE must be in enabled state before calling this API.</dd>
+<dd>
+For Cores with Security extention, Trust Zone configuration should be done before calling this API. </dd></dl>
 
 </div>
 </div>
@@ -772,6 +777,7 @@ The CY_ARM_FAULT_DEBUG macro defines if the Fault Handler is enabled. By default
   </table>
   </dd>
 </dl>
+<dl class="section warning"><dt>Warning</dt><dd>Delay functions have no effect if called from non-secure code. The CPU frequency cannot be changed in non-secure code. </dd></dl>
 
 </div>
 </div>
@@ -966,6 +972,51 @@ The CY_ARM_FAULT_DEBUG macro defines if the Fault Handler is enabled. By default
 
 <p>This function clears the Warm Boot entry Status flag. </p>
 <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B devices. </dd></dl>
+
+</div>
+</div>
+<a id="gafdb346d0131659f401e2b9d83ea6864d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafdb346d0131659f401e2b9d83ea6864d">&#9670;&nbsp;</a></span>Cy_Syslib_IsMemCacheable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_Syslib_IsMemCacheable </td>
+          <td>(</td>
+          <td class="paramtype">MPU_Type *&#160;</td>
+          <td class="paramname"><em>mpu</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function checks if the memory address and the size passed falls in the non-cacheable region or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mpu</td><td>Address of the MPU</td></tr>
+    <tr><td class="paramname">addr</td><td>Address of the memory to be checked</td></tr>
+    <tr><td class="paramname">size</td><td>Size of the memory to be checked</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CM55 core on CAT1D devices. </dd></dl>
 
 </div>
 </div>

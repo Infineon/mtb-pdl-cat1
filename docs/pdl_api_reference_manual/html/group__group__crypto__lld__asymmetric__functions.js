@@ -12,6 +12,7 @@ var group__group__crypto__lld__asymmetric__functions =
     [ "Cy_Crypto_Core_ECC_VerifyHash", "group__group__crypto__lld__asymmetric__functions.html#ga1d1d01ef464f6609df2a5c1ba4186d86", null ],
     [ "Cy_Crypto_Core_ED25519_Sign", "group__group__crypto__lld__asymmetric__functions.html#ga91665b6d177a8c3e1f902e8b2c7fd55f", null ],
     [ "Cy_Crypto_Core_ED25519_PointMultiplication", "group__group__crypto__lld__asymmetric__functions.html#gae5c9d2e743370c2d3b284fd88de41da4", null ],
+    [ "Cy_Crypto_Core_ED25519_PointDecode", "group__group__crypto__lld__asymmetric__functions.html#ga1124df65ca823fe27abd39c0bfed400e", null ],
     [ "Cy_Crypto_Core_ED25519_Verify", "group__group__crypto__lld__asymmetric__functions.html#gaaee9926a45f48ad4576662b03e5b3964", null ],
     [ "Cy_Crypto_Core_ED25519_MakePublicKey", "group__group__crypto__lld__asymmetric__functions.html#ga2a304423a4c37b314776c494fe2a3ef9", null ],
     [ "Cy_Crypto_Core_EC_NistP_PointMultiplication", "group__group__crypto__lld__asymmetric__functions.html#ga3339d6b9fad08c824ef9d94d0234e903", null ]

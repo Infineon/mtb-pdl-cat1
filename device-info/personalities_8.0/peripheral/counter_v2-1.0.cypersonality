@@ -400,6 +400,7 @@
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
     <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
     <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
+    <ConfigInclude value="mtb_hal.h" include="true" guard="defined (COMPONENT_MTB_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="TCPWM`${tcpwmInst}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${cntInst}`UL" public="true" include="true" />
@@ -457,6 +458,23 @@
       <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
     </ConfigStruct>
 
+    <ConfigStruct name="`${INST_NAME}`_clock_ref" type="mtb_hal_peri_div_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL)">
+      <Member name="clk_dst" value="`${pclkDst}`" />
+      <Member name="div_type" value="`${getExposedMember(sourceClock, &quot;type&quot;)}`" />
+      <Member name="div_num" value="`${getExposedMember(sourceClock, &quot;number&quot;)}`" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_clock" type="mtb_hal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL)">
+      <Member name="clock_ref" value="&amp;`${INST_NAME}`_clock_ref" />
+      <Member name="interface" value="&amp;mtb_hal_clock_peri_interface" />
+    </ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="mtb_hal_timer_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL)">
+      <Member name="tcpwm_base" value="`${INST_NAME}`_HW" />
+      <Member name="clock" value="&amp;`${INST_NAME}`_hal_clock" />
+      <Member name="tcpwm_cntnum" value="`${getInstNumber(&quot;cnt&quot;)}`U" />
+    </ConfigStruct>
+    
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM`${tcpwmInst}`_PERI_NR, CY_MMIO_TCPWM`${tcpwmInst}`_GROUP_NR, CY_MMIO_TCPWM`${tcpwmInst}`_SLAVE_NR, CY_MMIO_TCPWM`${tcpwmInst}`_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
     <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`"  />
     <ConfigInstruction purpose="RESERVE" value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />

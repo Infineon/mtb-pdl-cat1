@@ -93,6 +93,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga4ff4c716a35e5077d000120d0994ad7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__eco__funcs.html#ga4ff4c716a35e5077d000120d0994ad7b">Cy_SysClk_EcoSetFrequency</a> (uint32_t freq)</td></tr>
 <tr class="memdesc:ga4ff4c716a35e5077d000120d0994ad7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the external crystal oscillator (ECO) frequency in a global variable within Sysclk driver.  <a href="#ga4ff4c716a35e5077d000120d0994ad7b">More...</a><br /></td></tr>
 <tr class="separator:ga4ff4c716a35e5077d000120d0994ad7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa247c91ce4f872f224aed426ad317973"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__eco__funcs.html#gaa247c91ce4f872f224aed426ad317973">Cy_SysClk_EcoManualConfigure</a> (const <a class="el" href="structcy__stc__clk__eco__config__t.html">cy_stc_clk_eco_config_t</a> *ecoConfig)</td></tr>
+<tr class="memdesc:gaa247c91ce4f872f224aed426ad317973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the external crystal oscillator (ECO) trim bits based on crystal characteristics.  <a href="#gaa247c91ce4f872f224aed426ad317973">More...</a><br /></td></tr>
+<tr class="separator:gaa247c91ce4f872f224aed426ad317973"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9d94ac55503404a0bdaf017fe33ecdbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__eco__funcs.html#ga9d94ac55503404a0bdaf017fe33ecdbd">Cy_SysClk_EcoConfigure</a> (uint32_t freq, uint32_t cSum, uint32_t esr, uint32_t driveLevel)</td></tr>
 <tr class="memdesc:ga9d94ac55503404a0bdaf017fe33ecdbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the external crystal oscillator (ECO) trim bits based on crystal characteristics.  <a href="#ga9d94ac55503404a0bdaf017fe33ecdbd">More...</a><br /></td></tr>
 <tr class="separator:ga9d94ac55503404a0bdaf017fe33ecdbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,6 +146,39 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A (excluding TVIIBE), CAT1B, CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="gaa247c91ce4f872f224aed426ad317973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa247c91ce4f872f224aed426ad317973">&#9670;&nbsp;</a></span>Cy_SysClk_EcoManualConfigure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> Cy_SysClk_EcoManualConfigure </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcy__stc__clk__eco__config__t.html">cy_stc_clk_eco_config_t</a> *&#160;</td>
+          <td class="paramname"><em>ecoConfig</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures the external crystal oscillator (ECO) trim bits based on crystal characteristics. </p>
+<p>This function should be called only when the ECO is disabled.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ecoConfig</td><td><a class="el" href="structcy__stc__clk__eco__config__t.html">cy_stc_clk_eco_config_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API expects the trims to be calculated outside this API scope, so refer and use the ECO calculators excel sheet for the platform to obtain the trims.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Error / status code: <br />
+CY_SYSCLK_SUCCESS - ECO configuration completed successfully <br />
+CY_SYSCLK_BAD_PARAM - One or more invalid parameters <br />
+CY_SYSCLK_INVALID_STATE - ECO already enabled</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -324,7 +360,7 @@ Take into account the possible platform specific clkHf (and further clocking cha
 <dl class="section return"><dt>Returns</dt><dd>The frequency of the ECO.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the ECO is not enabled or stable - a zero is returned.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: ECO is successfully configured and needs to be enabled. The</span></div><div class="line"><span class="comment">                 ECO pins are configured using the gpio driver</span></div><div class="line"><span class="comment">                 (SRSS_ECO_IN_PIN, SRSS_ECO_OUT_PIN). */</span></div><div class="line"></div><div class="line">    uint32_t ecofreq = 0UL; <span class="comment">/* Variable to store the ECO frequency */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Enable the ECO with a timeout of 1000 microseconds */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> == <a class="code" href="group__group__sysclk__eco__funcs.html#gaadd2986e0b77ab0a714e4127ef1693f6">Cy_SysClk_EcoEnable</a>(1000UL))</div><div class="line">    {</div><div class="line">        ecofreq = <a class="code" href="group__group__sysclk__eco__funcs.html#ga392db1f8d8504409017a3fedb95b8ee2">Cy_SysClk_EcoGetFrequency</a>();</div><div class="line">        <span class="comment">/* Now ecofreq contains an actual ECO frequency */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Set the path muxes and configure the downstream clocks. For example,</span></div><div class="line"><span class="comment">       the ECO can source the FLL through path 0 clock or it can source the PLL</span></div><div class="line"><span class="comment">       through path 1 clock. */</span></div></div><!-- fragment --> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1B(PSoC C3), CAT1C &amp; CAT1D devices. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1A, CAT1B(PSOC C3), CAT1C &amp; CAT1D devices. </dd></dl>
 
 </div>
 </div>
@@ -469,7 +505,7 @@ true = enabled</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>The frequency of the ECO Prescaler.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the ECO is not enabled or stable - a zero is returned.</dd>
 <dd>
-This API is available for CAT1B(PSoC C3), CAT1C &amp; CAT1D devices. </dd></dl>
+This API is available for CAT1B(PSOC C3), CAT1C &amp; CAT1D devices. </dd></dl>
 
 </div>
 </div>

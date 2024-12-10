@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.c
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  This file provides the source code for the SMIF driver APIs.
@@ -9,7 +9,8 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2022 Cypress Semiconductor Corporation
+* Copyright 2016-2024 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,10 +28,13 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION <= 5)
+#if defined (CY_IP_MXSMIF)
 
 #include "cy_smif.h"
 #include "cy_sysclk.h"
+#if (CY_IP_MXSMIF_VERSION >= 6U) && !defined (COMPONENT_SECURE_DEVICE)
+#include "cy_secure_services.h"
+#endif
 
 #if defined(__cplusplus)
 extern "C" {
@@ -69,7 +73,7 @@ extern "C" {
 *     - \ref CY_SMIF_SUCCESS
 *
 *******************************************************************************/
-cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base, 
+cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
                                     cy_stc_smif_config_t const *config,
                                     uint32_t timeout,
                                     cy_stc_smif_context_t *context)
@@ -85,11 +89,11 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
             return CY_SMIF_BAD_PARAM;
         }
 #endif
-        
+
         uint32_t smif_ctl_value = SMIF_CTL(base);
 
-        /* Copy the base address of the SMIF and the SMIF Device block  
-        * registers to the context. 
+        /* Copy the base address of the SMIF and the SMIF Device block
+        * registers to the context.
         */
         context->timeout = timeout;
 
@@ -122,21 +126,21 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
 #endif /*(CY_IP_MXSMIF_VERSION<=3)*/
                            _VAL2FLD(SMIF_CTL_DESELECT_DELAY, config->deselectDelay) |
 #if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
-                           _VAL2FLD(SMIF_CTL_DELAY_TAP_ENABLED, config->delayTapEnable) | 
+                           _VAL2FLD(SMIF_CTL_DELAY_TAP_ENABLED, config->delayTapEnable) |
                            _VAL2FLD(SMIF_CTL_DELAY_LINE_SEL, config->delayLineSelect) |
 #endif /*((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))*/
                            _VAL2FLD(SMIF_CTL_BLOCK, config->blockEvent));
 
 #if (CY_IP_MXSMIF_VERSION >=4)
-            
-            /* These values are taken from the Register TRM 
+
+            /* These values are taken from the Register TRM
             entry for SMIF_CORE_CTL2_DLL_SPEED_MODE. */
             #if (CY_IP_MXSMIF_VERSION == 4)
             const uint32_t PLL_FREQ_1 = 160U;
             const uint32_t PLL_FREQ_2 = 180U;
             const uint32_t PLL_FREQ_3 = 266U;
             const uint32_t PLL_FREQ_4 = 333U;
-            #elif (CY_IP_MXSMIF_VERSION == 5)
+            #elif (CY_IP_MXSMIF_VERSION >= 5)
             const uint32_t PLL_FREQ_1 = 150U;
             const uint32_t PLL_FREQ_2 = 192U;
             const uint32_t PLL_FREQ_3 = 245U;
@@ -161,6 +165,9 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
 #endif /* CY_IP_MXSMIF_VERSION >= 5 */
                 {
                     uint32_t dll_speed_mode = 0U;
+#if (CY_IP_MXSMIF_VERSION >= 5)
+                    uint32_t dll_skil_lsb = 0U;
+#endif
                     if ((config->inputFrequencyMHz > PLL_FREQ_1) && (config->inputFrequencyMHz <= PLL_FREQ_2))
                     {
                         dll_speed_mode = 0U;
@@ -172,12 +179,31 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
                     else if ((config->inputFrequencyMHz > PLL_FREQ_3) && (config->inputFrequencyMHz <= PLL_FREQ_4))
                     {
                         dll_speed_mode = 2U;
+#if (CY_IP_MXSMIF_VERSION >= 5)
+                        dll_skil_lsb = 1U;
+#endif
                     }
                     else
                     {
                         dll_speed_mode = 3U;
+#if (CY_IP_MXSMIF_VERSION >= 5)
+                        dll_skil_lsb = 3U;
+#endif
                     }
-                    SMIF_CTL2(base) |= _VAL2FLD(SMIF_CORE_CTL2_DLL_SPEED_MODE, dll_speed_mode);
+
+#if (CY_IP_MXSMIF_VERSION >= 5)
+                    SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_DLL_MDL_BYPASS_MODE_Msk;
+                    SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_MDL_TAP_SEL_Msk;
+                    SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_DLL_SKIP_LSB_Msk;
+
+                    SMIF_CTL2(base) |= (_VAL2FLD(SMIF_CORE_CTL2_DLL_SPEED_MODE, dll_speed_mode) |
+                                        SMIF_CORE_CTL2_DLL_IGNORE_LOCK_Msk |            //Recomedation from IP team
+                                        _VAL2FLD(SMIF_CORE_CTL2_DLL_UNLOCK_VALUE, 5U) | //Recomedation from IP team
+                                        _VAL2FLD(SMIF_CORE_CTL2_MDL_TAP_SEL, config->mdl_tap) |
+                                        _VAL2FLD(SMIF_CORE_CTL2_DLL_SKIP_LSB, dll_skil_lsb));
+#else
+                     SMIF_CTL2(base) |= _VAL2FLD(SMIF_CORE_CTL2_DLL_SPEED_MODE, dll_speed_mode);
+#endif
                 }
             }
 #if (CY_IP_MXSMIF_VERSION >=5)
@@ -232,8 +258,8 @@ void Cy_SMIF_DeInit(SMIF_Type *base)
 {
     uint32_t idx;
 
-    /* Configure the SMIF interface to default values. 
-    * The default value is 0. 
+    /* Configure the SMIF interface to default values.
+    * The default value is 0.
     */
     SMIF_CTL(base) = CY_SMIF_CTL_REG_DEFAULT;
 #if (CY_IP_MXSMIF_VERSION>=4)
@@ -275,7 +301,7 @@ void Cy_SMIF_DeInit(SMIF_Type *base)
 void Cy_SMIF_SetMode(SMIF_Type *base, cy_en_smif_mode_t mode)
 {
     CY_ASSERT_L3(CY_SMIF_MODE_VALID(mode));
-    
+
     /*  Set the register SMIF.CTL.XIP_MODE = TRUE */
     if (CY_SMIF_NORMAL == mode)
     {
@@ -366,16 +392,16 @@ void Cy_SMIF_SetDataSelect(SMIF_Type *base, cy_en_smif_slave_select_t slaveSelec
                             cy_en_smif_data_select_t dataSelect)
 {
     SMIF_DEVICE_Type volatile *device;
-    
+
     CY_ASSERT_L3(CY_SMIF_SLAVE_SEL_VALID(slaveSelect));
     CY_ASSERT_L3(CY_SMIF_DATA_SEL_VALID(dataSelect));
-    
+
     /* Connect the slave to its data lines */
     device = Cy_SMIF_GetDeviceBySlot(base, slaveSelect);
 
     if(NULL != device)
     {
-        SMIF_DEVICE_CTL(device) = _CLR_SET_FLD32U(SMIF_DEVICE_CTL(device), 
+        SMIF_DEVICE_CTL(device) = _CLR_SET_FLD32U(SMIF_DEVICE_CTL(device),
                                                   SMIF_DEVICE_CTL_DATA_SEL,
                                                   (uint32_t)dataSelect);
     }
@@ -393,7 +419,7 @@ void Cy_SMIF_SetDataSelect(SMIF_Type *base, cy_en_smif_slave_select_t slaveSelec
 * transmission. This function sets up the slave lines for the rest of the
 * command structure. The \ref Cy_SMIF_TransmitCommand is called before \ref
 * Cy_SMIF_TransmitData or \ref Cy_SMIF_ReceiveData is called. When enabled, the
-* completeTxfr parameter in the function will de-assert the slave select line at 
+* completeTxfr parameter in the function will de-assert the slave select line at
 * the end of the function execution.
 *
 * \note This function blocks until all the command and associated parameters
@@ -438,7 +464,7 @@ void Cy_SMIF_SetDataSelect(SMIF_Type *base, cy_en_smif_slave_select_t slaveSelec
 *       - \ref CY_SMIF_SUCCESS
 *       - \ref CY_SMIF_EXCEED_TIMEOUT
 *
-* \note Check \ref group_smif_usage_rules for any usage restriction 
+* \note Check \ref group_smif_usage_rules for any usage restriction
 *
 *******************************************************************************/
 cy_en_smif_status_t  Cy_SMIF_TransmitCommand(SMIF_Type *base,
@@ -467,7 +493,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitCommand(SMIF_Type *base,
 #else
         /* The return variable */
         cy_en_smif_status_t result = CY_SMIF_SUCCESS;
-    
+
         /* Check input values */
         CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(cmdTxfrWidth));
         CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(paramTxfrWidth));
@@ -498,10 +524,10 @@ cy_en_smif_status_t  Cy_SMIF_TransmitCommand(SMIF_Type *base,
                 SMIF_TX_CMD_FIFO_WR(base) = constCmdPart|
                     _VAL2FLD(CY_SMIF_CMD_FIFO_WR_TXDATA,
                             (uint32_t) cmdParam[bufIndex]) |
-                    _VAL2FLD(CY_SMIF_CMD_FIFO_WR_WIDTH, 
+                    _VAL2FLD(CY_SMIF_CMD_FIFO_WR_WIDTH,
                             (uint32_t) paramTxfrWidth) |
                     _VAL2FLD(CY_SMIF_CMD_FIFO_WR_LAST_BYTE,
-                                ((((uint32_t)bufIndex + 1UL) < paramSize) ? 
+                                ((((uint32_t)bufIndex + 1UL) < paramSize) ?
                                 0UL : completeTxfr));
 
                 bufIndex++;
@@ -538,14 +564,14 @@ cy_en_smif_status_t  Cy_SMIF_TransmitCommand(SMIF_Type *base,
 *
 * \param txBuffer
 * The pointer to the data to be transferred. If this pointer is a NULL, then the
-* function does not enable the interrupt. This use case is typically used when 
-* the FIFO is handled outside the interrupt and is managed in either a 
+* function does not enable the interrupt. This use case is typically used when
+* the FIFO is handled outside the interrupt and is managed in either a
 * polling-based code or a DMA. The user would handle the FIFO management in a
 * DMA or a polling-based code.
-* 
+*
 * \note If the user provides a NULL pointer in this function and does not handle
 * the FIFO transaction, this could either stall or timeout the operation.
-* The transfer statuses returned by \ref Cy_SMIF_GetTransferStatus are no longer 
+* The transfer statuses returned by \ref Cy_SMIF_GetTransferStatus are no longer
 * valid.
 *
 * \param size
@@ -586,7 +612,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitData(SMIF_Type *base,
 #else
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_CMD_FIFO_FULL;
-    
+
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
     CY_ASSERT_L2(CY_SMIF_BUF_SIZE_VALID(size));
@@ -611,7 +637,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitData(SMIF_Type *base,
 
             /* Enable the TR_TX_REQ interrupt */
             Cy_SMIF_SetInterruptMask(base,
-                                     Cy_SMIF_GetInterruptMask(base) | 
+                                     Cy_SMIF_GetInterruptMask(base) |
                                      SMIF_INTR_TR_TX_REQ_Msk);
         }
         result = CY_SMIF_SUCCESS;
@@ -681,7 +707,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitDataBlocking(SMIF_Type *base,
 #else
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
-    
+
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
 
@@ -731,8 +757,8 @@ cy_en_smif_status_t  Cy_SMIF_TransmitDataBlocking(SMIF_Type *base,
 *
 * This function implements the receive data phase in the memory command. The
 * data is received into the RX Data FIFO using the RX_COUNT command. This
-* function sets up the interrupt to trigger on the RX Data FIFO level, and the 
-* data is fetched from the RX Data FIFO to the rxBuffer as it gets filled. This 
+* function sets up the interrupt to trigger on the RX Data FIFO level, and the
+* data is fetched from the RX Data FIFO to the rxBuffer as it gets filled. This
 * function does not block until completion. The completion will trigger the call
 * back function.
 *
@@ -751,14 +777,14 @@ cy_en_smif_status_t  Cy_SMIF_TransmitDataBlocking(SMIF_Type *base,
 *
 * \param rxBuffer
 * The pointer to the variable where the receive data is stored. If this pointer
-* is a NULL, then the function does not enable the interrupt. This use case is 
-* typically used when the FIFO is handled outside the interrupt and is managed 
-* in either a polling-based code or a DMA. The user would handle the FIFO 
+* is a NULL, then the function does not enable the interrupt. This use case is
+* typically used when the FIFO is handled outside the interrupt and is managed
+* in either a polling-based code or a DMA. The user would handle the FIFO
 * management in a DMA or a polling-based code.
 *
 * \note If the user provides a NULL pointer in this function and does not handle
 * the FIFO transaction, this could either stall or timeout the operation.
-* The transfer statuses returned by \ref Cy_SMIF_GetTransferStatus are no longer 
+* The transfer statuses returned by \ref Cy_SMIF_GetTransferStatus are no longer
 * valid.
 *
 * \param size
@@ -780,7 +806,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitDataBlocking(SMIF_Type *base,
 *       - \ref CY_SMIF_CMD_FIFO_FULL
 *       - \ref CY_SMIF_BAD_PARAM
 *
-* \note Check \ref group_smif_usage_rules for any usage restriction 
+* \note Check \ref group_smif_usage_rules for any usage restriction
 *
 *******************************************************************************/
 cy_en_smif_status_t  Cy_SMIF_ReceiveData(SMIF_Type *base,
@@ -801,7 +827,7 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveData(SMIF_Type *base,
 #else
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
-    
+
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
 
@@ -884,7 +910,7 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveData(SMIF_Type *base,
 *       - \ref CY_SMIF_EXCEED_TIMEOUT
 *       - \ref CY_SMIF_BAD_PARAM
 *
-* \note Check \ref group_smif_usage_rules for any usage restriction 
+* \note Check \ref group_smif_usage_rules for any usage restriction
 *
 *******************************************************************************/
 cy_en_smif_status_t  Cy_SMIF_ReceiveDataBlocking(SMIF_Type *base,
@@ -903,7 +929,7 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveDataBlocking(SMIF_Type *base,
 #else
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
-    
+
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
 
@@ -977,7 +1003,7 @@ cy_en_smif_status_t  Cy_SMIF_SendDummyCycles(SMIF_Type *base,
 #else
     /* The return variable */
     cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
-    
+
     if (cycles > 0U)
     {
         result = CY_SMIF_CMD_FIFO_FULL;
@@ -1009,7 +1035,7 @@ cy_en_smif_status_t  Cy_SMIF_SendDummyCycles(SMIF_Type *base,
 * is only valid if the functions passed a non-NULL buffer to transmit or
 * receive respectively. If the pointer passed to \ref Cy_SMIF_ReceiveData()
 * or \ref Cy_SMIF_TransmitData() is a NULL, then the code/DMA outside this
-* driver will take care of the transfer and the Cy_GetTxfrStatus() will return 
+* driver will take care of the transfer and the Cy_GetTxfrStatus() will return
 * an erroneous result.
 *
 * \param base
@@ -1087,7 +1113,7 @@ void Cy_SMIF_Enable(SMIF_Type *base, cy_stc_smif_context_t *context)
 * transmission. This function sets up the slave lines for the rest of the
 * command structure. The \ref Cy_SMIF_TransmitCommand_Ext is called before \ref
 * Cy_SMIF_TransmitData_Ext or \ref Cy_SMIF_ReceiveData_Ext is called. When enabled, the
-* completeTxfr parameter in the function will de-assert the slave select line at 
+* completeTxfr parameter in the function will de-assert the slave select line at
 * the end of the function execution.
 *
 * \note This function blocks until all the command and associated parameters
@@ -1217,7 +1243,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint8_t)(cmd & 0x00FFU)) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, 0U) |
                  _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE,
-                     ((0UL == paramSize) ? completeTxfr : 0UL)) ;         
+                     ((0UL == paramSize) ? completeTxfr : 0UL)) ;
          }
      }
      else
@@ -1314,14 +1340,14 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
 *
 * \param txBuffer
 * The pointer to the data to be transferred. If this pointer is a NULL, then the
-* function does not enable the interrupt. This use case is typically used when 
-* the FIFO is handled outside the interrupt and is managed in either a 
+* function does not enable the interrupt. This use case is typically used when
+* the FIFO is handled outside the interrupt and is managed in either a
 * polling-based code or a DMA. The user would handle the FIFO management in a
 * DMA or a polling-based code.
-* 
+*
 * \note If the user provides a NULL pointer in this function and does not handle
 * the FIFO transaction, this could either stall or timeout the operation.
-* The transfer statuses returned by \ref Cy_SMIF_GetTransferStatus are no longer 
+* The transfer statuses returned by \ref Cy_SMIF_GetTransferStatus are no longer
 * valid.
 *
 * \param size
@@ -1363,7 +1389,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
 #if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     uint32_t temp = 0;
 #endif
-    
+
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
     CY_ASSERT_L2(CY_SMIF_BUF_SIZE_VALID(size));
@@ -1413,7 +1439,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
 
             /* Enable the TR_TX_REQ interrupt */
             Cy_SMIF_SetInterruptMask(base,
-                                     Cy_SMIF_GetInterruptMask(base) | 
+                                     Cy_SMIF_GetInterruptMask(base) |
                                      SMIF_INTR_TR_TX_REQ_Msk);
         }
         result = CY_SMIF_SUCCESS;
@@ -1491,7 +1517,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
 #if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
     uint32_t temp = 0;
 #endif
-    
+
     /* Check input values */
     CY_ASSERT_L3(CY_SMIF_TXFR_WIDTH_VALID(transferWidth));
 
@@ -1566,8 +1592,8 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
 *
 * This function implements the receive data phase in the memory command. The
 * data is received into the RX Data FIFO using the RX_COUNT command. This
-* function sets up the interrupt to trigger on the RX Data FIFO level, and the 
-* data is fetched from the RX Data FIFO to the rxBuffer as it gets filled. This 
+* function sets up the interrupt to trigger on the RX Data FIFO level, and the
+* data is fetched from the RX Data FIFO to the rxBuffer as it gets filled. This
 * function does not block until completion. The completion will trigger the call
 * back function.
 *
@@ -1586,14 +1612,14 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
 *
 * \param rxBuffer
 * The pointer to the variable where the receive data is stored. If this pointer
-* is a NULL, then the function does not enable the interrupt. This use case is 
-* typically used when the FIFO is handled outside the interrupt and is managed 
-* in either a polling-based code or a DMA. The user would handle the FIFO 
+* is a NULL, then the function does not enable the interrupt. This use case is
+* typically used when the FIFO is handled outside the interrupt and is managed
+* in either a polling-based code or a DMA. The user would handle the FIFO
 * management in a DMA or a polling-based code.
 *
 * \note If the user provides a NULL pointer in this function and does not handle
 * the FIFO transaction, this could either stall or timeout the operation.
-* The transfer statuses returned by \ref Cy_SMIF_GetTransferStatus are no longer 
+* The transfer statuses returned by \ref Cy_SMIF_GetTransferStatus are no longer
 * valid.
 *
 * \param size
@@ -1618,7 +1644,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
 *       - \ref CY_SMIF_CMD_FIFO_FULL
 *       - \ref CY_SMIF_BAD_PARAM
 *
-* \note Check \ref group_smif_usage_rules for any usage restriction 
+* \note Check \ref group_smif_usage_rules for any usage restriction
 *
 * \note
 * This API is available for CAT1B, CAT1C and CAT1D devices.
@@ -1740,7 +1766,7 @@ cy_en_smif_status_t Cy_SMIF_ReceiveData_Ext(SMIF_Type *base,
 *       - \ref CY_SMIF_EXCEED_TIMEOUT
 *       - \ref CY_SMIF_BAD_PARAM
 *
-* \note Check \ref group_smif_usage_rules for any usage restriction 
+* \note Check \ref group_smif_usage_rules for any usage restriction
 *
 * \note
 * This API is available for CAT1B, CAT1C and CAT1D devices.
@@ -1792,7 +1818,7 @@ cy_en_smif_status_t Cy_SMIF_ReceiveDataBlocking_Ext(SMIF_Type *base,
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_RX_COUNT, (rxUnitNum - 1UL)) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) dataRate) |
                 _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE, 1U);
-            
+
             result = CY_SMIF_SUCCESS;
 
             if (NULL != rxBuffer)
@@ -2183,7 +2209,7 @@ cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_s
 *       - \ref CY_SMIF_EXCEED_TIMEOUT
 *       - \ref CY_SMIF_BAD_PARAM
 *
-* \funcusage 
+* \funcusage
 * \snippet smif/snippet/main.c snippet_Cy_SMIF_Encrypt
 *
 *******************************************************************************/
@@ -2196,7 +2222,7 @@ cy_en_smif_status_t  Cy_SMIF_Encrypt(SMIF_Type *base,
     uint32_t bufIndex;
     cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
     uint32_t timeoutUnits = context->timeout;
-    
+
     CY_ASSERT_L2(size > 0U);
 
     if((NULL != data) && ((address & (~CY_SMIF_CRYPTO_ADDR_MASK)) == 0UL) )
@@ -2215,15 +2241,15 @@ cy_en_smif_status_t  Cy_SMIF_Encrypt(SMIF_Type *base,
 
             /* Start the encryption */
             SMIF_CRYPTO_CMD(base) &= ~SMIF_CRYPTO_CMD_START_Msk;
-            SMIF_CRYPTO_CMD(base) = (uint32_t)(_VAL2FLD(SMIF_CRYPTO_CMD_START, 
+            SMIF_CRYPTO_CMD(base) = (uint32_t)(_VAL2FLD(SMIF_CRYPTO_CMD_START,
                                                     CY_SMIF_CRYPTO_START));
 
-            while((CY_SMIF_CRYPTO_COMPLETED != _FLD2VAL(SMIF_CRYPTO_CMD_START, 
+            while((CY_SMIF_CRYPTO_COMPLETED != _FLD2VAL(SMIF_CRYPTO_CMD_START,
                                                     SMIF_CRYPTO_CMD(base))) &&
                                                     (CY_SMIF_EXCEED_TIMEOUT != status))
             {
-                /* Wait until the encryption is completed and check the 
-                * timeout 
+                /* Wait until the encryption is completed and check the
+                * timeout
                 */
                 status = Cy_SMIF_TimeoutRun(&timeoutUnits);
             }
@@ -2233,13 +2259,13 @@ cy_en_smif_status_t  Cy_SMIF_Encrypt(SMIF_Type *base,
                 break;
             }
 
-            Cy_SMIF_UnPackByteArray(SMIF_CRYPTO_OUTPUT0(base), 
+            Cy_SMIF_UnPackByteArray(SMIF_CRYPTO_OUTPUT0(base),
                                 &cryptoOut[CY_SMIF_CRYPTO_FIRST_WORD] , true);
-            Cy_SMIF_UnPackByteArray(SMIF_CRYPTO_OUTPUT1(base), 
+            Cy_SMIF_UnPackByteArray(SMIF_CRYPTO_OUTPUT1(base),
                                 &cryptoOut[CY_SMIF_CRYPTO_SECOND_WORD], true);
-            Cy_SMIF_UnPackByteArray(SMIF_CRYPTO_OUTPUT2(base), 
+            Cy_SMIF_UnPackByteArray(SMIF_CRYPTO_OUTPUT2(base),
                                 &cryptoOut[CY_SMIF_CRYPTO_THIRD_WORD] , true);
-            Cy_SMIF_UnPackByteArray(SMIF_CRYPTO_OUTPUT3(base), 
+            Cy_SMIF_UnPackByteArray(SMIF_CRYPTO_OUTPUT3(base),
                                 &cryptoOut[CY_SMIF_CRYPTO_FOURTH_WORD], true);
 
             for(outIndex = 0U; outIndex < CY_SMIF_AES128_BYTES; outIndex++)
@@ -2269,7 +2295,7 @@ cy_en_smif_status_t  Cy_SMIF_Encrypt(SMIF_Type *base,
 *       - \ref CY_SMIF_BAD_PARAM
 *
 *******************************************************************************/
-cy_en_smif_status_t Cy_SMIF_CacheEnable(SMIF_Type *base, 
+cy_en_smif_status_t Cy_SMIF_CacheEnable(SMIF_Type *base,
                                         cy_en_smif_cache_t cacheType)
 {
     cy_en_smif_status_t status = CY_SMIF_SUCCESS;
@@ -2289,7 +2315,7 @@ cy_en_smif_status_t Cy_SMIF_CacheEnable(SMIF_Type *base,
             /* A user error */
             status = CY_SMIF_BAD_PARAM;
             break;
-    }   
+    }
     return (status);
 }
 
@@ -2311,7 +2337,7 @@ cy_en_smif_status_t Cy_SMIF_CacheEnable(SMIF_Type *base,
 *       - \ref CY_SMIF_BAD_PARAM
 *
 *******************************************************************************/
-cy_en_smif_status_t Cy_SMIF_CacheDisable(SMIF_Type *base, 
+cy_en_smif_status_t Cy_SMIF_CacheDisable(SMIF_Type *base,
                                             cy_en_smif_cache_t cacheType)
 {
     cy_en_smif_status_t status = CY_SMIF_SUCCESS;
@@ -2397,7 +2423,7 @@ cy_en_smif_status_t Cy_SMIF_CachePrefetchingEnable(SMIF_Type *base,
 *       - \ref CY_SMIF_BAD_PARAM
 *
 *******************************************************************************/
-cy_en_smif_status_t Cy_SMIF_CachePrefetchingDisable(SMIF_Type *base,  
+cy_en_smif_status_t Cy_SMIF_CachePrefetchingDisable(SMIF_Type *base,
                                                     cy_en_smif_cache_t cacheType)
 {
     cy_en_smif_status_t status = CY_SMIF_SUCCESS;
@@ -2440,7 +2466,7 @@ cy_en_smif_status_t Cy_SMIF_CachePrefetchingDisable(SMIF_Type *base,
 *       - \ref CY_SMIF_BAD_PARAM
 *
 *******************************************************************************/
-cy_en_smif_status_t Cy_SMIF_CacheInvalidate(SMIF_Type *base, 
+cy_en_smif_status_t Cy_SMIF_CacheInvalidate(SMIF_Type *base,
                                             cy_en_smif_cache_t cacheType)
 {
     cy_en_smif_status_t status = CY_SMIF_SUCCESS;
@@ -2510,7 +2536,10 @@ cy_en_smif_status_t Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture
 }
 #endif  /*  (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN) */
 
-#if ((CY_IP_MXSMIF_VERSION>=4) && (defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0))) || defined (CY_DOXYGEN)
+#if ((CY_IP_MXSMIF_VERSION>=4) && \
+     ((defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0)) || \
+      (defined (SMIF0_DLP_PRESENT) && (SMIF0_DLP_PRESENT > 0)) || \
+      (defined (SMIF1_DLP_PRESENT) && (SMIF1_DLP_PRESENT > 0))) || defined (CY_DOXYGEN))
 /*******************************************************************************
 * Function Name: Cy_SMIF_SetMasterDLP
 ****************************************************************************//**
@@ -2666,7 +2695,10 @@ uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit)
     }
     return  (uint8_t)delay_tap;
 }
-#endif  /* ((CY_IP_MXSMIF_VERSION>=4) && (defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0))) || defined (CY_DOXYGEN) */
+#endif  /* (CY_IP_MXSMIF_VERSION>=4) &&
+     ((defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0)) ||
+      (defined (SMIF0_DLP_PRESENT) && (SMIF0_DLP_PRESENT > 0)) ||
+      (defined (SMIF1_DLP_PRESENT) && (SMIF1_DLP_PRESENT > 0))) || defined (CY_DOXYGEN)) */
 
 #if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
 /*******************************************************************************
@@ -2728,177 +2760,6 @@ void Cy_SMIF_DeviceTransfer_ClearMergeTimeout(SMIF_Type *base, cy_en_smif_slave_
 }
 #endif /* (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN) */
 
-#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
-/*******************************************************************************
-* Function Name: Cy_SMIF_SetSelectedDelayTapSel
-****************************************************************************//**
-*
-* This function sets delay tap for a particular data line.
-*
-* \param base
-* Holds the base address of the SMIF block registers.
-*
-* \param slave
-* Holds the slave select line for which delay tap setting should be applied for.
-*
-* \param data_line
-* Holds the data line for which delay tap setting should be applied for.
-*
-* \param tapSel
-* tap selection value where lower nibble indicates the delay tap setting for positive clock phase
-* and higher nibble indicates the setting for negative clock phase delay tap selection.
-*
-* \return \ref cy_en_smif_status_t.
-*
-* \note This API is supported on CAT1D devices.
-*
-*******************************************************************************/
-cy_en_smif_status_t Cy_SMIF_SetSelectedDelayTapSel(SMIF_Type *base,
-                                                cy_en_smif_slave_select_t slave,
-                                                cy_en_smif_mem_data_line_t data_line,
-                                                uint8_t tapSel)
-{
-    cy_en_smif_status_t result = CY_SMIF_GENERAL_ERROR;
-
-    SMIF_DEVICE_Type volatile * device = Cy_SMIF_GetDeviceBySlot(base, slave);
-
-    /* Check if DEVICE is in FW CALIBRATION MODE */
-    if ((SMIF_DEVICE_RX_CAPTURE_CONFIG(device) & SMIF_CORE_DEVICE_RX_CAPTURE_CONFIG_FW_CALIBRATION_MODE_Msk) != 0UL)
-    {
-        result = CY_SMIF_SUCCESS;
-
-        switch(data_line)
-        {
-           case CY_SMIF_DATA_BIT0_TAP_SEL:
-               {
-                   SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT0_TAP_SEL_POS, tapSel);
-                   break;
-               }
-           case CY_SMIF_DATA_BIT1_TAP_SEL:
-               {
-                   SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT1_TAP_SEL_POS, tapSel);
-                   break;
-               }
-           case CY_SMIF_DATA_BIT2_TAP_SEL:
-               {
-                   SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT2_TAP_SEL_POS, tapSel);
-                   break;
-               }
-           case CY_SMIF_DATA_BIT3_TAP_SEL:
-               {
-                  SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT3_TAP_SEL_POS, tapSel);
-                  break;
-               }
-           case CY_SMIF_DATA_BIT4_TAP_SEL:
-               {
-                   SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT4_TAP_SEL_POS, tapSel);
-                   break;
-               }
-           case CY_SMIF_DATA_BIT5_TAP_SEL:
-               {
-                   SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT5_TAP_SEL_POS, tapSel);
-                   break;
-               }
-           case CY_SMIF_DATA_BIT6_TAP_SEL:
-               {
-                   SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT6_TAP_SEL_POS, tapSel);
-                   break;
-               }
-           case CY_SMIF_DATA_BIT7_TAP_SEL:
-               {
-                   SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device) = _VAL2FLD(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT7_TAP_SEL_POS, tapSel);
-                   break;
-               }
-            default:
-            {
-                /* Unsupported data line index */
-                break;
-            }
-        }
-    }
-
-    return result;
-}
-/*******************************************************************************
-* Function Name: Cy_SMIF_GetSelectedDelayTapSel
-****************************************************************************//**
-*
-* This function gets delay tap set for a particular data line.
-*
-* \param base
-* Holds the base address of the SMIF block registers.
-*
-* \param slave
-* Holds the slave select line for which delay tap setting should be retrieved.
-*
-* \param data_line
-* Holds the data line for which delay tap setting should be retrieved.
-*
-* \return uint8_t
-* tap selection value where lower nibble indicates the delay tap setting for positive clock phase
-* and higher nibble indicates the setting for negative clock phase delay tap selection.
-*
-* \note This API is supported on CAT1D devices.
-*
-*******************************************************************************/
-uint8_t Cy_SMIF_GetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave, cy_en_smif_mem_data_line_t data_line)
-{
-    SMIF_DEVICE_Type volatile * device = Cy_SMIF_GetDeviceBySlot(base, slave);
-    uint8_t delay_tap = 0;
-
-    switch(data_line)
-    {
-       case CY_SMIF_DATA_BIT0_TAP_SEL:
-           {
-               delay_tap =(uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT0_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device)));
-               break;
-           }
-       case CY_SMIF_DATA_BIT1_TAP_SEL:
-           {
-               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT1_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device)));
-               break;
-           }
-       case CY_SMIF_DATA_BIT2_TAP_SEL:
-           {
-               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT2_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device)));
-               break;
-           }
-       case CY_SMIF_DATA_BIT3_TAP_SEL:
-           {
-               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_0_DATA_BIT3_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_0(device)));
-               break;
-           }
-       case CY_SMIF_DATA_BIT4_TAP_SEL:
-           {
-               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT4_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device)));
-               break;
-           }
-       case CY_SMIF_DATA_BIT5_TAP_SEL:
-           {
-               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT5_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device)));
-               break;
-           }
-       case CY_SMIF_DATA_BIT6_TAP_SEL:
-           {
-               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT6_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device)));
-               break;
-           }
-       case CY_SMIF_DATA_BIT7_TAP_SEL:
-           {
-               delay_tap = (uint8_t)(_FLD2VAL(SMIF_CORE_DEVICE_HB_FW_DEL_TAP_SEL_1_DATA_BIT7_TAP_SEL_POS, SMIF_DEVICE_HB_FW_DEL_TAP_SEL_1(device)));
-               break;
-           }
-       default:
-        {
-            /* Unsupported data line index */
-            break;
-        }
-    }
-    return delay_tap;
-}
-
-#endif
-
 #if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
 /*******************************************************************************
 * Function Name: Cy_SMIF_DeepSleepCallback
@@ -2935,7 +2796,7 @@ uint8_t Cy_SMIF_GetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_
 cy_en_syspm_status_t Cy_SMIF_DeepSleepCallback(cy_stc_syspm_callback_params_t *callbackParams, cy_en_syspm_callback_mode_t mode)
 {
     cy_en_syspm_status_t retStatus = CY_SYSPM_SUCCESS;
-    
+
     CY_ASSERT_L1(NULL != callbackParams);
 
     SMIF_Type *locBase = (SMIF_Type *) callbackParams->base;
@@ -3074,7 +2935,7 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
     cy_en_syspm_status_t retStatus = CY_SYSPM_SUCCESS;
 
     CY_ASSERT_L1(NULL != callbackParams);
-    
+
     SMIF_Type *locBase = (SMIF_Type *) callbackParams->base;
     cy_stc_smif_context_t *locContext = (cy_stc_smif_context_t *) callbackParams->context;
 
@@ -3082,7 +2943,7 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
     {
         case CY_SYSPM_CHECK_READY:
         {
-            /* Check if API is not busy executing transfer operation 
+            /* Check if API is not busy executing transfer operation
             * If SPI bus is not busy, all data elements are transferred on
             * the bus from the TX FIFO and shifter and the RX FIFIOs is
             * empty - the SPI is ready enter Deep Sleep.
@@ -3170,16 +3031,13 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 }
 
 
-#if (CY_IP_MXSMIF_VERSION == 2U)
+#if (CY_IP_MXSMIF_VERSION == 2U) || (CY_IP_MXSMIF_VERSION >= 5U)
 /*******************************************************************************
 * Function Name: Cy_SMIF_Set_DelayTapSel
 ****************************************************************************//**
 *
-* This function sets delay tap number for the SMIF (common for all its devices).
-* To ensure compatibility with users of this API independent of the current
-* SMIF IP version, it accepts any SMIF pointer as parameter, e.g. a SMIF base
-* pointer or a SMIF_DEVICE base pointer. This means this API can be called with
-* a SMIF_DEVICE base pointer.
+* This function sets delay tap number for the SMIF master clock which is common
+* for all memory devices connected.
 *
 * \param base
 * Holds the base address of the SMIF block or SMIF_DEVICE block registers.
@@ -3189,7 +3047,7 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 *
 * \return status (see \ref cy_en_smif_status_t).
 *
-* \note This API is supported on CAT1C devices.
+* \note This API is supported on CAT1C and CAT1D devices.
 *
 * \snippet smif/snippet/main.c snippet_Cy_SMIF_DelayTapSel
 *******************************************************************************/
@@ -3200,7 +3058,12 @@ cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
       return CY_SMIF_BAD_PARAM;
     }
 
+#if (CY_IP_MXSMIF_VERSION == 2U)
     SMIF_DELAY_TAP_SEL(base) = tapSel;
+#else
+    SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_MDL_TAP_SEL_Msk;
+    SMIF_CTL2(base) |= _VAL2FLD(SMIF_CORE_CTL2_MDL_TAP_SEL, tapSel);
+#endif
 
     return CY_SMIF_SUCCESS;
 }
@@ -3209,26 +3072,378 @@ cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
 * Function Name: Cy_SMIF_Get_DelayTapSel
 ****************************************************************************//**
 *
-* This function returns delay tap number which has been set for the SMIF (common for all its devices).
-* To ensure compatibility with users of this API independent of the current
-* SMIF IP version, it accepts any SMIF pointer as parameter, e.g. a SMIF base
-* pointer or a SMIF_DEVICE base pointer. This means this API can be called with
-* a SMIF_DEVICE base pointer.
+* This function returns delay tap number which has been set for the SMIF.
 *
 * \param base
 * Holds the base address of the SMIF block or SMIF_DEVICE block registers.
 *
 * \return read tap selection
 *
-* \note This API is supported on CAT1C devices.
+* \note This API is supported on CAT1C and CAT1D devices.
 *
 * \snippet smif/snippet/main.c snippet_Cy_SMIF_DelayTapSel
 *******************************************************************************/
 uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base)
 {
+#if (CY_IP_MXSMIF_VERSION == 2U)
     return (uint8_t)(SMIF_DELAY_TAP_SEL(base));
+#else
+    return (uint8_t)(_FLD2VAL(SMIF_CORE_CTL2_MDL_TAP_SEL, SMIF_CTL2(base)));
+#endif
 }
-#endif /*(CY_IP_MXSMIF_VERSION==2)*/
+#endif /*(CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION >= 5U)*/
+
+#if (CY_IP_MXSMIF_VERSION >= 6U) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SMIF_InitCache
+****************************************************************************//**
+*
+* This function initializes SMIF internal CACHE with user provided configuration \ref cy_stc_smif_cache_config_t.
+*
+* \param base
+* Holds the base address of the SMIF block.
+*
+* \param cache_config
+* Contains the configuration information to configure SMIF internal Cache.
+*
+* \return Returns result of CACHE configuration.
+*
+* \note This API is supported on CAT1D devices.
+*
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_InitCache
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_InitCache(SMIF_CACHE_BLOCK_Type *base, const cy_stc_smif_cache_config_t *cache_config)
+{
+    cy_en_smif_status_t result = CY_SMIF_SUCCESS;
+
+    if ((base == NULL) || (cache_config == NULL))
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+#if defined (COMPONENT_SECURE_DEVICE)
+    if ((cache_config->cache_region != NULL) && (cache_config->cache_region_count > 0U))
+    {
+        volatile uint32_t *region_base_address = &(base->MMIO.REGION0_BASE);
+
+        for(uint32_t i = 0U; ((i < cache_config->cache_region_count) && (result == CY_SMIF_SUCCESS)); i++)
+        {
+            if ((cache_config->cache_region[i] != NULL) && (cache_config->cache_region[i]->enabled))
+            {
+                if ((cache_config->cache_region[i]->start_address % 4096U == 0U) && (cache_config->cache_region[i]->end_address % 4096U == 0U))
+                {
+                    *(region_base_address++) = cache_config->cache_region[i]->start_address;
+                    *(region_base_address++) = (uint32_t)(_VAL2FLD(SMIF_CACHE_BLOCK_MMIO_REGION0_LIMIT_ENABLE, 1U) |
+                                                          _VAL2FLD(SMIF_CACHE_BLOCK_MMIO_REGION0_LIMIT_ATTR, (uint32_t)cache_config->cache_region[i]->cache_attributes) |
+                                                          cache_config->cache_region[i]->end_address << 4U);
+                }
+                else
+                {
+                    result = CY_SMIF_BAD_PARAM;
+                }
+            }
+        }
+    }
+    if (result != CY_SMIF_BAD_PARAM)
+    {
+         base->CTRL =  (uint32_t)(_VAL2FLD(SMIF_CACHE_BLOCK_CTRL_ENABLE, cache_config->enabled) |
+                             _VAL2FLD(SMIF_CACHE_BLOCK_CTRL_ALLOW_NSEC_ENABLE_READ, 1U) |
+                             _VAL2FLD(SMIF_CACHE_BLOCK_CTRL_ALLOW_NSEC_MAINT_LINES, 1U) |
+                             _VAL2FLD(SMIF_CACHE_BLOCK_CTRL_ALLOW_NSEC_NSECSTAT, 1U));
+
+        base->MMIO.MMIO_CACHE_RET_EN = (uint32_t)cache_config->cache_retention_on;
+    }
+    return result;
+#else
+    cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 2;
+    rpcArgs.argv[0] = (uint32_t)base;
+    rpcArgs.argv[1] = (uint32_t)cache_config;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CONFIGURE, &rpcArgs, &rpcRetVal);
+    result = (cy_en_smif_status_t)rpcRetVal;
+    return result;
+#endif
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_Clean_All_Cache
+****************************************************************************//**
+*
+* This function cleans complete SMIF internal CACHE. This is a blocking call and
+* returns with the status of CACHE clean operation.
+*
+* \param base
+* Holds the base address of the SMIF block.
+*
+* \return Returns result of CACHE clean operation.
+*
+* \note This API is supported on CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Clean_All_Cache(SMIF_CACHE_BLOCK_Type *base)
+{
+    if (base == NULL)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+#if defined (COMPONENT_SECURE_DEVICE)
+    base->MAINT_CTRL_ALL =  (uint32_t)_VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_ALL_TRIG_CLEAN_ALL, 1U);
+
+    /* Wait for Maintenance flag to be CLEARED */
+    while (((base->MAINT_STATUS) & SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) == SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) {}
+
+    return CY_SMIF_SUCCESS;
+#else
+    cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 1;
+    rpcArgs.argv[0] = (uint32_t)base;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CLEAN_ALL, &rpcArgs, &rpcRetVal);
+    return (cy_en_smif_status_t)rpcRetVal;
+#endif
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_Invalidate_All_Cache
+****************************************************************************//**
+* This function invalidates complete SMIF internal CACHE. This is a blocking call and
+* returns with the status of CACHE invalidate operation.
+*
+* \param base
+* Holds the base address of the SMIF block.
+*
+* \return Returns result of CACHE invalidate operation.
+*
+* \note This API is supported on CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Invalidate_All_Cache(SMIF_CACHE_BLOCK_Type *base)
+{
+    if (base == NULL)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+#if defined (COMPONENT_SECURE_DEVICE)
+    base->MAINT_CTRL_ALL =  (uint32_t)_VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_ALL_TRIG_INVALIDATE_ALL, 1U);
+
+    /* Wait for Maintenance flag to be CLEARED */
+    while (((base->MAINT_STATUS) & SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) == SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) {}
+
+    return CY_SMIF_SUCCESS;
+#else
+    cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 1;
+    rpcArgs.argv[0] = (uint32_t)base;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_ALL, &rpcArgs, &rpcRetVal);
+    return (cy_en_smif_status_t)rpcRetVal;
+#endif
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_Clean_And_Invalidate_All_Cache
+****************************************************************************//**
+*
+* This function cleans and invalidates complete SMIF internal CACHE. This is a blocking call and
+* returns with the status of CACHE invalidate and clean operation.
+*
+* \param base
+* Holds the base address of the SMIF block.
+*
+* \return Returns result of CACHE clean and invalidate operation.
+*
+* \note This API is supported on CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_All_Cache(SMIF_CACHE_BLOCK_Type *base)
+{
+    if (base == NULL)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+#if defined (COMPONENT_SECURE_DEVICE)
+    base->MAINT_CTRL_ALL =  (uint32_t)(_VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_ALL_TRIG_INVALIDATE_ALL, 1U) |
+                                        _VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_ALL_TRIG_CLEAN_ALL, 1U));
+
+    /* Wait for Maintenance flag to be CLEARED */
+    while (((base->MAINT_STATUS) & SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) == SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) {}
+
+    return CY_SMIF_SUCCESS;
+#else
+    cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 1;
+    rpcArgs.argv[0] = (uint32_t)base;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_AND_CLEAN_ALL, &rpcArgs, &rpcRetVal);
+    return (cy_en_smif_status_t)rpcRetVal;
+#endif
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_Clean_Cache_by_Addr
+****************************************************************************//**
+*
+* This function cleans cache using the address and size specified by user.
+* This is a blocking call and returns with the status of CACHE clean operation.
+* Size must be specified in multiples of CACHE line size (32 bytes).
+*
+* \param base
+* Holds the base address of the SMIF block.
+*
+* \param is_secure_view
+* Specifies the view on which cache operation has to be performed. In non-secure world
+* this parameter is ignored and defaulted to non-secure view cache operation.
+*
+* \param address
+* start address from which cache operation should be performed.
+*
+* \param size
+* size in multiples of CACHE line size \ref CY_SMIF_CACHE_LINE_SIZE_IN_BYTES.
+*
+* \return Returns result of CACHE clean operation.
+*
+* \note This API is supported on CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Clean_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size)
+{
+
+    if ( (base == NULL) || ((address % CY_SMIF_CACHE_LINE_SIZE_IN_BYTES) != 0U) || ((size % CY_SMIF_CACHE_LINE_SIZE_IN_BYTES) != 0U))
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+#if defined (COMPONENT_SECURE_DEVICE)
+    while (size != 0U)
+    {
+         base->MAINT_CTRL_LINES =  (uint32_t)(_VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_TRIG_CLEAN, 1U) |
+                                        _VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_SECURITY, (uint8_t)is_secure_view) |
+                                        _VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_SECURITY, (uint8_t)address));
+        address += CY_SMIF_CACHE_LINE_SIZE_IN_BYTES;
+        size -= CY_SMIF_CACHE_LINE_SIZE_IN_BYTES;
+    }
+
+    return CY_SMIF_SUCCESS;
+#else
+    cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 4;
+    rpcArgs.argv[0] = (uint32_t)base;
+    rpcArgs.argv[1] = (uint32_t)is_secure_view;
+    rpcArgs.argv[2] = (uint32_t)address;
+    rpcArgs.argv[3] = (uint32_t)size;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CLEAN_BY_ADDR, &rpcArgs, &rpcRetVal);
+    return (cy_en_smif_status_t)rpcRetVal;
+#endif
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_Invalidate_Cache_by_Addr
+****************************************************************************//**
+*
+* This function invalidates cache using the address and size specified by user.
+* This is a blocking call and returns with the status of CACHE invalidate operation.
+* Size must be specified in multiples of CACHE line size (32 bytes).
+*
+* \param base
+* Holds the base address of the SMIF block.
+*
+* \param is_secure_view
+* Specifies the view on which cache operation has to be performed. In non-secure world
+* this parameter is ignored and defaulted to non-secure view cache operation.
+*
+* \param address
+* start address from which cache operation should be performed.
+*
+* \param size
+* size in multiples of CACHE line size \ref CY_SMIF_CACHE_LINE_SIZE_IN_BYTES.
+*
+* \return Returns result of CACHE invalidate operation.
+*
+* \note This API is supported on CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size)
+{
+    if ( (base == NULL) || ((address % CY_SMIF_CACHE_LINE_SIZE_IN_BYTES) != 0U) || ((size % CY_SMIF_CACHE_LINE_SIZE_IN_BYTES) != 0U))
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+#if defined (COMPONENT_SECURE_DEVICE)
+    while (size != 0U)
+    {
+         base->MAINT_CTRL_LINES =  (uint32_t)(_VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_TRIG_INVALIDATE, 1U) |
+                                        _VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_SECURITY, (uint8_t)is_secure_view) |
+                                        _VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_SECURITY, (uint8_t)address));
+        address += CY_SMIF_CACHE_LINE_SIZE_IN_BYTES;
+        size -= CY_SMIF_CACHE_LINE_SIZE_IN_BYTES;
+    }
+
+    return CY_SMIF_SUCCESS;
+#else
+    cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 4;
+    rpcArgs.argv[0] = (uint32_t)base;
+    rpcArgs.argv[1] = (uint32_t)is_secure_view;
+    rpcArgs.argv[2] = (uint32_t)address;
+    rpcArgs.argv[3] = (uint32_t)size;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_BY_ADDR, &rpcArgs, &rpcRetVal);
+    return (cy_en_smif_status_t)rpcRetVal;
+#endif
+}
+/*******************************************************************************
+* Function Name: Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr
+****************************************************************************//**
+*
+* This function cleans and invalidates cache using the address and size specified by user.
+* This is a blocking call and returns with the status of CACHE operation.
+* Size must be specified in multiples of CACHE line size (32 bytes).
+*
+* \param base
+* Holds the base address of the SMIF block.
+*
+* \param is_secure_view
+* Specifies the view on which cache operation has to be performed. In non-secure world
+* this parameter is ignored and defaulted to non-secure view cache operation.
+*
+* \param address
+* start address from which cache operation should be performed.
+*
+* \param size
+* size in multiples of CACHE line size \ref CY_SMIF_CACHE_LINE_SIZE_IN_BYTES.
+*
+* \return Returns result of CACHE operation.
+*
+* \note This API is supported on CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size)
+{
+
+    if ( (base == NULL) || ((address % CY_SMIF_CACHE_LINE_SIZE_IN_BYTES) != 0U) || ((size % CY_SMIF_CACHE_LINE_SIZE_IN_BYTES) != 0U))
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+#if defined (COMPONENT_SECURE_DEVICE)
+    while (size != 0U)
+    {
+         base->MAINT_CTRL_LINES =  (uint32_t)(_VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_TRIG_INVALIDATE, 1U) |
+                                              _VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_TRIG_CLEAN, 1U) |
+                                              _VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_SECURITY, (uint8_t)is_secure_view) |
+                                              _VAL2FLD(SMIF_CACHE_BLOCK_MAINT_CTRL_LINES_SECURITY, (uint8_t)address));
+        address += CY_SMIF_CACHE_LINE_SIZE_IN_BYTES;
+        size -= CY_SMIF_CACHE_LINE_SIZE_IN_BYTES;
+    }
+
+    return CY_SMIF_SUCCESS;
+#else
+    cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
+    rpcArgs.argc = 4;
+    rpcArgs.argv[0] = (uint32_t)base;
+    rpcArgs.argv[1] = (uint32_t)is_secure_view;
+    rpcArgs.argv[2] = (uint32_t)address;
+    rpcArgs.argv[3] = (uint32_t)size;
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_AND_CLEAN_BY_ADDR, &rpcArgs, &rpcRetVal);
+    return (cy_en_smif_status_t)rpcRetVal;
+#endif
+}
+#endif
 
 #endif /* defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) */
 

@@ -74,8 +74,8 @@ cy_pd_pdcm_dep_t cy_pd_pdcm_get_dependency(cy_pd_pdcm_id_t host_pd,cy_pd_pdcm_id
     rpcArgs.argc = 2;
     rpcArgs.argv[0] = (uint32_t)host_pd;
     rpcArgs.argv[1] = (uint32_t)dest_pd;
-    dep = Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-                        (uint32_t)CY_SECURE_SERVICE_PD_PDCM_GET_DEP, &rpcArgs);
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+                        (uint32_t)CY_SECURE_SERVICE_PD_PDCM_GET_DEP, &rpcArgs, &dep);
 #endif
     return (cy_pd_pdcm_dep_t)dep;
 }
@@ -110,11 +110,13 @@ cy_en_syspm_status_t cy_pd_pdcm_set_dependency(cy_pd_pdcm_id_t host_pd,cy_pd_pdc
     }
 #else
     cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
     rpcArgs.argc = 2;
     rpcArgs.argv[0] = (uint32_t)host_pd;
     rpcArgs.argv[1] = (uint32_t)dest_pd;
-    ret = (cy_en_syspm_status_t)Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-            (uint32_t)CY_SECURE_SERVICE_PD_PDCM_SET_DEP, &rpcArgs);
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+            (uint32_t)CY_SECURE_SERVICE_PD_PDCM_SET_DEP, &rpcArgs, &rpcRetVal);
+    ret = (cy_en_syspm_status_t)rpcRetVal;
 #endif
     return ret;
 }
@@ -149,11 +151,13 @@ cy_en_syspm_status_t cy_pd_pdcm_clear_dependency(cy_pd_pdcm_id_t host_pd,cy_pd_p
     }
 #else
     cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
     rpcArgs.argc = 2;
     rpcArgs.argv[0] = (uint32_t)host_pd;
     rpcArgs.argv[1] = (uint32_t)dest_pd;
-    ret = (cy_en_syspm_status_t)Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-                      (uint32_t)CY_SECURE_SERVICE_PD_PDCM_CLEAR_DEP, &rpcArgs);
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+                      (uint32_t)CY_SECURE_SERVICE_PD_PDCM_CLEAR_DEP, &rpcArgs, &rpcRetVal);
+    ret = (cy_en_syspm_status_t)rpcRetVal;
 #endif
     return ret;
 }

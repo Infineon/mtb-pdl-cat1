@@ -38,7 +38,9 @@ var group__group__tcpwm__data__structures__pwm =
       [ "deadTimeClocksBuff", "structcy__stc__tcpwm__pwm__config__t.html#a7a6ed3172642d666443d4d37c71c3fe1", null ],
       [ "deadTimeClocksBuff_linecompl_out", "structcy__stc__tcpwm__pwm__config__t.html#ac700d4f8834d9702fdcfb3478627e7e3", null ],
       [ "glitch_filter_enable", "structcy__stc__tcpwm__pwm__config__t.html#a67a6184cfff26a9bbd37430308da4891", null ],
-      [ "gf_depth", "structcy__stc__tcpwm__pwm__config__t.html#a80fe764b1303506c68b06358482b9cf8", null ]
+      [ "gf_depth", "structcy__stc__tcpwm__pwm__config__t.html#a80fe764b1303506c68b06358482b9cf8", null ],
+      [ "pwm_tc_sync_kill_dt", "structcy__stc__tcpwm__pwm__config__t.html#aec22a72f237c8ad78eb7fa85818a4af0", null ],
+      [ "pwm_sync_kill_dt", "structcy__stc__tcpwm__pwm__config__t.html#a8703da1aecb3538a8e98eed27063d894", null ]
     ] ],
     [ "cy_en_tcpwm_dithering_t", "group__group__tcpwm__data__structures__pwm.html#ga5ba36f547c6817ce1f2a5ed6e89283ff", [
       [ "CY_TCPWM_DITHERING_DISABLE", "group__group__tcpwm__data__structures__pwm.html#gga5ba36f547c6817ce1f2a5ed6e89283ffa184ba01f25b8da6efec3a883e558ae61", null ],
@@ -57,9 +59,8 @@ var group__group__tcpwm__data__structures__pwm =
     ] ],
     [ "cy_en_hrpwm_operating_frequency_t", "group__group__tcpwm__data__structures__pwm.html#ga8c9f3eeb107eae3ea2a485f9169e3759", [
       [ "CY_TCPWM_HRPWM_FREQ_80MHZ_OR_100MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759ad3445cddbdd169c8c23b748651c10ea6", null ],
-      [ "CY_TCPWM_HRPWM_FREQ_150MHZ_OR_160MHZ_OR_180MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759ac1cbe45b7e0ce878fec2fcd3662a71f1", null ],
-      [ "CY_TCPWM_HRPWM_FREQ_200MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759a93e1aee612422e5691590a8f9a3ae80e", null ],
-      [ "CY_TCPWM_HRPWM_FREQ_240MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759aab125525ab01990d906dedee3fab14dd", null ]
+      [ "CY_TCPWM_HRPWM_FREQ_160MHZ_OR_180MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759a6a2af385e701e00ffc26975e7aa52ee5", null ],
+      [ "CY_TCPWM_HRPWM_FREQ_200MHZ_OR_240MHZ", "group__group__tcpwm__data__structures__pwm.html#gga8c9f3eeb107eae3ea2a485f9169e3759ad646d5983e488f45c84ff63682a09342", null ]
     ] ],
     [ "cy_en_kill_line_polarity_t", "group__group__tcpwm__data__structures__pwm.html#ga19e8127ddd17a33fe06608855cd10c4d", [
       [ "CY_TCPWM_LINEOUT_AND_LINECMPOUT_IS_LOW", "group__group__tcpwm__data__structures__pwm.html#gga19e8127ddd17a33fe06608855cd10c4da4489e96d5fb2192693ccecd6b3b52251", null ],

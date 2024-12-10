@@ -42,10 +42,14 @@
     <ExposedMember key="error" paramId="srcNotUsed" />
     <ExposedMember key="hal_block" paramId="hal_block" />
     <ExposedMember key="sourceClockRsc" paramId="sourceClockRsc" />
+    <ExposedMember key="instName" paramId="instName" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__clk__peripheral.html" linkText="Open Peripherals Clock Dividers Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
+
+    <!-- Instance name -->
+    <ParamString id="instName" name="instName" group="Internal" default="`${INST_NAME}`" visible="false" editable="false" desc="" />
 
     <!-- Get the name of the source clock resource, i.e. CLK_PERI -->
     <ParamString id="sourceClockRsc" name="Source Clock Resource" group="Internal" default="srss[0].clock[0].periclk[0]" visible="false" editable="false" desc="" />

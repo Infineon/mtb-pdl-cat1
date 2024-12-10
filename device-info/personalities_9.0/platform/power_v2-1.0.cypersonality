@@ -35,7 +35,10 @@
   </Dependencies>
   <ExposedMembers>
     <ExposedMember key="vddaMv" paramId="vddaMv" />
-	<ExposedMember key="usingUlp" paramId="usingUlp" />
+    <ExposedMember key="usingUlp" paramId="usingUlp" />
+    <ExposedMember key="usingLp" paramId="usingLp" />
+    <ExposedMember key="usingMf" paramId="usingMf" />
+    <ExposedMember key="usingOd" paramId="usingOd" />
     <ExposedMember key="deepsleepWhenIdle" paramId="deepsleepWhenIdle" />
   </ExposedMembers>
   <Parameters>
@@ -142,7 +145,7 @@
     <ParamString id="sdr0Voltagemode" name="SDR0 Regulator Voltage and Mode" group="Operating Conditions" default="`${sdr0Param}`" visible="`${!isRegSetAPresent}`" editable="false" desc="SDR0 Regulator Voltage and Mode.." />
 
     <ParamString id="sdr0DpSlpVoltage" name="SDR0 Regulator Deep Sleep Voltage" group="Operating Conditions" default="0.9V" visible="`${!isRegSetAPresent}`" editable="false" desc="SDR0 Deep Sleep Regulator Voltage " />
-	
+
 	<ParamBool id="sdr0BypassModeMacro" name="SDR0 Bypass Mode Enable" group="Operating Conditions" default="true" visible="`${!isRegSetAPresent}`" editable="true" desc="SDR0 bypass Mode Selection" />
 
     <!-- SDR1 Regulator -->
@@ -226,6 +229,9 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
     <ParamBool id="usingUlp" name="usingUlp" group="Internal" default="`${activePowerMode eq &quot;ULP&quot;}`" visible="false" editable="false" desc="" />
+    <ParamBool id="usingLp" name="usingLp" group="Internal" default="`${activePowerMode eq &quot;LP&quot;}`" visible="false" editable="false" desc="" />
+    <ParamBool id="usingMf" name="usingMf" group="Internal" default="`${activePowerMode eq &quot;MF&quot;}`" visible="false" editable="false" desc="" />
+    <ParamBool id="usingOd" name="usingOd" group="Internal" default="`${activePowerMode eq &quot;OD&quot;}`" visible="false" editable="false" desc="" />
     <ParamBool id="deepsleepWhenIdle" name="deepsleepWhenIdle" group="Internal" default="`${idlePwrMode eq CY_CFG_PWR_MODE_DEEPSLEEP}`" visible="false" editable="false" desc="" />
 
   </Parameters>
@@ -356,6 +362,15 @@
        #endif /* CY_CFG_SYSCLK_ILO_ENABLED */&#xA;
    #endif /* CY_CFG_PWR_VBACKUP_USING_VDDD */&#xA;&#xA;
    /* **System Active Power Mode Profile Configuration** */&#xA;
+   #if (CY_CFG_PWR_SYS_ACTIVE_PROFILE == CY_CFG_PWR_MODE_OD)&#xA;
+       Cy_SysPm_SystemEnterOd();&#xA;
+   #elif (CY_CFG_PWR_SYS_ACTIVE_PROFILE == CY_CFG_PWR_MODE_LP)&#xA;
+       Cy_SysPm_SystemEnterLp();&#xA;
+   #elif (CY_CFG_PWR_SYS_ACTIVE_PROFILE == CY_CFG_PWR_MODE_MF)&#xA;
+       Cy_SysPm_SystemEnterMf();&#xA;
+   #elif (CY_CFG_PWR_SYS_ACTIVE_PROFILE == CY_CFG_PWR_MODE_ULP)&#xA;
+       Cy_SysPm_SystemEnterUlp();&#xA;
+   #endif /* CY_CFG_PWR_SYS_ACTIVE_PROFILE */&#xA;&#xA;
    /* **System Active Low Power Profile(LPACTIVE/LPSLEEP) Configuration** */&#xA;
    #if (CY_CFG_PWR_SYS_LP_PROFILE_MODE)&#xA;
        Cy_SysPm_SystemLpActiveEnter();&#xA;

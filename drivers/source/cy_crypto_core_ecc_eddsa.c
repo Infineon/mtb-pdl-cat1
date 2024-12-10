@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_eddsa.c
-* \version 2.120
+* \version 2.130
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC EDDSA
@@ -1776,7 +1776,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_ExpMod(CRYPTO_Type *base, uint32_t 
 }
 
 #if defined(CY_CRYPTO_CFG_EDDSA_VERIFY_C)
-/** \cond INTERNAL */
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_ED25519_PointDecode
 ****************************************************************************//**
@@ -1801,8 +1800,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_ExpMod(CRYPTO_Type *base, uint32_t 
 * [out] Decoded 32 bytes Public key y in little-endian format.
 *
 * \return status code. See \ref cy_en_crypto_status_t.
-*
-* \note This is a preliminary implementation and should not be used in production code.
 *
 *******************************************************************************/
 cy_en_crypto_status_t Cy_Crypto_Core_ED25519_PointDecode(CRYPTO_Type *base,
@@ -1910,7 +1907,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_PointDecode(CRYPTO_Type *base,
 #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
             SCB_InvalidateDCache_by_Addr((void *)publicKeyYRemap,(int32_t)bytesize);
 #endif
-            x_0 = publicKeyYRemap[31] & (uint8_t)0x01;
+            x_0 = publicKeyYRemap[31] >> (uint8_t)0x07;
             publicKeyYRemap[31] &= (uint8_t)0x7F;
 #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
             SCB_CleanDCache_by_Addr((void *)publicKeyYRemap,(int32_t)bytesize);
@@ -1994,6 +1991,10 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_PointDecode(CRYPTO_Type *base,
                         return tmpResult;
                     }
                 }
+                else
+                {
+                    p_x = p_uv;
+                }
                 /* Use the x_0 bit to select the right square root. */
                 if (Cy_Crypto_Core_Vu_IsRegZero(base, p_x) && x_0 == 1u)
                 {
@@ -2026,7 +2027,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_PointDecode(CRYPTO_Type *base,
     }
     return (tmpResult);
 }
-/** \endcond */
+
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_ED25519_Verify
 ****************************************************************************//**

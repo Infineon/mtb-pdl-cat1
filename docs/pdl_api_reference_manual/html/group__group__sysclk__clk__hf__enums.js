@@ -24,5 +24,14 @@ var group__group__sysclk__clk__hf__enums =
       [ "CY_SYSCLK_CLKHF_DIVIDE_BY_4", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4a03fb6627acd67df27258169fef6c7902", null ],
       [ "CY_SYSCLK_CLKHF_DIVIDE_BY_8", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4ab24eafa784b1cc50c94072e6be0dd4b8", null ],
       [ "CY_SYSCLK_CLKHF_MAX_DIVIDER", "group__group__sysclk__clk__hf__enums.html#ggadfbf0caf87af7cd757648124fb17d1d4ae4bbc554d81061e4e08c65bbbc241140", null ]
+    ] ],
+    [ "cy_en_clkhf_csv_ref_clk_t", "group__group__sysclk__clk__hf__enums.html#ga4a1f38cb2061138eb45c5caefc7bc24e", [
+      [ "CY_SYSCLK_CLKHF_CSV_REF_IMO", "group__group__sysclk__clk__hf__enums.html#gga4a1f38cb2061138eb45c5caefc7bc24ea6364f889216c342aecf0766541c91733", null ],
+      [ "CY_SYSCLK_CLKHF_CSV_REF_EXT", "group__group__sysclk__clk__hf__enums.html#gga4a1f38cb2061138eb45c5caefc7bc24ea70b1bf12cd11b67f61d80efc2afa1805", null ],
+      [ "CY_SYSCLK_CLKHF_CSV_REF_ECO", "group__group__sysclk__clk__hf__enums.html#gga4a1f38cb2061138eb45c5caefc7bc24eab33a1b8bbac3b12eee9ae7fc5770d4ec", null ]
+    ] ],
+    [ "cy_en_clkhf_csv_action_t", "group__group__sysclk__clk__hf__enums.html#gaf8d7cf42f04f1edafeba204ead24e6ac", [
+      [ "CY_SYSCLK_CLKHF_CSV_ACTION_FAULT", "group__group__sysclk__clk__hf__enums.html#ggaf8d7cf42f04f1edafeba204ead24e6aca1b52da571ff68be36ca14b61b1d94ab7", null ],
+      [ "CY_SYSCLK_CLKHF_CSV_ACTION_RESET", "group__group__sysclk__clk__hf__enums.html#ggaf8d7cf42f04f1edafeba204ead24e6aca66f23c81dbf4989a685f5cac30f09f1e", null ]
     ] ]
 ];

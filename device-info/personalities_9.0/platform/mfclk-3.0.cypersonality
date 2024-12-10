@@ -79,7 +79,7 @@
     <ConfigDefine name="CY_CFG_SYSCLK_CLKMF_FREQ" value="`${frequency}`UL" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKMF_DIVIDER" value="`${divider}`UL" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKMF_SOURCE" value="CY_SYSCLK_CLKMF_IN_`${sourceClockApiName}`" public="true" include="`${&quot;mxs40ssrss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkMfInit()" body="    Cy_SysClk_ClkMfDisable();&#xA;    Cy_SysClk_ClkMfSetDivider(CY_CFG_SYSCLK_CLKMF_DIVIDER);&#xA;    Cy_SysClk_ClkMfEnable();" public="false" include="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkMfInit()" body="    Cy_SysClk_ClkMfDisable();&#xA;    Cy_SysClk_ClkMfSetSource(CY_SYSCLK_CLKMF_IN_`${sourceClockApiName}`);&#xA;    Cy_SysClk_ClkMfSetDivider(CY_CFG_SYSCLK_CLKMF_DIVIDER);&#xA;    Cy_SysClk_ClkMfEnable();" public="false" include="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) || (&quot;mxs22srss&quot; eq getIpBlockName())}`" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkMfInit(void)" body="    Cy_SysClk_ClkMfDisable();&#xA;    Cy_SysClk_ClkMfSetDivider(CY_CFG_SYSCLK_CLKMF_DIVIDER);&#xA;    Cy_SysClk_ClkMfEnable();" public="false" include="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkMfInit(void)" body="    Cy_SysClk_ClkMfDisable();&#xA;    Cy_SysClk_ClkMfSetSource(CY_SYSCLK_CLKMF_IN_`${sourceClockApiName}`);&#xA;    Cy_SysClk_ClkMfSetDivider(CY_CFG_SYSCLK_CLKMF_DIVIDER);&#xA;    Cy_SysClk_ClkMfEnable();" public="false" include="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) || (&quot;mxs22srss&quot; eq getIpBlockName())}`" />
   </ConfigFirmware>
 </Personality>

@@ -13,6 +13,7 @@ var group__group__syspm__functions__power =
     [ "Cy_SysPm_GetSysDeepSleepMode", "group__group__syspm__functions__power.html#gac12a8c9beadb3f89bd94c0dd685d8618", null ],
     [ "Cy_SysPm_GetAppDeepSleepMode", "group__group__syspm__functions__power.html#gacd87074744e56570171503804eb4d081", null ],
     [ "Cy_SysPm_SetSOCMEMDeepSleepMode", "group__group__syspm__functions__power.html#ga1ca726f9dd9148265903d74f84998c6a", null ],
+    [ "Cy_SysPm_SetPPUDeepSleepMode", "group__group__syspm__functions__power.html#ga147ce56f8ab7be2c4af0b9fb95a04221", null ],
     [ "Cy_SysPm_GetDeepSleepMode", "group__group__syspm__functions__power.html#gac80d11f681b462a49a88e3fb90cbfb9a", null ],
     [ "Cy_SysPm_GetBootMode", "group__group__syspm__functions__power.html#ga50b3751b0c4bc09d0385b27f95a99a39", null ],
     [ "Cy_SysPm_TriggerSoftReset", "group__group__syspm__functions__power.html#ga7b9be88cbcc9d3b140c402a6feff20fe", null ],

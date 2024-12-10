@@ -107,6 +107,12 @@
       <Member name="lpcomp" value="&amp;`${INST_NAME . &quot;_config&quot;}`" />
     </ConfigStruct>
 
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="mtb_hal_comp_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL) &amp;&amp; (MTB_HAL_DRIVER_AVAILABLE_COMP)">
+      <Member name="resource_type" value="MTB_HAL_RSC_LPCOMP" />
+      <Member name="channel_num" value="`${getInstNumber(&quot;comp&quot;)}`U" />
+      <Member name="lpcomp" value="&amp;`${INST_NAME . &quot;_config&quot;}`" />
+    </ConfigStruct>
+
     <ConfigInstruction value="Cy_LPComp_UlpReferenceEnable(`${INST_NAME}`_HW);" include="`${LocalVrefInput || (PowerSpeed eq CY_LPCOMP_MODE_ULP)}`"  />
     <ConfigInstruction value="Cy_LPComp_ConnectULPReference(`${INST_NAME}`_HW, `${INST_NAME . &quot;_CHANNEL&quot;}`);" include="`${LocalVrefInput}`"  />
     <ConfigInstruction value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_LPCOMP_PERI_NR , CY_MMIO_LPCOMP_GROUP_NR, CY_MMIO_LPCOMP_SLAVE_NR, CY_MMIO_LPCOMP_CLK_HF_NR);" include="`${(getIpBlockName() eq &quot;mxs22lpcomp&quot;)}`" />

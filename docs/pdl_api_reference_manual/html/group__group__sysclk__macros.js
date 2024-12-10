@@ -1,6 +1,12 @@
 var group__group__sysclk__macros =
 [
     [ "ECO status", "group__group__sysclk__ecostatus.html", "group__group__sysclk__ecostatus" ],
+    [ "cy_stc_clk_eco_config_t", "structcy__stc__clk__eco__config__t.html", [
+      [ "ecoClkfreq", "structcy__stc__clk__eco__config__t.html#a6591f5b530e57f67a7fffadc056e360c", null ],
+      [ "ecoCtrim", "structcy__stc__clk__eco__config__t.html#a815db325d8a7e1aea7d11976a17a6098", null ],
+      [ "ecoGtrim", "structcy__stc__clk__eco__config__t.html#a130869c0af82a258e3f5c769c1797802", null ],
+      [ "ecoIboost", "structcy__stc__clk__eco__config__t.html#a9dcd7ef4d908f9a1c55c504239ed8078", null ]
+    ] ],
     [ "CY_SYSCLK_DRV_VERSION_MAJOR", "group__group__sysclk__macros.html#ga13952b966a0787ea58ca78dc5916d0df", null ],
     [ "CY_SYSCLK_DRV_VERSION_MINOR", "group__group__sysclk__macros.html#gae92890ad068051d74200a1ffb67b74e2", null ],
     [ "CY_SYSCLK_ID", "group__group__sysclk__macros.html#ga7fbd2bd690d5954a03c6a09e1dd29530", null ],

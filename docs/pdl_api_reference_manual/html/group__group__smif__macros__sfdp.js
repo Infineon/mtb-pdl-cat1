@@ -201,5 +201,7 @@ var group__group__smif__macros__sfdp =
     [ "CY_SMIF_SFDP_ODDR_200MHZ_DUMMY_CYCLES_Msk", "group__group__smif__macros__sfdp.html#gac7a2ba9784e52a099b73bd02815a5f01", null ],
     [ "CMD_SEQ_OCTAL_DDR_CMD1_LEN_BYTE_OFFSET", "group__group__smif__macros__sfdp.html#ga20b032145230c2da01c2a5d636c2e51f", null ],
     [ "CMD_SEQ_OCTAL_DDR_CMD2_LEN_BYTE_OFFSET", "group__group__smif__macros__sfdp.html#gac5675a0f006c4dcd625c858511efd2e4", null ],
-    [ "CY_SMIF_SFDP_ODDR_CMD_SEQ_MAX_LEN", "group__group__smif__macros__sfdp.html#gaf40c3dbb29ba65b88ae0480eb2cf1e14", null ]
+    [ "CY_SMIF_SFDP_ODDR_CMD_SEQ_MAX_LEN", "group__group__smif__macros__sfdp.html#gaf40c3dbb29ba65b88ae0480eb2cf1e14", null ],
+    [ "CY_SMIF_TAP_NOT_FOUND", "group__group__smif__macros__sfdp.html#ga3a409102a18b6eae84109b46a4c828b0", null ],
+    [ "CY_SMIF_MEM_CALIBRATION_DATA_PATTERN_LENGTH", "group__group__smif__macros__sfdp.html#ga4d75f7f56c3bef3f44d3c0e385f0272d", null ]
 ];

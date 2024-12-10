@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('group__group__tcpwm__macros__common.ht
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
 API Reference</h2></td></tr>
 <tr class="memitem:group__group__tcpwm__input__selection"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__input__selection.html">TCPWM Input Selection</a></td></tr>
-<tr class="memdesc:group__group__tcpwm__input__selection"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects which input to use. <br /></td></tr>
+<tr class="memdesc:group__group__tcpwm__input__selection"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTERNAL. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__tcpwm__input__modes"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__input__modes.html">Input Modes</a></td></tr>
 <tr class="memdesc:group__group__tcpwm__input__modes"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures how TCPWM inputs behave. <br /></td></tr>
@@ -114,7 +114,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:gac20d09f45b8417cccfac3d17cb786f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver major version. <br /></td></tr>
 <tr class="separator:gac20d09f45b8417cccfac3d17cb786f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa498c3ce94f17af0b794720e82f4ae25"><td class="memItemLeft" align="right" valign="top"><a id="gaa498c3ce94f17af0b794720e82f4ae25"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__macros__common.html#gaa498c3ce94f17af0b794720e82f4ae25">CY_TCPWM_DRV_VERSION_MINOR</a>&#160;&#160;&#160;70</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__macros__common.html#gaa498c3ce94f17af0b794720e82f4ae25">CY_TCPWM_DRV_VERSION_MINOR</a>&#160;&#160;&#160;80</td></tr>
 <tr class="memdesc:gaa498c3ce94f17af0b794720e82f4ae25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver minor version. <br /></td></tr>
 <tr class="separator:gaa498c3ce94f17af0b794720e82f4ae25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga823d91f0671e708a981701d012ec6433"><td class="memItemLeft" align="right" valign="top"><a id="ga823d91f0671e708a981701d012ec6433"></a>
@@ -125,6 +125,18 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__macros__common.html#gaf8dc253fd9fe0f3df49cef55d4bf384f">CY_TCPWM_CNT_STATUS_UP_POS</a>&#160;&#160;&#160;(0x1U)</td></tr>
 <tr class="memdesc:gaf8dc253fd9fe0f3df49cef55d4bf384f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position of Up counting counter status. <br /></td></tr>
 <tr class="separator:gaf8dc253fd9fe0f3df49cef55d4bf384f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga01c40da774942518c6cc9e02d6b0075b"><td class="memItemLeft" align="right" valign="top"><a id="ga01c40da774942518c6cc9e02d6b0075b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__macros__common.html#ga01c40da774942518c6cc9e02d6b0075b">CY_TCPWM_CNT_STATUS_CC0_READ_MISS_POS</a>&#160;&#160;&#160;(0x2U)</td></tr>
+<tr class="memdesc:ga01c40da774942518c6cc9e02d6b0075b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position of missed read a past capture0 event status. <br /></td></tr>
+<tr class="separator:ga01c40da774942518c6cc9e02d6b0075b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadde427209a8600f5e67542fc79bbcbf0"><td class="memItemLeft" align="right" valign="top"><a id="gadde427209a8600f5e67542fc79bbcbf0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__macros__common.html#gadde427209a8600f5e67542fc79bbcbf0">CY_TCPWM_CNT_STATUS_CC1_READ_MISS_POS</a>&#160;&#160;&#160;(0x3U)</td></tr>
+<tr class="memdesc:gadde427209a8600f5e67542fc79bbcbf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position of missed read a past capture1 event status. <br /></td></tr>
+<tr class="separator:gadde427209a8600f5e67542fc79bbcbf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac83d134df00eed6d3e17ac00848160c0"><td class="memItemLeft" align="right" valign="top"><a id="gac83d134df00eed6d3e17ac00848160c0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__macros__common.html#gac83d134df00eed6d3e17ac00848160c0">CY_TCPWM_CNT_STATUS_KILL_POS</a>&#160;&#160;&#160;(0x4U)</td></tr>
+<tr class="memdesc:gac83d134df00eed6d3e17ac00848160c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position of active kill event status. <br /></td></tr>
+<tr class="separator:gac83d134df00eed6d3e17ac00848160c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf34ade5ce53aa686e209eaf9a439b733"><td class="memItemLeft" align="right" valign="top"><a id="gaf34ade5ce53aa686e209eaf9a439b733"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__macros__common.html#gaf34ade5ce53aa686e209eaf9a439b733">CY_TCPWM_CNT_UP_INIT_VAL</a>&#160;&#160;&#160;(0x0U)</td></tr>
 <tr class="memdesc:gaf34ade5ce53aa686e209eaf9a439b733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial value for the counter in the Up counting mode. <br /></td></tr>

@@ -42,7 +42,8 @@
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__fll.html" linkText="Open FLL Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
     <!-- For LP mode, Ffll_max = 96 MHz or Fcpu_max (if Fcpu_max < 100 MHz) -->
-    <ParamRange id="fllmax" name="Max FLL Frequency" group="Internal" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 96 : 100}`" min="96" max="100" resolution="1" visible="false" editable="false" desc="Max FLL Frequency based on platform." />
+    <ParamBool id="is40ssrssPllAvailable" name="is40ssrsspllAvailable" group="" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; NUM_TOTAL_PLL ne 0}`" visible="false" editable="false" desc="" />
+    <ParamRange id="fllmax" name="Max FLL Frequency" group="Internal" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? (is40ssrssPllAvailable ? 100 : 96)  : 100}`" min="96" max="100" resolution="1" visible="false" editable="false" desc="Max FLL Frequency based on platform." />
     <ParamBool id="usingUlp" name="usingUlp" group="Internal" default="`${isBlockUsed(&quot;srss[0].power[0]&quot;) &amp;&amp; getExposedMember(&quot;srss[0].power[0]&quot;, &quot;usingUlp&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="maxFrequency" name="Max Frequency (MHz)" group="Internal" default="`${getDeviceAttr(&quot;CPU_MAX_MHZ&quot;) &gt; fllmax ? fllmax : getDeviceAttr(&quot;CPU_MAX_MHZ&quot;)}`" visible="false" editable="false" desc="The maximum FLL frequency" />
     <ParamString id="maxFreqHz" name="Max Frequency (Hz)" group="Internal" default="`${1000000 * maxFrequency}`" visible="false" editable="false" desc="The maximum FLL frequency" />
@@ -116,7 +117,7 @@
       <Member name="outputMode" value="`${getTclVar(&quot;outputMode&quot;, callSolver)}`" />
       <Member name="cco_Freq" value="`${getTclVar(&quot;cco_Freq&quot;, callSolver)}`U" />
     </ConfigStruct>
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_FllInit()" body="    if (CY_SYSCLK_SUCCESS != Cy_SysClk_FllManualConfigure(&amp;`${INST_NAME}`_fllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_FLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_FllEnable(200000UL))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_FLL_ERROR);&#xA;    }" public="false" include="true"  guard="(!defined(CY_DEVICE_SECURE))"/>
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_FllInit(void)" body="    if (CY_SYSCLK_SUCCESS != Cy_SysClk_FllManualConfigure(&amp;`${INST_NAME}`_fllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_FLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_FllEnable(200000UL))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_FLL_ERROR);&#xA;    }" public="false" include="true"  guard="(!defined(CY_DEVICE_SECURE))"/>
     <ConfigInstruction value="CY_UNUSED_PARAM(srss_0_clock_0_fll_0_fllConfig);" include="`${(&quot;mxs40ssrss&quot; eq getIpBlockName())}`"  guard="(!defined(CY_DEVICE_SECURE))"/>
   </ConfigFirmware>
 </Personality>

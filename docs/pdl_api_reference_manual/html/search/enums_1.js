@@ -2,6 +2,8 @@ var searchData=
 [
   ['en_5fclk_5fdst_5ft',['en_clk_dst_t',['../group__group__sysclk__clk__peripheral__enums.html#ga9aa4619e36f4b0314e9b882f4ff2b6df',1,'en_clk_dst_type.h']]],
   ['en_5fhsiom_5fsel_5ft',['en_hsiom_sel_t',['../group__group__gpio__enums.html#ga678dc02e490d04efdcfec78648899ce4',1,'en_hsiom_sel_type.h']]],
+  ['en_5fms_5fctl_5fmaster_5fsc_5facg_5ft',['en_ms_ctl_master_sc_acg_t',['../group__group__ms__ctl__enums.html#ga8f077c1a170b8f608b695f41af1165b2',1,'cy_ms_ctl.h']]],
+  ['en_5fms_5fctl_5fmaster_5ft',['en_ms_ctl_master_t',['../group__group__ms__ctl__enums.html#gad39353bf3922611b74d786d11d4b162c',1,'cy_ms_ctl.h']]],
   ['en_5fsysfault_5fsource_5ft',['en_sysfault_source_t',['../group__group__sysfault__enums.html#ga84e3782fd6b0f6e67b490974c02c945f',1,'cy_sysfault.h']]],
   ['en_5ftrig_5finput_5fcpuss_5fcti_5ft',['en_trig_input_cpuss_cti_t',['../group__group__trigmux__in__enums.html#ga0c1e803e9915bd8968fdbeb703737fa8',1,'en_trigger_type.h']]],
   ['en_5ftrig_5finput_5fcsd_5ft',['en_trig_input_csd_t',['../group__group__trigmux__in__enums.html#ga8778ee28afa6c40678d17f9ed71aa2c7',1,'en_trigger_type.h']]],

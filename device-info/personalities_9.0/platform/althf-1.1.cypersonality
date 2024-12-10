@@ -51,7 +51,7 @@
   </Parameters>
   <ConfigFirmware>
     <ConfigDefine name="CY_CFG_SYSCLK_ALTHF_ENABLED" value="1" public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_AltHfInit()" body="    Cy_SysClk_AltHfEnable(1000000UL);" public="false" include="true" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_AltHfInit(void)" body="    Cy_SysClk_AltHfEnable(1000000UL);" public="false" include="true" />
   </ConfigFirmware>
 </Personality>
 

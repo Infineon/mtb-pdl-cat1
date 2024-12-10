@@ -36,6 +36,8 @@
   <ExposedMembers>
     <ExposedMember key="halPortPin" paramId="pinPort" />
     <ExposedMember key="driveMode" paramId="DriveModes" />
+    <ExposedMember key="pinNum" paramId="pin" />
+    <ExposedMember key="portNum" paramId="port" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -113,7 +115,7 @@
       <Entry name="2.78 x Reference" value="CY_SIO_VOH_2_78" visible="true" />
       <Entry name="4.16 x Reference" value="CY_SIO_VOH_4_16" visible="true" />
     </ParamChoice>
-    
+
     <!--Output-->
     <ParamChoice id="slewRate" name="Slew Rate" group="Output" default="CY_GPIO_SLEW_FAST" visible="true" editable="true" desc="The slew rate parameter determines the rise and fall ramp rate for the pin as it changes output logic levels." >
       <Entry name="Fast" value="CY_GPIO_SLEW_FAST" visible="true" />
@@ -155,7 +157,7 @@
     <ParamSignal port="digital_inout[0]" name="Digital InOut" group="Internal Connection" visible="`${hasVisibleOption(&quot;digital_inout[0]&quot;)}`" desc="A digital inout signal to connect to" canBeEmpty="true" />
     <ParamSignal port="aux[0]" name="AUX" group="Internal Connection" visible="`${hasVisibleOption(&quot;aux[0]&quot;)}`" desc="A fixed function signal to connect to" canBeEmpty="true" />
     <ParamSignal port="oe[0]" name="OE" group="Internal Connection" visible="`${hasVisibleOption(&quot;oe[0]&quot;)}`" desc="The Output Enable terminal." canBeEmpty="true" />
-    
+
     <!-- Skip amuxbus code gen -->
     <ParamString id="analogValue" name="Analog Connection Value" group="Internal" default="`${hasConnection(&quot;analog&quot;, 0) ? getBlockFromSignal(&quot;analog[0]&quot;) : &quot;&quot;}`" visible="false" editable="false" desc="" />
     <ParamBool id="skipConfigCodeGen" name="Skip Configuration Code Gen" group="Internal" default="`${hasConnection(&quot;analog&quot;, 0) &amp;&amp; hasExposedMember(analogValue, &quot;suppressCodeGen&quot;) &amp;&amp; getExposedMember(analogValue, &quot;suppressCodeGen&quot;)}`" visible="false" editable="false" desc="Whether configuration code generation should be skipped" />
@@ -173,13 +175,13 @@
 
     <ParamString id="smif" name="smif" group="smif" default="`${findConnectedBlock(&quot;aux[0]&quot;, &quot;smif.core&quot;)}`" visible="false" editable="false" desc="" />
     <ParamBool id="hasSmifConn" name="hasSmifConn" group="Internal" default="`${smif ne &quot;&quot;}`" visible="false" editable="false" desc="" />
-    <ParamRange id="smifVersion" name="SMIF Version" group="Internal" max="7" min="5" resolution="1" default="`${hasSmifConn &amp;&amp; hasExposedMember(&quot;smif[0].core[0]&quot;, &quot;smif_ip_version&quot;)  ? getExposedMember(&quot;smif[0].core[0]&quot;, &quot;smif_ip_version&quot;) : 5}`" visible="true" editable="false" desc="SMIF IP Version" />
+    <ParamRange id="smifVersion" name="SMIF Version" group="Internal" max="7" min="5" resolution="1" default="`${hasSmifConn &amp;&amp; hasExposedMember(smif, &quot;smif_ip_version&quot;)  ? getExposedMember(smif, &quot;smif_ip_version&quot;) : 5}`" visible="false" editable="false" desc="SMIF IP Version" />
     <ParamString id="smifCore" name="smifCore" group="smif" default="`${ hasSmifConn ? ((smifVersion == 5) ? getInstFromLocation(findConnectedBlock(&quot;aux[0]&quot;, &quot;smif.core&quot;), &quot;core&quot;) : getInstFromLocation(findConnectedBlock(&quot;aux[0]&quot;, &quot;smif.core&quot;), &quot;smif&quot;)) : &quot;&quot;}`" visible="false" editable="false" desc="" />
     <ParamString id="smifPortString" name="SMIF Port String" group="Internal" default="`${hasSmifConn ? ((smifVersion == 5) ? &quot;(GPIO_PRT_Type*)SMIF0_CORE&quot; . smifCore . &quot;_SMIF_GPIO_SMIF_PRT0&quot; : &quot;(GPIO_PRT_Type*)SMIF&quot; . smifCore . &quot;_CORE_SMIF_GPIO_SMIF_PRT0&quot;) : &quot;&quot;}`" visible="false" editable="false" desc="SMIF Port Number" />
 
   </Parameters>
-  
-  <DRCs>  
+
+  <DRCs>
     <!--sioOutputBuffer DRCs-->
     <DRC type="WARNING" text="The SIO Output Buffer Regulated mode is selected ONLY if the Drive Mode is set to the &quot;Open Drain, Drives High. Input buffer off&quot; mode. If the Drive Mode is set to any other mode the regulated output buffer will be disabled and the standard CMOS output buffer is used." condition="`${hasSIO &amp;&amp; sioOutputBuffer &amp;&amp; (DriveModes ne CY_GPIO_DM_OD_DRIVESHIGH_IN_OFF)}`" />
     <DRC type="ERROR" text="The digital_in terminal cannot be connected when the digital_inout terminal is connected." condition="`${hasConnection(&quot;digital_in&quot;, 0) &amp;&amp; hasConnection(&quot;digital_inout&quot;, 0)}`" />
@@ -189,13 +191,13 @@
         <FixIt action="SET_PARAM" target="driveStrength" value="CY_GPIO_DRIVE_1_2" valid="true" />
     </DRC>
   </DRCs>
-  
+
   <ConfigFirmware>
     <ConfigInclude value="cy_gpio.h" include="true" />
     <ConfigInclude value="cycfg_routing.h" include="`${hasDigitalOrAnalogConnection}`" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
     <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
-    
+
     <ConfigDefine name="`${INST_NAME}`_PORT" value="`${hasSmifConn ? smifPortString : &quot;GPIO_PRT&quot;. port}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_PORT_NUM" value="`${port}`U" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_PIN" value="`${pin}`U" public="true" include="true" />
@@ -209,8 +211,8 @@
     <ConfigDefine name="`${INST_NAME}`_HAL_PORT_PIN" value="P`${port}`_`${pin}`" public="true" include="true" guard="defined (CY_USING_HAL) || (CY_USING_HAL_LITE)"/>
     <ConfigDefine name="`${INST_NAME}`" value="P`${port}`_`${pin}`" public="true" include="true" guard="defined (CY_USING_HAL) || (CY_USING_HAL_LITE)" />
     <ConfigDefine name="`${INST_NAME}`_HAL_IRQ" value="`${(isrTrigger eq CY_GPIO_INTR_DISABLE) ? &quot;CYHAL_GPIO_IRQ_NONE&quot; :
-                                                          (isrTrigger eq CY_GPIO_INTR_RISING) ? &quot;CYHAL_GPIO_IRQ_RISE&quot; : 
-                                                          (isrTrigger eq CY_GPIO_INTR_FALLING) ? &quot;CYHAL_GPIO_IRQ_FALL&quot; : &quot;CYHAL_GPIO_IRQ_BOTH&quot;}`" 
+                                                          (isrTrigger eq CY_GPIO_INTR_RISING) ? &quot;CYHAL_GPIO_IRQ_RISE&quot; :
+                                                          (isrTrigger eq CY_GPIO_INTR_FALLING) ? &quot;CYHAL_GPIO_IRQ_FALL&quot; : &quot;CYHAL_GPIO_IRQ_BOTH&quot;}`"
                                                 public="true" include="true" guard="defined (CY_USING_HAL) || (CY_USING_HAL_LITE)" />
     <ConfigDefine name="`${INST_NAME}`_HAL_DIR" value="`${((DriveModes eq CY_GPIO_DM_HIGHZ) || (DriveModes eq CY_GPIO_DM_ANALOG)) ? &quot;CYHAL_GPIO_DIR_INPUT &quot; :
                                                           ((DriveModes eq CY_GPIO_DM_STRONG_IN_OFF) ||
@@ -218,7 +220,7 @@
                                                            (DriveModes eq CY_GPIO_DM_OD_DRIVESHIGH_IN_OFF) ||
                                                            (DriveModes eq CY_GPIO_DM_PULLUP_IN_OFF) ||
                                                            (DriveModes eq CY_GPIO_DM_PULLDOWN_IN_OFF) ||
-                                                           (DriveModes eq CY_GPIO_DM_PULLUP_DOWN_IN_OFF)) ? &quot;CYHAL_GPIO_DIR_OUTPUT &quot; : &quot;CYHAL_GPIO_DIR_BIDIRECTIONAL &quot;}`" 
+                                                           (DriveModes eq CY_GPIO_DM_PULLUP_DOWN_IN_OFF)) ? &quot;CYHAL_GPIO_DIR_OUTPUT &quot; : &quot;CYHAL_GPIO_DIR_BIDIRECTIONAL &quot;}`"
                                                 public="true" include="true" guard="defined (CY_USING_HAL) || (CY_USING_HAL_LITE)" />
     <ConfigDefine name="`${INST_NAME}`_HAL_DRIVEMODE" value="`${(DriveModes eq CY_GPIO_DM_HIGHZ) ? &quot;CYHAL_GPIO_DRIVE_NONE&quot; :
                                                                 (DriveModes eq CY_GPIO_DM_ANALOG) ? &quot;CYHAL_GPIO_DRIVE_ANALOG&quot; :
@@ -233,19 +235,19 @@
                                                                ((DriveModes eq CY_GPIO_DM_STRONG_IN_OFF) ||
                                                                 (DriveModes eq CY_GPIO_DM_STRONG)) ? &quot;CYHAL_GPIO_DRIVE_STRONG&quot; : &quot;CYHAL_GPIO_DRIVE_PULLUPDOWN&quot;}`"
                                                       public="true" include="true" guard="defined (CY_USING_HAL) || (CY_USING_HAL_LITE)" />
-    
+
     <ConfigStruct name="`${INST_NAME}`_config" type="cy_stc_gpio_pin_config_t" const="`${inFlash}`" public="true" include="true" >
       <Member name="outVal" value="`${initialState}`" />
       <Member name="driveMode" value="`${DriveModes}`" />
       <Member name="hsiom" value="`${INST_NAME}`_HSIOM" />
-      <Member name="intEdge" value="`${isrTrigger}`" /> 
+      <Member name="intEdge" value="`${isrTrigger}`" />
       <Member name="intMask" value="`${isrTrigger eq CY_GPIO_INTR_DISABLE ? 0 : 1}`UL" />
       <Member name="vtrip" value="`${vtrip}`" />
       <Member name="slewRate" value="`${slewRate}`" />
       <Member name="driveSel" value="`${extended_drive_sel ? extended_driveStrength : driveStrength}`" />
-      <Member name="vregEn" value="`${(!hasSIO) ? &quot;0UL&quot; : 
+      <Member name="vregEn" value="`${(!hasSIO) ? &quot;0UL&quot; :
                                       sioOutputBuffer ? &quot;1UL&quot; : &quot;0UL&quot;}`" />
-      <Member name="ibufMode" value="`${(!hasSIO) ? &quot;0UL&quot; : 
+      <Member name="ibufMode" value="`${(!hasSIO) ? &quot;0UL&quot; :
                                       sioInputBuffer ? &quot;1UL&quot; : &quot;0UL&quot;}`" />
       <Member name="vtripSel" value="`${hasSIO ? sioTrip : &quot;0UL&quot;}`" />
       <Member name="vrefSel" value="`${hasSIO ? sioRef : &quot;0UL&quot;}`" />
@@ -259,7 +261,7 @@
       <Member name="block_num" value="`${INST_NAME}`_PORT_NUM" />
       <Member name="channel_num" value="`${INST_NAME}`_PIN" />
     </ConfigStruct>
-    
+
     <ConfigInstruction value="Cy_GPIO_Pin_Init(`${INST_NAME}`_PORT, `${INST_NAME}`_PIN, &amp;`${INST_NAME}`_config);" include="`${(!skipConfigCodeGenExtClk) ? (!skipConfigCodeGen) : false}`" />
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>

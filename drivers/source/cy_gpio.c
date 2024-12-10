@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_gpio.c
-* \version 1.110
+* \version 1.120
 *
 * Provides an API implementation of the GPIO driver
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -263,10 +263,10 @@ cy_en_gpio_status_t Cy_GPIO_Port_Init(GPIO_PRT_Type* base, const cy_stc_gpio_prt
         portNum = ((uint32_t)(base) - CY_GPIO_BASE) / GPIO_PRT_SECTION_SIZE;
         baseHSIOM = (HSIOM_PRT_V1_Type*)(CY_HSIOM_BASE + (HSIOM_PRT_SECTION_SIZE * portNum));
 
-#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION >= 5)
+#if defined (CY_IP_MXSMIF) && ((CY_IP_MXSMIF_VERSION == 5) || (CY_IP_MXSMIF_VERSION == 6))
         if (CY_GPIO_IS_SMIF_GPIO(base))
         {
-            uint32_t smif_core_offset = ((void *)base >= (void *)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0) ? SMIF_CORE_SECTION_SIZE : 0U;
+            uint32_t smif_core_offset = ((void *)base >= (void *)SMIF_INST1_PRT0) ? SMIF_INST_OFFSET : 0U;
             portNum = ((uint32_t)(base) - CY_SMIF_GPIO_BASE - smif_core_offset) / SMIF_CORE_SMIF_GPIO_SMIF_PRT_SECTION_SIZE;
             baseHSIOM = (HSIOM_PRT_V1_Type*)(CY_SMIF_HSIOM_BASE + (SMIF_CORE_SMIF_HSIOM_SMIF_PRT_SECTION_SIZE * portNum) + smif_core_offset);
         }
@@ -289,10 +289,11 @@ cy_en_gpio_status_t Cy_GPIO_Port_Init(GPIO_PRT_Type* base, const cy_stc_gpio_prt
 
         baseSecHSIOM = (HSIOM_SECURE_PRT_Type*)(CY_HSIOM_SECURE_BASE + (HSIOM_SECURE_PRT_SECTION_SIZE * portNum));
 
-#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION >= 5)
-        uint32_t smif_core_offset = ((void *)base >= (void *)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0) ? SMIF_CORE_SECTION_SIZE : 0U;
+#if defined (CY_IP_MXSMIF) && ((CY_IP_MXSMIF_VERSION == 5) || (CY_IP_MXSMIF_VERSION == 6))
+        uint32_t smif_core_offset = ((void *)base >= (void *)SMIF_INST1_PRT0) ? SMIF_INST_OFFSET : 0U;
         baseSecHSIOM = (HSIOM_SECURE_PRT_Type*)(CY_SMIF_SECURE_HSIOM_BASE + (SMIF_CORE_SMIF_HSIOM_SMIF_SECURE_PRT_SECTION_SIZE * portNum) + smif_core_offset);
 #endif /* CY_IP_MXSMIF, CY_IP_MXSMIF_VERSION */
+
         HSIOM_SEC_PRT_NONSEC_MASK(baseSecHSIOM) = config->nonSecMask;
 #endif /* IOSS_HSIOM_HSIOM_SEC_PORT_NR, CPUSS_CM33_0_SECEXT_PRESENT */
         GPIO_PRT_SLEW_EXT(base)                 = config->cfgSlew;
@@ -599,10 +600,10 @@ void Cy_GPIO_Port_Deinit(GPIO_PRT_Type* base)
     portNum = ((uint32_t)(base) - CY_GPIO_BASE) / GPIO_PRT_SECTION_SIZE;
     baseHSIOM = (HSIOM_PRT_V1_Type*)(CY_HSIOM_BASE + (HSIOM_PRT_SECTION_SIZE * portNum));
 
-#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION >= 5)
+#if defined (CY_IP_MXSMIF) && ((CY_IP_MXSMIF_VERSION == 5) || (CY_IP_MXSMIF_VERSION == 6))
     if (CY_GPIO_IS_SMIF_GPIO(base))
     {
-        uint32_t smif_core_offset = ((void *)base >= (void *)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0) ? SMIF_CORE_SECTION_SIZE : 0U;
+        uint32_t smif_core_offset = ((void *)base >= (void *)SMIF_INST1_PRT0) ? SMIF_INST_OFFSET : 0U;
         portNum = ((uint32_t)(base) - CY_SMIF_GPIO_BASE - smif_core_offset) / SMIF_CORE_SMIF_GPIO_SMIF_PRT_SECTION_SIZE;
         baseHSIOM = (HSIOM_PRT_V1_Type*)(CY_SMIF_HSIOM_BASE + (SMIF_CORE_SMIF_HSIOM_SMIF_PRT_SECTION_SIZE * portNum) + smif_core_offset);
     }
@@ -781,7 +782,7 @@ cy_en_gpio_amuxconnect_t Cy_GPIO_GetAmuxSplit(cy_en_amux_split_t switchCtrl, cy_
 #endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
 }
 
-
+#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
 /*******************************************************************************
 * Function Name: Cy_GPIO_SetHSIOM
 ****************************************************************************//**
@@ -815,9 +816,7 @@ void Cy_GPIO_SetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum, en_hsiom_sel_t value
     uint32_t hsiomReg;
     HSIOM_PRT_V1_Type* portAddrHSIOM;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_HSIOM_VALID(value));
@@ -825,20 +824,11 @@ void Cy_GPIO_SetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum, en_hsiom_sel_t value
     portNum = ((uint32_t)(base) - CY_GPIO_BASE) / GPIO_PRT_SECTION_SIZE;
     portAddrHSIOM = (HSIOM_PRT_V1_Type*)(CY_HSIOM_BASE + (HSIOM_PRT_SECTION_SIZE * portNum));
 
-#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION >= 5)
-    if ((base == (GPIO_PRT_Type*)((void*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0)) || (base == (GPIO_PRT_Type*)((void*)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0)))
-    {
-        portAddrHSIOM = (HSIOM_PRT_V1_Type*) ((void*)((base == (GPIO_PRT_Type*)((void*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0)) ? ((void*)SMIF0_CORE0_SMIF_HSIOM_SMIF_PRT0) : ((void*)SMIF0_CORE1_SMIF_HSIOM_SMIF_PRT0)));
-    }
-#endif
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
-#endif
 
     if(pinNum < CY_GPIO_PRT_HALF)
     {
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
         tempReg = CY_PRA_REG32_GET(CY_PRA_GET_HSIOM_REG_INDEX(base, CY_PRA_SUB_INDEX_HSIOM_PORT0)) & ~(CY_GPIO_HSIOM_MASK << (pinNum << CY_GPIO_HSIOM_OFFSET));
@@ -865,7 +855,6 @@ void Cy_GPIO_SetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum, en_hsiom_sel_t value
 #endif
     hsiomReg = tempReg | (((uint32_t)value & CY_GPIO_HSIOM_MASK) << (pinNum << CY_GPIO_HSIOM_OFFSET));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
         if (pinType != CY_PRA_PIN_SECURE)
         {
             if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -893,15 +882,12 @@ void Cy_GPIO_SetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum, en_hsiom_sel_t value
         {
             /* Secure PIN can't be modified using register policy */
         }
-#else
-        HSIOM_PRT_PORT_SEL0(portAddrHSIOM) = hsiomReg;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
     }
     else
     {
         pinNum -= CY_GPIO_PRT_HALF;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
         {
             tempReg = CY_PRA_REG32_GET(CY_PRA_GET_HSIOM_REG_INDEX(base, CY_PRA_SUB_INDEX_HSIOM_PORT1)) & ~(CY_GPIO_HSIOM_MASK << (pinNum << CY_GPIO_HSIOM_OFFSET));
@@ -928,7 +914,6 @@ void Cy_GPIO_SetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum, en_hsiom_sel_t value
 #endif
 
         hsiomReg = tempReg | (((uint32_t)value & CY_GPIO_HSIOM_MASK) << (pinNum << CY_GPIO_HSIOM_OFFSET));
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
 
         if (pinType != CY_PRA_PIN_SECURE)
         {
@@ -957,9 +942,6 @@ void Cy_GPIO_SetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum, en_hsiom_sel_t value
         {
             /* Secure PIN can't be modified using register policy */
         }
-#else
-        HSIOM_PRT_PORT_SEL1(portAddrHSIOM) = hsiomReg;
-#endif
     }
 }
 
@@ -989,25 +971,18 @@ en_hsiom_sel_t Cy_GPIO_GetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum)
     uint32_t tempReg;
     uint32_t portNum;
     HSIOM_PRT_V1_Type* portAddrHSIOM;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
     portNum = ((uint32_t)(base) - CY_GPIO_BASE) / GPIO_PRT_SECTION_SIZE;
     portAddrHSIOM = (HSIOM_PRT_V1_Type*)(CY_HSIOM_BASE + (HSIOM_PRT_SECTION_SIZE * portNum));
 
-#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION >= 5)
-    if ((base == (GPIO_PRT_Type*)((void*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0)) || (base == (GPIO_PRT_Type*)((void*)SMIF0_CORE1_SMIF_GPIO_SMIF_PRT0)))
-    {
-        portAddrHSIOM = (HSIOM_PRT_V1_Type*) ((void*)((base == (GPIO_PRT_Type*)((void*)SMIF0_CORE0_SMIF_GPIO_SMIF_PRT0)) ? ((void*)SMIF0_CORE0_SMIF_HSIOM_SMIF_PRT0) : ((void*)SMIF0_CORE1_SMIF_HSIOM_SMIF_PRT0)));
-    }
-#endif
-
     if(pinNum < CY_GPIO_PRT_HALF)
     {
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
         pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
         {
@@ -1040,7 +1015,7 @@ en_hsiom_sel_t Cy_GPIO_GetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum)
     {
         pinNum -= CY_GPIO_PRT_HALF;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
         pinType = CY_PRA_GET_PIN_PROT_TYPE(base, (pinNum + CY_GPIO_PRT_HALF));
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
         {
@@ -1072,8 +1047,9 @@ en_hsiom_sel_t Cy_GPIO_GetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum)
 
     return (en_hsiom_sel_t)returnValue;
 }
+#endif /* #if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
-
+#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
 /*******************************************************************************
 * Function Name: Cy_GPIO_Read
 ****************************************************************************//**
@@ -1097,13 +1073,13 @@ en_hsiom_sel_t Cy_GPIO_GetHSIOM(GPIO_PRT_Type* base, uint32_t pinNum)
 uint32_t Cy_GPIO_Read(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -1124,6 +1100,7 @@ uint32_t Cy_GPIO_Read(GPIO_PRT_Type* base, uint32_t pinNum)
 
     return (tempReg >> (pinNum)) & CY_GPIO_IN_MASK;
 }
+
 
 
 /*******************************************************************************
@@ -1152,16 +1129,12 @@ void Cy_GPIO_Write(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 {
     uint32_t outMask;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
 
     outMask = CY_GPIO_OUT_MASK << pinNum;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
 
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 
@@ -1194,18 +1167,8 @@ void Cy_GPIO_Write(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    /* Thread-safe: Directly access the pin registers instead of base->OUT */
-    if(0UL == value)
-    {
-        GPIO_PRT_OUT_CLR(base) = outMask;
-    }
-    else
-    {
-        GPIO_PRT_OUT_SET(base) = outMask;
-    }
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
+
 
 
 /*******************************************************************************
@@ -1230,13 +1193,13 @@ void Cy_GPIO_Write(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 uint32_t Cy_GPIO_ReadOut(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -1281,16 +1244,12 @@ uint32_t Cy_GPIO_ReadOut(GPIO_PRT_Type* base, uint32_t pinNum)
 void Cy_GPIO_Set(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t outMask;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
     outMask = CY_GPIO_OUT_MASK << pinNum;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 
     if (pinType != CY_PRA_PIN_SECURE)
@@ -1308,9 +1267,6 @@ void Cy_GPIO_Set(GPIO_PRT_Type* base, uint32_t pinNum)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_OUT_SET(base) = outMask;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
 
 
@@ -1336,16 +1292,12 @@ void Cy_GPIO_Set(GPIO_PRT_Type* base, uint32_t pinNum)
 void Cy_GPIO_Clr(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t outMask;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
     outMask = CY_GPIO_OUT_MASK << pinNum;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 
     if (pinType != CY_PRA_PIN_SECURE)
@@ -1363,9 +1315,6 @@ void Cy_GPIO_Clr(GPIO_PRT_Type* base, uint32_t pinNum)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_OUT_CLR(base) = outMask;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
 
 
@@ -1392,16 +1341,12 @@ void Cy_GPIO_Clr(GPIO_PRT_Type* base, uint32_t pinNum)
 void Cy_GPIO_Inv(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t outMask;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
     outMask = CY_GPIO_OUT_MASK << pinNum;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 
     if (pinType != CY_PRA_PIN_SECURE)
@@ -1419,9 +1364,6 @@ void Cy_GPIO_Inv(GPIO_PRT_Type* base, uint32_t pinNum)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_OUT_INV(base) = outMask;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
 
 
@@ -1458,24 +1400,16 @@ void Cy_GPIO_SetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     uint32_t tempReg;
     uint32_t pinLoc;
     uint32_t prtCfg;
-#if defined (CY_IP_MXS22IOSS)
-    uint32_t prtCfg3;
-    uint32_t tempRegCfg3;
-#endif /* CY_IP_MXS22IOSS */
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_DM_VALID(value));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     pinLoc = pinNum << CY_GPIO_DRIVE_MODE_OFFSET;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
         tempReg = (CY_PRA_REG32_GET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG)) & ~(CY_GPIO_CFG_DM_MASK << pinLoc));
@@ -1493,24 +1427,8 @@ void Cy_GPIO_SetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     tempReg = (GPIO_PRT_CFG(base) & ~(CY_GPIO_CFG_DM_MASK << pinLoc));
 #endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
 
-#if defined (CY_IP_MXS22IOSS)
-    tempRegCfg3 = (GPIO_PRT_CFG_OUT3(base) & ~(CY_GPIO_CFG_DM_MASK << pinLoc));
-    if(CY_GPIO_DM_CFGOUT3_STRONG_PULLUP_HIGHZ == value)
-    {
-        prtCfg = tempReg & (~(CY_GPIO_CFG_DM_WIDTH_MASK << pinLoc));
-        prtCfg |= (GPIO_PRT_CFG_IN_EN0_Msk << pinLoc);
-        prtCfg3 = tempRegCfg3 | ((value >> CY_GPIO_EXT_DM_SHIFT) << pinLoc);
-    }
-    else
-    {
-        prtCfg = tempReg | ((value & CY_GPIO_CFG_DM_MASK) << pinLoc);
-        prtCfg3 = tempRegCfg3 & (~(CY_GPIO_CFG_DM_WIDTH_MASK << pinLoc));
-    }
-#else
     prtCfg = tempReg | ((value & CY_GPIO_CFG_DM_MASK) << pinLoc);
-#endif /* CY_IP_MXS22IOSS */
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -1526,13 +1444,8 @@ void Cy_GPIO_SetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_CFG(base) = prtCfg;
-#if defined (CY_IP_MXS22IOSS)
-    GPIO_PRT_CFG_OUT3(base) = prtCfg3;
-#endif /* CY_IP_MXS22IOSS */
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
+
 
 
 /*******************************************************************************
@@ -1557,16 +1470,13 @@ void Cy_GPIO_SetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 uint32_t Cy_GPIO_GetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t tempReg, ret;
-#if defined (CY_IP_MXS22IOSS)
-    uint32_t tempRegCfg3;
-#endif /* CY_IP_MXS22IOSS */
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -1585,31 +1495,11 @@ uint32_t Cy_GPIO_GetDrivemode(GPIO_PRT_Type* base, uint32_t pinNum)
     tempReg = GPIO_PRT_CFG(base);
 #endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
 
-#if defined (CY_IP_MXS22IOSS)
-    /* Check drive mode value in CFG_OUT register to check if CFG_OUT3 is enabled */
-    if((((tempReg >> (pinNum << CY_GPIO_DRIVE_MODE_OFFSET)) & CY_GPIO_CFG_DM_MASK) & CY_GPIO_CFG_DM_NO_INBUF_MASK) == 0U)
-    {
-        tempRegCfg3 = GPIO_PRT_CFG_OUT3(base);
-        /* Check driver mode value in CFG_OUT3 register to check if it is set to CY_GPIO_DM_CFGOUT3_STRONG_PULLUP_HIGHZ */
-        if(((tempRegCfg3 >> (pinNum << CY_GPIO_DRIVE_MODE_OFFSET)) & CY_GPIO_CFG_DM_WIDTH_MASK) == (CY_GPIO_DM_CFGOUT3_STRONG_PULLUP_HIGHZ >> CY_GPIO_EXT_DM_SHIFT))
-        {
-            ret = CY_GPIO_DM_CFGOUT3_STRONG_PULLUP_HIGHZ;
-        }
-        else
-        {
-            ret = (tempReg >> (pinNum << CY_GPIO_DRIVE_MODE_OFFSET)) & CY_GPIO_CFG_DM_MASK;
-        }
-    }
-    else
-    {
-        ret = (tempReg >> (pinNum << CY_GPIO_DRIVE_MODE_OFFSET)) & CY_GPIO_CFG_DM_MASK;
-    }
-#else
     ret = (tempReg >> (pinNum << CY_GPIO_DRIVE_MODE_OFFSET)) & CY_GPIO_CFG_DM_MASK;
-#endif /* CY_IP_MXS22IOSS */
 
     return ret;
 }
+
 
 
 /*******************************************************************************
@@ -1639,15 +1529,11 @@ void Cy_GPIO_SetVtrip(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 {
     uint32_t tempReg;
     uint32_t cfgIn;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 
 #if defined(CY_DEVICE_PSOC6ABLE2)
@@ -1667,13 +1553,9 @@ void Cy_GPIO_SetVtrip(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 #else
     tempReg = GPIO_PRT_CFG_IN(base) & ~(CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK << pinNum);
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = GPIO_PRT_CFG_IN(base) & ~(CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK << pinNum);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     cfgIn = tempReg | ((value & CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK) << pinNum);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -1689,9 +1571,6 @@ void Cy_GPIO_SetVtrip(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_CFG_IN(base) = cfgIn;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
 
 
@@ -1717,13 +1596,13 @@ void Cy_GPIO_SetVtrip(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 uint32_t Cy_GPIO_GetVtrip(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -1740,12 +1619,13 @@ uint32_t Cy_GPIO_GetVtrip(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_CFG_IN(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return (tempReg >> pinNum) & CY_GPIO_CFG_IN_VTRIP_SEL_0_MASK;
 }
+#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
-#if defined(GPIO_AUTOLVL_AVAIL) || defined (CY_DOXYGEN)
+#if (defined (GPIO_AUTOLVL_AVAIL) || defined (CY_DOXYGEN))
 /*******************************************************************************
 * Function Name: Cy_GPIO_SetVtripAuto
 ****************************************************************************//**
@@ -1759,7 +1639,7 @@ uint32_t Cy_GPIO_GetVtrip(GPIO_PRT_Type* base, uint32_t pinNum)
 * Position of the pin bit-field within the port register
 *
 * \param value
-* Pin voltage threshold mode. Options are detailed in 
+* Pin voltage threshold mode. Options are detailed in
 * \ref group_gpio_vtrip_auto macros
 *
 * \note
@@ -1785,7 +1665,6 @@ void Cy_GPIO_SetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     GPIO_PRT_CFG_IN_AUTOLVL(base) = vtripSel;
 }
 
-
 /*******************************************************************************
 * Function Name: Cy_GPIO_GetVtripAuto
 ****************************************************************************//**
@@ -1799,7 +1678,7 @@ void Cy_GPIO_SetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 * Position of the pin bit-field within the port register
 *
 * \return
-* Pin voltage for automotive or not. Options are detailed in 
+* Pin voltage for automotive or not. Options are detailed in
 * \ref group_gpio_vtrip_auto macros
 *
 * \note
@@ -1817,6 +1696,8 @@ uint32_t Cy_GPIO_GetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum)
     return (tempReg >> pinNum) & CY_GPIO_CFG_IN_VTRIP_SEL_1_MASK;
 }
 #endif /* defined(GPIO_AUTOLVL_AVAIL) || defined (CY_DOXYGEN) */
+
+#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
 /*******************************************************************************
 * Function Name: Cy_GPIO_SetSlewRate
 ****************************************************************************//**
@@ -1850,70 +1731,48 @@ uint32_t Cy_GPIO_GetVtripAuto(GPIO_PRT_Type* base, uint32_t pinNum)
 *******************************************************************************/
 void Cy_GPIO_SetSlewRate(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 {
-    uint32_t tempReg;
-#if defined (CY_IP_MXS40SIOSS) || defined (CY_IP_MXS22IOSS)
-    uint32_t pinLoc;
-#else
-    uint32_t cfgOut;
-#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
+        uint32_t tempReg;
+        uint32_t cfgOut;
+        cy_en_pra_pin_prot_type_t pinType;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
-    cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
+        CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
+        CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
 
-    CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
-    CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
-
-#if defined (CY_IP_MXS40SIOSS) || defined (CY_IP_MXS22IOSS)
-    pinLoc = pinNum << CY_GPIO_CFG_SLEW_EXT_OFFSET;
-    tempReg = (GPIO_PRT_SLEW_EXT(base) & ~(CY_GPIO_CFG_SLEW_EXT_MASK << pinLoc));
-    GPIO_PRT_SLEW_EXT(base) = tempReg | ((value & CY_GPIO_CFG_SLEW_EXT_MASK) << pinLoc);
-#else
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
-    pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
+        pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
-    if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
-    {
-        tempReg = CY_PRA_REG32_GET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG_OUT)) & ~(CY_GPIO_CFG_OUT_SLOW_MASK << pinNum);
-    }
-    else if (pinType == CY_PRA_PIN_SECURE_NONE)
-    {
-        tempReg = GPIO_PRT_CFG_OUT(base) & ~(CY_GPIO_CFG_OUT_SLOW_MASK << pinNum);
-    }
-    else
-    {
-        /* secure pin */
-        tempReg = 0UL;
-    }
-#else
-    tempReg = GPIO_PRT_CFG_OUT(base) & ~(CY_GPIO_CFG_OUT_SLOW_MASK << pinNum);
-#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = GPIO_PRT_CFG_OUT(base) & ~(CY_GPIO_CFG_OUT_SLOW_MASK << pinNum);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
-    cfgOut = tempReg | ((value & CY_GPIO_CFG_OUT_SLOW_MASK) << pinNum);
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
-    if (pinType != CY_PRA_PIN_SECURE)
-    {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
         {
-            CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG_OUT), cfgOut);
+            tempReg = CY_PRA_REG32_GET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG_OUT)) & ~(CY_GPIO_CFG_OUT_SLOW_MASK << pinNum);
+        }
+        else if (pinType == CY_PRA_PIN_SECURE_NONE)
+        {
+            tempReg = GPIO_PRT_CFG_OUT(base) & ~(CY_GPIO_CFG_OUT_SLOW_MASK << pinNum);
         }
         else
         {
-            GPIO_PRT_CFG_OUT(base) = cfgOut;
+            /* secure pin */
+            tempReg = 0UL;
         }
-    }
-    else
-    {
-        /* Secure PIN can't be modified using register policy */
-    }
 #else
-    GPIO_PRT_CFG_OUT(base) = cfgOut;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
-#endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
+        tempReg = GPIO_PRT_CFG_OUT(base) & ~(CY_GPIO_CFG_OUT_SLOW_MASK << pinNum);
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
+        cfgOut = tempReg | ((value & CY_GPIO_CFG_OUT_SLOW_MASK) << pinNum);
+
+        if (pinType != CY_PRA_PIN_SECURE)
+        {
+            if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
+            {
+                CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG_OUT), cfgOut);
+            }
+            else
+            {
+                GPIO_PRT_CFG_OUT(base) = cfgOut;
+            }
+        }
+        else
+        {
+            /* Secure PIN can't be modified using register policy */
+        }
 }
 
 
@@ -1940,16 +1799,15 @@ uint32_t Cy_GPIO_GetSlewRate(GPIO_PRT_Type* base, uint32_t pinNum)
 {
 #if defined (CY_IP_MXS40IOSS)
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 #endif /* defined (CY_IP_MXS40IOSS) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
 #if defined (CY_IP_MXS40IOSS)
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -1966,7 +1824,7 @@ uint32_t Cy_GPIO_GetSlewRate(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_CFG_OUT(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return (tempReg >> pinNum) & CY_GPIO_CFG_OUT_SLOW_MASK;
 #else
@@ -2011,16 +1869,13 @@ void Cy_GPIO_SetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     uint32_t cfgOut;
 #endif /* CY_IP_MXS40IOSS */
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_DRIVE_SEL_VALID(value));
 
 #if defined (CY_IP_MXS40IOSS)
     pinLoc = (uint32_t)(pinNum << 1u) + CY_GPIO_CFG_OUT_DRIVE_OFFSET;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2039,12 +1894,9 @@ void Cy_GPIO_SetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 #else
     tempReg = GPIO_PRT_CFG_OUT(base) & ~(CY_GPIO_CFG_OUT_DRIVE_SEL_MASK << pinLoc);
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = GPIO_PRT_CFG_OUT(base) & ~(CY_GPIO_CFG_OUT_DRIVE_SEL_MASK << pinLoc);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
+
     cfgOut = tempReg | ((value & CY_GPIO_CFG_OUT_DRIVE_SEL_MASK) << pinLoc);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2060,9 +1912,6 @@ void Cy_GPIO_SetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_CFG_OUT(base) = cfgOut;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 #else
     if(pinNum < CY_GPIO_PRT_HALF)
     {
@@ -2102,15 +1951,15 @@ uint32_t Cy_GPIO_GetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum)
 {
 #if defined (CY_IP_MXS40IOSS)
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 #endif /* defined (CY_IP_MXS40IOSS) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
 #if defined (CY_IP_MXS40IOSS)
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -2128,7 +1977,6 @@ uint32_t Cy_GPIO_GetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum)
 #else
     tempReg = GPIO_PRT_CFG_OUT(base);
 #endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
-
     return ((tempReg >> ((uint32_t)(pinNum << 1u) + CY_GPIO_CFG_OUT_DRIVE_OFFSET))
             & CY_GPIO_CFG_OUT_DRIVE_SEL_MASK);
 #else
@@ -2145,8 +1993,10 @@ uint32_t Cy_GPIO_GetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum)
     return returnValue;
 #endif /* CY_IP_MXS40IOSS */
 }
+#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
 
+#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
 /*******************************************************************************
 * Function Name: Cy_GPIO_SetVregEn
 ****************************************************************************//**
@@ -2179,15 +2029,12 @@ void Cy_GPIO_SetVregEn(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     uint32_t pinLoc;
     uint32_t cfgSio;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
 
     pinLoc = (pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2206,12 +2053,9 @@ void Cy_GPIO_SetVregEn(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 #else
     tempReg = GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_VREG_EN_MASK << pinLoc);
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_VREG_EN_MASK << pinLoc);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
+
     cfgSio = tempReg | ((value & CY_GPIO_VREG_EN_MASK) << pinLoc);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2227,9 +2071,6 @@ void Cy_GPIO_SetVregEn(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_CFG_SIO(base) = cfgSio;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 #else
     CY_ASSERT_L2(1);
     (void) base;
@@ -2266,7 +2107,7 @@ uint32_t Cy_GPIO_GetVregEn(GPIO_PRT_Type* base, uint32_t pinNum)
 #if defined (CY_IP_MXS40IOSS)
     uint32_t tempReg;
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -2283,9 +2124,7 @@ uint32_t Cy_GPIO_GetVregEn(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_CFG_SIO(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
-
-
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
     return (tempReg >> ((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET)) & CY_GPIO_VREG_EN_MASK;
 #else
     CY_ASSERT_L2(1);
@@ -2329,16 +2168,12 @@ void Cy_GPIO_SetIbufMode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     uint32_t tempReg;
     uint32_t pinLoc;
     uint32_t cfgSio;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
 
     pinLoc = ((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET) + CY_GPIO_IBUF_SHIFT;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2357,13 +2192,9 @@ void Cy_GPIO_SetIbufMode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 #else
     tempReg = (GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_IBUF_MASK << pinLoc));
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = (GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_IBUF_MASK << pinLoc));
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     cfgSio = tempReg | ((value & CY_GPIO_IBUF_MASK) << pinLoc);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2379,9 +2210,6 @@ void Cy_GPIO_SetIbufMode(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_CFG_SIO(base) = cfgSio;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 #else
     CY_ASSERT_L2(1);
     (void) base;
@@ -2420,7 +2248,7 @@ uint32_t Cy_GPIO_GetIbufMode(GPIO_PRT_Type* base, uint32_t pinNum)
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -2437,7 +2265,7 @@ uint32_t Cy_GPIO_GetIbufMode(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_CFG_SIO(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return (tempReg >> (((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET) + CY_GPIO_IBUF_SHIFT)) & CY_GPIO_IBUF_MASK;
 #else
@@ -2482,16 +2310,12 @@ void Cy_GPIO_SetVtripSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     uint32_t tempReg;
     uint32_t pinLoc;
     uint32_t cfgSio;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
 
     pinLoc = ((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET) + CY_GPIO_VTRIP_SEL_SHIFT;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2510,13 +2334,9 @@ void Cy_GPIO_SetVtripSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 #else
     tempReg = (GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_VTRIP_SEL_MASK << pinLoc));
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = (GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_VTRIP_SEL_MASK << pinLoc));
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     cfgSio = tempReg | ((value & CY_GPIO_VTRIP_SEL_MASK) << pinLoc);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2532,9 +2352,6 @@ void Cy_GPIO_SetVtripSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_CFG_SIO(base) = cfgSio;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 #else
         (void) base;
         (void) pinNum;
@@ -2573,7 +2390,7 @@ uint32_t Cy_GPIO_GetVtripSel(GPIO_PRT_Type* base, uint32_t pinNum)
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -2590,7 +2407,7 @@ uint32_t Cy_GPIO_GetVtripSel(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_CFG_SIO(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return (tempReg >> (((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET) + CY_GPIO_VTRIP_SEL_SHIFT)) & CY_GPIO_VTRIP_SEL_MASK;
 #else
@@ -2636,16 +2453,12 @@ void Cy_GPIO_SetVrefSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     uint32_t tempReg;
     uint32_t pinLoc;
     uint32_t cfgSio;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_VREF_SEL_VALID(value));
 
     pinLoc = ((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET) + CY_GPIO_VREF_SEL_SHIFT;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2664,13 +2477,9 @@ void Cy_GPIO_SetVrefSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 #else
     tempReg = (GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_VREF_SEL_MASK << pinLoc));
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = (GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_VREF_SEL_MASK << pinLoc));
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     cfgSio = tempReg | ((value & CY_GPIO_VREF_SEL_MASK) << pinLoc);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2686,9 +2495,6 @@ void Cy_GPIO_SetVrefSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_CFG_SIO(base) = cfgSio;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 #else
     (void) base;
     (void) pinNum;
@@ -2726,7 +2532,7 @@ uint32_t Cy_GPIO_GetVrefSel(GPIO_PRT_Type* base, uint32_t pinNum)
     uint32_t tempReg;
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -2743,8 +2549,7 @@ uint32_t Cy_GPIO_GetVrefSel(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_CFG_SIO(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
-
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
     return (tempReg >> (((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET) + CY_GPIO_VREF_SEL_SHIFT)) & CY_GPIO_VREF_SEL_MASK;
 #else
     CY_ASSERT_L2(1);
@@ -2792,16 +2597,12 @@ void Cy_GPIO_SetVohSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     uint32_t tempReg;
     uint32_t pinLoc;
     uint32_t cfgSio;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_VOH_SEL_VALID(value));
 
     pinLoc = ((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET) + CY_GPIO_VOH_SEL_SHIFT;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2820,12 +2621,8 @@ void Cy_GPIO_SetVohSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 #else
     tempReg = (GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_VOH_SEL_MASK << pinLoc));
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = (GPIO_PRT_CFG_SIO(base) & ~(CY_GPIO_VOH_SEL_MASK << pinLoc));
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
     cfgSio = tempReg | ((value & CY_GPIO_VOH_SEL_MASK) << pinLoc);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -2841,9 +2638,6 @@ void Cy_GPIO_SetVohSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_CFG_SIO(base) = cfgSio;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 #else
     CY_ASSERT_L2(1);
     (void) base;
@@ -2881,7 +2675,7 @@ uint32_t Cy_GPIO_GetVohSel(GPIO_PRT_Type* base, uint32_t pinNum)
     uint32_t tempReg;
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -2898,7 +2692,7 @@ uint32_t Cy_GPIO_GetVohSel(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_CFG_SIO(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return (tempReg >> (((pinNum & CY_GPIO_SIO_ODD_PIN_MASK) << CY_GPIO_CFG_SIO_OFFSET) + CY_GPIO_VOH_SEL_SHIFT)) & CY_GPIO_VOH_SEL_MASK;
 #else
@@ -2909,8 +2703,10 @@ uint32_t Cy_GPIO_GetVohSel(GPIO_PRT_Type* base, uint32_t pinNum)
     return CYRET_INVALID_STATE;
 #endif /* CY_IP_MXS40IOSS */
 }
+#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
 
+#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
 /*******************************************************************************
 * Function Name: Cy_GPIO_GetInterruptStatus
 ****************************************************************************//**
@@ -2939,13 +2735,13 @@ uint32_t Cy_GPIO_GetVohSel(GPIO_PRT_Type* base, uint32_t pinNum)
 uint32_t Cy_GPIO_GetInterruptStatus(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -2962,8 +2758,7 @@ uint32_t Cy_GPIO_GetInterruptStatus(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_INTR(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
-
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
     return (tempReg >> pinNum) & CY_GPIO_INTR_STATUS_MASK;
 }
 
@@ -2989,13 +2784,10 @@ uint32_t Cy_GPIO_GetInterruptStatus(GPIO_PRT_Type* base, uint32_t pinNum)
 void Cy_GPIO_ClearInterrupt(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t prtIntr;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -3015,14 +2807,9 @@ void Cy_GPIO_ClearInterrupt(GPIO_PRT_Type* base, uint32_t pinNum)
     /* Any INTR MMIO registers AHB clearing must be preceded with an AHB read access */
     (void)GPIO_PRT_INTR(base);
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    /* Any INTR MMIO registers AHB clearing must be preceded with an AHB read access */
-    (void)GPIO_PRT_INTR(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     prtIntr = CY_GPIO_INTR_STATUS_MASK << pinNum;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -3038,9 +2825,6 @@ void Cy_GPIO_ClearInterrupt(GPIO_PRT_Type* base, uint32_t pinNum)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_INTR(base) = prtIntr;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     /* This read ensures that the initial write has been flushed out to the hardware */
     (void)GPIO_PRT_INTR(base);
@@ -3076,15 +2860,11 @@ void Cy_GPIO_SetInterruptMask(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t val
 {
     uint32_t tempReg;
     uint32_t intrMask;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -3103,13 +2883,9 @@ void Cy_GPIO_SetInterruptMask(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t val
 #else
     tempReg= GPIO_PRT_INTR_MASK(base) & ~(CY_GPIO_INTR_EN_MASK << pinNum);
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg= GPIO_PRT_INTR_MASK(base) & ~(CY_GPIO_INTR_EN_MASK << pinNum);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     intrMask = tempReg | ((value & CY_GPIO_INTR_EN_MASK) << pinNum);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -3125,9 +2901,6 @@ void Cy_GPIO_SetInterruptMask(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t val
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_INTR_MASK(base) = intrMask;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
 
 
@@ -3158,13 +2931,13 @@ void Cy_GPIO_SetInterruptMask(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t val
 uint32_t Cy_GPIO_GetInterruptMask(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -3181,7 +2954,7 @@ uint32_t Cy_GPIO_GetInterruptMask(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_INTR_MASK(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return (tempReg >> pinNum) & CY_GPIO_INTR_EN_MASK;
 }
@@ -3215,13 +2988,13 @@ uint32_t Cy_GPIO_GetInterruptMask(GPIO_PRT_Type* base, uint32_t pinNum)
 uint32_t Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -3238,10 +3011,11 @@ uint32_t Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_INTR_MASKED(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return (tempReg >> pinNum) & CY_GPIO_INTR_MASKED_MASK;
 }
+
 
 
 /*******************************************************************************
@@ -3264,15 +3038,12 @@ uint32_t Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT_Type* base, uint32_t pinNum)
 void Cy_GPIO_SetSwInterrupt(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t intrSet;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
 
     intrSet = CY_GPIO_INTR_SET_MASK << pinNum;
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 
     if (pinType != CY_PRA_PIN_SECURE)
@@ -3290,9 +3061,6 @@ void Cy_GPIO_SetSwInterrupt(GPIO_PRT_Type* base, uint32_t pinNum)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_INTR_SET(base) = intrSet;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
 
 
@@ -3325,16 +3093,12 @@ void Cy_GPIO_SetInterruptEdge(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t val
     uint32_t tempReg;
     uint32_t pinLoc;
     uint32_t intrCfg;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
     CY_ASSERT_L2(CY_GPIO_IS_INT_EDGE_VALID(value));
 
     pinLoc = pinNum << CY_GPIO_INTR_CFG_OFFSET;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -3353,13 +3117,9 @@ void Cy_GPIO_SetInterruptEdge(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t val
 #else
     tempReg = GPIO_PRT_INTR_CFG(base) & ~(CY_GPIO_INTR_EDGE_MASK << pinLoc);
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = GPIO_PRT_INTR_CFG(base) & ~(CY_GPIO_INTR_EDGE_MASK << pinLoc);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     intrCfg = tempReg | ((value & CY_GPIO_INTR_EDGE_MASK) << pinLoc);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -3375,9 +3135,6 @@ void Cy_GPIO_SetInterruptEdge(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t val
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_INTR_CFG(base) = intrCfg;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
 
 
@@ -3404,13 +3161,13 @@ void Cy_GPIO_SetInterruptEdge(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t val
 uint32_t Cy_GPIO_GetInterruptEdge(GPIO_PRT_Type* base, uint32_t pinNum)
 {
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     CY_ASSERT_L2(CY_GPIO_IS_FILTER_PIN_VALID(pinNum));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, pinNum);
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
     {
@@ -3427,10 +3184,11 @@ uint32_t Cy_GPIO_GetInterruptEdge(GPIO_PRT_Type* base, uint32_t pinNum)
     }
 #else
     tempReg = GPIO_PRT_INTR_CFG(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return (tempReg >> (pinNum << CY_GPIO_INTR_CFG_OFFSET)) & CY_GPIO_INTR_EDGE_MASK;
 }
+
 
 
 /*******************************************************************************
@@ -3466,14 +3224,10 @@ void Cy_GPIO_SetFilter(GPIO_PRT_Type* base, uint32_t value)
 {
     uint32_t tempReg;
     uint32_t intrCfg;
-
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     cy_en_pra_pin_prot_type_t pinType;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     CY_ASSERT_L2(CY_GPIO_IS_PIN_VALID(value));
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     pinType = CY_PRA_GET_PIN_PROT_TYPE(base, value);
 #if defined(CY_DEVICE_PSOC6ABLE2)
     if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -3492,13 +3246,9 @@ void Cy_GPIO_SetFilter(GPIO_PRT_Type* base, uint32_t value)
 #else
     tempReg = GPIO_PRT_INTR_CFG(base) & ~(CY_GPIO_INTR_FLT_EDGE_MASK << CY_GPIO_INTR_FILT_OFFSET);
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
-#else
-    tempReg = GPIO_PRT_INTR_CFG(base) & ~(CY_GPIO_INTR_FLT_EDGE_MASK << CY_GPIO_INTR_FILT_OFFSET);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 
     intrCfg = tempReg | ((value & CY_GPIO_INTR_FLT_EDGE_MASK) << CY_GPIO_INTR_FILT_OFFSET);
 
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
     if (pinType != CY_PRA_PIN_SECURE)
     {
         if (pinType == CY_PRA_PIN_SECURE_UNCONSTRAINED)
@@ -3514,9 +3264,6 @@ void Cy_GPIO_SetFilter(GPIO_PRT_Type* base, uint32_t value)
     {
         /* Secure PIN can't be modified using register policy */
     }
-#else
-    GPIO_PRT_INTR_CFG(base) = intrCfg;
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
 }
 
 
@@ -3545,7 +3292,7 @@ void Cy_GPIO_SetFilter(GPIO_PRT_Type* base, uint32_t value)
 uint32_t Cy_GPIO_GetFilter(GPIO_PRT_Type* base)
 {
     uint32_t tempReg;
-#if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2)
+#if defined(CY_DEVICE_PSOC6ABLE2)
     if (CY_PRA_IS_PORT_SECURE(base))
     {
         tempReg = CY_PRA_REG32_GET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_INTR_CFG));
@@ -3556,10 +3303,12 @@ uint32_t Cy_GPIO_GetFilter(GPIO_PRT_Type* base)
     }
 #else
     tempReg = GPIO_PRT_INTR_CFG(base);
-#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) && defined(CY_DEVICE_PSOC6ABLE2) */
+#endif /* defined(CY_DEVICE_PSOC6ABLE2) */
 
     return ((tempReg >> CY_GPIO_INTR_FILT_OFFSET) & CY_GPIO_INTR_FLT_EDGE_MASK);
 }
+#endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
+
 
 #if defined (CY_IP_MXS22IOSS)
 /*******************************************************************************
@@ -3575,7 +3324,7 @@ uint32_t Cy_GPIO_GetFilter(GPIO_PRT_Type* base)
 * Position of the pin bit-field within the port register
 *
 * \param value
-* Pull-up mode for a pin. Options are detailed in 
+* Pull-up mode for a pin. Options are detailed in
 * \ref group_gpio_PullUpMode macros
 *
 * \note

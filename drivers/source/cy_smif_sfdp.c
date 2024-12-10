@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_sfdp.c
-* \version 2.100
+* \version 2.110
 *
 * \brief
 *  This file provides the source code for SFDP enumeration in SMIF driver.
@@ -9,7 +9,8 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2022 Cypress Semiconductor Corporation
+* Copyright 2022-2024 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +28,7 @@
 
 #include "cy_device.h"
 
-#if defined (CY_IP_MXSMIF) && (CY_IP_MXSMIF_VERSION <= 5)
+#if defined (CY_IP_MXSMIF)
 
 #include "cy_smif_memslot.h"
 
@@ -504,7 +505,7 @@ static void SfdpFindParameterTableAddress(uint32_t id,
 *
 * \note 4-byte addressing mode is set when the memory device supports
 *       3- or 4-byte addressing mode and memory density is greater than 16 MB.
-*       Otherwise, use 3-byte addresing mode.
+*       Otherwise, use 3-byte addressing mode.
 *
 * \param sfdpBuffer
 * The pointer to an array with the SDFP buffer.
@@ -696,8 +697,8 @@ static void SfdpGetReadCmd_1_1_8(uint8_t const sfdpBuffer[],
     cmdRead->dataWidth = CY_SMIF_WIDTH_OCTAL;
 }
 #endif
-/* IP version 5 DDR support will be enabled for actual silicon */
-#if ((CY_IP_MXSMIF_VERSION>=2) && (CY_IP_MXSMIF_VERSION !=5))
+
+#if (CY_IP_MXSMIF_VERSION>=2)
 /*******************************************************************************
 * Function Name: SfdpGetReadCmd_1S_4D_4D
 ****************************************************************************//**
@@ -1082,8 +1083,7 @@ static cy_en_smif_protocol_mode_t SfdpGetReadCmdParams(uint8_t const sfdpBuffer[
         if (_FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_4_4,
                       ((uint32_t) sfdpBuffer[sfdpDataIndex])))
         {
-/* IP version 5 DDR support will be enabled for actual silicon */
-#if ((CY_IP_MXSMIF_VERSION>=2) && (CY_IP_MXSMIF_VERSION !=5))
+#if (CY_IP_MXSMIF_VERSION>=2)
             if(_FLD2BOOL(CY_SMIF_SFDP_DTR_SUPPORT, (uint32_t) sfdpBuffer[sfdpDataIndex]))
             {
                 SfdpGetReadCmd_1S_4D_4D(sfdpBuffer, cmdRead);
@@ -1151,7 +1151,7 @@ static void SfdpSetVariableLatencyCmd(SMIF_Type *base,
     cy_stc_smif_mem_cmd_t *cmdReadLatency = device->readLatencyCmd;
     cy_stc_smif_mem_cmd_t *cmdWriteLatency = device->writeLatencyCmd;
     CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 1, 'uint8_t to uin32_t type conversion intentional.')
-    
+
     if ((sccrMapAddr != NULL) && (cmdReadLatency != NULL) && (cmdWriteLatency != NULL))
     {
         /* SCCR Map 9th DWORD Variable Dummy Cycle Settings */
@@ -1350,18 +1350,18 @@ static uint32_t SfdpGetEraseTime(uint32_t const eraseOffset, uint8_t const sfdpB
         {
             eraseMs = CY_SMIF_SFDP_ERASE_TIME_1MS;
         }
-        else if (eraseUnits == CY_SMIF_SFDP_UNIT_1) 
-        {   
+        else if (eraseUnits == CY_SMIF_SFDP_UNIT_1)
+        {
             eraseMs = CY_SMIF_SFDP_ERASE_TIME_16MS;
         }
-        else if (eraseUnits == CY_SMIF_SFDP_UNIT_2) 
-        {   
+        else if (eraseUnits == CY_SMIF_SFDP_UNIT_2)
+        {
            eraseMs = CY_SMIF_SFDP_ERASE_TIME_128MS;
-        } 
-        else if (eraseUnits == CY_SMIF_SFDP_UNIT_3) 
-        {   
+        }
+        else if (eraseUnits == CY_SMIF_SFDP_UNIT_3)
+        {
            eraseMs = CY_SMIF_SFDP_ERASE_TIME_1S;
-        }            
+        }
         else
         {
             /* An unsupported SFDP value */
@@ -1406,14 +1406,14 @@ static uint32_t SfdpGetChipEraseTime(uint8_t const sfdpBuffer[])
         chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_16MS;
     }
     else if (chipEraseUnits == CY_SMIF_SFDP_UNIT_1)
-    {      
+    {
         chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_256MS;
     }
     else if (chipEraseUnits == CY_SMIF_SFDP_UNIT_2)
-    {      
+    {
         chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_4S;
     }
-    else if (chipEraseUnits == CY_SMIF_SFDP_UNIT_3)   
+    else if (chipEraseUnits == CY_SMIF_SFDP_UNIT_3)
     {
         chipEraseMs = CY_SMIF_SFDP_CHIP_ERASE_TIME_64S;
     }
@@ -2074,7 +2074,7 @@ static cy_en_smif_status_t SfdpPopulateRegionInfo(SMIF_Type *base,
 
         /* Get the address length for configuration detection */
         addrCode = _FLD2VAL(CY_SMIF_SFDP_SECTOR_MAP_ADDR_BYTES, sectorMapBuff[currTableIdx + CY_SMIF_SFDP_SECTOR_MAP_ADDR_LEN_OFFSET]);
-        switch(addrCode) 
+        switch(addrCode)
         {
             case CY_SMIF_SFDP_THREE_BYTES_ADDR_CODE:
                 /* No address cycle */
@@ -2294,7 +2294,7 @@ static cy_en_smif_protocol_mode_t GetOctalDDRParams(SMIF_Type *base,
     cy_stc_smif_mem_cmd_t *cmdRead = device->readCmd;
     cy_en_smif_protocol_mode_t pMode = PROTOCOL_MODE_WRONG;
     CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.8', 5, 'uint8_t to uin32_t type conversion intentional.')
-    
+
     /* Initialize SFDP Buffer */
     for (uint32_t i = 0U; i < CY_SMIF_SFDP_LENGTH; i++)
     {
@@ -2415,6 +2415,7 @@ static cy_en_smif_protocol_mode_t GetOctalDDRParams(SMIF_Type *base,
     return pMode;
 }
 #endif
+#ifndef SMIF_JEDEC_STANDARD_DEVICE_RESET_SUPPORT
 /*******************************************************************************
 * Function Name: Cy_SMIF_Reset_Memory
 ****************************************************************************//**
@@ -2433,6 +2434,7 @@ __WEAK void Cy_SMIF_Reset_Memory(SMIF_Type *base, cy_en_smif_slave_select_t slav
     (void)base;
     (void)slaveSelect;
 }
+#endif
 /*******************************************************************************
 * Function Name: Cy_SMIF_MemInitSfdpMode
 ****************************************************************************//**

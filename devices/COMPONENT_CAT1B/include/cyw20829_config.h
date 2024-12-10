@@ -6,7 +6,7 @@
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 *
 * SPDX-License-Identifier: Apache-2.0
@@ -579,16 +579,16 @@ typedef enum
 #include "ip/cyip_peri.h"
 #include "ip/cyip_ppc.h"
 #include "ip/cyip_peri_pclk.h"
-#include "ip/cyip_ramc_ppu.h"
-#include "ip/cyip_icache.h"
-#include "ip/cyip_cpuss_ppu.h"
-#include "ip/cyip_ramc.h"
+#include "ip/cyip_ramc_ppu_v1_2.h"
+#include "ip/cyip_icache_v1_2.h"
+#include "ip/cyip_cpuss_ppu_v1_2.h"
+#include "ip/cyip_ramc_v1_1.h"
 #include "ip/cyip_promc.h"
-#include "ip/cyip_mxcm33.h"
+#include "ip/cyip_mxcm33_v1_1.h"
 #include "ip/cyip_dw.h"
-#include "ip/cyip_cpuss.h"
-#include "ip/cyip_ms_ctl_1_2.h"
-#include "ip/cyip_cpuss_sl_ctl.h"
+#include "ip/cyip_cpuss_v1_2.h"
+#include "ip/cyip_ms_ctl_1_2_v1_2.h"
+#include "ip/cyip_cpuss_sl_ctl_v1_2.h"
 #include "ip/cyip_ipc.h"
 #include "ip/cyip_srss.h"
 #include "ip/cyip_pwrmode.h"
@@ -601,10 +601,10 @@ typedef enum
 #include "ip/cyip_canfd_v3.h"
 #include "ip/cyip_tcpwm_v2.h"
 #include "ip/cyip_mxs40adcmic.h"
-#include "ip/cyip_scb_v4.h"
-#include "ip/cyip_efuse_v3.h"
-#include "ip/cyip_efuse_data_v3_cyw20829.h"
-#include "ip/cyip_smif_v3.h"
+#include "ip/cyip_scb_v4_2.h"
+#include "ip/cyip_efuse_v3_1.h"
+#include "ip/cyip_efuse_data_cyw20829.h"
+#include "ip/cyip_smif_v3_1.h"
 #include "ip/cyip_tdm.h"
 #include "ip/cyip_pdm.h"
 #include "ip/cyip_mxkeyscan.h"

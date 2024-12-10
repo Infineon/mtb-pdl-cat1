@@ -61,10 +61,10 @@
     </ParamChoice>
     <!-- Set an error if the source clock is not enabled -->
 
-    <ParamRange id="timerDivider" name="Timer Divider" group="General" default="1" min="1" max="256" resolution="1" visible="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" editable="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" desc="" />
+    <ParamRange id="timerDivider" name="Timer Divider" group="General" default="`${&quot;mxs40ssrss&quot; eq getIpBlockName() ? 8 : 1}`" min="1" max="256" resolution="1" visible="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;mxs40ssrss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" editable="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" desc="" />
     <ParamRange id="frequency" name="Frequency (MHz)" group="Internal" default="`${&quot;mxs22srss&quot; eq getIpBlockName() ? 1000000 : (sourceFreq / (sourceClock eq imo ? timerDivider : hf0Div))}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
     <!-- If the frequency is less than one MHz, display its value in kHz -->
-    <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${&quot;mxs40srss&quot; eq getIpBlockName() ? formatFrequency(frequency,accuracy) : formatFrequency(1000000)}`" visible="true" editable="false" desc="The resulting CLK_TIMER output clock frequency" />
+    <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${&quot;mxs40srss&quot; eq getIpBlockName() ? formatFrequency(frequency,accuracy) : &quot;mxs40ssrss&quot; eq getIpBlockName() ? formatFrequency(sourceFreq / timerDivider) : formatFrequency(2000000)}`" visible="true" editable="false" desc="The resulting CLK_TIMER output clock frequency" />
   </Parameters>
   <DRCs>
     <DRC type="ERROR" text="Source clock for CLK_TIMER is not enabled" condition="`${error}`" >
@@ -76,6 +76,6 @@
     <ConfigDefine name="CY_CFG_SYSCLK_CLKTIMER_ENABLED" value="1" public="false" include="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKTIMER_SOURCE" value="CY_SYSCLK_CLKTIMER_IN_`${sourceClock eq imo ? &quot;IMO&quot; : &quot;HF0&quot; . (hf0Div == 1 ? &quot;_NODIV&quot; : &quot;_DIV&quot; . hf0Div)}`" public="false" include="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" />
     <ConfigDefine name="CY_CFG_SYSCLK_CLKTIMER_DIVIDER" value="`${timerDivider-1}`U" public="false" include="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkTimerInit()" body="    Cy_SysClk_ClkTimerDisable();&#xA;    Cy_SysClk_ClkTimerSetSource(CY_SYSCLK_CLKTIMER_IN_`${sourceClock eq imo ? &quot;IMO&quot; : &quot;HF0&quot; . (hf0Div == 1 ? &quot;_NODIV&quot; : &quot;_DIV&quot; . hf0Div)}`);&#xA;    Cy_SysClk_ClkTimerSetDivider(`${timerDivider-1}`U);&#xA;    Cy_SysClk_ClkTimerEnable();" public="false" include="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" guard="(!defined(CY_DEVICE_SECURE))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_ClkTimerInit(void)" body="    Cy_SysClk_ClkTimerDisable();&#xA;    Cy_SysClk_ClkTimerSetSource(CY_SYSCLK_CLKTIMER_IN_`${sourceClock eq imo ? &quot;IMO&quot; : &quot;HF0&quot; . (hf0Div == 1 ? &quot;_NODIV&quot; : &quot;_DIV&quot; . hf0Div)}`);&#xA;    Cy_SysClk_ClkTimerSetDivider(`${timerDivider-1}`U);&#xA;    Cy_SysClk_ClkTimerEnable();" public="false" include="`${&quot;mxs40srss&quot; eq getIpBlockName() ? &quot;true&quot; : &quot;false&quot;}`" guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

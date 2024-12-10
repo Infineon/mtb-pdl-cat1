@@ -62,6 +62,6 @@
     <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_MFO_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_MFO_DEEPSLEEP_ENABLED" value="`${dsen}`" public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_MfoInit()" body="    Cy_SysClk_MfoEnable(CY_CFG_SYSCLK_MFO_DEEPSLEEP_ENABLED);" public="false" include="true" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_MfoInit(void)" body="    Cy_SysClk_MfoEnable(CY_CFG_SYSCLK_MFO_DEEPSLEEP_ENABLED);" public="false" include="true" />
   </ConfigFirmware>
 </Personality>

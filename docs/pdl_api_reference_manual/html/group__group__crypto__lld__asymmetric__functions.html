@@ -131,6 +131,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gae5c9d2e743370c2d3b284fd88de41da4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gae5c9d2e743370c2d3b284fd88de41da4">Cy_Crypto_Core_ED25519_PointMultiplication</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, const uint8_t *ecpGX, const uint8_t *ecpGY, const uint8_t *ecpD, uint8_t *ecpQX, uint8_t *ecpQY)</td></tr>
 <tr class="memdesc:gae5c9d2e743370c2d3b284fd88de41da4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edwards 25519 elliptic curve point multiplication in GF(p).  <a href="#gae5c9d2e743370c2d3b284fd88de41da4">More...</a><br /></td></tr>
 <tr class="separator:gae5c9d2e743370c2d3b284fd88de41da4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1124df65ca823fe27abd39c0bfed400e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga1124df65ca823fe27abd39c0bfed400e">Cy_Crypto_Core_ED25519_PointDecode</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, const uint8_t *publicKey, uint8_t *pubKey_x, uint8_t *pubKey_y)</td></tr>
+<tr class="memdesc:ga1124df65ca823fe27abd39c0bfed400e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode ED25519 encoded public key in to x and y.  <a href="#ga1124df65ca823fe27abd39c0bfed400e">More...</a><br /></td></tr>
+<tr class="separator:ga1124df65ca823fe27abd39c0bfed400e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaee9926a45f48ad4576662b03e5b3964"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gaaee9926a45f48ad4576662b03e5b3964">Cy_Crypto_Core_ED25519_Verify</a> (CRYPTO_Type *base, uint8_t *sig, const uint8_t *hash, uint32_t hashlen, const <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *key, uint32_t *stat, <a class="el" href="group__group__crypto__enums.html#gab07bfdbc2dd702f0350c8c73bfe94fe9">cy_en_eddsa_sig_type_t</a> sigType, const uint8_t *sigctx, uint32_t sigctx_len)</td></tr>
 <tr class="memdesc:gaaee9926a45f48ad4576662b03e5b3964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify ED25519 signed message.  <a href="#gaaee9926a45f48ad4576662b03e5b3964">More...</a><br /></td></tr>
 <tr class="separator:gaaee9926a45f48ad4576662b03e5b3964"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -845,6 +848,66 @@ Functions</h2></td></tr>
     <tr><td class="paramname">ecpD</td><td>multiplication scalar value.</td></tr>
     <tr><td class="paramname">ecpQX</td><td>X coordinate of result point.</td></tr>
     <tr><td class="paramname">ecpQY</td><td>Y coordinate of result point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga1124df65ca823fe27abd39c0bfed400e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1124df65ca823fe27abd39c0bfed400e">&#9670;&nbsp;</a></span>Cy_Crypto_Core_ED25519_PointDecode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_ED25519_PointDecode </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>&#160;</td>
+          <td class="paramname"><em>curveID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>publicKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>pubKey_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>pubKey_y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decode ED25519 encoded public key in to x and y. </p>
+<p>For CAT1C &amp; CAT1D devices with DCache enabled this API is not supported.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
+    <tr><td class="paramname">curveID</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>.</td></tr>
+    <tr><td class="paramname">publicKey</td><td>[in] encoded 32 byte Public key.</td></tr>
+    <tr><td class="paramname">pubKey_x</td><td>[out] Decoded 32 bytes Public key x in little-endian format.</td></tr>
+    <tr><td class="paramname">pubKey_y</td><td>[out] Decoded 32 bytes Public key y in little-endian format.</td></tr>
   </table>
   </dd>
 </dl>

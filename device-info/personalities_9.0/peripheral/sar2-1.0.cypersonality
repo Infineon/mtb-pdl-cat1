@@ -42,7 +42,7 @@
 
     <ParamBool id="isPowerEnabled" name="Is Power Enabled" group="Internal" default="`${isBlockUsed(&quot;srss[0].power[0]&quot;)}`" visible="`${debug}`" editable="false" desc="" />
     <ParamRange id="vdda" name="vdda" group="Internal" default="`${isPowerEnabled ? getExposedMember(&quot;srss[0].power[0]&quot;, &quot;vddaMv&quot;) / 1000.0 : 3.6}`" min="0" max="10" resolution="0.001" visible="`${debug}`" editable="false" desc="" />
-    
+
     <ParamChoice id="VDDAsel" name="VDDA Range" group="General" default="`${(vdda &gt; 4.5) ? VDDA_VOLTAGE_4_5V_TO_5_5V : VDDA_VOLTAGE_2_7V_TO_4_5V}`" visible="false" editable="false" desc="VDDA range">
       <Entry name="Range 4,5V-5,5V" value="VDDA_VOLTAGE_4_5V_TO_5_5V" visible="true" />
       <Entry name="Range 2,7V-4,5V" value="VDDA_VOLTAGE_2_7V_TO_4_5V" visible="true" />
@@ -197,6 +197,9 @@
       <ConfigInclude value="cycfg_routing.h" include="true" />
       <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
       <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL)" />
+      <ConfigInclude value="mtb_hal.h" include="true" guard="defined (COMPONENT_MTB_HAL)" />
+      <ConfigInclude value="cycfg_clocks.h" include="true" guard="defined (COMPONENT_MTB_HAL)" />
+      <ConfigInclude value="mtb_hal_hw_types.h" include="true" guard="defined (COMPONENT_MTB_HAL)" />
       <ConfigInclude value="cyhal_hw_types.h" include="true" guard="defined (CY_USING_HAL_LITE)" />
 
       <ConfigDefine name="`${INST_NAME}`_HW" value="PASS0_SAR`${InstNumber}`" public="true" include="true" />
@@ -221,7 +224,7 @@
         <Member name="preenptionType" value="`${ch$idx_preenptionType}`" />
         <Member name="doneLevel" value="`${ch$idx_doneLevel}`" />
         <Member name="isGroupEnd" value="`${ch$idx_isGroupEnd}`" />
-        <Member name="pinAddress" value="`${hasConnection(&quot;vin&quot;, $idx) ? &quot;SARMUX&quot; . InstNumber . &quot;_CH$idx_PIN_ADDR&quot; : 0}`" />   
+        <Member name="pinAddress" value="`${hasConnection(&quot;vin&quot;, $idx) ? &quot;SARMUX&quot; . InstNumber . &quot;_CH$idx_PIN_ADDR&quot; : 0}`" />
         <Member name="portAddress" value="`${InstNumber == 0 &amp;&amp; hasConnection(&quot;vin&quot;, $idx) ? &quot;SARMUX0_CH$idx_PORT_ADDR&quot; : 0}`" />
         <Member name="extMuxEnable" value="`${ch$idx_extMuxEnable}`" />
         <Member name="extMuxSelect" value="`${ch$idx_extMuxSelect}`U" />
@@ -308,8 +311,26 @@
         <Member name="achieved_acquisition_time" value="NULL" />
       </ConfigStruct>
 
+      <ConfigStruct name="`${INST_NAME}`_clock_ref" type="mtb_hal_peri_div_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL)">
+        <Member name="clk_dst" value="(en_clk_dst_t)`${getExposedMember(sourceClock, &quot;instName&quot;)}`_GRP_NUM" />
+        <Member name="div_type" value="`${getExposedMember(sourceClock, &quot;instName&quot;)}`_HW" />
+        <Member name="div_num" value="`${getExposedMember(sourceClock, &quot;instName&quot;)}`_NUM" />
+      </ConfigStruct>
+
+      <ConfigStruct name="`${INST_NAME}`_hal_clock" type="mtb_hal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL)">
+        <Member name="clock_ref" value="&amp;`${INST_NAME}`_clock_ref" />
+        <Member name="interface" value="&amp;mtb_hal_clock_interface" />
+      </ConfigStruct>
+
+      <ConfigStruct name="`${INST_NAME}`_hal_config" type="mtb_hal_adc_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL) &amp;&amp; (MTB_HAL_DRIVER_AVAILABLE_ADC)">
+        <Member name="base" value="`${INST_NAME}`_HW" />
+        <Member name="config" value="&amp;`${INST_NAME}`_config" />
+        <Member name="clock" value="&amp;`${INST_NAME}`_hal_clock" />
+        <Member name="num_channels" value="`${channelNum}`" />
+      </ConfigStruct>
+
     <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`" />
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
-      
+
   </ConfigFirmware>
 </Personality>

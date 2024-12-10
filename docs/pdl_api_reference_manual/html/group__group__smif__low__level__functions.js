@@ -53,6 +53,11 @@ var group__group__smif__low__level__functions =
     [ "Cy_SMIF_GetMasterDLP", "group__group__smif__low__level__functions.html#ga338f6c1d218cd2093c48254995f6f06b", null ],
     [ "Cy_SMIF_GetMasterDLPSize", "group__group__smif__low__level__functions.html#ga220136f6a2fe90ea720c3e1577f96421", null ],
     [ "Cy_SMIF_GetTapNumCapturedCorrectDLP", "group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644", null ],
-    [ "Cy_SMIF_SetSelectedDelayTapSel", "group__group__smif__low__level__functions.html#gad090759fd4274f1ed9af72742ef7354c", null ],
-    [ "Cy_SMIF_GetSelectedDelayTapSel", "group__group__smif__low__level__functions.html#gac18b090fdeb706017c0440961dc398c3", null ]
+    [ "Cy_SMIF_InitCache", "group__group__smif__low__level__functions.html#gab67d2aecdf1783c11ea54acb78ea2034", null ],
+    [ "Cy_SMIF_Clean_All_Cache", "group__group__smif__low__level__functions.html#gaf787cd8f7a861b180590d688355e8f60", null ],
+    [ "Cy_SMIF_Invalidate_All_Cache", "group__group__smif__low__level__functions.html#ga2538ba5552b05c63ae9a2a4c21dbcab3", null ],
+    [ "Cy_SMIF_Clean_And_Invalidate_All_Cache", "group__group__smif__low__level__functions.html#ga2a1e1e493def6dbcf46207f7e322052d", null ],
+    [ "Cy_SMIF_Clean_Cache_by_Addr", "group__group__smif__low__level__functions.html#ga7443088032b3b278ad5a9228be60378b", null ],
+    [ "Cy_SMIF_Invalidate_Cache_by_Addr", "group__group__smif__low__level__functions.html#ga4be70e1edc5b91fbe0269e28395ae375", null ],
+    [ "Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr", "group__group__smif__low__level__functions.html#gaa86bff8a6d243c3d27a12414c5fbb174", null ]
 ];

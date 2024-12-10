@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['y',['y',['../structcy__stc__cryptolite__ecc__point.html#a0bc996bae7233d396d2521f34ebeb4f1',1,'cy_stc_cryptolite_ecc_point']]],
-  ['ycount',['yCount',['../structcy__stc__axidmac__descriptor__config__t.html#a25111baf3b67e115fdb408a2dbcf20e8',1,'cy_stc_axidmac_descriptor_config_t::yCount()'],['../structcy__stc__dma__descriptor__config__t.html#a4708f3e8e216ff8a637cf9caf6084f23',1,'cy_stc_dma_descriptor_config_t::yCount()'],['../structcy__stc__dmac__descriptor__config__t.html#ae98ef1c0c9f829c694ad24a5b8b43b20',1,'cy_stc_dmac_descriptor_config_t::yCount()']]],
-  ['yctl',['yCtl',['../structcy__stc__dma__descriptor__t.html#a0398909e4e607b1ad218c23e1e8d7de9',1,'cy_stc_dma_descriptor_t']]],
-  ['year',['year',['../structcy__stc__rtc__config__t.html#ac459a5fc9e76dcb24978ef21579fc6d5',1,'cy_stc_rtc_config_t']]],
-  ['yincr',['yIncr',['../structcy__stc__axidmac__descriptor__t.html#a1a980e4bb2c7387bb2bb39172b0ca24e',1,'cy_stc_axidmac_descriptor_t::yIncr()'],['../structcy__stc__dmac__descriptor__t.html#a7b33f024ecf960e6e041236b8087c1f9',1,'cy_stc_dmac_descriptor_t::yIncr()']]],
-  ['ysize',['ySize',['../structcy__stc__axidmac__descriptor__t.html#ad3046eb8e9130e8c5ec307190aabe1e1',1,'cy_stc_axidmac_descriptor_t::ySize()'],['../structcy__stc__dmac__descriptor__t.html#a587e6892c6582571d820c58dc1732232',1,'cy_stc_dmac_descriptor_t::ySize()']]]
+  ['x',['x',['../structcy__stc__cryptolite__ecc__point.html#aedbd6c954ab2fb19aac7f79c5403313a',1,'cy_stc_cryptolite_ecc_point']]],
+  ['xcount',['xCount',['../structcy__stc__axidmac__descriptor__config__t.html#a40ee199b4764daab6d2edaf7ddf09831',1,'cy_stc_axidmac_descriptor_config_t::xCount()'],['../structcy__stc__dma__descriptor__config__t.html#a23df6ae648618339b9221ad95363f328',1,'cy_stc_dma_descriptor_config_t::xCount()'],['../structcy__stc__dmac__descriptor__config__t.html#a0d2682fd8330b970ffa7221ad8b02fa9',1,'cy_stc_dmac_descriptor_config_t::xCount()']]],
+  ['xctl',['xCtl',['../structcy__stc__dma__descriptor__t.html#a9b8e7779bdb78126c5267f1ad8d657ce',1,'cy_stc_dma_descriptor_t']]],
+  ['xferpending',['xferPending',['../structcy__stc__scb__i2c__master__xfer__config__t.html#a2e158df2a2854d193d589021c2128aa4',1,'cy_stc_scb_i2c_master_xfer_config_t']]],
+  ['xincr',['xIncr',['../structcy__stc__axidmac__descriptor__t.html#a89489b17d71e099f077c2ad06486acb2',1,'cy_stc_axidmac_descriptor_t::xIncr()'],['../structcy__stc__dmac__descriptor__t.html#a39d7a8a6773abc50e598bab19f0615ea',1,'cy_stc_dmac_descriptor_t::xIncr()']]],
+  ['xsize',['xSize',['../structcy__stc__axidmac__descriptor__t.html#a9de58e3219f5dbb5272794b5f8886ecd',1,'cy_stc_axidmac_descriptor_t::xSize()'],['../structcy__stc__dmac__descriptor__t.html#a4c7a6e7ea3d8bb46ac1c5a0aa5691212',1,'cy_stc_dmac_descriptor_t::xSize()']]],
+  ['xtd',['xtd',['../structcy__stc__canfd__r0__t.html#ad82c419283c2f7f4f2ed1e8eafe50292',1,'cy_stc_canfd_r0_t::xtd()'],['../structcy__stc__canfd__t0__t.html#ab3f276da56ce16a05b7aca61a4a1330f',1,'cy_stc_canfd_t0_t::xtd()']]]
 ];

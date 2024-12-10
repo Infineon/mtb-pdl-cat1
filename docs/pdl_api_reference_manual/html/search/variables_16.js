@@ -1,10 +1,23 @@
 var searchData=
 [
-  ['x',['x',['../structcy__stc__cryptolite__ecc__point.html#aedbd6c954ab2fb19aac7f79c5403313a',1,'cy_stc_cryptolite_ecc_point']]],
-  ['xcount',['xCount',['../structcy__stc__axidmac__descriptor__config__t.html#a40ee199b4764daab6d2edaf7ddf09831',1,'cy_stc_axidmac_descriptor_config_t::xCount()'],['../structcy__stc__dma__descriptor__config__t.html#a23df6ae648618339b9221ad95363f328',1,'cy_stc_dma_descriptor_config_t::xCount()'],['../structcy__stc__dmac__descriptor__config__t.html#a0d2682fd8330b970ffa7221ad8b02fa9',1,'cy_stc_dmac_descriptor_config_t::xCount()']]],
-  ['xctl',['xCtl',['../structcy__stc__dma__descriptor__t.html#a9b8e7779bdb78126c5267f1ad8d657ce',1,'cy_stc_dma_descriptor_t']]],
-  ['xferpending',['xferPending',['../structcy__stc__scb__i2c__master__xfer__config__t.html#a2e158df2a2854d193d589021c2128aa4',1,'cy_stc_scb_i2c_master_xfer_config_t']]],
-  ['xincr',['xIncr',['../structcy__stc__axidmac__descriptor__t.html#a89489b17d71e099f077c2ad06486acb2',1,'cy_stc_axidmac_descriptor_t::xIncr()'],['../structcy__stc__dmac__descriptor__t.html#a39d7a8a6773abc50e598bab19f0615ea',1,'cy_stc_dmac_descriptor_t::xIncr()']]],
-  ['xsize',['xSize',['../structcy__stc__axidmac__descriptor__t.html#a9de58e3219f5dbb5272794b5f8886ecd',1,'cy_stc_axidmac_descriptor_t::xSize()'],['../structcy__stc__dmac__descriptor__t.html#a4c7a6e7ea3d8bb46ac1c5a0aa5691212',1,'cy_stc_dmac_descriptor_t::xSize()']]],
-  ['xtd',['xtd',['../structcy__stc__canfd__r0__t.html#ad82c419283c2f7f4f2ed1e8eafe50292',1,'cy_stc_canfd_r0_t::xtd()'],['../structcy__stc__canfd__t0__t.html#ab3f276da56ce16a05b7aca61a4a1330f',1,'cy_stc_canfd_t0_t::xtd()']]]
+  ['waittapinit',['waitTapInit',['../structcy__stc__hppass__fir__t.html#aac806593050ece73c2ea48a9552c065a',1,'cy_stc_hppass_fir_t']]],
+  ['watermark',['watermark',['../structcy__en__canfd__fifo__config__t.html#aaba082750410c1baed2f939fe0dacf89',1,'cy_en_canfd_fifo_config_t']]],
+  ['wave',['wave',['../structcy__stc__seglcd__config__t.html#a6a9444555b4cc7d3c545a1272e28fc76',1,'cy_stc_seglcd_config_t']]],
+  ['waveform',['waveform',['../structcy__stc__hppass__lut__t.html#a6d781442f4c42e5cf98f1907b9e7ba11',1,'cy_stc_hppass_lut_t']]],
+  ['wcoenable',['wcoEnable',['../structcy__stc__pra__system__config__t.html#aea04aa5dbaa0bede943ade96e68b389d',1,'cy_stc_pra_system_config_t']]],
+  ['wcoinpinnum',['wcoInPinNum',['../structcy__stc__pra__system__config__t.html#a21df0ea373349c2365c3c71751faecdf',1,'cy_stc_pra_system_config_t']]],
+  ['wcoinport',['wcoInPort',['../structcy__stc__pra__system__config__t.html#a23364ee6a0f0d6ea09fe0c48422ee412',1,'cy_stc_pra_system_config_t']]],
+  ['wcooutpinnum',['wcoOutPinNum',['../structcy__stc__pra__system__config__t.html#af05c29fe09183b5008bc639cca145628',1,'cy_stc_pra_system_config_t']]],
+  ['wcooutport',['wcoOutPort',['../structcy__stc__pra__system__config__t.html#a4cd08dbd4b55e3b80e34ed78694d1399',1,'cy_stc_pra_system_config_t']]],
+  ['weekofmonth',['weekOfMonth',['../structcy__stc__rtc__dst__format__t.html#a088fc62383ebdfdc28d33d84a3d0b33b',1,'cy_stc_rtc_dst_format_t']]],
+  ['weight',['weight',['../structcy__stc__profile__ctr__t.html#a8d4a20c29f5b752b634767ba596085a4',1,'cy_stc_profile_ctr_t']]],
+  ['whole',['whole',['../structcy__stc__flash__checksum__config__t.html#aef728a38bc8e173899ae21efde2a21f9',1,'cy_stc_flash_checksum_config_t']]],
+  ['wordlen',['wordLen',['../structcy__stc__pdm__pcm__config__t.html#ab2ab60f66c03b9bfb896ee01deb5a34d',1,'cy_stc_pdm_pcm_config_t']]],
+  ['wordsize',['wordSize',['../structcy__stc__pdm__pcm__channel__config__t.html#a82620ac296c4f2ee40f8a0405acdab59',1,'cy_stc_pdm_pcm_channel_config_t::wordSize()'],['../structcy__stc__tdm__config__tx__t.html#a0a4251c3863764fcad2e6d42efc5e483',1,'cy_stc_tdm_config_tx_t::wordSize()'],['../structcy__stc__tdm__config__rx__t.html#a0727e5bcc4e0161c8128b90e9b208248',1,'cy_stc_tdm_config_rx_t::wordSize()']]],
+  ['wridx',['wrIdx',['../structcy__stc__ipc__msg__fifo__t.html#aff0f00f7c144ca0eb3b6d23aa05d88f0',1,'cy_stc_ipc_msg_fifo_t']]],
+  ['writediscmd',['writeDisCmd',['../structcy__stc__smif__mem__device__cfg__t.html#a4e784af10fe9c014e4303990a5fa8171',1,'cy_stc_smif_mem_device_cfg_t']]],
+  ['writeencmd',['writeEnCmd',['../structcy__stc__smif__mem__device__cfg__t.html#a456a87e11eb3e32c7211b547d49fb747',1,'cy_stc_smif_mem_device_cfg_t']]],
+  ['writeindex',['writeIndex',['../structcy__stc__keyscan__context__t.html#af110e6b3cb23572eb0aa95677c0d0e82',1,'cy_stc_keyscan_context_t']]],
+  ['writelatencycmd',['writeLatencyCmd',['../structcy__stc__smif__mem__device__cfg__t.html#aeaa8b36aacfa7b39dcfbbbe042c832a8',1,'cy_stc_smif_mem_device_cfg_t']]],
+  ['writestsregqecmd',['writeStsRegQeCmd',['../structcy__stc__smif__mem__device__cfg__t.html#ad4c73ef9b9a7932c2832347c4c268ffa',1,'cy_stc_smif_mem_device_cfg_t']]]
 ];

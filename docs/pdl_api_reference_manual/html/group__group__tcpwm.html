@@ -87,10 +87,10 @@ $(document).ready(function(){initNavTree('group__group__tcpwm.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<p>The TCPWM driver is a multifunction driver that implements Timer Counter, PWM, Quadrature Decoder and Shift Register functionality using the TCPWM block. </p>
-<p>The functions and other declarations used in this driver are in cy_tcpwm_counter.h, cy_tcpwm_pwm.h, cy_tcpwm_quaddec.h, cy_tcpwm_shiftreg.h respectively. Include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
+<p>The TCPWM driver is a multifunction driver that implements Timer Counter, PWM, Quadrature Decoder, Shift Register and Motion Interface functionality using the TCPWM block. </p>
+<p>The functions and other declarations used in this driver are in cy_tcpwm_counter.h, cy_tcpwm_pwm.h, cy_tcpwm_quaddec.h, cy_tcpwm_shiftreg.h, cy_tcpwm_motif.h respectively. Include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
 <p>Each TCPWM block is a collection of counters that can all be triggered simultaneously. For each function call, the base register address of the TCPWM being used must be passed first, followed by the index of the counter you want to touch next.</p>
-<p>The TCPWM supports seven function modes:</p><ul>
+<p>The TCPWM supports eight function modes:</p><ul>
 <li>Timer</li>
 <li>Capture</li>
 <li>Quadrature Decoder</li>
@@ -98,12 +98,14 @@ $(document).ready(function(){initNavTree('group__group__tcpwm.html','');});
 <li>PWM with dead time insertion (PWMDT)</li>
 <li>Pseudo random PWM (PWMPR)</li>
 <li>Shift Register</li>
+<li>Motion Interface (MOTIF)</li>
 </ul>
 <p>The TCPWM driver is structured to map these seven functional modes to four high level operating modes:</p><ul>
 <li>Timer/Counter (includes Timer, Capture modes)</li>
 <li>PWM (PWM, PWMDT, PWMPR)</li>
 <li>Quadrature Decoder</li>
 <li>Shift Register</li>
+<li>MOTIF</li>
 </ul>
 <p>A brief description on each of the operating modes:</p>
 <p><b>Timer/Counter</b> </p>
@@ -137,7 +139,7 @@ TCPWM Versions</h1>
 <li>The mxtcpwm.3.0 consists of up to 2048, 16-bit or 32-bit counters</li>
 <li>Counter groups up to 8*256</li>
 <li>Counter compare, period, line_sel and dead time registers are double buffered.</li>
-<li>Parallel data path support for CC0/CC1 register through dedicated data interface (only applicable to mxtcpwm 3.1, PSoC C3 (CAT1B) do not support this)</li>
+<li>Parallel data path support for CC0/CC1 register through dedicated data interface (only applicable to mxtcpwm 3.1, PSOC C3 do not support this)</li>
 <li>Glitch Filter with configurable depth supported on General-purpose triggers used by all counters and specific one-to-one triggers for each counter</li>
 <li>Shadow registers available for duty, period, dead time, signal and polarity</li>
 <li>Enhanced shadow update mechanism</li>
@@ -153,7 +155,7 @@ TCPWM Versions</h1>
 <li>Synchronous modulation support for multiple counters</li>
 </ul>
 </li>
-<li>Support HRPWM (High resolution PWM generation) feature in both 16-bit and 32-bit TCPWM counters (Only applicable to mxtcpwm 3.1, PSoC C3 (CAT1B) only has 4 HRPWM blocks on the 32 bit PWMs.)<ul>
+<li>Support HRPWM (High resolution PWM generation) feature in both 16-bit and 32-bit TCPWM counters (Only applicable to mxtcpwm 3.1, PSOC C3 only has 4 HRPWM blocks on the 32 bit PWMs.)<ul>
 <li>HRPWM enhancements are limited to PWM and PWM_DT mode only</li>
 <li>HRPWM consists of an analog interpolator (also referred as delay element)</li>
 <li>Analog interpolator consists of delay elements which uses the input clock to generate a set of delayed phases. These delayed phases are then used to delay the edges of the incoming PWM from tcpwm.</li>
@@ -273,6 +275,19 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td rowspan="2">1.80 </td><td>Newly added Motion Interface (MOTIF) functionality. </td><td>Added the new Motion Interface for the PSOC C3 (CAT1B) device.  </td></tr>
+<tr>
+<td><p class="starttd">Updated the following APIs:</p><ul>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga6440d2a9dc8d85056abd62556bee7f82">Cy_TCPWM_PWM_Init</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga311f238402c63c616ee650d88cea181f">Cy_TCPWM_PWM_GetStatus</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__quaddec.html#ga44dc33f42820e7539bcac89efc9418db">Cy_TCPWM_QuadDec_GetStatus</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__counter.html#gae39af6cd9306eaca090fa62999fd81af">Cy_TCPWM_Counter_GetStatus</a></li>
+</ul>
+<p class="endtd">Newly added APIs:</p><ul>
+<li><a class="el" href="group__group__tcpwm__functions__common.html#ga950b401d5acbd494be8bb5190d77e9a0">Cy_TCPWM_SetDebugSuspend</a> </li>
+</ul>
+</td><td>Bug fixing and HRPWM enhancements.  </td></tr>
+<tr>
 <td rowspan="2">1.70 </td><td>Newly added enum <a class="el" href="group__group__tcpwm__enums.html#ga619cd467ef63110365ad9e01785d7293">cy_en_copy_swap_config_t</a>.<ul>
 <li>Newly added API <a class="el" href="group__group__tcpwm__functions__counter.html#gaee3f140d6da2342b0bfb26f629a98ddf">Cy_TCPWM_Counter_SetDirection_Change_Mode</a> and updated API <a class="el" href="group__group__tcpwm__functions__common.html#ga9cce3f9a4b4f0d381565599279a7dd18">Cy_TCPWM_Block_EnableSwap</a>.  </li>
 </ul>
@@ -286,6 +301,9 @@ Changelog</h1>
 <p>Updated the following APIs:</p><ul>
 <li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga6440d2a9dc8d85056abd62556bee7f82">Cy_TCPWM_PWM_Init</a></li>
 <li><a class="el" href="group__group__tcpwm__functions__pwm.html#gab9f1093f64fc39c0be2e8917b9b610cb">Cy_TCPWM_PWM_Configure_Dithering</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga311f238402c63c616ee650d88cea181f">Cy_TCPWM_PWM_GetStatus</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__quaddec.html#ga44dc33f42820e7539bcac89efc9418db">Cy_TCPWM_QuadDec_GetStatus</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__counter.html#gae39af6cd9306eaca090fa62999fd81af">Cy_TCPWM_Counter_GetStatus</a></li>
 </ul>
 <p class="endtd">Newly added and updated enums:</p><ul>
 <li><a class="el" href="group__group__tcpwm__data__structures__pwm.html#ga8c9f3eeb107eae3ea2a485f9169e3759">cy_en_hrpwm_operating_frequency_t</a></li>
@@ -354,6 +372,9 @@ API Reference</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__tcpwm__shiftreg"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__shiftreg.html">Shift Register (TCPWM)</a></td></tr>
 <tr class="memdesc:group__group__tcpwm__shiftreg"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver API for Shift Register. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:group__group__tcpwm__motif"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__motif.html">Motion Interface (TCPWM)</a></td></tr>
+<tr class="memdesc:group__group__tcpwm__motif"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver API for Motion Interface. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

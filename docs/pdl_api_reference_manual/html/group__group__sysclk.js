@@ -30,6 +30,10 @@ var group__group__sysclk =
     [ "Internal Main Oscillator(IMO) Clock", "group__group__sysclk__imo.html", "group__group__sysclk__imo" ],
     [ "Mem Clock", "group__group__sysclk__clk__mem.html", "group__group__sysclk__clk__mem" ],
     [ "Power Clock", "group__group__sysclk__clk__pwr.html", "group__group__sysclk__clk__pwr" ],
-    [ "Group_sysclk_clk_hf_structs", "group__group__sysclk__clk__hf__structs.html", null ],
-    [ "Group_sysclk_clk_lf_structs", "group__group__sysclk__clk__lf__structs.html", null ]
+    [ "Group_sysclk_clk_ref_enums", "group__group__sysclk__clk__ref__enums.html", "group__group__sysclk__clk__ref__enums" ],
+    [ "Group_sysclk_clk_ref_structs", "group__group__sysclk__clk__ref__structs.html", "group__group__sysclk__clk__ref__structs" ],
+    [ "Group_sysclk_clk_ref_funcs", "group__group__sysclk__clk__ref__funcs.html", null ],
+    [ "Group_sysclk_clk_ilo_enums", "group__group__sysclk__clk__ilo__enums.html", "group__group__sysclk__clk__ilo__enums" ],
+    [ "Group_sysclk_clk_ilo_structs", "group__group__sysclk__clk__ilo__structs.html", "group__group__sysclk__clk__ilo__structs" ],
+    [ "Group_sysclk_clk_ilo_funcs", "group__group__sysclk__clk__ilo__funcs.html", null ]
 ];

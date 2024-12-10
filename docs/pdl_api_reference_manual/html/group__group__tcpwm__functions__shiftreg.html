@@ -353,6 +353,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The status. See <a class="el" href="group__group__tcpwm__shiftreg__status.html">Shift Register Status</a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The status value is not the same as in TCPWM status register.</dd></dl>
 <div class="fragment"><div class="line">    <span class="comment">/* Scenario: there is a need to check if</span></div><div class="line"><span class="comment">     * the first (index = 0) Shift Register of the TCPWM0 block is running or not.</span></div><div class="line"><span class="comment">     */</span></div><div class="line"><span class="preprocessor">    #define MY_TCPWM_SHIFTREG_NUM   (0UL)</span></div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (0UL != (<a class="code" href="group__group__tcpwm__shiftreg__status.html#ga0c8048ef42cfd40b8b9d1d60ff23eae3">CY_TCPWM_SHIFTREG_STATUS_RUNNING</a> &amp;</div><div class="line">                <a class="code" href="group__group__tcpwm__functions__shiftreg.html#ga45c50325effedc0dc9a4805fe287c2bd">Cy_TCPWM_ShiftReg_GetStatus</a>(TCPWM0, MY_TCPWM_SHIFTREG_NUM)))</div><div class="line">    {</div><div class="line">        <span class="comment">/* Shift Register is running */</span></div><div class="line">    }</div></div><!-- fragment -->
 </div>
 </div>

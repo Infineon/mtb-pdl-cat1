@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.60
+* \version 3.70
 *
 * Provides an API declaration of the SysLib driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2016-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -114,7 +114,7 @@
 *
 * <b> Delay Functions </b> <br />
 * Delay functions are supported with different flavors of delays and are implemented
-* by executing known instructions in a loop considering the CPU cycles consumed by these 
+* by executing known instructions in a loop considering the CPU cycles consumed by these
 * instructions to execute. The loop count is calculated based on the amount of delay required.
 * Cycles taken for the execution of instructions has a direct impact on the
 * accuracy of the delay. For the best accuracy of delay, these functions need to be executed
@@ -133,8 +133,13 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>3.70</td>
+*     <td>Updated API \ref Cy_SysLib_GetUniqueId and added new \ref Cy_Syslib_IsMemCacheable.</td>
+*     <td>Code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>3.60</td>
-*     <td>Updated API \ref Cy_SysLib_GetUniqueId, added section for unified linker script updation</td>
+*     <td>Updated API \ref Cy_SysLib_GetUniqueId, added section for unified linker script update</td>
 *     <td>Code enhancement and bug fixes to enable API compilation for PSoC C3 (CAT1B).</td>
 *   </tr>
 *   <tr>
@@ -611,7 +616,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    60
+#define CY_SYSLIB_DRV_VERSION_MINOR    70
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN
@@ -1026,7 +1031,7 @@ typedef double   float64_t; /**< Specific-length typedef for the basic numerical
 #define CY_IPC_DATA_FOR_CM4_SOFT_RESET  (0x1B000002UL)
 #endif
 
-#if defined(CY_IP_M4CPUSS) || defined (CY_IP_M33SYSCPUSS)
+#if defined(CY_IP_M4CPUSS) || defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M55APPCPUSS)
 
 /**
 * \defgroup group_syslib_macros_unique_id Unique ID
@@ -1279,7 +1284,9 @@ void Cy_SysLib_SoftResetCM4(void);
 #endif
 
 #if (defined(CY_IP_M4CPUSS) && !(defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u))) || \
-    (defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE)) || defined (CY_DOXYGEN)
+    (defined (CY_IP_M33SYSCPUSS) && defined(CY_IP_MXEFUSE)) || \
+    ((defined (CY_IP_M33SYSCPUSS) || defined (CY_IP_M55APPCPUSS)) && defined(CY_IP_MXS22RRAMC)) || \
+    defined (CY_DOXYGEN)
 
 /*******************************************************************************
 * Function Name: Cy_SysLib_GetUniqueId
@@ -1301,11 +1308,16 @@ void Cy_SysLib_SoftResetCM4(void);
 *          [ 7: 0] - DIE_LOT[0]
 *
 * \note
-* This API is available for devices having M4CPUSS and CY_IP_M33SYSCPUSS IP.
+* This API is available for devices having M4CPUSS, CY_IP_M33SYSCPUSS and
+* CY_IP_M55APPCPUSS IP.
 *
 * \note
 * For CY_IP_M33SYSCPUSS IP, EFUSE must be in enabled state before
 * calling this API.
+*
+* \note
+* For Cores with Security extention, Trust Zone configuration should be done
+* before calling this API.
 *
 *******************************************************************************/
 uint64_t Cy_SysLib_GetUniqueId(void);
@@ -1567,6 +1579,8 @@ CY_SECTION_INIT_CODECOPY_END
 * \param clkHfMHz  The HFClk0 clock frequency in MHz. Specifying a frequency
 *                  above the supported maximum will set the wait states as for
 *                  the maximum frequency.
+* \warning Delay functions have no effect if called from non-secure code.
+*          The CPU frequency cannot be changed in non-secure code.
 *
 *******************************************************************************/
 void Cy_SysLib_SetWaitStates(bool ulpMode, uint32_t clkHfMHz);
@@ -1691,10 +1705,33 @@ bool Cy_SysLib_IsDSRAMWarmBootEntry(void);
 void Cy_SysLib_ClearDSRAMWarmBootEntryStatus(void);
 #endif
 
+#if (CY_CPU_CORTEX_M55) || (CY_CPU_CORTEX_M7) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_Syslib_IsMemCacheable
+****************************************************************************//**
+*
+* This function checks if the memory address and the size passed falls in the
+* non-cacheable region or not.
+*
+*  \param mpu Address of the MPU
+*
+*  \param addr Address of the memory to be checked
+*
+*  \param size Size of the memory to be checked
+*
+* \note
+* This API is available for CM55 core on CAT1D devices.
+*
+*******************************************************************************/
+bool Cy_Syslib_IsMemCacheable(MPU_Type* mpu, uint32_t addr, uint32_t size);
+#endif
 
 /** \cond INTERNAL */
 #define CY_SYSLIB_DEVICE_REV_0A       (0x21U)  /**< The device TO *A Revision ID */
 #define CY_SYSLIB_DEVICE_PSOC6ABLE2   (0x100U) /**< The PSoC6 BLE2 device Family ID */
+
+#define CY_SYSLIB_COEFFICIENT_ULP     (80U) /**< Wait states coefficient for ULP mode  */
+#define CY_SYSLIB_COEFFICIENT         (60U) /**< Wait states coefficient for general mode  */
 
 /* SILICON ID Macros */
 #define CY_SYSLIB_GET_SILICON_REV_ID         (CY_SILICON_ID & 0xFFFFUL)

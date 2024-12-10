@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_ecdsa.h
-* \version 2.30
+* \version 2.60
 *
 * \brief
 *  This file provides constant and parameters
@@ -325,6 +325,39 @@ cy_en_cryptolite_status_t Cy_Cryptolite_ECC_VerifyHash(CRYPTOLITE_Type *base,
                             const uint8_t *sig, uint32_t siglen, const uint8_t *hash, uint32_t hashlen,
                             cy_en_cryptolite_sig_verify_result_t *stat, const cy_stc_cryptolite_ecc_key *key);
 
+
+/*******************************************************************************
+* Function Name: Cy_Cryptolite_ECC_SharedSecret
+****************************************************************************//**
+*
+* Generate a Shared Secret key from one private key and others public key.
+*
+* \param base
+* The pointer to a Cryptolite instance.
+*
+* \param cfContext
+* The pointer to the cy_stc_cryptolite_context_ecdsa_t.
+*
+* \param curveID
+* The ECC curve id.
+*
+* \param privateKey
+* The pointer to the ECC private key.
+*
+* \param key
+* The generated public ECC key. See \ref cy_stc_cryptolite_ecc_key.
+*
+* \param sharedSecret
+* The pointer to store the generated shared Secret.
+*
+* \return status code. See \ref cy_en_cryptolite_status_t.
+*
+*******************************************************************************/
+cy_en_cryptolite_status_t Cy_Cryptolite_ECC_SharedSecret(CRYPTOLITE_Type *base,
+                            cy_stc_cryptolite_context_ecdsa_t *cfContext,
+                            cy_en_cryptolite_ecc_curve_id_t curveID,const uint8_t *privateKey,
+                            const cy_stc_cryptolite_ecc_key *key,
+                            uint8_t const *sharedSecret);
 #endif
 /** \} group_cryptolite_lld_asymmetric_functions */
 

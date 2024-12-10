@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite.h
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides interface header
@@ -180,6 +180,16 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>2.60</td>
+*     <td>
+*         <ul>
+*         <li>Added new API \ref Cy_Cryptolite_ECC_SharedSecret.</li>
+*         <li>Updated APIs \ref Cy_Cryptolite_Sha256_Start, \ref Cy_Cryptolite_Sha256_Update, \ref Cy_Cryptolite_Aes_Ccm_Finish</li>
+*         </ul>
+*     </td>
+*     <td>Added ECDH support for CAT1B devices and Bug fixes</td>
+*   </tr>
+*   <tr>
 *     <td>2.50</td>
 *     <td>
 *         <ul>
@@ -286,6 +296,7 @@
 #include "cy_cryptolite_ecc_key_gen.h"
 #include "cy_cryptolite_hkdf.h"
 #include "cy_cryptolite_cmac.h"
+
 
 #endif /* CY_IP_MXCRYPTOLITE */
 

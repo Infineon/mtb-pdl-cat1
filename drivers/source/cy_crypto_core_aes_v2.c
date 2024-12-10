@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes_v2.c
-* \version 2.120
+* \version 2.130
 *
 * \brief
 *  This file provides the source code fro the API for the AES method
@@ -8,7 +8,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2020-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -1041,7 +1041,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Init(CRYPTO_Type *base, cy_stc_c
 
         Cy_Crypto_Core_V2_MemSet(base, aesGCMctx, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_gcm_state_t));
         Cy_Crypto_Core_V2_MemSet(base, aesGCMBuffersRemap, 0U, (uint16_t)sizeof(cy_stc_crypto_aes_gcm_buffers_t));
-
+    
         aesGCMctx->h = aesGCMBuffers->h;
         aesGCMctx->icb = aesGCMBuffers->icb;
         aesGCMctx->cb = aesGCMBuffers->cb;
@@ -1275,7 +1275,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_AAD_Update(CRYPTO_Type *base,  u
             aadRemap += copy_size;
 
             Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, hRemap, tempRemap, CY_CRYPTO_AES_BLOCK_SIZE, yRemap);
-
             block_count = aadSize/CY_CRYPTO_AES_BLOCK_SIZE;
             Cy_Crypto_Core_V2_Aes_GCM_Ghash(base, hRemap, aadRemap, block_count * CY_CRYPTO_AES_BLOCK_SIZE, yRemap);
             aadRemap += block_count *CY_CRYPTO_AES_BLOCK_SIZE;
@@ -1365,7 +1364,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Update(CRYPTO_Type *base, uint8_
                 (void)Cy_Crypto_Core_V2_Aes_Ecb(base, CY_CRYPTO_ENCRYPT,  aesdataRemap, cbRemap, &aesGCMctx->aesState);
                 Cy_Crypto_Aes_GCM_Increment_counter(aesGCMctx->cb);
             }
-
             if(aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE + inputSize < CY_CRYPTO_AES_BLOCK_SIZE)
             {
                 process_size =  aesGCMctx->data_size %CY_CRYPTO_AES_BLOCK_SIZE + inputSize;
@@ -1403,7 +1401,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Aes_GCM_Update(CRYPTO_Type *base, uint8_
             }
 
         }
-
         tmpResult = CY_CRYPTO_SUCCESS;
     }
 
@@ -1449,7 +1446,6 @@ static void Cy_Crypto_Core_V2_Aes_GCM_tag(CRYPTO_Type *base,  uint8_t *p_tag,   
    aadbitlen = (uint64_t)aesGCMctx->aad_size << 3U; // Bytes to bits
 
    tempRemap = (uint8_t *)CY_REMAP_ADDRESS_FOR_CRYPTO(&temp_data[0u]);
-
    hRemap = (uint8_t *)CY_REMAP_ADDRESS_FOR_CRYPTO(aesGCMctx->h);
    yRemap = (uint8_t *)CY_REMAP_ADDRESS_FOR_CRYPTO(aesGCMctx->y);
    icbRemap = (uint8_t *)CY_REMAP_ADDRESS_FOR_CRYPTO(aesGCMctx->icb);

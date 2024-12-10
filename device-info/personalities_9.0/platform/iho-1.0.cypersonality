@@ -50,15 +50,15 @@
 
     <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${formatFrequency(frequency, accuracy)}`" visible="true" editable="false" desc="The nominal output frequency" />
 
-    <ParamBool id="apply_trim" name="Apply IHO Trim" group="Trims" default="true" visible="true" editable="true" desc="If checked TRIM value will be applied. Otherwise ignored." />
+    <ParamBool id="apply_trim" name="Apply IHO Trim" group="Trims" default="`${is22srssAvailable ? true : false}`" visible="`${is22srssAvailable}`" editable="`${is22srssAvailable}`" desc="If checked TRIM value will be applied. Otherwise ignored." />
     <ParamRange  id="IHOTrim" name="IHO Trim Value" group="Trims" default="1396" min="0" max="2047" resolution="1" visible="`${apply_trim}`" editable="`${apply_trim}`" desc="Set IHO Trim Value" />
   </Parameters>
   <ConfigFirmware>
     <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_IHO_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_IHO_TRIM_VALUE" value="`${IHOTrim}`" public="false" include="`${apply_trim}`"/>
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_IhoInit()" body="    Cy_SysClk_IhoEnable();" public="false" include="`${is40ssrssAvailable}`" />
-	<ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_IhoInit()" body="    Cy_SysClk_IhoEnable();&#xA;
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_IhoInit(void)" body="    Cy_SysClk_IhoEnable();" public="false" include="`${is40ssrssAvailable}`" />
+	<ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_IhoInit(void)" body="    Cy_SysClk_IhoEnable();&#xA;
     #ifdef CY_CFG_SYSCLK_IHO_TRIM_VALUE&#xA;
         Cy_SysClk_IhoSetTrim(CY_CFG_SYSCLK_IHO_TRIM_VALUE);&#xA;
     #endif /* CY_CFG_SYSCLK_IHO_TRIM_VALUE */&#xA;" public="false" include="`${is22srssAvailable}`" guard="defined(CORE_NAME_CM33_0)"/>

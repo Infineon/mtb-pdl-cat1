@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file cy_crypto_config.h
-* \version 2.120
+* \version 2.130
 *
 * \brief
 *  This file provides default configuration parameters
 *  for the Crypto driver.
 *
 ********************************************************************************
-* Copyright 2016-2022 Cypress Semiconductor Corporation
+* Copyright 2016-2024 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -130,7 +130,6 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 
 /* ECDSA functionality */
 #define CY_CRYPTO_CFG_ECDSA_C
-
 /* ECDSA key generation */
 #define CY_CRYPTO_CFG_ECDSA_GENKEY_C
 /* ECDSA sign */

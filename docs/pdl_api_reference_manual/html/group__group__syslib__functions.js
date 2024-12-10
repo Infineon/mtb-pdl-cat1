@@ -26,5 +26,6 @@ var group__group__syslib__functions =
     [ "Cy_SysLib_GetDeviceLCS", "group__group__syslib__functions.html#ga794cb1ab7d37ee9dbe1712d666ceba1f", null ],
     [ "Cy_Syslib_SetWarmBootEntryPoint", "group__group__syslib__functions.html#gabc2fac2da2d735bedac2a57d45d53fac", null ],
     [ "Cy_SysLib_IsDSRAMWarmBootEntry", "group__group__syslib__functions.html#gaf3ef05b9419cbb446a501f4a49e233aa", null ],
-    [ "Cy_SysLib_ClearDSRAMWarmBootEntryStatus", "group__group__syslib__functions.html#gac340f219d12ebdccb28c370bc3740c34", null ]
+    [ "Cy_SysLib_ClearDSRAMWarmBootEntryStatus", "group__group__syslib__functions.html#gac340f219d12ebdccb28c370bc3740c34", null ],
+    [ "Cy_Syslib_IsMemCacheable", "group__group__syslib__functions.html#gafdb346d0131659f401e2b9d83ea6864d", null ]
 ];

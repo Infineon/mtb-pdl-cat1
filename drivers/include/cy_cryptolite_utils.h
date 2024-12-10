@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_utils.h
-* \version 2.50
+* \version 2.60
 *
 * \brief
 *  This file provides provides helper functions

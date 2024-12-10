@@ -1,0 +1,4 @@
+SAS_REV=caddb:265965
+MPN_REV=1581
+device-db_REV=dd5d11a31416733cffec31d261b25d875c0db572
+fwgen_REV=2.0.0.949

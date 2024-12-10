@@ -37,6 +37,7 @@
 #include "cy_crypto_server.h"
 #include "cy_dma.h"
 #include "cy_dmac.h"
+#include "cy_efuse.h"
 #include "cy_gpio.h"
 #include "cy_sar2.h"
 #include "cy_scb_ezi2c.h"

@@ -84,10 +84,12 @@ enum ppu_v1_mode cy_pd_ppu_get_programmed_power_mode(struct ppu_v1_reg *ppu)
     return ppu_v1_get_programmed_power_mode(ppu);
 #else
     cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
     rpcArgs.argc = 1;
     rpcArgs.argv[0] = (uint32_t)ppu;
-    return (enum ppu_v1_mode)Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-                  (uint32_t)CY_SECURE_SERVICE_PM_GET_PROGRAMMED_POWER_MODE, &rpcArgs);
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+                  (uint32_t)CY_SECURE_SERVICE_PM_GET_PROGRAMMED_POWER_MODE, &rpcArgs, &rpcRetVal);
+    return (enum ppu_v1_mode)rpcRetVal;
 #endif
 }
 
@@ -113,10 +115,12 @@ enum ppu_v1_mode cy_pd_ppu_get_power_mode(struct ppu_v1_reg *ppu)
     return ppu_v1_get_power_mode(ppu);
 #else
     cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
     rpcArgs.argc = 1;
     rpcArgs.argv[0] = (uint32_t)ppu;
-    return (enum ppu_v1_mode)Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-                  (uint32_t)CY_SECURE_SERVICE_PM_GET_POWER_MODE, &rpcArgs);
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+                  (uint32_t)CY_SECURE_SERVICE_PM_GET_POWER_MODE, &rpcArgs, &rpcRetVal);
+    return (enum ppu_v1_mode)rpcRetVal;
 #endif
 }
 
@@ -149,11 +153,13 @@ cy_en_syspm_status_t cy_pd_ppu_set_power_mode(struct ppu_v1_reg *ppu, uint32_t m
     return status;
 #else
     cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
     rpcArgs.argc = 2;
     rpcArgs.argv[0] = (uint32_t)ppu;
     rpcArgs.argv[1] = mode;
-    return (cy_en_syspm_status_t)Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-              (uint32_t)CY_SECURE_SERVICE_PM_SET_POWER_MODE, &rpcArgs);
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+              (uint32_t)CY_SECURE_SERVICE_PM_SET_POWER_MODE, &rpcArgs, &rpcRetVal);
+    return (cy_en_syspm_status_t)rpcRetVal;
 #endif
 }
 
@@ -216,11 +222,13 @@ cy_en_syspm_status_t cy_pd_ppu_set_static_power_mode(struct ppu_v1_reg *ppu, uin
     return status;
 #else
     cy_rpc_args_t rpcArgs;
+    uint32_t rpcRetVal;
     rpcArgs.argc = 2;
     rpcArgs.argv[0] = (uint32_t)ppu;
     rpcArgs.argv[1] = mode;
-    return (cy_en_syspm_status_t)Cy_Send_RPC(CY_SECURE_SERVICE_TYPE_PM,
-              (uint32_t)CY_SECURE_SERVICE_PM_SET_STATIC_POWER_MODE, &rpcArgs);
+    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
+              (uint32_t)CY_SECURE_SERVICE_PM_SET_STATIC_POWER_MODE, &rpcArgs, &rpcRetVal);
+    return (cy_en_syspm_status_t)rpcRetVal;
 #endif
 }
 

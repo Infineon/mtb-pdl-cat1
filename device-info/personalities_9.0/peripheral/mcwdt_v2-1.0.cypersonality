@@ -136,6 +136,7 @@
   <ConfigFirmware>
     <ConfigInclude value="cy_mcwdt.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInclude value="mtb_hal.h" include="true" guard="defined (COMPONENT_MTB_HAL)" />
     
     <ConfigDefine name="`${INST_NAME}`_HW" value="MCWDT`${InstNumber}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_IRQ" value="srss_interrupt_mcwdt_`${InstNumber}`_IRQn" public="true" include="true" />
@@ -164,6 +165,10 @@
 	  <Member name="c2DebugRun" value="`${(C2DebugRun eq true) ? &quot;CY_MCWDT_ENABLE&quot; : &quot;CY_MCWDT_DISABLE&quot;}`" />
       <Member name="coreSelect" value="`${CoreSelect}`" />
 	</ConfigStruct>
+
+    <ConfigStruct name="`${INST_NAME}`_hal_config" type="mtb_hal_lptimer_configurator_t" const="true" public="true" include="true" guard="defined (COMPONENT_MTB_HAL) &amp;&amp; (MTB_HAL_DRIVER_AVAILABLE_LPTIMER)">
+      <Member name="base" value="`${INST_NAME}`_HW" />
+    </ConfigStruct>
 
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
       <Member name="type" value="CYHAL_RSC_LPTIMER" />

@@ -69,6 +69,6 @@
     <ConfigDefine name="CY_CFG_SYSCLK_LPECO_PRESCALER_ENABLED" value="1" public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_LPECO_PRESCALER_INT_DIVIDER" value="`${divider - 1}`"  public="false" include="true" />
     <ConfigDefine name="CY_CFG_SYSCLK_LPECO_PRESCALER_FRACT_DIVIDER" value="`${fractdivider}`"  public="false" include="true" />
-    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_LpecoPrescalerInit()" body="    Cy_SysClk_LpecoPrescaleConfigure((0 != CY_CFG_SYSCLK_LPECO_PRESCALER_ENABLED), CY_CFG_SYSCLK_LPECO_PRESCALER_INT_DIVIDER, CY_CFG_SYSCLK_LPECO_PRESCALER_FRACT_DIVIDER);" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
+    <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_LpecoPrescalerInit(void)" body="    Cy_SysClk_LpecoPrescaleConfigure((0 != CY_CFG_SYSCLK_LPECO_PRESCALER_ENABLED), CY_CFG_SYSCLK_LPECO_PRESCALER_INT_DIVIDER, CY_CFG_SYSCLK_LPECO_PRESCALER_FRACT_DIVIDER);" public="false" include="true" guard="(!defined(CY_DEVICE_SECURE))" />
   </ConfigFirmware>
 </Personality>

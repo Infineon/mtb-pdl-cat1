@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_ecdsa.c
-* \version 2.120
+* \version 2.130
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC ECDSA
@@ -8,7 +8,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2020-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -125,7 +125,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_SignHash(CRYPTO_Type *base, const uint8
             ephKey.pubkey.x = CY_REMAP_ADDRESS_FOR_CRYPTO(myKGX);
             ephKey.pubkey.y = CY_REMAP_ADDRESS_FOR_CRYPTO(myKGY);
 
-            tmpResult = Cy_Crypto_Core_ECC_MakePublicKey(base, key->curveID, messageKeyPtrRemap, &ephKey);
+            tmpResult = Cy_Crypto_Core_ECC_MakePublicKey(base, key->curveID, messageKeyPtrRemap, &ephKey); 
 
             if (CY_CRYPTO_SUCCESS == tmpResult)
             {

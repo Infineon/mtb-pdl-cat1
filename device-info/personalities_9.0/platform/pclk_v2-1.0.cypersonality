@@ -43,10 +43,14 @@
     <ExposedMember key="error" paramId="srcNotUsed" />
     <ExposedMember key="hal_block" paramId="hal_block" />
     <ExposedMember key="sourceClockRsc" paramId="sourceClockRsc" />
+    <ExposedMember key="instName" paramId="instName" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__clk__peripheral.html" linkText="Open Peripherals Clock Dividers Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
+
+    <!-- Instance name -->
+    <ParamString id="instName" name="instName" group="Internal" default="`${INST_NAME}`" visible="false" editable="false" desc="" />
 
     <!-- Get the name of the source clock resource -->
     <ParamString id="sourceClockRscV1" name="Source Clock Resource V1" group="Internal" default="`${getInstNumber(&quot;group&quot;) eq 0 ? &quot;srss[0].clock[0].hfclk[0]&quot; : &quot;srss[0].clock[0].hfclk[1]&quot;}`" visible="false" editable="false" desc="" />
@@ -246,6 +250,7 @@
     <ConfigDefine name="`${INST_NAME}`_HW" value="`${typeApiConst}`" public="true" include="true" guard="!defined (CY_USING_HAL) &amp;&amp; !defined (CY_USING_HAL_LITE)"/>
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${number}`U" public="true" include="true" />
     <ConfigDefine name="`${toUpper(INST_NAME)}`_GRP_NUM" value="((`${getInstNumber(&quot;group&quot;)}`U &lt;&lt; PERI_PCLK_GR_NUM_Pos) | (`${getInstNumber(&quot;peri&quot;)}`U &lt;&lt; PERI_PCLK_INST_NUM_Pos))" public="true" include="true" />
+    <ConfigDefine name="`${INST_NAME}`_GRP_NUM" value="`${toUpper(INST_NAME)}`_GRP_NUM" public="true" include="true" guard="!defined (`${INST_NAME}`_GRP_NUM)"/>
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
       <Member name="type" value="CYHAL_RSC_CLOCK" />
       <Member name="block_num" value="`${INST_NAME}`_HW" />

@@ -48,6 +48,7 @@ var group__group__sd__host__data__structures =
       [ "maxSectorNum", "structcy__stc__sd__host__context__t.html#aedeba1076cd1d558b97df8503d632890", null ],
       [ "RCA", "structcy__stc__sd__host__context__t.html#a1f289f498b5b71bf6b5f68774bb8bade", null ],
       [ "cardType", "structcy__stc__sd__host__context__t.html#ab74a2b00723daef1423d22b67e4b02b4", null ],
-      [ "csd", "structcy__stc__sd__host__context__t.html#a71a7e7510185e5919c67f0baf2d6b697", null ]
+      [ "csd", "structcy__stc__sd__host__context__t.html#a71a7e7510185e5919c67f0baf2d6b697", null ],
+      [ "busWidth", "structcy__stc__sd__host__context__t.html#a12c56fa2e6f271d5fd9761e519219844", null ]
     ] ]
 ];

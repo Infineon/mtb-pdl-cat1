@@ -207,6 +207,42 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf1b44a029169a1baa08e211bff714a19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19">Cy_Flash_Init</a> (void)</td></tr>
 <tr class="memdesc:gaf1b44a029169a1baa08e211bff714a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates all needed prerequisites to support flash erase/write.  <a href="#gaf1b44a029169a1baa08e211bff714a19">More...</a><br /></td></tr>
 <tr class="separator:gaf1b44a029169a1baa08e211bff714a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18d674d1c8e2fbfd32858e7d80245b3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496">cy_en_flashdrv_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#ga18d674d1c8e2fbfd32858e7d80245b3a">Cy_Flash_Init</a> (bool refresh_enable)</td></tr>
+<tr class="memdesc:ga18d674d1c8e2fbfd32858e7d80245b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates all needed prerequisites to support flash erase/write.  <a href="#ga18d674d1c8e2fbfd32858e7d80245b3a">More...</a><br /></td></tr>
+<tr class="separator:ga18d674d1c8e2fbfd32858e7d80245b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3198c52d55bf7ce65e8a84d7e69284d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496">cy_en_flashdrv_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#gae3198c52d55bf7ce65e8a84d7e69284d">Cy_Flash_Refresh</a> (uint32_t flashAddr)</td></tr>
+<tr class="memdesc:gae3198c52d55bf7ce65e8a84d7e69284d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a blocking call.  <a href="#gae3198c52d55bf7ce65e8a84d7e69284d">More...</a><br /></td></tr>
+<tr class="separator:gae3198c52d55bf7ce65e8a84d7e69284d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad871c025e0a01401fe38be2ddea7c537"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496">cy_en_flashdrv_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#gad871c025e0a01401fe38be2ddea7c537">Cy_Flash_Refresh_Start</a> (uint32_t flashAddr)</td></tr>
+<tr class="memdesc:gad871c025e0a01401fe38be2ddea7c537"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a non-blocking call.  <a href="#gad871c025e0a01401fe38be2ddea7c537">More...</a><br /></td></tr>
+<tr class="separator:gad871c025e0a01401fe38be2ddea7c537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8512c01420e7348b2f9c20844ba37d68"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#ga8512c01420e7348b2f9c20844ba37d68">Cy_Flash_Is_Refresh_Required</a> (void)</td></tr>
+<tr class="memdesc:ga8512c01420e7348b2f9c20844ba37d68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a flash refresh is needed for the sector.  <a href="#ga8512c01420e7348b2f9c20844ba37d68">More...</a><br /></td></tr>
+<tr class="separator:ga8512c01420e7348b2f9c20844ba37d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaadbfd2e0006bd5fabfa5fa474767d538"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#gaadbfd2e0006bd5fabfa5fa474767d538">Cy_Flashc_ECCEnable</a> (void)</td></tr>
+<tr class="memdesc:gaadbfd2e0006bd5fabfa5fa474767d538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables ECC for flash ECC checking/reporting on FLASH interface is enabled.  <a href="#gaadbfd2e0006bd5fabfa5fa474767d538">More...</a><br /></td></tr>
+<tr class="separator:gaadbfd2e0006bd5fabfa5fa474767d538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0611a93e5a7049277c51f0c9f0f71796"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#ga0611a93e5a7049277c51f0c9f0f71796">Cy_Flashc_ECCDisable</a> (void)</td></tr>
+<tr class="memdesc:ga0611a93e5a7049277c51f0c9f0f71796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables ECC for flash ECC checking/reporting on FLASH interface is disabled.  <a href="#ga0611a93e5a7049277c51f0c9f0f71796">More...</a><br /></td></tr>
+<tr class="separator:ga0611a93e5a7049277c51f0c9f0f71796"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga23cfb60a637c0cdc2b47ce4b923642c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#ga23cfb60a637c0cdc2b47ce4b923642c5">Cy_Flashc_INJ_ECCEnable</a> (void)</td></tr>
+<tr class="memdesc:ga23cfb60a637c0cdc2b47ce4b923642c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enable ECC error injection for FLASH interface And is applicable while ECC is enabled.  <a href="#ga23cfb60a637c0cdc2b47ce4b923642c5">More...</a><br /></td></tr>
+<tr class="separator:ga23cfb60a637c0cdc2b47ce4b923642c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47772e7ced09de23da817c7e00d7c366"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#ga47772e7ced09de23da817c7e00d7c366">Cy_Flashc_INJ_ECCDisable</a> (void)</td></tr>
+<tr class="memdesc:ga47772e7ced09de23da817c7e00d7c366"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables ECC error injection for FLASH interface.  <a href="#ga47772e7ced09de23da817c7e00d7c366">More...</a><br /></td></tr>
+<tr class="separator:ga47772e7ced09de23da817c7e00d7c366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d322a0d03126d4151eb76e1f89a6169"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#ga9d322a0d03126d4151eb76e1f89a6169">Cy_Flashc_InjectECC</a> (uint32_t address, uint8_t parity)</td></tr>
+<tr class="memdesc:ga9d322a0d03126d4151eb76e1f89a6169"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables ECC injection and sets the address where a parity will be injected and the parity value.  <a href="#ga9d322a0d03126d4151eb76e1f89a6169">More...</a><br /></td></tr>
+<tr class="separator:ga9d322a0d03126d4151eb76e1f89a6169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac2e4681eac49cdb37a2bb6755833bce3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__flash__enumerated__types.html#ga3e93e4d7538644125468d776063080f1">cy_en_flash_ecc_inject_errors_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#gac2e4681eac49cdb37a2bb6755833bce3">Cy_Flashc_Get_ECC_Error</a> (void)</td></tr>
+<tr class="memdesc:gac2e4681eac49cdb37a2bb6755833bce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function when ECC injection is enabled and error is injected will return no of errors generated.  <a href="#gac2e4681eac49cdb37a2bb6755833bce3">More...</a><br /></td></tr>
+<tr class="separator:gac2e4681eac49cdb37a2bb6755833bce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6db21101206f1f28fe1e76e7c8019597"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#ga6db21101206f1f28fe1e76e7c8019597">Cy_Flashc_Dual_Bank_Mode_Enable</a> (<a class="el" href="group__group__flash__enumerated__types.html#gaa0dc244349caed3be34ea3bd3a92c333">cy_en_flash_dual_bank_mapping_t</a> mapping)</td></tr>
+<tr class="memdesc:ga6db21101206f1f28fe1e76e7c8019597"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Dual bank Mode for flash.  <a href="#ga6db21101206f1f28fe1e76e7c8019597">More...</a><br /></td></tr>
+<tr class="separator:ga6db21101206f1f28fe1e76e7c8019597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga106a17527fc2ea369693ac91da916159"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__flash__functions.html#ga106a17527fc2ea369693ac91da916159">Cy_Flashc_Dual_Bank_Mode_Disable</a> (void)</td></tr>
+<tr class="memdesc:ga106a17527fc2ea369693ac91da916159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables Dual bank Mode for flash.  <a href="#ga106a17527fc2ea369693ac91da916159">More...</a><br /></td></tr>
+<tr class="separator:ga106a17527fc2ea369693ac91da916159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga8457cc408eb5f9eaf573b7303a92b13e"></a>
@@ -651,7 +687,7 @@ This function is applicable for CAT1C devices.</dd></dl>
 </div>
 </div>
 <a id="ga2a3fa8c605ee60d146caa8b3734fedee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2a3fa8c605ee60d146caa8b3734fedee">&#9670;&nbsp;</a></span>Cy_Flashc_InjectECC()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2a3fa8c605ee60d146caa8b3734fedee">&#9670;&nbsp;</a></span>Cy_Flashc_InjectECC() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1002,7 +1038,7 @@ CAT1B devices doesn't use IPC for any flash operations.</dd></dl>
 <p>Should be called from each core. Defines the address of the message structure.</p>
 <p>Requires a call to <a class="el" href="group__group__ipc__sema__functions.html#ga1cbc3b147c650c8716de10a1ee8423bd" title="This function initializes the semaphores subsystem. ">Cy_IPC_Sema_Init()</a>, <a class="el" href="group__group__ipc__pipe__functions.html#ga7a1c8f1e92e74f27856ef2b7ac09c640" title="This function stores a copy of a pointer to the array of endpoints. ">Cy_IPC_Pipe_Config()</a> and <a class="el" href="group__group__ipc__pipe__functions.html#gafb7fa479327e6d7c282c262bc1dc6c8c" title="Initializes the system pipes. ">Cy_IPC_Pipe_Init()</a> functions before use.</p>
 <dl class="section note"><dt>Note</dt><dd>This function is applicable for CAT1A devices.</dd></dl>
-<p>This function is called in the <a class="el" href="group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19" title="Initiates all needed prerequisites to support flash erase/write. ">Cy_Flash_Init()</a> function - see the <a class="el" href="group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19">Cy_Flash_Init</a> usage considerations. </p>
+<p>This function is called in the <a class="el" href="group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19" title="Initiates all needed prerequisites to support flash erase/write. ">Cy_Flash_Init()</a> function - see the <a class="el" href="group__group__flash__functions.html#ga18d674d1c8e2fbfd32858e7d80245b3a">Cy_Flash_Init</a> usage considerations. </p>
 
 </div>
 </div>
@@ -1451,7 +1487,7 @@ This is a blocking function and will not return until the erase operation is com
 </div>
 </div>
 <a id="gaf1b44a029169a1baa08e211bff714a19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf1b44a029169a1baa08e211bff714a19">&#9670;&nbsp;</a></span>Cy_Flash_Init()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf1b44a029169a1baa08e211bff714a19">&#9670;&nbsp;</a></span>Cy_Flash_Init() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1471,6 +1507,306 @@ This is a blocking function and will not return until the erase operation is com
 <p>Requires a call to <a class="el" href="group__group__ipc__sema__functions.html#ga1cbc3b147c650c8716de10a1ee8423bd" title="This function initializes the semaphores subsystem. ">Cy_IPC_Sema_Init()</a>, <a class="el" href="group__group__ipc__pipe__functions.html#ga7a1c8f1e92e74f27856ef2b7ac09c640" title="This function stores a copy of a pointer to the array of endpoints. ">Cy_IPC_Pipe_Config()</a> and <a class="el" href="group__group__ipc__pipe__functions.html#gafb7fa479327e6d7c282c262bc1dc6c8c" title="Initializes the system pipes. ">Cy_IPC_Pipe_Init()</a> functions before use for CAT1A devices.</p>
 <p>This function is called in the <a class="el" href="group__group__startup__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="For CAT1A: ">SystemInit()</a> function, for proper flash write and erase operations. If the default startup file is not used, or the function <a class="el" href="group__group__startup__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="For CAT1A: ">SystemInit()</a> is not called in your project, ensure to perform the following steps before any flash or EmEEPROM write/erase operations: </p><div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* 1. Allocate and initialize IPC semaphores for the system operations */</span></div><div class="line">    <span class="keyword">static</span> uint32_t ipcSemaArray[<a class="code" href="group__group__system__config__user__settings__macro.html#gaba78bac52ffcbd69ab531467fa3caa6d">CY_IPC_SEMA_COUNT</a> / <a class="code" href="group__group__ipc__sema__macros.html#ga7c011c5126248439921e442aab3c6b23">CY_IPC_SEMA_PER_WORD</a>];</div><div class="line"></div><div class="line">    (void) <a class="code" href="group__group__ipc__sema__functions.html#ga1cbc3b147c650c8716de10a1ee8423bd">Cy_IPC_Sema_Init</a>(CY_IPC_CHAN_SEMA, <a class="code" href="group__group__system__config__user__settings__macro.html#gaba78bac52ffcbd69ab531467fa3caa6d">CY_IPC_SEMA_COUNT</a>, ipcSemaArray);</div><div class="line"></div><div class="line">    <span class="comment">/* 2. Create an array of endpoint structures and configure an IPC pipe infrastructure */</span></div><div class="line">    <span class="keyword">static</span> <a class="code" href="structcy__stc__ipc__pipe__ep__t.html">cy_stc_ipc_pipe_ep_t</a> ipcPipeEpArray[<a class="code" href="group__group__system__config__user__settings__macro.html#ga26b976c68c4fc4e45bc7f400e97c8495">CY_IPC_MAX_ENDPOINTS</a>];</div><div class="line"></div><div class="line">    <a class="code" href="group__group__ipc__pipe__functions.html#ga7a1c8f1e92e74f27856ef2b7ac09c640">Cy_IPC_Pipe_Config</a>(ipcPipeEpArray);</div><div class="line"></div><div class="line">    <span class="comment">/* 3. Create an array of client callbacks and initialize a system pipe by a configuration structure */</span></div><div class="line">    <span class="keyword">static</span> cy_ipc_pipe_callback_ptr_t sysIpcPipeCbArray[CY_SYS_CYPIPE_CLIENT_CNT];</div><div class="line"></div><div class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structcy__stc__ipc__pipe__config__t.html">cy_stc_ipc_pipe_config_t</a> systemIpcPipeConfig =</div><div class="line">    {</div><div class="line">    <span class="comment">/* .ep0ConfigData */</span></div><div class="line">        {</div><div class="line">            <span class="comment">/* .ipcNotifierNumber    */</span>  CY_IPC_INTR_CYPIPE_EP0,</div><div class="line">            <span class="comment">/* .ipcNotifierPriority  */</span>  CY_SYS_INTR_CYPIPE_PRIOR_EP0,</div><div class="line">            <span class="comment">/* .ipcNotifierMuxNumber */</span>  CY_SYS_INTR_CYPIPE_MUX_EP0,</div><div class="line">            <span class="comment">/* .epAddress            */</span>  CY_IPC_EP_CYPIPE_CM0_ADDR,</div><div class="line">            <span class="comment">/* .epConfig             */</span>  CY_SYS_CYPIPE_CONFIG_EP0</div><div class="line">        },</div><div class="line">    <span class="comment">/* .ep1ConfigData */</span></div><div class="line">        {</div><div class="line">            <span class="comment">/* .ipcNotifierNumber    */</span>  CY_IPC_INTR_CYPIPE_EP1,</div><div class="line">            <span class="comment">/* .ipcNotifierPriority  */</span>  CY_SYS_INTR_CYPIPE_PRIOR_EP1,</div><div class="line">            <span class="comment">/* .ipcNotifierMuxNumber */</span>  0u,</div><div class="line">            <span class="comment">/* .epAddress            */</span>  CY_IPC_EP_CYPIPE_CM4_ADDR,</div><div class="line">            <span class="comment">/* .epConfig             */</span>  CY_SYS_CYPIPE_CONFIG_EP1</div><div class="line">        },</div><div class="line">    <span class="comment">/* .endpointClientsCount     */</span>  CY_SYS_CYPIPE_CLIENT_CNT,</div><div class="line">    <span class="comment">/* .endpointsCallbacksArray  */</span>  sysIpcPipeCbArray,</div><div class="line">    <span class="comment">/* .systemPipeIsrHandler     */</span>  &amp;SysIpcPipeIsr</div><div class="line">    };</div><div class="line"></div><div class="line">    <a class="code" href="group__group__ipc__pipe__functions.html#gafb7fa479327e6d7c282c262bc1dc6c8c">Cy_IPC_Pipe_Init</a>(&amp;systemIpcPipeConfig);</div><div class="line"></div><div class="line">    <span class="comment">/* 4. And finally initialize the flash */</span></div><div class="line">    <a class="code" href="group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19">Cy_Flash_Init</a>();</div><div class="line"></div><div class="line">    <span class="comment">/* Ensure to run these steps on all the MCU cores */</span></div><div class="line"></div></div><!-- fragment --><p> Should be called from each core.</p>
 <p>This function is called in the <a class="el" href="group__group__startup__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="For CAT1A: ">SystemInit()</a> function, for proper flash write and erase operations. If the default startup file is not used, or the function <a class="el" href="group__group__startup__config__system__functions.html#ga93f514700ccf00d08dbdcff7f1224eb2" title="For CAT1A: ">SystemInit()</a> is not called in your project, ensure to perform the following steps before any flash or EmEEPROM write/erase operations: </p>
+
+</div>
+</div>
+<a id="ga18d674d1c8e2fbfd32858e7d80245b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga18d674d1c8e2fbfd32858e7d80245b3a">&#9670;&nbsp;</a></span>Cy_Flash_Init() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496">cy_en_flashdrv_status_t</a> Cy_Flash_Init </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>refresh_enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initiates all needed prerequisites to support flash erase/write. </p>
+<p>Should be once before starting any flash operations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">refresh_enable</td><td>enable disable refresh feature</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>success if Init is complete else will return err </dd></dl>
+
+</div>
+</div>
+<a id="gae3198c52d55bf7ce65e8a84d7e69284d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae3198c52d55bf7ce65e8a84d7e69284d">&#9670;&nbsp;</a></span>Cy_Flash_Refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496">cy_en_flashdrv_status_t</a> Cy_Flash_Refresh </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>flashAddr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This is a blocking call. </p>
+<p>Writes to the flash will cause slight degradation of the other cells in the flash. If the flash is written more than 100,000 times, errors may appear on flash reads. To prevent this, the refresh functions should be called before or after flash writes. The refresh functions are not available on CPUSS_FLASHC_SFLASH_SECNUM because it includes the SFLASH.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flashAddr</td><td>of the row that needs to be refreshed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>success if refresh is complete. Else will return error </dd></dl>
+
+</div>
+</div>
+<a id="gad871c025e0a01401fe38be2ddea7c537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad871c025e0a01401fe38be2ddea7c537">&#9670;&nbsp;</a></span>Cy_Flash_Refresh_Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496">cy_en_flashdrv_status_t</a> Cy_Flash_Refresh_Start </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>flashAddr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This is a non-blocking call. </p>
+<p>Writes to the flash will cause slight degradation of the other cells in the flash. If the flash is written more than 100,000 times, errors may appear on flash reads. To prevent this, the refresh functions should be called before or after flash writes. The refresh functions are not available on CPUSS_FLASHC_SFLASH_SECNUM because it includes the SFLASH.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flashAddr</td><td>of the row that needs to be refreshed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>success if refresh is started. Else will return error </dd></dl>
+
+</div>
+</div>
+<a id="ga8512c01420e7348b2f9c20844ba37d68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8512c01420e7348b2f9c20844ba37d68">&#9670;&nbsp;</a></span>Cy_Flash_Is_Refresh_Required()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_Flash_Is_Refresh_Required </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if a flash refresh is needed for the sector. </p>
+<p>This is not allowed on sector which has SFLASH</p>
+<dl class="section return"><dt>Returns</dt><dd>TRUE, if a refresh is needed and FALSE, if a refresh is not needed. </dd></dl>
+
+</div>
+</div>
+<a id="gaadbfd2e0006bd5fabfa5fa474767d538"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaadbfd2e0006bd5fabfa5fa474767d538">&#9670;&nbsp;</a></span>Cy_Flashc_ECCEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Flashc_ECCEnable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables ECC for flash ECC checking/reporting on FLASH interface is enabled. </p>
+<p>Correctable or non-correctable faults are reported by enabling ECC.</p>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga0611a93e5a7049277c51f0c9f0f71796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0611a93e5a7049277c51f0c9f0f71796">&#9670;&nbsp;</a></span>Cy_Flashc_ECCDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Flashc_ECCDisable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables ECC for flash ECC checking/reporting on FLASH interface is disabled. </p>
+<p>Correctable or non-correctable faults are not reported by disabling ECC.</p>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga23cfb60a637c0cdc2b47ce4b923642c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga23cfb60a637c0cdc2b47ce4b923642c5">&#9670;&nbsp;</a></span>Cy_Flashc_INJ_ECCEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Flashc_INJ_ECCEnable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function enable ECC error injection for FLASH interface And is applicable while ECC is enabled. </p>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga47772e7ced09de23da817c7e00d7c366"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga47772e7ced09de23da817c7e00d7c366">&#9670;&nbsp;</a></span>Cy_Flashc_INJ_ECCDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Flashc_INJ_ECCDisable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function disables ECC error injection for FLASH interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga9d322a0d03126d4151eb76e1f89a6169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d322a0d03126d4151eb76e1f89a6169">&#9670;&nbsp;</a></span>Cy_Flashc_InjectECC() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Flashc_InjectECC </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>parity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function enables ECC injection and sets the address where a parity will be injected and the parity value. </p>
+<p>Reports success or a reason for failure.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>The address where ECC parity will be injected.</td></tr>
+    <tr><td class="paramname">parity</td><td>The parity value which will be injected.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none. </dd></dl>
+
+</div>
+</div>
+<a id="gac2e4681eac49cdb37a2bb6755833bce3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac2e4681eac49cdb37a2bb6755833bce3">&#9670;&nbsp;</a></span>Cy_Flashc_Get_ECC_Error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__flash__enumerated__types.html#ga3e93e4d7538644125468d776063080f1">cy_en_flash_ecc_inject_errors_t</a> Cy_Flashc_Get_ECC_Error </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function when ECC injection is enabled and error is injected will return no of errors generated. </p>
+<dl class="section return"><dt>Returns</dt><dd>no of errors generated with ECC error injection <a class="el" href="group__group__flash__enumerated__types.html#ga3e93e4d7538644125468d776063080f1">cy_en_flash_ecc_inject_errors_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga6db21101206f1f28fe1e76e7c8019597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6db21101206f1f28fe1e76e7c8019597">&#9670;&nbsp;</a></span>Cy_Flashc_Dual_Bank_Mode_Enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Flashc_Dual_Bank_Mode_Enable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__flash__enumerated__types.html#gaa0dc244349caed3be34ea3bd3a92c333">cy_en_flash_dual_bank_mapping_t</a>&#160;</td>
+          <td class="paramname"><em>mapping</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables Dual bank Mode for flash. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mapping</td><td>: Mapping for the main and work regions.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga106a17527fc2ea369693ac91da916159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga106a17527fc2ea369693ac91da916159">&#9670;&nbsp;</a></span>Cy_Flashc_Dual_Bank_Mode_Disable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_Flashc_Dual_Bank_Mode_Disable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables Dual bank Mode for flash. </p>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
 
 </div>
 </div>

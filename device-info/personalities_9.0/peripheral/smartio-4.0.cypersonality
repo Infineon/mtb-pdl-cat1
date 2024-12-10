@@ -329,6 +329,8 @@
     <DRC type="ERROR" text="Chip terminal [$idx] cannot simultaneously be used as an input to a LUT$idx input trigger and be used as the Smart I/O block clock source." condition="`${((lut$idxTr0 eq CY_SMARTIO_LUTTR_CHIP$idx) || (lut$idxTr1 eq CY_SMARTIO_LUTTR_CHIP$idx) || (lut$idxTr2 eq CY_SMARTIO_LUTTR_CHIP$idx)) &amp;&amp; (clkSrc eq CY_SMARTIO_CLK_CHIP$idx)}`" repeatCount="8" />
     <!--LUT I/O terminal clock DRCs-->
     <DRC type="ERROR" text="I/O terminal [$idx] cannot simultaneously be used as an input to a LUT$idx input trigger and be used as the Smart I/O block clock source." condition="`${((lut$idxTr0 eq CY_SMARTIO_LUTTR_IO$idx) || (lut$idxTr1 eq CY_SMARTIO_LUTTR_IO$idx) || (lut$idxTr2 eq CY_SMARTIO_LUTTR_IO$idx)) &amp;&amp; (clkSrc eq CY_SMARTIO_CLK_IO$idx)}`" repeatCount="8" />
+    <!-- Check for Input and Output simultaneous selection -->
+    <DRC type="ERROR" text="I/O terminal [$idx] and chip terminal [$idx] cannot simultaneously be used as outputs." condition="`${(ioMode$idx eq CY_SMARTIO_OUTPUT) &amp;&amp; (chipMode$idx eq CY_SMARTIO_OUTPUT)}`" repeatCount="8" /> 
 
     <!--LUT TR DRCs-->
     <DRC type="ERROR" text="Invalid LUT connection. All three input trigger terminals of LUT [$idx] must have signal sources."

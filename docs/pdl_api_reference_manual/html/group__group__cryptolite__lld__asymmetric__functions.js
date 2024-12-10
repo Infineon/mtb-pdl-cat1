@@ -4,6 +4,7 @@ var group__group__cryptolite__lld__asymmetric__functions =
     [ "Cy_Cryptolite_ECC_Free", "group__group__cryptolite__lld__asymmetric__functions.html#ga123c9a912668b999845d7619737969f0", null ],
     [ "Cy_Cryptolite_ECC_SignHash", "group__group__cryptolite__lld__asymmetric__functions.html#gac4780ed621723923232888685a8389a9", null ],
     [ "Cy_Cryptolite_ECC_VerifyHash", "group__group__cryptolite__lld__asymmetric__functions.html#ga956dd70a876047166b391430eb7d1c58", null ],
+    [ "Cy_Cryptolite_ECC_SharedSecret", "group__group__cryptolite__lld__asymmetric__functions.html#ga9ce421065ec73beb963ed06298726e91", null ],
     [ "Cy_Cryptolite_Rsa_Init", "group__group__cryptolite__lld__asymmetric__functions.html#ga9e98470af0fe0cd1150107725e79faff", null ],
     [ "Cy_Cryptolite_Rsa_Proc", "group__group__cryptolite__lld__asymmetric__functions.html#ga935311182a513548ec08fe3602a61145", null ],
     [ "Cy_Cryptolite_Rsa_Coef", "group__group__cryptolite__lld__asymmetric__functions.html#gabb3cb1f3c4cc065655d752e833a10211", null ],

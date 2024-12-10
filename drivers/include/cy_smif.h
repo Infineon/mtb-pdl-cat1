@@ -1,12 +1,13 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.100
+* \version 2.110
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2022 Cypress Semiconductor Corporation
+* Copyright 2016-2024 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,17 +26,17 @@
 /**
 * \addtogroup group_smif
 * \{
-* The SPI-based communication interface to the external quad SPI (QSPI) 
+* The SPI-based communication interface to the external quad SPI (QSPI)
 * high-speed memory devices.
 *
-* The functions and other declarations used in this driver are in cy_smif.h and 
-* cy_smif_memslot.h (if used). If you are using the ModusToolbox QSPI Configurator, 
-* also include cycfg_qspi_memslot.h. 
+* The functions and other declarations used in this driver are in cy_smif.h and
+* cy_smif_memslot.h (if used). If you are using the ModusToolbox QSPI Configurator,
+* also include cycfg_qspi_memslot.h.
 *
 * **SMIF: Serial Memory Interface**: This IP block implements an SPI-based
 * communication interface for interfacing external memory devices to PSoC.
 * The SMIF supports SPI, dual SPI (DSPI), quad SPI (QSPI), dual QSPI and octal SPI.
-* 
+*
 * Features
 *   - Standard SPI Master interface
 *   - Supports single/dual/quad/octal SPI memory devices
@@ -44,7 +45,7 @@
 *   memory devices
 *   - eXecute-In-Place (XIP) operation mode for both read and write accesses
 *   with 4KB XIP read cache and on-the-fly encryption and decryption
-*   - Supports external serial memory initialization via 
+*   - Supports external serial memory initialization via
 *   <a href="https://www.jedec.org/standards-documents/docs/jesd216b" target="_blank">
 *   Serial Flash Discoverable Parameters (SFDP)</a> standard
 *
@@ -58,12 +59,12 @@
 *   - SMIF configuration structures
 *
 * The SMIF API is divided into the low-level functions and memory-slot functions. Use
-* the low level API for the SMIF block initialization and for implementing a generic 
+* the low level API for the SMIF block initialization and for implementing a generic
 * SPI communication interface using the SMIF block.
 *
-* The memory slot API has functions to implement the basic memory operations such as 
-* program, read, erase etc. These functions are implemented using the memory 
-* parameters in the memory device configuration data structure. The 
+* The memory slot API has functions to implement the basic memory operations such as
+* program, read, erase etc. These functions are implemented using the memory
+* parameters in the memory device configuration data structure. The
 * Cy_SMIF_MemInit() API initializes all the memory slots based on the settings
 * in the array.
 *
@@ -77,25 +78,25 @@
 * \note
 * Above image is applicable only for SMIF v1 IP.
 *
-* SMIF Configuration Tool is a stand-alone application, which is a part of PDL 
+* SMIF Configuration Tool is a stand-alone application, which is a part of PDL
 * (Creator) and could be found in \<PDL_DIR\>/tools/\<OS_DIR\>/SMIFConfigurationTool
-* (e.g. for PDL 3.0.0 and Windows OS PDL/3.0.0/tools/win/SMIFConfigurationTool). 
-* 
-* In ModusToolbox this tool is called QSPI Configurator. QSPI Configurator is a part of 
+* (e.g. for PDL 3.0.0 and Windows OS PDL/3.0.0/tools/win/SMIFConfigurationTool).
+*
+* In ModusToolbox this tool is called QSPI Configurator. QSPI Configurator is a part of
 * PSoC 6 Software Library and can be found in \<ModusToolbox\>/tools/qspi-configurator-1.1
-*  
+*
 * Tool generates *.c and *.h file with configuration structures. These configuration
 * structures are input parameters for cy_smif_memslot API level
 *
 * \warning The driver is not responsible for external memory persistence. You cannot edit
-* a buffer during the Read/Write operations. If there is a memory error, the SMIF ip block 
-* can require a reset. To determine if this has happened, check the SMIF 
-* busy status using Cy_SMIF_BusyCheck() and implement a timeout. Reset the SMIF 
+* a buffer during the Read/Write operations. If there is a memory error, the SMIF ip block
+* can require a reset. To determine if this has happened, check the SMIF
+* busy status using Cy_SMIF_BusyCheck() and implement a timeout. Reset the SMIF
 * block by toggling CTL.ENABLED. Then reconfigure the SMIF block.
 *
-* For the Write operation, check that the SMIF driver has completed 
-* transferring by calling Cy_SMIF_BusyCheck(). Also, check that the memory is 
-* available with Cy_SMIF_MemIsBusy() before proceeding. 
+* For the Write operation, check that the SMIF driver has completed
+* transferring by calling Cy_SMIF_BusyCheck(). Also, check that the memory is
+* available with Cy_SMIF_MemIsBusy() before proceeding.
 *
 * Simple example of external flash memory programming using low level SMIF API.
 * All steps mentioned in example below are incorporated in
@@ -120,7 +121,7 @@
 *
 * \snippet smif/snippet/main.c SMIF_API: Read example
 *
-* The user should invalidate the cache by calling Cy_SMIF_CacheInvalidate() when 
+* The user should invalidate the cache by calling Cy_SMIF_CacheInvalidate() when
 * switching from the MMIO mode to XIP mode.
 *
 * \section group_smif_configuration Configuration Considerations
@@ -129,7 +130,7 @@
 * \ref page_getting_started_pdl_design "PDL Design" section.
 *
 * See the documentation for Cy_SMIF_Init() and Cy_SMIF_MemInit() for details
-* on the required configuration structures and other initialization topics. 
+* on the required configuration structures and other initialization topics.
 *
 * The normal (MMIO) mode is used for implementing a generic SPI/DSPI/QSPI/dual
 * QSPI/octal SPI communication interface using the SMIF block. This
@@ -163,11 +164,11 @@
 * memslot level API usage.
 *
 * \subsection group_smif_xip_init SMIF XIP Initialization
-* The eXecute In Place (XIP) is a mode of operation where read or write commands 
-* to the memory device are directed through the SMIF without any use of API 
-* function calls. In this mode the SMIF block maps the AHB bus-accesses to 
-* external memory device addresses to make it behave similar to internal memory. 
-* This allows the CPU to execute code directly from external memory. This mode 
+* The eXecute In Place (XIP) is a mode of operation where read or write commands
+* to the memory device are directed through the SMIF without any use of API
+* function calls. In this mode the SMIF block maps the AHB bus-accesses to
+* external memory device addresses to make it behave similar to internal memory.
+* This allows the CPU to execute code directly from external memory. This mode
 * is not limited to code and is suitable also for data read and write accesses.
 * The memory regions available for XIP addresses allocation are defined
 * in a linker script file (.ld).
@@ -187,10 +188,10 @@
 * no interruption for the operation due to any other interrupts.
 *
 * \snippet smif/snippet/main.c SMIF_INIT: XIP
-* \note Example of input parameters initialization is in \ref group_smif_init 
+* \note Example of input parameters initialization is in \ref group_smif_init
 * section.
-* \warning Functions that called from external memory should be declared with 
-* long call attribute.  
+* \warning Functions that called from external memory should be declared with
+* long call attribute.
 *
 * \subsection group_smif_xip_crypto SMIF XIP On-the-fly encryption
 * In XIP mode, a cryptography component supports on-the-fly encryption for write data and
@@ -212,18 +213,18 @@
 * \image html smif_xip_mode_functionality.png
 *
 * \subsection group_smif_usage_rules Rules for PSoC6 QSPI/SMIF Block Usage
-* 1. All operations must use one or more dummy cycles between the PSoC 6 Command 
-* and Address phase (when the PSoC 6 MCU drives the data pins) and the device's 
-* Response phase (when the device drives the same data pins). Bus contention may 
+* 1. All operations must use one or more dummy cycles between the PSoC 6 Command
+* and Address phase (when the PSoC 6 MCU drives the data pins) and the device's
+* Response phase (when the device drives the same data pins). Bus contention may
 * occur if no (zero) dummy cycles are used.
-* 2. Any transfer that does not allow dummy cycles (such as Register Status 
-* Reads) must use the single-bit transfer mode. In single-bit mode, the PSoC 6 
-* drives the Command on the Data0 line and the device responds on the Data1 
+* 2. Any transfer that does not allow dummy cycles (such as Register Status
+* Reads) must use the single-bit transfer mode. In single-bit mode, the PSoC 6
+* drives the Command on the Data0 line and the device responds on the Data1
 * line, so bus contention cannot occur.
 *
 * \section group_smif_more_information More Information
 *
-* More information regarding the Serial Memory Interface can be found in the component 
+* More information regarding the Serial Memory Interface can be found in the component
 * datasheet and the Technical Reference Manual (TRM).
 * More information regarding the SMIF Configuration Tool are in SMIF
 * Configuration Tool User Guide located in \<PDL_DIR\>/tools/\<OS_DIR\>/SMIFConfigurationTool/
@@ -232,6 +233,11 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.110</td>
+*     <td>Added PSOC C3 device support.</td>
+*     <td>New Device support added.</td>
+*   </tr>
 *   <tr>
 *     <td>2.100</td>
 *     <td>Updated slaveSelect validity check to allow Dual QSPI use case.</td>
@@ -420,7 +426,7 @@
 *        CY_SMIF_WR_DISABLE_CMD into CY_SMIF_WRITE_DISABLE_CMD;\n
 *        CY_SMIF_RD_STS_REG1_CMD into CY_SMIF_READ_STATUS_REG1_CMD;\n
 *        CY_SMIF_WR_ENABLE_CMD into CY_SMIF_WRITE_ENABLE_CMD;\n
-*        CY_SMIF_RD_STS_REG2_T1_CMD into CY_SMIF_READ_STATUS_REG2_T1_CMD;\n          
+*        CY_SMIF_RD_STS_REG2_T1_CMD into CY_SMIF_READ_STATUS_REG2_T1_CMD;\n
 *        CY_SMIF_WR_STS_REG2_CMD into CY_SMIF_WRITE_STATUS_REG2_CMD;\n
 *        CY_SMIF_RD_STS_REG2_T2_CMD into CY_SMIF_READ_STATUS_REG2_T2_CMD;\n
 *        CY_SMIF_QE_BIT_STS_REG2_T1 into CY_SMIF_QE_BIT_STATUS_REG2_T1;\n
@@ -440,14 +446,14 @@
 *     </td>
 *   </tr>
 *   <tr>
-*     <td>The Cy_SMIF_MemSfdpDetect() function is updated to support new 
+*     <td>The Cy_SMIF_MemSfdpDetect() function is updated to support new
 *         commands for 4 bytes addressing.
 *     </td>
 *     <td>Memory devices with new 4 byte addressing commands support.
 *     </td>
 *   </tr>
 *   <tr>
-*     <td>Added the blocking functions which take care of the 
+*     <td>Added the blocking functions which take care of the
 *         busy-status check of the memory:
 *         - \ref  Cy_SMIF_MemIsReady
 *         - \ref  Cy_SMIF_MemIsQuadEnabled
@@ -477,7 +483,7 @@
 *   <tr>
 *     <td>Updated the General Description section with minor changes.
 *         Updated the ordering of the parameters descriptions for some functions.
-*         Added the text saying that the Cy_SMIF_MemInit() function is applicable 
+*         Added the text saying that the Cy_SMIF_MemInit() function is applicable
 *      to use the external memory as memory-mapped to PSoC (XIP mode).
 *         Added the snippet for the Cy_SMIF_Encrypt() function to show how to use this function.
 *         Added below the picture in the Low-Level Functions section the sequence of PDL
@@ -495,7 +501,7 @@
 *   </tr>
 *   <tr>
 *     <td rowspan="3">1.20</td>
-*     <td>Flattened the organization of the driver source code into the single 
+*     <td>Flattened the organization of the driver source code into the single
 *         source directory and the single include directory.
 *     </td>
 *     <td>Driver library directory-structure simplification.</td>
@@ -507,15 +513,15 @@
 *   <tr>
 *     <td>Added register access layer. Use register access macros instead
 *         of direct register access using dereferenced pointers.</td>
-*     <td>Makes register access device-independent, so that the PDL does 
+*     <td>Makes register access device-independent, so that the PDL does
 *         not need to be recompiled for each supported part number.</td>
 *   </tr>
 *   <tr>
 *     <td rowspan="2">1.11</td>
 *     <td>Fixed internal function that writes to the SMIF FIFO</td>
-*     <td>The write function stuck in the loop when write speed in external 
-*         memory is significantly lower than PSoC CPU core speed and write 
-*         transfer is not finished during the single function call.  
+*     <td>The write function stuck in the loop when write speed in external
+*         memory is significantly lower than PSoC CPU core speed and write
+*         transfer is not finished during the single function call.
 *     </td>
 *   </tr>
 *   <tr>
@@ -529,7 +535,7 @@
 *   </tr>
 *   <tr>
 *     <td>1.10</td>
-*     <td>Fix write to external memory from CM0+ core. Add checks of API input parameters. 
+*     <td>Fix write to external memory from CM0+ core. Add checks of API input parameters.
 *         Minor documentation updates</td>
 *     <td></td>
 *   </tr>
@@ -566,12 +572,12 @@
 *  \image html smif_1_0_p03_rw_cmd.png
 *
 * The sequence of the PDL functions required in a read or write transaction is:
-* \ref Cy_SMIF_TransmitCommand() -> 
-* \ref Cy_SMIF_SendDummyCycles() -> 
-* \ref Cy_SMIF_ReceiveData() / \ref Cy_SMIF_TransmitData() -> 
+* \ref Cy_SMIF_TransmitCommand() ->
+* \ref Cy_SMIF_SendDummyCycles() ->
+* \ref Cy_SMIF_ReceiveData() / \ref Cy_SMIF_TransmitData() ->
 * \ref Cy_SMIF_BusyCheck().
-* The address is sent as part of the Cy_SMIF_TransmitCommand() function. 
-* No separate function call is required. 
+* The address is sent as part of the Cy_SMIF_TransmitCommand() function.
+* No separate function call is required.
 *
 * \}
 * \defgroup group_smif_mem_slot_functions Memory Slot Functions
@@ -629,10 +635,13 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       100
+#define CY_SMIF_DRV_VERSION_MINOR       110
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
+
+/** SMIF V6 internal CACHE line size */
+#define CY_SMIF_CACHE_LINE_SIZE_IN_BYTES  (32U)
 
 /** The SMIF driver ID, reported as part of an unsuccessful API return status
  * \ref cy_en_smif_status_t */
@@ -750,7 +759,7 @@ extern "C" {
                                              (CY_SMIF_SEL_FEEDBACK_CLK == (cy_en_smif_clk_select_t)(clkSel)) || \
                                              (CY_SMIF_SEL_INVERTED_FEEDBACK_CLK == (cy_en_smif_clk_select_t)(clkSel)))
 #endif /* CY_IP_MXSMIF_VERSION */
-                                             
+
 #define CY_SMIF_DESELECT_DELAY_VALID(delay) ((delay) <= CY_SMIF_MAX_DESELECT_DELAY)
 #define CY_SMIF_SLAVE_SEL_VALID(ss)         ((CY_SMIF_SLAVE_SELECT_0 == (ss)) || \
                                              (CY_SMIF_SLAVE_SELECT_1 == (ss)) || \
@@ -776,8 +785,8 @@ extern "C" {
                                                     (CY_SMIF_DDR == (rate)))
 #define CY_SMIF_DATA_DATA_RATE_VALID(rate)   ((CY_SMIF_SDR == (rate)) || \
                                                (CY_SMIF_DDR == (rate)))
-                                                           
-#define CY_SMIF_BUFFER_SIZE_MAX             (65536UL) 
+
+#define CY_SMIF_BUFFER_SIZE_MAX             (65536UL)
 #define CY_SMIF_BUF_SIZE_VALID(size)        (((CY_SMIF_BUFFER_SIZE_MAX) >= (size)) && ((0UL) < (size)))
 
 /***************************************
@@ -847,7 +856,7 @@ extern "C" {
 
 #define CY_SMIF_CMD_FIFO_WR_SS_Pos              (8UL)            /* [11:8]          Slave select         */
 #define CY_SMIF_CMD_FIFO_WR_SS_Msk              (0x00000F00UL)   /* DATA[11:8]      Slave select         */
-   
+
 #define CY_SMIF_CMD_FIFO_WR_TXDATA_Pos          (0UL)            /* [0]             Transmitted byte     */
 #define CY_SMIF_CMD_FIFO_WR_TXDATA_Msk          (0x000000FFUL)   /* DATA[7:0]         Transmitted byte     */
 #define CY_SMIF_CMD_FIFO_WR_DUMMY_Pos           (0UL)            /* [0]             Dummy count          */
@@ -887,8 +896,8 @@ typedef enum
 {
     /**< Generates a bus error. */
     CY_SMIF_BUS_ERROR           = 0UL,
-    /** Stalls the bus with the wait states. This option will increase the 
-     * interrupt latency. 
+    /** Stalls the bus with the wait states. This option will increase the
+     * interrupt latency.
      */
     CY_SMIF_WAIT_STATES         = 1UL
 } cy_en_smif_error_event_t;
@@ -1019,7 +1028,7 @@ typedef enum
 } cy_en_smif_status_t;
 
 /** The SMIF slave select definitions for the driver API. Each slave select is
- * represented by an enumeration that has the bit corresponding to the slave 
+ * represented by an enumeration that has the bit corresponding to the slave
  * select number set. */
 typedef enum
 {
@@ -1161,6 +1170,20 @@ typedef enum
     CY_SMIF_DATA_BIT7_TAP_SEL = 7U, /**< Data line seven. */
 } cy_en_smif_mem_data_line_t;
 
+#if (CY_IP_MXSMIF_VERSION >= 6U) || defined (CY_DOXYGEN)
+/** Specifies CACHE region attribute. */
+typedef enum
+{
+      CY_SMIF_NON_CACHEABLE_NON_BUFFERABLE = 0x00, /**< Non-Cacheable, Non-Bufferable (reset value)*/
+      CY_SMIF_NON_CACHEABLE_BUFFERABLE     = 0x01, /**< Non-Cacheable, Bufferable  */
+      CY_SMIF_CACHEABLE_WT_WA              = 0x0E, /**< Cacheable, Write Through, Write Allocate */
+      CY_SMIF_CACHEABLE_WT_RA              = 0x16, /**< Cacheable, Write Through, Read Allocate */
+      CY_SMIF_CACHEABLE_WT_RWA             = 0x1E, /**< Cacheable, Write Through, Read & Write Allocate */
+      CY_SMIF_CACHEABLE_WB_WA              = 0x0F, /**< Cacheable, Write Back, Write Allocate */
+      CY_SMIF_CACHEABLE_WB_RA              = 0x17, /**< Cacheable, Write Back, Read Allocate */
+      CY_SMIF_CACHEABLE_WB_RWA             = 0x1F, /**< Cacheable, Write Back, Read & Write Allocate */
+} cy_en_smif_cache_attribute_t;
+#endif
 
 /** \cond INTERNAL */
 /*******************************************************************************
@@ -1210,10 +1233,10 @@ typedef struct
                                 *   - "5": 6 clock cycles.
                                 *   - "6": 7 clock cycles.
                                 *   - "7": 8 clock cycles. */
-    uint32_t rxClockSel;        /**< Specifies the clock source for the receiver 
+    uint32_t rxClockSel;        /**< Specifies the clock source for the receiver
                                 *  clock \ref cy_en_smif_clk_select_t. Used for CAT1A, CAT1B and CAT1C devices. */
-    uint32_t blockEvent;        /**< Specifies what happens when there is a Read  
-                                * from an empty RX FIFO or a Write to a full 
+    uint32_t blockEvent;        /**< Specifies what happens when there is a Read
+                                * from an empty RX FIFO or a Write to a full
                                 * TX FIFO. \ref cy_en_smif_error_event_t. */
     cy_en_smif_delay_tap_t   delayTapEnable;      /**<  Delay tap can be enabled or disabled \ref cy_en_smif_delay_tap_t. */
     cy_en_smif_delay_line_t  delayLineSelect;    /**< set line selection which is input. \ref cy_en_smif_delay_line_t */
@@ -1221,6 +1244,7 @@ typedef struct
     uint32_t                 inputFrequencyMHz;  /**< Input frequency. Used when internal DLL is enabled for setting the speed mode */
     bool                     enable_internal_dll; /**< Enables internal DLL. Default value by passes DLL */
     cy_en_smif_dll_divider_t dll_divider_value;   /**< Divider value for DLL */
+    uint32_t                 mdl_tap;             /**< Determines the relative amount of delay through the Master Delay Line (MDL) supplied to memory. Delay taps range from 0-15. */
     cy_en_smif_capture_mode_t rx_capture_mode;    /**< RX Capture mode used in CAT1D Devices */
 #endif
 } cy_stc_smif_config_t;
@@ -1282,6 +1306,25 @@ typedef struct
 #endif /* CY_IP_MXSMIF_VERSION */
 } cy_stc_smif_context_t;
 
+#if (CY_IP_MXSMIF_VERSION>=6) || defined (CY_DOXYGEN)
+/** Specifies SMIF cache region configuration. */
+typedef struct cy_stc_smif_cache_region
+{
+    bool                                  enabled;          /**< Enable/Disable CACHE Region.*/
+    uint32_t                              start_address;    /**< Start address of CACHE region.*/
+    uint32_t                              end_address;      /**< End address of CACHE region.*/
+    cy_en_smif_cache_attribute_t          cache_attributes; /**< CACHE Transaction attributes set for this region.*/
+} cy_stc_smif_cache_region_t;
+
+/** Specifies SMIF cache configuration. */
+typedef struct
+{
+    bool                        enabled;                 /**< Enable/Disable SMIF Internal CACHE.*/
+    bool                        cache_retention_on;      /**< If set, retains CACHE in DeepSleep mode. Not applicable in Deep Sleep OFF or Deep Sleep RAM mode.*/
+    cy_stc_smif_cache_region_t  **cache_region;          /**< CACHE region configuration. */
+    uint32_t                    cache_region_count;      /**< Number of CACHE regions enabled.  */
+} cy_stc_smif_cache_config_t;
+#endif
 /** \} group_smif_data_structures */
 
 
@@ -1384,7 +1427,7 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_With_RWDS(SMIF_Type *base,
 void Cy_SMIF_DeviceTransfer_SetMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave, cy_en_smif_merge_timeout_t timeout);
 void Cy_SMIF_DeviceTransfer_ClearMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave);
 
-#if (CY_IP_MXSMIF_VERSION == 2U)
+#if (CY_IP_MXSMIF_VERSION == 2U) || (CY_IP_MXSMIF_VERSION >= 5U)
 cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel);
 uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base);
 #endif /* (CY_IP_MXSMIF_VERSION==2) */
@@ -1419,19 +1462,29 @@ void Cy_SMIF_SetCryptoIV(SMIF_Type *base, uint32_t *nonce);
 cy_en_smif_status_t Cy_SMIF_SetCryptoEnable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_ConvertSlaveSlotToIndex(cy_en_smif_slave_select_t ss, uint32_t *device_idx);
-#if (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN)
+#if ((CY_IP_MXSMIF_VERSION>=4) && \
+     ((defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0)) || \
+      (defined (SMIF0_DLP_PRESENT) && (SMIF0_DLP_PRESENT > 0)) || \
+      (defined (SMIF1_DLP_PRESENT) && (SMIF1_DLP_PRESENT > 0))) || defined (CY_DOXYGEN))
 cy_en_smif_status_t Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t size);
 uint16_t Cy_SMIF_GetMasterDLP(SMIF_Type *base);
 uint8_t Cy_SMIF_GetMasterDLPSize(SMIF_Type *base);
 uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit);
 #endif
-#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
-cy_en_smif_status_t Cy_SMIF_SetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave,
-                                    cy_en_smif_mem_data_line_t data_line, uint8_t tapSel);
-uint8_t Cy_SMIF_GetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave,
-                                       cy_en_smif_mem_data_line_t data_line);
+
+#if (CY_IP_MXSMIF_VERSION >= 6) || defined (CY_DOXYGEN)
+cy_en_smif_status_t Cy_SMIF_InitCache(SMIF_CACHE_BLOCK_Type *base, const cy_stc_smif_cache_config_t *cache_config);
+
+cy_en_smif_status_t Cy_SMIF_Clean_All_Cache(SMIF_CACHE_BLOCK_Type *base);
+cy_en_smif_status_t Cy_SMIF_Invalidate_All_Cache(SMIF_CACHE_BLOCK_Type *base);
+cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_All_Cache(SMIF_CACHE_BLOCK_Type *base);
+
+cy_en_smif_status_t Cy_SMIF_Clean_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size);
+cy_en_smif_status_t Cy_SMIF_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size);
+cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size);
 #endif
+
 /** \addtogroup group_smif_functions_syspm_callback
 * The driver supports SysPm callback for Deep Sleep and Hibernate transition.
 * \{
@@ -1877,7 +1930,7 @@ __STATIC_INLINE void Cy_SMIF_PushTxFifo(SMIF_Type *baseaddr, cy_stc_smif_context
 #if (CY_IP_MXSMIF_VERSION>=2)
             if((context->preCmdDataRate == CY_SMIF_DDR) &&(context->preCmdWidth == CY_SMIF_WIDTH_OCTAL))
             {
-                SMIF_TX_DATA_MMIO_FIFO_WR1ODD(baseaddr) = buff[0U]; 
+                SMIF_TX_DATA_MMIO_FIFO_WR1ODD(baseaddr) = buff[0U];
             }
             else
             {
@@ -1974,7 +2027,7 @@ __STATIC_INLINE void Cy_SMIF_PopRxFifo(SMIF_Type *baseaddr, cy_stc_smif_context_
     {
         if (readBytes == CY_SMIF_EIGHT_BYTES)
         {
-            Cy_SMIF_UnPackByteArray(SMIF_RX_DATA_FIFO_RD4(baseaddr), &buff[0U], true); 
+            Cy_SMIF_UnPackByteArray(SMIF_RX_DATA_FIFO_RD4(baseaddr), &buff[0U], true);
             Cy_SMIF_UnPackByteArray(SMIF_RX_DATA_FIFO_RD4(baseaddr), &buff[4U], true);
         }
         else if(readBytes == CY_SMIF_ONE_BYTE)
@@ -1983,7 +2036,7 @@ __STATIC_INLINE void Cy_SMIF_PopRxFifo(SMIF_Type *baseaddr, cy_stc_smif_context_
         }
         else if(readBytes == CY_SMIF_TWO_BYTES)
         {
-            Cy_SMIF_UnPackByteArray(SMIF_RX_DATA_FIFO_RD2(baseaddr), &buff[0U], false); 
+            Cy_SMIF_UnPackByteArray(SMIF_RX_DATA_FIFO_RD2(baseaddr), &buff[0U], false);
         }
         else if(readBytes == CY_SMIF_THREE_BYTES)
         {
@@ -2175,7 +2228,7 @@ __STATIC_INLINE SMIF_DEVICE_Type volatile * Cy_SMIF_GetDeviceBySlot(SMIF_Type *b
     switch (slaveSelect)
     {
         case CY_SMIF_SLAVE_SELECT_0:
-            device = &(SMIF_DEVICE_IDX(base, 0)); 
+            device = &(SMIF_DEVICE_IDX(base, 0));
             break;
         case CY_SMIF_SLAVE_SELECT_1:
             device = &(SMIF_DEVICE_IDX(base, 1));

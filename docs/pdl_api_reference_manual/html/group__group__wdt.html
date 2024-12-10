@@ -101,7 +101,8 @@ $(document).ready(function(){initNavTree('group__group__wdt.html','');});
 <p>You can also reduce the entire WDT counter period by specifying the number of most significant bits that are ignored in the WDT counter. For example, if the <a class="el" href="group__group__wdt__functions.html#gafad1413ff11cfb3e3e2b5d9854dc793e" title="Configures the number of the most significant bits of the Watchdog timer that are not checked against...">Cy_WDT_SetIgnoreBits()</a> function is called with parameter 3, the WDT counter becomes a 13-bit free-running up-counter.</p>
 <p><b> Power Modes </b></p>
 <p>WDT can operate in all possible low power modes. Operation during Hibernate mode is possible because the logic and high-voltage internal low oscillator (ILO) are supplied by the external high-voltage supply (Vddd). The WDT can be configured to wake the device from Hibernate mode.</p>
-<p>In CPU Active mode, an interrupt request from the WDT is sent to the CPU. In CPU Sleep, CPU Deep Sleep mode, the CPU subsystem is powered down, so the interrupt request from the WDT is sent directly to the WakeUp Interrupt Controller (WIC) which will then wake up the CPU. The CPU then acknowledges the interrupt request and executes the ISR.</p>
+<p>In CPU Active mode, an interrupt request from the WDT is sent to the CPU. In CPU Sleep, CPU Deep Sleep mode, the CPU subsystem is powered down, so the interrupt request from the WDT is sent directly to the WakeUp Interrupt Controller (WIC) which will then wake up the CPU. The CPU then acknowledges the interrupt request and executes the ISR. Clear the interrupt in the ISR. The Reset occurs on the 3rd WDT counter match.</p>
+<p>In Hibernate mode, the entire device except a few peripherals (such as WDT and LPCOMP) are powered down. Any interrupt to wake up the device in this mode results in a device reset. Hence, there is no interrupt service routine or mechanism associated with this mode. The Reset occurs on the first WDT counter match.</p>
 <p><b> Clock Source </b></p>
 <p>The WDT is clocked by the ILO. The WDT must be disabled before disabling the ILO. According to the device datasheet, the ILO accuracy is +/-30% over voltage and temperature. This means that the timeout period may vary by 30% from the configured value. Appropriate margins should be added while configuring WDT intervals to make sure that unwanted device resets do not occur on some devices.</p>
 <p>Refer to the device datasheet for more information on the oscillator accuracy.</p>
@@ -114,7 +115,7 @@ $(document).ready(function(){initNavTree('group__group__wdt.html','');});
 <p><b> Reset Detection </b></p>
 <p>Use the <a class="el" href="group__group__syslib__functions.html#gac8aa61d2f8052886c676f4f592d1693d" title="The function returns the cause for the latest reset(s) that occurred in the system. ">Cy_SysLib_GetResetReason()</a> function to detect whether the WDT has triggered a device reset.</p>
 <p><b> Interrupt Configuration </b></p>
-<p>If the WDT is configured to generate an interrupt, pending interrupts must be cleared within the ISR (otherwise, the interrupt will be generated continuously). A pending interrupt to the WDT block must be cleared by calling the <a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987" title="Clears the WDT match flag which is set every time the WDT counter reaches a WDT match value...">Cy_WDT_ClearInterrupt()</a> function. The call to the function will clear the unhandled WDT interrupt counter.</p>
+<p>If the WDT is configured to generate an interrupt, pending interrupts must be cleared within the ISR (otherwise, the interrupt will be generated continuously). A pending interrupt to the WDT block must be cleared by calling the <a class="el" href="group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987" title="Clears the WDT interrupt. ">Cy_WDT_ClearInterrupt()</a> function. The call to the function will clear the unhandled WDT interrupt counter.</p>
 <p>Use the WDT ISR as a timer to trigger certain actions and to change a next WDT match value.</p>
 <p>Ensure that the interrupts from the WDT are passed to the CPU to avoid unregistered interrupts. Unregistered WDT interrupts result in a continuous device reset. To avoid this, call <a class="el" href="group__group__wdt__functions.html#ga38c69c98675d6024a7d73acb41b24399" title="After unmasking interrupts from the WDT, they are passed to CPU. ">Cy_WDT_UnmaskInterrupt()</a>. After that, call the WDT API functions for interrupt handling/clearing.</p>
 <h1><a class="anchor" id="group_wdt_configuration"></a>
@@ -135,11 +136,15 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.90 </td><td>Updated internal macro for parameter validation. </td><td>Code enhancement  </td></tr>
+<tr>
 <td>1.80 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
  MXS40SRSS_VERSION compares now expect &lt; or &gt;= 2, previously 3. </td><td>Code enhancement and support for new devices.  </td></tr>
 <tr>
-<td>1.70 </td><td>Modified <a class="el" href="group__group__wdt__functions.html#gafad1413ff11cfb3e3e2b5d9854dc793e" title="Configures the number of the most significant bits of the Watchdog timer that are not checked against...">Cy_WDT_SetIgnoreBits()</a> API to work correctly with CAT1B.<br />
- Newly Added API : <a class="el" href="group__group__wdt__functions.html#gafc27481c4455735381d4e2e64a0a081d" title="Resets the WDT counter value. ">Cy_WDT_ResetCounter()</a> for resetting counter to zero. </td><td>Code Enhancements for CAT1B. </td><td>Added <a class="el" href="group__group__wdt__functions.html#gafc27481c4455735381d4e2e64a0a081d">Cy_WDT_ResetCounter</a> new API and few macros. </td><td>Usability enhancement.  </td></tr>
+<td rowspan="2">1.70 </td><td>Modified <a class="el" href="group__group__wdt__functions.html#gafad1413ff11cfb3e3e2b5d9854dc793e" title="Configures the number of the most significant bits of the Watchdog timer that are not checked against...">Cy_WDT_SetIgnoreBits()</a> API to work correctly with CAT1B.<br />
+ Newly Added API : <a class="el" href="group__group__wdt__functions.html#gafc27481c4455735381d4e2e64a0a081d" title="Resets the WDT counter value. ">Cy_WDT_ResetCounter()</a> for resetting counter to zero. </td><td>Code Enhancements for CAT1B.  </td></tr>
+<tr>
+<td>Added <a class="el" href="group__group__wdt__functions.html#gafc27481c4455735381d4e2e64a0a081d">Cy_WDT_ResetCounter</a> new API and few macros. </td><td>Usability enhancement.  </td></tr>
 <tr>
 <td>1.60 </td><td>Updated <a class="el" href="group__group__wdt__clk__src__enums.html#ga40acd42f9cad509e991c9d105ad43206">cy_en_wdt_clk_sources_t</a> enum and added support for CAT1D. </td><td>Code Enhancement and new device support added.  </td></tr>
 <tr>

@@ -177,7 +177,7 @@ var NAVTREEINDEX0 =
 "group__group__adcmic__macros__triggers.html#ga3479a71ecb9cdbdec28f18a2401774c8":[4,1,0,1,2],
 "group__group__adcmic__macros__triggers.html#gadc44090d956c7a21e0da9986894430bb":[4,1,0,1,1],
 "group__group__adcmic__macros__triggers.html#gae112d71129c8129bb2ab0b156e38eb36":[4,1,0,1,0],
-"group__group__arm__system__timer.html":[4,45],
+"group__group__arm__system__timer.html":[4,50],
 "group__group__axidmac.html":[4,2],
 "group__group__axidmac__block__functions.html":[4,2,2,0],
 "group__group__axidmac__block__functions.html#ga241e928227c4b2a89c9f8df2d64f59a1":[4,2,2,0,2],

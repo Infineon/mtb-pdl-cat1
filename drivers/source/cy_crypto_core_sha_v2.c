@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_sha_v2.c
-* \version 2.120
+* \version 2.130
 *
 * \brief
 *  This file provides the source code to the API for the SHA method
@@ -8,7 +8,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2020-2024), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -336,7 +336,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_V2_Sha_Start(CRYPTO_Type *base, cy_stc_cryp
 
     if (hashState != NULL)
     {
-
         hashRemap = (uint8_t *)CY_REMAP_ADDRESS_FOR_CRYPTO(hashState->hash);
         initialHashRemap = (uint8_t *)CY_REMAP_ADDRESS_FOR_CRYPTO(hashState->initialHash);
 
@@ -537,7 +536,6 @@ static cy_en_crypto_status_t Cy_Crypto_Sha3_Finish(CRYPTO_Type *base,
     
     if ((hashState != NULL) && (digest != NULL))
     {
-    
 #if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
         /* Flush the cache */
         CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to int32_t.');
@@ -577,7 +575,7 @@ static cy_en_crypto_status_t Cy_Crypto_Sha3_Finish(CRYPTO_Type *base,
         Cy_Crypto_Core_V2_FFStoreSync(base);
 
         tmpResult = CY_CRYPTO_SUCCESS;
-     
+        
     }
   
     return (tmpResult);

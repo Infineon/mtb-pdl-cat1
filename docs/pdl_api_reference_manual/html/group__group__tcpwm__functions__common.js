@@ -24,6 +24,7 @@ var group__group__tcpwm__functions__common =
     [ "Cy_TCPWM_InputTriggerSetup", "group__group__tcpwm__functions__common.html#gad2d48d4af03eafea0c103905249e8254", null ],
     [ "Cy_TCPWM_OutputTriggerSetup", "group__group__tcpwm__functions__common.html#ga1d580c145e6e0a2bcccb3bc4c5e5b0aa", null ],
     [ "Cy_TCPWM_SetDebugFreeze", "group__group__tcpwm__functions__common.html#ga03bd95ef7188f3da6f51e043e2bbd1ea", null ],
+    [ "Cy_TCPWM_SetDebugSuspend", "group__group__tcpwm__functions__common.html#ga950b401d5acbd494be8bb5190d77e9a0", null ],
     [ "Cy_TCPWM_Block_EnableSwap", "group__group__tcpwm__functions__common.html#ga9cce3f9a4b4f0d381565599279a7dd18", null ],
     [ "Cy_TCPWM_InputTriggerSetupWithGF", "group__group__tcpwm__functions__common.html#gaf6fb96fe51a6e4b1edeac970ba113166", null ]
 ];

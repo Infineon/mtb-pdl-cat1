@@ -358,6 +358,7 @@ extern "C" {
 * \{
 */
 
+/* DRIVERS-10879 - PSE84 startup files needs to be updated */
 #if defined (CY_IP_M4CPUSS) || defined (CY_IP_M7CPUSS)
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 2, \
 'Coverity does not check the .S assembly files, the definition is a part of startup_psoc6_04_cm4.s file.')
