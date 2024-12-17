@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.h
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides the public interface for the Crypto driver.
@@ -249,6 +249,11 @@
 * \section group_crypto_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td> 2.140</td>
+*     <td> Added new APIs \ref Cy_Crypto_Core_EC25519_MakePublicKey, \ref Cy_Crypto_Core_EC25519_MakePrivateKey, \ref Cy_Crypto_Core_EC25519_PointMultiplication. </td>
+*     <td>EC25519 curve support added for ECDH.</td>
+*   </tr>
 *   <tr>
 *     <td> 2.130</td>
 *     <td>Updated API \ref Cy_Crypto_Core_Vu_RegMemPointer, \ref Cy_Crypto_Core_ED25519_PointDecode</td>

@@ -140,6 +140,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga2a304423a4c37b314776c494fe2a3ef9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga2a304423a4c37b314776c494fe2a3ef9">Cy_Crypto_Core_ED25519_MakePublicKey</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, const uint8_t *privateKey, <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *publicKey)</td></tr>
 <tr class="memdesc:ga2a304423a4c37b314776c494fe2a3ef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new ED25519 public key.  <a href="#ga2a304423a4c37b314776c494fe2a3ef9">More...</a><br /></td></tr>
 <tr class="separator:ga2a304423a4c37b314776c494fe2a3ef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10bc3913455379aef1e6542940e18035"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga10bc3913455379aef1e6542940e18035">Cy_Crypto_Core_EC25519_MakePublicKey</a> (CRYPTO_Type *base, const uint8_t *privateKey, <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *publicKey)</td></tr>
+<tr class="memdesc:ga10bc3913455379aef1e6542940e18035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new EC25519 public key.  <a href="#ga10bc3913455379aef1e6542940e18035">More...</a><br /></td></tr>
+<tr class="separator:ga10bc3913455379aef1e6542940e18035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga79a9a68863e1279ee50df38fafd2229c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga79a9a68863e1279ee50df38fafd2229c">Cy_Crypto_Core_EC25519_MakePrivateKey</a> (CRYPTO_Type *base, uint8_t *key, <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a> GetRandomDataFunc, void *randomDataInfo)</td></tr>
+<tr class="memdesc:ga79a9a68863e1279ee50df38fafd2229c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new EC25519 private key.  <a href="#ga79a9a68863e1279ee50df38fafd2229c">More...</a><br /></td></tr>
+<tr class="separator:ga79a9a68863e1279ee50df38fafd2229c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74858f5d6bb0b9b2cc01396d0e7b86a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga74858f5d6bb0b9b2cc01396d0e7b86a3">Cy_Crypto_Core_EC25519_PointMultiplication</a> (CRYPTO_Type *base, uint8_t *p_r, const uint8_t *p_x, const uint8_t *p_d)</td></tr>
+<tr class="memdesc:ga74858f5d6bb0b9b2cc01396d0e7b86a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">EC25519 Elliptic curve point multiplication in GF(p).  <a href="#ga74858f5d6bb0b9b2cc01396d0e7b86a3">More...</a><br /></td></tr>
+<tr class="separator:ga74858f5d6bb0b9b2cc01396d0e7b86a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3339d6b9fad08c824ef9d94d0234e903"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#ga3339d6b9fad08c824ef9d94d0234e903">Cy_Crypto_Core_EC_NistP_PointMultiplication</a> (CRYPTO_Type *base, <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a> curveID, const uint8_t *ecpGX, const uint8_t *ecpGY, const uint8_t *ecpD, uint8_t *ecpQX, uint8_t *ecpQY)</td></tr>
 <tr class="memdesc:ga3339d6b9fad08c824ef9d94d0234e903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elliptic curve point multiplication in GF(p).  <a href="#ga3339d6b9fad08c824ef9d94d0234e903">More...</a><br /></td></tr>
 <tr class="separator:ga3339d6b9fad08c824ef9d94d0234e903"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1049,6 +1058,157 @@ Functions</h2></td></tr>
     <tr><td class="paramname">curveID</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__enums.html#ga03e136772067494dd44c027b354ce41b">cy_en_crypto_ecc_curve_id_t</a>.</td></tr>
     <tr><td class="paramname">privateKey</td><td>[in] Private key.</td></tr>
     <tr><td class="paramname">publicKey</td><td>[out] Newly created Public key. See <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga10bc3913455379aef1e6542940e18035"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga10bc3913455379aef1e6542940e18035">&#9670;&nbsp;</a></span>Cy_Crypto_Core_EC25519_MakePublicKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_EC25519_MakePublicKey </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>privateKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a> *&#160;</td>
+          <td class="paramname"><em>publicKey</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make a new EC25519 public key. </p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters privateKey and x of publicKey must align and end in 32 byte boundary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
+    <tr><td class="paramname">privateKey</td><td>[out] Destination of the newly created key.</td></tr>
+    <tr><td class="paramname">publicKey</td><td>See <a class="el" href="structcy__stc__crypto__ecc__key.html">cy_stc_crypto_ecc_key</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga79a9a68863e1279ee50df38fafd2229c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga79a9a68863e1279ee50df38fafd2229c">&#9670;&nbsp;</a></span>Cy_Crypto_Core_EC25519_MakePrivateKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_EC25519_MakePrivateKey </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a>&#160;</td>
+          <td class="paramname"><em>GetRandomDataFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>randomDataInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make a new EC25519 private key. </p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameter key must align and end in 32 byte boundary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
+    <tr><td class="paramname">key</td><td>[out] Destination of the newly created key.</td></tr>
+    <tr><td class="paramname">GetRandomDataFunc</td><td>See <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a>.</td></tr>
+    <tr><td class="paramname">randomDataInfo</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code. See <a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga74858f5d6bb0b9b2cc01396d0e7b86a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74858f5d6bb0b9b2cc01396d0e7b86a3">&#9670;&nbsp;</a></span>Cy_Crypto_Core_EC25519_PointMultiplication()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__crypto__enums.html#ga3a65158da3dc5cb6aa016ae599542aad">cy_en_crypto_status_t</a> Cy_Crypto_Core_EC25519_PointMultiplication </td>
+          <td>(</td>
+          <td class="paramtype">CRYPTO_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>p_r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>p_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>p_d</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EC25519 Elliptic curve point multiplication in GF(p). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
+    <tr><td class="paramname">p_r</td><td>Pointer to result point.</td></tr>
+    <tr><td class="paramname">p_x</td><td>Pointer to X coordinate of base point.</td></tr>
+    <tr><td class="paramname">p_d</td><td>Pointer to Scalar multiplication value.</td></tr>
   </table>
   </dd>
 </dl>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_common.h
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides common constants and parameters
@@ -49,7 +49,7 @@ extern "C" {
 #define CY_CRYPTO_DRV_VERSION_MAJOR         2
 
 /** Driver minor version */
-#define CY_CRYPTO_DRV_VERSION_MINOR         130
+#define CY_CRYPTO_DRV_VERSION_MINOR         140
 
 
 /** Rounds off value to nearest multiple of 32 */
@@ -624,6 +624,9 @@ typedef enum {
 #if defined(CY_CRYPTO_CFG_ECP_DP_ED25519_ENABLED)
         CY_CRYPTO_ECC_ECP_ED25519,
 #endif /* defined(CY_CRYPTO_CFG_ECP_DP_ED25519_ENABLED) */
+#if defined(CY_CRYPTO_CFG_ECP_DP_EC25519_ENABLED)
+    CY_CRYPTO_ECC_ECP_EC25519,
+#endif /* defined(CY_CRYPTO_CFG_ECP_DP_EC25519_ENABLED) */
     /* Count of supported curves */
     CY_CRYPTO_ECC_ECP_CURVES_CNT
 } cy_en_crypto_ecc_curve_id_t;

@@ -89,20 +89,23 @@ $(document).ready(function(){initNavTree('group__group__lin.html','');});
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
 <p>The LIN driver provides a function API to manage Local Interconnect Network. </p>
 <p>The functions and other declarations used in this driver are in cy_lin.h. You can include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
-<p>The Local Interconnect Network (LIN) bus was developed to create a standard for low-cost, low-end multiplexed communication. The use of a standard * bus protocol promotes the interoperability of network nodes. The LIN bus is a sub-bus system based on a serial communications protocol. The bus is a single master / multiple slave bus that uses a single wire * to transmit data. A LIN cluster exchanges messages with a pre-defined message frame format. The master node initiates a message exchange. Both the master node and * the slave nodes can transmit (TX) and receive (RX). The LIN protocol is half-duplex: a LIN node is either transmitting or receiving, but it cannot transmit and receive at the same time. Messages are * exchanged when the LIN cluster is in operational mode. A LIN cluster also exchanges wake-up signals. Both the master node and the slave nodes can initiate a wake-up. Wake-up signals are exchanged when * the LIN cluster is in sleep mode. The LIN bus can have a length of 10's of meters and has a bit-rate in the range of 1 kbps to 20 kbps. Most bus timing is expressed in bit periods * (e.g. a 20 kbps LIN bus has a 50 us bit period). The LIN bus uses single wire communication using a "lin" line with an operating Voltage of 12 V. Most master and slave nodes use discrete * transceiver devices.</p>
+<p>The Local Interconnect Network (LIN) bus was developed to create a standard for low-cost, low-end multiplexed communication. The use of a standard bus protocol promotes the interoperability of network nodes. The LIN bus is a sub-bus system based on a serial communications protocol. The bus is a single master / multiple slave bus that uses a single wire to transmit data. A LIN cluster exchanges messages with a pre-defined message frame format. The master node initiates a message exchange. Both the master node and the slave nodes can transmit (TX) and receive (RX). The LIN protocol is half-duplex: a LIN node is either transmitting or receiving, but it cannot transmit and receive at the same time. Messages are exchanged when the LIN cluster is in operational mode. A LIN cluster also exchanges wake-up signals. Both the master node and the slave nodes can initiate a wake-up. Wake-up signals are exchanged when the LIN cluster is in sleep mode. The LIN bus can have a length of 10's of meters and has a bit-rate in the range of 1 kbps to 20 kbps. Most bus timing is expressed in bit periods (e.g. a 20 kbps LIN bus has a 50 us bit period). The LIN bus uses single wire communication using a "lin" line with an operating Voltage of 12 V. Most master and slave nodes use discrete transceiver devices.</p>
 <p>Features:</p><ul>
 <li>Single LIN hardware unit supporting multiple LIN channels.</li>
 <li>Unified interrupt model.</li>
-<li>Per LIN channel:</li>
-<li>* Master and slave functionality.</li>
-<li>* Master node autonomous header transmission. Master node autonomous response transmission and reception.</li>
-<li>* Slave node autonomous header reception. Slave node autonomous response transmission and reception.</li>
-<li>* Message buffer for PID, data and checksum fields.</li>
-<li>* Break detection during message reception.</li>
-<li>* Classic and enhanced checksum.</li>
-<li>* Wakeup signaling.</li>
-<li>* Timeout detection.</li>
-<li>* Error detection.</li>
+</ul>
+<p>Per LIN channel:</p><ul>
+<li>Master and slave functionality.</li>
+<li>Master node autonomous header transmission.</li>
+<li>Master node autonomous response transmission and reception.</li>
+<li>Slave node autonomous header reception.</li>
+<li>Slave node autonomous response transmission and reception.</li>
+<li>Message buffer for PID, data, and checksum fields.</li>
+<li>Break detection during message reception.</li>
+<li>Classic and enhanced checksum.</li>
+<li>Wakeup signaling.</li>
+<li>Timeout detection.</li>
+<li>Error detection.</li>
 </ul>
 <p>The LIN bus is an industry standard.</p>
 <div class="image">

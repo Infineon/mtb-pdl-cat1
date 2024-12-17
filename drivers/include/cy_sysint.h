@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysint.h
-* \version 1.120
+* \version 1.130
 *
 * \brief
 * Provides an API declaration of the SysInt driver
@@ -204,6 +204,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.130</td>
+*     <td>Updated API \ref Cy_SysInt_SetVector for non-cacheable data check .</td>
+*     <td>Code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>1.120</td>
 *     <td>Updated Pre-processor checks.</td>
 *     <td>Code enhancement.</td>
@@ -383,7 +388,7 @@ CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 #define CY_SYSINT_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_SYSINT_DRV_VERSION_MINOR    120
+#define CY_SYSINT_DRV_VERSION_MINOR    130
 
 /** SysInt driver ID */
 #define CY_SYSINT_ID CY_PDL_DRV_ID     (0x15U)

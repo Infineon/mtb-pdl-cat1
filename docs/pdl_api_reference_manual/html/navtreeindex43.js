@@ -1,5 +1,8 @@
 var NAVTREEINDEX43 =
 {
+"structcy__stc__smif__mem__config__t.html#a8af26f195ff6eb4601cc08cea6218c31":[4,43,2,0,3,6],
+"structcy__stc__smif__mem__config__t.html#ad85fa341a6d7c5fe4663e2c50217ca38":[4,43,2,0,3,5],
+"structcy__stc__smif__mem__config__t.html#aebefac335a407c6db19b06c278df33a6":[4,43,2,0,3,4],
 "structcy__stc__smif__mem__config__t.html#afd4726ab3b952fa7b320899f496e1d17":[4,43,2,0,3,2],
 "structcy__stc__smif__mem__device__cfg__t.html":[4,43,2,0,2],
 "structcy__stc__smif__mem__device__cfg__t.html#a04a86cf0c364f59439d81470051f216e":[4,43,2,0,2,16],
@@ -246,8 +249,5 @@ var NAVTREEINDEX43 =
 "structcy__stc__tcpwm__pwm__config__t.html#aec22a72f237c8ad78eb7fa85818a4af0":[4,51,2,2,0,38],
 "structcy__stc__tcpwm__pwm__config__t.html#af1910e1d1df6bf11909f9a263051d8f7":[4,51,2,2,0,22],
 "structcy__stc__tcpwm__quaddec__config__t.html":[4,51,3,2,0],
-"structcy__stc__tcpwm__quaddec__config__t.html#a139114c65e2c3dd6ba549319ba21c3d2":[4,51,3,2,0,2],
-"structcy__stc__tcpwm__quaddec__config__t.html#a40d7a2830339c593182dea25668a4cd4":[4,51,3,2,0,1],
-"structcy__stc__tcpwm__quaddec__config__t.html#a4f96c057c83a5371220063f1d0fd433b":[4,51,3,2,0,7],
-"structcy__stc__tcpwm__quaddec__config__t.html#a6d8a95cce86565d2f8aa6453d038bb8d":[4,51,3,2,0,4]
+"structcy__stc__tcpwm__quaddec__config__t.html#a139114c65e2c3dd6ba549319ba21c3d2":[4,51,3,2,0,2]
 };

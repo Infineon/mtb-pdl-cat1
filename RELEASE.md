@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.13.0
+# MTB CAT1 Peripheral Driver Library v3.14.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -6,53 +6,23 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Implementation Details
-* CAT1B: Support for the new PSOC C3 devices.
+* CAT1A/C: Support added for ECDH EC25519 Curve.
 
 ## Build Changes
 
 ## Personality Changes
-* New Personalities (in 9.0 folder):
-  * hppass
-  * peripheral:
-	* seglcd-1.1.cypersonality
-	* lpcomp-3.0.cypersonality
 * Updated Personalities (in 9.0 folder):
   * peripheral:
-    * pwm_v2-1.0.cypersonality
-    * counter_v2.cypersonality
-    * motif_quaddec-1.0.cypersonality
-    * motif_mcp-1.0.cypersonality
-    * motif_hallsensor-1.0.cypersonality
-    * motif_mcp_quaddec-1.0.cypersonality
-  * platform:
-    * pll250-1.0.cypersonality
-    * debug-2.0.cypersonality
-    * sysclock-3.0.cypersonality
-    * peri_group-1.0.cypersonality
+    * connectivity_wifi-1.0.cypersonality
 
 ## Added Drivers
-* [CORDIC 2.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cordic.html)
-* [HPPASS 1.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__hppass.html)
-* [MPC 1.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mpc.html)
-* [MS CTL 1.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ms__ctl.html)
-* [PPC 1.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ppc.html)
 
 ## Updated Drivers
-* [CRYPTO 2.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
-* [CRYPTOLITE 2.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
-* [EPHY 1.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ephy.html)
-* [ETHIF 1.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ethif.html)
-* [FLASH 3.120](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
-* [GPIO 1.120](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
-* [LPCOMP 1.80.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lpcomp.html)
-* [RTC 2.100](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__rtc.html)
-* [SD_HOST 2.30](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sd__host.html)
-* [SMIF 2.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [SYSCLK 3.120](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSLIB 3.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
-* [SYSPM 5.160](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [TCPWM 1.80](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__tcpwm.html)
-* [WDT 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__wdt.html)
+* [CRYPTO 2.140](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
+* [CRYPTOLITE 2.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
+* [SYSPM 5.170](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [SYSINT 1.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
+
 
 ### Drivers with patch version updates
 
@@ -92,9 +62,8 @@ This version of PDL was validated for compatibility with the following Software 
 
 | Software and Tools                                                            | Version      |
 | :---                                                                          | :----        |
-| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.4.1        |
-| [Infineon HAL](https://github.com/Infineon/mtb-hal-cat1)                      | 2.7.0        |
-| CMSIS                                                                         | 5.8.1        |
+| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.4.2        |
+| CMSIS                                                                         | 5.8.2        |
 | GCC Compiler                                                                  | 11.3.1       |
 | IAR Compiler                                                                  | 9.50.2       |
 | ARM Compiler 6                                                                | 6.22         |

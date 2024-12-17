@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.160
+* \version 5.170
 *
 * Provides the function definitions for the power management API.
 *
@@ -847,12 +847,17 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>5.170</td>
+*     <td>Updated API \ref Cy_SysPm_ReadStatus for MPN defined supported core checks.</td>
+*     <td>Code improvements and bug fixes.</td>
+*   </tr>
+*   <tr>
 *     <td rowspan="3">5.160</td>
 *     <td>Updated APIs:
 *         \ref Cy_SysPm_CpuEnterSleep
 *         \ref Cy_SysPm_CpuEnterDeepSleep
 *         \ref Cy_SysPm_RestoreRegisters
-*         \ref Cy_SysPm_SetDeepSleepMode
+*         \ref Cy_SysPm_SetDeepSleepMode </td>
 *     <td>Code improvements and bug fixes.</td>
 *   </tr>
 *   <tr>
@@ -1738,7 +1743,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       160
+#define CY_SYSPM_DRV_VERSION_MINOR       170
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))

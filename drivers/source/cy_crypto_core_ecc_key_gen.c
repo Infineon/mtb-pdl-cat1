@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_key_gen.c
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC key
@@ -77,15 +77,29 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakeKeyPair(CRYPTO_Type *base,
 {
     cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
 
-    if ((key != NULL) && (key->k != NULL) && (key->pubkey.x != NULL) && (key->pubkey.y != NULL))
+    if ((key != NULL) && (key->k != NULL) && (key->pubkey.x != NULL))
     {
-        tmpResult = Cy_Crypto_Core_ECC_MakePrivateKey(base, curveID, key->k, GetRandomDataFunc, randomDataInfo);
-    }
-
-    if (CY_CRYPTO_SUCCESS == tmpResult)
-    {
-        tmpResult = Cy_Crypto_Core_ECC_MakePublicKey(base, curveID, key->k, key);
-        key->type = PK_PRIVATE;
+        if(curveID == CY_CRYPTO_ECC_ECP_EC25519)
+        {
+            tmpResult = Cy_Crypto_Core_EC25519_MakePrivateKey(base, key->k, GetRandomDataFunc, randomDataInfo);
+            if (CY_CRYPTO_SUCCESS == tmpResult)
+            {
+                tmpResult = Cy_Crypto_Core_EC25519_MakePublicKey(base, (const uint8_t *)key->k, key);
+                key->type = PK_PRIVATE;
+            }
+        }
+        else if(key->pubkey.y != NULL)
+        {
+            tmpResult = Cy_Crypto_Core_ECC_MakePrivateKey(base, curveID, key->k, GetRandomDataFunc, randomDataInfo);
+            if (CY_CRYPTO_SUCCESS == tmpResult)
+            {
+                tmpResult = Cy_Crypto_Core_ECC_MakePublicKey(base, curveID, key->k, key);
+                key->type = PK_PRIVATE;
+            }
+        }
+        else
+        {
+        }
     }
 
     return (tmpResult);

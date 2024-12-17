@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_eddsa.c
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC EDDSA
@@ -36,15 +36,12 @@
 extern "C" {
 #endif
 
-#if defined(CY_CRYPTO_CFG_EDDSA_C)
+#if defined(CY_CRYPTO_CFG_EDDSA_C) || defined(CY_CRYPTO_CFG_EC25519_C)
 
 #include "cy_crypto_core_ecc_nist_p.h"
 #include "cy_crypto_core_mem.h"
 #include "cy_crypto_core_vu.h"
 
-cy_en_crypto_status_t Cy_Crypto_Core_EDDSA_Bar_MulRed(CRYPTO_Type *base, uint32_t z, uint32_t x, uint32_t size);
-cy_en_crypto_status_t Cy_Crypto_Core_ED25519_MulMod( CRYPTO_Type *base, uint32_t z, uint32_t a, uint32_t b, uint32_t size);
-cy_en_crypto_status_t Cy_Crypto_Core_ED25519_SquareMod( CRYPTO_Type *base, uint32_t z, uint32_t a, uint32_t size);
 cy_en_crypto_status_t Cy_Crypto_Core_ED25519_ExpMod(CRYPTO_Type *base, uint32_t p_x, uint32_t p_y, uint32_t p_e, uint32_t bitsize);
 cy_en_crypto_status_t Cy_Crypto_Core_ED25519Add(CRYPTO_Type *base, cy_stc_crypto_edw_dp_type *edwDp, uint32_t s_x,
                                                 uint32_t s_y, uint32_t s_z,
@@ -64,26 +61,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_PointMulAdd(CRYPTO_Type *base, cy_s
 
 #define CY_ED25519SIG_VERIFY_PASS (0xA1A1A1A1u)
 #define CY_ED25519SIG_VERIFY_FAIL (0x00BADBADu)
-
-static void Cy_Crypto_Core_ED25519_dom2_ctx( CRYPTO_Type *base, cy_en_eddsa_sig_type_t sigType, const uint8_t *ctx,
-                uint32_t ctx_len, cy_stc_crypto_sha_state_t *shaState )
-{
-    uint8_t ct_init_string[] = "SigEd25519 no Ed25519 collisions";
-    uint8_t ct_flag;
-    uint8_t ct_ctx_len = (uint8_t)(ctx_len & 0xffu);
-
-    ct_flag = (sigType == CY_CRYPTO_EDDSA_CTX)? (uint8_t)0: (uint8_t)1;
-    /*Note: Can merge to one update call*/
-    (void)Cy_Crypto_Core_Sha_Update(base, shaState, (uint8_t const*)ct_init_string, 32u);
-    (void)Cy_Crypto_Core_Sha_Update(base, shaState, (uint8_t const*)&ct_flag, 1u);
-    (void)Cy_Crypto_Core_Sha_Update(base, shaState, (uint8_t const*)&ct_ctx_len, 1u);
-
-    if( ctx != NULL && ctx_len > 0u)
-    {
-        (void)Cy_Crypto_Core_Sha_Update(base, shaState, ctx, ctx_len );
-
-    }
-}
 
 /*******************************************************************************
 * Function Name: Cy_Crypto_Core_EDDSA_Bar_MulRed
@@ -265,6 +242,27 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_SquareMod( CRYPTO_Type *base,
     uint32_t size)
 {
     return Cy_Crypto_Core_ED25519_MulMod( base, z, a, a, size);
+}
+
+#if defined(CY_CRYPTO_CFG_EDDSA_C)
+static void Cy_Crypto_Core_ED25519_dom2_ctx( CRYPTO_Type *base, cy_en_eddsa_sig_type_t sigType, const uint8_t *ctx,
+                uint32_t ctx_len, cy_stc_crypto_sha_state_t *shaState )
+{
+    uint8_t ct_init_string[] = "SigEd25519 no Ed25519 collisions";
+    uint8_t ct_flag;
+    uint8_t ct_ctx_len = (uint8_t)(ctx_len & 0xffu);
+
+    ct_flag = (sigType == CY_CRYPTO_EDDSA_CTX)? (uint8_t)0: (uint8_t)1;
+    /*Note: Can merge to one update call*/
+    (void)Cy_Crypto_Core_Sha_Update(base, shaState, (uint8_t const*)ct_init_string, 32u);
+    (void)Cy_Crypto_Core_Sha_Update(base, shaState, (uint8_t const*)&ct_flag, 1u);
+    (void)Cy_Crypto_Core_Sha_Update(base, shaState, (uint8_t const*)&ct_ctx_len, 1u);
+
+    if( ctx != NULL && ctx_len > 0u)
+    {
+        (void)Cy_Crypto_Core_Sha_Update(base, shaState, ctx, ctx_len );
+
+    }
 }
 
 /*******************************************************************************
@@ -1153,6 +1151,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_PointMultiplication(CRYPTO_Type *ba
 
     return tmpResult;
 }
+#endif /*#if defined(CY_CRYPTO_CFG_EDDSA_C)*/
 
 #if defined (CY_CRYPTO_CFG_EDDSA_GENKEY_C)
 /*******************************************************************************
@@ -2324,7 +2323,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ED25519_Verify(CRYPTO_Type *base, uint8_t *
     return (tmpResult);
 }
 #endif /* defined(CY_CRYPTO_CFG_EDDSA_VERIFY_C) */
-#endif /* defined(CY_CRYPTO_CFG_EDDSA_C) */
+#endif /* (CY_CRYPTO_CFG_EDDSA_C) || defined(CY_CRYPTO_CFG_EC25519_C) */
 
 #if defined(__cplusplus)
 }

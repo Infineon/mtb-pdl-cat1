@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_mem_v1.h
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides the headers for the string management API

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_pdcm.h
-* \version 5.150
+* \version 5.170
 *
 * This file provides the header for PDCM driver, where the APIs are used
 * by Syspm driver and BTSS driver.

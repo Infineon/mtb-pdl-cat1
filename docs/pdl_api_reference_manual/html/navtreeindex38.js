@@ -1,5 +1,8 @@
 var NAVTREEINDEX38 =
 {
+"structcy__stc__dpll__hp__config__t.html#ade71fd9cf93c4e56fe31b23050ef6c68":[4,45,6,1,2,13],
+"structcy__stc__dpll__hp__config__t.html#aed5d049a18be6c46e61611050cb96226":[4,45,6,1,2,21],
+"structcy__stc__dpll__lp__config__t.html":[4,45,6,1,1],
 "structcy__stc__dpll__lp__config__t.html#a00e804ce2364321da2318408f4fabdef":[4,45,6,1,1,28],
 "structcy__stc__dpll__lp__config__t.html#a0588ff2bb117affa6ef6736cfe6fed82":[4,45,6,1,1,22],
 "structcy__stc__dpll__lp__config__t.html#a0a43a33131e6571c78ba0a4f03fc463c":[4,45,6,1,1,21],
@@ -246,8 +249,5 @@ var NAVTREEINDEX38 =
 "structcy__stc__hppass__ac__stt__t.html#a61d4497d7a7b177242920dc0e160876f":[4,19,1,2,5,4],
 "structcy__stc__hppass__ac__stt__t.html#a714dcdb2ae8fc839ad952e27a4226618":[4,19,1,2,5,0],
 "structcy__stc__hppass__ac__stt__t.html#a801e4eda2861b9bc4f39571879b2edaf":[4,19,1,2,5,13],
-"structcy__stc__hppass__ac__stt__t.html#a8d3e1c0fb3185e2ba6b945a8ea47aed0":[4,19,1,2,5,3],
-"structcy__stc__hppass__ac__stt__t.html#aa6ba3ed41933af44b98589beb3cbaeab":[4,19,1,2,5,2],
-"structcy__stc__hppass__ac__stt__t.html#aaea61af3cd9594f0b569fd73d2acf70b":[4,19,1,2,5,6],
-"structcy__stc__hppass__ac__stt__t.html#ab2962abef44477fc5e58a81bcd48b894":[4,19,1,2,5,9]
+"structcy__stc__hppass__ac__stt__t.html#a8d3e1c0fb3185e2ba6b945a8ea47aed0":[4,19,1,2,5,3]
 };

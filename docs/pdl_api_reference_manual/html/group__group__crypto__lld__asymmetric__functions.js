@@ -15,5 +15,8 @@ var group__group__crypto__lld__asymmetric__functions =
     [ "Cy_Crypto_Core_ED25519_PointDecode", "group__group__crypto__lld__asymmetric__functions.html#ga1124df65ca823fe27abd39c0bfed400e", null ],
     [ "Cy_Crypto_Core_ED25519_Verify", "group__group__crypto__lld__asymmetric__functions.html#gaaee9926a45f48ad4576662b03e5b3964", null ],
     [ "Cy_Crypto_Core_ED25519_MakePublicKey", "group__group__crypto__lld__asymmetric__functions.html#ga2a304423a4c37b314776c494fe2a3ef9", null ],
+    [ "Cy_Crypto_Core_EC25519_MakePublicKey", "group__group__crypto__lld__asymmetric__functions.html#ga10bc3913455379aef1e6542940e18035", null ],
+    [ "Cy_Crypto_Core_EC25519_MakePrivateKey", "group__group__crypto__lld__asymmetric__functions.html#ga79a9a68863e1279ee50df38fafd2229c", null ],
+    [ "Cy_Crypto_Core_EC25519_PointMultiplication", "group__group__crypto__lld__asymmetric__functions.html#ga74858f5d6bb0b9b2cc01396d0e7b86a3", null ],
     [ "Cy_Crypto_Core_EC_NistP_PointMultiplication", "group__group__crypto__lld__asymmetric__functions.html#ga3339d6b9fad08c824ef9d94d0234e903", null ]
 ];

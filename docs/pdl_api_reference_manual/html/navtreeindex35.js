@@ -1,5 +1,8 @@
 var NAVTREEINDEX35 =
 {
+"group__group__trigmux__out__enums.html#gae053a6b0e446f2f40154db38ddb01f1d":[4,53,2,3,2],
+"group__group__trigmux__red__enums.html":[4,53,2,0],
+"group__group__trigmux__red__in__enums.html":[4,53,2,0,0],
 "group__group__trigmux__red__in__enums.html#ga12c31375190bc0514087329459a98c75":[4,53,2,0,0,0],
 "group__group__trigmux__red__in__enums.html#ga28f2e8d127108d1e6c0b28a3dbae8952":[4,53,2,0,0,3],
 "group__group__trigmux__red__in__enums.html#ga4371dee9d2673a49cd958fa20d80ea57":[4,53,2,0,0,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX35 =
 "struct_s_a_r___type.html":[4,37,2,0],
 "struct_s_m_i_f___type.html":[4,43,2,1],
 "struct_t_c_p_w_m___type.html":[4,51,0,2,0],
-"structcy__en__canfd__fifo__config__t.html":[4,4,2,15],
-"structcy__en__canfd__fifo__config__t.html#a182249c9eb66def21e9163229580be84":[4,4,2,15,2],
-"structcy__en__canfd__fifo__config__t.html#aaba082750410c1baed2f939fe0dacf89":[4,4,2,15,1],
-"structcy__en__canfd__fifo__config__t.html#acf2f42d5327a4bd343d0b5bb0a80d444":[4,4,2,15,3]
+"structcy__en__canfd__fifo__config__t.html":[4,4,2,15]
 };

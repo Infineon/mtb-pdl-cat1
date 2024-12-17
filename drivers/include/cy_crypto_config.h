@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_config.h
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides default configuration parameters
@@ -124,9 +124,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 #define CY_CRYPTO_CFG_ECP_DP_SECP384R1_ENABLED
 #define CY_CRYPTO_CFG_ECP_DP_SECP521R1_ENABLED
 #define CY_CRYPTO_CFG_ECP_DP_ED25519_ENABLED
-
-/* Currently CURVE25519 support is not implemented */
-// #define CY_CRYPTO_CFG_ECP_DP_CURVE25519_ENABLED
+#define CY_CRYPTO_CFG_ECP_DP_EC25519_ENABLED
 
 /* ECDSA functionality */
 #define CY_CRYPTO_CFG_ECDSA_C
@@ -136,6 +134,11 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
 #define CY_CRYPTO_CFG_ECDSA_SIGN_C
 /* ECDSA verification */
 #define CY_CRYPTO_CFG_ECDSA_VERIFY_C
+/* EC25519 functionality */
+#define CY_CRYPTO_CFG_EC25519_C
+/* EC25519 key generation */
+#define CY_CRYPTO_CFG_EC25519_GENKEY_C
+
 /* EDDSA functionality */
 #define CY_CRYPTO_CFG_EDDSA_C
 /* EDDSA sign */
@@ -269,6 +272,31 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 20.5', 2, \
      defined(CY_CRYPTO_CFG_ECP_DP_SECP521R1_ENABLED)) \
      && !defined(CY_CRYPTO_CFG_ECP_C)
 #error "CY_CRYPTO_CFG_ECP_C is not defined to use ECP functionality"
+#endif
+
+#if !(defined(CY_CRYPTO_CFG_ECP_DP_ED25519_ENABLED)) \
+     && defined(CY_CRYPTO_CFG_EDDSA_C)
+#error "CY_CRYPTO_CFG_EDDSA_C is defined but no curve is selected"
+#endif
+
+#if (defined(CY_CRYPTO_CFG_ECP_DP_ED25519_ENABLED)) \
+     && !defined(CY_CRYPTO_CFG_EDDSA_C)
+#error "CY_CRYPTO_CFG_EDDSA_C is not defined to use EDDSA functionality"
+#endif
+
+#if !(defined(CY_CRYPTO_CFG_ECP_DP_EC25519_ENABLED)) \
+     && defined(CY_CRYPTO_CFG_EC25519_C)
+#error "CY_CRYPTO_CFG_EC25519_C is defined but no curve is selected"
+#endif
+
+#if (defined(CY_CRYPTO_CFG_ECP_DP_EC25519_ENABLED)) \
+     && !defined(CY_CRYPTO_CFG_EC25519_C)
+#error "CY_CRYPTO_CFG_EC25519_C is not defined to use EC25519 functionality"
+#endif
+
+#if (defined(CY_CRYPTO_CFG_EC25519_GENKEY_C)) \
+     && !defined(CY_CRYPTO_CFG_EC25519_C)
+#error "CY_CRYPTO_CFG_EC25519_C is not defined to use EC25519 functionality"
 #endif
 
 #if defined(CY_CRYPTO_CFG_CHACHA_ENABLED) && defined(CY_CRYPTO_CFG_HW_V1_ENABLE)

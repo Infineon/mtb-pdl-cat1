@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_trng.h
-* \version 2.60
+* \version 2.70
 *
 * \brief
 *  This file provides common constants and parameters

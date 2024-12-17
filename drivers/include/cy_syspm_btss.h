@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_btss.h
-* \version 5.150
+* \version 5.170
 *
 * Provides the API declarations of the BTSS driver.
 *

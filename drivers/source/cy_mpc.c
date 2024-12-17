@@ -149,7 +149,7 @@ cy_en_mpc_status_t Cy_Mpc_ConfigRotMpcStruct(MPC_Type* base, const cy_stc_mpc_ro
         return CY_MPC_BAD_PARAM;
     }
 
-    /** disabling auto increment */
+    /* disabling auto increment */
     autoInc = (uint8_t)_FLD2VAL(RAMC_MPC_ROT_CTRL_AUTO_INC, base->ROT_CTRL);
     Cy_Mpc_RotAutoInc(base, 0u);
 
@@ -180,7 +180,7 @@ cy_en_mpc_status_t Cy_Mpc_ConfigRotMpcStruct(MPC_Type* base, const cy_stc_mpc_ro
         base->ROT_BLK_IDX = blkIdx;
         base->ROT_BLK_LUT = (base->ROT_BLK_LUT & fieldMaskVal) | value;
 
-        /** restore auto increment */
+        /* restore auto increment */
         Cy_Mpc_RotAutoInc(base, autoInc);
 
         return CY_MPC_SUCCESS;
@@ -236,7 +236,7 @@ cy_en_mpc_status_t Cy_Mpc_ConfigRotMpcStruct(MPC_Type* base, const cy_stc_mpc_ro
         base->ROT_BLK_LUT = (base->ROT_BLK_LUT & fieldMaskVal) | value;
     }
 
-    /** restore auto increment */
+    /* restore auto increment */
     Cy_Mpc_RotAutoInc(base, autoInc);
 
     return CY_MPC_SUCCESS;
@@ -293,7 +293,7 @@ cy_en_mpc_status_t Cy_Mpc_ConfigMpcStruct(MPC_Type* base, const cy_stc_mpc_cfg_t
       return CY_MPC_BAD_PARAM;
     }
 
-    /** disabling auto increment */
+    /* disabling auto increment */
     autoInc = (uint8_t)_FLD2VAL(RAMC_MPC_ROT_CTRL_AUTO_INC, base->ROT_CTRL);
     Cy_Mpc_AutoInc(base, 0u);
 
@@ -327,7 +327,7 @@ cy_en_mpc_status_t Cy_Mpc_ConfigMpcStruct(MPC_Type* base, const cy_stc_mpc_cfg_t
             base->BLK_LUT = base->BLK_LUT | value;
         }
 
-        /** restore auto increment bit */
+        /* restore auto increment bit */
         Cy_Mpc_AutoInc(base, autoInc);
         return CY_MPC_SUCCESS;
     }
@@ -397,7 +397,7 @@ cy_en_mpc_status_t Cy_Mpc_ConfigMpcStruct(MPC_Type* base, const cy_stc_mpc_cfg_t
         }
     }
 
-    /** restore auto increment bit */
+    /* restore auto increment bit */
     Cy_Mpc_AutoInc(base, autoInc);
 
     return CY_MPC_SUCCESS;

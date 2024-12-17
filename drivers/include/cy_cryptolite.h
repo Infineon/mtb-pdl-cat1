@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite.h
-* \version 2.60
+* \version 2.70
 *
 * \brief
 *  This file provides interface header
@@ -179,6 +179,11 @@
 * \section group_cryptolite_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.70</td>
+*     <td>Updated structure \ref cy_stc_cryptolite_context_sha256_t. </td>
+*     <td>Bug fixes</td>
+*   </tr>
 *   <tr>
 *     <td>2.60</td>
 *     <td>

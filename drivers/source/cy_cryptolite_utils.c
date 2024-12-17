@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_utils.c
-* \version 2.60
+* \version 2.70
 *
 * \brief
 *  Provides utility functions.
