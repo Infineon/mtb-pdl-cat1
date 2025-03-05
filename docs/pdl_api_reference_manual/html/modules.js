@@ -28,6 +28,7 @@ var modules =
     [ "LVD          (Low-Voltage-Detect)", "group__group__lvd.html", "group__group__lvd" ],
     [ "LVD-HT       (Low-Voltage-Detect for HT Products)", "group__group__lvd__ht.html", "group__group__lvd__ht" ],
     [ "MCWDT        (Multi-Counter Watchdog)", "group__group__mcwdt.html", "group__group__mcwdt" ],
+    [ "Mixer        (Audio Mixer)", "group__group__mixer.html", "group__group__mixer" ],
     [ "MPC          (Memory Protection Controller)", "group__group__mpc.html", "group__group__mpc" ],
     [ "MS CTL       (Master Security Controller)", "group__group__ms__ctl.html", "group__group__ms__ctl" ],
     [ "PDM_PCM      (PDM-PCM Converter)", "group__group__pdm__pcm.html", "group__group__pdm__pcm" ],

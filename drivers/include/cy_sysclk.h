@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.120
+* \version 3.130
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,10 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.130</td>
+*     <td>Corrects fractional enable behavior in \ref Cy_SysClk_Pll400MConfigure.  Only enables fractional divider if the fractional divider is non-zero.</td>
+*   </tr>
 *   <tr>
 *     <td>3.120</td>
 *     <td>Added PSOC C3 device support.</td>
@@ -595,6 +599,7 @@
 *
 *   \defgroup group_sysclk_pll_funcs       Functions
 *   \defgroup group_sysclk_pll_structs     Data Structures
+*   \defgroup group_sysclk_pll_enums       Enumerated Types
 * \}
 * \defgroup group_sysclk_ilo             Internal Low-Speed Oscillator (ILO)
 * \{
@@ -973,7 +978,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   120
+#define  CY_SYSCLK_DRV_VERSION_MINOR   130
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 
@@ -2717,6 +2722,37 @@ typedef struct
 } cy_stc_pll_manual_config_t;
 /** \} group_sysclk_pll_structs */
 
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u) || defined (CY_DOXYGEN)
+/**
+* \addtogroup group_sysclk_pll_enums
+* \{
+*/
+/** SSCG modulation depth of PLL 400M spreading mode.
+* See registers SSCG_DEPTH bit of PLL400M_STRUCT_CONFIG3.
+*/
+typedef enum
+{
+    CY_SYSCLK_SSCG_DEPTH_MINUS_0_5             = 0x029u, /**< - 0.5 [%] (down spread)  */
+    CY_SYSCLK_SSCG_DEPTH_MINUS_1_0             = 0x052u, /**< - 1.0 [%] (down spread)  */
+    CY_SYSCLK_SSCG_DEPTH_MINUS_2_0             = 0x0A4u, /**< - 2.0 [%] (down spread)  */
+    CY_SYSCLK_SSCG_DEPTH_MINUS_3_0             = 0x0F6u, /**< - 3.0 [%] (down spread)  */
+} cy_en_pll_400M_ssgc_depth_t;
+
+/** SSCG modulation rate of PLL 400M spreading mode.
+* See registers SSCG_RATE bit of PLL400M_STRUCT_CONFIG3.
+*/
+typedef enum
+{
+    CY_SYSCLK_SSCG_RATE_DIV_4096             = 0u, /**<  Modulation rate = fPFD/4096  */
+    CY_SYSCLK_SSCG_RATE_DIV_2048             = 1u, /**<  Modulation rate = fPFD/2048  */
+    CY_SYSCLK_SSCG_RATE_DIV_1024             = 2u, /**<  Modulation rate = fPFD/1024  */
+    CY_SYSCLK_SSCG_RATE_DIV_512              = 3u, /**<  Modulation rate = fPFD/512   */
+    CY_SYSCLK_SSCG_RATE_DIV_256              = 4u, /**<  Modulation rate = fPFD/256   */
+} cy_en_pll_400M_ssgc_rate_t;
+
+/** \} group_sysclk_pll_enums */
+#endif /* defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u) || defined (CY_DOXYGEN) */
+
 #if (defined(CY_DEVICE_SECURE))
 
 /** PRA structure for Cy_SysClk_PllManualConfigure function parameters */
@@ -3811,7 +3847,7 @@ cy_en_sysclk_status_t Cy_SysClk_Pll200MDisable(uint32_t pllNum);
 uint32_t Cy_SysClk_Pll200MGetFrequency(uint32_t pllNum);
 
 /* Only include PLL400M functions for devices that can support it. */
-#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u)
+#if defined (CY_SRSS_PLL400M_PRESENT) && (CY_SRSS_PLL400M_PRESENT == 1u) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysClk_Pll400MConfigure
 ****************************************************************************//**

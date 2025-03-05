@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.h
-* \version 1.120
+* \version 1.130
 *
 * Provides an API declaration of the GPIO driver
 *
@@ -103,6 +103,11 @@
 * \section group_gpio_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.130</td>
+*     <td>Added new APIs to support new devices (particularly Traveo II Cluster) with Drive Trim features: \ref Cy_GPIO_SetDriveSelTrim, \ref Cy_GPIO_GetDriveSelTrim.</td>
+*     <td>New functionality.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">1.120</td>
 *     <td>Added new APIs: \ref Cy_GPIO_WritePort.</td>
@@ -256,7 +261,7 @@ extern "C" {
 #define CY_GPIO_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_GPIO_DRV_VERSION_MINOR      120
+#define CY_GPIO_DRV_VERSION_MINOR      130
 
 /** GPIO driver ID */
 #define CY_GPIO_ID CY_PDL_DRV_ID(0x16U)
@@ -466,6 +471,9 @@ typedef struct
 #define CY_GPIO_INTR_CFG_OFFSET                (1UL)      /**< Offset for interrupt config */
 #define CY_GPIO_INTR_FILT_OFFSET               (18UL)     /**< Offset for filtered interrupt config */
 #define CY_GPIO_CFG_SIO_OFFSET                 (2UL)      /**< Offset for SIO config */
+#if defined (CY_IP_MXS40IOSS_VERSION) && (CY_IP_MXS40IOSS_VERSION >= 4)
+#define CY_GPIO_DRIVE_TRIM_OFFSET              (3UL)      /**< Offset for drive strength trim value */
+#endif
 #if defined (CY_IP_MXS40SIOSS) || defined (CY_IP_MXS22IOSS)
 #define CY_GPIO_CFG_SLEW_EXT_OFFSET            (2UL)      /**< Offset for CFG SLEW EXT */
 #define CY_GPIO_CFG_DRIVE_SEL_EXT_OFFSET       (3UL)      /**< Offset for CFG SLEW EXT */
@@ -490,6 +498,9 @@ typedef struct
                                                 GPIO_PRT_INTR_CFG_FLT_SEL_Msk)
 #define CY_GPIO_PRT_INT_MASK_MASK              (0x0000001FFUL)
 #define CY_GPIO_PRT_SEL_ACTIVE_MASK            (0x1FFFFFFFUL)
+#if defined (CY_IP_MXS40IOSS_VERSION) && (CY_IP_MXS40IOSS_VERSION >= 4)
+#define CY_GPIO_CFG_OUT2_DRIVE_SEL_TRIM_MASK   (0x07UL)   /**< Single pin mask for drive select trim in CFG OUT2 register */
+#endif
 #if defined (CY_IP_MXS22IOSS)
 #define CY_GPIO_PRT_CFG_RES_MASK               (0x77777777UL)
 #endif /* CY_IP_MXS22IOSS */
@@ -580,6 +591,7 @@ typedef struct
 #define CY_GPIO_IS_SLEW_RATE_VALID(slewRate)   (0U == ((slewRate) & (uint32_t)~CY_GPIO_CFG_SLEW_EXT_MASK))
 #define CY_GPIO_IS_DRIVE_SEL_VALID(driveSel)   (0U == ((driveSel) & (uint32_t)~CY_GPIO_CFG_DRIVE_SEL_EXT_MASK))
 #endif /* CY_IP_MXS40IOSS */
+
 
 #if defined (CY_IP_MXSMIF)
 
@@ -762,6 +774,23 @@ typedef struct
 /** \} */
 
 /**
+* \defgroup group_gpio_driveStrength_trim Pin drive strength trim
+* \{
+* Constants to be used for setting the drive strength trim value of the pin.
+*/
+#if defined (CY_IP_MXS40IOSS_VERSION) && (CY_IP_MXS40IOSS_VERSION >= 4) || defined (CY_DOXYGEN)
+  #define CY_GPIO_DRIVE_STRENGTH_DEFAULT         (0x00UL)  /**< \brief Default drive strength: 50 ohm */
+  #define CY_GPIO_DRIVE_STRENGTH_120OHM          (0x01UL)  /**< \brief 120 ohm */
+  #define CY_GPIO_DRIVE_STRENGTH_90OHM           (0x02UL)  /**< \brief 90 ohm */
+  #define CY_GPIO_DRIVE_STRENGTH_60OHM           (0x03UL)  /**< \brief 60 ohm */
+  #define CY_GPIO_DRIVE_STRENGTH_50OHM           (0x04UL)  /**< \brief 50 ohm */
+  #define CY_GPIO_DRIVE_STRENGTH_30OHM           (0x05UL)  /**< \brief 30 ohm */
+  #define CY_GPIO_DRIVE_STRENGTH_20OHM           (0x06UL)  /**< \brief 20 ohm */
+  #define CY_GPIO_DRIVE_STRENGTH_15OHM           (0x07UL)  /**< \brief 15 ohm */
+#endif
+/** \} */
+
+/**
 * \defgroup group_gpio_interruptTrigger Interrupt trigger type
 * \{
 * Constants to be used for setting the interrupt trigger type on the pin.
@@ -933,6 +962,11 @@ __STATIC_INLINE uint32_t Cy_GPIO_GetSlewRate(GPIO_PRT_Type* base, uint32_t pinNu
 __STATIC_INLINE void Cy_GPIO_SetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
 __STATIC_INLINE uint32_t Cy_GPIO_GetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum);
 #endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
+
+#if defined (CY_IP_MXS40IOSS_VERSION) && (CY_IP_MXS40IOSS_VERSION >= 4UL) || defined (CY_DOXYGEN)
+void Cy_GPIO_SetDriveSelTrim(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);
+uint32_t Cy_GPIO_GetDriveSelTrim(GPIO_PRT_Type* base, uint32_t pinNum);
+#endif
 
 #if defined (CY_IP_MXS22IOSS)
 void Cy_GPIO_SetPullupResistance(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value);

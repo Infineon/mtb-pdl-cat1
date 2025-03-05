@@ -5,6 +5,7 @@ var group__group__gpio__macros =
     [ "Voltage trip automotive compatible mode", "group__group__gpio__vtrip__auto.html", "group__group__gpio__vtrip__auto" ],
     [ "Slew Rate Mode", "group__group__gpio__slew_rate.html", "group__group__gpio__slew_rate" ],
     [ "Pin drive strength", "group__group__gpio__drive_strength.html", "group__group__gpio__drive_strength" ],
+    [ "Pin drive strength trim", "group__group__gpio__drive_strength__trim.html", "group__group__gpio__drive_strength__trim" ],
     [ "Interrupt trigger type", "group__group__gpio__interrupt_trigger.html", "group__group__gpio__interrupt_trigger" ],
     [ "SIO output buffer mode", "group__group__gpio__sio_vreg.html", "group__group__gpio__sio_vreg" ],
     [ "SIO input buffer mode", "group__group__gpio__sio_ibuf.html", "group__group__gpio__sio_ibuf" ],

@@ -2,6 +2,7 @@ var searchData=
 [
   ['f0_5ff',['f0_f',['../structcy__stc__extid__filter__t.html#a69d52da11bfed6856ddc78c3634c00a7',1,'cy_stc_extid_filter_t']]],
   ['f1_5ff',['f1_f',['../structcy__stc__extid__filter__t.html#a622d7627d5df81510f6c9253be9c40ac',1,'cy_stc_extid_filter_t']]],
+  ['fadecode',['fadeCode',['../structcy__stc__mixer__src__config__t.html#a0cd35c91e5b6b8ba377c2a52c5d7e187',1,'cy_stc_mixer_src_config_t::fadeCode()'],['../structcy__stc__mixer__dst__config__t.html#aa3d27453790415087a73295634882be6',1,'cy_stc_mixer_dst_config_t::fadeCode()']]],
   ['fastbitrate',['fastBitrate',['../structcy__stc__canfd__config__t.html#a19c6a983ebc83d9d41b91051c3ac1475',1,'cy_stc_canfd_config_t']]],
   ['fault_5fclear',['fault_clear',['../structcy__stc__tcpwm__motif__hall__sensor__config__t.html#af809c4e829cf2ce4406c65c616110971',1,'cy_stc_tcpwm_motif_hall_sensor_config_t']]],
   ['fault_5fevent_5fselection',['fault_event_selection',['../structcy__stc__tcpwm__motif__hall__sensor__config__t.html#a0b673aebef34279cada4e2f7245b06fe',1,'cy_stc_tcpwm_motif_hall_sensor_config_t']]],
@@ -54,6 +55,7 @@ var searchData=
   ['frequencyref',['frequencyRef',['../structcy__stc__evtgen__config__t.html#a603866d3c5799f3198b38891312e5ada',1,'cy_stc_evtgen_config_t']]],
   ['frequencytick',['frequencyTick',['../structcy__stc__evtgen__config__t.html#ab76137bf6b6aa601773dab240d03e225',1,'cy_stc_evtgen_config_t']]],
   ['frrate',['frRate',['../structcy__stc__seglcd__config__t.html#a5aa06fe4a2252a60e2e5b638cc9a49c7',1,'cy_stc_seglcd_config_t']]],
+  ['fsratio',['fsRatio',['../structcy__stc__mixer__src__config__t.html#a23c6585bfb1cebbd902e22a72e7c707b',1,'cy_stc_mixer_src_config_t']]],
   ['fsyncformat',['fsyncFormat',['../structcy__stc__tdm__config__tx__t.html#a7e32da17f5022c64615fafa4d4a3a8fa',1,'cy_stc_tdm_config_tx_t::fsyncFormat()'],['../structcy__stc__tdm__config__rx__t.html#a09c56a3ee7782b5ffcdd29b82dfb75ab',1,'cy_stc_tdm_config_rx_t::fsyncFormat()']]],
   ['fsyncpolarity',['fsyncPolarity',['../structcy__stc__tdm__config__tx__t.html#a2613f222b739ffa08956452b746dcb73',1,'cy_stc_tdm_config_tx_t::fsyncPolarity()'],['../structcy__stc__tdm__config__rx__t.html#add840dbffbe15eaf6b2c53e7e57e3610',1,'cy_stc_tdm_config_rx_t::fsyncPolarity()']]],
   ['functionalityselection',['functionalitySelection',['../structcy__stc__evtgen__struct__config__t.html#a10c261460e72411b4bfcb115db8d530b',1,'cy_stc_evtgen_struct_config_t']]]

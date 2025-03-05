@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.c
-* \version 2.110
+* \version 2.120
 *
 * \brief
 *  This file provides the source code for the SMIF driver APIs.
@@ -51,7 +51,7 @@ extern "C" {
 *
 * As parameters, this function takes the SMIF register base address and a
 * context structure along with the configuration needed for the SMIF block,
-* stored in a config
+* stored in a config.
 *
 * \param base
 * Holds the base address of the SMIF block registers.
@@ -78,167 +78,269 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
                                     uint32_t timeout,
                                     cy_stc_smif_context_t *context)
 {
-    cy_en_smif_status_t result = CY_SMIF_BAD_PARAM;
+    cy_en_smif_status_t result = CY_SMIF_SUCCESS;
 
-    if((NULL != base) && (NULL != config) && (NULL != context))
+    /* Ensure none of the input pointers are null. */
+    if ((NULL == base) || (NULL == config) || (NULL == context))
     {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+    /* Check config structure */
+    CY_ASSERT_L3(CY_SMIF_MODE_VALID(config->mode));
+    CY_ASSERT_L3(CY_SMIF_BLOCK_EVENT_VALID(config->blockEvent));
+    CY_ASSERT_L2(CY_SMIF_DESELECT_DELAY_VALID(config->deselectDelay));
+#if ((CY_IP_MXSMIF_VERSION == 2) && (CY_IP_MXSMIF_VERSION == 3))
+    CY_ASSERT_L3(CY_SMIF_CLOCK_SEL_VALID(config->rxClockSel));
+#endif
+
+    /* Ensure SMIFv4 uses DLL, as SMIFv4 use of the DLL is mandatory and cannot be bypassed. */
 #if (CY_IP_MXSMIF_VERSION == 4)
-        if(config->enable_internal_dll != true)
-        {
-            /* Must enable the DLL or the SMIF doesn't work. */
-            return CY_SMIF_BAD_PARAM;
-        }
+    if (config->enable_internal_dll != true)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+    /* SMIFv4 initializes the SMIF bridge to be ON by default.  Bridge support is not yet present
+       in this driver, so it needs to be manually turned off. */
+    result = Cy_SMIF_Bridge_Enable(SMIF0, false);
 #endif
 
-        uint32_t smif_ctl_value = SMIF_CTL(base);
+    /* The SMIF CTL and CTL2 registers cannot be modified while the SMIF is enabled in XIP mode. */
+    uint32_t smif_ctl_value = SMIF_CTL(base);
+    if (((_FLD2VAL(SMIF_CTL_ENABLED, smif_ctl_value) == 1U) && (_FLD2VAL(SMIF_CTL_XIP_MODE, smif_ctl_value) == 1U)))
+    {
+        result = CY_SMIF_GENERAL_ERROR;
+    }
 
-        /* Copy the base address of the SMIF and the SMIF Device block
-        * registers to the context.
-        */
+    /* If the input parameters and conditions are OK, then proceed with configuring SMIF registers. */
+    if (result == CY_SMIF_SUCCESS) {
+        /* Construct the SMIF CTL register value, starting from register defaults. */
+        uint32_t tmp_ctl = CY_SMIF_CTL_REG_DEFAULT;
+
+        /* Initialize context parameters */
+        context->txBufferAddress = NULL;
+        context->txBufferSize = 0U;
+        context->txBufferCounter = 0U;
+        context->rxBufferAddress = NULL;
+        context->rxBufferSize = 0U;
+        context->rxBufferCounter = 0U;
+        context->transferStatus = CY_SMIF_STARTED;
+        context->txCompleteCb = NULL;
+        context->rxCompleteCb = NULL;
         context->timeout = timeout;
-
-        /* Default initialization */
         context->memReadyPollDelay = 0U;
-
-#if(CY_IP_MXSMIF_VERSION>=2)
-        /* Default initialization */
+#if (CY_IP_MXSMIF_VERSION >= 2)
+        context->preCmdDataRate = CY_SMIF_SDR;
+        context->preCmdWidth = CY_SMIF_WIDTH_SINGLE;
         context->preXIPDataRate = CY_SMIF_SDR;
-#endif /* CY_IP_MXSMIF_VERSION */
+        context->dummyCycles = 0U;
+        context->flags = 0U;
+#endif
 
-        /* SMIF is running already in XIP/ARB mode. Do not modify register configuration */
-        if (!((_FLD2VAL(SMIF_CTL_ENABLED, smif_ctl_value) == 1U) && (_FLD2VAL(SMIF_CTL_XIP_MODE, smif_ctl_value) == 1U)))
+        /* Configure the initial interrupt mask */
+        /* Disable the TR_TX_REQ and TR_RX_REQ interrupts */
+        Cy_SMIF_SetInterruptMask(base, Cy_SMIF_GetInterruptMask(base)
+                    & ~(SMIF_INTR_TR_TX_REQ_Msk | SMIF_INTR_TR_RX_REQ_Msk));
+
+        /* Configure the SMIF interface */
+        tmp_ctl = _CLR_SET_FLD32U(tmp_ctl, SMIF_CTL_XIP_MODE, config->mode);
+        tmp_ctl = _CLR_SET_FLD32U(tmp_ctl, SMIF_CTL_BLOCK, config->blockEvent);
+        tmp_ctl = _CLR_SET_FLD32U(tmp_ctl, SMIF_CTL_DESELECT_DELAY, config->deselectDelay);
+#if (CY_IP_MXSMIF_VERSION <= 3)
+        tmp_ctl = _CLR_SET_FLD32U(tmp_ctl, SMIF_CTL_CLOCK_IF_RX_SEL, config->rxClockSel);
+#endif
+#if ((CY_IP_MXSMIF_VERSION == 2) || (CY_IP_MXSMIF_VERSION == 3))
+        tmp_ctl = _CLR_SET_FLD32U(tmp_ctl, SMIF_CTL_DELAY_TAP_ENABLED, config->delayTapEnable);
+        tmp_ctl = _CLR_SET_FLD32U(tmp_ctl, SMIF_CTL_DELAY_LINE_SEL, config->delayLineSelect);
+#endif
+
+#if (CY_IP_MXSMIF_VERSION >= 4)
+        /* Enable the DLL, if enabled and input frequency is above minimum threshold.
+           Otherwise, enable the bypass for SMIFv5 or greater. */
+        result = Cy_SMIF_DllConfig(base, config, context);
+        if (result != CY_SMIF_SUCCESS)
         {
-            /* Configure the initial interrupt mask */
-            /* Disable the TR_TX_REQ and TR_RX_REQ interrupts */
-            Cy_SMIF_SetInterruptMask(base, Cy_SMIF_GetInterruptMask(base)
-                        & ~(SMIF_INTR_TR_TX_REQ_Msk | SMIF_INTR_TR_RX_REQ_Msk));
-
-            /* Check config structure */
-            CY_ASSERT_L3(CY_SMIF_MODE_VALID(config->mode));
-            CY_ASSERT_L3(CY_SMIF_CLOCK_SEL_VALID(config->rxClockSel));
-            CY_ASSERT_L2(CY_SMIF_DESELECT_DELAY_VALID(config->deselectDelay));
-            CY_ASSERT_L3(CY_SMIF_BLOCK_EVENT_VALID(config->blockEvent));
-
-            /* Configure the SMIF interface */
-            SMIF_CTL(base) = (uint32_t)(_VAL2FLD(SMIF_CTL_XIP_MODE, config->mode) |
-#if (CY_IP_MXSMIF_VERSION<=3)
-                           _VAL2FLD(SMIF_CTL_CLOCK_IF_RX_SEL, config->rxClockSel) |
-#endif /*(CY_IP_MXSMIF_VERSION<=3)*/
-                           _VAL2FLD(SMIF_CTL_DESELECT_DELAY, config->deselectDelay) |
-#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
-                           _VAL2FLD(SMIF_CTL_DELAY_TAP_ENABLED, config->delayTapEnable) |
-                           _VAL2FLD(SMIF_CTL_DELAY_LINE_SEL, config->delayLineSelect) |
-#endif /*((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))*/
-                           _VAL2FLD(SMIF_CTL_BLOCK, config->blockEvent));
-
-#if (CY_IP_MXSMIF_VERSION >=4)
-
-            /* These values are taken from the Register TRM
-            entry for SMIF_CORE_CTL2_DLL_SPEED_MODE. */
-            #if (CY_IP_MXSMIF_VERSION == 4)
-            const uint32_t PLL_FREQ_1 = 160U;
-            const uint32_t PLL_FREQ_2 = 180U;
-            const uint32_t PLL_FREQ_3 = 266U;
-            const uint32_t PLL_FREQ_4 = 333U;
-            #elif (CY_IP_MXSMIF_VERSION >= 5)
-            const uint32_t PLL_FREQ_1 = 150U;
-            const uint32_t PLL_FREQ_2 = 192U;
-            const uint32_t PLL_FREQ_3 = 245U;
-            const uint32_t PLL_FREQ_4 = 313U;
-            #endif
-
-            if (config->enable_internal_dll)
-            {
-                /* Reset DLL Registers */
-                SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_DLL_SPEED_MODE_Msk;
-#if (CY_IP_MXSMIF_VERSION >= 5)
-                SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_DLL_BYPASS_MODE_Msk;
-                SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_DLL_OPENLOOP_ENABLE_Msk;
-
-                if ( config->inputFrequencyMHz <= 150U)
-                {
-                    /* DLL runs in open loop mode */
-                    SMIF_CTL2(base) |= _VAL2FLD(SMIF_CORE_CTL2_DLL_OPENLOOP_ENABLE, 1U);
-                    SMIF_IDAC(base) = 0; /* Set max delay for accuracy */
-                }
-                else
-#endif /* CY_IP_MXSMIF_VERSION >= 5 */
-                {
-                    uint32_t dll_speed_mode = 0U;
-#if (CY_IP_MXSMIF_VERSION >= 5)
-                    uint32_t dll_skil_lsb = 0U;
-#endif
-                    if ((config->inputFrequencyMHz > PLL_FREQ_1) && (config->inputFrequencyMHz <= PLL_FREQ_2))
-                    {
-                        dll_speed_mode = 0U;
-                    }
-                    else if ((config->inputFrequencyMHz > PLL_FREQ_2) && (config->inputFrequencyMHz <= PLL_FREQ_3))
-                    {
-                        dll_speed_mode = 1U;
-                    }
-                    else if ((config->inputFrequencyMHz > PLL_FREQ_3) && (config->inputFrequencyMHz <= PLL_FREQ_4))
-                    {
-                        dll_speed_mode = 2U;
-#if (CY_IP_MXSMIF_VERSION >= 5)
-                        dll_skil_lsb = 1U;
-#endif
-                    }
-                    else
-                    {
-                        dll_speed_mode = 3U;
-#if (CY_IP_MXSMIF_VERSION >= 5)
-                        dll_skil_lsb = 3U;
-#endif
-                    }
-
-#if (CY_IP_MXSMIF_VERSION >= 5)
-                    SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_DLL_MDL_BYPASS_MODE_Msk;
-                    SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_MDL_TAP_SEL_Msk;
-                    SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_DLL_SKIP_LSB_Msk;
-
-                    SMIF_CTL2(base) |= (_VAL2FLD(SMIF_CORE_CTL2_DLL_SPEED_MODE, dll_speed_mode) |
-                                        SMIF_CORE_CTL2_DLL_IGNORE_LOCK_Msk |            //Recomedation from IP team
-                                        _VAL2FLD(SMIF_CORE_CTL2_DLL_UNLOCK_VALUE, 5U) | //Recomedation from IP team
-                                        _VAL2FLD(SMIF_CORE_CTL2_MDL_TAP_SEL, config->mdl_tap) |
-                                        _VAL2FLD(SMIF_CORE_CTL2_DLL_SKIP_LSB, dll_skil_lsb));
-#else
-                     SMIF_CTL2(base) |= _VAL2FLD(SMIF_CORE_CTL2_DLL_SPEED_MODE, dll_speed_mode);
-#endif
-                }
-            }
-#if (CY_IP_MXSMIF_VERSION >=5)
-            else
-            {
-                /* Use DLL bypass mode, unavailable in SMIF v4 */
-                SMIF_CTL2(base) |= SMIF_CORE_CTL2_DLL_BYPASS_MODE_Msk;
-            }
-#endif
-
-            /* Set RX Capture Mode */
-            SMIF_CTL2(base) &= ~SMIF_CORE_CTL2_RX_CAPTURE_MODE_Msk;
-            SMIF_CTL2(base) |= _VAL2FLD(SMIF_CORE_CTL2_RX_CAPTURE_MODE, (uint32_t)config->rx_capture_mode);
-
-            /* In case user is working with higher frequencies increase initial set up and hold delay */
-            SMIF_CTL(base) &= ~SMIF_CORE_CTL_SELECT_SETUP_DELAY_Msk;
-            SMIF_CTL(base) &= ~SMIF_CORE_CTL_SELECT_HOLD_DELAY_Msk;
-
-            if (config->inputFrequencyMHz >= 300U)
-            {
-                SMIF_CTL(base) |= _VAL2FLD(SMIF_CORE_CTL_SELECT_SETUP_DELAY, 2);
-                SMIF_CTL(base) |= _VAL2FLD(SMIF_CORE_CTL_SELECT_HOLD_DELAY, 2);
-            }
-            else
-            {
-                SMIF_CTL(base) |= _VAL2FLD(SMIF_CORE_CTL_SELECT_SETUP_DELAY, 1);
-                SMIF_CTL(base) |= _VAL2FLD(SMIF_CORE_CTL_SELECT_HOLD_DELAY, 1);
-            }
-#endif /* (CY_IP_MXSMIF_VERSION >=4) */
+            CY_ASSERT(false);
+            return result;
         }
-        result = CY_SMIF_SUCCESS;
+
+        /* Set the MDL taps for SMIF, and SDL taps for device0 and device1. */
+        result = Cy_SMIF_Set_DelayTapSel(base, (uint8_t)config->mdl_tap);
+#if (SMIF_DEVICE_NR >= 1)
+        if (result == CY_SMIF_SUCCESS) {
+            result = Cy_SMIF_Set_Sdl_DelayTapSel(&(base->DEVICE[0]), (uint8_t)config->device0_sdl_tap);
+        }
+#endif
+#if (SMIF_DEVICE_NR >= 2)
+        if (result == CY_SMIF_SUCCESS) {
+            result = Cy_SMIF_Set_Sdl_DelayTapSel(&(base->DEVICE[1]), (uint8_t)config->device1_sdl_tap);
+        }
+#endif
+#if (SMIF_DEVICE_NR >= 3)
+        if (result == CY_SMIF_SUCCESS) {
+            result = Cy_SMIF_Set_Sdl_DelayTapSel(&(base->DEVICE[2]), (uint8_t)config->device2_sdl_tap);
+        }
+#endif
+#if (SMIF_DEVICE_NR >= 4)
+        if (result == CY_SMIF_SUCCESS) {
+            result = Cy_SMIF_Set_Sdl_DelayTapSel(&(base->DEVICE[3]), (uint8_t)config->device3_sdl_tap);
+        }
+#endif
+
+        /* In case user is working with higher frequencies increase initial set up and hold delay */
+        tmp_ctl &= ~(SMIF_CORE_CTL_SELECT_SETUP_DELAY_Msk | SMIF_CORE_CTL_SELECT_HOLD_DELAY_Msk);
+        if (config->inputFrequencyMHz >= 300U)
+        {
+            tmp_ctl |= _VAL2FLD(SMIF_CORE_CTL_SELECT_SETUP_DELAY, 2);
+            tmp_ctl |= _VAL2FLD(SMIF_CORE_CTL_SELECT_HOLD_DELAY, 2);
+        }
+        else
+        {
+            tmp_ctl |= _VAL2FLD(SMIF_CORE_CTL_SELECT_SETUP_DELAY, 1);
+            tmp_ctl |= _VAL2FLD(SMIF_CORE_CTL_SELECT_HOLD_DELAY, 1);
+        }
+#endif /* (CY_IP_MXSMIF_VERSION >= 4) */
+
+        SMIF_CTL(base) = tmp_ctl;
     }
 
     return result;
 }
+
+#if (CY_IP_MXSMIF_VERSION >= 4) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SMIF_DllConfig
+****************************************************************************//**
+*
+* This function configures the DLL for use, per the SMIF configuration structure
+* parameters.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param config
+* Passes a configuration structure that configures the SMIF block for operation,
+* here specifically it is used to configure the DLL.
+*
+* \param context
+* Passes a configuration structure that contains the transfer parameters of the
+* SMIF block.
+*
+* \return
+*     - \ref CY_SMIF_BAD_PARAM
+*     - \ref CY_SMIF_SUCCESS
+
+* \note The SMIF must be disabled before calling the function. Call
+*  \ref Cy_SMIF_Disable
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_DllConfig(volatile SMIF_Type *base,
+                                    cy_stc_smif_config_t const *config,
+                                    cy_stc_smif_context_t *context)
+{
+    if ((NULL == base) || (NULL == config) || (NULL == context))
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+    /* Bounds check the tap selection.  See MDL_TAP_SEL restrictions in TRM. */
+    if (config->dll_divider_value != CY_SMIF_DLL_DIVIDE_BY_2)
+    {
+        if ((config->mode == (uint32_t)CY_SMIF_NORMAL) && (context->preCmdDataRate == CY_SMIF_SDR)) 
+        {
+            /* Bounds for when SDR is in use. */
+            if ((config->mdl_tap < CY_SMIF_CLKOUT_NON_ZERO_MDL_TAP_MIN_SDR) || (config->mdl_tap > CY_SMIF_CLKOUT_NON_ZERO_MDL_TAP_MAX_SDR))
+            {
+                return CY_SMIF_BAD_PARAM;
+            }
+        }
+        else 
+        {
+            /* Bounds for when DDR is in use. */
+            if ((config->mdl_tap < CY_SMIF_CLKOUT_NON_ZERO_MDL_TAP_MIN_DDR) || (config->mdl_tap > CY_SMIF_CLKOUT_NON_ZERO_MDL_TAP_MAX_DDR)) 
+            {
+                return CY_SMIF_BAD_PARAM;
+            }
+        } 
+    }
+        
+    /* Make sure we start from a sane default. */
+    uint32_t tmp_ctl2 = CY_SMIF_CTL2_REG_DEFAULT;
+
+    /* Enable the DLL, if needed.   Otherwise, enable the bypass. */
+    if (config->enable_internal_dll)
+    {
+        /* These values are taken from the Register TRM entry for SMIF_CORE_CTL2_DLL_SPEED_MODE. */
+        #if (CY_IP_MXSMIF_VERSION == 4)
+        const uint32_t pll_freq_bounds[] = {160u, 180u, 266u, 333u, 400u};
+        #elif (CY_IP_MXSMIF_VERSION >= 5)
+        const uint32_t pll_freq_bounds[] = {150u, 192u, 245u, 313u, 400u};
+        const uint32_t dll_skip_lsb_vals[] = {0U, 0U, 1U, 3U};
+        #endif
+
+
+#if (CY_IP_MXSMIF_VERSION == 4)
+        if (config->inputFrequencyMHz <= 160U) {
+            /* Minimum input frequency for SMIFv4 is 160 MHz. */
+            CY_ASSERT(false);
+            return CY_SMIF_BAD_PARAM;
+        }
+#else
+        if (config->inputFrequencyMHz <= 150U)
+        {
+            /* DLL must run in open loop mode when input frequency is lower
+             than 150 MHz for SMIFv5 or greater. */
+            SMIF_CTL2(base) |= _VAL2FLD(SMIF_CORE_CTL2_DLL_OPENLOOP_ENABLE, 1U);
+            SMIF_IDAC(base) = 0; /* Set to 0 for max delay (for accuracy), minimum delay value is 0xA7F. */
+        }
+#endif
+        else
+        {
+            /* Determine the frequency bounds and set the speed mode accordingly */
+            uint32_t pll_bounds_idx;
+            uint32_t pll_bounds_cnt = (sizeof(pll_freq_bounds) / sizeof(pll_freq_bounds[0])) - 1UL;
+            for (pll_bounds_idx = 0UL; pll_bounds_idx < pll_bounds_cnt; pll_bounds_idx++)
+            {
+                if ((pll_freq_bounds[pll_bounds_idx] <= config->inputFrequencyMHz) && 
+                    (config->inputFrequencyMHz <= pll_freq_bounds[pll_bounds_idx + 1UL]))
+                {
+                    tmp_ctl2 |= _VAL2FLD(SMIF_CORE_CTL2_DLL_SPEED_MODE, pll_bounds_idx);
+#if (CY_IP_MXSMIF_VERSION >= 5UL)
+                    tmp_ctl2 |= (_VAL2FLD(SMIF_CORE_CTL2_DLL_SKIP_LSB, dll_skip_lsb_vals[pll_bounds_idx]) |
+                            SMIF_CORE_CTL2_DLL_IGNORE_LOCK_Msk |             //Recommendation from IP team
+                            _VAL2FLD(SMIF_CORE_CTL2_DLL_UNLOCK_VALUE, 5U));  //Recommendation from IP team
+#endif
+                    break;
+                }
+            }
+            if (pll_bounds_idx == pll_bounds_cnt)
+            {
+                return CY_SMIF_BAD_PARAM;
+            }
+        }
+    }
+#if (CY_IP_MXSMIF_VERSION >= 5)
+    else
+    {
+        /* DLL runs in open loop mode */
+        tmp_ctl2 |= SMIF_CORE_CTL2_DLL_BYPASS_MODE_Msk;
+        tmp_ctl2 |= _VAL2FLD(SMIF_CORE_CTL2_DLL_OPENLOOP_ENABLE, 1U);
+        SMIF_IDAC(base) = 0U; /* Set max delay for accuracy */
+    }
+#endif
+
+    tmp_ctl2 |= _VAL2FLD(SMIF_CORE_CTL2_CLKOUT_DIV, config->dll_divider_value);
+    tmp_ctl2 |= _VAL2FLD(SMIF_CORE_CTL2_MDL_TAP_SEL, config->mdl_tap);
+    tmp_ctl2 |= _VAL2FLD(SMIF_CORE_CTL2_RX_CAPTURE_MODE, config->rx_capture_mode);
+    tmp_ctl2 |= _VAL2FLD(SMIF_CORE_CTL2_RX_CHASE_MARGIN, 2UL); /* The default value expected to always work */
+    tmp_ctl2 |= _VAL2FLD(SMIF_CORE_CTL2_TX_SDR_EXTRA_SETUP, config->tx_sdr_extra);
+
+    /* Write the register value that has been constructed per the configuration input. */
+    SMIF_CTL2(base) = tmp_ctl2;
+
+    return CY_SMIF_SUCCESS;
+}
+#endif  /* (CY_IP_MXSMIF_VERSION >= 4) */
 
 
 /*******************************************************************************
@@ -262,7 +364,7 @@ void Cy_SMIF_DeInit(SMIF_Type *base)
     * The default value is 0.
     */
     SMIF_CTL(base) = CY_SMIF_CTL_REG_DEFAULT;
-#if (CY_IP_MXSMIF_VERSION>=4)
+#if (CY_IP_MXSMIF_VERSION >= 4)
     SMIF_CTL2(base) = CY_SMIF_CTL2_REG_DEFAULT;
 #endif
     SMIF_TX_DATA_FIFO_CTL(base) = 0U;
@@ -301,7 +403,7 @@ void Cy_SMIF_DeInit(SMIF_Type *base)
 void Cy_SMIF_SetMode(SMIF_Type *base, cy_en_smif_mode_t mode)
 {
     CY_ASSERT_L3(CY_SMIF_MODE_VALID(mode));
-
+    
     /*  Set the register SMIF.CTL.XIP_MODE = TRUE */
     if (CY_SMIF_NORMAL == mode)
     {
@@ -309,7 +411,7 @@ void Cy_SMIF_SetMode(SMIF_Type *base, cy_en_smif_mode_t mode)
     }
     else
     {
-#if ((CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION==3))
+#if ((CY_IP_MXSMIF_VERSION==2UL) || (CY_IP_MXSMIF_VERSION==3UL))
         uint32_t read_cmd_data_ctl;
         uint8_t idx;
 
@@ -407,6 +509,101 @@ void Cy_SMIF_SetDataSelect(SMIF_Type *base, cy_en_smif_slave_select_t slaveSelec
     }
 }
 
+#if defined (CY_IP_MXSMIF_VERSION) && (CY_IP_MXSMIF_VERSION >= 4) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_SMIF_Set_Sdl_DelayTapSel
+****************************************************************************//**
+*
+* This function sets the SDL (slave clock) delay tap number for the SMIF (common 
+* for all its devices).  It sets both the positive and negative taps to the same
+* value.
+* 
+* \param smif_device_base
+* Holds the base address of the SMIF_DEVICE block registers.
+*
+* \param tapSel
+* positive and negative delay tap selection to be set
+*
+* \return status (see \ref cy_en_smif_status_t).
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Set_Sdl_DelayTapSel(SMIF_CORE_DEVICE_Type *smif_device_base, uint8_t tapSel)
+{
+    /* Check for valid device address input parameter. */
+#if defined (CY_IP_MXSMIF_VERSION) && ((CY_IP_MXSMIF_VERSION == 4) || (CY_IP_MXSMIF_VERSION ==5))
+    if ((smif_device_base != SMIF0_CORE0_DEVICE0) && (smif_device_base != SMIF0_CORE0_DEVICE1) &&
+       (smif_device_base != SMIF0_CORE1_DEVICE0) && (smif_device_base != SMIF0_CORE1_DEVICE1))
+#else
+    if ((smif_device_base != SMIF0_CORE_DEVICE0) && (smif_device_base != SMIF0_CORE_DEVICE1))
+#endif
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+    /* Check the the delay tap is within range. */
+    if (tapSel > (CY_SMIF_GetDelayTapsNumber(smif_device_base) - 1UL))
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+    SMIF_DEVICE_RX_CAPTURE_CONFIG(smif_device_base) = _CLR_SET_FLD32U(SMIF_DEVICE_RX_CAPTURE_CONFIG(smif_device_base), SMIF_CORE_DEVICE_RX_CAPTURE_CONFIG_POS_SDL_TAP_SEL, tapSel);
+    SMIF_DEVICE_RX_CAPTURE_CONFIG(smif_device_base) = _CLR_SET_FLD32U(SMIF_DEVICE_RX_CAPTURE_CONFIG(smif_device_base), SMIF_CORE_DEVICE_RX_CAPTURE_CONFIG_NEG_SDL_TAP_SEL, tapSel);
+
+    return CY_SMIF_SUCCESS;
+}
+
+/*******************************************************************************
+* Function Name: CY_SMIF_GetDelayTapsNumber
+****************************************************************************//**
+*
+* This function returns tap number which the SMIF IP has. 
+* User can input both SMIF DEVICE block address and SMIF block address
+*
+* \param base
+* Base address of the SMIF block or the SMIF DEVICE block.
+*
+* \return Delay tap Number of the SMIF IP
+*
+*******************************************************************************/
+uint32_t CY_SMIF_GetDelayTapsNumber(volatile void *base)
+{
+#if defined (CY_IP_MXSMIF_VERSION) && (CY_IP_MXSMIF_VERSION >= 4)
+    CY_UNUSED_PARAMETER(base);
+    return SMIF_DELAY_TAPS_NR;
+#else
+#if defined (SMIF_DELAY_TAPS_NR)
+    if((base == CY_SMIF_DRV_SMIF0_CORE0) || (base == CY_SMIF_DRV_SMIF0_CORE0_DEVICE0) || (base == CY_SMIF_DRV_SMIF0_CORE0_DEVICE1))
+    {
+        return CY_SMIF_DRV_SMIF0_DELAY_TAPS_NR;
+    }
+    else if((base == CY_SMIF_DRV_SMIF0_CORE1) || (base == CY_SMIF_DRV_SMIF0_CORE1_DEVICE0) || (base == CY_SMIF_DRV_SMIF0_CORE1_DEVICE1))
+    {
+        return CY_SMIF_DRV_SMIF1_DELAY_TAPS_NR;
+    }
+    else
+    {
+        /* Nothing to be done. */
+    }
+#endif
+
+#if defined (CY_SMIF_DLL_TAP_MAX)
+    if((base == CY_SMIF_DRV_SMIF0_CORE0) || (base == CY_SMIF_DRV_SMIF0_CORE0_DEVICE0) || (base == CY_SMIF_DRV_SMIF0_CORE0_DEVICE1)
+        || (base == CY_SMIF_DRV_SMIF0_CORE1) || (base == CY_SMIF_DRV_SMIF0_CORE1_DEVICE0) || (base == CY_SMIF_DRV_SMIF0_CORE1_DEVICE1))
+    {
+        return CY_SMIF_DLL_TAP_MAX;
+    }
+#endif
+
+    // Reaching here may mean that DLP calibration is available. Please use that.
+    // Or means input bad parameter
+    CY_ASSERT_L2(false);
+#ifdef NDEBUG // CY_ASSERT will be removed, therefore a "return" is needed which would could otherwise cause a "statement unreachable" warning
+    return 0;
+#endif
+#endif /* CY_IP_MXSIF_VERSION == 4 */
+}
+
+#endif /* MXSMIF_VERSION >= 4 */
 
 /*******************************************************************************
 * Function Name: Cy_SMIF_TransmitCommand()
@@ -633,7 +830,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitData(SMIF_Type *base,
             context->txBufferSize = size;
             context->txBufferCounter = size;
             context->txCompleteCb = TxCompleteCb;
-            context->transferStatus = (uint32_t) CY_SMIF_SEND_BUSY;
+            context->transferStatus = CY_SMIF_SEND_BUSY;
 
             /* Enable the TR_TX_REQ interrupt */
             Cy_SMIF_SetInterruptMask(base,
@@ -697,7 +894,7 @@ cy_en_smif_status_t  Cy_SMIF_TransmitDataBlocking(SMIF_Type *base,
                             cy_en_smif_txfr_width_t transferWidth,
                             cy_stc_smif_context_t const *context)
 {
-#if (CY_IP_MXSMIF_VERSION>=2)
+#if (CY_IP_MXSMIF_VERSION>=2UL)
      return Cy_SMIF_TransmitDataBlocking_Ext(base,
                                              txBuffer,
                                              size,
@@ -734,9 +931,9 @@ cy_en_smif_status_t  Cy_SMIF_TransmitDataBlocking(SMIF_Type *base,
                 contextLoc.txBufferAddress = txBuffer;
                 contextLoc.txBufferCounter = size;
                 contextLoc.txCompleteCb = NULL;
-                contextLoc.transferStatus = (uint32_t) CY_SMIF_SEND_BUSY;
+                contextLoc.transferStatus = CY_SMIF_SEND_BUSY;
 
-                while (((uint32_t) CY_SMIF_SEND_BUSY == contextLoc.transferStatus) &&
+                while ((CY_SMIF_SEND_BUSY == contextLoc.transferStatus) &&
                         (CY_SMIF_EXCEED_TIMEOUT != result))
                 {
                     Cy_SMIF_PushTxFifo(base, &contextLoc);
@@ -850,7 +1047,7 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveData(SMIF_Type *base,
                 context->rxBufferSize = size;
                 context->rxBufferCounter = size;
                 context->rxCompleteCb = RxCompleteCb;
-                context->transferStatus =  (uint32_t) CY_SMIF_RX_BUSY;
+                context->transferStatus =  CY_SMIF_RX_BUSY;
 
                 /* Enable the TR_RX_REQ interrupt */
                 Cy_SMIF_SetInterruptMask(base,
@@ -955,9 +1152,9 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveDataBlocking(SMIF_Type *base,
                 contextLoc.rxBufferAddress = (uint8_t*)rxBuffer;
                 contextLoc.rxBufferCounter = size;
                 contextLoc.rxCompleteCb = NULL;
-                contextLoc.transferStatus = (uint32_t) CY_SMIF_RX_BUSY;
+                contextLoc.transferStatus = CY_SMIF_RX_BUSY;
 
-                while (((uint32_t) CY_SMIF_RX_BUSY == contextLoc.transferStatus) &&
+                while ((CY_SMIF_RX_BUSY == contextLoc.transferStatus) &&
                         (CY_SMIF_EXCEED_TIMEOUT != result))
                 {
                     Cy_SMIF_PopRxFifo(base, &contextLoc);
@@ -1048,7 +1245,7 @@ cy_en_smif_status_t  Cy_SMIF_SendDummyCycles(SMIF_Type *base,
 * \return Returns the transfer status. \ref cy_en_smif_txfr_status_t
 *
 *******************************************************************************/
-uint32_t Cy_SMIF_GetTransferStatus(SMIF_Type const *base, cy_stc_smif_context_t const *context)
+cy_en_smif_txfr_status_t Cy_SMIF_GetTransferStatus(SMIF_Type const *base, cy_stc_smif_context_t const *context)
 {
     (void)base; /* Suppress warning */
     return (context->transferStatus);
@@ -1081,7 +1278,7 @@ void Cy_SMIF_Enable(SMIF_Type *base, cy_stc_smif_context_t *context)
     context->rxBufferAddress = NULL;
     context->rxBufferSize = 0U;
     context->rxBufferCounter = 0U;
-    context->transferStatus = (uint32_t)CY_SMIF_STARTED;
+    context->transferStatus = CY_SMIF_STARTED;
 
     SMIF_CTL(base) |= SMIF_CTL_ENABLED_Msk;
 
@@ -1214,7 +1411,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
 #endif
 
     /* Prepare a cmd fifo data */
-        if(isCommand2byte == true)
+    if (isCommand2byte == true)
     {
         if((cmdTxfrWidth == CY_SMIF_WIDTH_OCTAL) && (cmdDataRate == CY_SMIF_DDR))
         {
@@ -1265,7 +1462,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
         SMIF_CTL(base) =  temp | _VAL2FLD(SMIF_CTL_CLOCK_IF_TX_SEL, paramDataRate);
 #endif
 
-    if((paramTxfrWidth == CY_SMIF_WIDTH_OCTAL) && (paramDataRate == CY_SMIF_DDR))
+    if ((paramTxfrWidth == CY_SMIF_WIDTH_OCTAL) && (paramDataRate == CY_SMIF_DDR))
     {
             // 2 byte transmission for each one command.
             while ((bufIndex < paramSize) && (CY_SMIF_EXCEED_TIMEOUT != result))
@@ -1273,12 +1470,12 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
                 /* Check if there is at least one free entry in TX_CMD_FIFO */
                 if    (Cy_SMIF_GetCmdFifoStatus(base) < CY_SMIF_TX_CMD_FIFO_STATUS_RANGE)
                 {
-                                SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart|
-                    _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint32_t) cmdParam[bufIndex+1U]) |
-                    _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, (uint32_t) cmdParam[bufIndex])|
-                    _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t) paramTxfrWidth) |
-                    _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) paramDataRate) |
-                    _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE,
+                    SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart |
+                        _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint32_t) cmdParam[bufIndex+1U]) |
+                        _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, (uint32_t) cmdParam[bufIndex])|
+                        _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t) paramTxfrWidth) |
+                        _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_DATA_RATE, (uint32_t) paramDataRate) |
+                        _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_LAST_BYTE,
                             ((((uint32_t)bufIndex + 2UL) < paramSize) ?  0UL : completeTxfr));
                     bufIndex += 2U;
                 }
@@ -1293,7 +1490,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitCommand_Ext(SMIF_Type *base,
             /* Check if there is at least one free entry in TX_CMD_FIFO */
             if  (Cy_SMIF_GetCmdFifoStatus(base) < CY_SMIF_TX_CMD_FIFO_STATUS_RANGE)
             {
-                SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart|
+                SMIF_TX_CMD_MMIO_FIFO_WR(base) = constCmdPart |
                     _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_1, (uint32_t) cmdParam[bufIndex]) |
                     _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_TXDATA_BYTE_2, 0)|
                     _VAL2FLD(CY_SMIF_CMD_MMIO_FIFO_WR_WIDTH, (uint32_t) paramTxfrWidth) |
@@ -1429,9 +1626,9 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
             context->txBufferSize = size;
             context->txBufferCounter = size;
             context->txCompleteCb = TxCmpltCb;
-            context->transferStatus = (uint32_t) CY_SMIF_SEND_BUSY;
-            context->preCmdDataRate        = dataDataRate;
-            context->preCmdWidth           = transferWidth;
+            context->transferStatus = CY_SMIF_SEND_BUSY;
+            context->preCmdDataRate = dataDataRate;
+            context->preCmdWidth = transferWidth;
 
             #if (CY_IP_MXSMIF_VERSION >= 4) /* DRIVERS-12031 */
             Cy_SMIF_SetTxFifoTriggerLevel(base, 1U);
@@ -1562,11 +1759,11 @@ cy_en_smif_status_t Cy_SMIF_TransmitDataBlocking_Ext(SMIF_Type *base,
                 contextLoc.txBufferAddress = (uint8_t*)txBuffer;
                 contextLoc.txBufferCounter = size;
                 contextLoc.txCompleteCb = NULL;
-                contextLoc.transferStatus = (uint32_t) CY_SMIF_SEND_BUSY;
-                contextLoc.preCmdDataRate      = dataDataRate;
-                contextLoc.preCmdWidth         = transferWidth;
+                contextLoc.transferStatus = CY_SMIF_SEND_BUSY;
+                contextLoc.preCmdDataRate = dataDataRate;
+                contextLoc.preCmdWidth = transferWidth;
 
-                while (((uint32_t) CY_SMIF_SEND_BUSY == contextLoc.transferStatus) &&
+                while ((CY_SMIF_SEND_BUSY == contextLoc.transferStatus) &&
                         (CY_SMIF_EXCEED_TIMEOUT != result))
                 {
                     Cy_SMIF_PushTxFifo(base, &contextLoc);
@@ -1705,7 +1902,7 @@ cy_en_smif_status_t Cy_SMIF_ReceiveData_Ext(SMIF_Type *base,
                 context->rxBufferSize = size;
                 context->rxBufferCounter = size;
                 context->rxCompleteCb = RxCmpltCb;
-                context->transferStatus =  (uint32_t) CY_SMIF_REC_BUSY;
+                context->transferStatus = CY_SMIF_REC_BUSY;
 
                 /* Enable the TR_RX_REQ interrupt */
                 Cy_SMIF_SetInterruptMask(base,
@@ -1830,9 +2027,9 @@ cy_en_smif_status_t Cy_SMIF_ReceiveDataBlocking_Ext(SMIF_Type *base,
                 contextLoc.rxBufferAddress = (uint8_t*)rxBuffer;
                 contextLoc.rxBufferCounter = size;
                 contextLoc.rxCompleteCb = NULL;
-                contextLoc.transferStatus = (uint32_t) CY_SMIF_REC_BUSY;
+                contextLoc.transferStatus = CY_SMIF_REC_BUSY;
 
-                while (((uint32_t) CY_SMIF_REC_BUSY == contextLoc.transferStatus) &&
+                while ((CY_SMIF_REC_BUSY == contextLoc.transferStatus) &&
                         (CY_SMIF_EXCEED_TIMEOUT != result))
                 {
                     Cy_SMIF_PopRxFifo(base, &contextLoc);
@@ -2490,10 +2687,72 @@ cy_en_smif_status_t Cy_SMIF_CacheInvalidate(SMIF_Type *base,
     return (status);
 }
 
+#if ((CY_IP_MXSMIF_VERSION >= 4) && (defined (SMIF_BRIDGE_PRESENT) && (SMIF_BRIDGE_PRESENT == 1u))) || defined (CY_DOXYGEN)
+/*******************************************************************************
+ * Function Name: Cy_SMIF_IsBridgeOn
+ ****************************************************************************//**
+* This function is used to check the bridge enable state.
+*
+* \param base
+* Holds the base address of the SMIF base registers.
+*
+* \return True if the bridge is active (enabled), false if the bridge is not enabled.
+*
+* \note
+* This API is available for CAT1D and CAT1C (TVIIC only) devices.
+*******************************************************************************/
+bool Cy_SMIF_IsBridgeOn(SMIF_Base_Type *base)
+{
+    CY_ASSERT_L1(NULL != base);
+
+    return (_FLD2VAL(SMIF_SMIF_BRIDGE_CTL_ENABLED, SMIF_BRIDGE_CTL(base)) != 0UL);
+}
+
+/*******************************************************************************
+ * Function Name: Cy_SMIF_Bridge_Enable
+ ****************************************************************************//**
+* This function is used to enable/disable Bridge
+*
+* \param base
+* Holds the base address of the SMIF base registers.
+*
+* \param enable
+* enable/disable the bridge
+*
+* \note
+* This API is available for CAT1D and CAT1C (TVIIC only) devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_Bridge_Enable(SMIF_Base_Type *base, bool enable)
+{
+    CY_ASSERT_L1(NULL != base);
+
+    uint32_t prevStatus = Cy_SysLib_EnterCriticalSection();
+
+    /* Confirming all smif core is not busy */
+    for(uint32_t smifCoreIdx = 0; smifCoreIdx < CY_SMIF_CORE_COUNT; smifCoreIdx+=1U)
+    {
+        if(Cy_SMIF_BusyCheck(&(base->CORE[smifCoreIdx])) == true)
+        {
+            CY_ASSERT_L1(false);
+            return CY_SMIF_BUSY;
+        }
+    }
+
+    /* Set Enable bit of the smif bridge */
+    SMIF_BRIDGE_CTL(base) = (enable ? 
+                (SMIF_BRIDGE_CTL(base) | (SMIF_SMIF_BRIDGE_CTL_ENABLED_Msk)) :
+                (SMIF_BRIDGE_CTL(base) & ~(SMIF_SMIF_BRIDGE_CTL_ENABLED_Msk)));
+
+    Cy_SysLib_ExitCriticalSection(prevStatus);
+
+    return CY_SMIF_SUCCESS;
+}
+#endif /* ((CY_IP_MXSMIF_VERSION >= 4) && (defined (SMIF_BRIDGE_PRESENT) && (SMIF_BRIDGE_PRESENT == 1u))) || defined (CY_DOXYGEN) */
+
 #if (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN)
 /*******************************************************************************
-* Function Name: Cy_SMIF_SetRxCaptureMode
-****************************************************************************//**
+ * Function Name: Cy_SMIF_SetRxCaptureMode
+ ****************************************************************************//**
 * This function sets the Rx Capture mode setting for SMIF IP block instance
 *
 * \param base
@@ -2535,6 +2794,7 @@ cy_en_smif_status_t Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture
     }
 }
 #endif  /*  (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN) */
+
 
 #if ((CY_IP_MXSMIF_VERSION>=4) && \
      ((defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0)) || \
@@ -2586,6 +2846,7 @@ cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t si
     }
     return status;
 }
+
 /*******************************************************************************
 * Function Name: Cy_SMIF_GetMasterDLP
 ****************************************************************************//**
@@ -3031,7 +3292,7 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 }
 
 
-#if (CY_IP_MXSMIF_VERSION == 2U) || (CY_IP_MXSMIF_VERSION >= 5U)
+#if (CY_IP_MXSMIF_VERSION == 2U) || (CY_IP_MXSMIF_VERSION >= 4U) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SMIF_Set_DelayTapSel
 ****************************************************************************//**
@@ -3048,8 +3309,6 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 * \return status (see \ref cy_en_smif_status_t).
 *
 * \note This API is supported on CAT1C and CAT1D devices.
-*
-* \snippet smif/snippet/main.c snippet_Cy_SMIF_DelayTapSel
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
 {
@@ -3080,8 +3339,6 @@ cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
 * \return read tap selection
 *
 * \note This API is supported on CAT1C and CAT1D devices.
-*
-* \snippet smif/snippet/main.c snippet_Cy_SMIF_DelayTapSel
 *******************************************************************************/
 uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base)
 {

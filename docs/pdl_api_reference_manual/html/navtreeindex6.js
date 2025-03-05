@@ -191,7 +191,7 @@ var NAVTREEINDEX6 =
 "group__group__efuse__macros.html#gae0c3ba64424e5c138642546ffee03a92":[4,13,0,2],
 "group__group__efuse__macros.html#gae85a76aa290cafda151b263b7ee6cfd2":[4,13,0,0],
 "group__group__efuse__macros.html#gafc35b891a1ac0b60b4babf52bd4408eb":[4,13,0,1],
-"group__group__energy__profiler.html":[4,34],
+"group__group__energy__profiler.html":[4,35],
 "group__group__ephy.html":[4,15],
 "group__group__ephy__data__structures.html":[4,15,3],
 "group__group__ephy__data__structures.html#ga9026ac03446eb19032e3d3eaf4cc10a5":[4,15,3,2],

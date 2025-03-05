@@ -116,6 +116,8 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.130 </td><td>Corrects fractional enable behavior in <a class="el" href="group__group__sysclk__pll__funcs.html#gad498857f6d3c3b8df8dd176391d07f6f">Cy_SysClk_Pll400MConfigure</a>. Only enables fractional divider if the fractional divider is non-zero.  </td></tr>
+<tr>
 <td>3.120 </td><td>Added PSOC C3 device support. </td><td>New devices support added.  </td></tr>
 <tr>
 <td>3.110 </td><td>Added support for LPECO feature.<br />
@@ -150,7 +152,7 @@ Newly added APIs: <br />
 Newly added APIs: <br />
  <a class="el" href="group__group__sysclk__pll__funcs.html#ga219fd6d8d1d18090fe6d7002610ac021" title="Returns the output frequency of the PLL. ">Cy_SysClk_PllGetFrequency()</a> for CAT1A,CAT1C and CAT1D devices, <br />
  <a class="el" href="group__group__sysclk__pll__funcs.html#gabdf2396edece2bf47abd72603fc791e5" title="Gets the frequency of PLL200M. ">Cy_SysClk_Pll200MGetFrequency()</a> for CAT1C devices, <br />
- Cy_SysClk_Pll400MGetFrequency() for CAT1C devices, <br />
+ <a class="el" href="group__group__sysclk__pll__funcs.html#ga1e83e55b944bb47222d309ede5569d38" title="Gets the frequency of PLL400M. ">Cy_SysClk_Pll400MGetFrequency()</a> for CAT1C devices, <br />
  <a class="el" href="group__group__sysclk__imo__funcs.html#ga40861bc2380f871a06ef0600ccbd4dd5" title="Enables the IMO. ">Cy_SysClk_ImoEnable()</a> for CAT1D devices, <br />
  <a class="el" href="group__group__sysclk__imo__funcs.html#ga65e688803f1098d1d42ac635117104bc" title="Disables IMO. ">Cy_SysClk_ImoDisable()</a> for CAT1D devices, <br />
  <a class="el" href="group__group__sysclk__imo__funcs.html#gaff509bb102fcc7335d2a1c89a139e67a" title="Reports whether or not the selected IMO is enabled. ">Cy_SysClk_ImoIsEnabled()</a> for CAT1D devices, <br />
@@ -174,13 +176,13 @@ Newly added APIs: <br />
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#gaae48c98d74bbb34e049d2e8c17100685" title="Reports whether or not the selected 200M PLL is locked. ">Cy_SysClk_Pll200MLocked()</a></li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga40696a5667ca242332fb3de42b1b2994" title="Reports whether or not the selected 200M PLL lost its lock since the last time this function was call...">Cy_SysClk_Pll200MLostLock()</a></li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27" title="Disables the selected 200M PLL. ">Cy_SysClk_Pll200MDisable()</a></li>
-<li>Cy_SysClk_Pll400MConfigure()</li>
-<li>Cy_SysClk_Pll400MManualConfigure()</li>
-<li>Cy_SysClk_Pll400MGetConfiguration()</li>
-<li>Cy_SysClk_Pll400MEnable()</li>
-<li>Cy_SysClk_Pll400MIsEnabled()</li>
-<li>Cy_SysClk_Pll400MLocked()</li>
-<li>Cy_SysClk_Pll400MLostLock()</li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gad498857f6d3c3b8df8dd176391d07f6f" title="Configures 400M PLL. ">Cy_SysClk_Pll400MConfigure()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga940fd6400c3ea9f37a0b26893ae8b42b" title="Manually configures a 400M PLL based on user inputs. ">Cy_SysClk_Pll400MManualConfigure()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gad0d8b724b371f76ba51ed3378691d9df" title="Reports configuration settings for 400M PLL. ">Cy_SysClk_Pll400MGetConfiguration()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#gaa92e2b0dd3f211143fd66edf70fcd2ae" title="Enables the 400M PLL. ">Cy_SysClk_Pll400MEnable()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga156fecfbaecb9d502c74529f910fe24b" title="Reports whether or not the selected 400M PLL is enabled. ">Cy_SysClk_Pll400MIsEnabled()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga5455c05316aa399ef5afacf7648a3cf1" title="Reports whether or not the selected 400M PLL is locked. ">Cy_SysClk_Pll400MLocked()</a></li>
+<li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8e300a347373de8ab2c7d2ca89b05dee" title="Reports whether or not the selected 400M PLL lost its lock since the last time this function was call...">Cy_SysClk_Pll400MLostLock()</a></li>
 <li><a class="el" href="group__group__sysclk__pll__funcs.html#ga8b42389042d11aaa84bd2e769f6b7b27" title="Disables the selected 200M PLL. ">Cy_SysClk_Pll200MDisable()</a></li>
 <li><a class="el" href="group__group__sysclk__iho__funcs.html#gae014bbd531b0612fc784cdcf15784564" title="Enables the IHO during deepsleep mode. ">Cy_SysClk_IhoDeepsleepEnable()</a></li>
 <li><a class="el" href="group__group__sysclk__iho__funcs.html#ga9de913cc5f378cba22fa53d77ab30b98" title="Reports whether or not the selected IHO is enabled during deepsleep mode. ">Cy_SysClk_IhoIsDeepsleepEnabled()</a></li>

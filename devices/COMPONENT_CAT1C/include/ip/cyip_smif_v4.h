@@ -187,7 +187,7 @@ typedef struct {
 } SMIF_CORE_Type;                               /*!< Size = 65536 (0x10000) */
 
 /**
-  * \brief SMIF subsystem (bridge + 2 core SMIFs, OR no bridge and 1 core SMIF) (SMIF)
+  * \brief SMIF subsystem (bridge + 2 core SMIFs, OR no bridge and 1 core SMIF) (SMIF_STRUCT)
   */
 typedef struct {
         SMIF_SMIF_BRIDGE_Type SMIF_BRIDGE;      /*!< 0x00000000 AXI/AHB interleaving and FOTA bridge */

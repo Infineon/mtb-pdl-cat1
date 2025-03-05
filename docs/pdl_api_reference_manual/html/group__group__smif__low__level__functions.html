@@ -107,6 +107,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaea2684847f04e2e7e2c85cfe7fd37881"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gaea2684847f04e2e7e2c85cfe7fd37881">Cy_SMIF_Init</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="structcy__stc__smif__config__t.html">cy_stc_smif_config_t</a> const *config, uint32_t timeout, <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> *context)</td></tr>
 <tr class="memdesc:gaea2684847f04e2e7e2c85cfe7fd37881"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the SMIF block as a communication block.  <a href="#gaea2684847f04e2e7e2c85cfe7fd37881">More...</a><br /></td></tr>
 <tr class="separator:gaea2684847f04e2e7e2c85cfe7fd37881"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0020f3543dc622302fa272e1270230d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gaa0020f3543dc622302fa272e1270230d">Cy_SMIF_DllConfig</a> (volatile <a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="structcy__stc__smif__config__t.html">cy_stc_smif_config_t</a> const *config, <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> *context)</td></tr>
+<tr class="memdesc:gaa0020f3543dc622302fa272e1270230d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the DLL for use, per the SMIF configuration structure parameters.  <a href="#gaa0020f3543dc622302fa272e1270230d">More...</a><br /></td></tr>
+<tr class="separator:gaa0020f3543dc622302fa272e1270230d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacfff3629c2c649b4eb776e8e98523dda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gacfff3629c2c649b4eb776e8e98523dda">Cy_SMIF_DeInit</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base)</td></tr>
 <tr class="memdesc:gacfff3629c2c649b4eb776e8e98523dda"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function de-initializes the SMIF block to default values.  <a href="#gacfff3629c2c649b4eb776e8e98523dda">More...</a><br /></td></tr>
 <tr class="separator:gacfff3629c2c649b4eb776e8e98523dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,9 +140,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gae40a30c84a9a5956d03279b9ee8c3999"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gae40a30c84a9a5956d03279b9ee8c3999">Cy_SMIF_SendDummyCycles</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, uint32_t cycles)</td></tr>
 <tr class="memdesc:gae40a30c84a9a5956d03279b9ee8c3999"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends dummy-clock cycles.  <a href="#gae40a30c84a9a5956d03279b9ee8c3999">More...</a><br /></td></tr>
 <tr class="separator:gae40a30c84a9a5956d03279b9ee8c3999"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9b1a6bbecbb57233ea612d39d53b8f4c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> const *base, <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> const *context)</td></tr>
-<tr class="memdesc:ga9b1a6bbecbb57233ea612d39d53b8f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides the status of the transfer.  <a href="#ga9b1a6bbecbb57233ea612d39d53b8f4c">More...</a><br /></td></tr>
-<tr class="separator:ga9b1a6bbecbb57233ea612d39d53b8f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90da2709c1d2a6967101a05e0eb27b08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#gaf65a7e26c18fcd3d3469eb083f78bb85">cy_en_smif_txfr_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> const *base, <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> const *context)</td></tr>
+<tr class="memdesc:ga90da2709c1d2a6967101a05e0eb27b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides the status of the transfer.  <a href="#ga90da2709c1d2a6967101a05e0eb27b08">More...</a><br /></td></tr>
+<tr class="separator:ga90da2709c1d2a6967101a05e0eb27b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5428ca682fd56b837a1a3763fc2596b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga5428ca682fd56b837a1a3763fc2596b8">Cy_SMIF_Enable</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> *context)</td></tr>
 <tr class="memdesc:ga5428ca682fd56b837a1a3763fc2596b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the operation of the SMIF block.  <a href="#ga5428ca682fd56b837a1a3763fc2596b8">More...</a><br /></td></tr>
 <tr class="separator:ga5428ca682fd56b837a1a3763fc2596b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,6 +173,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6d2d7ef86eccf2e7a3a2f760208bea0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga6d2d7ef86eccf2e7a3a2f760208bea0b">Cy_SMIF_DeviceTransfer_ClearMergeTimeout</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a> slave)</td></tr>
 <tr class="memdesc:ga6d2d7ef86eccf2e7a3a2f760208bea0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables continuous transfer merging.  <a href="#ga6d2d7ef86eccf2e7a3a2f760208bea0b">More...</a><br /></td></tr>
 <tr class="separator:ga6d2d7ef86eccf2e7a3a2f760208bea0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a547a8e9db987215d7be94e25688ca1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga7a547a8e9db987215d7be94e25688ca1">Cy_SMIF_Set_DelayTapSel</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, uint8_t tapSel)</td></tr>
+<tr class="memdesc:ga7a547a8e9db987215d7be94e25688ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets delay tap number for the SMIF master clock which is common for all memory devices connected.  <a href="#ga7a547a8e9db987215d7be94e25688ca1">More...</a><br /></td></tr>
+<tr class="separator:ga7a547a8e9db987215d7be94e25688ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga810c01bc60e2eafeb53a7c9cfa0b7115"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga810c01bc60e2eafeb53a7c9cfa0b7115">Cy_SMIF_Get_DelayTapSel</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base)</td></tr>
+<tr class="memdesc:ga810c01bc60e2eafeb53a7c9cfa0b7115"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns delay tap number which has been set for the SMIF.  <a href="#ga810c01bc60e2eafeb53a7c9cfa0b7115">More...</a><br /></td></tr>
+<tr class="separator:ga810c01bc60e2eafeb53a7c9cfa0b7115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf94a776664420fda15c8aa4a87b6db7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gaf94a776664420fda15c8aa4a87b6db7e">Cy_SMIF_Set_Sdl_DelayTapSel</a> (SMIF_CORE_DEVICE_Type *smif_device_base, uint8_t tapSel)</td></tr>
+<tr class="memdesc:gaf94a776664420fda15c8aa4a87b6db7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the SDL (slave clock) delay tap number for the SMIF (common for all its devices).  <a href="#gaf94a776664420fda15c8aa4a87b6db7e">More...</a><br /></td></tr>
+<tr class="separator:gaf94a776664420fda15c8aa4a87b6db7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga318b7c99ac2ba33e833cb4a0ab675e17"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga318b7c99ac2ba33e833cb4a0ab675e17">Cy_SMIF_Disable</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base)</td></tr>
 <tr class="memdesc:ga318b7c99ac2ba33e833cb4a0ab675e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the operation of the SMIF block.  <a href="#ga318b7c99ac2ba33e833cb4a0ab675e17">More...</a><br /></td></tr>
 <tr class="separator:ga318b7c99ac2ba33e833cb4a0ab675e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -260,6 +272,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gae7f56e6919c991ce5b1e0947c0994644"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644">Cy_SMIF_GetTapNumCapturedCorrectDLP</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, uint8_t bit)</td></tr>
 <tr class="memdesc:gae7f56e6919c991ce5b1e0947c0994644"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets number of delay taps used for specified data line.  <a href="#gae7f56e6919c991ce5b1e0947c0994644">More...</a><br /></td></tr>
 <tr class="separator:gae7f56e6919c991ce5b1e0947c0994644"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae88b33af21e1dd8fc761317b4f81b4f4"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gae88b33af21e1dd8fc761317b4f81b4f4">CY_SMIF_GetDelayTapsNumber</a> (volatile void *base)</td></tr>
+<tr class="memdesc:gae88b33af21e1dd8fc761317b4f81b4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns tap number which the SMIF IP has.  <a href="#gae88b33af21e1dd8fc761317b4f81b4f4">More...</a><br /></td></tr>
+<tr class="separator:gae88b33af21e1dd8fc761317b4f81b4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4ba290997356aff8767bf5519fcbb33"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gaa4ba290997356aff8767bf5519fcbb33">Cy_SMIF_IsBridgeOn</a> (SMIF_Base_Type *base)</td></tr>
+<tr class="memdesc:gaa4ba290997356aff8767bf5519fcbb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to check the bridge enable state.  <a href="#gaa4ba290997356aff8767bf5519fcbb33">More...</a><br /></td></tr>
+<tr class="separator:gaa4ba290997356aff8767bf5519fcbb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6633fdcf48299706b9c87369d1adf26f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga6633fdcf48299706b9c87369d1adf26f">Cy_SMIF_Bridge_Enable</a> (SMIF_Base_Type *base, bool enable)</td></tr>
+<tr class="memdesc:ga6633fdcf48299706b9c87369d1adf26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to enable/disable Bridge.  <a href="#ga6633fdcf48299706b9c87369d1adf26f">More...</a><br /></td></tr>
+<tr class="separator:ga6633fdcf48299706b9c87369d1adf26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab67d2aecdf1783c11ea54acb78ea2034"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gab67d2aecdf1783c11ea54acb78ea2034">Cy_SMIF_InitCache</a> (SMIF_CACHE_BLOCK_Type *base, const <a class="el" href="structcy__stc__smif__cache__config__t.html">cy_stc_smif_cache_config_t</a> *cache_config)</td></tr>
 <tr class="memdesc:gab67d2aecdf1783c11ea54acb78ea2034"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes SMIF internal CACHE with user provided configuration <a class="el" href="structcy__stc__smif__cache__config__t.html">cy_stc_smif_cache_config_t</a>.  <a href="#gab67d2aecdf1783c11ea54acb78ea2034">More...</a><br /></td></tr>
 <tr class="separator:gab67d2aecdf1783c11ea54acb78ea2034"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -323,7 +344,7 @@ Functions</h2></td></tr>
 
 <p>This function initializes the SMIF block as a communication block. </p>
 <p>The user must ensure that the SMIF interrupt is disabled while this function is called. Enabling the interrupts can lead to triggering in the middle of the initialization operation, which can lead to erroneous initialization.</p>
-<p>As parameters, this function takes the SMIF register base address and a context structure along with the configuration needed for the SMIF block, stored in a config</p>
+<p>As parameters, this function takes the SMIF register base address and a context structure along with the configuration needed for the SMIF block, stored in a config.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block registers.</td></tr>
@@ -339,6 +360,56 @@ Functions</h2></td></tr>
 <li><a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41af59dcc9751976e423239cac212df16cc">CY_SMIF_SUCCESS</a> </li>
 </ul>
 </dd></dl>
+
+</div>
+</div>
+<a id="gaa0020f3543dc622302fa272e1270230d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa0020f3543dc622302fa272e1270230d">&#9670;&nbsp;</a></span>Cy_SMIF_DllConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> Cy_SMIF_DllConfig </td>
+          <td>(</td>
+          <td class="paramtype">volatile <a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__smif__config__t.html">cy_stc_smif_config_t</a> const *&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> *&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function configures the DLL for use, per the SMIF configuration structure parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block registers.</td></tr>
+    <tr><td class="paramname">config</td><td>Passes a configuration structure that configures the SMIF block for operation, here specifically it is used to configure the DLL.</td></tr>
+    <tr><td class="paramname">context</td><td>Passes a configuration structure that contains the transfer parameters of the SMIF block.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a858bf399de59819187ec0b3d8913107b">CY_SMIF_BAD_PARAM</a></li>
+<li><a class="el" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41af59dcc9751976e423239cac212df16cc">CY_SMIF_SUCCESS</a></li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The SMIF must be disabled before calling the function. Call <a class="el" href="group__group__smif__low__level__functions.html#ga318b7c99ac2ba33e833cb4a0ab675e17">Cy_SMIF_Disable</a> </dd></dl>
 
 </div>
 </div>
@@ -635,7 +706,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The size of txBuffer. Must be &gt; 0 and not greater than 65536.</td></tr>
@@ -707,7 +778,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The size of txBuffer. Must be &gt; 0 and not greater than 65536.</td></tr>
@@ -786,7 +857,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The size of data to be received. Must be &gt; 0 and not greater than 65536.</td></tr>
@@ -860,7 +931,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The size of data to be received. Must be &gt; 0 and not greater than 65536.</td></tr>
@@ -925,14 +996,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga9b1a6bbecbb57233ea612d39d53b8f4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9b1a6bbecbb57233ea612d39d53b8f4c">&#9670;&nbsp;</a></span>Cy_SMIF_GetTransferStatus()</h2>
+<a id="ga90da2709c1d2a6967101a05e0eb27b08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga90da2709c1d2a6967101a05e0eb27b08">&#9670;&nbsp;</a></span>Cy_SMIF_GetTransferStatus()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t Cy_SMIF_GetTransferStatus </td>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#gaf65a7e26c18fcd3d3469eb083f78bb85">cy_en_smif_txfr_status_t</a> Cy_SMIF_GetTransferStatus </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> const *&#160;</td>
           <td class="paramname"><em>base</em>, </td>
@@ -1183,7 +1254,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The size of txBuffer. Must be &gt; 0 and not greater than 65536.</td></tr>
@@ -1263,7 +1334,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The size of txBuffer. Must be &gt; 0 and not greater than 65536.</td></tr>
@@ -1350,7 +1421,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The size of data to be received. Must be &gt; 0 and not greater than 65536.</td></tr>
@@ -1433,7 +1504,7 @@ This API is available for CAT1B, CAT1C and CAT1D devices. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga9b1a6bbecbb57233ea612d39d53b8f4c">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the user provides a NULL pointer in this function and does not handle the FIFO transaction, this could either stall or timeout the operation. The transfer statuses returned by <a class="el" href="group__group__smif__low__level__functions.html#ga90da2709c1d2a6967101a05e0eb27b08">Cy_SMIF_GetTransferStatus</a> are no longer valid.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The size of data to be received. Must be &gt; 0 and not greater than 65536.</td></tr>
@@ -1662,6 +1733,112 @@ External memory should also support this mode of transfer.</dd></dl>
 <dd>
 External memory should also support this mode of transfer.</dd></dl>
 <div class="fragment"><div class="line">    <a class="code" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a> slaveSelect = <a class="code" href="group__group__smif__enums.html#ggad776a0db9224477ab865254a32d9e312ae942102fb4b1a03a13ca8950b607520d">CY_SMIF_SLAVE_SELECT_0</a>;</div><div class="line">    <a class="code" href="group__group__smif__low__level__functions.html#ga957f49ed7cf091e9b9d736ee589f2583">Cy_SMIF_SetMode</a>(SMIF, <a class="code" href="group__group__smif__enums.html#gga2baa7c37d2cedf2e2c837facc753ab5da562131834e2b77b141db45354e8584ec">CY_SMIF_MEMORY</a>);</div><div class="line">    <a class="code" href="group__group__smif__low__level__functions.html#ga28f06f761c260849fa8e37d7a3f858dc">Cy_SMIF_CacheEnable</a>(SMIF, <a class="code" href="group__group__smif__enums.html#ggaf7e001d5a1821a56324e8898913b21efa629d9c56adb3c14ac83a486fe57afa84">CY_SMIF_CACHE_BOTH</a>);</div><div class="line">    <a class="code" href="group__group__smif__low__level__functions.html#ga0ff445110c019e30b942fb87878b32c7">Cy_SMIF_CachePrefetchingEnable</a>(SMIF, <a class="code" href="group__group__smif__enums.html#ggaf7e001d5a1821a56324e8898913b21efa629d9c56adb3c14ac83a486fe57afa84">CY_SMIF_CACHE_BOTH</a>);</div><div class="line">    <span class="comment">// If more than 1 cycle merge time accepted, there will be long CS# low duration when burst reading.</span></div><div class="line">    <span class="comment">// It may cause error because Low/High ratio of CLK should be around 50/50 during reading because of Memory device restriction.</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__smif__low__level__functions.html#ga194756a68fde927d8b6bbc5255177414">Cy_SMIF_DeviceTransfer_SetMergeTimeout</a>(SMIF, slaveSelect,CY_SMIF_MERGE_TIMEOUT_1_CYCLE);</div><div class="line">    <span class="keyword">volatile</span> CY_SMIF_FLASHDATA* pHyperFlashBaseAddr = (CY_SMIF_FLASHDATA*)(CY_XIP_BASE);</div><div class="line"></div><div class="line">    <a class="code" href="group__group__smif__low__level__functions.html#ga6d2d7ef86eccf2e7a3a2f760208bea0b">Cy_SMIF_DeviceTransfer_ClearMergeTimeout</a>(SMIF, slaveSelect);</div><div class="line">    <a class="code" href="group__group__smif__low__level__functions.html#ga72240c0ce8307c50b65c4fca45c9cd30">Cy_SMIF_CacheInvalidate</a>(SMIF, <a class="code" href="group__group__smif__enums.html#ggaf7e001d5a1821a56324e8898913b21efa629d9c56adb3c14ac83a486fe57afa84">CY_SMIF_CACHE_BOTH</a>);</div><div class="line">    <a class="code" href="group__group__smif__low__level__functions.html#gacb0c1e80c19ef607a1efc70df6818ccb">Cy_SMIF_CacheDisable</a>(SMIF, <a class="code" href="group__group__smif__enums.html#ggaf7e001d5a1821a56324e8898913b21efa629d9c56adb3c14ac83a486fe57afa84">CY_SMIF_CACHE_BOTH</a>);</div><div class="line">    (void)pHyperFlashBaseAddr;</div></div><!-- fragment -->
+</div>
+</div>
+<a id="ga7a547a8e9db987215d7be94e25688ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7a547a8e9db987215d7be94e25688ca1">&#9670;&nbsp;</a></span>Cy_SMIF_Set_DelayTapSel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> Cy_SMIF_Set_DelayTapSel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>tapSel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets delay tap number for the SMIF master clock which is common for all memory devices connected. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block or SMIF_DEVICE block registers.</td></tr>
+    <tr><td class="paramname">tapSel</td><td>delay tap selection to be set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status (see <a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga810c01bc60e2eafeb53a7c9cfa0b7115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga810c01bc60e2eafeb53a7c9cfa0b7115">&#9670;&nbsp;</a></span>Cy_SMIF_Get_DelayTapSel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Cy_SMIF_Get_DelayTapSel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns delay tap number which has been set for the SMIF. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block or SMIF_DEVICE block registers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>read tap selection</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1C and CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="gaf94a776664420fda15c8aa4a87b6db7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf94a776664420fda15c8aa4a87b6db7e">&#9670;&nbsp;</a></span>Cy_SMIF_Set_Sdl_DelayTapSel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> Cy_SMIF_Set_Sdl_DelayTapSel </td>
+          <td>(</td>
+          <td class="paramtype">SMIF_CORE_DEVICE_Type *&#160;</td>
+          <td class="paramname"><em>smif_device_base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>tapSel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the SDL (slave clock) delay tap number for the SMIF (common for all its devices). </p>
+<p>It sets both the positive and negative taps to the same value.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">smif_device_base</td><td>Holds the base address of the SMIF_DEVICE block registers.</td></tr>
+    <tr><td class="paramname">tapSel</td><td>positive and negative delay tap selection to be set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status (see <a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>). </dd></dl>
+
 </div>
 </div>
 <a id="ga318b7c99ac2ba33e833cb4a0ab675e17"></a>
@@ -2773,6 +2950,100 @@ This is a blocking API. The API waits for encryption completion. Will exit if a 
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Data learning pattern configured</dd></dl>
 <div class="fragment"><div class="line">   uint8_t delaytap_bit0, delaytap_bit1, delaytap_bit2, delaytap_bit3;</div><div class="line"></div><div class="line">   delaytap_bit0 = <a class="code" href="group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644">Cy_SMIF_GetTapNumCapturedCorrectDLP</a>(SMIF, 0U);</div><div class="line">   delaytap_bit1 = <a class="code" href="group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644">Cy_SMIF_GetTapNumCapturedCorrectDLP</a>(SMIF, 0U);</div><div class="line">   delaytap_bit2 = <a class="code" href="group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644">Cy_SMIF_GetTapNumCapturedCorrectDLP</a>(SMIF, 0U);</div><div class="line">   delaytap_bit3 = <a class="code" href="group__group__smif__low__level__functions.html#gae7f56e6919c991ce5b1e0947c0994644">Cy_SMIF_GetTapNumCapturedCorrectDLP</a>(SMIF, 0U);</div><div class="line"></div></div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D and CAT1C (TVIIC only) devices. </dd></dl>
+
+</div>
+</div>
+<a id="gae88b33af21e1dd8fc761317b4f81b4f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae88b33af21e1dd8fc761317b4f81b4f4">&#9670;&nbsp;</a></span>CY_SMIF_GetDelayTapsNumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t CY_SMIF_GetDelayTapsNumber </td>
+          <td>(</td>
+          <td class="paramtype">volatile void *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns tap number which the SMIF IP has. </p>
+<p>User can input both SMIF DEVICE block address and SMIF block address</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Base address of the SMIF block or the SMIF DEVICE block.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Delay tap Number of the SMIF IP </dd></dl>
+
+</div>
+</div>
+<a id="gaa4ba290997356aff8767bf5519fcbb33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa4ba290997356aff8767bf5519fcbb33">&#9670;&nbsp;</a></span>Cy_SMIF_IsBridgeOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_SMIF_IsBridgeOn </td>
+          <td>(</td>
+          <td class="paramtype">SMIF_Base_Type *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to check the bridge enable state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF base registers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the bridge is active (enabled), false if the bridge is not enabled.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D and CAT1C (TVIIC only) devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga6633fdcf48299706b9c87369d1adf26f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6633fdcf48299706b9c87369d1adf26f">&#9670;&nbsp;</a></span>Cy_SMIF_Bridge_Enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> Cy_SMIF_Bridge_Enable </td>
+          <td>(</td>
+          <td class="paramtype">SMIF_Base_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to enable/disable Bridge. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF base registers.</td></tr>
+    <tr><td class="paramname">enable</td><td>enable/disable the bridge</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D and CAT1C (TVIIC only) devices. </dd></dl>
 
 </div>
 </div>

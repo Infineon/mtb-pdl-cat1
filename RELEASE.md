@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.14.0
+# MTB CAT1 Peripheral Driver Library v3.15.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -6,22 +6,35 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Implementation Details
-* CAT1A/C: Support added for ECDH EC25519 Curve.
+* CAT1C: SMIF and audio support added for Traveo T2G CYT4DN devices.
 
 ## Build Changes
 
 ## Personality Changes
 * Updated Personalities (in 9.0 folder):
   * peripheral:
-    * connectivity_wifi-1.0.cypersonality
+    * tdm-1.1.cypersonality
+    * smif_core-1.0.cypersonality
+  * platform:
+    * axidmac-1.0.cypersonality
+    * fll-4.0.cypersonality
+    * hfclk_t2g2d6m-1.0.cypersonality
+    * hfclk_t2g2d6m_maxclk.tcl
+    * pin-3.0.cypersonality
+    * pll-3.0.cypersonality
+    * pll400-1.0.cypersonality
+
 
 ## Added Drivers
+* [MIXER 1.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mixer.html)
 
 ## Updated Drivers
-* [CRYPTO 2.140](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
-* [CRYPTOLITE 2.70](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cryptolite.html)
-* [SYSPM 5.170](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [SYSINT 1.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
+* [SMIF 2.120](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
+* [GPIO 1.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
+* [SYSCLK 3.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [LVD-HT 1.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lvd__ht.html)
+* [MCWDT 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
+* [LIN 1.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lin.html)
 
 
 ### Drivers with patch version updates
@@ -31,6 +44,7 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Known Issues
+* Traveo II C-2D-6M: Some Fault numbers defined in cy_en_SysFault_source_t for CAT1C do not match the device fault numbers.
 * CAT1A: In device-configurator, certain IP is not completely available for some devices as some combinations of pin connections are not valid.
   * CYT2BL4BAS/CYT2BL4CAE: SCB6 is complete only for UART, cannot support I2C, EZI2C, or SPI.
   * CYT2BL3CAE, CYT2B7CAE: SCB1 is complete only for UART, cannot support I2C, EZI2C, or SPI.
@@ -68,7 +82,7 @@ This version of PDL was validated for compatibility with the following Software 
 | IAR Compiler                                                                  | 9.50.2       |
 | ARM Compiler 6                                                                | 6.22         |
 | FreeRTOS                                                                      | 10.4.305     |
-| [Device Database](https://github.com/Infineon/device-db)                      | 4.19.0       |
+| [Device Database](https://github.com/Infineon/device-db)                      | 4.20.0       |
 
 ## More information
 
@@ -87,4 +101,4 @@ This version of PDL was validated for compatibility with the following Software 
 
 
 ---
-© Cypress Semiconductor Corporation (an Infineon company), 2020-2024.
+© Cypress Semiconductor Corporation (an Infineon company), 2020-2025.

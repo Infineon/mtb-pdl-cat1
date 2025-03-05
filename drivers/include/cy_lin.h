@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file cy_lin.h
-* \version 1.1
+* \version 1.2
 *
 * \brief
 * Provides an API declaration of the LIN driver
 *
 ********************************************************************************
 * \copyright
-* Copyright 2020-2021, Cypress Semiconductor Corporation. All rights reserved.
+* Copyright 2020-2025, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -149,6 +149,19 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td rowspan="3">1.2</td>
+*     <td>Sets LIN break/wakeup field length updated in the \ref Cy_LIN_SetBreakWakeupFieldLength function</td>
+*     <td>Bug fix</td>
+*   </tr>
+*   <tr>
+*     <td>Sets LIN response field data length updated in the \ref Cy_LIN_SetDataLength function</td>
+*     <td>Bug fix</td>
+*   </tr>
+*   <tr>
+*     <td>Sets LIN checksum type setting updated in the \ref Cy_LIN_SetChecksumType function</td>
+*     <td>Bug fix</td>
+*   </tr>
+*   <tr>
 *     <td>1.1</td>
 *     <td>Fixed MISRA 2012 violations.</td>
 *     <td>MISRA 2012 compliance.</td>
@@ -201,7 +214,7 @@ extern "C" {
 #define CY_LIN_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_LIN_DRV_VERSION_MINOR    1
+#define CY_LIN_DRV_VERSION_MINOR    2
 
 /** LIN driver ID */
 #define CY_LIN_ID CY_PDL_DRV_ID(0x37u)

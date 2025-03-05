@@ -11,7 +11,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2022-2023), Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright (c) (2022-2025), Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.
 * SPDX-License-Identifier: Apache-2.0
 *
@@ -48,6 +48,7 @@
     <ParamBool id="is_mxs22ioss" name="is_mxs22ioss_ip" group="Internal" default="`${(getIpBlockName() eq &quot;mxs22ioss&quot;)}`" visible="false" editable="false" desc="Internal parameter." />
     <ParamBool id="is_mxs40sioss" name="is_mxs40sioss_ip" group="Internal" default="`${(getIpBlockName() eq &quot;mxs40sioss&quot;)}`" visible="false" editable="false" desc="Internal parameter." />
     <ParamBool id="ipVersion" name="IP version" group="Internal" default="`${getVersion()}`" visible="false" editable="false" desc="Internal parameter." />
+    <ParamBool id="hasDriveStrengthTrim" name="hasDriveStrengthTrim" group="Internal" default="`${(ipVersion &gt;= 5)}`" visible="false" editable="false" desc="Internal parameter." />
     <ParamString id="driveModeExtension" name="Drive Mode Extension" group="Internal" default="`${lookupExpression(&quot;GPIO.GPIO_PORT_NR[&quot; . getInstNumber(&quot;port&quot;) . &quot;].GPIO_PRT.DRIVEMODE_WIDTH&quot;, 0)}`" visible="false" editable="false" desc="The drive mode extension" />
     <ParamRange id="pullUpResAvailable" name="Pull-up resistor" group="Internal" default="`${lookupExpression(&quot;GPIO.GPIO_PORT_NR[3].GPIO_PRT.RES_CFG&quot;, 0)}`" min="-1" max="1" resolution="1" visible="false" editable="false" desc="The pull-up resistor configuration" />
     <ParamString id="secExtAvailable" name="Secure Extension" group="Internal" default="`${lookupExpression(&quot;GPIO.SECEXT&quot;, lookupExpression(&quot;SECEXT&quot;, -1))}`" visible="false" editable="false" desc="Secure extension" />
@@ -148,6 +149,16 @@
       <Entry name="1200Ω pull-up resistance"             value="CY_GPIO_PULLUP_RES_1200"    visible="`${hasPullUpRes}`" />
       <Entry name="1800Ω pull-up resistance"             value="CY_GPIO_PULLUP_RES_1800"    visible="`${hasPullUpRes}`" />
       <Entry name="2800Ω pull-up resistance"             value="CY_GPIO_PULLUP_RES_2800"    visible="`${hasPullUpRes}`" />
+    </ParamChoice>
+    <ParamChoice id="driveStrengthTrim" name="Drive Strength Trim" group="Output" default="CY_GPIO_DRIVE_STRENGTH_DEFAULT" visible="`${hasDriveStrengthTrim}`" editable="true" desc="The Drive Strength Trim parameter for HSIO_ENH and HSIO_ENH_PDIFF GPIO pins.">
+      <Entry name="50Ω, 3.3-V single memory (default) " value="CY_GPIO_DRIVE_STRENGTH_DEFAULT" visible="true" />
+      <Entry name="120Ω, 1.8-V memory (xSPI-400)" value="CY_GPIO_DRIVE_STRENGTH_120OHM" visible="true" />
+      <Entry name="90Ω, 3.3-V memory (xSPI-266 / xSPI-200, SPI-SDR / SPI-DDR)" value="CY_GPIO_DRIVE_STRENGTH_90OHM" visible="true" />
+      <Entry name="60Ω, 1.8-V memory" value="CY_GPIO_DRIVE_STRENGTH_60OHM" visible="true" />
+      <Entry name="50Ω, 1.8-V memory" value="CY_GPIO_DRIVE_STRENGTH_50OHM" visible="true" />
+      <Entry name="30Ω, 1.8-V memory (SPI-333, xSPI-266, xSPI.200, SPI-SDR, SPI-DDR)" value="CY_GPIO_DRIVE_STRENGTH_30OHM" visible="true" />
+      <Entry name="20Ω, 1.8-V memory" value="CY_GPIO_DRIVE_STRENGTH_20OHM" visible="true" />
+      <Entry name="15Ω" value="CY_GPIO_DRIVE_STRENGTH_15OHM" visible="true" />
     </ParamChoice>
 
     <!--Internal Connection-->
@@ -263,6 +274,7 @@
     </ConfigStruct>
 
     <ConfigInstruction value="Cy_GPIO_Pin_Init(`${INST_NAME}`_PORT, `${INST_NAME}`_PIN, &amp;`${INST_NAME}`_config);" include="`${(!skipConfigCodeGenExtClk) ? (!skipConfigCodeGen) : false}`" />
+    <ConfigInstruction value="Cy_GPIO_SetDriveSelTrim(`${INST_NAME}`_PORT, `${INST_NAME}`_PIN, `${driveStrengthTrim}`);" include="`${hasDriveStrengthTrim}`" />
     <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
 </Personality>

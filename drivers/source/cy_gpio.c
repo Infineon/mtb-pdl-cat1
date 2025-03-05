@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.c
-* \version 1.120
+* \version 1.130
 *
 * Provides an API implementation of the GPIO driver
 *
@@ -1994,6 +1994,63 @@ uint32_t Cy_GPIO_GetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum)
 #endif /* CY_IP_MXS40IOSS */
 }
 #endif /* (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE) */
+
+#if defined (CY_IP_MXS40IOSS_VERSION) && (CY_IP_MXS40IOSS_VERSION >= 4u) || defined (CY_DOXYGEN)
+/*******************************************************************************
+* Function Name: Cy_GPIO_SetDriveSelTrim
+****************************************************************************//**
+*
+* \brief Configures the pin output buffer drive select trim.
+*
+* \param base
+* Pointer to the pin's port register base address
+*
+* \param pinNum
+* Position of the pin bit-field within the port register
+*
+* \param value
+* Pin drive strength trim. Options are detailed in \ref group_gpio_driveStrength_trim macros
+*
+* \return
+* void
+*
+* \note 
+* This function modifies a port register in a read-modify-write operation. It is
+* not thread safe as the resource is shared among multiple pins on a port.
+*   
+*******************************************************************************/
+void Cy_GPIO_SetDriveSelTrim(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
+{
+    uint32_t tempReg;
+    uint32_t pinLoc;
+
+    pinLoc = (uint32_t)(pinNum * CY_GPIO_DRIVE_TRIM_OFFSET);
+    tempReg = GPIO_PRT_CFG_OUT2(base) & ~(CY_GPIO_CFG_OUT2_DRIVE_SEL_TRIM_MASK << pinLoc);
+    GPIO_PRT_CFG_OUT2(base) = tempReg | ((value & CY_GPIO_CFG_OUT2_DRIVE_SEL_TRIM_MASK) << pinLoc);
+}
+
+/*******************************************************************************
+* Function Name: Cy_GPIO_GetDriveSelTrim
+****************************************************************************//**
+*
+* \brief Returns the pin output buffer drive select trim.
+*
+* \param base
+* Pointer to the pin's port register base address
+*
+* \param pinNum
+* Position of the pin bit-field within the port register
+*
+* \return
+* Pin drive select trim. Options are detailed in \ref group_gpio_driveStrength_trim macros
+*
+*******************************************************************************/
+uint32_t Cy_GPIO_GetDriveSelTrim(GPIO_PRT_Type* base, uint32_t pinNum)
+{
+    return (GPIO_PRT_CFG_OUT2(base) >> ((pinNum * CY_GPIO_DRIVE_TRIM_OFFSET) & CY_GPIO_CFG_OUT2_DRIVE_SEL_TRIM_MASK));
+}
+
+#endif  /* (CY_IP_MXS40IOSS_VERSION >= 4u) */
 
 
 #if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)

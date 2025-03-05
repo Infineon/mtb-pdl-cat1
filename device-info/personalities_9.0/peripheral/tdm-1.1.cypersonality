@@ -28,15 +28,19 @@
 * limitations under the License.
 *****************************************************************************-->
 
-<Personality id="tdm" name="TDM" version="1.1" xmlns="http://cypress.com/xsd/cyhwpersonality_v8">
-  <Dependencies>
-    <IpBlock name="mxtdm">
+<PersonalityTemplate id="tdm" name="TDM" version="1.1" xmlns="http://cypress.com/xsd/cyhwpersonality_v9">
+  <FittingRules>
+    <MappingRules>
+      <IpBlock name="mxtdm">
         <Version major="1" />
         <Version major="2" />
-	</IpBlock>
-    <Resource name="tdm" />
-    <OperatingMode value="MCU"/>
-  </Dependencies>
+        <Param name="NR" value="1" />
+      </IpBlock>
+      <Resource name="tdm" />
+      <OperatingMode value="MCU"/>
+    </MappingRules>
+  </FittingRules>
+
   <ExposedMembers />
   <Parameters>
     <!-- PDL documentation -->
@@ -402,4 +406,4 @@
 
   </ConfigFirmware>
 
-</Personality>
+</PersonalityTemplate>

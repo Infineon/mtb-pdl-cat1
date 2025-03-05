@@ -18,5 +18,7 @@ var group__group__gpio__functions__gpio =
     [ "Cy_GPIO_GetSlewRate", "group__group__gpio__functions__gpio.html#gafcfe10f42fd63f52833882682af024ee", null ],
     [ "Cy_GPIO_SetDriveSel", "group__group__gpio__functions__gpio.html#ga78219f486a642f8c28505526ce74ab6e", null ],
     [ "Cy_GPIO_GetDriveSel", "group__group__gpio__functions__gpio.html#ga0d4a8d1affa9553620c7c8820aa03eb6", null ],
+    [ "Cy_GPIO_SetDriveSelTrim", "group__group__gpio__functions__gpio.html#gae7942739fe1e69b5d38f7e2437d135bc", null ],
+    [ "Cy_GPIO_GetDriveSelTrim", "group__group__gpio__functions__gpio.html#gad1af3b2d1ec5b218d30c355be3a42ed4", null ],
     [ "Cy_GPIO_WritePort", "group__group__gpio__functions__gpio.html#gaaac989df7f0158c5b6549c86e5034479", null ]
 ];

@@ -38,6 +38,8 @@ var searchData=
   ['macros',['Macros',['../group__group__lvd__macros.html',1,'']]],
   ['mcwdt_20_20_20_20_20_20_20_20_28multi_2dcounter_20watchdog_29',['MCWDT        (Multi-Counter Watchdog)',['../group__group__mcwdt.html',1,'']]],
   ['macros',['Macros',['../group__group__mcwdt__macros.html',1,'']]],
+  ['mixer_20_20_20_20_20_20_20_20_28audio_20mixer_29',['Mixer        (Audio Mixer)',['../group__group__mixer.html',1,'']]],
+  ['macros',['Macros',['../group__group__mixer__macros.html',1,'']]],
   ['mpc_20_20_20_20_20_20_20_20_20_20_28memory_20protection_20controller_29',['MPC          (Memory Protection Controller)',['../group__group__mpc.html',1,'']]],
   ['macros',['Macros',['../group__group__mpc__macros.html',1,'']]],
   ['ms_20ctl_20_20_20_20_20_20_20_28master_20security_20controller_29',['MS CTL       (Master Security Controller)',['../group__group__ms__ctl.html',1,'']]],

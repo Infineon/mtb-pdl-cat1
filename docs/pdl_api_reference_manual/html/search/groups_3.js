@@ -38,6 +38,7 @@ var searchData=
   ['data_20structures',['Data Structures',['../group__group__lin__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__lpcomp__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__mcwdt__data__structures.html',1,'']]],
+  ['data_20structures',['Data Structures',['../group__group__mixer__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__mpc__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__pdm__pcm__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__pdm__pcm__data__structures__v2.html',1,'']]],

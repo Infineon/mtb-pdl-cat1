@@ -677,6 +677,10 @@ typedef enum {
 #define CY_IP_MXLIN_INSTANCES           1u
 #define CY_IP_MXLIN_VERSION             1u
 #define CY_IP_MXLIN_VERSION_MINOR       0u
+#define CY_IP_MXMIXER                   1u
+#define CY_IP_MXMIXER_INSTANCES         2u
+#define CY_IP_MXMIXER_VERSION           1u
+#define CY_IP_MXMIXER_VERSION_MINOR     0u
 #define CY_IP_MXS40EPASS                1u
 #define CY_IP_MXS40EPASS_INSTANCES      1u
 #define CY_IP_MXS40EPASS_VERSION        1u
@@ -725,6 +729,10 @@ typedef enum {
 #define CY_IP_MXTCPWM_INSTANCES         1u
 #define CY_IP_MXTCPWM_VERSION           2u
 #define CY_IP_MXTCPWM_VERSION_MINOR     0u
+#define CY_IP_MXTDM                     1u
+#define CY_IP_MXTDM_INSTANCES           1u
+#define CY_IP_MXTDM_VERSION             1u
+#define CY_IP_MXTDM_VERSION_MINOR       0u
 
 #define CY_DEVICE_TVIIC2D6M
 #define CY_DEVICE_SERIES_CYT4DN
@@ -2047,14 +2055,14 @@ typedef enum {
 #define SMIF0_SMIF_BRIDGE_SMIF_REMAP_REGION7    ((SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION_Type*) &SMIF0->SMIF_BRIDGE.SMIF_REMAP_REGION[7]) /* 0x40401700 */
 #define SMIF0_CORE0                             ((SMIF_CORE_Type*) &SMIF0->CORE[0])                               /* 0x40420000 */
 #define SMIF0_CORE1                             ((SMIF_CORE_Type*) &SMIF0->CORE[1])                               /* 0x40430000 */
-#define SMIF0_CORE0_SMIF_CRYPTO0                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[0].SMIF_CRYPTO[0])    /* 0x40420200 */
-#define SMIF0_CORE0_SMIF_CRYPTO1                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[0].SMIF_CRYPTO[1])    /* 0x40420280 */
-#define SMIF0_CORE0_SMIF_CRYPTO2                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[0].SMIF_CRYPTO[2])    /* 0x40420300 */
-#define SMIF0_CORE0_SMIF_CRYPTO3                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[0].SMIF_CRYPTO[3])    /* 0x40420380 */
-#define SMIF0_CORE1_SMIF_CRYPTO0                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[1].SMIF_CRYPTO[0])    /* 0x40430200 */
-#define SMIF0_CORE1_SMIF_CRYPTO1                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[1].SMIF_CRYPTO[1])    /* 0x40430280 */
-#define SMIF0_CORE1_SMIF_CRYPTO2                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[1].SMIF_CRYPTO[2])    /* 0x40430300 */
-#define SMIF0_CORE1_SMIF_CRYPTO3                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[1].SMIF_CRYPTO[3])    /* 0x40430380 */
+#define SMIF0_CORE0_SMIF_CRYPTO0                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[0].SMIF_CRYPTO_BLOCK[0]) /* 0x40420200 */
+#define SMIF0_CORE0_SMIF_CRYPTO1                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[0].SMIF_CRYPTO_BLOCK[1]) /* 0x40420280 */
+#define SMIF0_CORE0_SMIF_CRYPTO2                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[0].SMIF_CRYPTO_BLOCK[2]) /* 0x40420300 */
+#define SMIF0_CORE0_SMIF_CRYPTO3                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[0].SMIF_CRYPTO_BLOCK[3]) /* 0x40420380 */
+#define SMIF0_CORE1_SMIF_CRYPTO0                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[1].SMIF_CRYPTO_BLOCK[0]) /* 0x40430200 */
+#define SMIF0_CORE1_SMIF_CRYPTO1                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[1].SMIF_CRYPTO_BLOCK[1]) /* 0x40430280 */
+#define SMIF0_CORE1_SMIF_CRYPTO2                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[1].SMIF_CRYPTO_BLOCK[2]) /* 0x40430300 */
+#define SMIF0_CORE1_SMIF_CRYPTO3                ((SMIF_CORE_SMIF_CRYPTO_Type*) &SMIF0->CORE[1].SMIF_CRYPTO_BLOCK[3]) /* 0x40430380 */
 #define SMIF0_CORE0_DEVICE0                     ((SMIF_CORE_DEVICE_Type*) &SMIF0->CORE[0].DEVICE[0])              /* 0x40420800 */
 #define SMIF0_CORE0_DEVICE1                     ((SMIF_CORE_DEVICE_Type*) &SMIF0->CORE[0].DEVICE[1])              /* 0x40420880 */
 #define SMIF0_CORE1_DEVICE0                     ((SMIF_CORE_DEVICE_Type*) &SMIF0->CORE[1].DEVICE[0])              /* 0x40430800 */
@@ -2132,6 +2140,25 @@ typedef enum {
 #define SCB11                                   ((CySCB_Type*) SCB11_BASE)                                        /* 0x406B0000 */
 
 /*******************************************************************************
+*                                     TDM
+*******************************************************************************/
+
+#define TDM0_BASE                               0x40810000UL
+#define TDM0                                    ((TDM_Type*) TDM0_BASE)                                           /* 0x40810000 */
+#define TDM0_TDM_STRUCT0                        ((TDM_TDM_STRUCT_Type*) &TDM0->TDM_STRUCT[0])                     /* 0x40818000 */
+#define TDM0_TDM_STRUCT1                        ((TDM_TDM_STRUCT_Type*) &TDM0->TDM_STRUCT[1])                     /* 0x40818200 */
+#define TDM0_TDM_STRUCT2                        ((TDM_TDM_STRUCT_Type*) &TDM0->TDM_STRUCT[2])                     /* 0x40818400 */
+#define TDM0_TDM_STRUCT3                        ((TDM_TDM_STRUCT_Type*) &TDM0->TDM_STRUCT[3])                     /* 0x40818600 */
+#define TDM0_TDM_STRUCT0_TDM_TX_STRUCT          ((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type*) &TDM0->TDM_STRUCT[0].TDM_TX_STRUCT) /* 0x40818000 */
+#define TDM0_TDM_STRUCT1_TDM_TX_STRUCT          ((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type*) &TDM0->TDM_STRUCT[1].TDM_TX_STRUCT) /* 0x40818200 */
+#define TDM0_TDM_STRUCT2_TDM_TX_STRUCT          ((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type*) &TDM0->TDM_STRUCT[2].TDM_TX_STRUCT) /* 0x40818400 */
+#define TDM0_TDM_STRUCT3_TDM_TX_STRUCT          ((TDM_TDM_STRUCT_TDM_TX_STRUCT_Type*) &TDM0->TDM_STRUCT[3].TDM_TX_STRUCT) /* 0x40818600 */
+#define TDM0_TDM_STRUCT0_TDM_RX_STRUCT          ((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type*) &TDM0->TDM_STRUCT[0].TDM_RX_STRUCT) /* 0x40818100 */
+#define TDM0_TDM_STRUCT1_TDM_RX_STRUCT          ((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type*) &TDM0->TDM_STRUCT[1].TDM_RX_STRUCT) /* 0x40818300 */
+#define TDM0_TDM_STRUCT2_TDM_RX_STRUCT          ((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type*) &TDM0->TDM_STRUCT[2].TDM_RX_STRUCT) /* 0x40818500 */
+#define TDM0_TDM_STRUCT3_TDM_RX_STRUCT          ((TDM_TDM_STRUCT_TDM_RX_STRUCT_Type*) &TDM0->TDM_STRUCT[3].TDM_RX_STRUCT) /* 0x40818700 */
+
+/*******************************************************************************
 *                                      SG
 *******************************************************************************/
 
@@ -2158,6 +2185,27 @@ typedef enum {
 
 #define DAC0_BASE                               0x40840000UL
 #define DAC0                                    ((DAC_Type*) DAC0_BASE)                                           /* 0x40840000 */
+
+/*******************************************************************************
+*                                    MIXER
+*******************************************************************************/
+
+#define MIXER0_BASE                             0x40880000UL
+#define MIXER1_BASE                             0x40890000UL
+#define MIXER0                                  ((MIXER_Type*) MIXER0_BASE)                                       /* 0x40880000 */
+#define MIXER1                                  ((MIXER_Type*) MIXER1_BASE)                                       /* 0x40890000 */
+#define MIXER0_MIXER_SRC_STRUCT0                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER0->MIXER_SRC_STRUCT[0])     /* 0x40888000 */
+#define MIXER0_MIXER_SRC_STRUCT1                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER0->MIXER_SRC_STRUCT[1])     /* 0x40888100 */
+#define MIXER0_MIXER_SRC_STRUCT2                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER0->MIXER_SRC_STRUCT[2])     /* 0x40888200 */
+#define MIXER0_MIXER_SRC_STRUCT3                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER0->MIXER_SRC_STRUCT[3])     /* 0x40888300 */
+#define MIXER0_MIXER_SRC_STRUCT4                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER0->MIXER_SRC_STRUCT[4])     /* 0x40888400 */
+#define MIXER1_MIXER_SRC_STRUCT0                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER1->MIXER_SRC_STRUCT[0])     /* 0x40898000 */
+#define MIXER1_MIXER_SRC_STRUCT1                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER1->MIXER_SRC_STRUCT[1])     /* 0x40898100 */
+#define MIXER1_MIXER_SRC_STRUCT2                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER1->MIXER_SRC_STRUCT[2])     /* 0x40898200 */
+#define MIXER1_MIXER_SRC_STRUCT3                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER1->MIXER_SRC_STRUCT[3])     /* 0x40898300 */
+#define MIXER1_MIXER_SRC_STRUCT4                ((MIXER_MIXER_SRC_STRUCT_Type*) &MIXER1->MIXER_SRC_STRUCT[4])     /* 0x40898400 */
+#define MIXER0_MIXER_DST_STRUCT                 ((MIXER_MIXER_DST_STRUCT_Type*) &MIXER0->MIXER_DST_STRUCT)        /* 0x4088C000 */
+#define MIXER1_MIXER_DST_STRUCT                 ((MIXER_MIXER_DST_STRUCT_Type*) &MIXER1->MIXER_DST_STRUCT)        /* 0x4089C000 */
 
 /*******************************************************************************
 *                                     PASS
@@ -2200,13 +2248,6 @@ typedef enum {
 #define PASS0_SAR0_CH30                         ((PASS_SAR_CH_Type*) &PASS0->SAR[0].CH[30])                       /* 0x40900F80 */
 #define PASS0_SAR0_CH31                         ((PASS_SAR_CH_Type*) &PASS0->SAR[0].CH[31])                       /* 0x40900FC0 */
 #define PASS0_EPASS_MMIO                        ((PASS_EPASS_MMIO_Type*) &PASS0->EPASS_MMIO)                      /* 0x409F0000 */
-
-/*******************************************************************************
-*                                      PD
-*******************************************************************************/
-
-#define PD_BASE                                 0x40B00000UL
-#define PD                                      ((PD_Type*) PD_BASE)                                              /* 0x40B00000 */
 
 /** \} CYT4DNJBMS */
 

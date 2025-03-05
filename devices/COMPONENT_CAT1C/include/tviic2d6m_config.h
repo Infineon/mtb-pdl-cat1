@@ -2112,11 +2112,12 @@ typedef enum
 #include "ip/cyip_lin.h"
 #include "ip/cyip_canfd.h"
 #include "ip/cyip_scb_v2.h"
+#include "ip/cyip_tdm.h"
 #include "ip/cyip_sg.h"
 #include "ip/cyip_pwm.h"
 #include "ip/cyip_dac.h"
+#include "ip/cyip_mixer.h"
 #include "ip/cyip_pass.h"
-#include "ip/cyip_pd.h"
 
 /* IP type definitions */
 typedef CRYPTO_V2_Type CRYPTO_Type;

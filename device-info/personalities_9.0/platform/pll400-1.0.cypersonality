@@ -10,7 +10,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2021-2022 Cypress Semiconductor Corporation
+* Copyright 2021-2025 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,9 +32,12 @@
     <Resource name="srss\.clock\.pll400m" />
   </Dependencies>
   <ExposedMembers>
-    <ExposedMember key="frequency" paramId="frequencyDisplay" />
-    <ExposedMember key="accuracy"  paramId="accuracy" />
-    <ExposedMember key="error"     paramId="error" />
+    <ExposedMember key="frequency"  paramId="frequencyDisplay" />
+    <ExposedMember key="accuracy"   paramId="accuracy" />
+    <ExposedMember key="error"      paramId="error" />
+    <ExposedMember key="sscgEn"     paramId="sscgEn" />
+    <ExposedMember key="fracEn"     paramId="fracEn" />
+    <ExposedMember key="srcClkPath" paramId="sourceClockRsc" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -51,7 +54,7 @@
     <ParamString id="sourceFrequencyInfo" name="Source Frequency" group="General" default="`${formatFrequency(sourceFrequencyActual,accuracy)}`" visible="true" editable="false" desc="Source clock frequency" />
     <!-- For ULP mode, Fpll_max = 50 MHz -->
     <ParamBool id="usingUlp" name="usingUlp" group="Internal" default="`${isBlockUsed(&quot;srss[0].power[0]&quot;) &amp;&amp; getExposedMember(&quot;srss[0].power[0]&quot;, &quot;usingUlp&quot;)}`" visible="false" editable="false" desc="" />
-    <ParamString id="maxFrequency" name="maxFrequency" group="Internal" default="`${getDeviceAttr(&quot;CPU_MAX_MHZ&quot;)}`" visible="false" editable="false" desc="The maximum device frequency" />
+    <ParamString id="maxFrequency" name="maxFrequency" group="Internal" default="400" visible="false" editable="false" desc="The maximum PLL frequency" />
 
     <ParamBool id="lowFrequencyMode" name="Low Frequency Mode" group="General" default="false" visible="true" editable="false" desc="VCO frequency range selection" />
     <ParamChoice id="configuration" name="Configuration" group="General" default="auto" visible="true" editable="true" desc="Choose the automatic or manual PLL tuning">
@@ -78,10 +81,33 @@
     <ParamRange id="output" name="Output (2-16)" group="General" default="`${getTclVar(&quot;outputDiv&quot;, callSolver)}`" min="2" max="16" resolution="1"  visible="true" editable="`${manConfig}`" desc="The output clock divider" />
     <ParamRange id="frac" name="Fraction divider (0-16777215)" group="General" default="`${getTclVar(&quot;fracDiv&quot;, callSolver)}`" min="0" max="16777215" resolution="1"  visible="true" editable="`${manConfig}`" desc="The fractional clock divider." />
     <ParamBool id="fracDitherEn" name="Fraction Dither" group="General" default="`${configuration eq manual}`" visible="true" editable="`${configuration eq manual}`" desc="Enables dithering during fractional operation." />
-    <ParamBool id="fracEn" name="Fraction Enable" group="General" default="`${!(configuration eq manual)}`" visible="true" editable="`${configuration eq manual}`" desc="Enables fractional division mode." />
+    <ParamBool id="fracEn" name="Fraction Enable" group="General" default="`${frac != 0}`" visible="true" editable="`${configuration eq manual}`" desc="Enables fractional division mode. Cannot be used when SSCG is enabled." />
     <ParamRange id="frequency" name="Frequency" group="Internal" default="`${(sourceFrequency * ( (feedback &lt;&lt; 24) + frac)  / (reference * output)) &gt;&gt; 24}`" min="25000000" max="400000000" resolution="1" visible="false" editable="false" desc="" />
     <ParamRange id="frequencyDisplay" name="Display Frequency" group="Internal" default="`${(sourceFrequencyActual eq 0) ? sourceFrequencyActual : frequency}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="" />
     <ParamString id="frequencyInfo" name="Actual Frequency" group="General" default="`${formatFrequency(!error ? frequency : 0,accuracy)}`" visible="true" editable="false" desc="The calculated resulting PLL output frequency" />
+
+    <!-- SSCG -->
+    <ParamBool id="sscgEn" name="SSCG Enable" group="Spread Spectrum Clock Generator" default="false" visible="true" editable="`${(configuration eq manual) &amp;&amp; !fracEn}`" desc="Enables spreading (SSCG) mode. Cannot be used when Fractional mode is enabled." />
+    <ParamChoice id="sscgDepth" name="SSCG Depth" group="Spread Spectrum Clock Generator" default="CY_SYSCLK_SSCG_DEPTH_MINUS_0_5" visible="true" editable="`${sscgEn}`" 
+                  desc="Control bits for SSCG modulation depth as a percentage of the non-modulated clock.">
+      <Entry name="-0.5%" value="CY_SYSCLK_SSCG_DEPTH_MINUS_0_5" visible="true" />
+      <Entry name="-1.0%" value="CY_SYSCLK_SSCG_DEPTH_MINUS_1_0" visible="true" />
+      <Entry name="-2.0%" value="CY_SYSCLK_SSCG_DEPTH_MINUS_2_0" visible="true" />
+      <Entry name="-3.0%" value="CY_SYSCLK_SSCG_DEPTH_MINUS_3_0" visible="true" />
+    </ParamChoice>
+    <ParamChoice id="sscgRate" name="SSCG Rate" group="Spread Spectrum Clock Generator" default="CY_SYSCLK_SSCG_RATE_DIV_4096" visible="true" editable="`${sscgEn}`" 
+                  desc="SSCG modulation rate as a factor of fPFD clock frequency. Audio applications should choose a setting that results in a modulation rate that is greater than 20kHz, so fPFD/512 or fPFD/256 is recommended.&lt;br&gt;
+                        0=fPFD/4096&lt;br&gt;
+                        1=fPFD/2048&lt;br&gt;
+                        2=fPFD/1024&lt;br&gt;
+                        3=fPFD/512&lt;br&gt;
+                        4=fPFD/256 (limited to 8MHz only)">
+      <Entry name="4096 (default)" value="CY_SYSCLK_SSCG_RATE_DIV_4096" visible="true" />
+      <Entry name="2048" value="CY_SYSCLK_SSCG_RATE_DIV_2048" visible="true" />
+      <Entry name="1024" value="CY_SYSCLK_SSCG_RATE_DIV_1024" visible="true" />
+      <Entry name="512" value="CY_SYSCLK_SSCG_RATE_DIV_512" visible="true" />
+      <Entry name="256" value="CY_SYSCLK_SSCG_RATE_DIV_256" visible="true" />
+    </ParamChoice>
 
     <!-- Manual DRC verify params -->
     <ParamRange id="pfdFreq" name="PFD Frequency" group="internal" default="`${sourceFrequency / reference / 1000000.0}`" min="0" max="10000" resolution="0.001" visible="false" editable="false" desc="" />
@@ -94,6 +120,7 @@
     <DRC type="ERROR" text="Source clock for PLL is outside the valid range of 4 MHz - 64 MHz" condition="`${!srcError &amp;&amp; sourceFrequencyOutRange}`" paramId="sourceFrequencyInfo"/>
     <!-- Manual mode DRCs -->
     <DRC type="ERROR" text="PFD reference frequency out of range. PFD reference frequency (sourceFrequency / Reference) of `${pfdFreq}` MHz is outside valid range of 4 MHz - 8 MHz" condition="`${manConfig &amp;&amp; (pfdFreq &lt; 4 || pfdFreq &gt; 8)}`" />
+    <DRC type="ERROR" text="SSCG and Fractional clocks may not be both enabled." condition="`${fracEn &amp;&amp; sscgEn}`" />
     
   </DRCs>
   <ConfigFirmware>
@@ -117,6 +144,9 @@
       <Member name="fracDiv" value="`${frac}`" />
       <Member name="fracDitherEn" value="`${fracDitherEn}`" />
       <Member name="fracEn" value="`${fracEn}`" />
+      <Member name="sscgEn" value="`${sscgEn}`" />
+      <Member name="sscgRate" value="`${sscgRate}`" />
+      <Member name="sscgDepth" value="`${sscgDepth}`" />
     </ConfigStruct>
     <ConfigFunction signature="__STATIC_INLINE void Cy_SysClk_Pll`${clockInst}`Init(void)" body="    Cy_SysClk_PllDisable(SRSS_PLL_400M_`${clockInst}`_PATH_NUM);&#xA;&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllManualConfigure(SRSS_PLL_400M_`${clockInst}`_PATH_NUM, &amp;`${INST_NAME}`_pllConfig))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }&#xA;    if (CY_SYSCLK_SUCCESS != Cy_SysClk_PllEnable(SRSS_PLL_400M_`${clockInst}`_PATH_NUM, 10000u))&#xA;    {&#xA;        cycfg_ClockStartupError(CY_CFG_SYSCLK_PLL_ERROR);&#xA;    }" public="false" include="true" />
   </ConfigFirmware>

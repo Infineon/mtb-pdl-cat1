@@ -2409,6 +2409,10 @@ static cy_en_smif_protocol_mode_t GetOctalDDRParams(SMIF_Type *base,
                     oDDREnSeq->cmdSeq2[6] = cmdSeqODDRAddrBuffer[CMD_SEQ_OCTAL_DDR_CMD2_LEN_BYTE_OFFSET + 1U];
                 }
             }
+            else
+            {
+                CY_ASSERT(false);
+            }
         }
     }
     CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')

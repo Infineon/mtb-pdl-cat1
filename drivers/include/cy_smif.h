@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.110
+* \version 2.120
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -233,6 +233,20 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.120</td>
+*     <td>Added APIs for MDL and SDL tap settings:\n
+*        \ref Cy_SMIF_Set_DelayTapSel\n
+*        \ref Cy_SMIF_Set_Sdl_DelayTapSel\n
+*        \ref CY_SMIF_GetDelayTapsNumber\n\n
+*         Added APIs for SMIF Bridge enablement:\n
+*        \ref Cy_SMIF_IsBridgeOn\n
+*        \ref Cy_SMIF_Bridge_Enable\n\n
+*         Added configurable TX SDR Extra support during SMIF initialized.\n\n
+*         Bug fixes and code enhancements.
+*     </td>
+*     <td>New device support added for Traveo II Cluster.</td>
+*   </tr>
 *   <tr>
 *     <td>2.110</td>
 *     <td>Added PSOC C3 device support.</td>
@@ -635,7 +649,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       110
+#define CY_SMIF_DRV_VERSION_MINOR       120
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
@@ -727,8 +741,13 @@ extern "C" {
 #define CY_SMIF_CRYPTO_ADDR_MASK            (0xFFFFFFF0UL)
 #define CY_SMIF_AES128_BYTES                (16U)
 
+#if (CY_IP_MXSMIF_VERSION == 4)
+#define CY_SMIF_CTL_REG_DEFAULT             ((1UL<<SMIF_CORE_CTL_SELECT_SETUP_DELAY_Pos) | (1UL<<SMIF_CORE_CTL_SELECT_HOLD_DELAY_Pos))
+#define CY_SMIF_CTL2_REG_DEFAULT            (2UL<<SMIF_CORE_CTL2_RX_CHASE_MARGIN_Pos)
+#else
 #define CY_SMIF_CTL_REG_DEFAULT             (0x00000300U) /* 3 - [13:12] CLOCK_IF_RX_SEL  */
 #define CY_SMIF_CTL2_REG_DEFAULT            (0x0080D000U)
+#endif
 
 #define CY_SMIF_SFDP_FAIL                   (0x08U)
 #define CY_SMIF_SFDP_FAIL_SS0_POS           (0x00U)
@@ -960,6 +979,85 @@ typedef enum
     CY_SMIF_DLL_DIVIDE_BY_16 = 3,    /**< Divides DLL Clock by 16 */
 } cy_en_smif_dll_divider_t;
 
+#if (CY_IP_MXSMIF_VERSION>=4)
+/* This field is only applicable in SDR transmit mode. */
+typedef enum
+{
+    CY_SMIF_TX_ONE_PERIOD_AHEAD = 0, /**< transmit data is launched nominally 1 PLL clock period ahead of the rising edge of the clock out to the memory */
+    CY_SMIF_TX_TWO_PERIOD_AHEAD = 1, /**< transmit data is launched nominally 2 PLL clock periods ahead of the rising edge of the clock out to the memory */
+} cy_en_smif_tx_sdr_extra_t;
+
+/* Determines the relative amount of delay through the MDL in terms of the number of tap delays. */
+typedef enum
+{
+    CY_SMIF_MDL_1_TAP_DELAY  = 0, /**< 1 tap delay */
+    CY_SMIF_MDL_2_TAP_DELAY  = 1, /**< 2 tap delay */
+    CY_SMIF_MDL_3_TAP_DELAY  = 2, /**< 3 tap delay */
+    CY_SMIF_MDL_4_TAP_DELAY  = 3, /**< 4 tap delay */
+    CY_SMIF_MDL_5_TAP_DELAY  = 4, /**< 5 tap delay */
+    CY_SMIF_MDL_6_TAP_DELAY  = 5, /**< 6 tap delay */
+    CY_SMIF_MDL_7_TAP_DELAY  = 6, /**< 7 tap delay */
+    CY_SMIF_MDL_8_TAP_DELAY  = 7, /**< 8 tap delay */
+    CY_SMIF_MDL_9_TAP_DELAY  = 8, /**< 9 tap delay */
+    CY_SMIF_MDL_10_TAP_DELAY  = 9, /**< 10 tap delay */
+    CY_SMIF_MDL_11_TAP_DELAY  = 10, /**< 11 tap delay */
+    CY_SMIF_MDL_12_TAP_DELAY  = 11, /**< 12 tap delay */
+    CY_SMIF_MDL_13_TAP_DELAY  = 12, /**< 13 tap delay */
+    CY_SMIF_MDL_14_TAP_DELAY  = 13, /**< 14 tap delay */
+    CY_SMIF_MDL_15_TAP_DELAY  = 14, /**< 15 tap delay */
+    CY_SMIF_MDL_16_TAP_DELAY  = 15, /**< 16 tap delay */
+    CY_SMIF_MDL_TAP_NUMBER  = 16, /**< Tap Count */
+} cy_en_cy_smif_mdl_tap_sel_t;
+
+/* Determines the relative amount of delay through the SDL (including neg and pos) in terms of the number of tap delays. */
+typedef enum
+{
+    CY_SMIF_SDL_1_TAP_DELAY  = 0, /**< 1 tap delay */
+    CY_SMIF_SDL_2_TAP_DELAY  = 1, /**< 2 tap delay */
+    CY_SMIF_SDL_3_TAP_DELAY  = 2, /**< 3 tap delay */
+    CY_SMIF_SDL_4_TAP_DELAY  = 3, /**< 4 tap delay */
+    CY_SMIF_SDL_5_TAP_DELAY  = 4, /**< 5 tap delay */
+    CY_SMIF_SDL_6_TAP_DELAY  = 5, /**< 6 tap delay */
+    CY_SMIF_SDL_7_TAP_DELAY  = 6, /**< 7 tap delay */
+    CY_SMIF_SDL_8_TAP_DELAY  = 7, /**< 8 tap delay */
+    CY_SMIF_SDL_9_TAP_DELAY  = 8, /**< 9 tap delay */
+    CY_SMIF_SDL_10_TAP_DELAY  = 9, /**< 10 tap delay */
+    CY_SMIF_SDL_11_TAP_DELAY  = 10, /**< 11 tap delay */
+    CY_SMIF_SDL_12_TAP_DELAY  = 11, /**< 12 tap delay */
+    CY_SMIF_SDL_13_TAP_DELAY  = 12, /**< 13 tap delay */
+    CY_SMIF_SDL_14_TAP_DELAY  = 13, /**< 14 tap delay */
+    CY_SMIF_SDL_15_TAP_DELAY  = 14, /**< 15 tap delay */
+    CY_SMIF_SDL_16_TAP_DELAY  = 15, /**< 16 tap delay */
+    CY_SMIF_SDL_TAP_NUMBER  = 16, /**< Tap Count */
+} cy_en_cy_smif_sdl_tap_sel_t;
+
+/* Determines the relative amount of delay through the MDL/SDL(including neg and pos) for the reference clock in terms of the number of tap delays. */
+typedef enum
+{
+    CY_SMIF_DDL_1_TAP_DELAY  = 0, /**< 1 tap delay */
+    CY_SMIF_DDL_2_TAP_DELAY  = 1, /**< 2 tap delay */
+    CY_SMIF_DDL_3_TAP_DELAY  = 2, /**< 3 tap delay */
+    CY_SMIF_DDL_4_TAP_DELAY  = 3, /**< 4 tap delay */
+    CY_SMIF_DDL_5_TAP_DELAY  = 4, /**< 5 tap delay */
+    CY_SMIF_DDL_6_TAP_DELAY  = 5, /**< 6 tap delay */
+    CY_SMIF_DDL_7_TAP_DELAY  = 6, /**< 7 tap delay */
+    CY_SMIF_DDL_8_TAP_DELAY  = 7, /**< 8 tap delay */
+    CY_SMIF_DDL_9_TAP_DELAY  = 8, /**< 9 tap delay */
+    CY_SMIF_DDL_10_TAP_DELAY  = 9, /**< 10 tap delay */
+    CY_SMIF_DDL_11_TAP_DELAY  = 10, /**< 11 tap delay */
+    CY_SMIF_DDL_12_TAP_DELAY  = 11, /**< 12 tap delay */
+    CY_SMIF_DDL_13_TAP_DELAY  = 12, /**< 13 tap delay */
+    CY_SMIF_DDL_14_TAP_DELAY  = 13, /**< 14 tap delay */
+    CY_SMIF_DDL_15_TAP_DELAY  = 14, /**< 15 tap delay */
+    CY_SMIF_DDL_16_TAP_DELAY  = 15, /**< 16 tap delay */
+    CY_SMIF_DDL_TAP_NUMBER  = 16, /**< Tap Count */
+} cy_en_cy_smif_ddl_tap_sel_t;
+
+#define CY_SMIF_CLKOUT_NON_ZERO_MDL_TAP_MIN_SDR  (CY_SMIF_MDL_3_TAP_DELAY)   /* In SDR mode, when CLKOUT is not divide by two, this is the minimum acceptable MDL tap */
+#define CY_SMIF_CLKOUT_NON_ZERO_MDL_TAP_MAX_SDR  (CY_SMIF_MDL_13_TAP_DELAY)  /* In SDR mode, when CLKOUT is not divide by two, this is the maximum acceptable MDL tap */
+#define CY_SMIF_CLKOUT_NON_ZERO_MDL_TAP_MIN_DDR  (CY_SMIF_MDL_3_TAP_DELAY)   /* In DDR mode, when CLKOUT is not divide by two, this is the minimum acceptable MDL tap */
+#define CY_SMIF_CLKOUT_NON_ZERO_MDL_TAP_MAX_DDR  (CY_SMIF_MDL_14_TAP_DELAY)  /* In DDR mode, when CLKOUT is not divide by two, this is the maximum acceptable MDL tap */
+#endif  /* (CY_IP_MXSMIF_VERSION>=4) */
 
 /**
 * \note
@@ -983,7 +1081,6 @@ typedef enum
     CY_SMIF_CMD_ERROR,     /**< A TX CMD FIFO overflow. */
     CY_SMIF_TX_ERROR,      /**< A TX DATA FIFO overflow. */
     CY_SMIF_RX_ERROR       /**< An RX DATA FIFO underflow. */
-
 } cy_en_smif_txfr_status_t;
 
 /** The SMIF API return values. */
@@ -1155,6 +1252,117 @@ typedef enum
     CY_SMIF_MERGE_TIMEOUT_65536_CYCLES = 4,
 } cy_en_smif_merge_timeout_t;
 
+#endif /* (CY_IP_MXSMIF_VERSION>=2) */
+
+#if (CY_IP_MXSMIF_VERSION >= 4) || defined (CY_DOXYGEN)
+/** Specifies the  PORT priority for XIP space. */
+/**
+* \note
+* This enum is available for CAT1D and CAT1C (Traveo II) devices.
+**/
+typedef enum
+{
+    CY_SMIF_EN_BRIDGE_PRIO_SMIF0_XIP_SPACE = 0, // The master accessing through the SMIF0 XIP space has high priority.
+    CY_SMIF_EN_BRIDGE_PRIO_SMIF1_XIP_SPACE = 1, // The master accessing through the SMIF1 XIP space has high priority.
+} cy_en_smif_bridge_xip_space_pri_t;
+
+/** Specifies the XIP space. */
+/**
+* \note
+* This enum is available for CAT1D and CAT1C (Traveo II) devices.
+**/
+typedef enum
+{
+    CY_SMIF_EN_BRIDGE_SMIF0_XIP_SPACE = 0,
+    CY_SMIF_EN_BRIDGE_SMIF1_XIP_SPACE = 1,
+} cy_en_smif_bridge_xip_space_t;
+
+/** Specifies the port priority on bridge interface. */
+/**
+* \note
+* This structure is available for CAT1D and CAT1C (Traveo II) devices.
+**/
+typedef struct
+{
+    cy_en_smif_bridge_xip_space_pri_t pri_ahb_smif0;  /**< This specifies the priority for AHB access over SMIF0 */
+    cy_en_smif_bridge_xip_space_pri_t pri_ahb_smif1;  /**< This specifies the priority for AHB access over SMIF1 */
+    cy_en_smif_bridge_xip_space_pri_t pri_axi_smif0;  /**< This specifies the priority for AXI access over SMIF0 */
+    cy_en_smif_bridge_xip_space_pri_t pri_axi_smif1;  /**< This specifies the priority for AXI access over SMIF1 */
+} cy_stc_smif_bridge_pri_t;
+
+/** Specifies the remap type. */
+/**
+* \note
+* This enum is available for CAT1D and CAT1C (Traveo II) devices.
+**/
+typedef enum
+{
+    CY_SMIF_EN_BRIDGE_REMAP_TYPE_INACTIVE   = 0,
+    CY_SMIF_EN_BRIDGE_REMAP_TYPE_TO_SMIF0   = 1,
+    CY_SMIF_EN_BRIDGE_REMAP_TYPE_TO_SMIF1   = 2,
+    CY_SMIF_EN_BRIDGE_REMAP_TYPE_INTERLEAVE = 3,
+} cy_en_smif_bridge_remap_type_t;
+
+/** Specifies the interleave size. */
+/**
+* \note
+* This enum is available for CAT1D and CAT1C (Traveo II) devices.
+**/
+typedef enum
+{
+    CY_SMIF_EN_BRIDGE_INTERLEAVE_8BYTE   = 0,
+    CY_SMIF_EN_BRIDGE_INTERLEAVE_16BYTE  = 1,
+    CY_SMIF_EN_BRIDGE_INTERLEAVE_32BYTE  = 2,
+    CY_SMIF_EN_BRIDGE_INTERLEAVE_64BYTE  = 3,
+    CY_SMIF_EN_BRIDGE_INTERLEAVE_128BYTE = 4,
+} cy_en_smif_bridge_interleave_step_t;
+
+/** Specifies the remap size. */
+/**
+* \note
+* This enum is available for CAT1D and CAT1C (Traveo II) devices.
+**/
+typedef enum
+{
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_1MB   = 0x1FF00000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_2MB   = 0x1FE00000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_4MB   = 0x1FC00000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_8MB   = 0x1F800000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_16MB  = 0x1F000000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_32MB  = 0x1E000000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_64MB  = 0x1C000000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_128MB = 0x18000000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_256MB = 0x10000000U,
+    CY_SMIF_EN_BRIDGE_REMAP_SIZE_512MB = 0x00000000U,
+} cy_en_smif_bridge_remap_region_size_t;
+
+/** Specifies the remap region information. */
+/**
+* \note
+* This structure is available for CAT1D and CAT1C (Traveo II) devices.
+**/
+typedef struct
+{
+    uint32_t                              regionIdx;   /**< This specifies the region index (0..8) */
+    cy_en_smif_bridge_remap_region_size_t regionSize;  /**< This specifies the region size */
+    uint32_t                              xipAddr;     /**< This specifies XIP address to be remapped */
+    uint32_t                              phyAddr;     /**< This specifies target remapped address */
+} cy_stc_smif_bridge_remap_t;
+
+/** Specifies the interleaved memory region. */
+/**
+* \note
+* This structure is available for CAT1D and CAT1C (Traveo II) devices.
+**/
+typedef struct
+{
+    uint32_t                              regionIdx;       /**< This specifies the region index (0..8) */
+    cy_en_smif_bridge_remap_region_size_t regionSize;      /**< This specifies the region size */
+    uint32_t                              xipAddr;         /**< This specifies XIP address to be remapped */
+    uint32_t                              phyAddr0;        /**< This specifies remapped address on PORT0 */
+    uint32_t                              phyAddr1;        /**< This specifies remapped address on PORT1 */
+} cy_stc_smif_bridge_interleave_remap_t;
+
 #endif /* CY_IP_MXSMIF_VERSION */
 
 /** Specifies the data line index. */
@@ -1169,6 +1377,14 @@ typedef enum
     CY_SMIF_DATA_BIT6_TAP_SEL = 6U, /**< Data line six. */
     CY_SMIF_DATA_BIT7_TAP_SEL = 7U, /**< Data line seven. */
 } cy_en_smif_mem_data_line_t;
+
+/** Specifies the sdr cap style. */
+typedef enum
+{
+    CY_SMIF_RX_CAP_STYLE_SDR_POS       = 0,
+    CY_SMIF_RX_CAP_STYLE_SDR_NEG_NORM  = 1,
+    CY_SMIF_RX_CAP_STYLE_SDR_NEG_PIPED = 2,
+} cy_en_sdr_cap_style_t;
 
 #if (CY_IP_MXSMIF_VERSION >= 6U) || defined (CY_DOXYGEN)
 /** Specifies CACHE region attribute. */
@@ -1233,19 +1449,26 @@ typedef struct
                                 *   - "5": 6 clock cycles.
                                 *   - "6": 7 clock cycles.
                                 *   - "7": 8 clock cycles. */
-    uint32_t rxClockSel;        /**< Specifies the clock source for the receiver
+#if (CY_IP_MXSMIF_VERSION <= 3)
+    uint32_t rxClockSel;        /**< Specifies the clock source for the receiver 
                                 *  clock \ref cy_en_smif_clk_select_t. Used for CAT1A, CAT1B and CAT1C devices. */
+#endif
     uint32_t blockEvent;        /**< Specifies what happens when there is a Read
                                 * from an empty RX FIFO or a Write to a full
                                 * TX FIFO. \ref cy_en_smif_error_event_t. */
     cy_en_smif_delay_tap_t   delayTapEnable;      /**<  Delay tap can be enabled or disabled \ref cy_en_smif_delay_tap_t. */
-    cy_en_smif_delay_line_t  delayLineSelect;    /**< set line selection which is input. \ref cy_en_smif_delay_line_t */
+    cy_en_smif_delay_line_t  delayLineSelect;     /**< set line selection which is input. \ref cy_en_smif_delay_line_t */
 #if (CY_IP_MXSMIF_VERSION >=4)
-    uint32_t                 inputFrequencyMHz;  /**< Input frequency. Used when internal DLL is enabled for setting the speed mode */
-    bool                     enable_internal_dll; /**< Enables internal DLL. Default value by passes DLL */
-    cy_en_smif_dll_divider_t dll_divider_value;   /**< Divider value for DLL */
-    uint32_t                 mdl_tap;             /**< Determines the relative amount of delay through the Master Delay Line (MDL) supplied to memory. Delay taps range from 0-15. */
-    cy_en_smif_capture_mode_t rx_capture_mode;    /**< RX Capture mode used in CAT1D Devices */
+    uint32_t                    inputFrequencyMHz;    /**< Input frequency. Used when internal DLL is enabled for setting the speed mode */
+    bool                        enable_internal_dll;  /**< Enables internal DLL. Default value by passes DLL */
+    cy_en_smif_dll_divider_t    dll_divider_value;    /**< Divider value for DLL */
+    cy_en_cy_smif_mdl_tap_sel_t mdl_tap;              /**< Delay tap for DLL MDL */ 
+    cy_en_cy_smif_sdl_tap_sel_t device0_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[0]. Only relevant in XIP mode. */
+    cy_en_cy_smif_sdl_tap_sel_t device1_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[1]. Only relevant in XIP mode. */
+    cy_en_cy_smif_sdl_tap_sel_t device2_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[2]. Only relevant in XIP mode. */
+    cy_en_cy_smif_sdl_tap_sel_t device3_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[3]. Only relevant in XIP mode. */
+    cy_en_smif_capture_mode_t   rx_capture_mode;      /**< RX Capture mode used in CAT1C (TVIIC2D6M) and CAT1D Devices */
+    cy_en_smif_tx_sdr_extra_t   tx_sdr_extra;         /**< TX SDR Extra used in CAT1C (TVIIC2D6M) and CAT1D Devices */
 #endif
 } cy_stc_smif_config_t;
 
@@ -1267,9 +1490,9 @@ typedef struct
     /**
     * The status of the transfer. The transmitting / receiving is completed / in progress
     */
-    uint32_t volatile transferStatus;
-    cy_smif_event_cb_t volatile txCompleteCb;          /**< The user-defined callback executed at the completion of a transmission */
-    cy_smif_event_cb_t volatile rxCompleteCb;          /**< The user-defined callback executed at the completion of a reception */
+    cy_en_smif_txfr_status_t volatile transferStatus;
+    cy_smif_event_cb_t       volatile txCompleteCb;          /**< The user-defined callback executed at the completion of a transmission */
+    cy_smif_event_cb_t       volatile rxCompleteCb;          /**< The user-defined callback executed at the completion of a reception */
     /**
     * The timeout in microseconds for the blocking functions. This timeout value applies to all blocking APIs.
     */
@@ -1336,6 +1559,11 @@ typedef struct
 cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base, cy_stc_smif_config_t const *config,
                                 uint32_t timeout,
                                 cy_stc_smif_context_t *context);
+#if (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN)
+cy_en_smif_status_t Cy_SMIF_DllConfig(volatile SMIF_Type *base,
+                                    cy_stc_smif_config_t const *config,
+                                    cy_stc_smif_context_t *context);
+#endif
 void Cy_SMIF_DeInit(SMIF_Type *base);
 void Cy_SMIF_SetDataSelect(SMIF_Type *base, cy_en_smif_slave_select_t slaveSelect,
                                 cy_en_smif_data_select_t dataSelect);
@@ -1369,7 +1597,7 @@ cy_en_smif_status_t  Cy_SMIF_ReceiveDataBlocking(SMIF_Type *base,
                                 cy_en_smif_txfr_width_t transferWidth,
                                 cy_stc_smif_context_t const *context);
 cy_en_smif_status_t Cy_SMIF_SendDummyCycles(SMIF_Type *base, uint32_t cycles);
-uint32_t Cy_SMIF_GetTransferStatus(SMIF_Type const *base, cy_stc_smif_context_t const *context);
+cy_en_smif_txfr_status_t Cy_SMIF_GetTransferStatus(SMIF_Type const *base, cy_stc_smif_context_t const *context);
 void Cy_SMIF_Enable(SMIF_Type *base, cy_stc_smif_context_t *context);
 
 #if (CY_IP_MXSMIF_VERSION>=2) || defined (CY_DOXYGEN)
@@ -1427,10 +1655,16 @@ cy_en_smif_status_t Cy_SMIF_SendDummyCycles_With_RWDS(SMIF_Type *base,
 void Cy_SMIF_DeviceTransfer_SetMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave, cy_en_smif_merge_timeout_t timeout);
 void Cy_SMIF_DeviceTransfer_ClearMergeTimeout(SMIF_Type *base, cy_en_smif_slave_select_t slave);
 
-#if (CY_IP_MXSMIF_VERSION == 2U) || (CY_IP_MXSMIF_VERSION >= 5U)
+
+/* MDL and SDL tap select functions. */
+#if (CY_IP_MXSMIF_VERSION == 2U) || (CY_IP_MXSMIF_VERSION >= 4U) || defined (CY_DOXYGEN)
 cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel);
 uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base);
-#endif /* (CY_IP_MXSMIF_VERSION==2) */
+#endif
+#if (CY_IP_MXSMIF_VERSION >= 4U) || defined (CY_DOXYGEN)
+cy_en_smif_status_t Cy_SMIF_Set_Sdl_DelayTapSel(SMIF_CORE_DEVICE_Type *smif_device_base, uint8_t tapSel);
+#endif
+
 #endif /* CY_IP_MXSMIF_VERSION>=2*/
 
 __STATIC_INLINE void Cy_SMIF_Disable(SMIF_Type *base);
@@ -1462,16 +1696,20 @@ void Cy_SMIF_SetCryptoIV(SMIF_Type *base, uint32_t *nonce);
 cy_en_smif_status_t Cy_SMIF_SetCryptoEnable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_ConvertSlaveSlotToIndex(cy_en_smif_slave_select_t ss, uint32_t *device_idx);
-#if ((CY_IP_MXSMIF_VERSION>=4) && \
-     ((defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0)) || \
-      (defined (SMIF0_DLP_PRESENT) && (SMIF0_DLP_PRESENT > 0)) || \
-      (defined (SMIF1_DLP_PRESENT) && (SMIF1_DLP_PRESENT > 0))) || defined (CY_DOXYGEN))
+#if (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN)
 cy_en_smif_status_t Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t size);
 uint16_t Cy_SMIF_GetMasterDLP(SMIF_Type *base);
 uint8_t Cy_SMIF_GetMasterDLPSize(SMIF_Type *base);
 uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit);
-#endif
+uint32_t CY_SMIF_GetDelayTapsNumber(volatile void *base);
+
+#if (defined (SMIF_BRIDGE_PRESENT) && (SMIF_BRIDGE_PRESENT == 1u)) || defined (CY_DOXYGEN)
+bool Cy_SMIF_IsBridgeOn(SMIF_Base_Type *base);
+cy_en_smif_status_t Cy_SMIF_Bridge_Enable(SMIF_Base_Type *base, bool enable);
+#endif /* (defined (SMIF_BRIDGE_PRESENT) && (SMIF_BRIDGE_PRESENT == 1u)) */
+
+#endif /* CY_IP_MXSMIF_VERSION>=4 */
 
 #if (CY_IP_MXSMIF_VERSION >= 6) || defined (CY_DOXYGEN)
 cy_en_smif_status_t Cy_SMIF_InitCache(SMIF_CACHE_BLOCK_Type *base, const cy_stc_smif_cache_config_t *cache_config);
@@ -1846,7 +2084,7 @@ __STATIC_INLINE void Cy_SMIF_Interrupt(SMIF_Type *base, cy_stc_smif_context_t *c
     else if (0U != (interruptStatus & SMIF_INTR_XIP_ALIGNMENT_ERROR_Msk))
     {
         /* An XIP alignment error */
-        context->transferStatus = (uint32_t) CY_SMIF_XIP_ERROR;
+        context->transferStatus = CY_SMIF_XIP_ERROR;
 
         Cy_SMIF_ClearInterrupt(base, SMIF_INTR_XIP_ALIGNMENT_ERROR_Msk);
     }
@@ -1854,7 +2092,7 @@ __STATIC_INLINE void Cy_SMIF_Interrupt(SMIF_Type *base, cy_stc_smif_context_t *c
     else if (0U != (interruptStatus & SMIF_INTR_TX_CMD_FIFO_OVERFLOW_Msk))
     {
         /* TX CMD FIFO overflow */
-        context->transferStatus = (uint32_t) CY_SMIF_CMD_ERROR;
+        context->transferStatus = CY_SMIF_CMD_ERROR;
 
         Cy_SMIF_ClearInterrupt(base, SMIF_INTR_TX_CMD_FIFO_OVERFLOW_Msk);
     }
@@ -1862,7 +2100,7 @@ __STATIC_INLINE void Cy_SMIF_Interrupt(SMIF_Type *base, cy_stc_smif_context_t *c
     else if (0U != (interruptStatus & SMIF_INTR_TX_DATA_FIFO_OVERFLOW_Msk))
     {
         /* A TX DATA FIFO overflow */
-        context->transferStatus = (uint32_t) CY_SMIF_TX_ERROR;
+        context->transferStatus = CY_SMIF_TX_ERROR;
 
         Cy_SMIF_ClearInterrupt(base, SMIF_INTR_TX_DATA_FIFO_OVERFLOW_Msk);
     }
@@ -1870,7 +2108,7 @@ __STATIC_INLINE void Cy_SMIF_Interrupt(SMIF_Type *base, cy_stc_smif_context_t *c
     else if (0U != (interruptStatus & SMIF_INTR_RX_DATA_FIFO_UNDERFLOW_Msk))
     {
         /* RX DATA FIFO underflow */
-        context->transferStatus = (uint32_t) CY_SMIF_RX_ERROR;
+        context->transferStatus = CY_SMIF_RX_ERROR;
 
         Cy_SMIF_ClearInterrupt(base, SMIF_INTR_RX_DATA_FIFO_UNDERFLOW_Msk);
     }
@@ -1984,7 +2222,7 @@ __STATIC_INLINE void Cy_SMIF_PushTxFifo(SMIF_Type *baseaddr, cy_stc_smif_context
         /* Disable the TR_TX_REQ interrupt */
         Cy_SMIF_SetInterruptMask(baseaddr, Cy_SMIF_GetInterruptMask(baseaddr) & ~SMIF_INTR_TR_TX_REQ_Msk);
 
-        context->transferStatus = (uint32_t) CY_SMIF_SEND_COMPLETE;
+        context->transferStatus = CY_SMIF_SEND_COMPLETE;
         if (NULL != context->txCompleteCb)
         {
             context->txCompleteCb((uint32_t) CY_SMIF_SEND_COMPLETE);
@@ -2093,7 +2331,7 @@ __STATIC_INLINE void Cy_SMIF_PopRxFifo(SMIF_Type *baseaddr, cy_stc_smif_context_
         #endif
         /* Disable the TR_RX_REQ interrupt */
         Cy_SMIF_SetInterruptMask(baseaddr, Cy_SMIF_GetInterruptMask(baseaddr) & ~SMIF_INTR_TR_RX_REQ_Msk);
-        context->transferStatus = (uint32_t) CY_SMIF_RX_COMPLETE;
+        context->transferStatus = CY_SMIF_RX_COMPLETE;
         if (NULL != context->rxCompleteCb)
         {
             context->rxCompleteCb((uint32_t) CY_SMIF_RX_COMPLETE);

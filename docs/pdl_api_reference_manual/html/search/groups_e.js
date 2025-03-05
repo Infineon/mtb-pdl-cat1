@@ -4,6 +4,7 @@ var searchData=
   ['profile_20_20_20_20_20_20_28energy_20profiler_29',['Profile      (Energy Profiler)',['../group__group__energy__profiler.html',1,'']]],
   ['pin_20drive_20mode',['Pin drive mode',['../group__group__gpio__drive_modes.html',1,'']]],
   ['pin_20drive_20strength',['Pin drive strength',['../group__group__gpio__drive_strength.html',1,'']]],
+  ['pin_20drive_20strength_20trim',['Pin drive strength trim',['../group__group__gpio__drive_strength__trim.html',1,'']]],
   ['port_20interrupt_20functions',['Port Interrupt Functions',['../group__group__gpio__functions__interrupt.html',1,'']]],
   ['pdm_5fpcm_20_20_20_20_20_20_28pdm_2dpcm_20converter_29',['PDM_PCM      (PDM-PCM Converter)',['../group__group__pdm__pcm.html',1,'']]],
   ['pdm_5fpcm_5fv2_20_20_20_28pdm_2dpcm_20converter_20v2_29',['PDM_PCM_v2   (PDM-PCM Converter v2)',['../group__group__pdm__pcm__v2.html',1,'']]],

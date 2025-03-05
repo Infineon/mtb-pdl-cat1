@@ -197,7 +197,7 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_InitDevice(SMIF_Type *base, const cy_stc_sm
 *
 * This function updates the dummy cycles in the XIP read/write sequences
 * based on the specified latency code and device type.
-* If called for an already initialized device during runtime (e.g. after
+* If called for and already initialized device during runtime (e.g. after
 * updating the latency settings in the connected memory) ensure that SMIF is
 * not busy and no access to XIP address space happens!
 *
@@ -323,9 +323,9 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif
         {
             return CY_SMIF_EXCEED_TIMEOUT;
         }
-#if (CY_IP_MXSMIF_VERSION==2)
+#if (CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION>=4)
         (void)Cy_SMIF_Set_DelayTapSel(base, (uint8_t)tapNum);
-#endif /*(CY_IP_MXSMIF_VERSION==2)*/
+#endif
         (void)memset(dataRead, 0,CY_SMIF_HB_CALIBRATION_DATA_PATTERN_LENGTH * 2U);
         SMIF_Status = Cy_SMIF_HyperBus_Read(base,
                                              memConfig,
@@ -373,7 +373,7 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif
     {
         bestTapNum = (uint16_t)(delayTapNum - ((consecutiveMatchNum + 1u) / 2u));
     }
-#if (CY_IP_MXSMIF_VERSION==2)
+#if (CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION>=4)
     // If a match has been found, apply the best tap
     if(bestTapNum != 0xffffu)
     {
@@ -384,7 +384,7 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_CalibrateDelay(SMIF_Type *base, cy_stc_smif
         // No match has been found
         SMIF_Status = CY_SMIF_GENERAL_ERROR;
     }
-#endif /*(CY_IP_MXSMIF_VERSION==2)*/
+#endif /*(CY_IP_MXSMIF_VERSION==2) || (CY_IP_MXSMIF_VERSION>=4)*/
     Cy_SMIF_SetMode(base, smifModeBackup);
     (void)bestTapNum;
     return SMIF_Status;

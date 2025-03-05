@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk_v2.c
-* \version 3.120
+* \version 3.130
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -4008,7 +4008,7 @@ cy_en_sysclk_status_t Cy_SysClk_Pll400MConfigure(uint32_t pllNum, const cy_stc_p
                                 manualConfig.feedbackDiv  = (uint8_t)p;
                                 manualConfig.referenceDiv = (uint8_t)q;
                                 manualConfig.outputDiv    = (uint8_t)out;
-                                manualConfig.fracEn       = true;
+                                manualConfig.fracEn       = (feedBackFracDiv != 0UL);
                                 manualConfig.fracDiv      = feedBackFracDiv;
                             }
                         }

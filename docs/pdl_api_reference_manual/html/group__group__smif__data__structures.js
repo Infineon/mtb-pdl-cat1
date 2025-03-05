@@ -17,7 +17,7 @@ var group__group__smif__data__structures =
       [ "rxBufferAddress", "structcy__stc__smif__context__t.html#a6544fae213708b4c687cfaa0e8c18be5", null ],
       [ "rxBufferSize", "structcy__stc__smif__context__t.html#ab852f4441c28829246c33921555c091d", null ],
       [ "rxBufferCounter", "structcy__stc__smif__context__t.html#ab4e278d4e4175e7fd374c87892589a2c", null ],
-      [ "transferStatus", "structcy__stc__smif__context__t.html#afb2aab2415d3a0122d5321a58ca0b942", null ],
+      [ "transferStatus", "structcy__stc__smif__context__t.html#ac54583f369db21c7e50cc822469fa957", null ],
       [ "txCompleteCb", "structcy__stc__smif__context__t.html#a71a18df866cf403b715696915290a8d0", null ],
       [ "rxCompleteCb", "structcy__stc__smif__context__t.html#ab9a4c6932ab197e3d62ebc0b253200f5", null ],
       [ "timeout", "structcy__stc__smif__context__t.html#ab5ea1c5ff56657fbff10620e7a8e37aa", null ],
