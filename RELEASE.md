@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.15.0
+# MTB CAT1 Peripheral Driver Library v3.15.1
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -6,44 +6,22 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Implementation Details
-* CAT1C: SMIF and audio support added for Traveo T2G CYT4DN devices.
+* CAT1A: Updated support files for FX3G2 and FX2G3 devices to work with current GPIO drivers.
 
 ## Build Changes
 
 ## Personality Changes
-* Updated Personalities (in 9.0 folder):
-  * peripheral:
-    * tdm-1.1.cypersonality
-    * smif_core-1.0.cypersonality
-  * platform:
-    * axidmac-1.0.cypersonality
-    * fll-4.0.cypersonality
-    * hfclk_t2g2d6m-1.0.cypersonality
-    * hfclk_t2g2d6m_maxclk.tcl
-    * pin-3.0.cypersonality
-    * pll-3.0.cypersonality
-    * pll400-1.0.cypersonality
-
 
 ## Added Drivers
-* [MIXER 1.0](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mixer.html)
 
 ## Updated Drivers
-* [SMIF 2.120](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [GPIO 1.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__gpio.html)
-* [SYSCLK 3.130](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [LVD-HT 1.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lvd__ht.html)
-* [MCWDT 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
-* [LIN 1.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lin.html)
-
 
 ### Drivers with patch version updates
 
-
 ### Obsoleted part numbers
 
-
 ## Known Issues
+* CAT1B (CYW20829): CYW20829 applications are not working on CAT1 PDL releases 3.15.0 and 3.15.1. Use mtb-pdl-cat1 3.14.0 or earlier release for these devices.
 * Traveo II C-2D-6M: Some Fault numbers defined in cy_en_SysFault_source_t for CAT1C do not match the device fault numbers.
 * CAT1A: In device-configurator, certain IP is not completely available for some devices as some combinations of pin connections are not valid.
   * CYT2BL4BAS/CYT2BL4CAE: SCB6 is complete only for UART, cannot support I2C, EZI2C, or SPI.
