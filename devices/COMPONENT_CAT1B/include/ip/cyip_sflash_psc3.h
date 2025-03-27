@@ -185,10 +185,7 @@ typedef struct {
                                                                 key if the first key is revoked due to compromised. The pattern
                                                                 of 1-byte state that indicate the key has been revoked can be
                                                                 any numbers but not all zeros or all ones */
-  __IOM uint8_t  MPN_ROT_KEY_REVOCATION;        /*!< 0x00000809 MPN Key Revocation for Protected FW to allow for using the
-                                                                second key if the first key is revoked due to compromised. The
-                                                                pattern of 1-byte state that indicate the key has been revoked
-                                                                can be any numbers but not all zeros or all ones */
+  __IOM uint8_t  UNUSED_BYTE;                   /*!< 0x00000809 Unused for BOY2. */
   __IOM uint8_t  PROT_FW_ROT_KEY_REVOCATION;    /*!< 0x0000080A Protected FW Root Of Trust Key Revocation to allow for using
                                                                 the second key if the first key is revoked due to compromised.
                                                                 The pattern of 1-byte state that indicate the key has been
@@ -234,7 +231,7 @@ typedef struct {
                                                                 belongs to IFX policy) */
   __IOM uint8_t  PROT_FW_ROT_KEY_1_HASH[16];    /*!< 0x0000086C Truncated SHA-256 for a public key which authenticates this
                                                                 application. Used if first key has been revoked. */
-  __IOM uint8_t  PROT_FW_ENCRYPTION_KEY[16];    /*!< 0x0000087C AES-128 encryption key for protected FW */
+   __IM uint32_t RESERVED8[4];
   __IOM uint32_t PROT_FW_ADDR;                  /*!< 0x0000088C Start address of protected FW */
   __IOM uint32_t PROT_FW_SIZE;                  /*!< 0x00000890 Size of protected FW */
   __IOM uint32_t PROT_FW_RW_ADDR;               /*!< 0x00000894 Start of protected FW RW area in flash */
@@ -253,12 +250,9 @@ typedef struct {
   __IOM uint8_t  IFX_REVOCATION_KEY_HASH[16];   /*!< 0x000008B0 Hash of IFX revocation key */
   __IOM uint8_t  IFX_ROT_KEY_0_HASH[16];        /*!< 0x000008C0 Hash of Infineon Root of Trust Key 0 */
   __IOM uint8_t  IFX_ROT_KEY_1_HASH[16];        /*!< 0x000008D0 Hash of Infineon Root of Trust Key 1 */
-   __IM uint32_t RESERVED8[72];
+   __IM uint32_t RESERVED9[72];
   __IOM uint32_t ACCESS_RESTRICT;               /*!< 0x00000A00 A debug policy, bits are the same as CPUSS.AP_CTL register */
-  __IOM uint32_t ACCESS_RESTRICT_2;             /*!< 0x00000A04 Bits 1-0- 0 - No additional MMIO restrictions for SYS_AP. 1 -
-                                                                SYS_AP may access only SRSS_GENERAL2 peripherals. It includes
-                                                                BOOT_STATUS, BOOT_DLM_CTL, RES_SOFT_CTL, etc. 2 - SYS_AP cannot
-                                                                access any peripherals. Bits 31-24 -- Flag = 0xa3 */
+  __IOM uint32_t ACCESS_RESTRICT_2;             /*!< 0x00000A04 Additional debug policies.  See _Regs tab for details */
   __IOM uint32_t LISTEN_WINDOW;                 /*!< 0x00000A08 A debug policy, bits are the same as CPUSS.AP_CTL register */
   __IOM uint32_t BOOT_CFG_ID;                   /*!< 0x00000A0C See the Confluence page MXSV2BOOT/PSOC_C3+Provisioning */
   __IOM uint32_t BOOT_BANK_CTR_ADDR;            /*!< 0x00000A10 Pointer to a 32-bit counter that indicates the valid bank. If
@@ -299,7 +293,7 @@ typedef struct {
                                                                 may be switched to this value without CM33_PCx_HANDLER interrupt
                                                                 vector When Protected FW is active, bit 1 cannot be set from OEM
                                                                 policy */
-   __IM uint16_t RESERVED9;
+   __IM uint16_t RESERVED10;
   __IOM uint32_t PC1_HANDLER;                   /*!< 0x00000A5C PC1_HANDLER is used to switch to PC1 when it is a 'Special' PC */
   __IOM uint32_t PC2_HANDLER;                   /*!< 0x00000A60 PC2_HANDLER is used to switch to PC1 when it is a 'Special' PC */
   __IOM uint32_t PC3_HANDLER;                   /*!< 0x00000A64 PC3_HANDLER is used to switch to PC1 when it is a 'Special' PC */
@@ -313,9 +307,9 @@ typedef struct {
                                                                 values. */
   __IOM uint8_t  N_RAM_MPC;                     /*!< 0x00000A70 Number of RAM MPC structs in the following table */
   __IOM uint8_t  N_FLASH_MPC;                   /*!< 0x00000A71 Number of flash MPC structs in the following table */
-   __IM uint16_t RESERVED10;
-  __IOM uint32_t MPC_STRUCT[2];                 /*!< 0x00000A74 RAM MPC structs followed by Flash MPC structs */
-   __IM uint32_t RESERVED11[609];
+   __IM uint16_t RESERVED11;
+  __IOM uint32_t MPC_STRUCT[64];                /*!< 0x00000A74 RAM MPC structs followed by Flash MPC structs */
+   __IM uint32_t RESERVED12[547];
   __IOM uint32_t FLASH_BOOT_OBJECT_SIZE;        /*!< 0x00001400 Flash Boot - Object Size */
   __IOM uint32_t FLASH_BOOT_VERSION_HIGH;       /*!< 0x00001404 Flash Boot - Major Version */
   __IOM uint32_t FLASH_BOOT_VERSION_LOW;        /*!< 0x00001408 Flash Boot - Minor version */
@@ -598,9 +592,9 @@ typedef struct {
 /* SFLASH.ICV_ROT_KEY_REVOCATION */
 #define SFLASH_ICV_ROT_KEY_REVOCATION_DATA32_Pos 0UL
 #define SFLASH_ICV_ROT_KEY_REVOCATION_DATA32_Msk 0xFFFFFFFFUL
-/* SFLASH.MPN_ROT_KEY_REVOCATION */
-#define SFLASH_MPN_ROT_KEY_REVOCATION_DATA32_Pos 0UL
-#define SFLASH_MPN_ROT_KEY_REVOCATION_DATA32_Msk 0xFFFFFFFFUL
+/* SFLASH.UNUSED_BYTE */
+#define SFLASH_UNUSED_BYTE_DATA32_Pos           0UL
+#define SFLASH_UNUSED_BYTE_DATA32_Msk           0xFFFFFFFFUL
 /* SFLASH.PROT_FW_ROT_KEY_REVOCATION */
 #define SFLASH_PROT_FW_ROT_KEY_REVOCATION_DATA32_Pos 0UL
 #define SFLASH_PROT_FW_ROT_KEY_REVOCATION_DATA32_Msk 0xFFFFFFFFUL
@@ -649,9 +643,6 @@ typedef struct {
 /* SFLASH.PROT_FW_ROT_KEY_1_HASH */
 #define SFLASH_PROT_FW_ROT_KEY_1_HASH_DATA32_Pos 0UL
 #define SFLASH_PROT_FW_ROT_KEY_1_HASH_DATA32_Msk 0xFFFFFFFFUL
-/* SFLASH.PROT_FW_ENCRYPTION_KEY */
-#define SFLASH_PROT_FW_ENCRYPTION_KEY_DATA32_Pos 0UL
-#define SFLASH_PROT_FW_ENCRYPTION_KEY_DATA32_Msk 0xFFFFFFFFUL
 /* SFLASH.PROT_FW_ADDR */
 #define SFLASH_PROT_FW_ADDR_DATA32_Pos          0UL
 #define SFLASH_PROT_FW_ADDR_DATA32_Msk          0xFFFFFFFFUL
@@ -692,8 +683,14 @@ typedef struct {
 #define SFLASH_ACCESS_RESTRICT_DATA32_Pos       0UL
 #define SFLASH_ACCESS_RESTRICT_DATA32_Msk       0xFFFFFFFFUL
 /* SFLASH.ACCESS_RESTRICT_2 */
-#define SFLASH_ACCESS_RESTRICT_2_DATA32_Pos     0UL
-#define SFLASH_ACCESS_RESTRICT_2_DATA32_Msk     0xFFFFFFFFUL
+#define SFLASH_ACCESS_RESTRICT_2_SYS_AP_MMIO_Pos 0UL
+#define SFLASH_ACCESS_RESTRICT_2_SYS_AP_MMIO_Msk 0x3UL
+#define SFLASH_ACCESS_RESTRICT_2_DEBUG_PINS_Pos 4UL
+#define SFLASH_ACCESS_RESTRICT_2_DEBUG_PINS_Msk 0xF0UL
+#define SFLASH_ACCESS_RESTRICT_2_UNUSED_Pos     8UL
+#define SFLASH_ACCESS_RESTRICT_2_UNUSED_Msk     0xFFFF00UL
+#define SFLASH_ACCESS_RESTRICT_2_DEBUG_TAG_Pos  24UL
+#define SFLASH_ACCESS_RESTRICT_2_DEBUG_TAG_Msk  0xFF000000UL
 /* SFLASH.LISTEN_WINDOW */
 #define SFLASH_LISTEN_WINDOW_DATA32_Pos         0UL
 #define SFLASH_LISTEN_WINDOW_DATA32_Msk         0xFFFFFFFFUL

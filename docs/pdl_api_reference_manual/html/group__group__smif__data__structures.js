@@ -28,6 +28,12 @@ var group__group__smif__data__structures =
       [ "dummyCycles", "structcy__stc__smif__context__t.html#a6444c771d252f9a2aef8416b32317ced", null ],
       [ "flags", "structcy__stc__smif__context__t.html#aafcdeeb0b2e035795ba29db1a05273aa", null ]
     ] ],
+    [ "cy_stc_smif_crypto_region_config_t", "structcy__stc__smif__crypto__region__config__t.html", [
+      [ "key", "structcy__stc__smif__crypto__region__config__t.html#a9d8db48fb05d357c244133630af1ab0a", null ],
+      [ "iv", "structcy__stc__smif__crypto__region__config__t.html#a751679cfb34c3f6a63710ea3ff0a9242", null ],
+      [ "region_base_address", "structcy__stc__smif__crypto__region__config__t.html#a392a20acefc856bcef739066ff8f1b23", null ],
+      [ "region_size", "structcy__stc__smif__crypto__region__config__t.html#abc7fab139530aa858574f084588590d6", null ]
+    ] ],
     [ "cy_stc_smif_cache_region_t", "structcy__stc__smif__cache__region__t.html", [
       [ "enabled", "structcy__stc__smif__cache__region__t.html#acf2fe2272c55899642e90e4645828069", null ],
       [ "start_address", "structcy__stc__smif__cache__region__t.html#ac3d207ce65f6ac8a47ee8b043e3803c4", null ],

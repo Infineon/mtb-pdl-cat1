@@ -1631,6 +1631,7 @@ typedef enum
 #include "ip/cyip_scb_v4_2.h"
 #include "ip/cyip_tcpwm.h"
 #include "ip/cyip_hppass.h"
+#include "ip/cyip_cm33.h"
 
 /* Parameter Defines */
 /* Number of TTCAN instances */

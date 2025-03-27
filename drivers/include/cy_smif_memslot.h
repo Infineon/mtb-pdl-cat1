@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.h
-* \version 2.110
+* \version 2.130
 *
 * \brief
 *  This file provides the constants and parameter values for the memory-level
@@ -978,8 +978,8 @@ cy_en_smif_status_t Cy_SMIF_MemCmdReleasePowerDown(SMIF_Type *base,
                                     cy_stc_smif_context_t const *context);
 
 #if (CY_IP_MXSMIF_VERSION >= 5) || defined (CY_DOXYGEN)
-void Cy_SMIF_MemEnableFWCalibarion(SMIF_Type *base, cy_en_smif_slave_select_t slave);
-void Cy_SMIF_MemDisableFWCalibarion(SMIF_Type *base, cy_en_smif_slave_select_t slave);
+void Cy_SMIF_MemEnableFWCalibration(SMIF_Type *base, cy_en_smif_slave_select_t slave);
+void Cy_SMIF_MemDisableFWCalibration(SMIF_Type *base, cy_en_smif_slave_select_t slave);
 
 cy_en_smif_status_t Cy_SMIF_SetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_t slave,
                                     cy_en_smif_mem_data_line_t data_line, uint8_t tapSel);

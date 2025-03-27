@@ -17,6 +17,11 @@ var searchData=
   ['cy_5fcordic_5f8q23_5ft',['CY_CORDIC_8Q23_t',['../group__group__cordic__data__structures.html#ga9e09527eb6c8cf8ec516e3d415c8661a',1,'cy_cordic.h']]],
   ['cy_5fcordic_5fq31_5ft',['CY_CORDIC_Q31_t',['../group__group__cordic__data__structures.html#gaeeb13163359361a1a1bc36c6372d6531',1,'cy_cordic.h']]],
   ['cy_5fcrypto_5fcallback_5fptr_5ft',['cy_crypto_callback_ptr_t',['../group__group__crypto__config__structure.html#ga007ebc02b80ed1e6beacc6cb749a2941',1,'cy_crypto_common.h']]],
+  ['cy_5fcryptolite_5fed25519_5fsha512_5ffinish_5ft',['cy_cryptolite_ed25519_sha512_finish_t',['../group__group__cryptolite__lld__asymmetric__functions.html#ga5fde282bff76e1649bcaafd992c0a549',1,'cy_cryptolite_ecdsa.h']]],
+  ['cy_5fcryptolite_5fed25519_5fsha512_5ffree_5ft',['cy_cryptolite_ed25519_sha512_free_t',['../group__group__cryptolite__lld__asymmetric__functions.html#gaf14f955ab143879a414a7a31aff76aa7',1,'cy_cryptolite_ecdsa.h']]],
+  ['cy_5fcryptolite_5fed25519_5fsha512_5finit_5ft',['cy_cryptolite_ed25519_sha512_init_t',['../group__group__cryptolite__lld__asymmetric__functions.html#gafdf03c51442ff5e88b6b19bb4b7ec28c',1,'cy_cryptolite_ecdsa.h']]],
+  ['cy_5fcryptolite_5fed25519_5fsha512_5fstart_5ft',['cy_cryptolite_ed25519_sha512_start_t',['../group__group__cryptolite__lld__asymmetric__functions.html#ga0d14f9b46c20ef7d69679fef91aefeef',1,'cy_cryptolite_ecdsa.h']]],
+  ['cy_5fcryptolite_5fed25519_5fsha512_5fupdate_5ft',['cy_cryptolite_ed25519_sha512_update_t',['../group__group__cryptolite__lld__asymmetric__functions.html#gaa4679df6ed15d5d6f1f465124bee09cc',1,'cy_cryptolite_ecdsa.h']]],
   ['cy_5fephy_5fread_5fhandle',['cy_ephy_read_handle',['../group__group__ephy__data__structures.html#ga9026ac03446eb19032e3d3eaf4cc10a5',1,'cy_ephy.h']]],
   ['cy_5fephy_5fwrite_5fhandle',['cy_ephy_write_handle',['../group__group__ephy__data__structures.html#gae065ec9f5d7028762e4e8fa9660840e5',1,'cy_ephy.h']]],
   ['cy_5fethif_5fbuffpool_5ft',['cy_ethif_buffpool_t',['../group__group__ethif__data__structures.html#ga5fd803e52b06f17344a9f5eba0851adb',1,'cy_ethif.h']]],
@@ -40,6 +45,7 @@ var searchData=
   ['cy_5fstc_5fipc_5fmsg_5fres_5faccess_5fresp_5ft',['cy_stc_ipc_msg_res_access_resp_t',['../group__group__ipc__bt__data__structures.html#gaefbe07b6897b7eb7eaa399bd452b54bb',1,'cy_ipc_bt.h']]],
   ['cy_5fstc_5fipc_5fmsg_5ftrng_5ft',['cy_stc_ipc_msg_trng_t',['../group__group__ipc__bt__data__structures.html#ga68704d4af14b2a9fccefc59cdf006751',1,'cy_ipc_bt.h']]],
   ['cy_5fstc_5fprofile_5fctr_5fptr_5ft',['cy_stc_profile_ctr_ptr_t',['../group__group__profile__data__structures.html#gac954b1f2e2b8fc00b15f89c0b1fe372e',1,'cy_profile.h']]],
+  ['cy_5fsyslib_5flcs_5fdata_5ft',['cy_syslib_lcs_data_t',['../group__group__syslib__macros.html#gadbea1421faf52e66ab5190e91b2fca74',1,'cy_syslib.h']]],
   ['cy_5fsyspmcallback',['Cy_SysPmCallback',['../group__group__syspm__data__structures.html#ga0b54e47bca8fb045d86884a9b3d12067',1,'cy_syspm.h']]],
   ['cy_5fsystick_5fcallback',['Cy_SysTick_Callback',['../group__group__systick__data__structures.html#ga4aa1602b88172949b1b1564c590a56ff',1,'cy_systick.h']]]
 ];

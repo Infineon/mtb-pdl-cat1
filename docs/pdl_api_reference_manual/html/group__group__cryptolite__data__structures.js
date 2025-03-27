@@ -4,6 +4,14 @@ var group__group__cryptolite__data__structures =
     [ "cy_stc_cryptolite_aes_ccm_buffers_t", "structcy__stc__cryptolite__aes__ccm__buffers__t.html", null ],
     [ "cy_stc_cryptolite_aes_state_t", "structcy__stc__cryptolite__aes__state__t.html", null ],
     [ "cy_stc_cryptolite_aes_ccm_state_t", "structcy__stc__cryptolite__aes__ccm__state__t.html", null ],
+    [ "cy_stc_cryptolite_ed25519_sha512_t", "structcy__stc__cryptolite__ed25519__sha512__t.html", [
+      [ "shactx", "structcy__stc__cryptolite__ed25519__sha512__t.html#a7e9d26c6b6455d6a1ffced346ea3c5d6", null ],
+      [ "sha_init", "structcy__stc__cryptolite__ed25519__sha512__t.html#a5739a818ac0e8bbcf2f496fb0fda6077", null ],
+      [ "sha_update", "structcy__stc__cryptolite__ed25519__sha512__t.html#a09fa0dcec4a228d28589d84f99b39c0b", null ],
+      [ "sha_start", "structcy__stc__cryptolite__ed25519__sha512__t.html#a32d575e60d8c16cbf4e774ff05579515", null ],
+      [ "sha_finish", "structcy__stc__cryptolite__ed25519__sha512__t.html#a3c2cb4a271cccffaffc76e3be8f25ad1", null ],
+      [ "sha_free", "structcy__stc__cryptolite__ed25519__sha512__t.html#ab015bc837e9c38898ed4bfa821aaf719", null ]
+    ] ],
     [ "cy_stc_cryptolite_context_ecdsa_t", "structcy__stc__cryptolite__context__ecdsa__t.html", null ],
     [ "cy_stc_cryptolite_context_hmac_sha256_t", "structcy__stc__cryptolite__context__hmac__sha256__t.html", null ],
     [ "cy_stc_cryptolite_rsa_pub_key_t", "structcy__stc__cryptolite__rsa__pub__key__t.html", [

@@ -114,6 +114,10 @@
     #include "cyw20829b0010.h"
 #elif defined (CYW20829B0021)
     #include "cyw20829b0021.h"
+#elif defined (CYW20829B1240)
+    #include "cyw20829b1240.h"
+#elif defined (CYW20829B1340)
+    #include "cyw20829b1340.h"
 #elif defined (PSC3M5FDS2AFQ1)
     #include "psc3m5fds2afq1.h"
 #elif defined (PSC3M5FDS2LGQ1)

@@ -35,5 +35,11 @@ var group__group__cryptolite__enums =
       [ "CY_CRYPTOLITE_ENCRYPT", "group__group__cryptolite__enums.html#ggaf5b43a01eda17c36ed35480dd44ded9ca6ae21effbcd68240cfcddbbff9b96ac5", null ],
       [ "CY_CRYPTOLITE_DECRYPT", "group__group__cryptolite__enums.html#ggaf5b43a01eda17c36ed35480dd44ded9cabcf077fc433817831cf65e55edefedf7", null ]
     ] ],
-    [ "cy_en_cryptolite_ecc_curve_id_t", "group__group__cryptolite__enums.html#ga3b051ef176b1e1a9811acbae28eb2360", null ]
+    [ "cy_en_cryptolite_ecc_curve_id_t", "group__group__cryptolite__enums.html#ga3b051ef176b1e1a9811acbae28eb2360", null ],
+    [ "cy_en_cryptolite_eddsa_sig_type_t", "group__group__cryptolite__enums.html#gafa2003583345983638b3326bd52f22cd", [
+      [ "CY_CRYPTOLITE_EDDSA_PURE", "group__group__cryptolite__enums.html#ggafa2003583345983638b3326bd52f22cda1d3d8a51eefa2bfd866b57a88b7e20ca", null ],
+      [ "CY_CRYPTOLITE_EDDSA_CTX", "group__group__cryptolite__enums.html#ggafa2003583345983638b3326bd52f22cda2756c2bdc58d35232056aebc7dd6c9dd", null ],
+      [ "CY_CRYPTOLITE_EDDSA_PREHASH", "group__group__cryptolite__enums.html#ggafa2003583345983638b3326bd52f22cdab357bea5c9698fdec604bd7b6987380f", null ],
+      [ "CY_CRYPTOLITE_EDDSA_NONE", "group__group__cryptolite__enums.html#ggafa2003583345983638b3326bd52f22cda5699a31ef96fec97a5e8c548c881cb98", null ]
+    ] ]
 ];

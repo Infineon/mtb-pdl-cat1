@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_mpc.h
-* \version 1.0
+* \version 1.1
 *
 * \brief
 * The header file of the MPC driver.
@@ -67,6 +67,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.1</td>
+*     <td>Updated APIs: \ref Cy_Mpc_ConfigRotMpcStruct, \ref Cy_Mpc_ConfigMpcStruct, \ref Cy_Mpc_GetRotBlockAttr, \ref Cy_Mpc_GetBlockAttr.</td>
+*     <td>Code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>1.0</td>
 *     <td>Initial version</td>
 *     <td></td>
@@ -109,7 +114,7 @@ extern "C" {
 #define CY_MPC_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_MPC_DRV_VERSION_MINOR       0
+#define CY_MPC_DRV_VERSION_MINOR       1
 
 /** Get size of block for a particular region size */
 #define CY_MPC_GET_BLOCK_SIZE(region)           (1UL << ((uint32_t)region + 5UL))

@@ -290,7 +290,7 @@ typedef enum {
 #define CY_HF_CLK_MAX_FREQ              96000000UL
 
 
-#include "system_cat1b.h"                       /*!< Category 1B System */
+#include "system_cat1b.h"
 
 #include "cyw20829_config.h"
 #include "gpio_cyw20829_40_qfn.h"
@@ -804,7 +804,7 @@ typedef enum {
 #define PWRMODE_PD14                            ((PWRMODE_PD_Type*) &PWRMODE->PD[14])                             /* 0x402100E0 */
 #define PWRMODE_PD15                            ((PWRMODE_PD_Type*) &PWRMODE->PD[15])                             /* 0x402100F0 */
 #define PWRMODE_PPU_MAIN                        ((PWRMODE_PPU_MAIN_Type*) &PWRMODE->PPU_MAIN)                     /* 0x40211000 */
-#define PWRMODE_PPU_MAIN_PPU                    ((PWRMODE_PPU_MAIN_PPU_Type*) &PWRMODE->PPU_MAIN.PPU)             /* 0x40211000 */
+#define PWRMODE_PPU_MAIN_PPU_MAIN               ((PWRMODE_PPU_MAIN_PPU_MAIN_Type*) &PWRMODE->PPU_MAIN.PPU_MAIN)   /* 0x40211000 */
 
 /*******************************************************************************
 *                                    BACKUP
@@ -959,6 +959,16 @@ typedef enum {
 #define BTSS_BASE                               0x42000000UL
 #define BTSS                                    ((BTSS_Type*) BTSS_BASE)                                          /* 0x42000000 */
 #define BTSS_DATA_RAM_IPC                       ((BTSS_DATA_RAM_IPC_Type*) &BTSS->DATA_RAM_IPC)                   /* 0x42600000 */
+
+/*******************************************************************************
+*                                     CM33
+*******************************************************************************/
+
+#define CM33_BASE                               0xE0000000UL
+#define CM33                                    ((CM33_Type*) CM33_BASE)                                          /* 0xE0000000 */
+#define CM33_CTI                                ((CM33_CTI_Type*) &CM33->CTI)                                     /* 0xE0042000 */
+#define CM33_TRC                                ((CM33_TRC_Type*) &CM33->TRC)                                     /* 0xE0080000 */
+#define CM33_TRC_CTI                            ((CM33_TRC_CTI_Type*) &CM33->TRC.CTI)                             /* 0xE0080000 */
 
 /** \} CYW89829B0022 */
 

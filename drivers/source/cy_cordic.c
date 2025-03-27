@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cordic.c
-* \version 2.00
+* \version 2.10
 *
 * \brief
 * Provides API implementation of the CORDIC driver.

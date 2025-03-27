@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.120
+* \version 2.130
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
@@ -234,6 +234,15 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>2.130</td>
+*     <td> Updated APIs : \n
+*         \ref Cy_SMIF_Init, \ref Cy_SMIF_InitCache, \ref Cy_SMIF_Clean_All_Cache, \ref Cy_SMIF_Invalidate_All_Cache,
+*          \ref Cy_SMIF_Clean_And_Invalidate_All_Cache, \ref Cy_SMIF_Clean_Cache_by_Addr, \ref Cy_SMIF_Invalidate_Cache_by_Addr
+*          \ref Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr, \ref Cy_SMIF_MemInitSfdpMode.
+*     </td>
+*     <td> Updated secure interface to Align secure services with TFM and Bug Fixes</td>
+*   </tr>
+*   <tr>
 *     <td>2.120</td>
 *     <td>Added APIs for MDL and SDL tap settings:\n
 *        \ref Cy_SMIF_Set_DelayTapSel\n
@@ -243,7 +252,6 @@
 *        \ref Cy_SMIF_IsBridgeOn\n
 *        \ref Cy_SMIF_Bridge_Enable\n\n
 *         Added configurable TX SDR Extra support during SMIF initialized.\n\n
-*         Bug fixes and code enhancements.
 *     </td>
 *     <td>New device support added for Traveo II Cluster.</td>
 *   </tr>
@@ -649,7 +657,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       120
+#define CY_SMIF_DRV_VERSION_MINOR       130
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)
@@ -1081,6 +1089,7 @@ typedef enum
     CY_SMIF_CMD_ERROR,     /**< A TX CMD FIFO overflow. */
     CY_SMIF_TX_ERROR,      /**< A TX DATA FIFO overflow. */
     CY_SMIF_RX_ERROR       /**< An RX DATA FIFO underflow. */
+
 } cy_en_smif_txfr_status_t;
 
 /** The SMIF API return values. */
@@ -1463,10 +1472,10 @@ typedef struct
     bool                        enable_internal_dll;  /**< Enables internal DLL. Default value by passes DLL */
     cy_en_smif_dll_divider_t    dll_divider_value;    /**< Divider value for DLL */
     cy_en_cy_smif_mdl_tap_sel_t mdl_tap;              /**< Delay tap for DLL MDL */ 
-    cy_en_cy_smif_sdl_tap_sel_t device0_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[0]. Only relevant in XIP mode. */
-    cy_en_cy_smif_sdl_tap_sel_t device1_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[1]. Only relevant in XIP mode. */
-    cy_en_cy_smif_sdl_tap_sel_t device2_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[2]. Only relevant in XIP mode. */
-    cy_en_cy_smif_sdl_tap_sel_t device3_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[3]. Only relevant in XIP mode. */
+    cy_en_cy_smif_sdl_tap_sel_t device0_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[0]. */
+    cy_en_cy_smif_sdl_tap_sel_t device1_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[1]. */
+    cy_en_cy_smif_sdl_tap_sel_t device2_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[2]. */
+    cy_en_cy_smif_sdl_tap_sel_t device3_sdl_tap;      /**< Delay tap (pos and neg) for DLL SDL timings on Device[3]. */
     cy_en_smif_capture_mode_t   rx_capture_mode;      /**< RX Capture mode used in CAT1C (TVIIC2D6M) and CAT1D Devices */
     cy_en_smif_tx_sdr_extra_t   tx_sdr_extra;         /**< TX SDR Extra used in CAT1C (TVIIC2D6M) and CAT1D Devices */
 #endif
@@ -1528,6 +1537,17 @@ typedef struct
     uint32_t flags;
 #endif /* CY_IP_MXSMIF_VERSION */
 } cy_stc_smif_context_t;
+
+#if (CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
+
+ /** Specifies SMIF Crypto Region configuration. */
+typedef struct{
+    uint32_t key[4];                   /**< Specifies the AES key application for the region. */
+    uint32_t iv[4];                    /**< Specifies the Crypto IV for the region */
+    uint32_t *region_base_address;     /**< Specifies the base address for the region. */
+    uint32_t region_size;              /**< Specifies the size of the memory region. */
+}cy_stc_smif_crypto_region_config_t;
+#endif
 
 #if (CY_IP_MXSMIF_VERSION>=6) || defined (CY_DOXYGEN)
 /** Specifies SMIF cache region configuration. */
@@ -1695,21 +1715,34 @@ void Cy_SMIF_SetCryptoKey(SMIF_Type *base, uint32_t *key);
 void Cy_SMIF_SetCryptoIV(SMIF_Type *base, uint32_t *nonce);
 cy_en_smif_status_t Cy_SMIF_SetCryptoEnable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
 cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_select_t slaveId);
+cy_en_smif_status_t Cy_SMIF_IsCryptoEnabled(SMIF_Type *base, cy_en_smif_slave_select_t slaveId, bool *crypto_status);
+
+#if (CY_IP_MXSMIF_VERSION>=5)
+cy_en_smif_status_t Cy_SMIF_SetCryptoKeyRegion(SMIF_Type *base,        uint8_t crypto_region_index, cy_stc_smif_crypto_region_config_t *region_config);
+cy_en_smif_status_t Cy_SMIF_SetCryptoSubRegionDisable(SMIF_Type *base,          uint8_t crypto_region_index, uint8_t mask);
+#endif //(CY_IP_MXSMIF_VERSION>=5) || defined (CY_DOXYGEN)
+
 cy_en_smif_status_t Cy_SMIF_ConvertSlaveSlotToIndex(cy_en_smif_slave_select_t ss, uint32_t *device_idx);
-#if (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN)
+
+#if (defined (CY_IP_MXSMIF_VERSION) && (CY_IP_MXSMIF_VERSION>=4)) || defined (CY_DOXYGEN)
 cy_en_smif_status_t Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture_mode_t mode, cy_en_smif_slave_select_t slaveId);
+#if (defined (SMIF_BRIDGE_PRESENT) && (SMIF_BRIDGE_PRESENT == 1u)) || defined (CY_DOXYGEN)
+bool Cy_SMIF_IsBridgeOn(SMIF_Base_Type *base);
+cy_en_smif_status_t Cy_SMIF_Bridge_Enable(SMIF_Base_Type *base, bool enable);
+#endif /* (defined (SMIF_BRIDGE_PRESENT) && (SMIF_BRIDGE_PRESENT == 1u)) */
+#endif  /* (CY_IP_MXSMIF_VERSION>=4) */
+
+#if ((CY_IP_MXSMIF_VERSION>=4) && \
+     ((defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0)) || \
+      (defined (SMIF0_DLP_PRESENT) && (SMIF0_DLP_PRESENT > 0)) || \
+      (defined (SMIF1_DLP_PRESENT) && (SMIF1_DLP_PRESENT > 0))) || defined (CY_DOXYGEN))
 cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t size);
 uint16_t Cy_SMIF_GetMasterDLP(SMIF_Type *base);
 uint8_t Cy_SMIF_GetMasterDLPSize(SMIF_Type *base);
 uint8_t Cy_SMIF_GetTapNumCapturedCorrectDLP(SMIF_Type *base, uint8_t bit);
 uint32_t CY_SMIF_GetDelayTapsNumber(volatile void *base);
 
-#if (defined (SMIF_BRIDGE_PRESENT) && (SMIF_BRIDGE_PRESENT == 1u)) || defined (CY_DOXYGEN)
-bool Cy_SMIF_IsBridgeOn(SMIF_Base_Type *base);
-cy_en_smif_status_t Cy_SMIF_Bridge_Enable(SMIF_Base_Type *base, bool enable);
-#endif /* (defined (SMIF_BRIDGE_PRESENT) && (SMIF_BRIDGE_PRESENT == 1u)) */
-
-#endif /* CY_IP_MXSMIF_VERSION>=4 */
+#endif /* CY_IP_MXSMIF_VERSION>=4 && DLP_PRESENT */
 
 #if (CY_IP_MXSMIF_VERSION >= 6) || defined (CY_DOXYGEN)
 cy_en_smif_status_t Cy_SMIF_InitCache(SMIF_CACHE_BLOCK_Type *base, const cy_stc_smif_cache_config_t *cache_config);
@@ -1721,6 +1754,7 @@ cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_All_Cache(SMIF_CACHE_BLOCK_Type
 cy_en_smif_status_t Cy_SMIF_Clean_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size);
 cy_en_smif_status_t Cy_SMIF_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size);
 cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size);
+cy_en_smif_status_t Cy_SMIF_IsCacheEnabled(SMIF_CACHE_BLOCK_Type *base, bool *cache_status);
 #endif
 
 /** \addtogroup group_smif_functions_syspm_callback

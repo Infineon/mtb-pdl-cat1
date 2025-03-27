@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.c
-* \version 1.130
+* \version 1.140
 *
 * Provides an API implementation of the GPIO driver
 *
@@ -157,8 +157,8 @@ cy_en_gpio_status_t Cy_GPIO_Pin_Init(GPIO_PRT_Type *base, uint32_t pinNum, const
 #else
         CY_ASSERT_L2(CY_GPIO_IS_SLEW_RATE_VALID(config->slewRate));
 #if ((defined (IOSS_HSIOM_HSIOM_SEC_PORT_NR) && (IOSS_HSIOM_HSIOM_SEC_PORT_NR != 0)) || (CPUSS_CM33_0_SECEXT_PRESENT != 0))
-        CY_ASSERT_L2(CY_GPIO_IS_HSIOM_SEC_VALID(config->nonSec));
-        Cy_GPIO_SetHSIOM_SecPin(base, pinNum, config->nonSec);
+        /* Set HSIOM NONSECURE_MASK for Secure access to be able to configure pin in Secure mode */
+        Cy_GPIO_SetHSIOM_SecPin(base, pinNum, CY_GPIO_HSIOM_SECURE_ACCESS);
 #endif /* IOSS_HSIOM_HSIOM_SEC_PORT_NR, CPUSS_CM33_0_SECEXT_PRESENT */
         Cy_GPIO_SetSlewRate(base, pinNum, config->slewRate);
         Cy_GPIO_SetDriveSel(base, pinNum, config->driveSel);
@@ -210,6 +210,13 @@ cy_en_gpio_status_t Cy_GPIO_Pin_Init(GPIO_PRT_Type *base, uint32_t pinNum, const
 
         Cy_GPIO_Write(base, pinNum, config->outVal);
 
+#if ((defined (IOSS_HSIOM_HSIOM_SEC_PORT_NR) && (IOSS_HSIOM_HSIOM_SEC_PORT_NR != 0)) || \
+    (defined (CPUSS_CM33_0_SECEXT_PRESENT) && (CPUSS_CM33_0_SECEXT_PRESENT != 0)))
+        /* Set HSIOM NONSECURE_MASK as per configurator's settings */
+        CY_ASSERT_L2(CY_GPIO_IS_HSIOM_SEC_VALID(config->nonSec));
+        Cy_GPIO_SetHSIOM_SecPin(base, pinNum, config->nonSec);
+#endif /* IOSS_HSIOM_HSIOM_SEC_PORT_NR, CPUSS_CM33_0_SECEXT_PRESENT */
+
         status = CY_GPIO_SUCCESS;
     }
 
@@ -253,7 +260,7 @@ cy_en_gpio_status_t Cy_GPIO_Port_Init(GPIO_PRT_Type* base, const cy_stc_gpio_prt
     {
         uint32_t portNum;
         HSIOM_PRT_V1_Type* baseHSIOM;
-#if (defined (CY_IP_MXS40SIOSS) &&  ((IOSS_HSIOM_HSIOM_SEC_PORT_NR != 0) || (CPUSS_CM33_0_SECEXT_PRESENT != 0)))  || defined (CY_IP_MXS22IOSS)
+#if (defined (CY_IP_MXS40SIOSS) &&  ((IOSS_HSIOM_HSIOM_SEC_PORT_NR != 0) || ( defined (CY_IP_MXS40SIOSS) && (CPUSS_CM33_0_SECEXT_PRESENT != 0)) ))  || defined (CY_IP_MXS22IOSS)
         HSIOM_SECURE_PRT_Type *baseSecHSIOM;
 #else
 #if (CY_CPU_CORTEX_M4) && defined(CY_DEVICE_SECURE)
@@ -539,7 +546,7 @@ void Cy_GPIO_Pin_SecFastInit(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t driv
     uint32_t tempRegCfg3;
 #endif /* CY_IP_MXS22IOSS */
 
-    Cy_GPIO_SetHSIOM_SecPin(base, pinNum, 0UL); /* make the pin as secure */
+    Cy_GPIO_SetHSIOM_SecPin(base, pinNum, CY_GPIO_HSIOM_SECURE_ACCESS); /* make the pin as secure */
 
     Cy_GPIO_SetHSIOM(base, pinNum, hsiom);
 
@@ -2014,10 +2021,10 @@ uint32_t Cy_GPIO_GetDriveSel(GPIO_PRT_Type* base, uint32_t pinNum)
 * \return
 * void
 *
-* \note 
+* \note
 * This function modifies a port register in a read-modify-write operation. It is
 * not thread safe as the resource is shared among multiple pins on a port.
-*   
+*
 *******************************************************************************/
 void Cy_GPIO_SetDriveSelTrim(GPIO_PRT_Type* base, uint32_t pinNum, uint32_t value)
 {

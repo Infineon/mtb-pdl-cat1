@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_ec25519.c
-* \version 2.140
+* \version 2.150
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC EC25519
@@ -61,7 +61,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_EC25519_Mont_ladder (CRYPTO_Type *base, cy_
 * Function Name: Cy_Crypto_Core_EC25519_Mont_ladder
 ****************************************************************************//**
 *
-* EC 25519 multiplication with montogomry ladder
+* EC 25519 multiplication with montgomery ladder
 *
 * \param base
 * The pointer to a Crypto instance.
@@ -216,6 +216,8 @@ cy_en_crypto_status_t Cy_Crypto_Core_EC25519_Mont_ladder (CRYPTO_Type *base, cy_
 *
 * EC25519 Elliptic curve point multiplication in GF(p).
 *
+* For CAT1C & CAT1D devices when D-Cache is enabled parameter p_r, p_x and p_d must align and end in 32 byte boundary.
+*
 * \param base
 * The pointer to a Crypto instance.
 *
@@ -233,6 +235,8 @@ cy_en_crypto_status_t Cy_Crypto_Core_EC25519_Mont_ladder (CRYPTO_Type *base, cy_
 cy_en_crypto_status_t Cy_Crypto_Core_EC25519_PointMultiplication(CRYPTO_Type *base, uint8_t *p_r, const uint8_t *p_x, const uint8_t *p_d)
 {
     /* Note: Pre conditions 0 < px, py < p-1 (consider randomizing the base point)*/
+    /* DCache coherency for p_x,p_d and p_r are done by calls to Cy_Crypto_Core_Vu_SetMemValue and Cy_Crypto_Core_Vu_GetMemValue
+       no separate cache clean/invalidate required **/
 
     uint32_t bitsize;
     uint8_t *pr_Remap;
@@ -245,7 +249,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_EC25519_PointMultiplication(CRYPTO_Type *ba
     uint32_t my_p_x  = 5u;
     uint32_t my_s_z  = 6u;
     uint32_t my_t_x  = 7u;
-     uint32_t my_d   = 9u;
+    uint32_t my_d   = 9u;
 
     cy_en_crypto_status_t tmpResult = CY_CRYPTO_BAD_PARAMS;
 
@@ -323,7 +327,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_EC25519_PointMultiplication(CRYPTO_Type *ba
     Cy_Crypto_Core_Vu_SetMemValue (base, VR_BARRETT, (uint8_t const*)CY_REMAP_ADDRESS_FOR_CRYPTO(edwDp->barrett_p), edwDp->barret_psize);
 
 
-    /*point mul using montgomory ladder*/
+    /*point mul using montgomery ladder*/
     tmpResult = Cy_Crypto_Core_EC25519_Mont_ladder (base, edwDp, my_p_x, my_d, my_t_x, my_s_z);
 
     if(CY_CRYPTO_SUCCESS == tmpResult)
@@ -420,10 +424,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_EC25519_MakePrivateKey(CRYPTO_Type *base,
             {
                 tmpResult = CY_CRYPTO_HW_ERROR;
             }
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-            /* Flush the cache */
-            SCB_CleanDCache_by_Addr((volatile void *)key,(int32_t)bytesize);
-#endif
         }
         else
         {
@@ -474,9 +474,6 @@ cy_en_crypto_status_t Cy_Crypto_Core_EC25519_MakePrivateKey(CRYPTO_Type *base,
             pd_ptr[31] |= 0x40u;
 
             Cy_Crypto_Core_Vu_GetMemValue(base, (uint8_t *)keyRemap, p_key, bitsize);
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-            SCB_InvalidateDCache_by_Addr(key, (int32_t)bytesize);
-#endif
             tmpResult = CY_CRYPTO_SUCCESS;
         }
 
@@ -529,16 +526,9 @@ cy_en_crypto_status_t Cy_Crypto_Core_EC25519_MakePublicKey(CRYPTO_Type *base,
         publicKeyXRemap = (uint8_t *)CY_REMAP_ADDRESS_FOR_CRYPTO(publicKey->pubkey.x);
         curvebasexRemap = (uint8_t *)CY_REMAP_ADDRESS_FOR_CRYPTO(edwDp->Gx);
 
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-        /* Flush the cache */
-        SCB_CleanDCache_by_Addr((volatile void *)privateKey,(int32_t)CY_CRYPTO_BYTE_SIZE_OF_BITS(edwDp->size));
-#endif
         /* make the public key EC scalar multiplication - X-only co-Z arithmetic */
         tmpResult = Cy_Crypto_Core_EC25519_PointMultiplication( base, publicKeyXRemap, (uint8_t const *)curvebasexRemap, (const uint8_t *)privateKeyRemap);
 
-#if (((CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)) || CY_CPU_CORTEX_M55)
-        SCB_InvalidateDCache_by_Addr(publicKey->pubkey.x, (int32_t)CY_CRYPTO_BYTE_SIZE_OF_BITS(edwDp->size));
-#endif
         publicKey->type = PK_PUBLIC;
         publicKey->curveID = curveID;
     }

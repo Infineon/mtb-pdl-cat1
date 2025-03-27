@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.130
+* \version 3.140
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,11 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.140</td>
+*     <td>Update PLL configuration for CAT1D devices.</td>
+*     <td></td>
+*   </tr>
 *   <tr>
 *     <td>3.130</td>
 *     <td>Corrects fractional enable behavior in \ref Cy_SysClk_Pll400MConfigure.  Only enables fractional divider if the fractional divider is non-zero.</td>
@@ -978,7 +983,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   130
+#define  CY_SYSCLK_DRV_VERSION_MINOR   140
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 
@@ -8232,7 +8237,7 @@ bool Cy_SysClk_IsClkRefCsvEnabled(void);
 
 typedef enum
 {
-    CY_SYSCLK_CLKILO_CSV_REF_LF   = 0U,  /**< Only Reference clock is the LF clock Not specifing the source */
+    CY_SYSCLK_CLKILO_CSV_REF_LF   = 0U,  /**< Only Reference clock is the LF clock Not specifying the source */
 } cy_en_clkilo_csv_ref_clk_t;
 
 #endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) */

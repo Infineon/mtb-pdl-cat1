@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['d',['d',['../structcy__stc__crypto__edw__dp__type.html#adfd9ae53ece5052dec95064128054c33',1,'cy_stc_crypto_edw_dp_type']]],
+  ['d',['d',['../structcy__stc__crypto__edw__dp__type.html#adfd9ae53ece5052dec95064128054c33',1,'cy_stc_crypto_edw_dp_type::d()'],['../structcy__stc__cryptolite__ec25519__dp__type.html#a9107df960cfe86a793ec37bc8a988925',1,'cy_stc_cryptolite_ec25519_dp_type::d()']]],
   ['dac',['dac',['../structcy__stc__hppass__slice__t.html#af45607182ddd6c2bdcff8208fdb88f8b',1,'cy_stc_hppass_slice_t']]],
   ['dacout',['dacOut',['../structcy__stc__hppass__csg__t.html#ae094c4ee71404b4656aabdfb73554d4d',1,'cy_stc_hppass_csg_t']]],
   ['data',['data',['../structcy__stc__sd__host__data__config__t.html#a126a82e1490856db29d0289d7a4f7959',1,'cy_stc_sd_host_data_config_t::data()'],['../structcy__stc__sd__host__write__read__config__t.html#af2db79e86da5f8aad3b0f9c8f5809968',1,'cy_stc_sd_host_write_read_config_t::data()']]],
-  ['data0',['data0',['../structcy__stc__smartio__ducfg__t.html#aaf8bfe52c9e7b52a1095c39dfe6d50ef',1,'cy_stc_smartio_ducfg_t']]],
-  ['data1',['data1',['../structcy__stc__smartio__ducfg__t.html#a5e8a7354a6e2cb155d5403046e3f3f3c',1,'cy_stc_smartio_ducfg_t']]],
   ['data_5farea_5ff',['data_area_f',['../structcy__stc__canfd__rx__buffer__t.html#a0db6cdd9b30082a0639b997703f2aec1',1,'cy_stc_canfd_rx_buffer_t::data_area_f()'],['../structcy__stc__canfd__tx__buffer__t.html#a5ea9b11312a86308081d1afbb7774b30',1,'cy_stc_canfd_tx_buffer_t::data_area_f()']]],
   ['data_5flen',['data_len',['../struct_b_t_h_c_i___s_c_o___h_d_r__t.html#a95a8b99912e68b3a87b6de0053109275',1,'BTHCI_SCO_HDR_t']]],
   ['dataaddr',['dataAddr',['../structcy__stc__flash__programrow__config__t.html#a05a77b51d558ae89110455faa5a9f265',1,'cy_stc_flash_programrow_config_t']]],
@@ -13,7 +11,6 @@ var searchData=
   ['dataprefetch',['dataPrefetch',['../structcy__stc__axidmac__descriptor__config__t.html#a97a18cb9128d055ca98eaacf4b661ca0',1,'cy_stc_axidmac_descriptor_config_t::dataPrefetch()'],['../structcy__stc__dmac__descriptor__config__t.html#a642fe60a0744a3721c1b20005a8a9870',1,'cy_stc_dmac_descriptor_config_t::dataPrefetch()']]],
   ['datapresent',['dataPresent',['../structcy__stc__sd__host__cmd__config__t.html#a7dd581c8b87c708d1cea25ee455ad79a',1,'cy_stc_sd_host_cmd_config_t']]],
   ['datarate',['dataRate',['../structcy__stc__smif__mem__cmd__t.html#a9bbce9baffabb885847bb64b5ee63d02',1,'cy_stc_smif_mem_cmd_t']]],
-  ['datareg',['dataReg',['../structcy__stc__smartio__ducfg__t.html#a06091267580643c60580376bd1524451',1,'cy_stc_smartio_ducfg_t']]],
   ['datareverse',['dataReverse',['../structcy__stc__dma__crc__config__t.html#acc5d2168ecef8a82b46614f861f0985c',1,'cy_stc_dma_crc_config_t']]],
   ['dataselect',['dataSelect',['../structcy__stc__smif__mem__config__t.html#afd4726ab3b952fa7b320899f496e1d17',1,'cy_stc_smif_mem_config_t']]],
   ['datasize',['dataSize',['../structcy__stc__dma__descriptor__config__t.html#ab91e69de7bf26cba25353fe627e5faf2',1,'cy_stc_dma_descriptor_config_t::dataSize()'],['../structcy__stc__dmac__descriptor__config__t.html#a7f23f95c4fc072b1aafbde341dd9a683',1,'cy_stc_dmac_descriptor_config_t::dataSize()'],['../structcy__stc__flash__programrow__config__t.html#ac95fdc33fed99cd4a6d478aa2f26b354',1,'cy_stc_flash_programrow_config_t::dataSize()']]],
@@ -106,7 +103,6 @@ var searchData=
   ['dstyincrement',['dstYincrement',['../structcy__stc__axidmac__descriptor__config__t.html#a1ab13aae930aec660068f3e47aee4fcd',1,'cy_stc_axidmac_descriptor_config_t::dstYincrement()'],['../structcy__stc__dma__descriptor__config__t.html#afb2f61e8c6c07c5dde46b9a3407f526b',1,'cy_stc_dma_descriptor_config_t::dstYincrement()'],['../structcy__stc__dmac__descriptor__config__t.html#a0d7425723f735c43d9f9c3d5add46051',1,'cy_stc_dmac_descriptor_config_t::dstYincrement()']]],
   ['dtcal',['dtCal',['../structcy__stc__dpll__hp__config__t.html#aadb0a58406c26720d4042f957aa53b83',1,'cy_stc_dpll_hp_config_t']]],
   ['dualquadslots',['dualQuadSlots',['../structcy__stc__smif__mem__config__t.html#ad85fa341a6d7c5fe4663e2c50217ca38',1,'cy_stc_smif_mem_config_t']]],
-  ['ducfg',['duCfg',['../structcy__stc__smartio__config__t.html#aa0f8f1f60e5713c1af42d01ace046f04',1,'cy_stc_smartio_config_t']]],
   ['dummy1',['dummy1',['../group__group__ipc__bt__data__structures.html#ga415d5081c9377679ca45754df50b537f',1,'cy_ipc_bt.h']]],
   ['dummy2',['dummy2',['../group__group__ipc__bt__data__structures.html#ga0fa8c6c127a25610178cfc976824d60d',1,'cy_ipc_bt.h']]],
   ['dummy3',['dummy3',['../group__group__ipc__bt__data__structures.html#gac17223fdd9908df56a7007fd2d0e92dd',1,'cy_ipc_bt.h']]],

@@ -609,6 +609,7 @@ typedef enum
 #include "ip/cyip_pdm.h"
 #include "ip/cyip_mxkeyscan.h"
 #include "ip/cyip_btss.h"
+#include "ip/cyip_cm33.h"
 
 /* Parameter Defines */
 /* Number of TTCAN instances */
@@ -2717,12 +2718,12 @@ typedef enum
     PROT_EFUSE_DATA_BOOT1           = 131,      /* Address 0x40810800, size 0x00000020 */
     PROT_EFUSE_DATA_BOOT2           = 132,      /* Address 0x40810820, size 0x00000010 */
     PROT_EFUSE_DATA_BOOT3           = 133,      /* Address 0x40810830, size 0x00000004 */
-    PROT_EFUSE_DATA_BLESS1          = 134,      /* Address 0x40810834, size 0x00000004 */
-    PROT_EFUSE_DATA_BLESS2          = 135,      /* Address 0x40810838, size 0x00000004 */
-    PROT_EFUSE_DATA_BLESS3          = 136,      /* Address 0x4081083c, size 0x00000004 */
-    PROT_EFUSE_DATA_APP1            = 137,      /* Address 0x40810840, size 0x00000010 */
-    PROT_EFUSE_DATA_APP2            = 138,      /* Address 0x40810850, size 0x00000010 */
-    PROT_EFUSE_DATA_APP3            = 139,      /* Address 0x40810860, size 0x00000010 */
+    PROT_EFUSE_DATA_APP1            = 134,      /* Address 0x40810834, size 0x00000004 */
+    PROT_EFUSE_DATA_APP2            = 135,      /* Address 0x40810838, size 0x00000004 */
+    PROT_EFUSE_DATA_BLESS1          = 136,      /* Address 0x4081083c, size 0x00000004 */
+    PROT_EFUSE_DATA_APP3            = 137,      /* Address 0x40810840, size 0x00000010 */
+    PROT_EFUSE_DATA_APP4            = 138,      /* Address 0x40810850, size 0x00000010 */
+    PROT_EFUSE_DATA_BLESS2          = 139,      /* Address 0x40810860, size 0x00000010 */
     PROT_EFUSE_DATA_ALL             = 140,      /* Address 0x40810870, size 0x00000010 */
     PROT_SMIF0_MAIN                 = 141,      /* Address 0x40890000, size 0x00001000 */
     PROT_SMIF0_MPC0_PPC_MPC_MAIN    = 142,      /* Address 0x40891000, size 0x00000040 */

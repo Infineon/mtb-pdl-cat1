@@ -77,14 +77,6 @@ static cy_en_hppass_status_t Cy_HPPASS_ApplyTrims(void)
             * trimAddr = infraTrims->entry[i].value;
         }
 
-        /* Copy SAR ADC calibration default values from SFLASH */
-        HPPASS_SAR_CALOFFST(HPPASS_BASE, 0U) = SFLASH_SAR_CALOFFST_0_25C;
-        HPPASS_SAR_CALOFFST(HPPASS_BASE, 1U) = SFLASH_SAR_CALOFFST_1_25C;
-        HPPASS_SAR_CALOFFST(HPPASS_BASE, 2U) = SFLASH_SAR_CALOFFST_2_25C;
-        HPPASS_SAR_CALOFFST(HPPASS_BASE, 3U) = SFLASH_SAR_CALOFFST_3_25C;
-        HPPASS_SAR_CALGAINC(HPPASS_BASE) = SFLASH_SAR_CALGAINC;
-        HPPASS_SAR_CALGAINF(HPPASS_BASE) = SFLASH_SAR_CALGAINF;
-
         for (uint8_t i = 0U; i < CY_HPPASS_SAR_CAL_LIN_TABLE_SIZE; i++)
         {
             HPPASS_SAR_CALLIN(HPPASS_BASE, i) = SFLASH_SAR_CAL_LIN_TABLE(i);

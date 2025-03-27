@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_hppass_ac.h
-* \version 1.20
+* \version 1.30
 *
 * Header file for the Autonomous Controller (AC) subsystem of
 * the High Performance Programmable Analog Sub-System (HPPASS).
@@ -157,7 +157,7 @@ extern "C" {
 #define CY_HPPASS_DRV_VERSION_MAJOR 1
 
 /** Driver minor version */
-#define CY_HPPASS_DRV_VERSION_MINOR 20
+#define CY_HPPASS_DRV_VERSION_MINOR 30
 
 /** The driver identifier for the High Performance Programmable Analog Sub-System */
 #define CY_HPPASS_ID                CY_PDL_DRV_ID(0x77UL)

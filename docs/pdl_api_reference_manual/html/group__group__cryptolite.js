@@ -4,7 +4,7 @@ var group__group__cryptolite =
     [ "Message Authentication Code (HMAC, CMAC)", "group__group__cryptolite__lld__mac.html", "group__group__cryptolite__lld__mac" ],
     [ "Symmetric Key Algorithm (AES)", "group__group__cryptolite__lld__aes.html", "group__group__cryptolite__lld__aes" ],
     [ "Key Derivative Function (HKDF)", "group__group__cryptolite__lld__kdf.html", "group__group__cryptolite__lld__kdf" ],
-    [ "Asymmetric Key Algorithm (RSA,ECP,ECDSA)", "group__group__cryptolite__lld__asymmetric.html", "group__group__cryptolite__lld__asymmetric" ],
+    [ "Asymmetric Key Algorithm (RSA,ECP,ECDSA,EDDSA)", "group__group__cryptolite__lld__asymmetric.html", "group__group__cryptolite__lld__asymmetric" ],
     [ "Key Generation (ECP)", "group__group__cryptolite__lld__keygen.html", "group__group__cryptolite__lld__keygen" ],
     [ "Random Number Generation(TRNG)", "group__group__cryptolite__lld__random__number.html", "group__group__cryptolite__lld__random__number" ],
     [ "Vector Unit (VU)", "group__group__cryptolite__lld__vu.html", "group__group__cryptolite__lld__vu" ],

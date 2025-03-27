@@ -370,7 +370,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the handler address for the given PC. </p>
-<p>This is used to detect entry to Cypress "trusted" code through an exception/interrupt</p>
+<p>This is used to detect entry to Cypress "trusted" code through an exception/interrupt.</p>
+<dl class="section note"><dt>Note</dt><dd>The function can't update the handler address for the PC lower than the current application's PC. For example, if the application is running in PC2 it can't update handler address for PC0 or PC1.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pc</td><td>Protection context for which the handler is being set</td></tr>

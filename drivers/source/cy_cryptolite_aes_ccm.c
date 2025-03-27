@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_aes_ccm.c
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  Provides API implementation of the Cryptolite AES CCM PDL driver.
@@ -181,7 +181,7 @@ static cy_en_cryptolite_status_t Cy_Cryptolite_Aes_Ccm_Initial_Block(CRYPTOLITE_
          size_left >>= 8u;
     }
 
-    // Performs the CBC MAC update operation for the Initial Block data formated with flags and length
+    // Performs the CBC MAC update operation for the Initial Block data formatted with flags and length
     status = Cy_Cryptolite_Aes_CbcMac_Update(base, CY_CRYPTOLITE_AES_BLOCK_SIZE, aesCcmState->y, &aesCcmState->aesCbcMacState);
     if(CY_CRYPTOLITE_SUCCESS != status)
     {

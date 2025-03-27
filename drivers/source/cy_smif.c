@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.c
-* \version 2.120
+* \version 2.130
 *
 * \brief
 *  This file provides the source code for the SMIF driver APIs.
@@ -32,7 +32,7 @@
 
 #include "cy_smif.h"
 #include "cy_sysclk.h"
-#if (CY_IP_MXSMIF_VERSION >= 6U) && !defined (COMPONENT_SECURE_DEVICE)
+#if defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1) && (CY_IP_MXSMIF_VERSION >= 6U) && !defined (COMPONENT_SECURE_DEVICE)
 #include "cy_secure_services.h"
 #endif
 
@@ -94,8 +94,8 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
     CY_ASSERT_L3(CY_SMIF_CLOCK_SEL_VALID(config->rxClockSel));
 #endif
 
-    /* Ensure SMIFv4 uses DLL, as SMIFv4 use of the DLL is mandatory and cannot be bypassed. */
 #if (CY_IP_MXSMIF_VERSION == 4)
+    /* Ensure SMIFv4 uses DLL, as SMIFv4 use of the DLL is mandatory and cannot be bypassed. */
     if (config->enable_internal_dll != true)
     {
         return CY_SMIF_BAD_PARAM;
@@ -105,37 +105,33 @@ cy_en_smif_status_t Cy_SMIF_Init(SMIF_Type *base,
     result = Cy_SMIF_Bridge_Enable(SMIF0, false);
 #endif
 
+    /* Initialize context parameters */
+    context->txBufferAddress = NULL;
+    context->txBufferSize = 0U;
+    context->txBufferCounter = 0U;
+    context->rxBufferAddress = NULL;
+    context->rxBufferSize = 0U;
+    context->rxBufferCounter = 0U;
+    context->transferStatus = CY_SMIF_STARTED;
+    context->txCompleteCb = NULL;
+    context->rxCompleteCb = NULL;
+    context->timeout = timeout;
+    context->memReadyPollDelay = 0U;
+#if (CY_IP_MXSMIF_VERSION >= 2)
+    context->preCmdDataRate = CY_SMIF_SDR;
+    context->preCmdWidth = CY_SMIF_WIDTH_SINGLE;
+    context->preXIPDataRate = CY_SMIF_SDR;
+    context->dummyCycles = 0U;
+    context->flags = 0U;
+#endif
+
     /* The SMIF CTL and CTL2 registers cannot be modified while the SMIF is enabled in XIP mode. */
     uint32_t smif_ctl_value = SMIF_CTL(base);
-    if (((_FLD2VAL(SMIF_CTL_ENABLED, smif_ctl_value) == 1U) && (_FLD2VAL(SMIF_CTL_XIP_MODE, smif_ctl_value) == 1U)))
+    if (!((_FLD2VAL(SMIF_CTL_ENABLED, smif_ctl_value) == 1U) && (_FLD2VAL(SMIF_CTL_XIP_MODE, smif_ctl_value) == 1U)))
     {
-        result = CY_SMIF_GENERAL_ERROR;
-    }
-
-    /* If the input parameters and conditions are OK, then proceed with configuring SMIF registers. */
-    if (result == CY_SMIF_SUCCESS) {
         /* Construct the SMIF CTL register value, starting from register defaults. */
         uint32_t tmp_ctl = CY_SMIF_CTL_REG_DEFAULT;
 
-        /* Initialize context parameters */
-        context->txBufferAddress = NULL;
-        context->txBufferSize = 0U;
-        context->txBufferCounter = 0U;
-        context->rxBufferAddress = NULL;
-        context->rxBufferSize = 0U;
-        context->rxBufferCounter = 0U;
-        context->transferStatus = CY_SMIF_STARTED;
-        context->txCompleteCb = NULL;
-        context->rxCompleteCb = NULL;
-        context->timeout = timeout;
-        context->memReadyPollDelay = 0U;
-#if (CY_IP_MXSMIF_VERSION >= 2)
-        context->preCmdDataRate = CY_SMIF_SDR;
-        context->preCmdWidth = CY_SMIF_WIDTH_SINGLE;
-        context->preXIPDataRate = CY_SMIF_SDR;
-        context->dummyCycles = 0U;
-        context->flags = 0U;
-#endif
 
         /* Configure the initial interrupt mask */
         /* Disable the TR_TX_REQ and TR_RX_REQ interrupts */
@@ -403,7 +399,7 @@ void Cy_SMIF_DeInit(SMIF_Type *base)
 void Cy_SMIF_SetMode(SMIF_Type *base, cy_en_smif_mode_t mode)
 {
     CY_ASSERT_L3(CY_SMIF_MODE_VALID(mode));
-    
+
     /*  Set the register SMIF.CTL.XIP_MODE = TRUE */
     if (CY_SMIF_NORMAL == mode)
     {
@@ -1630,7 +1626,7 @@ cy_en_smif_status_t Cy_SMIF_TransmitData_Ext(SMIF_Type *base,
             context->preCmdDataRate = dataDataRate;
             context->preCmdWidth = transferWidth;
 
-            #if (CY_IP_MXSMIF_VERSION >= 4) /* DRIVERS-12031 */
+            #if (CY_IP_MXSMIF_VERSION >= 4)
             Cy_SMIF_SetTxFifoTriggerLevel(base, 1U);
             #endif
 
@@ -2349,6 +2345,157 @@ cy_en_smif_status_t Cy_SMIF_SetCryptoDisable(SMIF_Type *base, cy_en_smif_slave_s
 }
 
 /*******************************************************************************
+* Function Name: Cy_SMIF_IsCryptoEnabled
+****************************************************************************//**
+*
+* Checks the status of encryption for the selected slave device.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param slaveId
+* salve select line to indicate the device on which encryption should be disabled.
+*
+* \param crypto_status
+* Holds the status of encryption.
+*
+* \return CY_SMIF_SUCCESS if we are able get the Cache status otherwise returns CY_SMIF_BAD_PARAM.
+
+*
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_IsCryptoEnabled(SMIF_Type *base, cy_en_smif_slave_select_t slaveId, bool *crypto_status)
+{
+    CY_ASSERT_L1(NULL != base);
+    CY_ASSERT_L1(NULL != crypto_status);
+
+    uint32_t device_idx;
+    cy_en_smif_status_t ret = CY_SMIF_BAD_PARAM;
+
+
+    if (CY_SMIF_SUCCESS == Cy_SMIF_ConvertSlaveSlotToIndex(slaveId, &device_idx))
+    {
+        *crypto_status = ((SMIF_DEVICE_IDX_CTL(base, device_idx) & SMIF_DEVICE_CTL_CRYPTO_EN_Msk) == SMIF_DEVICE_CTL_CRYPTO_EN_Msk);
+        ret = CY_SMIF_SUCCESS;
+    }
+
+    return ret;
+}
+
+#if (CY_IP_MXSMIF_VERSION>=5)
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetCryptoKeyRegion
+****************************************************************************//**
+*
+* Configures a crypto region with specified start address, size and keys.
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param crypto_region_index
+* Crypto region index for which sub region disable mask has to be applied.
+* Region index starts from 0, 1, 2, ... upto (SMIF_CRYPTO_KEY_NR - 1).
+*
+* \param region_config
+* Crypto region configuration structure.
+*
+* \return
+*       - \ref CY_SMIF_SUCCESS
+*       - \ref CY_SMIF_BAD_PARAM
+*
+* \funcusage
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_Encrypt
+*
+*
+*******************************************************************************/
+
+cy_en_smif_status_t Cy_SMIF_SetCryptoKeyRegion(SMIF_Type *base,
+                                               uint8_t crypto_region_index,
+                                               cy_stc_smif_crypto_region_config_t *region_config)
+{
+    if ((base == NULL) || (region_config == NULL))
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+#if (CY_IP_MXSMIF_VERSION == 6U)
+    if (crypto_region_index >= SMIF0_CRYPTO_KEY_NR)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+#else
+    if (crypto_region_index >= SMIF_CRYPTO_KEY_NR)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+#endif
+
+
+    SMIF_CRYPTO_IDX_INPUT0(base, crypto_region_index) = region_config->iv[0];
+    SMIF_CRYPTO_IDX_INPUT1(base, crypto_region_index) = region_config->iv[1];
+    SMIF_CRYPTO_IDX_INPUT2(base, crypto_region_index) = region_config->iv[2];
+    SMIF_CRYPTO_IDX_INPUT3(base, crypto_region_index) = region_config->iv[3];
+
+    SMIF_CRYPTO_IDX_KEY0(base, crypto_region_index) = region_config->key[0];
+    SMIF_CRYPTO_IDX_KEY1(base, crypto_region_index) = region_config->key[1];
+    SMIF_CRYPTO_IDX_KEY2(base, crypto_region_index) = region_config->key[2];
+    SMIF_CRYPTO_IDX_KEY3(base, crypto_region_index) = region_config->key[3];
+
+    SMIF_CRYPTO_IDX_ADDR(base, crypto_region_index) = (uint32_t)region_config->region_base_address;
+    SMIF_CRYPTO_IDX_MASK(base, crypto_region_index) = region_config->region_size;
+
+    return CY_SMIF_SUCCESS;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SMIF_SetCryptoSubRegionDisable
+****************************************************************************//**
+*
+* Disable sub regions within crypto region. Each crypto region is further divided
+* into 8 equal sub regions and user can disable on the fly encryption/decryption by
+* setting "1" for that specific region using mask. For example, if a 1 MB region is
+* specified for a crypto region then the 8 subregions will be 128 KB.
+* If mask is set with "0" then cryptography will be performed on that subregion
+*
+* \param base
+* Holds the base address of the SMIF block registers.
+*
+* \param crypto_region_index
+* Crypto region index for which sub region disable mask has to be applied.
+*
+* \param mask
+* 8-bit mask to disable individual sub-region within a crypto region
+*
+* \return \ref cy_en_smif_status_t.
+*
+*******************************************************************************/
+
+cy_en_smif_status_t Cy_SMIF_SetCryptoSubRegionDisable(SMIF_Type *base,
+                                                      uint8_t crypto_region_index,        /* Indexes can be upto 8 based on target platform */
+                                                      uint8_t mask)
+{
+    if (base == NULL)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+
+#if (CY_IP_MXSMIF_VERSION == 6U)
+    if (crypto_region_index >= SMIF0_CRYPTO_KEY_NR)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+#else
+    if (crypto_region_index >= SMIF_CRYPTO_KEY_NR)
+    {
+        return CY_SMIF_BAD_PARAM;
+    }
+#endif
+
+    SMIF_CRYPTO_IDX_SUBREGION(base, crypto_region_index) = mask;
+
+    return CY_SMIF_SUCCESS;
+}
+#endif  // (CY_IP_MXSMIF_VERSION>=3) || defined (CY_DOXYGEN)
+/*******************************************************************************
 * Function Name: Cy_SMIF_Encrypt()
 ****************************************************************************//**
 *
@@ -2751,8 +2898,8 @@ cy_en_smif_status_t Cy_SMIF_Bridge_Enable(SMIF_Base_Type *base, bool enable)
 
 #if (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN)
 /*******************************************************************************
- * Function Name: Cy_SMIF_SetRxCaptureMode
- ****************************************************************************//**
+* Function Name: Cy_SMIF_SetRxCaptureMode
+****************************************************************************//**
 * This function sets the Rx Capture mode setting for SMIF IP block instance
 *
 * \param base
@@ -2794,7 +2941,6 @@ cy_en_smif_status_t Cy_SMIF_SetRxCaptureMode(SMIF_Type *base, cy_en_smif_capture
     }
 }
 #endif  /*  (CY_IP_MXSMIF_VERSION>=4) || defined (CY_DOXYGEN) */
-
 
 #if ((CY_IP_MXSMIF_VERSION>=4) && \
      ((defined (SMIF_DLP_PRESENT) && (SMIF_DLP_PRESENT > 0)) || \
@@ -2846,7 +2992,6 @@ cy_en_smif_status_t Cy_SMIF_SetMasterDLP(SMIF_Type *base, uint16 dlp, uint8_t si
     }
     return status;
 }
-
 /*******************************************************************************
 * Function Name: Cy_SMIF_GetMasterDLP
 ****************************************************************************//**
@@ -3309,6 +3454,8 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 * \return status (see \ref cy_en_smif_status_t).
 *
 * \note This API is supported on CAT1C and CAT1D devices.
+*
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_Set_DelayTapSel
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
 {
@@ -3339,6 +3486,8 @@ cy_en_smif_status_t Cy_SMIF_Set_DelayTapSel(SMIF_Type *base, uint8_t tapSel)
 * \return read tap selection
 *
 * \note This API is supported on CAT1C and CAT1D devices.
+*
+* \snippet smif/snippet/main.c snippet_Cy_SMIF_Set_DelayTapSel
 *******************************************************************************/
 uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base)
 {
@@ -3371,7 +3520,6 @@ uint8_t Cy_SMIF_Get_DelayTapSel(SMIF_Type *base)
 *******************************************************************************/
 cy_en_smif_status_t Cy_SMIF_InitCache(SMIF_CACHE_BLOCK_Type *base, const cy_stc_smif_cache_config_t *cache_config)
 {
-    cy_en_smif_status_t result = CY_SMIF_SUCCESS;
 
     if ((base == NULL) || (cache_config == NULL))
     {
@@ -3379,6 +3527,8 @@ cy_en_smif_status_t Cy_SMIF_InitCache(SMIF_CACHE_BLOCK_Type *base, const cy_stc_
     }
 
 #if defined (COMPONENT_SECURE_DEVICE)
+    cy_en_smif_status_t result = CY_SMIF_SUCCESS;
+
     if ((cache_config->cache_region != NULL) && (cache_config->cache_region_count > 0U))
     {
         volatile uint32_t *region_base_address = &(base->MMIO.REGION0_BASE);
@@ -3392,7 +3542,7 @@ cy_en_smif_status_t Cy_SMIF_InitCache(SMIF_CACHE_BLOCK_Type *base, const cy_stc_
                     *(region_base_address++) = cache_config->cache_region[i]->start_address;
                     *(region_base_address++) = (uint32_t)(_VAL2FLD(SMIF_CACHE_BLOCK_MMIO_REGION0_LIMIT_ENABLE, 1U) |
                                                           _VAL2FLD(SMIF_CACHE_BLOCK_MMIO_REGION0_LIMIT_ATTR, (uint32_t)cache_config->cache_region[i]->cache_attributes) |
-                                                          cache_config->cache_region[i]->end_address << 4U);
+                                                          cache_config->cache_region[i]->end_address);
                 }
                 else
                 {
@@ -3411,15 +3561,32 @@ cy_en_smif_status_t Cy_SMIF_InitCache(SMIF_CACHE_BLOCK_Type *base, const cy_stc_
         base->MMIO.MMIO_CACHE_RET_EN = (uint32_t)cache_config->cache_retention_on;
     }
     return result;
+#elif (defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1))
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
+
+    rpcInputArgs.argc = 3;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_SMIF;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CONFIGURE;
+    rpcInputArgs.argv[2] = (uint32_t)base;
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+        { .base = (void *)cache_config, .len = sizeof(*cache_config) },
+    };
+
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      status = (cy_en_smif_status_t)rpcOutputArgs.argv[0];
+    }
+    return status;
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 2;
-    rpcArgs.argv[0] = (uint32_t)base;
-    rpcArgs.argv[1] = (uint32_t)cache_config;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CONFIGURE, &rpcArgs, &rpcRetVal);
-    result = (cy_en_smif_status_t)rpcRetVal;
-    return result;
+   return CY_SMIF_BAD_PARAM;
 #endif
 }
 /*******************************************************************************
@@ -3450,13 +3617,30 @@ cy_en_smif_status_t Cy_SMIF_Clean_All_Cache(SMIF_CACHE_BLOCK_Type *base)
     while (((base->MAINT_STATUS) & SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) == SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) {}
 
     return CY_SMIF_SUCCESS;
+#elif (defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1))
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
+    rpcInputArgs.argc = 3;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_SMIF;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CLEAN_ALL;
+    rpcInputArgs.argv[2] = (uint32_t)base;
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+    };
+
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      status = (cy_en_smif_status_t)rpcOutputArgs.argv[0];
+    }
+    return status;
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 1;
-    rpcArgs.argv[0] = (uint32_t)base;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CLEAN_ALL, &rpcArgs, &rpcRetVal);
-    return (cy_en_smif_status_t)rpcRetVal;
+   return CY_SMIF_BAD_PARAM;
 #endif
 }
 /*******************************************************************************
@@ -3486,13 +3670,30 @@ cy_en_smif_status_t Cy_SMIF_Invalidate_All_Cache(SMIF_CACHE_BLOCK_Type *base)
     while (((base->MAINT_STATUS) & SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) == SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) {}
 
     return CY_SMIF_SUCCESS;
+#elif (defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1))
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
+    rpcInputArgs.argc = 3;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_SMIF;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_ALL;
+    rpcInputArgs.argv[2] = (uint32_t)base;
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+    };
+
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      status = (cy_en_smif_status_t)rpcOutputArgs.argv[0];
+    }
+    return status;
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 1;
-    rpcArgs.argv[0] = (uint32_t)base;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_ALL, &rpcArgs, &rpcRetVal);
-    return (cy_en_smif_status_t)rpcRetVal;
+   return CY_SMIF_BAD_PARAM;
 #endif
 }
 /*******************************************************************************
@@ -3524,13 +3725,30 @@ cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_All_Cache(SMIF_CACHE_BLOCK_Type
     while (((base->MAINT_STATUS) & SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) == SMIF_CACHE_BLOCK_MAINT_STATUS_ONGOING_MAINT_Msk) {}
 
     return CY_SMIF_SUCCESS;
+#elif (defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1))
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
+    rpcInputArgs.argc = 3;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_SMIF;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_AND_CLEAN_ALL;
+    rpcInputArgs.argv[2] = (uint32_t)base;
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+    };
+
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      status = (cy_en_smif_status_t)rpcOutputArgs.argv[0];
+    }
+    return status;
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 1;
-    rpcArgs.argv[0] = (uint32_t)base;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_AND_CLEAN_ALL, &rpcArgs, &rpcRetVal);
-    return (cy_en_smif_status_t)rpcRetVal;
+   return CY_SMIF_BAD_PARAM;
 #endif
 }
 
@@ -3578,16 +3796,32 @@ cy_en_smif_status_t Cy_SMIF_Clean_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base, boo
     }
 
     return CY_SMIF_SUCCESS;
+#elif (defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1))
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
+    rpcInputArgs.argc = 4;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_SMIF;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CLEAN_BY_ADDR;
+    rpcInputArgs.argv[2] = (uint32_t)base;
+    rpcInputArgs.argv[3] = (uint32_t)is_secure_view;
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+        { .base = (void *)address, .len = size },
+    };
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      status = (cy_en_smif_status_t)rpcOutputArgs.argv[0];
+    }
+    return status;
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 4;
-    rpcArgs.argv[0] = (uint32_t)base;
-    rpcArgs.argv[1] = (uint32_t)is_secure_view;
-    rpcArgs.argv[2] = (uint32_t)address;
-    rpcArgs.argv[3] = (uint32_t)size;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_CLEAN_BY_ADDR, &rpcArgs, &rpcRetVal);
-    return (cy_en_smif_status_t)rpcRetVal;
+   (void)is_secure_view; (void)size;
+   return CY_SMIF_BAD_PARAM;
 #endif
 }
 /*******************************************************************************
@@ -3632,16 +3866,33 @@ cy_en_smif_status_t Cy_SMIF_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_Type *base
     }
 
     return CY_SMIF_SUCCESS;
+#elif (defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1))
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
+    rpcInputArgs.argc = 4;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_SMIF;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_BY_ADDR;
+    rpcInputArgs.argv[2] = (uint32_t)base;
+    rpcInputArgs.argv[3] = (uint32_t)is_secure_view;
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+        { .base = (void *)address, .len = size },
+    };
+
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      status = (cy_en_smif_status_t)rpcOutputArgs.argv[0];
+    }
+    return status;
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 4;
-    rpcArgs.argv[0] = (uint32_t)base;
-    rpcArgs.argv[1] = (uint32_t)is_secure_view;
-    rpcArgs.argv[2] = (uint32_t)address;
-    rpcArgs.argv[3] = (uint32_t)size;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_BY_ADDR, &rpcArgs, &rpcRetVal);
-    return (cy_en_smif_status_t)rpcRetVal;
+   (void)is_secure_view; (void)size;
+   return CY_SMIF_BAD_PARAM;
 #endif
 }
 /*******************************************************************************
@@ -3688,18 +3939,95 @@ cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_
     }
 
     return CY_SMIF_SUCCESS;
+#elif (defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1))
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
+    rpcInputArgs.argc = 4;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_SMIF;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_AND_CLEAN_BY_ADDR;
+    rpcInputArgs.argv[2] = (uint32_t)base;
+    rpcInputArgs.argv[3] = (uint32_t)is_secure_view;
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+        { .base = &address, .len = size },
+    };
+
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      status = (cy_en_smif_status_t)rpcOutputArgs.argv[0];
+    }
+
+    return status;
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 4;
-    rpcArgs.argv[0] = (uint32_t)base;
-    rpcArgs.argv[1] = (uint32_t)is_secure_view;
-    rpcArgs.argv[2] = (uint32_t)address;
-    rpcArgs.argv[3] = (uint32_t)size;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_SMIF, (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_INVALIDATE_AND_CLEAN_BY_ADDR, &rpcArgs, &rpcRetVal);
-    return (cy_en_smif_status_t)rpcRetVal;
+   (void)is_secure_view; (void)size;
+   return CY_SMIF_BAD_PARAM;
 #endif
 }
+/*******************************************************************************
+* Function Name: Cy_SMIF_IsCacheEnabled
+****************************************************************************//**
+*
+* This function checks whether Cache is enabled or not
+*
+* \param base
+* Holds the base address of the SMIF block.
+*
+* \param cache_status
+* Holds the Cache status
+*
+* \return CY_SMIF_SUCCESS if we are able get the Cache status otherwise returns CY_SMIF_BAD_PARAM.
+*
+* \note This API is supported on CAT1D devices.
+*******************************************************************************/
+cy_en_smif_status_t Cy_SMIF_IsCacheEnabled(SMIF_CACHE_BLOCK_Type *base, bool *cache_status)
+{
+   CY_ASSERT_L1(NULL != base);
+   CY_ASSERT_L1(NULL != cache_status);
+
+#if defined (COMPONENT_SECURE_DEVICE)
+
+   *cache_status = (bool)_FLD2VAL(SMIF_CACHE_BLOCK_CTRL_ENABLE, base->CTRL);
+   return CY_SMIF_SUCCESS;
+
+#elif (defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1))
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_smif_status_t status = CY_SMIF_BAD_PARAM;
+    rpcInputArgs.argc = 3;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_SMIF;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_SMIF_CACHE_GET_STATUS;
+    rpcInputArgs.argv[2] = (uint32_t)base;
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+    };
+
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+        { .base = cache_status, .len = sizeof(*cache_status) },
+    };
+
+    rpcOutputArgs.argc = 0U; /* updated in secure side */
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+
+    if (rpcOutputArgs.argc == 1U)
+    {
+        status = (cy_en_smif_status_t)rpcOutputArgs.argv[0];
+    }
+    return status;
+
+#else
+   (void)base;
+   (void)cache_status;
+   return CY_SMIF_BAD_PARAM;
+#endif
+}
+
 #endif
 
 #endif /* defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) */

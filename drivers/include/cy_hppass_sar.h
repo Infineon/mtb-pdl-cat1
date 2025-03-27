@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_hppass_sar.h
-* \version 1.20
+* \version 1.30
 *
 * Header file for the SAR ADC subsystem of the High Power Programmable Analog Sub-System.
 *
@@ -38,6 +38,7 @@
 *   \defgroup group_hppass_sar_status Result Status Masks
 *   \defgroup group_hppass_sar_trigger Sequencer Group Trigger Collision Status Masks
 *   \defgroup group_hppass_fifo_trigger FIFO Trigger Masks
+    \defgroup group_hppass_sar_group_mask SAR Sequencer Group Masks
 * \}
 * \defgroup group_hppass_sar_functions Functions
 * \{
@@ -235,6 +236,20 @@ extern "C" {
                                              CY_HPPASS_SAR_MUXED_SAMP_2 | \
                                              CY_HPPASS_SAR_MUXED_SAMP_3)
 /** \} group_hppass_sar_muxed_samplers */
+
+/** \addtogroup group_hppass_sar_group_mask
+ *  To be used with \ref Cy_HPPASS_SAR_CrossTalkAdjust
+ *   \{
+ */
+#define CY_HPPASS_SAR_GROUP_0_Msk (0x00001UL) /**< Mask for the SAR Sequencer Group #0 */
+#define CY_HPPASS_SAR_GROUP_1_Msk (0x00002UL) /**< Mask for the SAR Sequencer Group #1 */
+#define CY_HPPASS_SAR_GROUP_2_Msk (0x00004UL) /**< Mask for the SAR Sequencer Group #2 */
+#define CY_HPPASS_SAR_GROUP_3_Msk (0x00008UL) /**< Mask for the SAR Sequencer Group #3 */
+#define CY_HPPASS_SAR_GROUP_4_Msk (0x00010UL) /**< Mask for the SAR Sequencer Group #4 */
+#define CY_HPPASS_SAR_GROUP_5_Msk (0x00020UL) /**< Mask for the SAR Sequencer Group #5 */
+#define CY_HPPASS_SAR_GROUP_6_Msk (0x00040UL) /**< Mask for the SAR Sequencer Group #6 */
+#define CY_HPPASS_SAR_GROUP_7_Msk (0x00080UL) /**< Mask for the SAR Sequencer Group #7 */
+/** \} group_hppass_sar_group_mask */
 
 /** \addtogroup group_hppass_sar_result_interrupts
  *  To be used with \ref Cy_HPPASS_SAR_Result_GetInterruptStatusMasked,
@@ -1073,6 +1088,53 @@ __STATIC_INLINE cy_en_hppass_status_t Cy_HPPASS_SAR_Limit_Config(uint8_t limIdx,
     return result;
 }
 
+#if ((CY_IP_MXS40MCPASS_VERSION == 1u) && (CY_IP_MXS40MCPASS_VERSION_MINOR == 0u))
+/*******************************************************************************
+* Function Name: Cy_HPPASS_SAR_CrossTalkAdjust
+****************************************************************************//**
+*
+* Adjusts the sampler offset trimming according to the number of simultaneously
+* triggered (sampled and held) samplers, specified by groupMask
+* (for single or multiple simultaneously triggered groups with same timing settings)
+*
+* Each sampler is compensated in relation to the other samplers that are sampled and held simultaneously.<br>
+*
+* Basic use case:
+* - This function has to be called after the following functions calls:
+* \ref Cy_HPPASS_Init, \ref Cy_HPPASS_SAR_Init, \ref Cy_HPPASS_SAR_GroupConfig, 
+* or \ref Cy_HPPASS_SAR_TempAdjust.
+*
+* \note The Device Configurator automatically generates a call to this function during startup if the
+* appropriate parameter in HPPASS configurations is checked.<br>
+*
+* Advanced use cases:
+* - If a sampler is involved in multiple groups, this function has to be called each time before another
+* one of these groups is triggered, to re-compensate the sampler within the another group.
+* - If multiple groups are triggered simultaneously (by the same trigger signal), and
+* the sampling timer settings for these groups are identical, this function has to be called with combined
+* mask of the simultaneously triggered groups.
+* 
+* \note This function does not perform compensation for four or fewer simultaneously triggered samplers
+* (within single or multiple groups), as the impact of compensation in these cases is negligible.
+* \warning This function has not be used when VDDA is less than 2.7V, as this can cause
+* over-compensation.
+*
+* \param groupMsk The \ref group_hppass_sar_group_mask "mask" of the simultaneously triggered groups
+*
+* \funcusage
+*
+* \snippet test_apps/hppass_sar_cross_talk_adjust/main.c SNIPPET_HPPASS_SAR_XTLK_CALL
+*
+*******************************************************************************/
+void Cy_HPPASS_SAR_CrossTalkAdjust(uint8_t groupMsk);
+#else
+/** \cond INTERNAL */
+__STATIC_INLINE void Cy_HPPASS_SAR_CrossTalkAdjust (uint8_t groupMsk)
+{
+    (void) groupMsk;
+}
+/** \endcond INTERNAL */
+#endif
 
 /*******************************************************************************
 * Function Name: Cy_HPPASS_SAR_GroupConfig
@@ -1360,9 +1422,12 @@ __STATIC_INLINE int16_t Cy_HPPASS_TEMP_Calc(int16_t tempHi, int16_t tempLo)
     return (int16_t)temp;
 }
 
+/** \cond BWC */
+#define Cy_HPPASS_SAR_Adjust Cy_HPPASS_SAR_TempAdjust /*BWC Macros*/
+/** \endcond BWC */
 
 /*******************************************************************************
-* Function Name: Cy_HPPASS_SAR_Adjust
+* Function Name: Cy_HPPASS_SAR_TempAdjust
 ****************************************************************************//**
 *
 * Adjusts the offset calibration value according to input temperature value.
@@ -1376,11 +1441,11 @@ __STATIC_INLINE int16_t Cy_HPPASS_TEMP_Calc(int16_t tempHi, int16_t tempLo)
 * \snippet hppass/snippet/hppass_sar.c SNIPPET_HPPASS_SAR_ADJ
 *
 *******************************************************************************/
-void Cy_HPPASS_SAR_Adjust(int16_t temp, uint16_t vRef);
+void Cy_HPPASS_SAR_TempAdjust(int16_t temp, uint16_t vRef);
+
 
 /** \addtogroup group_hppass_sar_fir
 *   \{ */
-
 
 /*******************************************************************************
 * Function Name: Cy_HPPASS_SAR_FirConfig

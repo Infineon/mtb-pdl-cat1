@@ -193,7 +193,7 @@ typedef struct {
         SMIF_SMIF_BRIDGE_Type SMIF_BRIDGE;      /*!< 0x00000000 AXI/AHB interleaving and FOTA bridge */
    __IM uint32_t RESERVED[16384];
         SMIF_CORE_Type CORE[2];                 /*!< 0x00020000 Serial Memory Interface */
-} SMIF_STRUCT_Type;                                    /*!< Size = 262144 (0x40000) */
+} SMIF_STRUCT_Type;                             /*!< Size = 262144 (0x40000) */
 
 
 /* SMIF_SMIF_BRIDGE_SMIF_REMAP_REGION.CTL */

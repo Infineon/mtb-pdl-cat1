@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ms_ctl.h
-* \version 1.1
+* \version 1.2
 *
 * \brief
 * The header file of the MSC driver.
@@ -70,6 +70,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.2</td>
+*     <td>Updated API \ref Cy_Ms_Ctl_SetPcHandler.</td>
+*     <td>Defect fix.</td>
+*   </tr>
+*   <tr>
 *     <td>1.1</td>
 *     <td>Added support for CAT1D devices, Corrected typo in API</td>
 *     <td>Support for CAT1D devices</td>
@@ -115,7 +120,7 @@ extern "C" {
 #define CY_MS_CTL_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_MS_CTL_DRV_VERSION_MINOR       1
+#define CY_MS_CTL_DRV_VERSION_MINOR       2
 
 /** \} group_ms_ctl_macros */
 
@@ -389,7 +394,10 @@ uint32_t Cy_Ms_Ctl_GetSavedPC(en_ms_ctl_master_t busMaster);
 ****************************************************************************//**
 *
 * \brief Sets the handler address for the given PC. This is used to detect entry to Cypress
-* "trusted" code through an exception/interrupt
+* "trusted" code through an exception/interrupt.
+*
+* \note The function can't update the handler address for the PC lower than the current application's PC.
+* For example, if the application is running in PC2 it can't update handler address for PC0 or PC1.
 *
 * \param pc
 * Protection context for which the handler is being set

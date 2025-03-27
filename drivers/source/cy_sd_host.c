@@ -1,6 +1,6 @@
 /*******************************************************************************
 * \file cy_sd_host.c
-* \version 2.30
+* \version 2.40
 *
 * \brief
 *  This file provides the driver code to the API for the SD Host Controller
@@ -984,7 +984,14 @@ cy_en_sd_host_status_t Cy_SD_Host_Read(SDHC_Type *base,
             {
                 /* SDMA mode. */
 #if defined(CORE_NAME_CM55_0)
-                dataConfig.data = (uint32_t*)cy_DTCMRemapAddr(config->data);
+                if (dataConfig.enableDma)
+                {
+                    dataConfig.data = (uint32_t*)cy_DTCMRemapAddr(config->data);
+                }
+                else
+                {
+                    dataConfig.data = (uint32_t*)config->data;
+                }
 #else
                 dataConfig.data = (uint32_t*)config->data;
 #endif
@@ -1123,7 +1130,14 @@ cy_en_sd_host_status_t Cy_SD_Host_Write(SDHC_Type *base,
             else
             {
 #if defined(CORE_NAME_CM55_0)
-                dataConfig.data = (uint32_t*)cy_DTCMRemapAddr(config->data);
+                if (dataConfig.enableDma)
+                {
+                    dataConfig.data = (uint32_t*)cy_DTCMRemapAddr(config->data);
+                }
+                else
+                {
+                    dataConfig.data = (uint32_t*)config->data;
+                }
 #else
                 dataConfig.data = (uint32_t*)config->data;
 #endif
@@ -3001,7 +3015,8 @@ cy_en_sd_host_status_t Cy_SD_Host_Init(SDHC_Type *base,
 * Function Name: Cy_SD_Host_DeInit
 ****************************************************************************//**
 *
-* Restores the SD Host block registers back to default.
+* Restores the SD Host block registers back to default. This API also disables
+* SDHC block and user is expect to enable it back using \ref Cy_SD_Host_Enable
 *
 * \param *base
 *     The SD host registers structure pointer.
@@ -4351,6 +4366,9 @@ cy_en_sd_host_status_t Cy_SD_Host_SetSdClkDiv(SDHC_Type *base, uint16_t clkDiv)
 * \param *base
 *     The SD host registers structure pointer.
 *
+* \note If user is using a custom pin to control write protection,
+* user must implement weak Cy_SD_Host_IsWpSet() and read the pin status.
+*
 * \return bool
 *     true - the write protect is set, false - the write protect is not set.
 *
@@ -4911,6 +4929,9 @@ cy_en_sd_host_status_t Cy_SD_Host_SelBusVoltage(SDHC_Type *base,
 *  Sets the card_if_pwr_en pin high.
 *  This pin can be used to enable a voltage regulator used to power the card.
 *
+* \note If user is using a custom pin/regulator to enable card voltage,
+* user must implement weak Cy_SD_Host_EnableCardVoltage().
+*
 * \param *base
 *     The SD host registers structure pointer.
 *
@@ -4927,6 +4948,9 @@ __WEAK void Cy_SD_Host_EnableCardVoltage(SDHC_Type *base)
 *
 *  Sets the card_if_pwr_en pin low.
 *  This pin can be used to disable a voltage regulator used to power the card.
+*
+* \note If user is using a custom pin/regulator to disable card voltage,
+* user must implement weak Cy_SD_Host_DisableCardVoltage().
 *
 * \param *base
 *     The SD host registers structure pointer.

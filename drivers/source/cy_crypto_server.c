@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_server.c
-* \version 2.140
+* \version 2.150
 *
 * \brief
 *  This file provides the source code to the API for Crypto Server

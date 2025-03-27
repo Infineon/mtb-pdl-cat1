@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.170
+* \version 5.180
 *
 * Provides the function definitions for the power management API.
 *
@@ -846,6 +846,22 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>5.180</td>
+*     <td>Updated APIs:
+*         \ref Cy_SysPm_Init
+*         \ref Cy_SysPm_SetDeepSleepMode
+*         \ref Cy_SysPm_GetDeepSleepMode
+*         \ref Cy_SysPm_CpuEnterDeepSleep
+*         \ref Cy_SysPm_CoreBuckStatus
+*         \ref Cy_SysPm_RetLdoStatus
+*         \ref Cy_SysPm_SramLdoStatus
+*         \ref Cy_SysPm_MiscLdoStatus
+*         \ref Cy_SysPm_IsSystemLp
+*         \ref Cy_SysPm_IsSystemUlp
+*         \ref Cy_SysPm_IsSystemHp </td>
+*     <td>Code improvements and new functionality for CAT1D devices.</td>
+*   </tr>
 *   <tr>
 *     <td>5.170</td>
 *     <td>Updated API \ref Cy_SysPm_ReadStatus for MPN defined supported core checks.</td>
@@ -1743,7 +1759,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       170
+#define CY_SYSPM_DRV_VERSION_MINOR       180
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))

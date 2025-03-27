@@ -561,6 +561,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Make a new ECC key pair. </p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameter key(k, x&amp;y) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -772,7 +773,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sign a message. </p>
-<p>For CAT1C &amp; CAT1D devices with DCache enabled this API is not supported.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters hash, sig, key(k) and sigctx must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -847,7 +848,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Edwards 25519 elliptic curve point multiplication in GF(p). </p>
-<p>For CAT1C &amp; CAT1D devices with DCache enabled this API is not supported.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters ecpGX,ecpGY,ecpD,ecpQX and ecpQY must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -909,7 +910,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Decode ED25519 encoded public key in to x and y. </p>
-<p>For CAT1C &amp; CAT1D devices with DCache enabled this API is not supported.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters publicKey, pubKey_x and pubKey_y must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -993,7 +994,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Verify ED25519 signed message. </p>
-<p>For CAT1C &amp; CAT1D devices with DCache enabled this API is not supported.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters hash, sig, key(x &amp; y) and sigctx must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -1051,7 +1052,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Make a new ED25519 public key. </p>
-<p>For CAT1C &amp; CAT1D devices with DCache enabled this API is not supported.</p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameters privateKey, publicKey( x&amp;y) must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>
@@ -1203,6 +1204,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>EC25519 Elliptic curve point multiplication in GF(p). </p>
+<p>For CAT1C &amp; CAT1D devices when D-Cache is enabled parameter p_r, p_x and p_d must align and end in 32 byte boundary.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>The pointer to a Crypto instance.</td></tr>

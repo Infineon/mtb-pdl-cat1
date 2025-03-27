@@ -60,6 +60,7 @@
 /* Flash API error codes */
 #define CYBOOT_FLASH_SUCCESS            (0x0D50B002UL)  /* A success */
 #define CYBOOT_FLASH_FAILED             (0xBAF00008UL)  /* A generic failure */
+#define CYBOOT_FLASH_RECOVER_ERR        (0xBAF00009UL)  /* A flash recover failure */
 #define CYBOOT_FLASH_INIT_FAILED        (0xBAF0004BUL) /** Flash init error */
 #define CYBOOT_FLASH_ADDR_INVALID       (0xBAF0004CUL) /** Flash address is invalid */
 #define CYBOOT_FLASH_PARAM_INVALID      (0xBAF0004DUL) /** Param is invalid */

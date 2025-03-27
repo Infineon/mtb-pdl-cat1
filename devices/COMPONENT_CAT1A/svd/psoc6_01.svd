@@ -3,9 +3,9 @@
   <vendor>Infineon Technologies</vendor>
   <vendorID>Infineon</vendorID>
   <name>psoc6_01</name>
-  <series>PSoC6_01</series>
+  <series>PSOC6_01</series>
   <version>1.0</version>
-  <description>PSoC6_01</description>
+  <description>PSOC6_01</description>
   <licenseText>(c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company)\n
     or an affiliate of Cypress Semiconductor Corporation.\n
 \n
@@ -3583,8 +3583,7 @@ Power off, clock off, isolate, reset and no retain.</description>
                   <name>RESET</name>
                   <description>Reset CM4
 Clock off, no isolated, no retain and reset.
-
-Note: The CM4 CPU has a AIRCR.SYSRESETREQ register field that allows the CM4 to reset the complete device (RESET only resets the CM4), resulting in a warm boot.</description>
+...</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -14876,126 +14875,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -28637,8 +28542,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -29034,8 +28938,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -29214,8 +29117,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -29458,8 +29360,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -29662,8 +29563,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -29866,8 +29766,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -30070,8 +29969,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -30274,8 +30172,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -30478,8 +30375,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -34291,6 +34187,75 @@ This value should match either the Baseline (DeepSleep) or Deep (Hibernate) BESL
                     <value>2</value>
                   </enumeratedValue>
                 </enumeratedValues>
+              </field>
+            </fields>
+          </register>
+          <register>
+            <name>DDFT0_SEL</name>
+            <description>DDFT Select register</description>
+            <addressOffset>0x74</addressOffset>
+            <size>32</size>
+            <access>read-write</access>
+            <resetValue>0x0</resetValue>
+            <resetMask>0x7FF8FFF</resetMask>
+            <fields>
+              <field>
+                <name>DDFT0_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-0 of DDFT pair</description>
+                <bitRange>[11:0]</bitRange>
+                <access>read-write</access>
+              </field>
+              <field>
+                <name>DDFT1_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-1 of DDFT pair</description>
+                <bitRange>[26:15]</bitRange>
+                <access>read-write</access>
+              </field>
+            </fields>
+          </register>
+          <register>
+            <name>DDFT1_SEL</name>
+            <description>DDFT Select register</description>
+            <addressOffset>0x78</addressOffset>
+            <size>32</size>
+            <access>read-write</access>
+            <resetValue>0x0</resetValue>
+            <resetMask>0x7FF8FFF</resetMask>
+            <fields>
+              <field>
+                <name>DDFT0_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-0 of DDFT pair</description>
+                <bitRange>[11:0]</bitRange>
+                <access>read-write</access>
+              </field>
+              <field>
+                <name>DDFT1_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-1 of DDFT pair</description>
+                <bitRange>[26:15]</bitRange>
+                <access>read-write</access>
+              </field>
+            </fields>
+          </register>
+          <register>
+            <name>DDFT2_SEL</name>
+            <description>DDFT Select register</description>
+            <addressOffset>0x7C</addressOffset>
+            <size>32</size>
+            <access>read-write</access>
+            <resetValue>0x0</resetValue>
+            <resetMask>0x7FF8FFF</resetMask>
+            <fields>
+              <field>
+                <name>DDFT0_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-0 of DDFT pair</description>
+                <bitRange>[11:0]</bitRange>
+                <access>read-write</access>
+              </field>
+              <field>
+                <name>DDFT1_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-1 of DDFT pair</description>
+                <bitRange>[26:15]</bitRange>
+                <access>read-write</access>
               </field>
             </fields>
           </register>

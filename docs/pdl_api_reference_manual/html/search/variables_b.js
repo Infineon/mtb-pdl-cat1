@@ -32,14 +32,5 @@ var searchData=
   ['lsbsubnsinc',['lsbSubNsInc',['../structcy__stc__ethif__timer__increment__t.html#a1ff166f4a2cc9d3829af52eedbe1b095',1,'cy_stc_ethif_timer_increment_t']]],
   ['lsclk',['lsClk',['../structcy__stc__seglcd__config__t.html#a77554e22d4f2ad59e59841a6e6faf3d5',1,'cy_stc_seglcd_config_t']]],
   ['lut',['lut',['../structcy__stc__hppass__csg__t.html#a7f10dd29993128fc365086a105328406',1,'cy_stc_hppass_csg_t']]],
-  ['lut_5fenable',['lut_enable',['../structcy__stc__tcpwm__motif__hall__sensor__config__t.html#a3de8eacbad1c8433e0951fc8c1d7959a',1,'cy_stc_tcpwm_motif_hall_sensor_config_t::lut_enable()'],['../structcy__stc__tcpwm__motif__mcp__config__t.html#a069dbcd2dc208c8a409528534cb04538',1,'cy_stc_tcpwm_motif_mcp_config_t::lut_enable()']]],
-  ['lutcfg0',['lutCfg0',['../structcy__stc__smartio__config__t.html#aef2b7f0a6046e13c757acbcef7c729f1',1,'cy_stc_smartio_config_t']]],
-  ['lutcfg1',['lutCfg1',['../structcy__stc__smartio__config__t.html#a29a89d5dd32bf090e54092377a502af4',1,'cy_stc_smartio_config_t']]],
-  ['lutcfg2',['lutCfg2',['../structcy__stc__smartio__config__t.html#a1386142a4e417eb4695d25f2abf12fe1',1,'cy_stc_smartio_config_t']]],
-  ['lutcfg3',['lutCfg3',['../structcy__stc__smartio__config__t.html#a05ecf634aaaee1ac59e3ff3581e3d10f',1,'cy_stc_smartio_config_t']]],
-  ['lutcfg4',['lutCfg4',['../structcy__stc__smartio__config__t.html#a017bc71c2563dda0b75b71451e1d3e29',1,'cy_stc_smartio_config_t']]],
-  ['lutcfg5',['lutCfg5',['../structcy__stc__smartio__config__t.html#ade033caffbe6370cfc610449e3f81cc6',1,'cy_stc_smartio_config_t']]],
-  ['lutcfg6',['lutCfg6',['../structcy__stc__smartio__config__t.html#a9805a9178678494a50dd65e5d7c31720',1,'cy_stc_smartio_config_t']]],
-  ['lutcfg7',['lutCfg7',['../structcy__stc__smartio__config__t.html#ad23b677ee415afea23824a598b5df686',1,'cy_stc_smartio_config_t']]],
-  ['lutmap',['lutMap',['../structcy__stc__smartio__lutcfg__t.html#acb99f9000ed1fa480f22177c49611145',1,'cy_stc_smartio_lutcfg_t']]]
+  ['lut_5fenable',['lut_enable',['../structcy__stc__tcpwm__motif__hall__sensor__config__t.html#a3de8eacbad1c8433e0951fc8c1d7959a',1,'cy_stc_tcpwm_motif_hall_sensor_config_t::lut_enable()'],['../structcy__stc__tcpwm__motif__mcp__config__t.html#a069dbcd2dc208c8a409528534cb04538',1,'cy_stc_tcpwm_motif_mcp_config_t::lut_enable()']]]
 ];

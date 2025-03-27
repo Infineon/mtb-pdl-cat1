@@ -94,7 +94,8 @@ Availability of Cryptolite Algorithms will be chip specific, Refer to individual
 Device Categories: CAT1B. Please refer <a href="usergroup1.html">Device Catalog</a>.</dd></dl>
 <p>The PDL Cryptolite driver provides a public API to perform hardware accelerated cryptographic calculations.</p>
 <p>The functions and other declarations used in this driver are in cy_cryptolite.h. You can also include cy_pdl.h to get access to all functions and declarations in the PDL.</p>
-<p>The Cryptolite driver supports AES (128bits), SHA-256, HMAC-SHA256, TRNG, RSA and ECDSA.</p>
+<p>The Cryptolite driver supports AES (128bits), SHA-256, HMAC-SHA256, TRNG, RSA, ECDSA, EDDSA.</p>
+<dl class="section note"><dt>Note</dt><dd>For EDDSA, user application needs to implement SHA-512 functions. The prototypes of SHA functions are available in <a class="el" href="structcy__stc__cryptolite__ed25519__sha512__t.html">cy_stc_cryptolite_ed25519_sha512_t</a>. There is also separate EDDSA <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga03448216ebbb2734e3e4e8f7f529bef5">Cy_Cryptolite_ED25519_Init</a> and <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga67493f2f433700b504e285bb9c441e14">Cy_Cryptolite_ED25519_Free</a> functions needs to be called.</dd></dl>
 <h1><a class="anchor" id="group_cryptolite_configuration_considerations"></a>
 Configuration Considerations</h1>
 <p>User can enable/disable cryptographic functionality based on the project requirements. To do so, create a configuration header file to configure cryptographic functionalities and define a macro CY_CRYPTOLITE_USER_CONFIG_FILE with configuration header file name and add to project environment. If CY_CRYPTOLITE_USER_CONFIG_FILE macro is not defined in project environment, firmware will enable all available cryptographic functionalities.</p>
@@ -149,6 +150,24 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td>2.80 </td><td><ul>
+<li>
+Added new API's <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga03448216ebbb2734e3e4e8f7f529bef5">Cy_Cryptolite_ED25519_Init</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga67493f2f433700b504e285bb9c441e14">Cy_Cryptolite_ED25519_Free</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga29c1a7ef06306d435299906f9cf40cbc">Cy_Cryptolite_ED25519_Sign</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga3735e882a1dd88dec12cbd5be9514921">Cy_Cryptolite_ED25519_PointMultiplication</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga87ebcde6d856c570808beb799987e174">Cy_Cryptolite_ED25519_PointDecode</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga5528eb2740efe02150020148a4a06d09">Cy_Cryptolite_ED25519_Verify</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#gad23cb5ab0498b2541505588d2cf8dc9d">Cy_Cryptolite_ED25519_MakePublicKey</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#gad1f2fa8d05fc6f027e2a5e97f5f8da7b">Cy_Cryptolite_EC25519_MakePublicKey</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga60c4e3a7ccbdd45250001ee8e3078545">Cy_Cryptolite_EC25519_PointMultiplication</a>. </li>
+<li>
+Added new function pointers <a class="el" href="group__group__crypto__lld__asymmetric__functions.html#gafb50caadc8ad53e03011d523e49cf022">cy_func_get_random_data_t</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#gafdf03c51442ff5e88b6b19bb4b7ec28c">cy_cryptolite_ed25519_sha512_init_t</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#gaa4679df6ed15d5d6f1f465124bee09cc">cy_cryptolite_ed25519_sha512_update_t</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga0d14f9b46c20ef7d69679fef91aefeef">cy_cryptolite_ed25519_sha512_start_t</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#ga5fde282bff76e1649bcaafd992c0a549">cy_cryptolite_ed25519_sha512_finish_t</a>, <a class="el" href="group__group__cryptolite__lld__asymmetric__functions.html#gaf14f955ab143879a414a7a31aff76aa7">cy_cryptolite_ed25519_sha512_free_t</a>. </li>
+<li>
+Added new enum <a class="el" href="group__group__cryptolite__enums.html#gafa2003583345983638b3326bd52f22cd">cy_en_cryptolite_eddsa_sig_type_t</a>. Added new structures <a class="el" href="structcy__stc__cryptolite__ec25519__dp__type.html">cy_stc_cryptolite_ec25519_dp_type</a>, <a class="el" href="structcy__stc__cryptolite__ed25519__sha512__t.html">cy_stc_cryptolite_ed25519_sha512_t</a>. </li>
+<li>
+Added new macros  </li>
+<li>
+updated API's <a class="el" href="group__group__cryptolite__lld__mac__functions.html#ga10110e926b2aaab977e04e79e03ee64d">Cy_Cryptolite_Cmac_Update</a>, <a class="el" href="group__group__cryptolite__lld__aes__functions.html#ga667d244bfb6bb87154abd125006da6f6">Cy_Cryptolite_Aes_Ecb_Update</a>, <a class="el" href="group__group__cryptolite__lld__aes__functions.html#ga94393977551a3fa576c70119449d8903">Cy_Cryptolite_Aes_Cbc_Update</a>. </li>
+<li>
+<p class="startli">updated enum <a class="el" href="group__group__cryptolite__enums.html#ga3b051ef176b1e1a9811acbae28eb2360">cy_en_cryptolite_ecc_curve_id_t</a>. updated structure <a class="el" href="structcy__stc__cryptolite__context__ecdsa__t.html">cy_stc_cryptolite_context_ecdsa_t</a>.</p>
+<p class="endli"></p>
+</li>
+</ul>
+</td><td>Added support for amazon sidewalk crypto requirement.  </td></tr>
 <tr>
 <td>2.70 </td><td>Updated structure <a class="el" href="structcy__stc__cryptolite__context__sha256__t.html">cy_stc_cryptolite_context_sha256_t</a>.  </td><td>Bug fixes  </td></tr>
 <tr>
@@ -207,7 +226,7 @@ API Reference</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__cryptolite__lld__kdf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__lld__kdf.html">Key Derivative Function (HKDF)</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__group__cryptolite__lld__asymmetric"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__lld__asymmetric.html">Asymmetric Key Algorithm (RSA,ECP,ECDSA)</a></td></tr>
+<tr class="memitem:group__group__cryptolite__lld__asymmetric"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__lld__asymmetric.html">Asymmetric Key Algorithm (RSA,ECP,ECDSA,EDDSA)</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__group__cryptolite__lld__keygen"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cryptolite__lld__keygen.html">Key Generation (ECP)</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>

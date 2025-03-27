@@ -113,6 +113,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memitem:ga239af9f2d06beb9ae2fb20187e0dba91"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__hppass__enums.html#ga14c32a49b351302efcaf56b2e5075e00">cy_en_hppass_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__sar__functions.html#ga239af9f2d06beb9ae2fb20187e0dba91">Cy_HPPASS_SAR_Limit_Config</a> (uint8_t limIdx, const <a class="el" href="structcy__stc__hppass__sar__limit__t.html">cy_stc_hppass_sar_limit_t</a> *limCfg)</td></tr>
 <tr class="memdesc:ga239af9f2d06beb9ae2fb20187e0dba91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the ADC limit crossing detection block.  <a href="#ga239af9f2d06beb9ae2fb20187e0dba91">More...</a><br /></td></tr>
 <tr class="separator:ga239af9f2d06beb9ae2fb20187e0dba91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7372202646043f2295c6b1367424216"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__sar__functions.html#gae7372202646043f2295c6b1367424216">Cy_HPPASS_SAR_CrossTalkAdjust</a> (uint8_t groupMsk)</td></tr>
+<tr class="memdesc:gae7372202646043f2295c6b1367424216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjusts the sampler offset trimming according to the number of simultaneously triggered (sampled and held) samplers, specified by groupMask (for single or multiple simultaneously triggered groups with same timing settings)  <a href="#gae7372202646043f2295c6b1367424216">More...</a><br /></td></tr>
+<tr class="separator:gae7372202646043f2295c6b1367424216"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3de90ec7c0eb9d3a2a559ab323458b7b"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE <a class="el" href="group__group__hppass__enums.html#ga14c32a49b351302efcaf56b2e5075e00">cy_en_hppass_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__sar__functions.html#ga3de90ec7c0eb9d3a2a559ab323458b7b">Cy_HPPASS_SAR_GroupConfig</a> (uint8_t grpIdx, const <a class="el" href="structcy__stc__hppass__sar__grp__t.html">cy_stc_hppass_sar_grp_t</a> *grpCfg)</td></tr>
 <tr class="memdesc:ga3de90ec7c0eb9d3a2a559ab323458b7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures a single Sequencer Group.  <a href="#ga3de90ec7c0eb9d3a2a559ab323458b7b">More...</a><br /></td></tr>
 <tr class="separator:ga3de90ec7c0eb9d3a2a559ab323458b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,9 +146,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memitem:gaf2058860b27001f3d1eb23ad5f086e6c"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__sar__functions.html#gaf2058860b27001f3d1eb23ad5f086e6c">Cy_HPPASS_TEMP_Calc</a> (int16_t tempHi, int16_t tempLo)</td></tr>
 <tr class="memdesc:gaf2058860b27001f3d1eb23ad5f086e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the temperature based on two ADC reading results of temperature sensor.  <a href="#gaf2058860b27001f3d1eb23ad5f086e6c">More...</a><br /></td></tr>
 <tr class="separator:gaf2058860b27001f3d1eb23ad5f086e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga90987075673707963c4a95e4d684781d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__sar__functions.html#ga90987075673707963c4a95e4d684781d">Cy_HPPASS_SAR_Adjust</a> (int16_t temp, uint16_t vRef)</td></tr>
-<tr class="memdesc:ga90987075673707963c4a95e4d684781d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjusts the offset calibration value according to input temperature value.  <a href="#ga90987075673707963c4a95e4d684781d">More...</a><br /></td></tr>
-<tr class="separator:ga90987075673707963c4a95e4d684781d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae982cd8f92aa77b171520a19ab3fb626"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__sar__functions.html#gae982cd8f92aa77b171520a19ab3fb626">Cy_HPPASS_SAR_TempAdjust</a> (int16_t temp, uint16_t vRef)</td></tr>
+<tr class="memdesc:gae982cd8f92aa77b171520a19ab3fb626"><td class="mdescLeft">&#160;</td><td class="mdescRight">BWC.  <a href="#gae982cd8f92aa77b171520a19ab3fb626">More...</a><br /></td></tr>
+<tr class="separator:gae982cd8f92aa77b171520a19ab3fb626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae0abc60093f11512759672d1e0883c5a"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__sar__functions.html#gae0abc60093f11512759672d1e0883c5a">Cy_HPPASS_SAR_Limit_GetInterruptStatus</a> (void)</td></tr>
 <tr class="memdesc:gae0abc60093f11512759672d1e0883c5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the limit crossing interrupt register status.  <a href="#gae0abc60093f11512759672d1e0883c5a">More...</a><br /></td></tr>
 <tr class="separator:gae0abc60093f11512759672d1e0883c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -301,6 +304,46 @@ Since the 'block ready' status is combined SAR and CSG, this particular SAR func
 <dl class="section return"><dt>Returns</dt><dd>Status, <a class="el" href="group__group__hppass__enums.html#ga14c32a49b351302efcaf56b2e5075e00">cy_en_hppass_status_t</a>.</dd></dl>
 <dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
 <div class="fragment"><div class="line">    <span class="comment">/* Scenario: The SAR result should be in range between LIMIT_LOW and LIMIT_HIGH */</span></div><div class="line">    <span class="keyword">const</span> <a class="code" href="structcy__stc__hppass__sar__limit__t.html">cy_stc_hppass_sar_limit_t</a> lim0 =</div><div class="line">    {</div><div class="line">        .<a class="code" href="structcy__stc__hppass__sar__limit__t.html#a45dff6d7d1aa72d8c5641fcf243e03f7">cond</a> = <a class="code" href="group__group__hppass__sar__enums.html#gga17e54d717a55b3f03f172ce1fc3fa4bda0b994bc8bb2ac68b0f1588ea2fa9521b">CY_HPPASS_SAR_COND_INSIDE</a>,</div><div class="line">        .low = -300,</div><div class="line">        .high = 500</div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* Update limit configuration for crossing detection block #0 */</span></div><div class="line">    status = <a class="code" href="group__group__hppass__sar__functions.html#ga239af9f2d06beb9ae2fb20187e0dba91">Cy_HPPASS_SAR_Limit_Config</a>(0U, &amp;lim0);</div><div class="line">    <span class="comment">/* Process returned status */</span></div></div><!-- fragment -->
+</div>
+</div>
+<a id="gae7372202646043f2295c6b1367424216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae7372202646043f2295c6b1367424216">&#9670;&nbsp;</a></span>Cy_HPPASS_SAR_CrossTalkAdjust()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_HPPASS_SAR_CrossTalkAdjust </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>groupMsk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adjusts the sampler offset trimming according to the number of simultaneously triggered (sampled and held) samplers, specified by groupMask (for single or multiple simultaneously triggered groups with same timing settings) </p>
+<p>Each sampler is compensated in relation to the other samplers that are sampled and held simultaneously.<br />
+</p>
+<p>Basic use case:</p><ul>
+<li>This function has to be called after the following functions calls: <a class="el" href="group__group__hppass__cfg__functions.html#ga8d22889d8dd8c3fd87df1db2869a6956">Cy_HPPASS_Init</a>, <a class="el" href="group__group__hppass__sar__functions.html#ga60bb35c82a4f96e3c1a986c8b423ef99">Cy_HPPASS_SAR_Init</a>, <a class="el" href="group__group__hppass__sar__functions.html#ga3de90ec7c0eb9d3a2a559ab323458b7b">Cy_HPPASS_SAR_GroupConfig</a>, or <a class="el" href="group__group__hppass__sar__functions.html#gae982cd8f92aa77b171520a19ab3fb626">Cy_HPPASS_SAR_TempAdjust</a>.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>The Device Configurator automatically generates a call to this function during startup if the appropriate parameter in HPPASS configurations is checked.<br />
+</dd></dl>
+<p>Advanced use cases:</p><ul>
+<li>If a sampler is involved in multiple groups, this function has to be called each time before another one of these groups is triggered, to re-compensate the sampler within the another group.</li>
+<li>If multiple groups are triggered simultaneously (by the same trigger signal), and the sampling timer settings for these groups are identical, this function has to be called with combined mask of the simultaneously triggered groups.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>This function does not perform compensation for four or fewer simultaneously triggered samplers (within single or multiple groups), as the impact of compensation in these cases is negligible. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This function has not be used when VDDA is less than 2.7V, as this can cause over-compensation.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">groupMsk</td><td>The <a class="el" href="group__group__hppass__sar__group__mask.html">mask</a> of the simultaneously triggered groups</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
+<div class="fragment"><div class="line">    <span class="comment">/* Scenario: The Cy_HPPASS_SAR_CrossTalkAdjust() call follows the Cy_HPPASS_SAR_TempAdjust() call */</span></div><div class="line"></div><div class="line">    <span class="comment">/* The CY_CFG_PWR_VDDA_MV macro is defined by the Device Configurator */</span></div><div class="line">    <a class="code" href="group__group__hppass__sar__functions.html#gae982cd8f92aa77b171520a19ab3fb626">Cy_HPPASS_SAR_TempAdjust</a>((int16_t)fltTemp, CY_CFG_PWR_VDDA_MV);</div><div class="line">    <a class="code" href="group__group__hppass__sar__functions.html#gae7372202646043f2295c6b1367424216">Cy_HPPASS_SAR_CrossTalkAdjust</a>(<a class="code" href="group__group__hppass__sar__group__mask.html#gaeca0bc720b2952b0c409efacfe3d58d8">CY_HPPASS_SAR_GROUP_0_Msk</a>);</div></div><!-- fragment -->
 </div>
 </div>
 <a id="ga3de90ec7c0eb9d3a2a559ab323458b7b"></a>
@@ -594,14 +637,14 @@ Since the 'block ready' status is combined SAR and CSG, this particular SAR func
 <div class="fragment"><div class="line">    <span class="keywordflow">if</span> (flag)  <span class="comment">/* The flag should be set periodically, e.g., using AC, Timer, or SAR event itself. */</span></div><div class="line">    {</div><div class="line">        flag = <span class="keyword">false</span>; <span class="comment">/* Clear the request */</span></div><div class="line">        <span class="keywordflow">switch</span> (tempMeasureSequence)</div><div class="line">        {</div><div class="line">            <span class="keywordflow">case</span> TRIG_TEMP_HI:</div><div class="line">                <a class="code" href="group__group__hppass__sar__functions.html#ga1ac70409790506a22b8ae995c272a435">Cy_HPPASS_SAR_SetTempSensorCurrent</a>(<a class="code" href="group__group__hppass__sar__enums.html#ggac8e3e55c7177e5a2824875af39cd78a1ace376312b86d447408b4e7a2813aea6e">CY_HPPASS_SAR_TEMP_SENSOR_CURRENT_HI</a>);</div><div class="line">                <a class="code" href="group__group__hppass__rt__functions.html#ga18367310dbde8b68347e112512dff9b0">Cy_HPPASS_SetFwTrigger</a>(<a class="code" href="group__group__hppass__triggers__masks.html#gacffb19be53f1e17596d28406061d88f8">CY_HPPASS_TRIG_0_MSK</a>); <span class="comment">/* Triggering the temperature measurement */</span></div><div class="line">                tempMeasureSequence = TRIG_TEMP_LO;</div><div class="line">                <span class="keywordflow">break</span>;</div><div class="line">            <span class="keywordflow">case</span> TRIG_TEMP_LO:</div><div class="line">                tempHi = <a class="code" href="group__group__hppass__sar__chan.html#gaea7bbb3947dc53f845f8f4955d678187">Cy_HPPASS_SAR_Result_ChannelRead</a>(TEMPSENS_CHAN_IDX);</div><div class="line">                <a class="code" href="group__group__hppass__sar__functions.html#ga1ac70409790506a22b8ae995c272a435">Cy_HPPASS_SAR_SetTempSensorCurrent</a>(<a class="code" href="group__group__hppass__sar__enums.html#ggac8e3e55c7177e5a2824875af39cd78a1a28576aad6716ce33472e1770bf454e0e">CY_HPPASS_SAR_TEMP_SENSOR_CURRENT_LO</a>);</div><div class="line">                <a class="code" href="group__group__hppass__rt__functions.html#ga18367310dbde8b68347e112512dff9b0">Cy_HPPASS_SetFwTrigger</a>(<a class="code" href="group__group__hppass__triggers__masks.html#gacffb19be53f1e17596d28406061d88f8">CY_HPPASS_TRIG_0_MSK</a>); <span class="comment">/* Triggering the temperature measurement */</span></div><div class="line">                tempMeasureSequence = CALC_TEMP;</div><div class="line">                <span class="keywordflow">break</span>;</div><div class="line">            <span class="keywordflow">case</span> CALC_TEMP:</div><div class="line">                tempLo = <a class="code" href="group__group__hppass__sar__chan.html#gaea7bbb3947dc53f845f8f4955d678187">Cy_HPPASS_SAR_Result_ChannelRead</a>(TEMPSENS_CHAN_IDX);</div><div class="line">                instTemp = <a class="code" href="group__group__hppass__sar__functions.html#gaf2058860b27001f3d1eb23ad5f086e6c">Cy_HPPASS_TEMP_Calc</a>(tempHi, tempLo);</div><div class="line">                fltTemp = K * fltTemp + (1.f - K) * instTemp; <span class="comment">/* One pole Low Pass Filter. K = Tf/(Tf + Ts).</span></div><div class="line"><span class="comment">                                                               * Tf: filter time constant, Ts: sample time. */</span></div><div class="line">                tempMeasureSequence = TRIG_TEMP_HI; <span class="comment">/* Go back to the start of the sequence */</span></div><div class="line">                <span class="keywordflow">break</span>;</div><div class="line">            <span class="keywordflow">default</span>:</div><div class="line">                <span class="keywordflow">break</span>;</div><div class="line">        }</div><div class="line">    }</div></div><!-- fragment -->
 </div>
 </div>
-<a id="ga90987075673707963c4a95e4d684781d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga90987075673707963c4a95e4d684781d">&#9670;&nbsp;</a></span>Cy_HPPASS_SAR_Adjust()</h2>
+<a id="gae982cd8f92aa77b171520a19ab3fb626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae982cd8f92aa77b171520a19ab3fb626">&#9670;&nbsp;</a></span>Cy_HPPASS_SAR_TempAdjust()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Cy_HPPASS_SAR_Adjust </td>
+          <td class="memname">void Cy_HPPASS_SAR_TempAdjust </td>
           <td>(</td>
           <td class="paramtype">int16_t&#160;</td>
           <td class="paramname"><em>temp</em>, </td>
@@ -620,7 +663,8 @@ Since the 'block ready' status is combined SAR and CSG, this particular SAR func
       </table>
 </div><div class="memdoc">
 
-<p>Adjusts the offset calibration value according to input temperature value. </p>
+<p>BWC. </p>
+<p>Adjusts the offset calibration value according to input temperature value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">temp</td><td>The temperature value.</td></tr>
@@ -629,7 +673,7 @@ Since the 'block ready' status is combined SAR and CSG, this particular SAR func
   </dd>
 </dl>
 <dl class="section user"><dt>Function Usage</dt><dd></dd></dl>
-<div class="fragment"><div class="line">    <span class="comment">/* Scenario: Update offset calibration according to temperature and VREF in the field */</span></div><div class="line"><span class="preprocessor">    #define TEMPERATURE_IN_CELSIUS  (60)</span></div><div class="line"><span class="preprocessor">    #define VREF_IN_MV              (3400U)</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__hppass__sar__functions.html#ga90987075673707963c4a95e4d684781d">Cy_HPPASS_SAR_Adjust</a>(TEMPERATURE_IN_CELSIUS, VREF_IN_MV);</div></div><!-- fragment -->
+<div class="fragment"><div class="line">    <span class="comment">/* Scenario: Update offset calibration according to temperature and VREF in the field */</span></div><div class="line"><span class="preprocessor">    #define TEMPERATURE_IN_CELSIUS  (60)</span></div><div class="line"><span class="preprocessor">    #define VREF_IN_MV              (3400U)</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__hppass__sar__functions.html#gae982cd8f92aa77b171520a19ab3fb626">Cy_HPPASS_SAR_TempAdjust</a>(TEMPERATURE_IN_CELSIUS, VREF_IN_MV);</div></div><!-- fragment -->
 </div>
 </div>
 <a id="gae0abc60093f11512759672d1e0883c5a"></a>

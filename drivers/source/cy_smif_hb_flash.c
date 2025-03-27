@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_hb_flash.c
-* \version 2.110
+* \version 2.130
 *
 * \brief
 *  This file provides the source code for the Hyper Bus APIs of the SMIF driver.
@@ -514,95 +514,82 @@ cy_en_smif_status_t Cy_SMIF_HyperBus_Write(SMIF_Type *base,
 {
     cy_en_smif_status_t status = CY_SMIF_GENERAL_ERROR;
     uint32_t i_WriteAddr = 0U;
-    uint32_t sizetowrite = 8U; // recommended to write 16 bytes at a time. since size is in half word(2 bytes) it is 8.
-    if(sizeInHalfWord > 0U && sizeInHalfWord < sizetowrite)
+
+    for(uint32_t i = 0U; i < sizeInHalfWord; i++)
     {
-        sizetowrite = sizeInHalfWord;
-    }
-    int sizeInInt = (int) sizeInHalfWord;
-
-    while( sizeInInt > 0)
-    {
-
-     if(hbDevType == CY_SMIF_HB_FLASH)
-     {
-        writeBuf = (uint16_t)CY_SMIF_NOR_UNLOCK_DATA1;
-        status = Cy_SMIF_HyperBus_MMIO_Write(base,
-                             memConfig->slaveSelect,
-                             burstType,
-                             (uint32_t)CY_SMIF_HB_FLASH_UNLOCK_ADDR1,
-                             HB_REG_SIZE_IN_HALFWORD,
-                             &writeBuf,
-                             hbDevType,
-                             dummyCycles,
-                             isblockingMode,
-                             context
-                             );
-
-        writeBuf = (uint16_t)CY_SMIF_NOR_UNLOCK_DATA2;
-        status = Cy_SMIF_HyperBus_MMIO_Write(base,
-                             memConfig->slaveSelect,
-                             burstType,
-                             (uint32_t)CY_SMIF_HB_FLASH_UNLOCK_ADDR2,
-                             HB_REG_SIZE_IN_HALFWORD,
-                             &writeBuf,
-                             hbDevType,
-                             dummyCycles,
-                             isblockingMode,
-                             context
-                             );
-
-        writeBuf = (uint16_t)CY_SMIF_NOR_UNLOCK_BYPASS_PROGRAM_CMD;
-        status = Cy_SMIF_HyperBus_MMIO_Write(base,
-                             memConfig->slaveSelect,
-                             burstType,
-                             (uint32_t)CY_SMIF_HB_FLASH_UNLOCK_ADDR1,
-                             HB_REG_SIZE_IN_HALFWORD,
-                             &writeBuf,
-                             hbDevType,
-                             dummyCycles,
-                             isblockingMode,
-                             context
-                             );
-        if (status != CY_SMIF_SUCCESS)
+        if(hbDevType == CY_SMIF_HB_FLASH)
         {
-            return status;
+           writeBuf = (uint16_t)CY_SMIF_NOR_UNLOCK_DATA1;
+           status = Cy_SMIF_HyperBus_MMIO_Write(base,
+                                memConfig->slaveSelect,
+                                burstType,
+                                (uint32_t)CY_SMIF_HB_FLASH_UNLOCK_ADDR1,
+                                HB_REG_SIZE_IN_HALFWORD,
+                                &writeBuf,
+                                hbDevType,
+                                dummyCycles,
+                                isblockingMode,
+                                context
+                                );
+        
+           writeBuf = (uint16_t)CY_SMIF_NOR_UNLOCK_DATA2;
+           status = Cy_SMIF_HyperBus_MMIO_Write(base,
+                                memConfig->slaveSelect,
+                                burstType,
+                                (uint32_t)CY_SMIF_HB_FLASH_UNLOCK_ADDR2,
+                                HB_REG_SIZE_IN_HALFWORD,
+                                &writeBuf,
+                                hbDevType,
+                                dummyCycles,
+                                isblockingMode,
+                                context
+                                );
+        
+           writeBuf = (uint16_t)CY_SMIF_NOR_UNLOCK_BYPASS_PROGRAM_CMD;
+           status = Cy_SMIF_HyperBus_MMIO_Write(base,
+                                memConfig->slaveSelect,
+                                burstType,
+                                (uint32_t)CY_SMIF_HB_FLASH_UNLOCK_ADDR1,
+                                HB_REG_SIZE_IN_HALFWORD,
+                                &writeBuf,
+                                hbDevType,
+                                dummyCycles,
+                                isblockingMode,
+                                context
+                                );
+           if (status != CY_SMIF_SUCCESS)
+           {
+               return status;
+           }
         }
-     }
-     status = Cy_SMIF_HyperBus_MMIO_Write(base,
-                             memConfig->slaveSelect,
-                             burstType,
-                             i_WriteAddr + writeAddress,
-                             sizetowrite,
-                             (uint16_t*)&buf[i_WriteAddr],
-                             hbDevType,
-                             dummyCycles,
-                             isblockingMode,
-                             context
-                             );
-
-     if(hbDevType == CY_SMIF_HB_FLASH)
-     {
-         uint16_t readStatus = 0x0000U;
-         uint16_t timeout = DEVICEREADY_CHECK_TIMEOUT;
-         do
-         {
-             status = CY_SMIF_HyperBus_ReadStatus(base, memConfig, &readStatus,context  );
-             timeout --;
-             Cy_SysLib_Delay(100U);
-         } while(((readStatus & (uint16_t)CY_SMIF_DEV_RDY_MASK) == 0U) && (timeout > 0U)); // wait for the device becoming ready
-         if(timeout == 0U)
-         {
-             return CY_SMIF_EXCEED_TIMEOUT;
-         }
-     }
-     sizeInInt -= (int)sizetowrite;
-     i_WriteAddr += sizetowrite;
-
-     if(sizeInInt > 0 && sizeInInt < (int)sizetowrite)
-     {
-         sizetowrite = (uint32_t)sizeInInt;
-     }
+        status = Cy_SMIF_HyperBus_MMIO_Write(base,
+                                memConfig->slaveSelect,
+                                burstType,
+                                i_WriteAddr + writeAddress,
+                                1U,
+                                (uint16_t*)&buf[i_WriteAddr],
+                                hbDevType,
+                                dummyCycles,
+                                isblockingMode,
+                                context
+                                );
+        
+        if(hbDevType == CY_SMIF_HB_FLASH)
+        {
+            uint16_t readStatus = 0x0000U;
+            uint16_t timeout = DEVICEREADY_CHECK_TIMEOUT;
+            do
+            {
+                status = CY_SMIF_HyperBus_ReadStatus(base, memConfig, &readStatus,context  );
+                timeout --;
+                Cy_SysLib_Delay(100U);
+            } while(((readStatus & (uint16_t)CY_SMIF_DEV_RDY_MASK) == 0U) && (timeout > 0U)); // wait for the device becoming ready
+            if(timeout == 0U)
+            {
+                return CY_SMIF_EXCEED_TIMEOUT;
+            }
+        }
+        i_WriteAddr++;
     }
     return status;
 }

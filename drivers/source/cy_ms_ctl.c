@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_ms_ctl.c
-* \version 1.1
+* \version 1.2
 *
 * \brief
 * Provides an API implementation of the master security control driver.
@@ -204,10 +204,15 @@ cy_en_ms_ctl_status_t Cy_Ms_Ctl_SetPcHandler(uint32_t pc, cy_israddress handler)
 {
     cy_en_ms_ctl_status_t ret = CY_MS_CTL_BAD_PARAM;
 
+#if (defined(CY_IP_M33SYSCPUSS_VERSION) && defined(CY_IP_M33SYSCPUSS_VERSION_MINOR)) && \
+    ((CY_IP_M33SYSCPUSS_VERSION <= 2u) && (CY_IP_M33SYSCPUSS_VERSION_MINOR < 2u))
+
     if (pc < 4UL)
     {
         MXCM33->CM33_PC_CTL = (((MXCM33->CM33_PC_CTL)|(0x1UL << pc)) & (MXCM33_CM33_PC_CTL_VALID_Msk));
     }
+
+#endif /* (CY_IP_M33SYSCPUSS_VERSION <= 2u) && (CY_IP_M33SYSCPUSS_VERSION_MINOR < 2u) */
 
     switch(pc)
     {
@@ -240,7 +245,6 @@ cy_en_ms_ctl_status_t Cy_Ms_Ctl_SetPcHandler(uint32_t pc, cy_israddress handler)
             // default case and will return error */
             break;
         }
-
     }
     return ret;
 }

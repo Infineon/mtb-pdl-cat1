@@ -3,9 +3,9 @@
   <vendor>Infineon Technologies</vendor>
   <vendorID>Infineon</vendorID>
   <name>psoc6_02</name>
-  <series>PSoC6_02</series>
+  <series>PSOC6_02</series>
   <version>1.0</version>
-  <description>PSoC6_02</description>
+  <description>PSOC6_02</description>
   <licenseText>(c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company)\n
     or an affiliate of Cypress Semiconductor Corporation.\n
 \n
@@ -4593,7 +4593,11 @@ Note: Always execution is useful to prevent/complicate differential timing and d
 
 The vector unit operand memory region uses either the IP's memory buffer or system memory. For best performance, the IP's memory buffer should be used and ADDR should be set to MEM_BUFF and MASK should specify the IP memory buffer size. 
 
-If a vector operand memory address is mapped on a memory hole, read accesses return a '0' and write accesses are ignored.</description>
+If a vector operand memory address is mapped on a memory hole, read accesses return a '0' and write accesses are ignored.
+
+Note: The base address of the IP internal memory buffer is equal to IP_ADDR + MEM_BUFF where.
+- IP_ADDR is the top-level design time parameter.
+- MEM_BUFF is address offset value for MEM_BUFF MMIO register.</description>
               <bitRange>[31:8]</bitRange>
               <access>read-write</access>
             </field>
@@ -6486,8 +6490,7 @@ Power off, clock off, isolate, reset and no retain.</description>
                   <name>RESET</name>
                   <description>Reset CM4
 Clock off, no isolated, no retain and reset.
-
-Note: The CM4 CPU has a AIRCR.SYSRESETREQ register field that allows the CM4 to reset the complete device (RESET only resets the CM4), resulting in a warm boot.</description>
+...</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -9387,7 +9390,7 @@ Note: the caches only capture FLASH macro main array data. Therefore, invalidati
               <description>Specifies the word address where an error will be injected.
 - For cache SRAM ECC, the word address WORD_ADDR[23:0] is device address A[25:2]. On a FLASH macro refill to this word address and when the corresponding CM0/4_CA_CTL.RAM_ECC_INJ_EN bit is '1', the parity (PARITY[6:0]) is injected and stored in the cache.
 - For FLASH main interface ECC, the word address WORD_ADDR[23:0] is device address A[26:3]. On a FLASH main interface read and when FLASH_CTL.MAIN_ECC_INJ_EN bit is '1', the parity (PARITY[7:0]) replaces the FLASH macro parity (FLASH main interface read path is manipulated).
-- For FLASH work interface ECC, the word address WORD_ADDR[23:0] is device address A[24:2]. On a FLASH work interface read and when FLASH_CTL.WORK_ECC_INJ_EN bit is '1', the parity (PARITY[6:0]) replaces the FLASH macro parity (FLASH work interface read path is manipulated).</description>
+- For FLASH work interface ECC, the word address WORD_ADDR[23:0] is device address A[25:2]. On a FLASH work interface read and when FLASH_CTL.WORK_ECC_INJ_EN bit is '1', the parity (PARITY[6:0]) replaces the FLASH macro parity (FLASH work interface read path is manipulated).</description>
               <bitRange>[23:0]</bitRange>
               <access>read-write</access>
             </field>
@@ -16245,7 +16248,7 @@ Note: Typically, when SW updates the current descriptor pointer CH_CURR_PTR, it 
 
 This field is set with the user/privileged access control of the transaction that writes this register; i.e. the access control is inherited from the write transaction and not specified by the transaction write data.
 
-All transactions for this channel use the P field for the user/privileged access control ('hprot[1]').</description>
+All transactions for this channel use the P field for the user/privileged access control.</description>
                 <bitRange>[0:0]</bitRange>
                 <access>read-write</access>
               </field>
@@ -16257,7 +16260,7 @@ All transactions for this channel use the P field for the user/privileged access
 
 This field is set with the secure/non-secure access control of the transaction that writes this register; i.e. the access control is inherited from the write transaction and not specified by the transaction write data.
 
-All transactions for this channel use the NS field for the secure/non-secure access control ('hprot[4]').</description>
+All transactions for this channel use the NS field for the secure/non-secure access control.</description>
                 <bitRange>[1:1]</bitRange>
                 <access>read-write</access>
               </field>
@@ -16269,42 +16272,25 @@ All transactions for this channel use the NS field for the secure/non-secure acc
 
 This field is used to indicate to an AMBA bridge that a write transaction can complete without waiting for the destination to accept the write transaction data.
 
-All transactions for this channel uses the B field for the non-bufferable/bufferable access control ('hprot[2]').</description>
+All transactions for this channel uses the B field for the non-bufferable/bufferable access control.</description>
                 <bitRange>[2:2]</bitRange>
                 <access>read-write</access>
               </field>
               <field>
                 <name>PC</name>
-                <description>Protection context.
-
-This field is set with the protection context of the transaction that writes this register; i.e. the context is inherited from the write transaction and not specified by the transaction write data.
-
-All transactions for this channel uses the PC field for the protection context.</description>
+                <description>N/A</description>
                 <bitRange>[7:4]</bitRange>
                 <access>read-write</access>
               </field>
               <field>
                 <name>PRIO</name>
-                <description>Channel priority:
-'0': highest priority.
-'1'
-'2'
-'3': lowest priority.
-
-Channels with the same priority constitute a priority group and within this priority group, the following 'roundrobin' arbitration is applied. 
-A 'round' consists of a contiguous sequence of channel activations, within this priority group, without any repetition. Within a round, higher priority is given to the lower channel indices. The notion of a round guarantees that within a group, higher channel indices do not yield to lower indices indefinitely.</description>
+                <description>N/A</description>
                 <bitRange>[9:8]</bitRange>
                 <access>read-write</access>
               </field>
               <field>
                 <name>ENABLED</name>
-                <description>Channel enable:
-'0': Disabled. The channel's trigger is ignored and the channel cannot be made pending and therefore cannot be made active. If a pending channel is disabled, the channel is made non pending. If the activate channel is disabled, the channel is de-activated (bus transactions are completed). 
-'1': Enabled.
-
-SW sets this field to '1' to enable a specific channel.
-
-HW sets this field to '0' when an error interrupt cause is activated.</description>
+                <description>N/A</description>
                 <bitRange>[31:31]</bitRange>
                 <access>read-write</access>
               </field>
@@ -19320,126 +19306,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -19454,9 +19346,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE1</name>
-                <description>The GPIO drive mode for IO pin 1</description>
+                <description>The GPIO drive mode for IO pin 1. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[6:4]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN1</name>
@@ -19466,9 +19405,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE2</name>
-                <description>The GPIO drive mode for IO pin 2</description>
+                <description>The GPIO drive mode for IO pin 2. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[10:8]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN2</name>
@@ -19478,9 +19464,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE3</name>
-                <description>The GPIO drive mode for IO pin 3</description>
+                <description>The GPIO drive mode for IO pin 3. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[14:12]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN3</name>
@@ -19490,9 +19523,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE4</name>
-                <description>The GPIO drive mode for IO pin4</description>
+                <description>The GPIO drive mode for IO pin 4. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[18:16]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN4</name>
@@ -19502,9 +19582,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE5</name>
-                <description>The GPIO drive mode for IO pin 5</description>
+                <description>The GPIO drive mode for IO pin 5. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[22:20]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN5</name>
@@ -19514,9 +19641,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE6</name>
-                <description>The GPIO drive mode for IO pin 6</description>
+                <description>The GPIO drive mode for IO pin 6. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[26:24]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN6</name>
@@ -19526,9 +19700,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE7</name>
-                <description>The GPIO drive mode for IO pin 7</description>
+                <description>The GPIO drive mode for IO pin 7. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[30:28]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN7</name>
@@ -24576,8 +24797,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -24973,8 +25193,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -25153,8 +25372,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -25397,8 +25615,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -25601,8 +25818,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -25805,8 +26021,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -26009,8 +26224,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -26213,8 +26427,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -26417,8 +26630,7 @@ OUT:  NAK</description>
                     <name>ACK_OUT</name>
                     <description>SETUP: Ignore
 IN: Ignore
-OUT:  Accept data and ACK if STALL=0, STALL otherwise.  
-Change to MODE=8 after one succesfull OUT token.</description>
+OUT:  Accept data and ACK if STALL=0, STALL otherwise.  ...</description>
                     <value>9</value>
                   </enumeratedValue>
                   <enumeratedValue>
@@ -30230,6 +30442,75 @@ This value should match either the Baseline (DeepSleep) or Deep (Hibernate) BESL
                     <value>2</value>
                   </enumeratedValue>
                 </enumeratedValues>
+              </field>
+            </fields>
+          </register>
+          <register>
+            <name>DDFT0_SEL</name>
+            <description>DDFT Select register</description>
+            <addressOffset>0x74</addressOffset>
+            <size>32</size>
+            <access>read-write</access>
+            <resetValue>0x0</resetValue>
+            <resetMask>0x7FF8FFF</resetMask>
+            <fields>
+              <field>
+                <name>DDFT0_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-0 of DDFT pair</description>
+                <bitRange>[11:0]</bitRange>
+                <access>read-write</access>
+              </field>
+              <field>
+                <name>DDFT1_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-1 of DDFT pair</description>
+                <bitRange>[26:15]</bitRange>
+                <access>read-write</access>
+              </field>
+            </fields>
+          </register>
+          <register>
+            <name>DDFT1_SEL</name>
+            <description>DDFT Select register</description>
+            <addressOffset>0x78</addressOffset>
+            <size>32</size>
+            <access>read-write</access>
+            <resetValue>0x0</resetValue>
+            <resetMask>0x7FF8FFF</resetMask>
+            <fields>
+              <field>
+                <name>DDFT0_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-0 of DDFT pair</description>
+                <bitRange>[11:0]</bitRange>
+                <access>read-write</access>
+              </field>
+              <field>
+                <name>DDFT1_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-1 of DDFT pair</description>
+                <bitRange>[26:15]</bitRange>
+                <access>read-write</access>
+              </field>
+            </fields>
+          </register>
+          <register>
+            <name>DDFT2_SEL</name>
+            <description>DDFT Select register</description>
+            <addressOffset>0x7C</addressOffset>
+            <size>32</size>
+            <access>read-write</access>
+            <resetValue>0x0</resetValue>
+            <resetMask>0x7FF8FFF</resetMask>
+            <fields>
+              <field>
+                <name>DDFT0_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-0 of DDFT pair</description>
+                <bitRange>[11:0]</bitRange>
+                <access>read-write</access>
+              </field>
+              <field>
+                <name>DDFT1_MUX_SEL</name>
+                <description>Selects internal DUT signal that need to be observed on pin-1 of DDFT pair</description>
+                <bitRange>[26:15]</bitRange>
+                <access>read-write</access>
               </field>
             </fields>
           </register>

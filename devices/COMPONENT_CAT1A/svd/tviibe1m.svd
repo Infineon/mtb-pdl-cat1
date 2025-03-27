@@ -4593,7 +4593,11 @@ Note: Always execution is useful to prevent/complicate differential timing and d
 
 The vector unit operand memory region uses either the IP's memory buffer or system memory. For best performance, the IP's memory buffer should be used and ADDR should be set to MEM_BUFF and MASK should specify the IP memory buffer size. 
 
-If a vector operand memory address is mapped on a memory hole, read accesses return a '0' and write accesses are ignored.</description>
+If a vector operand memory address is mapped on a memory hole, read accesses return a '0' and write accesses are ignored.
+
+Note: The base address of the IP internal memory buffer is equal to IP_ADDR + MEM_BUFF where.
+- IP_ADDR is the top-level design time parameter.
+- MEM_BUFF is address offset value for MEM_BUFF MMIO register.</description>
               <bitRange>[31:8]</bitRange>
               <access>read-write</access>
             </field>
@@ -5726,8 +5730,7 @@ Power off, clock off, isolate, reset and no retain.</description>
                   <name>RESET</name>
                   <description>Reset CM4
 Clock off, no isolated, no retain and reset.
-
-Note: The CM4 CPU has a AIRCR.SYSRESETREQ register field that allows the CM4 to reset the complete device (RESET only resets the CM4), resulting in a warm boot.</description>
+...</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -8627,7 +8630,7 @@ Note: the caches only capture FLASH macro main array data. Therefore, invalidati
               <description>Specifies the word address where an error will be injected.
 - For cache SRAM ECC, the word address WORD_ADDR[23:0] is device address A[25:2]. On a FLASH macro refill to this word address and when the corresponding CM0/4_CA_CTL.RAM_ECC_INJ_EN bit is '1', the parity (PARITY[6:0]) is injected and stored in the cache.
 - For FLASH main interface ECC, the word address WORD_ADDR[23:0] is device address A[26:3]. On a FLASH main interface read and when FLASH_CTL.MAIN_ECC_INJ_EN bit is '1', the parity (PARITY[7:0]) replaces the FLASH macro parity (FLASH main interface read path is manipulated).
-- For FLASH work interface ECC, the word address WORD_ADDR[23:0] is device address A[24:2]. On a FLASH work interface read and when FLASH_CTL.WORK_ECC_INJ_EN bit is '1', the parity (PARITY[6:0]) replaces the FLASH macro parity (FLASH work interface read path is manipulated).</description>
+- For FLASH work interface ECC, the word address WORD_ADDR[23:0] is device address A[25:2]. On a FLASH work interface read and when FLASH_CTL.WORK_ECC_INJ_EN bit is '1', the parity (PARITY[6:0]) replaces the FLASH macro parity (FLASH work interface read path is manipulated).</description>
               <bitRange>[23:0]</bitRange>
               <access>read-write</access>
             </field>
@@ -15210,7 +15213,7 @@ Note: Typically, when SW updates the current descriptor pointer CH_CURR_PTR, it 
 
 This field is set with the user/privileged access control of the transaction that writes this register; i.e. the access control is inherited from the write transaction and not specified by the transaction write data.
 
-All transactions for this channel use the P field for the user/privileged access control ('hprot[1]').</description>
+All transactions for this channel use the P field for the user/privileged access control.</description>
                 <bitRange>[0:0]</bitRange>
                 <access>read-write</access>
               </field>
@@ -15222,7 +15225,7 @@ All transactions for this channel use the P field for the user/privileged access
 
 This field is set with the secure/non-secure access control of the transaction that writes this register; i.e. the access control is inherited from the write transaction and not specified by the transaction write data.
 
-All transactions for this channel use the NS field for the secure/non-secure access control ('hprot[4]').</description>
+All transactions for this channel use the NS field for the secure/non-secure access control.</description>
                 <bitRange>[1:1]</bitRange>
                 <access>read-write</access>
               </field>
@@ -15234,42 +15237,25 @@ All transactions for this channel use the NS field for the secure/non-secure acc
 
 This field is used to indicate to an AMBA bridge that a write transaction can complete without waiting for the destination to accept the write transaction data.
 
-All transactions for this channel uses the B field for the non-bufferable/bufferable access control ('hprot[2]').</description>
+All transactions for this channel uses the B field for the non-bufferable/bufferable access control.</description>
                 <bitRange>[2:2]</bitRange>
                 <access>read-write</access>
               </field>
               <field>
                 <name>PC</name>
-                <description>Protection context.
-
-This field is set with the protection context of the transaction that writes this register; i.e. the context is inherited from the write transaction and not specified by the transaction write data.
-
-All transactions for this channel uses the PC field for the protection context.</description>
+                <description>N/A</description>
                 <bitRange>[7:4]</bitRange>
                 <access>read-write</access>
               </field>
               <field>
                 <name>PRIO</name>
-                <description>Channel priority:
-'0': highest priority.
-'1'
-'2'
-'3': lowest priority.
-
-Channels with the same priority constitute a priority group and within this priority group, the following 'roundrobin' arbitration is applied. 
-A 'round' consists of a contiguous sequence of channel activations, within this priority group, without any repetition. Within a round, higher priority is given to the lower channel indices. The notion of a round guarantees that within a group, higher channel indices do not yield to lower indices indefinitely.</description>
+                <description>N/A</description>
                 <bitRange>[9:8]</bitRange>
                 <access>read-write</access>
               </field>
               <field>
                 <name>ENABLED</name>
-                <description>Channel enable:
-'0': Disabled. The channel's trigger is ignored and the channel cannot be made pending and therefore cannot be made active. If a pending channel is disabled, the channel is made non pending. If the activate channel is disabled, the channel is de-activated (bus transactions are completed). 
-'1': Enabled.
-
-SW sets this field to '1' to enable a specific channel.
-
-HW sets this field to '0' when an error interrupt cause is activated.</description>
+                <description>N/A</description>
                 <bitRange>[31:31]</bitRange>
                 <access>read-write</access>
               </field>
@@ -18053,126 +18039,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -18187,9 +18079,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE1</name>
-                <description>The GPIO drive mode for IO pin 1</description>
+                <description>The GPIO drive mode for IO pin 1. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[6:4]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN1</name>
@@ -18199,9 +18138,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE2</name>
-                <description>The GPIO drive mode for IO pin 2</description>
+                <description>The GPIO drive mode for IO pin 2. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[10:8]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN2</name>
@@ -18211,9 +18197,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE3</name>
-                <description>The GPIO drive mode for IO pin 3</description>
+                <description>The GPIO drive mode for IO pin 3. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[14:12]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN3</name>
@@ -18223,9 +18256,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE4</name>
-                <description>The GPIO drive mode for IO pin4</description>
+                <description>The GPIO drive mode for IO pin 4. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[18:16]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN4</name>
@@ -18235,9 +18315,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE5</name>
-                <description>The GPIO drive mode for IO pin 5</description>
+                <description>The GPIO drive mode for IO pin 5. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[22:20]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN5</name>
@@ -18247,9 +18374,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE6</name>
-                <description>The GPIO drive mode for IO pin 6</description>
+                <description>The GPIO drive mode for IO pin 6. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[26:24]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN6</name>
@@ -18259,9 +18433,56 @@ When D_OUT_EN = 0:
               </field>
               <field>
                 <name>DRIVE_MODE7</name>
-                <description>The GPIO drive mode for IO pin 7</description>
+                <description>The GPIO drive mode for IO pin 7. Resistive pull-up and pull-down is selected in the drive mode.
+Note: when initializing IO's that are connected to a live bus (such as I2C), make sure the peripheral and HSIOM (HSIOM_PRT_SELx) is properly configured  before turning the IO on here to avoid producing glitches on the bus.
+Note: that peripherals other than GPIO &amp; UDB/DSI directly control both the output and output-enable of the output buffer (peripherals can drive strong 0 or strong 1 in any mode except OFF='0').  
+Note: D_OUT, D_OUT_EN are pins of GPIO cell.</description>
                 <bitRange>[30:28]</bitRange>
                 <access>read-write</access>
+                <enumeratedValues>
+                  <enumeratedValue>
+                    <name>HIGHZ</name>
+                    <description>Output buffer is off creating a high impedance input
+D_OUT = '0': High Impedance
+D_OUT = '1': High Impedance</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RSVD</name>
+                    <description>N/A</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP</name>
+                    <description>Resistive pull up</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLDOWN</name>
+                    <description>Resistive pull down</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESLOW</name>
+                    <description>Open drain, drives low</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>OD_DRIVESHIGH</name>
+                    <description>Open drain, drives high</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>STRONG</name>
+                    <description>Strong D_OUTput buffer</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>PULLUP_DOWN</name>
+                    <description>Pull up or pull down</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>IN_EN7</name>
@@ -19292,134 +19513,79 @@ Otherwise: Undefined.</description>
               <fields>
                 <field>
                   <name>AUTO_RELOAD_CC0</name>
-                  <description>Specifies switching of the CC0 and buffered CC0 values. This field has a function in TIMER, QUAD (QUAD_RANGE0_CMP, QUAD_RANGE1_CMP range modes), SR, PWM, PWM_DT and PWM_PR modes.
-Timer, QUAD, SR modes:
-'0': never switch.
-'1': switch on a compare match 0 event.
-PWM, PWM_DT, PWM_PR modes: 
-'0: never switch.
-'1': switch on a terminal count event with an actively pending switch event.</description>
+                  <description>N/A</description>
                   <bitRange>[0:0]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>AUTO_RELOAD_CC1</name>
-                  <description>Specifies switching of the CC1 and buffered CC1 values. This field has a function in TIMER, QUAD (QUAD_RANGE0_CMP, QUAD_RANGE1_CMP range modes), SR, PWM, PWM_DT and PWM_PR modes.
-Timer, QUAD, SR modes:
-'0': never switch.
-'1': switch on a compare match 1 event.
-PWM, PWM_DT, PWM_PR modes: 
-'0: never switch.
-'1': switch on a terminal count event with an actively pending switch event.</description>
+                  <description>N/A</description>
                   <bitRange>[1:1]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>AUTO_RELOAD_PERIOD</name>
-                  <description>Specifies switching of the PERIOD and buffered PERIOD values. This field has a function in PWM and PWM_DT modes.
-'0': never switch.
-'1': switch on a terminal count event with and actively pending switch event.
-
-In QUAD mode, QUAD_RANGE0_CMP range mode this field is used to select the index / wrap-around capture function.
-'0': Captures on index (reload) event. The counter value is copied to the PERIOD register on an index (reload) event.
-'1': Captures when COUNTER equals 0 or 0xffff. The counter value is copied to the PERIOD register when COUNTER equals 0 or 0xffff.</description>
+                  <description>N/A</description>
                   <bitRange>[2:2]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>AUTO_RELOAD_LINE_SEL</name>
-                  <description>Specifies switching of the LINE_SEL and LINE_BUFF_SEL values. This field has a function in PWM and PWM_PR modes.
-'0': never switch.
-'1': switch on a terminal count event with and actively pending switch event.</description>
+                  <description>N/A</description>
                   <bitRange>[3:3]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>CC0_MATCH_UP_EN</name>
-                  <description>Enables / disables the compare match 0 event generation (COUNTER equals CC0 register) when counting up (STATUS.DOWN = 0) in CNT_UPDN1/2 mode.
-'0': compare match 0 event generation disabled when counting up
-'1': compare match 0 event generation enabled when counting up
-
-This field has a function in PWM and PWM_DT modes only.</description>
+                  <description>N/A</description>
                   <bitRange>[4:4]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>CC0_MATCH_DOWN_EN</name>
-                  <description>Enables / disables the compare match 0 event generation (COUNTER equals CC0 register) when counting down (STATUS.DOWN = 1) in CNT_UPDN1/2 mode.
-'0': compare match 0 event generation disabled when counting down
-'1': compare match 0 event generation enabled when counting down
-
-This field has a function in PWM and PWM_DT modes only.</description>
+                  <description>N/A</description>
                   <bitRange>[5:5]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>CC1_MATCH_UP_EN</name>
-                  <description>Enables / disables the compare match 1 event generation (COUNTER equals CC0 register) when counting up (STATUS.DOWN = 0) in CNT_UPDN1/2 mode.
-'0': compare match 1 event generation disabled when counting up
-'1': compare match 1 event generation enabled when counting up
-
-This field has a function in PWM and PWM_DT modes only.</description>
+                  <description>N/A</description>
                   <bitRange>[6:6]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>CC1_MATCH_DOWN_EN</name>
-                  <description>Enables / disables the compare match 1 event generation (COUNTER equals CC0 register) when counting down (STATUS.DOWN = 1) in CNT_UPDN1/2 mode.
-'0': compare match 1 event generation disabled when counting down
-'1': compare match 1 event generation enabled when counting down
-
-This field has a function in PWM and PWM_DT modes only.</description>
+                  <description>N/A</description>
                   <bitRange>[7:7]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>PWM_IMM_KILL</name>
-                  <description>Specifies whether the kill event immediately deactivates the 'dt_line_out' and 'dt_line_compl_out' signals or with the next module clock ('active count' pre-scaled 'clk_counter').
-'0': synchronous kill activation. Deactivates the 'dt_line_out' and 'dt_line_compl_out' signals with the next module clock ('active count' pre-scaled 'clk_counter').
-'1': immediate kill activation. Immediately deactivates the 'dt_line_out' and 'dt_line_compl_out' signals.
-
-This field has a function in PWM, PWM_DT and PWM_PR modes only.</description>
+                  <description>N/A</description>
                   <bitRange>[8:8]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>PWM_STOP_ON_KILL</name>
-                  <description>Specifies whether the counter stops on a kill events:
-'0': kill event does NOT stop counter.
-'1': kill event stops counter.
-
-This field has a function in PWM, PWM_DT and PWM_PR modes only.</description>
+                  <description>N/A</description>
                   <bitRange>[9:9]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>PWM_SYNC_KILL</name>
-                  <description>Specifies asynchronous/synchronous kill behavior:
-'1': synchronous kill mode: the kill event disables the 'dt_line_out' and 'dt_line_compl_out' signals till the next terminal count event (synchronous kill). In synchronous kill mode, STOP_EDGE should  be RISING_EDGE.
-'0': asynchronous kill mode: the kill event only disables the 'dt_line_out' and 'dt_line_compl_out' signals when present. In asynchronous kill mode, STOP_EDGE should be NO_EDGE_DET. 
-
-This field has a function in PWM and PWM_DT modes only. This field is only used when PWM_STOP_ON_KILL is '0'.</description>
+                  <description>N/A</description>
                   <bitRange>[10:10]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>PWM_DISABLE_MODE</name>
-                  <description>Specifies the behavior of the PWM outputs 'line_out' and 'line_compl_out' while the TCPWM counter is disabled (CTL.ENABLED='0') or stopped.
-
-Note: The output signal of this selection can be further modified by the immediate kill logic and line_out polarity settings (CTRL.QUAD_ENCODING_MODE).</description>
+                  <description>N/A</description>
                   <bitRange>[13:12]</bitRange>
                   <access>read-write</access>
                   <enumeratedValues>
                     <enumeratedValue>
                       <name>Z</name>
-                      <description>The behavior is the same is in previous mxtcpwm (version 1).
-
-When the counter is disabled the PWM outputs 'line_out' and 'line_compl_out' are NOT driven by the TCPWM. Instead the port default level configuration applies, e.g. 'Z' (high impedance).
-Note: This is realized by driving the TCPWM output 'line_out_en' to 0.
-
-When the counter is stopped upon a stop event the PWM outputs are deactivated (to the polarity defined by CTL.QUAD_ENCODING_MODE).</description>
+                      <description>The behavior is the same is in previous mxtcpwm (version 1).</description>
                       <value>0</value>
                     </enumeratedValue>
                     <enumeratedValue>
@@ -19445,9 +19611,7 @@ When the counter is disabled or stopped upon a stop event the PWM output 'line_o
                 </field>
                 <field>
                   <name>UP_DOWN_MODE</name>
-                  <description>Determines counter direction.
-
-In QUAD mode this field acts as QUAD_RANGE_MODE field selecting between different counter range, reload value and compare / capture behavior.</description>
+                  <description>N/A</description>
                   <bitRange>[17:16]</bitRange>
                   <access>read-write</access>
                   <enumeratedValues>
@@ -19475,14 +19639,13 @@ In QUAD mode this field acts as QUAD_RANGE_MODE field selecting between differen
                 </field>
                 <field>
                   <name>ONE_SHOT</name>
-                  <description>When '0', counter runs continuous. When '1', counter is turned off by hardware when a terminal count event is generated.</description>
+                  <description>N/A</description>
                   <bitRange>[18:18]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>QUAD_ENCODING_MODE</name>
-                  <description>In QUAD mode this field selects the quadrature encoding mode (X1/X2/X4) or the Up / Down rotary counting mode.
-In PWM, PWM_DT and PWM_PR modes, these two bits can be used to invert 'dt_line_out' and 'dt_line_compl_out'.  Inversion is the last step in generation of 'dt_line_out' and 'dt_line_compl_out'; i.e. a disabled output line 'dt_line_out' has the value QUAD_ENCODING_MODE[0] and a disabled output line 'dt_line_compl_out' has the value QUAD_ENCODING_MODE[1].</description>
+                  <description>N/A</description>
                   <bitRange>[21:20]</bitRange>
                   <access>read-write</access>
                   <enumeratedValues>
@@ -19511,7 +19674,7 @@ This encoding is identical with an up / down counting functionality of the follo
                 </field>
                 <field>
                   <name>MODE</name>
-                  <description>Counter mode.</description>
+                  <description>N/A</description>
                   <bitRange>[26:24]</bitRange>
                   <access>read-write</access>
                   <enumeratedValues>
@@ -19532,10 +19695,7 @@ This encoding is identical with an up / down counting functionality of the follo
                     </enumeratedValue>
                     <enumeratedValue>
                       <name>QUAD</name>
-                      <description>Quadrature mode
-
-Different encoding modes can be selected by QUAD_ENCODING_MODE including up/down count functionality.
-Different counter range, reload value and capture behavior can be selected by QUAD_RANGE_MODE (overloaded field UP_DOWN_MODE).</description>
+                      <description>Quadrature mode</description>
                       <value>3</value>
                     </enumeratedValue>
                     <enumeratedValue>
@@ -19562,23 +19722,13 @@ Different counter range, reload value and capture behavior can be selected by QU
                 </field>
                 <field>
                   <name>DBG_FREEZE_EN</name>
-                  <description>Specifies the counter behavior in debug mode.
-'0': The counter operation continues in debug mode.
-'1': The counter operation freezes in debug mode.</description>
+                  <description>N/A</description>
                   <bitRange>[30:30]</bitRange>
                   <access>read-write</access>
                 </field>
                 <field>
                   <name>ENABLED</name>
-                  <description>Counter enable.
-'0': counter disabled.
-'1': counter enabled.
-Counter static configuration information (e.g. CTRL.MODE, all TR_IN_SEL, TR_IN_EDGE_SEL, TR_PWM_CTRL and TR_OUT_SEL register fields) should only be modified when the counter is disabled. When a counter is disabled, command and status information associated to the counter is cleared by HW, this includes:
-- the associated counter triggers in the CMD register are set to '0'.
-- the counter's interrupt cause fields in counter's INTR register.
-- the counter's status fields in counter's STATUS register..
-- the counter's trigger outputs ('tr_out0' and tr_out1').
-- the counter's line outputs ('line_out' and 'line_compl_out').</description>
+                  <description>N/A</description>
                   <bitRange>[31:31]</bitRange>
                   <access>read-write</access>
                 </field>
@@ -21455,7 +21605,7 @@ Note: The ongoing message transfer is NOT aborted.</description>
                 <name>TX_BUSY</name>
                 <description>Transmitter busy.
 - Set to '1' on the start of the following commands: TX_HEADER, TX_RESPONSE, TX_WAKEUP.
-- Set to '0' on successful completion of previous commands or when an error is detected.
+- Set to '0' on successful completion of previous commands or when an error is detected. In the successful completion case, TX_BUSY is updated one cycle after TX_DONE.
    In 'TX_HEADER, RX_RESPONSE' case, set to '0' at the start bit falling edge in the first response data byte, after header transmission</description>
                 <bitRange>[8:8]</bitRange>
                 <access>read-only</access>
@@ -21467,7 +21617,7 @@ Note: The ongoing message transfer is NOT aborted.</description>
    in RX_HEADER case, set at Break filed rising edge.
    in RX_RESPONSE case, set at the start bit falling edge in the first response data byte.
 
-- Set to '0' on successful completion of previous commands or when an error is detected.</description>
+- Set to '0' on successful completion of previous commands or when an error is detected. In the successful completion case, RX_BUSY is updated one cycle after RX_DONE.</description>
                 <bitRange>[9:9]</bitRange>
                 <access>read-only</access>
               </field>
@@ -24002,7 +24152,8 @@ Rx FIFO 0 write index pointer, range 0 to 63.</description>
                   <name>F0F</name>
                   <description>Rx FIFO 0 Full
 0= Rx FIFO 0 not full
-1= Rx FIFO 0 full</description>
+1= Rx FIFO 0 full
+When the software reading the value immediately after writing to RXF0A.F0AI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[24:24]</bitRange>
                   <access>read-only</access>
                 </field>
@@ -24139,7 +24290,8 @@ Rx FIFO 1 write index pointer, range 0 to 63.</description>
                   <name>F1F</name>
                   <description>Rx FIFO 1 Full
 0= Rx FIFO 1 not full
-1= Rx FIFO 1 full</description>
+1= Rx FIFO 1 full
+When the software reading the value immediately after writing to RXF1A.F1AI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[24:24]</bitRange>
                   <access>read-only</access>
                 </field>
@@ -24590,7 +24742,8 @@ Tx Event FIFO write index pointer, range 0 to 31.</description>
                   <name>EFF</name>
                   <description>Event FIFO Full
 0= Tx Event FIFO not full
-1= Tx Event FIFO full</description>
+1= Tx Event FIFO full
+When the software reading the value immediately after writing to TXEFA.EFAI, this value should be read twice to ensure that the update is reflected.</description>
                   <bitRange>[24:24]</bitRange>
                   <access>read-only</access>
                 </field>
@@ -26511,8 +26664,7 @@ When '1', the alternate clock edge is used (which comes half a SPI SCLK period l
 - 0: Slave 0, SSEL[0].
 - 1: Slave 1, SSEL[1].
 - 2: Slave 2, SSEL[2].
-- 3: Slave 3, SSEL[3].
-SCB block should be disabled when changes are made to this field.</description>
+- 3: Slave 3, SSEL[3].</description>
               <bitRange>[27:26]</bitRange>
               <access>read-write</access>
             </field>
@@ -29384,9 +29536,7 @@ Channels with the same priority constitute a priority level. Priority decoding d
                       <name>ABORT_CANCEL</name>
                       <description>Abort ongoing acquisition, do not return
 Clear pending trigger for aborted group and set Cancelled interrupt.
-Also 'Abort' whenever this group (do not pend the trigger) is not immediately scheduled for acquisition after a new trigger arrives. 
-For this preemption type only, only a positive edge on the trigger can trigger the channel, i.e. CONTINUOUS or level high operation is not supported (to avoid continuous Cancelled interrupts).
-In case CTL.IDLE_PWRDWN is used and the analog is powered down, the group cannot be immediately scheduled for acquisition and therefore a trigger for a group with this preemption type will power up the analog, but the group will ABORT and set the Cancelled interrupt</description>
+Also 'Abort' whenever this group (do not pend the trigger) is not immediately scheduled for acquisition after a new trigger arrives. ...</description>
                       <value>0</value>
                     </enumeratedValue>
                     <enumeratedValue>

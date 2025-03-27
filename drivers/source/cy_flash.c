@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.c
-* \version 3.120
+* \version 3.130
 *
 * \brief
 * Provides the public functions for the API for the PSOC 6 and PSOC C3 Flash Driver.
@@ -678,7 +678,16 @@ static cy_en_flashdrv_status_t Cy_Flash_Process_BootRom_Error_Code(uint32_t erro
             result = CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
             break;
         }
-        case CYBOOT_FAULT_UNEXPECTED :
+        case CYBOOT_FLASH_RECOVER_ERR:
+        {
+        #if defined(CY_DEVICE_PSC3)
+            result = CY_FLASH_DRV_REFRESH_NOTHING;
+        #else
+            result = CY_FLASH_DRV_ERR_UNC;
+        #endif /* defined(CY_DEVICE_PSC3) */
+            break;
+        }
+        case CYBOOT_FAULT_UNEXPECTED:
         {
             result = CY_FLASH_DRV_ERR_UNC;
             break;
@@ -1737,7 +1746,7 @@ static uint32_t cy_flash_scratch_row_addr(uint32_t sector_idx, uint32_t scratch_
 *
 * \returns  A status code.
 *******************************************************************************/
-static uint32_t cy_flash_refresh_perform(uint32_t sector_idx, cyboot_flash_refresh_t *refresh)
+static cy_en_flashdrv_status_t cy_flash_refresh_perform(uint32_t sector_idx, cyboot_flash_refresh_t *refresh)
 {
     cyboot_flash_context_t ctx = { 0UL, };
 
@@ -1751,7 +1760,7 @@ static uint32_t cy_flash_refresh_perform(uint32_t sector_idx, cyboot_flash_refre
 
     if (!ROM_FUNC->cyboot_flash_refresh_test(refresh))
     {
-        return CYBOOT_FLASH_FAILED;
+        return CY_FLASH_DRV_REFRESH_NOTHING;
     }
 
     scratch_addr = cy_flash_scratch_row_addr(sector_idx, refresh->scratch_row_idx);
@@ -1774,13 +1783,12 @@ static uint32_t cy_flash_refresh_perform(uint32_t sector_idx, cyboot_flash_refre
     row_data[COL33_IDX + 1UL] = refresh->max_count;
     row_data[COL33_IDX + 2UL] = 0UL;
     ret = ROM_FUNC->cyboot_flash_write_row(min_addr, row_data, &ctx);
-    if (CYBOOT_FLASH_SUCCESS != ret)
+    if (CYBOOT_FLASH_SUCCESS == ret)
     {
-        return ret;
+        ROM_FUNC->cyboot_flash_refresh_get_min_max(sector_idx, refresh);
     }
 
-    ROM_FUNC->cyboot_flash_refresh_get_min_max(sector_idx, refresh);
-    return CYBOOT_FLASH_SUCCESS;
+    return Cy_Flash_Process_BootRom_Error_Code(ret);
 }
 /** \endcond */
 
@@ -1804,25 +1812,30 @@ static uint32_t cy_flash_refresh_perform(uint32_t sector_idx, cyboot_flash_refre
 cy_en_flashdrv_status_t Cy_Flash_Refresh(uint32_t flashAddr)
 {
     cy_en_flashdrv_status_t result = CY_FLASH_DRV_REFRESH_NOT_ENABLED;
-    if(IS_FLASH_ADDRESS_IN_SFLASH_SECNUM(FLASH_SBUS_ALIAS_ADDRESS(flashAddr)))
+    if (IS_FLASH_ADDRESS_IN_SFLASH_SECNUM(FLASH_SBUS_ALIAS_ADDRESS(flashAddr)))
     {
         return CY_FLASH_DRV_REFRESH_NOT_SUPPORTED;
     }
-    if(refresh_feature_enable)
+    if (refresh_feature_enable)
     {
         uint32_t sector_Idx;
         uint32_t row_Idx;
         uint32_t status = ROM_FUNC->cyboot_flash_refresh_get_sector_idx(FLASH_SBUS_ALIAS_ADDRESS(flashAddr), &sector_Idx, &row_Idx);
-        if(status == CYBOOT_FLASH_SUCCESS)
+        (void)row_Idx;
+
+        if (status == CYBOOT_FLASH_SUCCESS)
         {
         #if defined(CY_DEVICE_PSC3)
-            status = cy_flash_refresh_perform(sector_Idx, flash_refresh);
+            result = (cy_en_flashdrv_status_t)cy_flash_refresh_perform(sector_Idx, flash_refresh);
         #else
             status = ROM_FUNC->cyboot_flash_refresh_perform(sector_Idx, flash_refresh);
+            result = Cy_Flash_Process_BootRom_Error_Code(status);
         #endif
         }
-        (void)row_Idx;
-        result = Cy_Flash_Process_BootRom_Error_Code(status);
+        else
+        {
+            result = Cy_Flash_Process_BootRom_Error_Code(status);
+        }
     }
     return result;
 }
@@ -1846,19 +1859,19 @@ cy_en_flashdrv_status_t Cy_Flash_Refresh(uint32_t flashAddr)
 cy_en_flashdrv_status_t Cy_Flash_Refresh_Start(uint32_t flashAddr)
 {
     cy_en_flashdrv_status_t result = CY_FLASH_DRV_REFRESH_NOT_ENABLED;
-    if(IS_FLASH_ADDRESS_IN_SFLASH_SECNUM(FLASH_SBUS_ALIAS_ADDRESS(flashAddr)))
+    if (IS_FLASH_ADDRESS_IN_SFLASH_SECNUM(FLASH_SBUS_ALIAS_ADDRESS(flashAddr)))
     {
         return CY_FLASH_DRV_REFRESH_NOT_SUPPORTED;
     }
-    if(refresh_feature_enable)
+    if (refresh_feature_enable)
     {
         uint32_t sector_Idx;
         uint32_t row_Idx;
         uint32_t status = ROM_FUNC->cyboot_flash_refresh_get_sector_idx(FLASH_SBUS_ALIAS_ADDRESS(flashAddr), &sector_Idx, &row_Idx);
-        if( status == CYBOOT_FLASH_SUCCESS)
+        if (status == CYBOOT_FLASH_SUCCESS)
         {
             status = ROM_FUNC->cyboot_flash_refresh_perform_start(sector_Idx, flash_refresh, &boot_rom_context);
-            if(status == (uint32_t)CYBOOT_FLASH_SUCCESS)
+            if (status == (uint32_t)CYBOOT_FLASH_SUCCESS)
             {
                 return CY_FLASH_DRV_OPERATION_STARTED;
             }

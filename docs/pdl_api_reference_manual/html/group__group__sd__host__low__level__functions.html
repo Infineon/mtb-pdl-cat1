@@ -289,6 +289,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Restores the SD Host block registers back to default. </p>
+<p>This API also disables SDHC block and user is expect to enable it back using <a class="el" href="group__group__sd__host__low__level__functions.html#gad14bf4c715eaa282580d89bd2be1a420">Cy_SD_Host_Enable</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">*base</td><td>The SD host registers structure pointer. </td></tr>
@@ -465,6 +466,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>If user is using a custom pin to control write protection, user must implement weak <a class="el" href="group__group__sd__host__low__level__functions.html#gac3728dc79e71af7ee2b2521b38fa7a06" title="Returns the state of the write protect switch on the SD card. ">Cy_SD_Host_IsWpSet()</a> and read the pin status.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>bool true - the write protect is set, false - the write protect is not set. </dd></dl>
 
 </div>
@@ -710,6 +712,7 @@ The dedicated io_volt_sel pin is used to change the regulator supplying voltage 
 
 <p>Sets the card_if_pwr_en pin high. </p>
 <p>This pin can be used to enable a voltage regulator used to power the card.</p>
+<dl class="section note"><dt>Note</dt><dd>If user is using a custom pin/regulator to enable card voltage, user must implement weak <a class="el" href="group__group__sd__host__low__level__functions.html#ga89cf0f720dca3e57244dbb736efd0736" title="Sets the card_if_pwr_en pin high. ">Cy_SD_Host_EnableCardVoltage()</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">*base</td><td>The SD host registers structure pointer. </td></tr>
@@ -737,6 +740,7 @@ The dedicated io_volt_sel pin is used to change the regulator supplying voltage 
 
 <p>Sets the card_if_pwr_en pin low. </p>
 <p>This pin can be used to disable a voltage regulator used to power the card.</p>
+<dl class="section note"><dt>Note</dt><dd>If user is using a custom pin/regulator to disable card voltage, user must implement weak <a class="el" href="group__group__sd__host__low__level__functions.html#ga0991c633c61e309f5c2167296e014ee6" title="Sets the card_if_pwr_en pin low. ">Cy_SD_Host_DisableCardVoltage()</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">*base</td><td>The SD host registers structure pointer. </td></tr>

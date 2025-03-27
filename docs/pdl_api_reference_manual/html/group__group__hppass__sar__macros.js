@@ -7,6 +7,7 @@ var group__group__hppass__sar__macros =
     [ "Result Status Masks", "group__group__hppass__sar__status.html", "group__group__hppass__sar__status" ],
     [ "Sequencer Group Trigger Collision Status Masks", "group__group__hppass__sar__trigger.html", "group__group__hppass__sar__trigger" ],
     [ "FIFO Trigger Masks", "group__group__hppass__fifo__trigger.html", "group__group__hppass__fifo__trigger" ],
+    [ "SAR Sequencer Group Masks", "group__group__hppass__sar__group__mask.html", "group__group__hppass__sar__group__mask" ],
     [ "Group_hppass_sar_limit_interrupts", "group__group__hppass__sar__limit__interrupts.html", "group__group__hppass__sar__limit__interrupts" ],
     [ "Group_hppass_fifo_level_interrupts", "group__group__hppass__fifo__level__interrupts.html", "group__group__hppass__fifo__level__interrupts" ],
     [ "CY_HPPASS_SAR_GRP_NUM", "group__group__hppass__sar__macros.html#ga26b5d6a733409a4d2743d3019bf4f8e6", null ],

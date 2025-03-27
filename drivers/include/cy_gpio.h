@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.h
-* \version 1.130
+* \version 1.140
 *
 * Provides an API declaration of the GPIO driver
 *
@@ -103,6 +103,11 @@
 * \section group_gpio_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.140</td>
+*     <td>Updated APIs \ref Cy_GPIO_Port_Init, \ref Cy_GPIO_WritePort.</td>
+*     <td>Defect fix.</td>
+*   </tr>
 *   <tr>
 *     <td>1.130</td>
 *     <td>Added new APIs to support new devices (particularly Traveo II Cluster) with Drive Trim features: \ref Cy_GPIO_SetDriveSelTrim, \ref Cy_GPIO_GetDriveSelTrim.</td>
@@ -261,7 +266,7 @@ extern "C" {
 #define CY_GPIO_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_GPIO_DRV_VERSION_MINOR      130
+#define CY_GPIO_DRV_VERSION_MINOR      140
 
 /** GPIO driver ID */
 #define CY_GPIO_ID CY_PDL_DRV_ID(0x16U)
@@ -414,6 +419,7 @@ typedef struct
 #endif /* CY_IP_MXS40SIOSS, CY_IP_MXS22IOSS */
 
 /* GPIO Masks */
+#define CY_GPIO_HSIOM_SECURE_ACCESS            (0UL)      /**< HSIOM Secure access value */
 #define CY_GPIO_HSIOM_MASK                     (0x1FUL)   /**< HSIOM selection mask */
 #define CY_GPIO_OUT_MASK                       (0x01UL)   /**< Single pin mask for OUT register */
 #define CY_GPIO_IN_MASK                        (0x01UL)   /**< Single pin mask for IN register */
@@ -516,6 +522,7 @@ typedef struct
 #define CY_GPIO_IS_PIN_VALID(pinNum)           (CY_GPIO_PINS_MAX > (pinNum))
 #define CY_GPIO_IS_FILTER_PIN_VALID(pinNum)    (CY_GPIO_PINS_MAX >= (pinNum))
 #define CY_GPIO_IS_VALUE_VALID(outVal)         (1UL >= (outVal))
+#define CY_GPIO_IS_PORT_VALUE_VALID(outVal)    (0U == ((outVal) & (uint32_t)~CY_GPIO_PRT_PINS_MASK))
 
 #if defined(CY_IP_MXS22IOSS)
 #define CY_GPIO_IS_DM_VALID(driveMode)         (((0U == ((driveMode) & (uint32_t)~CY_GPIO_CFG_DM_MASK)) ||\
@@ -591,7 +598,6 @@ typedef struct
 #define CY_GPIO_IS_SLEW_RATE_VALID(slewRate)   (0U == ((slewRate) & (uint32_t)~CY_GPIO_CFG_SLEW_EXT_MASK))
 #define CY_GPIO_IS_DRIVE_SEL_VALID(driveSel)   (0U == ((driveSel) & (uint32_t)~CY_GPIO_CFG_DRIVE_SEL_EXT_MASK))
 #endif /* CY_IP_MXS40IOSS */
-
 
 #if defined (CY_IP_MXSMIF)
 
@@ -1110,7 +1116,6 @@ __STATIC_INLINE void Cy_GPIO_SetHSIOM_SecPin(GPIO_PRT_Type* base, uint32_t pinNu
         portAddrSecHSIOM = (HSIOM_SECURE_PRT_Type*)(CY_SMIF_SECURE_HSIOM_BASE + (SMIF_CORE_SMIF_HSIOM_SMIF_SECURE_PRT_SECTION_SIZE * portNum) + smif_core_offset);
     }
 #endif
-
     tempReg= HSIOM_SEC_PRT_NONSEC_MASK(portAddrSecHSIOM) & ~(CY_GPIO_HSIOM_SEC_MASK << pinNum);
     HSIOM_SEC_PRT_NONSEC_MASK(portAddrSecHSIOM) = tempReg | ((value & CY_GPIO_HSIOM_SEC_MASK) << pinNum);
 #else
@@ -1425,7 +1430,7 @@ __STATIC_INLINE void Cy_GPIO_Write(GPIO_PRT_Type* base, uint32_t pinNum, uint32_
 *******************************************************************************/
 __STATIC_INLINE void Cy_GPIO_WritePort(GPIO_PRT_Type* base, uint32_t value)
 {
-    CY_ASSERT_L2(CY_GPIO_IS_VALUE_VALID(value));
+    CY_ASSERT_L2(CY_GPIO_IS_PORT_VALUE_VALID(value));
     GPIO_PRT_OUT(base) = value;
 }
 

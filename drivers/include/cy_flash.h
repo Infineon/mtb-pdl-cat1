@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.h
-* \version 3.120
+* \version 3.130
 *
 * Provides the API declarations of the Flash driver.
 *
@@ -258,8 +258,14 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>3.130</td>
+*     <td>Updated status code for \ref Cy_Flash_Refresh and \ref Cy_Flash_Init.
+*         Updated \ref cy_en_flashdrv_status_t with new status codes.</td>
+*     <td>Code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>3.120</td>
-*     <td>Update internal implementation for PSOC C3 device.</td>
+*     <td>Updated internal implementation for PSOC C3 device.</td>
 *     <td>Code enhancement.</td>
 *   </tr>
 *   <tr>
@@ -462,7 +468,7 @@ extern "C" {
 #define CY_FLASH_DRV_VERSION_MAJOR       3
 
 /** Driver minor version */
-#define CY_FLASH_DRV_VERSION_MINOR       120
+#define CY_FLASH_DRV_VERSION_MINOR       130
 
 #define CY_FLASH_ID               (CY_PDL_DRV_ID(0x14UL))                          /**< FLASH PDL ID */
 
@@ -610,7 +616,8 @@ typedef enum cy_en_flashdrv_status
     CY_FLASH_DRV_REFRESH_NOT_SUPPORTED    =   ( CY_FLASH_ID_ERROR + 0x11UL),  /**< Refresh on this sector is not supported. */
     CY_FLASH_DRV_REFRESH_FAILED           =   ( CY_FLASH_ID_ERROR + 0x12UL),  /**< Refresh Operation failed. */
     CY_FLASH_DRV_REFRESH_NOT_ENABLED      =   ( CY_FLASH_ID_ERROR + 0x13UL),  /**< Refresh Feature not enabled. */
-    CY_FLASH_DRV_INIT_FAILED              =   ( CY_FLASH_ID_ERROR + 0x14UL),  /**< Refresh Feature not enabled. */
+    CY_FLASH_DRV_INIT_FAILED              =   ( CY_FLASH_ID_ERROR + 0x14UL),  /**< Flash initialization failed. */
+    CY_FLASH_DRV_REFRESH_NOTHING          =   ( CY_FLASH_ID_INFO  + 0x3UL),   /**< There are no any flash rows to recover. */
 #endif /* defined (CY_IP_MXS40FLASHC) */
 } cy_en_flashdrv_status_t;
 
@@ -1888,9 +1895,18 @@ void Cy_Flash_Init(void);
 * Initiates all needed prerequisites to support flash erase/write.
 * Should be once before starting any flash operations.
 *
-* \param refresh_enable enable disable refresh feature
+* \param refresh_enable Enable or disable refresh feature
 *
-* \return success if Init is complete else will return err
+* \return Flash initialization status
+*
+* \note The return value is depending on the \p refresh_enable. \n
+* When \p refresh_enable is false: \n
+*   - CY_FLASH_DRV_SUCCESS if Init is complete otherwise will return error. \n
+*   .
+* When \p refresh_enable is true: \n
+*   - CY_FLASH_DRV_SUCCESS if Init is completed. \n
+*   - CY_FLASH_DRV_REFRESH_NOTHING if Init is completed and there are no any
+*     flash rows to refresh otherwise will return an error.
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_Init(bool refresh_enable);
@@ -1905,10 +1921,11 @@ cy_en_flashdrv_status_t Cy_Flash_Init(bool refresh_enable);
 * To prevent this, the refresh functions should be called before or after flash writes.
 * The refresh functions are not available on CPUSS_FLASHC_SFLASH_SECNUM because it includes the SFLASH.
 *
-* \param flashAddr of the row that needs to be refreshed.
+* \param flashAddr The address of the row that needs to be refreshed.
 *
-* \return success if refresh is complete. Else will return error
-*
+* \return Operation status: \n
+*  * CY_FLASH_DRV_SUCCESS if Refresh is completed. \n
+*  * CY_FLASH_DRV_REFRESH_NOTHING if there are no any flash rows to refresh otherwise will return an error.
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_Refresh(uint32_t flashAddr);

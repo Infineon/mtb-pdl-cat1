@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cryptolite_sha256.h
-* \version 2.70
+* \version 2.80
 *
 * \brief
 *  This file provides common constants and parameters

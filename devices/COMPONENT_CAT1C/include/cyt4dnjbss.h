@@ -741,7 +741,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_cat1c.h"                       /*!< Category 1C System */
+#include "system_cat1c.h"
 
 #include "tviic2d6m_config.h"
 #include "gpio_tviic2d6m_327_bga.h"

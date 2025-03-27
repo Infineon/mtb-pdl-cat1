@@ -168,7 +168,8 @@ typedef struct {
         TCPWM_TR_ALL_SYNC_BYPASS_Type TR_ALL_SYNC_BYPASS; /*!< 0x00090000 Glitch filter module for group trigger */
    __IM uint32_t RESERVED1[16368];
         TCPWM_MOTIF_GRP_Type MOTIF_GRP[8];      /*!< 0x000A0000 Trigger Sync bypass for group trigger */
-} TCPWM_Type;                                   /*!< Size = 786432 (0xC0000) */
+   __IM uint32_t RESERVED2[65536];
+} TCPWM_Type;                                   /*!< Size = 1048576 (0x100000) */
 
 
 /* TCPWM_GRP_CNT.CTRL */

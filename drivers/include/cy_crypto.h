@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.h
-* \version 2.140
+* \version 2.150
 *
 * \brief
 *  This file provides the public interface for the Crypto driver.
@@ -249,6 +249,11 @@
 * \section group_crypto_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td> 2.150</td>
+*     <td>Added new macro CY_CRYPTO_ALIGN_CACHE_LINE to Manually align memory allocation for DCache management in XMC devices.</td>
+*     <td>Removed Pragma align dependency.</td>
+*   </tr>
 *   <tr>
 *     <td> 2.140</td>
 *     <td> Added new APIs \ref Cy_Crypto_Core_EC25519_MakePublicKey, \ref Cy_Crypto_Core_EC25519_MakePrivateKey, \ref Cy_Crypto_Core_EC25519_PointMultiplication. </td>

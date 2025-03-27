@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_vu.c
-* \version 2.140
+* \version 2.150
 *
 * \brief
 *  This file provides the source code to the API for the Vector Unit helpers
@@ -176,7 +176,11 @@ bool Cy_Crypto_Core_Vu_IsRegLess(CRYPTO_Type *base, uint32_t srcReg0, uint32_t s
 void Cy_Crypto_Core_VU_RegInvertEndianness(CRYPTO_Type *base, uint32_t srcReg)
 {
     uint32_t  byteSize = CY_CRYPTO_BYTE_SIZE_OF_BITS(Cy_Crypto_Core_Vu_RegBitSizeRead(base, srcReg));
+#if (CY_CPU_CORTEX_M55)
+    uint32_t *dataAddr = (uint32_t *)CY_REMAP_ADDRESS_FOR_CPU(Cy_Crypto_Core_Vu_RegMemPointer(base, srcReg));
+#else
     uint32_t *dataAddr = Cy_Crypto_Core_Vu_RegMemPointer(base, srcReg);
+#endif    
     Cy_Crypto_Core_InvertEndianness(dataAddr, byteSize);
 }
 

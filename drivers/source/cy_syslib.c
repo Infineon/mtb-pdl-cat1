@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.70
+* \version 3.80
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
@@ -110,9 +110,9 @@ bool cy_WakeupFromWarmBootStatus = false;
 
 #if defined(__ARMCC_VERSION)
         #if (__ARMCC_VERSION >= 6010050)
-            static void Cy_SysLib_AsmInfiniteLoop(void) { __ASM (" b . "); };
+            static void Cy_SysLib_AsmInfiniteLoop(void) { __ASM (" b . "); }
         #else
-            static __ASM void Cy_SysLib_AsmInfiniteLoop(void) { b . };
+            static __ASM void Cy_SysLib_AsmInfiniteLoop(void) { b . }
         #endif /* (__ARMCC_VERSION >= 6010050) */
 #endif  /* (__ARMCC_VERSION) */
 
@@ -601,12 +601,20 @@ void Cy_SysLib_ClearDSRAMWarmBootEntryStatus(void)
 #endif
 
 
-#if defined(CY_IP_MXS22SRSS)
-cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(void)
+#if defined(CY_IP_MXS22SRSS) || defined(CY_IP_MXS40SSRSS)
+cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(cy_syslib_lcs_data_t *base)
 {
+    CY_ASSERT_L2(base);
+
     cy_en_syslib_lcs_mode_t lcsMode;
 
-    lcsMode = (cy_en_syslib_lcs_mode_t)CY_GET_REG32(SRSS_DECODED_LCS_DATA);
+#if defined(CY_IP_MXS40SSRSS)
+    lcsMode = (cy_en_syslib_lcs_mode_t)(base->BOOTROW);
+#elif defined(CY_IP_MXS22SRSS)
+    lcsMode = (cy_en_syslib_lcs_mode_t)(base->DECODED_LCS_DATA);
+#else
+    lcsMode = (cy_en_syslib_lcs_mode_t)(CY_GET_REG32(base));
+#endif
 
     switch (lcsMode)
     {
@@ -626,7 +634,7 @@ cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(void)
 
     return lcsMode;
 }
-#endif
+#endif /* defined(CY_IP_MXS22SRSS) || defined(CY_IP_MXS40SSRSS) */
 
 #if (((defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7) || (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)) && (defined (__MPU_PRESENT) && (__MPU_PRESENT == 1U)))
 bool Cy_Syslib_IsMemCacheable(MPU_Type* mpu, uint32_t addr, uint32_t size)
@@ -700,7 +708,7 @@ bool Cy_Syslib_IsMemCacheable(MPU_Type* mpu, uint32_t addr, uint32_t size)
             SIZE = _FLD2VAL(MPU_RASR_SIZE, mpu->RASR);
 
             /*
-                Check Type Extention filed (TEX) bit21:19 for 0b001
+                Check Type Extension field (TEX) bit21:19 for 0b001
                 Check Cacheable bit17 for 0b0
                 Check Bufferable bit16 for 0b0
             */

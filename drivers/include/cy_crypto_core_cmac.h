@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_cmac.h
-* \version 2.140
+* \version 2.150
 *
 * \brief
 *  This file provides constants and function prototypes
@@ -199,9 +199,9 @@ __STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Cmac_Start(CRYPTO_Type *bas
         #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
         (void)base;
         (void)cmacState;
-        (void)aesKey;   
-        (void)keyLength;        
-     
+        (void)aesKey;
+        (void)keyLength;
+
         tmpResult = CY_CRYPTO_NOT_SUPPORTED;
         #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
     }
@@ -254,8 +254,8 @@ __STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Cmac_Update(CRYPTO_Type *ba
         #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
         (void)base;
         (void)cmacState;
-        (void)message;   
-        (void)messageSize;             
+        (void)message;
+        (void)messageSize;
         tmpResult = CY_CRYPTO_NOT_SUPPORTED;
         #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
     }
@@ -303,7 +303,7 @@ __STATIC_INLINE cy_en_crypto_status_t Cy_Crypto_Core_Cmac_Finish(CRYPTO_Type *ba
         #if defined(CY_CRYPTO_CFG_HW_V1_ENABLE)
         (void)base;
         (void)cmacState;
-        (void)cmac;   
+        (void)cmac;
         tmpResult = CY_CRYPTO_NOT_SUPPORTED;
         #endif /* defined(CY_CRYPTO_CFG_HW_V1_ENABLE) */
     }

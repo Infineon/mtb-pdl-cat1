@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_config.h
-* \version 2.140
+* \version 2.150
 *
 * \brief
 *  This file provides default configuration parameters

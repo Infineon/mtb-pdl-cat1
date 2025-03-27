@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_sfdp.c
-* \version 2.110
+* \version 2.130
 *
 * \brief
 *  This file provides the source code for SFDP enumeration in SMIF driver.
@@ -2502,6 +2502,9 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
     cy_en_smif_slave_select_t slaveSelect = memCfg->slaveSelect;
     cy_en_smif_data_select_t dataSelect = memCfg->dataSelect;
     cy_stc_smif_mem_cmd_t *cmdSfdp = device->readSfdpCmd;
+    uint32_t interruptState;
+
+    interruptState = Cy_SysLib_EnterCriticalSection();
 
     /* Initialize the SFDP buffer */
     for (uint32_t i = 0U; i < CY_SMIF_SFDP_LENGTH; i++)
@@ -2847,6 +2850,7 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
                        SMIF_DEVICE_CTL_ENABLED_Msk;
     }
 
+    Cy_SysLib_ExitCriticalSection(interruptState);
 
     return(result);
 }
@@ -2868,9 +2872,10 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
 *
 * \note The SFDP detect takes into account the types of the SPI supported by the
 * memory device and also the dataSelect option selected to choose which SPI mode
-* (SPI, DSPI, QSPI) to load into the structures. The algorithm prefers
-* QSPI>DSPI>SPI, provided there is support for it in the memory device and the
-* dataSelect selected by the user.
+* (SPI, DSPI, QSPI, OSPI) to load into the structures. The algorithm prefers
+* OSPI>QSPI>DSPI>SPI, provided there is support for it in the memory device and the
+* dataSelect selected by the user. Similarly for data rate, DDR is preferred over SDR
+* if the memory part supports.
 *
 * \note 4-byte addressing mode is set when the memory device supports
 *       3- or 4-byte addressing mode.

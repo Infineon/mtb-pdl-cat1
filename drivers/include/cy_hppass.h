@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_hppass.h
-* \version 1.20
+* \version 1.30
 *
 * Header file for the High Performance Programmable Analog Sub-System driver.
 *
@@ -61,6 +61,15 @@
 *******************************************************************************
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2"> 1.30</td>
+*     <td>Added \ref Cy_HPPASS_SAR_CrossTalkAdjust function.</td>
+*     <td>Driver enhancement.</td>
+*   </tr>
+*   <tr>
+*     <td>Documentation update.</td>
+*     <td>Documentation enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="3"> 1.20</td>
 *     <td>Updated \ref Cy_HPPASS_SAR_SetTempSensorCurrent function interface.</td>

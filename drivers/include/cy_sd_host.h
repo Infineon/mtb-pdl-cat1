@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sd_host.h
-* \version 2.30
+* \version 2.40
 *
 *  This file provides constants and parameter values for
 *  the SD Host Controller driver.
@@ -249,6 +249,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td > 2.40</td>
+*     <td>Updated API \ref Cy_SD_Host_Read, \ref Cy_SD_Host_Write.</td>
+*     <td>Bug Fixes.</td>
+*   </tr>
+*   <tr>
 *     <td> 2.30</td>
 *     <td>Updated APIs \ref Cy_SD_Host_Read and \ref Cy_SD_Host_Write.
 *         Updated API \ref Cy_SD_Host_DeepSleepCallback for multiple SDHC instances support.
@@ -440,7 +445,7 @@ extern "C"
 #define CY_SD_HOST_DRV_VERSION_MAJOR       2
 
 /** Driver minor version */
-#define CY_SD_HOST_DRV_VERSION_MINOR       30
+#define CY_SD_HOST_DRV_VERSION_MINOR       40
 
 /******************************************************************************
 * API Constants
@@ -1382,9 +1387,9 @@ typedef enum
 /** The DMA type enum. */
 typedef enum
 {
-    CY_SD_HOST_DMA_SDMA         = 0U, /**< SDMA mode. */
-    CY_SD_HOST_DMA_ADMA2        = 2U, /**< ADMA2 mode. */
-    CY_SD_HOST_DMA_ADMA2_ADMA3  = 3U  /**< ADMA2-ADMA3 mode. */
+    CY_SD_HOST_DMA_SDMA         = 0U, /**< SDMA mode. SDMA transfers a data boundary by a read/write command with max transfer size 512KB.*/
+    CY_SD_HOST_DMA_ADMA2        = 2U, /**< ADMA2 mode. ADMA2 transfers multiple data boundaries by a read/write command with max transfer size 4GB.*/
+    CY_SD_HOST_DMA_ADMA2_ADMA3  = 3U  /**< ADMA2-ADMA3 mode. ADMA3 performs multiple ADMA2 operations with max transfer size 4 EB.*/
 }cy_en_sd_host_dma_type_t;
 
 /** Write Protect type enum. */

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_mpc.c
-* \version 1.0
+* \version 1.1
 *
 * \brief
 * Provides an API implementation of the secure MPC driver.
@@ -47,6 +47,76 @@
 #define CY_MPC_BLOCK_BIT_COUNT          (1UL)
 /** Mask of Security bit */
 #define CY_MPC_BLOCK_MASK               (0x00000001UL)
+/** Init in progress check timeout value */
+#define CY_MPC_INIT_IN_PROG_TIMEOUT     (10UL)
+
+/*******************************************************************************
+* Function Name: _Cy_Mpc_CheckRotInitInProgress
+****************************************************************************//**
+*
+* \brief Checks the INIT_IN_PROGRESS bit within the ROT_BLK_CFG register
+* to see if SMIF is enabled.
+*
+*
+* \param base
+* Base address of mpc being configured
+*
+* \return
+* Check status
+*
+*******************************************************************************/
+__STATIC_INLINE cy_en_mpc_status_t _Cy_Mpc_CheckRotInitInProgress(MPC_Type* base)
+{
+    // Check if initialization is still in progress
+    uint32_t timeout = 0UL;
+    while (((base->ROT_BLK_CFG) & (RAMC_MPC_ROT_BLK_CFG_INIT_IN_PROGRESS_Msk)) != 0UL)
+    {
+        if (timeout == CY_MPC_INIT_IN_PROG_TIMEOUT)
+        {
+            return CY_MPC_INVALID_STATE;
+        }
+        else
+        {
+            Cy_SysLib_Delay(1);
+            timeout++;
+        }
+    }
+    return CY_MPC_SUCCESS;
+}
+
+/*******************************************************************************
+* Function Name: _Cy_Mpc_CheckInitInProgress
+****************************************************************************//**
+*
+* \brief Checks the INIT_IN_PROGRESS bit within the BLK_CFG register
+* to see if SMIF is enabled.
+*
+*
+* \param base
+* Base address of mpc being configured
+*
+* \return
+* Check status
+*
+*******************************************************************************/
+__STATIC_INLINE cy_en_mpc_status_t _Cy_Mpc_CheckInitInProgress(MPC_Type* base)
+{
+    // Check if initialization is still in progress
+    uint32_t timeout = 0UL;
+    while (((base->BLK_CFG) & (RAMC_MPC_BLK_CFG_INIT_IN_PROGRESS_Msk)) != 0UL)
+    {
+        if (timeout == CY_MPC_INIT_IN_PROG_TIMEOUT)
+        {
+            return CY_MPC_INVALID_STATE;
+        }
+        else
+        {
+            Cy_SysLib_Delay(1);
+            timeout++;
+        }
+    }
+    return CY_MPC_SUCCESS;
+}
 
 /*******************************************************************************
 * Function Name: Cy_Mpc_ConfigRotMpcStruct
@@ -106,6 +176,12 @@ cy_en_mpc_status_t Cy_Mpc_ConfigRotMpcStruct(MPC_Type* base, const cy_stc_mpc_ro
     if (pc >= (uint32_t)MPC_PC_NR)
     {
         return CY_MPC_BAD_PARAM;
+    }
+
+    // Check if initialization is still in progress
+    if(CY_MPC_SUCCESS != _Cy_Mpc_CheckRotInitInProgress(base))
+    {
+        return CY_MPC_INVALID_STATE;
     }
 
     /*
@@ -278,6 +354,12 @@ cy_en_mpc_status_t Cy_Mpc_ConfigMpcStruct(MPC_Type* base, const cy_stc_mpc_cfg_t
     if (config->regionSize != CY_MPC_SIZE_4KB)
     {
          return CY_MPC_BAD_PARAM;
+    }
+
+    // Check if initialization is still in progress
+    if(CY_MPC_SUCCESS != _Cy_Mpc_CheckInitInProgress(base))
+    {
+        return CY_MPC_INVALID_STATE;
     }
 
     blockSize = 1UL << ((uint32_t)config->regionSize + 5UL);
@@ -522,6 +604,12 @@ cy_en_mpc_status_t Cy_Mpc_GetRotBlockAttr(MPC_Type* base, cy_en_mpc_prot_context
         return CY_MPC_BAD_PARAM;
     }
 
+    // Check if initialization is still in progress
+    if(CY_MPC_SUCCESS != _Cy_Mpc_CheckRotInitInProgress(base))
+    {
+        return CY_MPC_INVALID_STATE;
+    }
+
     base->ROT_BLK_PC     = (uint32_t)pc;
     base->ROT_BLK_IDX    = (block / CY_MPC_ROT_BLOCKS_PER_IDX);
     uint32_t blk_settings = (base->ROT_BLK_LUT >> ((block % CY_MPC_ROT_BLOCKS_PER_IDX) * CY_MPC_ROT_BLOCK_BIT_COUNT)) & CY_MPC_ROT_BLOCK_MASK;
@@ -571,6 +659,12 @@ cy_en_mpc_status_t Cy_Mpc_GetBlockAttr(MPC_Type* base, uint32_t block, cy_stc_mp
 {
     if (base == NULL) {
         return CY_MPC_BAD_PARAM;
+    }
+
+    // Check if initialization is still in progress
+    if(CY_MPC_SUCCESS != _Cy_Mpc_CheckInitInProgress(base))
+    {
+        return CY_MPC_INVALID_STATE;
     }
 
     base->BLK_IDX    = (block / CY_MPC_BLOCKS_PER_IDX);

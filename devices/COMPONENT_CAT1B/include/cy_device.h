@@ -2247,19 +2247,6 @@ we need to define this for version 2 only. */
 #define MXOTPC_BOOT_ROW_FOUT_ECC_DED_STATUS_Msk    0x00070000UL
 
 /*******************************************************************************
-*                MXCONNBRIDGE
-*******************************************************************************/
-
-#define MXCONNBRIDGE_CTL(base)                    (((MXCONNBRIDGE_Type *)(base))->CTL)
-#define MXCONNBRIDGE_INTR_STATUS(base)            (((MXCONNBRIDGE_Type *)(base))->INTERRUPT_STATUS)
-#define MXCONNBRIDGE_INTR_MASK(base)              (((MXCONNBRIDGE_Type *)(base))->INTERRUPT_MASK)
-#define MXCONNBRIDGE_RF_SWITCH_CTRL(base)         (((MXCONNBRIDGE_Type *)(base))->RF_SWITCH_CTRL)
-#define MXCONNBRIDGE_GPIO_IN(base)                (((MXCONNBRIDGE_Type *)(base))->GPIO_IN)
-#define MXCONNBRIDGE_GPIO_OUT(base)               (((MXCONNBRIDGE_Type *)(base))->GPIO_OUT)
-#define MXCONNBRIDGE_DEV_WAKE(base)               (((MXCONNBRIDGE_Type *)(base))->DEV_WAKE)
-#define MXCONNBRIDGE_AP_WLAN_CTL(base)               (((MXCONNBRIDGE_Type *)(base))->AP_WLAN_CTL)
-
-/*******************************************************************************
 *                MXSDIODEV
 *******************************************************************************/
 

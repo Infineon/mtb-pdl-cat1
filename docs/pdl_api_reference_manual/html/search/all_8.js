@@ -31,7 +31,6 @@ var searchData=
   ['highpassdisable',['highPassDisable',['../structcy__stc__pdm__pcm__config__t.html#a1597394c0da88d678f7b4405c64c98d4',1,'cy_stc_pdm_pcm_config_t']]],
   ['highpassfiltergain',['highPassFilterGain',['../structcy__stc__pdm__pcm__config__t.html#ad6b92493b10518a30babff09a1f40e77',1,'cy_stc_pdm_pcm_config_t']]],
   ['highphasedutycycle',['highPhaseDutyCycle',['../structcy__stc__scb__i2c__config__t.html#a275201ed69def1d0e7432eef35cfd64c',1,'cy_stc_scb_i2c_config_t']]],
-  ['hldovr',['hldOvr',['../structcy__stc__smartio__config__t.html#aff8b45c5224d6ec6e2ff2af90caf7d70',1,'cy_stc_smartio_config_t']]],
   ['hlut_5fconfig',['hlut_config',['../structcy__stc__tcpwm__motif__hall__sensor__config__t.html#a3f5586625f361e4069108a9c33fdd545',1,'cy_stc_tcpwm_motif_hall_sensor_config_t']]],
   ['hlut_5fdata_5fpos0',['hlut_data_pos0',['../structcy__stc__tcpwm__motif__hlut__t.html#a7aa6f1a54d179e90a08657f444ee893c',1,'cy_stc_tcpwm_motif_hlut_t']]],
   ['hlut_5fdata_5fpos1',['hlut_data_pos1',['../structcy__stc__tcpwm__motif__hlut__t.html#a919f3ba71c8451d1c9d0639186002f97',1,'cy_stc_tcpwm_motif_hlut_t']]],

@@ -254,12 +254,21 @@ Functions</h2></td></tr>
 <tr class="memitem:gad5d21a6411e7b0a176394b39d54c6eeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gad5d21a6411e7b0a176394b39d54c6eeb">Cy_SMIF_SetCryptoDisable</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a> slaveId)</td></tr>
 <tr class="memdesc:gad5d21a6411e7b0a176394b39d54c6eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables SMIF encryption.  <a href="#gad5d21a6411e7b0a176394b39d54c6eeb">More...</a><br /></td></tr>
 <tr class="separator:gad5d21a6411e7b0a176394b39d54c6eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac240b9055afb5c86a8ed9c6a23f9ba23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gac240b9055afb5c86a8ed9c6a23f9ba23">Cy_SMIF_IsCryptoEnabled</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a> slaveId, bool *crypto_status)</td></tr>
+<tr class="memdesc:gac240b9055afb5c86a8ed9c6a23f9ba23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the status of encryption for the selected slave device.  <a href="#gac240b9055afb5c86a8ed9c6a23f9ba23">More...</a><br /></td></tr>
+<tr class="separator:gac240b9055afb5c86a8ed9c6a23f9ba23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5252ac741f6ba0122748d89d907d87f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga5252ac741f6ba0122748d89d907d87f6">Cy_SMIF_ConvertSlaveSlotToIndex</a> (<a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a> ss, uint32_t *device_idx)</td></tr>
 <tr class="memdesc:ga5252ac741f6ba0122748d89d907d87f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts Slave Select enum to the device index.  <a href="#ga5252ac741f6ba0122748d89d907d87f6">More...</a><br /></td></tr>
 <tr class="separator:ga5252ac741f6ba0122748d89d907d87f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga25746c7a8d9bd474509d10dcf48133ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga25746c7a8d9bd474509d10dcf48133ca">Cy_SMIF_SetRxCaptureMode</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, <a class="el" href="group__group__smif__enums.html#ga159307bb2b563a18f87dcf492a2bcc75">cy_en_smif_capture_mode_t</a> <a class="el" href="group__group__ipc__bt__data__structures.html#ga37e90f5e3bd99fac2021fb3a326607d4">mode</a>, <a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a> slaveId)</td></tr>
 <tr class="memdesc:ga25746c7a8d9bd474509d10dcf48133ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the Rx Capture mode setting for SMIF IP block instance.  <a href="#ga25746c7a8d9bd474509d10dcf48133ca">More...</a><br /></td></tr>
 <tr class="separator:ga25746c7a8d9bd474509d10dcf48133ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4ba290997356aff8767bf5519fcbb33"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gaa4ba290997356aff8767bf5519fcbb33">Cy_SMIF_IsBridgeOn</a> (SMIF_Base_Type *base)</td></tr>
+<tr class="memdesc:gaa4ba290997356aff8767bf5519fcbb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to check the bridge enable state.  <a href="#gaa4ba290997356aff8767bf5519fcbb33">More...</a><br /></td></tr>
+<tr class="separator:gaa4ba290997356aff8767bf5519fcbb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6633fdcf48299706b9c87369d1adf26f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga6633fdcf48299706b9c87369d1adf26f">Cy_SMIF_Bridge_Enable</a> (SMIF_Base_Type *base, bool enable)</td></tr>
+<tr class="memdesc:ga6633fdcf48299706b9c87369d1adf26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to enable/disable Bridge.  <a href="#ga6633fdcf48299706b9c87369d1adf26f">More...</a><br /></td></tr>
+<tr class="separator:ga6633fdcf48299706b9c87369d1adf26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ecd1075db9d75ae45f4eb437dbfed8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga6ecd1075db9d75ae45f4eb437dbfed8d">Cy_SMIF_SetMasterDLP</a> (<a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *base, uint16 dlp, uint8_t size)</td></tr>
 <tr class="memdesc:ga6ecd1075db9d75ae45f4eb437dbfed8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the data learning pattern.  <a href="#ga6ecd1075db9d75ae45f4eb437dbfed8d">More...</a><br /></td></tr>
 <tr class="separator:ga6ecd1075db9d75ae45f4eb437dbfed8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -275,12 +284,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gae88b33af21e1dd8fc761317b4f81b4f4"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gae88b33af21e1dd8fc761317b4f81b4f4">CY_SMIF_GetDelayTapsNumber</a> (volatile void *base)</td></tr>
 <tr class="memdesc:gae88b33af21e1dd8fc761317b4f81b4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns tap number which the SMIF IP has.  <a href="#gae88b33af21e1dd8fc761317b4f81b4f4">More...</a><br /></td></tr>
 <tr class="separator:gae88b33af21e1dd8fc761317b4f81b4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa4ba290997356aff8767bf5519fcbb33"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gaa4ba290997356aff8767bf5519fcbb33">Cy_SMIF_IsBridgeOn</a> (SMIF_Base_Type *base)</td></tr>
-<tr class="memdesc:gaa4ba290997356aff8767bf5519fcbb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to check the bridge enable state.  <a href="#gaa4ba290997356aff8767bf5519fcbb33">More...</a><br /></td></tr>
-<tr class="separator:gaa4ba290997356aff8767bf5519fcbb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6633fdcf48299706b9c87369d1adf26f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#ga6633fdcf48299706b9c87369d1adf26f">Cy_SMIF_Bridge_Enable</a> (SMIF_Base_Type *base, bool enable)</td></tr>
-<tr class="memdesc:ga6633fdcf48299706b9c87369d1adf26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to enable/disable Bridge.  <a href="#ga6633fdcf48299706b9c87369d1adf26f">More...</a><br /></td></tr>
-<tr class="separator:ga6633fdcf48299706b9c87369d1adf26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab67d2aecdf1783c11ea54acb78ea2034"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gab67d2aecdf1783c11ea54acb78ea2034">Cy_SMIF_InitCache</a> (SMIF_CACHE_BLOCK_Type *base, const <a class="el" href="structcy__stc__smif__cache__config__t.html">cy_stc_smif_cache_config_t</a> *cache_config)</td></tr>
 <tr class="memdesc:gab67d2aecdf1783c11ea54acb78ea2034"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes SMIF internal CACHE with user provided configuration <a class="el" href="structcy__stc__smif__cache__config__t.html">cy_stc_smif_cache_config_t</a>.  <a href="#gab67d2aecdf1783c11ea54acb78ea2034">More...</a><br /></td></tr>
 <tr class="separator:gab67d2aecdf1783c11ea54acb78ea2034"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -302,6 +305,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa86bff8a6d243c3d27a12414c5fbb174"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gaa86bff8a6d243c3d27a12414c5fbb174">Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr</a> (SMIF_CACHE_BLOCK_Type *base, bool is_secure_view, uint32_t address, uint32_t size)</td></tr>
 <tr class="memdesc:gaa86bff8a6d243c3d27a12414c5fbb174"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function cleans and invalidates cache using the address and size specified by user.  <a href="#gaa86bff8a6d243c3d27a12414c5fbb174">More...</a><br /></td></tr>
 <tr class="separator:gaa86bff8a6d243c3d27a12414c5fbb174"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace242e70ec47914d4c99ccce0bdf4b39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__low__level__functions.html#gace242e70ec47914d4c99ccce0bdf4b39">Cy_SMIF_IsCacheEnabled</a> (SMIF_CACHE_BLOCK_Type *base, bool *cache_status)</td></tr>
+<tr class="memdesc:gace242e70ec47914d4c99ccce0bdf4b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks whether Cache is enabled or not.  <a href="#gace242e70ec47914d4c99ccce0bdf4b39">More...</a><br /></td></tr>
+<tr class="separator:gace242e70ec47914d4c99ccce0bdf4b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaea2684847f04e2e7e2c85cfe7fd37881"></a>
@@ -1770,8 +1776,8 @@ External memory should also support this mode of transfer.</dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status (see <a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a>).</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1C and CAT1D devices. </dd></dl>
-
+<dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1C and CAT1D devices.</dd></dl>
+<div class="fragment"><div class="line">    uint8_t tapSel_set = 8U;</div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41af59dcc9751976e423239cac212df16cc">CY_SMIF_SUCCESS</a> == <a class="code" href="group__group__smif__low__level__functions.html#ga7a547a8e9db987215d7be94e25688ca1">Cy_SMIF_Set_DelayTapSel</a>(SMIF, tapSel))</div><div class="line">    {</div><div class="line">        uint8_t tap_sel_get = <a class="code" href="group__group__smif__low__level__functions.html#ga810c01bc60e2eafeb53a7c9cfa0b7115">Cy_SMIF_Get_DelayTapSel</a>(SMIF);</div><div class="line">        <span class="keywordflow">if</span>(tap_sel_get != tapSel_set)</div><div class="line">        {</div><div class="line">            <span class="comment">/* Insert error handling */</span></div><div class="line">        }</div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div><div class="line"></div></div><!-- fragment -->
 </div>
 </div>
 <a id="ga810c01bc60e2eafeb53a7c9cfa0b7115"></a>
@@ -1798,8 +1804,8 @@ External memory should also support this mode of transfer.</dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>read tap selection</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1C and CAT1D devices. </dd></dl>
-
+<dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1C and CAT1D devices.</dd></dl>
+<div class="fragment"><div class="line">    uint8_t tapSel_set = 8U;</div><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41af59dcc9751976e423239cac212df16cc">CY_SMIF_SUCCESS</a> == <a class="code" href="group__group__smif__low__level__functions.html#ga7a547a8e9db987215d7be94e25688ca1">Cy_SMIF_Set_DelayTapSel</a>(SMIF, tapSel))</div><div class="line">    {</div><div class="line">        uint8_t tap_sel_get = <a class="code" href="group__group__smif__low__level__functions.html#ga810c01bc60e2eafeb53a7c9cfa0b7115">Cy_SMIF_Get_DelayTapSel</a>(SMIF);</div><div class="line">        <span class="keywordflow">if</span>(tap_sel_get != tapSel_set)</div><div class="line">        {</div><div class="line">            <span class="comment">/* Insert error handling */</span></div><div class="line">        }</div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Insert error handling */</span></div><div class="line">    }</div><div class="line"></div></div><!-- fragment -->
 </div>
 </div>
 <a id="gaf94a776664420fda15c8aa4a87b6db7e"></a>
@@ -2725,6 +2731,51 @@ This is a blocking API. The API waits for encryption completion. Will exit if a 
 
 </div>
 </div>
+<a id="gac240b9055afb5c86a8ed9c6a23f9ba23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac240b9055afb5c86a8ed9c6a23f9ba23">&#9670;&nbsp;</a></span>Cy_SMIF_IsCryptoEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> Cy_SMIF_IsCryptoEnabled </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_m_i_f___type.html">SMIF_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__smif__enums.html#gad776a0db9224477ab865254a32d9e312">cy_en_smif_slave_select_t</a>&#160;</td>
+          <td class="paramname"><em>slaveId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>crypto_status</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks the status of encryption for the selected slave device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block registers.</td></tr>
+    <tr><td class="paramname">slaveId</td><td>salve select line to indicate the device on which encryption should be disabled.</td></tr>
+    <tr><td class="paramname">crypto_status</td><td>Holds the status of encryption.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>CY_SMIF_SUCCESS if we are able get the Cache status otherwise returns CY_SMIF_BAD_PARAM. </dd></dl>
+
+</div>
+</div>
 <a id="ga5252ac741f6ba0122748d89d907d87f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga5252ac741f6ba0122748d89d907d87f6">&#9670;&nbsp;</a></span>Cy_SMIF_ConvertSlaveSlotToIndex()</h2>
 
@@ -2805,6 +2856,72 @@ This is a blocking API. The API waits for encryption completion. Will exit if a 
   </dd>
 </dl>
 <div class="fragment"><div class="line"></div><div class="line">    <span class="comment">/* Scenario: Using an external flash which supports DLP (Data Learning Pattern). */</span></div><div class="line"></div><div class="line"><span class="preprocessor">    #define S25HS512T_DLP_PATTERN       (0U)</span></div><div class="line"><span class="preprocessor">    #define S25HS512T_DLP_SIZE          (8U)</span></div><div class="line"><span class="preprocessor">    #define TIMEOUT_1_S                 (1000U)</span></div><div class="line"><span class="preprocessor">    #define DESELECT_DELAY              (7U)</span></div><div class="line"></div><div class="line">    <a class="code" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> status = <a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a858bf399de59819187ec0b3d8913107b">CY_SMIF_BAD_PARAM</a>;</div><div class="line">    <a class="code" href="structcy__stc__smif__context__t.html">cy_stc_smif_context_t</a> SMIFContext;</div><div class="line">    uint16_t dlp_size = 0U;</div><div class="line">    uint16_t dlp_pattern = 0U;</div><div class="line"></div><div class="line">    <span class="comment">/* SMIF configuration parameters */</span></div><div class="line">    <a class="code" href="structcy__stc__smif__config__t.html">cy_stc_smif_config_t</a> tst_smifConfig =</div><div class="line">    {</div><div class="line">        .<a class="code" href="structcy__stc__smif__config__t.html#aafd7927f913f7ce00475898ca8a032f8">mode</a>           =  <a class="code" href="group__group__smif__enums.html#gga2baa7c37d2cedf2e2c837facc753ab5da4fe852fb31547c77b31203ec5c43ca91">CY_SMIF_NORMAL</a>,      <span class="comment">/* Mode of operation */</span></div><div class="line">        .deselectDelay  =  DESELECT_DELAY,      <span class="comment">/* Minimum duration of SPI deselection */</span></div><div class="line">        .rxClockSel     =  <a class="code" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951">CY_SMIF_SEL_INVERTED_INTERNAL_CLK</a>,     <span class="comment">/* Clock source for the receiver clock. This field is not used in SMIF IP version 5 */</span></div><div class="line">        .blockEvent     =  <a class="code" href="group__group__smif__enums.html#ggaf2f886b17b9d40712b212e704665341ea4ee6427df49e552167b2eb7a70f4afc4">CY_SMIF_BUS_ERROR</a>    <span class="comment">/* What happens when there is a read</span></div><div class="line"><span class="comment">                                                 * to an empty RX FIFO or write to a full TX FIFO</span></div><div class="line"><span class="comment">                                                 */</span></div><div class="line">    };</div><div class="line"></div><div class="line">    <a class="code" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> SMIF_Status = <a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a858bf399de59819187ec0b3d8913107b">CY_SMIF_BAD_PARAM</a>;</div><div class="line"></div><div class="line">    SMIF_Status = <a class="code" href="group__group__smif__low__level__functions.html#gaea2684847f04e2e7e2c85cfe7fd37881">Cy_SMIF_Init</a>(SMIF, &amp;tst_smifConfig, TIMEOUT_1_MS, &amp;SMIFContext);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span> (SMIF_Status == <a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41af59dcc9751976e423239cac212df16cc">CY_SMIF_SUCCESS</a>)</div><div class="line">    {</div><div class="line">        <span class="comment">/* Set Data Select */</span></div><div class="line">        <a class="code" href="group__group__smif__low__level__functions.html#ga1df033f6664a2b41cf044f2c4ec60817">Cy_SMIF_SetDataSelect</a>(SMIF, <a class="code" href="group__group__smif__enums.html#ggad776a0db9224477ab865254a32d9e312ae942102fb4b1a03a13ca8950b607520d">CY_SMIF_SLAVE_SELECT_0</a>, <a class="code" href="group__group__smif__enums.html#gga6d9ba2ef785b94cf542c573a51a0eb58a7544d58a69a1a2308ebd0cac9099cd24">CY_SMIF_DATA_SEL0</a>);</div><div class="line"></div><div class="line">        <span class="comment">/* Set RX Capture mode to Normal SPI with Data Learning Pattern */</span></div><div class="line">        <a class="code" href="group__group__smif__low__level__functions.html#ga25746c7a8d9bd474509d10dcf48133ca">Cy_SMIF_SetRxCaptureMode</a>(SMIF, <a class="code" href="group__group__smif__enums.html#gga159307bb2b563a18f87dcf492a2bcc75a4223535fb0e9f40aa3402e30f3aeecb9">CY_SMIF_SEL_NORMAL_SPI_WITH_DLP</a>, <a class="code" href="group__group__smif__enums.html#ggad776a0db9224477ab865254a32d9e312ae942102fb4b1a03a13ca8950b607520d">CY_SMIF_SLAVE_SELECT_0</a>);</div><div class="line">        </div><div class="line">        <span class="comment">/* Set Master DLP */</span></div><div class="line">        SMIF_Status = <a class="code" href="group__group__smif__low__level__functions.html#ga6ecd1075db9d75ae45f4eb437dbfed8d">Cy_SMIF_SetMasterDLP</a>(SMIF, S25HS512T_DLP_PATTERN, S25HS512T_DLP_SIZE);</div><div class="line"></div><div class="line">        <span class="keywordflow">if</span> (SMIF_Status == <a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41af59dcc9751976e423239cac212df16cc">CY_SMIF_SUCCESS</a>)</div><div class="line">        {</div><div class="line">            <span class="comment">/* Optional : To retrieve the DLP settings used by SMIF */</span></div><div class="line">              <span class="comment">/* Get Master DLP Size */</span></div><div class="line">              dlp_size = <a class="code" href="group__group__smif__low__level__functions.html#ga220136f6a2fe90ea720c3e1577f96421">Cy_SMIF_GetMasterDLPSize</a>(SMIF);</div><div class="line"></div><div class="line">              <span class="comment">/* Get Master DLP Pattern */</span></div><div class="line">            dlp_pattern = <a class="code" href="group__group__smif__low__level__functions.html#ga338f6c1d218cd2093c48254995f6f06b">Cy_SMIF_GetMasterDLP</a>(SMIF);</div><div class="line">        }</div><div class="line"></div><div class="line">        <span class="comment">/* Enable SMIF */</span></div><div class="line">        <a class="code" href="group__group__smif__low__level__functions.html#ga5428ca682fd56b837a1a3763fc2596b8">Cy_SMIF_Enable</a>(SMIF, &amp;SMIFContext);</div><div class="line"></div><div class="line">    }</div><div class="line">    <span class="comment">/* The following void casts are to eliminate unused-variable warnings at compile-time*/</span></div><div class="line">    (void)status;</div><div class="line">    (void)dlp_size;</div><div class="line">    (void)dlp_pattern;</div><div class="line">    <span class="comment">/* Perform Memory slot Initialization and Read operation should use DLP in latency cycles duration */</span></div><div class="line"></div></div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D and CAT1C (TVIIC only) devices. </dd></dl>
+
+</div>
+</div>
+<a id="gaa4ba290997356aff8767bf5519fcbb33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa4ba290997356aff8767bf5519fcbb33">&#9670;&nbsp;</a></span>Cy_SMIF_IsBridgeOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_SMIF_IsBridgeOn </td>
+          <td>(</td>
+          <td class="paramtype">SMIF_Base_Type *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to check the bridge enable state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF base registers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the bridge is active (enabled), false if the bridge is not enabled.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D and CAT1C (TVIIC only) devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga6633fdcf48299706b9c87369d1adf26f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6633fdcf48299706b9c87369d1adf26f">&#9670;&nbsp;</a></span>Cy_SMIF_Bridge_Enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> Cy_SMIF_Bridge_Enable </td>
+          <td>(</td>
+          <td class="paramtype">SMIF_Base_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to enable/disable Bridge. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF base registers.</td></tr>
+    <tr><td class="paramname">enable</td><td>enable/disable the bridge</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D and CAT1C (TVIIC only) devices. </dd></dl>
 
 </div>
 </div>
@@ -2981,72 +3098,6 @@ This is a blocking API. The API waits for encryption completion. Will exit if a 
 
 </div>
 </div>
-<a id="gaa4ba290997356aff8767bf5519fcbb33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa4ba290997356aff8767bf5519fcbb33">&#9670;&nbsp;</a></span>Cy_SMIF_IsBridgeOn()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Cy_SMIF_IsBridgeOn </td>
-          <td>(</td>
-          <td class="paramtype">SMIF_Base_Type *&#160;</td>
-          <td class="paramname"><em>base</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is used to check the bridge enable state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF base registers.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the bridge is active (enabled), false if the bridge is not enabled.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D and CAT1C (TVIIC only) devices. </dd></dl>
-
-</div>
-</div>
-<a id="ga6633fdcf48299706b9c87369d1adf26f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6633fdcf48299706b9c87369d1adf26f">&#9670;&nbsp;</a></span>Cy_SMIF_Bridge_Enable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> Cy_SMIF_Bridge_Enable </td>
-          <td>(</td>
-          <td class="paramtype">SMIF_Base_Type *&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is used to enable/disable Bridge. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF base registers.</td></tr>
-    <tr><td class="paramname">enable</td><td>enable/disable the bridge</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1D and CAT1C (TVIIC only) devices. </dd></dl>
-
-</div>
-</div>
 <a id="gab67d2aecdf1783c11ea54acb78ea2034"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab67d2aecdf1783c11ea54acb78ea2034">&#9670;&nbsp;</a></span>Cy_SMIF_InitCache()</h2>
 
@@ -3083,7 +3134,7 @@ This is a blocking API. The API waits for encryption completion. Will exit if a 
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns result of CACHE configuration.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1D devices.</dd></dl>
-<div class="fragment"><div class="line">    <a class="code" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> SMIF_Status = <a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a858bf399de59819187ec0b3d8913107b">CY_SMIF_BAD_PARAM</a>;</div><div class="line"></div><div class="line">    <span class="comment">/* SMIF configuration parameters */</span></div><div class="line">    <a class="code" href="structcy__stc__smif__config__t.html">cy_stc_smif_config_t</a> tst_smifConfig =</div><div class="line">    {</div><div class="line">        .<a class="code" href="structcy__stc__smif__config__t.html#aafd7927f913f7ce00475898ca8a032f8">mode</a>           =  <a class="code" href="group__group__smif__enums.html#gga2baa7c37d2cedf2e2c837facc753ab5da4fe852fb31547c77b31203ec5c43ca91">CY_SMIF_NORMAL</a>,      <span class="comment">/* Mode of operation */</span></div><div class="line">        .deselectDelay  =  DESELECT_DELAY,      <span class="comment">/* Minimum duration of SPI deselection */</span></div><div class="line">        .rxClockSel     =  <a class="code" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951">CY_SMIF_SEL_INVERTED_INTERNAL_CLK</a>,     <span class="comment">/* Clock source for the receiver clock. This field is not used in SMIF IP version 5 */</span></div><div class="line">        .blockEvent     =  <a class="code" href="group__group__smif__enums.html#ggaf2f886b17b9d40712b212e704665341ea4ee6427df49e552167b2eb7a70f4afc4">CY_SMIF_BUS_ERROR</a>    <span class="comment">/* What happens when there is a read</span></div><div class="line"><span class="comment">                                                 * to an empty RX FIFO or write to a full TX FIFO</span></div><div class="line"><span class="comment">                                                 */</span></div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* SMIF Cache Region configuration. Upto 4 regions can be configued with different CACHE attributes. Make sure they do not overlap */</span></div><div class="line">    <a class="code" href="structcy__stc__smif__cache__region__t.html">cy_stc_smif_cache_region_t</a> cache_region_0 =</div><div class="line">    {</div><div class="line">        .<a class="code" href="structcy__stc__smif__cache__region__t.html#acf2fe2272c55899642e90e4645828069">enabled</a> = <span class="keyword">true</span>,</div><div class="line">        .start_address = 0x60000000,</div><div class="line">        .end_address = 0x60400000,</div><div class="line">        .cache_attributes = <a class="code" href="group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a2fb5dbad17396457183283f6f9efa62f">CY_SMIF_CACHEABLE_WB_RWA</a></div><div class="line">    };</div><div class="line">    <a class="code" href="structcy__stc__smif__cache__region__t.html">cy_stc_smif_cache_region_t</a> *cache_region_info[] =</div><div class="line">    {</div><div class="line">        &amp;cache_region_0</div><div class="line">    };</div><div class="line"></div><div class="line">    <a class="code" href="structcy__stc__smif__cache__config__t.html">cy_stc_smif_cache_config_t</a> cache_config =</div><div class="line">    {</div><div class="line">        .<a class="code" href="structcy__stc__smif__cache__config__t.html#ab44796423b973958270b506d73cbdfa0">enabled</a> = <span class="keyword">true</span>,</div><div class="line">        .cache_retention_on = <span class="keyword">true</span>,</div><div class="line">        .cache_region = &amp;cache_region_info[0],</div><div class="line">        .cache_region_count = 1U</div><div class="line">    };</div><div class="line">    SMIF_Status = <a class="code" href="group__group__smif__low__level__functions.html#gaea2684847f04e2e7e2c85cfe7fd37881">Cy_SMIF_Init</a>(SMIF_HW, &amp;smifConfig, timeout, &amp;smifContext);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(SMIF_Status == <a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41af59dcc9751976e423239cac212df16cc">CY_SMIF_SUCCESS</a>)</div><div class="line">    {</div><div class="line">        <span class="comment">/* Initialize CACHE */</span></div><div class="line">        <a class="code" href="group__group__smif__low__level__functions.html#gab67d2aecdf1783c11ea54acb78ea2034">Cy_SMIF_InitCache</a>(SMIF0_CACHE_BLOCK, &amp;cache_config);</div><div class="line"></div><div class="line">        <a class="code" href="group__group__smif__low__level__functions.html#ga5428ca682fd56b837a1a3763fc2596b8">Cy_SMIF_Enable</a>(SMIF_HW, &amp;SMIFContext);</div><div class="line">    }</div></div><!-- fragment -->
+<div class="fragment"><div class="line">    <a class="code" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> SMIF_Status = <a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41a858bf399de59819187ec0b3d8913107b">CY_SMIF_BAD_PARAM</a>;</div><div class="line"></div><div class="line">    <span class="comment">/* SMIF configuration parameters */</span></div><div class="line">    <a class="code" href="structcy__stc__smif__config__t.html">cy_stc_smif_config_t</a> tst_smifConfig =</div><div class="line">    {</div><div class="line">        .<a class="code" href="structcy__stc__smif__config__t.html#aafd7927f913f7ce00475898ca8a032f8">mode</a>           =  <a class="code" href="group__group__smif__enums.html#gga2baa7c37d2cedf2e2c837facc753ab5da4fe852fb31547c77b31203ec5c43ca91">CY_SMIF_NORMAL</a>,      <span class="comment">/* Mode of operation */</span></div><div class="line">        .deselectDelay  =  DESELECT_DELAY,      <span class="comment">/* Minimum duration of SPI deselection */</span></div><div class="line">        .rxClockSel     =  <a class="code" href="group__group__smif__enums.html#gga6a2149f74b63ec4ebc76b99a9eb633d2a050154bdc9cc2242c0224d8992355951">CY_SMIF_SEL_INVERTED_INTERNAL_CLK</a>,     <span class="comment">/* Clock source for the receiver clock. This field is not used in SMIF IP version 5 */</span></div><div class="line">        .blockEvent     =  <a class="code" href="group__group__smif__enums.html#ggaf2f886b17b9d40712b212e704665341ea4ee6427df49e552167b2eb7a70f4afc4">CY_SMIF_BUS_ERROR</a>    <span class="comment">/* What happens when there is a read</span></div><div class="line"><span class="comment">                                                 * to an empty RX FIFO or write to a full TX FIFO</span></div><div class="line"><span class="comment">                                                 */</span></div><div class="line">    };</div><div class="line"></div><div class="line">    <span class="comment">/* SMIF Cache Region configuration. Upto 4 regions can be configured with different CACHE attributes. Make sure they do not overlap */</span></div><div class="line">    <a class="code" href="structcy__stc__smif__cache__region__t.html">cy_stc_smif_cache_region_t</a> cache_region_0 =</div><div class="line">    {</div><div class="line">        .<a class="code" href="structcy__stc__smif__cache__region__t.html#acf2fe2272c55899642e90e4645828069">enabled</a> = <span class="keyword">true</span>,</div><div class="line">        .start_address = 0x60000000,</div><div class="line">        .end_address = 0x60400000,</div><div class="line">        .cache_attributes = <a class="code" href="group__group__smif__enums.html#gga2a1121193cee4d27da9f5a354c9b14c9a2fb5dbad17396457183283f6f9efa62f">CY_SMIF_CACHEABLE_WB_RWA</a></div><div class="line">    };</div><div class="line">    <a class="code" href="structcy__stc__smif__cache__region__t.html">cy_stc_smif_cache_region_t</a> *cache_region_info[] =</div><div class="line">    {</div><div class="line">        &amp;cache_region_0</div><div class="line">    };</div><div class="line"></div><div class="line">    <a class="code" href="structcy__stc__smif__cache__config__t.html">cy_stc_smif_cache_config_t</a> cache_config =</div><div class="line">    {</div><div class="line">        .<a class="code" href="structcy__stc__smif__cache__config__t.html#ab44796423b973958270b506d73cbdfa0">enabled</a> = <span class="keyword">true</span>,</div><div class="line">        .cache_retention_on = <span class="keyword">true</span>,</div><div class="line">        .cache_region = &amp;cache_region_info[0],</div><div class="line">        .cache_region_count = 1U</div><div class="line">    };</div><div class="line">    SMIF_Status = <a class="code" href="group__group__smif__low__level__functions.html#gaea2684847f04e2e7e2c85cfe7fd37881">Cy_SMIF_Init</a>(SMIF_HW, &amp;smifConfig, timeout, &amp;smifContext);</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(SMIF_Status == <a class="code" href="group__group__smif__enums.html#gga75fb83c49239ece738cfba778165cb41af59dcc9751976e423239cac212df16cc">CY_SMIF_SUCCESS</a>)</div><div class="line">    {</div><div class="line">        <span class="comment">/* Initialize CACHE */</span></div><div class="line">        <a class="code" href="group__group__smif__low__level__functions.html#gab67d2aecdf1783c11ea54acb78ea2034">Cy_SMIF_InitCache</a>(SMIF0_CACHE_BLOCK, &amp;cache_config);</div><div class="line"></div><div class="line">        <a class="code" href="group__group__smif__low__level__functions.html#ga5428ca682fd56b837a1a3763fc2596b8">Cy_SMIF_Enable</a>(SMIF_HW, &amp;SMIFContext);</div><div class="line">    }</div></div><!-- fragment -->
 </div>
 </div>
 <a id="gaf787cd8f7a861b180590d688355e8f60"></a>
@@ -3331,6 +3382,45 @@ This is a blocking API. The API waits for encryption completion. Will exit if a 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns result of CACHE operation.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1D devices. </dd></dl>
+
+</div>
+</div>
+<a id="gace242e70ec47914d4c99ccce0bdf4b39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace242e70ec47914d4c99ccce0bdf4b39">&#9670;&nbsp;</a></span>Cy_SMIF_IsCacheEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__smif__enums.html#ga75fb83c49239ece738cfba778165cb41">cy_en_smif_status_t</a> Cy_SMIF_IsCacheEnabled </td>
+          <td>(</td>
+          <td class="paramtype">SMIF_CACHE_BLOCK_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>cache_status</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function checks whether Cache is enabled or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Holds the base address of the SMIF block.</td></tr>
+    <tr><td class="paramname">cache_status</td><td>Holds the Cache status</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>CY_SMIF_SUCCESS if we are able get the Cache status otherwise returns CY_SMIF_BAD_PARAM.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This API is supported on CAT1D devices. </dd></dl>
 
 </div>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk_v2.c
-* \version 3.130
+* \version 3.140
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -3795,7 +3795,7 @@ uint32_t Cy_SysClk_FllGetFrequency(void)
 #define CY_SYSCLK_DPLL_LP_MAX_OUT_FREQ (400000000UL)
 
 /* DPLL-LP default config values */
-#ifdef CY_IP_MXS22SRSS
+#if defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (0u)
 #define CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE  (0xFUL)
 #define CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT    (0xAUL)
 #define CY_SYSCLK_DPLL_LP_CONFIG5_KI_FRACT  (0xBUL)
@@ -3803,6 +3803,26 @@ uint32_t Cy_SysClk_FllGetFrequency(void)
 #define CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT    (0x8UL)
 #define CY_SYSCLK_DPLL_LP_CONFIG5_KP_FRACT  (0x9UL)
 #define CY_SYSCLK_DPLL_LP_CONFIG5_KP_SSCG   (0x7UL)
+#elif defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (1u)
+#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DEPTH         (0x00UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_RATE          (0x00UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DITHER_EN     (0x00UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_MODE          (0x00UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_EN            (0x00UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE           (0x0FUL)
+#define CY_SYSCLK_DPLL_LP_CONFIG4_PLL_TG             (0x00UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT             (0x28UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT             (0x20UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_ACC_INT         (0x27UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_ACC_INT         (0x23UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG6_KI_FRAC            (0x2CUL)
+#define CY_SYSCLK_DPLL_LP_CONFIG6_KP_FRAC            (0x24UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG6_KI_ACC_FRAC        (0x27UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG6_KP_ACC_FRAC        (0x1CUL)
+#define CY_SYSCLK_DPLL_LP_CONFIG7_KI_SSCG            (0x1CUL)
+#define CY_SYSCLK_DPLL_LP_CONFIG7_KP_SSCG            (0x1CUL)
+#define CY_SYSCLK_DPLL_LP_CONFIG7_KI_ACC_SSCG        (0x27UL)
+#define CY_SYSCLK_DPLL_LP_CONFIG7_KP_ACC_SSCG        (0x23UL)
 #else
 #define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DEPTH         (0x00UL)
 #define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_RATE          (0x00UL)
@@ -4641,7 +4661,7 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpConfigure(uint32_t pllNum, const cy_stc_pl
 
         manualConfig.lpPllCfg->outputMode = config->outputMode;
         /* Set the default parameters to remaining PLL configurations */
-        #ifdef CY_IP_MXS22SRSS
+        #if defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (0u)
         manualConfig.lpPllCfg->dcoCode = CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE;
         manualConfig.lpPllCfg->kiInt   = CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT;
         manualConfig.lpPllCfg->kiFrac  = CY_SYSCLK_DPLL_LP_CONFIG5_KI_FRACT;
@@ -4649,6 +4669,26 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpConfigure(uint32_t pllNum, const cy_stc_pl
         manualConfig.lpPllCfg->kpInt   = CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT;
         manualConfig.lpPllCfg->kpFrac  = CY_SYSCLK_DPLL_LP_CONFIG5_KP_FRACT;
         manualConfig.lpPllCfg->kpSscg  = CY_SYSCLK_DPLL_LP_CONFIG5_KP_SSCG;
+        #elif defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (1u)
+        manualConfig.lpPllCfg->sscgDepth    = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DEPTH;
+        manualConfig.lpPllCfg->sscgRate     = (uint8_t)CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_RATE;
+        manualConfig.lpPllCfg->sscgDitherEn = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DITHER_EN;
+        manualConfig.lpPllCfg->sscgMode     = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_MODE;
+        manualConfig.lpPllCfg->sscgEn       = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_EN;
+        manualConfig.lpPllCfg->dcoCode      = CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE;
+        manualConfig.lpPllCfg->pllTg        = CY_SYSCLK_DPLL_LP_CONFIG4_PLL_TG;
+        manualConfig.lpPllCfg->kiInt        = CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT;
+        manualConfig.lpPllCfg->kpInt        = CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT;
+        manualConfig.lpPllCfg->kiAccInt     = CY_SYSCLK_DPLL_LP_CONFIG5_KI_ACC_INT;
+        manualConfig.lpPllCfg->kpAccInt     = CY_SYSCLK_DPLL_LP_CONFIG5_KP_ACC_INT;
+        manualConfig.lpPllCfg->kiFrac       = CY_SYSCLK_DPLL_LP_CONFIG6_KI_FRAC;
+        manualConfig.lpPllCfg->kpFrac       = CY_SYSCLK_DPLL_LP_CONFIG6_KP_FRAC;
+        manualConfig.lpPllCfg->kiAccFrac    = CY_SYSCLK_DPLL_LP_CONFIG6_KI_ACC_FRAC;
+        manualConfig.lpPllCfg->kpAccFrac    = CY_SYSCLK_DPLL_LP_CONFIG6_KP_ACC_FRAC;
+        manualConfig.lpPllCfg->kiSscg       = CY_SYSCLK_DPLL_LP_CONFIG7_KI_SSCG;
+        manualConfig.lpPllCfg->kpSscg       = CY_SYSCLK_DPLL_LP_CONFIG7_KP_SSCG;
+        manualConfig.lpPllCfg->kiAccSscg    = CY_SYSCLK_DPLL_LP_CONFIG7_KI_ACC_SSCG;
+        manualConfig.lpPllCfg->kpAccSscg    = CY_SYSCLK_DPLL_LP_CONFIG7_KP_ACC_SSCG;
         #else
         manualConfig.lpPllCfg->sscgDepth    = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DEPTH;
         manualConfig.lpPllCfg->sscgRate     = (uint8_t)CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_RATE;
@@ -4689,6 +4729,29 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpManualConfigure(uint32_t pllNum, const cy_
 {
     CY_UNUSED_PARAMETER(pllNum);
     CY_UNUSED_PARAMETER(config);
+
+    #if defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (1u)
+    /* Overwrite with default values as personality generated config structure not updated */
+    config->lpPllCfg->sscgDepth    = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DEPTH;
+    config->lpPllCfg->sscgRate     = (uint8_t)CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_RATE;
+    config->lpPllCfg->sscgDitherEn = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DITHER_EN;
+    config->lpPllCfg->sscgMode     = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_MODE;
+    config->lpPllCfg->sscgEn       = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_EN;
+    config->lpPllCfg->dcoCode      = CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE;
+    config->lpPllCfg->pllTg        = CY_SYSCLK_DPLL_LP_CONFIG4_PLL_TG;
+    config->lpPllCfg->kiInt        = CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT;
+    config->lpPllCfg->kpInt        = CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT;
+    config->lpPllCfg->kiAccInt     = CY_SYSCLK_DPLL_LP_CONFIG5_KI_ACC_INT;
+    config->lpPllCfg->kpAccInt     = CY_SYSCLK_DPLL_LP_CONFIG5_KP_ACC_INT;
+    config->lpPllCfg->kiFrac       = CY_SYSCLK_DPLL_LP_CONFIG6_KI_FRAC;
+    config->lpPllCfg->kpFrac       = CY_SYSCLK_DPLL_LP_CONFIG6_KP_FRAC;
+    config->lpPllCfg->kiAccFrac    = CY_SYSCLK_DPLL_LP_CONFIG6_KI_ACC_FRAC;
+    config->lpPllCfg->kpAccFrac    = CY_SYSCLK_DPLL_LP_CONFIG6_KP_ACC_FRAC;
+    config->lpPllCfg->kiSscg       = CY_SYSCLK_DPLL_LP_CONFIG7_KI_SSCG;
+    config->lpPllCfg->kpSscg       = CY_SYSCLK_DPLL_LP_CONFIG7_KP_SSCG;
+    config->lpPllCfg->kiAccSscg    = CY_SYSCLK_DPLL_LP_CONFIG7_KI_ACC_SSCG;
+    config->lpPllCfg->kpAccSscg    = CY_SYSCLK_DPLL_LP_CONFIG7_KP_ACC_SSCG;
+    #endif
 
 #if (CY_SRSS_DPLL_LP_PRESENT != 0U )
 

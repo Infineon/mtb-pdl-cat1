@@ -7,6 +7,7 @@ var searchData=
   ['keyscan_20all_20interrupt_20mask_20definition',['KeyScan ALL interrupt mask definition',['../group__group__keyscan__intr__mask__macro.html',1,'']]],
   ['k',['k',['../structcy__stc__cryptolite__ecc__key.html#a13f6a0efd152e7a08a442dfe4ff315b5',1,'cy_stc_cryptolite_ecc_key']]],
   ['kdiv',['kDiv',['../structcy__stc__dpll__hp__config__t.html#ac070b4097282b837558c094f5ae03cbe',1,'cy_stc_dpll_hp_config_t']]],
+  ['key',['key',['../structcy__stc__smif__crypto__region__config__t.html#a9d8db48fb05d357c244133630af1ab0a',1,'cy_stc_smif_crypto_region_config_t']]],
   ['keycode',['keyCode',['../structcy__stc__key__event.html#a380b32448606828dab08e812bc3177f7',1,'cy_stc_key_event']]],
   ['keyscan_5fkeycode_5fend_5fof_5fscan_5fcycle',['KEYSCAN_KEYCODE_END_OF_SCAN_CYCLE',['../group__group__keyscan__enums.html#gga3e52483d024a86b66d31e61c83ed4751a2ef0b0d0f231e64c1eff96564dcf1d9a',1,'cy_keyscan.h']]],
   ['keyscan_5fkeycode_5fghost',['KEYSCAN_KEYCODE_GHOST',['../group__group__keyscan__enums.html#gga3e52483d024a86b66d31e61c83ed4751a7f1d42e54af71d4a3f3cc6a605e61e4d',1,'cy_keyscan.h']]],

@@ -3,7 +3,7 @@ var searchData=
   ['i2cmode',['i2cMode',['../structcy__stc__scb__i2c__config__t.html#ab317c1252433320bfd76d2b8629dac23',1,'cy_stc_scb_i2c_config_t']]],
   ['i2smode',['i2sMode',['../structcy__stc__tdm__config__tx__t.html#a04a7cbb9405483d5965759d640b380c8',1,'cy_stc_tdm_config_tx_t::i2sMode()'],['../structcy__stc__tdm__config__rx__t.html#aa4291885f456934f8bca75a44dca75d6',1,'cy_stc_tdm_config_rx_t::i2sMode()']]],
   ['ibufmode',['ibufMode',['../structcy__stc__gpio__pin__config__t.html#ac81f30a52ad1fa519a37bca4555f756b',1,'cy_stc_gpio_pin_config_t']]],
-  ['id',['id',['../structcy__stc__canfd__r0__t.html#a82b8a4316d88b483958958bc6eccda38',1,'cy_stc_canfd_r0_t::id()'],['../structcy__stc__canfd__t0__t.html#a038a678a0ed8c38db7f713985f199587',1,'cy_stc_canfd_t0_t::id()'],['../structcy__stc__crypto__ecc__dp__type.html#a60f714edeaf62ba185dcb4116b6895f4',1,'cy_stc_crypto_ecc_dp_type::id()'],['../structcy__stc__crypto__edw__dp__type.html#a9b52c4593b78fe31546a9fd753d93ac9',1,'cy_stc_crypto_edw_dp_type::id()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a6e422d4b2dc6deed84af0a6fd6007725',1,'cy_stc_cryptolite_ecc_dp_type::id()']]],
+  ['id',['id',['../structcy__stc__canfd__r0__t.html#a82b8a4316d88b483958958bc6eccda38',1,'cy_stc_canfd_r0_t::id()'],['../structcy__stc__canfd__t0__t.html#a038a678a0ed8c38db7f713985f199587',1,'cy_stc_canfd_t0_t::id()'],['../structcy__stc__crypto__ecc__dp__type.html#a60f714edeaf62ba185dcb4116b6895f4',1,'cy_stc_crypto_ecc_dp_type::id()'],['../structcy__stc__crypto__edw__dp__type.html#a9b52c4593b78fe31546a9fd753d93ac9',1,'cy_stc_crypto_edw_dp_type::id()'],['../structcy__stc__cryptolite__ecc__dp__type.html#a6e422d4b2dc6deed84af0a6fd6007725',1,'cy_stc_cryptolite_ecc_dp_type::id()'],['../structcy__stc__cryptolite__ec25519__dp__type.html#ae79adfa2686e9ace9b6ee11f701fe1f0',1,'cy_stc_cryptolite_ec25519_dp_type::id()']]],
   ['idaca',['idacA',['../structcy__stc__csd__config__t.html#a3a3f42b13072f13b2c09cafcdb09b860',1,'cy_stc_csd_config_t']]],
   ['idacb',['idacB',['../structcy__stc__csd__config__t.html#a9648fc1bac42d23348d4ca82822e4999',1,'cy_stc_csd_config_t']]],
   ['idle_5fwrong_5fhall_5fevent_5fconfig',['idle_wrong_hall_event_config',['../structcy__stc__hall__output__config__t.html#ac5cca644f1d89b59b6cfe25542bd0cf9',1,'cy_stc_hall_output_config_t']]],
@@ -46,7 +46,6 @@ var searchData=
   ['invertshiftregout',['invertShiftRegOut',['../structcy__stc__tcpwm__shiftreg__config__t.html#a5006be6167088f58835b71e81e053ec0',1,'cy_stc_tcpwm_shiftreg_config_t']]],
   ['invertshiftregoutn',['invertShiftRegOutN',['../structcy__stc__tcpwm__shiftreg__config__t.html#ac90567d8cdd6553d9ff3d53d492cfce4',1,'cy_stc_tcpwm_shiftreg_config_t']]],
   ['iosel',['ioSel',['../structcy__stc__csd__config__t.html#a8886f31c0cdab0b78d6739c04c70f0ae',1,'cy_stc_csd_config_t']]],
-  ['iosyncen',['ioSyncEn',['../structcy__stc__smartio__config__t.html#a9281b4458eb13d8e8e0f57ff028b5d6c',1,'cy_stc_smartio_config_t']]],
   ['ipc_5fhci_5fcmd_5fcount',['ipc_hci_cmd_count',['../structcy__stc__ipc__bt__context__t.html#a60c348820ce4ec5aeca0a85f40d790a9',1,'cy_stc_ipc_bt_context_t']]],
   ['ipc_5fhci_5fcmd_5fself_5finbuf_5fcount',['ipc_hci_cmd_self_inbuf_count',['../structcy__stc__ipc__bt__context__t.html#ab2ba4699f56b68f28a9db6da7caa8bc9',1,'cy_stc_ipc_bt_context_t']]],
   ['ipc_5fhci_5fcmd_5fself_5foutbuf_5fcount',['ipc_hci_cmd_self_outbuf_count',['../structcy__stc__ipc__bt__context__t.html#ac648e264fb5268e62c8546b6f6527231',1,'cy_stc_ipc_bt_context_t']]],
@@ -78,6 +77,7 @@ var searchData=
   ['irdainvertrx',['irdaInvertRx',['../structcy__stc__scb__uart__config__t.html#a1c4cd968ea7897497e93dcb2ae3ad39c',1,'cy_stc_scb_uart_config_t']]],
   ['irqhandlerptr',['irqHandlerPtr',['../structcy__stc__ipc__bt__context__t.html#ae4a5e42b9bfabaf0f2927c2a783da067',1,'cy_stc_ipc_bt_context_t::irqHandlerPtr()'],['../structcy__stc__ipc__bt__config__t.html#aa7c6ef8a42611815c0177df57d986c79',1,'cy_stc_ipc_bt_config_t::irqHandlerPtr()']]],
   ['isgroupend',['isGroupEnd',['../structcy__stc__sar2__channel__config__t.html#a76e8d1014d585a327dd0f9fb3289006e',1,'cy_stc_sar2_channel_config_t']]],
+  ['iv',['iv',['../structcy__stc__smif__crypto__region__config__t.html#a751679cfb34c3f6a63710ea3ff0a9242',1,'cy_stc_smif_crypto_region_config_t']]],
   ['ivrtrim',['ivrTrim',['../structcy__stc__dpll__hp__config__t.html#ab05cabef07016629b545a41b4f9dcaf3',1,'cy_stc_dpll_hp_config_t']]],
   ['iztat',['iztat',['../structcy__stc__sysanalog__config__t.html#a236237de19d937fe25084d160cc53df1',1,'cy_stc_sysanalog_config_t']]]
 ];

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.c
-* \version 2.110
+* \version 2.130
 *
 * \brief
 *  This file provides the source code for the memory-level APIs of the SMIF driver.
@@ -2298,7 +2298,7 @@ cy_en_smif_status_t Cy_SMIF_MemCmdReleasePowerDown(SMIF_Type *base,
 
 #if (CY_IP_MXSMIF_VERSION >= 5) || defined (CY_DOXYGEN)
 /*******************************************************************************
-* Function Name: Cy_SMIF_MemEnableFWCalibarion
+* Function Name: Cy_SMIF_MemEnableFWCalibration
 ****************************************************************************//**
 *
 * This function enables Firmware Calibration mode for the device. Once firmware calibration
@@ -2314,14 +2314,14 @@ cy_en_smif_status_t Cy_SMIF_MemCmdReleasePowerDown(SMIF_Type *base,
 *
 *******************************************************************************/
 
-void Cy_SMIF_MemEnableFWCalibarion(SMIF_Type *base, cy_en_smif_slave_select_t slave)
+void Cy_SMIF_MemEnableFWCalibration(SMIF_Type *base, cy_en_smif_slave_select_t slave)
 {
     SMIF_DEVICE_Type volatile * device = Cy_SMIF_GetDeviceBySlot(base, slave);
     SMIF_DEVICE_RX_CAPTURE_CONFIG(device) |= SMIF_CORE_DEVICE_RX_CAPTURE_CONFIG_FW_CALIBRATION_MODE_Msk;
 }
 
 /*******************************************************************************
-* Function Name: Cy_SMIF_MemDisableFWCalibarion
+* Function Name: Cy_SMIF_MemDisableFWCalibration
 ****************************************************************************//**
 *
 * This function disables Firmware Calibration mode for the device.
@@ -2335,7 +2335,7 @@ void Cy_SMIF_MemEnableFWCalibarion(SMIF_Type *base, cy_en_smif_slave_select_t sl
 * \note This API is supported on CAT1D devices.
 *
 *******************************************************************************/
-void Cy_SMIF_MemDisableFWCalibarion(SMIF_Type *base, cy_en_smif_slave_select_t slave)
+void Cy_SMIF_MemDisableFWCalibration(SMIF_Type *base, cy_en_smif_slave_select_t slave)
 {
     SMIF_DEVICE_Type volatile * device = Cy_SMIF_GetDeviceBySlot(base, slave);
     SMIF_DEVICE_RX_CAPTURE_CONFIG(device) &= ~SMIF_CORE_DEVICE_RX_CAPTURE_CONFIG_FW_CALIBRATION_MODE_Msk;
@@ -2345,7 +2345,7 @@ void Cy_SMIF_MemDisableFWCalibarion(SMIF_Type *base, cy_en_smif_slave_select_t s
 * Function Name: Cy_SMIF_MemSetDataLineDelayTap
 ****************************************************************************//**
 *
-* This function sets delay tap for a particular data line. \ref Cy_SMIF_MemEnableFWCalibarion
+* This function sets delay tap for a particular data line. \ref Cy_SMIF_MemEnableFWCalibration
 * should be called to get this setting into effect.
 *
 * \param base
@@ -2520,13 +2520,13 @@ uint8_t Cy_SMIF_GetSelectedDelayTapSel(SMIF_Type *base, cy_en_smif_slave_select_
 * Function Name: Cy_SMIF_MemGetSDLTap
 ****************************************************************************//**
 *
-* This function retreives the Slave Delay Line (SDL) Tap in use.
+* This function retrieves the Slave Delay Line (SDL) Tap in use.
 *
 * \param base
 * Holds the base address of the SMIF block registers.
 *
 * \param memConfig
-* The device for which SDL tap value has to be retreived.
+* The device for which SDL tap value has to be retrieved.
 *
 * \param posTap
 * Returns positive delay tap value set.
@@ -2726,12 +2726,12 @@ cy_en_smif_status_t Cy_SMIF_MemCalibrateSDL(SMIF_Type *base, const cy_stc_smif_m
     {
         /* Serial Flash Memory */
 
-        /* Erase sector used for calibartion */
+        /* Erase sector used for calibration */
         SMIF_Status = Cy_SMIF_MemEraseSector(base, (cy_stc_smif_mem_config_t* )memConfig, calibrationDataOffsetAddress,
                                         memConfig->deviceCfg->eraseSize, context);
 
 
-        /* Write the calibartion pattern */
+        /* Write the calibration pattern */
         SMIF_Status = Cy_SMIF_MemWrite(base, memConfig, calibrationDataOffsetAddress,
                                   (uint8_t *)memoryCalibrationDataPattern,
                                   CY_SMIF_MEM_CALIBRATION_DATA_PATTERN_LENGTH * 2U, context);
@@ -2772,7 +2772,7 @@ cy_en_smif_status_t Cy_SMIF_MemCalibrateSDL(SMIF_Type *base, const cy_stc_smif_m
 
     if (SMIF_Status == CY_SMIF_SUCCESS)
     {
-        uint8_t bestTapNum             = CY_SMIF_TAP_NOT_FOUND; /* Uinque number to identify failure case */
+        uint8_t bestTapNum             = CY_SMIF_TAP_NOT_FOUND; /* Unique number to identify failure case */
         uint8_t consecutiveMatchNum    = 0u;
         uint8_t maxConsecutiveMatchNum = 0u;
 

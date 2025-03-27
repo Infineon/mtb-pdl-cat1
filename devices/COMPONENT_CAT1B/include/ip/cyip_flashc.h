@@ -111,7 +111,12 @@ typedef struct {
    __IM uint32_t FM_MEM_DATA[132];              /*!< 0x00000C00 Flash macro memory sense amplifier data */
    __IM uint32_t RESERVED4[60];
    __IM uint32_t FM_MEM_ECC[33];                /*!< 0x00000F00 Flash macro memory sense amplifier ECC. */
-   __IM uint32_t RESERVED5[31];
+   __IM uint32_t RESERVED5[26];
+   __IM uint32_t FM_ECC_CTL_ADDR;               /*!< 0x00000FEC Internal ECC signal - unused */
+   __IM uint32_t FM_RED_CTL_SM01_ADDR;          /*!< 0x00000FF0 0 */
+   __IM uint32_t FM_RED_CTL67_ADDR;             /*!< 0x00000FF4 0 */
+   __IM uint32_t FM_RED_CTL45_ADDR;             /*!< 0x00000FF8 0 */
+   __IM uint32_t FM_CAL_CTL8_ADDR;              /*!< 0x00000FFC 0 */
 } FLASHC_FM_CTL_Type;                           /*!< Size = 4096 (0x1000) */
 
 /**
@@ -682,6 +687,21 @@ typedef struct {
 /* FLASHC_FM_CTL.FM_MEM_ECC */
 #define FLASHC_FM_CTL_FM_MEM_ECC_ECC_PARITY_Pos 0UL
 #define FLASHC_FM_CTL_FM_MEM_ECC_ECC_PARITY_Msk 0x1FFUL
+/* FLASHC_FM_CTL.FM_ECC_CTL_ADDR */
+#define FLASHC_FM_CTL_FM_ECC_CTL_ADDR_ECC_CTL_ADDR_Pos 0UL
+#define FLASHC_FM_CTL_FM_ECC_CTL_ADDR_ECC_CTL_ADDR_Msk 0x1UL
+/* FLASHC_FM_CTL.FM_RED_CTL_SM01_ADDR */
+#define FLASHC_FM_CTL_FM_RED_CTL_SM01_ADDR_FM_RED_CTL_SM01_ADDR_Pos 0UL
+#define FLASHC_FM_CTL_FM_RED_CTL_SM01_ADDR_FM_RED_CTL_SM01_ADDR_Msk 0xFFFFFFFFUL
+/* FLASHC_FM_CTL.FM_RED_CTL67_ADDR */
+#define FLASHC_FM_CTL_FM_RED_CTL67_ADDR_FM_RED_CTL67_ADDR_Pos 0UL
+#define FLASHC_FM_CTL_FM_RED_CTL67_ADDR_FM_RED_CTL67_ADDR_Msk 0xFFFFFFFFUL
+/* FLASHC_FM_CTL.FM_RED_CTL45_ADDR */
+#define FLASHC_FM_CTL_FM_RED_CTL45_ADDR_FM_RED_CTL45_ADDR_Pos 0UL
+#define FLASHC_FM_CTL_FM_RED_CTL45_ADDR_FM_RED_CTL45_ADDR_Msk 0xFFFFFFFFUL
+/* FLASHC_FM_CTL.FM_CAL_CTL8_ADDR */
+#define FLASHC_FM_CTL_FM_CAL_CTL8_ADDR_FM_CAL_CTL8_ADDR_Pos 0UL
+#define FLASHC_FM_CTL_FM_CAL_CTL8_ADDR_FM_CAL_CTL8_ADDR_Msk 0xFFFFFFFFUL
 
 
 /* FLASHC.FLASH_CTL */

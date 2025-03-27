@@ -5923,8 +5923,7 @@ Power off, clock off, isolate, reset and no retain.</description>
                   <name>RESET</name>
                   <description>Reset CM7_0
 Clock off, no isolated, no retain and reset.
-
-Note: The CM7_0 CPU has a AIRCR.SYSRESETREQ register field that allows the CM7_0 to reset the complete device (RESET only resets the CM7_0), resulting in a warm boot.</description>
+...</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -19005,126 +19004,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -19160,126 +19065,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -19313,126 +19124,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -19466,126 +19183,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -19619,126 +19242,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -19772,126 +19301,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -19925,126 +19360,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -20078,126 +19419,32 @@ D_OUT = '1': High Impedance</description>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP</name>
-                    <description>Resistive pull up
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Weak/resistive pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull up
-   D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Resistive pull up</description>
                     <value>2</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLDOWN</name>
-                    <description>Resistive pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': Weak/resistive pull down
-   D_OUT = '1': Weak/resistive pull down</description>
+                    <description>Resistive pull down</description>
                     <value>3</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESLOW</name>
-                    <description>Open drain, drives low
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': High Impedance
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives low</description>
                     <value>4</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>OD_DRIVESHIGH</name>
-                    <description>Open drain, drives high
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Open drain, drives high</description>
                     <value>5</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>STRONG</name>
-                    <description>Strong D_OUTput buffer
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High impedance
-   D_OUT = '1': High impedance
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-   D_OUT = '0': High Impedance
-   D_OUT = '1': High Impedance</description>
+                    <description>Strong D_OUTput buffer</description>
                     <value>6</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>PULLUP_DOWN</name>
-                    <description>Pull up or pull down
-
-For GPIO &amp; UDB/DSI peripherals:
-When D_OUT_EN = '0':
-    GPIO_DSI_OUT = '0': Weak/resistive pull down
-    GPIO_DSI_OUT = '1': Weak/resistive pull up
-where 'GPIO_DSI_OUT' is a function of PORT_SEL, OUT &amp; DSI_DATA_OUT.
-
-For peripherals other than GPIO &amp; UDB/DSI:
-When D_OUT_EN = 1:
-   D_OUT = '0': Strong pull down
-   D_OUT = '1': Strong pull up
-When D_OUT_EN = 0:
-    D_OUT = '0': Weak/resistive pull down
-    D_OUT = '1': Weak/resistive pull up</description>
+                    <description>Pull up or pull down</description>
                     <value>7</value>
                   </enumeratedValue>
                 </enumeratedValues>
@@ -44261,12 +43508,7 @@ Note: The output signal of this selection can be further modified by the immedia
                   <enumeratedValues>
                     <enumeratedValue>
                       <name>Z</name>
-                      <description>The behavior is the same is in previous mxtcpwm (version 1).
-
-When the counter is disabled the PWM outputs 'line_out' and 'line_compl_out' are NOT driven by the TCPWM. Instead the port default level configuration applies, e.g. 'Z' (high impedance).
-Note: This is realized by driving the TCPWM output 'line_out_en' to 0.
-
-When the counter is stopped upon a stop event the PWM outputs are deactivated (to the polarity defined by CTL.QUAD_ENCODING_MODE).</description>
+                      <description>The behavior is the same is in previous mxtcpwm (version 1).</description>
                       <value>0</value>
                     </enumeratedValue>
                     <enumeratedValue>
@@ -44379,10 +43621,7 @@ This encoding is identical with an up / down counting functionality of the follo
                     </enumeratedValue>
                     <enumeratedValue>
                       <name>QUAD</name>
-                      <description>Quadrature mode
-
-Different encoding modes can be selected by QUAD_ENCODING_MODE including up/down count functionality.
-Different counter range, reload value and capture behavior can be selected by QUAD_RANGE_MODE (overloaded field UP_DOWN_MODE).</description>
+                      <description>Quadrature mode</description>
                       <value>3</value>
                     </enumeratedValue>
                     <enumeratedValue>
@@ -50027,9 +49266,7 @@ Channels with the same priority constitute a priority level. Priority decoding d
                       <name>ABORT_CANCEL</name>
                       <description>Abort ongoing acquisition, do not return
 Clear pending trigger for aborted group and set Cancelled interrupt.
-Also 'Abort' whenever this group (do not pend the trigger) is not immediately scheduled for acquisition after a new trigger arrives. 
-For this preemption type only, only a positive edge on the trigger can trigger the channel, i.e. CONTINUOUS or level high operation is not supported (to avoid continuous Cancelled interrupts).
-In case CTL.IDLE_PWRDWN is used and the analog is powered down, the group cannot be immediately scheduled for acquisition and therefore a trigger for a group with this preemption type will power up the analog, but the group will ABORT and set the Cancelled interrupt</description>
+Also 'Abort' whenever this group (do not pend the trigger) is not immediately scheduled for acquisition after a new trigger arrives. ...</description>
                       <value>0</value>
                     </enumeratedValue>
                     <enumeratedValue>

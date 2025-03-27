@@ -41,6 +41,10 @@
 #define CY_HPPASS_SAR_MAX                   (4096U)             /* The ADC resolution*/
 #define CY_HPPASS_DIFGAIN(DIF)              ((DIF) ? 2U : 1U)   /* The mode dependent gain value */
 
+#if ((CY_IP_MXS40MCPASS_VERSION == 1u) && (CY_IP_MXS40MCPASS_VERSION_MINOR == 0u))
+/* The HPPASS_SAR_CALOFFST mirror */
+static uint32_t calOffsetMirror[4] = {0UL, 0UL, 0UL, 0UL};
+#endif
 static const uint8_t cy_hppass_sampgain_table[] = {1U, 3U, 6U, 12U};    /* The look up table to define sampler gain value based on its index */
 
 
@@ -92,6 +96,21 @@ cy_en_hppass_status_t Cy_HPPASS_SAR_Init(const cy_stc_hppass_sar_t * sarCfg)
     }
     else
     {
+        /* Copy SAR ADC calibration default values from SFLASH */
+        HPPASS_SAR_CALOFFST(HPPASS_BASE, 0U) = SFLASH_SAR_CALOFFST_0_25C;
+        HPPASS_SAR_CALOFFST(HPPASS_BASE, 1U) = SFLASH_SAR_CALOFFST_1_25C;
+        HPPASS_SAR_CALOFFST(HPPASS_BASE, 2U) = SFLASH_SAR_CALOFFST_2_25C;
+        HPPASS_SAR_CALOFFST(HPPASS_BASE, 3U) = SFLASH_SAR_CALOFFST_3_25C;
+        HPPASS_SAR_CALGAINC(HPPASS_BASE) = SFLASH_SAR_CALGAINC;
+        HPPASS_SAR_CALGAINF(HPPASS_BASE) = SFLASH_SAR_CALGAINF;
+
+#if ((CY_IP_MXS40MCPASS_VERSION == 1u) && (CY_IP_MXS40MCPASS_VERSION_MINOR == 0u))
+        calOffsetMirror[0] = HPPASS_SAR_CALOFFST(HPPASS_BASE, 0U);
+        calOffsetMirror[1] = HPPASS_SAR_CALOFFST(HPPASS_BASE, 1U);
+        calOffsetMirror[2] = HPPASS_SAR_CALOFFST(HPPASS_BASE, 2U);
+        calOffsetMirror[3] = HPPASS_SAR_CALOFFST(HPPASS_BASE, 3U);
+#endif
+
         bool error = false;
         uint32_t dirSampGain = 0UL;
         uint32_t muxSampGain = 0UL;
@@ -331,7 +350,7 @@ static uint32_t Cy_HPPASS_SAR_Offset_Calc(float temp, float ref, uint32_t caloff
 }
 
 
-void Cy_HPPASS_SAR_Adjust(int16_t temp, uint16_t vRef)
+void Cy_HPPASS_SAR_TempAdjust(int16_t temp, uint16_t vRef)
 {
     CY_ASSERT_L2(CY_HPPASS_SAR_TEMP_VALID(temp));
     CY_ASSERT_L2(CY_HPPASS_SAR_VREF_VALID(vRef));
@@ -347,7 +366,95 @@ void Cy_HPPASS_SAR_Adjust(int16_t temp, uint16_t vRef)
                                             SFLASH_SAR_CALOFFST_2_N40C, SFLASH_SAR_CALOFFST_2_125C);
     HPPASS_SAR_CALOFFST(HPPASS_BASE, 3UL) = Cy_HPPASS_SAR_Offset_Calc(tempLoc, refLoc,
                                             SFLASH_SAR_CALOFFST_3_N40C, SFLASH_SAR_CALOFFST_3_125C);
+
+#if ((CY_IP_MXS40MCPASS_VERSION == 1u) && (CY_IP_MXS40MCPASS_VERSION_MINOR == 0u))
+    calOffsetMirror[0] = HPPASS_SAR_CALOFFST(HPPASS_BASE, 0U);
+    calOffsetMirror[1] = HPPASS_SAR_CALOFFST(HPPASS_BASE, 1U);
+    calOffsetMirror[2] = HPPASS_SAR_CALOFFST(HPPASS_BASE, 2U);
+    calOffsetMirror[3] = HPPASS_SAR_CALOFFST(HPPASS_BASE, 3U);
+#endif
 }
+
+#if ((CY_IP_MXS40MCPASS_VERSION == 1u) && (CY_IP_MXS40MCPASS_VERSION_MINOR == 0u))
+
+#define CY_HPPASS_SAR_GROUP_SAMPLER_EN_Pos (HPPASS_SAR_SEQ_ENTRY_DIRECT_SAMPLER_EN_Pos)
+#define CY_HPPASS_SAR_GROUP_SAMPLER_EN_Msk (HPPASS_SAR_SEQ_ENTRY_DIRECT_SAMPLER_EN_Msk | HPPASS_SAR_SEQ_ENTRY_MUXED_SAMPLER_EN_Msk)
+#define CY_HPPASS_SAR_SAMP_NUM             (CY_HPPASS_SAR_DIR_SAMP_NUM + CY_HPPASS_SAR_MUX_SAMP_NUM)
+#define CY_HPPASS_SAR_CALOFFST_REG_NUM     (4U)
+#define CY_HPPASS_SAR_CALOFFST_FLD_NUM     (CY_HPPASS_SAR_SAMP_NUM / CY_HPPASS_SAR_CALOFFST_REG_NUM)
+#define CY_HPPASS_SAR_CALOFFST_SIGN_Msk    (0x40U)
+#define CY_HPPASS_SAR_CALOFFST_FLD_Msk     (0x7FUL)
+#define CY_HPPASS_SAR_CALOFFST_FLD_Pos     (8UL)
+#define CY_HPPASS_SAR_CALOFFST_N128        (0xFF80U)
+
+/* The compensation factor table */
+CY_ALIGN(32)
+static float32_t const cy_sar_samp_comp_tbl[CY_HPPASS_SAR_SAMP_NUM] =
+{
+    1.3f, 1.2f, 1.1f, 1.0f, 0.8f, 0.8f, 0.8f, 0.9f, 1.3f, 1.4f, 1.3f, 1.3f, 1.0f, 1.0f, 1.0f, 1.0f
+};
+
+void Cy_HPPASS_SAR_CrossTalkAdjust (uint8_t groupMsk)
+{
+    uint16_t sampMsk = 0U;
+    uint16_t sampNum = 0U;
+
+    {
+        uint8_t i = 0U;
+        while (0U != groupMsk)
+        {
+            if(0U != (groupMsk & 1U))
+            {
+                sampMsk |= (uint16_t)_FLD2VAL(CY_HPPASS_SAR_GROUP_SAMPLER_EN, HPPASS_SAR_SEQ_GROUP(HPPASS_BASE, i));
+            }
+            groupMsk >>= 1U;
+            i++;
+        }
+    }
+
+    CY_ASSERT_L2(0U != sampMsk);
+    {
+        uint16_t mask = sampMsk;
+        while (0U != mask)
+        {
+            sampNum += (uint16_t)(mask & 1U);
+            mask >>= 1U;
+        }
+    }
+
+    if(4U < sampNum)
+    {
+        for (uint8_t i = 0U; i < CY_HPPASS_SAR_CALOFFST_REG_NUM; i++)
+        {
+            /* Read existing offset value found during runtime calibration */
+            uint32_t caloffstReg = calOffsetMirror[i];
+
+            for (uint8_t j = 0U; j < CY_HPPASS_SAR_CALOFFST_FLD_NUM; j++)
+            {
+                uint16_t sampCtr = (uint16_t)i * CY_HPPASS_SAR_CALOFFST_FLD_NUM + (uint16_t)j;
+                bool isSamplerEnabled = (0U != ((sampMsk >> sampCtr) & 1U));
+                if (isSamplerEnabled)
+                {
+                    uint32_t bitfieldOffset = (uint32_t)j * CY_HPPASS_SAR_CALOFFST_FLD_Pos;
+
+                    /* Calculate the needed additional offset compensation based on number of aggressor channels */
+                    uint16_t    caloffstVal   = (uint16_t)((caloffstReg >> bitfieldOffset) & CY_HPPASS_SAR_CALOFFST_FLD_Msk);
+                    uint16_t    caloffstSign  = CY_HPPASS_SAR_CALOFFST_N128 ^ caloffstVal;
+                    int32_t     caloffst      = (0U == (caloffstVal & CY_HPPASS_SAR_CALOFFST_SIGN_Msk)) ? (int32_t)caloffstVal : (int32_t)(int16_t)caloffstSign;
+                    float32_t   compVal       = cy_sar_samp_comp_tbl[sampCtr] * ((float32_t)(int16_t)sampNum - 1.0f) + 0.5f; /* Round Half Up rounding strategy */
+                    int32_t     caloffstNew   = caloffst + (int32_t)compVal;
+
+                    /* Write the updated offset calibration value into the corresponding bitfield */
+                    /* After this step, all results received on the sampler are Cross Talk - compensated for the particular amount of aggressors */
+                    caloffstReg &= ~(CY_HPPASS_SAR_CALOFFST_FLD_Msk << bitfieldOffset);
+                    caloffstReg |= ((uint32_t)caloffstNew & CY_HPPASS_SAR_CALOFFST_FLD_Msk) << bitfieldOffset;
+                }
+            }
+            HPPASS_SAR_CALOFFST(HPPASS_BASE, i) = caloffstReg;
+        }
+    }
+}
+#endif
 
 
 typedef struct

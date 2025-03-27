@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cordic.h
-* \version 2.00
+* \version 2.10
 *
 *  This file provides constants and parameter values for
 *  the CORDIC driver.
@@ -50,15 +50,20 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
-*     <td>1.0</td>
-*     <td>Initial version</td>
-*     <td></td>
+*     <td >2.10</td>
+*     <td>Macro definition of CY_CORDIC_ID changed.</td>
+*     <td>Bug Fixes.</td>
 *   </tr>
 *   <tr>
 *     <td>2.0</td>
 *     <td>A few APIs are turned to inline APIs. And result parameter is moved
 *         as return parameter instead, for a few APIs. </td>
 *     <td>To improve performance.</td>
+*   </tr>
+*   <tr>
+*     <td>1.0</td>
+*     <td>Initial version</td>
+*     <td></td>
 *   </tr>
 * </table>
 *
@@ -93,10 +98,10 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.1', 10, \
 #define CY_CORDIC_DRV_VERSION_MAJOR       2U
 
 /** The driver minor version */
-#define CY_CORDIC_DRV_VERSION_MINOR        0U
+#define CY_CORDIC_DRV_VERSION_MINOR       10U
 
 /** The CORDIC driver ID */
-#define CY_CORDIC_ID               CY_PDL_DRV_ID(0x45U)
+#define CY_CORDIC_ID               CY_PDL_DRV_ID(0x63U)
 
 /** Reciprocal of Circular gain in CY_CORDIC_CIRCULAR_GAIN format ((2^23)/1.646760258121) */
 #define CY_CORDIC_CIRCULAR_GAIN       (0x4DBA76U)

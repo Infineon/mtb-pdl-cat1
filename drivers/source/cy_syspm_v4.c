@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v4.c
-* \version 5.170
+* \version 5.180
 *
 * This driver provides the source code for API power management.
 *
@@ -29,14 +29,12 @@
 #if defined (CY_IP_MXS22SRSS)
 
 #include "cy_syspm.h"
-
 #include "cy_syspm_ppu.h"
-
 #include "cy_rram.h"
 #include "cy_ipc_sema.h"
-
+#if defined(CY_USE_RPC_CALL) && (CY_USE_RPC_CALL == 1)
 #include "cy_secure_services.h"
-
+#endif
 /*******************************************************************************
 *       Internal Functions
 *******************************************************************************/
@@ -95,10 +93,10 @@
 #define WAIT_DELAY_TRIES                (100U)
 
 /* The internal define of the tries number in the
-* Cy_SysPm_SystemSetMinRegulatorCurrent() function
+* CoreBuck and LDO status functions
 */
-#define CY_SYSPM_CBUCK_BUSY_RETRY_COUNT         (100U)
-#define CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_MS      (1U)
+#define CY_SYSPM_CBUCK_BUSY_RETRY_COUNT         (100000U)
+#define CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_US      (1U)
 
 /* SRAM TRIM Values
 */
@@ -172,8 +170,11 @@ void Cy_SysPm_Init(void)
     }
 
 #if !defined (CY_PDL_TZ_ENABLED)
+    cy_en_ipcsema_status_t ipcStatus;
     /* Initialize IP Semaphore */
-    CY_ASSERT_L2(CY_IPC_SEMA_SUCCESS == Cy_IPC_Sema_Init(IPC0_SEMA_CH_NUM, 0UL, NULL));
+    ipcStatus = Cy_IPC_Sema_Init(IPC0_SEMA_CH_NUM, 0UL, NULL);
+    CY_ASSERT_L2(CY_IPC_SEMA_SUCCESS == ipcStatus);
+    (void) ipcStatus; /* Suppress 'unused variable' warning */
 #endif
 }
 
@@ -456,10 +457,11 @@ cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetAppDeepSleepMode(void)
     return deepSleepMode;
 }
 
+
 cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode)
 {
 
-#if  defined(NO_RPC_CALL)|| defined (COMPONENT_SECURE_DEVICE)
+#if  (!defined(CY_USE_RPC_CALL) || (CY_USE_RPC_CALL == 0))|| defined (COMPONENT_SECURE_DEVICE)
 #if (defined (CY_CPU_CORTEX_M33) && CY_CPU_CORTEX_M33)
     return Cy_SysPm_SetSysDeepSleepMode(deepSleepMode);
 #elif (defined (CY_CPU_CORTEX_M55) && CY_CPU_CORTEX_M55)
@@ -468,14 +470,29 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
     return Cy_SysPm_SetSysDeepSleepMode(deepSleepMode);
 #endif
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 2;
-    rpcArgs.argv[0] = (uint32_t)__CORTEX_M;
-    rpcArgs.argv[1] = (uint32_t)deepSleepMode;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
-                (uint32_t)CY_SECURE_SERVICE_PM_SET_DS_MODE, &rpcArgs, &rpcRetVal);
-    return (cy_en_syspm_status_t)rpcRetVal;
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+    cy_en_syspm_status_t retVal = CY_SYSPM_FAIL;
+
+    rpcInputArgs.argc = 4;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_PM;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_PM_SET_DS_MODE;
+    rpcInputArgs.argv[2] = (uint32_t)__CORTEX_M;/* coreID */
+    rpcInputArgs.argv[3] = (uint32_t)deepSleepMode;
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+    };
+
+    cy_rpc_outvec_t out_vec[] = {
+            { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      retVal = (cy_en_syspm_status_t)rpcOutputArgs.argv[0];
+    }
+    return retVal;
 #endif
 }
 
@@ -537,8 +554,8 @@ cy_en_syspm_status_t Cy_SysPm_SetSOCMEMDeepSleepMode(cy_en_syspm_deep_sleep_mode
 
 cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void)
 {
-    cy_en_syspm_deep_sleep_mode_t deepSleepMode;
-#if defined(NO_RPC_CALL) || defined (COMPONENT_SECURE_DEVICE)
+    cy_en_syspm_deep_sleep_mode_t deepSleepMode = CY_SYSPM_MODE_DEEPSLEEP;
+#if (!defined(CY_USE_RPC_CALL) || (CY_USE_RPC_CALL == 0)) || defined (COMPONENT_SECURE_DEVICE)
 
     uint32_t mode;
 
@@ -577,15 +594,29 @@ cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void)
 
     CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 10.8','Intentional typecast to cy_en_syspm_deep_sleep_mode_t enum.');
 #else
-    cy_rpc_args_t rpcArgs;
-    uint32_t rpcRetVal;
-    rpcArgs.argc = 1;
-    rpcArgs.argv[0] = (uint32_t)__CORTEX_M;
-    Cy_SecureServices_RPC(CY_SECURE_SERVICE_TYPE_PM,
-                      (uint32_t)CY_SECURE_SERVICE_PM_GET_DS_MODE, &rpcArgs, &rpcRetVal);
-    deepSleepMode = (cy_en_syspm_deep_sleep_mode_t)rpcRetVal;
+    cy_rpc_service_args_t rpcInputArgs, rpcOutputArgs;
+
+    rpcInputArgs.argc = 3;
+    rpcInputArgs.argv[0] = (uint32_t)CY_SECURE_SERVICE_TYPE_PM;
+    rpcInputArgs.argv[1] = (uint32_t)CY_SECURE_SERVICE_PM_GET_DS_MODE;
+    rpcInputArgs.argv[2] = (uint32_t)__CORTEX_M;/* coreID */
+
+    cy_rpc_invec_t in_vec[] = {
+        { .base = &rpcInputArgs, .len = sizeof(rpcInputArgs) },
+    };
+    cy_rpc_outvec_t out_vec[] = {
+        { .base = &rpcOutputArgs, .len = sizeof(rpcOutputArgs) },
+    };
+
+    rpcOutputArgs.argc = 0; /* updated in secure side */
+
+    Cy_SecureServices_RPC(in_vec, CY_RPC_IOVEC_LEN(in_vec), out_vec, CY_RPC_IOVEC_LEN(out_vec));
+    if (rpcOutputArgs.argc == 1)
+    {
+      deepSleepMode = (cy_en_syspm_deep_sleep_mode_t)rpcOutputArgs.argv[0];
+    }
 #endif
-    return ((cy_en_syspm_deep_sleep_mode_t)deepSleepMode);
+    return deepSleepMode;
 }
 
 cy_en_syspm_boot_mode_t Cy_SysPm_GetBootMode(void)
@@ -676,7 +707,6 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
                 __DSB();                   /* Ensure completion of memory access */
             }
 #endif
-            Cy_SysPm_SetRamTrimsPreDs();
             if(waitFor != CY_SYSPM_WAIT_FOR_EVENT)
             {
                 __WFI();
@@ -685,7 +715,6 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
             {
                 __WFE();
             }
-            Cy_SysPm_SetRamTrimsPostDs();
 
             /* Clear SCB_SCR_SLEEPDEEP flag */
             SCB_SCR &= (uint32_t) ~SCB_SCR_SLEEPDEEP_Msk;
@@ -1245,7 +1274,7 @@ cy_en_syspm_status_t Cy_SysPm_CoreBuckStatus(void)
     while((_FLD2VAL(SRSS_PWR_CBUCK_STATUS_PMU_DONE, SRSS_PWR_CBUCK_STATUS) == 0U) && (syspmCbuckRetry != 0U))
     {
         syspmCbuckRetry--;
-        Cy_SysLib_Delay(CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_MS);
+        Cy_SysLib_DelayUs(CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_US);
     }
 
     if(syspmCbuckRetry != 0UL)
@@ -1264,7 +1293,7 @@ cy_en_syspm_status_t Cy_SysPm_RetLdoStatus(void)
     while((_FLD2VAL(SRSS_PWR_CBUCK_STATUS_RETLDO_DONE, SRSS_PWR_CBUCK_STATUS) == 0U) && (syspmCbuckRetry != 0U))
     {
         syspmCbuckRetry--;
-        Cy_SysLib_Delay(CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_MS);
+        Cy_SysLib_DelayUs(CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_US);
     }
 
     if(syspmCbuckRetry != 0UL)
@@ -1299,7 +1328,7 @@ cy_en_syspm_status_t Cy_SysPm_SramLdoStatus(void)
     while((_FLD2VAL(SRSS_PWR_CBUCK_STATUS_SRAMLDO_DONE, SRSS_PWR_CBUCK_STATUS) == 0U) && (syspmCbuckRetry != 0U))
     {
         syspmCbuckRetry--;
-        Cy_SysLib_Delay(CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_MS);
+        Cy_SysLib_DelayUs(CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_US);
     }
 
     if(syspmCbuckRetry != 0UL)
@@ -1351,7 +1380,7 @@ cy_en_syspm_status_t Cy_SysPm_MiscLdoStatus(void)
     while((_FLD2VAL(SRSS_PWR_CBUCK_STATUS_MISCLDO_DONE, SRSS_PWR_CBUCK_STATUS) == 0U) && (syspmCbuckRetry != 0U))
     {
         syspmCbuckRetry--;
-        Cy_SysLib_Delay(CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_MS);
+        Cy_SysLib_DelayUs(CY_SYSPM_CBUCK_BUSY_RETRY_DELAY_US);
     }
 
     if(syspmCbuckRetry != 0UL)
@@ -1876,17 +1905,17 @@ void Cy_SysPm_TriggerXRes(void)
 
 bool Cy_SysPm_IsSystemLp(void)
 {
-    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_SYSTEM_LP) != 0U);
+    return(CY_SYSPM_CORE_BUCK_PROFILE_LP == Cy_SysPm_CoreBuckGetProfile());
 }
 
 bool Cy_SysPm_IsSystemUlp(void)
 {
-    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_SYSTEM_ULP) != 0U);
+    return(CY_SYSPM_CORE_BUCK_PROFILE_ULP == Cy_SysPm_CoreBuckGetProfile());
 }
 
 bool Cy_SysPm_IsSystemHp(void)
 {
-    return((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_SYSTEM_HP) != 0U);
+    return(CY_SYSPM_CORE_BUCK_PROFILE_HP == Cy_SysPm_CoreBuckGetProfile());
 }
 
 static void Cy_SysPm_SetTrimRamCtl(uint8_t index, uint32_t trimValue)
@@ -2202,7 +2231,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterHpToLp(void)
             //TBD
 
             /* 8) Change RRAM to LP mode  */
-            Cy_RRAM_SetVoltageMode(RRAMC0, CY_RRAM_VMODE_LP);
+            /* Moved to callback */
 
             /* 9) Change Frequency  */
            /* Frequency Change needs to be done after calling this API */
@@ -2302,7 +2331,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToHp(void)
             //TBD
 
             /* 8) Change RRAM to LP mode  */
-            Cy_RRAM_SetVoltageMode(RRAMC0, CY_RRAM_VMODE_HP);
+            /* Moved to callback */
 
             /* 9) Change Frequency  */
             /* Frequency Change needs to be done after calling this API */
@@ -2389,7 +2418,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterUlpToLp(void)
             //TBD
 
            /* 8) Change RRAM to LP mode  */
-           Cy_RRAM_SetVoltageMode(RRAMC0, CY_RRAM_VMODE_LP);
+           /* Moved to callback */
 
             /* 9) Change Frequency  */
             /* Frequency Change needs to be done after calling this API */
@@ -2476,7 +2505,7 @@ static cy_en_syspm_status_t Cy_SysPm_SystemEnterLpToUlp(void)
             //TBD
 
             /* 8) Change RRAM to ULP mode  */
-            Cy_RRAM_SetVoltageMode(RRAMC0, CY_RRAM_VMODE_ULP);
+            /* Moved to callback */
 
             /* 9) Change Frequency  */
             /* Frequency Change needs to be done after calling this API */

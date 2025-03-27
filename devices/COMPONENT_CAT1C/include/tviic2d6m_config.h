@@ -2110,6 +2110,7 @@ typedef enum
 #include "ip/cyip_smif_v4.h"
 #include "ip/cyip_eth_v2.h"
 #include "ip/cyip_lin.h"
+#include "ip/cyip_cxpi.h"
 #include "ip/cyip_canfd.h"
 #include "ip/cyip_scb_v2.h"
 #include "ip/cyip_tdm.h"

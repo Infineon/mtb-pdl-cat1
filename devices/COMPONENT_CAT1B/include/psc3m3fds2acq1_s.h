@@ -372,7 +372,7 @@ typedef enum {
 #define CY_HF_CLK_MAX_FREQ              100000000UL
 
 
-#include "system_cat1b.h"                       /*!< Category 1B System */
+#include "system_cat1b.h"
 
 #include "psc3_config.h"
 #include "gpio_psc3_e_lqfp_64.h"
@@ -1077,7 +1077,7 @@ typedef enum {
 #define PWRMODE_PD14                            ((PWRMODE_PD_Type*) &PWRMODE->PD[14])                             /* 0x522100E0 */
 #define PWRMODE_PD15                            ((PWRMODE_PD_Type*) &PWRMODE->PD[15])                             /* 0x522100F0 */
 #define PWRMODE_PPU_MAIN                        ((PWRMODE_PPU_MAIN_Type*) &PWRMODE->PPU_MAIN)                     /* 0x52211000 */
-#define PWRMODE_PPU_MAIN_PPU                    ((PWRMODE_PPU_MAIN_PPU_Type*) &PWRMODE->PPU_MAIN.PPU)             /* 0x52211000 */
+#define PWRMODE_PPU_MAIN_PPU_MAIN               ((PWRMODE_PPU_MAIN_PPU_MAIN_Type*) &PWRMODE->PPU_MAIN.PPU_MAIN)   /* 0x52211000 */
 
 /*******************************************************************************
 *                                    BACKUP
@@ -1283,6 +1283,16 @@ typedef enum {
 #define HPPASS_INFRA_AREFV2                     ((HPPASS_INFRA_AREFV2_Type*) &HPPASS->INFRA.AREFV2)               /* 0x52BE0E00 */
 #define HPPASS_MMIO                             ((HPPASS_MMIO_Type*) &HPPASS->MMIO)                               /* 0x52BF0000 */
 #define HPPASS_MMIO_FIFO                        ((HPPASS_MMIO_FIFO_Type*) &HPPASS->MMIO.FIFO)                     /* 0x52BF0100 */
+
+/*******************************************************************************
+*                                     CM33
+*******************************************************************************/
+
+#define CM33_BASE                               0xF0000000UL
+#define CM33                                    ((CM33_Type*) CM33_BASE)                                          /* 0xF0000000 */
+#define CM33_CTI                                ((CM33_CTI_Type*) &CM33->CTI)                                     /* 0xF0042000 */
+#define CM33_TRC                                ((CM33_TRC_Type*) &CM33->TRC)                                     /* 0xF0080000 */
+#define CM33_TRC_CTI                            ((CM33_TRC_CTI_Type*) &CM33->TRC.CTI)                             /* 0xF0080000 */
 
 /** \} PSC3M3FDS2ACQ1 */
 

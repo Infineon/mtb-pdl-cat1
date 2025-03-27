@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.70
+* \version 3.80
 *
 * Provides an API declaration of the SysLib driver.
 *
@@ -132,6 +132,11 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.80</td>
+*     <td>Coverity fixes and added new API \ref Cy_SysLib_GetDeviceLCS for PSoC C3 (CAT1B).</td>
+*     <td>Code enhancement and new functionality.</td>
+*   </tr>
 *   <tr>
 *     <td>3.70</td>
 *     <td>Updated API \ref Cy_SysLib_GetUniqueId and added new \ref Cy_Syslib_IsMemCacheable.</td>
@@ -462,19 +467,35 @@ typedef enum
     CY_SYSLIB_UNKNOWN       = CY_SYSLIB_ID | CY_PDL_STATUS_ERROR | 0xFFUL     /**< Unknown status code */
 } cy_en_syslib_status_t;
 
-/** The Life  Cycle Stage(LCS) enum. */
+#if defined(CY_IP_MXS40SSRSS)
+/** The Life Cycle Stage(LCS) enum. */
 typedef enum
 {
-    CY_SYSLIB_LCS_VIRGIN              = 0x000UL,    /**< LCS Mode: VIRGIN */
-    CY_SYSLIB_LCS_SORT                = 0x003UL,    /**< LCS Mode: SORT */
-    CY_SYSLIB_LCS_PROVISIONED         = 0x00FUL,    /**< LCS Mode: PROVISIONED */
-    CY_SYSLIB_LCS_NORMAL_PROVISIONED  = 0xC0FUL,    /**< LCS Mode: NORMAL-PROVISIONED*/
-    CY_SYSLIB_LCS_NORMAL              = 0xC03UL,    /**< LCS Mode: NORMAL */
-    CY_SYSLIB_LCS_SECURE              = 0xC3FUL,    /**< LCS Mode: SECURE */
-    CY_SYSLIB_LCS_NORMAL_NO_SECURE    = 0xCC3UL,    /**< LCS Mode: NORMAL_NO_SECURE */
-    CY_SYSLIB_LCS_RMA                 = 0xF3FUL,    /**< LCS Mode: RMA */
+    CY_SYSLIB_LCS_VIRGIN              = 0x0000UL,   /**< LCS Mode: VIRGIN */
+    CY_SYSLIB_LCS_SORT                = 0x0029UL,   /**< LCS Mode: SORT */
+    CY_SYSLIB_LCS_PROVISIONED         = 0x00E9UL,   /**< LCS Mode: PROVISIONED */
+    CY_SYSLIB_LCS_NORMAL_PROVISIONED  = 0xC0E9UL,   /**< LCS Mode: NORMAL-PROVISIONED*/
+    CY_SYSLIB_LCS_NORMAL              = 0xC029UL,   /**< LCS Mode: NORMAL */
+    CY_SYSLIB_LCS_SECURE              = 0xC3E9UL,   /**< LCS Mode: SECURE */
+    CY_SYSLIB_LCS_NORMAL_NO_SECURE    = 0xCC29UL,   /**< LCS Mode: NORMAL_NO_SECURE */
+    CY_SYSLIB_LCS_RMA                 = 0xF3E9UL,   /**< LCS Mode: RMA */
     CY_SYSLIB_LCS_CORRUPTED           = 0xFFFFUL,   /**< LCS Mode: CORRUPTED */
 } cy_en_syslib_lcs_mode_t;
+#else
+/** The Life Cycle Stage(LCS) enum. */
+typedef enum
+{
+    CY_SYSLIB_LCS_VIRGIN              = 0x0000UL,   /**< LCS Mode: VIRGIN */
+    CY_SYSLIB_LCS_SORT                = 0x0003UL,   /**< LCS Mode: SORT */
+    CY_SYSLIB_LCS_PROVISIONED         = 0x000FUL,   /**< LCS Mode: PROVISIONED */
+    CY_SYSLIB_LCS_NORMAL_PROVISIONED  = 0x0C0FUL,   /**< LCS Mode: NORMAL-PROVISIONED*/
+    CY_SYSLIB_LCS_NORMAL              = 0x0C03UL,   /**< LCS Mode: NORMAL */
+    CY_SYSLIB_LCS_SECURE              = 0x0C3FUL,   /**< LCS Mode: SECURE */
+    CY_SYSLIB_LCS_NORMAL_NO_SECURE    = 0x0CC3UL,   /**< LCS Mode: NORMAL_NO_SECURE */
+    CY_SYSLIB_LCS_RMA                 = 0x0F3FUL,   /**< LCS Mode: RMA */
+    CY_SYSLIB_LCS_CORRUPTED           = 0xFFFFUL,   /**< LCS Mode: CORRUPTED */
+} cy_en_syslib_lcs_mode_t;
+#endif /* defined(CY_IP_MXS40SSRSS) */
 
 /** \} group_syslib_enumerated_types */
 /**
@@ -616,7 +637,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    70
+#define CY_SYSLIB_DRV_VERSION_MINOR    80
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN
@@ -814,6 +835,14 @@ typedef enum
 #ifndef CY_SECTION_SRAM0DATA_END
 #define CY_SECTION_SRAM0DATA_END
 #endif
+
+#if defined(CY_IP_MXS40SSRSS)
+typedef EFUSE_Type cy_syslib_lcs_data_t;    /**< Type of block with LCS data */
+#elif defined(CY_IP_MXS22SRSS)
+typedef SRSS_Type  cy_syslib_lcs_data_t;    /**< Type of block with LCS data */
+#else
+typedef uint32_t   cy_syslib_lcs_data_t;    /**< Type of block with LCS data */
+#endif /* defined(CY_IP_MXS40SSRSS) */
 
 typedef void (* cy_israddress)(void);   /**< Type of ISR callbacks */
 #if defined (__ICCARM__)
@@ -1641,20 +1670,21 @@ uint8_t Cy_SysLib_GetDeviceRevision(void);
 *******************************************************************************/
 uint16_t Cy_SysLib_GetDevice(void);
 
-#if defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
+
+#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_SysLib_GetDeviceLCS
 ****************************************************************************//**
 *
 * This function returns LCS of Device.
 *
+* \param base The pointer to the SRSS instance.
+*
 * \return  \ref cy_en_syslib_lcs_mode_t
 *
 *******************************************************************************/
-cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(void);
-#endif /* defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN) */
+cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(cy_syslib_lcs_data_t *base);
 
-#if  defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_Syslib_SetWarmBootEntryPoint
 ****************************************************************************//**

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_hppass_csg.h
-* \version 1.20
+* \version 1.30
 *
 * Header file for the Comparator Slope Generator (CSG) subsystem of the High Power Programmable Analog Sub-System.
 *

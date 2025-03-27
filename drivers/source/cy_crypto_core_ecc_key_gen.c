@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_key_gen.c
-* \version 2.140
+* \version 2.150
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC key
@@ -51,6 +51,8 @@ extern "C" {
 ****************************************************************************//**
 *
 * Make a new ECC key pair.
+*
+* For CAT1C & CAT1D devices when D-Cache is enabled parameter key(k, x&y) must align and end in 32 byte boundary.
 *
 * \param base
 * The pointer to a Crypto instance.
@@ -156,7 +158,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePrivateKey(CRYPTO_Type *base,
         if(CY_CRYPTO_SUCCESS != tmpResult)
         {
             return tmpResult;
-        }        
+        }
         tmpResult = CY_CRYPTO_VU_ALLOC_MEM(base, p_key, bytesize * 8u);
         if(CY_CRYPTO_SUCCESS != tmpResult)
         {
@@ -222,7 +224,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePrivateKey(CRYPTO_Type *base,
             if(CY_CRYPTO_SUCCESS != tmpResult)
             {
                 return tmpResult;
-            }            
+            }
             Cy_Crypto_Core_Vu_SetMemValue (base, VR_P, (uint8_t const *)CY_REMAP_ADDRESS_FOR_CRYPTO(eccDp->order), bitsize);
 
             /* check that key is smaller than the order of the base point */
@@ -233,14 +235,14 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePrivateKey(CRYPTO_Type *base,
                 if(CY_CRYPTO_SUCCESS != tmpResult)
                 {
                     return tmpResult;
-                }                
+                }
                 Cy_Crypto_Core_Vu_SetMemValue (base, VR_BARRETT, (uint8_t const *)CY_REMAP_ADDRESS_FOR_CRYPTO(eccDp->barrett_o), bitsize + 1u);
 
                 tmpResult = CY_CRYPTO_VU_ALLOC_MEM(base, p_temp, bitsize);
                 if(CY_CRYPTO_SUCCESS != tmpResult)
                 {
                     return tmpResult;
-                }                
+                }
                 CY_CRYPTO_VU_MOV(base, p_temp, VR_D);
 
                 /* use Barrett reduction algorithm for operations modulo n (order of the base point) */
@@ -252,7 +254,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePrivateKey(CRYPTO_Type *base,
                 if(CY_CRYPTO_SUCCESS != tmpResult)
                 {
                     return tmpResult;
-                }  
+                }
                 CY_CRYPTO_VU_FREE_MEM(base, CY_CRYPTO_VU_REG_BIT(VR_BARRETT) |
                                             CY_CRYPTO_VU_REG_BIT(p_temp));
             }
@@ -358,7 +360,7 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePublicKey(CRYPTO_Type *base,
         if(CY_CRYPTO_SUCCESS != tmpResult)
         {
             return tmpResult;
-        }        
+        }
 
         /* Apply domain parameters */
         /* load prime and order defining the curve as well as the barrett coefficient. */
@@ -380,14 +382,14 @@ cy_en_crypto_status_t Cy_Crypto_Core_ECC_MakePublicKey(CRYPTO_Type *base,
         {
             return tmpResult;
         }
-   
+
         Cy_Crypto_Core_Vu_SetMemValue(base, p_d, (uint8_t *)privateKeyRemap, bitsize);
 
         tmpResult = Cy_Crypto_Core_EC_NistP_PointMul(base, p_x, p_y, p_d, p_order, bitsize);
         if(CY_CRYPTO_SUCCESS != tmpResult)
         {
             return tmpResult;
-        }       
+        }
 
         Cy_Crypto_Core_Vu_GetMemValue(base, (uint8_t *)publicKeyXRemap, p_x, bitsize);
         Cy_Crypto_Core_Vu_GetMemValue(base, (uint8_t *)publicKeyYRemap, p_y, bitsize);
