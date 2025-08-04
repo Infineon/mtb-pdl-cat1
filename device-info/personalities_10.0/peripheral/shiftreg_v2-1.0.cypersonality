@@ -26,12 +26,20 @@
 * limitations under the License.
 *****************************************************************************-->
 
-<Personality id="mxs40shiftreg_ver2" name="ShiftReg" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v8">
-  <Dependencies>
-    <IpBlock name="mxtcpwm_ver2" />
+<PersonalityTemplate id="mxs40shiftreg_ver2" name="ShiftReg" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v9">
+  <FittingRules>
+    <MappingRules>
+    <RequiresConnectivity>
+      <SignalGroup type="ANY">
+        <Signal port="line[0]"/>
+        <Signal port="line_compl[0]"/>
+      </SignalGroup>
+    </RequiresConnectivity>
+        <IpBlock name="mxtcpwm_ver2" />
     <Resource name="tcpwm\.group\.cnt" />
     <OperatingMode value="MCU"/>
-  </Dependencies>
+    </MappingRules>
+  </FittingRules>
   <ExposedMembers />
   <Parameters>  
     <!-- PDL documentation -->
@@ -196,11 +204,11 @@
       <Entry name="High Impedance" value="CY_TCPWM_SHIFTREG_OUTPUT_HIGHZ" visible="true" />
       <Entry name="Retain" value="CY_TCPWM_SHIFTREG_OUTPUT_RETAIN" visible="true" />
       <Entry name="Low" value="CY_TCPWM_SHIFTREG_OUTPUT_LOW" visible="true" />
-	  <Entry name="High" value="CY_TCPWM_SHIFTREG_OUTPUT_HIGH" visible="true" />
+    <Entry name="High" value="CY_TCPWM_SHIFTREG_OUTPUT_HIGH" visible="true" />
     </ParamChoice>
     
     <!--Outputs-->
-    <ParamSignal port="line[0]" name="PWM (line)" group="Outputs" visible="true" desc="Shift Register output" canBeEmpty="true" >
+    <ParamSignal port="line[0]" name="PWM (line)" group="Outputs" visible="`${hasVisibleOption(&quot;line[0]&quot;)}`" desc="Shift Register Output" canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -213,7 +221,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="line_compl[0]" name="PWM_n (line_compl)" group="Outputs" visible="true" desc="Complimentary Shift Register output." canBeEmpty="true" >
+    <ParamSignal port="line_compl[0]" name="PWM_n (line_compl)" group="Outputs" visible="`${hasVisibleOption(&quot;line_compl[0]&quot;)}`" desc="Complimentary Shift Register Output" canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -289,52 +297,52 @@
  
     <!--ShiftInput DRCs-->
     <DRC type="ERROR" text="Shift Input event has to be enabled to use Shift Signal." condition="`${hasConnection(&quot;count&quot;, 0) &amp;&amp; (ShiftInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="ShiftInput">
-	    <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
-	</DRC>
+      <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
+  </DRC>
 
     <!--ReloadInput DRCs-->
     <DRC type="ERROR" text="Reload Event has to be enabled to use Reload Signal." condition="`${hasConnection(&quot;reload&quot;, 0) &amp;&amp; (ReloadInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="ReloadInput">
-	    <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	</DRC>
+      <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="ReloadInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+  </DRC>
 
     <!--StartInput DRCs-->
     <DRC type="ERROR" text="Start Event has to be enabled to use Start Signal." condition="`${hasConnection(&quot;start&quot;, 0) &amp;&amp; (StartInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="StartInput">
-	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	</DRC>
+      <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="StartInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+  </DRC>
 
     <!--SerialInput DRCs-->
     <DRC type="ERROR" text="Serial Input Event has to be enabled to use Serial Input Signal." condition="`${hasConnection(&quot;capture0&quot;, 0) &amp;&amp; (SerialInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="SerialInput">
-	    <FixIt action="SET_PARAM" target="SerialInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="SerialInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="SerialInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
-	</DRC>
+      <FixIt action="SET_PARAM" target="SerialInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="SerialInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="SerialInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="ShiftInput" value="CY_TCPWM_INPUT_LEVEL" valid="true" />
+  </DRC>
 
     <!--KillInput DRCs-->
     <DRC type="ERROR" text="Kill Event has to be enabled to use Kill Signal." condition="`${hasConnection(&quot;stop&quot;, 0) &amp;&amp; (KillInput eq CY_TCPWM_INPUT_DISABLED)}`" paramId="KillInput">
-	    <FixIt action="SET_PARAM" target="KillInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="KillInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
-	    <FixIt action="SET_PARAM" target="KillInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
-	</DRC>
+      <FixIt action="SET_PARAM" target="KillInput" value="CY_TCPWM_INPUT_RISINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="KillInput" value="CY_TCPWM_INPUT_FALLINGEDGE" valid="true" />
+      <FixIt action="SET_PARAM" target="KillInput" value="CY_TCPWM_INPUT_EITHEREDGE" valid="true" />
+  </DRC>
 
-	<!--Trigger Output DRCs-->
-	<DRC type="ERROR" text="Trigger 0 Event has to be enabled to use Trigger 0 Signal." condition="`${hasConnection(&quot;tr_out0&quot;, 0) &amp;&amp; (trigger0Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED)}`" paramId="trigger0Event">
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" valid="`${pCntCC1}`" />
-	    <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT" valid="true" />
-	</DRC>
-	<DRC type="ERROR" text="Trigger 1 Event has to be enabled to use Trigger 1 Signal." condition="`${hasConnection(&quot;tr_out1&quot;, 0) &amp;&amp; (trigger1Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED)}`" paramId="trigger1Event">
-	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" valid="true" />
-	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" valid="`${pCntCC1}`" />
-	    <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT" valid="true" />
-	</DRC>
+  <!--Trigger Output DRCs-->
+  <DRC type="ERROR" text="Trigger 0 Event has to be enabled to use Trigger 0 Signal." condition="`${hasConnection(&quot;tr_out0&quot;, 0) &amp;&amp; (trigger0Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED)}`" paramId="trigger0Event">
+      <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" valid="true" />
+      <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" valid="`${pCntCC1}`" />
+      <FixIt action="SET_PARAM" target="trigger0Event" value="CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT" valid="true" />
+  </DRC>
+  <DRC type="ERROR" text="Trigger 1 Event has to be enabled to use Trigger 1 Signal." condition="`${hasConnection(&quot;tr_out1&quot;, 0) &amp;&amp; (trigger1Event eq CY_TCPWM_CNT_TRIGGER_ON_DISABLED)}`" paramId="trigger1Event">
+      <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC0_MATCH" valid="true" />
+      <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_CC1_MATCH" valid="`${pCntCC1}`" />
+      <FixIt action="SET_PARAM" target="trigger1Event" value="CY_TCPWM_CNT_TRIGGER_ON_LINE_OUT" valid="true" />
+  </DRC>
   </DRCs>  
 
   
@@ -388,4 +396,4 @@
     <ConfigInstruction purpose="RESERVE" value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware> 
    
-</Personality>
+</PersonalityTemplate>

@@ -153,7 +153,7 @@ Alarm_1.almEn = CY_RTC_ALARM_ENABLE <br />
 <p>After the <a class="el" href="structcy__stc__rtc__dst__t.html" title="This is the DST structure to handle start DST and stop DST. ">cy_stc_rtc_dst_t</a> structure is filled, call <a class="el" href="group__group__rtc__dst__functions.html#gafaa2c3a4ba08f8fa5050b42527680995" title="The function sets the DST time, configures the DST start time when the specified time is outside DST ...">Cy_RTC_EnableDstTime()</a></p>
 <h1><a class="anchor" id="group_rtc_lp"></a>
 Low Power Support</h1>
-<p>The RTC provides the callback functions to facilitate the low-power mode transition. The callback <a class="el" href="group__group__rtc__low__power__functions.html#gad087256d8c52f946f370490c1badbaaa">Cy_RTC_DeepSleepCallback</a> must be called during execution of <a class="el" href="group__group__syspm__functions__power.html#ga5150c28fe4d2626720c1fbf74b3111ca">Cy_SysPm_CpuEnterDeepSleep</a>, <a class="el" href="group__group__rtc__low__power__functions.html#ga94baa8c1e43e897cf39d59700b84dd6b">Cy_RTC_HibernateCallback</a> must be called during execution of <a class="el" href="group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51">Cy_SysPm_SystemEnterHibernate</a>. To trigger the callback execution, the callback must be registered before calling the mode transition function. Refer to <a class="el" href="group__group__syspm.html">SysPm (System Power Management)</a> driver for more information about low-power mode transitions.</p>
+<p>The RTC provides the callback functions to facilitate the low-power mode transition. The callback <a class="el" href="group__group__rtc__low__power__functions.html#gad91221b226f699c2661ae790753243f6">Cy_RTC_DeepSleepCallback</a> must be called during execution of <a class="el" href="group__group__syspm__functions__power.html#ga5150c28fe4d2626720c1fbf74b3111ca">Cy_SysPm_CpuEnterDeepSleep</a>, <a class="el" href="group__group__rtc__low__power__functions.html#ga2ade3e048d2c9aec4fb56cadcf5d649d">Cy_RTC_HibernateCallback</a> must be called during execution of <a class="el" href="group__group__syspm__functions__power.html#gae97647a28c370674ba57d451d21d1c51">Cy_SysPm_SystemEnterHibernate</a>. To trigger the callback execution, the callback must be registered before calling the mode transition function. Refer to <a class="el" href="group__group__syspm.html">SysPm (System Power Management)</a> driver for more information about low-power mode transitions.</p>
 <h1><a class="anchor" id="group_rtc_section_more_information"></a>
 More Information</h1>
 <p>For more information on the RTC peripheral, refer to the technical reference manual (TRM).</p>
@@ -162,6 +162,10 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td rowspan="2">2.110 </td><td>Added run-time month check in <a class="el" href="group__group__rtc__low__level__functions.html#gaca23246d1ae0e7e6442215ef3d8ca068">Cy_RTC_DaysInMonth</a>. </td><td>GCC 14 support.  </td></tr>
+<tr>
+<td>Removed const qualifier for the <a class="el" href="group__group__rtc__low__power__functions.html#gad91221b226f699c2661ae790753243f6">Cy_RTC_DeepSleepCallback</a> and <a class="el" href="group__group__rtc__low__power__functions.html#ga2ade3e048d2c9aec4fb56cadcf5d649d">Cy_RTC_HibernateCallback</a> callbackParams parameter for consistency with <a class="el" href="group__group__syspm__data__structures.html#ga0b54e47bca8fb045d86884a9b3d12067">Cy_SysPmCallback</a> type. </td><td>Defect fix.  </td></tr>
 <tr>
 <td>2.100 </td><td>Minor update in API <a class="el" href="group__group__rtc__interrupt__functions.html#ga6e4de226161848076faa5cf9c82e950b">Cy_RTC_GetInterruptStatus</a>. </td><td>Code enhancement.  </td></tr>
 <tr>

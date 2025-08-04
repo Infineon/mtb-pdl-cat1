@@ -202,6 +202,13 @@
 
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${(hasMatch(getIpBlockName(), &quot;m33syscpuss.*&quot;)) ?
 	                                                                               pclkTraceClockENString : (((hasMatch(getIpBlockName(), &quot;mxdebug600&quot;))) ?  pclkDebug600TraceClockString : pclkTraceClockString )}`" visible="false" editable="false" desc="Generates PCLK connection define." />
+    <!-- Cross Trigger Interface (CTI) -->
+
+    <ParamBool id="hasDebug600Block" name="hasDebug600Block" group="Internal" default="`${hasBlock(&quot;debug600[0]&quot;)}`" visible="false" editable="false" desc="" />
+    <ParamSignal port="cti_tr_out[0]" name="Trigger Output 0" group="Cross Trigger Interface (CTI)" visible="`${hasDebug600Block}`" desc="CTI Trigger Output 0" canBeEmpty="true" />
+    <ParamSignal port="cti_tr_out[1]" name="Trigger Output 1" group="Cross Trigger Interface (CTI)" visible="`${hasDebug600Block}`" desc="CTI Trigger Output 1" canBeEmpty="true" />
+
+    <ParamBool id="ctiInitCPUHaltConnection" name="CPU Halt trigger" group="Cross Trigger Interface (CTI)" default="`${hasDebug600Block &amp;&amp; (hasConnection(&quot;cti_tr_out&quot;, 0) || hasConnection(&quot;cti_tr_out&quot;, 1))}`" visible="false" editable="false" desc="If true generated function which connects CPU Halt trigger to the Trigger Outputs will be called during initialization." />
 
   </Parameters>
 
@@ -209,7 +216,30 @@
   </DRCs>
 
   <ConfigFirmware>
+    <ConfigInclude value="cy_device.h" include="true" />
+
+    <ConfigDefine name="CYCFG_TRC_CTI_OUT_CTI_TR_OUT0" value="DEBUG_TRC_CTI_OUT_CTI_TR_OUT0" public="false" include="`${hasDebug600Block &amp;&amp; hasConnection(&quot;cti_tr_out&quot;, 0)}`" />
+    <ConfigDefine name="CYCFG_TRC_CTI_OUT_CTI_TR_OUT1" value="DEBUG_TRC_CTI_OUT_CTI_TR_OUT1" public="false" include="`${hasDebug600Block &amp;&amp; hasConnection(&quot;cti_tr_out&quot;, 1)}`" />
+    <ConfigDefine name="CYCFG_TRC_CTI_IN_MAIN_CORE_HALT" value="DEBUG_TRC_CTI_IN_CPU0_HALT" public="false" include="`${ctiInitCPUHaltConnection}`" />
+
+    <ConfigFunction
+      signature="__STATIC_INLINE void Cy_Debug_TrcCtiCpuHaltConnect(void)" body="
+    if (Cy_SysLib_DebugSessionActive(SRSS))&#xA;
+   {&#xA;
+      #ifdef CYCFG_TRC_CTI_OUT_CTI_TR_OUT0&#xA;
+         Cy_SysLib_DebugCtiMuxConnect(CM33_TRC_CTI, CYCFG_TRC_CTI_IN_MAIN_CORE_HALT, CYCFG_TRC_CTI_OUT_CTI_TR_OUT0, 0u, 1u);&#xA;
+      #endif /* CYCFG_TRC_CTI_OUT_CTI_TR_OUT0 */&#xA;
+      #ifdef CYCFG_TRC_CTI_OUT_CTI_TR_OUT1&#xA;
+         Cy_SysLib_DebugCtiMuxConnect(CM33_TRC_CTI, CYCFG_TRC_CTI_IN_MAIN_CORE_HALT, CYCFG_TRC_CTI_OUT_CTI_TR_OUT1, 0u, 1u);&#xA;
+      #endif /* CYCFG_TRC_CTI_OUT_CTI_TR_OUT1 */&#xA;
+   }&#xA;"
+      public="false"
+      include="`${hasDebug600Block &amp;&amp; ctiInitCPUHaltConnection}`"
+      guard="defined(CORE_NAME_CM33_0) &amp;&amp; defined(CY_IP_MXS40SSRSS)" />
+
     <ConfigInstruction value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${((!(hasMatch(getIpBlockName(), &quot;m4cpuss.*&quot;))) &amp;&amp; pclkOk)}`"  />
     <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(sourceClock, &quot;clockSel&quot;)}`);" include="`${(hasMatch(getIpBlockName(), &quot;m4cpuss.*&quot;) &amp;&amp; pclkOk)}`"  />
+
+    <ConfigInstruction value="Cy_Debug_TrcCtiCpuHaltConnect();" include="`${hasDebug600Block &amp;&amp; ctiInitCPUHaltConnection}`" guard="defined(CORE_NAME_CM33_0) &amp;&amp; defined(CY_IP_MXS40SSRSS)" />
   </ConfigFirmware>
 </Personality>

@@ -26,19 +26,27 @@
 * limitations under the License.
 *****************************************************************************-->
 
-<Personality id="ezi2c" name="EZI2C" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v8">
-  <Dependencies>
-    <IpBlock name="mxscb,mxscb_ver2_s40e,mxs22scb">
-               <Version major="1"/>
-              <Version major="2" />
-              <Version major="4" />
+<PersonalityTemplate id="ezi2c" name="EZI2C" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v9">
+  <FittingRules>
+    <MappingRules>
+      <RequiresConnectivity>
+        <SignalGroup type="ALL">
+          <Signal port="i2c_scl[0]"/>
+          <Signal port="i2c_sda[0]"/>
+        </SignalGroup>
+      </RequiresConnectivity>
+      <IpBlock name="mxscb,mxscb_ver2_s40e,mxs22scb">
+          <Version major="1"/>
+          <Version major="2" />
+          <Version major="4" />
       <Param name="I2C" value="1" />
       <Param name="I2C_S" value="1" />
-    </IpBlock>
-    <Resource name="scb" />
-    <OperatingMode value="MCU"/>
-  </Dependencies>
-  <ExposedMembers />  
+      </IpBlock>
+      <Resource name="scb" />
+      <OperatingMode value="MCU"/>
+    </MappingRules>
+  </FittingRules>
+  <ExposedMembers />
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__scb__ezi2c.html" linkText="Open EZI2C (SCB) Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
@@ -186,4 +194,4 @@
 
     <ConfigInstruction purpose="RESERVE" value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
-</Personality>
+</PersonalityTemplate>

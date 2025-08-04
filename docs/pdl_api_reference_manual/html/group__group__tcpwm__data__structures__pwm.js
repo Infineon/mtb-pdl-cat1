@@ -40,7 +40,9 @@ var group__group__tcpwm__data__structures__pwm =
       [ "glitch_filter_enable", "structcy__stc__tcpwm__pwm__config__t.html#a67a6184cfff26a9bbd37430308da4891", null ],
       [ "gf_depth", "structcy__stc__tcpwm__pwm__config__t.html#a80fe764b1303506c68b06358482b9cf8", null ],
       [ "pwm_tc_sync_kill_dt", "structcy__stc__tcpwm__pwm__config__t.html#aec22a72f237c8ad78eb7fa85818a4af0", null ],
-      [ "pwm_sync_kill_dt", "structcy__stc__tcpwm__pwm__config__t.html#a8703da1aecb3538a8e98eed27063d894", null ]
+      [ "pwm_sync_kill_dt", "structcy__stc__tcpwm__pwm__config__t.html#a8703da1aecb3538a8e98eed27063d894", null ],
+      [ "debug_freeze_enable", "structcy__stc__tcpwm__pwm__config__t.html#a65f9a164620363fa75eac28a87aee5ea", null ],
+      [ "debug_suspend_enable", "structcy__stc__tcpwm__pwm__config__t.html#a9d7d000bc686c74cc6df5df5705c0868", null ]
     ] ],
     [ "cy_en_tcpwm_dithering_t", "group__group__tcpwm__data__structures__pwm.html#ga5ba36f547c6817ce1f2a5ed6e89283ff", [
       [ "CY_TCPWM_DITHERING_DISABLE", "group__group__tcpwm__data__structures__pwm.html#gga5ba36f547c6817ce1f2a5ed6e89283ffa184ba01f25b8da6efec3a883e558ae61", null ],

@@ -44,6 +44,7 @@ var group__group__syslib__macros =
     [ "CY_ARRAY_SIZE", "group__group__syslib__macros.html#ga5f6cdb90cc67d703db8007cd2b87633a", null ],
     [ "CY_IPC_DATA_FOR_CM4_SOFT_RESET", "group__group__syslib__macros.html#ga16efc8820d2ece85d8dee3aed3198b6f", null ],
     [ "cy_syslib_lcs_data_t", "group__group__syslib__macros.html#gadbea1421faf52e66ab5190e91b2fca74", null ],
+    [ "cy_syslib_debug_cti_t", "group__group__syslib__macros.html#ga2452915ebea12c49302333573744b2b5", null ],
     [ "cy_israddress", "group__group__syslib__macros.html#ga71c09beda7671d1f69c8f06a546e2ae6", null ],
     [ "char_t", "group__group__syslib__macros.html#ga40bb5262bf908c328fbcfbe5d29d0201", null ],
     [ "float32_t", "group__group__syslib__macros.html#ga4611b605e45ab401f02cab15c5e38715", null ],

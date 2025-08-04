@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"group__group__scb__i2c__slave__functions.html":[4,40,2,1,1],
 "group__group__scb__i2c__slave__functions.html#ga179b4495d7255567bb8b166e16e5a073":[4,40,2,1,1,0],
 "group__group__scb__i2c__slave__functions.html#ga1c9f6c807f4758016bf90cc8f69f96b3":[4,40,2,1,1,1],
 "group__group__scb__i2c__slave__functions.html#ga3cf4dc1cc3f14c3ba9aa4679ca25c186":[4,40,2,1,1,8],
@@ -248,6 +249,5 @@ var NAVTREEINDEX21 =
 "group__group__scb__uart__macros__tx__fifo__status.html#gaf463f453c30885d0bd6ae52744bb1449":[4,40,4,0,2,7],
 "group__group__scb__uart__macros__tx__fifo__status.html#gafb9a349f995e46583edd9cdc16efc0af":[4,40,4,0,2,2],
 "group__group__sd__host.html":[4,41],
-"group__group__sd__host__data__structures.html":[4,41,2],
-"group__group__sd__host__enums.html":[4,41,3]
+"group__group__sd__host__data__structures.html":[4,41,2]
 };

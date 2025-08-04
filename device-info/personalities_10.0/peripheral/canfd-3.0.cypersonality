@@ -26,11 +26,18 @@
 * limitations under the License.
 *****************************************************************************-->
 
-<Personality id="canfd" name="CAN FD" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v7">
-  <Dependencies>
-    <IpBlock name="mxttcanfd,mxttcanfd_s40s,mxttcanfd_s40e" />
-    <Resource name="canfd\.chan" />
-  </Dependencies>
+<PersonalityTemplate id="canfd" name="CAN FD" version="3.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v9">
+  <FittingRules>
+    <MappingRules>
+      <RequiresConnectivity>
+        <SignalGroup type="ALL">
+          <Signal port="ttcan_rx[0]"/>
+        </SignalGroup>
+      </RequiresConnectivity>
+      <IpBlock name="mxttcanfd,mxttcanfd_s40s,mxttcanfd_s40e" />
+      <Resource name="canfd\.chan" />
+    </MappingRules>
+  </FittingRules>
   <ExposedMembers />
   <Parameters>
     <!-- PDL documentation -->
@@ -66,7 +73,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="ttcan_tx[0]" name="CAN Tx Pin" group="Connections" visible="true" desc="ttcan_tx[0]" canBeEmpty="true" >
+    <ParamSignal port="ttcan_tx[0]" name="CAN Tx Pin" group="Connections" visible="`${hasVisibleOption(&quot;ttcan_tx[0]&quot;)}`" desc="ttcan_tx[0]" canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG" />
@@ -407,11 +414,11 @@ treated.">
    .f1_f = &amp;`${INST_NAME . &quot;_extIdFilterF1Config_$idx&quot;}`, \&#xA;
 }"/>
  
-    <ConfigStruct name="`${txCallback . &quot;(void)&quot;}`" type="void" const="false" public="true" include="`${txCallback ne &quot;NULL&quot;}`" isArray="false" >
+    <ConfigStruct name="`${txCallback . &quot;(void)&quot;}`" type="void" const="false" public="true" include="`${txCallback ne &quot;NULL&quot;}`" >
     </ConfigStruct>
-    <ConfigStruct name="`${rxCallback . &quot;(bool rxFIFOMsg, uint8_t msgBufOrRxFIFONum, cy_stc_canfd_rx_buffer_t* basemsg)&quot;}`" type="void" const="false" public="true" include="`${rxCallback ne &quot;NULL&quot;}`" isArray="false"  >
+    <ConfigStruct name="`${rxCallback . &quot;(bool rxFIFOMsg, uint8_t msgBufOrRxFIFONum, cy_stc_canfd_rx_buffer_t* basemsg)&quot;}`" type="void" const="false" public="true" include="`${rxCallback ne &quot;NULL&quot;}`" >
     </ConfigStruct>
-    <ConfigStruct name="`${errorCallback . &quot;(uint32_t errorMask)&quot;}`" type="void" const="false" public="true" include="`${errorCallback ne &quot;NULL&quot;}`" isArray="false"  >
+    <ConfigStruct name="`${errorCallback . &quot;(uint32_t errorMask)&quot;}`" type="void" const="false" public="true" include="`${errorCallback ne &quot;NULL&quot;}`" >
     </ConfigStruct>
 
     <ConfigStruct name="`${INST_NAME . &quot;_nominalBitrateConfig&quot;}`" type="cy_stc_canfd_bitrate_t" const="`${inFlash}`" public="true" include="true" >
@@ -443,9 +450,9 @@ treated.">
       <Member name="sft" value="`${sftSidFilterVal$idx}`" />
     </ConfigStruct>
     
-    <ConfigStruct name="`${INST_NAME . &quot;_stdIdFilters&quot;}`" type="cy_stc_id_filter_t"  isArray="true" const="`${inFlash}`" public="true" include="true" >
-      <Member name="`${##}`" value="`${INST_NAME}`_STD_ID_FILTER_`${##}`" include="`${numberOfSIDFilters &gt; ##}`"  count="128"/>
-    </ConfigStruct>
+    <ConfigArray name="`${INST_NAME . &quot;_stdIdFilters&quot;}`" type="cy_stc_id_filter_t" const="`${inFlash}`" public="true" include="true" >
+      <ArrayElement value="`${INST_NAME}`_STD_ID_FILTER_$idx{0}" include="`${numberOfSIDFilters &gt; $idx{0}}`" count="128"/>
+    </ConfigArray>
 
     <ConfigStruct name="`${INST_NAME . &quot;_sidFiltersConfig&quot;}`" type="cy_stc_canfd_sid_filter_config_t" const="`${inFlash}`" public="true" include="true" >
       <Member name="numberOfSIDFilters" value="`${numberOfSIDFilters}`U"  />
@@ -468,10 +475,10 @@ treated.">
       <Member name="f0_f" value="&amp;`${INST_NAME . &quot;_extIdFilterF0Config_$idx&quot;}`" />
       <Member name="f1_f" value="&amp;`${INST_NAME . &quot;_extIdFilterF1Config_$idx&quot;}`" />
     </ConfigStruct>
-    
-    <ConfigStruct name="`${INST_NAME . &quot;_extIdFilters&quot;}`" type="cy_stc_extid_filter_t"  isArray="true" const="`${inFlash}`" public="true" include="true" >
-      <Member name="`${##}`" value="`${INST_NAME}`_EXT_ID_FILTER_`${##}`" include="`${numberOfEXTIDFilters &gt; ##}`"  count="64"/>
-    </ConfigStruct>
+
+    <ConfigArray name="`${INST_NAME . &quot;_extIdFilters&quot;}`" type="cy_stc_extid_filter_t" const="`${inFlash}`" public="true" include="true" >
+      <ArrayElement value="`${INST_NAME}`_EXT_ID_FILTER_$idx{0}" include="`${numberOfEXTIDFilters &gt; $idx{0}}`" count="64"/>
+    </ConfigArray>
 
     <ConfigStruct name="`${INST_NAME . &quot;_extIdFiltersConfig&quot;}`" type="cy_stc_canfd_extid_filter_config_t" const="`${inFlash}`" public="true" include="true" >
       <Member name="numberOfEXTIDFilters" value="`${numberOfEXTIDFilters}`U"  />
@@ -538,24 +545,24 @@ treated.">
       <Member name="mm" value="`${mm_$idx}`U"  />
     </ConfigStruct>
 
-    <ConfigStruct name="`${INST_NAME . &quot;_dataBuffer_$idx&quot;}`" type="uint32_t" isArray="true" const="false" public="true" include="`${noOfTxBuffers &gt; $idx}`" repeatCount="32" >
-      <Member name="`${INST_NAME}`_DATA_0" value="`${data_0_$idx}`U" include="true" />
-      <Member name="`${INST_NAME}`_DATA_1" value="`${data_1_$idx}`U" include="true" />
-      <Member name="`${INST_NAME}`_DATA_2" value="`${data_2_$idx}`U" include="`${(txBufferDataValue &gt; 8)}`" />
-      <Member name="`${INST_NAME}`_DATA_3" value="`${data_3_$idx}`U" include="`${(txBufferDataValue &gt; 12)}`" />
-      <Member name="`${INST_NAME}`_DATA_4" value="`${data_4_$idx}`U" include="`${(txBufferDataValue &gt; 16)}`" />
-      <Member name="`${INST_NAME}`_DATA_5" value="`${data_5_$idx}`U" include="`${(txBufferDataValue &gt; 20)}`" />
-      <Member name="`${INST_NAME}`_DATA_6" value="`${data_6_$idx}`U" include="`${(txBufferDataValue &gt; 24)}`" />
-      <Member name="`${INST_NAME}`_DATA_7" value="`${data_7_$idx}`U" include="`${(txBufferDataValue &gt; 24)}`" />
-      <Member name="`${INST_NAME}`_DATA_8" value="`${data_8_$idx}`U" include="`${(txBufferDataValue &gt; 32)}`" />
-      <Member name="`${INST_NAME}`_DATA_9" value="`${data_9_$idx}`U" include="`${(txBufferDataValue &gt; 32)}`" />
-      <Member name="`${INST_NAME}`_DATA_10" value="`${data_10_$idx}`U" include="`${(txBufferDataValue &gt; 32)}`" />
-      <Member name="`${INST_NAME}`_DATA_11" value="`${data_11_$idx}`U" include="`${(txBufferDataValue &gt; 32)}`" />
-      <Member name="`${INST_NAME}`_DATA_12" value="`${data_12_$idx}`U" include="`${(txBufferDataValue &gt; 48)}`" />
-      <Member name="`${INST_NAME}`_DATA_13" value="`${data_13_$idx}`U" include="`${(txBufferDataValue &gt; 48)}`" />
-      <Member name="`${INST_NAME}`_DATA_14" value="`${data_14_$idx}`U" include="`${(txBufferDataValue &gt; 48)}`" />
-      <Member name="`${INST_NAME}`_DATA_15" value="`${data_15_$idx}`U" include="`${(txBufferDataValue &gt; 48)}`" />
-    </ConfigStruct>
+    <ConfigArray name="`${INST_NAME . &quot;_dataBuffer_$idx{0}&quot;}`" type="uint32_t" const="false" public="true" include="`${noOfTxBuffers &gt; $idx{0}}`" repeatCount="32" >
+      <ArrayElement value="`${data_0_$idx{1}}`U" include="true" />
+      <ArrayElement value="`${data_1_$idx{1}}`U" include="true" />
+      <ArrayElement value="`${data_2_$idx{1}}`U" include="`${(txBufferDataValue &gt; 8)}`" />
+      <ArrayElement value="`${data_3_$idx{1}}`U" include="`${(txBufferDataValue &gt; 12)}`" />
+      <ArrayElement value="`${data_4_$idx{1}}`U" include="`${(txBufferDataValue &gt; 16)}`" />
+      <ArrayElement value="`${data_5_$idx{1}}`U" include="`${(txBufferDataValue &gt; 20)}`" />
+      <ArrayElement value="`${data_6_$idx{1}}`U" include="`${(txBufferDataValue &gt; 24)}`" />
+      <ArrayElement value="`${data_7_$idx{1}}`U" include="`${(txBufferDataValue &gt; 24)}`" />
+      <ArrayElement value="`${data_8_$idx{1}}`U" include="`${(txBufferDataValue &gt; 32)}`" />
+      <ArrayElement value="`${data_9_$idx{1}}`U" include="`${(txBufferDataValue &gt; 32)}`" />
+      <ArrayElement value="`${data_10_$idx{1}}`U" include="`${(txBufferDataValue &gt; 32)}`" />
+      <ArrayElement value="`${data_11_$idx{1}}`U" include="`${(txBufferDataValue &gt; 32)}`" />
+      <ArrayElement value="`${data_12_$idx{1}}`U" include="`${(txBufferDataValue &gt; 48)}`" />
+      <ArrayElement value="`${data_13_$idx{1}}`U" include="`${(txBufferDataValue &gt; 48)}`" />
+      <ArrayElement value="`${data_14_$idx{1}}`U" include="`${(txBufferDataValue &gt; 48)}`" />
+      <ArrayElement value="`${data_15_$idx{1}}`U" include="`${(txBufferDataValue &gt; 48)}`" />
+    </ConfigArray>
 
     <ConfigStruct name="`${INST_NAME . &quot;_txBuffer_$idx&quot;}`" type="cy_stc_canfd_tx_buffer_t" const="false" public="true" include="`${noOfTxBuffers &gt; $idx}`" repeatCount="32" >
       <Member name="t0_f" value="&amp;`${INST_NAME . &quot;_T0RegisterBuffer_$idx&quot;}`"  />
@@ -573,11 +580,11 @@ treated.">
     <ConfigFunction signature="__WEAK void `${rxCallback}`(bool rxFIFOMsg, uint8_t msgBufOrRxFIFONum, cy_stc_canfd_rx_buffer_t* basemsg)" body="    (void)rxFIFOMsg;&#xA;    (void)msgBufOrRxFIFONum;&#xA;    (void)basemsg;" public="false" include="`${rxCallback ne &quot;NULL&quot;}`"/>
     <ConfigFunction signature="__WEAK void `${errorCallback}`(uint32_t errorMask)" body="    (void)errorMask;" public="false" include="`${errorCallback ne &quot;NULL&quot;}`"/>
 
-    <ConfigInstruction value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_CANFD0_PERI_NR , CY_MMIO_CANFD0_GROUP_NR, CY_MMIO_CANFD0_SLAVE_NR, CY_MMIO_CANFD0_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
-    <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDstInst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${(ipblockName eq &quot;mxttcanfd_s40s&quot;) &amp;&amp; pclkOk}`"  />
-    <ConfigInstruction value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDstInst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${((ipblockName eq &quot;mxttcanfd&quot;) || (ipblockName eq &quot;mxttcanfd_s40e&quot;)) &amp;&amp; pclkOk}`"   />
-    <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_CANFD0_PERI_NR , CY_MMIO_CANFD0_GROUP_NR, CY_MMIO_CANFD0_SLAVE_NR, CY_MMIO_CANFD0_CLK_HF_NR);" include="true" guard="defined (CY_DEVICE_CONFIGURATOR_IP_ENABLE_FEATURE)" />
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriphAssignDivider(`${pclkDstInst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${(ipblockName eq &quot;mxttcanfd_s40s&quot;) &amp;&amp; pclkOk}`"  />
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysClk_PeriPclkAssignDivider(`${pclkDstInst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${((ipblockName eq &quot;mxttcanfd&quot;) || (ipblockName eq &quot;mxttcanfd_s40e&quot;)) &amp;&amp; pclkOk}`"   />
+    <ConfigInstruction purpose="RESERVE" value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
     
   </ConfigFirmware>
 
-</Personality>
+</PersonalityTemplate>

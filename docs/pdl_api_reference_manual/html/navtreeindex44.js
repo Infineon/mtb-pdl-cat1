@@ -1,5 +1,9 @@
 var NAVTREEINDEX44 =
 {
+"structcy__stc__tcpwm__motif__mcp__config__t.html#ad41ab727dafa606465307196ca422549":[4,52,5,5,7,6],
+"structcy__stc__tcpwm__motif__mcp__quaddec__config__t.html":[4,52,5,5,8],
+"structcy__stc__tcpwm__motif__mcp__quaddec__config__t.html#ac47feb728d80827e4dac477a208812b1":[4,52,5,5,8,1],
+"structcy__stc__tcpwm__motif__mcp__quaddec__config__t.html#ac4fc5052ac5be5a5a541e2bd7ed91a9f":[4,52,5,5,8,0],
 "structcy__stc__tcpwm__motif__mlut__t.html":[4,52,5,5,1],
 "structcy__stc__tcpwm__motif__mlut__t.html#a12b30ab454bcd83f5ebfcb9987c3c869":[4,52,5,5,1,1],
 "structcy__stc__tcpwm__motif__mlut__t.html#a8befbc5d9f0fe5402949071afbc81433":[4,52,5,5,1,4],
@@ -37,6 +41,7 @@ var NAVTREEINDEX44 =
 "structcy__stc__tcpwm__pwm__config__t.html#a5e74fc5810a9a76dcd22b96974f181f8":[4,52,2,2,0,17],
 "structcy__stc__tcpwm__pwm__config__t.html#a61dda857a9d8fcc73df41c9dd6b1b47d":[4,52,2,2,0,25],
 "structcy__stc__tcpwm__pwm__config__t.html#a62e50e17cdcbeafb5af318149ca91312":[4,52,2,2,0,21],
+"structcy__stc__tcpwm__pwm__config__t.html#a65f9a164620363fa75eac28a87aee5ea":[4,52,2,2,0,40],
 "structcy__stc__tcpwm__pwm__config__t.html#a67a6184cfff26a9bbd37430308da4891":[4,52,2,2,0,36],
 "structcy__stc__tcpwm__pwm__config__t.html#a6e07285f605e430e0e0237a45fc44111":[4,52,2,2,0,23],
 "structcy__stc__tcpwm__pwm__config__t.html#a7a6ed3172642d666443d4d37c71c3fe1":[4,52,2,2,0,34],
@@ -45,6 +50,7 @@ var NAVTREEINDEX44 =
 "structcy__stc__tcpwm__pwm__config__t.html#a877ff8bc42b17e292f6ae99e1b872cbc":[4,52,2,2,0,1],
 "structcy__stc__tcpwm__pwm__config__t.html#a8c931214b10404070b4fc713ba1ac339":[4,52,2,2,0,20],
 "structcy__stc__tcpwm__pwm__config__t.html#a9bf7f3c7133ff0c6e1d51c6b52d05997":[4,52,2,2,0,12],
+"structcy__stc__tcpwm__pwm__config__t.html#a9d7d000bc686c74cc6df5df5705c0868":[4,52,2,2,0,41],
 "structcy__stc__tcpwm__pwm__config__t.html#a9dab503096fd210a7b909a4091676109":[4,52,2,2,0,16],
 "structcy__stc__tcpwm__pwm__config__t.html#a9dc7cf6224ef8902ebea75ed1920b982":[4,52,2,2,0,8],
 "structcy__stc__tcpwm__pwm__config__t.html#aa66af7705ace986df75e080271d7e865":[4,52,2,2,0,29],

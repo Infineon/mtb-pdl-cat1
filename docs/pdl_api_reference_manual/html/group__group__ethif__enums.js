@@ -6,7 +6,8 @@ var group__group__ethif__enums =
       [ "CY_ETHIF_MEMORY_NOT_ENOUGH", "group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23aa9dd16273159fedb9897839308c7ad31", null ],
       [ "CY_ETHIF_LINK_DOWN", "group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23a83f62cd9221c390c0cc1b2c17c05d061", null ],
       [ "CY_ETHIF_LINK_UP", "group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23aa2c0ce0a7234d59bfde8953854491755", null ],
-      [ "CY_ETHIF_BUFFER_NOT_AVAILABLE", "group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23a445b0486cbd02a6086d90f4f7f4f1f7b", null ]
+      [ "CY_ETHIF_BUFFER_NOT_AVAILABLE", "group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23a445b0486cbd02a6086d90f4f7f4f1f7b", null ],
+      [ "CY_ETHIF_NOT_INITIALIZED", "group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23a02d8925dc63d189a9c24427819b235fc", null ]
     ] ],
     [ "cy_en_ethif_buffer_status_t", "group__group__ethif__enums.html#gaa20baa1f0cb045e458bb658d4b3d9dca", [
       [ "CY_ETHIF_BUFFER_UNINIT", "group__group__ethif__enums.html#ggaa20baa1f0cb045e458bb658d4b3d9dcaa6ee182cc9b2db9f3f6000117bc735b07", null ],

@@ -43,6 +43,8 @@ var searchData=
   ['deadtimeclocksbuff',['deadTimeClocksBuff',['../structcy__stc__tcpwm__pwm__config__t.html#a7a6ed3172642d666443d4d37c71c3fe1',1,'cy_stc_tcpwm_pwm_config_t']]],
   ['deadtimeclocksbuff_5flinecompl_5fout',['deadTimeClocksBuff_linecompl_out',['../structcy__stc__tcpwm__pwm__config__t.html#ac700d4f8834d9702fdcfb3478627e7e3',1,'cy_stc_tcpwm_pwm_config_t']]],
   ['debounce_5fbypass',['debounce_bypass',['../structcy__stc__tcpwm__motif__hall__sensor__config__t.html#acd586992d46a8a138c065ed280608887',1,'cy_stc_tcpwm_motif_hall_sensor_config_t']]],
+  ['debug_5ffreeze_5fenable',['debug_freeze_enable',['../structcy__stc__tcpwm__pwm__config__t.html#a65f9a164620363fa75eac28a87aee5ea',1,'cy_stc_tcpwm_pwm_config_t']]],
+  ['debug_5fsuspend_5fenable',['debug_suspend_enable',['../structcy__stc__tcpwm__pwm__config__t.html#a9d7d000bc686c74cc6df5df5705c0868',1,'cy_stc_tcpwm_pwm_config_t']]],
   ['deepsleep',['deepSleep',['../structcy__stc__ctb__config__t.html#a602b5602d32a313835a3a590f22e646f',1,'cy_stc_ctb_config_t::deepSleep()'],['../structcy__stc__ctb__opamp__config__t.html#a776d1a568f71efed8f4b1bfb313a4fe8',1,'cy_stc_ctb_opamp_config_t::deepSleep()'],['../structcy__stc__ctdac__config__t.html#a3536fe7b75cf86b25c95de5548b79a68',1,'cy_stc_ctdac_config_t::deepSleep()'],['../structcy__stc__sysanalog__config__t.html#a6acb3f932ccad3cf52ad98f0dc86eec2',1,'cy_stc_sysanalog_config_t::deepSleep()']]],
   ['deepsleepgain',['deepsleepGain',['../structcy__stc__syspm__retldo__params__t.html#afa7c6a983726bdb8bca4a5d4bbfa0bbc',1,'cy_stc_syspm_retldo_params_t']]],
   ['deepsleepsramldoenable',['deepsleepSramLdoEnable',['../structcy__stc__syspm__sramldo__params__t.html#a4b83333e4bef3e4b4bb35c4e93816b98',1,'cy_stc_syspm_sramldo_params_t']]],

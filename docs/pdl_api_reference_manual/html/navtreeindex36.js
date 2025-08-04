@@ -1,5 +1,9 @@
 var NAVTREEINDEX36 =
 {
+"group__group__wdt__functions.html#gacbd12276c1d11f3ad3f462a88d4b1065":[4,56,2,18],
+"group__group__wdt__functions.html#gace74b427ab6c7bb323a4018cd2a9c1ee":[4,56,2,30],
+"group__group__wdt__functions.html#gadeda593623cd11c8594e4cec64759bf3":[4,56,2,26],
+"group__group__wdt__functions.html#gae1cf0ca2963580bc88dc0241ba9843b2":[4,56,2,24],
 "group__group__wdt__functions.html#gaec9bd8d1439389a46cdd2dcadc8e987d":[4,56,2,1],
 "group__group__wdt__functions.html#gaf6cfcbb37db4f7c295fae0f9113bafea":[4,56,2,28],
 "group__group__wdt__functions.html#gafad1413ff11cfb3e3e2b5d9854dc793e":[4,56,2,14],
@@ -245,9 +249,5 @@ var NAVTREEINDEX36 =
 "structcy__stc__clkhf__csv__manual__config__t.html#aac2e854174030dd40ef15a76d3439e25":[4,46,14,1,0,0],
 "structcy__stc__clkhf__csv__manual__config__t.html#aef2268b682f6262f275c8caaf0df41c0":[4,46,14,1,0,2],
 "structcy__stc__clkilo__csv__manual__config__t.html":[4,46,34,0],
-"structcy__stc__clkilo__csv__manual__config__t.html#a23c37dbe210d6873e11c0291471752d1":[4,46,34,0,0],
-"structcy__stc__clkilo__csv__manual__config__t.html#a466ee7d792a2145474caaa80957af091":[4,46,34,0,1],
-"structcy__stc__clkilo__csv__manual__config__t.html#a5c0e2c57ed91ffe28c471df37de2184c":[4,46,34,0,2],
-"structcy__stc__clkilo__csv__manual__config__t.html#a9cceb95ea65d200be868e00c20f98539":[4,46,34,0,3],
-"structcy__stc__clklf__csv__manual__config__t.html":[4,46,21,1,0]
+"structcy__stc__clkilo__csv__manual__config__t.html#a23c37dbe210d6873e11c0291471752d1":[4,46,34,0,0]
 };

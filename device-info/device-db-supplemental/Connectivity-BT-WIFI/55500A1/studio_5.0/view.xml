@@ -9,8 +9,7 @@
     <Profile displayName="System" diagramType="CLOCKS" fileName="system" evalPriority="1" displayPriority="5" description="System configuration" resources="srss[\[\.].*" />
     <Profile displayName="Pins" diagramType="PACKAGE" fileName="pins" evalPriority="6" displayPriority="3" description="Pin configuration" resources="ioss[\[\.].*" />
     <Profile displayName="Peripherals" fileName="peripherals" evalPriority="5" displayPriority="2" description="Peripheral Hardware Block configuration" resources=".*" />
-    <!--This won't match any HW locations because it is after the catchall (.*). This is on purpose and needed to specify display order/code gen order for Analog/routing.-->
-    <Profile purpose="ROUTING" displayName="Analog-Routing" diagramType="ANALOG" fileName="routing" evalPriority="4" displayPriority="2" description="Establishes all necessary connections between hardware elements." resources="NONE" >
+    <Profile purpose="ROUTING" displayName="Analog-Routing" diagramType="ANALOG" fileName="routing" evalPriority="4" displayPriority="2" description="Establishes all necessary connections between hardware elements." resources="NONE">
       <Includes />
     </Profile>
   </Profiles>

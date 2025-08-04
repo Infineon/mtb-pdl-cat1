@@ -117,7 +117,7 @@ Configuration Considerations</h1>
 <tr>
 <th>Class Macro</th><th>Level Macro</th><th>Type of check </th></tr>
 <tr>
-<td>CY_ASSERT_CLASS_1 </td><td>CY_ASSERT_L1 </td><td>A parameter that could change between different PSoC devices (e.g. the number of clock paths)  </td></tr>
+<td>CY_ASSERT_CLASS_1 </td><td>CY_ASSERT_L1 </td><td>A parameter that could change between different PSOC devices (e.g. the number of clock paths)  </td></tr>
 <tr>
 <td>CY_ASSERT_CLASS_2 </td><td>CY_ASSERT_L2 </td><td>A parameter that has fixed limits such as a counter period  </td></tr>
 <tr>
@@ -138,11 +138,13 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
-<td>3.80 </td><td>Coverity fixes and added new API <a class="el" href="group__group__syslib__functions.html#ga8e96d4a4aed60c9d7e8c186951147c95">Cy_SysLib_GetDeviceLCS</a> for PSoC C3 (CAT1B). </td><td>Code enhancement and new functionality.  </td></tr>
+<td>3.90 </td><td>Added new APIs for PSOC C3 devices: <a class="el" href="group__group__syslib__functions.html#gafcd62b69c87027d7608f26496f30d7f9">Cy_SysLib_DebugSessionActive</a> <a class="el" href="group__group__syslib__functions.html#ga4fe48ceb7af3a8cd4a7e8cce00fa3741">Cy_SysLib_DebugCtiMuxConnect</a>  </td><td>New functionality.  </td></tr>
+<tr>
+<td>3.80 </td><td>Coverity fixes and added new API <a class="el" href="group__group__syslib__functions.html#ga8e96d4a4aed60c9d7e8c186951147c95">Cy_SysLib_GetDeviceLCS</a> for PSOC C3 (CAT1B). </td><td>Code enhancement and new functionality.  </td></tr>
 <tr>
 <td>3.70 </td><td>Updated API <a class="el" href="group__group__syslib__functions.html#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">Cy_SysLib_GetUniqueId</a> and added new <a class="el" href="group__group__syslib__functions.html#gafdb346d0131659f401e2b9d83ea6864d">Cy_Syslib_IsMemCacheable</a>. </td><td>Code enhancement.  </td></tr>
 <tr>
-<td>3.60 </td><td>Updated API <a class="el" href="group__group__syslib__functions.html#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">Cy_SysLib_GetUniqueId</a>, added section for unified linker script update </td><td>Code enhancement and bug fixes to enable API compilation for PSoC C3 (CAT1B).  </td></tr>
+<td>3.60 </td><td>Updated API <a class="el" href="group__group__syslib__functions.html#gaaa8fb5b7a16fbdfd60cf44d5d8f2c977">Cy_SysLib_GetUniqueId</a>, added section for unified linker script update </td><td>Code enhancement and bug fixes to enable API compilation for PSOC C3 (CAT1B).  </td></tr>
 <tr>
 <td>3.50 </td><td>Added support for TRAVEO&trade; II Body Entry devices.<br />
  Pre-processor check for MXS40SRSS version now groups ver. 2 with ver. 3. Previously ver. 2 was grouped with ver. 1. Some pre-processor checks for if the device has a CM4 now also require device to not be HT_Variant to exclude TVIIBE and CAT1C devices. </td><td>Code enhancement and support for new devices.  </td></tr>
@@ -180,7 +182,7 @@ Added new API <a class="el" href="group__group__syslib__functions.html#gabc2fac2
 <tr>
 <td>2.60.1 </td><td>Updated the Configuration Considerations section with the information that CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a> </td><td>Documentation update and clarification.  </td></tr>
 <tr>
-<td rowspan="2">2.60 </td><td>Updated the following functions for the PSoC 64 devices: <a class="el" href="group__group__syslib__functions.html#ga1691f4df41994e7ed9c30ec6495d925f">Cy_SysLib_ClearFlashCacheAndBuffer</a>, <a class="el" href="group__group__syslib__functions.html#gaebb4e952584f0c428f58f7b4dbd3ceff">Cy_SysLib_ClearResetReason</a>, <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a>. </td><td>Added PSoC 64 device support.  </td></tr>
+<td rowspan="2">2.60 </td><td>Updated the following functions for the PSOC 64 devices: <a class="el" href="group__group__syslib__functions.html#ga1691f4df41994e7ed9c30ec6495d925f">Cy_SysLib_ClearFlashCacheAndBuffer</a>, <a class="el" href="group__group__syslib__functions.html#gaebb4e952584f0c428f58f7b4dbd3ceff">Cy_SysLib_ClearResetReason</a>, <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a>. </td><td>Added PSOC 64 device support.  </td></tr>
 <tr>
 <td>Minor documentation updates. </td><td>Documentation enhancement.  </td></tr>
 <tr>

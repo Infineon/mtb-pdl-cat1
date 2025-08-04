@@ -226,7 +226,7 @@
     <ParamBool id="InterruptCC1" name="Compare 1" group="Interrupt Source" default="false" visible="`${pCntCC1}`" editable="true" desc="Generates interrupt when counter value matches with compare 1 value" />
     <ParamString id="InterruptSource" name="InterruptSource" desc="InterruptSource" group="Interrupt Source" default="(CY_TCPWM_INT_ON_TC `${(InterruptTC)? &quot;&quot; : &quot;&amp; 0U&quot;}`) | (CY_TCPWM_INT_ON_CC0 `${(InterruptCC0)? &quot;&quot; : &quot;&amp; 0U&quot;}`) | (CY_TCPWM_INT_ON_CC1 `${(InterruptCC1)? &quot;&quot; : &quot;&amp; 0U&quot;}`)" visible="false" editable="false" />
 
-	  <!--Kill Mode-->
+    <!--Kill Mode-->
     <ParamBool id="pwmstoponkill" name="PWM Stop on Kill" group="Kill Mode" default="true" visible="true" editable="true" desc="Specifies whether the counter stops on a kill events. If unchecked kill event DOES NOT stop a counter. If checked kill event stops a counter.  Note: this option should be enabled to be able to stop the PWM using SW trigger." />
     <ParamBool id="pwmsynckill" name="PWM Sync Kill" group="Kill Mode" default="false" visible="true" editable="true" desc="Specifies asynchronous/synchronous kill behavior. If checked (synchronous kill mode) the kill event disables the line_out and line_compl_out signals immediately. Line_out and Line_compl_out will be enable at the next terminal count event (synchronous kill) after kill event is inactive. If unchecked (asynchronous kill mode) the kill event only disables the dt_line_out and dt_line_compl_out signals when present. This field is only used when PWM Stop on Kill is unchecked." />
     <ParamBool id="ImmediateKill" name="PWM Immediate Kill" group="Kill Mode" default="false" visible="true" editable="true" desc="Specifies whether the kill event immediately deactivates the line_out and line_compl_out signals or with the next module clock. If unchecked deactivates the line_out and line_compl_out signals with the next module clock. If checked immediately deactivates the dt_line_out and dt_line_compl_out signals." />
@@ -374,7 +374,7 @@
     </ParamChoice>
 
     <!--Outputs-->
-    <ParamSignal port="line[0]" name="PWM (line)" group="Outputs" visible="`${(&quot;mxs40tcpwm&quot; ne getIpBlockName())}`" desc="PWM output" canBeEmpty="true" >
+    <ParamSignal port="line[0]" name="PWM (line)" group="Outputs" visible="`${(&quot;mxs40tcpwm&quot; ne getIpBlockName()) &amp;&amp; (hasVisibleOption(&quot;line[0]&quot;))}`" desc="PWM output" canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -387,7 +387,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="line_compl[0]" name="PWM_n (line_compl)" group="Outputs" visible="`${(&quot;mxs40tcpwm&quot; ne getIpBlockName())}`" desc="Complimentary PWM output." canBeEmpty="true" >
+    <ParamSignal port="line_compl[0]" name="PWM_n (line_compl)" group="Outputs" visible="`${(&quot;mxs40tcpwm&quot; ne getIpBlockName()) &amp;&amp; (hasVisibleOption(&quot;line_compl[0]&quot;))}`" desc="Complimentary PWM output." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -478,6 +478,13 @@
 
     <!--Config-->
     <ParamBool id="inFlash" name="Store Config in Flash" group="Advanced" default="true" visible="true" editable="true" desc="Controls whether the configuration structure is stored in flash (const, true) or SRAM (not const, false)." />
+
+    <!--Debug Mode-->
+    <ParamBool id="debugModeFreezeEn" name="PWM Debug Freeze" group="Debug Mode" default="false" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName()) || (&quot;mxs40ppss&quot; eq getIpBlockName())}`" editable="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName()) || (&quot;mxs40ppss&quot; eq getIpBlockName())}`" desc="Specifies the counter behavior in debug mode. If unchecked the counter operation depends on Debug Suspend value: When unchecked, counter operation continues. When checked, Counter Freeze after roll over (tc event) and enters safe state. If checked the counter operation freezes in debug mode depending on Debug Suspend value: When unchecked, Counter Freeze; When checked, Counter Freeze immediately  and enters safe state and running bit to be set to 0. Safet state values are defined on line_out and line_compl_out by the corressponding kill_line_out_polarity and kill_line_compl_out_polarity." />
+    <ParamBool id="debugModeSuspendEn" name="PWM Debug Suspend" group="Debug Mode" default="false" visible="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName()) || (&quot;mxs40ppss&quot; eq getIpBlockName())}`" editable="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName()) || (&quot;mxs40ppss&quot; eq getIpBlockName())}`" desc="Specifies the counter behavior in debug mode when suspend is enabled. If unchecked the counter operation continues in debug mode as given by Debug Freeze parameter. If checked the counter operation freezes in debug mode depending on Debug Freeze value. When unchecked, Counter Freeze after roll over (tc event) and enters safe state. When checked, Counter Freeze immediately and enters safe state and running bit to be set to 0. Safet state values are defined on line_out and line_compl_out by the corressponding kill_line_out_polarity and kill_line_compl_out_polarity." />
+    <ParamSignal port="tr_debug_freeze[0]" name="Debug Freeze signal" group="Debug Mode" visible="`${debugModeFreezeEn || debugModeSuspendEn}`" desc="This signal connects TCPWM debug interface to the debug interface. If at least one another TCPWM is already connected to some debug trigger signal, the current TCPWM instance should also be connected to the same debug trigger signal." canBeEmpty="true" >
+      <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
+    </ParamSignal>
 
     <!-- Peripheral clock divider connection -->
     <ParamString id="definePrefix" name="Define prefix" group="Internal" default="`${&quot;TCPWM&quot; . tcpwmInst . &quot;_GRP&quot; . pCntGroup . &quot;_CNT&quot; . getInstNumber(&quot;cnt&quot;)}`" visible="false" editable="false" desc="" />
@@ -705,6 +712,8 @@
       <Member name="limiter" value="`${limiter}`" guard="defined (CY_IP_MXS40TCPWM)" />
       <Member name="pwm_tc_sync_kill_dt" value="`${pwmtcsynckilldt}`" guard="defined (CY_IP_MXS40TCPWM)" />
       <Member name="pwm_sync_kill_dt" value="`${pwmsynckilldt}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="debug_freeze_enable" value="`${debugModeFreezeEn}`" guard="defined (CY_IP_MXS40TCPWM)" />
+      <Member name="debug_suspend_enable" value="`${debugModeSuspendEn}`" guard="defined (CY_IP_MXS40TCPWM)" />
     </ConfigStruct>
 
     <ConfigStruct name="`${INST_NAME}`_clock_ref" type="mtb_hal_peri_div_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL)">

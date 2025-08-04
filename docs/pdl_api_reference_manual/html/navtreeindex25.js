@@ -1,5 +1,6 @@
 var NAVTREEINDEX25 =
 {
+"group__group__smif__macros__sfdp.html#ga6683cf17f171ed357d977920e3ca1dbc":[4,44,0,3,110],
 "group__group__smif__macros__sfdp.html#ga66ac43d98ffed0b35f10ecda653f287d":[4,44,0,3,176],
 "group__group__smif__macros__sfdp.html#ga66b6fc832759c24d8ee18035ded29274":[4,44,0,3,150],
 "group__group__smif__macros__sfdp.html#ga67675c0a3622bbc5473a590661f6c536":[4,44,0,3,156],
@@ -248,6 +249,5 @@ var NAVTREEINDEX25 =
 "group__group__sysclk__alt__hf__funcs.html#gaaa7e7850d3f5674f78d51e99dd3a2d4a":[4,46,20,0,2],
 "group__group__sysclk__alt__hf__funcs.html#gabc0dc28ac55e3606f2666742a8553962":[4,46,20,0,1],
 "group__group__sysclk__alt__hf__funcs.html#gaf948bdd0d4b0fbf2774642db55eea712":[4,46,20,0,0],
-"group__group__sysclk__calclk.html":[4,46,9],
-"group__group__sysclk__calclk__enums.html":[4,46,9,1]
+"group__group__sysclk__calclk.html":[4,46,9]
 };

@@ -45,6 +45,7 @@ var searchData=
   ['cy_5fstc_5fipc_5fmsg_5fres_5faccess_5fresp_5ft',['cy_stc_ipc_msg_res_access_resp_t',['../group__group__ipc__bt__data__structures.html#gaefbe07b6897b7eb7eaa399bd452b54bb',1,'cy_ipc_bt.h']]],
   ['cy_5fstc_5fipc_5fmsg_5ftrng_5ft',['cy_stc_ipc_msg_trng_t',['../group__group__ipc__bt__data__structures.html#ga68704d4af14b2a9fccefc59cdf006751',1,'cy_ipc_bt.h']]],
   ['cy_5fstc_5fprofile_5fctr_5fptr_5ft',['cy_stc_profile_ctr_ptr_t',['../group__group__profile__data__structures.html#gac954b1f2e2b8fc00b15f89c0b1fe372e',1,'cy_profile.h']]],
+  ['cy_5fsyslib_5fdebug_5fcti_5ft',['cy_syslib_debug_cti_t',['../group__group__syslib__macros.html#ga2452915ebea12c49302333573744b2b5',1,'cy_syslib.h']]],
   ['cy_5fsyslib_5flcs_5fdata_5ft',['cy_syslib_lcs_data_t',['../group__group__syslib__macros.html#gadbea1421faf52e66ab5190e91b2fca74',1,'cy_syslib.h']]],
   ['cy_5fsyspmcallback',['Cy_SysPmCallback',['../group__group__syspm__data__structures.html#ga0b54e47bca8fb045d86884a9b3d12067',1,'cy_syspm.h']]],
   ['cy_5fsystick_5fcallback',['Cy_SysTick_Callback',['../group__group__systick__data__structures.html#ga4aa1602b88172949b1b1564c590a56ff',1,'cy_systick.h']]]

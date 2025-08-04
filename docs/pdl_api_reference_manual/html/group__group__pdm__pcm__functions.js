@@ -5,7 +5,7 @@ var group__group__pdm__pcm__functions =
     [ "Cy_PDM_PCM_DeInit", "group__group__pdm__pcm__functions.html#gab516ee1cbdb2327b995d6ea079ad6209", null ],
     [ "Cy_PDM_PCM_SetGain", "group__group__pdm__pcm__functions.html#ga4ea860b9ffa3f8c9fd3fcd1d42a6df8a", null ],
     [ "Cy_PDM_PCM_GetGain", "group__group__pdm__pcm__functions.html#ga70509bf557fcfc3232d29f2f409f86cb", null ],
-    [ "Cy_PDM_PCM_DeepSleepCallback", "group__group__pdm__pcm__functions.html#ga4c9af29264496305f3d53886fda26b94", null ],
+    [ "Cy_PDM_PCM_DeepSleepCallback", "group__group__pdm__pcm__functions.html#ga83e3fa66567ae8e8ee284f3315673cec", null ],
     [ "Cy_PDM_PCM_Enable", "group__group__pdm__pcm__functions.html#ga23a191df6d51589e9d459e51a6a7af8b", null ],
     [ "Cy_PDM_PCM_Disable", "group__group__pdm__pcm__functions.html#ga16636b0a3e4032d53b595525e5c34de3", null ],
     [ "Cy_PDM_PCM_SetInterruptMask", "group__group__pdm__pcm__functions.html#gaecd6316cef42b4c9d31b38aad0c222e6", null ],

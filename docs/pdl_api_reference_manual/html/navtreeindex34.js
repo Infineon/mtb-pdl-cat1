@@ -1,5 +1,9 @@
 var NAVTREEINDEX34 =
 {
+"group__group__tcpwm__output__trigger__modes.html#gaa612ddf2f420f24ed5d0452f48b221e7":[4,52,0,0,2,0],
+"group__group__tcpwm__output__trigger__modes.html#gaa8ab25b54e3c703d193e52da385baa0e":[4,52,0,0,2,6],
+"group__group__tcpwm__output__trigger__modes.html#gabf63f61c436a0553c40905c347eb04b5":[4,52,0,0,2,4],
+"group__group__tcpwm__output__trigger__modes.html#gaf3ae3628427e9d3883ad29b04da14d75":[4,52,0,0,2,3],
 "group__group__tcpwm__pwm.html":[4,52,2],
 "group__group__tcpwm__pwm__alignment.html":[4,52,2,0,2],
 "group__group__tcpwm__pwm__alignment.html#ga11be53f7e2d3b141f52d6ed2d7ef8c6a":[4,52,2,0,2,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX34 =
 "group__group__trigmux__dst__in__enums.html#ga9ecd09bff2763f679c8cd2124ca2746a":[4,54,2,1,0,5],
 "group__group__trigmux__dst__in__enums.html#gac564d18f79609d84413c97b4c08855ba":[4,54,2,1,0,0],
 "group__group__trigmux__dst__in__enums.html#gad985e483032d7b9b455b577fb0ab805f":[4,54,2,1,0,6],
-"group__group__trigmux__dst__in__enums.html#gafe3a3731acefe819d8bcdcc233a1c463":[4,54,2,1,0,2],
-"group__group__trigmux__dst__out__enums.html":[4,54,2,1,1],
-"group__group__trigmux__dst__out__enums.html#ga43fefb8996f6f7cc4f4fd5c3088937b6":[4,54,2,1,1,3],
-"group__group__trigmux__dst__out__enums.html#ga47d3a503d5b33273206582c213515815":[4,54,2,1,1,5],
-"group__group__trigmux__dst__out__enums.html#ga6237e4c9e39f52ee23a038faed145282":[4,54,2,1,1,6]
+"group__group__trigmux__dst__in__enums.html#gafe3a3731acefe819d8bcdcc233a1c463":[4,54,2,1,0,2]
 };

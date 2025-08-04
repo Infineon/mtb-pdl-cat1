@@ -23,6 +23,8 @@ var group__group__syslib__functions =
     [ "Cy_SysLib_ExitCriticalSection", "group__group__syslib__functions.html#ga8c16343c075610b2888b0693f972b555", null ],
     [ "Cy_SysLib_GetDeviceRevision", "group__group__syslib__functions.html#gaebb3c0de07c70f0a39aa07a4ebb72f64", null ],
     [ "Cy_SysLib_GetDevice", "group__group__syslib__functions.html#ga31851d85af687fef11473fa11145030d", null ],
+    [ "Cy_SysLib_DebugSessionActive", "group__group__syslib__functions.html#gafcd62b69c87027d7608f26496f30d7f9", null ],
+    [ "Cy_SysLib_DebugCtiMuxConnect", "group__group__syslib__functions.html#ga4fe48ceb7af3a8cd4a7e8cce00fa3741", null ],
     [ "Cy_SysLib_GetDeviceLCS", "group__group__syslib__functions.html#ga8e96d4a4aed60c9d7e8c186951147c95", null ],
     [ "Cy_Syslib_SetWarmBootEntryPoint", "group__group__syslib__functions.html#gabc2fac2da2d735bedac2a57d45d53fac", null ],
     [ "Cy_SysLib_IsDSRAMWarmBootEntry", "group__group__syslib__functions.html#gaf3ef05b9419cbb446a501f4a49e233aa", null ],

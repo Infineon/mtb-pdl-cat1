@@ -560,6 +560,7 @@ var searchData=
   ['cy_5fethif_5fmdc_5fdiv_5fby_5f8',['CY_ETHIF_MDC_DIV_BY_8',['../group__group__ethif__enums.html#ggaf2092324e59845ec4d7e5e2ee03ca134a475b786b0dccb3c290a08cbc04d414ac',1,'cy_ethif.h']]],
   ['cy_5fethif_5fmdc_5fdiv_5fby_5f96',['CY_ETHIF_MDC_DIV_BY_96',['../group__group__ethif__enums.html#ggaf2092324e59845ec4d7e5e2ee03ca134a0435a1a5c2b897544fed2b9ce895043c',1,'cy_ethif.h']]],
   ['cy_5fethif_5fmemory_5fnot_5fenough',['CY_ETHIF_MEMORY_NOT_ENOUGH',['../group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23aa9dd16273159fedb9897839308c7ad31',1,'cy_ethif.h']]],
+  ['cy_5fethif_5fnot_5finitialized',['CY_ETHIF_NOT_INITIALIZED',['../group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23a02d8925dc63d189a9c24427819b235fc',1,'cy_ethif.h']]],
   ['cy_5fethif_5fsuccess',['CY_ETHIF_SUCCESS',['../group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23a907394d0245c551b5b4f5a6b186ee9d7',1,'cy_ethif.h']]],
   ['cy_5fevtgen_5fratio_5fcontrol_5fhw',['CY_EVTGEN_RATIO_CONTROL_HW',['../group__group__evtgen__enums.html#gga4461ea1a58eded2d77ab335791b7bc30a4619fe6b43b8415c02dec0a173f90123',1,'cy_evtgen.h']]],
   ['cy_5fevtgen_5fratio_5fcontrol_5fsw',['CY_EVTGEN_RATIO_CONTROL_SW',['../group__group__evtgen__enums.html#gga4461ea1a58eded2d77ab335791b7bc30a3a68493060dd7beee2d50cfd53d35eb2',1,'cy_evtgen.h']]],

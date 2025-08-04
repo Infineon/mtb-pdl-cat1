@@ -40,7 +40,7 @@ var searchData=
   ['ratiocontrolmode',['ratioControlMode',['../structcy__stc__evtgen__config__t.html#a3fe56267ca9342926b4baa1ed88a2140',1,'cy_stc_evtgen_config_t']]],
   ['ratiovaluedynamicmode',['ratioValueDynamicMode',['../structcy__stc__evtgen__config__t.html#a681964f999d706a1eabbdaf98555ef98',1,'cy_stc_evtgen_config_t']]],
   ['rbarptr',['rBarPtr',['../structcy__stc__cryptolite__rsa__pub__key__t.html#a5706ee614586b82fe6395a4c16223445',1,'cy_stc_cryptolite_rsa_pub_key_t']]],
-  ['rca',['RCA',['../structcy__stc__sd__host__context__t.html#a1f289f498b5b71bf6b5f68774bb8bade',1,'cy_stc_sd_host_context_t::RCA()'],['../structcy__stc__sd__host__sd__card__config__t.html#a97c19c5ed3a262da1b1049278a68d21a',1,'cy_stc_sd_host_sd_card_config_t::rca()']]],
+  ['rca',['rca',['../structcy__stc__sd__host__sd__card__config__t.html#a97c19c5ed3a262da1b1049278a68d21a',1,'cy_stc_sd_host_sd_card_config_t::rca()'],['../structcy__stc__sd__host__context__t.html#a1f289f498b5b71bf6b5f68774bb8bade',1,'cy_stc_sd_host_context_t::RCA()']]],
   ['rdidx',['rdIdx',['../structcy__stc__ipc__msg__fifo__t.html#a7c53a2cbb7907dcc9ff615c395c4f1ef',1,'cy_stc_ipc_msg_fifo_t']]],
   ['read',['read',['../structcy__stc__sd__host__data__config__t.html#a6323584b2914fba017f7b76f1c4f4f35',1,'cy_stc_sd_host_data_config_t']]],
   ['readcmd',['readCmd',['../structcy__stc__smif__mem__device__cfg__t.html#acbffaff900e449871089a11dea0ad752',1,'cy_stc_smif_mem_device_cfg_t']]],

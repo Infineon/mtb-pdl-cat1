@@ -159,6 +159,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga31851d85af687fef11473fa11145030d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#ga31851d85af687fef11473fa11145030d">Cy_SysLib_GetDevice</a> (void)</td></tr>
 <tr class="memdesc:ga31851d85af687fef11473fa11145030d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a device Family ID.  <a href="#ga31851d85af687fef11473fa11145030d">More...</a><br /></td></tr>
 <tr class="separator:ga31851d85af687fef11473fa11145030d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafcd62b69c87027d7608f26496f30d7f9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#gafcd62b69c87027d7608f26496f30d7f9">Cy_SysLib_DebugSessionActive</a> (SRSS_Type *base)</td></tr>
+<tr class="memdesc:gafcd62b69c87027d7608f26496f30d7f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether a debug session is active.  <a href="#gafcd62b69c87027d7608f26496f30d7f9">More...</a><br /></td></tr>
+<tr class="separator:gafcd62b69c87027d7608f26496f30d7f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4fe48ceb7af3a8cd4a7e8cce00fa3741"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#ga4fe48ceb7af3a8cd4a7e8cce00fa3741">Cy_SysLib_DebugCtiMuxConnect</a> (<a class="el" href="group__group__syslib__macros.html#ga2452915ebea12c49302333573744b2b5">cy_syslib_debug_cti_t</a> *base, uint32_t inTrig, uint32_t outTrig, uint8_t channel, bool enable)</td></tr>
+<tr class="memdesc:ga4fe48ceb7af3a8cd4a7e8cce00fa3741"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects or disconnects a Cross Trigger Interface (CTI) input trigger to a CTI output trigger through a specified channel.  <a href="#ga4fe48ceb7af3a8cd4a7e8cce00fa3741">More...</a><br /></td></tr>
+<tr class="separator:ga4fe48ceb7af3a8cd4a7e8cce00fa3741"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8e96d4a4aed60c9d7e8c186951147c95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__syslib__enumerated__types.html#ga3ff462c7740be4b6a2c2d9fbe4282666">cy_en_syslib_lcs_mode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syslib__functions.html#ga8e96d4a4aed60c9d7e8c186951147c95">Cy_SysLib_GetDeviceLCS</a> (<a class="el" href="group__group__syslib__macros.html#gadbea1421faf52e66ab5190e91b2fca74">cy_syslib_lcs_data_t</a> *base)</td></tr>
 <tr class="memdesc:ga8e96d4a4aed60c9d7e8c186951147c95"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns LCS of Device.  <a href="#ga8e96d4a4aed60c9d7e8c186951147c95">More...</a><br /></td></tr>
 <tr class="separator:ga8e96d4a4aed60c9d7e8c186951147c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -869,6 +875,92 @@ The CY_ARM_FAULT_DEBUG macro defines if the Fault Handler is enabled. By default
 
 <p>This function returns a device Family ID. </p>
 <dl class="section return"><dt>Returns</dt><dd>A device Family ID. </dd></dl>
+
+</div>
+</div>
+<a id="gafcd62b69c87027d7608f26496f30d7f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafcd62b69c87027d7608f26496f30d7f9">&#9670;&nbsp;</a></span>Cy_SysLib_DebugSessionActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_SysLib_DebugSessionActive </td>
+          <td>(</td>
+          <td class="paramtype">SRSS_Type *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates whether a debug session is active. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the SRSS instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if a debug session is active, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ga4fe48ceb7af3a8cd4a7e8cce00fa3741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4fe48ceb7af3a8cd4a7e8cce00fa3741">&#9670;&nbsp;</a></span>Cy_SysLib_DebugCtiMuxConnect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysLib_DebugCtiMuxConnect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__syslib__macros.html#ga2452915ebea12c49302333573744b2b5">cy_syslib_debug_cti_t</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>inTrig</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>outTrig</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>channel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Connects or disconnects a Cross Trigger Interface (CTI) input trigger to a CTI output trigger through a specified channel. </p>
+<dl class="section note"><dt>Note</dt><dd>Refer to the device TRM for the CTI input and output trigger indexes.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Pointer to the CTI instance <a class="el" href="group__group__syslib__macros.html#ga2452915ebea12c49302333573744b2b5">cy_syslib_debug_cti_t</a>.</td></tr>
+    <tr><td class="paramname">inTrig</td><td>Index of the CTI input trigger to be connected.</td></tr>
+    <tr><td class="paramname">outTrig</td><td>Index of the CTI output trigger to be connected.</td></tr>
+    <tr><td class="paramname">channel</td><td>Channel number to use for the connection.</td></tr>
+    <tr><td class="paramname">enable</td><td>Set to true to connect the input and output triggers; false to disconnect. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

@@ -72,7 +72,7 @@
     </ParamChoice>
     <ParamRange  id="width"  name="Divider width" group="Internal" default="`${type eq div_8 ? 8 : type eq div_24_5 ? 24 : 16}`" min="8" max="24" resolution="1" visible="false" editable="false" desc="" />
     <ParamRange  id="number" name="Divider number" group="Internal" default="`${getInstNumber(getBlockType(1))}`" min="0" max="63" resolution="1" visible="false" editable="false" desc="" />
-    
+
     <!-- Determine if the divider is fractional -->
     <ParamBool   id="isFractional" name="isFractional" group="Internal" default="`${(type eq div_16_5) || (type eq div_24_5)}`" visible="false" editable="false" desc="" />
 
@@ -83,12 +83,12 @@
 
     <!-- Output frequency -->
     <ParamRange id="frequency" name="Frequency" group="General" default="`${cast(int64, ((sourceFreq / cast(float, divider) + 0.0005) * 1000)) / 1000.0}`" min="0" max="400000000" resolution="0.001" visible="false" editable="false" desc="The resulting output clock frequency" />
-    
+
     <ParamString id="frequencyInfo" name="Frequency" group="General" default="`${formatFrequency(frequency,accuracy)}`" visible="true" editable="false" desc="The resulting output clock frequency" />
 
     <ParamBool   id="startOnReset" name="Start on Reset" group="General" default="true" visible="true" editable="true" desc="If checked, this option will cause the clock to be enabled by the clock initialization routine" />
 
-    <ParamString id="typeApiConst" name="typeApiConst" group="Internal" default="`${type eq div_8    ? &quot;CY_SYSCLK_DIV_8_BIT&quot;   : 
+    <ParamString id="typeApiConst" name="typeApiConst" group="Internal" default="`${type eq div_8    ? &quot;CY_SYSCLK_DIV_8_BIT&quot;   :
                                                                                    type eq div_16   ? &quot;CY_SYSCLK_DIV_16_BIT&quot;   :
                                                                                    type eq div_16_5 ? &quot;CY_SYSCLK_DIV_16_5_BIT&quot; :
                                                                                                       &quot;CY_SYSCLK_DIV_24_5_BIT&quot;}`" visible="false" editable="false" desc="API constants for the divider type" />
@@ -97,33 +97,34 @@
 
     <ParamSignal port="clk[0]" name="Peripherals" group="General" visible="true" desc="This signal can be used to drive peripherals" canBeEmpty="true" />
 
-    <ParamString id="typeApiConstHal" name="typeApiConst" group="Internal" default="`${type eq div_8    ? &quot;8BIT&quot;    : 
+    <ParamString id="typeApiConstHal" name="typeApiConst" group="Internal" default="`${type eq div_8    ? &quot;8BIT&quot;    :
                                                                                        type eq div_16   ? &quot;16BIT&quot;   :
                                                                                        type eq div_16_5 ? &quot;16_5BIT&quot; :
                                                                                                           &quot;24_5BIT&quot;}`" visible="false" editable="false" desc="API constants for the divider type" />
 
     <ParamString id="hal_block" name="hal_block" group="Internal" default="CYHAL_CLOCK_BLOCK_PERIPHERAL_`${typeApiConstHal}`" visible="false" editable="false" desc="" />
   </Parameters>
-  
+
   <DRCs>
     <DRC type="ERROR" text="CLK_PERI clock is not enabled" condition="`${srcNotUsed}`" >
       <FixIt action="ENABLE_BLOCK" target="`${sourceClockRsc}`" value="" valid="true" />
     </DRC>
   </DRCs>
-  
+
   <ConfigFirmware>
     <ConfigInclude value="cy_sysclk.h" include="true" />
     <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
-    
+
     <ConfigDefine name="`${INST_NAME}`_HW" value="`${typeApiConst}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${number}`U" public="true" include="true" />
-    
+    <ConfigDefine name="`${INST_NAME}`_GRP_NUM" value="PERI_PCLK_PERIPHERAL_GROUP_NUM" public="true" include="true" />
+
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">
       <Member name="type" value="CYHAL_RSC_CLOCK" />
       <Member name="block_num" value="`${INST_NAME}`_HW" />
       <Member name="channel_num" value="`${INST_NAME}`_NUM" />
     </ConfigStruct>
-    
+
     <ConfigInstruction value="Cy_SysClk_PeriphDisableDivider(`${clockSel}`);" include="true"  />
     <ConfigInstruction value="Cy_SysClk_PeriphSetDivider(`${clockSel}`, `${intDivider-1}`U);" include="`${!isFractional}`"  />
     <ConfigInstruction value="Cy_SysClk_PeriphSetFracDivider(`${clockSel}`, `${intDivider-1}`U, `${fracDivider}`U);" include="`${isFractional}`"  />

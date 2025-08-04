@@ -1,5 +1,9 @@
 var NAVTREEINDEX41 =
 {
+"structcy__stc__pdm__pcm__config__t.html#ad6b92493b10518a30babff09a1f40e77":[4,31,2,1,7],
+"structcy__stc__pdm__pcm__config__t.html#adab303cbb62eb6badfcd72a3e0661f63":[4,31,2,1,5],
+"structcy__stc__pdm__pcm__config__t.html#aec259d06611df5701cd1066840f72f90":[4,31,2,1,2],
+"structcy__stc__pdm__pcm__config__t.html#af5db074ab09640dea5acd161f0760e99":[4,31,2,1,1],
 "structcy__stc__pdm__pcm__config__v2__t.html":[4,32,2,3],
 "structcy__stc__pdm__pcm__config__v2__t.html#a2ff5fad3ed25286e20277c5bf25a91b1":[4,32,2,3,7],
 "structcy__stc__pdm__pcm__config__v2__t.html#a4ca07c66529d253e44650a1a4a1b156f":[4,32,2,3,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX41 =
 "structcy__stc__sar2__analog__calibration__conifg__t.html":[4,39,2,3],
 "structcy__stc__sar2__analog__calibration__conifg__t.html#ad51f624937651cd514f4b863afc47692":[4,39,2,3,0],
 "structcy__stc__sar2__analog__calibration__conifg__t.html#adf4c378248322200e3f122444d1af760":[4,39,2,3,1],
-"structcy__stc__sar2__channel__config__t.html":[4,39,2,0],
-"structcy__stc__sar2__channel__config__t.html#a074e4e6e2909528923e3322372c2934c":[4,39,2,0,19],
-"structcy__stc__sar2__channel__config__t.html#a1313acc428a4c47f27c666636de0e9b8":[4,39,2,0,17],
-"structcy__stc__sar2__channel__config__t.html#a140aff21ae5b4a28c5728ef2e9a2ff50":[4,39,2,0,10],
-"structcy__stc__sar2__channel__config__t.html#a4e54cf228885ed3f277aa2878fac4526":[4,39,2,0,14]
+"structcy__stc__sar2__channel__config__t.html":[4,39,2,0]
 };

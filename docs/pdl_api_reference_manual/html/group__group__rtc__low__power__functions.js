@@ -1,5 +1,5 @@
 var group__group__rtc__low__power__functions =
 [
-    [ "Cy_RTC_DeepSleepCallback", "group__group__rtc__low__power__functions.html#gad087256d8c52f946f370490c1badbaaa", null ],
-    [ "Cy_RTC_HibernateCallback", "group__group__rtc__low__power__functions.html#ga94baa8c1e43e897cf39d59700b84dd6b", null ]
+    [ "Cy_RTC_DeepSleepCallback", "group__group__rtc__low__power__functions.html#gad91221b226f699c2661ae790753243f6", null ],
+    [ "Cy_RTC_HibernateCallback", "group__group__rtc__low__power__functions.html#ga2ade3e048d2c9aec4fb56cadcf5d649d", null ]
 ];

@@ -1,64 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Woundings xml_version="1" xmlns="http://cypress.com/xsd/cychipresourcewoundings_v1">
-  <MemoryWounding name="SRAM_KB" memoryId="SRAM"/>
-  <MemoryWounding name="FLASH_KB" memoryId="FLASH"/>
-  
+  <MemoryWounding name="SRAM_KB" memoryId="SRAM" />
+  <MemoryWounding name="FLASH_KB" memoryId="FLASH" />
+  <MemoryWounding name="PPCA_CPU0_CODE_SRAM_KB" memoryId="PPCA_CPU0_CODE_SRAM" />
+  <MemoryWounding name="PPCA_CPU0_DATA_SRAM_KB" memoryId="PPCA_CPU0_DATA_SRAM" />
+  <MemoryWounding name="PPCA_CPU1_CODE_SRAM_KB" memoryId="PPCA_CPU1_CODE_SRAM" />
+  <MemoryWounding name="PPCA_CPU1_DATA_SRAM_KB" memoryId="PPCA_CPU1_DATA_SRAM" />
+  <MemoryWounding name="PPCA_SHARED_DATA_SRAM_KB" memoryId="PPCA_SHARED_DATA_SRAM" />
   <BooleanWounding name="SMIF">
-    <Block name="smif"/>
+    <Block name="smif" />
   </BooleanWounding>
   <BooleanWounding name="CAN_FD">
-    <Block name="canfd.chan"/>
+    <Block name="canfd" />
   </BooleanWounding>
   <BooleanWounding name="CRYPTO">
-    <Block name="crypto"/>
-    <Block name="cryptolite"/>
+    <Block name="crypto" />
+    <Block name="cryptolite" />
   </BooleanWounding>
   <BooleanWounding name="ECO">
-    <Block name="srss.clock.eco"/>
-    <Block name="srss.clock.ecoprescaler"/>
+    <Block name="srss.clock.eco" />
+    <Block name="srss.clock.ecoprescaler" />
   </BooleanWounding>
   <BooleanWounding name="WCO">
-    <Block name="srss.clock.wco"/>
+    <Block name="srss.clock.wco" />
   </BooleanWounding>
   <BooleanWounding name="CORDIC">
-    <Block name="cordic"/>
+    <Block name="cordic" />
+    <Block name="ppca.cordic" />
   </BooleanWounding>
   <BooleanWounding name="MOTIF">
-    <Block name="tcpwm.group.motif"/>
+    <Block name="tcpwm.group.motif" />
+    <Block name="ppca.tcpwm.group.motif" />
   </BooleanWounding>
   <BooleanWounding name="HRPWM">
-    <Block name="tcpwm.group.cnt.hrpwm"/>
+    <Block name="tcpwm.group.cnt.hrpwm" />
+    <Block name="ppca.tcpwm.group.cnt.hrpwm" />
   </BooleanWounding>
-  
   <NaWounding name="BLUETOOTH">
-    <Block name="btss"/>
-    <Block name="srss.clock.althf"/>
+    <Block name="btss" />
+    <Block name="srss.clock.althf" />
   </NaWounding>
-  
   <RemoveListWounding name="SCB_REMOVED">
-    <Block name="scb"/>
-  </RemoveListWounding>
-  <RemoveListWounding name="TIMERCOUNTERPWM_REMOVED">
-    <Block name="tcpwm.group.cnt"/>
+    <Block name="scb" />
   </RemoveListWounding>
   <RemoveListWounding name="LIN_REMOVED">
-    <Block name="lin"/>
+    <Block name="lin" />
   </RemoveListWounding>
   <RemoveListWounding name="LPCOMP_REMOVED">
-    <Block name="lpcomp.comp"/>
+    <Block name="lpcomp.comp" />
   </RemoveListWounding>
   <RemoveListWounding name="PDM_REMOVED">
-    <Block name="pdm"/>
+    <Block name="pdm" />
   </RemoveListWounding>
   <RemoveListWounding name="ADC_REMOVED">
-    <Block name="adcmic"/>
-    <Block name="pass.sar"/>
+    <Block name="adcmic" />
+    <Block name="pass.sar" />
   </RemoveListWounding>
   <RemoveListWounding name="I2S_REMOVED">
-    <Block name="tdm"/>
+    <Block name="tdm" />
   </RemoveListWounding>
   <RemoveListWounding name="ADC_CH_REMOVED">
-    <Block name="pass.sar.ch"/>
-    <Block name="pass.sar.dir_sampler"/>
+    <Block name="pass.sar.ch" />
+    <Block name="pass.sar.dir_sampler" />
   </RemoveListWounding>
+  <RemoveListWounding name="CANFD_CH_REMOVED">
+    <Block name="canfd.chan" />
+  </RemoveListWounding>
+  <RemoveListWounding name="PPCA_CPU_REMOVED">
+    <Block name="ppca.cpuss_cnfg.mxcm33" />
+  </RemoveListWounding>
+  <RemoveListWounding name="PPCA_ADC_REMOVED">
+    <Block name="ppca.atop.adc_grp" />
+  </RemoveListWounding>
+  <RemoveListWounding name="PPCA_TIMERPWMBLOCK_REMOVED">
+    <Block name="ppca.tcpwm" />
+  </RemoveListWounding>
+  <IndexResourceWounding name="PPCA_DCSG_REMOVED">
+    <ResourceIndex index="0">
+      <Block name="ppca[0].atop[0].dcsg_grp[0].dcsg[0]" />
+    </ResourceIndex>
+    <ResourceIndex index="1">
+      <Block name="ppca[0].atop[0].dcsg_grp[0].dcsg[1]" />
+    </ResourceIndex>
+    <ResourceIndex index="2">
+      <Block name="ppca[0].atop[0].dcsg_grp[0].dcsg[2]" />
+    </ResourceIndex>
+    <ResourceIndex index="3">
+      <Block name="ppca[0].atop[0].dcsg_grp[0].dcsg[3]" />
+    </ResourceIndex>
+    <ResourceIndex index="4">
+      <Block name="ppca[0].atop[0].dcsg_grp[0].dcsg[4]" />
+    </ResourceIndex>
+    <ResourceIndex index="5">
+      <Block name="ppca[0].atop[0].dcsg_grp[0].dcsg[5]" />
+    </ResourceIndex>
+    <ResourceIndex index="6">
+      <Block name="ppca[0].atop[0].dcsg_grp[1].dcsg[0]" />
+    </ResourceIndex>
+    <ResourceIndex index="7">
+      <Block name="ppca[0].atop[0].dcsg_grp[1].dcsg[1]" />
+    </ResourceIndex>
+    <ResourceIndex index="8">
+      <Block name="ppca[0].atop[0].dcsg_grp[1].dcsg[2]" />
+    </ResourceIndex>
+  </IndexResourceWounding>
 </Woundings>

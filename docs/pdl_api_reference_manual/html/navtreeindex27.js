@@ -1,5 +1,6 @@
 var NAVTREEINDEX27 =
 {
+"group__group__sysclk__eco__funcs.html#gad88e518519a4a228b73a8a74db672d71":[4,46,3,0,7],
 "group__group__sysclk__ecostatus.html":[4,46,0,0],
 "group__group__sysclk__ecostatus.html#ga1eb088e2bce67f0b1c8e8956d12ee6d9":[4,46,0,0,0],
 "group__group__sysclk__ecostatus.html#ga1fbb771899bde3d2a8914bdfab9d47a0":[4,46,0,0,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX27 =
 "group__group__sysclk__wco__funcs.html#gaca35f4a96f042a9c84df82083277c41f":[4,46,12,0,0],
 "group__group__sysclk__wco__funcs.html#gaf254b104b1e1020545103779a573da17":[4,46,12,0,3],
 "group__group__sysfault.html":[4,47],
-"group__group__sysfault__data__structures.html":[4,47,2],
-"group__group__sysfault__enums.html":[4,47,1]
+"group__group__sysfault__data__structures.html":[4,47,2]
 };
