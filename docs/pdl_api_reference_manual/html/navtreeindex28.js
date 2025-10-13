@@ -1,5 +1,12 @@
 var NAVTREEINDEX28 =
 {
+"group__group__sysclk__wco__funcs.html":[4,46,12,0],
+"group__group__sysclk__wco__funcs.html#ga0990b94c499652b8f5c2dd1cf6abf95e":[4,46,12,0,2],
+"group__group__sysclk__wco__funcs.html#ga9e8ae5164397bf3bd0374d957405b9cf":[4,46,12,0,1],
+"group__group__sysclk__wco__funcs.html#gaca35f4a96f042a9c84df82083277c41f":[4,46,12,0,0],
+"group__group__sysclk__wco__funcs.html#gaf254b104b1e1020545103779a573da17":[4,46,12,0,3],
+"group__group__sysfault.html":[4,47],
+"group__group__sysfault__data__structures.html":[4,47,2],
 "group__group__sysfault__enums.html":[4,47,1],
 "group__group__sysfault__enums.html#ga7c15f9e82a516a6a3ded2dd7f8a2e568":[4,47,1,1],
 "group__group__sysfault__enums.html#ga84e3782fd6b0f6e67b490974c02c945f":[4,47,1,3],
@@ -242,12 +249,5 @@ var NAVTREEINDEX28 =
 "group__group__syslib__macros__reset__cause.html#ga37988ee67e1330dd35382c557497b24e":[4,49,0,2,7],
 "group__group__syslib__macros__reset__cause.html#ga38c30b821ab37545d12e840729b7886b":[4,49,0,2,22],
 "group__group__syslib__macros__reset__cause.html#ga3a56e49329f1b1a8b0f3f01b23982e3f":[4,49,0,2,0],
-"group__group__syslib__macros__reset__cause.html#ga3bfecc977d82eb0c3ac76e128f6dc5a5":[4,49,0,2,23],
-"group__group__syslib__macros__reset__cause.html#ga7576c814eb77306bfda9a9edecb14a70":[4,49,0,2,5],
-"group__group__syslib__macros__reset__cause.html#ga762cf56f68854e559a6a93227cf55332":[4,49,0,2,24],
-"group__group__syslib__macros__reset__cause.html#ga7a9e1a30ff804412b453df6d08552c9c":[4,49,0,2,21],
-"group__group__syslib__macros__reset__cause.html#ga8b0202d78f26968d02757e0b10249799":[4,49,0,2,12],
-"group__group__syslib__macros__reset__cause.html#ga9ecd16e2c8fe061ad0d0164bc2e3b98a":[4,49,0,2,14],
-"group__group__syslib__macros__reset__cause.html#gaa0ecb786558344cda8cdd667d8d01801":[4,49,0,2,2],
-"group__group__syslib__macros__reset__cause.html#gaa2928ea39085b5e38fb05ed1c62d9655":[4,49,0,2,18]
+"group__group__syslib__macros__reset__cause.html#ga3bfecc977d82eb0c3ac76e128f6dc5a5":[4,49,0,2,23]
 };

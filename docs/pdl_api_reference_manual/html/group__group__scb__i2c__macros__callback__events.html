@@ -115,6 +115,16 @@ Macros</h2></td></tr>
 <tr class="memitem:ga88e999437b51f24bdaf50c6dac83d81c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__i2c__macros__callback__events.html#ga88e999437b51f24bdaf50c6dac83d81c">CY_SCB_I2C_SLAVE_ERR_EVENT</a>&#160;&#160;&#160;(0x00000040UL)</td></tr>
 <tr class="memdesc:ga88e999437b51f24bdaf50c6dac83d81c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the I2C hardware detected an error.  <a href="#ga88e999437b51f24bdaf50c6dac83d81c">More...</a><br /></td></tr>
 <tr class="separator:ga88e999437b51f24bdaf50c6dac83d81c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8910e21e4b8d63c7fda07e9ea07cbf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__i2c__macros__callback__events.html#gae8910e21e4b8d63c7fda07e9ea07cbf4">CY_SCB_I2C_SLAVE_RESTART_EVENT</a>&#160;&#160;&#160;(0x00000080UL)</td></tr>
+<tr class="memdesc:gae8910e21e4b8d63c7fda07e9ea07cbf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the I2C hardware detected a repeated start event.  <a href="#gae8910e21e4b8d63c7fda07e9ea07cbf4">More...</a><br /></td></tr>
+<tr class="separator:gae8910e21e4b8d63c7fda07e9ea07cbf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac110f8788f66ce6c3aa469b4f716986b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__i2c__macros__callback__events.html#gac110f8788f66ce6c3aa469b4f716986b">CY_SCB_I2C_SLAVE_STOP_ANY_EVENT</a>&#160;&#160;&#160;(0x00000100UL)</td></tr>
+<tr class="memdesc:gac110f8788f66ce6c3aa469b4f716986b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the I2C hardware detected a stop event on address match, or at the end of multiple restarts with address matching at least once.  <a href="#gac110f8788f66ce6c3aa469b4f716986b">More...</a><br /></td></tr>
+<tr class="separator:gac110f8788f66ce6c3aa469b4f716986b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga019716683ceeeda582e79f9a7985c411"><td class="memItemLeft" align="right" valign="top"><a id="ga019716683ceeeda582e79f9a7985c411"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__i2c__macros__callback__events.html#ga019716683ceeeda582e79f9a7985c411">CY_SCB_I2C_SLAVE_ARB_LOST_EVENT</a>&#160;&#160;&#160;(0x00000200UL)</td></tr>
+<tr class="memdesc:ga019716683ceeeda582e79f9a7985c411"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the I2C hardware has detected an arbitration lost event. <br /></td></tr>
+<tr class="separator:ga019716683ceeeda582e79f9a7985c411"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaea716088b093bc6decbdbcb775462466"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__i2c__macros__callback__events.html#gaea716088b093bc6decbdbcb775462466">CY_SCB_I2C_MASTER_WR_IN_FIFO_EVENT</a>&#160;&#160;&#160;(0x00010000UL)</td></tr>
 <tr class="memdesc:gaea716088b093bc6decbdbcb775462466"><td class="mdescLeft">&#160;</td><td class="mdescRight">All data specified by <a class="el" href="group__group__scb__i2c__master__high__level__functions.html#ga91f7a32d2a20cf3deebe01cef8d9d000">Cy_SCB_I2C_MasterWrite</a> has been loaded into the TX FIFO.  <a href="#gaea716088b093bc6decbdbcb775462466">More...</a><br /></td></tr>
 <tr class="separator:gaea716088b093bc6decbdbcb775462466"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,6 +223,40 @@ Macros</h2></td></tr>
 
 <p>Indicates the I2C hardware detected an error. </p>
 <p>Check <a class="el" href="group__group__scb__i2c__slave__functions.html#gab3e1c474d6a5c7c5547ea08aa5d59e22">Cy_SCB_I2C_SlaveGetStatus</a> to determine the source of the error. </p>
+
+</div>
+</div>
+<a id="gae8910e21e4b8d63c7fda07e9ea07cbf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8910e21e4b8d63c7fda07e9ea07cbf4">&#9670;&nbsp;</a></span>CY_SCB_I2C_SLAVE_RESTART_EVENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SCB_I2C_SLAVE_RESTART_EVENT&#160;&#160;&#160;(0x00000080UL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates the I2C hardware detected a repeated start event. </p>
+<dl class="section note"><dt>Note</dt><dd>This event is only applicable for devices with SCB version 4. For details see the device catalog CAT1B. </dd></dl>
+
+</div>
+</div>
+<a id="gac110f8788f66ce6c3aa469b4f716986b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac110f8788f66ce6c3aa469b4f716986b">&#9670;&nbsp;</a></span>CY_SCB_I2C_SLAVE_STOP_ANY_EVENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SCB_I2C_SLAVE_STOP_ANY_EVENT&#160;&#160;&#160;(0x00000100UL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates the I2C hardware detected a stop event on address match, or at the end of multiple restarts with address matching at least once. </p>
+<dl class="section note"><dt>Note</dt><dd>This event is only applicable for devices with SCB version 4. For details see the device catalog CAT1B. </dd></dl>
 
 </div>
 </div>

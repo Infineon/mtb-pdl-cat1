@@ -21,5 +21,6 @@ var group__group__scb__i2c__data__structures =
       [ "xferPending", "structcy__stc__scb__i2c__master__xfer__config__t.html#a2e158df2a2854d193d589021c2128aa4", null ]
     ] ],
     [ "cy_cb_scb_i2c_handle_events_t", "group__group__scb__i2c__data__structures.html#ga5d6df20d77d2690048aaef8fe9e57e2e", null ],
-    [ "cy_cb_scb_i2c_handle_addr_t", "group__group__scb__i2c__data__structures.html#gab0351020deb72a39fe1695e88f8aa8c0", null ]
+    [ "cy_cb_scb_i2c_handle_addr_t", "group__group__scb__i2c__data__structures.html#gab0351020deb72a39fe1695e88f8aa8c0", null ],
+    [ "cy_cb_scb_i2c_handle_byte_t", "group__group__scb__i2c__data__structures.html#gaad62d78af549391c1dc8ec5ce27bee1c", null ]
 ];

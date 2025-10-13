@@ -1,5 +1,12 @@
 var NAVTREEINDEX43 =
 {
+"structcy__stc__smif__bridge__pri__t.html#a6ad052d5330124b4d9a74b889d22e80f":[4,44,3,0,0],
+"structcy__stc__smif__bridge__pri__t.html#ad1f20b6ed2cf74127cfddb9d4f707755":[4,44,3,0,2],
+"structcy__stc__smif__bridge__pri__t.html#ae471994908e53da17c85567b616cc8d8":[4,44,3,0,1],
+"structcy__stc__smif__bridge__pri__t.html#aeb13744a2927b80dcefcdca6d43f0f19":[4,44,3,0,3],
+"structcy__stc__smif__bridge__remap__t.html":[4,44,3,1],
+"structcy__stc__smif__bridge__remap__t.html#a0b751a1de8bf99e3541033394f891041":[4,44,3,1,2],
+"structcy__stc__smif__bridge__remap__t.html#a1687dcb88099a47230911022d48ef0bb":[4,44,3,1,3],
 "structcy__stc__smif__bridge__remap__t.html#a2a576e125ba9704487c2247e1cdc6667":[4,44,3,1,0],
 "structcy__stc__smif__bridge__remap__t.html#ad38f8c0041d42aa06e3659e37fc8aadb":[4,44,3,1,1],
 "structcy__stc__smif__cache__config__t.html":[4,44,2,6],
@@ -242,12 +249,5 @@ var NAVTREEINDEX43 =
 "structcy__stc__tcpwm__motif__hlut__t.html#ac75504148e45d386adb570989f699fdb":[4,52,5,5,0,3],
 "structcy__stc__tcpwm__motif__hlut__t.html#add44cd8e239825cb01af58b8387b4e91":[4,52,5,5,0,2],
 "structcy__stc__tcpwm__motif__hlut__t.html#ae2171b85c810d6f5dc5fa77cbbc8701d":[4,52,5,5,0,5],
-"structcy__stc__tcpwm__motif__hlut__t.html#aff15c543d3ccc13733dda8ae85341bc9":[4,52,5,5,0,4],
-"structcy__stc__tcpwm__motif__mcp__config__t.html":[4,52,5,5,7],
-"structcy__stc__tcpwm__motif__mcp__config__t.html#a069dbcd2dc208c8a409528534cb04538":[4,52,5,5,7,4],
-"structcy__stc__tcpwm__motif__mcp__config__t.html#a1202b73c2af08bfd7e5a86d3d2dc2dbf":[4,52,5,5,7,5],
-"structcy__stc__tcpwm__motif__mcp__config__t.html#a4f373283aae3281f47cc6b7a23062dbd":[4,52,5,5,7,1],
-"structcy__stc__tcpwm__motif__mcp__config__t.html#a50cee1f7c825cd5695494c8aa6152c56":[4,52,5,5,7,2],
-"structcy__stc__tcpwm__motif__mcp__config__t.html#a834a9d7edd7ff0cce5b69ee4b465fbd6":[4,52,5,5,7,3],
-"structcy__stc__tcpwm__motif__mcp__config__t.html#a909176757688f5097f8e672ab7d9fc34":[4,52,5,5,7,0]
+"structcy__stc__tcpwm__motif__hlut__t.html#aff15c543d3ccc13733dda8ae85341bc9":[4,52,5,5,0,4]
 };

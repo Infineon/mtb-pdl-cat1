@@ -9,5 +9,6 @@ var group__group__scb__common__macros__slave__intr =
     [ "CY_SCB_SLAVE_INTR_I2C_ADDR_MATCH", "group__group__scb__common__macros__slave__intr.html#ga8a1e67ce702b888c78b4eff33c8feca0", null ],
     [ "CY_SCB_SLAVE_INTR_I2C_GENERAL_ADDR", "group__group__scb__common__macros__slave__intr.html#gadcc039cb84510bb6d723408d30124941", null ],
     [ "CY_SCB_SLAVE_INTR_I2C_BUS_ERROR", "group__group__scb__common__macros__slave__intr.html#ga7055c41b7d3274c57e071049e4998783", null ],
+    [ "CY_SCB_SLAVE_INTR_I2C_RESTART", "group__group__scb__common__macros__slave__intr.html#gaee95b5b3affb6b69d5a06e7f594120f3", null ],
     [ "CY_SCB_SLAVE_INTR_SPI_BUS_ERROR", "group__group__scb__common__macros__slave__intr.html#gad3b06f7900eb49c73ca99538a4d110ef", null ]
 ];

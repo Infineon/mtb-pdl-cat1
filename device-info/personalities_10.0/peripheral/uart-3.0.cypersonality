@@ -151,19 +151,8 @@
     <!-- Clock Constraint -->
     <ParamRange id="uartClkHz" name="uartClkHz" group="Internal" default="`${BaudRate * OversampleFinal}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="SCB UART clock to operate with desired baud rate." />
 
-    <ParamString id="hfclockperi" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].periclk[0]" visible="false" editable="false" desc="String variable used for source peri clock." />
-    <ParamString id="hfclock1" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].hfclk[1]" visible="false" editable="false" desc="String variable used for source HF clock1." />
-    <ParamString id="hfclock2" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].hfclk[2]" visible="false" editable="false" desc="String variable used for source HF clock2." />
-    <ParamString id="hfclock10" name="PCLK Destination Clock" group="Internal" default="srss[0].clock[0].hfclk[10]" visible="false" editable="false" desc="String variable used for source HF clock10." />
-
-    <ParamString id="hfclocksource" name="PCLK Destination" group="Internal" default="`${((ipName ne &quot;mxs22scb&quot;) ? ((version eq 1)  ? hfclockperi : ((version eq 4) ? hfclock1 : hfclock2)) : hfclock10) }`" visible="false" editable="false" desc="Generates PCLK connection define." />
-
-    <ParamRange  id="clkPeriHz" name="clkPeriHz" group="Internal" default="`${getExposedMember(hfclocksource, &quot;frequency&quot;)}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="Clk_Peri frequency." />
-    <ParamRange  id="uartDiv" name="uartDiv" group="Internal" default="`${clkPeriHz / cast(float, uartClkHz)}`" min="1" max="16777216" resolution="1" visible="false" editable="false" desc="UART pclk divider value." />
-    <ParamBool id="useUartDiv8" name="useUartDiv8" group="Internal" default="`${(uartDiv &lt;= pow(2, 8))}`" visible="false" editable="false" desc="Checks whether 8-bit divider can be used for UART operation." />
-
     <ParamSignal port="clock[0]" name="Clock" group="Connections" visible="`${hasVisibleOption(&quot;clock[0]&quot;)}`" desc="Clock that operates this block." canBeEmpty="false" >
-      <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_8.*" valid="`${useUartDiv8}`" >
+      <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_8.*" valid="true" >
         <Parameter id="intDivider" severity="ERROR" reason="Clock frequency does not match desired `${uartClkHz / 1000.0}` kHz.">
           <Fixed
             value="`${((getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / uartClkHz) - floor(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / uartClkHz) >= 0.5) ? ceil(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / uartClkHz) : floor(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / uartClkHz)}`" />
@@ -189,7 +178,7 @@
     </ParamSignal>
 
     <ParamSignal port="clock_scb_en[0]" name="Clock" group="Connections" visible="`${hasVisibleOption(&quot;clock_scb_en[0]&quot;)}`" desc="Clock that operates this block." canBeEmpty="false" >
-      <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_8.*" valid="`${useUartDiv8}`" >
+      <Constraint type="ACCEPT" targetLocation="peri\[\d+\](\.group\[\d+\])?\.div_8.*" valid="true" >
         <Parameter id="intDivider" severity="ERROR" reason="Clock frequency does not match desired `${uartClkHz / 1000.0}` kHz.">
           <Fixed
             value="`${((getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / uartClkHz) - floor(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / uartClkHz) >= 0.5) ? ceil(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / uartClkHz) : floor(getExposedMember(&quot;REF_LOCATION&quot;, &quot;frequency&quot;) * getExposedMember(&quot;REF_LOCATION&quot;, &quot;divider&quot;) / uartClkHz)}`" />
@@ -386,14 +375,18 @@
     <ParamString id="pclkSCBClockSCBENString" name="PCLK Destination Clock" group="Internal" default="PCLK_SCB`${InstNumber}`_CLOCK_SCB_EN" visible="false" editable="false" desc="String variable used only for PCLK_SCB_CLOCK_SCB_EN." />
 
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? pclkSCBClockString : pclkSCBClockSCBENString }`" visible="false" editable="false" desc="Generates PCLK connection define." />
+
+    <ParamRange  id="clkPeriHz" name="clkPeriHz" group="Internal" default="`${getExposedMember(getExposedMember(sourceClock, &quot;sourceClockRsc&quot;), &quot;frequency&quot;)}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="CLK_PERI or CLK_HF output frequency." />
+    <ParamRange  id="uartDiv" name="uartDiv" group="Internal" default="`${clkPeriHz / cast(float, uartClkHz)}`" min="1" max="16777216" resolution="1" visible="false" editable="false" desc="UART pclk divider value." />
+    <ParamBool id="useUartDiv8" name="useUartDiv8" group="Internal" default="`${(uartDiv &lt;= pow(2, 8))}`" visible="false" editable="false" desc="Checks whether 8-bit divider can be used for UART operation." />
   </Parameters>
 
   <DRCs>
     <!-- DRC: 8-bit clock divider must not be used -->
-    <DRC type="ERROR" text="Wider clock divider resolution is required for UART to operate with baud rate `${BaudRate}` bps." paramId="clock[0]" condition="`${!useUartDiv8 &amp;&amp; pClkDiv8}`" />
+    <DRC type="ERROR" text="Wider clock divider resolution is required for UART to operate with baud rate `${BaudRate}` bps." paramId="clock[0]" condition="`${!useUartDiv8 &amp;&amp; pClkDiv8 &amp;&amp; hasVisibleOption(&quot;clock[0]&quot;)}`" />
 
     <!-- DRC: 8-bit clock divider must not be used -->
-    <DRC type="ERROR" text="Wider clock divider resolution is required for UART to operate with baud rate `${BaudRate}` bps." paramId="clock_scb_en[0]" condition="`${!useUartDiv8 &amp;&amp; pClkDiv8}`" />
+    <DRC type="ERROR" text="Wider clock divider resolution is required for UART to operate with baud rate `${BaudRate}` bps." paramId="clock_scb_en[0]" condition="`${!useUartDiv8 &amp;&amp; pClkDiv8 &amp;&amp; hasVisibleOption(&quot;clock_scb_en[0]&quot;)}`" />
 
     <!-- DRC: BaudRate for IrDA mode -->
     <DRC type="ERROR" text="The baud rate value must be 115200, 57600, 38400, 19200, 9600, 2400 or 1200 bps when the IrDA mode is selected." paramId="BaudRate" condition="`${(IrDA) ? !((BaudRate eq 1200) || (BaudRate eq 2400) || (BaudRate eq 9600) || (BaudRate eq 19200) || (BaudRate eq 38400) || (BaudRate eq 57600) || (BaudRate eq 115200)) : false}`" />
@@ -503,6 +496,10 @@
     <ConfigStruct name="`${INST_NAME}`_hal_config" type="mtb_hal_uart_configurator_t" const="`${inFlash}`" public="true" include="true" guard="defined (COMPONENT_MTB_HAL) &amp;&amp; (MTB_HAL_DRIVER_AVAILABLE_UART)">
       <Member name="base" value="`${INST_NAME}`_HW" />
       <Member name="clock" value="&amp;`${INST_NAME}`_hal_clock" />
+      <Member name="tx_pin" value="`${txPin &amp;&amp; hasExposedMember(txPin, &quot;pinNum&quot;) ? getExposedMember(txPin, &quot;pinNum&quot;) : &quot;0xFF&quot;}`" />
+      <Member name="rts_pin" value="`${rtsPin &amp;&amp; hasExposedMember(rtsPin, &quot;pinNum&quot;) ? getExposedMember(rtsPin, &quot;pinNum&quot;) : &quot;0xFF&quot;}`" guard="defined (COMPONENT_MW_ASYNC_TRANSFER)" />
+      <Member name="tx_port" value="`${txPin &amp;&amp; hasExposedMember(txPin, &quot;portNum&quot;) ? getExposedMember(txPin, &quot;portNum&quot;) : &quot;0xFF&quot;}`"/>
+      <Member name="rts_port" value="`${rtsPin &amp;&amp; hasExposedMember(rtsPin, &quot;portNum&quot;) ? getExposedMember(rtsPin, &quot;portNum&quot;) : &quot;0xFF&quot;}`" guard="defined (COMPONENT_MW_ASYNC_TRANSFER)" />
       <Member name="rts_enable" value="`${rtsPin &amp;&amp; hasExposedMember(rtsPin, &quot;halPortPin&quot;) ? &quot;1UL&quot; : &quot;0UL&quot;}`" guard="defined (COMPONENT_MW_ASYNC_TRANSFER)"/>
     </ConfigStruct>
 

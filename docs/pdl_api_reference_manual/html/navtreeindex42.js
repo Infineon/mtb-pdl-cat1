@@ -1,5 +1,12 @@
 var NAVTREEINDEX42 =
 {
+"structcy__stc__rtc__dst__t.html":[4,37,2,3],
+"structcy__stc__rtc__dst__t.html#a629e4d40fcbdfae4b3f0a1180883190e":[4,37,2,3,1],
+"structcy__stc__rtc__dst__t.html#a9e7d565f426a607cdd499a305a5434eb":[4,37,2,3,0],
+"structcy__stc__sar2__analog__calibration__conifg__t.html":[4,39,2,3],
+"structcy__stc__sar2__analog__calibration__conifg__t.html#ad51f624937651cd514f4b863afc47692":[4,39,2,3,0],
+"structcy__stc__sar2__analog__calibration__conifg__t.html#adf4c378248322200e3f122444d1af760":[4,39,2,3,1],
+"structcy__stc__sar2__channel__config__t.html":[4,39,2,0],
 "structcy__stc__sar2__channel__config__t.html#a074e4e6e2909528923e3322372c2934c":[4,39,2,0,19],
 "structcy__stc__sar2__channel__config__t.html#a1313acc428a4c47f27c666636de0e9b8":[4,39,2,0,17],
 "structcy__stc__sar2__channel__config__t.html#a140aff21ae5b4a28c5728ef2e9a2ff50":[4,39,2,0,10],
@@ -242,12 +249,5 @@ var NAVTREEINDEX42 =
 "structcy__stc__smif__bridge__interleave__remap__t.html#aa3160983da2ab9812cd07ca544248d9a":[4,44,3,2,4],
 "structcy__stc__smif__bridge__interleave__remap__t.html#aca44f1abf970d853d512f7cd53180f14":[4,44,3,2,0],
 "structcy__stc__smif__bridge__interleave__remap__t.html#ae3bbcd027e8ddaba0b36b3fbb3febff4":[4,44,3,2,1],
-"structcy__stc__smif__bridge__pri__t.html":[4,44,3,0],
-"structcy__stc__smif__bridge__pri__t.html#a6ad052d5330124b4d9a74b889d22e80f":[4,44,3,0,0],
-"structcy__stc__smif__bridge__pri__t.html#ad1f20b6ed2cf74127cfddb9d4f707755":[4,44,3,0,2],
-"structcy__stc__smif__bridge__pri__t.html#ae471994908e53da17c85567b616cc8d8":[4,44,3,0,1],
-"structcy__stc__smif__bridge__pri__t.html#aeb13744a2927b80dcefcdca6d43f0f19":[4,44,3,0,3],
-"structcy__stc__smif__bridge__remap__t.html":[4,44,3,1],
-"structcy__stc__smif__bridge__remap__t.html#a0b751a1de8bf99e3541033394f891041":[4,44,3,1,2],
-"structcy__stc__smif__bridge__remap__t.html#a1687dcb88099a47230911022d48ef0bb":[4,44,3,1,3]
+"structcy__stc__smif__bridge__pri__t.html":[4,44,3,0]
 };

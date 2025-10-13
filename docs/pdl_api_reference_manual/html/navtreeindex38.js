@@ -1,5 +1,12 @@
 var NAVTREEINDEX38 =
 {
+"structcy__stc__dmac__descriptor__config__t.html#a0d7425723f735c43d9f9c3d5add46051":[4,12,3,1,16],
+"structcy__stc__dmac__descriptor__config__t.html#a264ab4339fd7533256baea6b49811f68":[4,12,3,1,1],
+"structcy__stc__dmac__descriptor__config__t.html#a33ef66614f4911171513a63198e21c40":[4,12,3,1,9],
+"structcy__stc__dmac__descriptor__config__t.html#a56e737e12986f1f9ae07bbb23a547ba7":[4,12,3,1,10],
+"structcy__stc__dmac__descriptor__config__t.html#a642fe60a0744a3721c1b20005a8a9870":[4,12,3,1,5],
+"structcy__stc__dmac__descriptor__config__t.html#a727d7f16fc29fa9d75c8125ea8377cdf":[4,12,3,1,13],
+"structcy__stc__dmac__descriptor__config__t.html#a7f23f95c4fc072b1aafbde341dd9a683":[4,12,3,1,6],
 "structcy__stc__dmac__descriptor__config__t.html#a7ffaa831fab50f91b1ff7c5e5c1e0ae9":[4,12,3,1,3],
 "structcy__stc__dmac__descriptor__config__t.html#a99cb4784bc632bd6f7144a972e7b9509":[4,12,3,1,18],
 "structcy__stc__dmac__descriptor__config__t.html#aa20430ff90603af62ca4bd7c36de35e0":[4,12,3,1,4],
@@ -242,12 +249,5 @@ var NAVTREEINDEX38 =
 "structcy__stc__flash__notify__t.html#ab5674d3c5f5912ab008486aca20ccd70":[4,17,2,0,1],
 "structcy__stc__flash__programrow__config__t.html":[4,17,3,0],
 "structcy__stc__flash__programrow__config__t.html#a05a77b51d558ae89110455faa5a9f265":[4,17,3,0,1],
-"structcy__stc__flash__programrow__config__t.html#a5772d7ba715d2569350e78caf5b77477":[4,17,3,0,6],
-"structcy__stc__flash__programrow__config__t.html#a672ca89882bbbed25b5238e35a383e72":[4,17,3,0,5],
-"structcy__stc__flash__programrow__config__t.html#aa086431b53ca716cfe56fcb803b61be0":[4,17,3,0,2],
-"structcy__stc__flash__programrow__config__t.html#abbd9895a198eed87e8636a2c9af094be":[4,17,3,0,3],
-"structcy__stc__flash__programrow__config__t.html#ac0fd7a0fd60ff5e7eaa1049d2309bc9d":[4,17,3,0,0],
-"structcy__stc__flash__programrow__config__t.html#ac95fdc33fed99cd4a6d478aa2f26b354":[4,17,3,0,4],
-"structcy__stc__fll__manual__config__t.html":[4,46,5,1,0],
-"structcy__stc__fll__manual__config__t.html#a0791fc7e856b2669453d9910e59978e5":[4,46,5,1,0,3]
+"structcy__stc__flash__programrow__config__t.html#a5772d7ba715d2569350e78caf5b77477":[4,17,3,0,6]
 };

@@ -137,6 +137,7 @@
 
     <ConfigStruct name="`${INST_NAME}`_hal_config" type="mtb_hal_lptimer_configurator_t" const="true" public="true" include="true" guard="defined (COMPONENT_MTB_HAL) &amp;&amp; (MTB_HAL_DRIVER_AVAILABLE_LPTIMER)">
       <Member name="base" value="`${INST_NAME}`_HW" />
+      <Member name='lfclk_freqhz' value='`${sourceLowFreq}`' guard="defined (MTB_HAL_LPTIMER_CFG_LFCLK_FREQ)" />
     </ConfigStruct>
 
     <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL)">

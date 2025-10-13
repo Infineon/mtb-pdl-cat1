@@ -1,45 +1,29 @@
-# MTB CAT1 Peripheral Driver Library v3.17.0
+# MTB CAT1 Peripheral Driver Library v3.18.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
 for a complete description of the Peripheral Driver Library.
 
 ## Implementation Details
-* CAT1A: Added new MPNs (CY8C6245FNQ-S3D41, CY8C6245AZQ-S3D72, CY8C6245FNQ-S3D71, CY8C6245LQQ-S3D72).
-* CAT1B: Added TCPWM Debug freeze feature support for PSOC C3 devices.
+* SCB I2C enhancements: added new callback events and I2C Slave Status macros, added support for the I2C Byte Received callback.
 
 ## Build Changes
 
 ## Personality Changes
 * Updated Personalities (in 10.0 folder):
   * peripheral:
-    * canfd-3.0.cypersonality
-    * ezi2c-3.0.cypersonality
-    * i2c-4.0.cypersonality
-    * pwm_v2-1.0.cypersonality
-    * shiftreg_v2-1.0.cypersonality
-    * spi-3.0.cypersonality
+    * mcwdt_v2-1.0.cypersonality
+    * mcwdt-3.0.cypersonality
+    * uart-3.0.cypersonality
   * platform:
-    * debug-2.0.cypersonality
-    * pclk-3.0.cypersonality
-    * periclk-2.0.cypersonality
+    * axidmac-1.0.cypersonality
 
 ## Added Drivers
 
 ## Updated Drivers
-* [I2S 2.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__i2s)
-* [PDM_PCM 2.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pdm__pcm.html)
-* [EMAC 1.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ethif)
-* [LPCOMP 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__lpcomp)
-* [RTC 2.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__rtc)
-* [SAR 2.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sar.html)
-* [SYSCLK 3.150](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSLIB 3.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
-* [SYSPM 5.190](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [TCPWM 1.90](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__tcpwm.html)
+* [SCB 3.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
 
 ### Drivers with patch version updates
-* [HPPASS 1.30.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__hppass.html)
 
 ### Obsoleted part numbers
 
@@ -67,9 +51,10 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Defect Fixes
-* Resolve the GCC 14 linker warning for cy_lpcomp.c
-* Resolve the GCC 14 compiler error for I2S, RTC, PDM_PCM, and SAR drivers.
-* Fix EMAC driver error when initialization is not performed before the Cy_ETHIF_Get1588TimerValue() or Cy_ETHIF_Set1588TimerValue() function call.
+* axidmac-1.0.cypersonality - fixed macros code generation for the TRAVEO™ T2G devices.
+* uart-3.0.cypersonality - fixed code generation error for the TRAVEO™ T2G devices.
+* Fixed address handling in the SCB EZI2C driver.
+
 See the Changelog section of each Driver in the [PDL API Reference](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/modules.html) for all fixes and updates.
 
 

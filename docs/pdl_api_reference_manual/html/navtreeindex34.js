@@ -1,5 +1,12 @@
 var NAVTREEINDEX34 =
 {
+"group__group__tcpwm__macros__shiftreg.html":[4,52,4,0],
+"group__group__tcpwm__motif.html":[4,52,5],
+"group__group__tcpwm__output__trigger__modes.html":[4,52,0,0,2],
+"group__group__tcpwm__output__trigger__modes.html#ga5be2edf875839fdbcdb1bbdfd72250fd":[4,52,0,0,2,1],
+"group__group__tcpwm__output__trigger__modes.html#ga75e0d9ac2f7aa80c240921e0c7425f59":[4,52,0,0,2,2],
+"group__group__tcpwm__output__trigger__modes.html#ga78addd443fcec2a7818d4e93b6603ad2":[4,52,0,0,2,5],
+"group__group__tcpwm__output__trigger__modes.html#ga80297cac01044cbf8ea2af92c902da7e":[4,52,0,0,2,7],
 "group__group__tcpwm__output__trigger__modes.html#gaa612ddf2f420f24ed5d0452f48b221e7":[4,52,0,0,2,0],
 "group__group__tcpwm__output__trigger__modes.html#gaa8ab25b54e3c703d193e52da385baa0e":[4,52,0,0,2,6],
 "group__group__tcpwm__output__trigger__modes.html#gabf63f61c436a0553c40905c347eb04b5":[4,52,0,0,2,4],
@@ -242,12 +249,5 @@ var NAVTREEINDEX34 =
 "group__group__trigmux__dst__enums.html":[4,54,2,1],
 "group__group__trigmux__dst__in__enums.html":[4,54,2,1,0],
 "group__group__trigmux__dst__in__enums.html#ga05ffee2a7a985a050276dcc5cb863b58":[4,54,2,1,0,3],
-"group__group__trigmux__dst__in__enums.html#ga11495f4fade1c46757d49400562dbdf9":[4,54,2,1,0,7],
-"group__group__trigmux__dst__in__enums.html#ga2d120575daee259c115a7e3107c79d3e":[4,54,2,1,0,1],
-"group__group__trigmux__dst__in__enums.html#ga52034f6453a3289a3368756d816df49e":[4,54,2,1,0,4],
-"group__group__trigmux__dst__in__enums.html#ga928983f42d1632b127a4c7afc4e2fa34":[4,54,2,1,0,8],
-"group__group__trigmux__dst__in__enums.html#ga9ecd09bff2763f679c8cd2124ca2746a":[4,54,2,1,0,5],
-"group__group__trigmux__dst__in__enums.html#gac564d18f79609d84413c97b4c08855ba":[4,54,2,1,0,0],
-"group__group__trigmux__dst__in__enums.html#gad985e483032d7b9b455b577fb0ab805f":[4,54,2,1,0,6],
-"group__group__trigmux__dst__in__enums.html#gafe3a3731acefe819d8bcdcc233a1c463":[4,54,2,1,0,2]
+"group__group__trigmux__dst__in__enums.html#ga11495f4fade1c46757d49400562dbdf9":[4,54,2,1,0,7]
 };

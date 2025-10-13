@@ -1,5 +1,12 @@
 var NAVTREEINDEX21 =
 {
+"group__group__scb__i2c__master__high__level__functions.html#gae70af483602c1b26248c5a74a72c74c7":[4,40,2,1,2,5],
+"group__group__scb__i2c__master__low__level__functions.html":[4,40,2,1,3],
+"group__group__scb__i2c__master__low__level__functions.html#ga0679a2b27cf3be4d1a6cd20246688fef":[4,40,2,1,3,3],
+"group__group__scb__i2c__master__low__level__functions.html#ga15fa1a79148b846fd348ce39094876f0":[4,40,2,1,3,0],
+"group__group__scb__i2c__master__low__level__functions.html#ga2177b4fb74cf33e57e6fa59d04bdfa7a":[4,40,2,1,3,1],
+"group__group__scb__i2c__master__low__level__functions.html#ga4b098cd781eaa5cd287ae33e05c86a0d":[4,40,2,1,3,2],
+"group__group__scb__i2c__master__low__level__functions.html#ga7eb0684e4d362668f0637d1e82405551":[4,40,2,1,3,4],
 "group__group__scb__i2c__slave__functions.html":[4,40,2,1,1],
 "group__group__scb__i2c__slave__functions.html#ga179b4495d7255567bb8b166e16e5a073":[4,40,2,1,1,0],
 "group__group__scb__i2c__slave__functions.html#ga1c9f6c807f4758016bf90cc8f69f96b3":[4,40,2,1,1,1],
@@ -242,12 +249,5 @@ var NAVTREEINDEX21 =
 "group__group__scb__uart__macros__tx__fifo__status.html":[4,40,4,0,2],
 "group__group__scb__uart__macros__tx__fifo__status.html#ga084f44adc0f1fba7bc8cc63f46c8a3e6":[4,40,4,0,2,0],
 "group__group__scb__uart__macros__tx__fifo__status.html#ga3107a2948b2bff6d81c9eb7f51f2a4d4":[4,40,4,0,2,4],
-"group__group__scb__uart__macros__tx__fifo__status.html#ga41c603d23a12693b3b83ece75da39b54":[4,40,4,0,2,1],
-"group__group__scb__uart__macros__tx__fifo__status.html#ga5a3ee0ae5c71bb071aa99607dc9a456a":[4,40,4,0,2,3],
-"group__group__scb__uart__macros__tx__fifo__status.html#ga84d057ed47751c69902a762585ba4838":[4,40,4,0,2,5],
-"group__group__scb__uart__macros__tx__fifo__status.html#gab629bcb723aafa472383c9dd24d2e492":[4,40,4,0,2,6],
-"group__group__scb__uart__macros__tx__fifo__status.html#gaf463f453c30885d0bd6ae52744bb1449":[4,40,4,0,2,7],
-"group__group__scb__uart__macros__tx__fifo__status.html#gafb9a349f995e46583edd9cdc16efc0af":[4,40,4,0,2,2],
-"group__group__sd__host.html":[4,41],
-"group__group__sd__host__data__structures.html":[4,41,2]
+"group__group__scb__uart__macros__tx__fifo__status.html#ga41c603d23a12693b3b83ece75da39b54":[4,40,4,0,2,1]
 };

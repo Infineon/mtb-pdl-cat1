@@ -110,6 +110,9 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 <tr class="memitem:gab0351020deb72a39fe1695e88f8aa8c0"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__group__scb__i2c__enums.html#ga4600410051f7febf79d167ffbf85d7ef">cy_en_scb_i2c_command_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__i2c__data__structures.html#gab0351020deb72a39fe1695e88f8aa8c0">cy_cb_scb_i2c_handle_addr_t</a>) (uint32_t event)</td></tr>
 <tr class="memdesc:gab0351020deb72a39fe1695e88f8aa8c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the typedef for the callback function called in the <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga729b2fa4de4d44ea2e8995d7ca6a0c24">Cy_SCB_I2C_Interrupt</a> to notify the user about occurrences of <a class="el" href="group__group__scb__i2c__macros__addr__callback__events.html">I2C Address Callback Events</a>.  <a href="#gab0351020deb72a39fe1695e88f8aa8c0">More...</a><br /></td></tr>
 <tr class="separator:gab0351020deb72a39fe1695e88f8aa8c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaad62d78af549391c1dc8ec5ce27bee1c"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__group__scb__i2c__enums.html#ga4600410051f7febf79d167ffbf85d7ef">cy_en_scb_i2c_command_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__i2c__data__structures.html#gaad62d78af549391c1dc8ec5ce27bee1c">cy_cb_scb_i2c_handle_byte_t</a>) (uint8_t byteReceived)</td></tr>
+<tr class="memdesc:gaad62d78af549391c1dc8ec5ce27bee1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the typedef for the callback function called in the <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga729b2fa4de4d44ea2e8995d7ca6a0c24">Cy_SCB_I2C_Interrupt</a> to notify the user about the occurrence of a byte received event.  <a href="#gaad62d78af549391c1dc8ec5ce27bee1c">More...</a><br /></td></tr>
+<tr class="separator:gaad62d78af549391c1dc8ec5ce27bee1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="gab0351020deb72a39fe1695e88f8aa8c0"></a>
@@ -126,6 +129,23 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 
 <p>Provides the typedef for the callback function called in the <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga729b2fa4de4d44ea2e8995d7ca6a0c24">Cy_SCB_I2C_Interrupt</a> to notify the user about occurrences of <a class="el" href="group__group__scb__i2c__macros__addr__callback__events.html">I2C Address Callback Events</a>. </p>
 <p>This callback must return a decision to ACK (continue transaction) or NAK (end transaction) the received address. Note if the slave is configured to accept an address in RX FIFO, it must read from it using the <a class="el" href="group__group__scb__common__functions.html#ga5d9d1b3b7d230f5d7f7982640984ab9d">Cy_SCB_ReadRxFifo</a> function. </p>
+
+</div>
+</div>
+<a id="gaad62d78af549391c1dc8ec5ce27bee1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaad62d78af549391c1dc8ec5ce27bee1c">&#9670;&nbsp;</a></span>cy_cb_scb_i2c_handle_byte_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="group__group__scb__i2c__enums.html#ga4600410051f7febf79d167ffbf85d7ef">cy_en_scb_i2c_command_t</a>(*  cy_cb_scb_i2c_handle_byte_t) (uint8_t byteReceived)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Provides the typedef for the callback function called in the <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga729b2fa4de4d44ea2e8995d7ca6a0c24">Cy_SCB_I2C_Interrupt</a> to notify the user about the occurrence of a byte received event. </p>
+<p>This callback must return a decision to ACK (continue transaction) or NAK (end transaction) the received byte. </p>
 
 </div>
 </div>

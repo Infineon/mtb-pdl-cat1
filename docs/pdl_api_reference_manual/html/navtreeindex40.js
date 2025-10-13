@@ -1,5 +1,12 @@
 var NAVTREEINDEX40 =
 {
+"structcy__stc__ipc__bt__context__t.html#a2804dbd3fae88d8f218a7d102fed53c2":[4,21,3,2,4,31],
+"structcy__stc__ipc__bt__context__t.html#a3406d7afe050de7dd8327d1f4efa4d06":[4,21,3,2,4,12],
+"structcy__stc__ipc__bt__context__t.html#a3ecedc7220cccbedc73a3c1a09888ba2":[4,21,3,2,4,2],
+"structcy__stc__ipc__bt__context__t.html#a4aaad02053f00d12bca5b652a84000f8":[4,21,3,2,4,15],
+"structcy__stc__ipc__bt__context__t.html#a5602267405c88592572a14e71d594f65":[4,21,3,2,4,17],
+"structcy__stc__ipc__bt__context__t.html#a593184703d4a068e20efaa4fabafd4fd":[4,21,3,2,4,32],
+"structcy__stc__ipc__bt__context__t.html#a5ff5ec67230c892696c45bfe25e41cd5":[4,21,3,2,4,16],
 "structcy__stc__ipc__bt__context__t.html#a60c348820ce4ec5aeca0a85f40d790a9":[4,21,3,2,4,23],
 "structcy__stc__ipc__bt__context__t.html#a64660f7ca71610c231e522695302594f":[4,21,3,2,4,21],
 "structcy__stc__ipc__bt__context__t.html#a6890bd281b0fe386d5e4c3afa49a27c7":[4,21,3,2,4,11],
@@ -242,12 +249,5 @@ var NAVTREEINDEX40 =
 "structcy__stc__pdm__pcm__config__t.html#a1953184d9bc890c149d3cb8188fbfaf2":[4,31,2,1,13],
 "structcy__stc__pdm__pcm__config__t.html#a4993951ea6cba854859a905f05cbb076":[4,31,2,1,17],
 "structcy__stc__pdm__pcm__config__t.html#a4b1f76305638625b13b20fe78b4cbc3f":[4,31,2,1,9],
-"structcy__stc__pdm__pcm__config__t.html#a52af035a1c24528ccaac06fe22478dae":[4,31,2,1,6],
-"structcy__stc__pdm__pcm__config__t.html#a53ae73cac788873d873731714f206e8c":[4,31,2,1,18],
-"structcy__stc__pdm__pcm__config__t.html#a76cd8d97999381faa2d3c92cf44de697":[4,31,2,1,0],
-"structcy__stc__pdm__pcm__config__t.html#a8104ce4d0a012024f82e0fde64b3d8dd":[4,31,2,1,14],
-"structcy__stc__pdm__pcm__config__t.html#ab2ab60f66c03b9bfb896ee01deb5a34d":[4,31,2,1,12],
-"structcy__stc__pdm__pcm__config__t.html#ab50b2b03e84b186194389da7b531ca39":[4,31,2,1,10],
-"structcy__stc__pdm__pcm__config__t.html#ab9b94de9f5aee862b53e44911a0d25cf":[4,31,2,1,3],
-"structcy__stc__pdm__pcm__config__t.html#ad280e714b5e8288e77472e8d5c84ddd9":[4,31,2,1,11]
+"structcy__stc__pdm__pcm__config__t.html#a52af035a1c24528ccaac06fe22478dae":[4,31,2,1,6]
 };

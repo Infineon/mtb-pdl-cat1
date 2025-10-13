@@ -1,5 +1,12 @@
 var NAVTREEINDEX33 =
 {
+"group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a722c4d6f3a7dcb4951f2db96ab884bcc":[4,52,0,3,3,1],
+"group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a824966d5cc039d8ac8934fb7bb6eea90":[4,52,0,3,3,5],
+"group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029a9533900ebb8345722456571a07091278":[4,52,0,3,3,9],
+"group__group__tcpwm__enums.html#ggadbc4d3602412fbbaf92175ef56258029abf243144a8c2d745e53aa45d64964a53":[4,52,0,3,3,7],
+"group__group__tcpwm__functions__common.html":[4,52,0,1],
+"group__group__tcpwm__functions__common.html#ga03bd95ef7188f3da6f51e043e2bbd1ea":[4,52,0,1,23],
+"group__group__tcpwm__functions__common.html#ga0c7a2d667dc983c82327463529f5d283":[4,52,0,1,9],
 "group__group__tcpwm__functions__common.html#ga0e247b9e0af1462eb0846775a9445ccf":[4,52,0,1,5],
 "group__group__tcpwm__functions__common.html#ga17d3fd3116cb297aeda68ca9de8d144c":[4,52,0,1,6],
 "group__group__tcpwm__functions__common.html#ga1d580c145e6e0a2bcccb3bc4c5e5b0aa":[4,52,0,1,22],
@@ -242,12 +249,5 @@ var NAVTREEINDEX33 =
 "group__group__tcpwm__macros__motif.html#gae6051e481483d7eb3a37d019cb62e49b":[4,52,5,0,9],
 "group__group__tcpwm__macros__motif.html#gaf2afe6783c35aec4c8292c6c2ea17d34":[4,52,5,0,1],
 "group__group__tcpwm__macros__pwm.html":[4,52,2,0],
-"group__group__tcpwm__macros__quaddec.html":[4,52,3,0],
-"group__group__tcpwm__macros__shiftreg.html":[4,52,4,0],
-"group__group__tcpwm__motif.html":[4,52,5],
-"group__group__tcpwm__output__trigger__modes.html":[4,52,0,0,2],
-"group__group__tcpwm__output__trigger__modes.html#ga5be2edf875839fdbcdb1bbdfd72250fd":[4,52,0,0,2,1],
-"group__group__tcpwm__output__trigger__modes.html#ga75e0d9ac2f7aa80c240921e0c7425f59":[4,52,0,0,2,2],
-"group__group__tcpwm__output__trigger__modes.html#ga78addd443fcec2a7818d4e93b6603ad2":[4,52,0,0,2,5],
-"group__group__tcpwm__output__trigger__modes.html#ga80297cac01044cbf8ea2af92c902da7e":[4,52,0,0,2,7]
+"group__group__tcpwm__macros__quaddec.html":[4,52,3,0]
 };

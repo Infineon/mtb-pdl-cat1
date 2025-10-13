@@ -8,5 +8,6 @@ var group__group__scb__i2c__macros__slave__status =
     [ "CY_SCB_I2C_SLAVE_WR_CMPLT", "group__group__scb__i2c__macros__slave__status.html#ga0e917e7b1f8b297bb97716a0a742a14a", null ],
     [ "CY_SCB_I2C_SLAVE_WR_OVRFL", "group__group__scb__i2c__macros__slave__status.html#ga72fb4c9b77ebeb06e36f7b74eb9f0a6f", null ],
     [ "CY_SCB_I2C_SLAVE_ARB_LOST", "group__group__scb__i2c__macros__slave__status.html#ga63fcc61bddf39d12a85172f776a34d7b", null ],
-    [ "CY_SCB_I2C_SLAVE_BUS_ERR", "group__group__scb__i2c__macros__slave__status.html#ga70d17df38c669816f83e69ac8ab02753", null ]
+    [ "CY_SCB_I2C_SLAVE_BUS_ERR", "group__group__scb__i2c__macros__slave__status.html#ga70d17df38c669816f83e69ac8ab02753", null ],
+    [ "CY_SCB_I2C_SLAVE_RESTART", "group__group__scb__i2c__macros__slave__status.html#gab279883800a65f389e3b8a3f21f24470", null ]
 ];

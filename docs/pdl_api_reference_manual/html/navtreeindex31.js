@@ -1,5 +1,12 @@
 var NAVTREEINDEX31 =
 {
+"group__group__syspm__functions__buck.html#gadaf8a1544f32636a1165db7193307f42":[4,50,4,4,1,28],
+"group__group__syspm__functions__buck.html#gadf48f25b461d9b7e5b5f1c8db9d97249":[4,50,4,4,1,35],
+"group__group__syspm__functions__buck.html#gae18d875b522e63828fd66e5d2e99d7bf":[4,50,4,4,1,15],
+"group__group__syspm__functions__buck.html#gae47b07338a5a094f57fea26a5079b276":[4,50,4,4,1,27],
+"group__group__syspm__functions__buck.html#gae562b4b5f57c089ba7f99b6ed1ec4f70":[4,50,4,4,1,13],
+"group__group__syspm__functions__buck.html#gaf0a99e6049d62a4aee1eacb106de564a":[4,50,4,4,1,23],
+"group__group__syspm__functions__buck.html#gaf81728d668147ed00ffa52b13a342ece":[4,50,4,4,1,2],
 "group__group__syspm__functions__buck.html#gafc7cc0144b114ef25dc22bc3b62ee48b":[4,50,4,4,1,11],
 "group__group__syspm__functions__buck.html#gafd2104ec9ac05913ed5146a21b2a709b":[4,50,4,4,1,30],
 "group__group__syspm__functions__buck.html#gaff41cf4c20919517afb8adfd818d1940":[4,50,4,4,1,6],
@@ -242,12 +249,5 @@ var NAVTREEINDEX31 =
 "group__group__system__config__cm4__status__macro.html":[4,0,2,0,1],
 "group__group__system__config__cm4__status__macro.html#ga452415e9cacf903c50a542a40b5f8761":[4,0,2,0,1,0],
 "group__group__system__config__cm4__status__macro.html#gabda7bd2089b83778f6182d0f0f9f38c1":[4,0,2,0,1,3],
-"group__group__system__config__cm4__status__macro.html#gad944d01aaab837a2a7e0d2e812ce7265":[4,0,2,0,1,2],
-"group__group__system__config__cm4__status__macro.html#gaf3dfb966f2882771788c7f56529e489f":[4,0,2,0,1,1],
-"group__group__system__config__cm7.html":[4,0,4],
-"group__group__system__config__cm7__functions.html":[4,0,4,1,0],
-"group__group__system__config__cm7__functions.html#ga73f261cc0121b40efc2f874cac62c970":[4,0,4,1,0,0],
-"group__group__system__config__cm7__functions.html#gab36942812d98a6c7dd77bd5c890f5bc1":[4,0,4,1,0,3],
-"group__group__system__config__cm7__functions.html#gacac741f6dd29eb66dc7e4fb31eef52fe":[4,0,4,1,0,1],
-"group__group__system__config__cm7__functions.html#gad6ef2c7a782bce1b68f60ae4e8c82e86":[4,0,4,1,0,4]
+"group__group__system__config__cm4__status__macro.html#gad944d01aaab837a2a7e0d2e812ce7265":[4,0,2,0,1,2]
 };
