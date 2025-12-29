@@ -38,6 +38,7 @@
     <ExposedMember key="driveMode" paramId="DriveModes" />
     <ExposedMember key="pinNum" paramId="pin" />
     <ExposedMember key="portNum" paramId="port" />
+    <ExposedMember key="nonSec" paramId="nonSec" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -174,7 +175,7 @@
     <ParamBool id="skipConfigCodeGen" name="Skip Configuration Code Gen" group="Internal" default="`${hasConnection(&quot;analog&quot;, 0) &amp;&amp; hasExposedMember(analogValue, &quot;suppressCodeGen&quot;) &amp;&amp; getExposedMember(analogValue, &quot;suppressCodeGen&quot;)}`" visible="false" editable="false" desc="Whether configuration code generation should be skipped" />
 
     <!-- Skip Gpio Init code gen for Non-secure for EXTCLK -->
-    <ParamBool id="skipConfigCodeGenExtClk" name="Skip Configuration Code Gen for EXT_CLK" group="Internal" default="`${is_mxs22ioss &amp;&amp;(getParamValueDisplay(&quot;digital_in[0]&quot;) eq &quot;EXTCLK ext_clk [USED]&quot;)}`" visible="false" editable="false" desc="Whether configuration code generation should be skipped" />
+    <ParamBool id="skipConfigCodeGenExtClk" name="Skip Configuration Code Gen for EXT_CLK" group="Internal" default="`${getParamValueDisplay(&quot;digital_in[0]&quot;) eq &quot;EXTCLK ext_clk [USED]&quot;}`" visible="false" editable="false" desc="Whether configuration code generation should be skipped" />
 
     <!--Config-->
     <ParamBool id="inFlash" name="Store Config in Flash" group="Advanced" default="true" visible="true" editable="true" desc="Controls whether the configuration structure is stored in flash (const, true) or SRAM (not const, false)." />

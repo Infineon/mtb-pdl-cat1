@@ -1,5 +1,13 @@
 var NAVTREEINDEX36 =
 {
+"group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667":[4,56,2,2],
+"group__group__wdt__functions.html#ga5aafcfb34e8078ae911bb42be76a8f18":[4,56,2,5],
+"group__group__wdt__functions.html#ga5c59734a60855534520a53194ef181a4":[4,56,2,27],
+"group__group__wdt__functions.html#ga607ca487deb77c6fa533cbfa3ba2a320":[4,56,2,29],
+"group__group__wdt__functions.html#ga64c5c9f8c8ff98b132deed303d219714":[4,56,2,22],
+"group__group__wdt__functions.html#ga6a98fa4f1133264ca3add72381e7bb22":[4,56,2,3],
+"group__group__wdt__functions.html#ga709f597d56e7f7fb6717d5ff671491fa":[4,56,2,7],
+"group__group__wdt__functions.html#ga727d9ae6fdba36809bf631985a3eb987":[4,56,2,4],
 "group__group__wdt__functions.html#ga73fa85d671d84a6e318ea363a61eac72":[4,56,2,17],
 "group__group__wdt__functions.html#ga77552627bbcbe8ded86f52b67f5f12b3":[4,56,2,15],
 "group__group__wdt__functions.html#ga82aec7e454d05d03dfd1d6fd5e573d5e":[4,56,2,6],
@@ -241,13 +249,5 @@ var NAVTREEINDEX36 =
 "structcy__stc__canfd__tx__buffer__t.html":[4,4,2,5],
 "structcy__stc__canfd__tx__buffer__t.html#a5ea9b11312a86308081d1afbb7774b30":[4,4,2,5,2],
 "structcy__stc__canfd__tx__buffer__t.html#abf34a8342fded952c54e85f3865ed1e5":[4,4,2,5,0],
-"structcy__stc__canfd__tx__buffer__t.html#af3ed5987e09533673317136f35bd9a2c":[4,4,2,5,1],
-"structcy__stc__clk__eco__config__t.html":[4,46,0,1],
-"structcy__stc__clk__eco__config__t.html#a130869c0af82a258e3f5c769c1797802":[4,46,0,1,2],
-"structcy__stc__clk__eco__config__t.html#a6591f5b530e57f67a7fffadc056e360c":[4,46,0,1,0],
-"structcy__stc__clk__eco__config__t.html#a815db325d8a7e1aea7d11976a17a6098":[4,46,0,1,1],
-"structcy__stc__clk__eco__config__t.html#a9dcd7ef4d908f9a1c55c504239ed8078":[4,46,0,1,3],
-"structcy__stc__clkhf__csv__hf__config__t.html":[4,46,14,1,1],
-"structcy__stc__clkhf__csv__hf__config__t.html#a0c1a8decbfec21b199e9753e710acce1":[4,46,14,1,1,0],
-"structcy__stc__clkhf__csv__hf__config__t.html#a0fd9b89c90e3dda10c14484260415670":[4,46,14,1,1,1]
+"structcy__stc__canfd__tx__buffer__t.html#af3ed5987e09533673317136f35bd9a2c":[4,4,2,5,1]
 };

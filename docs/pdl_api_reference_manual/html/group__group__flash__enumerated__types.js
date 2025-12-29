@@ -1,10 +1,16 @@
 var group__group__flash__enumerated__types =
 [
+    [ "cy_stc_flash_callback_t", "structcy__stc__flash__callback__t.html", [
+      [ "callback_before_operation", "structcy__stc__flash__callback__t.html#aa58f176318c1c068b03934982c22ab5f", null ],
+      [ "callback_operation_started", "structcy__stc__flash__callback__t.html#a357fc1b6ca34e4f169bc2244f25e67e1", null ],
+      [ "callback_operation_complete", "structcy__stc__flash__callback__t.html#a69da2cda19e35419d9da81a08d9804a6", null ]
+    ] ],
     [ "cy_stc_flash_notify_t", "structcy__stc__flash__notify__t.html", [
       [ "clientID", "structcy__stc__flash__notify__t.html#a229a77177cf992ec268a46def2fd2967", null ],
       [ "pktType", "structcy__stc__flash__notify__t.html#ab5674d3c5f5912ab008486aca20ccd70", null ],
       [ "intrRelMask", "structcy__stc__flash__notify__t.html#a56206a89f36101e96916effa3bf13a11", null ]
     ] ],
+    [ "cy_flash_callback_t", "group__group__flash__enumerated__types.html#ga56788cd89610b7c7c59cc47bfb942505", null ],
     [ "cy_en_flashdrv_status_t", "group__group__flash__enumerated__types.html#gae3ceedae602af2dd75864cf38246f496", [
       [ "CY_FLASH_DRV_SUCCESS", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a897d5be5e24dc4bc3dd18fed0dc46b02", null ],
       [ "CY_FLASH_DRV_INV_PROT", "group__group__flash__enumerated__types.html#ggae3ceedae602af2dd75864cf38246f496a1d1b380ee06fc3fe465b9b86ceeb190e", null ],

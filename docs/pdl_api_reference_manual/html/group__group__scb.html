@@ -99,6 +99,14 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>3.50 </td><td>Added new functions support for I2C:<ul>
+<li><a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga1058ef8da75ae8257a29cc6917c353c2">Cy_SCB_I2C_RegisterMasterByteReceivedCallback</a></li>
+<li><a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga85d11cfcdb29446f84dbfd03227fc9a9">Cy_SCB_I2C_RegisterSlaveByteReceivedCallback</a></li>
+<li><a class="el" href="group__group__scb__i2c__slave__functions.html#ga31b43100a2936a423fc0e37f86b8a4cc">Cy_SCB_I2C_SlavePauseTransmit</a></li>
+<li><a class="el" href="group__group__scb__i2c__slave__functions.html#gaefea891ed95e77c84a42c2af77b6176e">Cy_SCB_I2C_SlaveResumeTransmit</a> </li>
+</ul>
+</td><td>Enhanced I2C data handling capabilities.  </td></tr>
+<tr>
 <td rowspan="3">3.40 </td><td>Added new I2C Callback Events and I2C Slave Status macros:<ul>
 <li><a class="el" href="group__group__scb__i2c__macros__callback__events.html#gae8910e21e4b8d63c7fda07e9ea07cbf4">CY_SCB_I2C_SLAVE_RESTART_EVENT</a>.</li>
 <li><a class="el" href="group__group__scb__i2c__macros__callback__events.html#gac110f8788f66ce6c3aa469b4f716986b">CY_SCB_I2C_SLAVE_STOP_ANY_EVENT</a>.</li>
@@ -107,7 +115,7 @@ Changelog</h1>
 </ul>
 </td><td>Enhanced I2C event handling and status reporting capabilities.  </td></tr>
 <tr>
-<td>Added Byte Received Callback support for I2C. Added new API <a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga6cb69da83588e0c1dfb023313e25b289">Cy_SCB_I2C_RegisterByteReceivedCallback</a>. </td><td>Enhanced I2C data handling capabilities.  </td></tr>
+<td>Added Byte Received Callback support for I2C. Added new API Cy_SCB_I2C_RegisterByteReceivedCallback. </td><td>Enhanced I2C data handling capabilities.  </td></tr>
 <tr>
 <td>Fixed EZI2C: The address is interpreted as a data byte if the interrupt is not handled in time, particularly when the transfer has a Repeated Start or when several transfers are initiated one-by-one with the minimal time interval. Applicable only if two addresses are enabled. </td><td>Bug fix.  </td></tr>
 <tr>

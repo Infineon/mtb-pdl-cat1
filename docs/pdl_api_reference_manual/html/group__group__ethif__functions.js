@@ -14,5 +14,6 @@ var group__group__ethif__functions =
     [ "Cy_ETHIF_SetFilterAddress", "group__group__ethif__functions.html#gae1e4a3b569b31428139a6438270fcf68", null ],
     [ "Cy_ETHIF_SetPromiscuousMode", "group__group__ethif__functions.html#gaf8d35737b9699f34ccfab2cea2963138", null ],
     [ "Cy_ETHIF_SetNoBroadCast", "group__group__ethif__functions.html#ga235639be20c8ed71644258d03af0c645", null ],
-    [ "Cy_ETHIF_DiscardNonVLANFrames", "group__group__ethif__functions.html#ga74a4c26a1d44dd43bc923eac2e0fc5fe", null ]
+    [ "Cy_ETHIF_DiscardNonVLANFrames", "group__group__ethif__functions.html#ga74a4c26a1d44dd43bc923eac2e0fc5fe", null ],
+    [ "Cy_ETHIF_GetPrivateData", "group__group__ethif__functions.html#ga6a622e35658a67697cac053c4d3d4c88", null ]
 ];

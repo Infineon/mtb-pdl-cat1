@@ -1,5 +1,11 @@
 var NAVTREEINDEX28 =
 {
+"group__group__sysclk__trim__funcs.html#gade35b7c0258b0eeabba38043134b1828":[4,46,10,0,2],
+"group__group__sysclk__wco.html":[4,46,12],
+"group__group__sysclk__wco__enums.html":[4,46,12,1],
+"group__group__sysclk__wco__enums.html#ga54c5465a9f694e1e71cf1ca2598d2fd7":[4,46,12,1,0],
+"group__group__sysclk__wco__enums.html#gga54c5465a9f694e1e71cf1ca2598d2fd7a71a9b78b95df656646dbae3aa9d84329":[4,46,12,1,0,1],
+"group__group__sysclk__wco__enums.html#gga54c5465a9f694e1e71cf1ca2598d2fd7a97a63e1ffac719d648cce8fedbb048f9":[4,46,12,1,0,0],
 "group__group__sysclk__wco__funcs.html":[4,46,12,0],
 "group__group__sysclk__wco__funcs.html#ga0990b94c499652b8f5c2dd1cf6abf95e":[4,46,12,0,2],
 "group__group__sysclk__wco__funcs.html#ga9e8ae5164397bf3bd0374d957405b9cf":[4,46,12,0,1],
@@ -96,6 +102,7 @@ var NAVTREEINDEX28 =
 "group__group__sysint.html#ga06c8142ccb50c175443ac78951ea4d21":[4,48,5],
 "group__group__sysint.html#ga3b9f1b9de4f122495a8b6580ce500d9a":[4,48,6],
 "group__group__sysint__data__structures.html":[4,48,3],
+"group__group__sysint__data__structures.html#gaf3d8b6082dd6b0d1f21a5ff67166d756":[4,48,3,1],
 "group__group__sysint__enums.html":[4,48,4],
 "group__group__sysint__enums.html#ga01619b224f9d5c23915e51783ea184c8":[4,48,4,2],
 "group__group__sysint__enums.html#ga07f7e918a4abcd8e1da910e9642e6ccb":[4,48,4,3],
@@ -120,6 +127,7 @@ var NAVTREEINDEX28 =
 "group__group__sysint__functions.html#ga7caa3ebc40ed414983d1330e01dbb932":[4,48,2,5],
 "group__group__sysint__functions.html#ga7dc474639ecee7d1014e94464ca72520":[4,48,2,9],
 "group__group__sysint__functions.html#ga9e42b44b1946290e12f25ff5042f1fc0":[4,48,2,6],
+"group__group__sysint__functions.html#gab2c1e70c5151e021f2e7283408617acd":[4,48,2,16],
 "group__group__sysint__functions.html#gab2ff6820a898e9af3f780000054eea5d":[4,48,2,0],
 "group__group__sysint__functions.html#gac3feeb7969667eebe109ecab98dbfbb2":[4,48,2,2],
 "group__group__sysint__functions.html#gac9dbdadbfad60830b215cc9ca4a14cdc":[4,48,2,10],
@@ -241,13 +249,5 @@ var NAVTREEINDEX28 =
 "group__group__syslib__macros__reset__cause.html":[4,49,0,2],
 "group__group__syslib__macros__reset__cause.html#ga07916f36b0a552bb53f5dd507fd464ea":[4,49,0,2,6],
 "group__group__syslib__macros__reset__cause.html#ga0d320f6610ee7f457bfd8798c2da91ca":[4,49,0,2,9],
-"group__group__syslib__macros__reset__cause.html#ga1e13f4eb0894bab7da23ff11e7bc5b35":[4,49,0,2,10],
-"group__group__syslib__macros__reset__cause.html#ga1e99c58e36c9f0d90fb108bc59de8983":[4,49,0,2,20],
-"group__group__syslib__macros__reset__cause.html#ga2490062d21c8c5c7935bdf854b312858":[4,49,0,2,17],
-"group__group__syslib__macros__reset__cause.html#ga344f70a566a5c9a5cc155bd1e3482328":[4,49,0,2,3],
-"group__group__syslib__macros__reset__cause.html#ga35546f2d5563315369a1b7378245bb70":[4,49,0,2,25],
-"group__group__syslib__macros__reset__cause.html#ga37988ee67e1330dd35382c557497b24e":[4,49,0,2,7],
-"group__group__syslib__macros__reset__cause.html#ga38c30b821ab37545d12e840729b7886b":[4,49,0,2,22],
-"group__group__syslib__macros__reset__cause.html#ga3a56e49329f1b1a8b0f3f01b23982e3f":[4,49,0,2,0],
-"group__group__syslib__macros__reset__cause.html#ga3bfecc977d82eb0c3ac76e128f6dc5a5":[4,49,0,2,23]
+"group__group__syslib__macros__reset__cause.html#ga1e13f4eb0894bab7da23ff11e7bc5b35":[4,49,0,2,10]
 };

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg [
+<!-- Core PWM parameters (dynamic from personality) -->
+<!ENTITY PWM_PERIOD "65535" >
+<!ENTITY PWM_COMPARE0 "16384" >
+<!ENTITY DEADTIME_CLOCKS "10">
+<!ENTITY DEADTIME_CLOCKS_COMPL "10">
+
+<!-- Layout coordinates for PWM output signals -->
+<!ENTITY LINE_CC0_Y_H "130">
+<!ENTITY LINE_CC0_Y_L "160">
+<!ENTITY LINE_CC0_N_Y_H "180">
+<!ENTITY LINE_CC0_N_Y_L "210">
+<!ENTITY LINE_CC1_Y_H "260">
+<!ENTITY LINE_CC1_Y_L "290">
+<!ENTITY LINE_CC1_N_Y_H "310">
+<!ENTITY LINE_CC1_N_Y_L "340">
+
+<!-- Period timing for 2 periods -->
+<!ENTITY PERIOD1_START_X "50">
+<!ENTITY PERIOD1_END_X "400">
+<!ENTITY PERIOD2_START_X "400">
+<!ENTITY PERIOD2_END_X "750">
+
+<!-- Dead time transition points -->
+<!ENTITY COMPARE_MATCH_X1 "175">  <!-- Compare match in period 1 -->
+<!ENTITY COMPARE_MATCH_X2 "525">  <!-- Compare match in period 2 -->
+
+<!-- Dead time delays for PWM signal (delayed rising edge) - Dynamic from personality -->
+<!ENTITY DT_PWM_P1_RISING_X "50">      <!-- Period start -->
+<!ENTITY DT_PWM_P1_RISING_DELAYED_X "65">  <!-- Dynamic from personality substitution -->
+<!ENTITY DT_PWM_P1_FALLING_X "175">    <!-- Compare match falling -->
+<!ENTITY DT_PWM_P1_FALLING_DELAYED_X "175">  <!-- Dynamic from personality substitution -->
+
+<!ENTITY DT_PWM_P2_RISING_X "400">     <!-- Period 2 start -->
+<!ENTITY DT_PWM_P2_RISING_DELAYED_X "415">  <!-- Dynamic from personality substitution -->
+<!ENTITY DT_PWM_P2_FALLING_X "525">    <!-- Compare match falling -->
+<!ENTITY DT_PWM_P2_FALLING_DELAYED_X "525">  <!-- Dynamic from personality substitution -->
+
+<!-- Dead time delays for PWM_N signal (complementary - inverted timing) - Dynamic from personality -->
+<!ENTITY DT_PWM_N_P1_FALLING_X "50">   <!-- PWM_N falls when PWM rises (period start) -->
+<!ENTITY DT_PWM_N_P1_FALLING_DELAYED_X "65">  <!-- Dynamic from personality substitution -->
+<!ENTITY DT_PWM_N_P1_RISING_X "175">   <!-- PWM_N rises when PWM falls (compare match) -->
+<!ENTITY DT_PWM_N_P1_RISING_DELAYED_X "190">  <!-- Dynamic from personality substitution -->
+
+<!ENTITY DT_PWM_N_P2_FALLING_X "400">  <!-- PWM_N falls when PWM rises (period 2 start) -->
+<!ENTITY DT_PWM_N_P2_FALLING_DELAYED_X "415">  <!-- Dynamic from personality substitution -->
+<!ENTITY DT_PWM_N_P2_RISING_X "525" >   <!-- PWM_N rises when PWM falls (period 2 end) -->
+<!ENTITY DT_PWM_N_P2_RISING_DELAYED_X "540" >  <!-- Dynamic from personality substitution -->
+
+<!-- CC0 uses same timing as PWM, so CC0_P*_Y1 same as PWM_P*_Y1 -->
+<!ENTITY DT_CC0_P1_RISING_Y1 "130" >  <!-- (160 if overlap, 130 normal) -->
+<!ENTITY DT_CC0_P2_RISING_Y1 "130" >  <!-- (160 if overlap, 130 normal) -->
+<!ENTITY DT_CC0_N_P1_RISING_Y1 "180" >  <!-- (210 if overlap, 180 normal) -->
+<!ENTITY DT_CC0_N_P2_RISING_Y1 "180" >  <!-- (210 if overlap, 180 normal) -->
+<!ENTITY DT_CC0_P1_FALLING_Y1 "130" >  <!-- (160 if overlap, 130 normal) -->
+<!ENTITY DT_CC0_P2_FALLING_Y1 "130" >  <!-- (160 if overlap, 130 normal) -->
+<!ENTITY DT_CC0_N_P1_FALLING_Y1 "180" >  <!-- (210 if overlap, 180 normal) -->
+<!ENTITY DT_CC0_N_P2_FALLING_Y1 "180" >  <!-- (210 if overlap, 180 normal) -->
+
+<!-- CC1 signal timing (offset to the right) - Dynamic from personality -->
+<!ENTITY DT_CC1_P1_RISING_X "250">      <!-- CC1 Period start -->
+<!ENTITY DT_CC1_P1_RISING_DELAYED_X "265">  <!-- Dynamic from personality substitution (offset right) -->
+<!ENTITY DT_CC1_P1_FALLING_X "375">    <!-- CC1 Compare match falling -->
+<!ENTITY DT_CC1_P1_FALLING_DELAYED_X "375">  <!-- Dynamic from personality substitution -->
+
+<!ENTITY DT_CC1_P2_RISING_X "600">     <!-- CC1 Period 2 start -->
+<!ENTITY DT_CC1_P2_RISING_DELAYED_X "615">  <!-- Dynamic from personality substitution (offset right) -->
+<!ENTITY DT_CC1_P2_FALLING_X "725">    <!-- CC1 Compare match falling -->
+<!ENTITY DT_CC1_P2_FALLING_DELAYED_X "725">  <!-- Dynamic from personality substitution -->
+
+<!-- CC1_N signal timing (complementary - offset to the right) - Dynamic from personality -->
+<!ENTITY DT_CC1_N_P1_FALLING_X "250">   <!-- CC1_N falls when CC1 rises (period start) -->
+<!ENTITY DT_CC1_N_P1_FALLING_DELAYED_X "265">  <!-- Dynamic from personality substitution (offset right) -->
+<!ENTITY DT_CC1_N_P1_RISING_X "375">   <!-- CC1_N rises when CC1 falls (compare match) -->
+<!ENTITY DT_CC1_N_P1_RISING_DELAYED_X "390">  <!-- Dynamic from personality substitution (offset right) -->
+
+<!ENTITY DT_CC1_N_P2_FALLING_X "600">  <!-- CC1_N falls when CC1 rises (period 2 start) -->
+<!ENTITY DT_CC1_N_P2_FALLING_DELAYED_X "615">  <!-- Dynamic from personality substitution (offset right) -->
+<!ENTITY DT_CC1_N_P2_RISING_X "725" >   <!-- CC1_N rises when CC1 falls (period 2 end) -->
+<!ENTITY DT_CC1_N_P2_RISING_DELAYED_X "740" >  <!-- Dynamic from personality substitution (offset right) -->
+
+<!-- CC1 signal Y1 entities (offset timing) -->
+<!ENTITY DT_CC1_P1_RISING_Y1 "260" >  <!-- (290 if overlap, 260 normal) -->
+<!ENTITY DT_CC1_P2_RISING_Y1 "260" >  <!-- (290 if overlap, 260 normal) -->
+<!ENTITY DT_CC1_N_P1_RISING_Y1 "310" >  <!-- (340 if overlap, 310 normal) -->
+<!ENTITY DT_CC1_N_P2_RISING_Y1 "310" >  <!-- (340 if overlap, 310 normal) -->
+<!ENTITY DT_CC1_P1_FALLING_Y1 "260" >  <!-- (290 if overlap, 260 normal) -->
+<!ENTITY DT_CC1_P2_FALLING_Y1 "260" >  <!-- (290 if overlap, 260 normal) -->
+<!ENTITY DT_CC1_N_P1_FALLING_Y1 "310" >  <!-- (340 if overlap, 310 normal) -->
+<!ENTITY DT_CC1_N_P2_FALLING_Y1 "310" >  <!-- (340 if overlap, 310 normal) -->
+
+<!-- CC1_N horizontal line Y coordinates (conditional for overlap) -->
+<!ENTITY DT_CC1_N_P1_HORIZ_Y "340" >  <!-- (310 if overlap, 340 normal) -->
+<!ENTITY DT_CC1_N_P2_HORIZ_Y "340" >  <!-- (310 if overlap, 340 normal) -->
+
+<!-- Colors -->
+<!ENTITY IFX_COLOR_BERRY400 "#BE3283" >
+<!ENTITY IFX_COLOR_LAWN500 "#9BBA43" >
+<!ENTITY IFX_COLOR_ORANGE "#FF8C00" >
+<!ENTITY IFX_COLOR_BLACK "#1D1D1D" >
+<!ENTITY IFX_COLOR_GRAY "#808080" >
+]
+>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 390" width="800" height="390" style="background: white;">
+  <!-- Title -->
+  <text x="400" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="&IFX_COLOR_BLACK;">Dead Time PWM (Not for scale)</text>
+  <text x="400" y="45" font-family="Arial" font-size="12" text-anchor="middle" fill="&IFX_COLOR_GRAY;">Dead Time: &DEADTIME_CLOCKS; / &DEADTIME_CLOCKS_COMPL; clocks</text>
+
+  <!-- Period boundaries -->
+  <line x1="&PERIOD1_START_X;" y1="60" x2="&PERIOD1_START_X;" y2="400" stroke="&IFX_COLOR_GRAY;" stroke-width="1" stroke-dasharray="2,2" opacity="0.5" />
+  <line x1="&PERIOD1_END_X;" y1="60" x2="&PERIOD1_END_X;" y2="400" stroke="&IFX_COLOR_GRAY;" stroke-width="1" stroke-dasharray="2,2" opacity="0.5" />
+  <line x1="&PERIOD2_END_X;" y1="60" x2="&PERIOD2_END_X;" y2="400" stroke="&IFX_COLOR_GRAY;" stroke-width="1" stroke-dasharray="2,2" opacity="0.5" />
+  
+  <!-- Period labels -->
+  <text x="225" y="75" font-family="Arial" font-size="10" text-anchor="middle" fill="&IFX_COLOR_GRAY;">Period 0</text>
+  <text x="575" y="75" font-family="Arial" font-size="10" text-anchor="middle" fill="&IFX_COLOR_GRAY;">Period 1</text>
+
+  <!-- Compare match indicators -->
+  <line x1="&COMPARE_MATCH_X1;" y1="85" x2="&COMPARE_MATCH_X1;" y2="400" stroke="&IFX_COLOR_BERRY400;" stroke-width="2" stroke-dasharray="5,5" />
+  <line x1="&COMPARE_MATCH_X2;" y1="85" x2="&COMPARE_MATCH_X2;" y2="400" stroke="&IFX_COLOR_BERRY400;" stroke-width="2" stroke-dasharray="5,5" />
+  
+  <text x="&COMPARE_MATCH_X1;" y="100" font-family="Arial" font-size="9" text-anchor="middle" fill="&IFX_COLOR_BERRY400;">Compare</text>
+  <text x="&COMPARE_MATCH_X2;" y="100" font-family="Arial" font-size="9" text-anchor="middle" fill="&IFX_COLOR_BERRY400;">Compare</text>
+
+  <!-- Compare1 match indicators (for CC1 signals) -->
+  <line x1="375" y1="85" x2="375" y2="390" stroke="&IFX_COLOR_ORANGE;" stroke-width="2" stroke-dasharray="5,5" />
+  <line x1="725" y1="85" x2="725" y2="390" stroke="&IFX_COLOR_ORANGE;" stroke-width="2" stroke-dasharray="5,5" />
+  
+  <text x="375" y="100" font-family="Arial" font-size="9" text-anchor="middle" fill="&IFX_COLOR_ORANGE;">Compare1</text>
+  <text x="725" y="100" font-family="Arial" font-size="9" text-anchor="middle" fill="&IFX_COLOR_ORANGE;">Compare1</text>
+
+  <!-- PWM Signal -->
+  <text x="20" y="145" font-family="Arial" font-size="10" font-weight="bold" fill="&IFX_COLOR_BERRY400;">CC0</text>
+  <!-- Period 1 PWM signal with delayed rising edge -->
+  <line x1="&PERIOD1_START_X;" y1="&LINE_CC0_Y_L;" x2="&DT_PWM_P1_RISING_DELAYED_X;" y2="&LINE_CC0_Y_L;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+  <line x1="&DT_PWM_P1_RISING_DELAYED_X;" y1="&DT_CC0_P1_RISING_Y1;" x2="&DT_PWM_P1_RISING_DELAYED_X;" y2="&LINE_CC0_Y_H;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+  <line x1="&DT_PWM_P1_RISING_DELAYED_X;" y1="&LINE_CC0_Y_H;" x2="&DT_PWM_P1_FALLING_DELAYED_X;" y2="&LINE_CC0_Y_H;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+  <line x1="&DT_PWM_P1_FALLING_DELAYED_X;" y1="&DT_CC0_P1_FALLING_Y1;" x2="&DT_PWM_P1_FALLING_DELAYED_X;" y2="&LINE_CC0_Y_L;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+  <!-- Period 2 PWM signal with delayed rising edge -->
+  <line x1="&DT_PWM_P1_FALLING_DELAYED_X;" y1="&LINE_CC0_Y_L;" x2="&DT_PWM_P2_RISING_DELAYED_X;" y2="&LINE_CC0_Y_L;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+  <line x1="&DT_PWM_P2_RISING_DELAYED_X;" y1="&DT_CC0_P2_RISING_Y1;" x2="&DT_PWM_P2_RISING_DELAYED_X;" y2="&LINE_CC0_Y_H;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+  <line x1="&DT_PWM_P2_RISING_DELAYED_X;" y1="&LINE_CC0_Y_H;" x2="&DT_PWM_P2_FALLING_DELAYED_X;" y2="&LINE_CC0_Y_H;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+  <line x1="&DT_PWM_P2_FALLING_DELAYED_X;" y1="&DT_CC0_P2_FALLING_Y1;" x2="&DT_PWM_P2_FALLING_DELAYED_X;" y2="&LINE_CC0_Y_L;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+  <line x1="&DT_PWM_P2_FALLING_DELAYED_X;" y1="&LINE_CC0_Y_L;" x2="&PERIOD2_END_X;" y2="&LINE_CC0_Y_L;" stroke="&IFX_COLOR_BERRY400;" stroke-width="3" />
+
+  <!-- PWM_N Signal (Complementary - truly inverted with dead time) -->
+  <text x="15" y="195" font-family="Arial" font-size="10" font-weight="bold" fill="&IFX_COLOR_LAWN500;">CC0_N</text>
+  <!-- Period 1 PWM_N signal - starts HIGH, falls with delay when PWM rises, rises with delay when PWM falls -->
+  <line x1="&PERIOD1_START_X;" y1="&LINE_CC0_N_Y_H;" x2="&DT_PWM_N_P1_FALLING_DELAYED_X;" y2="&LINE_CC0_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_PWM_N_P1_FALLING_DELAYED_X;" y1="&DT_CC0_N_P1_FALLING_Y1;" x2="&DT_PWM_N_P1_FALLING_DELAYED_X;" y2="&LINE_CC0_N_Y_L;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_PWM_N_P1_FALLING_DELAYED_X;" y1="&LINE_CC0_N_Y_L;" x2="&DT_PWM_N_P1_RISING_DELAYED_X;" y2="&LINE_CC0_N_Y_L;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_PWM_N_P1_RISING_DELAYED_X;" y1="&DT_CC0_N_P1_RISING_Y1;" x2="&DT_PWM_N_P1_RISING_DELAYED_X;" y2="&LINE_CC0_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <!-- Period 2 PWM_N signal - continues HIGH, falls with delay when PWM rises, rises with delay when PWM falls -->
+  <line x1="&DT_PWM_N_P1_RISING_DELAYED_X;" y1="&LINE_CC0_N_Y_H;" x2="&DT_PWM_N_P2_FALLING_DELAYED_X;" y2="&LINE_CC0_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_PWM_N_P2_FALLING_DELAYED_X;" y1="&DT_CC0_N_P2_FALLING_Y1;" x2="&DT_PWM_N_P2_FALLING_DELAYED_X;" y2="&LINE_CC0_N_Y_L;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_PWM_N_P2_FALLING_DELAYED_X;" y1="&LINE_CC0_N_Y_L;" x2="&DT_PWM_N_P2_RISING_DELAYED_X;" y2="&LINE_CC0_N_Y_L;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_PWM_N_P2_RISING_DELAYED_X;" y1="&DT_CC0_N_P2_RISING_Y1;" x2="&DT_PWM_N_P2_RISING_DELAYED_X;" y2="&LINE_CC0_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_PWM_N_P2_RISING_DELAYED_X;" y1="&LINE_CC0_N_Y_H;" x2="&PERIOD2_END_X;" y2="&LINE_CC0_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+
+  <!-- CC1 Signal (same as CC0 but different timing) -->
+  <text x="20" y="295" font-family="Arial" font-size="10" font-weight="bold" fill="&IFX_COLOR_ORANGE;">CC1</text>
+  <!-- Period 1 CC1 signal with delayed rising edge -->
+  <line x1="&PERIOD1_START_X;" y1="&LINE_CC1_Y_L;" x2="&DT_CC1_P1_RISING_DELAYED_X;" y2="&LINE_CC1_Y_L;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+  <line x1="&DT_CC1_P1_RISING_DELAYED_X;" y1="&DT_CC1_P1_RISING_Y1;" x2="&DT_CC1_P1_RISING_DELAYED_X;" y2="&LINE_CC1_Y_H;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+  <line x1="&DT_CC1_P1_RISING_DELAYED_X;" y1="&LINE_CC1_Y_H;" x2="&DT_CC1_P1_FALLING_DELAYED_X;" y2="&LINE_CC1_Y_H;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+  <line x1="&DT_CC1_P1_FALLING_DELAYED_X;" y1="&DT_CC1_P1_FALLING_Y1;" x2="&DT_CC1_P1_FALLING_DELAYED_X;" y2="&LINE_CC1_Y_L;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+  <!-- Period 2 CC1 signal with delayed rising edge -->
+  <line x1="&DT_CC1_P1_FALLING_DELAYED_X;" y1="&LINE_CC1_Y_L;" x2="&DT_CC1_P2_RISING_DELAYED_X;" y2="&LINE_CC1_Y_L;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+  <line x1="&DT_CC1_P2_RISING_DELAYED_X;" y1="&DT_CC1_P2_RISING_Y1;" x2="&DT_CC1_P2_RISING_DELAYED_X;" y2="&LINE_CC1_Y_H;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+  <line x1="&DT_CC1_P2_RISING_DELAYED_X;" y1="&LINE_CC1_Y_H;" x2="&DT_CC1_P2_FALLING_DELAYED_X;" y2="&LINE_CC1_Y_H;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+  <line x1="&DT_CC1_P2_FALLING_DELAYED_X;" y1="&DT_CC1_P2_FALLING_Y1;" x2="&DT_CC1_P2_FALLING_DELAYED_X;" y2="&LINE_CC1_Y_L;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+  <line x1="&DT_CC1_P2_FALLING_DELAYED_X;" y1="&LINE_CC1_Y_L;" x2="&PERIOD2_END_X;" y2="&LINE_CC1_Y_L;" stroke="&IFX_COLOR_ORANGE;" stroke-width="3" />
+
+  <!-- CC1_N Signal (Complementary - truly inverted with dead time) -->
+  <text x="10" y="345" font-family="Arial" font-size="10" font-weight="bold" fill="&IFX_COLOR_LAWN500;">CC1_N</text>
+  <!-- Period 1 CC1_N signal - starts HIGH, falls with delay when CC1 rises, rises with delay when CC1 falls -->
+  <line x1="&PERIOD1_START_X;" y1="&LINE_CC1_N_Y_H;" x2="&DT_CC1_N_P1_FALLING_DELAYED_X;" y2="&LINE_CC1_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_CC1_N_P1_FALLING_DELAYED_X;" y1="&DT_CC1_N_P1_FALLING_Y1;" x2="&DT_CC1_N_P1_FALLING_DELAYED_X;" y2="&LINE_CC1_N_Y_L;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_CC1_N_P1_FALLING_DELAYED_X;" y1="&DT_CC1_N_P1_HORIZ_Y;" x2="&DT_CC1_N_P1_RISING_DELAYED_X;" y2="&DT_CC1_N_P1_HORIZ_Y;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_CC1_N_P1_RISING_DELAYED_X;" y1="&DT_CC1_N_P1_RISING_Y1;" x2="&DT_CC1_N_P1_RISING_DELAYED_X;" y2="&LINE_CC1_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <!-- Period 2 CC1_N signal - continues HIGH, falls with delay when CC1 rises, rises with delay when CC1 falls -->
+  <line x1="&DT_CC1_N_P1_RISING_DELAYED_X;" y1="&LINE_CC1_N_Y_H;" x2="&DT_CC1_N_P2_FALLING_DELAYED_X;" y2="&LINE_CC1_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_CC1_N_P2_FALLING_DELAYED_X;" y1="&DT_CC1_N_P2_FALLING_Y1;" x2="&DT_CC1_N_P2_FALLING_DELAYED_X;" y2="&LINE_CC1_N_Y_L;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_CC1_N_P2_FALLING_DELAYED_X;" y1="&DT_CC1_N_P2_HORIZ_Y;" x2="&DT_CC1_N_P2_RISING_DELAYED_X;" y2="&DT_CC1_N_P2_HORIZ_Y;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_CC1_N_P2_RISING_DELAYED_X;" y1="&DT_CC1_N_P2_RISING_Y1;" x2="&DT_CC1_N_P2_RISING_DELAYED_X;" y2="&LINE_CC1_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+  <line x1="&DT_CC1_N_P2_RISING_DELAYED_X;" y1="&LINE_CC1_N_Y_H;" x2="&PERIOD2_END_X;" y2="&LINE_CC1_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" stroke-width="3" />
+
+  <!-- Dead Time Annotations -->
+  <!-- PWM rising edge delay in Period 1 -->
+  <line x1="&PERIOD1_START_X;" y1="110" x2="&DT_PWM_P1_RISING_DELAYED_X;" y2="110" stroke="red" stroke-width="2" />
+  <text x="110" y="105" font-family="Arial" font-size="8" text-anchor="middle" fill="red">CC0 DT</text>
+  <line x1="&PERIOD1_START_X;" y1="105" x2="&PERIOD1_START_X;" y2="115" stroke="red" stroke-width="2" />
+  <line x1="&DT_PWM_P1_RISING_DELAYED_X;" y1="105" x2="&DT_PWM_P1_RISING_DELAYED_X;" y2="115" stroke="red" stroke-width="2" />
+
+  <!-- PWM_N rising edge delay in Period 1 (after PWM falls) -->
+  <line x1="&COMPARE_MATCH_X1;" y1="220" x2="&DT_PWM_N_P1_RISING_DELAYED_X;" y2="220" stroke="green" stroke-width="2" />
+  <text x="207" y="215" font-family="Arial" font-size="8" text-anchor="middle" fill="green">CC0_N DT</text>
+  <line x1="&COMPARE_MATCH_X1;" y1="215" x2="&COMPARE_MATCH_X1;" y2="225" stroke="green" stroke-width="2" />
+  <line x1="&DT_PWM_N_P1_RISING_DELAYED_X;" y1="215" x2="&DT_PWM_N_P1_RISING_DELAYED_X;" y2="225" stroke="green" stroke-width="2" />
+
+  <!-- PWM rising edge delay in Period 2 -->
+  <line x1="&PERIOD2_START_X;" y1="110" x2="&DT_PWM_P2_RISING_DELAYED_X;" y2="110" stroke="red" stroke-width="2" />
+  <text x="460" y="105" font-family="Arial" font-size="8" text-anchor="middle" fill="red">CC0 DT</text>
+  <line x1="&PERIOD2_START_X;" y1="105" x2="&PERIOD2_START_X;" y2="115" stroke="red" stroke-width="2" />
+  <line x1="&DT_PWM_P2_RISING_DELAYED_X;" y1="105" x2="&DT_PWM_P2_RISING_DELAYED_X;" y2="115" stroke="red" stroke-width="2" />
+
+  <!-- PWM_N rising edge delay in Period 2 (after PWM falls) -->
+  <line x1="&COMPARE_MATCH_X2;" y1="220" x2="&DT_PWM_N_P2_RISING_DELAYED_X;" y2="220" stroke="green" stroke-width="2" />
+  <text x="557" y="215" font-family="Arial" font-size="8" text-anchor="middle" fill="green">CC0_N DT</text>
+  <line x1="&COMPARE_MATCH_X2;" y1="215" x2="&COMPARE_MATCH_X2;" y2="225" stroke="green" stroke-width="2" />
+  <line x1="&DT_PWM_N_P2_RISING_DELAYED_X;" y1="215" x2="&DT_PWM_N_P2_RISING_DELAYED_X;" y2="225" stroke="green" stroke-width="2" />
+
+  <!-- CC1 rising edge delay in Period 1 -->
+  <line x1="&PERIOD1_START_X;" y1="310" x2="&DT_CC1_P1_RISING_DELAYED_X;" y2="310" stroke="red" stroke-width="2" />
+  <text x="110" y="305" font-family="Arial" font-size="8" text-anchor="middle" fill="red">CC1 DT</text>
+  <line x1="&PERIOD1_START_X;" y1="305" x2="&PERIOD1_START_X;" y2="315" stroke="red" stroke-width="2" />
+  <line x1="&DT_CC1_P1_RISING_DELAYED_X;" y1="305" x2="&DT_CC1_P1_RISING_DELAYED_X;" y2="315" stroke="red" stroke-width="2" />
+
+  <!-- CC1_N rising edge delay in Period 1 (after PWM falls) -->
+  <line x1="&COMPARE_MATCH_X1;" y1="320" x2="&DT_CC1_N_P1_RISING_DELAYED_X;" y2="320" stroke="green" stroke-width="2" />
+  <text x="207" y="315" font-family="Arial" font-size="8" text-anchor="middle" fill="green">CC1_N DT</text>
+  <line x1="&COMPARE_MATCH_X1;" y1="315" x2="&COMPARE_MATCH_X1;" y2="325" stroke="green" stroke-width="2" />
+  <line x1="&DT_CC1_N_P1_RISING_DELAYED_X;" y1="315" x2="&DT_CC1_N_P1_RISING_DELAYED_X;" y2="325" stroke="green" stroke-width="2" />
+
+  <!-- CC1 rising edge delay in Period 2 -->
+  <line x1="&PERIOD2_START_X;" y1="310" x2="&DT_CC1_P2_RISING_DELAYED_X;" y2="310" stroke="red" stroke-width="2" />
+  <text x="460" y="305" font-family="Arial" font-size="8" text-anchor="middle" fill="red">CC1 DT</text>
+  <line x1="&PERIOD2_START_X;" y1="305" x2="&PERIOD2_START_X;" y2="315" stroke="red" stroke-width="2" />
+  <line x1="&DT_CC1_P2_RISING_DELAYED_X;" y1="305" x2="&DT_CC1_P2_RISING_DELAYED_X;" y2="315" stroke="red" stroke-width="2" />
+
+  <!-- CC1_N rising edge delay in Period 2 (after PWM falls) -->
+  <line x1="&COMPARE_MATCH_X2;" y1="420" x2="&DT_CC1_N_P2_RISING_DELAYED_X;" y2="420" stroke="green" stroke-width="2" />
+  <text x="557" y="415" font-family="Arial" font-size="8" text-anchor="middle" fill="green">CC1 DT</text>
+  <line x1="&COMPARE_MATCH_X2;" y1="415" x2="&COMPARE_MATCH_X2;" y2="425" stroke="green" stroke-width="2" />
+  <line x1="&DT_CC1_N_P2_RISING_DELAYED_X;" y1="415" x2="&DT_CC1_N_P2_RISING_DELAYED_X;" y2="425" stroke="green" stroke-width="2" />
+
+</svg>

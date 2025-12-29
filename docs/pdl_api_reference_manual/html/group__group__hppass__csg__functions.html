@@ -130,7 +130,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memdesc:gaa47b3ccf47f3a364d91e66d3aa432f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all DACs interrupt masked status.  <a href="#gaa47b3ccf47f3a364d91e66d3aa432f4b">More...</a><br /></td></tr>
 <tr class="separator:gaa47b3ccf47f3a364d91e66d3aa432f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga313730db842678cdb21d2eeaf8265aad"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__csg__functions.html#ga313730db842678cdb21d2eeaf8265aad">Cy_HPPASS_Comp_GetInterruptStatus</a> (void)</td></tr>
-<tr class="memdesc:ga313730db842678cdb21d2eeaf8265aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt register status for the specified comparator.  <a href="#ga313730db842678cdb21d2eeaf8265aad">More...</a><br /></td></tr>
+<tr class="memdesc:ga313730db842678cdb21d2eeaf8265aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the combined comparator interrupt register status.  <a href="#ga313730db842678cdb21d2eeaf8265aad">More...</a><br /></td></tr>
 <tr class="separator:ga313730db842678cdb21d2eeaf8265aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga70922b9d70ef1a948ef287a2d27e2960"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__csg__functions.html#ga70922b9d70ef1a948ef287a2d27e2960">Cy_HPPASS_Comp_ClearInterrupt</a> (uint32_t interrupt)</td></tr>
 <tr class="memdesc:ga70922b9d70ef1a948ef287a2d27e2960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the interrupt for the specified comparator.  <a href="#ga70922b9d70ef1a948ef287a2d27e2960">More...</a><br /></td></tr>
@@ -142,7 +142,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memdesc:gaa791cc0088e9bcf4c40173d71cd69b84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the interrupt for the specified comparator.  <a href="#gaa791cc0088e9bcf4c40173d71cd69b84">More...</a><br /></td></tr>
 <tr class="separator:gaa791cc0088e9bcf4c40173d71cd69b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada8a98388759b02f595915123d278e0e"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__csg__functions.html#gada8a98388759b02f595915123d278e0e">Cy_HPPASS_Comp_GetInterruptMask</a> (void)</td></tr>
-<tr class="memdesc:gada8a98388759b02f595915123d278e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt mask for the specified comparator.  <a href="#gada8a98388759b02f595915123d278e0e">More...</a><br /></td></tr>
+<tr class="memdesc:gada8a98388759b02f595915123d278e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the comparator interrupt mask.  <a href="#gada8a98388759b02f595915123d278e0e">More...</a><br /></td></tr>
 <tr class="separator:gada8a98388759b02f595915123d278e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga607d2485fafd6e33ed5520328069ffea"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__hppass__csg__functions.html#ga607d2485fafd6e33ed5520328069ffea">Cy_HPPASS_Comp_GetInterruptStatusMasked</a> (void)</td></tr>
 <tr class="memdesc:ga607d2485fafd6e33ed5520328069ffea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all comparators interrupt masked status.  <a href="#ga607d2485fafd6e33ed5520328069ffea">More...</a><br /></td></tr>
@@ -440,7 +440,7 @@ The sum of dataIdx and numSamples should be less or equal to 128.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the interrupt register status for the specified comparator. </p>
+<p>Gets the combined comparator interrupt register status. </p>
 <dl class="section return"><dt>Returns</dt><dd>The status of combined interrupt requests for the Comparator <a class="el" href="group__group__csg__cmp__interrupts.html">Comparator Interrupt Masks</a>. </dd></dl>
 
 </div>
@@ -539,7 +539,7 @@ The sum of dataIdx and numSamples should be less or equal to 128.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the interrupt mask for the specified comparator. </p>
+<p>Gets the comparator interrupt mask. </p>
 <dl class="section return"><dt>Returns</dt><dd>The mask of the interrupts allowable for activation <a class="el" href="group__group__csg__cmp__interrupts.html">Comparator Interrupt Masks</a>. </dd></dl>
 
 </div>

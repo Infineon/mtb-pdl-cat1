@@ -1,5 +1,8 @@
 var NAVTREEINDEX20 =
 {
+"group__group__scb.html":[4,40],
+"group__group__scb__common.html":[4,40,0],
+"group__group__scb__common__data__structures.html":[4,40,0,2],
 "group__group__scb__common__functions.html":[4,40,0,1],
 "group__group__scb__common__functions.html#ga00df1df5597c1e370acd9c2e9d82455b":[4,40,0,1,9],
 "group__group__scb__common__functions.html#ga0c2569d2d15d292c1a36ed2159defb46":[4,40,0,1,10],
@@ -196,9 +199,10 @@ var NAVTREEINDEX20 =
 "group__group__scb__i2c__general__functions.html#gade527ee35b573ec84b5142631a3e4d59":[4,40,2,1,0,15],
 "group__group__scb__i2c__general__functions.html#gae9d71372b84c9c799b55283fc475f223":[4,40,2,1,0,4],
 "group__group__scb__i2c__interrupt__functions.html":[4,40,2,1,4],
+"group__group__scb__i2c__interrupt__functions.html#ga1058ef8da75ae8257a29cc6917c353c2":[4,40,2,1,4,6],
 "group__group__scb__i2c__interrupt__functions.html#ga3133d46624010df1c57a0800797aab01":[4,40,2,1,4,2],
-"group__group__scb__i2c__interrupt__functions.html#ga6cb69da83588e0c1dfb023313e25b289":[4,40,2,1,4,5],
 "group__group__scb__i2c__interrupt__functions.html#ga729b2fa4de4d44ea2e8995d7ca6a0c24":[4,40,2,1,4,0],
+"group__group__scb__i2c__interrupt__functions.html#ga85d11cfcdb29446f84dbfd03227fc9a9":[4,40,2,1,4,5],
 "group__group__scb__i2c__interrupt__functions.html#ga87512a96b0ae32bb624a5a960d64d23f":[4,40,2,1,4,1],
 "group__group__scb__i2c__interrupt__functions.html#gaa0563ea875298b73720bbfc6efdd8f0a":[4,40,2,1,4,4],
 "group__group__scb__i2c__interrupt__functions.html#gac61f7304c304421a40135cf4d61a660c":[4,40,2,1,4,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX20 =
 "group__group__scb__i2c__macros__slave__status.html#ga9804bb839aeb7a7334ae610ada4496ca":[4,40,2,0,0,3],
 "group__group__scb__i2c__macros__slave__status.html#gab279883800a65f389e3b8a3f21f24470":[4,40,2,0,0,9],
 "group__group__scb__i2c__master__high__level__functions.html":[4,40,2,1,2],
-"group__group__scb__i2c__master__high__level__functions.html#ga0815311112e61ca8c1268a6f637dc427":[4,40,2,1,2,1],
-"group__group__scb__i2c__master__high__level__functions.html#ga652a3b9da6db2424fed62c28c6347ef3":[4,40,2,1,2,4],
-"group__group__scb__i2c__master__high__level__functions.html#ga83185adeefa83640ac09852c9d6cf426":[4,40,2,1,2,2],
-"group__group__scb__i2c__master__high__level__functions.html#ga91f7a32d2a20cf3deebe01cef8d9d000":[4,40,2,1,2,0],
-"group__group__scb__i2c__master__high__level__functions.html#gae25688c0c4f7434a6284c452c9ebd897":[4,40,2,1,2,3]
+"group__group__scb__i2c__master__high__level__functions.html#ga0815311112e61ca8c1268a6f637dc427":[4,40,2,1,2,1]
 };

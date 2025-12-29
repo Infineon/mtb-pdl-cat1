@@ -1,5 +1,11 @@
 var NAVTREEINDEX22 =
 {
+"group__group__scb__uart__macros__transmit__status.html#gad79bc01b6f0d15a29cfb365dc5f04497":[4,40,4,0,4,2],
+"group__group__scb__uart__macros__transmit__status.html#gafc7731d0e43932b18d20033f1db95b6e":[4,40,4,0,4,1],
+"group__group__scb__uart__macros__tx__fifo__status.html":[4,40,4,0,2],
+"group__group__scb__uart__macros__tx__fifo__status.html#ga084f44adc0f1fba7bc8cc63f46c8a3e6":[4,40,4,0,2,0],
+"group__group__scb__uart__macros__tx__fifo__status.html#ga3107a2948b2bff6d81c9eb7f51f2a4d4":[4,40,4,0,2,4],
+"group__group__scb__uart__macros__tx__fifo__status.html#ga41c603d23a12693b3b83ece75da39b54":[4,40,4,0,2,1],
 "group__group__scb__uart__macros__tx__fifo__status.html#ga5a3ee0ae5c71bb071aa99607dc9a456a":[4,40,4,0,2,3],
 "group__group__scb__uart__macros__tx__fifo__status.html#ga84d057ed47751c69902a762585ba4838":[4,40,4,0,2,5],
 "group__group__scb__uart__macros__tx__fifo__status.html#gab629bcb723aafa472383c9dd24d2e492":[4,40,4,0,2,6],
@@ -243,11 +249,5 @@ var NAVTREEINDEX22 =
 "group__group__sd__host__macros__csd.html#ga7b2f4e4c5e4eafb90cd92a7c7c67c063":[4,41,0,5,8],
 "group__group__sd__host__macros__csd.html#ga7c3f496c0fb2067ca9350cb9c2b73ed7":[4,41,0,5,16],
 "group__group__sd__host__macros__csd.html#ga84543d657300d8f4313ce8459e0a816d":[4,41,0,5,7],
-"group__group__sd__host__macros__csd.html#ga8e88baf5412c4d45a606fdd769ef29c5":[4,41,0,5,13],
-"group__group__sd__host__macros__csd.html#ga9742c6a32fa796cf85e12130756aed4b":[4,41,0,5,0],
-"group__group__sd__host__macros__csd.html#gaa5de71f47000451440d834b28a2e2494":[4,41,0,5,17],
-"group__group__sd__host__macros__csd.html#gaa62150070b49e849d8c40e467e26f65d":[4,41,0,5,9],
-"group__group__sd__host__macros__csd.html#gac0e4f10f177933036d148b5e0b629db9":[4,41,0,5,21],
-"group__group__sd__host__macros__csd.html#gac7bbb30857f7ccbd4d986c5c5e503b62":[4,41,0,5,15],
-"group__group__sd__host__macros__csd.html#gac9fc801ba4613dbb7452482c4432409e":[4,41,0,5,10]
+"group__group__sd__host__macros__csd.html#ga8e88baf5412c4d45a606fdd769ef29c5":[4,41,0,5,13]
 };

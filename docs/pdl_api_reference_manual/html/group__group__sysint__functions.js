@@ -15,5 +15,6 @@ var group__group__sysint__functions =
     [ "Cy_SysInt_EnableSystemInt", "group__group__sysint__functions.html#ga3b4be2b36944476c434f4bd20545d8a3", null ],
     [ "Cy_SysInt_DisableSystemInt", "group__group__sysint__functions.html#ga4a85186c69bb5375f1009fba7ea4ca0f", null ],
     [ "Cy_SysInt_SetNmiSource", "group__group__sysint__functions.html#ga3163ed7de473929acded134fc67ab997", null ],
-    [ "Cy_SysInt_GetNmiSource", "group__group__sysint__functions.html#ga460d1703cced3ba31091a77355434649", null ]
+    [ "Cy_SysInt_GetNmiSource", "group__group__sysint__functions.html#ga460d1703cced3ba31091a77355434649", null ],
+    [ "Cy_SysInt_SoftwareTrig", "group__group__sysint__functions.html#gab2c1e70c5151e021f2e7283408617acd", null ]
 ];

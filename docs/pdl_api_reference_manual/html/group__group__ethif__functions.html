@@ -135,6 +135,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga74a4c26a1d44dd43bc923eac2e0fc5fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ethif__functions.html#ga74a4c26a1d44dd43bc923eac2e0fc5fe">Cy_ETHIF_DiscardNonVLANFrames</a> (<a class="el" href="struct_e_t_h___type.html">ETH_Type</a> *base, bool enable)</td></tr>
 <tr class="memdesc:ga74a4c26a1d44dd43bc923eac2e0fc5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">With VLAN tagged frame processing setup, this function configure MAC to receive only VLAN tagged frames and discard all.  <a href="#ga74a4c26a1d44dd43bc923eac2e0fc5fe">More...</a><br /></td></tr>
 <tr class="separator:ga74a4c26a1d44dd43bc923eac2e0fc5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6a622e35658a67697cac053c4d3d4c88"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ethif__functions.html#ga6a622e35658a67697cac053c4d3d4c88">Cy_ETHIF_GetPrivateData</a> (<a class="el" href="struct_e_t_h___type.html">ETH_Type</a> *base)</td></tr>
+<tr class="memdesc:ga6a622e35658a67697cac053c4d3d4c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to private data.  <a href="#ga6a622e35658a67697cac053c4d3d4c88">More...</a><br /></td></tr>
+<tr class="separator:ga6a622e35658a67697cac053c4d3d4c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga29e43c154e518f268b7c1b7c627644ac"></a>
@@ -780,6 +783,33 @@ CY_ETHIF_BAD_PARAM Parameter passed contains invalid values</dd></dl>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ga6a622e35658a67697cac053c4d3d4c88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6a622e35658a67697cac053c4d3d4c88">&#9670;&nbsp;</a></span>Cy_ETHIF_GetPrivateData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* Cy_ETHIF_GetPrivateData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_e_t_h___type.html">ETH_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get pointer to private data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>Pointer to register area of Ethernet MAC</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to private data or NULL in case wrong parameter </dd></dl>
 
 </div>
 </div>

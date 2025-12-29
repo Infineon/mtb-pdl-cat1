@@ -119,6 +119,7 @@ var searchData=
   ['cy_5fstc_5fextid_5ffilter_5ft',['cy_stc_extid_filter_t',['../structcy__stc__extid__filter__t.html',1,'']]],
   ['cy_5fstc_5ffault_5fframe_5ft',['cy_stc_fault_frame_t',['../structcy__stc__fault__frame__t.html',1,'']]],
   ['cy_5fstc_5fflash_5fblankcheck_5fconfig_5ft',['cy_stc_flash_blankcheck_config_t',['../structcy__stc__flash__blankcheck__config__t.html',1,'']]],
+  ['cy_5fstc_5fflash_5fcallback_5ft',['cy_stc_flash_callback_t',['../structcy__stc__flash__callback__t.html',1,'']]],
   ['cy_5fstc_5fflash_5fchecksum_5fconfig_5ft',['cy_stc_flash_checksum_config_t',['../structcy__stc__flash__checksum__config__t.html',1,'']]],
   ['cy_5fstc_5fflash_5fcomputehash_5fconfig_5ft',['cy_stc_flash_computehash_config_t',['../structcy__stc__flash__computehash__config__t.html',1,'']]],
   ['cy_5fstc_5fflash_5feraseresume_5fconfig_5ft',['cy_stc_flash_eraseresume_config_t',['../structcy__stc__flash__eraseresume__config__t.html',1,'']]],

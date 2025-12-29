@@ -10,7 +10,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2022 Cypress Semiconductor Corporation
+* Copyright 2025 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -224,8 +224,8 @@
         <Member name="preenptionType" value="`${ch$idx_preenptionType}`" />
         <Member name="doneLevel" value="`${ch$idx_doneLevel}`" />
         <Member name="isGroupEnd" value="`${ch$idx_isGroupEnd}`" />
-        <Member name="pinAddress" value="`${hasConnection(&quot;vin&quot;, $idx) ? &quot;SARMUX&quot; . InstNumber . &quot;_CH$idx_PIN_ADDR&quot; : 0}`" />
-        <Member name="portAddress" value="`${InstNumber == 0 &amp;&amp; hasConnection(&quot;vin&quot;, $idx) ? &quot;SARMUX0_CH$idx_PORT_ADDR&quot; : 0}`" />
+        <Member name="pinAddress" value="(cy_en_sar2_pin_address_t)`${hasConnection(&quot;vin&quot;, $idx) ? &quot;SARMUX&quot; . InstNumber . &quot;_CH$idx_PIN_ADDR&quot; : 0}`" />
+        <Member name="portAddress" value="(cy_en_sar2_port_address_t)`${InstNumber == 0 &amp;&amp; hasConnection(&quot;vin&quot;, $idx) ? &quot;SARMUX0_CH$idx_PORT_ADDR&quot; : 0}`" />
         <Member name="extMuxEnable" value="`${ch$idx_extMuxEnable}`" />
         <Member name="extMuxSelect" value="`${ch$idx_extMuxSelect}`U" />
         <Member name="preconditionMode" value="`${ch$idx_preconditionMode}`" />

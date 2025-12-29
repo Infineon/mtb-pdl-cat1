@@ -1,5 +1,13 @@
 var NAVTREEINDEX38 =
 {
+"structcy__stc__dma__descriptor__t.html#ac19aa103094426c66c12a8680df33460":[4,11,2,1,2],
+"structcy__stc__dmac__channel__config__t.html":[4,12,3,2],
+"structcy__stc__dmac__channel__config__t.html#a01cab162709493ed756b6cb21219ff51":[4,12,3,2,2],
+"structcy__stc__dmac__channel__config__t.html#a4f495622ba1663f3cccf63c001e78e1a":[4,12,3,2,0],
+"structcy__stc__dmac__channel__config__t.html#a7691072c2bdd9072cf34bc6fcc3d4808":[4,12,3,2,1],
+"structcy__stc__dmac__channel__config__t.html#ade9585ff561af6ad292932293e0bd15d":[4,12,3,2,3],
+"structcy__stc__dmac__descriptor__config__t.html":[4,12,3,1],
+"structcy__stc__dmac__descriptor__config__t.html#a0d2682fd8330b970ffa7221ad8b02fa9":[4,12,3,1,14],
 "structcy__stc__dmac__descriptor__config__t.html#a0d7425723f735c43d9f9c3d5add46051":[4,12,3,1,16],
 "structcy__stc__dmac__descriptor__config__t.html#a264ab4339fd7533256baea6b49811f68":[4,12,3,1,1],
 "structcy__stc__dmac__descriptor__config__t.html#a33ef66614f4911171513a63198e21c40":[4,12,3,1,9],
@@ -227,6 +235,10 @@ var NAVTREEINDEX38 =
 "structcy__stc__flash__blankcheck__config__t.html":[4,17,3,5],
 "structcy__stc__flash__blankcheck__config__t.html#ab39b06bf91730b4961c1d7ff954cc26d":[4,17,3,5,1],
 "structcy__stc__flash__blankcheck__config__t.html#afd677dde991c6663066cd14596109d38":[4,17,3,5,0],
+"structcy__stc__flash__callback__t.html":[4,17,2,0],
+"structcy__stc__flash__callback__t.html#a357fc1b6ca34e4f169bc2244f25e67e1":[4,17,2,0,1],
+"structcy__stc__flash__callback__t.html#a69da2cda19e35419d9da81a08d9804a6":[4,17,2,0,2],
+"structcy__stc__flash__callback__t.html#aa58f176318c1c068b03934982c22ab5f":[4,17,2,0,0],
 "structcy__stc__flash__checksum__config__t.html":[4,17,3,2],
 "structcy__stc__flash__checksum__config__t.html#a3d0092b72c74891c8bfe81f2fc416235":[4,17,3,2,0],
 "structcy__stc__flash__checksum__config__t.html#abc8f32254fdb083f1f660cc19b2a95d0":[4,17,3,2,1],
@@ -237,17 +249,5 @@ var NAVTREEINDEX38 =
 "structcy__stc__flash__computehash__config__t.html#a86aa9a858c28ef4c26aec86de39d367a":[4,17,3,3,0],
 "structcy__stc__flash__computehash__config__t.html#aaf59f0d885a9d92e2fa85efc9a10ac77":[4,17,3,3,1],
 "structcy__stc__flash__eraseresume__config__t.html":[4,17,3,4],
-"structcy__stc__flash__eraseresume__config__t.html#a4a7145f796b61d7a18afabd5927ad6c9":[4,17,3,4,1],
-"structcy__stc__flash__eraseresume__config__t.html#aa44d67f5509a68825c6261df1d445f10":[4,17,3,4,0],
-"structcy__stc__flash__erasesector__config__t.html":[4,17,3,1],
-"structcy__stc__flash__erasesector__config__t.html#a0b20ad68683c3c24ffbd4f65c8094ccf":[4,17,3,1,1],
-"structcy__stc__flash__erasesector__config__t.html#a5e515f69e632ef0510ff8cf6943838ec":[4,17,3,1,2],
-"structcy__stc__flash__erasesector__config__t.html#ab44183c9be1975e0be258aaae15c3445":[4,17,3,1,0],
-"structcy__stc__flash__notify__t.html":[4,17,2,0],
-"structcy__stc__flash__notify__t.html#a229a77177cf992ec268a46def2fd2967":[4,17,2,0,0],
-"structcy__stc__flash__notify__t.html#a56206a89f36101e96916effa3bf13a11":[4,17,2,0,2],
-"structcy__stc__flash__notify__t.html#ab5674d3c5f5912ab008486aca20ccd70":[4,17,2,0,1],
-"structcy__stc__flash__programrow__config__t.html":[4,17,3,0],
-"structcy__stc__flash__programrow__config__t.html#a05a77b51d558ae89110455faa5a9f265":[4,17,3,0,1],
-"structcy__stc__flash__programrow__config__t.html#a5772d7ba715d2569350e78caf5b77477":[4,17,3,0,6]
+"structcy__stc__flash__eraseresume__config__t.html#a4a7145f796b61d7a18afabd5927ad6c9":[4,17,3,4,1]
 };

@@ -1,5 +1,17 @@
 var NAVTREEINDEX40 =
 {
+"structcy__stc__ipc__bt__config__t.html#a6881b04afe7d759d5fa7761eb50aaa77":[4,21,3,2,6,9],
+"structcy__stc__ipc__bt__config__t.html#a91cc41c43326711ca9ac39efd3419415":[4,21,3,2,6,1],
+"structcy__stc__ipc__bt__config__t.html#a953f4b893ddd84327480ba3efbc2bb01":[4,21,3,2,6,4],
+"structcy__stc__ipc__bt__config__t.html#aa7c6ef8a42611815c0177df57d986c79":[4,21,3,2,6,7],
+"structcy__stc__ipc__bt__config__t.html#af90443490340deca8e8fe7a33951f147":[4,21,3,2,6,5],
+"structcy__stc__ipc__bt__context__t.html":[4,21,3,2,4],
+"structcy__stc__ipc__bt__context__t.html#a0619df7c9b719eb071840272b9e44f84":[4,21,3,2,4,36],
+"structcy__stc__ipc__bt__context__t.html#a0630db48d71864598b2ec12b460bb602":[4,21,3,2,4,33],
+"structcy__stc__ipc__bt__context__t.html#a0791ed9e0fb3857c07ad7b7088e6019a":[4,21,3,2,4,28],
+"structcy__stc__ipc__bt__context__t.html#a13d0eebb9a834eec00e7f7d3aab104a4":[4,21,3,2,4,9],
+"structcy__stc__ipc__bt__context__t.html#a13f2f68e2219620f774673348f85a8f2":[4,21,3,2,4,24],
+"structcy__stc__ipc__bt__context__t.html#a1ed921efa086cbb0d8e84ba906bdefcc":[4,21,3,2,4,39],
 "structcy__stc__ipc__bt__context__t.html#a2804dbd3fae88d8f218a7d102fed53c2":[4,21,3,2,4,31],
 "structcy__stc__ipc__bt__context__t.html#a3406d7afe050de7dd8327d1f4efa4d06":[4,21,3,2,4,12],
 "structcy__stc__ipc__bt__context__t.html#a3ecedc7220cccbedc73a3c1a09888ba2":[4,21,3,2,4,2],
@@ -237,17 +249,5 @@ var NAVTREEINDEX40 =
 "structcy__stc__pdm__pcm__channel__config__t.html#a9b65dbb6be40427755670c954970ef62":[4,32,2,2,9],
 "structcy__stc__pdm__pcm__channel__config__t.html#a9fb36049dbb9778975524327a7c47093":[4,32,2,2,10],
 "structcy__stc__pdm__pcm__channel__config__t.html#ad1e5cae4c6b86970ab7f632d4540fbce":[4,32,2,2,4],
-"structcy__stc__pdm__pcm__channel__config__t.html#ad8b5d7cf859b23b0e543171e39a02005":[4,32,2,2,3],
-"structcy__stc__pdm__pcm__channel__config__t.html#ae4020156c6aa11c6d390c7f2063a73ac":[4,32,2,2,7],
-"structcy__stc__pdm__pcm__channel__config__t.html#ae8dbefcdb3ab94cfc715c16bce0b22d1":[4,32,2,2,0],
-"structcy__stc__pdm__pcm__channel__config__t.html#af34a08fb342cd19e80035ccc9f363a0c":[4,32,2,2,6],
-"structcy__stc__pdm__pcm__config__t.html":[4,31,2,1],
-"structcy__stc__pdm__pcm__config__t.html#a00398a97f9e5f416f6d7c7bccd6f9518":[4,31,2,1,4],
-"structcy__stc__pdm__pcm__config__t.html#a1079ab0d5c6353df5016fcf36eca9ea4":[4,31,2,1,16],
-"structcy__stc__pdm__pcm__config__t.html#a1363ed2e3eab8aa20d86b1ce272477be":[4,31,2,1,15],
-"structcy__stc__pdm__pcm__config__t.html#a1597394c0da88d678f7b4405c64c98d4":[4,31,2,1,8],
-"structcy__stc__pdm__pcm__config__t.html#a1953184d9bc890c149d3cb8188fbfaf2":[4,31,2,1,13],
-"structcy__stc__pdm__pcm__config__t.html#a4993951ea6cba854859a905f05cbb076":[4,31,2,1,17],
-"structcy__stc__pdm__pcm__config__t.html#a4b1f76305638625b13b20fe78b4cbc3f":[4,31,2,1,9],
-"structcy__stc__pdm__pcm__config__t.html#a52af035a1c24528ccaac06fe22478dae":[4,31,2,1,6]
+"structcy__stc__pdm__pcm__channel__config__t.html#ad8b5d7cf859b23b0e543171e39a02005":[4,32,2,2,3]
 };

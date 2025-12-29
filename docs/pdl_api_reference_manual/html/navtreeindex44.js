@@ -1,5 +1,17 @@
 var NAVTREEINDEX44 =
 {
+"structcy__stc__tcpwm__motif__hall__sensor__config__t.html#ab28ba6c3934ee64a9c052c2222e32adc":[4,52,5,5,4,5],
+"structcy__stc__tcpwm__motif__hall__sensor__config__t.html#ac3d9f1eb968e3a311b105a6831ef93be":[4,52,5,5,4,12],
+"structcy__stc__tcpwm__motif__hall__sensor__config__t.html#acd586992d46a8a138c065ed280608887":[4,52,5,5,4,11],
+"structcy__stc__tcpwm__motif__hall__sensor__config__t.html#af304ccfef05774a813d2203a005ea592":[4,52,5,5,4,16],
+"structcy__stc__tcpwm__motif__hall__sensor__config__t.html#af809c4e829cf2ce4406c65c616110971":[4,52,5,5,4,10],
+"structcy__stc__tcpwm__motif__hlut__t.html":[4,52,5,5,0],
+"structcy__stc__tcpwm__motif__hlut__t.html#a7aa6f1a54d179e90a08657f444ee893c":[4,52,5,5,0,0],
+"structcy__stc__tcpwm__motif__hlut__t.html#a919f3ba71c8451d1c9d0639186002f97":[4,52,5,5,0,1],
+"structcy__stc__tcpwm__motif__hlut__t.html#ac75504148e45d386adb570989f699fdb":[4,52,5,5,0,3],
+"structcy__stc__tcpwm__motif__hlut__t.html#add44cd8e239825cb01af58b8387b4e91":[4,52,5,5,0,2],
+"structcy__stc__tcpwm__motif__hlut__t.html#ae2171b85c810d6f5dc5fa77cbbc8701d":[4,52,5,5,0,5],
+"structcy__stc__tcpwm__motif__hlut__t.html#aff15c543d3ccc13733dda8ae85341bc9":[4,52,5,5,0,4],
 "structcy__stc__tcpwm__motif__mcp__config__t.html":[4,52,5,5,7],
 "structcy__stc__tcpwm__motif__mcp__config__t.html#a069dbcd2dc208c8a409528534cb04538":[4,52,5,5,7,4],
 "structcy__stc__tcpwm__motif__mcp__config__t.html#a1202b73c2af08bfd7e5a86d3d2dc2dbf":[4,52,5,5,7,5],

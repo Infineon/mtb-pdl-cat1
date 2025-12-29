@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!--
+**********************************************************************************************************************
+*
+* Copyright (c) Infineon Technologies AG
+* All rights reserved.
+*
+**********************************************************************************************************************
+-->
+
+<!DOCTYPE svgdiagram
+[
+<!-- Coordinate system constants -->
+<!ENTITY LINE_Y_H "350">
+<!ENTITY LINE_Y_L "380">
+<!ENTITY LINE_N_Y_H "400">
+<!ENTITY LINE_N_Y_L "430">
+<!ENTITY LINE_START_X "50">
+<!ENTITY LINE_END_X "850">
+<!ENTITY MARKS_Y_BOT "235">
+
+<!-- Sawtooth counter coordinates for four periods -->
+<!ENTITY TRIANGLE1_LEFT_X  "80">
+<!ENTITY TRIANGLE1_RIGHT_X "270">
+
+<!ENTITY TRIANGLE2_LEFT_X  "270">
+<!ENTITY TRIANGLE2_RIGHT_X "460">
+
+<!ENTITY TRIANGLE3_LEFT_X  "460">
+<!ENTITY TRIANGLE3_RIGHT_X "650">
+
+<!ENTITY TRIANGLE4_LEFT_X  "650">
+<!ENTITY TRIANGLE4_RIGHT_X "840">
+
+<!-- Dynamic triangle heights -->
+<!ENTITY TRIANGLE1_PEAK_Y "60">
+<!ENTITY TRIANGLE2_PEAK_Y "60">
+<!ENTITY TRIANGLE3_PEAK_Y "60">
+<!ENTITY TRIANGLE4_PEAK_Y "60">
+
+<!-- Dynamic peak X positions to maintain triangle proportions -->
+<!ENTITY RAMP_PEAK1_X  "265">
+<!ENTITY RAMP_PEAK2_X  "635">
+
+<!-- Signal line Y coordinates (underflow line shown but no underflow events) -->
+<!ENTITY OV_Y "240">
+<!ENTITY UN_Y "260">
+<!ENTITY TC_Y "280">
+<!ENTITY CM_Y "300">
+<!ENTITY CM_CC1_Y "320">
+
+<!-- Counter line (vertical sawtooth timer indicator) -->
+<!ENTITY COUNTER_X "&TRIANGLE1_LEFT_X;">
+<!ENTITY COUNTER_BOTTOM_Y "190">
+<!ENTITY COUNTER_TOP_Y "60">
+<!ENTITY COUNTER_MID_Y "125">
+<!ENTITY COUNTER_MAX_PERIOD "`${EnablePeriodSwap ? (Period0 > Period1 ? Period0 : Period1) : Period0}`">
+
+<!-- Separate compare lines for each triangle -->
+<!ENTITY COMPARE1_Y "125">
+<!ENTITY COMPARE1_CC1_Y "100">
+<!ENTITY COMPARE2_Y "125">
+<!ENTITY COMPARE2_CC1_Y "100">
+<!ENTITY COMPARE3_Y "125">
+<!ENTITY COMPARE3_CC1_Y "100">
+<!ENTITY COMPARE4_Y "125">
+<!ENTITY COMPARE4_CC1_Y "100">
+
+<!-- Buffered compare lines (shown when swap is enabled) -->
+<!ENTITY COMPARE2_BUFF_CC1_Y "90">
+<!ENTITY COMPARE4_BUFF_CC1_Y "90">
+
+<!-- Period lines on top of triangles -->
+<!ENTITY PERIOD1_LINE_Y "45">
+<!ENTITY PERIOD2_LINE_Y "45">
+
+<!-- Main period line for single period mode -->
+<!ENTITY MAIN_PERIOD_LINE_Y "45">
+<!ENTITY MAIN_PERIOD_LEFT_X "80">
+<!ENTITY MAIN_PERIOD_RIGHT_X "820">
+
+<!-- Visibility controls -->
+<!ENTITY SHOW_INDIVIDUAL_PERIODS "1.0">
+<!ENTITY SHOW_MAIN_PERIOD "0.0">
+<!ENTITY SHOW_INTERRUPT_TC "0.0">
+<!ENTITY SHOW_INTERRUPT_CC0 "0.0">
+<!ENTITY SHOW_INTERRUPT_CC1 "0.0">
+<!ENTITY SHOW_CC1_LINES "1.0">
+<!ENTITY SHOW_BUFFER_COMPARE0_LINES "0.0">
+<!ENTITY SHOW_BUFFER_COMPARE1_LINES "0.0">
+<!ENTITY SHOW_MAIN_COMPARE0_LINES "1.0">
+<!ENTITY SHOW_MAIN_COMPARE1_LINES "1.0">
+
+<!-- Individual DOT visibility (Compare0 main value dots for all periods) -->
+<!ENTITY SHOW_DOT1 "1.0">
+<!ENTITY SHOW_DOT2 "1.0">
+<!ENTITY SHOW_DOT3 "1.0">
+<!ENTITY SHOW_DOT4 "1.0">
+
+<!-- Individual DOT visibility (Compare1/CC1 value dots for all periods) -->
+<!ENTITY SHOW_DOT1_CC1 "1.0">
+<!ENTITY SHOW_DOT2_CC1 "1.0">
+<!ENTITY SHOW_DOT3_CC1 "0.0">
+<!ENTITY SHOW_DOT4_CC1 "0.0">
+
+<!-- Buffered DOT visibility (for periods 2&4 when swap enabled) -->
+<!ENTITY SHOW_DOT2_BUFF "0.0">
+<!ENTITY SHOW_DOT4_BUFF "0.0">
+<!ENTITY SHOW_DOT2_BUFF_CC1 "0.0">
+<!ENTITY SHOW_DOT4_BUFF_CC1 "0.0">
+
+<!-- Right-align dot visibility entities -->
+<!ENTITY SHOW_RIGHT_ALIGN_DOT1_3 "1.0">
+<!ENTITY SHOW_RIGHT_ALIGN_DOT1_3_CC1 "1.0">
+<!ENTITY SHOW_RIGHT_ALIGN_DOT2_4 "1.0">
+<!ENTITY SHOW_RIGHT_ALIGN_DOT2_4_CC1 "1.0">
+
+<!-- Interrupt dot visibility -->
+<!ENTITY SHOW_INTERRUPT_CC0_DOT1 "0.0">
+<!ENTITY SHOW_INTERRUPT_CC0_DOT2 "0.0">
+<!ENTITY SHOW_INTERRUPT_CC0_DOT3 "0.0">
+<!ENTITY SHOW_INTERRUPT_CC0_DOT4 "0.0">
+<!ENTITY SHOW_INTERRUPT_CC1_DOT1 "0.0">
+<!ENTITY SHOW_INTERRUPT_CC1_DOT2 "0.0">
+<!ENTITY SHOW_INTERRUPT_CC1_DOT3 "0.0">
+<!ENTITY SHOW_INTERRUPT_CC1_DOT4 "0.0">
+
+<!-- Period and compare values -->
+<!ENTITY PERIOD1_VALUE "32768">
+<!ENTITY PERIOD2_VALUE "32768">
+<!ENTITY COMPARE1_VALUE "16384">
+<!ENTITY COMPARE1_CC1_VALUE "16384">
+<!ENTITY COMPARE2_VALUE "16384">
+<!ENTITY COMPARE2_CC1_VALUE "16384">
+<!ENTITY COMPARE1_LABEL "Compare 0">
+<!ENTITY COMPARE1_CC1_LABEL "Compare 1">
+<!ENTITY COMPARE2_LABEL "Compare 0">
+<!ENTITY COMPARE2_CC1_LABEL "Compare 1">
+
+<!-- DOT coordinates for right-aligned PWM - default values (will be overridden by personality substitutions) -->
+<!ENTITY PWM_DOT1_X "175">
+<!ENTITY PWM_DOT1_Y "125">
+<!ENTITY PWM_DOT2_X "365">
+<!ENTITY PWM_DOT2_Y "125">
+<!ENTITY PWM_DOT3_X "555">
+<!ENTITY PWM_DOT3_Y "125">
+<!ENTITY PWM_DOT4_X "745">
+<!ENTITY PWM_DOT4_Y "125">
+<!ENTITY PWM_DOT1_CC1_X "155">
+<!ENTITY PWM_DOT1_CC1_Y "100">
+<!ENTITY PWM_DOT2_CC1_X "345">
+<!ENTITY PWM_DOT2_CC1_Y "100">
+<!ENTITY PWM_DOT3_CC1_X "535">
+<!ENTITY PWM_DOT3_CC1_Y "100">
+<!ENTITY PWM_DOT4_CC1_X "725">
+<!ENTITY PWM_DOT4_CC1_Y "100">
+
+<!-- Buffered DOT coordinates for right-aligned PWM (periods 2&4 when swap enabled) -->
+<!ENTITY PWM_DOT2_BUFFER_X "360">
+<!ENTITY PWM_DOT2_BUFFER_Y "120">
+<!ENTITY PWM_DOT2_BUFFER_CC1_X "355">
+<!ENTITY PWM_DOT2_BUFFER_CC1_Y "95">
+<!ENTITY PWM_DOT4_BUFFER_X "750">
+<!ENTITY PWM_DOT4_BUFFER_Y "120">
+<!ENTITY PWM_DOT4_BUFFER_CC1_X "745">
+<!ENTITY PWM_DOT4_BUFFER_CC1_Y "95">
+
+<!-- Color definitions -->
+<!ENTITY IFX_COLOR_BERRY400 "#BE3283">
+<!ENTITY IFX_COLOR_LAWN500 "#9BBA43">
+<!ENTITY IFX_COLOR_BLACK "#1D1D1D">
+<!ENTITY PWM_DOT4_BUFFER_CC1_Y "95">
+
+<!-- Colors -->
+<!ENTITY IFX_COLOR_BERRY400 "#BE3283" >
+<!ENTITY IFX_COLOR_LAWN500 "#9BBA43" >
+<!ENTITY IFX_COLOR_BLACK "#1D1D1D" >
+<!ENTITY ERROR_MESSAGE_OPACITY "0" >
+<!ENTITY COMPARE_ERROR_OPACITY "0" >
+]
+>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="900" height="450" style="background: white;">
+  <!-- Title -->
+  <text x="400" y="20" font-family="Arial" font-size="16" fill="black">PWM Signal - Right Aligned</text>
+
+  <defs>
+    <marker id="arrow-up" markerWidth="15" markerHeight="15" refX="5" refY="3" orient="0">
+      <polygon points="2,0 8,0 5,8" fill="black" stroke="black" stroke-width="0.5"/>
+    </marker>
+  </defs>
+
+  <!-- Counter line: vertical dotted line showing timer from 0 (bottom) to max period (top) -->
+  <line id="Counter" x1="&COUNTER_X;" y1="&COUNTER_BOTTOM_Y;" x2="&COUNTER_X;" y2="&COUNTER_TOP_Y;" stroke="black" stroke-width="2" stroke-dasharray="4,4" opacity="0.7" />
+  <text x="&COUNTER_X;" y="&COUNTER_MID_Y;" font-family="Arial" font-size="10" fill="black" text-anchor="end" dx="-5" dy="0">counter</text>
+  <text x="&COUNTER_X;" y="&COUNTER_TOP_Y;" font-family="Arial" font-size="9" fill="black" text-anchor="end" dx="-5" dy="10">&COUNTER_MAX_PERIOD;</text>
+  <text x="&COUNTER_X;" y="&COUNTER_BOTTOM_Y;" font-family="Arial" font-size="9" fill="black" text-anchor="end" dx="-5" dy="15">0</text>
+
+  <!-- Ramp lines (4 sawtooth waveforms for right-aligned PWM) -->
+  <!-- Sawtooth 1: Period 1 - vertical dotted rise then down ramp -->
+  <line id="Ramp Line 1" x1="&TRIANGLE1_LEFT_X;" y1="190" x2="&TRIANGLE1_LEFT_X;" y2="&TRIANGLE1_PEAK_Y;" stroke="black" stroke-width="2" stroke-dasharray="3,3" />
+  <line id="Ramp Line 2" x1="&TRIANGLE1_LEFT_X;" y1="&TRIANGLE1_PEAK_Y;" x2="&TRIANGLE1_RIGHT_X;" y2="190" stroke="black" stroke-width="2" />
+  
+  <!-- Sawtooth 2: Period 2 - vertical dotted rise then down ramp -->
+  <line id="Ramp Line 3" x1="&TRIANGLE2_LEFT_X;" y1="190" x2="&TRIANGLE2_LEFT_X;" y2="&TRIANGLE2_PEAK_Y;" stroke="black" stroke-width="2" stroke-dasharray="3,3" />
+  <line id="Ramp Line 4" x1="&TRIANGLE2_LEFT_X;" y1="&TRIANGLE2_PEAK_Y;" x2="&TRIANGLE2_RIGHT_X;" y2="190" stroke="black" stroke-width="2" />
+  
+  <!-- Sawtooth 3: Period 3 - vertical dotted rise then down ramp -->
+  <line id="Ramp Line 5" x1="&TRIANGLE3_LEFT_X;" y1="190" x2="&TRIANGLE3_LEFT_X;" y2="&TRIANGLE3_PEAK_Y;" stroke="black" stroke-width="2" stroke-dasharray="3,3" />
+  <line id="Ramp Line 6" x1="&TRIANGLE3_LEFT_X;" y1="&TRIANGLE3_PEAK_Y;" x2="&TRIANGLE3_RIGHT_X;" y2="190" stroke="black" stroke-width="2" />
+  
+  <!-- Sawtooth 4: Period 4 - vertical dotted rise then down ramp -->
+  <line id="Ramp Line 7" x1="&TRIANGLE4_LEFT_X;" y1="190" x2="&TRIANGLE4_LEFT_X;" y2="&TRIANGLE4_PEAK_Y;" stroke="black" stroke-width="2" stroke-dasharray="3,3" />
+  <line id="Ramp Line 8" x1="&TRIANGLE4_LEFT_X;" y1="&TRIANGLE4_PEAK_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="190" stroke="black" stroke-width="2" />
+
+  <!-- Compare lines for periods 1&3 (ALWAYS shows Compare0 and Compare2) -->
+  <line x1="&TRIANGLE1_LEFT_X;" y1="&COMPARE1_Y;" x2="&TRIANGLE1_RIGHT_X;" y2="&COMPARE1_Y;" stroke="red" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="&TRIANGLE3_LEFT_X;" y1="&COMPARE1_Y;" x2="&TRIANGLE3_RIGHT_X;" y2="&COMPARE1_Y;" stroke="red" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="&TRIANGLE1_LEFT_X;" y="&COMPARE1_Y;" font-family="Arial" font-size="10" fill="red" text-anchor="start" dx="5" dy="-12">&COMPARE1_LABEL;: &COMPARE1_VALUE;</text>
+  
+  <!-- Compare2 lines for periods 1&3 (visible when CC1 is enabled) -->
+  <line x1="&TRIANGLE1_LEFT_X;" y1="&COMPARE1_CC1_Y;" x2="&TRIANGLE1_RIGHT_X;" y2="&COMPARE1_CC1_Y;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CC1_LINES;"/>
+  <line x1="&TRIANGLE3_LEFT_X;" y1="&COMPARE1_CC1_Y;" x2="&TRIANGLE3_RIGHT_X;" y2="&COMPARE1_CC1_Y;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CC1_LINES;"/>
+  <text x="&TRIANGLE1_LEFT_X;" y="&COMPARE1_CC1_Y;" font-family="Arial" font-size="10" fill="orange" text-anchor="start" dx="5" dy="-12" opacity="&SHOW_CC1_LINES;">&COMPARE1_CC1_LABEL;: &COMPARE1_CC1_VALUE;</text>
+  
+  <!-- Compare lines for periods 2&4 when swap is DISABLED (same values as periods 1&3) -->
+  <line x1="&TRIANGLE2_LEFT_X;" y1="&COMPARE1_Y;" x2="&TRIANGLE2_RIGHT_X;" y2="&COMPARE1_Y;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_MAIN_COMPARE0_LINES;"/>
+  <line x1="&TRIANGLE4_LEFT_X;" y1="&COMPARE1_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="&COMPARE1_Y;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_MAIN_COMPARE0_LINES;"/>
+  
+  <!-- Compare2 lines for periods 2&4 when swap is DISABLED (same values as periods 1&3) -->
+  <line x1="&TRIANGLE2_LEFT_X;" y1="&COMPARE1_CC1_Y;" x2="&TRIANGLE2_RIGHT_X;" y2="&COMPARE1_CC1_Y;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_MAIN_COMPARE1_LINES;"/>
+  <line x1="&TRIANGLE4_LEFT_X;" y1="&COMPARE1_CC1_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="&COMPARE1_CC1_Y;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_MAIN_COMPARE1_LINES;"/>
+  
+  <!-- Compare lines for periods 2&4 when swap is ENABLED (different values) -->
+  <line x1="&TRIANGLE2_LEFT_X;" y1="&COMPARE2_Y;" x2="&TRIANGLE2_RIGHT_X;" y2="&COMPARE2_Y;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_BUFFER_COMPARE0_LINES;"/>
+  <line x1="&TRIANGLE4_LEFT_X;" y1="&COMPARE2_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="&COMPARE2_Y;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_BUFFER_COMPARE0_LINES;"/>
+  <text x="&TRIANGLE2_LEFT_X;" y="&COMPARE2_Y;" font-family="Arial" font-size="10" fill="blue" text-anchor="start" dx="5" dy="-12" opacity="&SHOW_BUFFER_COMPARE0_LINES;">&COMPARE2_LABEL;: &COMPARE2_VALUE;</text>
+  
+  <!-- CC1 buffered lines for periods 2&4 when swap is ENABLED (different values) -->
+  <line x1="&TRIANGLE2_LEFT_X;" y1="&COMPARE2_BUFF_CC1_Y;" x2="&TRIANGLE2_RIGHT_X;" y2="&COMPARE2_BUFF_CC1_Y;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_BUFFER_COMPARE1_LINES;"/>
+  <line x1="&TRIANGLE4_LEFT_X;" y1="&COMPARE2_BUFF_CC1_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="&COMPARE2_BUFF_CC1_Y;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_BUFFER_COMPARE1_LINES;"/>
+  <text x="&TRIANGLE2_LEFT_X;" y="&COMPARE2_BUFF_CC1_Y;" font-family="Arial" font-size="10" fill="purple" text-anchor="start" dx="5" dy="-12" opacity="&SHOW_BUFFER_COMPARE1_LINES;">Compare 1 Buff: &COMPARE2_CC1_VALUE;</text>
+
+  <!-- Compare3 line for periods 3&4 (red line, Compare0 main value) -->
+  <line x1="&TRIANGLE3_LEFT_X;" y1="&COMPARE3_Y;" x2="&TRIANGLE3_RIGHT_X;" y2="&COMPARE3_Y;" stroke="red" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="&TRIANGLE4_LEFT_X;" y1="&COMPARE3_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="&COMPARE3_Y;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_MAIN_COMPARE0_LINES;"/>
+  
+  <!-- Compare3 CC1 line for periods 3&4 when CC1 is enabled AND compare <= period -->
+  <line x1="&TRIANGLE3_LEFT_X;" y1="&COMPARE3_CC1_Y;" x2="&TRIANGLE3_RIGHT_X;" y2="&COMPARE3_CC1_Y;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT3_CC1;"/>
+  <line x1="&TRIANGLE4_LEFT_X;" y1="&COMPARE3_CC1_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="&COMPARE3_CC1_Y;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT4_CC1;"/>
+
+  <!-- Main period line spanning all four periods -->
+  <line x1="&TRIANGLE1_LEFT_X;" y1="&MAIN_PERIOD_LINE_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="&MAIN_PERIOD_LINE_Y;" stroke="black" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_MAIN_PERIOD;"/>
+  <text x="460" y="&MAIN_PERIOD_LINE_Y;" font-family="Arial" font-size="12" fill="black" text-anchor="middle" dy="-9" opacity="&SHOW_MAIN_PERIOD;">Period: &PERIOD1_VALUE;</text>
+
+  <!-- Individual period lines for each sawtooth -->
+  <line x1="&TRIANGLE1_LEFT_X;" y1="&PERIOD1_LINE_Y;" x2="&TRIANGLE1_RIGHT_X;" y2="&PERIOD1_LINE_Y;" stroke="green" stroke-dasharray="3" stroke-width="1" opacity="&SHOW_INDIVIDUAL_PERIODS;"/>
+  <line x1="&TRIANGLE2_LEFT_X;" y1="&PERIOD2_LINE_Y;" x2="&TRIANGLE2_RIGHT_X;" y2="&PERIOD2_LINE_Y;" stroke="green" stroke-dasharray="3" stroke-width="1" opacity="&SHOW_INDIVIDUAL_PERIODS;"/>
+  <line x1="&TRIANGLE3_LEFT_X;" y1="&PERIOD1_LINE_Y;" x2="&TRIANGLE3_RIGHT_X;" y2="&PERIOD1_LINE_Y;" stroke="green" stroke-dasharray="3" stroke-width="1" opacity="&SHOW_INDIVIDUAL_PERIODS;"/>
+  <line x1="&TRIANGLE4_LEFT_X;" y1="&PERIOD2_LINE_Y;" x2="&TRIANGLE4_RIGHT_X;" y2="&PERIOD2_LINE_Y;" stroke="green" stroke-dasharray="3" stroke-width="1" opacity="&SHOW_INDIVIDUAL_PERIODS;"/>
+
+  <!-- Individual period line labels -->
+  <text x="175" y="&PERIOD1_LINE_Y;" font-family="Arial" font-size="10" fill="green" text-anchor="middle" dy="-9" opacity="&SHOW_INDIVIDUAL_PERIODS;">Period0: &PERIOD1_VALUE;</text>
+  <text x="365" y="&PERIOD2_LINE_Y;" font-family="Arial" font-size="10" fill="purple" text-anchor="middle" dy="-9" opacity="&SHOW_INDIVIDUAL_PERIODS;">Period1: &PERIOD2_VALUE;</text>
+  <text x="555" y="&PERIOD1_LINE_Y;" font-family="Arial" font-size="10" fill="green" text-anchor="middle" dy="-9" opacity="&SHOW_INDIVIDUAL_PERIODS;">Period0: &PERIOD1_VALUE;</text>
+  <text x="745" y="&PERIOD2_LINE_Y;" font-family="Arial" font-size="10" fill="purple" text-anchor="middle" dy="-9" opacity="&SHOW_INDIVIDUAL_PERIODS;">Period1: &PERIOD2_VALUE;</text>
+
+  <!-- Downward dashed markers from DOTs for all four periods -->
+  <!-- Compare0 dots -->
+  <line id="Line From Dot 1" x1="&PWM_DOT1_X;" y1="&PWM_DOT1_Y;" x2="&PWM_DOT1_X;" y2="&MARKS_Y_BOT;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT1;"/>
+  <line id="Line From Dot 2" x1="&PWM_DOT2_X;" y1="&PWM_DOT2_Y;" x2="&PWM_DOT2_X;" y2="&MARKS_Y_BOT;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT2;"/>
+  <line id="Line From Dot 3" x1="&PWM_DOT3_X;" y1="&PWM_DOT3_Y;" x2="&PWM_DOT3_X;" y2="&MARKS_Y_BOT;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT3;"/>
+  <line id="Line From Dot 4" x1="&PWM_DOT4_X;" y1="&PWM_DOT4_Y;" x2="&PWM_DOT4_X;" y2="&MARKS_Y_BOT;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT4;"/>
+  
+  <!-- Compare1/CC1 dots (visible when CC1 enabled AND compare <= period) -->
+  <line id="Line From Dot 1 CC1" x1="&PWM_DOT1_CC1_X;" y1="&PWM_DOT1_CC1_Y;" x2="&PWM_DOT1_CC1_X;" y2="&MARKS_Y_BOT;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT1_CC1;"/>
+  <line id="Line From Dot 2 CC1" x1="&PWM_DOT2_CC1_X;" y1="&PWM_DOT2_CC1_Y;" x2="&PWM_DOT2_CC1_X;" y2="&MARKS_Y_BOT;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT2_CC1;"/>
+  <line id="Line From Dot 3 CC1" x1="&PWM_DOT3_CC1_X;" y1="&PWM_DOT3_CC1_Y;" x2="&PWM_DOT3_CC1_X;" y2="&MARKS_Y_BOT;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT3_CC1;"/>
+  <line id="Line From Dot 4 CC1" x1="&PWM_DOT4_CC1_X;" y1="&PWM_DOT4_CC1_Y;" x2="&PWM_DOT4_CC1_X;" y2="&MARKS_Y_BOT;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT4_CC1;"/>
+  
+  <!-- Compare0 dots for periods 2&4 when swap is ENABLED (buffer values - blue lines) -->
+  <line id="Line From Dot 2 Buffer" x1="&PWM_DOT2_BUFFER_X;" y1="&PWM_DOT2_BUFFER_Y;" x2="&PWM_DOT2_BUFFER_X;" y2="&MARKS_Y_BOT;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT2_BUFF;"/>
+  <line id="Line From Dot 4 Buffer" x1="&PWM_DOT4_BUFFER_X;" y1="&PWM_DOT4_BUFFER_Y;" x2="&PWM_DOT4_BUFFER_X;" y2="&MARKS_Y_BOT;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT4_BUFF;"/>
+  
+  <!-- Compare1/CC1 dots for periods 2&4 when swap is ENABLED (buffer values - purple lines) -->
+  <line id="Line From Dot 2 CC1 Buffer" x1="&PWM_DOT2_BUFFER_CC1_X;" y1="&PWM_DOT2_BUFFER_CC1_Y;" x2="&PWM_DOT2_BUFFER_CC1_X;" y2="&MARKS_Y_BOT;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT2_BUFF_CC1;"/>
+  <line id="Line From Dot 4 CC1 Buffer" x1="&PWM_DOT4_BUFFER_CC1_X;" y1="&PWM_DOT4_BUFFER_CC1_Y;" x2="&PWM_DOT4_BUFFER_CC1_X;" y2="&MARKS_Y_BOT;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_DOT4_BUFF_CC1;"/>
+
+  <!-- Compare intersection dots for all four periods -->
+  <!-- Compare0 dots -->
+  <circle id="Compare Dot 1" cx="&PWM_DOT1_X;" cy="&PWM_DOT1_Y;" r="3" fill="red" opacity="&SHOW_DOT1;" />
+  <circle id="Compare Dot 2" cx="&PWM_DOT2_X;" cy="&PWM_DOT2_Y;" r="3" fill="red" opacity="&SHOW_DOT2;" />
+  <circle id="Compare Dot 3" cx="&PWM_DOT3_X;" cy="&PWM_DOT3_Y;" r="3" fill="red" opacity="&SHOW_DOT3;" />
+  <circle id="Compare Dot 4" cx="&PWM_DOT4_X;" cy="&PWM_DOT4_Y;" r="3" fill="red" opacity="&SHOW_DOT4;" />
+  
+  <!-- Compare1/CC1 dots (visible when CC1 enabled AND compare <= period) -->
+  <circle id="Compare Dot 1 CC1" cx="&PWM_DOT1_CC1_X;" cy="&PWM_DOT1_CC1_Y;" r="3" fill="orange" opacity="&SHOW_DOT1_CC1;" />
+  <circle id="Compare Dot 2 CC1" cx="&PWM_DOT2_CC1_X;" cy="&PWM_DOT2_CC1_Y;" r="3" fill="orange" opacity="&SHOW_DOT2_CC1;" />
+  <circle id="Compare Dot 3 CC1" cx="&PWM_DOT3_CC1_X;" cy="&PWM_DOT3_CC1_Y;" r="3" fill="orange" opacity="&SHOW_DOT3_CC1;" />
+  <circle id="Compare Dot 4 CC1" cx="&PWM_DOT4_CC1_X;" cy="&PWM_DOT4_CC1_Y;" r="3" fill="orange" opacity="&SHOW_DOT4_CC1;" />
+  
+  <!-- Compare0 dots for periods 2&4 when swap is ENABLED (buffer values - blue dots) -->
+  <circle id="Compare Dot 2 Buffer" cx="&PWM_DOT2_BUFFER_X;" cy="&PWM_DOT2_BUFFER_Y;" r="3" fill="blue" opacity="&SHOW_DOT2_BUFF;" />
+  <circle id="Compare Dot 4 Buffer" cx="&PWM_DOT4_BUFFER_X;" cy="&PWM_DOT4_BUFFER_Y;" r="3" fill="blue" opacity="&SHOW_DOT4_BUFF;" />
+  
+  <!-- Compare1/CC1 dots for periods 2&4 when swap is ENABLED (buffer values - purple dots) -->
+  <circle id="Compare Dot 2 CC1 Buffer" cx="&PWM_DOT2_BUFFER_CC1_X;" cy="&PWM_DOT2_BUFFER_CC1_Y;" r="3" fill="purple" opacity="&SHOW_DOT2_BUFF_CC1;" />
+  <circle id="Compare Dot 4 CC1 Buffer" cx="&PWM_DOT4_BUFFER_CC1_X;" cy="&PWM_DOT4_BUFFER_CC1_Y;" r="3" fill="purple" opacity="&SHOW_DOT4_BUFF_CC1;" />
+
+  <!-- 4 Signal Lines in the Middle (overflow line shown but no events for right-aligned PWM) -->
+  <text x="40" y="230" font-family="Arial" font-size="12" fill="black">overflow</text>
+  <line id="Overflow" x1="50" y1="240" x2="850" y2="240" stroke="&IFX_COLOR_BERRY400;" stroke-width="2" />
+  
+  <text x="40" y="250" font-family="Arial" font-size="12" fill="black">underflow</text>
+  <line id="Underflow" x1="50" y1="260" x2="850" y2="260" stroke="&IFX_COLOR_LAWN500;" stroke-width="2" />
+  
+  <text x="40" y="270" font-family="Arial" font-size="12" fill="black">tc</text>
+  <line id="Terminal Count" x1="50" y1="280" x2="850" y2="280" stroke="#F97414" stroke-width="2" />
+  
+  <text x="40" y="290" font-family="Arial" font-size="12" fill="black">cc0_match</text>
+  <line id="Compare Match" x1="50" y1="300" x2="850" y2="300" stroke="#06534B" stroke-width="2" />
+
+  <text x="40" y="310" font-family="Arial" font-size="12" fill="black" opacity="&SHOW_CC1_LINES;">cc1_match</text>
+  <line id="CC1 Compare Match" x1="50" y1="320" x2="850" y2="320" stroke="#FF6B35" stroke-width="2" opacity="&SHOW_CC1_LINES;" />
+
+  <!-- U-N arrows to period end (underflow events in right-aligned PWM) for all four periods -->
+  <circle id="UN Dot 1" cx="&TRIANGLE1_RIGHT_X;" cy="&UN_Y;" r="4" fill="black" />
+  <circle id="UN Dot 2" cx="&TRIANGLE2_RIGHT_X;" cy="&UN_Y;" r="4" fill="black" />
+  <circle id="UN Dot 3" cx="&TRIANGLE3_RIGHT_X;" cy="&UN_Y;" r="4" fill="black" />
+  <circle id="UN Dot 4" cx="&TRIANGLE4_RIGHT_X;" cy="&UN_Y;" r="4" fill="black" />
+  
+  <!-- Interrupt indicators above underflow dots (when InterruptTC is enabled) -->
+  <text x="&TRIANGLE1_RIGHT_X;" y="&UN_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_TC;" font-weight="bold">I</text>
+  <text x="&TRIANGLE2_RIGHT_X;" y="&UN_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_TC;" font-weight="bold">I</text>
+  <text x="&TRIANGLE3_RIGHT_X;" y="&UN_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_TC;" font-weight="bold">I</text>
+  <text x="&TRIANGLE4_RIGHT_X;" y="&UN_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_TC;" font-weight="bold">I</text>
+
+  <!-- Interrupt indicators above Compare0 dots (when InterruptCC0 is enabled AND dot visible) -->
+  <text x="&PWM_DOT1_X;" y="&CM_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_CC0_DOT1;" font-weight="bold">I</text>
+  <text x="&PWM_DOT2_X;" y="&CM_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_CC0_DOT2;" font-weight="bold">I</text>
+  <text x="&PWM_DOT3_X;" y="&CM_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_CC0_DOT3;" font-weight="bold">I</text>
+  <text x="&PWM_DOT4_X;" y="&CM_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_CC0_DOT4;" font-weight="bold">I</text>
+
+  <!-- Interrupt indicators above Compare1 dots (when InterruptCC1 is enabled AND dot visible) -->
+  <text x="&PWM_DOT1_CC1_X;" y="&CM_CC1_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_CC1_DOT1;" font-weight="bold">I</text>
+  <text x="&PWM_DOT2_CC1_X;" y="&CM_CC1_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_CC1_DOT2;" font-weight="bold">I</text>
+  <text x="&PWM_DOT3_CC1_X;" y="&CM_CC1_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_CC1_DOT3;" font-weight="bold">I</text>
+  <text x="&PWM_DOT4_CC1_X;" y="&CM_CC1_Y;" font-family="Arial" font-size="12" fill="red" text-anchor="middle" dy="-20" opacity="&SHOW_INTERRUPT_CC1_DOT4;" font-weight="bold">I</text>
+
+  <!-- T-C arrows to period end (terminal count events) for all four periods -->
+  <circle id="TC Dot 1" cx="&TRIANGLE1_RIGHT_X;" cy="&TC_Y;" r="4" fill="black" />
+  <circle id="TC Dot 2" cx="&TRIANGLE2_RIGHT_X;" cy="&TC_Y;" r="4" fill="black" />
+  <circle id="TC Dot 3" cx="&TRIANGLE3_RIGHT_X;" cy="&TC_Y;" r="4" fill="black" />
+  <circle id="TC Dot 4" cx="&TRIANGLE4_RIGHT_X;" cy="&TC_Y;" r="4" fill="black" />
+
+  <!-- C-M arrows under DOTs -->
+  <circle id="CM Dot 1" cx="&PWM_DOT1_X;" cy="&CM_Y;" r="4" fill="black" opacity="&SHOW_RIGHT_ALIGN_DOT1_3;" />
+  <circle id="CM Dot 2" cx="&PWM_DOT2_X;" cy="&CM_Y;" r="4" fill="black" opacity="&SHOW_RIGHT_ALIGN_DOT2_4;" />
+  <circle id="CM Dot 3" cx="&PWM_DOT3_X;" cy="&CM_Y;" r="4" fill="black" opacity="&SHOW_RIGHT_ALIGN_DOT1_3;" />
+  <circle id="CM Dot 4" cx="&PWM_DOT4_X;" cy="&CM_Y;" r="4" fill="black" opacity="&SHOW_RIGHT_ALIGN_DOT2_4;" />
+
+  <!-- CC1 Compare Match arrows under CC1 DOTs (visible when CC1 enabled) -->
+  <circle id="CM CC1 Dot 1" cx="&PWM_DOT1_CC1_X;" cy="&CM_CC1_Y;" r="4" fill="black" opacity="&SHOW_RIGHT_ALIGN_DOT1_3_CC1;" />
+  <circle id="CM CC1 Dot 2" cx="&PWM_DOT2_CC1_X;" cy="&CM_CC1_Y;" r="4" fill="black" opacity="&SHOW_RIGHT_ALIGN_DOT2_4_CC1;" />
+  <circle id="CM CC1 Dot 3" cx="&PWM_DOT3_CC1_X;" cy="&CM_CC1_Y;" r="4" fill="black" opacity="&SHOW_RIGHT_ALIGN_DOT1_3_CC1;" />
+  <circle id="CM CC1 Dot 4" cx="&PWM_DOT4_CC1_X;" cy="&CM_CC1_Y;" r="4" fill="black" opacity="&SHOW_RIGHT_ALIGN_DOT2_4_CC1;" />
+
+  <!-- Waveform lines for right-aligned PWM - four periods -->
+  <!-- Line: Low from start, goes high at compare match, stays high to end for each period -->
+  <text x="40" y="370" font-family="Arial" font-size="10" fill="black">line_out</text>
+  <polyline points="&LINE_START_X;,&LINE_Y_L; &TRIANGLE1_LEFT_X;,&LINE_Y_L; &PWM_DOT1_X;,&LINE_Y_L; &PWM_DOT1_X;,&LINE_Y_H; &TRIANGLE1_RIGHT_X;,&LINE_Y_H; &TRIANGLE2_LEFT_X;,&LINE_Y_L; &PWM_DOT2_X;,&LINE_Y_L; &PWM_DOT2_X;,&LINE_Y_H; &TRIANGLE2_RIGHT_X;,&LINE_Y_H; &TRIANGLE3_LEFT_X;,&LINE_Y_L; &PWM_DOT3_X;,&LINE_Y_L; &PWM_DOT3_X;,&LINE_Y_H; &TRIANGLE3_RIGHT_X;,&LINE_Y_H; &TRIANGLE4_LEFT_X;,&LINE_Y_L; &PWM_DOT4_X;,&LINE_Y_L; &PWM_DOT4_X;,&LINE_Y_H; &TRIANGLE4_RIGHT_X;,&LINE_Y_H; &TRIANGLE4_RIGHT_X;,&LINE_Y_L; &LINE_END_X;,&LINE_Y_L;" stroke="&IFX_COLOR_BERRY400;" fill="none" stroke-width="2"/>
+
+  <!-- Complementary Line (line_n): Inverted PWM for four periods -->
+  <text x="40" y="440" font-family="Arial" font-size="10" fill="black">line_compl_out</text>
+  <polyline points="&LINE_START_X;,&LINE_N_Y_H; &TRIANGLE1_LEFT_X;,&LINE_N_Y_H; &PWM_DOT1_X;,&LINE_N_Y_H; &PWM_DOT1_X;,&LINE_N_Y_L; &TRIANGLE1_RIGHT_X;,&LINE_N_Y_L; &TRIANGLE2_LEFT_X;,&LINE_N_Y_H; &PWM_DOT2_X;,&LINE_N_Y_H; &PWM_DOT2_X;,&LINE_N_Y_L; &TRIANGLE2_RIGHT_X;,&LINE_N_Y_L; &TRIANGLE3_LEFT_X;,&LINE_N_Y_H; &PWM_DOT3_X;,&LINE_N_Y_H; &PWM_DOT3_X;,&LINE_N_Y_L; &TRIANGLE3_RIGHT_X;,&LINE_N_Y_L; &TRIANGLE4_LEFT_X;,&LINE_N_Y_H; &PWM_DOT4_X;,&LINE_N_Y_H; &PWM_DOT4_X;,&LINE_N_Y_L; &TRIANGLE4_RIGHT_X;,&LINE_N_Y_L; &TRIANGLE4_RIGHT_X;,&LINE_N_Y_H; &LINE_END_X;,&LINE_N_Y_H;" stroke="&IFX_COLOR_LAWN500;" fill="none" stroke-width="2"/>
+
+  <!-- Compare Error Message -->
+  <g opacity="&COMPARE_ERROR_OPACITY;">
+    <rect x="70" y="335" width="780" height="95" fill="white" stroke="red" stroke-width="2" rx="5"/>
+    <text x="460" y="383" font-family="Arial" font-size="14" fill="red" text-anchor="middle">Compare value exceeds maximum counter width</text>
+  </g>
+
+  <!-- Error Message: Display when Period exceeds pCntWidthMax -->
+  <g opacity="&ERROR_MESSAGE_OPACITY;">
+    <!-- Full SVG white background overlay -->
+    <rect x="0" y="0" width="900" height="500" fill="white" opacity="1"/>
+    
+    <!-- White background for error message -->
+    <rect x="150" y="180" width="600" height="120" fill="white" stroke="red" stroke-width="2" rx="5"/>
+    
+    <!-- Error message text -->
+    <text x="450" y="215" font-family="Arial" font-size="18" font-weight="bold" fill="red" text-anchor="middle">ERROR</text>
+    <text x="450" y="245" font-family="Arial" font-size="14" fill="red" text-anchor="middle">Period value exceeds maximum counter width</text>
+    <text x="450" y="270" font-family="Arial" font-size="14" fill="red" text-anchor="middle">Please reduce the Period value</text>
+  </g>
+</svg>

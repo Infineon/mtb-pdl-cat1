@@ -39,6 +39,7 @@ var group__group__flash__functions =
     [ "Cy_Flash_CalculateHash", "group__group__flash__functions.html#ga3f948f4d096b9f93488a889a011bda14", null ],
     [ "Cy_Flash_RowChecksum", "group__group__flash__functions.html#ga29ac711091186d8a7790be298fb6148b", null ],
     [ "Cy_Flash_Init", "group__group__flash__functions.html#gaf1b44a029169a1baa08e211bff714a19", null ],
+    [ "Cy_Flash_RegisterCallback", "group__group__flash__functions.html#gae49d1d40f075c05cb01ef609c2241af4", null ],
     [ "Cy_Flash_Init", "group__group__flash__functions.html#ga18d674d1c8e2fbfd32858e7d80245b3a", null ],
     [ "Cy_Flash_Refresh", "group__group__flash__functions.html#gae3198c52d55bf7ce65e8a84d7e69284d", null ],
     [ "Cy_Flash_Refresh_Start", "group__group__flash__functions.html#gad871c025e0a01401fe38be2ddea7c537", null ],
