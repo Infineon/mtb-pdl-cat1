@@ -1,14 +1,10 @@
 /***************************************************************************//**
-* \file gpio_psoc6_01_116_bga_usb.h
-*
-* \brief
-* PSoC6_01 device GPIO header for 116-BGA-USB package
+* PSOC6_01 device GPIO header for 116-BGA-USB package
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2025), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-*
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");

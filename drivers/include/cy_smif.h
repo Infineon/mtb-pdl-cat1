@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.130
+* \version 2.140
 *
 * Provides an API declaration of the Cypress SMIF driver.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2024 Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -233,6 +233,11 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.140</td>
+*     <td>New device support added for TRAVEO T2G CYT3DL.</td>
+*     <td>New Device support added.</td>
+*   </tr>
 *   <tr>
 *     <td>2.130</td>
 *     <td> Updated APIs : \n
@@ -603,7 +608,7 @@
 *
 * \}
 * \defgroup group_smif_mem_slot_functions Memory Slot Functions
-* \defgroup group_smif_functions_syspm_callback  Low Power Callback
+* \defgroup group_smif_functions_syspm_callback Low Power Callback
 * \}
 * \defgroup group_smif_data_structures Data Structures
 * \{
@@ -1286,6 +1291,13 @@ typedef enum
     CY_SMIF_EN_BRIDGE_SMIF1_XIP_SPACE = 1,
 } cy_en_smif_bridge_xip_space_t;
 
+/** \} group_smif_enums */
+
+/**
+* \addtogroup group_smif_data_structures
+* \{
+*/
+
 /** Specifies the port priority on bridge interface. */
 /**
 * \note
@@ -1371,6 +1383,13 @@ typedef struct
     uint32_t                              phyAddr0;        /**< This specifies remapped address on PORT0 */
     uint32_t                              phyAddr1;        /**< This specifies remapped address on PORT1 */
 } cy_stc_smif_bridge_interleave_remap_t;
+
+/** \} group_smif_data_structures */
+
+/**
+* \addtogroup group_smif_enums
+* \{
+*/
 
 #endif /* CY_IP_MXSMIF_VERSION */
 
@@ -1757,6 +1776,8 @@ cy_en_smif_status_t Cy_SMIF_Clean_And_Invalidate_Cache_by_Addr(SMIF_CACHE_BLOCK_
 cy_en_smif_status_t Cy_SMIF_IsCacheEnabled(SMIF_CACHE_BLOCK_Type *base, bool *cache_status);
 #endif
 
+/** \} */
+
 /** \addtogroup group_smif_functions_syspm_callback
 * The driver supports SysPm callback for Deep Sleep and Hibernate transition.
 * \{
@@ -1767,6 +1788,11 @@ cy_en_syspm_status_t Cy_SMIF_HibernateCallback(cy_stc_syspm_callback_params_t *c
 #endif
 /** \} */
 
+
+/**
+* \addtogroup group_smif_low_level_functions
+* \{
+*/
 
 /***************************************
 *  Internal SMIF function declarations
@@ -1780,13 +1806,6 @@ __STATIC_INLINE cy_en_smif_status_t Cy_SMIF_TimeoutRun(uint32_t *timeoutUnits);
 __STATIC_INLINE SMIF_DEVICE_Type volatile * Cy_SMIF_GetDeviceBySlot(SMIF_Type *base, cy_en_smif_slave_select_t slaveSelect);
 /** \endcond */
 
-/** \} group_smif_low_level_functions */
-
-
-/**
-* \addtogroup group_smif_low_level_functions
-* \{
-*/
 
 /*******************************************************************************
 * Function Name: Cy_SMIF_Disable
@@ -2520,7 +2539,7 @@ __STATIC_INLINE SMIF_DEVICE_Type volatile * Cy_SMIF_GetDeviceBySlot(SMIF_Type *b
     return device;
 }
 /** \endcond */
-/** \} group_smif_low_level_functions */
+/** \} */
 
 #if defined(__cplusplus)
 }

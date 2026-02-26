@@ -1,4 +1,5 @@
-# Copyright 2025 Cypress Semiconductor Corporation
+* (c) 2025-2026, Infineon Technologies AG or an affiliate of
+# Infineon Technologies AG.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,10 +73,10 @@ proc lookup_max_freq {clockInst clockSrc clockSrcSourcedByFll clockSrcSourcedByI
          {0     0       0           0            0              0           0               0            0}}
         {{100   100     200         196          198            191         187             189          200}
          {0     0       0           0            0              0           0               0            0}}
-        {{100   100     333         326          329            318         312             315          370}
-         {100   100     333         362          366            318         312             315          370}}
-        {{100   100     333         326          329            318         312             315          370}
-         {100   100     333         362          366            318         312             315          370}}
+        {{0     0       333         326          329            318         312             315          370}
+         {0     0       333         362          366            318         312             315          370}}
+        {{0     0       333         326          329            318         312             315          370}
+         {0     0       333         362          366            318         312             315          370}}
         {{100   100     254         250          252            243         239             241          254}
          {0     0       0           0            0              0           0               0            0}}
         {{100   100     224         220          222            214         210             212          224}
@@ -111,6 +112,13 @@ proc lookup_max_freq {clockInst clockSrc clockSrcSourcedByFll clockSrcSourcedByI
                 set hfclk_row [lindex $hfclk_rows 1]
             }
         }
+    }
+ 
+    # Special case for clockInst 13 (ILO sourced, CSV Dedicated >1MHz)
+    if {$clockInst == 13} {
+        set retval 1000000
+        puts $::channelName "$retval"
+        return $retval
     }
 
     # Create the index to the correct maximum frequency in the table.

@@ -1,14 +1,10 @@
 /***************************************************************************//**
-* \file cy8c6247fti_d52.h
-*
-* \brief
 * CY8C6247FTI-D52 device header
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2025), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-*
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -573,7 +569,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"                       /*!< PSoC 6 System */
+#include "system_psoc6.h"
 
 #include "psoc6_01_config.h"
 #include "gpio_psoc6_01_80_wlcsp.h"

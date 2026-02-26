@@ -1,6 +1,5 @@
 var group__group__smif__low__level__functions =
 [
-    [ "Low Power Callback", "group__group__smif__functions__syspm__callback.html", "group__group__smif__functions__syspm__callback" ],
     [ "Cy_SMIF_Init", "group__group__smif__low__level__functions.html#gaea2684847f04e2e7e2c85cfe7fd37881", null ],
     [ "Cy_SMIF_DllConfig", "group__group__smif__low__level__functions.html#gaa0020f3543dc622302fa272e1270230d", null ],
     [ "Cy_SMIF_DeInit", "group__group__smif__low__level__functions.html#gacfff3629c2c649b4eb776e8e98523dda", null ],

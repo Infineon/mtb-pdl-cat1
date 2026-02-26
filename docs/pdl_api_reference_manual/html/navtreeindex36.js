@@ -1,5 +1,8 @@
 var NAVTREEINDEX36 =
 {
+"group__group__wdt__functions.html#ga3ec661a60927ab0c15e654540f55c95b":[4,56,2,16],
+"group__group__wdt__functions.html#ga405c852c5a61c72a9492f9d0d9c04213":[4,56,2,31],
+"group__group__wdt__functions.html#ga496dd75cabf55aeab95c6c1e759c7da6":[4,56,2,25],
 "group__group__wdt__functions.html#ga51094ce9149f69553b6348eccbd89667":[4,56,2,2],
 "group__group__wdt__functions.html#ga5aafcfb34e8078ae911bb42be76a8f18":[4,56,2,5],
 "group__group__wdt__functions.html#ga5c59734a60855534520a53194ef181a4":[4,56,2,27],
@@ -246,8 +249,5 @@ var NAVTREEINDEX36 =
 "structcy__stc__canfd__transceiver__delay__compensation__t.html#aaeebd018566ae73a26f6da353a317972":[4,4,2,11,2],
 "structcy__stc__canfd__transceiver__delay__compensation__t.html#af4653b6374e2da6803a095ea56812a12":[4,4,2,11,1],
 "structcy__stc__canfd__transceiver__delay__compensation__t.html#afcbf644eab20b5a4edceef282bbf01cf":[4,4,2,11,0],
-"structcy__stc__canfd__tx__buffer__t.html":[4,4,2,5],
-"structcy__stc__canfd__tx__buffer__t.html#a5ea9b11312a86308081d1afbb7774b30":[4,4,2,5,2],
-"structcy__stc__canfd__tx__buffer__t.html#abf34a8342fded952c54e85f3865ed1e5":[4,4,2,5,0],
-"structcy__stc__canfd__tx__buffer__t.html#af3ed5987e09533673317136f35bd9a2c":[4,4,2,5,1]
+"structcy__stc__canfd__tx__buffer__t.html":[4,4,2,5]
 };

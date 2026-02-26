@@ -1,17 +1,26 @@
 /***************************************************************************//**
 * \file cy_sar2.c
-* \version 1.1
+* \version 1.2
 *
 * Provides API implementation of the SAR2 Driver.
 *
 *******************************************************************************
 * \copyright
-* (c) (2022), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation. All rights reserved.
-*******************************************************************************
-* You may use this file only in accordance with the license, terms, conditions,
-* disclaimers, and limitations in the end user license agreement accompanying
-* the software package with which this file was provided.
+* (c) 2022-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
+* SPDX-License-Identifier: Apache-2.0
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
 *******************************************************************************/
 
 #include "cy_sar2.h"
@@ -87,6 +96,19 @@ cy_en_sar2_status_t Cy_SAR2_Init(PASS_SAR_Type * base, const cy_stc_sar2_config_
 
             if (NULL != locChanCfg)
             {
+                const cy_en_sar2_port_address_t sarmux_idx = locChanCfg->portAddress;
+                const uint32_t sarmux_en = (_BOOL2FLD(PASS_SAR_CTL_SARMUX_EN, config->sarMuxEnable) |
+                                            _BOOL2FLD(PASS_SAR_CTL_ENABLED, config->sarIpEnable));
+
+                /* Enable SARMUX1..3 if the channel is not associated with the default SARMUX0 (ADC0 only) */
+                CY_ASSERT_L1(sarmux_idx < (sizeof(PASS0->SAR) / sizeof(PASS0->SAR[0])));
+                if (base == PASS0_SAR0 && sarmux_idx != CY_SAR2_PORT_ADDRESS_SARMUX0 &&
+                    PASS0->SAR[sarmux_idx].CTL != sarmux_en)
+                {
+                    PASS0->SAR[sarmux_idx].CTL = sarmux_en;
+                }
+
+                /* Basic channel initialization */
                 (void) Cy_SAR2_Channel_Init(base, chan, locChanCfg);
             }
         }

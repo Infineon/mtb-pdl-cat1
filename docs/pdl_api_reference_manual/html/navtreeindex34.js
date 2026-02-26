@@ -1,5 +1,8 @@
 var NAVTREEINDEX34 =
 {
+"group__group__tcpwm__macros__motif.html#ga73e12178dfb78a2ea85320e4e7cb4709":[4,52,5,0,0],
+"group__group__tcpwm__macros__motif.html#ga80a7c9e586964c5335b6e288304f0e88":[4,52,5,0,2],
+"group__group__tcpwm__macros__motif.html#ga8bc3ca7a96d4d0a72b10f2cc05a294c2":[4,52,5,0,11],
 "group__group__tcpwm__macros__motif.html#gaa58c16c7761979892331c123475bf376":[4,52,5,0,4],
 "group__group__tcpwm__macros__motif.html#gaaf440be39d3bd43791718980441b668e":[4,52,5,0,6],
 "group__group__tcpwm__macros__motif.html#gab195b2a7901a36e72c5cc14c738c8b91":[4,52,5,0,10],
@@ -246,8 +249,5 @@ var NAVTREEINDEX34 =
 "group__group__tdm__macros.html#gaf80b30b6d363e155b69a403e530a8bc4":[4,53,3,6],
 "group__group__trigmux.html":[4,54],
 "group__group__trigmux.html#ga882218319ecd105dede8b382e9a1c4a4":[4,54,3],
-"group__group__trigmux__1to1__enums.html":[4,54,2,4],
-"group__group__trigmux__1to1__enums.html#ga075c7d257be36f20ad981ecc71a36af1":[4,54,2,4,3],
-"group__group__trigmux__1to1__enums.html#ga0e136a305cfbf0583b63e22694e0b8d6":[4,54,2,4,2],
-"group__group__trigmux__1to1__enums.html#ga22d54a24d570396f8387a4c7c086877f":[4,54,2,4,6]
+"group__group__trigmux__1to1__enums.html":[4,54,2,4]
 };

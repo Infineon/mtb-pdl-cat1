@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.c
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides the source code for the SMIF driver APIs.
@@ -9,8 +9,8 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2024 Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");

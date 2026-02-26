@@ -389,11 +389,24 @@
       </Destination>
   </Source>
   <Source id="mxs40hfclk-1.1">
-    <Destination id="hfclk-3.0" valid="true" message="Migration is successful" defaultMapping="true">
+    <Destination id="hfclk-4.0" valid="true" message="Migration is successful" defaultMapping="true">
       </Destination>
   </Source>
   <Source id="mxs40hfclk-2.0">
-    <Destination id="hfclk-3.0" valid="true" message="Migration is successful" defaultMapping="true">
+    <Destination id="hfclk-4.0" valid="true" message="Migration is successful" defaultMapping="true">
+     </Destination>
+  </Source>
+  <Source id="hfclk-3.0">
+    <Destination id="hfclk-4.0" valid="true" message="Migration is successful" defaultMapping="true">
+        <DefaultParameter param="root_clk[0]" />
+     </Destination>
+  </Source>
+  <Source id="hfclk_t2g2d6m-1.0">
+    <Destination id="hfclk-4.0" valid="true" message="Migration is successful" defaultMapping="true">
+        <DefaultParameter param="ClkHfCsv" />
+        <DefaultParameter param="accuracyCsv" />
+        <DefaultParameter param="sourceClockCsv" />
+        <DefaultParameter param="actionCsv" />
      </Destination>
   </Source>
   <Source id="mxs40lpc-1.0">

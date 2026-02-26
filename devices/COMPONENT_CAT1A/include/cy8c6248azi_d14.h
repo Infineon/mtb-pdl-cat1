@@ -1,14 +1,10 @@
 /***************************************************************************//**
-* \file cy8c6248azi_d14.h
-*
-* \brief
 * CY8C6248AZI-D14 device header
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2025), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-*
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -592,7 +588,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"                       /*!< PSoC 6 System */
+#include "system_psoc6.h"
 
 #include "psoc6_02_config.h"
 #include "gpio_psoc6_02_128_tqfp.h"

@@ -1,14 +1,10 @@
 /***************************************************************************//**
-* \file tviic2d6m_config.h
-*
-* \brief
 * TVIIC2D6M device configuration header
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-*
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -5579,6 +5575,7 @@ typedef CRYPTO_V2_Type CRYPTO_Type;
 /* Protection regions */
 typedef enum
 {
+    PROT_START                      =   0,
     PROT_PERI_MAIN                  =   0,      /* Address 0x40000200, size 0x00000040 */
     PROT_PERI_SECURE                =   1,      /* Address 0x40002000, size 0x00000004 */
     PROT_PERI_GR0_GROUP             =   2,      /* Address 0x40004010, size 0x00000004 */
@@ -6211,7 +6208,8 @@ typedef enum
     PROT_VIDEOSS0_GFX_MPU_WR14_MAIN = 629,      /* Address 0x40afb800, size 0x00000004 */
     PROT_VIDEOSS0_GFX_MPU_WR15_MAIN = 630,      /* Address 0x40afbc00, size 0x00000004 */
     PROT_PD_PD                      = 631,      /* Address 0x40b00000, size 0x00000100 */
-    PROT_JPEGDEC_JPEGDEC            = 632       /* Address 0x40b10000, size 0x00002000 */
+    PROT_JPEGDEC_JPEGDEC            = 632,      /* Address 0x40b10000, size 0x00002000 */
+    PROT_END                        = 632
 } cy_en_prot_region_t;
 
 #endif /* _TVIIC2D6M_CONFIG_H_ */

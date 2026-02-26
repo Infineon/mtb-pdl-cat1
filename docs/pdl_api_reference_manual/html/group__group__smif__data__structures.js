@@ -2,6 +2,25 @@ var group__group__smif__data__structures =
 [
     [ "SMIF Memory Description Structures", "group__group__smif__data__structures__memslot.html", "group__group__smif__data__structures__memslot" ],
     [ "SMIF_Type", "struct_s_m_i_f___type.html", null ],
+    [ "cy_stc_smif_bridge_pri_t", "structcy__stc__smif__bridge__pri__t.html", [
+      [ "pri_ahb_smif0", "structcy__stc__smif__bridge__pri__t.html#a6ad052d5330124b4d9a74b889d22e80f", null ],
+      [ "pri_ahb_smif1", "structcy__stc__smif__bridge__pri__t.html#ae471994908e53da17c85567b616cc8d8", null ],
+      [ "pri_axi_smif0", "structcy__stc__smif__bridge__pri__t.html#ad1f20b6ed2cf74127cfddb9d4f707755", null ],
+      [ "pri_axi_smif1", "structcy__stc__smif__bridge__pri__t.html#aeb13744a2927b80dcefcdca6d43f0f19", null ]
+    ] ],
+    [ "cy_stc_smif_bridge_remap_t", "structcy__stc__smif__bridge__remap__t.html", [
+      [ "regionIdx", "structcy__stc__smif__bridge__remap__t.html#a2a576e125ba9704487c2247e1cdc6667", null ],
+      [ "regionSize", "structcy__stc__smif__bridge__remap__t.html#ad38f8c0041d42aa06e3659e37fc8aadb", null ],
+      [ "xipAddr", "structcy__stc__smif__bridge__remap__t.html#a0b751a1de8bf99e3541033394f891041", null ],
+      [ "phyAddr", "structcy__stc__smif__bridge__remap__t.html#a1687dcb88099a47230911022d48ef0bb", null ]
+    ] ],
+    [ "cy_stc_smif_bridge_interleave_remap_t", "structcy__stc__smif__bridge__interleave__remap__t.html", [
+      [ "regionIdx", "structcy__stc__smif__bridge__interleave__remap__t.html#aca44f1abf970d853d512f7cd53180f14", null ],
+      [ "regionSize", "structcy__stc__smif__bridge__interleave__remap__t.html#ae3bbcd027e8ddaba0b36b3fbb3febff4", null ],
+      [ "xipAddr", "structcy__stc__smif__bridge__interleave__remap__t.html#a24dbd128c6e43d4151162f8ed7726880", null ],
+      [ "phyAddr0", "structcy__stc__smif__bridge__interleave__remap__t.html#a07966367d096658b8d41f004d0662c7e", null ],
+      [ "phyAddr1", "structcy__stc__smif__bridge__interleave__remap__t.html#aa3160983da2ab9812cd07ca544248d9a", null ]
+    ] ],
     [ "cy_stc_smif_config_t", "structcy__stc__smif__config__t.html", [
       [ "mode", "structcy__stc__smif__config__t.html#aafd7927f913f7ce00475898ca8a032f8", null ],
       [ "deselectDelay", "structcy__stc__smif__config__t.html#a2a21acf4b0f7c82eecb82fea66f492c7", null ],
@@ -46,5 +65,8 @@ var group__group__smif__data__structures =
       [ "cache_region", "structcy__stc__smif__cache__config__t.html#a3db6c8f36a2abb7a10b89121f066727a", null ],
       [ "cache_region_count", "structcy__stc__smif__cache__config__t.html#a8a64a496bf508ee6741b12ea5567240b", null ]
     ] ],
-    [ "cy_smif_event_cb_t", "group__group__smif__data__structures.html#ga13688dde62e8977a11ab69cf6b2c39b5", null ]
+    [ "cy_smif_event_cb_t", "group__group__smif__data__structures.html#ga13688dde62e8977a11ab69cf6b2c39b5", null ],
+    [ "cy_en_smif_bridge_remap_type_t", "group__group__smif__data__structures.html#ga88167c6d27cc2a1260e162eb660cfd69", null ],
+    [ "cy_en_smif_bridge_interleave_step_t", "group__group__smif__data__structures.html#ga37705a366bb121c75080a7a831b70bea", null ],
+    [ "cy_en_smif_bridge_remap_region_size_t", "group__group__smif__data__structures.html#gad786eeb67bcea60b35ae8ecd48ffaf82", null ]
 ];

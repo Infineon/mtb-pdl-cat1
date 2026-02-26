@@ -1,17 +1,26 @@
 /***************************************************************************//**
 * \file cy_sar2.h
-* \version 1.1
+* \version 1.2
 *
 * Provides an API declaration of the SAR2 driver
 *
 *******************************************************************************
 * \copyright
-* (c) (2022), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation. All rights reserved.
-*******************************************************************************
-* You may use this file only in accordance with the license, terms, conditions,
-* disclaimers, and limitations in the end user license agreement accompanying
-* the software package with which this file was provided.
+* (c) 2022-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG. All rights reserved.
+* SPDX-License-Identifier: Apache-2.0
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
 *******************************************************************************/
 
 /**
@@ -101,6 +110,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.2</td>
+*     <td>Fixed MUX1-3 support for ADC0.</td>
+*     <td>Bug fixing.</td>
+*   </tr>
+*   <tr>
 *     <td>1.1</td>
 *     <td>Adding support for devices with up to 3 SAR slices.</td>
 *     <td></td>
@@ -187,7 +201,7 @@ extern "C" {
 #define CY_SAR2_DRV_VERSION_MAJOR  1
 
 /** Driver minor version */
-#define CY_SAR2_DRV_VERSION_MINOR  1
+#define CY_SAR2_DRV_VERSION_MINOR  2
 
 /** Sar2 driver ID */
 #define CY_SAR2_ID                 CY_PDL_DRV_ID(0x4BUL)

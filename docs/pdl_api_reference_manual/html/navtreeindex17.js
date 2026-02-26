@@ -1,5 +1,6 @@
 var NAVTREEINDEX17 =
 {
+"group__group__prot__enums.html#gga618195213f866568fb71ed14af59cf6ca1c8ba488664315a29d5de4ebf86c252b":[4,36,3,35,4],
 "group__group__prot__enums.html#gga618195213f866568fb71ed14af59cf6ca2c981f41713e5632dc55167017335beb":[4,36,3,35,7],
 "group__group__prot__enums.html#gga618195213f866568fb71ed14af59cf6ca6df8c2d6a69512e0630bf002c860685c":[4,36,3,35,2],
 "group__group__prot__enums.html#gga618195213f866568fb71ed14af59cf6ca708d89430a48e4532de29651f570ae26":[4,36,3,35,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX17 =
 "group__group__rtc__month.html#gae8278ab5506276206a3985c7256353cb":[4,37,0,2,0],
 "group__group__sar.html":[4,38],
 "group__group__sar2.html":[4,39],
-"group__group__sar2__calibration.html":[4,39,4],
-"group__group__sar2__data__structures.html":[4,39,2]
+"group__group__sar2__calibration.html":[4,39,4]
 };

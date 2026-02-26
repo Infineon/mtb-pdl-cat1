@@ -1,5 +1,8 @@
 var NAVTREEINDEX26 =
 {
+"group__group__sysanalog__macros.html#gae7f2baafecf4dfb90e870861a804faf5":[4,45,0,2],
+"group__group__sysanalog__macros.html#gaf99b8af9b0c3dfa8f90e709527f14d0a":[4,45,0,1],
+"group__group__sysanalog__sar__select.html":[4,38,0,1],
 "group__group__sysanalog__sar__select.html#ga0f47d195e9174d9c37a560161b039928":[4,38,0,1,4],
 "group__group__sysanalog__sar__select.html#ga4fb22e3dbae83eaa2696758c138ca274":[4,38,0,1,3],
 "group__group__sysanalog__sar__select.html#ga7355b84d2674f7d2dda61dc7b02b8806":[4,38,0,1,5],
@@ -246,8 +249,5 @@ var NAVTREEINDEX26 =
 "group__group__sysclk__clk__timer__funcs.html#ga11eae81c891454917909bea5de9bc9a7":[4,46,22,0,1],
 "group__group__sysclk__clk__timer__funcs.html#ga34ffff27beaafa7a391f2aac5cf38bfd":[4,46,22,0,6],
 "group__group__sysclk__clk__timer__funcs.html#ga37599d3c7ed1d0433565e4ce66351bcc":[4,46,22,0,3],
-"group__group__sysclk__clk__timer__funcs.html#ga3c024720aee53bd450eb68377a35bbf6":[4,46,22,0,4],
-"group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829":[4,46,22,0,0],
-"group__group__sysclk__clk__timer__funcs.html#ga47723df14931fa6403b7d3948dec3857":[4,46,22,0,2],
-"group__group__sysclk__clk__timer__funcs.html#gaa442df3e80e5c2dc763508731b155876":[4,46,22,0,5]
+"group__group__sysclk__clk__timer__funcs.html#ga3c024720aee53bd450eb68377a35bbf6":[4,46,22,0,4]
 };

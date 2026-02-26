@@ -34,6 +34,7 @@ var searchData=
   ['data_20structures',['Data Structures',['../group__group__ipc__bt__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__ipc__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__ipc__pipe__data__structures.html',1,'']]],
+  ['data_20structures',['Data Structures',['../group__group__ipc__sema__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__keyscan__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__lin__data__structures.html',1,'']]],
   ['data_20structures',['Data Structures',['../group__group__lpcomp__data__structures.html',1,'']]],

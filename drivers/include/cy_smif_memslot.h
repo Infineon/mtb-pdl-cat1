@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.h
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides the constants and parameter values for the memory-level
@@ -10,8 +10,8 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2024 Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -212,6 +212,7 @@ extern "C" {
 #define CY_SMIF_SFDP_QE_BIT_1_OF_SR_2               (0x02UL)                /**< The QE is bit 1 of the status register 2 */
 #define CY_SMIF_SFDP_QE_BIT_6_OF_SR_1               (0x40UL)                /**< The QE is bit 6 of the status register 1 */
 #define CY_SMIF_SFDP_QE_BIT_7_OF_SR_2               (0x80UL)                /**< The QE is bit 7 of the status register 2 */
+#define CY_SMIF_SFDP_BFPT_BYTE_00                   (0x00U)                 /**< The byte 0x00 of the JEDEC Basic Flash Parameter Table */
 #define CY_SMIF_SFDP_BFPT_BYTE_02                   (0x02U)                 /**< The byte 0x02 of the JEDEC Basic Flash Parameter Table */
 #define CY_SMIF_SFDP_BFPT_BYTE_04                   (0x04U)                 /**< The byte 0x04 of the JEDEC Basic Flash Parameter Table */
 #define CY_SMIF_SFDP_BFPT_BYTE_05                   (0x05U)                 /**< The byte 0x05 of the JEDEC Basic Flash Parameter Table */
@@ -274,6 +275,11 @@ extern "C" {
 
 
 /* ----------------------------  1st DWORD  ---------------------------- */
+#define CY_SMIF_SFDP_ERASE_GRANULARITY_Pos          (0x00UL)                /**< The SFDP erase granularity (Bits 0:1) */
+#define CY_SMIF_SFDP_ERASE_GRANULARITY_Msk          (0x03UL)                /**< The SFDP erase granularity (Bitfield-Mask: 0x03) */
+#define CY_SMIF_SFDP_4K_ERASE_AVAILABLE             (0x01UL)                /**< Uniform 4k erase blocks are supported throughout the device */
+#define CY_SMIF_SFDP_4K_ERASE_UNAVAILABLE           (0x03UL)                /**< Uniform 4k erase is unavailable */
+
 #define CY_SMIF_SFDP_FAST_READ_1_1_4_Pos            (6UL)                   /**< The SFDP 1-1-4 fast read support (Bit 6)               */
 #define CY_SMIF_SFDP_FAST_READ_1_1_4_Msk            (0x40UL)                /**< The SFDP 1-1-4 fast read support (Bitfield-Mask: 0x01) */
 #define CY_SMIF_SFDP_FAST_READ_1_4_4_Pos            (5UL)                   /**< The SFDP 1-4-4 fast read support (Bit 5)               */

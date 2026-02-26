@@ -2,15 +2,16 @@
 
 
 <!--****************************************************************************
-* \file hfclk.cypersonality
-* \version 3.0
+* \file hfclk_t2g2d6m.cypersonality
+* \version 1.0
 *
 * \brief
 * CLK_HF personality description file. It Supports CAT1A, CAT1B and CAT1C family of devices.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2025 Cypress Semiconductor Corporation
+* (c) 2025-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -121,13 +122,17 @@
     <ParamBool id="clockSrcSourcedByFll" name="clockSrcSourcedByFll" group="maxHfClkFreq" default="`${hasMatch(sourceClockRsc, &quot;fll&quot;)}`" visible="false" editable="false" desc="" />
     <ParamBool id="clockSrcSourcedByImo" name="clockSrcSourcedByImo" group="maxHfClkFreq" default="`${getExposedMember(clockSrcPathMux, &quot;sourceClock&quot;) eq &quot;imo&quot;}`" visible="false" editable="false" desc="" />
     <ParamBool id="clockSourcedByExtClk" name="clockSrcSourcedByExtClk" group="maxHfClkFreq" default="`${getExposedMember(clockSrcPathMux, &quot;sourceClock&quot;) eq &quot;ext&quot;}`" visible="false" editable="false" desc="" />
+    <ParamBool id="clockSrcSourcedByIlo" name="clockSrcSourcedByIlo" group="maxHfClkFreq" default="`${hasMatch(getExposedMember(clockSrcPathMux, &quot;sourceClock&quot;), &quot;ilo&quot;)}`" visible="false" editable="false" desc="" />
     <ParamBool id="pllIsBypassed" name="pllIsBypassed" group="maxHfClkFreq" default="`${hasMatch(sourceClockRsc, &quot;pathmux&quot;)}`" visible="false" editable="false" desc="" />
     <ParamBool id="clockSrcFracEn" name="clockSrcFracEn" group="maxHfClkFreq" default="`${getOrDefault(getExposedMember(sourceClockRsc, &quot;fracEn&quot;), false)}`" visible="false" editable="false" desc="" />
     <ParamBool id="clockSrcSscgEn" name="clockSrcSscgEn" group="maxHfClkFreq" default="`${clockSrcSourcedByFll ? false : getOrDefault(getExposedMember(sourceClockRsc, &quot;sscgEn&quot;), false)}`" visible="false" editable="false" desc="" />
     <ParamBool id="clockSrcInteger" name="clockSrcInteger" group="maxHfClkFreq" default="`${!clockSrcFracEn &amp;&amp; !clockSrcSscgEn}`" visible="false" editable="false" desc="" />
 
+    <!-- The number of MCWDTs is used to differentiate between the CYT3DL and CYT4DN devices and determine which Tcl script to use for clock frequency range lookup -->
+    <ParamRange id="numMCWDT" name="numMCWDT" group="Internal" desc="Number of MCWDTs" editable="false" default="`${lookupExpression(&quot;NUM_MCWDT&quot;, 0)}`" min="0" max="3" resolution="1" visible="false" />
+    <ParamString id="maxHfClkCalcScript" name="maxHfClkCalcScript" group="Internal" default="`${(numMCWDT eq 3) ? &quot;hfclk_t2g2d6m_maxclk.tcl&quot; : &quot;hfclk_t2g2d4m_maxclk.tcl&quot;}`" visible="false" editable="false" desc="Tcl script to calculate the clock ranges" />
     <ParamRange id="maxHfClkFreq" name="Max HF Clock Frequency" group="General" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="This is the maximum frequency that can be attained via the configuration present in the current clock path." 
-        default="`${runTcl(&quot;hfclk_t2g2d6m_maxclk.tcl&quot;, clockInst, sourceClock, clockSrcSourcedByFll, clockSrcSourcedByImo, pllIsBypassed, clockSrcFracEn, clockSrcSscgEn)}`" />
+        default="`${runTcl(maxHfClkCalcScript, clockInst, sourceClock, clockSrcSourcedByFll, clockSrcSourcedByImo, pllIsBypassed, clockSrcFracEn, clockSrcSscgEn)}`" />
     <ParamString id="maxHfClkFreqVisible" name="Max HF Clock Frequency" group="General" visible="true" editable="false" desc="This is the maximum frequency that can be attained via the configuration present in the current clock path." 
         default="`${formatFrequency(maxHfClkFreq)}`" />
     <!--
@@ -221,6 +226,7 @@
     </ParamSignal>
   </Parameters>
   <DRCs>
+    <DRC type="INFO" text="The selected CLK_HF personality is not available for CYT3DL. Update your configuration to use the latest supported CLK_HF personality." condition="`${(&quot;mxs40srss_ver3&quot; eq getIpBlockName()) &amp;&amp; (numMCWDT ne 3)}`" />
     <DRC type="ERROR" text="Source clock for CLK_HF`${clockInst}` is not enabled" condition="`${srcNotUsed}`" >
       <FixIt action="ENABLE_BLOCK" target="`${sourceClockRsc}`" value="" valid="true" />
     </DRC>
@@ -233,7 +239,7 @@
       <FixIt action="ENABLE_BLOCK" target="srss[0].clock[0].imo[0]" value="" valid="true" />
     </DRC>
     <DRC type="ERROR" 
-          text="CLK_HF`${clockInst}` frequency is `${formatFrequency(frequency)}`, and must be less than `${formatFrequency(maxHfClkFreq)}`.  See datasheet (Table 26-19) for max permitted root clock frequency given FLL/PLL/ECO/IMO source clock combinations."
+          text="CLK_HF`${clockInst}` frequency is `${formatFrequency(frequency)}`, and must be less than `${formatFrequency(maxHfClkFreq)}`.  See datasheet (Table 26-19) for max permitted root clock frequency given FLL/PLL/ECO/IMO/ILO source clock combinations."
           condition="`${(frequency > maxHfClkFreq)}`" />
 
     <!-- Warn user if clock sources don't match datasheet's "guaranteed mapping"-->
@@ -241,19 +247,19 @@
     <DRC type="WARNING" text="CLK_HF1 is not connected to its guaranteed PLL source clock (PLL400M0)." condition="`${(clockInst == 1) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll400m[0]&quot;)}`" />
     <DRC type="WARNING" text="CLK_HF2 is not connected to its guaranteed PLL source clock (PLL200M1)." condition="`${(clockInst == 2) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll[1]&quot;)}`" />
     <DRC type="WARNING" text="CLK_HF3 is not connected to its guaranteed PLL source clock (PLL200M0)." condition="`${(clockInst == 3) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll[0]&quot;)}`" />
-    <DRC type="WARNING" text="CLK_HF4 is not connected to its guaranteed PLL source clock (PLL200M0)." condition="`${(clockInst == 4) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll[0]&quot;)}`" />
-    <DRC type="WARNING" text="CLK_HF5 is not connected to its guaranteed PLL source clock (PLL400M1, PLL400M2, or EXT_CLK)." condition="`${(clockInst == 5) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !clockSourcedByExtClk &amp;&amp; ((sourceClock ne &quot;pll400m[1]&quot;) || (sourceClock ne &quot;pll400m[2]&quot;))}`" />
-    <DRC type="WARNING" text="CLK_HF6 is not connected to its guaranteed PLL source clock (PLL400M1, PLL400M2, or EXT_CLK)." condition="`${(clockInst == 6) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !clockSourcedByExtClk &amp;&amp; ((sourceClock ne &quot;pll400m[1]&quot;) || (sourceClock ne &quot;pll400m[2]&quot;))}`" />
-    <DRC type="WARNING" text="CLK_HF7 is not connected to its guaranteed PLL source clock (PLL400M1, PLL400M2, or EXT_CLK)." condition="`${(clockInst == 7) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !clockSourcedByExtClk &amp;&amp; ((sourceClock ne &quot;pll400m[1]&quot;) || (sourceClock ne &quot;pll400m[2]&quot;))}`" />
+    <!-- 6M (numMCWDT=3) CLK_HF4 -> PLL200M0; 4M (numMCWDT!=3) -> PLL200M1-->
+    <DRC type="WARNING" text="CLK_HF4 is not connected to its guaranteed PLL source clock (PLL200M0)." condition="`${(clockInst == 4) &amp;&amp; (numMCWDT eq 3) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll[0]&quot;)}`" />
+    <DRC type="WARNING" text="CLK_HF4 is not connected to its guaranteed PLL source clock (PLL200M1)." condition="`${(clockInst == 4) &amp;&amp; (numMCWDT ne 3) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll[1]&quot;)}`" />
+    <DRC type="WARNING" text="CLK_HF5 is not connected to its guaranteed PLL source clock (PLL400M1, PLL400M2, or EXT_CLK)." condition="`${(clockInst == 5) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !clockSourcedByExtClk &amp;&amp; !((sourceClock eq &quot;pll400m[1]&quot;) || (sourceClock eq &quot;pll400m[2]&quot;))}`" />
+    <DRC type="WARNING" text="CLK_HF6 is not connected to its guaranteed PLL source clock (PLL400M1, PLL400M2, or EXT_CLK)." condition="`${(clockInst == 6) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !clockSourcedByExtClk &amp;&amp; !((sourceClock eq &quot;pll400m[1]&quot;) || (sourceClock eq &quot;pll400m[2]&quot;))}`" />
+    <DRC type="WARNING" text="CLK_HF7 is not connected to its guaranteed PLL source clock (PLL400M1, PLL400M2, or EXT_CLK)." condition="`${(clockInst == 7) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !clockSourcedByExtClk &amp;&amp; !((sourceClock eq &quot;pll400m[1]&quot;) || (sourceClock eq &quot;pll400m[2]&quot;))}`" />
     <DRC type="WARNING" text="CLK_HF8 is not connected to its guaranteed PLL source clock (PLL400M1 or PLL400M2)." condition="`${(clockInst == 8) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !((sourceClock eq &quot;pll400m[1]&quot;) || (sourceClock eq &quot;pll400m[2]&quot;))}`" />
     <DRC type="WARNING" text="CLK_HF9 is not connected to its guaranteed PLL source clock (PLL400M1 or PLL400M2)." condition="`${(clockInst == 9) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !((sourceClock eq &quot;pll400m[1]&quot;) || (sourceClock eq &quot;pll400m[2]&quot;))}`" />
     <DRC type="WARNING" text="CLK_HF10 is not connected to its guaranteed PLL source clock (PLL400M3)." condition="`${(clockInst == 10) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll400m[3]&quot;)}`" />
-    <DRC type="WARNING" text="CLK_HF11 is not connected to its guaranteed PLL source clock (PLL400M0)." condition="`${(clockInst == 11) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; ((sourceClock ne &quot;pll400m[2]&quot;) || (sourceClock ne &quot;pll400m[4]&quot;))}`" />
-    <DRC type="WARNING" text="CLK_HF12 is not connected to its guaranteed PLL source clock (PLL400M0)." condition="`${(clockInst == 12) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; ((sourceClock ne &quot;pll400m[2]&quot;) || (sourceClock ne &quot;pll400m[4]&quot;))}`" />
+    <DRC type="WARNING" text="CLK_HF11 is not connected to its guaranteed PLL source clock (PLL400M4 or PLL200M2)." condition="`${(clockInst == 11) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !((sourceClock eq &quot;pll[2]&quot;) || (sourceClock eq &quot;pll400m[4]&quot;))}`" />
+    <DRC type="WARNING" text="CLK_HF12 is not connected to its guaranteed PLL source clock (PLL400M4 or PLL200M2)." condition="`${(clockInst == 12) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; !((sourceClock eq &quot;pll[2]&quot;) || (sourceClock eq &quot;pll400m[4]&quot;))}`" />
     
-    <DRC type="ERROR" text="CLK_HF13 is enabled but not connected to ILO." condition="`${(clockInst == 13) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll[0]&quot;)}`" />
-    <DRC type="ERROR" text="CLK_HF13 max frequency is &lt; 1MHz." condition="`${(clockInst == 13) &amp;&amp; !clockSrcSourcedByFll &amp;&amp; (sourceClock ne &quot;pll[0]&quot;)}`" />
-
+    <DRC type="ERROR" text="CLK_HF13 is enabled but not connected to ILO." condition="`${(clockInst == 13) &amp;&amp; !clockSrcSourcedByIlo}`" />
 
   </DRCs>
   <ConfigFirmware>

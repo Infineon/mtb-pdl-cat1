@@ -6,8 +6,7 @@
   <series>PSC3</series>
   <version>1.0</version>
   <description>PSC3</description>
-  <licenseText>(c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company)\n
-    or an affiliate of Cypress Semiconductor Corporation.\n
+  <licenseText>(c) (2016-2024), Infineon Technologies AG or an affiliate of Infineon Technologies AG.\n
 \n
     SPDX-License-Identifier: Apache-2.0\n
 \n

@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <View xmlns="http://cypress.com/xsd/cystudioview_v1">
+  <Parameters>
+    <Param name="PERFORM_CODEGEN_IN_EVAL_ORDER" value="" />
+  </Parameters>
   <ExposedParameterKeys>
     <ExposedParamKey id="CPU_MAX_MHZ" param_name="Speed_MHz" />
     <ExposedParamKey id="POWER_MODES" param_name="Power_Modes" />
@@ -13,15 +16,24 @@
   <TrigMuxConnectTemplate value="Cy_TrigMux_Connect(${CyMarkIn}, ${CyMarkOut}, false, ${CyMarkType});" />
   <TrigMuxSelectTemplate value="Cy_TrigMux_Select(${CyMarkOut}, false, ${CyMarkType});" />
   <Profiles>
-    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" evalPriority="8" displayPriority="6" description="Memory configuration" resources="(vres\[\d+\]\.(reserved_memory_region|memory|security)\[\d+\].*)" />
-    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" evalPriority="9" displayPriority="6" description="Memory configuration" resources="(m33syscpuss\[\d+\]\.cm33.*)|(m55appcpuss\[\d+\]\.cm55.*)|(.*\.mpc\[\d+\])" />
-    <Profile displayName="Solutions" fileName="solutions" evalPriority="7" displayPriority="1" description="Solution configuration" resources="vres\[\d+\].*" />
-    <Profile displayName="System" diagramType="CLOCKS" fileName="system" evalPriority="1" displayPriority="5" description="System configuration" resources="srss(\[\d+\])?\.(clock|power|eeprom)(\[\d+\])?.*|cpuss(\[\d+\])?\.dap(\[\d+\])?" />
-    <Profile displayName="DMA" fileName="dmas" evalPriority="3" displayPriority="7" description="DMA configuration" resources="cpuss(\[\d+\])?\.(dw|dmac).*|axi_dmac(\[\d+\])?.*" />
-    <Profile displayName="Peripheral-Clocks" fileName="clocks" evalPriority="2" displayPriority="6" description="Clock configuration" resources="peri(\[\d+\]).*" />
-    <Profile displayName="Pins" diagramType="PACKAGE" fileName="pins" evalPriority="6" displayPriority="3" description="Pin configuration" resources="ioss[\[\.].*" />
-    <Profile displayName="Peripherals" fileName="peripherals" evalPriority="5" displayPriority="2" description="Peripheral Hardware Block configuration" resources=".*" />
-    <Profile purpose="ROUTING" displayName="Analog-Routing" diagramType="ANALOG" fileName="routing" evalPriority="4" displayPriority="4" description="Establishes all necessary connections between hardware elements." resources="NONE">
+    <Profile displayName="Software" fileName="software" description="Software configuration" evalPriority="0" displayPriority="10" resources="features\[\d+\].*" />
+    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" description="Memory configuration" evalPriority="1" displayPriority="8" resources="vres\[\d+\]\.memory_region_data\[\d+\].*" />
+    <Profile diagramType="CLOCKS" displayName="Clocks" fileName="peripherals" description="Clock configuration" evalPriority="7" displayPriority="6" resources="srss\[\d+\]\.rtc\[\d+\].*" />
+    <Profile displayName="System" fileName="system" description="System configuration" evalPriority="1" displayPriority="7" resources="srss\[\d+\]\.power\[\d+\].*" />
+    <Profile diagramType="CLOCKS" displayName="Clocks" fileName="system" description="Clock configuration" evalPriority="2" displayPriority="6" resources="srss\[\d+\]\.(clock|rtc)\[\d+\].*|wco\[\d+\].*|exco\[\d+\].*|(cpuss|m33syscpuss|m55appcpuss|m0seccpuss)\[\d+\]\.systick.*" />
+    <Profile diagramType="CLOCKS" displayName="Clocks" fileName="clocks" description="Peripheral clock divider configuration" evalPriority="3" displayPriority="6" resources="peri\[\d+\].+" />
+    <Profile displayName="System" fileName="system" description="System configuration" evalPriority="4" displayPriority="7" resources="power\[\d+\].*|srss\[\d+\]\.(power|pd|eeprom)\[\d+\].*|(cpuss|m33syscpuss)\[\d+\]\.dap\[\d+\].*|debug600\[\d+\].*" />
+    <Profile displayName="System" fileName="system" description="System configuration" evalPriority="9" displayPriority="7" resources="vres\[\d+\]\.(security|protection)\[\d+\].*" />
+    <Profile displayName="System" fileName="system" description="System configuration" evalPriority="13" displayPriority="7" resources=".*\.(cm33|cm55|sau|mpu_s|mpu_ns)\[\d+\]|.*\.mpc\[\d+\]|peri\[\d+\]" />
+    <Profile displayName="DMA" fileName="dmas" description="DMA configuration" evalPriority="5" displayPriority="9" resources=".*(dw|dmac|axidmac|axi_dmac|mxdw|mxahbdmac)\d?\[\d+\].*" />
+    <Profile diagramType="PACKAGE" displayName="Pins" fileName="pins" description="Pin configuration" evalPriority="8" displayPriority="4" resources="(ioss|iocl)\[\d+\].*" />
+    <Profile displayName="Connectivity" fileName="connectivity_wifi" description="Connectivity Wi-Fi configuration" evalPriority="11" displayPriority="5" resources="wifi(\[\d+\]).*" />
+    <Profile displayName="Connectivity" fileName="connectivity_bt" description="Connectivity BT configuration" evalPriority="11" displayPriority="5" resources="bt(\[\d+\]).*" />
+    <Profile displayName="Connectivity" fileName="connectivity_coex" description="Connectivity Coex configuration" evalPriority="11" displayPriority="5" resources="coex(\[\d+\]).*" />
+    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" description="Memory configuration" evalPriority="12" displayPriority="8" resources="vres\[\d+\]\.(reserved_memory_region|memory)\[\d+\].*" />
+    <Profile displayName="Solutions" fileName="solutions" description="Solution configuration" evalPriority="10" displayPriority="1" resources="vres\[\d+\].*" />
+    <Profile displayName="Peripherals" fileName="peripherals" description="Peripheral Hardware Block configuration" evalPriority="7" displayPriority="2" resources=".*" />
+    <Profile purpose="ROUTING" diagramType="ANALOG" displayName="Analog-Routing" fileName="routing" description="Establishes all necessary connections between hardware elements." evalPriority="6" displayPriority="3" resources="NONE">
       <Includes>
         <Include value="cy_trigmux.h" public="false" />
         <Include value="stdbool.h" public="false" />

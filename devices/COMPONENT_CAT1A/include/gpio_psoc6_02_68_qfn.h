@@ -1,14 +1,10 @@
 /***************************************************************************//**
-* \file gpio_psoc6_02_68_qfn.h
-*
-* \brief
-* PSoC6_02 device GPIO header for 68-QFN package
+* PSOC6_02 device GPIO header for 68-QFN package
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2025), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-*
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");

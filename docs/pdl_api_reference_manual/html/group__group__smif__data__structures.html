@@ -83,7 +83,8 @@ $(document).ready(function(){initNavTree('group__group__smif__data__structures.h
   <div class="summary">
 <a href="#groups">API Reference</a> &#124;
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">Data Structures<div class="ingroups"><a class="el" href="group__group__smif.html">SMIF         (Serial Memory Interface)</a></div></div>  </div>
 </div><!--header-->
@@ -103,6 +104,15 @@ Data Structures</h2></td></tr>
 The address of a variable of this type can be used as the base hardware address for register access. A device may support more than one instance of a peripheral block. <br />
 Refer to a device-specific header file, e.g. <em>&lt;PDL_DIR&gt;/COMPONENT_&lt;ARCH&gt;/include/&lt;device&gt;</em>.<em>h</em> for the list of block instances available on that device. <br />
 Refer to the device TRM for the block register descriptions. <a href="struct_s_m_i_f___type.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__bridge__pri__t.html">cy_stc_smif_bridge_pri_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the port priority on bridge interface.  <a href="structcy__stc__smif__bridge__pri__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__bridge__remap__t.html">cy_stc_smif_bridge_remap_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the remap region information.  <a href="structcy__stc__smif__bridge__remap__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__bridge__interleave__remap__t.html">cy_stc_smif_bridge_interleave_remap_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the interleaved memory region.  <a href="structcy__stc__smif__bridge__interleave__remap__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__smif__config__t.html">cy_stc_smif_config_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SMIF configuration structure.  <a href="structcy__stc__smif__config__t.html#details">More...</a><br /></td></tr>
@@ -125,6 +135,59 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga13688dde62e8977a11ab69cf6b2c39b5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__data__structures.html#ga13688dde62e8977a11ab69cf6b2c39b5">cy_smif_event_cb_t</a>) (uint32_t event)</td></tr>
 <tr class="memdesc:ga13688dde62e8977a11ab69cf6b2c39b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SMIF user callback function type called at the end of a transfer.  <a href="#ga13688dde62e8977a11ab69cf6b2c39b5">More...</a><br /></td></tr>
 <tr class="separator:ga13688dde62e8977a11ab69cf6b2c39b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga88167c6d27cc2a1260e162eb660cfd69"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__data__structures.html#ga88167c6d27cc2a1260e162eb660cfd69">cy_en_smif_bridge_remap_type_t</a> { <br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_TYPE_INACTIVE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_TYPE_TO_SMIF0</b> = 1, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_TYPE_TO_SMIF1</b> = 2, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_TYPE_INTERLEAVE</b> = 3
+<br />
+ }<tr class="memdesc:ga88167c6d27cc2a1260e162eb660cfd69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the remap type.  <a href="group__group__smif__data__structures.html#ga88167c6d27cc2a1260e162eb660cfd69">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga88167c6d27cc2a1260e162eb660cfd69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga37705a366bb121c75080a7a831b70bea"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__data__structures.html#ga37705a366bb121c75080a7a831b70bea">cy_en_smif_bridge_interleave_step_t</a> { <br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_INTERLEAVE_8BYTE</b> = 0, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_INTERLEAVE_16BYTE</b> = 1, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_INTERLEAVE_32BYTE</b> = 2, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_INTERLEAVE_64BYTE</b> = 3, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_INTERLEAVE_128BYTE</b> = 4
+<br />
+ }<tr class="memdesc:ga37705a366bb121c75080a7a831b70bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the interleave size.  <a href="group__group__smif__data__structures.html#ga37705a366bb121c75080a7a831b70bea">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga37705a366bb121c75080a7a831b70bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad786eeb67bcea60b35ae8ecd48ffaf82"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__smif__data__structures.html#gad786eeb67bcea60b35ae8ecd48ffaf82">cy_en_smif_bridge_remap_region_size_t</a> { <br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_1MB</b> = 0x1FF00000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_2MB</b> = 0x1FE00000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_4MB</b> = 0x1FC00000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_8MB</b> = 0x1F800000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_16MB</b> = 0x1F000000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_32MB</b> = 0x1E000000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_64MB</b> = 0x1C000000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_128MB</b> = 0x18000000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_256MB</b> = 0x10000000U, 
+<br />
+&#160;&#160;<b>CY_SMIF_EN_BRIDGE_REMAP_SIZE_512MB</b> = 0x00000000U
+<br />
+ }<tr class="memdesc:gad786eeb67bcea60b35ae8ecd48ffaf82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the remap size.  <a href="group__group__smif__data__structures.html#gad786eeb67bcea60b35ae8ecd48ffaf82">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gad786eeb67bcea60b35ae8ecd48ffaf82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="ga13688dde62e8977a11ab69cf6b2c39b5"></a>
@@ -146,6 +209,58 @@ Typedefs</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga88167c6d27cc2a1260e162eb660cfd69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga88167c6d27cc2a1260e162eb660cfd69">&#9670;&nbsp;</a></span>cy_en_smif_bridge_remap_type_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__data__structures.html#ga88167c6d27cc2a1260e162eb660cfd69">cy_en_smif_bridge_remap_type_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the remap type. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D and CAT1C (Traveo II) devices. </dd></dl>
+
+</div>
+</div>
+<a id="ga37705a366bb121c75080a7a831b70bea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga37705a366bb121c75080a7a831b70bea">&#9670;&nbsp;</a></span>cy_en_smif_bridge_interleave_step_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__data__structures.html#ga37705a366bb121c75080a7a831b70bea">cy_en_smif_bridge_interleave_step_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the interleave size. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D and CAT1C (Traveo II) devices. </dd></dl>
+
+</div>
+</div>
+<a id="gad786eeb67bcea60b35ae8ecd48ffaf82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad786eeb67bcea60b35ae8ecd48ffaf82">&#9670;&nbsp;</a></span>cy_en_smif_bridge_remap_region_size_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__group__smif__data__structures.html#gad786eeb67bcea60b35ae8ecd48ffaf82">cy_en_smif_bridge_remap_region_size_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the remap size. </p>
+<dl class="section note"><dt>Note</dt><dd>This enum is available for CAT1D and CAT1C (Traveo II) devices. </dd></dl>
 
 </div>
 </div>

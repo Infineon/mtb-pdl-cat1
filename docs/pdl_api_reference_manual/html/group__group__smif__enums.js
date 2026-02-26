@@ -1,24 +1,5 @@
 var group__group__smif__enums =
 [
-    [ "cy_stc_smif_bridge_pri_t", "structcy__stc__smif__bridge__pri__t.html", [
-      [ "pri_ahb_smif0", "structcy__stc__smif__bridge__pri__t.html#a6ad052d5330124b4d9a74b889d22e80f", null ],
-      [ "pri_ahb_smif1", "structcy__stc__smif__bridge__pri__t.html#ae471994908e53da17c85567b616cc8d8", null ],
-      [ "pri_axi_smif0", "structcy__stc__smif__bridge__pri__t.html#ad1f20b6ed2cf74127cfddb9d4f707755", null ],
-      [ "pri_axi_smif1", "structcy__stc__smif__bridge__pri__t.html#aeb13744a2927b80dcefcdca6d43f0f19", null ]
-    ] ],
-    [ "cy_stc_smif_bridge_remap_t", "structcy__stc__smif__bridge__remap__t.html", [
-      [ "regionIdx", "structcy__stc__smif__bridge__remap__t.html#a2a576e125ba9704487c2247e1cdc6667", null ],
-      [ "regionSize", "structcy__stc__smif__bridge__remap__t.html#ad38f8c0041d42aa06e3659e37fc8aadb", null ],
-      [ "xipAddr", "structcy__stc__smif__bridge__remap__t.html#a0b751a1de8bf99e3541033394f891041", null ],
-      [ "phyAddr", "structcy__stc__smif__bridge__remap__t.html#a1687dcb88099a47230911022d48ef0bb", null ]
-    ] ],
-    [ "cy_stc_smif_bridge_interleave_remap_t", "structcy__stc__smif__bridge__interleave__remap__t.html", [
-      [ "regionIdx", "structcy__stc__smif__bridge__interleave__remap__t.html#aca44f1abf970d853d512f7cd53180f14", null ],
-      [ "regionSize", "structcy__stc__smif__bridge__interleave__remap__t.html#ae3bbcd027e8ddaba0b36b3fbb3febff4", null ],
-      [ "xipAddr", "structcy__stc__smif__bridge__interleave__remap__t.html#a24dbd128c6e43d4151162f8ed7726880", null ],
-      [ "phyAddr0", "structcy__stc__smif__bridge__interleave__remap__t.html#a07966367d096658b8d41f004d0662c7e", null ],
-      [ "phyAddr1", "structcy__stc__smif__bridge__interleave__remap__t.html#aa3160983da2ab9812cd07ca544248d9a", null ]
-    ] ],
     [ "cy_en_smif_txfr_width_t", "group__group__smif__enums.html#gab71e4b1f4c80b3e8c82dd85570415e44", [
       [ "CY_SMIF_WIDTH_SINGLE", "group__group__smif__enums.html#ggab71e4b1f4c80b3e8c82dd85570415e44ac1096798c3195819d57ad16de46b4ed7", null ],
       [ "CY_SMIF_WIDTH_DUAL", "group__group__smif__enums.html#ggab71e4b1f4c80b3e8c82dd85570415e44a447aec1c7bf5fe17a8451b192447e74d", null ],
@@ -154,9 +135,6 @@ var group__group__smif__enums =
     [ "cy_en_smif_merge_timeout_t", "group__group__smif__enums.html#ga58cf90a88ebb49c269bc67295d6e5cc3", null ],
     [ "cy_en_smif_bridge_xip_space_pri_t", "group__group__smif__enums.html#ga93891f64674148452aa691e58a10965f", null ],
     [ "cy_en_smif_bridge_xip_space_t", "group__group__smif__enums.html#ga7bca582b1a4fa65765ac17cf2ad98242", null ],
-    [ "cy_en_smif_bridge_remap_type_t", "group__group__smif__enums.html#ga88167c6d27cc2a1260e162eb660cfd69", null ],
-    [ "cy_en_smif_bridge_interleave_step_t", "group__group__smif__enums.html#ga37705a366bb121c75080a7a831b70bea", null ],
-    [ "cy_en_smif_bridge_remap_region_size_t", "group__group__smif__enums.html#gad786eeb67bcea60b35ae8ecd48ffaf82", null ],
     [ "cy_en_smif_mem_data_line_t", "group__group__smif__enums.html#ga75fd5ed63d1828766ad5c8a7a20c52ca", [
       [ "CY_SMIF_DATA_BIT0_TAP_SEL", "group__group__smif__enums.html#gga75fd5ed63d1828766ad5c8a7a20c52caae91289cd904b31fa32175eddd7c17f0b", null ],
       [ "CY_SMIF_DATA_BIT1_TAP_SEL", "group__group__smif__enums.html#gga75fd5ed63d1828766ad5c8a7a20c52caadfa4e3e8f0de4313d78a380b98fb9617", null ],

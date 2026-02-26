@@ -7,8 +7,8 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright (c) (2020-2022), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
+* (c) 2020-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,6 +55,9 @@
 *
 *     \defgroup group_ipc_sema_functions Functions
 *       Functions are used in the driver
+*
+*     \defgroup group_ipc_sema_data_structures Data Structures
+*       Data structures used in the driver
 *
 *     \defgroup group_ipc_sema_enums Enumerated Types
 *       Enumerations are used in the driver
@@ -116,6 +119,12 @@ typedef enum
     CY_IPC_SEMA_STATUS_UNLOCKED    = (uint32_t)(CY_IPC_SEMA_ID_INFO  | 0UL)
 } cy_en_ipcsema_status_t;
 
+/** \} group_ipc_sema_enums */
+
+/**
+* \addtogroup group_ipc_sema_data_structures
+* \{
+*/
 
 /** IPC semaphore control data structure. */
 typedef struct
@@ -130,7 +139,7 @@ typedef struct
 #endif
 } cy_stc_ipc_sema_t;
 
-/** \} group_ipc_sema_enums */
+/** \} group_ipc_sema_data_structures */
 
 /**
 * \addtogroup group_ipc_sema_functions

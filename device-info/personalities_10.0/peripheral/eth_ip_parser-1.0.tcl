@@ -1,5 +1,5 @@
-# Copyright (c) (2024), Cypress Semiconductor Corporation (an Infineon company) or
-# an affiliate of Cypress Semiconductor Corporation.
+# (c) 2024-2026, Infineon Technologies AG or an affiliate of
+# Infineon Technologies AG.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

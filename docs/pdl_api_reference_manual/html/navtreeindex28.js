@@ -1,5 +1,8 @@
 var NAVTREEINDEX28 =
 {
+"group__group__sysclk__trim__funcs.html#ga6210a9bc87fc6e0159a6d2d790c789be":[4,46,10,0,3],
+"group__group__sysclk__trim__funcs.html#ga853789a9e526c8735521be673bb4dbdc":[4,46,10,0,1],
+"group__group__sysclk__trim__funcs.html#ga8b6cd3386ea750d7bf7efd095bf0e978":[4,46,10,0,4],
 "group__group__sysclk__trim__funcs.html#gade35b7c0258b0eeabba38043134b1828":[4,46,10,0,2],
 "group__group__sysclk__wco.html":[4,46,12],
 "group__group__sysclk__wco__enums.html":[4,46,12,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX28 =
 "group__group__syslib__macros__assert.html#gabb4e5c6e694fe418794cbd8f93301532":[4,49,0,1,4],
 "group__group__syslib__macros__assert.html#gae6c8c534d15ba72d74dc23b384a28bf0":[4,49,0,1,5],
 "group__group__syslib__macros__assert.html#gaea99c6824b32df70dbeb97d87d5410a1":[4,49,0,1,6],
-"group__group__syslib__macros__reset__cause.html":[4,49,0,2],
-"group__group__syslib__macros__reset__cause.html#ga07916f36b0a552bb53f5dd507fd464ea":[4,49,0,2,6],
-"group__group__syslib__macros__reset__cause.html#ga0d320f6610ee7f457bfd8798c2da91ca":[4,49,0,2,9],
-"group__group__syslib__macros__reset__cause.html#ga1e13f4eb0894bab7da23ff11e7bc5b35":[4,49,0,2,10]
+"group__group__syslib__macros__reset__cause.html":[4,49,0,2]
 };

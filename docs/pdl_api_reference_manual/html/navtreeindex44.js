@@ -1,5 +1,8 @@
 var NAVTREEINDEX44 =
 {
+"structcy__stc__tcpwm__motif__hall__sensor__config__t.html#a949f3cc20877832e33674b3a18ec04e0":[4,52,5,5,4,8],
+"structcy__stc__tcpwm__motif__hall__sensor__config__t.html#a9d1ea5838cb72633088d9ef87fde4a97":[4,52,5,5,4,4],
+"structcy__stc__tcpwm__motif__hall__sensor__config__t.html#aa93378b91093b7b79be48c5a0089f036":[4,52,5,5,4,9],
 "structcy__stc__tcpwm__motif__hall__sensor__config__t.html#ab28ba6c3934ee64a9c052c2222e32adc":[4,52,5,5,4,5],
 "structcy__stc__tcpwm__motif__hall__sensor__config__t.html#ac3d9f1eb968e3a311b105a6831ef93be":[4,52,5,5,4,12],
 "structcy__stc__tcpwm__motif__hall__sensor__config__t.html#acd586992d46a8a138c065ed280608887":[4,52,5,5,4,11],

@@ -86,9 +86,9 @@ $(document).ready(function(){initNavTree('page_misra.html','');});
 <div class="contents">
 <div class="textblock"><p>This page describes MISRA-C:2012 compliance and deviations for the PDL.</p>
 <p>MISRA stands for Motor Industry Software Reliability Association. The MISRA specification covers a set of 10 mandatory rules, 110 required rules and 39 advisory rules that apply to firmware design and has been put together by the Automotive Industry to enhance the quality and robustness of the firmware code embedded in automotive devices.</p>
-<p>There are two types of deviations defined:</p><ul>
-<li>project deviations - deviations that are applicable for all PDL drivers</li>
-<li>specific deviations - deviations that are applicable for the specific driver</li>
+<p>The MISRA specification defines two categories of deviations (see section 5.4 of the MISRA-C:2012 specification):</p><ul>
+<li>Project Deviations - applicable for all PDL drivers.</li>
+<li>Specific Deviations - applicable for a single instance in a single file.</li>
 </ul>
 <p>Specific deviations are documented in the driver source code, close to the deviation occurrence. For each deviation a macro identifies the relevant rule or directive number, and reason.</p>
 <h1>Verification Environment</h1>
@@ -101,21 +101,18 @@ $(document).ready(function(){initNavTree('page_misra.html','');});
 <tr>
 <td rowspan="2">MISRA Checking Tool </td><td>Coverity Static Analysis Tool </td><td>2022.12.0  </td></tr>
 </table>
+<p>Test results may vary across different MISRA checking tools due to implementation differences, compiler settings, and varying interpretations of MISRA guidelines. For instance, MISRA Rule 1.1 may generate false positives when tools enforce only the C99 minimum of 4095 macro identifiers, while modern toolchains (such as GCC, ARM, IAR) typically support significantly higher limits based on available memory and compiler architecture.</p>
 <h1>Project Deviation</h1>
-<p>The list of deviated rules/directives is provided in the table below:</p>
+<p>The list of deviated required rules is provided in the table below. Advisory rules deviation is not documented, as not required per MISRA specification.</p>
 <table class="doxtable">
 <tr>
 <th>MISRA Rule/Directive </th><th>Deviation Class (Rule/Directive) </th><th>Rule Class (Required/Mandatory) </th><th>Rule/Directive Description </th><th>Description of Deviation(s)  </th></tr>
 <tr>
-<td>1.1 </td><td>D </td><td>R </td><td>Any implementation-defined behaviour on which the output of the program depends shall be documented and understood. </td><td>Violated because PDL supports GCC, IAR and MDK-ARM compilers. Refer to the compiler documentation for the compiler-specific behaviour.  </td></tr>
-<tr>
-<td>4.1 </td><td>D </td><td>R </td><td>Run-time failures shall be minimized. </td><td>Some drivers can contain redundant operations introduced because of generalized implementation approach.  </td></tr>
-<tr>
 <td>1.3 </td><td>R </td><td>R </td><td>There shall be no occurrence of undefined or critical unspecified behaviour. </td><td>This specific behavior is explicitly covered in rules 5.1, 21.1.  </td></tr>
 <tr>
-<td>2.2 </td><td>R </td><td>R </td><td>There shall be no dead code </td><td>PDL has few WEAK functions that can be overwritten.  </td></tr>
-<tr>
 <td>3.1 </td><td>R </td><td>R </td><td>The character sequences \/* and \/\/ shall not be used within a comment </td><td>Allow doxygen-style comments.  </td></tr>
+<tr>
+<td>4.1 </td><td>D </td><td>R </td><td>Run-time failures shall be minimized. </td><td>Some drivers can contain redundant operations introduced because of the generalized implementation approach.  </td></tr>
 <tr>
 <td>5.1 </td><td>R </td><td>R </td><td>External identifiers shall be distinct </td><td>This rule applies to ISO:C90 standard. PDL conforms to ISO:C99 that does not require this limitation.  </td></tr>
 <tr>
@@ -127,29 +124,15 @@ $(document).ready(function(){initNavTree('page_misra.html','');});
 <tr>
 <td>5.8 </td><td>R </td><td>R </td><td>Identifiers that define objects or functions with external linkage shall be unique. </td><td>During the code analysis, the same source files are compiled multiple times with device-specific options. All object and function identifiers are actually unique for each specific run.  </td></tr>
 <tr>
-<td>8.5 </td><td>R </td><td>R </td><td>An external object or function shall be declared once in one and only one file </td><td>Correct prototype is picked based on the device type for which PDL is being built  </td></tr>
-<tr>
-<td>8.6 </td><td>R </td><td>R </td><td>An identifier with external linkage shall have exactly one external definition </td><td>PDL has few functions defined in assembly files and these are not scanned by Coverity  </td></tr>
-<tr>
-<td>10.8 </td><td>R </td><td>R </td><td>The value of a composite expression shall not be cast to a different essential type category or a wider essential type </td><td>In case of deviations, the case to wider type does not have any unintended effect  </td></tr>
-<tr>
 <td>11.1 </td><td>R </td><td>R </td><td>Conversions shall not be performed between a pointer to a function and any other type </td><td>The cast from unsigned int to pointer does not have any unintended effect, as it is a consequence of the definition of a structure based on hardware registers.  </td></tr>
-<tr>
-<td>11.3 </td><td>R </td><td>R </td><td>A cast shall not be performed between a pointer to object type and a pointer to a different object type </td><td>Intentional typecast as PDL initializes the CAT1A device drivers at runtime based on the target device  </td></tr>
 <tr>
 <td>11.6 </td><td>R </td><td>R </td><td>A cast shall not be performed between pointer to void and an arithmetic type </td><td>The cast from unsigned int to pointer does not have any unintended effect, as it is a consequence of the definition of a structure based on hardware registers.  </td></tr>
 <tr>
 <td>11.8 </td><td>R </td><td>R </td><td>A cast shall not remove any const or volatile qualification from the type pointed to by a pointer </td><td>Drivers access hardware register by macro, which is used for both read and write access. In that case remove of const qualification does not have any unintended effect, as it is a consequence of the macro usage.  </td></tr>
 <tr>
-<td>14.3 </td><td>R </td><td>R </td><td>Controlling expressions shall not be invariant </td><td>Deviations as there are few comparisons between MACRO and number  </td></tr>
-<tr>
-<td>18.1 </td><td>R </td><td>R </td><td>A pointer resulting from arithmetic on a pointer operand shall address an element of the same array as that pointer operand </td><td>Intentional typecast of message buffer to byte array  </td></tr>
-<tr>
-<td>18.6 </td><td>R </td><td>R </td><td>The address of an object with automatic storage shall not be copied to another object that persists after the first object has ceased to exist </td><td>In case of deviation, no valid data expected after function return  </td></tr>
-<tr>
 <td>21.1 </td><td>R </td><td>R </td><td><code>#define</code> and <code>#undef</code> shall not be used on a reserved identifier or reserved macro name </td><td>PDL header files contain preprocessor guard macros with leading underscores. PDL uses CMSIS macros with leading underscores and therefore inherits its MISRA violations.  </td></tr>
 <tr>
-<td>21.2 </td><td>R </td><td>R </td><td>A reserved identifier or macro name shall not be declared </td><td>PDL header files contain preprocessor guard macros with leading underscores. PDL uses CMSIS macros with leading underscores and therefore inherits its MISRA violations.  </td></tr>
+<td>21.2 </td><td>R </td><td>R </td><td>A reserved identifier or macro name shall not be declared </td><td>Some PDL macros begin with '__'. The PDL is verified with various compilers and avoids conflicts with the standard library names.  </td></tr>
 </table>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

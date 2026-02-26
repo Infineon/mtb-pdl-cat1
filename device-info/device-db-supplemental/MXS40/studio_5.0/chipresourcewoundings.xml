@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Woundings xml_version="1" xmlns="http://cypress.com/xsd/cychipresourcewoundings_v1">
   <MemoryWounding name="SRAM_KB" memoryId="SRAM" />
   <MemoryWounding name="FLASH_KB" memoryId="FLASH" />
@@ -31,6 +31,9 @@
   </BooleanWounding>
   <BooleanWounding name="FLEXRAY">
     <Block name="flexray" />
+  </BooleanWounding>
+  <BooleanWounding name="I2S_COUNT">
+    <Block name="tdm" />
   </BooleanWounding>
   <NaWounding name="BLUETOOTH">
     <Block name="bless" />
@@ -93,7 +96,7 @@
     <Block name="smif.core" />
   </RemoveListWounding>
   <RemoveListWounding name="I2S_REMOVED">
-    <Block name="tdm" />
+    <Block name="tdm.tdm" />
   </RemoveListWounding>
   <IndexResourceWounding name="I2S_REMOVED">
     <ResourceIndex index="0">
@@ -104,6 +107,34 @@
     </ResourceIndex>
     <ResourceIndex index="2">
       <Block name="audioss[2].i2s[0]" />
+    </ResourceIndex>
+  </IndexResourceWounding>
+  <IndexResourceWounding name="I2S_RX_REMOVED">
+    <ResourceIndex index="0">
+      <Block name="tdm[0].tdm[0].rx_struct[0]" />
+    </ResourceIndex>
+    <ResourceIndex index="1">
+      <Block name="tdm[0].tdm[1].rx_struct[0]" />
+    </ResourceIndex>
+    <ResourceIndex index="2">
+      <Block name="tdm[0].tdm[2].rx_struct[0]" />
+    </ResourceIndex>
+    <ResourceIndex index="3">
+      <Block name="tdm[0].tdm[3].rx_struct[0]" />
+    </ResourceIndex>
+  </IndexResourceWounding>
+  <IndexResourceWounding name="I2S_TX_REMOVED">
+    <ResourceIndex index="0">
+      <Block name="tdm[0].tdm[0].tx_struct[0]" />
+    </ResourceIndex>
+    <ResourceIndex index="1">
+      <Block name="tdm[0].tdm[1].tx_struct[0]" />
+    </ResourceIndex>
+    <ResourceIndex index="2">
+      <Block name="tdm[0].tdm[2].tx_struct[0]" />
+    </ResourceIndex>
+    <ResourceIndex index="3">
+      <Block name="tdm[0].tdm[3].tx_struct[0]" />
     </ResourceIndex>
   </IndexResourceWounding>
   <IndexResourceWounding name="PDM_REMOVED">

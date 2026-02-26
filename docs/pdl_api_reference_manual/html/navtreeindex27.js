@@ -1,5 +1,8 @@
 var NAVTREEINDEX27 =
 {
+"group__group__sysclk__clk__timer__funcs.html#ga4708822284fdca8103746e04e071f829":[4,46,22,0,0],
+"group__group__sysclk__clk__timer__funcs.html#ga47723df14931fa6403b7d3948dec3857":[4,46,22,0,2],
+"group__group__sysclk__clk__timer__funcs.html#gaa442df3e80e5c2dc763508731b155876":[4,46,22,0,5],
 "group__group__sysclk__clk__timer__funcs.html#gaa9fa2ca0beada63a72bdc86dae9e5896":[4,46,22,0,7],
 "group__group__sysclk__eco.html":[4,46,3],
 "group__group__sysclk__eco__enums.html":[4,46,3,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX27 =
 "group__group__sysclk__trim.html":[4,46,10],
 "group__group__sysclk__trim__funcs.html":[4,46,10,0],
 "group__group__sysclk__trim__funcs.html#ga26186848112a8f469be2a53b31ad83e9":[4,46,10,0,0],
-"group__group__sysclk__trim__funcs.html#ga2667f9d37c5c78d8a7f6c6e94c35e714":[4,46,10,0,5],
-"group__group__sysclk__trim__funcs.html#ga6210a9bc87fc6e0159a6d2d790c789be":[4,46,10,0,3],
-"group__group__sysclk__trim__funcs.html#ga853789a9e526c8735521be673bb4dbdc":[4,46,10,0,1],
-"group__group__sysclk__trim__funcs.html#ga8b6cd3386ea750d7bf7efd095bf0e978":[4,46,10,0,4]
+"group__group__sysclk__trim__funcs.html#ga2667f9d37c5c78d8a7f6c6e94c35e714":[4,46,10,0,5]
 };

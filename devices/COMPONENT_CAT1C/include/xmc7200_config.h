@@ -1,14 +1,10 @@
 /***************************************************************************//**
-* \file xmc7200_config.h
-*
-* \brief
 * XMC7200 device configuration header
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-*
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -5476,6 +5472,7 @@ typedef CRYPTO_V2_Type CRYPTO_Type;
 /* Protection regions */
 typedef enum
 {
+    PROT_START                      =   0,
     PROT_PERI_MAIN                  =   0,      /* Address 0x40000200, size 0x00000040 */
     PROT_PERI_SECURE                =   1,      /* Address 0x40002000, size 0x00000004 */
     PROT_PERI_GR0_GROUP             =   2,      /* Address 0x40004010, size 0x00000004 */
@@ -6177,7 +6174,8 @@ typedef enum
     PROT_PASS0_SAR2_CH29_CH         = 698,      /* Address 0x40902f40, size 0x00000040 */
     PROT_PASS0_SAR2_CH30_CH         = 699,      /* Address 0x40902f80, size 0x00000040 */
     PROT_PASS0_SAR2_CH31_CH         = 700,      /* Address 0x40902fc0, size 0x00000040 */
-    PROT_PASS0_TOP                  = 701       /* Address 0x409f0000, size 0x00001000 */
+    PROT_PASS0_TOP                  = 701,      /* Address 0x409f0000, size 0x00001000 */
+    PROT_END                        = 701
 } cy_en_prot_region_t;
 
 #endif /* _XMC7200_CONFIG_H_ */

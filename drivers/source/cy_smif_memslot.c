@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.c
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides the source code for the memory-level APIs of the SMIF driver.
@@ -9,8 +9,8 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2016-2024 Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -163,6 +163,7 @@ cy_en_smif_status_t Cy_SMIF_MemInit(SMIF_Type *base,
                                                     memCfg->slaveSelect,
                                                     memCfg->dataSelect,
                                                     context);
+
                             if((uint32_t)CY_SMIF_SUCCESS != sfdpRet)
                             {
                                 sfdpRes |=  ((uint32_t)CY_SMIF_SFDP_FAIL << idx);
@@ -1919,7 +1920,7 @@ cy_en_smif_status_t Cy_SMIF_MemWrite(SMIF_Type *base, cy_stc_smif_mem_config_t c
                     /* Check if the memory has completed the write operation. ProgramTime is in microseconds */
                     status = Cy_SMIF_MemIsReady(base, memConfig, memConfig->deviceCfg->programTime, context);
                 }
-                    }
+            }
 
             if(CY_SMIF_SUCCESS != status)
             {
@@ -2042,6 +2043,7 @@ cy_en_smif_status_t Cy_SMIF_MemEraseSector(SMIF_Type *base, cy_stc_smif_mem_conf
             {
                 endAddress = (((endAddress + eraseSectorSize - 1UL) / eraseSectorSize) * eraseSectorSize) - 1UL;
             }
+
             /* Update length according the aligned start address and end address */
             length = endAddress - address + 1UL;
 
@@ -2087,6 +2089,7 @@ cy_en_smif_status_t Cy_SMIF_MemEraseSector(SMIF_Type *base, cy_stc_smif_mem_conf
                     * every loop.
                     */
                     status = Cy_SMIF_MemCmdWriteEnable(base, memConfig, context);
+                    
                     if(CY_SMIF_SUCCESS == status)
                     {
                         ValueToByteArray(address, &addrArray[0], 0UL, device->numOfAddrBytes);

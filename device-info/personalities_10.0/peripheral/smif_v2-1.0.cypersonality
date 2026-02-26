@@ -10,7 +10,8 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2022 Cypress Semiconductor Corporation
+* (c) 2022-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,26 +44,26 @@
 
     <!-- General -->
 
-    <ParamChoice id="rx_clock_select" name="Receiver Clock Source" group="General" default="CY_SMIF_SEL_INVERTED_FEEDBACK_CLK" visible="`${getVersion() eq 2}`" editable="`${getVersion() eq 2}`" desc="Specifies the clock source for the receiver clock">
-      <Entry name="Output Clock"                 value="CY_SMIF_SEL_OUTPUT_CLK"             visible="true"/>
-      <Entry name="Inverted Output Clock"        value="CY_SMIF_SEL_INVERTED_OUTPUT_CLK"    visible="true"/>
+    <ParamChoice id="rx_clock_select" name="Receiver Clock Source" group="General" default="CY_SMIF_SEL_INVERTED_FEEDBACK_CLK" visible="true" editable="true" desc="Specifies the clock source for the receiver clock">
+      <Entry name="Output Clock"                 value="CY_SMIF_SEL_OUTPUT_CLK"             visible="`${getVersion() eq 2}`"/>
+      <Entry name="Inverted Output Clock"        value="CY_SMIF_SEL_INVERTED_OUTPUT_CLK"    visible="`${getVersion() eq 2}`"/>
       <Entry name="Feedback Clock"               value="CY_SMIF_SEL_FEEDBACK_CLK"           visible="true"/>
       <Entry name="Inverted Feedback Clock"      value="CY_SMIF_SEL_INVERTED_FEEDBACK_CLK"  visible="true"/>
-      <Entry name="Internal CLock"               value="CY_SMIF_SEL_INTERNAL_CLK"           visible="true"/>
+      <Entry name="Internal Clock"               value="CY_SMIF_SEL_INTERNAL_CLK"           visible="true"/>
       <Entry name="Inverted Internal Clock"      value="CY_SMIF_SEL_INVERTED_INTERNAL_CLK"  visible="true"/>
       <Entry name="Inverted HyperBus RWDS Clock" value="CY_SMIF_SEL_INVERTED_SPHB_RWDS_CLK" visible="true"/>
       <Entry name="HyperBus RWDS Clock"          value="CY_SMIF_SEL_SPHB_RWDS_CLK"          visible="true"/>
-	</ParamChoice>
+    </ParamChoice>
 
-    <ParamBool id="delay_tap_enable" name="Delay Tap Enable" group="General" default="false" visible="`${getVersion() eq 2}`" editable="`${getVersion() eq 2}`" desc="If checked Delay tap is enabled. " />
+    <ParamBool id="delay_tap_enable" name="Delay Tap Enable" group="General" default="false" visible="true" editable="true" desc="If checked Delay tap is enabled. " />
 
-    <ParamChoice id="delay_line_select" name="Delay Line Select" group="General" default="CY_SMIF_NO_DELAY_SEL" visible="`${getVersion() eq 2}`" editable="`${getVersion() eq 2}`" desc="Specifies the delay line used for RX data capturing with">
+    <ParamChoice id="delay_line_select" name="Delay Line Select" group="General" default="CY_SMIF_NO_DELAY_SEL" visible="true" editable="true" desc="Specifies the delay line used for RX data capturing with">
       <Entry name="1 New Cell Per Tap" value="CY_SMIF_1_NEW_SEL_PER_TAP" visible="true"/>
       <Entry name="1 Cell Per Tap" value="CY_SMIF_1_SEL_PER_TAP" visible="true"/>
       <Entry name="2 Cell Per Tap" value="CY_SMIF_2_SEL_PER_TAP" visible="true"/>
       <Entry name="4 Cell Per Tap" value="CY_SMIF_4_SEL_PER_TAP" visible="true"/>
       <Entry name="No delay line" value="CY_SMIF_NO_DELAY_SEL" visible="true"/>
-	</ParamChoice>
+    </ParamChoice>
 
     <!-- Clocks -->
     <ParamSignal port="clk_if[0]" name="Interface Clock" group="Clocks" visible="true" desc="Transmission interface clock. Divides HF clock supplied internally by 2" canBeEmpty="false" />
@@ -200,6 +201,10 @@
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
     <ParamString id="ssel3Pin" name="ssel3Pin" group="Internal" default="`${getBlockFromSignal(&quot;spihb_select3[0]&quot;)}`" visible="false" editable="false" desc="" />
+
+    <!-- RWDS -->
+    <ParamSignal port="spihb_rwds[0]" name="SPI RWDS" group="RWDS" visible="`${hasVisibleOption(&quot;spihb_rwds[0]&quot;)}`" desc="Read write/Data strobe signal for higher accuracy return clock latency." canBeEmpty="true" />
+    <ParamString id="rwdsPin" name="rwdsPin" group="Internal" default="`${getBlockFromSignal(&quot;spihb_rwds[0]&quot;)}`" visible="false" editable="false" desc="" />
 
     <!-- Interrupt -->
     <ParamBool id="isrAlignment" name="Memory Mode Alignment Error" group="Interrupt" default="false" visible="true" editable="true" desc="An alignment error in the memory mode (XIP mode) is set as an interrupt cause" />

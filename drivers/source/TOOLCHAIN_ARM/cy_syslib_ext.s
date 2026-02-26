@@ -5,8 +5,8 @@
 ;  \brief Assembly routines for ARMCC.
 ;
 ;-------------------------------------------------------------------------------
-; Copyright 2016-2020 Cypress Semiconductor Corporation
-; SPDX-License-Identifier: Apache-2.0
+; (c) 2016-2026, Infineon Technologies AG or an affiliate of
+; Infineon Technologies AG.
 ;
 ; Licensed under the Apache License, Version 2.0 (the "License");
 ; you may not use this file except in compliance with the License.

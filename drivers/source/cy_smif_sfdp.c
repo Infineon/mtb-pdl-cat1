@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_sfdp.c
-* \version 2.130
+* \version 2.140
 *
 * \brief
 *  This file provides the source code for SFDP enumeration in SMIF driver.
@@ -9,8 +9,8 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2022-2024 Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
+* (c) 2022-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -275,6 +275,7 @@ static void SfdpGetProgramFourBytesCmd(uint8_t const sfdpBuffer[],
 static void SfdpSetChipEraseCommand(cy_stc_smif_mem_cmd_t* cmdChipErase);
 static uint32_t SfdpGetSectorEraseCommand(cy_stc_smif_mem_device_cfg_t *device,
                                           uint8_t const sfdpBuffer[],
+                                          bool fourByteAddrInstrTableExists,
                                           cy_stc_smif_erase_type_t eraseTypeStc[]);
 static cy_en_smif_status_t SfdpEnterFourByteAddressing(SMIF_Type *base, uint8_t entryMethodByte,
                                                               cy_stc_smif_mem_device_cfg_t *device,
@@ -1047,7 +1048,7 @@ static void SfdpGetReadCmd_1_1_1(uint8_t const sfdpBuffer[],
 
 
 /*******************************************************************************
-* Function Name:  zz
+* Function Name: SfdpGetReadCmdParams
 ****************************************************************************//**
 *
 * Reads the read command parameters from the JEDEC basic flash parameter table.
@@ -1078,68 +1079,54 @@ static cy_en_smif_protocol_mode_t SfdpGetReadCmdParams(uint8_t const sfdpBuffer[
                         (CY_SMIF_DATA_SEL3 != dataSelect) &&
                         (maxDataWidth >= CY_SMIF_WIDTH_QUAD));
 
-    if (quadEnabled)
+    if (quadEnabled && _FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_4_4,
+                            ((uint32_t) sfdpBuffer[sfdpDataIndex])))
     {
-        if (_FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_4_4,
-                      ((uint32_t) sfdpBuffer[sfdpDataIndex])))
-        {
 #if (CY_IP_MXSMIF_VERSION>=2)
-            if(_FLD2BOOL(CY_SMIF_SFDP_DTR_SUPPORT, (uint32_t) sfdpBuffer[sfdpDataIndex]))
-            {
-                SfdpGetReadCmd_1S_4D_4D(sfdpBuffer, cmdRead);
-                protocolMode = PROTOCOL_MODE_1S_4D_4D;
-            }
-            else
-            {
-                SfdpGetReadCmd_1_4_4(sfdpBuffer, cmdRead);
-                protocolMode = PROTOCOL_MODE_1S_4S_4S;
-            }
-#else
-            SfdpGetReadCmd_1_4_4(sfdpBuffer, cmdRead);
-            protocolMode = PROTOCOL_MODE_1S_4S_4S;
-#endif /* CY_IP_MXSMIF_VERSION */
-        }
-        else if (_FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_1_4,
-                            ((uint32_t)sfdpBuffer[sfdpDataIndex])))
+        if(_FLD2BOOL(CY_SMIF_SFDP_DTR_SUPPORT, (uint32_t) sfdpBuffer[sfdpDataIndex]))
         {
-            SfdpGetReadCmd_1_1_4(sfdpBuffer, cmdRead);
-            protocolMode = PROTOCOL_MODE_1S_1S_4S;
+            SfdpGetReadCmd_1S_4D_4D(sfdpBuffer, cmdRead);
+            protocolMode = PROTOCOL_MODE_1S_4D_4D;
         }
         else
         {
-            /* Wrong mode */
-            CY_ASSERT_L2(true);
-            protocolMode = PROTOCOL_MODE_WRONG;
+            SfdpGetReadCmd_1_4_4(sfdpBuffer, cmdRead);
+            protocolMode = PROTOCOL_MODE_1S_4S_4S;
         }
+#else
+        SfdpGetReadCmd_1_4_4(sfdpBuffer, cmdRead);
+        protocolMode = PROTOCOL_MODE_1S_4S_4S;
+#endif /* CY_IP_MXSMIF_VERSION */
+    }
+    else if (quadEnabled && _FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_1_4,
+                                ((uint32_t)sfdpBuffer[sfdpDataIndex])))
+    {
+        SfdpGetReadCmd_1_1_4(sfdpBuffer, cmdRead);
+        protocolMode = PROTOCOL_MODE_1S_1S_4S;
+    }
+    else if (_FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_2_2,
+                    (uint32_t)sfdpBuffer[sfdpDataIndex]) &&
+                (maxDataWidth >= CY_SMIF_WIDTH_DUAL))
+    {
+        SfdpGetReadCmd_1_2_2(sfdpBuffer, cmdRead);
+        protocolMode = PROTOCOL_MODE_1S_2S_2S;
+    }
+    else if (_FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_1_2,
+                    (uint32_t)sfdpBuffer[sfdpDataIndex]) &&
+                (maxDataWidth >= CY_SMIF_WIDTH_DUAL))
+    {
+        SfdpGetReadCmd_1_1_2(sfdpBuffer, cmdRead);
+        protocolMode = PROTOCOL_MODE_1S_1S_2S;
     }
     else
     {
-        if ((_FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_2_2,
-                       (uint32_t)sfdpBuffer[sfdpDataIndex])) &&
-            (maxDataWidth >= CY_SMIF_WIDTH_DUAL))
-        {
-            SfdpGetReadCmd_1_2_2(sfdpBuffer, cmdRead);
-            protocolMode = PROTOCOL_MODE_1S_2S_2S;
-        }
-        else
-        {
-            if (_FLD2BOOL(CY_SMIF_SFDP_FAST_READ_1_1_2,
-                          (uint32_t)sfdpBuffer[sfdpDataIndex]) &&
-               (maxDataWidth >= CY_SMIF_WIDTH_DUAL))
-            {
-                SfdpGetReadCmd_1_1_2(sfdpBuffer, cmdRead);
-                protocolMode = PROTOCOL_MODE_1S_1S_2S;
-            }
-            else
-            {
-                SfdpGetReadCmd_1_1_1(sfdpBuffer, cmdRead);
-                protocolMode = PROTOCOL_MODE_1S_1S_1S;
-            }
-        }
+        SfdpGetReadCmd_1_1_1(sfdpBuffer, cmdRead);
+        protocolMode = PROTOCOL_MODE_1S_1S_1S;
     }
 
     return protocolMode;
 }
+
 #if (CY_IP_MXSMIF_VERSION>=2) && defined (SMIF_OCTAL_SFDP_SUPPORT)
 static void SfdpSetVariableLatencyCmd(SMIF_Type *base,
                                     cy_stc_smif_mem_device_cfg_t *device,
@@ -1219,6 +1206,7 @@ static void SfdpSetVariableLatencyCmd(SMIF_Type *base,
     CY_MISRA_BLOCK_END('MISRA C-2012 Rule 10.8')
 }
 #endif
+
 /*******************************************************************************
 * Function Name: SfdpGetReadFourBytesCmd
 ****************************************************************************//**
@@ -1791,6 +1779,9 @@ static void SfdpSetChipEraseCommand(cy_stc_smif_mem_cmd_t* cmdChipErase)
 * \param sfdpBuffer
 * The pointer to an array with the SDFP buffer.
 *
+* \param fourByteAddrInstrTableExists
+* Indicates whether the devices supports the 4-byte Address Instruction Table.
+*
 * \param eraseTypeStc
 * The pointer to an array with the erase commands for different erase types.
 *
@@ -1800,10 +1791,11 @@ static void SfdpSetChipEraseCommand(cy_stc_smif_mem_cmd_t* cmdChipErase)
 *******************************************************************************/
 static uint32_t SfdpGetSectorEraseCommand(cy_stc_smif_mem_device_cfg_t *device,
                                           uint8_t const sfdpBuffer[],
+                                          bool fourByteAddrInstrTableExists,
                                           cy_stc_smif_erase_type_t eraseTypeStc[])
 {
     uint32_t eraseOffset;
-    if (FOUR_BYTE_ADDRESS == device->numOfAddrBytes)
+    if ((FOUR_BYTE_ADDRESS == device->numOfAddrBytes) && fourByteAddrInstrTableExists)
     {
         uint32_t eraseType;     /* Erase Type decreased to 1 */
         uint32_t eraseTypeMask;
@@ -1852,17 +1844,37 @@ static uint32_t SfdpGetSectorEraseCommand(cy_stc_smif_mem_device_cfg_t *device,
     }
     else
     {
-        eraseOffset = CY_SMIF_SFDP_BFPT_BYTE_1D;
-        while (INSTRUCTION_NOT_SUPPORTED == sfdpBuffer[eraseOffset])
+        /* check to see if Uniform 4KB erase is available in SFDP */
+        bool erase4kAvailable = (CY_SMIF_SFDP_4K_ERASE_AVAILABLE == _FLD2VAL(CY_SMIF_SFDP_ERASE_GRANULARITY,
+                                                                        (uint32_t)sfdpBuffer[CY_SMIF_SFDP_BFPT_BYTE_00]));
+        if (device->hybridRegionCount != 0U)
         {
-            if (eraseOffset >= CY_SMIF_SFDP_BFPT_BYTE_23)
+            /* If this is a hybrid memory, allow the 4K erase */
+            erase4kAvailable = true;
+        }
+
+        eraseOffset = CY_SMIF_SFDP_BFPT_BYTE_1D;
+
+        while (eraseOffset <= CY_SMIF_SFDP_BFPT_BYTE_23)
+        {
+            /* Check if the Erase Type is supported */
+            if (sfdpBuffer[eraseOffset] != INSTRUCTION_NOT_SUPPORTED)
             {
-                /* The Sector Erase command is not found */
-                eraseOffset = COMMAND_IS_NOT_FOUND;
-                break;
+                /* If the erase size is 4k, make sure that the instruction is supported */
+                if (!((sfdpBuffer[eraseOffset - 1U] == 0x0CU) && !erase4kAvailable))
+                {
+                    /* the instruction at the current offset is supported */
+                    break;
+                }
             }
             eraseOffset += TYPE_STEP; /* Check the next Erase Type */
         }
+        if (eraseOffset > CY_SMIF_SFDP_BFPT_BYTE_23)
+        {
+            /* The Sector Erase command is not found */
+            eraseOffset = COMMAND_IS_NOT_FOUND;
+        }
+
 
         if (COMMAND_IS_NOT_FOUND != eraseOffset)
         {
@@ -1955,9 +1967,13 @@ static cy_en_smif_status_t SfdpEnterFourByteAddressing(SMIF_Type *base, uint8_t 
             }
         }
 
-        if ( (((entryMethodByte & CY_SMIF_SFDP_ENTER_4_BYTE_METHOD_B7) != 0U) ||
-             ((entryMethodByte & CY_SMIF_SFDP_ENTER_4_BYTE_METHOD_WR_EN_B7) != 0U)) &&
-             (result == CY_SMIF_SUCCESS))
+        // Some devices (e.g. S26HS512T) support 4 byte addressing but have neither of
+        // the bits set indicating that B7 with write enable or B7 without write enable
+        // are supported. Because there are no other commands to enter 4-byte addressing
+        // mode present in the driver, the assumption will be that B7 is supported and
+        // the command will be sent whether the associated bit in entryMethodByte is
+        // set or not.
+        if (result == CY_SMIF_SUCCESS)
         {
             /* To enter a 4-byte addressing B7 instruction is required */
             result = Cy_SMIF_TransmitCommand(base,
@@ -2684,7 +2700,7 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
                         fourByteAddressBuffer[i] = 0U;
                     }
 
-                    if (CY_SMIF_SUCCESS == result)
+                    if ((CY_SMIF_SUCCESS == result) && (addr4ByteTableLength != 0U))
                     {
                         /* Get the JEDEC 4-byte Address Instruction Table content into sfdpBuffer[] */
                         result = SfdpReadBuffer(base, cmdSfdp, addr4ByteAddress, slaveSelect,
@@ -2710,7 +2726,8 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
                                 /* Initialize other params here */
                             }
 
-                            if(octalProtocolMode != PROTOCOL_MODE_8D_8D_8D) /* Check for Octal SDR if Octal DDR was not supported */
+                            /* Check for Octal SDR if Octal DDR was not supported */
+                            if ((octalProtocolMode != PROTOCOL_MODE_8D_8D_8D) && (addr4ByteTableLength != 0U))
                             {
                                 uint32_t octal_sdr_param = Cy_SMIF_PackBytesArray(fourByteAddressBuffer, true);
                                 octalProtocolMode = GetOctalSDRParams(base, sfdpBuffer, device, slaveSelect, octal_sdr_param,
@@ -2733,7 +2750,7 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
                         }
                     }
 #endif
-                    if (CY_SMIF_SUCCESS == result)
+                    if ((CY_SMIF_SUCCESS == result) && (addr4ByteTableLength != 0U))
                     {
                         /* Rewrite the Read command instruction for 4-byte addressing mode */
                         SfdpGetReadFourBytesCmd(fourByteAddressBuffer, pMode, cmdRead);
@@ -2742,8 +2759,7 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
                         SfdpGetProgramFourBytesCmd(fourByteAddressBuffer, pMode, device->programCmd);
 
                         /* Find the sector Erase command type with 4-byte addressing */
-                        eraseTypeOffset = SfdpGetSectorEraseCommand(device, fourByteAddressBuffer, eraseType);
-
+                        eraseTypeOffset = SfdpGetSectorEraseCommand(device, fourByteAddressBuffer, true, eraseType);
 #if (CY_IP_MXSMIF_VERSION>=2) && defined (SMIF_OCTAL_SFDP_SUPPORT)
                         if(pMode == PROTOCOL_MODE_8D_8D_8D)
                         {
@@ -2766,6 +2782,16 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
                         }
 #endif
                     }
+                    else
+                    {
+                        /* 4-byte address mode supported but no 4-byte address instruction table present */
+
+                        /* The program command for 4-byte addressing mode */
+                        SfdpSetProgramCommandFourBytes_1_1_1(device->programCmd);
+
+                        /* Find the sector Erase command type with 4-byte addressing */
+                        eraseTypeOffset = SfdpGetSectorEraseCommand(device, sfdpBuffer, false, eraseType);
+                    }
                 }
                 else /* Four Byte addressing not supported by the part */
                 {
@@ -2773,7 +2799,7 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
                     SfdpSetProgramCommand_1_1_1(device->programCmd);
 
                     /* Find the sector Erase command type with 3-byte addressing */
-                    eraseTypeOffset = SfdpGetSectorEraseCommand(device, sfdpBuffer, eraseType);
+                    eraseTypeOffset = SfdpGetSectorEraseCommand(device, sfdpBuffer, false, eraseType);
                 }
 
                 if (COMMAND_IS_NOT_FOUND != eraseTypeOffset)
@@ -2797,6 +2823,7 @@ cy_en_smif_status_t Cy_SMIF_MemInitSfdpMode(SMIF_Type *base,
                     /* Get the Sector Map Parameter Table into sfdpBuffer[] */
                     result = SfdpReadBuffer(base, cmdSfdp, sectorMapAddr, slaveSelect,
                                             sectorMapTableLength, sfdpBuffer, context);
+
                     if (CY_SMIF_SUCCESS == result)
                     {
                         result = SfdpPopulateRegionInfo(base, sfdpBuffer, sectorMapTableLength, device, slaveSelect, context, eraseType);

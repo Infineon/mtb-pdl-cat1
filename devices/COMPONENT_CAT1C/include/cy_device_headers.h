@@ -1,14 +1,10 @@
 /***************************************************************************//**
-* \file cy_device_headers.h
-*
-* \brief
 * Common header file to be included by the drivers.
 *
 ********************************************************************************
 * \copyright
-* (c) (2016-2024), Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-*
+* (c) 2016-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,6 +113,46 @@
     #include "cyt4bfcchs.h"
 #elif defined (CYT4BFCCHE)
     #include "cyt4bfcche.h"
+#elif defined (CYT3DLBBAS)
+    #include "cyt3dlbbas.h"
+#elif defined (CYT3DLBBBS)
+    #include "cyt3dlbbbs.h"
+#elif defined (CYT3DLBBCS)
+    #include "cyt3dlbbcs.h"
+#elif defined (CYT3DLBBDS)
+    #include "cyt3dlbbds.h"
+#elif defined (CYT3DLBBES)
+    #include "cyt3dlbbes.h"
+#elif defined (CYT3DLBBFS)
+    #include "cyt3dlbbfs.h"
+#elif defined (CYT3DLBBGS)
+    #include "cyt3dlbbgs.h"
+#elif defined (CYT3DLBBHS)
+    #include "cyt3dlbbhs.h"
+#elif defined (CYT3DLABAS)
+    #include "cyt3dlabas.h"
+#elif defined (CYT3DLABBS)
+    #include "cyt3dlabbs.h"
+#elif defined (CYT3DLABCS)
+    #include "cyt3dlabcs.h"
+#elif defined (CYT3DLABDS)
+    #include "cyt3dlabds.h"
+#elif defined (CYT3DLABES)
+    #include "cyt3dlabes.h"
+#elif defined (CYT3DLABFS)
+    #include "cyt3dlabfs.h"
+#elif defined (CYT3DLABGS)
+    #include "cyt3dlabgs.h"
+#elif defined (CYT3DLABHS)
+    #include "cyt3dlabhs.h"
+#elif defined (CYT3DLBBSS)
+    #include "cyt3dlbbss.h"
+#elif defined (CYT3DLBBZS)
+    #include "cyt3dlbbzs.h"
+#elif defined (CYT3DLABSS)
+    #include "cyt3dlabss.h"
+#elif defined (CYT3DLABZS)
+    #include "cyt3dlabzs.h"
 #elif defined (CYT4DNJBAS)
     #include "cyt4dnjbas.h"
 #elif defined (CYT4DNJBBS)

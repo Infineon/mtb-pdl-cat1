@@ -1,9 +1,5 @@
 var group__group__ipc__sema__enums =
 [
-    [ "cy_stc_ipc_sema_t", "structcy__stc__ipc__sema__t.html", [
-      [ "maxSema", "structcy__stc__ipc__sema__t.html#a5f5f482e9c7bf7992001adb225f5d811", null ],
-      [ "arrayPtr", "structcy__stc__ipc__sema__t.html#ad04fb13a0736977c4ddc642a630c9f54", null ]
-    ] ],
     [ "cy_en_ipcsema_status_t", "group__group__ipc__sema__enums.html#ga64ee08d87c6d84e39749834cbdd6b7b9", [
       [ "CY_IPC_SEMA_SUCCESS", "group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9a3aa7b86b286b7666ee4482ae040d6d1b", null ],
       [ "CY_IPC_SEMA_ERROR_LOCKED", "group__group__ipc__sema__enums.html#gga64ee08d87c6d84e39749834cbdd6b7b9ac7fd96eac1a979c946eb27c35f69ea77", null ],
