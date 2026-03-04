@@ -1,4 +1,4 @@
-# MTB CAT1 Peripheral Driver Library v3.20.0
+# MTB CAT1 Peripheral Driver Library v3.20.1
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
@@ -6,22 +6,14 @@ for a complete description of the Peripheral Driver Library.
 
 ## Implementation Details
 * New device support added for TRAVEO&trade; T2G CYT3DL.
+* Fixed hfclk-4.0 personality for TRAVEO&trade; T2G CYT3DL and CYT4DN.
 
 ## Personality Changes
-* Updated Personalities:
-  * peripheral:
-    * smif_v2-1.0.cypersonality
-  * platform:
-    * hfclk_t2g2d6m-1.0.cypersonality
-
-* New Personality
+* Updated Personality:
   * platform:
     * hfclk-4.0.cypersonality
 
-
 ## Updated Drivers
-* [SMIF 2.140](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [SAR2 1.2](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sar2.html)
 
 ## Known Issues
 
