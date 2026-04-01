@@ -141,7 +141,7 @@ Functions</h2></td></tr>
 <p>Stores the external crystal oscillator (ECO) frequency in a global variable within Sysclk driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">freq</td><td>Operating frequency of the crystal in Hz. Valid range: 16000000...35000000 (16..35 MHz).</td></tr>
+    <tr><td class="paramname">freq</td><td>Operating frequency of the crystal in Hz. Valid range depends on the selected device, refer to the device datasheet for more details.</td></tr>
   </table>
   </dd>
 </dl>
@@ -224,7 +224,7 @@ CY_SYSCLK_INVALID_STATE - ECO already enabled</dd></dl>
 <p>This function should be called only when the ECO is disabled.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">freq</td><td>Operating frequency of the crystal in Hz. Valid range: 16000000...35000000 (16..35 MHz).</td></tr>
+    <tr><td class="paramname">freq</td><td>Operating frequency of the crystal in Hz. Valid range depends on the selected device, refer to the device datasheet for more details.</td></tr>
     <tr><td class="paramname">cSum</td><td>The summary capacitance of C0 (the crystal itself shunt capacitance) and Cload (the parallel load capacitance), in pF. So cSum = C0 + Cload. Valid range: 1...100. </td></tr>
   </table>
   </dd>

@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_02 device GPIO header for 128-TQFP package
+* \file gpio_psoc6_02_128_tqfp.h
+*
+* \brief
+* PSoC6_02 device GPIO header for 128-TQFP package
 *
 ********************************************************************************
 * \copyright

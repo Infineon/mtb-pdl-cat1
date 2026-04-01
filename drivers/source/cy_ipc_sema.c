@@ -7,6 +7,7 @@
 *   semaphore level APIs for the IPC interface.
 *
 ********************************************************************************
+* \copyright
 * (c) 2016-2026, Infineon Technologies AG or an affiliate of
 * Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0

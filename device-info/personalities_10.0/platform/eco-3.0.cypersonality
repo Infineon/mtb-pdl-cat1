@@ -42,13 +42,19 @@
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk__eco.html" linkText="Open ECO Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
 
-    <ParamBool 
-      id="is40srss_ver2or3Available" name="is40srss_ver2or3Available" group="" 
-      default="`${((&quot;mxs40srss_ver2&quot; eq getIpBlockName()) || (&quot;mxs40srss_ver3&quot; eq getIpBlockName()))}`"
-      visible="false" editable="false" desc="" />
+    <ParamRange id="ecoFreqMin" name="ecoFreqMin" group="Internal" default="`${(getIpBlockName() eq &quot;mxs40srss&quot;) ? 16 :
+                                                                              ((getIpBlockName() eq &quot;mxs40srss_ver2&quot;) ? 3.988 :
+                                                                              (((getIpBlockName() eq &quot;mxs40srss_ver3&quot;) &amp;&amp; ((lookupExpression(&quot;GENERATED.IP_MINOR_VERSION&quot;) eq 3) || (lookupExpression(&quot;NUM_MCWDT&quot;, 0) eq 2)) ) ? 7.2 :
+                                                                              ((getIpBlockName() eq &quot;mxs40srss_ver3&quot;) ? 8 :
+                                                                              ((getIpBlockName() eq &quot;mxs40ssrss&quot;) ? 4 : 0))))}`" visible="false" editable="false" min="0" max="40" resolution="0.0001" desc="" />
 
-    <ParamRange id="ecoFrequency" name="Frequency (MHz)" group="General" default="24.0000" visible="true" editable="true" min="`${((is40srss_ver2or3Available) ? 8 : 16)}`" max="`${((is40srss_ver2or3Available) ? 33.34 : 35)}`" resolution="0.0001" desc="" />
-    <ParamRange id="frequency" name="Frequency (Hz)" group="Internal" default="`${ecoFrequency * 1000000}`" visible="false" editable="false" min="16000000" max="35000000" resolution="1" desc="" />
+    <ParamRange id="ecoFreqMax" name="ecoFreqMax" group="Internal" default="`${(getIpBlockName() eq &quot;mxs40srss&quot;) ? 35 :
+                                                                              ((getIpBlockName() eq &quot;mxs40srss_ver2&quot;) ? 33.34 :
+                                                                              ((getIpBlockName() eq &quot;mxs40srss_ver3&quot;) ? 33.34 :
+                                                                              ((getIpBlockName() eq &quot;mxs40ssrss&quot;) ? 36 : 0)))}`" visible="false" editable="false" min="0" max="40" resolution="0.0001" desc="" />
+
+    <ParamRange id="ecoFrequency" name="Frequency (MHz)" group="General" default="24.0000" visible="true" editable="true" min="`${ecoFreqMin}`" max="`${ecoFreqMax}`" resolution="0.0001" desc="" />
+    <ParamRange id="frequency" name="Frequency (Hz)" group="Internal" default="`${ecoFrequency * 1000000}`" visible="false" editable="false" min="0" max="40000000" resolution="1" desc="" />
 
     <ParamRange id="accuracyPpm" name="Accuracy (&#177;ppm)" group="General" default="0" min="0" max="1000000" resolution="1" visible="true" editable="true" desc="Clock accuracy in ppm" />
     <ParamString id="accuracyPct" name="Accuracy (&#177;%)" group="General" default="`${accuracyPpm/10000.0}`" visible="true" editable="false" desc="Clock accuracy in %" />

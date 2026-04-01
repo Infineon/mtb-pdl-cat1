@@ -192,7 +192,7 @@
       <FixIt action="ENABLE_BLOCK" target="`${sourceClockRsc}`" value="" valid="true" />
     </DRC>
     <DRC type="ERROR" text="CLK_HF0 is slower than legal min 200 kHz." condition="`${!error &amp;&amp; ((clockInst == 0) &amp;&amp; (sourceFreq &lt; 200000))}`" />
-    <DRC type="ERROR" text="CLK_HF0 is higher than legal max 180 MHz." condition="`${!error &amp;&amp; ((clockInst == 0) &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; (frequency &gt; 180000000))}`" />
+    <DRC type="ERROR" text="CLK_HF0 is higher than legal max `${getDeviceAttr(&quot;CPU_MAX_MHZ&quot;)}` MHz." condition="`${!error &amp;&amp; ((clockInst == 0) &amp;&amp; (&quot;mxs40ssrss&quot; eq getIpBlockName()) &amp;&amp; (frequency &gt; (getDeviceAttr(&quot;CPU_MAX_MHZ&quot;) * 1000000)))}`" />
     <DRC type="INFO" text="The top-level System Clocks must be enabled to generate the clock initialization code" condition="`${!isBlockUsed(&quot;srss[0].clock[0]&quot;) &amp;&amp; clockInst == 0}`" location="srss[0].clock[0]" >
       <FixIt action="ENABLE_BLOCK" target="srss[0].clock[0]" value="" valid="true" />
     </DRC>

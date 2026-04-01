@@ -1,11 +1,12 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.90
+* \version 3.90.1
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
 *
 ********************************************************************************
+* \copyright
 * (c) 2016-2026, Infineon Technologies AG or an affiliate of
 * Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0

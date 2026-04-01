@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_03 device GPIO header for 49-WLCSP package
+* \file gpio_psoc6_03_49_wlcsp.h
+*
+* \brief
+* PSoC6_03 device GPIO header for 49-WLCSP package
 *
 ********************************************************************************
 * \copyright

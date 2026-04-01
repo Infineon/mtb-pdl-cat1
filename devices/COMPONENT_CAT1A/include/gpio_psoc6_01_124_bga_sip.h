@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_01 device GPIO header for 124-BGA-SIP package
+* \file gpio_psoc6_01_124_bga_sip.h
+*
+* \brief
+* PSoC6_01 device GPIO header for 124-BGA-SIP package
 *
 ********************************************************************************
 * \copyright

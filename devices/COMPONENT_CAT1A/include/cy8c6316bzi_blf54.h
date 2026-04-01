@@ -1,4 +1,7 @@
 /***************************************************************************//**
+* \file cy8c6316bzi_blf54.h
+*
+* \brief
 * CY8C6316BZI-BLF54 device header
 *
 ********************************************************************************
@@ -348,7 +351,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"
+#include "system_psoc6.h"                       /*!< PSoC 6 System */
 
 #include "psoc6_01_config.h"
 #include "gpio_psoc6_01_124_bga_sip.h"

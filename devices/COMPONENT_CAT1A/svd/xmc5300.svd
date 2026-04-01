@@ -6,7 +6,8 @@
   <series>XMC5300</series>
   <version>1.0</version>
   <description>XMC5300</description>
-  <licenseText>(c) 2016-2026, Infineon Technologies AG or an affiliate of Infineon Technologies AG. \n
+  <licenseText>(c) (2016-2026), Infineon Technologies AG\n
+    or an affiliate of Infineon Technologies AG.\n
 \n
     SPDX-License-Identifier: Apache-2.0\n
 \n
@@ -10339,7 +10340,7 @@ Comment: not a retained flop, therefore reset (rst_hf_act_n) puts it back to 0. 
           <fields>
             <field>
               <name>LINREG_DIS</name>
-              <description>Explicitly disable the linear Core Regulator.  Write zero for Traveo II devices.  This register is only reset by XRES, HIBERNATE wakeup, or supply supervision reset.
+              <description>Explicitly disable the linear Core Regulator.  Write zero for XMC5000 devices.  This register is only reset by XRES, HIBERNATE wakeup, or supply supervision reset.
 0: Linear Core Regulator is not explicitly disabled.  Hardware disables it automatically for internal sequences, including for DEEPSLEEP, HIBERNATE, and XRES low power modes.  
 1: Linear Core Regulator is explicitly disabled.  Only use this for special cases when another source supplies vccd during ACTIVE and SLEEP modes.  This setting is only legal when another source supplies vccd, but there is no special hardware protection for this case.</description>
               <bitRange>[0:0]</bitRange>
@@ -18193,13 +18194,13 @@ D_OUT = '1': High Impedance</description>
                   <enumeratedValue>
                     <name>CMOS</name>
                     <description>PSoC 6:: Input buffer compatible with CMOS and I2C interfaces
-Traveo II: Full encoding is shown in CFG_IN_AUTOLVL.VTRIP_SEL0_1</description>
+XMC5000: Full encoding is shown in CFG_IN_AUTOLVL.VTRIP_SEL0_1</description>
                     <value>0</value>
                   </enumeratedValue>
                   <enumeratedValue>
                     <name>TTL</name>
                     <description>PSoC 6:: Input buffer compatible with TTL and MediaLB interfaces
-Traveo II: full encoding is shown in CFG_IN_AUTOLVL.VTRIP_SEL0_1</description>
+XMC5000: full encoding is shown in CFG_IN_AUTOLVL.VTRIP_SEL0_1</description>
                     <value>1</value>
                   </enumeratedValue>
                 </enumeratedValues>

@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_04 device GPIO header for 68-QFN package
+* \file gpio_psoc6_04_68_qfn.h
+*
+* \brief
+* PSoC6_04 device GPIO header for 68-QFN package
 *
 ********************************************************************************
 * \copyright

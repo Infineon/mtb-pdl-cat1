@@ -23,7 +23,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *******************************************************************************/
-
 #include "cy_device.h"
 #if defined (CY_IP_MXKEYSCAN)
 /*****************************************************************************/

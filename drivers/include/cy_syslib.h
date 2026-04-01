@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.90
+* \version 3.90.1
 *
 * Provides an API declaration of the SysLib driver.
 *
@@ -132,6 +132,11 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.90.1</td>
+*     <td>Updated \ref Cy_SysLib_GetDeviceLCS function description.</td>
+*     <td>Documentation enhancement.</td>
+*   </tr>
 *   <tr>
 *     <td>3.90</td>
 *     <td>Added new APIs for PSOC C3 devices:
@@ -1738,6 +1743,9 @@ void Cy_SysLib_DebugCtiMuxConnect(cy_syslib_debug_cti_t *base, uint32_t inTrig, 
 * \param base The pointer to the SRSS instance.
 *
 * \return  \ref cy_en_syslib_lcs_mode_t
+*
+* \note
+* eFuse must be in enabled state before calling this API.
 *
 *******************************************************************************/
 cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(cy_syslib_lcs_data_t *base);

@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_01 device GPIO header for 104-M-CSP-BLE-USB package
+* \file gpio_psoc6_01_104_m_csp_ble_usb.h
+*
+* \brief
+* PSoC6_01 device GPIO header for 104-M-CSP-BLE-USB package
 *
 ********************************************************************************
 * \copyright

@@ -1,4 +1,7 @@
 /***************************************************************************//**
+* \file cy8c4588azi_h675.h
+*
+* \brief
 * CY8C4588AZI-H675 device header
 *
 ********************************************************************************
@@ -526,7 +529,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"
+#include "system_psoc6.h"                       /*!< PSoC 6 System */
 
 #include "psoc6_04_config.h"
 #include "gpio_psoc6_04_64_tqfp.h"

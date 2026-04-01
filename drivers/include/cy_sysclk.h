@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.150
+* \version 3.150.1
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,11 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.150.1</td>
+*     <td>Updated description of the frequency range for \ref Cy_SysClk_EcoSetFrequency and \ref Cy_SysClk_EcoConfigure functions.</td>
+*     <td>Defect fix.</td>
+*   </tr>
 *   <tr>
 *     <td>3.150</td>
 *     <td>Added support of \ref Cy_SysClk_ClkLfGetFrequency API for MXS40SRSS ver. 2.</td>
@@ -1352,7 +1357,8 @@ typedef enum
 * within Sysclk driver.
 *
 * \param freq Operating frequency of the crystal in Hz.
-* Valid range: 16000000...35000000 (16..35 MHz).
+* Valid range depends on the selected device, refer to the device datasheet
+* for more details.
 *
 * \note
 * This API is available for CAT1A (excluding TVIIBE), CAT1B, CAT1C and CAT1D devices.
@@ -1400,7 +1406,8 @@ cy_en_sysclk_status_t Cy_SysClk_EcoManualConfigure(const cy_stc_clk_eco_config_t
 * characteristics. This function should be called only when the ECO is disabled.
 *
 * \param freq Operating frequency of the crystal in Hz.
-* Valid range: 16000000...35000000 (16..35 MHz).
+* Valid range depends on the selected device, refer to the device datasheet
+* for more details.
 *
 * \param cSum The summary capacitance of
 * C0 (the crystal itself shunt capacitance) and

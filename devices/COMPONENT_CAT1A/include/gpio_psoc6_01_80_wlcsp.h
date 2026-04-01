@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_01 device GPIO header for 80-WLCSP package
+* \file gpio_psoc6_01_80_wlcsp.h
+*
+* \brief
+* PSoC6_01 device GPIO header for 80-WLCSP package
 *
 ********************************************************************************
 * \copyright

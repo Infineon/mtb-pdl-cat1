@@ -1,4 +1,7 @@
 /***************************************************************************//**
+* \file cyt2bl3bas.h
+*
+* \brief
 * CYT2BL3BAS device header
 *
 ********************************************************************************
@@ -644,7 +647,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"
+#include "system_psoc6.h"                       /*!< PSoC 6 System */
 
 #include "tviibe4m_config.h"
 #include "gpio_tviibe4m_64_lqfp.h"

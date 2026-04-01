@@ -38,7 +38,7 @@
 #include "cy_syslib.h"
 
 /*
- * Macro additions by Infineon Technologies AG
+ * Macro additions by Infineon Technologies
  */
 #define fwk_assert     CY_ASSERT
 #define FWK_SUCCESS    CY_RET_SUCCESS

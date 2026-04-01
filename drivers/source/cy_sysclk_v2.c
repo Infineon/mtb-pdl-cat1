@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk_v2.c
-* \version 3.150
+* \version 3.150.1
 *
 * Provides an API implementation of the sysclk driver.
 *

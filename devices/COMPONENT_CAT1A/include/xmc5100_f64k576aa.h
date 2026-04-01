@@ -3,7 +3,6 @@
 *
 ********************************************************************************
 * \copyright
-
 * (c) 2016-2026, Infineon Technologies AG or an affiliate of
 * Infineon Technologies AG.
 * SPDX-License-Identifier: Apache-2.0
@@ -602,7 +601,7 @@ typedef enum {
 
 #define CY_DEVICE_XMC5100
 #define CY_DEVICE_SERIES_XMC5100
-#define CY_SILICON_ID                   0xE34B2301UL
+#define CY_SILICON_ID                   0xE3F12301UL
 #define CY_HF_CLK_MAX_FREQ              80000000UL
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL

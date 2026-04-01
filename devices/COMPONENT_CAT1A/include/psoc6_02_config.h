@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_02 device configuration header
+* \file psoc6_02_config.h
+*
+* \brief
+* PSoC6_02 device configuration header
 *
 ********************************************************************************
 * \copyright

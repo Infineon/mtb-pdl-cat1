@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_03 device GPIO header for 100-TQFP package
+* \file gpio_psoc6_03_100_tqfp.h
+*
+* \brief
+* PSoC6_03 device GPIO header for 100-TQFP package
 *
 ********************************************************************************
 * \copyright

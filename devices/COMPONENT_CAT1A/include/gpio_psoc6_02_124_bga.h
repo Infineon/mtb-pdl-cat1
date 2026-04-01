@@ -1,5 +1,8 @@
 /***************************************************************************//**
-* PSOC6_02 device GPIO header for 124-BGA package
+* \file gpio_psoc6_02_124_bga.h
+*
+* \brief
+* PSoC6_02 device GPIO header for 124-BGA package
 *
 ********************************************************************************
 * \copyright

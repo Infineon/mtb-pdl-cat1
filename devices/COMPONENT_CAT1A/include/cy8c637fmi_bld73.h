@@ -1,4 +1,7 @@
 /***************************************************************************//**
+* \file cy8c637fmi_bld73.h
+*
+* \brief
 * CY8C637FMI-BLD73 device header
 *
 ********************************************************************************
@@ -569,7 +572,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"
+#include "system_psoc6.h"                       /*!< PSoC 6 System */
 
 #include "psoc6_01_config.h"
 #include "gpio_psoc6_01_104_m_csp_ble.h"

@@ -1,4 +1,7 @@
 /***************************************************************************//**
+* \file cy8c6036bzi_f04.h
+*
+* \brief
 * CY8C6036BZI-F04 device header
 *
 ********************************************************************************
@@ -332,7 +335,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"
+#include "system_psoc6.h"                       /*!< PSoC 6 System */
 
 #include "psoc6_01_config.h"
 #include "gpio_psoc6_01_124_bga.h"
