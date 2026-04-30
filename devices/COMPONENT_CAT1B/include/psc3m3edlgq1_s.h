@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file psc3m3edlgq1_s.h
-*
-* \brief
 * PSC3M3EDLGQ1 device header with secure MMIO offsets
 *
 ********************************************************************************
@@ -1197,10 +1194,12 @@ typedef enum {
 #define SCB1_BASE                               0x52840000UL
 #define SCB2_BASE                               0x52850000UL
 #define SCB3_BASE                               0x52860000UL
+#define SCB5_BASE                               0x52C00000UL
 #define SCB0                                    ((CySCB_Type*) SCB0_BASE)                                         /* 0x52820000 */
 #define SCB1                                    ((CySCB_Type*) SCB1_BASE)                                         /* 0x52840000 */
 #define SCB2                                    ((CySCB_Type*) SCB2_BASE)                                         /* 0x52850000 */
 #define SCB3                                    ((CySCB_Type*) SCB3_BASE)                                         /* 0x52860000 */
+#define SCB5                                    ((CySCB_Type*) SCB5_BASE)                                         /* 0x52C00000 */
 
 /*******************************************************************************
 *                                    TCPWM

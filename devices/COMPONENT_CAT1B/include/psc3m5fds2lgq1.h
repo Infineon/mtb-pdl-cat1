@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file psc3m5fds2lgq1.h
-*
-* \brief
 * PSC3M5FDS2LGQ1 device header
 *
 ********************************************************************************
@@ -1196,10 +1193,12 @@ typedef enum {
 #define SCB1_BASE                               0x42840000UL
 #define SCB2_BASE                               0x42850000UL
 #define SCB3_BASE                               0x42860000UL
+#define SCB5_BASE                               0x42C00000UL
 #define SCB0                                    ((CySCB_Type*) SCB0_BASE)                                         /* 0x42820000 */
 #define SCB1                                    ((CySCB_Type*) SCB1_BASE)                                         /* 0x42840000 */
 #define SCB2                                    ((CySCB_Type*) SCB2_BASE)                                         /* 0x42850000 */
 #define SCB3                                    ((CySCB_Type*) SCB3_BASE)                                         /* 0x42860000 */
+#define SCB5                                    ((CySCB_Type*) SCB5_BASE)                                         /* 0x42C00000 */
 
 /*******************************************************************************
 *                                    TCPWM

@@ -2,6 +2,7 @@
 <Woundings xml_version="1" xmlns="http://cypress.com/xsd/cychipresourcewoundings_v1">
   <MemoryWounding name="SRAM_KB" memoryId="SRAM" />
   <MemoryWounding name="FLASH_KB" memoryId="FLASH" />
+  <MemoryWounding name="ROM_KB" memoryId="ROM" />
   <MemoryWounding name="PPCA_CPU0_CODE_SRAM_KB" memoryId="PPCA_CPU0_CODE_SRAM" />
   <MemoryWounding name="PPCA_CPU0_DATA_SRAM_KB" memoryId="PPCA_CPU0_DATA_SRAM" />
   <MemoryWounding name="PPCA_CPU1_CODE_SRAM_KB" memoryId="PPCA_CPU1_CODE_SRAM" />
@@ -28,6 +29,9 @@
     <Block name="cordic" />
     <Block name="ppca.cordic" />
   </BooleanWounding>
+  <BooleanWounding name="3P3Z">
+    <Block name="pass.hwfilt3p3zss.hwfilt3p3z" />
+  </BooleanWounding>
   <BooleanWounding name="MOTIF">
     <Block name="tcpwm.group.motif" />
     <Block name="ppca.tcpwm.group.motif" />
@@ -36,9 +40,18 @@
     <Block name="tcpwm.group.cnt.hrpwm" />
     <Block name="ppca.tcpwm.group.cnt.hrpwm" />
   </BooleanWounding>
+  <BooleanWounding name="SVGS">
+    <Block name="sgs" />
+  </BooleanWounding>
+  <BooleanWounding name="AES">
+    <Block name="aes" />
+  </BooleanWounding>
   <NaWounding name="BLUETOOTH">
     <Block name="btss" />
     <Block name="srss.clock.althf" />
+  </NaWounding>
+  <NaWounding name="USB_TYPE">
+    <Block name="usb" />
   </NaWounding>
   <RemoveListWounding name="SCB_REMOVED">
     <Block name="scb" />
@@ -53,12 +66,25 @@
     <Block name="adcmic" />
     <Block name="pass.sar" />
   </RemoveListWounding>
+  <RemoveListWounding name="ADC_REMOVED">
+    <Block name="adcmic" />
+    <Block name="pass.sar" />
+  </RemoveListWounding>
   <RemoveListWounding name="PDM_REMOVED">
     <Block name="pdm" />
   </RemoveListWounding>
   <RemoveListWounding name="ADC_CH_REMOVED">
     <Block name="pass.sar.ch" />
     <Block name="pass.sar.dir_sampler" />
+  </RemoveListWounding>
+  <RemoveListWounding name="CSG_REMOVED">
+    <Block name="pass.csg" />
+  </RemoveListWounding>
+  <RemoveListWounding name="AFE_REMOVED">
+    <Block name="pass.afe" />
+  </RemoveListWounding>
+  <RemoveListWounding name="DAC_REMOVED">
+    <Block name="pass.dac" />
   </RemoveListWounding>
   <RemoveListWounding name="CANFD_CH_REMOVED">
     <Block name="canfd.chan" />
@@ -74,6 +100,9 @@
   </RemoveListWounding>
   <RemoveListWounding name="I2S_REMOVED">
     <Block name="tdm.tdm" />
+  </RemoveListWounding>
+  <RemoveListWounding name="I3C_REMOVED">
+    <Block name="i3c" />
   </RemoveListWounding>
   <IndexResourceWounding name="PPCA_DCSG_REMOVED">
     <ResourceIndex index="0">

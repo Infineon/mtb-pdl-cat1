@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file psc3p2edabq1_s.h
-*
-* \brief
 * PSC3P2EDABQ1 device header with secure MMIO offsets
 *
 ********************************************************************************
@@ -1171,10 +1168,12 @@ typedef enum {
 #define SCB1_BASE                               0x52840000UL
 #define SCB2_BASE                               0x52850000UL
 #define SCB3_BASE                               0x52860000UL
+#define SCB5_BASE                               0x52C00000UL
 #define SCB0                                    ((CySCB_Type*) SCB0_BASE)                                         /* 0x52820000 */
 #define SCB1                                    ((CySCB_Type*) SCB1_BASE)                                         /* 0x52840000 */
 #define SCB2                                    ((CySCB_Type*) SCB2_BASE)                                         /* 0x52850000 */
 #define SCB3                                    ((CySCB_Type*) SCB3_BASE)                                         /* 0x52860000 */
+#define SCB5                                    ((CySCB_Type*) SCB5_BASE)                                         /* 0x52C00000 */
 
 /*******************************************************************************
 *                                    TCPWM
@@ -1207,10 +1206,6 @@ typedef enum {
 #define TCPWM0_GRP2_CNT7                        ((TCPWM_GRP_CNT_Type*) &TCPWM0->GRP[2].CNT[7])                    /* 0x52A20700 */
 #define TCPWM0_TR_ALL_GF                        ((TCPWM_TR_ALL_GF_Type*) &TCPWM0->TR_ALL_GF)                      /* 0x52A80000 */
 #define TCPWM0_TR_ALL_SYNC_BYPASS               ((TCPWM_TR_ALL_SYNC_BYPASS_Type*) &TCPWM0->TR_ALL_SYNC_BYPASS)    /* 0x52A90000 */
-#define TCPWM0_MOTIF_GRP0                       ((TCPWM_MOTIF_GRP_Type*) &TCPWM0->MOTIF_GRP[0])                   /* 0x52AA0000 */
-#define TCPWM0_MOTIF_GRP1                       ((TCPWM_MOTIF_GRP_Type*) &TCPWM0->MOTIF_GRP[1])                   /* 0x52AA4000 */
-#define TCPWM0_MOTIF_GRP2                       ((TCPWM_MOTIF_GRP_Type*) &TCPWM0->MOTIF_GRP[2])                   /* 0x52AA8000 */
-#define TCPWM0_MOTIF_GRP1_MOTIF0                ((TCPWM_MOTIF_GRP_MOTIF_Type*) &TCPWM0->MOTIF_GRP[1].MOTIF[0])    /* 0x52AA4000 */
 
 /*******************************************************************************
 *                                    HPPASS

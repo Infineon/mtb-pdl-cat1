@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file psc3p2fds2lhq1.h
-*
-* \brief
 * PSC3P2FDS2LHQ1 device header
 *
 ********************************************************************************
@@ -1210,10 +1207,6 @@ typedef enum {
 #define TCPWM0_GRP2_CNT7                        ((TCPWM_GRP_CNT_Type*) &TCPWM0->GRP[2].CNT[7])                    /* 0x42A20700 */
 #define TCPWM0_TR_ALL_GF                        ((TCPWM_TR_ALL_GF_Type*) &TCPWM0->TR_ALL_GF)                      /* 0x42A80000 */
 #define TCPWM0_TR_ALL_SYNC_BYPASS               ((TCPWM_TR_ALL_SYNC_BYPASS_Type*) &TCPWM0->TR_ALL_SYNC_BYPASS)    /* 0x42A90000 */
-#define TCPWM0_MOTIF_GRP0                       ((TCPWM_MOTIF_GRP_Type*) &TCPWM0->MOTIF_GRP[0])                   /* 0x42AA0000 */
-#define TCPWM0_MOTIF_GRP1                       ((TCPWM_MOTIF_GRP_Type*) &TCPWM0->MOTIF_GRP[1])                   /* 0x42AA4000 */
-#define TCPWM0_MOTIF_GRP2                       ((TCPWM_MOTIF_GRP_Type*) &TCPWM0->MOTIF_GRP[2])                   /* 0x42AA8000 */
-#define TCPWM0_MOTIF_GRP1_MOTIF0                ((TCPWM_MOTIF_GRP_MOTIF_Type*) &TCPWM0->MOTIF_GRP[1].MOTIF[0])    /* 0x42AA4000 */
 
 /*******************************************************************************
 *                                    HPPASS

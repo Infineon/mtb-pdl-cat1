@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file psc3_config.h
-*
-* \brief
 * PSC3 device configuration header
 *
 ********************************************************************************
@@ -1594,7 +1591,8 @@ typedef enum
     CPUSS_FLASHC_ADDR_HOLE_FAULT    = 0x001Au,
     CPUSS_FLASHC_LOCK_FAULT         = 0x001Bu,
     SRSS_FAULT_CSV                  = 0x001Cu,
-    SRSS_FAULT_SSV                  = 0x001Du
+    SRSS_FAULT_SSV                  = 0x001Du,
+    CY_SYSFAULT_NO_FAULT            = 0x001Eu
 } en_sysfault_source_t;
 
 /* Include IP definitions */

@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file cyip_sflash_psc3.h
-*
-* \brief
 * SFLASH IP definitions
 *
 ********************************************************************************
@@ -317,7 +314,10 @@ typedef struct {
   __IOM uint8_t  FLASH_BOOT_CODE[25040];        /*!< 0x00001430 Flash Boot - Code and Data */
   __IOM uint32_t SFLASH_ROW_COUNTER_HUK;        /*!< 0x00007600 Write counter for HUK flash row + tag indicating HUK flash row */
   __IOM uint8_t  HUK[32];                       /*!< 0x00007604 Hardware Unique Key */
-} SFLASH_Type;                                  /*!< Size = 30244 (0x7624) */
+   __IM uint32_t RESERVED13[110];
+  __IOM uint8_t  DEV_PRIVATE_KEY[32];           /*!< 0x000077DC Private key used for provisioining secure encryption key */
+  __IOM uint8_t  ENC_KEY_ENCRYPT_FLAG[4];       /*!< 0x000077FC Valid flag for DEV_PRIVATE_KEY */
+} SFLASH_Type;                                  /*!< Size = 30720 (0x7800) */
 
 
 /* SFLASH.SI_REVISION_ID */
@@ -786,6 +786,12 @@ typedef struct {
 /* SFLASH.HUK */
 #define SFLASH_HUK_DATA32_Pos                   0UL
 #define SFLASH_HUK_DATA32_Msk                   0xFFFFFFFFUL
+/* SFLASH.DEV_PRIVATE_KEY */
+#define SFLASH_DEV_PRIVATE_KEY_DATA32_Pos       0UL
+#define SFLASH_DEV_PRIVATE_KEY_DATA32_Msk       0xFFFFFFFFUL
+/* SFLASH.ENC_KEY_ENCRYPT_FLAG */
+#define SFLASH_ENC_KEY_ENCRYPT_FLAG_DATA32_Pos  0UL
+#define SFLASH_ENC_KEY_ENCRYPT_FLAG_DATA32_Msk  0xFFFFFFFFUL
 
 
 #endif /* _CYIP_SFLASH_PSC3_H_ */

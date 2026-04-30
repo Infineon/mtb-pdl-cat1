@@ -9,6 +9,7 @@
     <ExposedParamKey id="SAR_SAMPLE_RATE" param_name="SAR12Sample_ksps" />
     <ExposedParamKey id="VDD_MIN" param_name="Vddmin_volts" />
     <ExposedParamKey id="VDD_MAX" param_name="Vddmax_volts" />
+    <ExposedParamKey id="SECURITY" param_name="Security" />
   </ExposedParameterKeys>
   <Connectivity location="connectivity" />
   <Wounding location="chipresourcewoundings.xml" />

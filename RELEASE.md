@@ -1,22 +1,12 @@
-# MTB CAT1 Peripheral Driver Library v3.21.0
+# MTB CAT1 Peripheral Driver Library v3.21.1
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
 for a complete description of the Peripheral Driver Library.
 
 ## Implementation Details
-* New device support added for XMC5000.
-
-## Personality Changes
-* Updated Personalities:
-  * platform:
-    * eco-3.0.cypersonality
-    * hfclk-3.0.cypersonality
-    * hfclk-4.0.cypersonality
-
-### Drivers with patch version updates
-* [SYSCLK 3.150.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSLIB 3.90.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
+* Added SCB5 support for 48-pin parts of PSOC™ Control C3 MCU family.
+* Updated SFLASH IP definitions for PSOC™ Control C3 MCU family.
 
 ## Known Issues
 
@@ -55,7 +45,7 @@ This version of PDL was validated for compatibility with the following Software 
 | :---                                                                          | :----        |
 | ModusToolbox&trade;                                                           | 3.7.0        |
 | [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.7.0        |
-| [Device Database](https://github.com/Infineon/device-db)                      | 4.35.0       |
+| [Device Database](https://github.com/Infineon/device-db)                      | 4.37.0       |
 | CMSIS                                                                         | 6.1.0        |
 | GCC Compiler                                                                  | 14.2.1       |
 | IAR Compiler                                                                  | 9.50.2       |
