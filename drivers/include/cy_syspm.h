@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.200
+* \version 5.210
 *
 * Provides the function definitions for the power management API.
 *
@@ -845,6 +845,15 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>5.210</td>
+*     <td>Added CM7_2 and CM7_3 power status support in
+*         \ref Cy_SysPm_ReadStatus,
+*         \ref Cy_SysPm_Cm7IsActive,
+*         \ref Cy_SysPm_Cm7IsSleep, and
+*         \ref Cy_SysPm_Cm7IsDeepSleep APIs.</td>
+*     <td>Support added for M7CPUSS version 2 devices with CM7_2 and CM7_3 cores.</td>
+*   </tr>
 *   <tr>
 *     <td>5.200</td>
 *     <td>Fixed the compatibility issues encountered when building projects in EWARM using the "C++ only" option.</td>
@@ -1769,7 +1778,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       200
+#define CY_SYSPM_DRV_VERSION_MINOR       210
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -2486,6 +2495,28 @@ extern "C" {
 
 /** The define of retained power mode of the CM7_1. This MACRO is deprecated and will be removed in future release. It will give incorrect value for CAT1C devices. */
 #define CY_SYSPM_CM7_1_PWR_CTL_PWR_MODE_RETAINED     (2U)
+
+#if (CY_IP_M7CPUSS_VERSION == 2)
+
+/** The CM7_2 is Active */
+#define CY_SYSPM_STATUS_CM7_2_ACTIVE       ((uint32_t) ((uint32_t)0x1U << 16U))
+
+/** The CM7_2 is in Sleep */
+#define CY_SYSPM_STATUS_CM7_2_SLEEP        ((uint32_t) ((uint32_t)0x2U << 16U))
+
+/** The CM7_2 is in DeepSleep */
+#define CY_SYSPM_STATUS_CM7_2_DEEPSLEEP    ((uint32_t) ((uint32_t)0x4U << 16U))
+
+/** The CM7_3 is Active */
+#define CY_SYSPM_STATUS_CM7_3_ACTIVE       ((uint32_t) ((uint32_t)0x1U << 20U))
+
+/** The CM7_3 is in Sleep */
+#define CY_SYSPM_STATUS_CM7_3_SLEEP        ((uint32_t) ((uint32_t)0x2U << 20U))
+
+/** The CM7_3 is in DeepSleep */
+#define CY_SYSPM_STATUS_CM7_3_DEEPSLEEP    ((uint32_t) ((uint32_t)0x4U << 20U))
+
+#endif /* CY_IP_M7CPUSS_VERSION == 2 */
 
 #endif /* CY_IP_M7CPUSS */
 

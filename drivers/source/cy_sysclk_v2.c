@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk_v2.c
-* \version 3.150.1
+* \version 3.160
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -1220,6 +1220,18 @@ uint32_t Cy_SysClk_ClkFastSrcGetFrequency(uint32_t clkFastNum)
 
 void Cy_SysClk_ClkFastSrcSetDivider(uint32_t clkFastNum, uint8_t intDiv, uint8_t fracDiv)
 {
+#if (CY_IP_M7CPUSS_VERSION == 2)
+    if(3UL == clkFastNum)
+    {
+        CY_REG32_CLR_SET(CPUSS_FAST_3_CLOCK_CTL, CPUSS_FAST_3_CLOCK_CTL_INT_DIV, intDiv);
+        CY_REG32_CLR_SET(CPUSS_FAST_3_CLOCK_CTL, CPUSS_FAST_3_CLOCK_CTL_FRAC_DIV, fracDiv);
+    }
+    else if(2UL == clkFastNum)
+    {
+        CY_REG32_CLR_SET(CPUSS_FAST_2_CLOCK_CTL, CPUSS_FAST_2_CLOCK_CTL_INT_DIV, intDiv);
+        CY_REG32_CLR_SET(CPUSS_FAST_2_CLOCK_CTL, CPUSS_FAST_2_CLOCK_CTL_FRAC_DIV, fracDiv);
+    } else
+#endif
     if(0UL == clkFastNum)
     {
         CY_REG32_CLR_SET(CPUSS_FAST_0_CLOCK_CTL, CPUSS_FAST_0_CLOCK_CTL_INT_DIV, intDiv);
@@ -1234,6 +1246,18 @@ void Cy_SysClk_ClkFastSrcSetDivider(uint32_t clkFastNum, uint8_t intDiv, uint8_t
 
 void Cy_SysClk_ClkFastSrcGetDivider(uint32_t clkFastNum, uint32_t *dividerIntValue, uint32_t *dividerFracValue)
 {
+#if (CY_IP_M7CPUSS_VERSION == 2)
+    if(3UL == clkFastNum)
+    {
+        *dividerIntValue = ((uint8_t)_FLD2VAL(CPUSS_FAST_3_CLOCK_CTL_INT_DIV, CPUSS_FAST_3_CLOCK_CTL));
+        *dividerFracValue = ((uint8_t)_FLD2VAL(CPUSS_FAST_3_CLOCK_CTL_FRAC_DIV, CPUSS_FAST_3_CLOCK_CTL));
+    }
+    else if(2UL == clkFastNum)
+    {
+        *dividerIntValue = ((uint8_t)_FLD2VAL(CPUSS_FAST_2_CLOCK_CTL_INT_DIV, CPUSS_FAST_2_CLOCK_CTL));
+        *dividerFracValue = ((uint8_t)_FLD2VAL(CPUSS_FAST_2_CLOCK_CTL_FRAC_DIV, CPUSS_FAST_2_CLOCK_CTL));
+    } else
+#endif
     if(0UL == clkFastNum)
     {
         *dividerIntValue = ((uint8_t)_FLD2VAL(CPUSS_FAST_0_CLOCK_CTL_INT_DIV, CPUSS_FAST_0_CLOCK_CTL));

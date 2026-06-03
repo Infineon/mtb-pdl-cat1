@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash_srom.c
-* \version 3.140
+* \version 3.150
 *
 * \brief
 * Provides functions for controlling the SROM APIs.
@@ -23,6 +23,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *******************************************************************************/
+
 #include "cy_device.h"
 #if defined (CY_IP_MXFLASHC_VERSION_ECT)
 #include "cy_flash_srom.h"
@@ -225,8 +226,28 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi_NonBlock(const un_srom_api_args_t* pa
            return CY_SROM_DR_TIMEOUT;
        }
    }
-    // Return succeeded status
-    return CY_SROM_DR_SUCCEEDED;
+
+    // Check SROM response after IPC release to catch parameter validation errors
+    // (e.g. invalid flash address) before reporting success
+#if (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE)
+    CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 11.3', 1, \
+'Checked manually. Intentional expression The object pointer of type non "uint32_t *" is cast to type "uint32_t *".')
+    SCB_InvalidateDCache_by_Addr ((uint32_t*)&g_scratch, (int32_t)sizeof(g_scratch));
+    CY_MISRA_BLOCK_END('MISRA C-2012 Rule 11.3')
+#endif /* (CY_CPU_CORTEX_M7) && defined (ENABLE_CM7_DATA_CACHE) */
+
+    if(Cy_Srom_GetResponseType() == CY_SROM_RESPONSE_FAIL)
+    {
+        return CY_SROM_DR_API_ERROR;
+    }
+    else if(Cy_Srom_GetResponseType() == CY_SROM_RESPONSE_SUCCESS)
+    {
+        return CY_SROM_DR_SUCCEEDED;
+    }
+    else
+    {
+        return CY_SROM_DR_API_UNKNOWN;
+    }
 }
 
 /*******************************************************************************

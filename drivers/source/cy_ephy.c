@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ephy.c
-* \version 1.30
+* \version 1.40
 *
 * Provides an API implementation of the Ethernet PHY driver
 *
@@ -33,7 +33,6 @@
 extern "C" {
 #endif
 
-#define DEFAULT_PHY_ADDRESS     0x0
 #define CY_EPHY_INVALID_VALUE   0xFFFFUL
 
 
@@ -60,12 +59,31 @@ cy_en_ephy_status_t Cy_EPHY_Init( cy_stc_ephy_t *phy, cy_ephy_read_handle fnRead
 
     phy->fnPhyRead = fnRead;
     phy->fnPhyWrite = fnWrite;
+    phy->phyAddr = 0UL;
     phy->phyId = CY_EPHY_INVALID_VALUE;
     phy->state = CY_EPHY_DOWN;
     phy->bmcr = 0UL;
     phy->anar = 0UL;
 
     return CY_EPHY_SUCCESS;
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_EPHY_SetPhyAddr
+****************************************************************************//**
+*
+* Sets the PHY address for the PHY object.
+*
+* \param phy pointer to PHY private data structure
+* \param phyAddr PHY address
+*
+*******************************************************************************/
+void Cy_EPHY_SetPhyAddr(cy_stc_ephy_t *phy, uint32_t phyAddr)
+{
+    CY_ASSERT_L2(phy != NULL);
+    CY_ASSERT_L2(phyAddr <= MAX_PHY_ADDRESS);
+    phy->phyAddr = phyAddr;
 }
 
 
@@ -84,7 +102,7 @@ cy_en_ephy_status_t Cy_EPHY_Init( cy_stc_ephy_t *phy, cy_ephy_read_handle fnRead
 *******************************************************************************/
 cy_en_ephy_status_t Cy_EPHY_Discover( cy_stc_ephy_t *phy )
 {
-    uint32_t phyAddress = DEFAULT_PHY_ADDRESS;
+    uint32_t phyAddress = phy->phyAddr;
     uint32_t ulLowerID = 0;
     uint32_t ulUpperID = 0;
     uint32_t ulPhyID = 0;
@@ -125,7 +143,7 @@ cy_en_ephy_status_t Cy_EPHY_Discover( cy_stc_ephy_t *phy )
 cy_en_ephy_status_t Cy_EPHY_Reset(cy_stc_ephy_t *phy)
 {
     uint32_t ulConfig;
-    uint32_t phyAddress = DEFAULT_PHY_ADDRESS;
+    uint32_t phyAddress = phy->phyAddr;
     uint32_t delay, max_delay=10;
 
     CY_ASSERT_L2(phy->fnPhyRead != NULL);
@@ -177,7 +195,7 @@ cy_en_ephy_status_t Cy_EPHY_Reset(cy_stc_ephy_t *phy)
 cy_en_ephy_status_t Cy_EPHY_Configure( cy_stc_ephy_t *phy, cy_stc_ephy_config_t *config )
 {
     uint32_t ulConfig, reg, bmsr;
-    uint32_t phyAddress = DEFAULT_PHY_ADDRESS;
+    uint32_t phyAddress = phy->phyAddr;
     cy_en_ephy_status_t ret = CY_EPHY_SUCCESS;
 
     CY_ASSERT_L2(phy->fnPhyRead != NULL);
@@ -272,7 +290,7 @@ cy_en_ephy_status_t Cy_EPHY_Configure( cy_stc_ephy_t *phy, cy_stc_ephy_config_t 
 *******************************************************************************/
 uint32_t Cy_EPHY_GetLinkStatus(cy_stc_ephy_t *phy)
 {
-    uint32_t phyAddress=DEFAULT_PHY_ADDRESS;
+    uint32_t phyAddress = phy->phyAddr;
     uint32_t status;
 
     CY_ASSERT_L2(phy->fnPhyRead != NULL);
@@ -321,7 +339,7 @@ uint32_t Cy_EPHY_GetLinkStatus(cy_stc_ephy_t *phy)
 uint32_t Cy_EPHY_GetAutoNegotiationStatus(cy_stc_ephy_t *phy)
 {
     uint32_t reg;
-    uint32_t phyAddress=DEFAULT_PHY_ADDRESS;
+    uint32_t phyAddress = phy->phyAddr;
 
     CY_ASSERT_L2(phy->fnPhyRead != NULL);
     CY_ASSERT_L2(phy->fnPhyWrite != NULL);
@@ -350,7 +368,7 @@ cy_en_ephy_status_t Cy_EPHY_getLinkPartnerCapabilities(cy_stc_ephy_t *phy, cy_st
 {
     uint32_t reg;
     cy_en_ephy_status_t ret = CY_EPHY_SUCCESS;
-    uint32_t phyAddress = DEFAULT_PHY_ADDRESS;
+    uint32_t phyAddress = phy->phyAddr;
 
     CY_ASSERT_L2(phy->fnPhyRead != NULL);
     CY_ASSERT_L2(phy->fnPhyWrite != NULL);

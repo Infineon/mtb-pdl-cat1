@@ -42,7 +42,7 @@ var searchData=
   ['phase_5fsignal_5fswap',['phase_signal_swap',['../structcy__stc__tcpwm__motif__quaddec__config__t.html#ab601905e53a3b25faa1311c243ac500b',1,'cy_stc_tcpwm_motif_quaddec_config_t']]],
   ['phiainput',['phiAInput',['../structcy__stc__tcpwm__quaddec__config__t.html#a9bccb40249e89734807ee65b11c642fe',1,'cy_stc_tcpwm_quaddec_config_t']]],
   ['phibinput',['phiBInput',['../structcy__stc__tcpwm__quaddec__config__t.html#a4f96c057c83a5371220063f1d0fd433b',1,'cy_stc_tcpwm_quaddec_config_t']]],
-  ['phyaddr',['phyAddr',['../structcy__stc__smif__bridge__remap__t.html#a1687dcb88099a47230911022d48ef0bb',1,'cy_stc_smif_bridge_remap_t']]],
+  ['phyaddr',['phyAddr',['../structcy__stc__ephy__t.html#a7defd495efe74fdd4eee7995e877e7ed',1,'cy_stc_ephy_t::phyAddr()'],['../structcy__stc__smif__bridge__remap__t.html#a1687dcb88099a47230911022d48ef0bb',1,'cy_stc_smif_bridge_remap_t::phyAddr()']]],
   ['phyaddr0',['phyAddr0',['../structcy__stc__smif__bridge__interleave__remap__t.html#a07966367d096658b8d41f004d0662c7e',1,'cy_stc_smif_bridge_interleave_remap_t']]],
   ['phyaddr1',['phyAddr1',['../structcy__stc__smif__bridge__interleave__remap__t.html#aa3160983da2ab9812cd07ca544248d9a',1,'cy_stc_smif_bridge_interleave_remap_t']]],
   ['phyid',['phyId',['../structcy__stc__ephy__t.html#addebf8e275d005549d3c2637a48c9b6d',1,'cy_stc_ephy_t']]],

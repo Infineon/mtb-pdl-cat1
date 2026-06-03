@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_mcwdt.h
-* \version 1.90
+* \version 1.100
 *
 * Provides an API declaration of the Cypress PDL 3.0 MCWDT driver
 *
@@ -110,6 +110,15 @@
 * \section group_mcwdt_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.100</td>
+*     <td>Added CY_MCWDT_PAUSED_BY_DPSLP_CM7_2 enum value for
+*         M7CPUSS version 2 devices.<br>
+*         \note CM7_3 core does not have a dedicated MCWDT deep sleep pause
+*         connection. The MCWDT pause functionality supports only four cores:
+*         CM0P, CM7_0, CM7_1, and CM7_2.</td>
+*     <td>Support for M7CPUSS version 2 devices with CM7_2 core.</td>
+*   </tr>
 *   <tr>
 *     <td>1.90</td>
 *     <td>Documentation update</td>
@@ -253,7 +262,7 @@ extern "C" {
 #define CY_MCWDT_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_MCWDT_DRV_VERSION_MINOR       90
+#define CY_MCWDT_DRV_VERSION_MINOR       100
 
 /** \cond INTERNAL_MACROS */
 
@@ -391,6 +400,11 @@ typedef enum
 /**
 * \note
 * Below enum is available for CAT1C and TVIIBE devices only.
+*
+* \note
+* For M7CPUSS version 2 devices, CM7_3 core does not have a dedicated
+* MCWDT deep sleep pause connection. CM7_3 can use WDT instead, or share
+* an MCWDT with another core in a multicore application.
 **/
 typedef enum
 {
@@ -398,7 +412,11 @@ typedef enum
     CY_MCWDT_PAUSED_BY_DPSLP_CM4       = 1u,
     CY_MCWDT_PAUSED_BY_DPSLP_CM7_0     = 1u,
     CY_MCWDT_PAUSED_BY_DPSLP_CM7_1     = 2u,
+#if (defined(CY_IP_M7CPUSS_VERSION) && (CY_IP_M7CPUSS_VERSION == 2))
+    CY_MCWDT_PAUSED_BY_DPSLP_CM7_2     = 3u,
+#else
     CY_MCWDT_PAUSED_BY_NO_CORE         = 3u,
+#endif /* CY_IP_M7CPUSS_VERSION */
 } cy_en_mcwdt_select_core_t;
 
 /** The MCWDT subcounter 2 actions. */

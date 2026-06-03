@@ -21,7 +21,9 @@
             "COMPONENT_PSC3": "devices/COMPONENT_CAT1B/svd/psc3.svd",
             "COMPONENT_CAT1C4M": "devices/COMPONENT_CAT1C/svd/cat1c4m.svd",
             "COMPONENT_CAT1C8M": "devices/COMPONENT_CAT1C/svd/cat1c8m.svd",
-            "COMPONENT_TVIIC2D6M": "devices/COMPONENT_CAT1C/svd/tviic2d6m.svd"
+            "COMPONENT_TVIIC2D6M": "devices/COMPONENT_CAT1C/svd/tviic2d6m.svd",
+            "COMPONENT_TVIIC2D4M": "devices/COMPONENT_CAT1C/svd/tviic2d4m.svd",
+            "COMPONENT_TVIIBH16M": "devices/COMPONENT_CAT1C/svd/tviibh16m.svd"
         },
         "documentation": [
             {

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v3.c
-* \version 5.200
+* \version 5.210
 *
 * This driver provides the source code for API power management.
 *
@@ -1660,6 +1660,40 @@ uint32_t Cy_SysPm_ReadStatus(void)
     {
         pmStatus |= CY_SYSPM_STATUS_CM7_1_ACTIVE;
     }
+
+    #if (CY_IP_M7CPUSS_VERSION == 2)
+    /* Check whether CM7_2 is in the deep sleep mode*/
+    if((0u != _FLD2VAL(CPUSS_CM7_2_STATUS_SLEEPING, CPUSS_CM7_2_STATUS)) &&
+       (0u != _FLD2VAL(CPUSS_CM7_2_STATUS_SLEEPDEEP, CPUSS_CM7_2_STATUS)))
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM7_2_DEEPSLEEP;
+    }
+    /* Check whether CM7_2 is in the sleep mode*/
+    else if(0u != _FLD2VAL(CPUSS_CM7_2_STATUS_SLEEPING, CPUSS_CM7_2_STATUS))
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM7_2_SLEEP;
+    }
+    else
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM7_2_ACTIVE;
+    }
+
+    /* Check whether CM7_3 is in the deep sleep mode*/
+    if((0u != _FLD2VAL(CPUSS_CM7_3_STATUS_SLEEPING, CPUSS_CM7_3_STATUS)) &&
+       (0u != _FLD2VAL(CPUSS_CM7_3_STATUS_SLEEPDEEP, CPUSS_CM7_3_STATUS)))
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM7_3_DEEPSLEEP;
+    }
+    /* Check whether CM7_3 is in the sleep mode*/
+    else if(0u != _FLD2VAL(CPUSS_CM7_3_STATUS_SLEEPING, CPUSS_CM7_3_STATUS))
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM7_3_SLEEP;
+    }
+    else
+    {
+        pmStatus |= CY_SYSPM_STATUS_CM7_3_ACTIVE;
+    }
+    #endif /* CY_IP_M7CPUSS_VERSION == 2 */
     #elif defined(CY_IP_M4CPUSS) && (CY_IP_M4CPUSS == 1u)
     /* Check whether CM4 is in Deep Sleep mode */
     if ((CPUSS_CM4_STATUS & CM4_DEEPSLEEP_MASK) == CM4_DEEPSLEEP_MASK)
@@ -1721,6 +1755,16 @@ bool Cy_SysPm_Cm7IsActive(uint8_t core)
     {
         status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_1_ACTIVE) != 0u);
     }
+#if (CY_IP_M7CPUSS_VERSION == 2)
+    else if(core == CORE_CM7_2)
+    {
+        status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_2_ACTIVE) != 0u);
+    }
+    else if(core == CORE_CM7_3)
+    {
+        status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_3_ACTIVE) != 0u);
+    }
+#endif /* CY_IP_M7CPUSS_VERSION == 2 */
     else
     {
         /* CM7 Not active */
@@ -1741,6 +1785,16 @@ bool Cy_SysPm_Cm7IsSleep(uint8_t core)
     {
         status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_1_SLEEP) != 0u);
     }
+#if (CY_IP_M7CPUSS_VERSION == 2)
+    else if(core == CORE_CM7_2)
+    {
+        status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_2_SLEEP) != 0u);
+    }
+    else if(core == CORE_CM7_3)
+    {
+        status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_3_SLEEP) != 0u);
+    }
+#endif /* CY_IP_M7CPUSS_VERSION == 2 */
     else
     {
         /* CM7 Not active */
@@ -1761,6 +1815,16 @@ bool Cy_SysPm_Cm7IsDeepSleep(uint8_t core)
     {
         status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_1_DEEPSLEEP) != 0u);
     }
+#if (CY_IP_M7CPUSS_VERSION == 2)
+    else if(core == CORE_CM7_2)
+    {
+        status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_2_DEEPSLEEP) != 0u);
+    }
+    else if(core == CORE_CM7_3)
+    {
+        status = ((Cy_SysPm_ReadStatus() & CY_SYSPM_STATUS_CM7_3_DEEPSLEEP) != 0u);
+    }
+#endif /* CY_IP_M7CPUSS_VERSION == 2 */
     else
     {
         /* CM7 Not active */

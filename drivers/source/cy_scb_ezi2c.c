@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_ezi2c.c
-* \version 3.50
+* \version 3.60
 *
 * Provides EZI2C API implementation of the SCB driver.
 *

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_ppu.h
-* \version 5.150
+* \version 5.210
 *
 * This file provides header for ARM PPU Power Domain Platform Dependant
 * specific driver.
@@ -44,21 +44,6 @@
 *
 * \section group_syspm_ppu_MISRA MISRA-C Compliance
 * The PD PPU driver does not has any specific deviations.
-*
-* \section group_syspm_ppu_changelog Changelog
-* <table class="doxtable">
-*   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
-*   <tr>
-*     <td>5.150</td>
-*     <td>Version updated to match SYSPM driver.</td>
-*     <td></td>
-*   </tr>
-*   <tr>
-*     <td>1.0</td>
-*     <td>Initial version</td>
-*     <td></td>
-*   </tr>
-* </table>
 *
 * \defgroup group_syspm_ppu_macros Macros
 * \defgroup group_syspm_ppu_functions Functions

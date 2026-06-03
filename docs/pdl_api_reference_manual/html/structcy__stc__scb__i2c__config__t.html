@@ -108,9 +108,8 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <tr class="memitem:a3578fa3852e87ead95db3c0c13064d71"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__i2c__config__t.html#a3578fa3852e87ead95db3c0c13064d71">slaveAddressMask</a></td></tr>
 <tr class="memdesc:a3578fa3852e87ead95db3c0c13064d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slave address mask is used to mask bits of the slave address during the address match procedure (it is used only for the slave mode).  <a href="#a3578fa3852e87ead95db3c0c13064d71">More...</a><br /></td></tr>
 <tr class="separator:a3578fa3852e87ead95db3c0c13064d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9074db87cce95b20f6adbaf905e05f98"><td class="memItemLeft" align="right" valign="top"><a id="a9074db87cce95b20f6adbaf905e05f98"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__i2c__config__t.html#a9074db87cce95b20f6adbaf905e05f98">acceptAddrInFifo</a></td></tr>
-<tr class="memdesc:a9074db87cce95b20f6adbaf905e05f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">True - the slave address is accepted in the RX FIFO, false - the slave addresses are not accepted in the RX FIFO. <br /></td></tr>
+<tr class="memitem:a9074db87cce95b20f6adbaf905e05f98"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__i2c__config__t.html#a9074db87cce95b20f6adbaf905e05f98">acceptAddrInFifo</a></td></tr>
+<tr class="memdesc:a9074db87cce95b20f6adbaf905e05f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">True - the slave address is accepted in the RX FIFO, false - the slave addresses are not accepted in the RX FIFO.  <a href="#a9074db87cce95b20f6adbaf905e05f98">More...</a><br /></td></tr>
 <tr class="separator:a9074db87cce95b20f6adbaf905e05f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a705499e24c5dade7143d1c339389af"><td class="memItemLeft" align="right" valign="top"><a id="a7a705499e24c5dade7143d1c339389af"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcy__stc__scb__i2c__config__t.html#a7a705499e24c5dade7143d1c339389af">ackGeneralAddr</a></td></tr>
@@ -194,6 +193,23 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 
 <p>The slave address mask is used to mask bits of the slave address during the address match procedure (it is used only for the slave mode). </p>
 <p>Bit 0 of the address mask corresponds to the read/write direction bit and is always a do not care in the address match therefore must be set 0. Bit value 0 - excludes bit from address comparison. Bit value 1 - the bit needs to match with the corresponding bit of the I2C slave address. </p>
+
+</div>
+</div>
+<a id="a9074db87cce95b20f6adbaf905e05f98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9074db87cce95b20f6adbaf905e05f98">&#9670;&nbsp;</a></span>acceptAddrInFifo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cy_stc_scb_i2c_config_t::acceptAddrInFifo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True - the slave address is accepted in the RX FIFO, false - the slave addresses are not accepted in the RX FIFO. </p>
+<dl class="section note"><dt>Note</dt><dd>When <a class="el" href="structcy__stc__scb__i2c__config__t.html#a3578fa3852e87ead95db3c0c13064d71">slaveAddressMask</a> allows more then one address to be accepted and <a class="el" href="structcy__stc__scb__i2c__config__t.html#ab317c1252433320bfd76d2b8629dac23">i2cMode</a> is set to <a class="el" href="group__group__scb__i2c__enums.html#gga848386100a4d9700bf5bb790b3db3ed2a0eb5244a51c5a71b69fc5d1d3a89ed08">CY_SCB_I2C_MASTER_SLAVE</a>, this option must be true. </dd></dl>
 
 </div>
 </div>

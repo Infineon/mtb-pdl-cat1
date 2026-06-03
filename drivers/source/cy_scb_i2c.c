@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_i2c.c
-* \version 3.50
+* \version 3.60
 *
 * Provides I2C API implementation of the SCB driver.
 *
@@ -90,6 +90,7 @@ cy_en_scb_i2c_status_t Cy_SCB_I2C_Init(CySCB_Type *base, cy_stc_scb_i2c_config_t
     CY_ASSERT_L2((config->useRxFifo) ? (!config->acceptAddrInFifo) : true);
     CY_ASSERT_L2(CY_SCB_IS_I2C_ADDR_VALID     (config->slaveAddress));
     CY_ASSERT_L2(CY_SCB_I2C_IS_ADDR_MASK_VALID(config->slaveAddressMask));
+    CY_ASSERT_L2((config->slaveAddressMask == 0U) && (config->i2cMode == CY_SCB_I2C_MASTER_SLAVE) ? (config->acceptAddrInFifo) : true);
     CY_ASSERT_L2(CY_SCB_I2C_IS_PHASE_OVERSAMPLE_VALID(config->highPhaseDutyCycle));
     CY_ASSERT_L2(CY_SCB_I2C_IS_PHASE_OVERSAMPLE_VALID(config->lowPhaseDutyCycle));
 
@@ -1262,8 +1263,10 @@ cy_en_scb_i2c_status_t Cy_SCB_I2C_MasterRead(CySCB_Type *base,
     cy_en_scb_i2c_status_t retStatus = CY_SCB_I2C_MASTER_NOT_READY;
 
     /* Disable I2C slave interrupt sources to protect state */
-    Cy_SCB_SetSlaveInterruptMask(base, CY_SCB_CLEAR_ALL_INTR_SRC);
-
+    if (CY_SCB_I2C_GET_MODE(base) == CY_SCB_I2C_MASTER_SLAVE)
+    {
+        Cy_SCB_SetSlaveInterruptMask(base, CY_SCB_CLEAR_ALL_INTR_SRC);
+    }
     if (0UL != (CY_SCB_I2C_IDLE_MASK & context->state))
     {
         uint32_t intrState;
@@ -1343,7 +1346,10 @@ cy_en_scb_i2c_status_t Cy_SCB_I2C_MasterRead(CySCB_Type *base,
     }
 
     /* Enable I2C slave interrupt sources */
-    Cy_SCB_SetSlaveInterruptMask(base, CY_SCB_I2C_SLAVE_INTR);
+    if (CY_SCB_I2C_GET_MODE(base) == CY_SCB_I2C_MASTER_SLAVE)
+    {
+        Cy_SCB_SetSlaveInterruptMask(base, CY_SCB_I2C_SLAVE_INTR);
+    }
 
     return (retStatus);
 }
@@ -1490,7 +1496,10 @@ cy_en_scb_i2c_status_t Cy_SCB_I2C_MasterWrite(CySCB_Type *base,
     cy_en_scb_i2c_status_t retStatus = CY_SCB_I2C_MASTER_NOT_READY;
 
     /* Disable I2C slave interrupt sources to protect state */
-    Cy_SCB_SetSlaveInterruptMask(base, CY_SCB_CLEAR_ALL_INTR_SRC);
+    if (CY_SCB_I2C_GET_MODE(base) == CY_SCB_I2C_MASTER_SLAVE)
+    {
+        Cy_SCB_SetSlaveInterruptMask(base, CY_SCB_CLEAR_ALL_INTR_SRC);
+    }
 
     if (0UL != (CY_SCB_I2C_IDLE_MASK & context->state))
     {
@@ -1573,7 +1582,10 @@ cy_en_scb_i2c_status_t Cy_SCB_I2C_MasterWrite(CySCB_Type *base,
     }
 
     /* Enable I2C slave interrupt sources */
-    Cy_SCB_SetSlaveInterruptMask(base, CY_SCB_I2C_SLAVE_INTR);
+    if (CY_SCB_I2C_GET_MODE(base) == CY_SCB_I2C_MASTER_SLAVE)
+    {
+        Cy_SCB_SetSlaveInterruptMask(base, CY_SCB_I2C_SLAVE_INTR);
+    }
 
     return (retStatus);
 }
@@ -2899,15 +2911,37 @@ void Cy_SCB_I2C_MasterInterrupt(CySCB_Type *base, cy_stc_scb_i2c_context_t *cont
     /* Check whether the slave is active. It can be addressed during the master set-up transfer */
     if (0UL != (CY_SCB_SLAVE_INTR & intrCause))
     {
-        /* Abort the transfer due to slave operation */
-        if (0UL != SCB_I2C_M_CMD(base))
+        /* Handling non-standard case when addr_mask is 0 and I2C is configured as master-slave.
+         * Sending NACK by slave is needed to avoid addressing by self and start master transfer.
+         * Clearing the slave stop and restart events to not breaking the state machine logic.
+         */
+        if ((CY_SCB_I2C_GET_MODE(base) == CY_SCB_I2C_MASTER_SLAVE) &&
+           ((Cy_SCB_GetMasterInterruptStatusMasked(base) & CY_SCB_MASTER_INTR_I2C_ARB_LOST) == 0UL))
         {
-            SCB_I2C_M_CMD(base) = 0UL;
-
-            context->masterStatus |= CY_SCB_I2C_MASTER_ABORT_START;
+            uint32_t slaveIntrStatus = Cy_SCB_GetSlaveInterruptStatusMasked(base);
+            if ((slaveIntrStatus & (CY_SCB_I2C_SLAVE_INTR_ADDR | CY_SCB_SLAVE_INTR_I2C_STOP)) != 0UL)
+            {
+                if ((CY_SCB_SLAVE_INTR_I2C_ADDR_MATCH & slaveIntrStatus) != 0UL)
+                {
+                    /* Remove address from RX FIFO */
+                    (void)Cy_SCB_ReadRxFifo(base);
+                    SCB_I2C_S_CMD(base) = SCB_I2C_S_CMD_S_NACK_Msk;
+                }
+                Cy_SCB_ClearSlaveInterrupt(base, slaveIntrStatus);
+            }
         }
+        else
+        {
+            /* Abort the transfer due to slave operation */
+            if (0UL != SCB_I2C_M_CMD(base))
+            {
+                SCB_I2C_M_CMD(base) = 0UL;
 
-        context->state = CY_SCB_I2C_MASTER_CMPLT;
+                context->masterStatus |= CY_SCB_I2C_MASTER_ABORT_START;
+            }
+
+            context->state = CY_SCB_I2C_MASTER_CMPLT;
+        }
     }
 
     /* Check for master error conditions */
@@ -2998,6 +3032,10 @@ static void MasterHandleEvents(CySCB_Type *base, cy_stc_scb_i2c_context_t *conte
     if (0UL != (CY_SCB_MASTER_INTR_I2C_ARB_LOST & masterIntrStatus))
     {
         context->masterStatus |= CY_SCB_I2C_MASTER_ARB_LOST;
+        if (NULL != context->cbEvents)
+        {
+            context->cbEvents(CY_SCB_I2C_MASTER_ARB_LOST_EVENT);
+        }
     }
 
     /* Complete the transfer: stop, bus error or arbitration lost */

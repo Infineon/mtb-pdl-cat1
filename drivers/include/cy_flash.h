@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.h
-* \version 3.140
+* \version 3.150
 *
 * Provides the API declarations of the Flash driver.
 *
@@ -259,6 +259,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>3.150</td>
+*     <td>Extend api with base pointer to support devices with multiple FLASHC instances.</td>
+*     <td>Code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td rowspan="2">3.140</td>
 *     <td>Fixed the compatibility issues encountered when building projects in EWARM using the "C++ only" option.</td>
 *     <td>Bug fixes</td>
@@ -478,7 +483,7 @@ extern "C" {
 #define CY_FLASH_DRV_VERSION_MAJOR       3
 
 /** Driver minor version */
-#define CY_FLASH_DRV_VERSION_MINOR       140
+#define CY_FLASH_DRV_VERSION_MINOR       150
 
 #define CY_FLASH_ID               (CY_PDL_DRV_ID(0x14UL))                          /**< FLASH PDL ID */
 
@@ -496,7 +501,11 @@ extern "C" {
 
 #if !defined (CY_IP_MXS40FLASHC)
 /** Flash row size */
-#define CY_FLASH_SIZEOF_ROW                (CPUSS_FLASHC_PA_SIZE * 4U)
+#if defined (CPUSS_FLASHCX_PA_SIZE)
+    #define CY_FLASH_SIZEOF_ROW                (CPUSS_FLASHCX_PA_SIZE * 4U)
+#else
+    #define CY_FLASH_SIZEOF_ROW                (CPUSS_FLASHC_PA_SIZE * 4U)
+#endif /* CPUSS_FLASHCX_PA_SIZE */
 /** Long words flash row size */
 #define CY_FLASH_SIZEOF_ROW_LONG_UNITS     (CY_FLASH_SIZEOF_ROW / sizeof(uint32_t))
 
@@ -567,6 +576,44 @@ typedef enum
 
 #define CY_SFLASH1_TOP CY_SFLASH1_BASE
 #define CY_SFLASH1_END (CY_SFLASH1_BASE + CY_SFLASH1_SIZE)
+
+#if defined(FLASHC1)
+#define CY_WFLASH1_LG_SBM_TOP  CY_WFLASH1_LG_SBM_BASE
+#define CY_WFLASH1_LG_SBM_END  (CY_WFLASH1_LG_SBM_BASE + CY_WFLASH1_LG_SBM_SIZE)
+
+#define CY_WFLASH1_SM_SBM_TOP  CY_WFLASH1_SM_SBM_BASE
+#define CY_WFLASH1_SM_SBM_END  (CY_WFLASH1_SM_SBM_BASE + CY_WFLASH1_SM_SBM_SIZE)
+
+#define CY_WFLASH1_LG_DBM0_TOP CY_WFLASH1_LG_DBM0_BASE
+#define CY_WFLASH1_LG_DBM0_END (CY_WFLASH1_LG_DBM0_BASE + CY_WFLASH1_LG_DBM0_SIZE)
+
+#define CY_WFLASH1_SM_DBM0_TOP CY_WFLASH1_SM_DBM0_BASE
+#define CY_WFLASH1_SM_DBM0_END (CY_WFLASH1_SM_DBM0_BASE + CY_WFLASH1_SM_DBM0_SIZE)
+
+#define CY_WFLASH1_LG_DBM1_TOP CY_WFLASH1_LG_DBM1_BASE
+#define CY_WFLASH1_LG_DBM1_END (CY_WFLASH1_LG_DBM1_BASE + CY_WFLASH1_LG_DBM1_SIZE)
+
+#define CY_WFLASH1_SM_DBM1_TOP CY_WFLASH1_SM_DBM1_BASE
+#define CY_WFLASH1_SM_DBM1_END (CY_WFLASH1_SM_DBM1_BASE + CY_WFLASH1_SM_DBM1_SIZE)
+
+#define CY_FLASH1_LG_SBM_TOP  CY_FLASH1_LG_SBM_BASE
+#define CY_FLASH1_LG_SBM_END  (CY_FLASH1_LG_SBM_BASE + CY_FLASH1_LG_SBM_SIZE)
+
+#define CY_FLASH1_SM_SBM_TOP  CY_FLASH1_SM_SBM_BASE
+#define CY_FLASH1_SM_SBM_END  (CY_FLASH1_SM_SBM_BASE + CY_FLASH1_SM_SBM_SIZE)
+
+#define CY_FLASH1_LG_DBM0_TOP CY_FLASH1_LG_DBM0_BASE
+#define CY_FLASH1_LG_DBM0_END (CY_FLASH1_LG_DBM0_BASE + CY_FLASH1_LG_DBM0_SIZE)
+
+#define CY_FLASH1_SM_DBM0_TOP CY_FLASH1_SM_DBM0_BASE
+#define CY_FLASH1_SM_DBM0_END (CY_FLASH1_SM_DBM0_BASE + CY_FLASH1_SM_DBM0_SIZE)
+
+#define CY_FLASH1_LG_DBM1_TOP CY_FLASH1_LG_DBM1_BASE
+#define CY_FLASH1_LG_DBM1_END (CY_FLASH1_LG_DBM1_BASE + CY_FLASH1_LG_DBM1_SIZE)
+
+#define CY_FLASH1_SM_DBM1_TOP CY_FLASH1_SM_DBM1_BASE
+#define CY_FLASH1_SM_DBM1_END (CY_FLASH1_SM_DBM1_BASE + CY_FLASH1_SM_DBM1_SIZE)
+#endif /* defined(FLASHC1) */
 
 #define CY_WORK_LES_SIZE_IN_BYTE  (0x00000800UL)
 #define CY_WORK_LES_SIZE_IN_WORD  (0x00000800UL / 4UL)
@@ -886,7 +933,33 @@ typedef struct
 
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_MainWriteEnable
+* Function Name: Cy_Flash_ResolveBase
+****************************************************************************//**
+*
+* \brief Determines which flash controller (FLASHC or FLASHC1) owns the given
+* address by checking all work-flash and main-flash address ranges.
+*
+* On single-controller devices (no FLASHC1), only FLASHC ranges are checked.
+* On dual-controller devices, FLASHC1 ranges are also checked when the address
+* does not fall within FLASHC ranges.
+*
+* \note This function is applicable for CAT1C devices.
+*
+* \param addr The flash address to resolve.
+*
+* \param base Output pointer. On success, set to the FLASHC_Type pointer of the
+*        flash controller that owns the given address.
+*
+* \return \ref CY_FLASH_DRV_SUCCESS if the address is in bounds and *base is set.
+*         \ref CY_FLASH_DRV_INVALID_INPUT_PARAMETERS if the address is out of
+*         all flash ranges.
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_ResolveBase(uint32_t addr, FLASHC_Type **base);
+
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_MainWriteEnable_Base
 ****************************************************************************//**
 *
 * \brief Enable writing to main flash.
@@ -894,14 +967,16 @@ typedef struct
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return none
 *
 *******************************************************************************/
-void Cy_Flashc_MainWriteEnable(void);
+void Cy_Flashc_MainWriteEnable_Base(FLASHC_Type *base);
 
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_MainWriteDisable
+* Function Name: Cy_Flashc_MainWriteDisable_Base
 ****************************************************************************//**
 *
 * \brief Disable writing to main flash
@@ -909,14 +984,16 @@ void Cy_Flashc_MainWriteEnable(void);
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return none
 *
 *******************************************************************************/
-void Cy_Flashc_MainWriteDisable(void);
+void Cy_Flashc_MainWriteDisable_Base(FLASHC_Type *base);
 
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_WorkWriteEnable
+* Function Name: Cy_Flashc_WorkWriteEnable_Base
 ****************************************************************************//**
 *
 * \brief Enable writing work flash
@@ -924,14 +1001,16 @@ void Cy_Flashc_MainWriteDisable(void);
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return none
 *
 *******************************************************************************/
-void Cy_Flashc_WorkWriteEnable(void);
+void Cy_Flashc_WorkWriteEnable_Base(FLASHC_Type *base);
 
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_WorkWriteDisable
+* Function Name: Cy_Flashc_WorkWriteDisable_Base
 ****************************************************************************//**
 *
 * \brief Disable writing work flash
@@ -939,14 +1018,16 @@ void Cy_Flashc_WorkWriteEnable(void);
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return none
 *
 *******************************************************************************/
-void Cy_Flashc_WorkWriteDisable(void);
+void Cy_Flashc_WorkWriteDisable_Base(FLASHC_Type *base);
 
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_WorkECCEnable
+* Function Name: Cy_Flashc_WorkECCEnable_Base
 ****************************************************************************//**
 *
 * \brief Enables ECC for work flash
@@ -955,13 +1036,15 @@ void Cy_Flashc_WorkWriteDisable(void);
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return none
 *
 *******************************************************************************/
-void Cy_Flashc_WorkECCEnable(void);
+void Cy_Flashc_WorkECCEnable_Base(FLASHC_Type *base);
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_WorkECCDisable
+* Function Name: Cy_Flashc_WorkECCDisable_Base
 ****************************************************************************//**
 *
 * \brief Disables ECC for work flash
@@ -970,14 +1053,16 @@ void Cy_Flashc_WorkECCEnable(void);
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return none
 *
 *******************************************************************************/
-void Cy_Flashc_WorkECCDisable(void);
+void Cy_Flashc_WorkECCDisable_Base(FLASHC_Type *base);
 
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_MainECCEnable
+* Function Name: Cy_Flashc_MainECCEnable_Base
 ****************************************************************************//**
 *
 * \brief Enables ECC for main flash
@@ -986,13 +1071,15 @@ void Cy_Flashc_WorkECCDisable(void);
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return none
 *
 *******************************************************************************/
-void Cy_Flashc_MainECCEnable(void);
+void Cy_Flashc_MainECCEnable_Base(FLASHC_Type *base);
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_MainECCDisable
+* Function Name: Cy_Flashc_MainECCDisable_Base
 ****************************************************************************//**
 *
 * \brief Disables ECC for main flash.
@@ -1001,10 +1088,12 @@ void Cy_Flashc_MainECCEnable(void);
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return none
 *
 *******************************************************************************/
-void Cy_Flashc_MainECCDisable(void);
+void Cy_Flashc_MainECCDisable_Base(FLASHC_Type *base);
 
 /*******************************************************************************
 * Function Name: Cy_Flash_Program_WorkFlash
@@ -1013,6 +1102,8 @@ void Cy_Flashc_MainECCDisable(void);
 * This function writes an array data to work flash. Reports success or
 * or a reason for failure. User should only pass work flash address else it will return an error.
 * This function executes in blocking mode only.
+*
+* The flash controller is resolved internally from config->destAddr.
 *
 * Returns immediately and reports a CY_FLASH_DRV_IPC_BUSY error in the case when another
 * process is operating flash. User firmware should not enter the hibernate
@@ -1066,6 +1157,8 @@ cy_en_flashdrv_status_t Cy_Flash_Program_WorkFlash(const cy_stc_flash_programrow
 *
 * \note User needs to make sure that the data pointer passed to this function points to 32 byte aligned data.
 *
+* The flash controller is resolved internally from config->destAddr.
+*
 * \param config configuration of this function.
 * This parameter is defined by the cy_stc_flash_programrow_config_t
 * in \ref group_flash_srom_config_structure macro.
@@ -1101,10 +1194,10 @@ cy_en_flashdrv_status_t Cy_Flash_Program(const cy_stc_flash_programrow_config_t*
 * \funcusage
 * \snippet flash/snippet/main.c snippet_Cy_Flash_Checksum
 *******************************************************************************/
-cy_en_flashdrv_status_t Cy_Flash_Checksum (const cy_stc_flash_checksum_config_t *config, uint32_t* checksumPtr);
+cy_en_flashdrv_status_t Cy_Flash_Checksum(const cy_stc_flash_checksum_config_t *config, uint32_t* checksumPtr);
 
 /*******************************************************************************
-* Function Name: Cy_Flash_EraseSuspend
+* Function Name: Cy_Flash_EraseSuspend_Base
 ****************************************************************************//**
 *
 * This function suspends an ongoing erase operation. User should not read from a
@@ -1118,10 +1211,12 @@ cy_en_flashdrv_status_t Cy_Flash_Checksum (const cy_stc_flash_checksum_config_t 
 *
 * \note This function is applicable for CAT1C devices.
 *
+* \param base Pointer to the selected FLASH controller instance.
+*
 * \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
 *
 *******************************************************************************/
-cy_en_flashdrv_status_t Cy_Flash_EraseSuspend(void);
+cy_en_flashdrv_status_t Cy_Flash_EraseSuspend_Base(FLASHC_Type *base);
 
 /*******************************************************************************
 * Function Name: Cy_Flash_EraseResume
@@ -1157,6 +1252,8 @@ cy_en_flashdrv_status_t Cy_Flash_EraseResume(const cy_stc_flash_eraseresume_conf
 * Returns immediately and reports a CY_FLASH_DRV_IPC_BUSY error in the case when another
 * process is operating flash.
 *
+* The flash controller is resolved internally from config->addrToBeChecked.
+*
 * \note This function is applicable for CAT1C devices.
 *
 * \param config configuration of this function.
@@ -1175,10 +1272,12 @@ cy_en_flashdrv_status_t Cy_Flash_EraseResume(const cy_stc_flash_eraseresume_conf
 cy_en_flashdrv_status_t Cy_Flash_BlankCheck(const cy_stc_flash_blankcheck_config_t *config, cy_en_flash_driver_blocking_t block);
 
 /*******************************************************************************
-* Function Name: Cy_Flash_OperationStatus
+* Function Name: Cy_Flash_OperationStatus_Base
 ****************************************************************************//**
 *
 * Checks the status of the Flash Operation, and returns it.
+*
+* \param base Pointer to the selected FLASH controller instance.
 *
 * \return Driver status.
 * returns CY_FLASH_DRV_OPERATION_STARTED if operation in non blocking mode is not complete.
@@ -1187,7 +1286,7 @@ cy_en_flashdrv_status_t Cy_Flash_BlankCheck(const cy_stc_flash_blankcheck_config
 * \funcusage
 * \snippet flash/snippet/main.c snippet_Flashc_test_code
 *******************************************************************************/
-cy_en_flashdrv_status_t Cy_Flash_OperationStatus(void);
+cy_en_flashdrv_status_t Cy_Flash_OperationStatus_Base(FLASHC_Type *base);
 
 /*******************************************************************************
 * Function Name: Cy_Flashc_InjectECC
@@ -1196,6 +1295,8 @@ cy_en_flashdrv_status_t Cy_Flash_OperationStatus(void);
 * This function enables ECC injection and sets the address where a parity will be injected
 * and the parity value.
 * Reports success or a reason for failure.
+*
+* The flash controller is resolved internally from the address parameter.
 *
 * \note This function is applicable for CAT1C devices.
 *
@@ -1213,10 +1314,12 @@ cy_en_flashdrv_status_t Cy_Flash_OperationStatus(void);
 cy_en_flashdrv_status_t Cy_Flashc_InjectECC(cy_en_region_t region, uint32_t address, uint8_t parity);
 
 /*******************************************************************************
-* Function Name: Cy_Flashc_InjectECC_Disable
+* Function Name: Cy_Flashc_InjectECC_Disable_Base
 ****************************************************************************//**
 *
 * This function disables ECC injection for the region specified.
+*
+* \param base Pointer to the selected FLASH controller instance.
 *
 * \param region : ECC injection is disabled for this region (Code/Work/Cache).
 * This parameter is defined by the cy_en_region_t
@@ -1224,7 +1327,183 @@ cy_en_flashdrv_status_t Cy_Flashc_InjectECC(cy_en_region_t region, uint32_t addr
 *
 * \note This function is applicable for CAT1C devices.
 *******************************************************************************/
-void Cy_Flashc_InjectECC_Disable(cy_en_region_t region);
+void Cy_Flashc_InjectECC_Disable_Base(FLASHC_Type *base, cy_en_region_t region);
+
+/*******************************************************************************
+* Function Name: Cy_Flash_IsOperationComplete_Base
+****************************************************************************//**
+*
+* Reports completion status of a non-blocking flash operation.
+*
+* \param base Pointer to the selected FLASH controller instance.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_IsOperationComplete_Base(FLASHC_Type *base);
+
+/*******************************************************************************
+* Function Name: Cy_Flash_StartWrite
+****************************************************************************//**
+*
+* Starts row programming in non-blocking mode. The flash controller is resolved
+* internally from rowAddr.
+*
+* \param rowAddr Address of the flash row.
+* \param data Pointer to row data.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_StartWrite(uint32_t rowAddr, const uint32_t* data);
+
+/*******************************************************************************
+* Function Name: Cy_Flash_StartEraseSector
+****************************************************************************//**
+*
+* Starts sector erase in non-blocking mode. The flash controller is resolved
+* internally from sectorAddr.
+*
+* \param sectorAddr Address of the flash sector.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_StartEraseSector(uint32_t sectorAddr);
+
+/*******************************************************************************
+* Function Name: Cy_Flash_ProgramRow
+****************************************************************************//**
+*
+* Programs a flash row in blocking mode. The flash controller is resolved
+* internally from rowAddr.
+*
+* \param rowAddr Address of the flash row.
+* \param data Pointer to row data.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_ProgramRow(uint32_t rowAddr, const uint32_t* data);
+
+/*******************************************************************************
+* Function Name: Cy_Flash_EraseSector
+****************************************************************************//**
+*
+* Erases a flash sector in blocking mode. The flash controller is resolved
+* internally from sectorAddr.
+*
+* \param sectorAddr Address of the flash sector.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_EraseSector(uint32_t sectorAddr);
+
+/*******************************************************************************
+* Function Name: Cy_Flash_CalculateHash
+****************************************************************************//**
+*
+* Calculates a hash for the specified flash range. The flash controller is
+* resolved internally from the data pointer.
+*
+* \param data Start address for hash computation.
+* \param numberOfBytes Number of bytes to include in hash computation.
+* \param hashPtr Pointer to the output hash value.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_CalculateHash(const uint32_t* data, uint32_t numberOfBytes, uint32_t* hashPtr);
+
+/*******************************************************************************
+* Function Name: Cy_Flash_RowChecksum
+****************************************************************************//**
+*
+* Calculates checksum for the specified flash row. The flash controller is
+* resolved internally from rowAddr.
+*
+* \param rowAddr Address of the flash row.
+* \param checksumPtr Pointer to the output checksum value.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_RowChecksum(uint32_t rowAddr, uint32_t* checksumPtr);
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetWorkBankMode_Base
+****************************************************************************//**
+*
+* Sets work flash bank mode for the selected flash controller.
+*
+* \param base Pointer to the selected FLASH controller instance.
+* \param mode Desired bank mode.
+*
+*******************************************************************************/
+void Cy_Flashc_SetWorkBankMode_Base(FLASHC_Type *base, cy_en_bankmode_t mode);
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_GetWorkBankMode_Base
+****************************************************************************//**
+*
+* Gets work flash bank mode for the selected flash controller.
+*
+* \param base Pointer to the selected FLASH controller instance.
+*
+* \return Current bank mode.
+*
+*******************************************************************************/
+cy_en_bankmode_t Cy_Flashc_GetWorkBankMode_Base(FLASHC_Type *base);
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetMainBankMode_Base
+****************************************************************************//**
+*
+* Sets main flash bank mode for the selected flash controller.
+*
+* \param base Pointer to the selected FLASH controller instance.
+* \param mode Desired bank mode.
+*
+*******************************************************************************/
+void Cy_Flashc_SetMainBankMode_Base(FLASHC_Type *base, cy_en_bankmode_t mode);
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_GetMainBankMode_Base
+****************************************************************************//**
+*
+* Gets main flash bank mode for the selected flash controller.
+*
+* \param base Pointer to the selected FLASH controller instance.
+*
+* \return Current bank mode.
+*
+*******************************************************************************/
+cy_en_bankmode_t Cy_Flashc_GetMainBankMode_Base(FLASHC_Type *base);
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetMain_Flash_Mapping_Base
+****************************************************************************//**
+*
+* Sets main flash mapping for the selected flash controller.
+*
+* \param base Pointer to the selected FLASH controller instance.
+* \param mapping Mapping selection.
+*
+*******************************************************************************/
+void Cy_Flashc_SetMain_Flash_Mapping_Base(FLASHC_Type *base, cy_en_maptype_t  mapping);
+
+/*******************************************************************************
+* Function Name: Cy_Flashc_SetWork_Flash_Mapping_Base
+****************************************************************************//**
+*
+* Sets work flash mapping for the selected flash controller.
+*
+* \param base Pointer to the selected FLASH controller instance.
+* \param mapping Mapping selection.
+*
+*******************************************************************************/
+void Cy_Flashc_SetWork_Flash_Mapping_Base(FLASHC_Type *base, cy_en_maptype_t mapping);
 
 /** \} group_flash_functions */
 
@@ -1252,7 +1531,7 @@ void Cy_Flashc_InjectECC_Disable(cy_en_region_t region);
 * detect circuits should be configured to generate an interrupt instead of a
 * reset. Otherwise, portions of flash may undergo unexpected changes.
 * \note  A Read while Write violation occurs when a flash Read operation is initiated
-* in the same or neighboring flash sector where the flash Write, Erase, ors
+* in the same or neighboring flash sector where the flash Write, Erase, or
 * Program operation is working. This violation may cause a HardFault exception.
 * To avoid the Read while Write violation,
 * use Cy_Flash_IsOperationComplete() to ensure flash operation is complete.
@@ -1334,7 +1613,7 @@ cy_en_flashdrv_status_t Cy_Flash_StartEraseRow(uint32_t rowAddr);
 * XRES pin, a software reset, and watchdog reset sources. Also, low-voltage
 * detect circuits should be configured to generate an interrupt instead of a
 * reset. Otherwise, portions of flash may undergo unexpected changes.
-** \note  A Read while Write violation occurs when a flash Read operation is initiated
+* \note  A Read while Write violation occurs when a flash Read operation is initiated
 * in the same or neighboring flash sector where the flash Write, Erase, or
 * Program operation is working. This violation may cause a HardFault exception.
 * To avoid the Read while Write violation,
@@ -1556,7 +1835,7 @@ not be used in new projects
 * \addtogroup group_flash_functions
 * \{
 */
-#if (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) || defined (CY_IP_M7CPUSS)
+#if (((defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) || defined (CY_IP_M7CPUSS)) && !defined(CY_IP_MXFLASHC_VERSION_ECT)) || defined(CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_Flashc_SetWorkBankMode
 ****************************************************************************//**
@@ -1644,7 +1923,7 @@ void Cy_Flashc_SetMain_Flash_Mapping(cy_en_maptype_t  mapping);
 void Cy_Flashc_SetWork_Flash_Mapping(cy_en_maptype_t mapping);
 
 
-#endif /* (defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) || defined (CY_IP_M7CPUSS) */
+#endif /* (((defined (CY_IP_M4CPUSS) && (CY_IP_M4CPUSS_VERSION >=2)) || defined (CY_IP_M7CPUSS)) && !defined(CY_IP_MXFLASHC_VERSION_ECT)) || defined(CY_DOXYGEN) */
 
 /** \} group_flash_functions */
 
@@ -1653,6 +1932,7 @@ void Cy_Flashc_SetWork_Flash_Mapping(cy_en_maptype_t mapping);
 * \{
 */
 
+#if !defined(CY_IP_MXFLASHC_VERSION_ECT) || defined(CY_DOXYGEN)
 /*******************************************************************************
 * Function Name: Cy_Flash_IsOperationComplete
 ****************************************************************************//**
@@ -1888,6 +2168,31 @@ cy_en_flashdrv_status_t Cy_Flash_CalculateHash(const uint32_t* data, uint32_t nu
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_RowChecksum(uint32_t rowAddr, uint32_t* checksumPtr);
+#endif /* !defined(CY_IP_MXFLASHC_VERSION_ECT) || defined(CY_DOXYGEN) */
+
+/** \cond INTERNAL */
+/* Backward-compatible aliases that use the default FLASHC controller. */
+#if defined(CY_IP_MXFLASHC_VERSION_ECT)
+#define Cy_Flashc_MainWriteEnable()                               Cy_Flashc_MainWriteEnable_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_MainWriteDisable()                              Cy_Flashc_MainWriteDisable_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_WorkWriteEnable()                               Cy_Flashc_WorkWriteEnable_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_WorkWriteDisable()                              Cy_Flashc_WorkWriteDisable_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_WorkECCEnable()                                 Cy_Flashc_WorkECCEnable_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_WorkECCDisable()                                Cy_Flashc_WorkECCDisable_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_MainECCEnable()                                 Cy_Flashc_MainECCEnable_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_MainECCDisable()                                Cy_Flashc_MainECCDisable_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flash_EraseSuspend()                                   Cy_Flash_EraseSuspend_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flash_OperationStatus()                                Cy_Flash_OperationStatus_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_InjectECC_Disable(region)                       Cy_Flashc_InjectECC_Disable_Base((FLASHC_Type *)FLASHC, (region))
+#define Cy_Flash_IsOperationComplete()                            Cy_Flash_IsOperationComplete_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_SetWorkBankMode(mode)                           Cy_Flashc_SetWorkBankMode_Base((FLASHC_Type *)FLASHC, (mode))
+#define Cy_Flashc_GetWorkBankMode()                               Cy_Flashc_GetWorkBankMode_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_SetMainBankMode(mode)                           Cy_Flashc_SetMainBankMode_Base((FLASHC_Type *)FLASHC, (mode))
+#define Cy_Flashc_GetMainBankMode()                               Cy_Flashc_GetMainBankMode_Base((FLASHC_Type *)FLASHC)
+#define Cy_Flashc_SetMain_Flash_Mapping(mapping)                  Cy_Flashc_SetMain_Flash_Mapping_Base((FLASHC_Type *)FLASHC, (mapping))
+#define Cy_Flashc_SetWork_Flash_Mapping(mapping)                  Cy_Flashc_SetWork_Flash_Mapping_Base((FLASHC_Type *)FLASHC, (mapping))
+#endif
+/** \endcond */
 
 #if !defined(CY_IP_MXS40FLASHC)  || defined(CY_DOXYGEN)
 /*******************************************************************************
@@ -2123,6 +2428,5 @@ not be used in new projects
 #endif /* #if !defined (CY_FLASH_H) */
 
 /** \} group_flash */
-
 
 /* [] END OF FILE */

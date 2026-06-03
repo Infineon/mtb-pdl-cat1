@@ -1,12 +1,47 @@
-# MTB CAT1 Peripheral Driver Library v3.21.1
+# MTB CAT1 Peripheral Driver Library v3.22.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
 for a complete description of the Peripheral Driver Library.
 
 ## Implementation Details
-* Added SCB5 support for 48-pin parts of PSOC™ Control C3 MCU family.
-* Updated SFLASH IP definitions for PSOC™ Control C3 MCU family.
+* New TRAVEO™ T2G CYT6BJ series MCUs support added.
+* Added readable peripheral configuration in JSON format.
+
+## Personality Changes
+* Personalities migrated to version 14.0 (`device-info/personalities_14.0`).
+
+* New Personalities:
+  * platform:
+    * configuration_export-1.0.cypersonality
+
+* Updated Personalities:
+  * peripheral:
+    * eth-1.0.cypersonality (added LAN8670 / 10BASE-T1S PHY support)
+    * i2c-4.0.cypersonality (added `MasterSlave` support for "Accept Matching Address in RX FIFO")
+    * mcwdt_v2-1.0.cypersonality (added CM7_2 core selection)
+    * smif_v2-1.0.cypersonality (corrected IRQ name for version 2 IP)
+  * platform:
+    * debug-2.0.cypersonality (added `m7cpuss_ver2` IP support)
+    * dma-3.0.cypersonality (added `m7cpuss_ver2` IP support)
+    * dmac-2.0.cypersonality (added `m7cpuss_ver2` IP support)
+    * eco-3.0.cypersonality (simplified ECO frequency range logic)
+    * hfclk-3.0.cypersonality (fixed CLK_HF0 max-frequency DRC for `mxs40ssrss` to use 180 MHz)
+    * hfclk-4.0.cypersonality (added CYT6BJ support)
+    * pclk_v2-1.0.cypersonality (added `mxperi_ver4` IP support)
+    * slowclk-2.0.cypersonality (added 100 MHz max-frequency DRC for `mxs40srss_ver3`)
+    * sysclock-3.0.cypersonality (added CLK_FAST_2 / CLK_FAST_3 init)
+
+## Updated Drivers
+* [EPHY 1.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ephy.html)
+* [FLASH 3.150](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
+* [IPC 1.160](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
+* [MCWDT 1.100](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
+* [SCB 3.60](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__scb.html)
+* [SYSCLK 3.160](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [SYSFAULT 1.40](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysfault.html)
+* [SYSINT 1.150](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysint.html)
+* [SYSPM 5.210](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
 
 ## Known Issues
 

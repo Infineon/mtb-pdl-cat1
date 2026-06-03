@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysint.h
-* \version 1.140
+* \version 1.150
 *
 * \brief
 * Provides an API declaration of the SysInt driver
@@ -204,6 +204,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.150</td>
+*     <td>Added CPUSS_VER2 CM7_2 and CM7_3 support.</td>
+*     <td>Code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>1.140</td>
 *     <td>Added support for alternative interrupt mapping.</td>
 *     <td>Code enhancement.</td>
@@ -393,7 +398,7 @@ CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 #define CY_SYSINT_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_SYSINT_DRV_VERSION_MINOR    140
+#define CY_SYSINT_DRV_VERSION_MINOR    150
 
 /** SysInt driver ID */
 #define CY_SYSINT_ID CY_PDL_DRV_ID     (0x15U)

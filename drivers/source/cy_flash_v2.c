@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash_v2.c
-* \version 3.130
+* \version 3.150
 *
 * \brief
 * Provides the public functions for the API for the Flash Driver.
@@ -23,6 +23,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *******************************************************************************/
+
 #include "cy_device.h"
 #if defined(CY_IP_MXFLASHC_VERSION_ECT)
 
@@ -47,17 +48,47 @@
 #define CY_FLASH_WORK_ECC_INJECT_POS          (0x02UL)       /** WORK ECC injection position shift */
 #define CY_FLASH_CACHE_ECC_INJECT_POS         (0x02UL)       /** CACHE ECC injection position shift */
 
-static cy_en_flashdrv_status_t Cy_Flash_GetRowDetails(uint32_t rowAddr, uint8_t *rowID, cy_en_flash_checksum_bank_t *bank, cy_en_flash_checksum_region_t *region);
+static cy_en_flashdrv_status_t Cy_Flash_GetRowDetails(FLASHC_Type *base, uint32_t rowAddr, uint8_t *rowID, cy_en_flash_checksum_bank_t *bank, cy_en_flash_checksum_region_t *region);
 static cy_en_flashdrv_status_t Cy_Flash_CalculateHash_Ext(const cy_stc_flash_computehash_config_t *config,  uint32_t* hashPtr);
-static cy_en_flashdrv_status_t Cy_Flash_EraseSector_Ext(const cy_stc_flash_erasesector_config_t *config, cy_en_flash_driver_blocking_t block);
-static en_flash_bounds_t Cy_Flash_WorkBoundsCheck(uint32_t address);
-static en_flash_bounds_t Cy_Flash_MainBoundsCheck(uint32_t address);
-static en_flash_bounds_t Cy_Flash_BoundsCheck(uint32_t flashAddr);
+static cy_en_flashdrv_status_t Cy_Flash_EraseSector_Ext(FLASHC_Type *base, const cy_stc_flash_erasesector_config_t *config, cy_en_flash_driver_blocking_t block);
+static en_flash_bounds_t Cy_Flash_WorkBoundsCheck(FLASHC_Type *base, uint32_t address);
+static en_flash_bounds_t Cy_Flash_MainBoundsCheck(FLASHC_Type *base, uint32_t address);
+static en_flash_bounds_t Cy_Flash_BoundsCheck(FLASHC_Type *base, uint32_t flashAddr);
 static cy_en_flashdrv_status_t Cy_Flash_ProcessOpcode(uint32_t opcode);
 static cy_en_syspm_status_t Cy_Flash_DSCallbackFunc(cy_stc_syspm_callback_params_t *callbackParams, cy_en_syspm_callback_mode_t mode);
 static uint8_t g_non_block_context = 0;
+#if defined(FLASHC1)
+static uint8_t g_non_block_context1 = 0;
+#endif
 static cy_stc_syspm_callback_params_t g_ds_params;
 static cy_stc_syspm_callback_t g_ds_cbHandler;
+
+static inline bool Cy_Flash_IsValidBase(FLASHC_Type *base)
+{
+    bool isValid = (base == (FLASHC_Type *)FLASHC);
+#if defined(FLASHC1)
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address comparison.');
+    isValid = isValid || (base == (FLASHC_Type *)FLASHC1);
+#endif
+    return isValid;
+}
+
+static inline uint8_t* Cy_Flash_GetNonBlockContext(FLASHC_Type *base)
+{
+    if (base == (FLASHC_Type *)FLASHC)
+    {
+        return &g_non_block_context;
+    }
+#if defined(FLASHC1)
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address comparison.');
+    if (base == (FLASHC_Type *)FLASHC1)
+    {
+        return &g_non_block_context1;
+    }
+#endif
+
+    return NULL;
+}
 
 /*******************************************************************************
 * Function Name: Cy_Flash_CallSromApiForFlashWrite
@@ -67,15 +98,22 @@ static cy_stc_syspm_callback_t g_ds_cbHandler;
 * erase sector). Then, processes response message of the 
 * driver API and response message of SROM API if required.
 *
-* apiArgs pointer to SROM API arguments.
+* \param base Pointer to the selected FLASH controller instance.
 *
-* block driver blocking mode cy_en_flash_driver_blocking_t
+* \param apiArgs pointer to SROM API arguments.
 *
-* Returns the status of the Flash operation.
+* \param block driver blocking mode \ref cy_en_flash_driver_blocking_t
+*
+* \return Returns the status of the Flash operation.
 *
 *******************************************************************************/
-static cy_en_flashdrv_status_t Cy_Flash_CallSromApiForFlashWrite(const un_srom_api_args_t* apiArgs, cy_en_flash_driver_blocking_t block)
+static cy_en_flashdrv_status_t Cy_Flash_CallSromApiForFlashWrite(FLASHC_Type *base, const un_srom_api_args_t* apiArgs, cy_en_flash_driver_blocking_t block)
 {
+    if (!Cy_Flash_IsValidBase(base))
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
     if(block == CY_FLASH_DRIVER_BLOCKING)
     {
         un_srom_api_resps_t apiResp = {{ 0UL }};
@@ -105,10 +143,10 @@ static cy_en_flashdrv_status_t Cy_Flash_CallSromApiForFlashWrite(const un_srom_a
             }
 
             /* Invalidates the flash cache and buffer */
-            FLASHC_FLASH_CMD = _VAL2FLD(FLASHC_FLASH_CMD_INV, 1U);
+            base->FLASH_CMD = _VAL2FLD(FLASHC_FLASH_CMD_INV, 1U);
 
             // Wait for completion (HW will clear bit)
-            while (_FLD2VAL(FLASHC_FLASH_CMD_INV, FLASHC_FLASH_CMD) != 0U)
+            while (_FLD2VAL(FLASHC_FLASH_CMD_INV, base->FLASH_CMD) != 0U)
             {
             }
 
@@ -119,6 +157,15 @@ static cy_en_flashdrv_status_t Cy_Flash_CallSromApiForFlashWrite(const un_srom_a
     {
         /* Call SROM API with non-blocking mode */
         cy_en_srom_driver_status_t status = Cy_Srom_CallApi_NonBlock(apiArgs);
+
+        if(status == CY_SROM_DR_API_ERROR)
+        {
+            /* SROM rejected the operation (e.g. invalid flash address).
+             * Retrieve the specific error from the SROM response. */
+            un_srom_api_resps_t apiResp = {{ 0UL }};
+            (void)Cy_Srom_GetApiResponse(&apiResp);
+            return Cy_Flash_ProcessOpcode(apiResp.resp[0]);
+        }
 
         if ( status != CY_SROM_DR_SUCCEEDED)
         {
@@ -136,7 +183,7 @@ static cy_en_flashdrv_status_t Cy_Flash_CallSromApiForFlashWrite(const un_srom_a
 *
 * This function writes an array of data to work flash. Reports success or
 * or a reason for failure.
-* Returns immediately and reports a CY_FLASH_DRV_IPC_BUSY error in the case when another
+* Returns immediately and reports a \ref CY_FLASH_DRV_IPC_BUSY error in the case when another
 * process is operating flash. User firmware should not enter the hibernate
 * mode until flash Write is complete. The Flash operation is allowed in Sleep and
 * Deep-sleep modes. During the Flash operation, the device should not be reset,
@@ -144,18 +191,19 @@ static cy_en_flashdrv_status_t Cy_Flash_CallSromApiForFlashWrite(const un_srom_a
 * low-voltage detect circuits should be configured to generate an interrupt instead
 * of a reset. Otherwise, portions of flash may undergo unexpected changes.
 *
-* config configuration of this function.
+* \param config configuration of this function.
 * This parameter is defined by the cy_stc_flash_programrow_config_t
-* in group_flash_srom_config_structure macro.
+* in \ref group_flash_srom_config_structure macro.
 *
-* Returns the status of the Flash operation (see cy_en_flashdrv_status_t).
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
 *
-* Note: row or page is same and of the size 512 bytes
+* \note row or page is same and of the size 512 bytes
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_Program_WorkFlash(const cy_stc_flash_programrow_config_t* config)
 {
     cy_en_flashdrv_status_t status = CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    FLASHC_Type *base;
 
     /* Checks if input pointers are not NULL */
     if(config == NULL)
@@ -163,8 +211,14 @@ cy_en_flashdrv_status_t Cy_Flash_Program_WorkFlash(const cy_stc_flash_programrow
         return status;
     }
 
+    /* Resolve base from destination address */
+    if (Cy_Flash_ResolveBase((uint32_t)config->destAddr, &base) != CY_FLASH_DRV_SUCCESS)
+    {
+        return status;
+    }
+
     /* Checks if input address are valid */
-    if((Cy_Flash_WorkBoundsCheck((uint32_t)config->destAddr) == CY_FLASH_OUT_OF_BOUNDS) || (config->dataAddr == NULL))
+    if((Cy_Flash_WorkBoundsCheck(base, (uint32_t)config->destAddr) == CY_FLASH_OUT_OF_BOUNDS) || (config->dataAddr == NULL))
     {
         return status;
     }
@@ -179,7 +233,7 @@ cy_en_flashdrv_status_t Cy_Flash_Program_WorkFlash(const cy_stc_flash_programrow
     apiArgs.ProgramRow.arg2.dstAddr        = (uint32_t)config->destAddr;
     apiArgs.ProgramRow.arg3.srcAddr        = (uint32_t)config->dataAddr;
     /* Call SROM API driver and process response */
-    status = Cy_Flash_CallSromApiForFlashWrite(&apiArgs, CY_FLASH_DRIVER_BLOCKING);
+    status = Cy_Flash_CallSromApiForFlashWrite(base, &apiArgs, CY_FLASH_DRIVER_BLOCKING);
     return status;
 }
 
@@ -189,7 +243,7 @@ cy_en_flashdrv_status_t Cy_Flash_Program_WorkFlash(const cy_stc_flash_programrow
 *
 * This function writes an array of data to a single row of flash. Reports success or
 * or a reason for failure.
-* Returns immediately and reports a CY_FLASH_DRV_IPC_BUSY error in the case when another
+* Returns immediately and reports a \ref CY_FLASH_DRV_IPC_BUSY error in the case when another
 * process is operating flash. User firmware should not enter the hibernate
 * mode until flash Write is complete. The Flash operation is allowed in Sleep and
 * Deep-sleep modes. During the Flash operation, the device should not be reset,
@@ -197,27 +251,42 @@ cy_en_flashdrv_status_t Cy_Flash_Program_WorkFlash(const cy_stc_flash_programrow
 * low-voltage detect circuits should be configured to generate an interrupt instead
 * of a reset. Otherwise, portions of flash may undergo unexpected changes.
 *
-* config configuration of this function.
+* \param config configuration of this function.
 * This parameter is defined by the cy_stc_flash_programrow_config_t
-* in group_flash_srom_config_structure macro.
+* in \ref group_flash_srom_config_structure macro.
 *
-* Returns the status of the Flash operation (see cy_en_flashdrv_status_t).
+* \param block specifies if the function to execute in blocking or non blocking mode.
 *
-* Note: row or page is same and of the size 512 bytes
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
+*
+* \note row or page is same and of the size 512 bytes
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_Program(const cy_stc_flash_programrow_config_t* config, cy_en_flash_driver_blocking_t block)
 {
     cy_en_flashdrv_status_t status;
+    FLASHC_Type *base;
 
-    /* Checks if input pointers are not NULL */
-    if(config == NULL)
+    if (config == NULL)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
 
-    /* Checks if input address are valid */
-    if((Cy_Flash_BoundsCheck((uint32_t)config->destAddr) == CY_FLASH_OUT_OF_BOUNDS) || (config->dataAddr == NULL))
+    /* Resolve base from destination address */
+    if (Cy_Flash_ResolveBase((uint32_t)config->destAddr, &base) != CY_FLASH_DRV_SUCCESS)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
+    uint8_t *nonBlockContext = Cy_Flash_GetNonBlockContext(base);
+
+    if (nonBlockContext == NULL)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
+    /* Checks if input pointers are not NULL */
+    if((Cy_Flash_BoundsCheck(base, (uint32_t)config->destAddr) == CY_FLASH_OUT_OF_BOUNDS) || (config->dataAddr == NULL))
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
@@ -233,11 +302,11 @@ cy_en_flashdrv_status_t Cy_Flash_Program(const cy_stc_flash_programrow_config_t*
     apiArgs.ProgramRow.arg2.dstAddr        = (uint32_t)config->destAddr;
     apiArgs.ProgramRow.arg3.srcAddr        = (uint32_t)config->dataAddr;
     /* Call SROM API driver and process response */
-    status = Cy_Flash_CallSromApiForFlashWrite(&apiArgs, block);
+    status = Cy_Flash_CallSromApiForFlashWrite(base, &apiArgs, block);
 
     if(status == CY_FLASH_DRV_SUCCESS && block == CY_FLASH_DRIVER_NON_BLOCKING)
     {
-        g_non_block_context = (uint8_t)(FLASHC_FM_CTL_ECT_STATUS_PGM_WORK_Msk | FLASHC_FM_CTL_ECT_STATUS_PGM_CODE_Msk);
+        *nonBlockContext = (uint8_t)(FLASHC_FM_CTL_ECT_STATUS_PGM_WORK_Msk | FLASHC_FM_CTL_ECT_STATUS_PGM_CODE_Msk);
         status = CY_FLASH_DRV_OPERATION_STARTED;
     }
     return status;
@@ -249,17 +318,24 @@ cy_en_flashdrv_status_t Cy_Flash_Program(const cy_stc_flash_programrow_config_t*
 *
 * Returns a checksum value of the specified flash row. supports only blocking
 * mode for now.
-* rowNum The Checksum is calculated to the flash row.
 *
-* checksumPtr The pointer to the address where checksum is to be stored
+* \param config configuration of this function.
+* This parameter is defined by the \ref cy_stc_flash_checksum_config_t.
 *
-* Returns the status of the Flash operation.
+* \param checksumPtr The pointer to the address where checksum is to be stored
 *
-* Note:row or page is same and of the size 512 bytes
+* \return Returns the status of the Flash operation.
+*
+* \note row or page is same and of the size 512 bytes
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_Checksum(const cy_stc_flash_checksum_config_t *config, uint32_t* checksumPtr)
 {
+    if ((config == NULL) || (checksumPtr == NULL))
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
     /* Checks whether the input parameters are valid */
     if (config->rowId >= CY_FLASH_NUMBER_ROWS)
     {
@@ -328,14 +404,13 @@ CY_MISRA_BLOCK_END('MISRA C-2012 Rule 14.3')
 *
 * Returns a hash value of the specified region of flash. supports only blocking
 * mode for now.
-* data Start the data address.
 *
-* numberOfBytes The hash value is calculated for the number of bytes after the
-* start data address (0 - 1 byte, 1- 2 bytes etc).
+* \param config configuration of this function.
+* This parameter is defined by the \ref cy_stc_flash_computehash_config_t.
 *
-* hashPtr The pointer to the address where hash is to be stored
+* \param hashPtr The pointer to the address where hash is to be stored
 *
-* Returns the status of the Flash operation.
+* \return Returns the status of the Flash operation.
 *
 *******************************************************************************/
 static cy_en_flashdrv_status_t Cy_Flash_CalculateHash_Ext(const cy_stc_flash_computehash_config_t *config,  uint32_t* hashPtr)
@@ -390,47 +465,103 @@ static cy_en_flashdrv_status_t Cy_Flash_CalculateHash_Ext(const cy_stc_flash_com
 *
 * Checks if Flash address is out of work region.
 *
-* address Address to be checked
+* \param base Pointer to the selected FLASH controller instance.
 *
-* en_flash_bounds_t
+* \param address Address to be checked
+*
+* \return en_flash_bounds_t
 *
 *******************************************************************************/
-static en_flash_bounds_t Cy_Flash_WorkBoundsCheck(uint32_t address)
+static en_flash_bounds_t Cy_Flash_WorkBoundsCheck(FLASHC_Type *base, uint32_t address)
 {
-    cy_en_bankmode_t bankmode = Cy_Flashc_GetWorkBankMode();
+    cy_en_bankmode_t bankmode = Cy_Flashc_GetWorkBankMode_Base(base);
+
+#if defined(FLASHC1)
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address comparison.');
+    bool isFlashc1 = (base == (FLASHC_Type *)FLASHC1);
+#endif
+
     if(bankmode == CY_FLASH_SINGLE_BANK_MODE)
     {
-        if(( CY_WFLASH_LG_SBM_TOP <= address) && (address < CY_WFLASH_LG_SBM_END))
+#if defined(FLASHC1)
+        if (!isFlashc1)
+#endif
         {
-            return(CY_FLASH_IN_BOUNDS);
-        }
+            if(( CY_WFLASH_LG_SBM_TOP <= address) && (address < CY_WFLASH_LG_SBM_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
 
-        if((CY_WFLASH_SM_SBM_TOP <= address) && (address < CY_WFLASH_SM_SBM_END))
-        {
-            return(CY_FLASH_IN_BOUNDS);
+            if((CY_WFLASH_SM_SBM_TOP <= address) && (address < CY_WFLASH_SM_SBM_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
         }
+#if defined(FLASHC1)
+        else
+        {
+            if(( CY_WFLASH1_LG_SBM_TOP <= address) && (address < CY_WFLASH1_LG_SBM_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+
+            if((CY_WFLASH1_SM_SBM_TOP <= address) && (address < CY_WFLASH1_SM_SBM_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+        }
+#endif
     }
     else
     {
-        if(( CY_WFLASH_LG_DBM0_TOP <= address) && (address < CY_WFLASH_LG_DBM0_END))
+#if defined(FLASHC1)
+        if (!isFlashc1)
+#endif
         {
-            return(CY_FLASH_IN_BOUNDS);
-        }
+            if(( CY_WFLASH_LG_DBM0_TOP <= address) && (address < CY_WFLASH_LG_DBM0_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
 
-        if(( CY_WFLASH_SM_DBM0_TOP <= address) && (address < CY_WFLASH_SM_DBM0_END))
-        {
-            return(CY_FLASH_IN_BOUNDS);
-        }
+            if(( CY_WFLASH_SM_DBM0_TOP <= address) && (address < CY_WFLASH_SM_DBM0_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
 
-        if(( CY_WFLASH_LG_DBM1_TOP <= address) && (address < CY_WFLASH_LG_DBM1_END))
-        {
-            return(CY_FLASH_IN_BOUNDS);
-        }
+            if(( CY_WFLASH_LG_DBM1_TOP <= address) && (address < CY_WFLASH_LG_DBM1_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
 
-        if(( CY_WFLASH_SM_DBM1_TOP <= address) && (address < CY_WFLASH_SM_DBM1_END))
-        {
-            return(CY_FLASH_IN_BOUNDS);
+            if(( CY_WFLASH_SM_DBM1_TOP <= address) && (address < CY_WFLASH_SM_DBM1_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
         }
+#if defined(FLASHC1)
+        else
+        {
+            if(( CY_WFLASH1_LG_DBM0_TOP <= address) && (address < CY_WFLASH1_LG_DBM0_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+
+            if(( CY_WFLASH1_SM_DBM0_TOP <= address) && (address < CY_WFLASH1_SM_DBM0_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+
+            if(( CY_WFLASH1_LG_DBM1_TOP <= address) && (address < CY_WFLASH1_LG_DBM1_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+
+            if(( CY_WFLASH1_SM_DBM1_TOP <= address) && (address < CY_WFLASH1_SM_DBM1_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+        }
+#endif
     }
 
     return(CY_FLASH_OUT_OF_BOUNDS);
@@ -442,47 +573,103 @@ static en_flash_bounds_t Cy_Flash_WorkBoundsCheck(uint32_t address)
 *
 * Returns 1 if Flash address is out of main region, otherwise returns 0.
 *
-* address Address to be checked
+* \param base Pointer to the selected FLASH controller instance.
 *
-* 1 - out of bound, 0 - in flash bounds
+* \param address Address to be checked
+*
+* \return 1 - out of bound, 0 - in flash bounds
 *
 *******************************************************************************/
-static en_flash_bounds_t Cy_Flash_MainBoundsCheck(uint32_t address)
+static en_flash_bounds_t Cy_Flash_MainBoundsCheck(FLASHC_Type *base, uint32_t address)
 {
-    cy_en_bankmode_t bankmode = Cy_Flashc_GetMainBankMode();
+    cy_en_bankmode_t bankmode = Cy_Flashc_GetMainBankMode_Base(base);
+
+#if defined(FLASHC1)
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address comparison.');
+    bool isFlashc1 = (base == (FLASHC_Type *)FLASHC1);
+#endif
+
     if(bankmode == CY_FLASH_SINGLE_BANK_MODE)
     {
-        if(( CY_FLASH_LG_SBM_TOP <= address) && (address < CY_FLASH_LG_SBM_END))
+#if defined(FLASHC1)
+        if (!isFlashc1)
+#endif
         {
-            return(CY_FLASH_IN_BOUNDS);
-        }
+            if(( CY_FLASH_LG_SBM_TOP <= address) && (address < CY_FLASH_LG_SBM_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
 
-        if(( CY_FLASH_SM_SBM_TOP <= address) && (address < CY_FLASH_SM_SBM_END))
-        {
-            return(CY_FLASH_IN_BOUNDS);
+            if(( CY_FLASH_SM_SBM_TOP <= address) && (address < CY_FLASH_SM_SBM_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
         }
+#if defined(FLASHC1)
+        else
+        {
+            if(( CY_FLASH1_LG_SBM_TOP <= address) && (address < CY_FLASH1_LG_SBM_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+
+            if(( CY_FLASH1_SM_SBM_TOP <= address) && (address < CY_FLASH1_SM_SBM_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+        }
+#endif
     }
     else
     {
-        if(( CY_FLASH_LG_DBM0_TOP <= address) && (address < CY_FLASH_LG_DBM0_END))
+#if defined(FLASHC1)
+        if (!isFlashc1)
+#endif
         {
-            return(CY_FLASH_IN_BOUNDS);
-        }
+            if(( CY_FLASH_LG_DBM0_TOP <= address) && (address < CY_FLASH_LG_DBM0_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
 
-        if(( CY_FLASH_SM_DBM0_TOP <= address) && (address < CY_FLASH_SM_DBM0_END))
-        {
-            return(CY_FLASH_IN_BOUNDS);
-        }
+            if(( CY_FLASH_SM_DBM0_TOP <= address) && (address < CY_FLASH_SM_DBM0_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
 
-        if(( CY_FLASH_LG_DBM1_TOP <= address) && (address < CY_FLASH_LG_DBM1_END))
-        {
-            return(CY_FLASH_IN_BOUNDS);
-        }
+            if(( CY_FLASH_LG_DBM1_TOP <= address) && (address < CY_FLASH_LG_DBM1_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
 
-        if(( CY_FLASH_SM_DBM1_TOP <= address) && (address < CY_FLASH_SM_DBM1_END))
-        {
-            return(CY_FLASH_IN_BOUNDS);
+            if(( CY_FLASH_SM_DBM1_TOP <= address) && (address < CY_FLASH_SM_DBM1_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
         }
+#if defined(FLASHC1)
+        else
+        {
+            if(( CY_FLASH1_LG_DBM0_TOP <= address) && (address < CY_FLASH1_LG_DBM0_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+
+            if(( CY_FLASH1_SM_DBM0_TOP <= address) && (address < CY_FLASH1_SM_DBM0_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+
+            if(( CY_FLASH1_LG_DBM1_TOP <= address) && (address < CY_FLASH1_LG_DBM1_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+
+            if(( CY_FLASH1_SM_DBM1_TOP <= address) && (address < CY_FLASH1_SM_DBM1_END))
+            {
+                return(CY_FLASH_IN_BOUNDS);
+            }
+        }
+#endif
     }
 
     return(CY_FLASH_OUT_OF_BOUNDS);
@@ -494,19 +681,21 @@ static en_flash_bounds_t Cy_Flash_MainBoundsCheck(uint32_t address)
 *
 * Returns 1 if Flash address is out of boundary, otherwise returns 0.
 *
-* flashAddr Address to be checked
+* \param base Pointer to the selected FLASH controller instance.
 *
-* 1 - out of bound, 0 - in flash bounds
+* \param flashAddr Address to be checked
+*
+* \return 1 - out of bound, 0 - in flash bounds
 *
 *******************************************************************************/
-static en_flash_bounds_t Cy_Flash_BoundsCheck(uint32_t flashAddr)
+static en_flash_bounds_t Cy_Flash_BoundsCheck(FLASHC_Type *base, uint32_t flashAddr)
 {
-    if(Cy_Flash_WorkBoundsCheck(flashAddr) == CY_FLASH_IN_BOUNDS)
+    if(Cy_Flash_WorkBoundsCheck(base, flashAddr) == CY_FLASH_IN_BOUNDS)
     {
         return(CY_FLASH_IN_BOUNDS);
     }
 
-    if(Cy_Flash_MainBoundsCheck(flashAddr) == CY_FLASH_IN_BOUNDS)
+    if(Cy_Flash_MainBoundsCheck(base, flashAddr) == CY_FLASH_IN_BOUNDS)
     {
         return(CY_FLASH_IN_BOUNDS);
     }
@@ -515,14 +704,59 @@ static en_flash_bounds_t Cy_Flash_BoundsCheck(uint32_t flashAddr)
 }
 
 /*******************************************************************************
+* Function Name: Cy_Flash_ResolveBase
+****************************************************************************//**
+*
+* Determines which flash controller (FLASHC or FLASHC1) owns the given address
+* by checking all work-flash and main-flash address ranges.
+*
+* \param addr The flash address to resolve.
+*
+* \param base Output pointer. On success, set to the FLASHC_Type pointer of the
+*        flash controller that owns the given address.
+*
+* \return \ref CY_FLASH_DRV_SUCCESS if the address is in bounds and *base is set.
+*         \ref CY_FLASH_DRV_INVALID_INPUT_PARAMETERS if the address is out of all
+*         flash ranges.
+*
+*******************************************************************************/
+cy_en_flashdrv_status_t Cy_Flash_ResolveBase(uint32_t addr, FLASHC_Type **base)
+{
+    if (base == NULL)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
+    /* Check FLASHC ranges */
+    if (Cy_Flash_BoundsCheck((FLASHC_Type *)FLASHC, addr) == CY_FLASH_IN_BOUNDS)
+    {
+        *base = (FLASHC_Type *)FLASHC;
+        return CY_FLASH_DRV_SUCCESS;
+    }
+
+#if defined(FLASHC1)
+    /* Check FLASHC1 ranges */
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address comparison.');
+    if (Cy_Flash_BoundsCheck((FLASHC_Type *)FLASHC1, addr) == CY_FLASH_IN_BOUNDS)
+    {
+        CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address assignment.');
+        *base = (FLASHC_Type *)FLASHC1;
+        return CY_FLASH_DRV_SUCCESS;
+    }
+#endif /* defined(FLASHC1) */
+
+    return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+}
+
+/*******************************************************************************
 * Function Name: Cy_Flash_ProcessOpcode
 ****************************************************************************//**
 *
 * Converts System Call returns to the Flash driver return defines.
 *
-* opcode The value returned by the System Call.
+* \param opcode The value returned by the System Call.
 *
-* Flash driver return. cy_en_flashdrv_status_t only support a 
+* \return Flash driver return. \ref cy_en_flashdrv_status_t only support a 
 *         part of SROM response. please use Cy_Srom_GetApiResponse to
 *         get complete status of SROM API.
 *
@@ -602,7 +836,7 @@ static cy_en_flashdrv_status_t Cy_Flash_ProcessOpcode(uint32_t opcode)
 * This function Starts the sector erase operation on the specified sector. 
 * This function cannot be called on SFLASH. Reports success 
 * or a reason for failure.
-* Returns immediately and reports a CY_FLASH_DRV_IPC_BUSY error in the case when another
+* Returns immediately and reports a \ref CY_FLASH_DRV_IPC_BUSY error in the case when another
 * process is operating flash. User firmware should not enter the hibernate
 * mode until flash Erase is complete. The Flash operation is allowed in Sleep and
 * Deep-sleep modes. During the Flash operation, the device should not be reset,
@@ -610,16 +844,25 @@ static cy_en_flashdrv_status_t Cy_Flash_ProcessOpcode(uint32_t opcode)
 * low-voltage detect circuits should be configured to generate an interrupt instead
 * of a reset. Otherwise, portions of flash may undergo unexpected changes.
 *
-* config configuration of  this function.
-* This parameter is defined by the cy_stc_flash_erasesector_config_t
-* in group_flash_srom_config_structure macro.
+* \param base Pointer to the selected FLASH controller instance.
 *
-* Returns the status of the Flash operation (see cy_en_flashdrv_status_t).
+* \param config configuration of this function.
+* This parameter is defined by the \ref cy_stc_flash_erasesector_config_t
+* in \ref group_flash_srom_config_structure macro.
+*
+* \param block specifies if the function to execute in blocking or non blocking mode.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
 *
 *******************************************************************************/
-static cy_en_flashdrv_status_t Cy_Flash_EraseSector_Ext(const cy_stc_flash_erasesector_config_t *config, cy_en_flash_driver_blocking_t block)
+static cy_en_flashdrv_status_t Cy_Flash_EraseSector_Ext(FLASHC_Type *base, const cy_stc_flash_erasesector_config_t *config, cy_en_flash_driver_blocking_t block)
 {
     cy_en_flashdrv_status_t status;
+    if (!Cy_Flash_IsValidBase(base))
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
     /* Checks if input pointers are not NULL */
     if (config == NULL)
     {
@@ -627,7 +870,7 @@ static cy_en_flashdrv_status_t Cy_Flash_EraseSector_Ext(const cy_stc_flash_erase
     }
 
     /* Checks if input address is in work/main region */
-    if(Cy_Flash_BoundsCheck((uint32_t)(config->sectorAddr)) == CY_FLASH_OUT_OF_BOUNDS)
+    if(Cy_Flash_BoundsCheck(base, (uint32_t)(config->sectorAddr)) == CY_FLASH_OUT_OF_BOUNDS)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
@@ -645,7 +888,7 @@ static cy_en_flashdrv_status_t Cy_Flash_EraseSector_Ext(const cy_stc_flash_erase
     apiArgs.EraseSector.arg1.address       = (uint32_t)config->sectorAddr;
 
     /* Call SROM API driver and process response */
-    status = Cy_Flash_CallSromApiForFlashWrite(&apiArgs, block);
+    status = Cy_Flash_CallSromApiForFlashWrite(base, &apiArgs, block);
     return status;
 }
 
@@ -658,15 +901,22 @@ static cy_en_flashdrv_status_t Cy_Flash_EraseSector_Ext(const cy_stc_flash_erase
 * will return error if invoked on suspended sector.
 * This function cannot be called on SFLASH. Reports success 
 * or a reason for failure. Does not return until the Erase operation is complete.
-* Returns immediately and reports a CY_FLASH_DRV_IPC_BUSY error in the case when another
+* Returns immediately and reports a \ref CY_FLASH_DRV_IPC_BUSY error in the case when another
 * process is operating flash.
 * This function supports only blocking mode for now.
 *
-* Returns the status of the Flash operation (see cy_en_flashdrv_status_t).
+* \param base Pointer to the selected FLASH controller instance.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
 *
 *******************************************************************************/
-cy_en_flashdrv_status_t Cy_Flash_EraseSuspend(void)
+cy_en_flashdrv_status_t Cy_Flash_EraseSuspend_Base(FLASHC_Type *base)
 {
+    if (!Cy_Flash_IsValidBase(base))
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
     /* Prepares arguments to be passed to SROM API */
     un_srom_api_args_t apiArgs = {{ 0UL }};
     apiArgs.EraseSuspend.arg0.opcode = (uint32_t)CY_SROM_OP_FLASH_ERASE_SUSPEND;
@@ -698,10 +948,10 @@ cy_en_flashdrv_status_t Cy_Flash_EraseSuspend(void)
     if(result == CY_FLASH_DRV_SUCCESS)
     {
         /* Invalidates the flash cache and buffer */
-        FLASHC_FLASH_CMD = _VAL2FLD(FLASHC_FLASH_CMD_INV, 1U);
+        base->FLASH_CMD = _VAL2FLD(FLASHC_FLASH_CMD_INV, 1U);
 
         // Wait for completion (HW will clear bit)
-        while (_FLD2VAL(FLASHC_FLASH_CMD_INV, FLASHC_FLASH_CMD) != 0U)
+        while (_FLD2VAL(FLASHC_FLASH_CMD_INV, base->FLASH_CMD) != 0U)
         {
         }
     }
@@ -714,14 +964,14 @@ cy_en_flashdrv_status_t Cy_Flash_EraseSuspend(void)
 *
 * This function calls to resume a suspended erase operation. 
 * Reports success or a reason for failure.
-* Returns immediately and reports a CY_FLASH_DRV_IPC_BUSY error in the case when another
+* Returns immediately and reports a \ref CY_FLASH_DRV_IPC_BUSY error in the case when another
 * process is operating flash.
 *
-* config configuration of this function.
-* This parameter is defined by the cy_stc_flash_eraseresume_config_t
-* in group_flash_srom_config_structure macro.
+* \param config configuration of this function.
+* This parameter is defined by the \ref cy_stc_flash_eraseresume_config_t
+* in \ref group_flash_srom_config_structure macro.
 *
-* Returns the status of the Flash operation (see cy_en_flashdrv_status_t).
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_EraseResume(const cy_stc_flash_eraseresume_config_t *config)
@@ -769,14 +1019,16 @@ cy_en_flashdrv_status_t Cy_Flash_EraseResume(const cy_stc_flash_eraseresume_conf
 *
 * This function performs blank check on the addressed work FLASH.
 * Reports success or a reason for failure.
-* Returns immediately and reports a CY_FLASH_DRV_IPC_BUSY error in the case when another
+* Returns immediately and reports a \ref CY_FLASH_DRV_IPC_BUSY error in the case when another
 * process is operating flash.
 *
-* config configuration of this function.
-* This parameter is defined by the cy_stc_flash_blankcheck_config_t
-* in group_flash_srom_config_structure macro.
+* \param config configuration of this function.
+* This parameter is defined by the \ref cy_stc_flash_blankcheck_config_t
+* in \ref group_flash_srom_config_structure macro.
 *
-* Returns the status of the Flash operation (see cy_en_flashdrv_status_t).
+* \param block specifies if the function to execute in blocking or non blocking mode.
+*
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_BlankCheck(const cy_stc_flash_blankcheck_config_t *config, cy_en_flash_driver_blocking_t block)
@@ -787,13 +1039,28 @@ cy_en_flashdrv_status_t Cy_Flash_BlankCheck(const cy_stc_flash_blankcheck_config
         return (cy_en_flashdrv_status_t)CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
 
+    FLASHC_Type *base;
+
+    /* Resolve base from address to be checked */
+    if (Cy_Flash_ResolveBase((uint32_t)config->addrToBeChecked, &base) != CY_FLASH_DRV_SUCCESS)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
+    uint8_t *nonBlockContext = Cy_Flash_GetNonBlockContext(base);
+
+    if (nonBlockContext == NULL)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
     if(config->numOfWordsToBeChecked == 0UL)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
     /* Checks if input address are valid */
-    if ((Cy_Flash_WorkBoundsCheck((uint32_t)config->addrToBeChecked) == CY_FLASH_OUT_OF_BOUNDS) ||
-        (Cy_Flash_WorkBoundsCheck((uint32_t)config->addrToBeChecked + config->numOfWordsToBeChecked*4UL - 1UL) == CY_FLASH_OUT_OF_BOUNDS))
+    if ((Cy_Flash_WorkBoundsCheck(base, (uint32_t)config->addrToBeChecked) == CY_FLASH_OUT_OF_BOUNDS) ||
+        (Cy_Flash_WorkBoundsCheck(base, (uint32_t)config->addrToBeChecked + config->numOfWordsToBeChecked*4UL - 1UL) == CY_FLASH_OUT_OF_BOUNDS))
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
@@ -833,7 +1100,7 @@ cy_en_flashdrv_status_t Cy_Flash_BlankCheck(const cy_stc_flash_blankcheck_config
     }
     else
     {
-        g_non_block_context = (uint8_t)FLASHC_FM_CTL_ECT_STATUS_BLANK_CHECK_WORK_Msk;
+        *nonBlockContext = (uint8_t)FLASHC_FM_CTL_ECT_STATUS_BLANK_CHECK_WORK_Msk;
         /* Send message by IPC */
         cy_en_srom_driver_status_t status = Cy_Srom_CallApi_NonBlock(&apiArgs);
         if (status != CY_SROM_DR_SUCCEEDED)
@@ -853,48 +1120,54 @@ cy_en_flashdrv_status_t Cy_Flash_BlankCheck(const cy_stc_flash_blankcheck_config
 * and the parity value.
 * Reports success or a reason for failure.
 *
-* region An indicator which region (Code/Work/Cache) ECC parity will be injected to.
+* \param region An indicator which region (Code/Work/Cache) ECC parity will be injected to.
 * This parameter is defined by the cy_en_region_t
-* in group_flash_macro macro.
+* in \ref group_flash_macros macro.
 *
-* address The address where ECC parity will be injected.
+* \param address The address where ECC parity will be injected.
 *
-* parity The parity value which will be injected.
+* \param parity The parity value which will be injected.
 *
-* Returns the status of the Flash operation (see cy_en_flashdrv_status_t).
+* \return Returns the status of the Flash operation (see \ref cy_en_flashdrv_status_t).
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flashc_InjectECC(cy_en_region_t region, uint32_t address, uint8_t parity)
 {
-    cy_en_flashdrv_status_t result =CY_FLASH_DRV_SUCCESS;
+    FLASHC_Type *base;
+
+    /* Resolve base from address */
+    if (Cy_Flash_ResolveBase(address, &base) != CY_FLASH_DRV_SUCCESS)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
 
     switch(region)
     {
     case CY_FLASH_MAIN_REGION:
-        if (Cy_Flash_MainBoundsCheck(address) == CY_FLASH_OUT_OF_BOUNDS)
+        if (Cy_Flash_MainBoundsCheck(base, address) == CY_FLASH_OUT_OF_BOUNDS)
         {
                 return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
         }
-        FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_MAIN_ECC_INJ_EN, 1U);
-        FLASHC_ECC_CTL = (_VAL2FLD(FLASHC_ECC_CTL_WORD_ADDR, (address >> CY_FLASH_CODE_ECC_INJECT_POS)) |
+        base->FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_MAIN_ECC_INJ_EN, 1U);
+        base->ECC_CTL = (_VAL2FLD(FLASHC_ECC_CTL_WORD_ADDR, (address >> CY_FLASH_CODE_ECC_INJECT_POS)) |
                          _VAL2FLD(FLASHC_ECC_CTL_PARITY, parity ));
         break;
     case CY_FLASH_WORK_REGION:
-        if (Cy_Flash_WorkBoundsCheck(address) == CY_FLASH_OUT_OF_BOUNDS)
+        if (Cy_Flash_WorkBoundsCheck(base, address) == CY_FLASH_OUT_OF_BOUNDS)
         {
             return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
         }
-        FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_WORK_ECC_INJ_EN, 1U);
-        FLASHC_ECC_CTL = (_VAL2FLD(FLASHC_ECC_CTL_WORD_ADDR, (address >> CY_FLASH_WORK_ECC_INJECT_POS)) |
+        base->FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_WORK_ECC_INJ_EN, 1U);
+        base->ECC_CTL = (_VAL2FLD(FLASHC_ECC_CTL_WORD_ADDR, (address >> CY_FLASH_WORK_ECC_INJECT_POS)) |
                          _VAL2FLD(FLASHC_ECC_CTL_PARITY, parity ));
         break;
     case CY_FLASH_CA_CM0P_REGION:
-        if (Cy_Flash_MainBoundsCheck(address) == CY_FLASH_OUT_OF_BOUNDS)
+        if (Cy_Flash_MainBoundsCheck(base, address) == CY_FLASH_OUT_OF_BOUNDS)
         {
                 return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
         }
-        FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_CM0_CA_CTL0_RAM_ECC_INJ_EN, 1U);
-        FLASHC_ECC_CTL = (_VAL2FLD(FLASHC_ECC_CTL_WORD_ADDR, (address >> CY_FLASH_CACHE_ECC_INJECT_POS)) |
+        base->CM0_CA_CTL0 |= _VAL2FLD(FLASHC_CM0_CA_CTL0_RAM_ECC_INJ_EN, 1U);
+        base->ECC_CTL = (_VAL2FLD(FLASHC_ECC_CTL_WORD_ADDR, (address >> CY_FLASH_CACHE_ECC_INJECT_POS)) |
                          _VAL2FLD(FLASHC_ECC_CTL_PARITY, parity ));
         break;
     default:
@@ -902,7 +1175,7 @@ cy_en_flashdrv_status_t Cy_Flashc_InjectECC(cy_en_region_t region, uint32_t addr
         break;
     }
 
-    return result;
+    return CY_FLASH_DRV_SUCCESS;
 }
 
 /*******************************************************************************
@@ -914,18 +1187,23 @@ cy_en_flashdrv_status_t Cy_Flashc_InjectECC(cy_en_region_t region, uint32_t addr
 * \note This function is applicable for CAT1C devices.
 *
 *******************************************************************************/
-void Cy_Flashc_InjectECC_Disable(cy_en_region_t region)
+void Cy_Flashc_InjectECC_Disable_Base(FLASHC_Type *base, cy_en_region_t region)
 {
+    if (!Cy_Flash_IsValidBase(base))
+    {
+        return;
+    }
+
     switch(region)
     {
     case CY_FLASH_MAIN_REGION:
-        FLASHC_FLASH_CTL &= ~FLASHC_FLASH_CTL_MAIN_ECC_INJ_EN_Msk;
+        base->FLASH_CTL &= ~FLASHC_FLASH_CTL_MAIN_ECC_INJ_EN_Msk;
         break;
     case CY_FLASH_WORK_REGION:
-        FLASHC_FLASH_CTL &= ~FLASHC_FLASH_CTL_WORK_ECC_INJ_EN_Msk;
+        base->FLASH_CTL &= ~FLASHC_FLASH_CTL_WORK_ECC_INJ_EN_Msk;
         break;
     case CY_FLASH_CA_CM0P_REGION:
-        FLASHC_FLASH_CTL &= ~FLASHC_CM0_CA_CTL0_RAM_ECC_INJ_EN_Msk;
+        base->CM0_CA_CTL0 &= ~FLASHC_CM0_CA_CTL0_RAM_ECC_INJ_EN_Msk;
         break;
     default:
         // Default case. Nothing to do.
@@ -940,24 +1218,37 @@ void Cy_Flashc_InjectECC_Disable(cy_en_region_t region)
 * Checks the status of the Flash Operation, and returns it.
 *
 *******************************************************************************/
-cy_en_flashdrv_status_t Cy_Flash_OperationStatus(void)
+cy_en_flashdrv_status_t Cy_Flash_OperationStatus_Base(FLASHC_Type *base)
 {
+    uint8_t *nonBlockContext = Cy_Flash_GetNonBlockContext(base);
     un_srom_api_resps_t resp = {{ 0UL }};
-    if(0UL != (FLASHC_FM_CTL_ECT_FLASH_STATUS & g_non_block_context))
+    if (nonBlockContext == NULL)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
+    if(0UL != (base->FM_CTL_ECT.STATUS & *nonBlockContext))
     {
         return CY_FLASH_DRV_OPERATION_STARTED;
     }
     else
     {
-        g_non_block_context = 0;
+        *nonBlockContext = 0;
         cy_en_srom_api_status_t status = Cy_Srom_GetApiResponse(&resp);
         if(CY_SROM_STATUS_SUCCESS == status)
         {
             return Cy_Flash_ProcessOpcode(resp.resp[0]);
         }
+        else if(CY_SROM_STATUS_INVALID == status)
+        {
+            /* Response not yet available or unknown format */
+            return CY_FLASH_DRV_ERR_UNC;
+        }
         else
         {
-            return CY_FLASH_DRV_ERR_UNC;
+            /* SROM returned a specific error code (e.g. INVALID_FLASH_ADDR).
+             * Process resp.resp[0] which contains the full error response. */
+            return Cy_Flash_ProcessOpcode(resp.resp[0]);
         }
 
     }
@@ -981,27 +1272,36 @@ cy_en_flashdrv_status_t Cy_Flash_OperationStatus(void)
 * user must clear the flash cache with the Cy_SysLib_ClearFlashCacheAndBuffer()
 * function.
 *
-* rowAddr Address of the flash row number.
+* \param rowAddr Address of the flash row number.
 * The Read-while-Write violation occurs when the flash read operation is
 * initiated in the same flash sector where the flash write operation is
 * performing. Refer to the device datasheet for the details.
 * Address must match row start address.
 *
-* data The pointer to the data to be written to flash. The size
+* \param data The pointer to the data to be written to flash. The size
 * of the data array must be equal to the flash row size. The flash row size for
 * the selected device is defined by the \ref CY_FLASH_SIZEOF_ROW macro. Refer to
 * the device datasheet for the details.
 *
-* Returns the status of the Flash operation,
+* \return Returns the status of the Flash operation,
 * see \ref cy_en_flashdrv_status_t.
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_StartWrite(uint32_t rowAddr, const uint32_t* data)
 {
     cy_en_flashdrv_status_t result = CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    FLASHC_Type *base;
+
+    /* Resolve base from row address */
+    if (Cy_Flash_ResolveBase(rowAddr, &base) != CY_FLASH_DRV_SUCCESS)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
+    uint8_t *nonBlockContext = Cy_Flash_GetNonBlockContext(base);
     uint32_t prog_length = (uint32_t)ADDRESS_LENGTH_32_BIT;
     uint32_t data_length = (uint32_t)DATA_LENGTH_32_BIT;
-    if (data == NULL)
+    if ((nonBlockContext == NULL) || (data == NULL))
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
@@ -1019,11 +1319,11 @@ cy_en_flashdrv_status_t Cy_Flash_StartWrite(uint32_t rowAddr, const uint32_t* da
             .intrMask  =   CY_FLASH_PROGRAMROW_SET_INTR_MASK,
         };
         /* Checks whether the input parameters are valid */
-        if(Cy_Flash_WorkBoundsCheck(rowAddr) == CY_FLASH_IN_BOUNDS)
+        if(Cy_Flash_WorkBoundsCheck(base, rowAddr) == CY_FLASH_IN_BOUNDS)
         {
             flash_programrow_config.dataSize = CY_FLASH_PROGRAMROW_DATA_SIZE_32BIT;
         }
-        else if(Cy_Flash_MainBoundsCheck(rowAddr) == CY_FLASH_IN_BOUNDS)
+        else if(Cy_Flash_MainBoundsCheck(base, rowAddr) == CY_FLASH_IN_BOUNDS)
         {
             prog_length = ADDRESS_LENGTH_256_BIT;
             data_length = DATA_LENGTH_256_BIT;
@@ -1038,11 +1338,11 @@ cy_en_flashdrv_status_t Cy_Flash_StartWrite(uint32_t rowAddr, const uint32_t* da
         {
             flash_programrow_config.destAddr = (const uint32_t *)i_addr;
             flash_programrow_config.dataAddr = (const uint32_t *)(data);
-            g_non_block_context = (uint8_t)(FLASHC_FM_CTL_ECT_STATUS_PGM_WORK_Msk | FLASHC_FM_CTL_ECT_STATUS_PGM_CODE_Msk);
+            *nonBlockContext = (uint8_t)(FLASHC_FM_CTL_ECT_STATUS_PGM_WORK_Msk | FLASHC_FM_CTL_ECT_STATUS_PGM_CODE_Msk);
             result = Cy_Flash_Program(&flash_programrow_config,CY_FLASH_DRIVER_NON_BLOCKING);
             if(result == CY_FLASH_DRV_OPERATION_STARTED)
             {
-                while((Cy_Flash_IsOperationComplete() != CY_FLASH_DRV_SUCCESS))
+                while((Cy_Flash_IsOperationComplete_Base(base) != CY_FLASH_DRV_SUCCESS))
                 {
                 }
                 data+=data_length;
@@ -1078,9 +1378,23 @@ cy_en_flashdrv_status_t Cy_Flash_StartWrite(uint32_t rowAddr, const uint32_t* da
 cy_en_flashdrv_status_t Cy_Flash_StartEraseSector(uint32_t sectorAddr)
 {
     cy_en_flashdrv_status_t result = CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    FLASHC_Type *base;
+
+    /* Resolve base from sector address */
+    if (Cy_Flash_ResolveBase(sectorAddr, &base) != CY_FLASH_DRV_SUCCESS)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
+    uint8_t *nonBlockContext = Cy_Flash_GetNonBlockContext(base);
+
+    if (nonBlockContext == NULL)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
 
     /* Checks whether the input parameters are valid */
-    if(Cy_Flash_BoundsCheck((uint32_t)(sectorAddr)) == CY_FLASH_OUT_OF_BOUNDS)
+    if(Cy_Flash_BoundsCheck(base, (uint32_t)(sectorAddr)) == CY_FLASH_OUT_OF_BOUNDS)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
@@ -1090,8 +1404,8 @@ cy_en_flashdrv_status_t Cy_Flash_StartEraseSector(uint32_t sectorAddr)
         .blocking    =  CY_FLASH_ERASESECTOR_NON_BLOCKING,
         .intrMask    =  CY_FLASH_ERASESECTOR_SET_INTR_MASK,
     };
-    g_non_block_context = (uint8_t)(FLASHC_FM_CTL_ECT_STATUS_ERASE_CODE_Msk | FLASHC_FM_CTL_ECT_STATUS_ERASE_WORK_Msk);
-    result = Cy_Flash_EraseSector_Ext(&flash_erasesector_config, CY_FLASH_DRIVER_NON_BLOCKING);
+    *nonBlockContext = (uint8_t)(FLASHC_FM_CTL_ECT_STATUS_ERASE_CODE_Msk | FLASHC_FM_CTL_ECT_STATUS_ERASE_WORK_Msk);
+    result = Cy_Flash_EraseSector_Ext(base, &flash_erasesector_config, CY_FLASH_DRIVER_NON_BLOCKING);
     if(result != CY_FLASH_DRV_SUCCESS)
     {
         return result;
@@ -1126,6 +1440,14 @@ cy_en_flashdrv_status_t Cy_Flash_StartEraseSector(uint32_t sectorAddr)
 cy_en_flashdrv_status_t Cy_Flash_ProgramRow(uint32_t rowAddr, const uint32_t* data)
 {
     cy_en_flashdrv_status_t result = CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    FLASHC_Type *base;
+
+    /* Resolve base from row address */
+    if (Cy_Flash_ResolveBase(rowAddr, &base) != CY_FLASH_DRV_SUCCESS)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+
     uint32_t prog_length = (uint32_t)ADDRESS_LENGTH_32_BIT;
     uint32_t data_length = (uint32_t)DATA_LENGTH_32_BIT;
 
@@ -1144,11 +1466,11 @@ cy_en_flashdrv_status_t Cy_Flash_ProgramRow(uint32_t rowAddr, const uint32_t* da
         .intrMask  =   CY_FLASH_PROGRAMROW_NOT_SET_INTR_MASK,
     };
     /* Checks whether the input parameters are valid */
-    if(Cy_Flash_WorkBoundsCheck(rowAddr) == CY_FLASH_IN_BOUNDS)
+    if(Cy_Flash_WorkBoundsCheck(base, rowAddr) == CY_FLASH_IN_BOUNDS)
     {
         flash_programrow_config.dataSize = CY_FLASH_PROGRAMROW_DATA_SIZE_32BIT;
     }
-    else if(Cy_Flash_MainBoundsCheck(rowAddr) == CY_FLASH_IN_BOUNDS)
+    else if(Cy_Flash_MainBoundsCheck(base, rowAddr) == CY_FLASH_IN_BOUNDS)
     {
         prog_length = ADDRESS_LENGTH_256_BIT;
         data_length = DATA_LENGTH_256_BIT;
@@ -1200,9 +1522,16 @@ cy_en_flashdrv_status_t Cy_Flash_ProgramRow(uint32_t rowAddr, const uint32_t* da
 cy_en_flashdrv_status_t Cy_Flash_EraseSector(uint32_t sectorAddr)
 {
     cy_en_flashdrv_status_t result = CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    FLASHC_Type *base;
+
+    /* Resolve base from sector address */
+    if (Cy_Flash_ResolveBase(sectorAddr, &base) != CY_FLASH_DRV_SUCCESS)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
 
     /* Checks whether the input parameters are valid */
-    if(Cy_Flash_BoundsCheck((uint32_t)(sectorAddr)) == CY_FLASH_OUT_OF_BOUNDS)
+    if(Cy_Flash_BoundsCheck(base, (uint32_t)(sectorAddr)) == CY_FLASH_OUT_OF_BOUNDS)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
@@ -1212,7 +1541,7 @@ cy_en_flashdrv_status_t Cy_Flash_EraseSector(uint32_t sectorAddr)
         .blocking    =  CY_FLASH_ERASESECTOR_BLOCKING,
         .intrMask    =  CY_FLASH_ERASESECTOR_NOT_SET_INTR_MASK,
     };
-    result = Cy_Flash_EraseSector_Ext(&flash_erasesector_config, CY_FLASH_DRIVER_BLOCKING);
+    result = Cy_Flash_EraseSector_Ext(base, &flash_erasesector_config, CY_FLASH_DRIVER_BLOCKING);
 
     return (result);
 }
@@ -1254,11 +1583,11 @@ cy_en_flashdrv_status_t Cy_Flash_CalculateHash(const uint32_t* data, uint32_t nu
 *       as a parameter. In previous versions of the driver, this function used
 *       the row <b>number</b> (rowNum) for this parameter.
 *
-* rowAddr The address of the flash row.
+* \param rowAddr The address of the flash row.
 *
-* checksumPtr The pointer to the address where checksum is to be stored
+* \param checksumPtr The pointer to the address where checksum is to be stored
 *
-* Returns the status of the Flash operation.
+* \return Returns the status of the Flash operation.
 *
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_RowChecksum(uint32_t rowAddr, uint32_t* checksumPtr)
@@ -1267,13 +1596,20 @@ cy_en_flashdrv_status_t Cy_Flash_RowChecksum(uint32_t rowAddr, uint32_t* checksu
     uint8_t rowID = 0;
     cy_en_flash_checksum_bank_t bank = CY_FLASH_CHECKSUM_BANK0;
     cy_en_flash_checksum_region_t region = CY_FLASH_CHECKSUM_MAIN;
+    FLASHC_Type *base;
 
-    /* Checks whether the input parameters are valid */
-    if ((Cy_Flash_BoundsCheck(rowAddr)== CY_FLASH_OUT_OF_BOUNDS) || (checksumPtr == NULL))
+    /* Resolve base from row address */
+    if (Cy_Flash_ResolveBase(rowAddr, &base) != CY_FLASH_DRV_SUCCESS)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
-    if (CY_FLASH_DRV_SUCCESS == Cy_Flash_GetRowDetails(rowAddr,&rowID, &bank, &region))
+
+    /* Checks whether the input parameters are valid */
+    if ((Cy_Flash_BoundsCheck(base, rowAddr)== CY_FLASH_OUT_OF_BOUNDS) || (checksumPtr == NULL))
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+    if (CY_FLASH_DRV_SUCCESS == Cy_Flash_GetRowDetails(base, rowAddr,&rowID, &bank, &region))
     {
         cy_stc_flash_checksum_config_t flash_computechecksum_config =
         {
@@ -1294,34 +1630,66 @@ cy_en_flashdrv_status_t Cy_Flash_RowChecksum(uint32_t rowAddr, uint32_t* checksu
 *
 * Returns flash region ID, Bank and row number of the Flash address.
 *******************************************************************************/
-static cy_en_flashdrv_status_t Cy_Flash_GetRowDetails(uint32_t rowAddr, uint8_t *rowID, cy_en_flash_checksum_bank_t *bank, cy_en_flash_checksum_region_t *region)
+static cy_en_flashdrv_status_t Cy_Flash_GetRowDetails(FLASHC_Type *base, uint32_t rowAddr, uint8_t *rowID, cy_en_flash_checksum_bank_t *bank, cy_en_flash_checksum_region_t *region)
 {
-    cy_en_flashdrv_status_t result = CY_FLASH_DRV_SUCCESS;
-    if (Cy_Flash_WorkBoundsCheck(rowAddr) == CY_FLASH_OUT_OF_BOUNDS)
+    cy_en_flashdrv_status_t result = CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    if (Cy_Flash_BoundsCheck(base, rowAddr) == CY_FLASH_OUT_OF_BOUNDS)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
-    cy_en_bankmode_t bankmode = Cy_Flashc_GetMainBankMode();
+
+#if defined(FLASHC1)
+    CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address comparison.');
+    bool isFlashc1 = (base == (FLASHC_Type *)FLASHC1);
+#endif
+
+    cy_en_bankmode_t bankmode = Cy_Flashc_GetMainBankMode_Base(base);
     if(bankmode == CY_FLASH_SINGLE_BANK_MODE)
     {
-
         if ((rowAddr >= CY_WFLASH_LG_SBM_TOP) && (rowAddr < CY_WFLASH_SM_SBM_END))
         {
             *rowID = (uint8_t)((CY_FLASH_REGION_ID_WFLASH << CY_FLASH_REGION_ID_SHIFT) |
                      ((rowAddr - CY_WFLASH_LG_SBM_TOP) / CY_FLASH_SIZEOF_ROW));
             *bank = CY_FLASH_CHECKSUM_BANK0;
             *region = CY_FLASH_CHECKSUM_WORK;
+            result = CY_FLASH_DRV_SUCCESS;
         }
         else if ((rowAddr >= CY_FLASH_LG_SBM_TOP) && (rowAddr < CY_FLASH_SM_SBM_END))
         {
-            *rowID = (uint8_t)((CY_FLASH_REGION_ID_WFLASH << CY_FLASH_REGION_ID_SHIFT) |
-                     ((rowAddr - CY_WFLASH_LG_SBM_TOP) / CY_FLASH_SIZEOF_ROW));
+            *rowID = (uint8_t)((CY_FLASH_REGION_ID_MAIN << CY_FLASH_REGION_ID_SHIFT) |
+                     ((rowAddr - CY_FLASH_LG_SBM_TOP) / CY_FLASH_SIZEOF_ROW));
             *bank = CY_FLASH_CHECKSUM_BANK0;
             *region = CY_FLASH_CHECKSUM_MAIN;
+            result = CY_FLASH_DRV_SUCCESS;
         }
+#if defined(FLASHC1)
+        else if (isFlashc1)
+        {
+            if ((rowAddr >= CY_WFLASH1_LG_SBM_TOP) && (rowAddr < CY_WFLASH1_SM_SBM_END))
+            {
+                *rowID = (uint8_t)((CY_FLASH_REGION_ID_WFLASH << CY_FLASH_REGION_ID_SHIFT) |
+                         ((rowAddr - CY_WFLASH1_LG_SBM_TOP) / CY_FLASH_SIZEOF_ROW));
+                *bank = CY_FLASH_CHECKSUM_BANK0;
+                *region = CY_FLASH_CHECKSUM_WORK;
+                result = CY_FLASH_DRV_SUCCESS;
+            }
+            else if ((rowAddr >= CY_FLASH1_LG_SBM_TOP) && (rowAddr < CY_FLASH1_SM_SBM_END))
+            {
+                *rowID = (uint8_t)((CY_FLASH_REGION_ID_MAIN << CY_FLASH_REGION_ID_SHIFT) |
+                         ((rowAddr - CY_FLASH1_LG_SBM_TOP) / CY_FLASH_SIZEOF_ROW));
+                *bank = CY_FLASH_CHECKSUM_BANK0;
+                *region = CY_FLASH_CHECKSUM_MAIN;
+                result = CY_FLASH_DRV_SUCCESS;
+            }
+            else
+            {
+                /* rowAddr out of bounds. */
+            }
+        }
+#endif /* defined(FLASHC1) */
         else
         {
-            /* rowAddr oout of bounds. */
+            /* rowAddr out of bounds. */
         }
     }
     else
@@ -1332,13 +1700,15 @@ static cy_en_flashdrv_status_t Cy_Flash_GetRowDetails(uint32_t rowAddr, uint8_t 
                      ((rowAddr - CY_WFLASH_LG_DBM0_TOP) / CY_FLASH_SIZEOF_ROW));
             *bank = CY_FLASH_CHECKSUM_BANK0;
             *region = CY_FLASH_CHECKSUM_WORK;
+            result = CY_FLASH_DRV_SUCCESS;
         }
         else if ((rowAddr >= CY_WFLASH_LG_DBM1_TOP) && (rowAddr < CY_WFLASH_SM_DBM1_END))
         {
             *rowID = (uint8_t)((CY_FLASH_REGION_ID_WFLASH << CY_FLASH_REGION_ID_SHIFT) |
-                     ((rowAddr - CY_WFLASH_LG_SBM_TOP) / CY_FLASH_SIZEOF_ROW));
+                     ((rowAddr - CY_WFLASH_LG_DBM1_TOP) / CY_FLASH_SIZEOF_ROW));
             *bank = CY_FLASH_CHECKSUM_BANK1;
             *region = CY_FLASH_CHECKSUM_WORK;
+            result = CY_FLASH_DRV_SUCCESS;
         }
         else if ((rowAddr >= CY_FLASH_LG_DBM0_TOP) && (rowAddr < CY_FLASH_SM_DBM0_END))
         {
@@ -1346,6 +1716,7 @@ static cy_en_flashdrv_status_t Cy_Flash_GetRowDetails(uint32_t rowAddr, uint8_t 
                      ((rowAddr - CY_FLASH_LG_DBM0_TOP) / CY_FLASH_SIZEOF_ROW));
             *bank = CY_FLASH_CHECKSUM_BANK0;
             *region = CY_FLASH_CHECKSUM_MAIN;
+            result = CY_FLASH_DRV_SUCCESS;
         }
         else if ((rowAddr >= CY_FLASH_LG_DBM1_TOP) && (rowAddr < CY_FLASH_SM_DBM1_END))
         {
@@ -1353,12 +1724,53 @@ static cy_en_flashdrv_status_t Cy_Flash_GetRowDetails(uint32_t rowAddr, uint8_t 
                      ((rowAddr - CY_FLASH_LG_DBM1_TOP) / CY_FLASH_SIZEOF_ROW));
             *bank = CY_FLASH_CHECKSUM_BANK1;
             *region = CY_FLASH_CHECKSUM_MAIN;
+            result = CY_FLASH_DRV_SUCCESS;
         }
+#if defined(FLASHC1)
+        else if (isFlashc1)
+        {
+            if ((rowAddr >= CY_WFLASH1_LG_DBM0_TOP) && (rowAddr < CY_WFLASH1_SM_DBM0_END))
+            {
+                *rowID = (uint8_t)((CY_FLASH_REGION_ID_WFLASH << CY_FLASH_REGION_ID_SHIFT) |
+                         ((rowAddr - CY_WFLASH1_LG_DBM0_TOP) / CY_FLASH_SIZEOF_ROW));
+                *bank = CY_FLASH_CHECKSUM_BANK0;
+                *region = CY_FLASH_CHECKSUM_WORK;
+                result = CY_FLASH_DRV_SUCCESS;
+            }
+            else if ((rowAddr >= CY_WFLASH1_LG_DBM1_TOP) && (rowAddr < CY_WFLASH1_SM_DBM1_END))
+            {
+                *rowID = (uint8_t)((CY_FLASH_REGION_ID_WFLASH << CY_FLASH_REGION_ID_SHIFT) |
+                         ((rowAddr - CY_WFLASH1_LG_DBM1_TOP) / CY_FLASH_SIZEOF_ROW));
+                *bank = CY_FLASH_CHECKSUM_BANK1;
+                *region = CY_FLASH_CHECKSUM_WORK;
+                result = CY_FLASH_DRV_SUCCESS;
+            }
+            else if ((rowAddr >= CY_FLASH1_LG_DBM0_TOP) && (rowAddr < CY_FLASH1_SM_DBM0_END))
+            {
+                *rowID = (uint8_t)((CY_FLASH_REGION_ID_MAIN << CY_FLASH_REGION_ID_SHIFT) |
+                         ((rowAddr - CY_FLASH1_LG_DBM0_TOP) / CY_FLASH_SIZEOF_ROW));
+                *bank = CY_FLASH_CHECKSUM_BANK0;
+                *region = CY_FLASH_CHECKSUM_MAIN;
+                result = CY_FLASH_DRV_SUCCESS;
+            }
+            else if ((rowAddr >= CY_FLASH1_LG_DBM1_TOP) && (rowAddr < CY_FLASH1_SM_DBM1_END))
+            {
+                *rowID = (uint8_t)((CY_FLASH_REGION_ID_MAIN << CY_FLASH_REGION_ID_SHIFT) |
+                         ((rowAddr - CY_FLASH1_LG_DBM1_TOP) / CY_FLASH_SIZEOF_ROW));
+                *bank = CY_FLASH_CHECKSUM_BANK1;
+                *region = CY_FLASH_CHECKSUM_MAIN;
+                result = CY_FLASH_DRV_SUCCESS;
+            }
+            else
+            {
+                /* rowAddr out of bounds. */
+            }
+        }
+#endif /* defined(FLASHC1) */
         else
         {
-            /* rowAddr oout of bounds. */
+            /* rowAddr out of bounds. */
         }
-            
     }
 
     return (result);
@@ -1404,9 +1816,9 @@ void Cy_Flash_Init(void)
 * Reports a successful operation result, reason of failure or busy status
 * ( CY_FLASH_DRV_OPCODE_BUSY ).
 *******************************************************************************/
-cy_en_flashdrv_status_t Cy_Flash_IsOperationComplete(void)
+cy_en_flashdrv_status_t Cy_Flash_IsOperationComplete_Base(FLASHC_Type *base)
 {
-    return (Cy_Flash_OperationStatus());
+    return (Cy_Flash_OperationStatus_Base(base));
 }
 
 
@@ -1417,9 +1829,12 @@ cy_en_flashdrv_status_t Cy_Flash_IsOperationComplete(void)
 * Enable writing main flash
 *
 *******************************************************************************/
-void Cy_Flashc_MainWriteEnable(void)
+void Cy_Flashc_MainWriteEnable_Base(FLASHC_Type *base)
 {
-    FLASHC_FM_CTL_ECT_MAIN_FLASH_SAFETY |= FLASHC_FM_CTL_ECT_MAIN_FLASH_SAFETY_MAINFLASHWRITEENABLE_Msk;
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FM_CTL_ECT.MAIN_FLASH_SAFETY |= FLASHC_FM_CTL_ECT_MAIN_FLASH_SAFETY_MAINFLASHWRITEENABLE_Msk;
+    }
 }
 
 /*******************************************************************************
@@ -1429,9 +1844,12 @@ void Cy_Flashc_MainWriteEnable(void)
 * Disable writing main flash
 *
 *******************************************************************************/
-void Cy_Flashc_MainWriteDisable(void)
+void Cy_Flashc_MainWriteDisable_Base(FLASHC_Type *base)
 {
-    FLASHC_FM_CTL_ECT_MAIN_FLASH_SAFETY &= (uint32_t) ~FLASHC_FM_CTL_ECT_MAIN_FLASH_SAFETY_MAINFLASHWRITEENABLE_Msk;
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FM_CTL_ECT.MAIN_FLASH_SAFETY &= (uint32_t) ~FLASHC_FM_CTL_ECT_MAIN_FLASH_SAFETY_MAINFLASHWRITEENABLE_Msk;
+    }
 }
 
 /*******************************************************************************
@@ -1441,9 +1859,12 @@ void Cy_Flashc_MainWriteDisable(void)
 * Enable writing work flash
 *
 *******************************************************************************/
-void Cy_Flashc_WorkWriteEnable(void)
+void Cy_Flashc_WorkWriteEnable_Base(FLASHC_Type *base)
 {
-    FLASHC_FM_CTL_ECT_WORK_FLASH_SAFETY |= FLASHC_FM_CTL_ECT_WORK_FLASH_SAFETY_WORKFLASHWRITEENABLE_Msk;
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FM_CTL_ECT.WORK_FLASH_SAFETY |= FLASHC_FM_CTL_ECT_WORK_FLASH_SAFETY_WORKFLASHWRITEENABLE_Msk;
+    }
 }
 
 /*******************************************************************************
@@ -1453,9 +1874,12 @@ void Cy_Flashc_WorkWriteEnable(void)
 * Disable writing work flash
 *
 *******************************************************************************/
-void Cy_Flashc_WorkWriteDisable(void)
+void Cy_Flashc_WorkWriteDisable_Base(FLASHC_Type *base)
 {
-    FLASHC_FM_CTL_ECT_WORK_FLASH_SAFETY &= (uint32_t) ~FLASHC_FM_CTL_ECT_WORK_FLASH_SAFETY_WORKFLASHWRITEENABLE_Msk;
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FM_CTL_ECT.WORK_FLASH_SAFETY &= (uint32_t) ~FLASHC_FM_CTL_ECT_WORK_FLASH_SAFETY_WORKFLASHWRITEENABLE_Msk;
+    }
 }
 
 /*******************************************************************************
@@ -1465,9 +1889,12 @@ void Cy_Flashc_WorkWriteDisable(void)
 * Enables ECC for work flash
 *
 *******************************************************************************/
-void Cy_Flashc_WorkECCEnable(void)
+void Cy_Flashc_WorkECCEnable_Base(FLASHC_Type *base)
 {
-    FLASHC_FLASH_CTL |= FLASHC_FLASH_CTL_WORK_ECC_EN_Msk;
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FLASH_CTL |= FLASHC_FLASH_CTL_WORK_ECC_EN_Msk;
+    }
 }
 
 /*******************************************************************************
@@ -1477,9 +1904,12 @@ void Cy_Flashc_WorkECCEnable(void)
 * Disables ECC for work flash
 *
 *******************************************************************************/
-void Cy_Flashc_WorkECCDisable(void)
+void Cy_Flashc_WorkECCDisable_Base(FLASHC_Type *base)
 {
-    FLASHC_FLASH_CTL &= (uint32_t) ~FLASHC_FLASH_CTL_WORK_ECC_EN_Msk;
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FLASH_CTL &= (uint32_t) ~FLASHC_FLASH_CTL_WORK_ECC_EN_Msk;
+    }
 }
 
 /*******************************************************************************
@@ -1489,9 +1919,12 @@ void Cy_Flashc_WorkECCDisable(void)
 * Enables ECC for main flash
 *
 *******************************************************************************/
-void Cy_Flashc_MainECCEnable(void)
+void Cy_Flashc_MainECCEnable_Base(FLASHC_Type *base)
 {
-    FLASHC_FLASH_CTL |= FLASHC_FLASH_CTL_MAIN_ECC_EN_Msk;
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FLASH_CTL |= FLASHC_FLASH_CTL_MAIN_ECC_EN_Msk;
+    }
 }
 
 /*******************************************************************************
@@ -1501,9 +1934,12 @@ void Cy_Flashc_MainECCEnable(void)
 * Disables ECC for main flash
 *
 *******************************************************************************/
-void Cy_Flashc_MainECCDisable(void)
+void Cy_Flashc_MainECCDisable_Base(FLASHC_Type *base)
 {
-    FLASHC_FLASH_CTL &= (uint32_t) ~FLASHC_FLASH_CTL_MAIN_ECC_EN_Msk;
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FLASH_CTL &= (uint32_t) ~FLASHC_FLASH_CTL_MAIN_ECC_EN_Msk;
+    }
 }
 
 /*******************************************************************************
@@ -1512,18 +1948,25 @@ void Cy_Flashc_MainECCDisable(void)
 *
 * Sets bank mode for work flash
 *
-* mode bank mode to be set
+* \param base Pointer to the selected FLASH controller instance.
+*
+* \param mode bank mode to be set
 *
 *******************************************************************************/
-void Cy_Flashc_SetWorkBankMode(cy_en_bankmode_t mode)
+void Cy_Flashc_SetWorkBankMode_Base(FLASHC_Type *base, cy_en_bankmode_t mode)
 {
+    if (!Cy_Flash_IsValidBase(base))
+    {
+        return;
+    }
+
     if(CY_FLASH_DUAL_BANK_MODE == mode)
     {
-        FLASHC_FLASH_CTL |= FLASHC_FLASH_CTL_WORK_BANK_MODE_Msk;
+        base->FLASH_CTL |= FLASHC_FLASH_CTL_WORK_BANK_MODE_Msk;
     }
     else
     {
-        FLASHC_FLASH_CTL &= (uint32_t) ~FLASHC_FLASH_CTL_WORK_BANK_MODE_Msk;
+        base->FLASH_CTL &= (uint32_t) ~FLASHC_FLASH_CTL_WORK_BANK_MODE_Msk;
     }
 }
 
@@ -1534,9 +1977,14 @@ void Cy_Flashc_SetWorkBankMode(cy_en_bankmode_t mode)
 * Gets current bank mode for work flash
 *
 *******************************************************************************/
-cy_en_bankmode_t Cy_Flashc_GetWorkBankMode(void)
+cy_en_bankmode_t Cy_Flashc_GetWorkBankMode_Base(FLASHC_Type *base)
 {
-   uint32_t bank_mode = _FLD2VAL(FLASHC_FLASH_CTL_WORK_BANK_MODE, FLASHC_FLASH_CTL);
+    if (!Cy_Flash_IsValidBase(base))
+     {
+          return CY_FLASH_SINGLE_BANK_MODE;
+     }
+
+    uint32_t bank_mode = _FLD2VAL(FLASHC_FLASH_CTL_WORK_BANK_MODE, base->FLASH_CTL);
    if(bank_mode == 0UL)
     {
         return CY_FLASH_SINGLE_BANK_MODE;
@@ -1553,18 +2001,25 @@ cy_en_bankmode_t Cy_Flashc_GetWorkBankMode(void)
 *
 *  Sets bank mode for main flash
 *
-*  mode bank mode to be set
+*  \param base Pointer to the selected FLASH controller instance.
+*
+*  \param mode bank mode to be set
 *
 *******************************************************************************/
-void Cy_Flashc_SetMainBankMode(cy_en_bankmode_t mode)
+void Cy_Flashc_SetMainBankMode_Base(FLASHC_Type *base, cy_en_bankmode_t mode)
 {
+   if (!Cy_Flash_IsValidBase(base))
+    {
+        return;
+    }
+
    if(CY_FLASH_DUAL_BANK_MODE == mode)
     {
-        FLASHC_FLASH_CTL |= FLASHC_FLASH_CTL_MAIN_BANK_MODE_Msk;
+        base->FLASH_CTL |= FLASHC_FLASH_CTL_MAIN_BANK_MODE_Msk;
     }
     else
     {
-        FLASHC_FLASH_CTL &= (uint32_t) ~FLASHC_FLASH_CTL_MAIN_BANK_MODE_Msk;
+        base->FLASH_CTL &= (uint32_t) ~FLASHC_FLASH_CTL_MAIN_BANK_MODE_Msk;
     }
 }
 
@@ -1575,9 +2030,14 @@ void Cy_Flashc_SetMainBankMode(cy_en_bankmode_t mode)
 *  Gets current bank mode for main flash
 *
 *******************************************************************************/
-cy_en_bankmode_t Cy_Flashc_GetMainBankMode(void)
+cy_en_bankmode_t Cy_Flashc_GetMainBankMode_Base(FLASHC_Type *base)
 {
-    uint32_t bank_mode = _FLD2VAL(FLASHC_FLASH_CTL_MAIN_BANK_MODE, FLASHC_FLASH_CTL);
+    if (!Cy_Flash_IsValidBase(base))
+    {
+        return CY_FLASH_SINGLE_BANK_MODE;
+    }
+
+    uint32_t bank_mode = _FLD2VAL(FLASHC_FLASH_CTL_MAIN_BANK_MODE, base->FLASH_CTL);
     if(bank_mode == 0UL)
     {
         return CY_FLASH_SINGLE_BANK_MODE;
@@ -1598,10 +2058,13 @@ cy_en_bankmode_t Cy_Flashc_GetMainBankMode(void)
 *
 * \return none
 *******************************************************************************/
-void Cy_Flashc_SetMain_Flash_Mapping(cy_en_maptype_t  mapping)
+void Cy_Flashc_SetMain_Flash_Mapping_Base(FLASHC_Type *base, cy_en_maptype_t  mapping)
 {
-    FLASHC_FLASH_CTL &= ~FLASHC_FLASH_CTL_MAIN_MAP_Msk;
-    FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_MAIN_MAP, mapping);
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FLASH_CTL &= ~FLASHC_FLASH_CTL_MAIN_MAP_Msk;
+        base->FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_MAIN_MAP, mapping);
+    }
 }
 
 /*******************************************************************************
@@ -1614,10 +2077,13 @@ void Cy_Flashc_SetMain_Flash_Mapping(cy_en_maptype_t  mapping)
 *
 * \return none
 *******************************************************************************/
-void Cy_Flashc_SetWork_Flash_Mapping(cy_en_maptype_t mapping)
+void Cy_Flashc_SetWork_Flash_Mapping_Base(FLASHC_Type *base, cy_en_maptype_t mapping)
 {
-    FLASHC_FLASH_CTL &= ~FLASHC_FLASH_CTL_WORK_MAP_Msk;
-    FLASHC_FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_WORK_MAP, mapping);
+    if (Cy_Flash_IsValidBase(base))
+    {
+        base->FLASH_CTL &= ~FLASHC_FLASH_CTL_WORK_MAP_Msk;
+        base->FLASH_CTL |= _VAL2FLD(FLASHC_FLASH_CTL_WORK_MAP, mapping);
+    }
 }
 
 
@@ -1653,15 +2119,27 @@ static cy_en_syspm_status_t Cy_Flash_DSCallbackFunc(cy_stc_syspm_callback_params
         break;
         case CY_SYSPM_BEFORE_TRANSITION:
         {
-            Cy_Flashc_WorkWriteDisable();
-            Cy_Flashc_MainWriteDisable();
+            Cy_Flashc_WorkWriteDisable_Base((FLASHC_Type *)FLASHC);
+            Cy_Flashc_MainWriteDisable_Base((FLASHC_Type *)FLASHC);
+#if defined(FLASHC1)
+            CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address.');
+            Cy_Flashc_WorkWriteDisable_Base((FLASHC_Type *)FLASHC1);
+            CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address.');
+            Cy_Flashc_MainWriteDisable_Base((FLASHC_Type *)FLASHC1);
+#endif
             retVal = CY_SYSPM_SUCCESS;
         }
         break;
         case CY_SYSPM_AFTER_TRANSITION:
         {
-            Cy_Flashc_WorkWriteEnable();
-            Cy_Flashc_MainWriteEnable();
+            Cy_Flashc_WorkWriteEnable_Base((FLASHC_Type *)FLASHC);
+            Cy_Flashc_MainWriteEnable_Base((FLASHC_Type *)FLASHC);
+#if defined(FLASHC1)
+            CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address.');
+            Cy_Flashc_WorkWriteEnable_Base((FLASHC_Type *)FLASHC1);
+            CY_MISRA_DEVIATE_LINE('MISRA C-2012 Rule 11.3','Intentional pointer type conversion from FLASHC1_Type to FLASHC_Type for base address.');
+            Cy_Flashc_MainWriteEnable_Base((FLASHC_Type *)FLASHC1);
+#endif
             retVal = CY_SYSPM_SUCCESS;
         }
         break;

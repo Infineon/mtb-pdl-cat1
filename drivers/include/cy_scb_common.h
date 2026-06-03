@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_common.h
-* \version 3.50
+* \version 3.60
 *
 * Provides common API declarations of the SCB driver.
 *
@@ -57,6 +57,18 @@
 *******************************************************************************
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">3.60</td>
+*     <td>Fixed \ref Cy_SCB_I2C_MasterWrite and \ref Cy_SCB_I2C_MasterRead to not enable
+*         the slave interrupt mask in \ref CY_SCB_I2C_MASTER mode, preventing issues when a slave interrupt
+*         occurs during an active master transfer.</td>
+*     <td>Bug fix.</td>
+*   </tr>
+*   <tr>
+*     <td>Fixed I2C Master-Slave mode with a zero address mask to correctly
+*         NACK own address during a master transaction.</td>
+*     <td>Bug fix.</td>
+*   </tr>
 *   <tr>
 *     <td>3.50</td>
 *     <td>Added new functions support for I2C:
@@ -509,7 +521,7 @@ __STATIC_INLINE uint32_t Cy_SCB_Get_TxDataWidth(CySCB_Type const *base);
 #define CY_SCB_DRV_VERSION_MAJOR    (3)
 
 /** Driver minor version */
-#define CY_SCB_DRV_VERSION_MINOR    (50)
+#define CY_SCB_DRV_VERSION_MINOR    (60)
 
 /** SCB driver identifier */
 #define CY_SCB_ID           CY_PDL_DRV_ID(0x2AU)

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_drv.h
-* \version 1.150
+* \version 1.160
 * Provides an API declaration of the IPC driver.
 *
 ********************************************************************************
@@ -321,6 +321,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.160</td>
+*     <td>Added CPUSS_VER2 CM7_2 and CM7_3 support.</td>
+*     <td>Code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>1.150</td>
 *     <td>Added support for alternative interrupt mapping.</td>
 *     <td>Code enhancement.</td>
@@ -544,7 +549,7 @@
 #define CY_IPC_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_IPC_DRV_VERSION_MINOR       150
+#define CY_IPC_DRV_VERSION_MINOR       160
 
 /** Defines a value to indicate that no notification events are needed */
 #define CY_IPC_NO_NOTIFICATION         (uint32_t)(0x00000000UL)
@@ -570,7 +575,13 @@
 #if (CY_CPU_CORTEX_M0P)
     #define CY_IPC_CHAN_SYSCALL         CY_IPC_CHAN_SYSCALL_CM0
 #elif (defined (CY_CPU_CORTEX_M7) && CY_CPU_CORTEX_M7) && (defined (CY_IP_M7CPUSS)) /* CM7 */
+    #if (CY_IP_M7CPUSS_VERSION == 2)
+    #define CY_IPC_CHAN_SYSCALL         ((CY_IS_CM7_CORE_3) ? CY_IPC_CHAN_SYSCALL_CM7_3 : \
+                                         (CY_IS_CM7_CORE_2) ? CY_IPC_CHAN_SYSCALL_CM7_2 : \
+                                         (CY_IS_CM7_CORE_1) ? CY_IPC_CHAN_SYSCALL_CM7_1 : CY_IPC_CHAN_SYSCALL_CM7_0)
+    #else
     #define CY_IPC_CHAN_SYSCALL         ((CY_IS_CM7_CORE_0) ? CY_IPC_CHAN_SYSCALL_CM7_0 : CY_IPC_CHAN_SYSCALL_CM7_1)
+    #endif
 #else
     #define CY_IPC_CHAN_SYSCALL         CY_IPC_CHAN_SYSCALL_CM4
 #endif  /* (CY_CPU_CORTEX_M0P) */

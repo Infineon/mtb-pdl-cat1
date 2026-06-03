@@ -1,5 +1,17 @@
 var NAVTREEINDEX36 =
 {
+"group__group__wdt__clk__src__enums.html#gad825b14b5e132304da2877abc00d20ce":[4,56,1,1],
+"group__group__wdt__clk__src__enums.html#gaf201333763681a3df52e02e745b3164a":[4,56,1,3],
+"group__group__wdt__clk__src__enums.html#gga40acd42f9cad509e991c9d105ad43206a60409584e1ad8e9fd5e1c329ed29a05b":[4,56,1,0,2],
+"group__group__wdt__clk__src__enums.html#gga40acd42f9cad509e991c9d105ad43206ab2b63e23ba509636b6a223ddce2283de":[4,56,1,0,1],
+"group__group__wdt__clk__src__enums.html#gga40acd42f9cad509e991c9d105ad43206afe72df69478aafe2f8ce5db7bb2bab4b":[4,56,1,0,0],
+"group__group__wdt__functions.html":[4,56,2],
+"group__group__wdt__functions.html#ga05f8bb5603ce46caf842bd0ad254f604":[4,56,2,8],
+"group__group__wdt__functions.html#ga0b6f3df91bd3670cc8bce387e266d945":[4,56,2,19],
+"group__group__wdt__functions.html#ga1e707a8236e6dcd90eede7e726a2648f":[4,56,2,13],
+"group__group__wdt__functions.html#ga1e7105cb2482131f03140a223caf5cc1":[4,56,2,9],
+"group__group__wdt__functions.html#ga21e7fd379fa9a0b5d475c11263ec16d5":[4,56,2,21],
+"group__group__wdt__functions.html#ga38c69c98675d6024a7d73acb41b24399":[4,56,2,12],
 "group__group__wdt__functions.html#ga3ec661a60927ab0c15e654540f55c95b":[4,56,2,16],
 "group__group__wdt__functions.html#ga405c852c5a61c72a9492f9d0d9c04213":[4,56,2,31],
 "group__group__wdt__functions.html#ga496dd75cabf55aeab95c6c1e759c7da6":[4,56,2,25],
@@ -237,17 +249,5 @@ var NAVTREEINDEX36 =
 "structcy__stc__canfd__t0__t.html":[4,4,2,3],
 "structcy__stc__canfd__t0__t.html#a038a678a0ed8c38db7f713985f199587":[4,4,2,3,0],
 "structcy__stc__canfd__t0__t.html#a8b91eed625d7f5e21119d3dc8e85d3fa":[4,4,2,3,1],
-"structcy__stc__canfd__t0__t.html#ab3f276da56ce16a05b7aca61a4a1330f":[4,4,2,3,2],
-"structcy__stc__canfd__t0__t.html#af1fc8505bfc2e785d0a2a68db5acc3a9":[4,4,2,3,3],
-"structcy__stc__canfd__t1__t.html":[4,4,2,4],
-"structcy__stc__canfd__t1__t.html#a025bf1e7fcc326c297ecdb623b036bb5":[4,4,2,4,0],
-"structcy__stc__canfd__t1__t.html#a1575c20946ae223fff0be79d15e65e00":[4,4,2,4,1],
-"structcy__stc__canfd__t1__t.html#a1b15a1b6642d510224ad474ec73c1732":[4,4,2,4,4],
-"structcy__stc__canfd__t1__t.html#a5b6f6aded1ed0a1c70a0c98f97a9190c":[4,4,2,4,3],
-"structcy__stc__canfd__t1__t.html#a9913e229c028e77db11dccaa55c01edd":[4,4,2,4,2],
-"structcy__stc__canfd__transceiver__delay__compensation__t.html":[4,4,2,11],
-"structcy__stc__canfd__transceiver__delay__compensation__t.html#aaeebd018566ae73a26f6da353a317972":[4,4,2,11,2],
-"structcy__stc__canfd__transceiver__delay__compensation__t.html#af4653b6374e2da6803a095ea56812a12":[4,4,2,11,1],
-"structcy__stc__canfd__transceiver__delay__compensation__t.html#afcbf644eab20b5a4edceef282bbf01cf":[4,4,2,11,0],
-"structcy__stc__canfd__tx__buffer__t.html":[4,4,2,5]
+"structcy__stc__canfd__t0__t.html#ab3f276da56ce16a05b7aca61a4a1330f":[4,4,2,3,2]
 };

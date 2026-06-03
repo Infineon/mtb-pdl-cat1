@@ -1,5 +1,15 @@
 var NAVTREEINDEX26 =
 {
+"group__group__sysanalog__functions__timer.html#ga34c0b9dd8111b2fdff47b7c5b1cbc0ea":[4,45,1,1,3],
+"group__group__sysanalog__functions__timer.html#ga4b9cb8e2d1afcea9ba07ec6196471f09":[4,45,1,1,1],
+"group__group__sysanalog__functions__timer.html#ga83bb150e7131864f0f8e3a06e9099cf5":[4,45,1,1,2],
+"group__group__sysanalog__functions__timer.html#gabf1f6993d098242c63769608a1e236f7":[4,45,1,1,0],
+"group__group__sysanalog__globals.html":[4,45,2],
+"group__group__sysanalog__globals.html#ga2bed42fba0641096ff28cdb776eb1548":[4,45,2,2],
+"group__group__sysanalog__globals.html#ga85e9e1cd8c1e6fe581043cbab3083017":[4,45,2,0],
+"group__group__sysanalog__globals.html#gaf0a91cc831b1e5b70b8c4327a571d4b4":[4,45,2,1],
+"group__group__sysanalog__macros.html":[4,45,0],
+"group__group__sysanalog__macros.html#gae3bb3b667e149300e34a14d88f4db49b":[4,45,0,0],
 "group__group__sysanalog__macros.html#gae7f2baafecf4dfb90e870861a804faf5":[4,45,0,2],
 "group__group__sysanalog__macros.html#gaf99b8af9b0c3dfa8f90e709527f14d0a":[4,45,0,1],
 "group__group__sysanalog__sar__select.html":[4,38,0,1],
@@ -239,15 +249,5 @@ var NAVTREEINDEX26 =
 "group__group__sysclk__clk__slow__funcs.html#gabb2d6633178611c2c0281939da363eac":[4,46,19,0,1],
 "group__group__sysclk__clk__timer.html":[4,46,22],
 "group__group__sysclk__clk__timer__enums.html":[4,46,22,1],
-"group__group__sysclk__clk__timer__enums.html#ga86912bed27349c7e5c53315a84cd040d":[4,46,22,1,0],
-"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da1624370101fb5836357e8ed40fbc62f0":[4,46,22,1,0,4],
-"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da18b91952dc6041dbf0d861456f295400":[4,46,22,1,0,0],
-"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da299d06724a9536592e2da244afffade2":[4,46,22,1,0,3],
-"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040da53409e40e5af6949dafe0230d9912550":[4,46,22,1,0,2],
-"group__group__sysclk__clk__timer__enums.html#gga86912bed27349c7e5c53315a84cd040daae7d2108717f298c79173c9e22a9efa3":[4,46,22,1,0,1],
-"group__group__sysclk__clk__timer__funcs.html":[4,46,22,0],
-"group__group__sysclk__clk__timer__funcs.html#ga11eae81c891454917909bea5de9bc9a7":[4,46,22,0,1],
-"group__group__sysclk__clk__timer__funcs.html#ga34ffff27beaafa7a391f2aac5cf38bfd":[4,46,22,0,6],
-"group__group__sysclk__clk__timer__funcs.html#ga37599d3c7ed1d0433565e4ce66351bcc":[4,46,22,0,3],
-"group__group__sysclk__clk__timer__funcs.html#ga3c024720aee53bd450eb68377a35bbf6":[4,46,22,0,4]
+"group__group__sysclk__clk__timer__enums.html#ga86912bed27349c7e5c53315a84cd040d":[4,46,22,1,0]
 };

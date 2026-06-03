@@ -13,5 +13,6 @@ var group__group__scb__i2c__macros__callback__events =
     [ "CY_SCB_I2C_MASTER_WR_IN_FIFO_EVENT", "group__group__scb__i2c__macros__callback__events.html#gaea716088b093bc6decbdbcb775462466", null ],
     [ "CY_SCB_I2C_MASTER_WR_CMPLT_EVENT", "group__group__scb__i2c__macros__callback__events.html#gaf02c69c9cef5ecd87100df9d8ec9ea0f", null ],
     [ "CY_SCB_I2C_MASTER_RD_CMPLT_EVENT", "group__group__scb__i2c__macros__callback__events.html#ga692e9cdd3ec1afa5950905558dc915d3", null ],
-    [ "CY_SCB_I2C_MASTER_ERR_EVENT", "group__group__scb__i2c__macros__callback__events.html#gad25268ddc924bd9ab5b72cbe4ddd9df8", null ]
+    [ "CY_SCB_I2C_MASTER_ERR_EVENT", "group__group__scb__i2c__macros__callback__events.html#gad25268ddc924bd9ab5b72cbe4ddd9df8", null ],
+    [ "CY_SCB_I2C_MASTER_ARB_LOST_EVENT", "group__group__scb__i2c__macros__callback__events.html#ga80f785a9d5cc262046d2401fd59036fa", null ]
 ];

@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file cyb06447bzi_d54.h
-*
-* \brief
 * CYB06447BZI-D54 device header
 *
 ********************************************************************************
@@ -573,7 +570,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"                       /*!< PSoC 6 System */
+#include "system_psoc6.h"
 
 #include "psoc6_01_config.h"
 #include "gpio_psoc6_01_124_bga.h"

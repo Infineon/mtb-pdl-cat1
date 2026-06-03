@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file cy8c6145fni_s3f71.h
-*
-* \brief
 * CY8C6145FNI-S3F71 device header
 *
 ********************************************************************************
@@ -327,7 +324,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"                       /*!< PSoC 6 System */
+#include "system_psoc6.h"
 
 #include "psoc6_03_config.h"
 #include "gpio_psoc6_03_49_wlcsp.h"

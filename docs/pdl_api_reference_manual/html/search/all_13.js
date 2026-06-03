@@ -70,7 +70,7 @@ var searchData=
   ['txchannels',['txChannels',['../structcy__stc__i2s__config__t.html#ad805d382b09d9bdb91c923f874ae0b37',1,'cy_stc_i2s_config_t']]],
   ['txchecksum_5ferror',['txChecksum_error',['../structcy__stc__lin__test__error__config__t.html#a53ad35075e509fea7c2ef6a5f412acdc',1,'cy_stc_lin_test_error_config_t']]],
   ['txchecksumstop_5ferror',['txChecksumStop_error',['../structcy__stc__lin__test__error__config__t.html#ac491f844a9f6f78e708b8df8c91cd247',1,'cy_stc_lin_test_error_config_t']]],
-  ['txcompletecb',['txCompleteCb',['../structcy__stc__smif__context__t.html#a71a18df866cf403b715696915290a8d0',1,'cy_stc_smif_context_t::txCompleteCb()'],['../structcy__stc__ethif__cb__t.html#a2c80af26283f9990960cf17f593b04c4',1,'cy_stc_ethif_cb_t::txcompletecb()']]],
+  ['txcompletecb',['txcompletecb',['../structcy__stc__ethif__cb__t.html#a2c80af26283f9990960cf17f593b04c4',1,'cy_stc_ethif_cb_t::txcompletecb()'],['../structcy__stc__smif__context__t.html#a71a18df866cf403b715696915290a8d0',1,'cy_stc_smif_context_t::txCompleteCb()']]],
   ['txdatastop_5ferror',['txDataStop_error',['../structcy__stc__lin__test__error__config__t.html#a3fbddf38deab6a0ace7f4569ecef30d0',1,'cy_stc_lin_test_error_config_t']]],
   ['txdatawidth',['txDataWidth',['../structcy__stc__scb__spi__config__t.html#a6c1579d6d98af6a80e6810a98b8d5f26',1,'cy_stc_scb_spi_config_t']]],
   ['txdmatrigger',['txDmaTrigger',['../structcy__stc__i2s__config__t.html#a92218e90b918ad769b857376fd322f3b',1,'cy_stc_i2s_config_t']]],

@@ -1,5 +1,15 @@
 var NAVTREEINDEX28 =
 {
+"group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3":[4,46,1,0,0],
+"group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec":[4,46,1,0,0,0],
+"group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a2cdb3390464a5b757b57887899bd5946":[4,46,1,0,0,1],
+"group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a2ce00792887d36f31a91719c18d07351":[4,46,1,0,0,4],
+"group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3ac8d3c0b2eddff6ca1748b592a22e92cd":[4,46,1,0,0,3],
+"group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3ae119fe43f18d709f22dd64be4435e42f":[4,46,1,0,0,2],
+"group__group__sysclk__trim.html":[4,46,10],
+"group__group__sysclk__trim__funcs.html":[4,46,10,0],
+"group__group__sysclk__trim__funcs.html#ga26186848112a8f469be2a53b31ad83e9":[4,46,10,0,0],
+"group__group__sysclk__trim__funcs.html#ga2667f9d37c5c78d8a7f6c6e94c35e714":[4,46,10,0,5],
 "group__group__sysclk__trim__funcs.html#ga6210a9bc87fc6e0159a6d2d790c789be":[4,46,10,0,3],
 "group__group__sysclk__trim__funcs.html#ga853789a9e526c8735521be673bb4dbdc":[4,46,10,0,1],
 "group__group__sysclk__trim__funcs.html#ga8b6cd3386ea750d7bf7efd095bf0e978":[4,46,10,0,4],
@@ -239,15 +249,5 @@ var NAVTREEINDEX28 =
 "group__group__syslib__macros.html#gae55b339d6807f66fad9f51d463d44b0b":[4,49,0,31],
 "group__group__syslib__macros.html#gae86c476f330a129b1a30fc84062bd83b":[4,49,0,21],
 "group__group__syslib__macros.html#gaf603dd63838423fbc41f4d27f269839d":[4,49,0,7],
-"group__group__syslib__macros.html#gafed84424a1f1d7d64613d79689a3ee23":[4,49,0,5],
-"group__group__syslib__macros.html#gaffa03f0f4964652cf1e8981829e56214":[4,49,0,25],
-"group__group__syslib__macros__assert.html":[4,49,0,1],
-"group__group__syslib__macros__assert.html#ga519c4c299506f8a54e3a99e58a435f0a":[4,49,0,1,2],
-"group__group__syslib__macros__assert.html#gaa584b31896bf8ba4e1786ef7e1eb238c":[4,49,0,1,1],
-"group__group__syslib__macros__assert.html#gaac6d3358f192068b723bc4bb50a06967":[4,49,0,1,3],
-"group__group__syslib__macros__assert.html#gab952e7b99fe6e86693d00675b13f1407":[4,49,0,1,0],
-"group__group__syslib__macros__assert.html#gabb4e5c6e694fe418794cbd8f93301532":[4,49,0,1,4],
-"group__group__syslib__macros__assert.html#gae6c8c534d15ba72d74dc23b384a28bf0":[4,49,0,1,5],
-"group__group__syslib__macros__assert.html#gaea99c6824b32df70dbeb97d87d5410a1":[4,49,0,1,6],
-"group__group__syslib__macros__reset__cause.html":[4,49,0,2]
+"group__group__syslib__macros.html#gafed84424a1f1d7d64613d79689a3ee23":[4,49,0,5]
 };

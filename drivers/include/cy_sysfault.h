@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysfault.h
-* \version 1.30
+* \version 1.40
 *
 * \brief
 * Provides an API declaration of the SysFault driver.
@@ -86,6 +86,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.40</td>
+*     <td>Added macros for CY_IP_M7CPUSS version 2 support.</td>
+*     <td>Support added for M7CPUSS version 2 devices.</td>
+*   </tr>
+*   <tr>
 *     <td>1.30</td>
 *     <td>Added enum \ref en_sysfault_source_t and new macros.</td>
 *     <td>Support added for CAT1D and enabled sysfault compilation for PSoC C3 (CAT1B).</td>
@@ -145,7 +150,7 @@ extern "C" {
 #define CY_SYSFAULT_DRV_VERSION_MAJOR    1
 
 /** Driver minor version */
-#define CY_SYSFAULT_DRV_VERSION_MINOR    30
+#define CY_SYSFAULT_DRV_VERSION_MINOR    40
 
 /** Driver ID */
 #define CY_SYSFAULT_ID CY_PDL_DRV_ID     (0x76U)
@@ -165,6 +170,11 @@ extern "C" {
 #if defined (CY_IP_MXS40SSRSS)
 #define cy_en_SysFault_source_t en_sysfault_source_t
 #define CY_SYSFAULT_NO_FAULT (((uint8_t)SRSS_FAULT_SSV) + 1U)
+#endif
+
+#if defined(CY_IP_M7CPUSS_VERSION) && (CY_IP_M7CPUSS_VERSION == 2)
+#define cy_en_SysFault_source_t en_sysfault_source_t
+#define CY_SYSFAULT_NO_FAULT (((uint8_t)SRSS_FAULT_MCWDT3) + 1U)
 #endif
 
 /** \endcond */

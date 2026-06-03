@@ -1,8 +1,5 @@
 /***************************************************************************//**
-* \file gpio_psoc6_01_116_bga_ble.h
-*
-* \brief
-* PSoC6_01 device GPIO header for 116-BGA-BLE package
+* PSOC6_01 device GPIO header for 116-BGA-BLE package
 *
 ********************************************************************************
 * \copyright

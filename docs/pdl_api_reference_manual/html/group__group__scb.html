@@ -99,6 +99,10 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td rowspan="2">3.60 </td><td>Fixed <a class="el" href="group__group__scb__i2c__master__high__level__functions.html#ga91f7a32d2a20cf3deebe01cef8d9d000">Cy_SCB_I2C_MasterWrite</a> and <a class="el" href="group__group__scb__i2c__master__high__level__functions.html#ga83185adeefa83640ac09852c9d6cf426">Cy_SCB_I2C_MasterRead</a> to not enable the slave interrupt mask in <a class="el" href="group__group__scb__i2c__enums.html#gga848386100a4d9700bf5bb790b3db3ed2ac1dc09a53d6852a737909498356978c6">CY_SCB_I2C_MASTER</a> mode, preventing issues when a slave interrupt occurs during an active master transfer. </td><td>Bug fix.  </td></tr>
+<tr>
+<td>Fixed I2C Master-Slave mode with a zero address mask to correctly NACK own address during a master transaction. </td><td>Bug fix.  </td></tr>
+<tr>
 <td>3.50 </td><td>Added new functions support for I2C:<ul>
 <li><a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga1058ef8da75ae8257a29cc6917c353c2">Cy_SCB_I2C_RegisterMasterByteReceivedCallback</a></li>
 <li><a class="el" href="group__group__scb__i2c__interrupt__functions.html#ga85d11cfcdb29446f84dbfd03227fc9a9">Cy_SCB_I2C_RegisterSlaveByteReceivedCallback</a></li>

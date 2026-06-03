@@ -1,8 +1,5 @@
 /***************************************************************************//**
-* \file gpio_psoc6_01_68_qfn_ble.h
-*
-* \brief
-* PSoC6_01 device GPIO header for 68-QFN-BLE package
+* PSOC6_01 device GPIO header for 68-QFN-BLE package
 *
 ********************************************************************************
 * \copyright

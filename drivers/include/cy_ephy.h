@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ephy.h
-* \version 1.30
+* \version 1.40
 *
 * Provides an API declaration of the Ethernet Generic PHY driver
 *
@@ -56,6 +56,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.40</td>
+*     <td>Added \ref Cy_EPHY_SetPhyAddr API and replaced hardcoded PHY address usage with per-instance PHY address.</td>
+*     <td>Added support for configurable PHY address and multi-instance use cases.</td>
+*   </tr>
+*   <tr>
 *     <td>1.30</td>
 *     <td>Updated \ref Cy_EPHY_getLinkPartnerCapabilities function.  </td>
 *     <td>Bug fixes and code enhancement.</td>
@@ -105,7 +110,7 @@ extern "C" {
 #define CY_EPHY_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_EPHY_DRV_VERSION_MINOR       30
+#define CY_EPHY_DRV_VERSION_MINOR       40
 
 /** EPHY driver ID */
 #define CY_EPHY_ID CY_PDL_DRV_ID(0x70U)
@@ -299,6 +304,7 @@ typedef struct cy_stc_ephy
 {
     cy_ephy_read_handle fnPhyRead; /**< read handle */
     cy_ephy_write_handle fnPhyWrite; /**< write handle */
+    uint32_t phyAddr; /**< PHY address */
     uint32_t phyId; /**< phy ID */
     cy_en_ephy_state_t state; /**< PHY state */
     uint32_t bmcr; /**< store the BMCR value while PHY configuration */
@@ -309,7 +315,7 @@ typedef struct cy_stc_ephy
 typedef struct cy_stc_ephy_config
 {
     uint32_t speed; /**< speed */
-    uint32_t duplex; /**< suplex mode */
+    uint32_t duplex; /**< duplex mode */
 } cy_stc_ephy_config_t;
 
 /** \} group_ephy_data_structures */
@@ -326,6 +332,8 @@ typedef struct cy_stc_ephy_config
 
 
 cy_en_ephy_status_t Cy_EPHY_Init(cy_stc_ephy_t *phy, cy_ephy_read_handle fnRead, cy_ephy_write_handle fnWrite);
+
+void Cy_EPHY_SetPhyAddr(cy_stc_ephy_t *phy, uint32_t phyAddr);
 
 cy_en_ephy_status_t Cy_EPHY_Discover(cy_stc_ephy_t *phy);
 

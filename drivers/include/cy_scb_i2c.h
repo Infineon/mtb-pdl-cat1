@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_i2c.h
-* \version 3.50
+* \version 3.60
 *
 * Provides I2C API declarations of the SCB driver.
 *
@@ -552,6 +552,8 @@ typedef struct cy_stc_scb_i2c_config
     /**
     * True - the slave address is accepted in the RX FIFO, false - the slave
     * addresses are not accepted in the RX FIFO
+    * \note When \ref slaveAddressMask allows more then one address to be accepted and
+    * \ref i2cMode is set to \ref CY_SCB_I2C_MASTER_SLAVE, this option must be true.
     */
     bool acceptAddrInFifo;
 
@@ -1012,6 +1014,10 @@ cy_en_syspm_status_t Cy_SCB_I2C_HibernateCallback(cy_stc_syspm_callback_params_t
 * Check \ref Cy_SCB_I2C_MasterGetStatus to determine the source of the error.
 */
 #define CY_SCB_I2C_MASTER_ERR_EVENT            (0x00080000UL)
+/**
+* Indicates the I2C hardware has detected an arbitration lost event.
+*/
+#define CY_SCB_I2C_MASTER_ARB_LOST_EVENT       (0x00100000UL)
 /** \} group_scb_i2c_macros_callback_events */
 
 /**
@@ -1046,6 +1052,12 @@ cy_en_syspm_status_t Cy_SCB_I2C_HibernateCallback(cy_stc_syspm_callback_params_t
 *******************************************************************************/
 
 /** \cond INTERNAL */
+
+/* Get I2C Mode */
+#define CY_SCB_I2C_CTRL_MODE_MSK     (SCB_I2C_CTRL_SLAVE_MODE_Msk | SCB_I2C_CTRL_MASTER_MODE_Msk)
+#define CY_SCB_I2C_CTRL_MODE_OFFSET  (SCB_I2C_CTRL_SLAVE_MODE_Pos)
+#define CY_SCB_I2C_MODE(base)        (((((CySCB_Type*) (base))->I2C_CTRL) & CY_SCB_I2C_CTRL_MODE_MSK) >> CY_SCB_I2C_CTRL_MODE_OFFSET)
+#define CY_SCB_I2C_GET_MODE(base)    ((cy_en_scb_i2c_mode_t)((uint32_t)(CY_SCB_I2C_MODE(base))))
 
 /* Slave statuses */
 #define CY_SCB_I2C_SLAVE_RD_CLEAR  (CY_SCB_I2C_SLAVE_RD_CMPLT  | CY_SCB_I2C_SLAVE_RD_IN_FIFO | \

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.150.1
+* \version 3.160
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,11 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.160</td>
+*     <td>Added CPUSS_VER2 CM7_2 and CM7_3 support.</td>
+*     <td></td>
+*   </tr>
 *   <tr>
 *     <td>3.150.1</td>
 *     <td>Updated description of the frequency range for \ref Cy_SysClk_EcoSetFrequency and \ref Cy_SysClk_EcoConfigure functions.</td>
@@ -993,7 +998,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   150
+#define  CY_SYSCLK_DRV_VERSION_MINOR   160
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 

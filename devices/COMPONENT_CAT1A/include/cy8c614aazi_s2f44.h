@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file cy8c614aazi_s2f44.h
-*
-* \brief
 * CY8C614AAZI-S2F44 device header
 *
 ********************************************************************************
@@ -364,7 +361,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"                       /*!< PSoC 6 System */
+#include "system_psoc6.h"
 
 #include "psoc6_02_config.h"
 #include "gpio_psoc6_02_128_tqfp.h"

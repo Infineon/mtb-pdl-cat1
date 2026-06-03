@@ -1,8 +1,5 @@
 /***************************************************************************//**
-* \file gpio_psoc6_04_64_tqfp.h
-*
-* \brief
-* PSoC6_04 device GPIO header for 64-TQFP package
+* PSOC6_04 device GPIO header for 64-TQFP package
 *
 ********************************************************************************
 * \copyright

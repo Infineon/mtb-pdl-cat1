@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_device.h
-* \version 2.1
+* \version 2.2
 *
 * This file specifies the structure for core and peripheral block HW base
 * addresses, versions, and parameters.
@@ -14,7 +14,11 @@
 #include "cy_utils.h"
 #include "cy_device_headers.h"
 #include "startup_cat1c.h"
-#include "ip/cyip_cpuss.h"
+#if (CY_IP_M7CPUSS_VERSION == 2)
+#include "cyip_cpuss_v2.h"
+#else
+#include "cyip_cpuss.h"
+#endif
 
 CY_MISRA_FP_BLOCK_START('MISRA C-2012 Rule 8.6', 1, \
 'Checked manually. The definition is a part of linker script.')
@@ -112,7 +116,7 @@ extern const cy_stc_device_t* cy_device;
 /*******************************************************************************
 *                SYSLIB
 *******************************************************************************/
-#if defined(CORE_NAME_CM7_0) || defined(CORE_NAME_CM7_1)
+#if defined(CORE_NAME_CM7_0) || defined(CORE_NAME_CM7_1) || defined(CORE_NAME_CM7_2) || defined(CORE_NAME_CM7_3)
 #define CY_SYSLIB_DELAY_CALIBRATION_FACTOR    2U
 #else
 #define CY_SYSLIB_DELAY_CALIBRATION_FACTOR    1U
@@ -429,6 +433,10 @@ extern const cy_stc_device_t* cy_device;
 #define FLASHC_CM0_STATUS            (((FLASHC_Type *)(FLASHC))->CM0_STATUS)
 #define FLASHC_CM7_0_STATUS          (((FLASHC_Type *)(FLASHC))->CM7_0_STATUS)
 #define FLASHC_CM7_1_STATUS          (((FLASHC_Type *)(FLASHC))->CM7_1_STATUS)
+#if (CY_IP_M7CPUSS_VERSION == 2)
+#define FLASHC_CM7_2_STATUS          (((FLASHC_Type *)(FLASHC))->CM7_2_STATUS)
+#define FLASHC_CM7_3_STATUS          (((FLASHC_Type *)(FLASHC))->CM7_3_STATUS)
+#endif
 #define FLASHC_CRYPTO_BUFF_CTL       (((FLASHC_Type *)(FLASHC))->CRYPTO_BUFF_CTL)
 #define FLASHC_DW0_BUFF_CTL          (((FLASHC_Type *)(FLASHC))->DW0_BUFF_CTL)
 #define FLASHC_DW1_BUFF_CTL          (((FLASHC_Type *)(FLASHC))->DW1_BUFF_CTL)
@@ -504,11 +512,6 @@ extern const cy_stc_device_t* cy_device;
 #define CPUSS_MEM_CLOCK_CTL                (((CPUSS_Type*) CPUSS_BASE)->MEM_CLOCK_CTL)
 #define CPUSS_PERI_CLOCK_CTL                (((CPUSS_Type*) CPUSS_BASE)->PERI_CLOCK_CTL)
 
-#define CPUSS_CM0_NMI_CTL(nmi)               (((volatile uint32_t *) (CPUSS->CM0_NMI_CTL))[(nmi)])
-#define CPUSS_CM7_0_NMI_CTL(nmi)             (((volatile uint32_t *) (CPUSS->CM7_0_NMI_CTL))[(nmi)])
-#define CPUSS_CM7_1_NMI_CTL(nmi)             (((volatile uint32_t *) (CPUSS->CM7_1_NMI_CTL))[(nmi)])
-
-
 #define CY_CPUSS_NOT_CONNECTED_IRQN          ((uint32_t)disconnected_IRQn)
 #define CY_CPUSS_DISCONNECTED_IRQN           ((cy_en_intr_t)CY_CPUSS_NOT_CONNECTED_IRQN)
 
@@ -516,6 +519,10 @@ extern const cy_stc_device_t* cy_device;
 #define CY_IS_CM0_CORE   ((_FLD2VAL(CPUSS_IDENTITY_MS, CPUSS_IDENTITY) == ((uint32_t)(CPUSS_MS_ID_CM0))) ? true : false)
 #define CY_IS_CM7_CORE_0 ((_FLD2VAL(CPUSS_IDENTITY_MS, CPUSS_IDENTITY) == ((uint32_t)(CPUSS_MS_ID_CM7_0))) ? true : false)
 #define CY_IS_CM7_CORE_1 ((_FLD2VAL(CPUSS_IDENTITY_MS, CPUSS_IDENTITY) == ((uint32_t)(CPUSS_MS_ID_CM7_1))) ? true : false)
+#if (CY_IP_M7CPUSS_VERSION == 2)
+#define CY_IS_CM7_CORE_2 ((_FLD2VAL(CPUSS_IDENTITY_MS, CPUSS_IDENTITY) == ((uint32_t)(CPUSS_MS_ID_CM7_2))) ? true : false)
+#define CY_IS_CM7_CORE_3 ((_FLD2VAL(CPUSS_IDENTITY_MS, CPUSS_IDENTITY) == ((uint32_t)(CPUSS_MS_ID_CM7_3))) ? true : false)
+#endif
 
 #define CPUSS_IDENTITY                       ((((CPUSS_Type *)(CPUSS_BASE))->IDENTITY))
 #define CPUSS_CM7_0_STATUS                   ((((CPUSS_Type *)(CPUSS_BASE))->CM7_0_STATUS))
@@ -530,6 +537,20 @@ extern const cy_stc_device_t* cy_device;
 #define CPUSS_CM7_1_INT_STATUS               ((((CPUSS_Type *)(CPUSS_BASE))->CM7_1_INT_STATUS))
 #define CPUSS_CM7_1_VECTOR_TABLE_BASE        (((CPUSS_Type*) CPUSS_BASE)->CM7_1_VECTOR_TABLE_BASE)
 #define CPUSS_CM7_1_NMI_CTL(nmi)             (((volatile uint32_t *) (CPUSS->CM7_1_NMI_CTL))[(nmi)])
+#if (CY_IP_M7CPUSS_VERSION == 2)
+#define CPUSS_CM7_2_STATUS                   ((((CPUSS_Type *)(CPUSS_BASE))->CM7_2_STATUS))
+#define CPUSS_FAST_2_CLOCK_CTL               (((CPUSS_Type*) CPUSS_BASE)->FAST_2_CLOCK_CTL)
+#define CPUSS_CM7_2_CTL                      (((CPUSS_Type*) CPUSS_BASE)->CM7_2_CTL)
+#define CPUSS_CM7_2_INT_STATUS               ((((CPUSS_Type *)(CPUSS_BASE))->CM7_2_INT_STATUS))
+#define CPUSS_CM7_2_VECTOR_TABLE_BASE        (((CPUSS_Type*) CPUSS_BASE)->CM7_2_VECTOR_TABLE_BASE)
+#define CPUSS_CM7_2_NMI_CTL(nmi)             (((volatile uint32_t *) (CPUSS->CM7_2_NMI_CTL))[(nmi)])
+#define CPUSS_CM7_3_STATUS                   ((((CPUSS_Type *)(CPUSS_BASE))->CM7_3_STATUS))
+#define CPUSS_FAST_3_CLOCK_CTL               (((CPUSS_Type*) CPUSS_BASE)->FAST_3_CLOCK_CTL)
+#define CPUSS_CM7_3_CTL                      (((CPUSS_Type*) CPUSS_BASE)->CM7_3_CTL)
+#define CPUSS_CM7_3_INT_STATUS               ((((CPUSS_Type *)(CPUSS_BASE))->CM7_3_INT_STATUS))
+#define CPUSS_CM7_3_VECTOR_TABLE_BASE        (((CPUSS_Type*) CPUSS_BASE)->CM7_3_VECTOR_TABLE_BASE)
+#define CPUSS_CM7_3_NMI_CTL(nmi)             (((volatile uint32_t *) (CPUSS->CM7_3_NMI_CTL))[(nmi)])
+#endif
 #define CPUSS_CM0_CTL                        (((CPUSS_Type*) CPUSS_BASE)->CM0_CTL)
 #define CPUSS_CM0_STATUS                     (((CPUSS_Type*) CPUSS_BASE)->CM0_STATUS)
 #define CPUSS_SLOW_CLOCK_CTL                 (((CPUSS_Type*) CPUSS_BASE)->SLOW_CLOCK_CTL)
@@ -563,6 +584,10 @@ extern const cy_stc_device_t* cy_device;
 #define CPUSS_CM0_SYSTEM_INT_CTL             (((CPUSS_Type *)(CPUSS_BASE))->CM0_SYSTEM_INT_CTL)
 #define CPUSS_CM7_0_SYSTEM_INT_CTL           (((CPUSS_Type *)(CPUSS_BASE))->CM7_0_SYSTEM_INT_CTL)
 #define CPUSS_CM7_1_SYSTEM_INT_CTL           (((CPUSS_Type *)(CPUSS_BASE))->CM7_1_SYSTEM_INT_CTL)
+#if (CY_IP_M7CPUSS_VERSION == 2)
+#define CPUSS_CM7_2_SYSTEM_INT_CTL           (((CPUSS_Type *)(CPUSS_BASE))->CM7_2_SYSTEM_INT_CTL)
+#define CPUSS_CM7_3_SYSTEM_INT_CTL           (((CPUSS_Type *)(CPUSS_BASE))->CM7_3_SYSTEM_INT_CTL)
+#endif
 
 #define CPUSS_SRAM_COUNT                    (1u + CPUSS_RAMC1_PRESENT + CPUSS_RAMC2_PRESENT)
 
@@ -2189,7 +2214,11 @@ we need to define this for version 2 only. */
 *******************************************************************************/
 #define CY_PROT_BASE                        ((uint32_t)PROT_BASE)
 #define CY_PROT_PC_MAX                      (8UL)
+#if (CY_IP_M7CPUSS_VERSION == 2)
+#define CY_PROT_BUS_MASTER_MASK             (0xFFFFUL)
+#else
 #define CY_PROT_BUS_MASTER_MASK             (0xFE7FUL)
+#endif
 #define PROT_MPU_MS_CTL(mpu)                (((PROT_Type*)CY_PROT_BASE)->CYMPU[(mpu)].MS_CTL)
 #define PROT_MPU_MPU_STRUCT_ADDR(base)      (((PROT_MPU_MPU_STRUCT_Type *) (base))->ADDR)
 #define PROT_MPU_MPU_STRUCT_ATT(base)       (((PROT_MPU_MPU_STRUCT_Type *) (base))->ATT)
@@ -2363,9 +2392,17 @@ extern const uint32_t IPC_BASE_PTR[CY_IPC_INSTANCES];
 #define CY_IPC_CHAN_SYSCALL_CM0             (0UL)  /* System calls for the CM0 processor */
 #define CY_IPC_CHAN_SYSCALL_CM7_0           (1UL)  /* System calls for the CM7_0 processor */
 #if (CPUSS_CM7_1_PRESENT == 1)
-#define CY_IPC_CHAN_SYSCALL_CM7_1           (2UL)  /* System calls for the CM7_1 processor */
+#if (CY_IP_M7CPUSS_VERSION == 2)
+#define CY_IPC_CHAN_SYSCALL_CM7_1           (2UL) /* System calls for the CM7_1 processor */
+#define CY_IPC_CHAN_SYSCALL_CM7_2           (3UL) /* System calls for the CM7_1 processor */
+#define CY_IPC_CHAN_SYSCALL_CM7_3           (4UL) /* System calls for the CM7_1 processor */
+#define CY_IPC_CHAN_SYSCALL_DAP             (5UL) /* System calls for the DAP */
+#define CY_IPC_CHAN_SEMA                    (6UL) /* IPC data channel for the Semaphores */
+#else
+#define CY_IPC_CHAN_SYSCALL_CM7_1           (2UL) /* System calls for the CM7_1 processor */
 #define CY_IPC_CHAN_SYSCALL_DAP             (3UL) /* System calls for the DAP */
 #define CY_IPC_CHAN_SEMA                    (4UL) /* IPC data channel for the Semaphores */
+#endif
 #else
 #define CY_IPC_CHAN_SYSCALL_CM7_1           (CY_IPC_CHANNELS)  /* This macro should not be used. This is defined only for compilation purpose */
 #define CY_IPC_CHAN_SYSCALL_DAP             (2UL) /* System calls for the DAP */

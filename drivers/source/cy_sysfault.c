@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysfault.c
-* \version 1.30
+* \version 1.40
 *
 * \brief
 * Provides an API implementation of the SysFault driver.

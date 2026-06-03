@@ -189,6 +189,18 @@
     #include "cyt4dnjbss.h"
 #elif defined (CYT4DNJBZS)
     #include "cyt4dnjbzs.h"
+#elif defined (CYT6BJ8DDS)
+    #include "cyt6bj8dds.h"
+#elif defined (CYT6BJ8DDE)
+    #include "cyt6bj8dde.h"
+#elif defined (CYT6BJBDHS)
+    #include "cyt6bjbdhs.h"
+#elif defined (CYT6BJBDHE)
+    #include "cyt6bjbdhe.h"
+#elif defined (CYT6BJCDHS)
+    #include "cyt6bjcdhs.h"
+#elif defined (CYT6BJCDHE)
+    #include "cyt6bjcdhe.h"
 #else
     #error Undefined part number. Consider updating PDL via ModusToolbox Library Manager to resolve the issue.
 #endif

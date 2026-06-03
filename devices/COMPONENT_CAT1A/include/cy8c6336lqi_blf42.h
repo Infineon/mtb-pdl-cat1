@@ -1,7 +1,4 @@
 /***************************************************************************//**
-* \file cy8c6336lqi_blf42.h
-*
-* \brief
 * CY8C6336LQI-BLF42 device header
 *
 ********************************************************************************
@@ -339,7 +336,7 @@ typedef enum {
 
 #define CPUSS_FLASHC_PA_SIZE_LOG2       0x7UL
 
-#include "system_psoc6.h"                       /*!< PSoC 6 System */
+#include "system_psoc6.h"
 
 #include "psoc6_01_config.h"
 #include "gpio_psoc6_01_68_qfn_ble.h"

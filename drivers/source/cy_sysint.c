@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_sysint.c
-* \version 1.140
+* \version 1.150
 *
 * \brief
 * Provides an API implementation of the SysInt driver.
@@ -61,7 +61,17 @@ void Cy_SysInt_SetNmiSource(cy_en_sysint_nmi_t nmiNum, IRQn_Type intrSrc)
     #elif (CY_CPU_CORTEX_M4)
         CPUSS_CM4_NMI_CTL((uint32_t)nmiNum - 1UL) = (uint32_t)intrSrc;
     #else
-        if(0UL != CY_IS_CM7_CORE_0)
+        #if (CY_IP_M7CPUSS_VERSION == 2)
+        if (0UL != CY_IS_CM7_CORE_3)
+        {
+            CPUSS_CM7_3_NMI_CTL((uint32_t)nmiNum - 1UL) = (uint32_t)intrSrc;
+        } 
+        else if (0UL != CY_IS_CM7_CORE_2)
+        {
+            CPUSS_CM7_2_NMI_CTL((uint32_t)nmiNum - 1UL) = (uint32_t)intrSrc;
+        } else
+        #endif /* (CY_IP_M7CPUSS_VERSION == 2) */
+        if (0UL != CY_IS_CM7_CORE_0)
         {
             CPUSS_CM7_0_NMI_CTL((uint32_t)nmiNum - 1UL) = (uint32_t)intrSrc;
         }
@@ -96,7 +106,17 @@ IRQn_Type Cy_SysInt_GetNmiSource(cy_en_sysint_nmi_t nmiNum)
     return ((IRQn_Type)(CPUSS_CM4_NMI_CTL((uint32_t)nmiNum - 1UL)));
     #endif
 #else
-    if(0UL != CY_IS_CM7_CORE_0)
+    #if (CY_IP_M7CPUSS_VERSION == 2)
+    if (0UL != CY_IS_CM7_CORE_3)
+    {
+        return ((cy_en_intr_t)(CPUSS_CM7_3_NMI_CTL((uint32_t)nmiNum - 1UL)));
+    }
+    else if (0UL != CY_IS_CM7_CORE_2)
+    {
+        return ((cy_en_intr_t)(CPUSS_CM7_2_NMI_CTL((uint32_t)nmiNum - 1UL)));
+    } else 
+    #endif /* (CY_IP_M7CPUSS_VERSION == 2) */
+    if (0UL != CY_IS_CM7_CORE_0)
     {
         return ((cy_en_intr_t)(CPUSS_CM7_0_NMI_CTL((uint32_t)nmiNum - 1UL)));
     }
@@ -250,6 +270,18 @@ void Cy_SysInt_SetInterruptSource(IRQn_Type IRQn, cy_en_intr_t devIntrSrc)
         CPUSS_CM0_SYSTEM_INT_CTL[devIntrSrc] = _VAL2FLD(CPUSS_CM0_SYSTEM_INT_CTL_CM0_CPU_INT_IDX, IRQn)
                                                         | CPUSS_CM0_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
     #else
+        #if (CY_IP_M7CPUSS_VERSION == 2)
+        if (0UL != CY_IS_CM7_CORE_3)
+        {
+            CPUSS_CM7_3_SYSTEM_INT_CTL[devIntrSrc] = _VAL2FLD(CPUSS_CM7_3_SYSTEM_INT_CTL_CPU_INT_IDX, IRQn)
+                                                            | CPUSS_CM7_3_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
+        }
+        else if (0UL != CY_IS_CM7_CORE_2)
+        {
+            CPUSS_CM7_2_SYSTEM_INT_CTL[devIntrSrc] = _VAL2FLD(CPUSS_CM7_2_SYSTEM_INT_CTL_CPU_INT_IDX, IRQn)
+                                                            | CPUSS_CM7_2_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
+        } else
+        #endif /* (CY_IP_M7CPUSS_VERSION == 2) */
         if (0UL != CY_IS_CM7_CORE_0)
         {
             CPUSS_CM7_0_SYSTEM_INT_CTL[devIntrSrc] = _VAL2FLD(CPUSS_CM7_0_SYSTEM_INT_CTL_CPU_INT_IDX, IRQn)
@@ -323,6 +355,16 @@ IRQn_Type Cy_SysInt_GetNvicConnection(cy_en_intr_t devIntrSrc)
             tempReg = _FLD2VAL(CPUSS_CM0_SYSTEM_INT_CTL_CM0_CPU_INT_IDX, CPUSS_CM0_SYSTEM_INT_CTL[devIntrSrc]);
         }
     #else
+        #if (CY_IP_M7CPUSS_VERSION == 2)
+        if (CY_IS_CM7_CORE_3 && (CY_SYSINT_ENABLE == _FLD2VAL(CPUSS_CM7_3_SYSTEM_INT_CTL_CPU_INT_VALID, CPUSS_CM7_3_SYSTEM_INT_CTL[devIntrSrc])))
+        {
+            tempReg = _FLD2VAL(CPUSS_CM7_3_SYSTEM_INT_CTL_CPU_INT_IDX, CPUSS_CM7_3_SYSTEM_INT_CTL[devIntrSrc]);
+        }
+        else if (CY_IS_CM7_CORE_2 && (CY_SYSINT_ENABLE == _FLD2VAL(CPUSS_CM7_2_SYSTEM_INT_CTL_CPU_INT_VALID, CPUSS_CM7_2_SYSTEM_INT_CTL[devIntrSrc])))
+        {
+            tempReg = _FLD2VAL(CPUSS_CM7_2_SYSTEM_INT_CTL_CPU_INT_IDX, CPUSS_CM7_2_SYSTEM_INT_CTL[devIntrSrc]);
+        } else
+        #endif /* (CY_IP_M7CPUSS_VERSION == 2) */
         if (CY_IS_CM7_CORE_0 && (CY_SYSINT_ENABLE == _FLD2VAL(CPUSS_CM7_0_SYSTEM_INT_CTL_CPU_INT_VALID, CPUSS_CM7_0_SYSTEM_INT_CTL[devIntrSrc])))
         {
             tempReg = _FLD2VAL(CPUSS_CM7_0_SYSTEM_INT_CTL_CPU_INT_IDX, CPUSS_CM7_0_SYSTEM_INT_CTL[devIntrSrc]);
@@ -370,6 +412,16 @@ cy_en_intr_t Cy_SysInt_GetInterruptActive(IRQn_Type IRQn)
             tempReg = _FLD2VAL(CPUSS_CM0_INT0_STATUS_SYSTEM_INT_IDX, CPUSS_CM0_INT_STATUS_BASE[locIdx]);
         }
     #else
+        #if (CY_IP_M7CPUSS_VERSION == 2)
+        if ((CY_IS_CM7_CORE_3) && (CY_SYSINT_ENABLE == _FLD2VAL(CPUSS_CM7_3_INT_STATUS_SYSTEM_INT_VALID, CPUSS_CM7_3_INT_STATUS[locIdx])))
+        {
+            tempReg = _FLD2VAL(CPUSS_CM7_3_INT_STATUS_SYSTEM_INT_IDX, CPUSS_CM7_3_INT_STATUS[locIdx]);
+        }
+        else if ((CY_IS_CM7_CORE_2) && (CY_SYSINT_ENABLE == _FLD2VAL(CPUSS_CM7_2_INT_STATUS_SYSTEM_INT_VALID, CPUSS_CM7_2_INT_STATUS[locIdx])))
+        {
+            tempReg = _FLD2VAL(CPUSS_CM7_2_INT_STATUS_SYSTEM_INT_IDX, CPUSS_CM7_2_INT_STATUS[locIdx]);
+        } else
+        #endif /* (CY_IP_M7CPUSS_VERSION == 2) */
         if((CY_IS_CM7_CORE_0) && (CY_SYSINT_ENABLE == _FLD2VAL(CPUSS_CM7_0_INT_STATUS_SYSTEM_INT_VALID, CPUSS_CM7_0_INT_STATUS[locIdx])))
         {
             tempReg = _FLD2VAL(CPUSS_CM7_0_INT_STATUS_SYSTEM_INT_IDX, CPUSS_CM7_0_INT_STATUS[locIdx]);
@@ -550,6 +602,16 @@ void Cy_SysInt_EnableSystemInt(cy_en_intr_t sysIntSrc)
         CPUSS_CM0_SYSTEM_INT_CTL[sysIntSrc] |= CPUSS_CM0_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
     }
     #if defined (CY_IP_M7CPUSS)
+    #if (CY_IP_M7CPUSS_VERSION == 2)
+    else if (CY_IS_CM7_CORE_3)
+    {
+        CPUSS_CM7_3_SYSTEM_INT_CTL[sysIntSrc] |= CPUSS_CM7_3_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
+    }
+    else if (CY_IS_CM7_CORE_2)
+    {
+        CPUSS_CM7_2_SYSTEM_INT_CTL[sysIntSrc] |= CPUSS_CM7_2_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
+    }
+    #endif /* (CY_IP_M7CPUSS_VERSION == 2) */
     else if (CY_IS_CM7_CORE_0)
     {
         CPUSS_CM7_0_SYSTEM_INT_CTL[sysIntSrc] |= CPUSS_CM7_0_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
@@ -576,6 +638,16 @@ void Cy_SysInt_DisableSystemInt(cy_en_intr_t sysIntSrc)
         CPUSS->CM0_SYSTEM_INT_CTL[sysIntSrc] &= (uint32_t) ~CPUSS_CM0_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
     }
     #if defined (CY_IP_M7CPUSS)
+    #if (CY_IP_M7CPUSS_VERSION == 2)
+    else if (CY_IS_CM7_CORE_3)
+    {
+        CPUSS->CM7_3_SYSTEM_INT_CTL[sysIntSrc] &= (uint32_t) ~CPUSS_CM7_3_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
+    }
+    else if (CY_IS_CM7_CORE_2)
+    {
+        CPUSS->CM7_2_SYSTEM_INT_CTL[sysIntSrc] &= (uint32_t) ~CPUSS_CM7_2_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;
+    }
+    #endif /* (CY_IP_M7CPUSS_VERSION == 2) */
     else if (CY_IS_CM7_CORE_0)
     {
         CPUSS->CM7_0_SYSTEM_INT_CTL[sysIntSrc] &= (uint32_t) ~CPUSS_CM7_0_SYSTEM_INT_CTL_CPU_INT_VALID_Msk;

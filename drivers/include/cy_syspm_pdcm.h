@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_pdcm.h
-* \version 5.150
+* \version 5.210
 *
 * This file provides the header for PDCM driver, where the APIs are used
 * by Syspm driver and BTSS driver.
@@ -39,21 +39,6 @@
 *
 * \section group_syspm_pdcm_MISRA MISRA-C Compliance
 * The PDCM driver does not have any specific deviations.
-*
-* \section group_syspm_pdcm_changelog Changelog
-* <table class="doxtable">
-*   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
-*   <tr>
-*     <td>5.150</td>
-*     <td>Version updated to match SYSPM driver.</td>
-*     <td></td>
-*   </tr>
-*   <tr>
-*     <td>1.0</td>
-*     <td>Initial version</td>
-*     <td></td>
-*   </tr>
-* </table>
 *
 * \defgroup group_syspm_pdcm_macros Macros
 * \defgroup group_syspm_pdcm_functions Functions
