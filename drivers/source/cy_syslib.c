@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.90.1
+* \version 3.100.0
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
@@ -518,6 +518,9 @@ void Cy_SysLib_SetWaitStates(bool ulpMode, uint32_t clkHfMHz)
     }
 
     FLASHC_FLASH_CTL = _CLR_SET_FLD32U(FLASHC_FLASH_CTL, FLASHC_FLASH_CTL_WS, waitStates);
+    #if defined(FLASHC1)
+    FLASHC1_FLASH_CTL = _CLR_SET_FLD32U(FLASHC1_FLASH_CTL, FLASHC1_FLASH_CTL_WS, waitStates);
+    #endif
 
 #else
     if (ulpMode)

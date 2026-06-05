@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.90.1
+* \version 3.100.0
 *
 * Provides an API declaration of the SysLib driver.
 *
@@ -132,6 +132,10 @@
 * \section group_syslib_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.100.0</td>
+*     <td>Added FLASHC1 support to \ref Cy_SysLib_SetWaitStates function.</td>
+*   </tr>
 *   <tr>
 *     <td>3.90.1</td>
 *     <td>Updated \ref Cy_SysLib_GetDeviceLCS function description.</td>
@@ -650,7 +654,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    90
+#define CY_SYSLIB_DRV_VERSION_MINOR    100
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN

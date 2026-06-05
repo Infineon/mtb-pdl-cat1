@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_device.h
-* \version 2.2
+* \version 2.3
 *
 * This file specifies the structure for core and peripheral block HW base
 * addresses, versions, and parameters.
@@ -412,6 +412,7 @@ extern const cy_stc_device_t* cy_device;
 /*******************************************************************************
 *                FLASHC
 *******************************************************************************/
+
 #if ((CPUSS_FLASHC_PRESENT == 1) && (CPUSS_FLASHC_ECT == 1))
 #define CY_IP_MXFLASHC_VERSION_ECT
 #endif
@@ -448,6 +449,41 @@ extern const cy_stc_device_t* cy_device;
 #define FLASHC_FM_CTL_ECT_WORK_FLASH_SAFETY (((FLASHC_FM_CTL_ECT_Type *)(FLASHC_FM_CTL_ECT))->WORK_FLASH_SAFETY)
 #define FLASHC_FM_CTL_ECT_MAIN_FLASH_SAFETY (((FLASHC_FM_CTL_ECT_Type *)(FLASHC_FM_CTL_ECT))->MAIN_FLASH_SAFETY)
 #define FLASHC_FM_CTL_ECT_FLASH_STATUS (((FLASHC_FM_CTL_ECT_Type *)(FLASHC_FM_CTL_ECT))->STATUS)
+
+
+/*******************************************************************************
+*                FLASHC1
+*******************************************************************************/
+
+#if defined(FLASHC1)
+#define FLASHC1_FLASH_CTL             (((FLASHC1_Type *)(FLASHC1))->FLASH_CTL)
+#define FLASHC1_FLASH_PWR_CTL         (((FLASHC1_Type *)(FLASHC1))->FLASH_PWR_CTL)
+#define FLASHC1_FLASH_CMD             (((FLASHC1_Type *)(FLASHC1))->FLASH_CMD)
+#define FLASHC1_ECC_CTL               (((FLASHC1_Type *)(FLASHC1))->ECC_CTL)
+#define FLASHC1_FM_SRAM_ECC_CTL0      (((FLASHC1_Type *)(FLASHC1))->FM_SRAM_ECC_CTL0)
+#define FLASHC1_FM_SRAM_ECC_CTL1      (((FLASHC1_Type *)(FLASHC1))->FM_SRAM_ECC_CTL1)
+#define FLASHC1_FM_SRAM_ECC_CTL2      (((FLASHC1_Type *)(FLASHC1))->FM_SRAM_ECC_CTL2)
+#define FLASHC1_FM_SRAM_ECC_CTL3      (((FLASHC1_Type *)(FLASHC1))->FM_SRAM_ECC_CTL3)
+#define FLASHC1_CM0_CA_CTL0           (((FLASHC1_Type *)(FLASHC1))->CM0_CA_CTL0)
+#define FLASHC1_CM0_CA_CTL1           (((FLASHC1_Type *)(FLASHC1))->CM0_CA_CTL1)
+#define FLASHC1_CM0_CA_CTL2           (((FLASHC1_Type *)(FLASHC1))->CM0_CA_CTL2)
+#define FLASHC1_CM0_CA_STATUS0        (((FLASHC1_Type *)(FLASHC1))->CM0_CA_STATUS0)
+#define FLASHC1_CM0_CA_STATUS1        (((FLASHC1_Type *)(FLASHC1))->CM0_CA_STATUS1)
+#define FLASHC1_CM0_CA_STATUS2        (((FLASHC1_Type *)(FLASHC1))->CM0_CA_STATUS2)
+#define FLASHC1_CM0_STATUS            (((FLASHC1_Type *)(FLASHC1))->CM0_STATUS)
+#define FLASHC1_CM7_0_STATUS          (((FLASHC1_Type *)(FLASHC1))->CM7_0_STATUS)
+#define FLASHC1_CM7_1_STATUS          (((FLASHC1_Type *)(FLASHC1))->CM7_1_STATUS)
+#if (CY_IP_M7CPUSS_VERSION == 2)
+#define FLASHC1_CM7_2_STATUS          (((FLASHC1_Type *)(FLASHC1))->CM7_2_STATUS)
+#define FLASHC1_CM7_3_STATUS          (((FLASHC1_Type *)(FLASHC1))->CM7_3_STATUS)
+#endif
+#define FLASHC1_CRYPTO_BUFF_CTL       (((FLASHC1_Type *)(FLASHC1))->CRYPTO_BUFF_CTL)
+#define FLASHC1_DW0_BUFF_CTL          (((FLASHC1_Type *)(FLASHC1))->DW0_BUFF_CTL)
+#define FLASHC1_DW1_BUFF_CTL          (((FLASHC1_Type *)(FLASHC1))->DW1_BUFF_CTL)
+#define FLASHC1_DMAC_BUFF_CTL         (((FLASHC1_Type *)(FLASHC1))->DMAC_BUFF_CTL)
+#define FLASHC1_SLOW0_MS_BUFF_CTL     (((FLASHC1_Type *)(FLASHC1))->SLOW0_MS_BUFF_CTL)
+#define FLASHC1_SLOW1_MS_BUFF_CTL     (((FLASHC1_Type *)(FLASHC1))->SLOW1_MS_BUFF_CTL)
+#endif
 
 /*******************************************************************************
 *                SFLASH
