@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_hb_flash.c
-* \version 2.140
+* \version 2.140.1
 *
 * \brief
 *  This file provides the source code for the Hyper Bus APIs of the SMIF driver.

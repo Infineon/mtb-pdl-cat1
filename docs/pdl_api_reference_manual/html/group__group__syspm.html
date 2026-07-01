@@ -171,6 +171,13 @@ Power Modes</h2>
 <li>SRSS implements an ARM Power Policy Unit (PPU) that provides the software interface to power mode control for VCCACT_PD.The PPU interacts with a Power Control State Machine (PSCM) that interfaces with the core SRSS to enter/exit DEEPSLEEP*.</li>
 <li>SRSS implements a Power Dependency Control Matrix (PDCM) that allows hardware and software to specify dependencies between power domains.</li>
 </ul>
+<p>For CAT1B, several macros are available to reduce memory footprint when specific Deep Sleep features are not used.</p><ul>
+<li><b>CY_DISABLE_WARM_BOOT</b> - Removes warm-boot related code from the BSP and the SysPm driver. The DEEPSLEEP-RAM mode remains available, but the wake-up procedure must be handled by the application.</li>
+<li><b>CY_DISABLE_DEEP_SLEEP_RAM</b> - Removes DEEPSLEEP-RAM mode related code from the build, including warm-boot related code.</li>
+<li><b>CY_DISABLE_DEEP_SLEEP_OFF</b> - Removes DEEPSLEEP-OFF mode related code from the build.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>CY_DISABLE_DEEP_SLEEP_RAM and CY_DISABLE_DEEP_SLEEP_OFF can be used together.</dd></dl>
+<p>You can define these macros globally using the DEFINES variable in the project Makefile.</p>
 <p><b>C) CAT1C Architecture</b>:</p>
 <p>1) CAT1C MCU's can operate in different power modes that are intended to minimize the average power consumption in an application. The power modes supported by CATC devices in the order of decreasing power consumption are:</p><ul>
 <li><b>ACTIVE </b> - all peripherals are available</li>
@@ -434,6 +441,10 @@ Changelog</h1>
 <table class="doxtable">
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
+<tr>
+<td rowspan="2">5.220 </td><td>Added CY_DISABLE_WARM_BOOT, CY_DISABLE_DEEP_SLEEP_RAM and CY_DISABLE_DEEP_SLEEP_OFF macro options to exclude Warm Boot, DEEPSLEEP-RAM and DEEPSLEEP-OFF related code from the build when these features are not required. </td><td>Code size optimization for CAT1B devices.  </td></tr>
+<tr>
+<td>Fixed <a class="el" href="group__group__syspm__functions__power.html#gaca7c8f1ab6d555530a68978269198836">Cy_SysPm_SystemEnterUlp</a>, <a class="el" href="group__group__syspm__functions__power.html#ga72531fcca015df727a163b510639a334">Cy_SysPm_SystemEnterLp</a>, <a class="el" href="group__group__syspm__functions__power.html#ga1c8129f8b9bcd59c5ebe481e5b2bee0a">Cy_SysPm_SystemEnterMf</a> and <a class="el" href="group__group__syspm__functions__power.html#ga4705a9e0f53272b83c7268bc168f597a">Cy_SysPm_SystemEnterOd</a> functions logic to always set the LDO voltage. </td><td>Bug fixes.  </td></tr>
 <tr>
 <td>5.210 </td><td>Added CM7_2 and CM7_3 power status support in <a class="el" href="group__group__syspm__functions__power__status.html#ga2b25c32ff6bc5f899352e4a8102af23f">Cy_SysPm_ReadStatus</a>, <a class="el" href="group__group__syspm__functions__power__status.html#gaedc88873d19449d733cb529453c9cdc5">Cy_SysPm_Cm7IsActive</a>, <a class="el" href="group__group__syspm__functions__power__status.html#ga0df948c8addc2c24d32895388d64374f">Cy_SysPm_Cm7IsSleep</a>, and <a class="el" href="group__group__syspm__functions__power__status.html#ga3ac97e5b392cb7b1bd9f7e7ca62da6a6">Cy_SysPm_Cm7IsDeepSleep</a> APIs. </td><td>Support added for M7CPUSS version 2 devices with CM7_2 and CM7_3 cores.  </td></tr>
 <tr>

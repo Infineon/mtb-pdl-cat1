@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_ecc_ecdsa.c
-* \version 2.150
+* \version 2.150.1
 *
 * \brief
 *  This file provides constant and parameters for the API for the ECC ECDSA

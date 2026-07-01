@@ -1,14 +1,36 @@
-# MTB CAT1 Peripheral Driver Library v3.22.1
+# MTB CAT1 Peripheral Driver Library v3.23.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
 for a complete description of the Peripheral Driver Library.
 
 ## Implementation Details
-* Added FLASHC1 support to the Cy_SysLib_SetWaitStates API.
+* Reduced memory footprint for PSOC C3 and CYW20829 devices
+
+## Personality Changes
+
+* Updated Personalities:
+  * platform:
+    * hfclk-3.0.cypersonality and hfclk-4.0.cypersonality (Made CY_CFG_SYSCLK_CLKHFX_FREQ_MHZ parameter public (where X is the CLKHF number), enabling access in user code)
+    * pathmux-3.0.cypersonality (Added support for loop-based clock initialization to reduce code size. Applicable for PSOC C3 and CYW20829 devices.)
+    * sysclock-3.0.cypersonality (Optimized clock initialization using loops instead of repetitive function calls, reducing memory consumption. Applicable for PSOC C3 and CYW20829 devices.)
+    * power_v2-1.0.cypersonality (Refactored to use low-level functions for Power profile configuration, improving efficiency. Applicable for PSOC C3 and CYW20829 devices.)
+    * imo-3.0.cypersonality (Updated IMO accuracy handling for PSOC C3 to deterministically report 2%, hid non-applicable trim controls, and excluded PSOC C3 from USB-trim guidance DRC.)
 
 ## Updated Drivers
-* [SYSLIB 3.100](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
+* [SYSCLK 3.170](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [SYSPM 5.220](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [SYSLIB 3.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
+* [ADCMIC 1.10.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__adcmic.html)
+* [EFUSE 2.40.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__efuse.html)
+* [FLASH 3.150.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
+* [IPC 1.160.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
+* [MCWDT 1.100.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
+* [MS_CTL 1.2.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ms__ctl.html)
+* [MXSDIODEV 2.0.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sdiodev.html)
+* [SMIF 2.140.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
+* [USBFS 2.30.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__usbfs__dev__drv.html)
+* [CRYPTO 2.150.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
 
 ## Known Issues
 
@@ -35,6 +57,13 @@ for a complete description of the Peripheral Driver Library.
 
 
 ## Defect Fixes
+
+* SYSLIB: Fixed CAT1B LCS decoding by masking the source register to 16 bits in `Cy_SysLib_GetDeviceLCS()`.
+
+* Fixed IMO clock accuracy display for PSOC C3 devices by aligning effective IMO accuracy to +/-2% in Device Configurator and removing inconsistent trim-dependent behavior.
+* Fixed CAT1B PSC3 FLL max output frequency limit in device headers from 96 MHz to 100 MHz, aligning with TRM and avoiding incorrect `BAD_PARAM` results in SYSCLK FLL configuration for valid frequencies.
+* Documentation update: removed Cypress mentions from driver documentation.
+* Fixed Cy_SysClk_FllOutputDividerEnable() corrupting CLK_FLL_CONFIG fields.
 
 See the Changelog section of each Driver in the [PDL API Reference](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/modules.html) for all fixes and updates.
 

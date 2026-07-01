@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.h
-* \version 3.100.0
+* \version 3.110.0
 *
 * Provides an API declaration of the SysLib driver.
 *
@@ -55,12 +55,12 @@
 * Use the CY_ASSERT() macro to check expressions that must be true if the
 * program is running correctly. It is a convenient way to insert sanity checks.
 * The CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the
-* <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a>.
+* <a href="https://github.com/Infineon/core-lib">Infineon Core Library (core-lib)</a>.
 * The macro behavior is as follows: if the expression passed
 *  to the macro is false, the CPU is halted. \n
 *
 * Starting from the driver version 2.50, the CY_ASSERT macro was moved
-* to the Cypress Core Library (core-lib). Also, the CY_ASSERT implementation
+* to the Infineon Core Library (core-lib). Also, the CY_ASSERT implementation
 * was changed not to call Cy_SysLib_AssertFailed() function, so user application
 * that relied on that should take this change into account. \n
 *
@@ -68,7 +68,7 @@
 * The PDL source code uses this assert mechanism extensively. It is recommended
 * that you enable asserts when debugging firmware. \n
 * <b> Assertion Classes and Levels </b> <br />
-* The <a href="https://github.com/Infineon/core-lib">Cypress Core Library</a>
+* The <a href="https://github.com/Infineon/core-lib">Infineon Core Library</a>
 * defines three assert classes, which correspond to different
 * kinds of parameters. There is a corresponding assert "level" for each class.
 * <table class="doxtable">
@@ -133,7 +133,16 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
-*     <td>3.100.0</td>
+*     <td rowspan="2">3.110</td>
+*     <td>Fix CAT1B LCS decoding by masking the source register to 16 bits.</td>
+*     <td>Bug fix.</td>
+*   </tr>
+*   <tr>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
+*   <tr>
+*     <td>3.100</td>
 *     <td>Added FLASHC1 support to \ref Cy_SysLib_SetWaitStates function.</td>
 *   </tr>
 *   <tr>
@@ -253,7 +262,7 @@
 *     <td>2.60.1</td>
 *     <td>Updated the Configuration Considerations section with the information that
 *         CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the
-*         <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a>
+*         <a href="https://github.com/Infineon/core-lib">Infineon Core Library (core-lib)</a>
 *     <td>Documentation update and clarification.</td>
 *   </tr>
 *   <tr>
@@ -654,7 +663,7 @@ typedef enum
 #define CY_SYSLIB_DRV_VERSION_MAJOR    3
 
 /** The driver minor version */
-#define CY_SYSLIB_DRV_VERSION_MINOR    100
+#define CY_SYSLIB_DRV_VERSION_MINOR    110
 
 /** Define start of the function placed to the SRAM area by the linker */
 #ifndef CY_SECTION_RAMFUNC_BEGIN

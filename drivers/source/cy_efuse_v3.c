@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_efuse_v3.c
-* \version 2.40
+* \version 2.40.1
 *
 * \brief
 * Provides API implementation of the eFuse version_3 driver.

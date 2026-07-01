@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.210
+* \version 5.220
 *
 * Provides the function definitions for the power management API.
 *
@@ -142,6 +142,20 @@
 * to enter/exit DEEPSLEEP*.
 * * SRSS implements a Power Dependency Control Matrix (PDCM) that allows hardware
 * and software to specify dependencies between power domains.
+*
+* For CAT1B, several macros are available to reduce memory footprint when specific
+* Deep Sleep features are not used.
+* * <b>CY_DISABLE_WARM_BOOT</b> - Removes warm-boot related code from the BSP and
+* the SysPm driver. The DEEPSLEEP-RAM mode remains available, but the wake-up
+* procedure must be handled by the application.
+* * <b>CY_DISABLE_DEEP_SLEEP_RAM</b> - Removes DEEPSLEEP-RAM mode related code from
+* the build, including warm-boot related code.
+* * <b>CY_DISABLE_DEEP_SLEEP_OFF</b> - Removes DEEPSLEEP-OFF mode related code from
+* the build.
+*
+* \note CY_DISABLE_DEEP_SLEEP_RAM and CY_DISABLE_DEEP_SLEEP_OFF can be used together.
+*
+* You can define these macros globally using the DEFINES variable in the project Makefile.
 *
 * <b>C) CAT1C Architecture</b>:
 *
@@ -845,6 +859,19 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">5.220</td>
+*     <td>Added CY_DISABLE_WARM_BOOT, CY_DISABLE_DEEP_SLEEP_RAM and CY_DISABLE_DEEP_SLEEP_OFF
+*         macro options to exclude Warm Boot, DEEPSLEEP-RAM and DEEPSLEEP-OFF related code
+*         from the build when these features are not required.</td>
+*     <td>Code size optimization for CAT1B devices.</td>
+*   </tr>
+*   <tr>
+*     <td>Fixed \ref Cy_SysPm_SystemEnterUlp, \ref Cy_SysPm_SystemEnterLp,
+*         \ref Cy_SysPm_SystemEnterMf and \ref Cy_SysPm_SystemEnterOd functions
+*         logic to always set the LDO voltage.</td>
+*     <td>Bug fixes.</td>
+*   </tr>
 *   <tr>
 *     <td>5.210</td>
 *     <td>Added CM7_2 and CM7_3 power status support in
@@ -1778,7 +1805,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       210
+#define CY_SYSPM_DRV_VERSION_MINOR       220
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -1903,6 +1930,18 @@ extern "C" {
 #endif /* (CY_IP_MXS40SRSS_VERSION >= 2) */
 #endif /* defined (CY_IP_MXS40SRSS) */
 
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
+#define CY_SYSPM_DEEPSLEEP_RAM_VALID(x)     || ((x) == CY_SYSPM_DEEPSLEEP_RAM)
+#else
+#define CY_SYSPM_DEEPSLEEP_RAM_VALID(x)
+#endif
+
+#if !defined(CY_DISABLE_DEEP_SLEEP_OFF)
+#define CY_SYSPM_DEEPSLEEP_OFF_VALID(x)     || ((x) == CY_SYSPM_DEEPSLEEP_OFF)
+#else
+#define CY_SYSPM_DEEPSLEEP_OFF_VALID(x)
+#endif
+
 #if defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 
 /**
@@ -1910,9 +1949,9 @@ extern "C" {
 * This macro is available for CAT1D devices.
 **/
 #define CY_SYSPM_IS_CALLBACK_TYPE_VALID(type)           (((type) == CY_SYSPM_SLEEP)         || \
-                                                         ((type) == CY_SYSPM_DEEPSLEEP)     || \
-                                                         ((type) == CY_SYSPM_DEEPSLEEP_RAM) || \
-                                                         ((type) == CY_SYSPM_DEEPSLEEP_OFF) || \
+                                                         ((type) == CY_SYSPM_DEEPSLEEP)        \
+                                                         CY_SYSPM_DEEPSLEEP_RAM_VALID(type)    \
+                                                         CY_SYSPM_DEEPSLEEP_OFF_VALID(type) || \
                                                          ((type) == CY_SYSPM_LP) || \
                                                          ((type) == CY_SYSPM_ULP) || \
                                                          ((type) == CY_SYSPM_HP) || \
@@ -2065,12 +2104,14 @@ extern "C" {
 **/
 
 /* Macro to validate deep sleep modes in Cy_SysPm_CpuEnterDeepSleep() function */
-#define CY_SYSPM_IS_DEEPSLEEP_MODE_VALID(mode)             (((mode) == CY_SYSPM_DEEPSLEEP)     || \
-                                                            ((mode) == CY_SYSPM_DEEPSLEEP_RAM) || \
-                                                            ((mode) == CY_SYSPM_DEEPSLEEP_OFF))
+#define CY_SYSPM_IS_DEEPSLEEP_MODE_VALID(mode)             (((mode) == CY_SYSPM_DEEPSLEEP)        \
+                                                            CY_SYSPM_DEEPSLEEP_RAM_VALID(mode)    \
+                                                            CY_SYSPM_DEEPSLEEP_OFF_VALID(mode))
 /* Macro to validate parameters in Cy_SysPm_SetupDeepSleepRAM() function */
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
 #define CY_SYSPM_IS_DSRAM_CHECK_VALID(dsramCheck)          (((dsramCheck) == CY_SYSPM_PRE_DSRAM) || \
                                                             ((dsramCheck) == CY_SYSPM_POST_DSRAM))
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
 
 /* Macro to validate core buck mode in Cy_SysPm_CoreBuckConfig() function */
 #define CY_SYSPM_IS_CORE_BUCK_MODE_VALID(mode)           (((mode) == CY_SYSPM_CORE_BUCK_MODE_LP)     || \
@@ -2092,9 +2133,9 @@ extern "C" {
 #define CY_SYSPM_IS_CALLBACK_TYPE_VALID(type)           (((type) == CY_SYSPM_SLEEP)         || \
                                                          ((type) == CY_SYSPM_LPACTIVE_ENTER)|| \
                                                          ((type) == CY_SYSPM_LPACTIVE_EXIT) || \
-                                                         ((type) == CY_SYSPM_DEEPSLEEP)     || \
-                                                         ((type) == CY_SYSPM_DEEPSLEEP_RAM) || \
-                                                         ((type) == CY_SYSPM_DEEPSLEEP_OFF) || \
+                                                         ((type) == CY_SYSPM_DEEPSLEEP)        \
+                                                         CY_SYSPM_DEEPSLEEP_RAM_VALID(type)    \
+                                                         CY_SYSPM_DEEPSLEEP_OFF_VALID(type) || \
                                                          ((type) == CY_SYSPM_HIBERNATE))
 
 
@@ -4533,8 +4574,10 @@ bool Cy_SysPm_IsSystemLpActiveEnabled(void);
 *******************************************************************************/
 
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
 void Cy_SysPm_StoreDSContext_Wfi(void);
 #endif
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
 
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 
@@ -8981,6 +9024,7 @@ void Cy_SysPm_BackupWordReStore(uint32_t wordIndex, uint32_t *wordDstPointer, ui
 #endif  /* (defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS40SRSS)) && (defined (SRSS_BACKUP_PRESENT) && (SRSS_BACKUP_PRESENT == 1u)) || defined (CY_DOXYGEN) */
 
 #if defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN)
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
 /*******************************************************************************
 * Function Name: Cy_SysPm_SetupDeepSleepRAM
 ****************************************************************************//**
@@ -9022,6 +9066,7 @@ cy_en_syspm_status_t Cy_SysPm_SetupDeepSleepRAM(cy_en_syspm_dsram_checks_t dsram
 *
 *******************************************************************************/
 cy_en_syspm_status_t Cy_SysPm_CpuEnterRAMOffDeepSleep(void);
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
 
 #endif  /* defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN) */
 

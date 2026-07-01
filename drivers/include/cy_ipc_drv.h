@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_drv.h
-* \version 1.160
+* \version 1.160.1
 * Provides an API declaration of the IPC driver.
 *
 ********************************************************************************
@@ -320,6 +320,11 @@
 *
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.160.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
 *   <tr>
 *     <td>1.160</td>
 *     <td>Added CPUSS_VER2 CM7_2 and CM7_3 support.</td>

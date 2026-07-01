@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file  cy_ms_ctl.c
-* \version 1.2
+* \version 1.2.1
 *
 * \brief
 * Provides an API implementation of the master security control driver.

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_mem.h
-* \version 2.150
+* \version 2.150.1
 *
 * \brief
 *  This file provides the headers for the memory management API

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_pipe.h
-* \version 1.150
+* \version 1.160.1
 *
 *  Description:
 *   IPC Pipe Driver - This header file contains all the function prototypes,
@@ -76,7 +76,7 @@
 
 /*
  * This section defines the system level constants required to define
- * callback arrays for the Cypress pipe and the user pipe.  These defines
+ * callback arrays for the Infineon pipe and the user pipe.  These defines
  * are used for both the max callback count and maximum clients.
 */
 
@@ -97,7 +97,7 @@ typedef cy_ipc_pipe_callback_ptr_t *cy_ipc_pipe_callback_array_ptr_t;
 
 /*
  * The System pipe address is what is used to send a message to one of the
- * endpoints of a pipe.  Currently the Cypress pipe and the User pipe
+ * endpoints of a pipe.  Currently the Infineon pipe and the User pipe
  * are supported.  For parts with extra IPC channels users may create
  * their own custom pipes and create their own pipe addresses.
  *

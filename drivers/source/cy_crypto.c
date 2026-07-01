@@ -1,9 +1,9 @@
 /***************************************************************************//**
 * \file cy_crypto.c
-* \version 2.150
+* \version 2.150.1
 *
 * \brief
-*  Provides API implementation of the Cypress PDL Crypto driver.
+*  Provides API implementation of the Infineon PDL Crypto driver.
 *
 ********************************************************************************
 * \copyright

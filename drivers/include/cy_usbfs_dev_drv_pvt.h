@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_usbfs_dev_drv_pvt.h
-* \version 2.30
+* \version 2.30.1
 *
 * Provides API declarations of the USBFS driver.
 *

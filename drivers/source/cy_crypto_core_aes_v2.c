@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto_core_aes_v2.c
-* \version 2.150
+* \version 2.150.1
 *
 * \brief
 *  This file provides the source code fro the API for the AES method

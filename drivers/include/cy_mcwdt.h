@@ -1,8 +1,8 @@
 /***************************************************************************//**
 * \file cy_mcwdt.h
-* \version 1.100
+* \version 1.100.1
 *
-* Provides an API declaration of the Cypress PDL 3.0 MCWDT driver
+* Provides an API declaration of the Infineon PDL 3.0 MCWDT driver
 *
 ********************************************************************************
 * \copyright
@@ -110,6 +110,11 @@
 * \section group_mcwdt_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.100.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
 *   <tr>
 *     <td>1.100</td>
 *     <td>Added CY_MCWDT_PAUSED_BY_DPSLP_CM7_2 enum value for

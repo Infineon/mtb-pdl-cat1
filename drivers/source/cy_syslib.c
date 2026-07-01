@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syslib.c
-* \version 3.100.0
+* \version 3.110.0
 *
 *  Description:
 *   Provides system API implementation for the SysLib driver.
@@ -521,7 +521,7 @@ void Cy_SysLib_SetWaitStates(bool ulpMode, uint32_t clkHfMHz)
     #if defined(FLASHC1)
     FLASHC1_FLASH_CTL = _CLR_SET_FLD32U(FLASHC1_FLASH_CTL, FLASHC1_FLASH_CTL_WS, waitStates);
     #endif
-
+    
 #else
     if (ulpMode)
     {
@@ -648,7 +648,8 @@ cy_en_syslib_lcs_mode_t Cy_SysLib_GetDeviceLCS(cy_syslib_lcs_data_t *base)
     cy_en_syslib_lcs_mode_t lcsMode;
 
 #if defined(CY_IP_MXS40SSRSS)
-    lcsMode = (cy_en_syslib_lcs_mode_t)(base->BOOTROW);
+    uint32_t temp = base->BOOTROW & (0xFFFFUL);
+    lcsMode = (cy_en_syslib_lcs_mode_t)temp;
 #elif defined(CY_IP_MXS22SRSS)
     lcsMode = (cy_en_syslib_lcs_mode_t)(base->DECODED_LCS_DATA);
 #else

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_usbfs_dev_drv.h
-* \version 2.30
+* \version 2.30.1
 *
 * Provides API declarations of the USBFS driver.
 *
@@ -580,6 +580,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>2.30.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
+*   <tr>
 *     <td>2.30</td>
 *     <td> \ref Cy_USBFS_Dev_Drv_DeInit() was updated to reduce power
 *         consumption of the USB IP block after deinitialization.
@@ -654,7 +659,7 @@
 *         - Added the endpoint address argument to the \ref cy_cb_usbfs_dev_drv_ep_callback_t to simplify
 *           endpoint transfer complete event processing for the MBED-OS USB Device stack.
 *     </td>
-*     <td>Updated the driver to support the MBED-OS USB Device stack and Cypress
+*     <td>Updated the driver to support the MBED-OS USB Device stack and Infineon
 *         USB Device middleware.</td>
 *   </tr>
 *   <tr>

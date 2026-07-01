@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_adcmic.h
-* \version 1.10
+* \version 1.10.1
 *
 * Provides an API declaration of the ADCMic driver.
 *
@@ -204,6 +204,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.10.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
+*   <tr>
 *     <td>1.10</td>
 *     <td>The ADCMic PDL driver ID \ref CY_ADCMIC_ID is updated</td>
 *     <td>Avoiding possible driver ID collisions</td>
@@ -278,7 +283,7 @@
 *   </tr>
 *   <tr>
 *     <td>0.1</td>
-*     <td>This is a pre-production driver release. The driver is not recommended for production use, unless the functionality is delivered in Cypress-provided applications.</td>
+*     <td>This is a pre-production driver release. The driver is not recommended for production use, unless the functionality is delivered in Infineon-provided applications.</td>
 *     <td>Pre-production support of the CAT1B Devices</td>
 *   </tr>
 * </table>

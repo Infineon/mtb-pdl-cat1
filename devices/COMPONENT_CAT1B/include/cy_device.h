@@ -1014,13 +1014,17 @@ typedef enum
 #define CY_SRSS_TRIM_RAM_CTL_HALF_ULP       (0x00006012UL)
 
 /** HF PATH # used for PERI PCLK */
-#define CY_SYSCLK_CLK_PERI_HF_PATH_NUM     1U
+#define CY_SYSCLK_CLK_PERI_HF_PATH_NUM     0U
 
 /** HF PATH # used for Core */
 #define CY_SYSCLK_CLK_CORE_HF_PATH_NUM     0U
 
 /** FLL Max Frequency */
+#if defined (CY_DEVICE_PSC3)
+#define  CY_SYSCLK_FLL_MAX_OUTPUT_FREQ     (100000000UL)
+#else
 #define  CY_SYSCLK_FLL_MAX_OUTPUT_FREQ     (96000000UL)
+#endif
 
 
 

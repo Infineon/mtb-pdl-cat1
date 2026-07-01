@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_efuse.h
-* \version 2.40
+* \version 2.40.1
 *
 * Provides the API declarations of the eFuse driver.
 *
@@ -44,7 +44,7 @@
 *   and extracts the necessary information; the fuse data must be located at the
 *   dedicated section in the hex file. For more details see
 *   [PSoC 6 Programming Specifications]
-*   (http://www.cypress.com/documentation/programming-specifications/psoc-6-programming-specifications)
+*   (https://www.infineon.com/content/dam/infineon/row/public/documents/30/436/infineon-psoc6-programming-specifications-programming-specifications-en.pdf)
 * - CAT1B devices support writing to eFuse memory. 
 *     \note Blowing eFuses is normally performed during device provisioning; eFuses are not intended to be 
 *     programmed by the customer. Read and write of eFuse data is generally restricted to Boot FW code and 
@@ -72,6 +72,11 @@
 * \section group_efuse_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.40.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
 *   <tr>
 *     <td>2.40</td>
 *     <td>Updated API \ref Cy_EFUSE_WriteWord and \ref Cy_EFUSE_ReadWord.</td>

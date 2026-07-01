@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ms_ctl.h
-* \version 1.2
+* \version 1.2.1
 *
 * \brief
 * The header file of the MSC driver.
@@ -70,6 +70,11 @@
 * \section group_ms_ctl_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.2.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
 *   <tr>
 *     <td>1.2</td>
 *     <td>Updated API \ref Cy_Ms_Ctl_SetPcHandler.</td>
@@ -394,7 +399,7 @@ uint32_t Cy_Ms_Ctl_GetSavedPC(en_ms_ctl_master_t busMaster);
 * Function Name: Cy_Ms_Ctl_SetPcHandler
 ****************************************************************************//**
 *
-* \brief Sets the handler address for the given PC. This is used to detect entry to Cypress
+* \brief Sets the handler address for the given PC. This is used to detect entry to Infineon
 * "trusted" code through an exception/interrupt.
 *
 * \note The function can't update the handler address for the PC lower than the current application's PC.

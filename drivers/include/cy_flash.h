@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_flash.h
-* \version 3.150
+* \version 3.150.1
 *
 * Provides the API declarations of the Flash driver.
 *
@@ -246,7 +246,7 @@
 * If you plan to use "cy_em_eeprom" section for different purposes for both of
 * device cores or use <b>Em_EEPROM Middleware</b> together with flash driver
 * write operations you must modify the linker scripts.<br>
-* For more information, refer to the <b>Middleware/Cypress Em_EEPROM Middleware
+* For more information, refer to the <b>Middleware/Infineon Em_EEPROM Middleware
 * Library</b> section of the PDL documentation.
 *
 * \section group_flash_more_information More Information
@@ -258,6 +258,11 @@
 *
 * <table class="doxtable">
 *   <tr><th>Version</th><th style="width: 52%;">Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>3.150.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
 *   <tr>
 *     <td>3.150</td>
 *     <td>Extend api with base pointer to support devices with multiple FLASHC instances.</td>

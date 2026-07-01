@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.160
+* \version 3.170
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,35 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="4">3.170</td>
+*     <td>Converted \ref Cy_SysClk_ClkPathSetSource() (CAT1B, CAT1C devices),
+*         \ref Cy_SysClk_ClkPathGetSource() (CAT1B, CAT1C devices) and
+*         \ref Cy_SysClk_PeriPclkAssignDivider() (CAT1A, CAT1B, CAT1C devices)
+*         to static inline functions.</td>
+*     <td>Code size optimization.</td>
+*   </tr>
+*   <tr>
+*     <td>Added new \ref Cy_SysClk_ClkHfEnableSafe() API with comprehensive
+*         runtime error checking. Modified \ref Cy_SysClk_ClkHfEnable() to
+*         perform only essential validation checks.</td>
+*     <td>Code size optimization for CAT1B and CAT1C devices.</td>
+*   </tr>
+*   <tr>
+*     <td>Optimized \ref Cy_SysClk_FllGetFrequency() and
+*         \ref Cy_SysClk_DpllLpGetFrequency() implementations with separate
+*         code paths for hardware floating-point (hardfp) and software
+*         floating-point (softfp) VFP configurations.</td>
+*     <td>Code size and performance optimization for CAT1B and CAT1C devices.
+*         </td>
+*   </tr>
+*   <tr>
+*     <td>Fixed \ref Cy_SysClk_FllOutputDividerEnable() corrupting 
+*          CLK_FLL_CONFIG fields.</td>
+*     <td>Replaced blind register write with read-modify-write to preserve
+*         FLL_MULT/FLL_ENABLE.
+*         </td>
+*   </tr>
 *   <tr>
 *     <td>3.160</td>
 *     <td>Added CPUSS_VER2 CM7_2 and CM7_3 support.</td>
@@ -998,7 +1027,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   160
+#define  CY_SYSCLK_DRV_VERSION_MINOR   170
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 
@@ -2163,7 +2192,32 @@ typedef struct
 * from it.  Do not disable the original clock during this time.
 *
 *******************************************************************************/
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2)
 cy_en_sysclk_status_t Cy_SysClk_ClkPathSetSource(uint32_t clkPath, cy_en_clkpath_in_sources_t source);
+#else
+__STATIC_INLINE cy_en_sysclk_status_t Cy_SysClk_ClkPathSetSource(uint32_t clkPath, cy_en_clkpath_in_sources_t source)
+{
+    cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
+
+    CY_ASSERT_L3(CY_SYSCLK_IS_CLKPATH_SOURCE_VALID(source));
+
+    if (clkPath < CY_SRSS_NUM_CLKPATH)
+    {
+        /* Selects a DSI source or a low-frequency clock (WCO, ILO, etc.) for use in a clock path */
+        if (source >= CY_SYSCLK_CLKPATH_IN_DSI)
+        {
+            SRSS_CLK_DSI_SELECT[clkPath] = _VAL2FLD(SRSS_CLK_DSI_SELECT_DSI_MUX, (uint32_t)source);
+            SRSS_CLK_PATH_SELECT[clkPath] = _VAL2FLD(SRSS_CLK_PATH_SELECT_PATH_MUX, (uint32_t)CY_SYSCLK_CLKPATH_IN_DSIMUX);
+        }
+        else
+        {
+            SRSS_CLK_PATH_SELECT[clkPath] = _VAL2FLD(SRSS_CLK_PATH_SELECT_PATH_MUX, (uint32_t)source);
+        }
+        retVal = CY_SYSCLK_SUCCESS;
+    }
+    return (retVal);
+}
+#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2) */
 
 
 /*******************************************************************************
@@ -2181,7 +2235,22 @@ cy_en_sysclk_status_t Cy_SysClk_ClkPathSetSource(uint32_t clkPath, cy_en_clkpath
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_ClkPathGetSource
 *
 *******************************************************************************/
+#if defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2)
 cy_en_clkpath_in_sources_t Cy_SysClk_ClkPathGetSource(uint32_t clkPath);
+#else
+__STATIC_INLINE cy_en_clkpath_in_sources_t Cy_SysClk_ClkPathGetSource(uint32_t clkPath)
+{
+    CY_ASSERT_L1(clkPath < CY_SRSS_NUM_CLKPATH);
+    cy_en_clkpath_in_sources_t retVal =
+        (cy_en_clkpath_in_sources_t )((uint32_t)_FLD2VAL(SRSS_CLK_PATH_SELECT_PATH_MUX, SRSS_CLK_PATH_SELECT[clkPath]));
+    if (retVal == CY_SYSCLK_CLKPATH_IN_DSIMUX)
+    {
+        retVal = (cy_en_clkpath_in_sources_t)((uint32_t)(((uint32_t)CY_SYSCLK_CLKPATH_IN_DSI) |
+                    ((uint32_t)(_FLD2VAL(SRSS_CLK_DSI_SELECT_DSI_MUX, SRSS_CLK_DSI_SELECT[clkPath])))));
+    }
+    return (retVal);
+}
+#endif /* defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2) */
 
 
 /*******************************************************************************
@@ -2537,7 +2606,15 @@ void Cy_SysClk_FllOutputDividerEnable(bool enable);
 *
 * \return The output frequency of FLL.
 *
-* \note If the return value equals zero, that means FLL is disabled.
+* \note If the return value equals zero, that means the FLL is disabled.
+*
+* \note This function has an alternative implementation for CAT1B devices when the
+* hardfp option is selected for VFP_SELECT and CY_SYSCLK_USE_FLOATING_MATH is added
+* to the DEFINES variable in the Makefile (the alternative implementation cannot
+* be used with the softfp/softfloat options). The alternative implementation reduces
+* memory consumption by removing the 64-bit math, but it only works when no other
+* components use 64-bit math. In addition, the alternative implementation may return
+* the frequency with some deviation from the actual value.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_FllGetFrequency
@@ -2837,7 +2914,7 @@ typedef struct
 * before calling \ref Cy_SysClk_PllEnable returns old configuration values.
 *
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllConfigure
@@ -2893,7 +2970,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllConfigure(uint32_t clkPath, const cy_stc_pll_
 * before calling \ref Cy_SysClk_PllEnable returns old configuration values.
 *
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllManualConfigure
@@ -2928,7 +3005,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllManualConfigure(uint32_t clkPath, const cy_st
 * before calling \ref Cy_SysClk_PllEnable returns old configuration values.
 *
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllGetConfiguration
@@ -2973,7 +3050,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllGetConfiguration(uint32_t clkPath, cy_stc_pll
 * the PLL is the source of CLK_HF0 and the CLK_HF0 frequency is decreasing.
 *
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \note
 * Take into account the possible platform specific clkHf (and further
@@ -2999,7 +3076,7 @@ cy_en_sysclk_status_t Cy_SysClk_PllEnable(uint32_t clkPath, uint32_t timeoutus);
 * true = enabled
 *
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllDisable
@@ -3021,7 +3098,7 @@ bool Cy_SysClk_PllIsEnabled(uint32_t clkPath);
 * true = locked
 *
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllLocked
@@ -3044,7 +3121,7 @@ bool Cy_SysClk_PllLocked(uint32_t clkPath);
 * true = lost lock
 *
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllLostLock
@@ -3089,7 +3166,7 @@ bool Cy_SysClk_PllLostLock(uint32_t clkPath);
 * \ref Cy_SysClk_PllManualConfigure before calling \ref Cy_SysClk_PllEnable.
 *
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllDisable
@@ -3109,8 +3186,16 @@ cy_en_sysclk_status_t Cy_SysClk_PllDisable(uint32_t clkPath);
 *
 * \note If the return value equals zero, that means PLL is disabled.
 *
+* \note This function has an alternative implementation for CAT1B devices when the
+* hardfp option is selected for VFP_SELECT and CY_SYSCLK_USE_FLOATING_MATH is added
+* to the DEFINES variable in the Makefile (the alternative implementation cannot
+* be used with the softfp/softfloat options). The alternative implementation reduces
+* memory consumption by removing the 64-bit math, but it only works when no other
+* components use 64-bit math. In addition, the alternative implementation may return
+* the frequency with some deviation from the actual value.
+*
 * \note
-* This API is available for CAT1A, CAT1C and CAT1D devices.
+* This API is available for CAT1A, CAT1B, CAT1C and CAT1D devices.
 *
 * \funcusage
 * \snippet sysclk/snippet/main.c snippet_Cy_SysClk_PllGetFrequency
@@ -6051,6 +6136,23 @@ cy_en_sysclk_status_t Cy_SysClk_ClkHfEnable(uint32_t clkHf);
 
 
 /*******************************************************************************
+* Function Name: Cy_SysClk_ClkHfEnableSafe
+****************************************************************************//**
+*
+* Verifies if selected clkHf could be enabled and if yes than enables it.
+*
+* \param clkHf Selects which clkHf to enable.
+*
+* \note
+* This API is available for CAT1B and CAT1C devices.
+*
+*******************************************************************************/
+#if !(defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2))
+cy_en_sysclk_status_t Cy_SysClk_ClkHfEnableSafe(uint32_t clkHf);
+#endif /* !(defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2)) */
+
+
+/*******************************************************************************
 * Function Name: Cy_SysClk_ClkHfIsEnabled
 ****************************************************************************//**
 *
@@ -7136,9 +7238,52 @@ cy_en_sysclk_status_t
 * This API is available for CAT1A (TVIIBE only), CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
-cy_en_sysclk_status_t
+__STATIC_INLINE cy_en_sysclk_status_t
                 Cy_SysClk_PeriPclkAssignDivider(en_clk_dst_t ipBlock,
-                                              cy_en_divider_types_t dividerType, uint32_t dividerNum);
+                                              cy_en_divider_types_t dividerType, uint32_t dividerNum)
+{
+    cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+    uint8_t periNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum    = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    periNum  = (uint8_t)((uint32_t)ipBlock & PERI_PCLK_PERI_NUM_Msk);
+
+    CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
+    CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
+#endif
+    if (CY_SYSCLK_DIV_24_5_BIT >= dividerType)
+    {
+        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_PCLK_GR_DIV_8_NR(instNum, grpNum))))    ||
+            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_PCLK_GR_DIV_16_NR(instNum, grpNum))))   ||
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum)))) ||
+#endif
+            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum)))))
+        {
+#if defined (CY_IP_MXS40SRSS) && (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION < 3))
+            CY_UNUSED_PARAMETER(grpNum);
+            CY_UNUSED_PARAMETER(instNum);
+            CY_UNUSED_PARAMETER(periNum);
+            if (CY_PERI_CLOCK_NR > (uint32_t)ipBlock)
+            {
+                PERI_CLOCK_CTL[ipBlock] = _VAL2FLD(CY_PERI_CLOCK_CTL_TYPE_SEL, dividerType) |
+                                        _VAL2FLD(CY_PERI_CLOCK_CTL_DIV_SEL, dividerNum);
+
+                retVal = CY_SYSCLK_SUCCESS;
+            }
+#else
+            PERI_CLOCK_CTL(instNum, grpNum, periNum) = _VAL2FLD(CY_PERI_CLOCK_CTL_TYPE_SEL, dividerType) |
+                                      _VAL2FLD(CY_PERI_CLOCK_CTL_DIV_SEL, dividerNum);
+
+            retVal = CY_SYSCLK_SUCCESS;
+#endif
+        }
+    }
+    return (retVal);
+}
 
 
 /*******************************************************************************
@@ -7155,7 +7300,21 @@ cy_en_sysclk_status_t
 * This API is available for CAT1A (TVIIBE only), CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
-uint32_t Cy_SysClk_PeriPclkGetAssignedDivider(en_clk_dst_t ipBlock);
+__STATIC_INLINE uint32_t Cy_SysClk_PeriPclkGetAssignedDivider(en_clk_dst_t ipBlock)
+{
+#if defined (CY_IP_MXS40SRSS) && (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION < 3))
+    CY_ASSERT_L1(CY_PERI_CLOCK_NR > (uint32_t)ipBlock);
+    return (PERI_CLOCK_CTL[ipBlock] & (CY_PERI_CLOCK_CTL_DIV_SEL_Msk | CY_PERI_CLOCK_CTL_TYPE_SEL_Msk));
+#else
+    uint8_t grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    uint8_t instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+    uint8_t periNum  = (uint8_t)((uint32_t)ipBlock & PERI_PCLK_PERI_NUM_Msk );
+
+    CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
+    CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
+    return (PERI_CLOCK_CTL(instNum, grpNum, periNum) & (CY_PERI_CLOCK_CTL_DIV_SEL_Msk | CY_PERI_CLOCK_CTL_TYPE_SEL_Msk));
+#endif
+}
 
 
 /*******************************************************************************
@@ -7178,8 +7337,44 @@ uint32_t Cy_SysClk_PeriPclkGetAssignedDivider(en_clk_dst_t ipBlock);
 * This API is available for CAT1A (TVIIBE only), CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
-cy_en_sysclk_status_t
-                Cy_SysClk_PeriPclkEnableDivider(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum);
+__STATIC_INLINE cy_en_sysclk_status_t
+                Cy_SysClk_PeriPclkEnableDivider(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum)
+{
+    cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+
+    CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
+    CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
+    if (dividerType <= CY_SYSCLK_DIV_24_5_BIT)
+    {
+        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_PCLK_GR_DIV_8_NR(instNum, grpNum))))    ||
+            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_PCLK_GR_DIV_16_NR(instNum, grpNum))))   ||
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum)))) ||
+#endif
+            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum)))))
+        {
+            /* specify the divider, make the reference = clk_peri, and enable the divider */
+            PERI_DIV_CMD(instNum, grpNum) = PERI_DIV_CMD_ENABLE_Msk                         |
+                           CY_PERI_DIV_CMD_PA_TYPE_SEL_Msk                 |
+                           CY_PERI_DIV_CMD_PA_DIV_SEL_Msk                  |
+                           _VAL2FLD(CY_PERI_DIV_CMD_TYPE_SEL, dividerType) |
+                           _VAL2FLD(CY_PERI_DIV_CMD_DIV_SEL,  dividerNum);
+            (void)PERI_DIV_CMD(instNum, grpNum); /* dummy read to handle buffered writes */
+            retVal = CY_SYSCLK_SUCCESS;
+        }
+    }
+    return (retVal);
+}
 
 
 /*******************************************************************************
@@ -7198,8 +7393,41 @@ cy_en_sysclk_status_t
 * This API is available for CAT1A (TVIIBE only), CAT1B, CAT1C and CAT1D devices.
 *
 *******************************************************************************/
-cy_en_sysclk_status_t
-                Cy_SysClk_PeriPclkDisableDivider(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum);
+__STATIC_INLINE cy_en_sysclk_status_t
+                Cy_SysClk_PeriPclkDisableDivider(en_clk_dst_t ipBlock, cy_en_divider_types_t dividerType, uint32_t dividerNum)
+{
+    cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
+    uint8_t grpNum = 0;
+    uint8_t instNum = 0;
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+    grpNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_GR_NUM_Msk )>>PERI_PCLK_GR_NUM_Pos);
+    instNum = (uint8_t)(((uint32_t)ipBlock & PERI_PCLK_INST_NUM_Msk )>>PERI_PCLK_INST_NUM_Pos);
+
+    CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
+    CY_ASSERT_L1(grpNum < PERI_PCLK_GR_NUM(instNum));
+#else
+    CY_UNUSED_PARAMETER(grpNum);
+    CY_UNUSED_PARAMETER(instNum);
+    CY_UNUSED_PARAMETER(ipBlock);
+#endif
+    if (dividerType <= CY_SYSCLK_DIV_24_5_BIT)
+    {
+        if (((dividerType == CY_SYSCLK_DIV_8_BIT)    && (dividerNum < (PERI_PCLK_GR_DIV_8_NR(instNum, grpNum))))    ||
+            ((dividerType == CY_SYSCLK_DIV_16_BIT)   && (dividerNum < (PERI_PCLK_GR_DIV_16_NR(instNum, grpNum))))   ||
+#if defined (CY_IP_MXSPERI) || (defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION >= 3))
+            ((dividerType == CY_SYSCLK_DIV_16_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_16_5_NR(instNum, grpNum)))) ||
+#endif
+            ((dividerType == CY_SYSCLK_DIV_24_5_BIT) && (dividerNum < (PERI_PCLK_GR_DIV_24_5_NR(instNum, grpNum)))))
+        {
+            /* specify the divider and disable it */
+            PERI_DIV_CMD(instNum, grpNum) = PERI_DIV_CMD_DISABLE_Msk          |
+             _VAL2FLD(CY_PERI_DIV_CMD_TYPE_SEL, dividerType) |
+             _VAL2FLD(CY_PERI_DIV_CMD_DIV_SEL,  dividerNum);
+            retVal = CY_SYSCLK_SUCCESS;
+        }
+    }
+    return (retVal);
+}
 
 
 /*******************************************************************************

@@ -40,14 +40,15 @@
   <Parameters>
     <!-- PDL documentation -->
     <ParamDoc id="pdlDoc" name="Configuration Help" group="Overview" default="file:///`${cy_libs_path()}`/docs/pdl_api_reference_manual/html/group__group__sysclk.html" linkText="Open SysClk Documentation" visible="true" desc="Opens the Peripheral Driver Library Documentation" />
-
     <ParamRange id="frequency" name="Frequency (MHz)" group="Internal" default="8000000" min="8000000" max="8000000" resolution="1" visible="false" editable="false" desc="The nominal output frequency" />
-    <ParamChoice id="trim" name="Trim with" group="General" default="1" visible="`${hasBlock(&quot;usb[0]&quot;)}`" editable="true" desc="Allows to trim IMO with USB SOF, only for USB-enabled devices and only if USB block itself is enabled.">
+      <ParamChoice id="trim" name="Trim with" group="General" default="`${(&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 2 : 1}`" visible="`${hasBlock(&quot;usb[0]&quot;) &amp;&amp; !(&quot;mxs40ssrss&quot; eq getIpBlockName())}`" editable="true" desc="Allows to trim IMO with USB SOF, only for USB-enabled devices and only if USB block itself is enabled.">
         <Entry name="None" value="1" visible="true" />
         <Entry name="USB" value="0.25" visible="`${isBlockUsed(&quot;usb[0]&quot;)}`" />
+        <Entry name="None_2pct" value="2" visible="false"/>
     </ParamChoice>
-    <ParamChoice id="accuracy" name="Accuracy" group="Internal" default="`${(&quot;mxs40srss_ver3&quot; eq getIpBlockName()) ? 4 : trim}`" visible="false" editable="false" desc="The expected accuracy of the output frequency">
+      <ParamChoice id="accuracy" name="Accuracy" group="Internal" default="`${(&quot;mxs40srss_ver3&quot; eq getIpBlockName()) ? 4 : ((&quot;mxs40ssrss&quot; eq getIpBlockName()) ? 2 : trim)}`" visible="false" editable="false" desc="The expected accuracy of the output frequency">
       <Entry name="1%" value="1" visible="true" />
+      <Entry name="2%" value="2" visible="true" />
       <Entry name="0.25%" value="0.25" visible="true" />
       <Entry name="4%" value="4" visible="true" />
     </ParamChoice>
@@ -58,7 +59,7 @@
     
   </Parameters>
   <DRCs>
-    <DRC type="INFO" text="If the IMO output is used by the PLL to generate CLK_HF3 (USB clock) then it must be trimmed with USB SOF signal to meet USB clock accuracy requirements. Set IMO &quot;Trim with&quot; parameter to &quot;USB&quot;" condition="`${(trim eq 1) &amp;&amp; isBlockUsed(&quot;usb[0]&quot;)}`" />
+    <DRC type="INFO" text="If the IMO output is used by the PLL to generate CLK_HF3 (USB clock) then it must be trimmed with USB SOF signal to meet USB clock accuracy requirements. Set IMO &quot;Trim with&quot; parameter to &quot;USB&quot;" condition="`${(trim eq 1) &amp;&amp; isBlockUsed(&quot;usb[0]&quot;) &amp;&amp; !(&quot;mxs40ssrss&quot; eq getIpBlockName())}`" />
   </DRCs>
   <ConfigFirmware>
     <ConfigDefine name="CY_CFG_SYSCLK_IMO_ENABLED" value="1" public="false" include="true" />

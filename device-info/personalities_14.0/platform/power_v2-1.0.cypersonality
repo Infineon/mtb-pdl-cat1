@@ -363,13 +363,13 @@
    #endif /* CY_CFG_PWR_VBACKUP_USING_VDDD */&#xA;&#xA;
    /* **System Active Power Mode Profile Configuration** */&#xA;
    #if (CY_CFG_PWR_SYS_ACTIVE_PROFILE == CY_CFG_PWR_MODE_OD)&#xA;
-       Cy_SysPm_SystemEnterOd();&#xA;
+       Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_OD);&#xA;
    #elif (CY_CFG_PWR_SYS_ACTIVE_PROFILE == CY_CFG_PWR_MODE_LP)&#xA;
-       Cy_SysPm_SystemEnterLp();&#xA;
+       Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_LP);&#xA;
    #elif (CY_CFG_PWR_SYS_ACTIVE_PROFILE == CY_CFG_PWR_MODE_MF)&#xA;
-       Cy_SysPm_SystemEnterMf();&#xA;
+       Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_MF);&#xA;
    #elif (CY_CFG_PWR_SYS_ACTIVE_PROFILE == CY_CFG_PWR_MODE_ULP)&#xA;
-       Cy_SysPm_SystemEnterUlp();&#xA;
+       Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_ULP);&#xA;
    #endif /* CY_CFG_PWR_SYS_ACTIVE_PROFILE */&#xA;&#xA;
    /* **System Active Low Power Profile(LPACTIVE/LPSLEEP) Configuration** */&#xA;
    #if (CY_CFG_PWR_SYS_LP_PROFILE_MODE)&#xA;

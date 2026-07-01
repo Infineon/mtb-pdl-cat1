@@ -1,6 +1,7 @@
 var group__group__sysclk__clk__hf__funcs =
 [
     [ "Cy_SysClk_ClkHfEnable", "group__group__sysclk__clk__hf__funcs.html#gaf3041fc8333478cc7c8d869d2a535d71", null ],
+    [ "Cy_SysClk_ClkHfEnableSafe", "group__group__sysclk__clk__hf__funcs.html#ga55bd17f63a0466c358765b6d06e47449", null ],
     [ "Cy_SysClk_ClkHfIsEnabled", "group__group__sysclk__clk__hf__funcs.html#ga47252e1861afb4664f43c2e0a5e38055", null ],
     [ "Cy_SysClk_ClkHfDisable", "group__group__sysclk__clk__hf__funcs.html#gaaa60ae6f69c8a594756a219ac8891358", null ],
     [ "Cy_SysClk_ClkHfSetSource", "group__group__sysclk__clk__hf__funcs.html#ga2d39c7e5111f9ba0738f032a98b4593e", null ],
@@ -13,5 +14,12 @@ var group__group__sysclk__clk__hf__funcs =
     [ "Cy_SysClk_ClkHfGetMaskOnPath", "group__group__sysclk__clk__hf__funcs.html#ga46accf22663e93afbcd92d41fe47f613", null ],
     [ "Cy_SysClk_ClkHfAllGetMask", "group__group__sysclk__clk__hf__funcs.html#gad7f4310594a4441d01ac1c46df0a1234", null ],
     [ "Cy_SysClk_ClkHfEnableDividerWithMask", "group__group__sysclk__clk__hf__funcs.html#ga3b86beecfee7ea5361decab70bc7e4b3", null ],
-    [ "Cy_SysClk_ClkHfEnableDirectMuxWithMask", "group__group__sysclk__clk__hf__funcs.html#ga4053d66942358380e99583c0ef4d99a5", null ]
+    [ "Cy_SysClk_ClkHfEnableDirectMuxWithMask", "group__group__sysclk__clk__hf__funcs.html#ga4053d66942358380e99583c0ef4d99a5", null ],
+    [ "Cy_SysClk_ClkHfCsvGetRefFrequency", "group__group__sysclk__clk__hf__funcs.html#gac69470129ece20e3f581a50ad4ce90da", null ],
+    [ "Cy_SysClk_ClkHfCsvManualConfigure", "group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a", null ],
+    [ "Cy_SysClk_ClkHfCsvConfigure", "group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931", null ],
+    [ "Cy_SysClk_ClkHfCsvAction", "group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2", null ],
+    [ "Cy_SysClk_ClkHfCsvEnable", "group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c", null ],
+    [ "Cy_SysClk_ClkHfCsvDisable", "group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf", null ],
+    [ "Cy_SysClk_IsClkHfCsvEnabled", "group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de", null ]
 ];

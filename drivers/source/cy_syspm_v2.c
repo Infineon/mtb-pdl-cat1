@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v2.c
-* \version 5.210
+* \version 5.220
 *
 * This driver provides the source code for API power management.
 *
@@ -196,7 +196,9 @@ static cy_stc_syspm_callback_t* failedCallback[CALLBACK_ROOT_NR] = {NULL, NULL, 
 
 void Cy_SysPm_Init(void)
 {
+#if !defined(CY_DISABLE_WARM_BOOT)
     if(CY_SYSPM_WARM_BOOT_MODE != Cy_SysPm_GetBootMode())
+#endif /* !defined(CY_DISABLE_WARM_BOOT) */
     {
         (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_MAIN_BASE); /* Suppress a compiler warning about unused return value */
         (void)cy_pd_ppu_init((struct ppu_v1_reg *)CY_PPU_CPUSS_BASE); /* Suppress a compiler warning about unused return value */
@@ -456,6 +458,7 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
         }
         break;
 
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
         case CY_SYSPM_MODE_DEEPSLEEP_RAM:
         {
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_MAIN_BASE, (uint32_t)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_RAM_MODE); /* Suppress a compiler warning about unused return value */
@@ -464,7 +467,9 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
             retVal = CY_SYSPM_SUCCESS;
         }
         break;
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
 
+#if !defined(CY_DISABLE_DEEP_SLEEP_OFF)
         case CY_SYSPM_MODE_DEEPSLEEP_OFF:
         {
             (void)cy_pd_ppu_set_power_mode((struct ppu_v1_reg *)CY_PPU_MAIN_BASE, (uint32_t)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_OFF_MODE); /* Suppress a compiler warning about unused return value */
@@ -473,6 +478,7 @@ cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t dee
             retVal = CY_SYSPM_SUCCESS;
         }
         break;
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_OFF) */
 
         default:
             retVal = CY_SYSPM_BAD_PARAM;
@@ -496,17 +502,21 @@ cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void)
         }
         break;
 
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
         case CY_SYSTEM_DEEPSLEEP_RAM_PPU_MODES:
         {
             deepSleepMode = CY_SYSPM_MODE_DEEPSLEEP_RAM;
         }
         break;
+#endif /* #if !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
 
+#if !defined(CY_DISABLE_DEEP_SLEEP_OFF)
         case CY_SYSTEM_DEEPSLEEP_OFF_PPU_MODES:
         {
             deepSleepMode = CY_SYSPM_MODE_DEEPSLEEP_OFF;
         }
         break;
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_OFF) */
 
         default:
         {
@@ -531,17 +541,20 @@ cy_en_syspm_boot_mode_t Cy_SysPm_GetBootMode(void)
     {
         switch(Cy_SysPm_GetDeepSleepMode())
         {
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
             case CY_SYSPM_MODE_DEEPSLEEP_RAM:
             {
                 deepSleepWakeMode = CY_SYSPM_WARM_BOOT_MODE;
             }
             break;
-
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
+#if !defined(CY_DISABLE_DEEP_SLEEP_OFF)
             case CY_SYSPM_MODE_DEEPSLEEP_OFF:
             {
                 deepSleepWakeMode = CY_SYSPM_COLD_BOOT_MODE;
             }
             break;
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_OFF) */
 
             default:
             {
@@ -555,6 +568,7 @@ cy_en_syspm_boot_mode_t Cy_SysPm_GetBootMode(void)
     return ((cy_en_syspm_boot_mode_t)deepSleepWakeMode);
 }
 
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
 /*Weak declaration allows for both RTOS and non-RTOS based
  * implementation to handle any context store before WFI
  * This PDL implements a weak handler for non-RTOS based deep sleep */
@@ -562,6 +576,7 @@ __WEAK void Cy_SysPm_StoreDSContext_Wfi(void)
 {
     __WFI();
 }
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
 
 cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
 {
@@ -615,7 +630,13 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
              * FPU power domain is enabled by HW and SW should always disable it to
              * enter into DS_RAM/OFF modes.
              */
+        #if (!defined(CY_DISABLE_DEEP_SLEEP_RAM) && !defined(CY_DISABLE_DEEP_SLEEP_OFF))
             if(((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_RAM == cbDeepSleepRootIdx) || ((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_OFF == cbDeepSleepRootIdx))
+        #elif !defined(CY_DISABLE_DEEP_SLEEP_RAM)
+            if((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_RAM == cbDeepSleepRootIdx)
+        #elif !defined(CY_DISABLE_DEEP_SLEEP_OFF)
+            if((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_OFF == cbDeepSleepRootIdx)
+        #endif /* (!defined(CY_DISABLE_DEEP_SLEEP_RAM) && !defined(CY_DISABLE_DEEP_SLEEP_OFF)) */
             {
                 SCS_CPPWR |= (SCS_ENABLE_CPPWR_SU10_SU11);
                 SCB_CPACR &= ~(SCB_ENABLE_CPACR_CP10_CP11);
@@ -625,11 +646,13 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
 
             if(waitFor != CY_SYSPM_WAIT_FOR_EVENT)
             {
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
                 if (cbDeepSleepRootIdx == (uint32_t)CY_SYSPM_MODE_DEEPSLEEP_RAM)
                 {
                     Cy_SysPm_StoreDSContext_Wfi();
                 }
                 else
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
                 {
                     __WFI();
                 }
@@ -640,7 +663,6 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
             }
 
         #if defined (__FPU_USED) && (__FPU_USED == 1U)
-
             /* Enable back FPU if it was used for CM33 in case of DS-RAM/DS-OFF.
              *
              * This is not required for DS-RAM/DS-OFF  because device should goes to reset after __WFI.
@@ -648,7 +670,13 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
              * the device will operate as in normal deep sleep mode.
              * Because of that FPU is re-enabling.
              */
+        #if (!defined(CY_DISABLE_DEEP_SLEEP_RAM) && !defined(CY_DISABLE_DEEP_SLEEP_OFF))
             if(((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_RAM == cbDeepSleepRootIdx) || ((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_OFF == cbDeepSleepRootIdx))
+        #elif !defined(CY_DISABLE_DEEP_SLEEP_RAM)
+            if((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_RAM == cbDeepSleepRootIdx)
+        #elif !defined(CY_DISABLE_DEEP_SLEEP_OFF)
+            if((uint32_t)CY_SYSPM_MODE_DEEPSLEEP_OFF == cbDeepSleepRootIdx)
+        #endif /* (!defined(CY_DISABLE_DEEP_SLEEP_RAM) && !defined(CY_DISABLE_DEEP_SLEEP_OFF)) */
             {
                 SCS_CPPWR &= ~(SCS_ENABLE_CPPWR_SU10_SU11);
                 SCB->CPACR |= SCB_ENABLE_CPACR_CP10_CP11;
@@ -694,6 +722,7 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
     return retVal;
 }
 
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
 cy_en_syspm_status_t Cy_SysPm_SetupDeepSleepRAM(cy_en_syspm_dsram_checks_t dsramCheck, uint32_t *dsramIntState)
 {
     uint32_t cbDeepSleepRootIdx = (uint32_t) Cy_SysPm_GetDeepSleepMode();
@@ -781,6 +810,7 @@ cy_en_syspm_status_t Cy_SysPm_SetupDeepSleepRAM(cy_en_syspm_dsram_checks_t dsram
     }
     return retVal;
 }
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
 
 cy_en_syspm_status_t Cy_SysPm_SystemEnterHibernate(void)
 {
@@ -2231,6 +2261,7 @@ cy_en_syspm_status_t Cy_SysPm_SetSRAMPwrMode(cy_en_syspm_sram_index_t sramNum, c
     return CY_SYSPM_SUCCESS;
 }
 
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
 /*This reset handler will be implemented as part of HCI ROM app*/
 __WEAK void Cy_SysPm_Dsramoff_Entry(void)
 {
@@ -2311,6 +2342,7 @@ cy_en_syspm_status_t Cy_SysPm_CpuEnterRAMOffDeepSleep(void)
     }
     return retVal;
 }
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
 
 void Cy_SysPm_TriggerSoftReset(void)
 {
@@ -2650,14 +2682,11 @@ cy_en_syspm_status_t Cy_SysPm_SystemEnterLp(void)
             (void) Cy_SysPm_ExecuteCallback(CY_SYSPM_LP, CY_SYSPM_BEFORE_TRANSITION);
         }
 
-        /* Read current active regulator and set LP voltage*/
-        if (Cy_SysPm_LdoIsEnabled()) // Comment : Is this check req for PSOC C3
+        /* Read current active regulator and set LP voltage */
+        if (Cy_SysPm_LdoIsEnabled())
         {
             /* Current active regulator is LDO */
-            if (Cy_SysPm_LdoGetVoltage() != CY_SYSPM_LDO_VOLTAGE_LP)
-            {
-                retVal = Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_LP);
-            }
+            retVal = Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_LP);
         }
 
         Cy_SysLib_ExitCriticalSection(interruptState);
@@ -2712,14 +2741,11 @@ cy_en_syspm_status_t Cy_SysPm_SystemEnterUlp(void)
             (void) Cy_SysPm_ExecuteCallback(CY_SYSPM_ULP, CY_SYSPM_BEFORE_TRANSITION);
         }
 
-        /* Read current active regulator and set ULP voltage*/
+        /* Read current active regulator and set ULP voltage */
         if (Cy_SysPm_LdoIsEnabled())
         {
             /* Current active regulator is LDO */
-            if (Cy_SysPm_LdoGetVoltage() != CY_SYSPM_LDO_VOLTAGE_ULP)
-            {
-                retVal = Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_ULP);
-            }
+            retVal = Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_ULP);
         }
 
         Cy_SysLib_ExitCriticalSection(interruptState);
@@ -2774,14 +2800,11 @@ cy_en_syspm_status_t Cy_SysPm_SystemEnterMf(void)
             (void) Cy_SysPm_ExecuteCallback(CY_SYSPM_MF, CY_SYSPM_BEFORE_TRANSITION);
         }
 
-        /* Read current active regulator and set ULP voltage*/
+        /* Read current active regulator and set MF voltage */
         if (Cy_SysPm_LdoIsEnabled())
         {
             /* Current active regulator is LDO */
-            if (Cy_SysPm_LdoGetVoltage() != CY_SYSPM_LDO_VOLTAGE_MF)
-            {
-                retVal = Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_MF);
-            }
+            retVal = Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_MF);
         }
 
         Cy_SysLib_ExitCriticalSection(interruptState);
@@ -2836,14 +2859,11 @@ cy_en_syspm_status_t Cy_SysPm_SystemEnterOd(void)
             (void) Cy_SysPm_ExecuteCallback(CY_SYSPM_OD, CY_SYSPM_BEFORE_TRANSITION);
         }
 
-        /* Read current active regulator and set ULP voltage*/
+        /* Read current active regulator and set OD voltage */
         if (Cy_SysPm_LdoIsEnabled())
         {
             /* Current active regulator is LDO */
-            if (Cy_SysPm_LdoGetVoltage() != CY_SYSPM_LDO_VOLTAGE_OD)
-            {
-                retVal = Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_OD);
-            }
+            retVal = Cy_SysPm_LdoSetVoltage(CY_SYSPM_LDO_VOLTAGE_OD);
         }
 
         Cy_SysLib_ExitCriticalSection(interruptState);

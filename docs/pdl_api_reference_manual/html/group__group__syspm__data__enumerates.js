@@ -32,8 +32,12 @@ var group__group__syspm__data__enumerates =
     [ "cy_en_syspm_ldo_voltage_t", "group__group__syspm__data__enumerates.html#gaef8ba4a0ee827abcaaf62f950e69496e", [
       [ "CY_SYSPM_LDO_VOLTAGE_ULP", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496eaee236d7a70299bdd4bb9e9d74d205254", null ],
       [ "CY_SYSPM_LDO_VOLTAGE_LP", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496eaed1d9d509568249e009c801328e8d7a3", null ],
+      [ "CY_SYSPM_LDO_VOLTAGE_MF", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496ea50bea5c86f3c00a61f3e68c054cb78bd", null ],
+      [ "CY_SYSPM_LDO_VOLTAGE_OD", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496eabceee01b33688566a4c9a84f9c64f006", null ],
       [ "CY_SYSPM_LDO_VOLTAGE_0_9V", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496eaf99e137b7307e92d93c1dec6b834ce33", null ],
-      [ "CY_SYSPM_LDO_VOLTAGE_1_1V", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496eafec1860878ca84cdfd201632a1d29689", null ]
+      [ "CY_SYSPM_LDO_VOLTAGE_1_1V", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496eafec1860878ca84cdfd201632a1d29689", null ],
+      [ "CY_SYSPM_LDO_VOLTAGE_1_0V", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496eada2c761143b736c7dd8035c39964ed56", null ],
+      [ "CY_SYSPM_LDO_VOLTAGE_1_2V", "group__group__syspm__data__enumerates.html#ggaef8ba4a0ee827abcaaf62f950e69496eab03fcb7afcd22a882d777bff5844d7af", null ]
     ] ],
     [ "cy_en_syspm_ldo_mode_t", "group__group__syspm__data__enumerates.html#gab23a08d99fea934c12e01f877c26dd80", [
       [ "CY_SYSPM_LDO_MODE_DISABLED", "group__group__syspm__data__enumerates.html#ggab23a08d99fea934c12e01f877c26dd80ac37ea1161b8b27b25ccf6fa7e8237819", null ],
@@ -86,7 +90,9 @@ var group__group__syspm__data__enumerates =
       [ "CY_SYSPM_LPACTIVE_EXIT", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0aadc340202029d7f71ab02b5d2a809b05", null ],
       [ "CY_SYSPM_DEEPSLEEP_RAM", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a5bbcb5a158469ecf6205fc8f1a76f094", null ],
       [ "CY_SYSPM_DEEPSLEEP_OFF", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a96131777d17bc11f3db19b05a51b5f87", null ],
-      [ "CY_SYSPM_HP", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a37ca905b7feeb358171a4f9842b9a8cc", null ]
+      [ "CY_SYSPM_HP", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a37ca905b7feeb358171a4f9842b9a8cc", null ],
+      [ "CY_SYSPM_MF", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0a9b6c7d36fe8147cb28154ca578015827", null ],
+      [ "CY_SYSPM_OD", "group__group__syspm__data__enumerates.html#gga8c2960c0164ead1cfa86e7d6846b6ff0acc963c1eadb582ac1af292b1265688ba", null ]
     ] ],
     [ "cy_en_syspm_deep_sleep_mode_t", "group__group__syspm__data__enumerates.html#gaeaedd0dc630a29f06d1ad3a5fbf77894", [
       [ "CY_SYSPM_MODE_DEEPSLEEP", "group__group__syspm__data__enumerates.html#ggaeaedd0dc630a29f06d1ad3a5fbf77894a9fc28836d1c5ae3807fc43653b36a8c0", null ],

@@ -277,6 +277,8 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>2.30.1 </td><td>Updated driver documentation text. </td><td>Documentation update.  </td></tr>
+<tr>
 <td>2.30 </td><td><a class="el" href="group__group__usbfs__dev__hal__functions__common.html#gafc1931448521bc57d22c602e451d978a">Cy_USBFS_Dev_Drv_DeInit()</a> was updated to reduce power consumption of the USB IP block after deinitialization.  </td><td><a class="el" href="group__group__usbfs__dev__hal__functions__common.html#gafc1931448521bc57d22c602e451d978a">Cy_USBFS_Dev_Drv_DeInit()</a> did not return all registers to the default value, which caused the USB IP block to consume more current when it was disabled.   </td></tr>
 <tr>
 <td>2.20.3 </td><td>Minor syntax update and spell fix. </td><td>Updated for compliance with MISRA-C:2012 standard and fixing spell errors.  </td></tr>
@@ -302,7 +304,7 @@ Changelog</h1>
 <li>Reduced the time required to complete abort operation in function <a class="el" href="group__group__usbfs__dev__hal__functions__data__xfer.html#gae4dba7b4e7a47b69f1732d5a216382eb">Cy_USBFS_Dev_Drv_Abort</a>. Obsolete function Cy_USBFS_Dev_Drv_AbortComplete because entire abort operation is handled by <a class="el" href="group__group__usbfs__dev__hal__functions__data__xfer.html#gae4dba7b4e7a47b69f1732d5a216382eb">Cy_USBFS_Dev_Drv_Abort</a>.</li>
 <li>Added the endpoint address argument to the <a class="el" href="group__group__usbfs__dev__drv__data__structures.html#ga8f3d05a8716e5d7b1f208038882c8328">cy_cb_usbfs_dev_drv_ep_callback_t</a> to simplify endpoint transfer complete event processing for the MBED-OS USB Device stack.  </li>
 </ul>
-</td><td>Updated the driver to support the MBED-OS USB Device stack and Cypress USB Device middleware.  </td></tr>
+</td><td>Updated the driver to support the MBED-OS USB Device stack and Infineon USB Device middleware.  </td></tr>
 <tr>
 <td rowspan="2">1.10 </td><td>Fixed the <a class="el" href="group__group__usbfs__dev__hal__functions__common.html#gab9f5b81775dcb9b664ac8bd46f5b89a8">Cy_USBFS_Dev_Drv_Disable</a> function to not disable DMA in CPU mode. </td><td>Calling this function triggers assert because DMA for endpoints is not initialized/used in the CPU mode.  </td></tr>
 <tr>

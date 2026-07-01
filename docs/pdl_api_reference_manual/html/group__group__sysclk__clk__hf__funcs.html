@@ -93,6 +93,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf3041fc8333478cc7c8d869d2a535d71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gaf3041fc8333478cc7c8d869d2a535d71">Cy_SysClk_ClkHfEnable</a> (uint32_t clkHf)</td></tr>
 <tr class="memdesc:gaf3041fc8333478cc7c8d869d2a535d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the selected clkHf.  <a href="#gaf3041fc8333478cc7c8d869d2a535d71">More...</a><br /></td></tr>
 <tr class="separator:gaf3041fc8333478cc7c8d869d2a535d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55bd17f63a0466c358765b6d06e47449"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga55bd17f63a0466c358765b6d06e47449">Cy_SysClk_ClkHfEnableSafe</a> (uint32_t clkHf)</td></tr>
+<tr class="memdesc:ga55bd17f63a0466c358765b6d06e47449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies if selected clkHf could be enabled and if yes than enables it.  <a href="#ga55bd17f63a0466c358765b6d06e47449">More...</a><br /></td></tr>
+<tr class="separator:ga55bd17f63a0466c358765b6d06e47449"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga47252e1861afb4664f43c2e0a5e38055"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga47252e1861afb4664f43c2e0a5e38055">Cy_SysClk_ClkHfIsEnabled</a> (uint32_t clkHf)</td></tr>
 <tr class="memdesc:ga47252e1861afb4664f43c2e0a5e38055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the Enabled/Disabled status of clkHf.  <a href="#ga47252e1861afb4664f43c2e0a5e38055">More...</a><br /></td></tr>
 <tr class="separator:ga47252e1861afb4664f43c2e0a5e38055"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +135,27 @@ Functions</h2></td></tr>
 <tr class="memitem:ga4053d66942358380e99583c0ef4d99a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga4053d66942358380e99583c0ef4d99a5">Cy_SysClk_ClkHfEnableDirectMuxWithMask</a> (uint32_t clkHfMask, bool enable)</td></tr>
 <tr class="memdesc:ga4053d66942358380e99583c0ef4d99a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable/ Disable the clock path for the HF Clocks in clkHfMask in disable case ROOT path will be enabled in enable case ROOT path will be disabled.  <a href="#ga4053d66942358380e99583c0ef4d99a5">More...</a><br /></td></tr>
 <tr class="separator:ga4053d66942358380e99583c0ef4d99a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac69470129ece20e3f581a50ad4ce90da"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gac69470129ece20e3f581a50ad4ce90da">Cy_SysClk_ClkHfCsvGetRefFrequency</a> (<a class="el" href="group__group__sysclk__clk__hf__enums.html#ga4a1f38cb2061138eb45c5caefc7bc24e">cy_en_clkhf_csv_ref_clk_t</a> refClk)</td></tr>
+<tr class="memdesc:gac69470129ece20e3f581a50ad4ce90da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the clkHf csv reference clock frequency.  <a href="#gac69470129ece20e3f581a50ad4ce90da">More...</a><br /></td></tr>
+<tr class="separator:gac69470129ece20e3f581a50ad4ce90da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc2f720bd1fd772c803e454f1f1d276a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a">Cy_SysClk_ClkHfCsvManualConfigure</a> (const <a class="el" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> *hfConfig, const <a class="el" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> *csvConfig)</td></tr>
+<tr class="memdesc:gacc2f720bd1fd772c803e454f1f1d276a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually configures the clkHf csv based on user inputs.  <a href="#gacc2f720bd1fd772c803e454f1f1d276a">More...</a><br /></td></tr>
+<tr class="separator:gacc2f720bd1fd772c803e454f1f1d276a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe46e56ed4173997eaf12f90508fd931"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931">Cy_SysClk_ClkHfCsvConfigure</a> (const <a class="el" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> *hfConfig, uint32_t accuracy)</td></tr>
+<tr class="memdesc:gafe46e56ed4173997eaf12f90508fd931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures clkhf csv.  <a href="#gafe46e56ed4173997eaf12f90508fd931">More...</a><br /></td></tr>
+<tr class="separator:gafe46e56ed4173997eaf12f90508fd931"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ecc112d5ff1a7225da7eff2a615b9d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a> (uint32_t clkHf, <a class="el" href="group__group__sysclk__clk__hf__enums.html#gaf8d7cf42f04f1edafeba204ead24e6ac">cy_en_clkhf_csv_action_t</a> action)</td></tr>
+<tr class="memdesc:ga6ecc112d5ff1a7225da7eff2a615b9d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the action taken when an anomaly is detected on the clkHf.  <a href="#ga6ecc112d5ff1a7225da7eff2a615b9d2">More...</a><br /></td></tr>
+<tr class="separator:ga6ecc112d5ff1a7225da7eff2a615b9d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab089b18843b769023c4b6a28daa5d11c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a> (uint32_t clkHf)</td></tr>
+<tr class="memdesc:gab089b18843b769023c4b6a28daa5d11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the csv for the provided clkHf.  <a href="#gab089b18843b769023c4b6a28daa5d11c">More...</a><br /></td></tr>
+<tr class="separator:gab089b18843b769023c4b6a28daa5d11c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b5d0d2cf366d20abc64ad026cbbd4bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf">Cy_SysClk_ClkHfCsvDisable</a> (uint32_t clkHf)</td></tr>
+<tr class="memdesc:ga7b5d0d2cf366d20abc64ad026cbbd4bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the csv for the provided clkHf.  <a href="#ga7b5d0d2cf366d20abc64ad026cbbd4bf">More...</a><br /></td></tr>
+<tr class="separator:ga7b5d0d2cf366d20abc64ad026cbbd4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7cab6219b20fb191a33a8569653b4de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de">Cy_SysClk_IsClkHfCsvEnabled</a> (uint32_t clkHf)</td></tr>
+<tr class="memdesc:gae7cab6219b20fb191a33a8569653b4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enabled status of csv for the provided clkHf.  <a href="#gae7cab6219b20fb191a33a8569653b4de">More...</a><br /></td></tr>
+<tr class="separator:gae7cab6219b20fb191a33a8569653b4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaf3041fc8333478cc7c8d869d2a535d71"></a>
@@ -158,7 +182,34 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> CY_PRA_STATUS_* - For the PSoC 64 devices there are possible situations when function returns the PRA error status code <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> instead of <a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>. This is because for PSoC 64 devices the function uses the PRA driver to change the protected registers. Refer to <a class="el" href="group__group__pra__enums.html#ga60be13e12e82986f8c0d6c6a6d4f12c5">cy_en_pra_status_t</a> for more details.</dd></dl>
-<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: ECO needs to source HFCLK2 through Path 2. The ECO is</span></div><div class="line"><span class="comment">                 configured through its function calls. */</span></div><div class="line"></div><div class="line"><span class="preprocessor">    #define CLKPATH2 (2UL)</span></div><div class="line"><span class="preprocessor">    #define HFCLK2 (2UL)</span></div><div class="line"></div><div class="line">    uint32_t clkPathMuxFreq = 0UL; <span class="comment">/* Variable to store the Clock Path Mux output frequency */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Set the clock path 2 mux to be sourced from ECO */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> == <a class="code" href="group__group__sysclk__path__src__funcs.html#ga517f603266062d0013947ea950ed5b60">Cy_SysClk_ClkPathSetSource</a>(CLKPATH2, <a class="code" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a28f5ad80fd20d8459d40aa8b86d3a77e">CY_SYSCLK_CLKPATH_IN_ECO</a>))</div><div class="line">    {</div><div class="line">        clkPathMuxFreq = <a class="code" href="group__group__sysclk__path__src__funcs.html#ga1256c8a7290cecf2b9553a1df582e797">Cy_SysClk_ClkPathMuxGetFrequency</a>(CLKPATH2);</div><div class="line">        <span class="comment">/* Now clkPathMuxFreq contains the Clock Path Mux output frequency */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Perform error handling */</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Set the HFCLK2 source to clock path 2 and enable HFCLK2 */</span></div><div class="line">    (void)<a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga2d39c7e5111f9ba0738f032a98b4593e">Cy_SysClk_ClkHfSetSource</a>(HFCLK2, <a class="code" href="group__group__sysclk__clk__hf__enums.html#ggabac2d6b9124a00860dcd781a922788d6a7a35a9d5b37d1add71bd6f866953366e">CY_SYSCLK_CLKHF_IN_CLKPATH2</a>);</div><div class="line"></div><div class="line">    <span class="comment">/* Enable HFCLK2  */</span></div><div class="line">    (void)<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gaf3041fc8333478cc7c8d869d2a535d71">Cy_SysClk_ClkHfEnable</a>(HFCLK2);</div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: ECO needs to source HFCLK2 through Path 2. The ECO is</span></div><div class="line"><span class="comment">                 configured through its function calls. */</span></div><div class="line"></div><div class="line"><span class="preprocessor">    #define CLKPATH2 (2UL)</span></div><div class="line"><span class="preprocessor">    #define HFCLK2 (2UL)</span></div><div class="line"></div><div class="line">    uint32_t clkPathMuxFreq = 0UL; <span class="comment">/* Variable to store the Clock Path Mux output frequency */</span></div><div class="line"></div><div class="line">    <span class="comment">/* Set the clock path 2 mux to be sourced from ECO */</span></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__returns.html#ggad6699a184e2e3c01433251b0981558f3a1563f761f963757b339ff05eb5a690ec">CY_SYSCLK_SUCCESS</a> == <a class="code" href="group__group__sysclk__path__src__funcs.html#ga44116796bbbf9a65cc84c7def9c9a731">Cy_SysClk_ClkPathSetSource</a>(CLKPATH2, <a class="code" href="group__group__sysclk__path__src__enums.html#gga8ddaf9023a02dee0d1f9a5629d6ccfe6a28f5ad80fd20d8459d40aa8b86d3a77e">CY_SYSCLK_CLKPATH_IN_ECO</a>))</div><div class="line">    {</div><div class="line">        clkPathMuxFreq = <a class="code" href="group__group__sysclk__path__src__funcs.html#ga1256c8a7290cecf2b9553a1df582e797">Cy_SysClk_ClkPathMuxGetFrequency</a>(CLKPATH2);</div><div class="line">        <span class="comment">/* Now clkPathMuxFreq contains the Clock Path Mux output frequency */</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">/* Perform error handling */</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/* Set the HFCLK2 source to clock path 2 and enable HFCLK2 */</span></div><div class="line">    (void)<a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga2d39c7e5111f9ba0738f032a98b4593e">Cy_SysClk_ClkHfSetSource</a>(HFCLK2, <a class="code" href="group__group__sysclk__clk__hf__enums.html#ggabac2d6b9124a00860dcd781a922788d6a7a35a9d5b37d1add71bd6f866953366e">CY_SYSCLK_CLKHF_IN_CLKPATH2</a>);</div><div class="line"></div><div class="line">    <span class="comment">/* Enable HFCLK2  */</span></div><div class="line">    (void)<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gaf3041fc8333478cc7c8d869d2a535d71">Cy_SysClk_ClkHfEnable</a>(HFCLK2);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga55bd17f63a0466c358765b6d06e47449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga55bd17f63a0466c358765b6d06e47449">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfEnableSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> Cy_SysClk_ClkHfEnableSafe </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Verifies if selected clkHf could be enabled and if yes than enables it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHf</td><td>Selects which clkHf to enable.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B and CAT1C devices. </dd></dl>
 
 </div>
 </div>
@@ -594,6 +645,240 @@ Calculates the HF frequency irrespective of whether HF is enabled or not.</dd></
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This API is available CAT1D for LP PLL, CDT_005549-196 </dd></dl>
+
+</div>
+</div>
+<a id="gac69470129ece20e3f581a50ad4ce90da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac69470129ece20e3f581a50ad4ce90da">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfCsvGetRefFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_SysClk_ClkHfCsvGetRefFrequency </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__sysclk__clk__hf__enums.html#ga4a1f38cb2061138eb45c5caefc7bc24e">cy_en_clkhf_csv_ref_clk_t</a>&#160;</td>
+          <td class="paramname"><em>refClk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the clkHf csv reference clock frequency. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">refClk</td><td>Reference clock source.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B(PSOC C3), CAT1C, CAT1D devices.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Generate clkhf csv using the below hfConfig, csvConfig configuration.*/</span></div><div class="line"></div><div class="line">    <span class="keywordtype">bool</span> manualConfig = 1UL;</div><div class="line">    <span class="comment">/* Configure faults using sysFault API */</span></div><div class="line"></div><div class="line">    <span class="comment">/* CSV Config. */</span></div><div class="line">    <span class="keywordflow">if</span> (manualConfig)</div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IHO.</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> csvConfig = {198, 195, 205, 208}; <span class="comment">// Start time, lower limit, upper limit, period.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a">Cy_SysClk_ClkHfCsvManualConfigure</a>(&amp;hfConfig , &amp;csvConfig);</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">// Auto config</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IMO.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931">Cy_SysClk_ClkHfCsvConfigure</a>(&amp;hfConfig, 1); <span class="comment">// Accuracy 1%</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de">Cy_SysClk_IsClkHfCsvEnabled</a>(1))</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf">Cy_SysClk_ClkHfCsvDisable</a>(1);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gacc2f720bd1fd772c803e454f1f1d276a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacc2f720bd1fd772c803e454f1f1d276a">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfCsvManualConfigure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> Cy_SysClk_ClkHfCsvManualConfigure </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> *&#160;</td>
+          <td class="paramname"><em>hfConfig</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> *&#160;</td>
+          <td class="paramname"><em>csvConfig</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Manually configures the clkHf csv based on user inputs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hfConfig</td><td>Selects the clkHf, reference clock for csv operation.</td></tr>
+    <tr><td class="paramname">csvConfig</td><td>Selects the csv configuration required.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The frequency in Hz.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B(PSOC C3), CAT1C, CAT1D devices.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Generate clkhf csv using the below hfConfig, csvConfig configuration.*/</span></div><div class="line"></div><div class="line">    <span class="keywordtype">bool</span> manualConfig = 1UL;</div><div class="line">    <span class="comment">/* Configure faults using sysFault API */</span></div><div class="line"></div><div class="line">    <span class="comment">/* CSV Config. */</span></div><div class="line">    <span class="keywordflow">if</span> (manualConfig)</div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IHO.</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> csvConfig = {198, 195, 205, 208}; <span class="comment">// Start time, lower limit, upper limit, period.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a">Cy_SysClk_ClkHfCsvManualConfigure</a>(&amp;hfConfig , &amp;csvConfig);</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">// Auto config</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IMO.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931">Cy_SysClk_ClkHfCsvConfigure</a>(&amp;hfConfig, 1); <span class="comment">// Accuracy 1%</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de">Cy_SysClk_IsClkHfCsvEnabled</a>(1))</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf">Cy_SysClk_ClkHfCsvDisable</a>(1);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gafe46e56ed4173997eaf12f90508fd931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafe46e56ed4173997eaf12f90508fd931">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfCsvConfigure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a> Cy_SysClk_ClkHfCsvConfigure </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> *&#160;</td>
+          <td class="paramname"><em>hfConfig</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>accuracy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures clkhf csv. </p>
+<p>The configuration formula used is: Lower_limit = Target - Required accuracy/2 Upper_limit = Target + Required accuracy/2 Period = Target / (Reference frequency / Monitor frequency) Start_time = (Period +3) * (Reference frequency / Monitor frequency) - Upper_limit</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hfConfig</td><td>Selects the clkHf, reference clock for csv operation.</td></tr>
+    <tr><td class="paramname">accuracy</td><td>Required accuracy.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B(PSOC C3), CAT1C, CAT1D devices.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Generate clkhf csv using the below hfConfig, csvConfig configuration.*/</span></div><div class="line"></div><div class="line">    <span class="keywordtype">bool</span> manualConfig = 1UL;</div><div class="line">    <span class="comment">/* Configure faults using sysFault API */</span></div><div class="line"></div><div class="line">    <span class="comment">/* CSV Config. */</span></div><div class="line">    <span class="keywordflow">if</span> (manualConfig)</div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IHO.</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> csvConfig = {198, 195, 205, 208}; <span class="comment">// Start time, lower limit, upper limit, period.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a">Cy_SysClk_ClkHfCsvManualConfigure</a>(&amp;hfConfig , &amp;csvConfig);</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">// Auto config</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IMO.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931">Cy_SysClk_ClkHfCsvConfigure</a>(&amp;hfConfig, 1); <span class="comment">// Accuracy 1%</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de">Cy_SysClk_IsClkHfCsvEnabled</a>(1))</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf">Cy_SysClk_ClkHfCsvDisable</a>(1);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga6ecc112d5ff1a7225da7eff2a615b9d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6ecc112d5ff1a7225da7eff2a615b9d2">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfCsvAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_ClkHfCsvAction </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__sysclk__clk__hf__enums.html#gaf8d7cf42f04f1edafeba204ead24e6ac">cy_en_clkhf_csv_action_t</a>&#160;</td>
+          <td class="paramname"><em>action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures the action taken when an anomaly is detected on the clkHf. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHf</td><td>Selects the clkHf.</td></tr>
+    <tr><td class="paramname">action</td><td>Action to be taken when anomaly is detected <a class="el" href="group__group__sysclk__clk__hf__enums.html#gaf8d7cf42f04f1edafeba204ead24e6ac">cy_en_clkhf_csv_action_t</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B(PSOC C3), CAT1C, CAT1D devices.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Generate clkhf csv using the below hfConfig, csvConfig configuration.*/</span></div><div class="line"></div><div class="line">    <span class="keywordtype">bool</span> manualConfig = 1UL;</div><div class="line">    <span class="comment">/* Configure faults using sysFault API */</span></div><div class="line"></div><div class="line">    <span class="comment">/* CSV Config. */</span></div><div class="line">    <span class="keywordflow">if</span> (manualConfig)</div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IHO.</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> csvConfig = {198, 195, 205, 208}; <span class="comment">// Start time, lower limit, upper limit, period.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a">Cy_SysClk_ClkHfCsvManualConfigure</a>(&amp;hfConfig , &amp;csvConfig);</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">// Auto config</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IMO.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931">Cy_SysClk_ClkHfCsvConfigure</a>(&amp;hfConfig, 1); <span class="comment">// Accuracy 1%</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de">Cy_SysClk_IsClkHfCsvEnabled</a>(1))</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf">Cy_SysClk_ClkHfCsvDisable</a>(1);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gab089b18843b769023c4b6a28daa5d11c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab089b18843b769023c4b6a28daa5d11c">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfCsvEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_ClkHfCsvEnable </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the csv for the provided clkHf. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHf</td><td>Selects the clkHf.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B(PSOC C3), CAT1C, CAT1D devices.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Generate clkhf csv using the below hfConfig, csvConfig configuration.*/</span></div><div class="line"></div><div class="line">    <span class="keywordtype">bool</span> manualConfig = 1UL;</div><div class="line">    <span class="comment">/* Configure faults using sysFault API */</span></div><div class="line"></div><div class="line">    <span class="comment">/* CSV Config. */</span></div><div class="line">    <span class="keywordflow">if</span> (manualConfig)</div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IHO.</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> csvConfig = {198, 195, 205, 208}; <span class="comment">// Start time, lower limit, upper limit, period.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a">Cy_SysClk_ClkHfCsvManualConfigure</a>(&amp;hfConfig , &amp;csvConfig);</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">// Auto config</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IMO.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931">Cy_SysClk_ClkHfCsvConfigure</a>(&amp;hfConfig, 1); <span class="comment">// Accuracy 1%</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de">Cy_SysClk_IsClkHfCsvEnabled</a>(1))</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf">Cy_SysClk_ClkHfCsvDisable</a>(1);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ga7b5d0d2cf366d20abc64ad026cbbd4bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7b5d0d2cf366d20abc64ad026cbbd4bf">&#9670;&nbsp;</a></span>Cy_SysClk_ClkHfCsvDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cy_SysClk_ClkHfCsvDisable </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables the csv for the provided clkHf. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHf</td><td>Selects the clkHf.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B(PSOC C3), CAT1C, CAT1D devices.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Generate clkhf csv using the below hfConfig, csvConfig configuration.*/</span></div><div class="line"></div><div class="line">    <span class="keywordtype">bool</span> manualConfig = 1UL;</div><div class="line">    <span class="comment">/* Configure faults using sysFault API */</span></div><div class="line"></div><div class="line">    <span class="comment">/* CSV Config. */</span></div><div class="line">    <span class="keywordflow">if</span> (manualConfig)</div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IHO.</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> csvConfig = {198, 195, 205, 208}; <span class="comment">// Start time, lower limit, upper limit, period.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a">Cy_SysClk_ClkHfCsvManualConfigure</a>(&amp;hfConfig , &amp;csvConfig);</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">// Auto config</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IMO.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931">Cy_SysClk_ClkHfCsvConfigure</a>(&amp;hfConfig, 1); <span class="comment">// Accuracy 1%</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de">Cy_SysClk_IsClkHfCsvEnabled</a>(1))</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf">Cy_SysClk_ClkHfCsvDisable</a>(1);</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="gae7cab6219b20fb191a33a8569653b4de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae7cab6219b20fb191a33a8569653b4de">&#9670;&nbsp;</a></span>Cy_SysClk_IsClkHfCsvEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cy_SysClk_IsClkHfCsvEnabled </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clkHf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the enabled status of csv for the provided clkHf. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkHf</td><td>Selects the clkHf.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__sysclk__returns.html#gad6699a184e2e3c01433251b0981558f3">cy_en_sysclk_status_t</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API is available for CAT1B(PSOC C3), CAT1C, CAT1D devices.</dd></dl>
+<dl class="section user"><dt>Function Usage</dt><dd><div class="fragment"><div class="line">    <span class="comment">/* Scenario: Generate clkhf csv using the below hfConfig, csvConfig configuration.*/</span></div><div class="line"></div><div class="line">    <span class="keywordtype">bool</span> manualConfig = 1UL;</div><div class="line">    <span class="comment">/* Configure faults using sysFault API */</span></div><div class="line"></div><div class="line">    <span class="comment">/* CSV Config. */</span></div><div class="line">    <span class="keywordflow">if</span> (manualConfig)</div><div class="line">    {</div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IHO.</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__manual__config__t.html">cy_stc_clkhf_csv_manual_config_t</a> csvConfig = {198, 195, 205, 208}; <span class="comment">// Start time, lower limit, upper limit, period.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gacc2f720bd1fd772c803e454f1f1d276a">Cy_SysClk_ClkHfCsvManualConfigure</a>(&amp;hfConfig , &amp;csvConfig);</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line">    <span class="keywordflow">else</span></div><div class="line">    {</div><div class="line">        <span class="comment">// Auto config</span></div><div class="line">        <a class="code" href="structcy__stc__clkhf__csv__hf__config__t.html">cy_stc_clkhf_csv_hf_config_t</a> hfConfig = {1, 4}; <span class="comment">// clkhf instance 1, ref clock IMO.</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gafe46e56ed4173997eaf12f90508fd931">Cy_SysClk_ClkHfCsvConfigure</a>(&amp;hfConfig, 1); <span class="comment">// Accuracy 1%</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga6ecc112d5ff1a7225da7eff2a615b9d2">Cy_SysClk_ClkHfCsvAction</a>(1, 0); <span class="comment">// clkhf instance 1, Action as Fault</span></div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#gab089b18843b769023c4b6a28daa5d11c">Cy_SysClk_ClkHfCsvEnable</a>(1); <span class="comment">// Enable clkhf csv instance 1</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="group__group__sysclk__clk__hf__funcs.html#gae7cab6219b20fb191a33a8569653b4de">Cy_SysClk_IsClkHfCsvEnabled</a>(1))</div><div class="line">        <a class="code" href="group__group__sysclk__clk__hf__funcs.html#ga7b5d0d2cf366d20abc64ad026cbbd4bf">Cy_SysClk_ClkHfCsvDisable</a>(1);</div></div><!-- fragment --></dd></dl>
 
 </div>
 </div>

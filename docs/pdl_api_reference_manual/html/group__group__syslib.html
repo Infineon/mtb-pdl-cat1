@@ -108,12 +108,12 @@ $(document).ready(function(){initNavTree('group__group__syslib.html','');});
 <h1><a class="anchor" id="group_syslib_configuration"></a>
 Configuration Considerations</h1>
 <p><b> Assertion Usage </b> <br />
- Use the CY_ASSERT() macro to check expressions that must be true if the program is running correctly. It is a convenient way to insert sanity checks. The CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a>. The macro behavior is as follows: if the expression passed to the macro is false, the CPU is halted. <br />
- Starting from the driver version 2.50, the CY_ASSERT macro was moved to the Cypress Core Library (core-lib). Also, the CY_ASSERT implementation was changed not to call <a class="el" href="group__group__syslib__functions.html#ga0fe70e0948f5d2b2fb1615b85b0d7d7a" title="This function stores the ASSERT location of the file name (including path to file) and line number in...">Cy_SysLib_AssertFailed()</a> function, so user application that relied on that should take this change into account. <br />
+ Use the CY_ASSERT() macro to check expressions that must be true if the program is running correctly. It is a convenient way to insert sanity checks. The CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/Infineon/core-lib">Infineon Core Library (core-lib)</a>. The macro behavior is as follows: if the expression passed to the macro is false, the CPU is halted. <br />
+ Starting from the driver version 2.50, the CY_ASSERT macro was moved to the Infineon Core Library (core-lib). Also, the CY_ASSERT implementation was changed not to call <a class="el" href="group__group__syslib__functions.html#ga0fe70e0948f5d2b2fb1615b85b0d7d7a" title="This function stores the ASSERT location of the file name (including path to file) and line number in...">Cy_SysLib_AssertFailed()</a> function, so user application that relied on that should take this change into account. <br />
 </p>
 <p>The PDL source code uses this assert mechanism extensively. It is recommended that you enable asserts when debugging firmware. <br />
 <b> Assertion Classes and Levels </b> <br />
- The <a href="https://github.com/Infineon/core-lib">Cypress Core Library</a> defines three assert classes, which correspond to different kinds of parameters. There is a corresponding assert "level" for each class. </p><table class="doxtable">
+ The <a href="https://github.com/Infineon/core-lib">Infineon Core Library</a> defines three assert classes, which correspond to different kinds of parameters. There is a corresponding assert "level" for each class. </p><table class="doxtable">
 <tr>
 <th>Class Macro</th><th>Level Macro</th><th>Type of check </th></tr>
 <tr>
@@ -138,7 +138,11 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
-<td>3.100.0 </td><td>Added FLASHC1 support to <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> function.  </td></tr>
+<td rowspan="2">3.110 </td><td>Fix CAT1B LCS decoding by masking the source register to 16 bits. </td><td>Bug fix.  </td></tr>
+<tr>
+<td>Updated driver documentation text. </td><td>Documentation update.  </td></tr>
+<tr>
+<td>3.100 </td><td>Added FLASHC1 support to <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a> function.  </td></tr>
 <tr>
 <td>3.90.1 </td><td>Updated <a class="el" href="group__group__syslib__functions.html#ga8e96d4a4aed60c9d7e8c186951147c95">Cy_SysLib_GetDeviceLCS</a> function description. </td><td>Documentation enhancement.  </td></tr>
 <tr>
@@ -184,7 +188,7 @@ Added new API <a class="el" href="group__group__syslib__functions.html#gabc2fac2
 <tr>
 <td>Fixed/Documented MISRA 2012 violations. </td><td>MISRA 2012 compliance.  </td></tr>
 <tr>
-<td>2.60.1 </td><td>Updated the Configuration Considerations section with the information that CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/Infineon/core-lib">Cypress Core Library (core-lib)</a> </td><td>Documentation update and clarification.  </td></tr>
+<td>2.60.1 </td><td>Updated the Configuration Considerations section with the information that CY_ASSERT() macro is defined in the cy_utils.h file, which is part of the <a href="https://github.com/Infineon/core-lib">Infineon Core Library (core-lib)</a> </td><td>Documentation update and clarification.  </td></tr>
 <tr>
 <td rowspan="2">2.60 </td><td>Updated the following functions for the PSOC 64 devices: <a class="el" href="group__group__syslib__functions.html#ga1691f4df41994e7ed9c30ec6495d925f">Cy_SysLib_ClearFlashCacheAndBuffer</a>, <a class="el" href="group__group__syslib__functions.html#gaebb4e952584f0c428f58f7b4dbd3ceff">Cy_SysLib_ClearResetReason</a>, <a class="el" href="group__group__syslib__functions.html#ga8b897f8554957f9393f645d5ab1106c9">Cy_SysLib_SetWaitStates</a>. </td><td>Added PSOC 64 device support.  </td></tr>
 <tr>

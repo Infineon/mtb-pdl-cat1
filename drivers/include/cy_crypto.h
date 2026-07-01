@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_crypto.h
-* \version 2.150
+* \version 2.150.1
 *
 * \brief
 *  This file provides the public interface for the Crypto driver.
@@ -249,6 +249,11 @@
 * \section group_crypto_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td> 2.150.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
 *   <tr>
 *     <td> 2.150</td>
 *     <td>Added new macro CY_CRYPTO_ALIGN_CACHE_LINE to Manually align memory allocation for DCache management in XMC devices.</td>

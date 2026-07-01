@@ -1,8 +1,8 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.140
+* \version 2.140.1
 *
-* Provides an API declaration of the Cypress SMIF driver.
+* Provides an API declaration of the Infineon SMIF driver.
 *
 ********************************************************************************
 * \copyright
@@ -233,6 +233,11 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.140.1</td>
+*     <td>Updated driver documentation text.</td>
+*     <td>Documentation update.</td>
+*   </tr>
 *   <tr>
 *     <td>2.140</td>
 *     <td>New device support added for TRAVEO T2G CYT3DL.</td>

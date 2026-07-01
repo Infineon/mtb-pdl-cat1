@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ipc_bt.h
-* \version 1.150
+* \version 1.160.1
 *
 * \brief
 * Provides an API declaration for the BT IPC driver.
@@ -304,7 +304,7 @@ typedef enum
 
 /*
  * This section defines the system level constants required to define
- * callback arrays for the Cypress pipe and the user pipe.  These defines
+ * callback arrays for the Infineon pipe and the user pipe.  These defines
  * are used for both the max callback count and maximum clients.
 */
 
