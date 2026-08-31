@@ -1,0 +1,2139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!--
+**********************************************************************************************************************
+*
+* Copyright (c) Infineon Technologies AG
+* All rights reserved.
+*
+**********************************************************************************************************************
+-->
+
+<!DOCTYPE svgdiagram
+[
+<!-- CC1 related elements visibility (1.0 visible / 0.0 hidden) -->
+<!ENTITY SHOW_CC1 "0.0" >
+
+<!-- Graph title text; overridden by the PWM_TITLE substitution to reflect the selected PWM Configurations choice -->
+<!ENTITY PWM_TITLE "PWM Signal Configuration - Custom" >
+
+<!-- One Shot run-mode gate: SHOW_CONT is 1.0 in Continuous (period-2+ counter-graph elements
+     draw normally) and 0.0 in One Shot. It wraps the "continued" ramp segments, asymmetric
+     apex dividers and the shared/hardcoded event + interrupt dots that live past the first
+     period (x = cuw_b1) in a nested <g opacity>, whose opacity multiplies with each element's
+     own show flag. In One Shot the graph therefore stops after the first period with no white
+     masking; the reference level lines, timings and line outputs are left full width. -->
+<!ENTITY SHOW_CONT "1.0" >
+
+<!-- Overflow / underflow event-dot visibility (depends on count direction) -->
+<!ENTITY SHOW_OV_EVT "1.0" >
+<!-- Apex overflow visibility: Count Up/Down reaches Period mid-period, so the overflow event sits at the ramp apex -->
+<!ENTITY SHOW_OV_APEX "0.0" >
+<!ENTITY SHOW_UN_EVT "0.0" >
+
+<!-- Apex terminal-count visibility: only Count Up/Down 2 raises tc on overflow as well as underflow -->
+<!ENTITY SHOW_TC_APEX "0.0" >
+
+<!-- Interrupt-event highlight: turns the matching event-row dots red when the interrupt source is enabled.
+     Applied as a group opacity that multiplies with each dot's own visibility (default 0 = nothing marked). -->
+<!ENTITY SHOW_INTERRUPT_TC "0.0" >
+<!ENTITY SHOW_INTERRUPT_CC0 "0.0" >
+<!ENTITY SHOW_INTERRUPT_CC1 "0.0" >
+
+<!-- Asymmetric (Count Up/Down - TC on OVF and UNF) apex divider: a grey vertical line at each ramp apex that splits the full up/down period into its up-count and down-count sub-periods (mirrors the predefined Asymmetric mode). Shown only in that submode. -->
+<!ENTITY SHOW_ASYM_DIV "0.0" >
+<!-- Inverse of SHOW_ASYM_DIV: shows the full-width (un-split) compare reference line in every mode except asymmetric. -->
+<!-- Down-count (right of the grey divider) buffered-compare reference-line / label visibility in asymmetric mode (only when the matching Enable Compare Swap is on). -->
+<!ENTITY SHOW_C0_BUFF_ASYM "0.0" >
+<!ENTITY SHOW_C1_BUFF_ASYM "0.0" >
+<!-- Compare 1 odd-period gating combined with CC1 availability (full-width when not asymmetric, split when asymmetric). -->
+<!ENTITY SHOW_C1_ODD_FULL "0.0" >
+<!ENTITY SHOW_C1_ODD_ASYM "0.0" >
+<!-- Compare 0 odd-period gating (mirrors the Compare 1 flags): full-width when not asymmetric, split when asymmetric. -->
+<!ENTITY SHOW_C0_ODD_FULL "1.0" >
+<!ENTITY SHOW_C0_ODD_ASYM "0.0" >
+<!-- Shadow-copy persist compare reference-line gating (Swapping Enable off + matching Compare swap on): a single main-level segment up to the first TC then a held buffered segment. _NA = non-asymmetric (transition at period-1 boundary), _ASYM = asymmetric (transition at period-1 apex). -->
+<!ENTITY SHOW_C0_PERSIST_NA "0.0" >
+<!ENTITY SHOW_C0_PERSIST_ASYM "0.0" >
+<!ENTITY SHOW_C1_PERSIST_NA "0.0" >
+<!ENTITY SHOW_C1_PERSIST_ASYM "0.0" >
+<!-- Period shadow-copy persist reference lines (Period0 up to first TC, then Period1 held): NA = non-asymmetric first TC at period boundary; ASYM = first TC at the apex/overflow. -->
+<!ENTITY SHOW_PERIOD_PERSIST_NA "0.0" >
+<!ENTITY SHOW_PERIOD_PERSIST_ASYM "0.0" >
+
+<!-- Counter ramp polyline points after the start vertex (start vertex uses CU_INIT_Y) -->
+<!ENTITY CU_RX1 "320" >
+<!ENTITY CU_RX3 "560" >
+<!ENTITY CU_RX5 "800" >
+<!-- Per-displayed-period ramp vertex Y values (period swap aware). RYA = ramp-peak vertex (rx1/rx3/rx5), RYB = period boundary vertex (b1/b2/b3). When Enable Period Swap is set the two periods reach different apex heights (Period0 vs Period1). -->
+<!ENTITY CU_RYA1 "60" >
+<!ENTITY CU_RYA2 "60" >
+<!ENTITY CU_RYA3 "60" >
+<!ENTITY CU_RYB1 "190" >
+<!ENTITY CU_RYB2 "190" >
+<!ENTITY CU_RYB3 "190" >
+
+<!-- Dash pattern for the apex-to-boundary counter segment (0 = solid up/down ramp, 3 = dotted rapid change when counting up or down) -->
+<!ENTITY CU_DROP_DASH "3" >
+
+<!-- Period boundary X positions (the first period reflects the initial counter value) -->
+<!ENTITY CU_B1 "320" >
+<!ENTITY CU_B2 "560" >
+<!ENTITY CU_B3 "800" >
+
+<!-- Period-1 / period-4 compare-dot visibility (hidden when the compare is not crossed in that period) -->
+<!ENTITY SHOW_C0_P1 "1.0" >
+<!ENTITY SHOW_C1_P1 "1.0" >
+<!ENTITY SHOW_C0_P4 "0.0" >
+<!ENTITY SHOW_C1_P4 "0.0" >
+<!-- Compare 1 odd-period (P3) up-leg dot visibility: hidden in asymmetric up/down (Count Up/Down - TC on OVF and UNF) where Compare 1 marks the down-leg only -->
+<!ENTITY SHOW_C1_P3 "0.0" >
+<!ENTITY SHOW_C0_P3 "1.0" >
+
+<!-- Period-2 compare-dot visibility (hidden when the compare exceeds the even-period value Period1 under Enable Period Swap) -->
+<!ENTITY SHOW_C0_P2 "1.0" >
+<!ENTITY SHOW_C1_P2 "1.0" >
+
+<!-- Period-4 (trailing partial extension) compare-dot X positions and line_out / line_compl_out transitions -->
+<!ENTITY CU_XC0_P4 "800" >
+<!ENTITY CU_XC1_P4 "800" >
+<!ENTITY CU_XA4 "800" >
+<!ENTITY CU_XB4 "800" >
+<!ENTITY CU_P4Y0 "380" >
+<!ENTITY CU_P4Y1 "380" >
+<!ENTITY CU_P4Y2 "380" >
+<!ENTITY CU_P4NY0 "400" >
+<!ENTITY CU_P4NY1 "400" >
+<!ENTITY CU_P4NY2 "400" >
+
+<!-- Counter axis maximum (period) value label -->
+<!ENTITY CU_PERIOD_MAX "65535" >
+
+<!-- Period reference lines. Without period swap a single "Period" line is shown; with swap two lines mark the alternating Period0 / Period1 apex levels. -->
+<!ENTITY CU_PERIOD0_Y "60" >
+<!ENTITY CU_PERIOD0_LBL_Y "48" >
+<!ENTITY CU_PERIOD1_Y "60" >
+<!ENTITY CU_PERIOD0_VAL "65535" >
+<!ENTITY CU_PERIOD1_VAL "65535" >
+<!-- Period 1 reference-line / label color. Dark brown, deliberately kept clear of every other hue on the diagram
+     (Period 0 green, Compare 0 red, Compare 0 Buff blue, Compare 1 orange, Compare 1 Buff purple, line_out berry,
+     timings violet, dividers grey, counter black). -->
+<!ENTITY CU_PERIOD1_COLOR "#8B4513" >
+<!-- X of the 'Period 1' label: midpoint of the 1st period's down-leg (apex .. boundary) so the label stays on the 1st graph period for any period width. -->
+<!ENTITY CU_PERIOD1_LBL_X "440" >
+<!ENTITY SHOW_PERIOD_SWAP "0.0" >
+<!ENTITY SHOW_PERIOD_SINGLE "1.0" >
+
+<!-- Period-swap reference-line gating split by count mode: _NA = period swap in a NON-asymmetric mode (full-width alternating Period0/Period1 lines); _AS = period swap in asymmetric Count Up/Down - TC on OVF and UNF (every period split into Period0 up-leg / Period1 down-leg). -->
+<!ENTITY SHOW_PERIOD_SWAP_NA "0.0" >
+<!ENTITY SHOW_PERIOD_SWAP_AS "0.0" >
+
+<!-- Initial counter value reference line Y position -->
+<!ENTITY CU_INIT_Y "190" >
+
+<!-- Counter ramp intersection markers for the compare reference lines -->
+<!ENTITY CU_YC0 "160" >
+<!ENTITY CU_YC1 "118" >
+<!-- Even-period (buffered) compare intersection Y. With Enable Compare Swap the even displayed periods use the buffered compare value, so their dots sit at a different height. Defaults match the main line (no swap). -->
+<!ENTITY CU_YC0_E "160" >
+<!ENTITY CU_YC1_E "118" >
+<!-- Asymmetric (Count Up/Down - TC on OVF and UNF) odd-period down-leg compare intersection Y. The down-leg matches the buffered compare value when the matching Compare swap is enabled; otherwise it equals the main level (symmetric, Center Aligned). -->
+<!ENTITY CU_YC0_DN "125" >
+<!ENTITY CU_YC1_DN "100" >
+<!-- Persist-mode odd displayed period (3/5/7) compare intersection Y. When Swapping Enable is off but a per-register
+     buffered swap is enabled, periods 3/5/7 track the buffered (even) waveform, so their dots use the buffered height.
+     Defaults match the regular odd-period height; the personality Substitution selects buffered vs regular at render. -->
+<!ENTITY CU_YC0_O3 "160" >
+<!ENTITY CU_YC1_O3 "118" >
+<!ENTITY CU_YC0_DN_O3 "125" >
+<!ENTITY CU_YC1_DN_O3 "100" >
+<!-- Displayed period 2 (even) compare intersection Y. In asymmetric mode the up-leg sits at the main level and the down-leg at the buffered level (like the odd periods); otherwise both equal the even/buffered level. -->
+<!ENTITY CU_YC0_P2U "160" >
+<!ENTITY CU_YC1_P2U "118" >
+<!ENTITY CU_YC0_P2D "160" >
+<!ENTITY CU_YC1_P2D "118" >
+<!-- Displayed period 4 (trailing partial UP-counting leg) compare intersection Y. In asymmetric mode it sits at the main compare level (like the odd up-legs); otherwise it equals the even/buffered level. -->
+<!ENTITY CU_YC0_P4 "160" >
+<!ENTITY CU_YC1_P4 "118" >
+<!-- Buffered-compare reference line visibility and values (shown only when Period swap + the matching Compare swap are active) -->
+<!ENTITY SHOW_CMP0_SWAP "0.0" >
+<!ENTITY SHOW_CMP1_SWAP "0.0" >
+<!-- Main-compare visibility over EVEN displayed periods (P2/P4): shown when the matching Compare swap is OFF, or (for P4) in asymmetric mode where the trailing up-leg always uses the main compare. When ON and not asymmetric the even periods show the buffered line instead. -->
+<!ENTITY SHOW_C0_MAIN_EVEN "1.0" >
+<!ENTITY SHOW_C1_MAIN_EVEN "1.0" >
+<!-- Period-2-only variants of the even main / buffered gates, additionally forced off in asymmetric mode (where P2 uses the split-at-apex representation instead). P4's EVEN/SWAP gates above are asymmetric-aware so its trailing up-leg shows the main compare. -->
+<!ENTITY SHOW_C0_MAIN_P2 "1.0" >
+<!ENTITY SHOW_C1_MAIN_P2 "1.0" >
+<!ENTITY SHOW_CMP0_SWAP_P2 "0.0" >
+<!ENTITY SHOW_CMP1_SWAP_P2 "0.0" >
+<!-- Even displayed period (2 & 4) compare dot colours: buffered (blue / purple) only when the matching Compare swap is active, otherwise the main compare colours (red / orange). -->
+<!-- Odd persist-period (3/5/7) compare dot / vertical drop-line colour: buffered colour in shadow-copy persist, else the main compare colour. -->
+<!ENTITY CU_C0_O3_COLOR "red" >
+<!ENTITY CU_C1_O3_COLOR "orange" >
+<!-- Odd persist-period (3/5/7) DOWN-leg dot / drop-line colour: buffered colour in shadow-copy persist, else the regular down-leg colour. -->
+<!ENTITY CU_C0_DN_O3_COLOR "red" >
+<!ENTITY CU_C1_DN_O3_COLOR "orange" >
+<!-- Period 4 (trailing partial UP-counting leg) compare dot colours: main (red / orange) in asymmetric mode, otherwise the even/buffered colours. -->
+<!ENTITY CU_C0_P4_COLOR "red" >
+<!ENTITY CU_C1_P4_COLOR "orange" >
+<!-- Asymmetric odd-period down-leg compare dot colours: buffered (blue / purple) when the matching Compare swap is active in Count Up/Down - TC on OVF and UNF, otherwise the main colours (red / orange). -->
+<!ENTITY CU_C0DN_COLOR "red" >
+<!ENTITY CU_C1DN_COLOR "orange" >
+<!-- Displayed period 2 (even) compare dot colours: up-leg main (red / orange) and down-leg buffered (blue / purple) in asymmetric mode; otherwise the even/buffered colours. -->
+<!ENTITY CU_C0_P2U_COLOR "red" >
+<!ENTITY CU_C1_P2U_COLOR "orange" >
+<!ENTITY CU_C0_P2D_COLOR "red" >
+<!ENTITY CU_C1_P2D_COLOR "orange" >
+<!ENTITY CU_CMP0_VAL "0" >
+<!ENTITY CU_CMP1_VAL "0" >
+<!ENTITY CU_CMP0_BUFF_VAL "0" >
+<!ENTITY CU_CMP1_BUFF_VAL "0" >
+<!ENTITY CU_XC0_P1 "172" >
+<!ENTITY CU_XC0_P2 "542" >
+<!ENTITY CU_XC0_P3 "662" >
+<!ENTITY CU_XC1_P1 "302" >
+<!ENTITY CU_XC1_P2 "672" >
+<!ENTITY CU_XC1_P3 "792" >
+
+<!-- Up/Down only: down-leg compare crossing X positions and their visibility (each compare is matched again while counting down) -->
+<!ENTITY CU_XC0D_P1 "0" >
+<!ENTITY CU_XC0D_P2 "0" >
+<!ENTITY CU_XC0D_P3 "0" >
+<!ENTITY CU_XC1D_P1 "0" >
+<!ENTITY CU_XC1D_P2 "0" >
+<!ENTITY CU_XC1D_P3 "0" >
+<!ENTITY SHOW_C0_DOWN_P1 "0.0" >
+<!ENTITY SHOW_C1_DOWN_P1 "0.0" >
+<!ENTITY SHOW_C0_DOWN_P2 "0.0" >
+<!ENTITY SHOW_C1_DOWN_P2 "0.0" >
+<!ENTITY SHOW_C0_DOWN_P3 "0.0" >
+<!ENTITY SHOW_C1_DOWN_P3 "0.0" >
+
+<!-- line_out / line_compl_out waveform segment transition X positions -->
+
+<!-- Up/Down down-leg waveform transition X positions (default on the bottom boundary = inert) -->
+
+<!-- Dead-time-shifted copies of the period 1..3 transition X positions. _O = line_out (rising edge delayed by Line Out DT Clocks), _C = line_compl_out (rising edge delayed by Line Compl DT Clocks). Defaults equal the base X (no dead time). Only the line_out / line_compl_out polylines use these; the compare/event dots keep their own unshifted X. CU_ST_O / CU_ST_C = delayed start-of-counting activation X (default 80, the count-start marker). -->
+<!ENTITY CU_ST_O "80" >
+<!ENTITY CU_ST_C "80" >
+<!ENTITY CU_XA1_O "172" >
+<!ENTITY CU_XA1_C "172" >
+<!ENTITY CU_XB1_O "302" >
+<!ENTITY CU_XB1_C "302" >
+<!ENTITY CU_RX1_O "320" >
+<!ENTITY CU_RX1_C "320" >
+<!ENTITY CU_XC1_O "320" >
+<!ENTITY CU_XC1_C "320" >
+<!ENTITY CU_XD1_O "320" >
+<!ENTITY CU_XD1_C "320" >
+<!ENTITY CU_B1_O "320" >
+<!ENTITY CU_B1_C "320" >
+<!ENTITY CU_XA2_O "542" >
+<!ENTITY CU_XA2_C "542" >
+<!ENTITY CU_XB2_O "672" >
+<!ENTITY CU_XB2_C "672" >
+<!ENTITY CU_RX3_O "560" >
+<!ENTITY CU_RX3_C "560" >
+<!ENTITY CU_XC2_O "560" >
+<!ENTITY CU_XC2_C "560" >
+<!ENTITY CU_XD2_O "560" >
+<!ENTITY CU_XD2_C "560" >
+<!ENTITY CU_B2_O "560" >
+<!ENTITY CU_B2_C "560" >
+<!ENTITY CU_XA3_O "662" >
+<!ENTITY CU_XA3_C "662" >
+<!ENTITY CU_XB3_O "792" >
+<!ENTITY CU_XB3_C "792" >
+<!ENTITY CU_RX5_O "800" >
+<!ENTITY CU_RX5_C "800" >
+<!ENTITY CU_XC3_O "800" >
+<!ENTITY CU_XC3_C "800" >
+<!ENTITY CU_XD3_O "800" >
+<!ENTITY CU_XD3_C "800" >
+<!ENTITY CU_B3_O "800" >
+<!ENTITY CU_B3_C "800" >
+
+<!-- Dead-time-shifted copies of the slot 4..8 transition X (extends CU_*1_O..CU_B3_C to the tiled slots). _O = line_out, _C = line_compl_out. Defaults = 800 (period 4+ off-screen by default). -->
+<!ENTITY CU_XA4_O "800" >
+<!ENTITY CU_XA4_C "800" >
+<!ENTITY CU_XB4_O "800" >
+<!ENTITY CU_XB4_C "800" >
+<!ENTITY CU_RX7_O "800" >
+<!ENTITY CU_RX7_C "800" >
+<!ENTITY CU_XC4_O "800" >
+<!ENTITY CU_XC4_C "800" >
+<!ENTITY CU_XD4_O "800" >
+<!ENTITY CU_XD4_C "800" >
+<!ENTITY CU_B4_O "800" >
+<!ENTITY CU_B4_C "800" >
+<!ENTITY CU_XA5_O "800" >
+<!ENTITY CU_XA5_C "800" >
+<!ENTITY CU_XB5_O "800" >
+<!ENTITY CU_XB5_C "800" >
+<!ENTITY CU_RX9_O "800" >
+<!ENTITY CU_RX9_C "800" >
+<!ENTITY CU_XC5_O "800" >
+<!ENTITY CU_XC5_C "800" >
+<!ENTITY CU_XD5_O "800" >
+<!ENTITY CU_XD5_C "800" >
+<!ENTITY CU_B5_O "800" >
+<!ENTITY CU_B5_C "800" >
+<!ENTITY CU_XA6_O "800" >
+<!ENTITY CU_XA6_C "800" >
+<!ENTITY CU_XB6_O "800" >
+<!ENTITY CU_XB6_C "800" >
+<!ENTITY CU_RX11_O "800" >
+<!ENTITY CU_RX11_C "800" >
+<!ENTITY CU_XC6_O "800" >
+<!ENTITY CU_XC6_C "800" >
+<!ENTITY CU_XD6_O "800" >
+<!ENTITY CU_XD6_C "800" >
+<!ENTITY CU_B6_O "800" >
+<!ENTITY CU_B6_C "800" >
+<!ENTITY CU_XA7_O "800" >
+<!ENTITY CU_XA7_C "800" >
+<!ENTITY CU_XB7_O "800" >
+<!ENTITY CU_XB7_C "800" >
+<!ENTITY CU_RX13_O "800" >
+<!ENTITY CU_RX13_C "800" >
+<!ENTITY CU_XC7_O "800" >
+<!ENTITY CU_XC7_C "800" >
+<!ENTITY CU_XD7_O "800" >
+<!ENTITY CU_XD7_C "800" >
+<!ENTITY CU_B7_O "800" >
+<!ENTITY CU_B7_C "800" >
+<!ENTITY CU_XA8_O "800" >
+<!ENTITY CU_XA8_C "800" >
+<!ENTITY CU_XB8_O "800" >
+<!ENTITY CU_XB8_C "800" >
+<!ENTITY CU_RX15_O "800" >
+<!ENTITY CU_RX15_C "800" >
+<!ENTITY CU_XC8_O "800" >
+<!ENTITY CU_XC8_C "800" >
+<!ENTITY CU_XD8_O "800" >
+<!ENTITY CU_XD8_C "800" >
+<!ENTITY CU_B8_O "800" >
+<!ENTITY CU_B8_C "800" >
+
+<!-- Pre-start (lead-in) stub levels: line_out / line_compl_out resting levels from Kill Line Polarity, drawn before the PWM starts counting. Defaults = both outputs low. -->
+<!ENTITY CU_KLO_Y "380" >
+<!ENTITY CU_KLC_Y "430" >
+<!-- External-source note visibility (1.0 shown / 0.0 hidden): set when line_out / line_compl_out source is GPIO Port Default or Motif Out (not driven by the counter, so the line is flat low). -->
+<!ENTITY SHOW_LO_EXT "0.0" >
+<!ENTITY SHOW_LC_EXT "0.0" >
+<!-- line_out waveform segment Y levels (350 = high, 380 = low) -->
+<!ENTITY CU_P1Y0 "350" >
+<!ENTITY CU_P1Y1 "380" >
+<!ENTITY CU_P1Y2 "380" >
+<!ENTITY CU_P2Y0 "350" >
+<!ENTITY CU_P2Y1 "380" >
+<!ENTITY CU_P2Y2 "380" >
+<!ENTITY CU_P3Y0 "350" >
+<!ENTITY CU_P3Y1 "380" >
+<!ENTITY CU_P3Y2 "380" >
+<!ENTITY CU_P1Y3 "380" >
+<!ENTITY CU_P1Y4 "380" >
+<!ENTITY CU_P2Y3 "380" >
+<!ENTITY CU_P2Y4 "380" >
+<!ENTITY CU_P3Y3 "380" >
+<!ENTITY CU_P3Y4 "380" >
+<!-- Up/Down apex (overflow) line_out Y levels -->
+<!ENTITY CU_P1YA "380" >
+<!ENTITY CU_P2YA "380" >
+<!ENTITY CU_P3YA "380" >
+<!ENTITY CU_P1NY0 "430" >
+<!ENTITY CU_P1NY1 "400" >
+<!ENTITY CU_P1NY2 "400" >
+<!ENTITY CU_P2NY0 "430" >
+<!ENTITY CU_P2NY1 "400" >
+<!ENTITY CU_P2NY2 "400" >
+<!ENTITY CU_P3NY0 "430" >
+<!ENTITY CU_P3NY1 "400" >
+<!ENTITY CU_P3NY2 "400" >
+<!ENTITY CU_P1NY3 "400" >
+<!ENTITY CU_P1NY4 "400" >
+<!ENTITY CU_P2NY3 "400" >
+<!ENTITY CU_P2NY4 "400" >
+<!ENTITY CU_P3NY3 "400" >
+<!ENTITY CU_P3NY4 "400" >
+<!-- Up/Down apex (overflow) line_compl_out Y levels -->
+<!ENTITY CU_P1NYA "400" >
+<!ENTITY CU_P2NYA "400" >
+<!ENTITY CU_P3NYA "400" >
+<!ENTITY IFX_COLOR_BERRY400 "#BE3283" >
+<!ENTITY IFX_COLOR_LAWN500 "#9BBA43" >
+<!-- Swap display colors matching the predefined alignment configurations: Period 0 = green, Period 1 = brown (CU_PERIOD1_COLOR, kept distinct from every other diagram color); buffered compares = blue (Compare 0 Buff) / purple (Compare 1 Buff) -->
+<!-- ================= Dynamic extra tiled periods (slots 4..8) ================= -->
+<!-- Slot boundary X (clipped at 800); collapse to 800 when the slot is hidden -->
+<!ENTITY CU_B4 "800" >
+<!ENTITY CU_B5 "800" >
+<!ENTITY CU_B6 "800" >
+<!ENTITY CU_B7 "800" >
+<!ENTITY CU_B8 "800" >
+<!-- Slot apex X (up/down only; equals boundary otherwise) -->
+<!ENTITY CU_RX7 "800" >
+<!ENTITY CU_RX9 "800" >
+<!ENTITY CU_RX11 "800" >
+<!ENTITY CU_RX13 "800" >
+<!ENTITY CU_RX15 "800" >
+<!-- Analytically window-clipped ramp endpoints for slots 4..8 (true slope, cut at x=800). CAX/CAY = clipped apex, CBX/CBY = clipped boundary. Inert defaults keep them on the right edge / baseline. -->
+<!ENTITY CU_CAX4 "800" >
+<!ENTITY CU_CAY4 "60" >
+<!ENTITY CU_CBX4 "800" >
+<!ENTITY CU_CBY4 "190" >
+<!ENTITY CU_CAX5 "800" >
+<!ENTITY CU_CAY5 "60" >
+<!ENTITY CU_CBX5 "800" >
+<!ENTITY CU_CBY5 "190" >
+<!ENTITY CU_CAX6 "800" >
+<!ENTITY CU_CAY6 "60" >
+<!ENTITY CU_CBX6 "800" >
+<!ENTITY CU_CBY6 "190" >
+<!ENTITY CU_CAX7 "800" >
+<!ENTITY CU_CAY7 "60" >
+<!ENTITY CU_CBX7 "800" >
+<!ENTITY CU_CBY7 "190" >
+<!ENTITY CU_CAX8 "800" >
+<!ENTITY CU_CAY8 "60" >
+<!ENTITY CU_CBX8 "800" >
+<!ENTITY CU_CBY8 "190" >
+<!-- Slot ramp apex/baseline Y levels -->
+<!-- Slot visibility (1.0 visible, 0.0 hidden) -->
+<!ENTITY SHOW_P4 "0.0" >
+<!ENTITY SHOW_P5 "0.0" >
+<!ENTITY SHOW_P6 "0.0" >
+<!ENTITY SHOW_P7 "0.0" >
+<!ENTITY SHOW_P8 "0.0" >
+<!-- Apex-divider visibility for dynamic slots 4..8 (only when the ramp apex is actually in-window; stricter than SHOW_P*). -->
+<!ENTITY SHOW_APEX_DIV4 "0.0" >
+<!ENTITY SHOW_APEX_DIV5 "0.0" >
+<!ENTITY SHOW_APEX_DIV6 "0.0" >
+<!ENTITY SHOW_APEX_DIV7 "0.0" >
+<!ENTITY SHOW_APEX_DIV8 "0.0" >
+<!-- Waveform up-leg transition X for slots 5..8 (clipped at 800; CU_XA4/CU_XB4 already declared above) -->
+<!ENTITY CU_XA5 "800" >
+<!ENTITY CU_XA6 "800" >
+<!ENTITY CU_XA7 "800" >
+<!ENTITY CU_XA8 "800" >
+<!ENTITY CU_XB5 "800" >
+<!ENTITY CU_XB6 "800" >
+<!ENTITY CU_XB7 "800" >
+<!ENTITY CU_XB8 "800" >
+<!-- Waveform down-leg transition X for slots 4..8 -->
+<!ENTITY CU_XC4 "800" >
+<!ENTITY CU_XC5 "800" >
+<!ENTITY CU_XC6 "800" >
+<!ENTITY CU_XC7 "800" >
+<!ENTITY CU_XC8 "800" >
+<!ENTITY CU_XD4 "800" >
+<!ENTITY CU_XD5 "800" >
+<!ENTITY CU_XD6 "800" >
+<!ENTITY CU_XD7 "800" >
+<!ENTITY CU_XD8 "800" >
+<!-- line_out Y arrays for slots 4..8 (low=380, high=350; CU_P4Y0/Y1/Y2 already declared above) -->
+<!ENTITY CU_P4Y3 "380" >
+<!ENTITY CU_P4Y4 "380" >
+<!ENTITY CU_P4YA "380" >
+<!ENTITY CU_P5Y0 "380" >
+<!ENTITY CU_P5Y1 "380" >
+<!ENTITY CU_P5Y2 "380" >
+<!ENTITY CU_P5Y3 "380" >
+<!ENTITY CU_P5Y4 "380" >
+<!ENTITY CU_P5YA "380" >
+<!ENTITY CU_P6Y0 "380" >
+<!ENTITY CU_P6Y1 "380" >
+<!ENTITY CU_P6Y2 "380" >
+<!ENTITY CU_P6Y3 "380" >
+<!ENTITY CU_P6Y4 "380" >
+<!ENTITY CU_P6YA "380" >
+<!ENTITY CU_P7Y0 "380" >
+<!ENTITY CU_P7Y1 "380" >
+<!ENTITY CU_P7Y2 "380" >
+<!ENTITY CU_P7Y3 "380" >
+<!ENTITY CU_P7Y4 "380" >
+<!ENTITY CU_P7YA "380" >
+<!ENTITY CU_P8Y0 "380" >
+<!ENTITY CU_P8Y1 "380" >
+<!ENTITY CU_P8Y2 "380" >
+<!ENTITY CU_P8Y3 "380" >
+<!ENTITY CU_P8Y4 "380" >
+<!ENTITY CU_P8YA "380" >
+<!-- line_compl_out Y arrays for slots 4..8 (low=400, high=430; CU_P4NY0/NY1/NY2 already declared above) -->
+<!ENTITY CU_P4NY3 "400" >
+<!ENTITY CU_P4NY4 "400" >
+<!ENTITY CU_P4NYA "400" >
+<!ENTITY CU_P5NY0 "400" >
+<!ENTITY CU_P5NY1 "400" >
+<!ENTITY CU_P5NY2 "400" >
+<!ENTITY CU_P5NY3 "400" >
+<!ENTITY CU_P5NY4 "400" >
+<!ENTITY CU_P5NYA "400" >
+<!ENTITY CU_P6NY0 "400" >
+<!ENTITY CU_P6NY1 "400" >
+<!ENTITY CU_P6NY2 "400" >
+<!ENTITY CU_P6NY3 "400" >
+<!ENTITY CU_P6NY4 "400" >
+<!ENTITY CU_P6NYA "400" >
+<!ENTITY CU_P7NY0 "400" >
+<!ENTITY CU_P7NY1 "400" >
+<!ENTITY CU_P7NY2 "400" >
+<!ENTITY CU_P7NY3 "400" >
+<!ENTITY CU_P7NY4 "400" >
+<!ENTITY CU_P7NYA "400" >
+<!ENTITY CU_P8NY0 "400" >
+<!ENTITY CU_P8NY1 "400" >
+<!ENTITY CU_P8NY2 "400" >
+<!ENTITY CU_P8NY3 "400" >
+<!ENTITY CU_P8NY4 "400" >
+<!ENTITY CU_P8NYA "400" >
+<!-- Compare 0/1 up-dot X for slots 5..8 (clipped at 800) -->
+<!ENTITY CU_XC0_P5 "800" >
+<!ENTITY CU_XC0_P6 "800" >
+<!ENTITY CU_XC0_P7 "800" >
+<!ENTITY CU_XC0_P8 "800" >
+<!ENTITY CU_XC1_P5 "800" >
+<!ENTITY CU_XC1_P6 "800" >
+<!ENTITY CU_XC1_P7 "800" >
+<!ENTITY CU_XC1_P8 "800" >
+<!-- Compare 0/1 down-dot X for slots 4..8 -->
+<!ENTITY CU_XC0D_P4 "800" >
+<!ENTITY CU_XC0D_P5 "800" >
+<!ENTITY CU_XC0D_P6 "800" >
+<!ENTITY CU_XC0D_P7 "800" >
+<!ENTITY CU_XC0D_P8 "800" >
+<!ENTITY CU_XC1D_P4 "800" >
+<!ENTITY CU_XC1D_P5 "800" >
+<!ENTITY CU_XC1D_P6 "800" >
+<!ENTITY CU_XC1D_P7 "800" >
+<!ENTITY CU_XC1D_P8 "800" >
+<!-- Compare 0/1 dot visibility for slots 5..8 (up) and slots 4..8 (down) -->
+<!ENTITY SHOW_C0_P5 "0.0" >
+<!ENTITY SHOW_C0_P6 "0.0" >
+<!ENTITY SHOW_C0_P7 "0.0" >
+<!ENTITY SHOW_C0_P8 "0.0" >
+<!ENTITY SHOW_C1_P5 "0.0" >
+<!ENTITY SHOW_C1_P6 "0.0" >
+<!ENTITY SHOW_C1_P7 "0.0" >
+<!ENTITY SHOW_C1_P8 "0.0" >
+<!ENTITY SHOW_C0_DOWN_P4 "0.0" >
+<!ENTITY SHOW_C0_DOWN_P5 "0.0" >
+<!ENTITY SHOW_C0_DOWN_P6 "0.0" >
+<!ENTITY SHOW_C0_DOWN_P7 "0.0" >
+<!ENTITY SHOW_C0_DOWN_P8 "0.0" >
+<!ENTITY SHOW_C1_DOWN_P4 "0.0" >
+<!ENTITY SHOW_C1_DOWN_P5 "0.0" >
+<!ENTITY SHOW_C1_DOWN_P6 "0.0" >
+<!ENTITY SHOW_C1_DOWN_P7 "0.0" >
+<!ENTITY SHOW_C1_DOWN_P8 "0.0" >
+<!-- Per-slot event-row dot visibility for the dynamic extra tiled periods 4..8 -->
+<!ENTITY SHOW_OV_EVT_P4 "0.0" >
+<!ENTITY SHOW_OV_EVT_P5 "0.0" >
+<!ENTITY SHOW_OV_EVT_P6 "0.0" >
+<!ENTITY SHOW_OV_EVT_P7 "0.0" >
+<!ENTITY SHOW_OV_EVT_P8 "0.0" >
+<!ENTITY SHOW_UN_EVT_P4 "0.0" >
+<!ENTITY SHOW_UN_EVT_P5 "0.0" >
+<!ENTITY SHOW_UN_EVT_P6 "0.0" >
+<!ENTITY SHOW_UN_EVT_P7 "0.0" >
+<!ENTITY SHOW_UN_EVT_P8 "0.0" >
+<!ENTITY SHOW_OV_APEX_P4 "0.0" >
+<!ENTITY SHOW_OV_APEX_P5 "0.0" >
+<!ENTITY SHOW_OV_APEX_P6 "0.0" >
+<!ENTITY SHOW_OV_APEX_P7 "0.0" >
+<!ENTITY SHOW_OV_APEX_P8 "0.0" >
+<!ENTITY SHOW_TC_APEX_P4 "0.0" >
+<!ENTITY SHOW_TC_APEX_P5 "0.0" >
+<!ENTITY SHOW_TC_APEX_P6 "0.0" >
+<!ENTITY SHOW_TC_APEX_P7 "0.0" >
+<!ENTITY SHOW_TC_APEX_P8 "0.0" >
+<!ENTITY SHOW_TC_EVT_P4 "0.0" >
+<!ENTITY SHOW_TC_EVT_P5 "0.0" >
+<!ENTITY SHOW_TC_EVT_P6 "0.0" >
+<!ENTITY SHOW_TC_EVT_P7 "0.0" >
+<!ENTITY SHOW_TC_EVT_P8 "0.0" >
+
+<!-- Timings row (line_out interval measurement over the whole graph). Shown in custom mode (including Swapping Enable).
+     Legacy single-period CU_TMG_* entities kept for compatibility; whole-graph row uses CU_TG_* (48 segments). -->
+<!ENTITY SHOW_TIMINGS "1.0" >
+<!-- Overall diagram height. 573 when the timing rows are drawn, cropped to 450 (just below the line_compl_out
+     row) when the timings are disabled so their reserved vertical space is not left blank. -->
+<!ENTITY SVG_H "573" >
+<!-- Whole-graph Timings row defaults (48 segments) -->
+<!-- Dead-time lead-in gap (T0) defaults: hidden, zero width at x=80, until DT delays the selected output's start. -->
+<!ENTITY CU_TG_GAP_SHOW "0" >
+<!ENTITY CU_TG_GAP_MID "80" >
+<!ENTITY CU_TG_LX0 "80" >
+<!ENTITY CU_TG_LX1 "80" >
+<!ENTITY CU_TG_LX2 "80" >
+<!ENTITY CU_TG_LX3 "80" >
+<!ENTITY CU_TG_LX4 "80" >
+<!ENTITY CU_TG_LX5 "80" >
+<!ENTITY CU_TG_LX6 "80" >
+<!ENTITY CU_TG_LX7 "80" >
+<!ENTITY CU_TG_LX8 "80" >
+<!ENTITY CU_TG_LX9 "80" >
+<!ENTITY CU_TG_LX10 "80" >
+<!ENTITY CU_TG_LX11 "80" >
+<!ENTITY CU_TG_LX12 "80" >
+<!ENTITY CU_TG_LX13 "80" >
+<!ENTITY CU_TG_LX14 "80" >
+<!ENTITY CU_TG_LX15 "80" >
+<!ENTITY CU_TG_LX16 "80" >
+<!ENTITY CU_TG_LX17 "80" >
+<!ENTITY CU_TG_LX18 "80" >
+<!ENTITY CU_TG_LX19 "80" >
+<!ENTITY CU_TG_LX20 "80" >
+<!ENTITY CU_TG_LX21 "80" >
+<!ENTITY CU_TG_LX22 "80" >
+<!ENTITY CU_TG_LX23 "80" >
+<!ENTITY CU_TG_LX24 "80" >
+<!ENTITY CU_TG_LX25 "80" >
+<!ENTITY CU_TG_LX26 "80" >
+<!ENTITY CU_TG_LX27 "80" >
+<!ENTITY CU_TG_LX28 "80" >
+<!ENTITY CU_TG_LX29 "80" >
+<!ENTITY CU_TG_LX30 "80" >
+<!ENTITY CU_TG_LX31 "80" >
+<!ENTITY CU_TG_LX32 "80" >
+<!ENTITY CU_TG_LX33 "80" >
+<!ENTITY CU_TG_LX34 "80" >
+<!ENTITY CU_TG_LX35 "80" >
+<!ENTITY CU_TG_LX36 "80" >
+<!ENTITY CU_TG_LX37 "80" >
+<!ENTITY CU_TG_LX38 "80" >
+<!ENTITY CU_TG_LX39 "80" >
+<!ENTITY CU_TG_LX40 "80" >
+<!ENTITY CU_TG_LX41 "80" >
+<!ENTITY CU_TG_LX42 "80" >
+<!ENTITY CU_TG_LX43 "80" >
+<!ENTITY CU_TG_LX44 "80" >
+<!ENTITY CU_TG_LX45 "80" >
+<!ENTITY CU_TG_LX46 "80" >
+<!ENTITY CU_TG_LX47 "80" >
+<!ENTITY CU_TG_RX0 "80" >
+<!ENTITY CU_TG_RX1 "80" >
+<!ENTITY CU_TG_RX2 "80" >
+<!ENTITY CU_TG_RX3 "80" >
+<!ENTITY CU_TG_RX4 "80" >
+<!ENTITY CU_TG_RX5 "80" >
+<!ENTITY CU_TG_RX6 "80" >
+<!ENTITY CU_TG_RX7 "80" >
+<!ENTITY CU_TG_RX8 "80" >
+<!ENTITY CU_TG_RX9 "80" >
+<!ENTITY CU_TG_RX10 "80" >
+<!ENTITY CU_TG_RX11 "80" >
+<!ENTITY CU_TG_RX12 "80" >
+<!ENTITY CU_TG_RX13 "80" >
+<!ENTITY CU_TG_RX14 "80" >
+<!ENTITY CU_TG_RX15 "80" >
+<!ENTITY CU_TG_RX16 "80" >
+<!ENTITY CU_TG_RX17 "80" >
+<!ENTITY CU_TG_RX18 "80" >
+<!ENTITY CU_TG_RX19 "80" >
+<!ENTITY CU_TG_RX20 "80" >
+<!ENTITY CU_TG_RX21 "80" >
+<!ENTITY CU_TG_RX22 "80" >
+<!ENTITY CU_TG_RX23 "80" >
+<!ENTITY CU_TG_RX24 "80" >
+<!ENTITY CU_TG_RX25 "80" >
+<!ENTITY CU_TG_RX26 "80" >
+<!ENTITY CU_TG_RX27 "80" >
+<!ENTITY CU_TG_RX28 "80" >
+<!ENTITY CU_TG_RX29 "80" >
+<!ENTITY CU_TG_RX30 "80" >
+<!ENTITY CU_TG_RX31 "80" >
+<!ENTITY CU_TG_RX32 "80" >
+<!ENTITY CU_TG_RX33 "80" >
+<!ENTITY CU_TG_RX34 "80" >
+<!ENTITY CU_TG_RX35 "80" >
+<!ENTITY CU_TG_RX36 "80" >
+<!ENTITY CU_TG_RX37 "80" >
+<!ENTITY CU_TG_RX38 "80" >
+<!ENTITY CU_TG_RX39 "80" >
+<!ENTITY CU_TG_RX40 "80" >
+<!ENTITY CU_TG_RX41 "80" >
+<!ENTITY CU_TG_RX42 "80" >
+<!ENTITY CU_TG_RX43 "80" >
+<!ENTITY CU_TG_RX44 "80" >
+<!ENTITY CU_TG_RX45 "80" >
+<!ENTITY CU_TG_RX46 "80" >
+<!ENTITY CU_TG_RX47 "80" >
+<!ENTITY CU_TG_MID0 "80" >
+<!ENTITY CU_TG_MID1 "80" >
+<!ENTITY CU_TG_MID2 "80" >
+<!ENTITY CU_TG_MID3 "80" >
+<!ENTITY CU_TG_MID4 "80" >
+<!ENTITY CU_TG_MID5 "80" >
+<!ENTITY CU_TG_MID6 "80" >
+<!ENTITY CU_TG_MID7 "80" >
+<!ENTITY CU_TG_MID8 "80" >
+<!ENTITY CU_TG_MID9 "80" >
+<!ENTITY CU_TG_MID10 "80" >
+<!ENTITY CU_TG_MID11 "80" >
+<!ENTITY CU_TG_MID12 "80" >
+<!ENTITY CU_TG_MID13 "80" >
+<!ENTITY CU_TG_MID14 "80" >
+<!ENTITY CU_TG_MID15 "80" >
+<!ENTITY CU_TG_MID16 "80" >
+<!ENTITY CU_TG_MID17 "80" >
+<!ENTITY CU_TG_MID18 "80" >
+<!ENTITY CU_TG_MID19 "80" >
+<!ENTITY CU_TG_MID20 "80" >
+<!ENTITY CU_TG_MID21 "80" >
+<!ENTITY CU_TG_MID22 "80" >
+<!ENTITY CU_TG_MID23 "80" >
+<!ENTITY CU_TG_MID24 "80" >
+<!ENTITY CU_TG_MID25 "80" >
+<!ENTITY CU_TG_MID26 "80" >
+<!ENTITY CU_TG_MID27 "80" >
+<!ENTITY CU_TG_MID28 "80" >
+<!ENTITY CU_TG_MID29 "80" >
+<!ENTITY CU_TG_MID30 "80" >
+<!ENTITY CU_TG_MID31 "80" >
+<!ENTITY CU_TG_MID32 "80" >
+<!ENTITY CU_TG_MID33 "80" >
+<!ENTITY CU_TG_MID34 "80" >
+<!ENTITY CU_TG_MID35 "80" >
+<!ENTITY CU_TG_MID36 "80" >
+<!ENTITY CU_TG_MID37 "80" >
+<!ENTITY CU_TG_MID38 "80" >
+<!ENTITY CU_TG_MID39 "80" >
+<!ENTITY CU_TG_MID40 "80" >
+<!ENTITY CU_TG_MID41 "80" >
+<!ENTITY CU_TG_MID42 "80" >
+<!ENTITY CU_TG_MID43 "80" >
+<!ENTITY CU_TG_MID44 "80" >
+<!ENTITY CU_TG_MID45 "80" >
+<!ENTITY CU_TG_MID46 "80" >
+<!ENTITY CU_TG_MID47 "80" >
+<!ENTITY CU_TG_IDX0 "0" >
+<!ENTITY CU_TG_IDX1 "0" >
+<!ENTITY CU_TG_IDX2 "0" >
+<!ENTITY CU_TG_IDX3 "0" >
+<!ENTITY CU_TG_IDX4 "0" >
+<!ENTITY CU_TG_IDX5 "0" >
+<!ENTITY CU_TG_IDX6 "0" >
+<!ENTITY CU_TG_IDX7 "0" >
+<!ENTITY CU_TG_IDX8 "0" >
+<!ENTITY CU_TG_IDX9 "0" >
+<!ENTITY CU_TG_IDX10 "0" >
+<!ENTITY CU_TG_IDX11 "0" >
+<!ENTITY CU_TG_IDX12 "0" >
+<!ENTITY CU_TG_IDX13 "0" >
+<!ENTITY CU_TG_IDX14 "0" >
+<!ENTITY CU_TG_IDX15 "0" >
+<!ENTITY CU_TG_IDX16 "0" >
+<!ENTITY CU_TG_IDX17 "0" >
+<!ENTITY CU_TG_IDX18 "0" >
+<!ENTITY CU_TG_IDX19 "0" >
+<!ENTITY CU_TG_IDX20 "0" >
+<!ENTITY CU_TG_IDX21 "0" >
+<!ENTITY CU_TG_IDX22 "0" >
+<!ENTITY CU_TG_IDX23 "0" >
+<!ENTITY CU_TG_IDX24 "0" >
+<!ENTITY CU_TG_IDX25 "0" >
+<!ENTITY CU_TG_IDX26 "0" >
+<!ENTITY CU_TG_IDX27 "0" >
+<!ENTITY CU_TG_IDX28 "0" >
+<!ENTITY CU_TG_IDX29 "0" >
+<!ENTITY CU_TG_IDX30 "0" >
+<!ENTITY CU_TG_IDX31 "0" >
+<!ENTITY CU_TG_IDX32 "0" >
+<!ENTITY CU_TG_IDX33 "0" >
+<!ENTITY CU_TG_IDX34 "0" >
+<!ENTITY CU_TG_IDX35 "0" >
+<!ENTITY CU_TG_IDX36 "0" >
+<!ENTITY CU_TG_IDX37 "0" >
+<!ENTITY CU_TG_IDX38 "0" >
+<!ENTITY CU_TG_IDX39 "0" >
+<!ENTITY CU_TG_IDX40 "0" >
+<!ENTITY CU_TG_IDX41 "0" >
+<!ENTITY CU_TG_IDX42 "0" >
+<!ENTITY CU_TG_IDX43 "0" >
+<!ENTITY CU_TG_IDX44 "0" >
+<!ENTITY CU_TG_IDX45 "0" >
+<!ENTITY CU_TG_IDX46 "0" >
+<!ENTITY CU_TG_IDX47 "0" >
+<!ENTITY CU_TG_SHOW0 "0" >
+<!ENTITY CU_TG_SHOW1 "0" >
+<!ENTITY CU_TG_SHOW2 "0" >
+<!ENTITY CU_TG_SHOW3 "0" >
+<!ENTITY CU_TG_SHOW4 "0" >
+<!ENTITY CU_TG_SHOW5 "0" >
+<!ENTITY CU_TG_SHOW6 "0" >
+<!ENTITY CU_TG_SHOW7 "0" >
+<!ENTITY CU_TG_SHOW8 "0" >
+<!ENTITY CU_TG_SHOW9 "0" >
+<!ENTITY CU_TG_SHOW10 "0" >
+<!ENTITY CU_TG_SHOW11 "0" >
+<!ENTITY CU_TG_SHOW12 "0" >
+<!ENTITY CU_TG_SHOW13 "0" >
+<!ENTITY CU_TG_SHOW14 "0" >
+<!ENTITY CU_TG_SHOW15 "0" >
+<!ENTITY CU_TG_SHOW16 "0" >
+<!ENTITY CU_TG_SHOW17 "0" >
+<!ENTITY CU_TG_SHOW18 "0" >
+<!ENTITY CU_TG_SHOW19 "0" >
+<!ENTITY CU_TG_SHOW20 "0" >
+<!ENTITY CU_TG_SHOW21 "0" >
+<!ENTITY CU_TG_SHOW22 "0" >
+<!ENTITY CU_TG_SHOW23 "0" >
+<!ENTITY CU_TG_SHOW24 "0" >
+<!ENTITY CU_TG_SHOW25 "0" >
+<!ENTITY CU_TG_SHOW26 "0" >
+<!ENTITY CU_TG_SHOW27 "0" >
+<!ENTITY CU_TG_SHOW28 "0" >
+<!ENTITY CU_TG_SHOW29 "0" >
+<!ENTITY CU_TG_SHOW30 "0" >
+<!ENTITY CU_TG_SHOW31 "0" >
+<!ENTITY CU_TG_SHOW32 "0" >
+<!ENTITY CU_TG_SHOW33 "0" >
+<!ENTITY CU_TG_SHOW34 "0" >
+<!ENTITY CU_TG_SHOW35 "0" >
+<!ENTITY CU_TG_SHOW36 "0" >
+<!ENTITY CU_TG_SHOW37 "0" >
+<!ENTITY CU_TG_SHOW38 "0" >
+<!ENTITY CU_TG_SHOW39 "0" >
+<!ENTITY CU_TG_SHOW40 "0" >
+<!ENTITY CU_TG_SHOW41 "0" >
+<!ENTITY CU_TG_SHOW42 "0" >
+<!ENTITY CU_TG_SHOW43 "0" >
+<!ENTITY CU_TG_SHOW44 "0" >
+<!ENTITY CU_TG_SHOW45 "0" >
+<!ENTITY CU_TG_SHOW46 "0" >
+<!ENTITY CU_TG_SHOW47 "0" >
+
+<!-- CU_TG T-label Y defaults (parity top/bottom) -->
+<!ENTITY CU_TG_TY0 "469" >
+<!ENTITY CU_TG_TY1 "469" >
+<!ENTITY CU_TG_TY2 "469" >
+<!ENTITY CU_TG_TY3 "469" >
+<!ENTITY CU_TG_TY4 "469" >
+<!ENTITY CU_TG_TY5 "469" >
+<!ENTITY CU_TG_TY6 "469" >
+<!ENTITY CU_TG_TY7 "469" >
+<!ENTITY CU_TG_TY8 "469" >
+<!ENTITY CU_TG_TY9 "469" >
+<!ENTITY CU_TG_TY10 "469" >
+<!ENTITY CU_TG_TY11 "469" >
+<!ENTITY CU_TG_TY12 "469" >
+<!ENTITY CU_TG_TY13 "469" >
+<!ENTITY CU_TG_TY14 "469" >
+<!ENTITY CU_TG_TY15 "469" >
+<!ENTITY CU_TG_TY16 "469" >
+<!ENTITY CU_TG_TY17 "469" >
+<!ENTITY CU_TG_TY18 "469" >
+<!ENTITY CU_TG_TY19 "469" >
+<!ENTITY CU_TG_TY20 "469" >
+<!ENTITY CU_TG_TY21 "469" >
+<!ENTITY CU_TG_TY22 "469" >
+<!ENTITY CU_TG_TY23 "469" >
+<!ENTITY CU_TG_TY24 "469" >
+<!ENTITY CU_TG_TY25 "469" >
+<!ENTITY CU_TG_TY26 "469" >
+<!ENTITY CU_TG_TY27 "469" >
+<!ENTITY CU_TG_TY28 "469" >
+<!ENTITY CU_TG_TY29 "469" >
+<!ENTITY CU_TG_TY30 "469" >
+<!ENTITY CU_TG_TY31 "469" >
+<!ENTITY CU_TG_TY32 "469" >
+<!ENTITY CU_TG_TY33 "469" >
+<!ENTITY CU_TG_TY34 "469" >
+<!ENTITY CU_TG_TY35 "469" >
+<!ENTITY CU_TG_TY36 "469" >
+<!ENTITY CU_TG_TY37 "469" >
+<!ENTITY CU_TG_TY38 "469" >
+<!ENTITY CU_TG_TY39 "469" >
+<!ENTITY CU_TG_TY40 "469" >
+<!ENTITY CU_TG_TY41 "469" >
+<!ENTITY CU_TG_TY42 "469" >
+<!ENTITY CU_TG_TY43 "469" >
+<!ENTITY CU_TG_TY44 "469" >
+<!ENTITY CU_TG_TY45 "469" >
+<!ENTITY CU_TG_TY46 "469" >
+<!ENTITY CU_TG_TY47 "469" >
+
+<!-- line_compl_out Timings row defaults (48 segments): CU_TC_* -->
+<!ENTITY CU_TC_GAP_SHOW "0" >
+<!ENTITY CU_TC_GAP_MID "80" >
+<!ENTITY CU_TC_LX0 "80" >
+<!ENTITY CU_TC_LX1 "80" >
+<!ENTITY CU_TC_LX2 "80" >
+<!ENTITY CU_TC_LX3 "80" >
+<!ENTITY CU_TC_LX4 "80" >
+<!ENTITY CU_TC_LX5 "80" >
+<!ENTITY CU_TC_LX6 "80" >
+<!ENTITY CU_TC_LX7 "80" >
+<!ENTITY CU_TC_LX8 "80" >
+<!ENTITY CU_TC_LX9 "80" >
+<!ENTITY CU_TC_LX10 "80" >
+<!ENTITY CU_TC_LX11 "80" >
+<!ENTITY CU_TC_LX12 "80" >
+<!ENTITY CU_TC_LX13 "80" >
+<!ENTITY CU_TC_LX14 "80" >
+<!ENTITY CU_TC_LX15 "80" >
+<!ENTITY CU_TC_LX16 "80" >
+<!ENTITY CU_TC_LX17 "80" >
+<!ENTITY CU_TC_LX18 "80" >
+<!ENTITY CU_TC_LX19 "80" >
+<!ENTITY CU_TC_LX20 "80" >
+<!ENTITY CU_TC_LX21 "80" >
+<!ENTITY CU_TC_LX22 "80" >
+<!ENTITY CU_TC_LX23 "80" >
+<!ENTITY CU_TC_LX24 "80" >
+<!ENTITY CU_TC_LX25 "80" >
+<!ENTITY CU_TC_LX26 "80" >
+<!ENTITY CU_TC_LX27 "80" >
+<!ENTITY CU_TC_LX28 "80" >
+<!ENTITY CU_TC_LX29 "80" >
+<!ENTITY CU_TC_LX30 "80" >
+<!ENTITY CU_TC_LX31 "80" >
+<!ENTITY CU_TC_LX32 "80" >
+<!ENTITY CU_TC_LX33 "80" >
+<!ENTITY CU_TC_LX34 "80" >
+<!ENTITY CU_TC_LX35 "80" >
+<!ENTITY CU_TC_LX36 "80" >
+<!ENTITY CU_TC_LX37 "80" >
+<!ENTITY CU_TC_LX38 "80" >
+<!ENTITY CU_TC_LX39 "80" >
+<!ENTITY CU_TC_LX40 "80" >
+<!ENTITY CU_TC_LX41 "80" >
+<!ENTITY CU_TC_LX42 "80" >
+<!ENTITY CU_TC_LX43 "80" >
+<!ENTITY CU_TC_LX44 "80" >
+<!ENTITY CU_TC_LX45 "80" >
+<!ENTITY CU_TC_LX46 "80" >
+<!ENTITY CU_TC_LX47 "80" >
+<!ENTITY CU_TC_RX0 "80" >
+<!ENTITY CU_TC_RX1 "80" >
+<!ENTITY CU_TC_RX2 "80" >
+<!ENTITY CU_TC_RX3 "80" >
+<!ENTITY CU_TC_RX4 "80" >
+<!ENTITY CU_TC_RX5 "80" >
+<!ENTITY CU_TC_RX6 "80" >
+<!ENTITY CU_TC_RX7 "80" >
+<!ENTITY CU_TC_RX8 "80" >
+<!ENTITY CU_TC_RX9 "80" >
+<!ENTITY CU_TC_RX10 "80" >
+<!ENTITY CU_TC_RX11 "80" >
+<!ENTITY CU_TC_RX12 "80" >
+<!ENTITY CU_TC_RX13 "80" >
+<!ENTITY CU_TC_RX14 "80" >
+<!ENTITY CU_TC_RX15 "80" >
+<!ENTITY CU_TC_RX16 "80" >
+<!ENTITY CU_TC_RX17 "80" >
+<!ENTITY CU_TC_RX18 "80" >
+<!ENTITY CU_TC_RX19 "80" >
+<!ENTITY CU_TC_RX20 "80" >
+<!ENTITY CU_TC_RX21 "80" >
+<!ENTITY CU_TC_RX22 "80" >
+<!ENTITY CU_TC_RX23 "80" >
+<!ENTITY CU_TC_RX24 "80" >
+<!ENTITY CU_TC_RX25 "80" >
+<!ENTITY CU_TC_RX26 "80" >
+<!ENTITY CU_TC_RX27 "80" >
+<!ENTITY CU_TC_RX28 "80" >
+<!ENTITY CU_TC_RX29 "80" >
+<!ENTITY CU_TC_RX30 "80" >
+<!ENTITY CU_TC_RX31 "80" >
+<!ENTITY CU_TC_RX32 "80" >
+<!ENTITY CU_TC_RX33 "80" >
+<!ENTITY CU_TC_RX34 "80" >
+<!ENTITY CU_TC_RX35 "80" >
+<!ENTITY CU_TC_RX36 "80" >
+<!ENTITY CU_TC_RX37 "80" >
+<!ENTITY CU_TC_RX38 "80" >
+<!ENTITY CU_TC_RX39 "80" >
+<!ENTITY CU_TC_RX40 "80" >
+<!ENTITY CU_TC_RX41 "80" >
+<!ENTITY CU_TC_RX42 "80" >
+<!ENTITY CU_TC_RX43 "80" >
+<!ENTITY CU_TC_RX44 "80" >
+<!ENTITY CU_TC_RX45 "80" >
+<!ENTITY CU_TC_RX46 "80" >
+<!ENTITY CU_TC_RX47 "80" >
+<!ENTITY CU_TC_MID0 "80" >
+<!ENTITY CU_TC_MID1 "80" >
+<!ENTITY CU_TC_MID2 "80" >
+<!ENTITY CU_TC_MID3 "80" >
+<!ENTITY CU_TC_MID4 "80" >
+<!ENTITY CU_TC_MID5 "80" >
+<!ENTITY CU_TC_MID6 "80" >
+<!ENTITY CU_TC_MID7 "80" >
+<!ENTITY CU_TC_MID8 "80" >
+<!ENTITY CU_TC_MID9 "80" >
+<!ENTITY CU_TC_MID10 "80" >
+<!ENTITY CU_TC_MID11 "80" >
+<!ENTITY CU_TC_MID12 "80" >
+<!ENTITY CU_TC_MID13 "80" >
+<!ENTITY CU_TC_MID14 "80" >
+<!ENTITY CU_TC_MID15 "80" >
+<!ENTITY CU_TC_MID16 "80" >
+<!ENTITY CU_TC_MID17 "80" >
+<!ENTITY CU_TC_MID18 "80" >
+<!ENTITY CU_TC_MID19 "80" >
+<!ENTITY CU_TC_MID20 "80" >
+<!ENTITY CU_TC_MID21 "80" >
+<!ENTITY CU_TC_MID22 "80" >
+<!ENTITY CU_TC_MID23 "80" >
+<!ENTITY CU_TC_MID24 "80" >
+<!ENTITY CU_TC_MID25 "80" >
+<!ENTITY CU_TC_MID26 "80" >
+<!ENTITY CU_TC_MID27 "80" >
+<!ENTITY CU_TC_MID28 "80" >
+<!ENTITY CU_TC_MID29 "80" >
+<!ENTITY CU_TC_MID30 "80" >
+<!ENTITY CU_TC_MID31 "80" >
+<!ENTITY CU_TC_MID32 "80" >
+<!ENTITY CU_TC_MID33 "80" >
+<!ENTITY CU_TC_MID34 "80" >
+<!ENTITY CU_TC_MID35 "80" >
+<!ENTITY CU_TC_MID36 "80" >
+<!ENTITY CU_TC_MID37 "80" >
+<!ENTITY CU_TC_MID38 "80" >
+<!ENTITY CU_TC_MID39 "80" >
+<!ENTITY CU_TC_MID40 "80" >
+<!ENTITY CU_TC_MID41 "80" >
+<!ENTITY CU_TC_MID42 "80" >
+<!ENTITY CU_TC_MID43 "80" >
+<!ENTITY CU_TC_MID44 "80" >
+<!ENTITY CU_TC_MID45 "80" >
+<!ENTITY CU_TC_MID46 "80" >
+<!ENTITY CU_TC_MID47 "80" >
+<!ENTITY CU_TC_IDX0 "0" >
+<!ENTITY CU_TC_IDX1 "0" >
+<!ENTITY CU_TC_IDX2 "0" >
+<!ENTITY CU_TC_IDX3 "0" >
+<!ENTITY CU_TC_IDX4 "0" >
+<!ENTITY CU_TC_IDX5 "0" >
+<!ENTITY CU_TC_IDX6 "0" >
+<!ENTITY CU_TC_IDX7 "0" >
+<!ENTITY CU_TC_IDX8 "0" >
+<!ENTITY CU_TC_IDX9 "0" >
+<!ENTITY CU_TC_IDX10 "0" >
+<!ENTITY CU_TC_IDX11 "0" >
+<!ENTITY CU_TC_IDX12 "0" >
+<!ENTITY CU_TC_IDX13 "0" >
+<!ENTITY CU_TC_IDX14 "0" >
+<!ENTITY CU_TC_IDX15 "0" >
+<!ENTITY CU_TC_IDX16 "0" >
+<!ENTITY CU_TC_IDX17 "0" >
+<!ENTITY CU_TC_IDX18 "0" >
+<!ENTITY CU_TC_IDX19 "0" >
+<!ENTITY CU_TC_IDX20 "0" >
+<!ENTITY CU_TC_IDX21 "0" >
+<!ENTITY CU_TC_IDX22 "0" >
+<!ENTITY CU_TC_IDX23 "0" >
+<!ENTITY CU_TC_IDX24 "0" >
+<!ENTITY CU_TC_IDX25 "0" >
+<!ENTITY CU_TC_IDX26 "0" >
+<!ENTITY CU_TC_IDX27 "0" >
+<!ENTITY CU_TC_IDX28 "0" >
+<!ENTITY CU_TC_IDX29 "0" >
+<!ENTITY CU_TC_IDX30 "0" >
+<!ENTITY CU_TC_IDX31 "0" >
+<!ENTITY CU_TC_IDX32 "0" >
+<!ENTITY CU_TC_IDX33 "0" >
+<!ENTITY CU_TC_IDX34 "0" >
+<!ENTITY CU_TC_IDX35 "0" >
+<!ENTITY CU_TC_IDX36 "0" >
+<!ENTITY CU_TC_IDX37 "0" >
+<!ENTITY CU_TC_IDX38 "0" >
+<!ENTITY CU_TC_IDX39 "0" >
+<!ENTITY CU_TC_IDX40 "0" >
+<!ENTITY CU_TC_IDX41 "0" >
+<!ENTITY CU_TC_IDX42 "0" >
+<!ENTITY CU_TC_IDX43 "0" >
+<!ENTITY CU_TC_IDX44 "0" >
+<!ENTITY CU_TC_IDX45 "0" >
+<!ENTITY CU_TC_IDX46 "0" >
+<!ENTITY CU_TC_IDX47 "0" >
+<!ENTITY CU_TC_SHOW0 "0" >
+<!ENTITY CU_TC_SHOW1 "0" >
+<!ENTITY CU_TC_SHOW2 "0" >
+<!ENTITY CU_TC_SHOW3 "0" >
+<!ENTITY CU_TC_SHOW4 "0" >
+<!ENTITY CU_TC_SHOW5 "0" >
+<!ENTITY CU_TC_SHOW6 "0" >
+<!ENTITY CU_TC_SHOW7 "0" >
+<!ENTITY CU_TC_SHOW8 "0" >
+<!ENTITY CU_TC_SHOW9 "0" >
+<!ENTITY CU_TC_SHOW10 "0" >
+<!ENTITY CU_TC_SHOW11 "0" >
+<!ENTITY CU_TC_SHOW12 "0" >
+<!ENTITY CU_TC_SHOW13 "0" >
+<!ENTITY CU_TC_SHOW14 "0" >
+<!ENTITY CU_TC_SHOW15 "0" >
+<!ENTITY CU_TC_SHOW16 "0" >
+<!ENTITY CU_TC_SHOW17 "0" >
+<!ENTITY CU_TC_SHOW18 "0" >
+<!ENTITY CU_TC_SHOW19 "0" >
+<!ENTITY CU_TC_SHOW20 "0" >
+<!ENTITY CU_TC_SHOW21 "0" >
+<!ENTITY CU_TC_SHOW22 "0" >
+<!ENTITY CU_TC_SHOW23 "0" >
+<!ENTITY CU_TC_SHOW24 "0" >
+<!ENTITY CU_TC_SHOW25 "0" >
+<!ENTITY CU_TC_SHOW26 "0" >
+<!ENTITY CU_TC_SHOW27 "0" >
+<!ENTITY CU_TC_SHOW28 "0" >
+<!ENTITY CU_TC_SHOW29 "0" >
+<!ENTITY CU_TC_SHOW30 "0" >
+<!ENTITY CU_TC_SHOW31 "0" >
+<!ENTITY CU_TC_SHOW32 "0" >
+<!ENTITY CU_TC_SHOW33 "0" >
+<!ENTITY CU_TC_SHOW34 "0" >
+<!ENTITY CU_TC_SHOW35 "0" >
+<!ENTITY CU_TC_SHOW36 "0" >
+<!ENTITY CU_TC_SHOW37 "0" >
+<!ENTITY CU_TC_SHOW38 "0" >
+<!ENTITY CU_TC_SHOW39 "0" >
+<!ENTITY CU_TC_SHOW40 "0" >
+<!ENTITY CU_TC_SHOW41 "0" >
+<!ENTITY CU_TC_SHOW42 "0" >
+<!ENTITY CU_TC_SHOW43 "0" >
+<!ENTITY CU_TC_SHOW44 "0" >
+<!ENTITY CU_TC_SHOW45 "0" >
+<!ENTITY CU_TC_SHOW46 "0" >
+<!ENTITY CU_TC_SHOW47 "0" >
+
+<!-- CU_TC T-label Y defaults (parity top/bottom) -->
+<!ENTITY CU_TC_TY0 "517" >
+<!ENTITY CU_TC_TY1 "517" >
+<!ENTITY CU_TC_TY2 "517" >
+<!ENTITY CU_TC_TY3 "517" >
+<!ENTITY CU_TC_TY4 "517" >
+<!ENTITY CU_TC_TY5 "517" >
+<!ENTITY CU_TC_TY6 "517" >
+<!ENTITY CU_TC_TY7 "517" >
+<!ENTITY CU_TC_TY8 "517" >
+<!ENTITY CU_TC_TY9 "517" >
+<!ENTITY CU_TC_TY10 "517" >
+<!ENTITY CU_TC_TY11 "517" >
+<!ENTITY CU_TC_TY12 "517" >
+<!ENTITY CU_TC_TY13 "517" >
+<!ENTITY CU_TC_TY14 "517" >
+<!ENTITY CU_TC_TY15 "517" >
+<!ENTITY CU_TC_TY16 "517" >
+<!ENTITY CU_TC_TY17 "517" >
+<!ENTITY CU_TC_TY18 "517" >
+<!ENTITY CU_TC_TY19 "517" >
+<!ENTITY CU_TC_TY20 "517" >
+<!ENTITY CU_TC_TY21 "517" >
+<!ENTITY CU_TC_TY22 "517" >
+<!ENTITY CU_TC_TY23 "517" >
+<!ENTITY CU_TC_TY24 "517" >
+<!ENTITY CU_TC_TY25 "517" >
+<!ENTITY CU_TC_TY26 "517" >
+<!ENTITY CU_TC_TY27 "517" >
+<!ENTITY CU_TC_TY28 "517" >
+<!ENTITY CU_TC_TY29 "517" >
+<!ENTITY CU_TC_TY30 "517" >
+<!ENTITY CU_TC_TY31 "517" >
+<!ENTITY CU_TC_TY32 "517" >
+<!ENTITY CU_TC_TY33 "517" >
+<!ENTITY CU_TC_TY34 "517" >
+<!ENTITY CU_TC_TY35 "517" >
+<!ENTITY CU_TC_TY36 "517" >
+<!ENTITY CU_TC_TY37 "517" >
+<!ENTITY CU_TC_TY38 "517" >
+<!ENTITY CU_TC_TY39 "517" >
+<!ENTITY CU_TC_TY40 "517" >
+<!ENTITY CU_TC_TY41 "517" >
+<!ENTITY CU_TC_TY42 "517" >
+<!ENTITY CU_TC_TY43 "517" >
+<!ENTITY CU_TC_TY44 "517" >
+<!ENTITY CU_TC_TY45 "517" >
+<!ENTITY CU_TC_TY46 "517" >
+<!ENTITY CU_TC_TY47 "517" >
+]
+>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 &SVG_H;" width="900" height="&SVG_H;" style="background: white;">
+
+  <!-- Title -->
+  <text x="400" y="20" font-family="Arial" font-size="16" fill="black">&PWM_TITLE;</text>
+
+  <!-- ============================ Counter ramp (shape depends on count direction) ============================ -->
+  <line id="Counter" x1="80" y1="190" x2="80" y2="60" stroke="black" stroke-width="2" stroke-dasharray="4,4" opacity="0.7" />
+  <text x="72" y="125" font-family="Arial" font-size="10" fill="black" text-anchor="end" dx="-18" dy="0">counter</text>
+  <text x="72" y="60"  font-family="Arial" font-size="9" fill="black" text-anchor="end" dx="-18" dy="10">&CU_PERIOD_MAX;</text>
+  <text x="72" y="190" font-family="Arial" font-size="9" fill="black" text-anchor="end" dx="-18" dy="15">0</text>
+
+  <!-- Asymmetric apex dividers: grey vertical line at each ramp apex (splits the full up/down period into up-count and down-count sub-periods). Drawn before the ramp so the black counter line stays on top. The divider height is always the true ramp apex, independent of Enable Period Swap: in Count Up/Down - TC on OVF and UNF the swapped-in Period 1 is reloaded at the overflow but never governs an up-count (it swaps back at the underflow), so it has no physical effect and the ramp form stays identical to swap-disabled. -->
+  <line x1="&CU_RX1;" y1="190" x2="&CU_RX1;" y2="&CU_RYA1;" stroke="grey" stroke-width="1.5" opacity="&SHOW_ASYM_DIV;"/>
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_RX3;" y1="190" x2="&CU_RX3;" y2="&CU_RYA2;" stroke="grey" stroke-width="1.5" opacity="&SHOW_ASYM_DIV;"/>
+  <line x1="&CU_RX5;" y1="190" x2="&CU_RX5;" y2="&CU_RYA3;" stroke="grey" stroke-width="1.5" opacity="&SHOW_ASYM_DIV;"/>
+  </g>
+  <!-- Dynamic tiled periods 4..8 apex dividers (grey), same as the static RX1/RX3/RX5 dividers but at the window-clipped apex CU_CAX4..8; each gated by SHOW_APEX_DIV4..8 (slot visible AND apex actually in-window) AND asymmetric mode (SHOW_ASYM_DIV). -->
+  <g opacity="&SHOW_APEX_DIV4;"><line x1="&CU_CAX4;" y1="190" x2="&CU_CAX4;" y2="&CU_CAY4;" stroke="grey" stroke-width="1.5" opacity="&SHOW_ASYM_DIV;"/></g>
+  <g opacity="&SHOW_APEX_DIV5;"><line x1="&CU_CAX5;" y1="190" x2="&CU_CAX5;" y2="&CU_CAY5;" stroke="grey" stroke-width="1.5" opacity="&SHOW_ASYM_DIV;"/></g>
+  <g opacity="&SHOW_APEX_DIV6;"><line x1="&CU_CAX6;" y1="190" x2="&CU_CAX6;" y2="&CU_CAY6;" stroke="grey" stroke-width="1.5" opacity="&SHOW_ASYM_DIV;"/></g>
+  <g opacity="&SHOW_APEX_DIV7;"><line x1="&CU_CAX7;" y1="190" x2="&CU_CAX7;" y2="&CU_CAY7;" stroke="grey" stroke-width="1.5" opacity="&SHOW_ASYM_DIV;"/></g>
+  <g opacity="&SHOW_APEX_DIV8;"><line x1="&CU_CAX8;" y1="190" x2="&CU_CAX8;" y2="&CU_CAY8;" stroke="grey" stroke-width="1.5" opacity="&SHOW_ASYM_DIV;"/></g>
+
+  <!-- Counter waveform (starts at the initial counter value and tiles as many full periods as fit before the right edge). The apex-to-boundary segments are dotted when the count snaps between 0 and the period (count up / count down); the up/down triangle keeps them solid. -->
+  <line x1="80" y1="&CU_INIT_Y;" x2="&CU_RX1;" y2="&CU_RYA1;" stroke="black" stroke-width="2"/>
+  <line x1="&CU_RX1;" y1="&CU_RYA1;" x2="&CU_B1;" y2="&CU_RYB1;" stroke="black" stroke-width="2" stroke-dasharray="&CU_DROP_DASH;"/>
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B1;" y1="&CU_RYB1;" x2="&CU_RX3;" y2="&CU_RYA2;" stroke="black" stroke-width="2"/>
+  <line x1="&CU_RX3;" y1="&CU_RYA2;" x2="&CU_B2;" y2="&CU_RYB2;" stroke="black" stroke-width="2" stroke-dasharray="&CU_DROP_DASH;"/>
+  <line x1="&CU_B2;" y1="&CU_RYB2;" x2="&CU_RX5;" y2="&CU_RYA3;" stroke="black" stroke-width="2"/>
+  <line x1="&CU_RX5;" y1="&CU_RYA3;" x2="&CU_B3;" y2="&CU_RYB3;" stroke="black" stroke-width="2" stroke-dasharray="&CU_DROP_DASH;"/>
+  </g>
+  <!-- Dynamic extra tiled periods 4..8: only the slots that fit before the right edge are visible (gated by SHOW_P4..P8). Drawn with ANALYTICALLY window-clipped coords (CU_CAX/CU_CAY apex, CU_CBX/CU_CBY boundary) so the slot straddling the right edge keeps the correct uniform slope and stops exactly at x=800 (the Qt renderer ignores clip-path on <line>, so the clip is done in the personality, not by an SVG clipPath). Each up-leg starts at the previous slot's clipped boundary; the shared CU_RX*/CU_B* stay clamped for the event dots and waveform. -->
+  <line x1="&CU_B3;"   y1="&CU_RYB3;" x2="&CU_CAX4;" y2="&CU_CAY4;" stroke="black" stroke-width="2" opacity="&SHOW_P4;"/>
+  <line x1="&CU_CAX4;" y1="&CU_CAY4;" x2="&CU_CBX4;" y2="&CU_CBY4;" stroke="black" stroke-width="2" stroke-dasharray="&CU_DROP_DASH;" opacity="&SHOW_P4;"/>
+  <line x1="&CU_CBX4;" y1="&CU_CBY4;" x2="&CU_CAX5;" y2="&CU_CAY5;" stroke="black" stroke-width="2" opacity="&SHOW_P5;"/>
+  <line x1="&CU_CAX5;" y1="&CU_CAY5;" x2="&CU_CBX5;" y2="&CU_CBY5;" stroke="black" stroke-width="2" stroke-dasharray="&CU_DROP_DASH;" opacity="&SHOW_P5;"/>
+  <line x1="&CU_CBX5;" y1="&CU_CBY5;" x2="&CU_CAX6;" y2="&CU_CAY6;" stroke="black" stroke-width="2" opacity="&SHOW_P6;"/>
+  <line x1="&CU_CAX6;" y1="&CU_CAY6;" x2="&CU_CBX6;" y2="&CU_CBY6;" stroke="black" stroke-width="2" stroke-dasharray="&CU_DROP_DASH;" opacity="&SHOW_P6;"/>
+  <line x1="&CU_CBX6;" y1="&CU_CBY6;" x2="&CU_CAX7;" y2="&CU_CAY7;" stroke="black" stroke-width="2" opacity="&SHOW_P7;"/>
+  <line x1="&CU_CAX7;" y1="&CU_CAY7;" x2="&CU_CBX7;" y2="&CU_CBY7;" stroke="black" stroke-width="2" stroke-dasharray="&CU_DROP_DASH;" opacity="&SHOW_P7;"/>
+  <line x1="&CU_CBX7;" y1="&CU_CBY7;" x2="&CU_CAX8;" y2="&CU_CAY8;" stroke="black" stroke-width="2" opacity="&SHOW_P8;"/>
+  <line x1="&CU_CAX8;" y1="&CU_CAY8;" x2="&CU_CBX8;" y2="&CU_CBY8;" stroke="black" stroke-width="2" stroke-dasharray="&CU_DROP_DASH;" opacity="&SHOW_P8;"/>
+
+  <!-- Period line on top of ramps (aligned to the ramp apex level so it sits exactly on the peak) -->
+  <line x1="80" y1="&CU_PERIOD0_Y;" x2="800" y2="&CU_PERIOD0_Y;" stroke="black" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SINGLE;" />
+  <text x="440" y="&CU_PERIOD0_LBL_Y;" font-family="Arial" font-size="12" fill="black" text-anchor="middle" opacity="&SHOW_PERIOD_SINGLE;">Period: &CU_PERIOD0_VAL;</text>
+
+  <!-- Period swap reference lines: Period 0 only over odd displayed periods (P1: 80..B1, P3: B2..B3); Period 1 only over even displayed periods (P2: B1..B2, P4: B3..800). In asymmetric mode (Count Up/Down - TC on OVF and UNF) the odd-period Period 0 line is instead drawn split at the apex (see the SHOW_PERIOD_SWAP_AS block below), so the full-width odd Period 0 lines are gated to non-asymmetric modes via SHOW_PERIOD_SWAP_NA. -->
+  <line x1="80" y1="&CU_PERIOD0_Y;" x2="&CU_B1;" y2="&CU_PERIOD0_Y;" stroke="green" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SWAP_NA;" />
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B2;" y1="&CU_PERIOD0_Y;" x2="&CU_B3;" y2="&CU_PERIOD0_Y;" stroke="green" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SWAP_NA;" />
+  </g>
+  <text x="200" y="&CU_PERIOD0_Y;" font-family="Arial" font-size="12" fill="green" text-anchor="middle" dy="-3" opacity="&SHOW_PERIOD_SWAP;">Period 0: &CU_PERIOD0_VAL;</text>
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B1;" y1="&CU_PERIOD1_Y;" x2="&CU_B2;" y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SWAP_NA;" />
+  <line x1="&CU_B3;" y1="&CU_PERIOD1_Y;" x2="&CU_B4;" y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SWAP_NA;" />
+  <text x="&CU_PERIOD1_LBL_X;" y="&CU_PERIOD1_Y;" font-family="Arial" font-size="12" fill="&CU_PERIOD1_COLOR;" text-anchor="middle" dy="-3" opacity="&SHOW_PERIOD_SWAP;">Period 1: &CU_PERIOD1_VAL;</text>
+  <!-- Period swap reference lines over the dynamic extra tiled periods (P5/P7 = Period 0 green, P4/P6/P8 = Period 1 purple); hidden slots collapse to zero width at x=800. Full-width lines apply to non-asymmetric modes only; asymmetric mode uses the per-period split block below. -->
+  <line x1="&CU_B4;" y1="&CU_PERIOD0_Y;" x2="&CU_B5;" y2="&CU_PERIOD0_Y;" stroke="green" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SWAP_NA;" />
+  <line x1="&CU_B6;" y1="&CU_PERIOD0_Y;" x2="&CU_B7;" y2="&CU_PERIOD0_Y;" stroke="green" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SWAP_NA;" />
+  <line x1="&CU_B5;" y1="&CU_PERIOD1_Y;" x2="&CU_B6;" y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SWAP_NA;" />
+  <line x1="&CU_B7;" y1="&CU_PERIOD1_Y;" x2="800" y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_SWAP_NA;" />
+  </g>
+
+  <!-- Enable Period Swap + asymmetric (Count Up/Down - TC on OVF and UNF): EVERY up/down period is drawn with Period 0 (green) on the up-leg (period start .. apex = overflow TC) and Period 1 (purple) on the down-leg (apex .. period boundary = underflow TC). Period 1 is only "valid" from the overflow, where it is loaded, until the underflow of the same period, where it swaps back to Period 0; it never spans across a peak into the next period. Because Period 1 never governs an up-count it has no physical effect, so the purple line sits at the Period 1 value level while the ramp keeps its swap-disabled shape. Static periods P2/P3 are gated by SHOW_CONT; dynamic slots collapse to zero width at x=800 when hidden. -->
+  <g opacity="&SHOW_PERIOD_SWAP_AS;">
+  <line x1="80"        y1="&CU_PERIOD0_Y;" x2="&CU_RX1;"  y2="&CU_PERIOD0_Y;" stroke="green"  stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_RX1;"  y1="&CU_PERIOD1_Y;" x2="&CU_B1;"   y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" />
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B1;"   y1="&CU_PERIOD0_Y;" x2="&CU_RX3;"  y2="&CU_PERIOD0_Y;" stroke="green"  stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_RX3;"  y1="&CU_PERIOD1_Y;" x2="&CU_B2;"   y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_B2;"   y1="&CU_PERIOD0_Y;" x2="&CU_RX5;"  y2="&CU_PERIOD0_Y;" stroke="green"  stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_RX5;"  y1="&CU_PERIOD1_Y;" x2="&CU_B3;"   y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_B3;"   y1="&CU_PERIOD0_Y;" x2="&CU_CAX4;" y2="&CU_PERIOD0_Y;" stroke="green"  stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_CAX4;" y1="&CU_PERIOD1_Y;" x2="&CU_B4;"   y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_B4;"   y1="&CU_PERIOD0_Y;" x2="&CU_CAX5;" y2="&CU_PERIOD0_Y;" stroke="green"  stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_CAX5;" y1="&CU_PERIOD1_Y;" x2="&CU_B5;"   y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_B5;"   y1="&CU_PERIOD0_Y;" x2="&CU_CAX6;" y2="&CU_PERIOD0_Y;" stroke="green"  stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_CAX6;" y1="&CU_PERIOD1_Y;" x2="&CU_B6;"   y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_B6;"   y1="&CU_PERIOD0_Y;" x2="&CU_CAX7;" y2="&CU_PERIOD0_Y;" stroke="green"  stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_CAX7;" y1="&CU_PERIOD1_Y;" x2="&CU_B7;"   y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_B7;"   y1="&CU_PERIOD0_Y;" x2="&CU_CAX8;" y2="&CU_PERIOD0_Y;" stroke="green"  stroke-dasharray="3" stroke-width="1.5" />
+  <line x1="&CU_CAX8;" y1="&CU_PERIOD1_Y;" x2="800"      y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" />
+  </g>
+  </g>
+
+  <!-- Shadow-copy (Swapping Enable OFF) Period reference lines: same behaviour as the compare persist lines - Period 0 (green) held from the start to the first TC, then Period 1 (purple) held to the end of the graph, with NO per-period alternation. NA = non-asymmetric (first TC = period-1 boundary CU_B1); ASYM = Count Up/Down - TC on OVF and UNF (first TC = period-1 apex/overflow CU_RX1). -->
+  <line x1="80" y1="&CU_PERIOD0_Y;" x2="&CU_B1;" y2="&CU_PERIOD0_Y;" stroke="green" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_PERSIST_NA;" />
+  <line x1="&CU_B1;" y1="&CU_PERIOD1_Y;" x2="800" y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_PERSIST_NA;" />
+  <line x1="80" y1="&CU_PERIOD0_Y;" x2="&CU_RX1;" y2="&CU_PERIOD0_Y;" stroke="green" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_PERSIST_ASYM;" />
+  <line x1="&CU_RX1;" y1="&CU_PERIOD1_Y;" x2="800" y2="&CU_PERIOD1_Y;" stroke="&CU_PERIOD1_COLOR;" stroke-dasharray="3" stroke-width="1.5" opacity="&SHOW_PERIOD_PERSIST_ASYM;" />
+
+  <!-- Compare 0 reference line + ramp intersection dots -->
+  <!-- Main Compare 0 over odd displayed periods (P1: 80..B1, P3: B2..B3) - full width except in asymmetric mode, where it is split at the grey apex divider -->
+  <line x1="80" y1="&CU_YC0;" x2="&CU_B1;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_FULL;"/>
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B2;" y1="&CU_YC0;" x2="&CU_B3;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_FULL;"/>
+  </g>
+  <!-- Asymmetric split: up-count half (boundary..apex) at the main level, down-count half (apex..next boundary) at the buffered level -->
+  <line x1="80" y1="&CU_YC0;" x2="&CU_RX1;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_ASYM;"/>
+  <line x1="&CU_RX1;" y1="&CU_YC0_DN;" x2="&CU_B1;" y2="&CU_YC0_DN;" stroke="&CU_C0DN_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_ASYM;"/>
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B2;" y1="&CU_YC0;" x2="&CU_RX5;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_ASYM;"/>
+  <line x1="&CU_RX5;" y1="&CU_YC0_DN;" x2="&CU_B3;" y2="&CU_YC0_DN;" stroke="&CU_C0DN_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_ASYM;"/>
+  <!-- Main Compare 0 over even displayed periods (P2: B1..B2, P4: B3..800) - only when Compare 0 swap is OFF; P2 is additionally forced off in asymmetric mode (split below) -->
+  <line x1="&CU_B1;" y1="&CU_YC0;" x2="&CU_B2;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_MAIN_P2;"/>
+  <line x1="&CU_B3;" y1="&CU_YC0;" x2="&CU_B4;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_MAIN_EVEN;"/>
+  <!-- Main Compare 0 over the dynamic extra tiled periods (odd P5/P7 + even P6/P8); hidden slots collapse to zero width at x=800 -->
+  <line x1="&CU_B4;" y1="&CU_YC0;" x2="&CU_B5;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_FULL;"/>
+  <line x1="&CU_B6;" y1="&CU_YC0;" x2="&CU_B7;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_FULL;"/>
+  <line x1="&CU_B5;" y1="&CU_YC0;" x2="&CU_B6;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_MAIN_EVEN;"/>
+  <line x1="&CU_B7;" y1="&CU_YC0;" x2="800" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_MAIN_EVEN;"/>
+  <!-- Asymmetric split over period 2 (B1..RX3 up-count main, RX3..B2 down-count buffered) -->
+  <line x1="&CU_B1;" y1="&CU_YC0;" x2="&CU_RX3;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_ASYM;"/>
+  <line x1="&CU_RX3;" y1="&CU_YC0_DN;" x2="&CU_B2;" y2="&CU_YC0_DN;" stroke="&CU_C0DN_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_ODD_ASYM;"/>
+  </g>
+  <text x="84" y="&CU_YC0;" font-family="Arial" font-size="10" fill="red" text-anchor="start" dy="-3">Compare 0: &CU_CMP0_VAL;</text>
+  <!-- Asymmetric down-count buffered Compare 0 label (right of the grey divider) -->
+  <text x="&CU_RX1;" y="&CU_YC0_DN;" font-family="Arial" font-size="10" fill="blue" text-anchor="start" dx="5" dy="-3" opacity="&SHOW_C0_BUFF_ASYM;">Compare 0 Buff: &CU_CMP0_BUFF_VAL;</text>
+  <!-- Buffered Compare 0 over even displayed periods (P2: B1..B2, P4: B3..800) - only with Compare 0 swap; P2 forced off in asymmetric mode -->
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B1;" y1="&CU_YC0_E;" x2="&CU_B2;" y2="&CU_YC0_E;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CMP0_SWAP_P2;"/>
+  <line x1="&CU_B3;" y1="&CU_YC0_E;" x2="&CU_B4;" y2="&CU_YC0_E;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CMP0_SWAP;"/>
+  <line x1="&CU_B5;" y1="&CU_YC0_E;" x2="&CU_B6;" y2="&CU_YC0_E;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CMP0_SWAP;"/>
+  <line x1="&CU_B7;" y1="&CU_YC0_E;" x2="800" y2="&CU_YC0_E;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CMP0_SWAP;"/>
+  <text x="&CU_B1;" y="&CU_YC0_E;" font-family="Arial" font-size="10" fill="blue" text-anchor="start" dx="5" dy="-3" opacity="&SHOW_CMP0_SWAP_P2;">Compare 0 Buff: &CU_CMP0_BUFF_VAL;</text>
+  </g>
+  <!-- Shadow-copy persist (Swapping Enable off + Compare 0 swap on): main level held up to the first TC, then the buffered level held to the end - no per-TC alternation. Non-asymmetric transition at the period-1 boundary B1; asymmetric transition at the period-1 apex RX1. -->
+  <line x1="80" y1="&CU_YC0;" x2="&CU_B1;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_PERSIST_NA;"/>
+  <line x1="&CU_B1;" y1="&CU_YC0_E;" x2="800" y2="&CU_YC0_E;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_PERSIST_NA;"/>
+  <line x1="80" y1="&CU_YC0;" x2="&CU_RX1;" y2="&CU_YC0;" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_PERSIST_ASYM;"/>
+  <line x1="&CU_RX1;" y1="&CU_YC0_E;" x2="800" y2="&CU_YC0_E;" stroke="blue" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_PERSIST_ASYM;"/>
+  <text x="&CU_B1;" y="&CU_YC0_E;" font-family="Arial" font-size="10" fill="blue" text-anchor="start" dx="5" dy="-3" opacity="&SHOW_C0_PERSIST_NA;">Compare 0 Buff: &CU_CMP0_BUFF_VAL;</text>
+  <text x="&CU_RX1;" y="&CU_YC0_E;" font-family="Arial" font-size="10" fill="blue" text-anchor="start" dx="5" dy="-3" opacity="&SHOW_C0_PERSIST_ASYM;">Compare 0 Buff: &CU_CMP0_BUFF_VAL;</text>
+  <!-- Compare 0 dot drop lines to the overflow marks region -->
+  <line x1="&CU_XC0_P1;" y1="&CU_YC0;" x2="&CU_XC0_P1;" y2="235" stroke="red" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_P1;"/>
+  <line x1="&CU_XC0_P2;" y1="&CU_YC0_P2U;" x2="&CU_XC0_P2;" y2="235" stroke="&CU_C0_P2U_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_P2;"/>
+  <line x1="&CU_XC0_P3;" y1="&CU_YC0_O3;" x2="&CU_XC0_P3;" y2="235" stroke="&CU_C0_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_P3;"/>
+  <line x1="&CU_XC0_P4;" y1="&CU_YC0_P4;" x2="&CU_XC0_P4;" y2="235" stroke="&CU_C0_P4_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_P4;"/>
+  <line x1="&CU_XC0_P5;" y1="&CU_YC0_O3;" x2="&CU_XC0_P5;" y2="235" stroke="&CU_C0_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_P5;"/>
+  <line x1="&CU_XC0_P6;" y1="&CU_YC0_P4;" x2="&CU_XC0_P6;" y2="235" stroke="&CU_C0_P4_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_P6;"/>
+  <line x1="&CU_XC0_P7;" y1="&CU_YC0_O3;" x2="&CU_XC0_P7;" y2="235" stroke="&CU_C0_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_P7;"/>
+  <line x1="&CU_XC0_P8;" y1="&CU_YC0_P4;" x2="&CU_XC0_P8;" y2="235" stroke="&CU_C0_P4_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_P8;"/>
+  <line x1="&CU_XC0D_P1;" y1="&CU_YC0_DN;" x2="&CU_XC0D_P1;" y2="235" stroke="&CU_C0DN_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_DOWN_P1;"/>
+  <line x1="&CU_XC0D_P2;" y1="&CU_YC0_P2D;" x2="&CU_XC0D_P2;" y2="235" stroke="&CU_C0_P2D_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_DOWN_P2;"/>
+  <line x1="&CU_XC0D_P3;" y1="&CU_YC0_DN_O3;" x2="&CU_XC0D_P3;" y2="235" stroke="&CU_C0_DN_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_DOWN_P3;"/>
+  <line x1="&CU_XC0D_P4;" y1="&CU_YC0_P2D;" x2="&CU_XC0D_P4;" y2="235" stroke="&CU_C0_P2D_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_DOWN_P4;"/>
+  <line x1="&CU_XC0D_P5;" y1="&CU_YC0_DN_O3;" x2="&CU_XC0D_P5;" y2="235" stroke="&CU_C0_DN_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_DOWN_P5;"/>
+  <line x1="&CU_XC0D_P6;" y1="&CU_YC0_P2D;" x2="&CU_XC0D_P6;" y2="235" stroke="&CU_C0_P2D_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_DOWN_P6;"/>
+  <line x1="&CU_XC0D_P7;" y1="&CU_YC0_DN_O3;" x2="&CU_XC0D_P7;" y2="235" stroke="&CU_C0_DN_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_DOWN_P7;"/>
+  <line x1="&CU_XC0D_P8;" y1="&CU_YC0_P2D;" x2="&CU_XC0D_P8;" y2="235" stroke="&CU_C0_P2D_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C0_DOWN_P8;"/>
+  <circle cx="&CU_XC0_P1;" cy="&CU_YC0;" r="3" fill="red" opacity="&SHOW_C0_P1;"/>
+  <circle cx="&CU_XC0_P2;" cy="&CU_YC0_P2U;" r="3" fill="&CU_C0_P2U_COLOR;" opacity="&SHOW_C0_P2;"/>
+  <circle cx="&CU_XC0_P3;" cy="&CU_YC0_O3;" r="3" fill="&CU_C0_O3_COLOR;" opacity="&SHOW_C0_P3;"/>
+  <circle cx="&CU_XC0_P4;" cy="&CU_YC0_P4;" r="3" fill="&CU_C0_P4_COLOR;" opacity="&SHOW_C0_P4;"/>
+  <circle cx="&CU_XC0_P5;" cy="&CU_YC0_O3;" r="3" fill="&CU_C0_O3_COLOR;" opacity="&SHOW_C0_P5;"/>
+  <circle cx="&CU_XC0_P6;" cy="&CU_YC0_P4;" r="3" fill="&CU_C0_P4_COLOR;" opacity="&SHOW_C0_P6;"/>
+  <circle cx="&CU_XC0_P7;" cy="&CU_YC0_O3;" r="3" fill="&CU_C0_O3_COLOR;" opacity="&SHOW_C0_P7;"/>
+  <circle cx="&CU_XC0_P8;" cy="&CU_YC0_P4;" r="3" fill="&CU_C0_P4_COLOR;" opacity="&SHOW_C0_P8;"/>
+  <circle cx="&CU_XC0D_P1;" cy="&CU_YC0_DN;" r="3" fill="&CU_C0DN_COLOR;" opacity="&SHOW_C0_DOWN_P1;"/>
+  <circle cx="&CU_XC0D_P2;" cy="&CU_YC0_P2D;" r="3" fill="&CU_C0_P2D_COLOR;" opacity="&SHOW_C0_DOWN_P2;"/>
+  <circle cx="&CU_XC0D_P3;" cy="&CU_YC0_DN_O3;" r="3" fill="&CU_C0_DN_O3_COLOR;" opacity="&SHOW_C0_DOWN_P3;"/>
+  <circle cx="&CU_XC0D_P4;" cy="&CU_YC0_P2D;" r="3" fill="&CU_C0_P2D_COLOR;" opacity="&SHOW_C0_DOWN_P4;"/>
+  <circle cx="&CU_XC0D_P5;" cy="&CU_YC0_DN_O3;" r="3" fill="&CU_C0_DN_O3_COLOR;" opacity="&SHOW_C0_DOWN_P5;"/>
+  <circle cx="&CU_XC0D_P6;" cy="&CU_YC0_P2D;" r="3" fill="&CU_C0_P2D_COLOR;" opacity="&SHOW_C0_DOWN_P6;"/>
+  <circle cx="&CU_XC0D_P7;" cy="&CU_YC0_DN_O3;" r="3" fill="&CU_C0_DN_O3_COLOR;" opacity="&SHOW_C0_DOWN_P7;"/>
+  <circle cx="&CU_XC0D_P8;" cy="&CU_YC0_P2D;" r="3" fill="&CU_C0_P2D_COLOR;" opacity="&SHOW_C0_DOWN_P8;"/>
+
+  <!-- Compare 1 reference line + ramp intersection dots (only when CC1 available) -->
+  <!-- Main Compare 1 over odd displayed periods (P1: 80..B1, P3: B2..B3) - full width except in asymmetric mode, where it is split at the grey apex divider -->
+  <line x1="80" y1="&CU_YC1;" x2="&CU_B1;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_FULL;"/>
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B2;" y1="&CU_YC1;" x2="&CU_B3;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_FULL;"/>
+  </g>
+  <!-- Asymmetric split: up-count half (boundary..apex) at the main level, down-count half (apex..next boundary) at the buffered level -->
+  <line x1="80" y1="&CU_YC1;" x2="&CU_RX1;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_ASYM;"/>
+  <line x1="&CU_RX1;" y1="&CU_YC1_DN;" x2="&CU_B1;" y2="&CU_YC1_DN;" stroke="&CU_C1DN_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_ASYM;"/>
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B2;" y1="&CU_YC1;" x2="&CU_RX5;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_ASYM;"/>
+  <line x1="&CU_RX5;" y1="&CU_YC1_DN;" x2="&CU_B3;" y2="&CU_YC1_DN;" stroke="&CU_C1DN_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_ASYM;"/>
+  <!-- Main Compare 1 over even displayed periods (P2: B1..B2, P4: B3..800) - only when Compare 1 swap is OFF; P2 is additionally forced off in asymmetric mode (split below) -->
+  <line x1="&CU_B1;" y1="&CU_YC1;" x2="&CU_B2;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_MAIN_P2;"/>
+  <line x1="&CU_B3;" y1="&CU_YC1;" x2="&CU_B4;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_MAIN_EVEN;"/>
+  <!-- Main Compare 1 over the dynamic extra tiled periods (odd P5/P7 + even P6/P8); hidden slots collapse to zero width at x=800 -->
+  <line x1="&CU_B4;" y1="&CU_YC1;" x2="&CU_B5;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_FULL;"/>
+  <line x1="&CU_B6;" y1="&CU_YC1;" x2="&CU_B7;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_FULL;"/>
+  <line x1="&CU_B5;" y1="&CU_YC1;" x2="&CU_B6;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_MAIN_EVEN;"/>
+  <line x1="&CU_B7;" y1="&CU_YC1;" x2="800" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_MAIN_EVEN;"/>
+  <!-- Asymmetric split over period 2 (B1..RX3 up-count main, RX3..B2 down-count buffered) -->
+  <line x1="&CU_B1;" y1="&CU_YC1;" x2="&CU_RX3;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_ASYM;"/>
+  <line x1="&CU_RX3;" y1="&CU_YC1_DN;" x2="&CU_B2;" y2="&CU_YC1_DN;" stroke="&CU_C1DN_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_ODD_ASYM;"/>
+  </g>
+  <text x="84" y="&CU_YC1;" font-family="Arial" font-size="10" fill="orange" text-anchor="start" dy="-3" opacity="&SHOW_CC1;">Compare 1: &CU_CMP1_VAL;</text>
+  <!-- Asymmetric down-count buffered Compare 1 label (right of the grey divider) -->
+  <text x="&CU_RX1;" y="&CU_YC1_DN;" font-family="Arial" font-size="10" fill="purple" text-anchor="start" dx="5" dy="-3" opacity="&SHOW_C1_BUFF_ASYM;">Compare 1 Buff: &CU_CMP1_BUFF_VAL;</text>
+  <!-- Buffered Compare 1 over even displayed periods (P2: B1..B2, P4: B3..800) - only with Compare 1 swap; P2 forced off in asymmetric mode -->
+  <g opacity="&SHOW_CONT;">
+  <line x1="&CU_B1;" y1="&CU_YC1_E;" x2="&CU_B2;" y2="&CU_YC1_E;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CMP1_SWAP_P2;"/>
+  <line x1="&CU_B3;" y1="&CU_YC1_E;" x2="&CU_B4;" y2="&CU_YC1_E;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CMP1_SWAP;"/>
+  <line x1="&CU_B5;" y1="&CU_YC1_E;" x2="&CU_B6;" y2="&CU_YC1_E;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CMP1_SWAP;"/>
+  <line x1="&CU_B7;" y1="&CU_YC1_E;" x2="800" y2="&CU_YC1_E;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_CMP1_SWAP;"/>
+  <text x="&CU_B1;" y="&CU_YC1_E;" font-family="Arial" font-size="10" fill="purple" text-anchor="start" dx="5" dy="-3" opacity="&SHOW_CMP1_SWAP_P2;">Compare 1 Buff: &CU_CMP1_BUFF_VAL;</text>
+  </g>
+  <!-- Shadow-copy persist (Swapping Enable off + Compare 1 swap on): main level held up to the first TC, then the buffered level held to the end - no per-TC alternation. Non-asymmetric transition at the period-1 boundary B1; asymmetric transition at the period-1 apex RX1. -->
+  <line x1="80" y1="&CU_YC1;" x2="&CU_B1;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_PERSIST_NA;"/>
+  <line x1="&CU_B1;" y1="&CU_YC1_E;" x2="800" y2="&CU_YC1_E;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_PERSIST_NA;"/>
+  <line x1="80" y1="&CU_YC1;" x2="&CU_RX1;" y2="&CU_YC1;" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_PERSIST_ASYM;"/>
+  <line x1="&CU_RX1;" y1="&CU_YC1_E;" x2="800" y2="&CU_YC1_E;" stroke="purple" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_PERSIST_ASYM;"/>
+  <text x="&CU_B1;" y="&CU_YC1_E;" font-family="Arial" font-size="10" fill="purple" text-anchor="start" dx="5" dy="-3" opacity="&SHOW_C1_PERSIST_NA;">Compare 1 Buff: &CU_CMP1_BUFF_VAL;</text>
+  <text x="&CU_RX1;" y="&CU_YC1_E;" font-family="Arial" font-size="10" fill="purple" text-anchor="start" dx="5" dy="-3" opacity="&SHOW_C1_PERSIST_ASYM;">Compare 1 Buff: &CU_CMP1_BUFF_VAL;</text>
+  <!-- Compare 1 dot drop lines to the overflow marks region -->
+  <line x1="&CU_XC1_P1;" y1="&CU_YC1;" x2="&CU_XC1_P1;" y2="235" stroke="orange" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_P1;"/>
+  <line x1="&CU_XC1_P2;" y1="&CU_YC1_P2U;" x2="&CU_XC1_P2;" y2="235" stroke="&CU_C1_P2U_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_P2;"/>
+  <line x1="&CU_XC1_P3;" y1="&CU_YC1_O3;" x2="&CU_XC1_P3;" y2="235" stroke="&CU_C1_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_P3;"/>
+  <line x1="&CU_XC1_P4;" y1="&CU_YC1_P4;" x2="&CU_XC1_P4;" y2="235" stroke="&CU_C1_P4_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_P4;"/>
+  <line x1="&CU_XC1_P5;" y1="&CU_YC1_O3;" x2="&CU_XC1_P5;" y2="235" stroke="&CU_C1_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_P5;"/>
+  <line x1="&CU_XC1_P6;" y1="&CU_YC1_P4;" x2="&CU_XC1_P6;" y2="235" stroke="&CU_C1_P4_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_P6;"/>
+  <line x1="&CU_XC1_P7;" y1="&CU_YC1_O3;" x2="&CU_XC1_P7;" y2="235" stroke="&CU_C1_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_P7;"/>
+  <line x1="&CU_XC1_P8;" y1="&CU_YC1_P4;" x2="&CU_XC1_P8;" y2="235" stroke="&CU_C1_P4_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_P8;"/>
+  <line x1="&CU_XC1D_P1;" y1="&CU_YC1_DN;" x2="&CU_XC1D_P1;" y2="235" stroke="&CU_C1DN_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_DOWN_P1;"/>
+  <line x1="&CU_XC1D_P2;" y1="&CU_YC1_P2D;" x2="&CU_XC1D_P2;" y2="235" stroke="&CU_C1_P2D_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_DOWN_P2;"/>
+  <line x1="&CU_XC1D_P3;" y1="&CU_YC1_DN_O3;" x2="&CU_XC1D_P3;" y2="235" stroke="&CU_C1_DN_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_DOWN_P3;"/>
+  <line x1="&CU_XC1D_P4;" y1="&CU_YC1_P2D;" x2="&CU_XC1D_P4;" y2="235" stroke="&CU_C1_P2D_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_DOWN_P4;"/>
+  <line x1="&CU_XC1D_P5;" y1="&CU_YC1_DN_O3;" x2="&CU_XC1D_P5;" y2="235" stroke="&CU_C1_DN_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_DOWN_P5;"/>
+  <line x1="&CU_XC1D_P6;" y1="&CU_YC1_P2D;" x2="&CU_XC1D_P6;" y2="235" stroke="&CU_C1_P2D_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_DOWN_P6;"/>
+  <line x1="&CU_XC1D_P7;" y1="&CU_YC1_DN_O3;" x2="&CU_XC1D_P7;" y2="235" stroke="&CU_C1_DN_O3_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_DOWN_P7;"/>
+  <line x1="&CU_XC1D_P8;" y1="&CU_YC1_P2D;" x2="&CU_XC1D_P8;" y2="235" stroke="&CU_C1_P2D_COLOR;" stroke-dasharray="3,3" stroke-width="1" opacity="&SHOW_C1_DOWN_P8;"/>
+  <circle cx="&CU_XC1_P1;" cy="&CU_YC1;" r="3" fill="orange" opacity="&SHOW_C1_P1;"/>
+  <circle cx="&CU_XC1_P2;" cy="&CU_YC1_P2U;" r="3" fill="&CU_C1_P2U_COLOR;" opacity="&SHOW_C1_P2;"/>
+  <circle cx="&CU_XC1_P3;" cy="&CU_YC1_O3;" r="3" fill="&CU_C1_O3_COLOR;" opacity="&SHOW_C1_P3;"/>
+  <circle cx="&CU_XC1_P4;" cy="&CU_YC1_P4;" r="3" fill="&CU_C1_P4_COLOR;" opacity="&SHOW_C1_P4;"/>
+  <circle cx="&CU_XC1_P5;" cy="&CU_YC1_O3;" r="3" fill="&CU_C1_O3_COLOR;" opacity="&SHOW_C1_P5;"/>
+  <circle cx="&CU_XC1_P6;" cy="&CU_YC1_P4;" r="3" fill="&CU_C1_P4_COLOR;" opacity="&SHOW_C1_P6;"/>
+  <circle cx="&CU_XC1_P7;" cy="&CU_YC1_O3;" r="3" fill="&CU_C1_O3_COLOR;" opacity="&SHOW_C1_P7;"/>
+  <circle cx="&CU_XC1_P8;" cy="&CU_YC1_P4;" r="3" fill="&CU_C1_P4_COLOR;" opacity="&SHOW_C1_P8;"/>
+  <circle cx="&CU_XC1D_P1;" cy="&CU_YC1_DN;" r="3" fill="&CU_C1DN_COLOR;" opacity="&SHOW_C1_DOWN_P1;"/>
+  <circle cx="&CU_XC1D_P2;" cy="&CU_YC1_P2D;" r="3" fill="&CU_C1_P2D_COLOR;" opacity="&SHOW_C1_DOWN_P2;"/>
+  <circle cx="&CU_XC1D_P3;" cy="&CU_YC1_DN_O3;" r="3" fill="&CU_C1_DN_O3_COLOR;" opacity="&SHOW_C1_DOWN_P3;"/>
+  <circle cx="&CU_XC1D_P4;" cy="&CU_YC1_P2D;" r="3" fill="&CU_C1_P2D_COLOR;" opacity="&SHOW_C1_DOWN_P4;"/>
+  <circle cx="&CU_XC1D_P5;" cy="&CU_YC1_DN_O3;" r="3" fill="&CU_C1_DN_O3_COLOR;" opacity="&SHOW_C1_DOWN_P5;"/>
+  <circle cx="&CU_XC1D_P6;" cy="&CU_YC1_P2D;" r="3" fill="&CU_C1_P2D_COLOR;" opacity="&SHOW_C1_DOWN_P6;"/>
+  <circle cx="&CU_XC1D_P7;" cy="&CU_YC1_DN_O3;" r="3" fill="&CU_C1_DN_O3_COLOR;" opacity="&SHOW_C1_DOWN_P7;"/>
+  <circle cx="&CU_XC1D_P8;" cy="&CU_YC1_P2D;" r="3" fill="&CU_C1_P2D_COLOR;" opacity="&SHOW_C1_DOWN_P8;"/>
+
+  <!-- ============================ Signal event lines ============================ -->
+  <text x="40" y="230" font-family="Arial" font-size="12" fill="black">overflow</text>
+  <line id="Overflow" x1="50" y1="240" x2="850" y2="240" stroke="&IFX_COLOR_BERRY400;" stroke-width="2" />
+  <circle cx="&CU_B1;" cy="240" r="4" fill="black" opacity="&SHOW_OV_EVT;" />
+  <g opacity="&SHOW_CONT;">
+  <circle cx="&CU_B2;" cy="240" r="4" fill="black" opacity="&SHOW_OV_EVT;" />
+  <circle cx="&CU_B3;" cy="240" r="4" fill="black" opacity="&SHOW_OV_EVT;" />
+  </g>
+  <circle cx="&CU_RX1;" cy="240" r="4" fill="black" opacity="&SHOW_OV_APEX;" />
+  <g opacity="&SHOW_CONT;">
+  <circle cx="&CU_RX3;" cy="240" r="4" fill="black" opacity="&SHOW_OV_APEX;" />
+  <circle cx="&CU_RX5;" cy="240" r="4" fill="black" opacity="&SHOW_OV_APEX;" />
+  </g>
+  <circle cx="&CU_B4;" cy="240" r="4" fill="black" opacity="&SHOW_OV_EVT_P4;" />
+  <circle cx="&CU_B5;" cy="240" r="4" fill="black" opacity="&SHOW_OV_EVT_P5;" />
+  <circle cx="&CU_B6;" cy="240" r="4" fill="black" opacity="&SHOW_OV_EVT_P6;" />
+  <circle cx="&CU_B7;" cy="240" r="4" fill="black" opacity="&SHOW_OV_EVT_P7;" />
+  <circle cx="&CU_B8;" cy="240" r="4" fill="black" opacity="&SHOW_OV_EVT_P8;" />
+  <circle cx="&CU_CAX4;" cy="240" r="4" fill="black" opacity="&SHOW_OV_APEX_P4;" />
+  <circle cx="&CU_CAX5;" cy="240" r="4" fill="black" opacity="&SHOW_OV_APEX_P5;" />
+  <circle cx="&CU_CAX6;" cy="240" r="4" fill="black" opacity="&SHOW_OV_APEX_P6;" />
+  <circle cx="&CU_CAX7;" cy="240" r="4" fill="black" opacity="&SHOW_OV_APEX_P7;" />
+  <circle cx="&CU_CAX8;" cy="240" r="4" fill="black" opacity="&SHOW_OV_APEX_P8;" />
+
+  <text x="40" y="250" font-family="Arial" font-size="12" fill="black">underflow</text>
+  <line id="Underflow" x1="50" y1="260" x2="850" y2="260" stroke="&IFX_COLOR_LAWN500;" stroke-width="2" />
+  <circle cx="&CU_B1;" cy="260" r="4" fill="black" opacity="&SHOW_UN_EVT;" />
+  <g opacity="&SHOW_CONT;">
+  <circle cx="&CU_B2;" cy="260" r="4" fill="black" opacity="&SHOW_UN_EVT;" />
+  <circle cx="&CU_B3;" cy="260" r="4" fill="black" opacity="&SHOW_UN_EVT;" />
+  </g>
+  <circle cx="&CU_B4;" cy="260" r="4" fill="black" opacity="&SHOW_UN_EVT_P4;" />
+  <circle cx="&CU_B5;" cy="260" r="4" fill="black" opacity="&SHOW_UN_EVT_P5;" />
+  <circle cx="&CU_B6;" cy="260" r="4" fill="black" opacity="&SHOW_UN_EVT_P6;" />
+  <circle cx="&CU_B7;" cy="260" r="4" fill="black" opacity="&SHOW_UN_EVT_P7;" />
+  <circle cx="&CU_B8;" cy="260" r="4" fill="black" opacity="&SHOW_UN_EVT_P8;" />
+
+  <text x="40" y="270" font-family="Arial" font-size="12" fill="black">tc</text>
+  <line id="Terminal Count" x1="50" y1="280" x2="850" y2="280" stroke="#F97414" stroke-width="2" />
+  <circle cx="&CU_B1;" cy="280" r="4" fill="black" />
+  <g opacity="&SHOW_CONT;">
+  <circle cx="&CU_B2;" cy="280" r="4" fill="black" />
+  <circle cx="&CU_B3;" cy="280" r="4" fill="black" />
+  </g>
+  <circle cx="&CU_B4;" cy="280" r="4" fill="black" opacity="&SHOW_TC_EVT_P4;" />
+  <circle cx="&CU_B5;" cy="280" r="4" fill="black" opacity="&SHOW_TC_EVT_P5;" />
+  <circle cx="&CU_B6;" cy="280" r="4" fill="black" opacity="&SHOW_TC_EVT_P6;" />
+  <circle cx="&CU_B7;" cy="280" r="4" fill="black" opacity="&SHOW_TC_EVT_P7;" />
+  <circle cx="&CU_B8;" cy="280" r="4" fill="black" opacity="&SHOW_TC_EVT_P8;" />
+  <circle cx="&CU_RX1;" cy="280" r="4" fill="black" opacity="&SHOW_TC_APEX;" />
+  <g opacity="&SHOW_CONT;">
+  <circle cx="&CU_RX3;" cy="280" r="4" fill="black" opacity="&SHOW_TC_APEX;" />
+  <circle cx="&CU_RX5;" cy="280" r="4" fill="black" opacity="&SHOW_TC_APEX;" />
+  </g>
+  <circle cx="&CU_CAX4;" cy="280" r="4" fill="black" opacity="&SHOW_TC_APEX_P4;" />
+  <circle cx="&CU_CAX5;" cy="280" r="4" fill="black" opacity="&SHOW_TC_APEX_P5;" />
+  <circle cx="&CU_CAX6;" cy="280" r="4" fill="black" opacity="&SHOW_TC_APEX_P6;" />
+  <circle cx="&CU_CAX7;" cy="280" r="4" fill="black" opacity="&SHOW_TC_APEX_P7;" />
+  <circle cx="&CU_CAX8;" cy="280" r="4" fill="black" opacity="&SHOW_TC_APEX_P8;" />
+
+  <text x="40" y="290" font-family="Arial" font-size="12" fill="black">cc0_match</text>
+  <line id="Compare Match" x1="50" y1="300" x2="850" y2="300" stroke="#06534B" stroke-width="2" />
+  <circle cx="&CU_XC0_P1;" cy="300" r="4" fill="black" opacity="&SHOW_C0_P1;" />
+  <circle cx="&CU_XC0_P2;" cy="300" r="4" fill="black" opacity="&SHOW_C0_P2;" />
+  <circle cx="&CU_XC0_P3;" cy="300" r="4" fill="black" opacity="&SHOW_C0_P3;" />
+  <circle cx="&CU_XC0_P4;" cy="300" r="4" fill="black" opacity="&SHOW_C0_P4;" />
+  <circle cx="&CU_XC0_P5;" cy="300" r="4" fill="black" opacity="&SHOW_C0_P5;" />
+  <circle cx="&CU_XC0_P6;" cy="300" r="4" fill="black" opacity="&SHOW_C0_P6;" />
+  <circle cx="&CU_XC0_P7;" cy="300" r="4" fill="black" opacity="&SHOW_C0_P7;" />
+  <circle cx="&CU_XC0_P8;" cy="300" r="4" fill="black" opacity="&SHOW_C0_P8;" />
+  <circle cx="&CU_XC0D_P1;" cy="300" r="4" fill="black" opacity="&SHOW_C0_DOWN_P1;" />
+  <circle cx="&CU_XC0D_P2;" cy="300" r="4" fill="black" opacity="&SHOW_C0_DOWN_P2;" />
+  <circle cx="&CU_XC0D_P3;" cy="300" r="4" fill="black" opacity="&SHOW_C0_DOWN_P3;" />
+  <circle cx="&CU_XC0D_P4;" cy="300" r="4" fill="black" opacity="&SHOW_C0_DOWN_P4;" />
+  <circle cx="&CU_XC0D_P5;" cy="300" r="4" fill="black" opacity="&SHOW_C0_DOWN_P5;" />
+  <circle cx="&CU_XC0D_P6;" cy="300" r="4" fill="black" opacity="&SHOW_C0_DOWN_P6;" />
+  <circle cx="&CU_XC0D_P7;" cy="300" r="4" fill="black" opacity="&SHOW_C0_DOWN_P7;" />
+  <circle cx="&CU_XC0D_P8;" cy="300" r="4" fill="black" opacity="&SHOW_C0_DOWN_P8;" />
+
+  <text x="40" y="310" font-family="Arial" font-size="12" fill="black" opacity="&SHOW_CC1;">cc1_match</text>
+  <line id="CC1 Compare Match" x1="50" y1="320" x2="850" y2="320" stroke="#FF6B35" stroke-width="2" opacity="&SHOW_CC1;" />
+  <circle cx="&CU_XC1_P1;" cy="320" r="4" fill="black" opacity="&SHOW_C1_P1;" />
+  <circle cx="&CU_XC1_P2;" cy="320" r="4" fill="black" opacity="&SHOW_C1_P2;" />
+  <circle cx="&CU_XC1_P3;" cy="320" r="4" fill="black" opacity="&SHOW_C1_P3;" />
+  <circle cx="&CU_XC1_P4;" cy="320" r="4" fill="black" opacity="&SHOW_C1_P4;" />
+  <circle cx="&CU_XC1_P5;" cy="320" r="4" fill="black" opacity="&SHOW_C1_P5;" />
+  <circle cx="&CU_XC1_P6;" cy="320" r="4" fill="black" opacity="&SHOW_C1_P6;" />
+  <circle cx="&CU_XC1_P7;" cy="320" r="4" fill="black" opacity="&SHOW_C1_P7;" />
+  <circle cx="&CU_XC1_P8;" cy="320" r="4" fill="black" opacity="&SHOW_C1_P8;" />
+  <circle cx="&CU_XC1D_P1;" cy="320" r="4" fill="black" opacity="&SHOW_C1_DOWN_P1;" />
+  <circle cx="&CU_XC1D_P2;" cy="320" r="4" fill="black" opacity="&SHOW_C1_DOWN_P2;" />
+  <circle cx="&CU_XC1D_P3;" cy="320" r="4" fill="black" opacity="&SHOW_C1_DOWN_P3;" />
+  <circle cx="&CU_XC1D_P4;" cy="320" r="4" fill="black" opacity="&SHOW_C1_DOWN_P4;" />
+  <circle cx="&CU_XC1D_P5;" cy="320" r="4" fill="black" opacity="&SHOW_C1_DOWN_P5;" />
+  <circle cx="&CU_XC1D_P6;" cy="320" r="4" fill="black" opacity="&SHOW_C1_DOWN_P6;" />
+  <circle cx="&CU_XC1D_P7;" cy="320" r="4" fill="black" opacity="&SHOW_C1_DOWN_P7;" />
+  <circle cx="&CU_XC1D_P8;" cy="320" r="4" fill="black" opacity="&SHOW_C1_DOWN_P8;" />
+
+  <!-- ===== Interrupt-event highlight: red overlay dots when the matching interrupt source is enabled =====
+       Each group's opacity (SHOW_INTERRUPT_*) multiplies with the underlying dot's own visibility, so a red
+       marker appears only where a black event dot is actually drawn. Mirrors the predefined-mode approach. -->
+  <!-- Terminal count (InterruptTC): tc-row (y=280) dots -->
+  <g opacity="&SHOW_INTERRUPT_TC;">
+    <circle cx="&CU_B1;" cy="280" r="4" fill="red" />
+    <g opacity="&SHOW_CONT;">
+    <circle cx="&CU_B2;" cy="280" r="4" fill="red" />
+    <circle cx="&CU_B3;" cy="280" r="4" fill="red" />
+    </g>
+    <circle cx="&CU_B4;" cy="280" r="4" fill="red" opacity="&SHOW_TC_EVT_P4;" />
+    <circle cx="&CU_B5;" cy="280" r="4" fill="red" opacity="&SHOW_TC_EVT_P5;" />
+    <circle cx="&CU_B6;" cy="280" r="4" fill="red" opacity="&SHOW_TC_EVT_P6;" />
+    <circle cx="&CU_B7;" cy="280" r="4" fill="red" opacity="&SHOW_TC_EVT_P7;" />
+    <circle cx="&CU_B8;" cy="280" r="4" fill="red" opacity="&SHOW_TC_EVT_P8;" />
+    <circle cx="&CU_RX1;" cy="280" r="4" fill="red" opacity="&SHOW_TC_APEX;" />
+    <g opacity="&SHOW_CONT;">
+    <circle cx="&CU_RX3;" cy="280" r="4" fill="red" opacity="&SHOW_TC_APEX;" />
+    <circle cx="&CU_RX5;" cy="280" r="4" fill="red" opacity="&SHOW_TC_APEX;" />
+    </g>
+    <circle cx="&CU_CAX4;" cy="280" r="4" fill="red" opacity="&SHOW_TC_APEX_P4;" />
+    <circle cx="&CU_CAX5;" cy="280" r="4" fill="red" opacity="&SHOW_TC_APEX_P5;" />
+    <circle cx="&CU_CAX6;" cy="280" r="4" fill="red" opacity="&SHOW_TC_APEX_P6;" />
+    <circle cx="&CU_CAX7;" cy="280" r="4" fill="red" opacity="&SHOW_TC_APEX_P7;" />
+    <circle cx="&CU_CAX8;" cy="280" r="4" fill="red" opacity="&SHOW_TC_APEX_P8;" />
+    <!-- vertical red interrupt ticks touching each tc dot (no gap) -->
+    <line x1="&CU_B1;" y1="268" x2="&CU_B1;" y2="278" stroke="red" stroke-width="2" />
+    <g opacity="&SHOW_CONT;">
+    <line x1="&CU_B2;" y1="268" x2="&CU_B2;" y2="278" stroke="red" stroke-width="2" />
+    <line x1="&CU_B3;" y1="268" x2="&CU_B3;" y2="278" stroke="red" stroke-width="2" />
+    </g>
+    <line x1="&CU_B4;" y1="268" x2="&CU_B4;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_EVT_P4;" />
+    <line x1="&CU_B5;" y1="268" x2="&CU_B5;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_EVT_P5;" />
+    <line x1="&CU_B6;" y1="268" x2="&CU_B6;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_EVT_P6;" />
+    <line x1="&CU_B7;" y1="268" x2="&CU_B7;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_EVT_P7;" />
+    <line x1="&CU_B8;" y1="268" x2="&CU_B8;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_EVT_P8;" />
+    <line x1="&CU_RX1;" y1="268" x2="&CU_RX1;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_APEX;" />
+    <g opacity="&SHOW_CONT;">
+    <line x1="&CU_RX3;" y1="268" x2="&CU_RX3;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_APEX;" />
+    <line x1="&CU_RX5;" y1="268" x2="&CU_RX5;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_APEX;" />
+    </g>
+    <line x1="&CU_CAX4;" y1="268" x2="&CU_CAX4;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_APEX_P4;" />
+    <line x1="&CU_CAX5;" y1="268" x2="&CU_CAX5;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_APEX_P5;" />
+    <line x1="&CU_CAX6;" y1="268" x2="&CU_CAX6;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_APEX_P6;" />
+    <line x1="&CU_CAX7;" y1="268" x2="&CU_CAX7;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_APEX_P7;" />
+    <line x1="&CU_CAX8;" y1="268" x2="&CU_CAX8;" y2="278" stroke="red" stroke-width="2" opacity="&SHOW_TC_APEX_P8;" />
+  </g>
+  <!-- Compare 0 match (InterruptCC0): cc0_match-row dots -->
+  <g opacity="&SHOW_INTERRUPT_CC0;">
+    <circle cx="&CU_XC0_P1;" cy="300" r="4" fill="red" opacity="&SHOW_C0_P1;" />
+    <circle cx="&CU_XC0_P2;" cy="300" r="4" fill="red" opacity="&SHOW_C0_P2;" />
+    <circle cx="&CU_XC0_P3;" cy="300" r="4" fill="red" opacity="&SHOW_C0_P3;" />
+    <circle cx="&CU_XC0_P4;" cy="300" r="4" fill="red" opacity="&SHOW_C0_P4;" />
+    <circle cx="&CU_XC0_P5;" cy="300" r="4" fill="red" opacity="&SHOW_C0_P5;" />
+    <circle cx="&CU_XC0_P6;" cy="300" r="4" fill="red" opacity="&SHOW_C0_P6;" />
+    <circle cx="&CU_XC0_P7;" cy="300" r="4" fill="red" opacity="&SHOW_C0_P7;" />
+    <circle cx="&CU_XC0_P8;" cy="300" r="4" fill="red" opacity="&SHOW_C0_P8;" />
+    <circle cx="&CU_XC0D_P1;" cy="300" r="4" fill="red" opacity="&SHOW_C0_DOWN_P1;" />
+    <circle cx="&CU_XC0D_P2;" cy="300" r="4" fill="red" opacity="&SHOW_C0_DOWN_P2;" />
+    <circle cx="&CU_XC0D_P3;" cy="300" r="4" fill="red" opacity="&SHOW_C0_DOWN_P3;" />
+    <circle cx="&CU_XC0D_P4;" cy="300" r="4" fill="red" opacity="&SHOW_C0_DOWN_P4;" />
+    <circle cx="&CU_XC0D_P5;" cy="300" r="4" fill="red" opacity="&SHOW_C0_DOWN_P5;" />
+    <circle cx="&CU_XC0D_P6;" cy="300" r="4" fill="red" opacity="&SHOW_C0_DOWN_P6;" />
+    <circle cx="&CU_XC0D_P7;" cy="300" r="4" fill="red" opacity="&SHOW_C0_DOWN_P7;" />
+    <circle cx="&CU_XC0D_P8;" cy="300" r="4" fill="red" opacity="&SHOW_C0_DOWN_P8;" />
+    <!-- vertical red interrupt ticks touching each cc0 dot (no gap) -->
+    <line x1="&CU_XC0_P1;" y1="288" x2="&CU_XC0_P1;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_P1;" />
+    <line x1="&CU_XC0_P2;" y1="288" x2="&CU_XC0_P2;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_P2;" />
+    <line x1="&CU_XC0_P3;" y1="288" x2="&CU_XC0_P3;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_P3;" />
+    <line x1="&CU_XC0_P4;" y1="288" x2="&CU_XC0_P4;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_P4;" />
+    <line x1="&CU_XC0_P5;" y1="288" x2="&CU_XC0_P5;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_P5;" />
+    <line x1="&CU_XC0_P6;" y1="288" x2="&CU_XC0_P6;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_P6;" />
+    <line x1="&CU_XC0_P7;" y1="288" x2="&CU_XC0_P7;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_P7;" />
+    <line x1="&CU_XC0_P8;" y1="288" x2="&CU_XC0_P8;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_P8;" />
+    <line x1="&CU_XC0D_P1;" y1="288" x2="&CU_XC0D_P1;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_DOWN_P1;" />
+    <line x1="&CU_XC0D_P2;" y1="288" x2="&CU_XC0D_P2;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_DOWN_P2;" />
+    <line x1="&CU_XC0D_P3;" y1="288" x2="&CU_XC0D_P3;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_DOWN_P3;" />
+    <line x1="&CU_XC0D_P4;" y1="288" x2="&CU_XC0D_P4;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_DOWN_P4;" />
+    <line x1="&CU_XC0D_P5;" y1="288" x2="&CU_XC0D_P5;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_DOWN_P5;" />
+    <line x1="&CU_XC0D_P6;" y1="288" x2="&CU_XC0D_P6;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_DOWN_P6;" />
+    <line x1="&CU_XC0D_P7;" y1="288" x2="&CU_XC0D_P7;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_DOWN_P7;" />
+    <line x1="&CU_XC0D_P8;" y1="288" x2="&CU_XC0D_P8;" y2="298" stroke="red" stroke-width="2" opacity="&SHOW_C0_DOWN_P8;" />
+  </g>
+  <!-- Compare 1 match (InterruptCC1): cc1_match-row dots -->
+  <g opacity="&SHOW_INTERRUPT_CC1;">
+    <circle cx="&CU_XC1_P1;" cy="320" r="4" fill="red" opacity="&SHOW_C1_P1;" />
+    <circle cx="&CU_XC1_P2;" cy="320" r="4" fill="red" opacity="&SHOW_C1_P2;" />
+    <circle cx="&CU_XC1_P3;" cy="320" r="4" fill="red" opacity="&SHOW_C1_P3;" />
+    <circle cx="&CU_XC1_P4;" cy="320" r="4" fill="red" opacity="&SHOW_C1_P4;" />
+    <circle cx="&CU_XC1_P5;" cy="320" r="4" fill="red" opacity="&SHOW_C1_P5;" />
+    <circle cx="&CU_XC1_P6;" cy="320" r="4" fill="red" opacity="&SHOW_C1_P6;" />
+    <circle cx="&CU_XC1_P7;" cy="320" r="4" fill="red" opacity="&SHOW_C1_P7;" />
+    <circle cx="&CU_XC1_P8;" cy="320" r="4" fill="red" opacity="&SHOW_C1_P8;" />
+    <circle cx="&CU_XC1D_P1;" cy="320" r="4" fill="red" opacity="&SHOW_C1_DOWN_P1;" />
+    <circle cx="&CU_XC1D_P2;" cy="320" r="4" fill="red" opacity="&SHOW_C1_DOWN_P2;" />
+    <circle cx="&CU_XC1D_P3;" cy="320" r="4" fill="red" opacity="&SHOW_C1_DOWN_P3;" />
+    <circle cx="&CU_XC1D_P4;" cy="320" r="4" fill="red" opacity="&SHOW_C1_DOWN_P4;" />
+    <circle cx="&CU_XC1D_P5;" cy="320" r="4" fill="red" opacity="&SHOW_C1_DOWN_P5;" />
+    <circle cx="&CU_XC1D_P6;" cy="320" r="4" fill="red" opacity="&SHOW_C1_DOWN_P6;" />
+    <circle cx="&CU_XC1D_P7;" cy="320" r="4" fill="red" opacity="&SHOW_C1_DOWN_P7;" />
+    <circle cx="&CU_XC1D_P8;" cy="320" r="4" fill="red" opacity="&SHOW_C1_DOWN_P8;" />
+    <!-- vertical red interrupt ticks touching each cc1 dot (no gap) -->
+    <line x1="&CU_XC1_P1;" y1="308" x2="&CU_XC1_P1;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_P1;" />
+    <line x1="&CU_XC1_P2;" y1="308" x2="&CU_XC1_P2;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_P2;" />
+    <line x1="&CU_XC1_P3;" y1="308" x2="&CU_XC1_P3;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_P3;" />
+    <line x1="&CU_XC1_P4;" y1="308" x2="&CU_XC1_P4;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_P4;" />
+    <line x1="&CU_XC1_P5;" y1="308" x2="&CU_XC1_P5;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_P5;" />
+    <line x1="&CU_XC1_P6;" y1="308" x2="&CU_XC1_P6;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_P6;" />
+    <line x1="&CU_XC1_P7;" y1="308" x2="&CU_XC1_P7;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_P7;" />
+    <line x1="&CU_XC1_P8;" y1="308" x2="&CU_XC1_P8;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_P8;" />
+    <line x1="&CU_XC1D_P1;" y1="308" x2="&CU_XC1D_P1;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_DOWN_P1;" />
+    <line x1="&CU_XC1D_P2;" y1="308" x2="&CU_XC1D_P2;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_DOWN_P2;" />
+    <line x1="&CU_XC1D_P3;" y1="308" x2="&CU_XC1D_P3;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_DOWN_P3;" />
+    <line x1="&CU_XC1D_P4;" y1="308" x2="&CU_XC1D_P4;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_DOWN_P4;" />
+    <line x1="&CU_XC1D_P5;" y1="308" x2="&CU_XC1D_P5;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_DOWN_P5;" />
+    <line x1="&CU_XC1D_P6;" y1="308" x2="&CU_XC1D_P6;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_DOWN_P6;" />
+    <line x1="&CU_XC1D_P7;" y1="308" x2="&CU_XC1D_P7;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_DOWN_P7;" />
+    <line x1="&CU_XC1D_P8;" y1="308" x2="&CU_XC1D_P8;" y2="318" stroke="red" stroke-width="2" opacity="&SHOW_C1_DOWN_P8;" />
+  </g>
+
+  <!-- ============================ line_out ============================ -->
+  <text x="40" y="370" font-family="Arial" font-size="10" fill="black">line_out</text>
+  <text x="40" y="379" font-family="Arial" font-size="6" fill="gray" opacity="&SHOW_LO_EXT;">ext. src (flat)</text>
+  <polyline points="50,&CU_KLO_Y; &CU_ST_O;,&CU_KLO_Y; &CU_ST_O;,&CU_P1Y0; &CU_XA1_O;,&CU_P1Y0; &CU_XA1_O;,&CU_P1Y1; &CU_XB1_O;,&CU_P1Y1; &CU_XB1_O;,&CU_P1Y2; &CU_RX1_O;,&CU_P1Y2; &CU_RX1_O;,&CU_P1YA; &CU_XC1_O;,&CU_P1YA; &CU_XC1_O;,&CU_P1Y3; &CU_XD1_O;,&CU_P1Y3; &CU_XD1_O;,&CU_P1Y4; &CU_B1_O;,&CU_P1Y4; &CU_B1_O;,&CU_P2Y0; &CU_XA2_O;,&CU_P2Y0; &CU_XA2_O;,&CU_P2Y1; &CU_XB2_O;,&CU_P2Y1; &CU_XB2_O;,&CU_P2Y2; &CU_RX3_O;,&CU_P2Y2; &CU_RX3_O;,&CU_P2YA; &CU_XC2_O;,&CU_P2YA; &CU_XC2_O;,&CU_P2Y3; &CU_XD2_O;,&CU_P2Y3; &CU_XD2_O;,&CU_P2Y4; &CU_B2_O;,&CU_P2Y4; &CU_B2_O;,&CU_P3Y0; &CU_XA3_O;,&CU_P3Y0; &CU_XA3_O;,&CU_P3Y1; &CU_XB3_O;,&CU_P3Y1; &CU_XB3_O;,&CU_P3Y2; &CU_RX5_O;,&CU_P3Y2; &CU_RX5_O;,&CU_P3YA; &CU_XC3_O;,&CU_P3YA; &CU_XC3_O;,&CU_P3Y3; &CU_XD3_O;,&CU_P3Y3; &CU_XD3_O;,&CU_P3Y4; &CU_B3_O;,&CU_P3Y4; &CU_B3_O;,&CU_P4Y0; &CU_XA4_O;,&CU_P4Y0; &CU_XA4_O;,&CU_P4Y1; &CU_XB4_O;,&CU_P4Y1; &CU_XB4_O;,&CU_P4Y2; &CU_RX7_O;,&CU_P4Y2; &CU_RX7_O;,&CU_P4YA; &CU_XC4_O;,&CU_P4YA; &CU_XC4_O;,&CU_P4Y3; &CU_XD4_O;,&CU_P4Y3; &CU_XD4_O;,&CU_P4Y4; &CU_B4_O;,&CU_P4Y4; &CU_B4_O;,&CU_P5Y0; &CU_XA5_O;,&CU_P5Y0; &CU_XA5_O;,&CU_P5Y1; &CU_XB5_O;,&CU_P5Y1; &CU_XB5_O;,&CU_P5Y2; &CU_RX9_O;,&CU_P5Y2; &CU_RX9_O;,&CU_P5YA; &CU_XC5_O;,&CU_P5YA; &CU_XC5_O;,&CU_P5Y3; &CU_XD5_O;,&CU_P5Y3; &CU_XD5_O;,&CU_P5Y4; &CU_B5_O;,&CU_P5Y4; &CU_B5_O;,&CU_P6Y0; &CU_XA6_O;,&CU_P6Y0; &CU_XA6_O;,&CU_P6Y1; &CU_XB6_O;,&CU_P6Y1; &CU_XB6_O;,&CU_P6Y2; &CU_RX11_O;,&CU_P6Y2; &CU_RX11_O;,&CU_P6YA; &CU_XC6_O;,&CU_P6YA; &CU_XC6_O;,&CU_P6Y3; &CU_XD6_O;,&CU_P6Y3; &CU_XD6_O;,&CU_P6Y4; &CU_B6_O;,&CU_P6Y4; &CU_B6_O;,&CU_P7Y0; &CU_XA7_O;,&CU_P7Y0; &CU_XA7_O;,&CU_P7Y1; &CU_XB7_O;,&CU_P7Y1; &CU_XB7_O;,&CU_P7Y2; &CU_RX13_O;,&CU_P7Y2; &CU_RX13_O;,&CU_P7YA; &CU_XC7_O;,&CU_P7YA; &CU_XC7_O;,&CU_P7Y3; &CU_XD7_O;,&CU_P7Y3; &CU_XD7_O;,&CU_P7Y4; &CU_B7_O;,&CU_P7Y4; &CU_B7_O;,&CU_P8Y0; &CU_XA8_O;,&CU_P8Y0; &CU_XA8_O;,&CU_P8Y1; &CU_XB8_O;,&CU_P8Y1; &CU_XB8_O;,&CU_P8Y2; &CU_RX15_O;,&CU_P8Y2; &CU_RX15_O;,&CU_P8YA; &CU_XC8_O;,&CU_P8YA; &CU_XC8_O;,&CU_P8Y3; &CU_XD8_O;,&CU_P8Y3; &CU_XD8_O;,&CU_P8Y4; &CU_B8_O;,&CU_P8Y4; 800,&CU_P8Y4;" stroke="&IFX_COLOR_BERRY400;" fill="none" stroke-width="2"/>
+
+  <!-- ============================ line_compl_out ============================ -->
+  <text x="40" y="440" font-family="Arial" font-size="10" fill="black">line_compl_out</text>
+  <text x="40" y="449" font-family="Arial" font-size="6" fill="gray" opacity="&SHOW_LC_EXT;">ext. src (flat)</text>
+  <polyline points="50,&CU_KLC_Y; &CU_ST_C;,&CU_KLC_Y; &CU_ST_C;,&CU_P1NY0; &CU_XA1_C;,&CU_P1NY0; &CU_XA1_C;,&CU_P1NY1; &CU_XB1_C;,&CU_P1NY1; &CU_XB1_C;,&CU_P1NY2; &CU_RX1_C;,&CU_P1NY2; &CU_RX1_C;,&CU_P1NYA; &CU_XC1_C;,&CU_P1NYA; &CU_XC1_C;,&CU_P1NY3; &CU_XD1_C;,&CU_P1NY3; &CU_XD1_C;,&CU_P1NY4; &CU_B1_C;,&CU_P1NY4; &CU_B1_C;,&CU_P2NY0; &CU_XA2_C;,&CU_P2NY0; &CU_XA2_C;,&CU_P2NY1; &CU_XB2_C;,&CU_P2NY1; &CU_XB2_C;,&CU_P2NY2; &CU_RX3_C;,&CU_P2NY2; &CU_RX3_C;,&CU_P2NYA; &CU_XC2_C;,&CU_P2NYA; &CU_XC2_C;,&CU_P2NY3; &CU_XD2_C;,&CU_P2NY3; &CU_XD2_C;,&CU_P2NY4; &CU_B2_C;,&CU_P2NY4; &CU_B2_C;,&CU_P3NY0; &CU_XA3_C;,&CU_P3NY0; &CU_XA3_C;,&CU_P3NY1; &CU_XB3_C;,&CU_P3NY1; &CU_XB3_C;,&CU_P3NY2; &CU_RX5_C;,&CU_P3NY2; &CU_RX5_C;,&CU_P3NYA; &CU_XC3_C;,&CU_P3NYA; &CU_XC3_C;,&CU_P3NY3; &CU_XD3_C;,&CU_P3NY3; &CU_XD3_C;,&CU_P3NY4; &CU_B3_C;,&CU_P3NY4; &CU_B3_C;,&CU_P4NY0; &CU_XA4_C;,&CU_P4NY0; &CU_XA4_C;,&CU_P4NY1; &CU_XB4_C;,&CU_P4NY1; &CU_XB4_C;,&CU_P4NY2; &CU_RX7_C;,&CU_P4NY2; &CU_RX7_C;,&CU_P4NYA; &CU_XC4_C;,&CU_P4NYA; &CU_XC4_C;,&CU_P4NY3; &CU_XD4_C;,&CU_P4NY3; &CU_XD4_C;,&CU_P4NY4; &CU_B4_C;,&CU_P4NY4; &CU_B4_C;,&CU_P5NY0; &CU_XA5_C;,&CU_P5NY0; &CU_XA5_C;,&CU_P5NY1; &CU_XB5_C;,&CU_P5NY1; &CU_XB5_C;,&CU_P5NY2; &CU_RX9_C;,&CU_P5NY2; &CU_RX9_C;,&CU_P5NYA; &CU_XC5_C;,&CU_P5NYA; &CU_XC5_C;,&CU_P5NY3; &CU_XD5_C;,&CU_P5NY3; &CU_XD5_C;,&CU_P5NY4; &CU_B5_C;,&CU_P5NY4; &CU_B5_C;,&CU_P6NY0; &CU_XA6_C;,&CU_P6NY0; &CU_XA6_C;,&CU_P6NY1; &CU_XB6_C;,&CU_P6NY1; &CU_XB6_C;,&CU_P6NY2; &CU_RX11_C;,&CU_P6NY2; &CU_RX11_C;,&CU_P6NYA; &CU_XC6_C;,&CU_P6NYA; &CU_XC6_C;,&CU_P6NY3; &CU_XD6_C;,&CU_P6NY3; &CU_XD6_C;,&CU_P6NY4; &CU_B6_C;,&CU_P6NY4; &CU_B6_C;,&CU_P7NY0; &CU_XA7_C;,&CU_P7NY0; &CU_XA7_C;,&CU_P7NY1; &CU_XB7_C;,&CU_P7NY1; &CU_XB7_C;,&CU_P7NY2; &CU_RX13_C;,&CU_P7NY2; &CU_RX13_C;,&CU_P7NYA; &CU_XC7_C;,&CU_P7NYA; &CU_XC7_C;,&CU_P7NY3; &CU_XD7_C;,&CU_P7NY3; &CU_XD7_C;,&CU_P7NY4; &CU_B7_C;,&CU_P7NY4; &CU_B7_C;,&CU_P8NY0; &CU_XA8_C;,&CU_P8NY0; &CU_XA8_C;,&CU_P8NY1; &CU_XB8_C;,&CU_P8NY1; &CU_XB8_C;,&CU_P8NY2; &CU_RX15_C;,&CU_P8NY2; &CU_RX15_C;,&CU_P8NYA; &CU_XC8_C;,&CU_P8NYA; &CU_XC8_C;,&CU_P8NY3; &CU_XD8_C;,&CU_P8NY3; &CU_XD8_C;,&CU_P8NY4; &CU_B8_C;,&CU_P8NY4; 800,&CU_P8NY4;" stroke="&IFX_COLOR_LAWN500;" fill="none" stroke-width="2"/>
+
+  <!-- Count-start marker: thin black dotted vertical line at the counter origin (x=80), drawn across BOTH line
+       outputs (line_out ~350..380 and line_compl_out ~400..430) to mark where the PWM period starts counting. -->
+  <line x1="80" y1="345" x2="80" y2="435" stroke="black" stroke-width="1" stroke-dasharray="2,2" />
+
+  <!-- ============================ Timings (whole line_out graph) ============================ -->
+  <!-- Dimension row spanning the entire line_out waveform (all on-screen periods). Each constant line_out level
+       run (T0..Tx) draws a double-headed arrow between its start/end edges, with the Tn label above and the
+       duration (in counts) below. Shown in custom mode including Swapping Enable (SHOW_TIMINGS). 48 candidate
+       segments (8 periods x 6 edges); off-screen / zero-width / merged segments are auto-hidden via CU_TG_SHOWn. -->
+  <g opacity="&SHOW_TIMINGS;">
+    <text x="76" y="472" font-family="Arial" font-size="10" fill="black" text-anchor="end">Time</text>
+    <text x="76" y="483" font-family="Arial" font-size="10" fill="black" text-anchor="end">L_OUT</text>
+    <line x1="80" y1="475" x2="800" y2="475" stroke="#7A1FA2" stroke-width="2" />
+
+    <g opacity="&CU_TG_GAP_SHOW;">
+      <line x1="80" y1="470" x2="80" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_LX0;" y1="470" x2="&CU_TG_LX0;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_GAP_MID;" y="469" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T0</text>
+    </g>
+    <g opacity="&CU_TG_SHOW0;">
+      <line x1="&CU_TG_LX0;" y1="470" x2="&CU_TG_LX0;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX0;" y1="470" x2="&CU_TG_RX0;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID0;" y="&CU_TG_TY0;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX0;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW1;">
+      <line x1="&CU_TG_LX1;" y1="470" x2="&CU_TG_LX1;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX1;" y1="470" x2="&CU_TG_RX1;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID1;" y="&CU_TG_TY1;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX1;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW2;">
+      <line x1="&CU_TG_LX2;" y1="470" x2="&CU_TG_LX2;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX2;" y1="470" x2="&CU_TG_RX2;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID2;" y="&CU_TG_TY2;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX2;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW3;">
+      <line x1="&CU_TG_LX3;" y1="470" x2="&CU_TG_LX3;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX3;" y1="470" x2="&CU_TG_RX3;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID3;" y="&CU_TG_TY3;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX3;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW4;">
+      <line x1="&CU_TG_LX4;" y1="470" x2="&CU_TG_LX4;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX4;" y1="470" x2="&CU_TG_RX4;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID4;" y="&CU_TG_TY4;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX4;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW5;">
+      <line x1="&CU_TG_LX5;" y1="470" x2="&CU_TG_LX5;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX5;" y1="470" x2="&CU_TG_RX5;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID5;" y="&CU_TG_TY5;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX5;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW6;">
+      <line x1="&CU_TG_LX6;" y1="470" x2="&CU_TG_LX6;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX6;" y1="470" x2="&CU_TG_RX6;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID6;" y="&CU_TG_TY6;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX6;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW7;">
+      <line x1="&CU_TG_LX7;" y1="470" x2="&CU_TG_LX7;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX7;" y1="470" x2="&CU_TG_RX7;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID7;" y="&CU_TG_TY7;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX7;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW8;">
+      <line x1="&CU_TG_LX8;" y1="470" x2="&CU_TG_LX8;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX8;" y1="470" x2="&CU_TG_RX8;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID8;" y="&CU_TG_TY8;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX8;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW9;">
+      <line x1="&CU_TG_LX9;" y1="470" x2="&CU_TG_LX9;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX9;" y1="470" x2="&CU_TG_RX9;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID9;" y="&CU_TG_TY9;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX9;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW10;">
+      <line x1="&CU_TG_LX10;" y1="470" x2="&CU_TG_LX10;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX10;" y1="470" x2="&CU_TG_RX10;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID10;" y="&CU_TG_TY10;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX10;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW11;">
+      <line x1="&CU_TG_LX11;" y1="470" x2="&CU_TG_LX11;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX11;" y1="470" x2="&CU_TG_RX11;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID11;" y="&CU_TG_TY11;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX11;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW12;">
+      <line x1="&CU_TG_LX12;" y1="470" x2="&CU_TG_LX12;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX12;" y1="470" x2="&CU_TG_RX12;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID12;" y="&CU_TG_TY12;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX12;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW13;">
+      <line x1="&CU_TG_LX13;" y1="470" x2="&CU_TG_LX13;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX13;" y1="470" x2="&CU_TG_RX13;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID13;" y="&CU_TG_TY13;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX13;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW14;">
+      <line x1="&CU_TG_LX14;" y1="470" x2="&CU_TG_LX14;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX14;" y1="470" x2="&CU_TG_RX14;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID14;" y="&CU_TG_TY14;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX14;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW15;">
+      <line x1="&CU_TG_LX15;" y1="470" x2="&CU_TG_LX15;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX15;" y1="470" x2="&CU_TG_RX15;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID15;" y="&CU_TG_TY15;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX15;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW16;">
+      <line x1="&CU_TG_LX16;" y1="470" x2="&CU_TG_LX16;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX16;" y1="470" x2="&CU_TG_RX16;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID16;" y="&CU_TG_TY16;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX16;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW17;">
+      <line x1="&CU_TG_LX17;" y1="470" x2="&CU_TG_LX17;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX17;" y1="470" x2="&CU_TG_RX17;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID17;" y="&CU_TG_TY17;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX17;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW18;">
+      <line x1="&CU_TG_LX18;" y1="470" x2="&CU_TG_LX18;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX18;" y1="470" x2="&CU_TG_RX18;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID18;" y="&CU_TG_TY18;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX18;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW19;">
+      <line x1="&CU_TG_LX19;" y1="470" x2="&CU_TG_LX19;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX19;" y1="470" x2="&CU_TG_RX19;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID19;" y="&CU_TG_TY19;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX19;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW20;">
+      <line x1="&CU_TG_LX20;" y1="470" x2="&CU_TG_LX20;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX20;" y1="470" x2="&CU_TG_RX20;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID20;" y="&CU_TG_TY20;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX20;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW21;">
+      <line x1="&CU_TG_LX21;" y1="470" x2="&CU_TG_LX21;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX21;" y1="470" x2="&CU_TG_RX21;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID21;" y="&CU_TG_TY21;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX21;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW22;">
+      <line x1="&CU_TG_LX22;" y1="470" x2="&CU_TG_LX22;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX22;" y1="470" x2="&CU_TG_RX22;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID22;" y="&CU_TG_TY22;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX22;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW23;">
+      <line x1="&CU_TG_LX23;" y1="470" x2="&CU_TG_LX23;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX23;" y1="470" x2="&CU_TG_RX23;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID23;" y="&CU_TG_TY23;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX23;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW24;">
+      <line x1="&CU_TG_LX24;" y1="470" x2="&CU_TG_LX24;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX24;" y1="470" x2="&CU_TG_RX24;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID24;" y="&CU_TG_TY24;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX24;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW25;">
+      <line x1="&CU_TG_LX25;" y1="470" x2="&CU_TG_LX25;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX25;" y1="470" x2="&CU_TG_RX25;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID25;" y="&CU_TG_TY25;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX25;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW26;">
+      <line x1="&CU_TG_LX26;" y1="470" x2="&CU_TG_LX26;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX26;" y1="470" x2="&CU_TG_RX26;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID26;" y="&CU_TG_TY26;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX26;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW27;">
+      <line x1="&CU_TG_LX27;" y1="470" x2="&CU_TG_LX27;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX27;" y1="470" x2="&CU_TG_RX27;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID27;" y="&CU_TG_TY27;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX27;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW28;">
+      <line x1="&CU_TG_LX28;" y1="470" x2="&CU_TG_LX28;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX28;" y1="470" x2="&CU_TG_RX28;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID28;" y="&CU_TG_TY28;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX28;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW29;">
+      <line x1="&CU_TG_LX29;" y1="470" x2="&CU_TG_LX29;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX29;" y1="470" x2="&CU_TG_RX29;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID29;" y="&CU_TG_TY29;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX29;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW30;">
+      <line x1="&CU_TG_LX30;" y1="470" x2="&CU_TG_LX30;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX30;" y1="470" x2="&CU_TG_RX30;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID30;" y="&CU_TG_TY30;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX30;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW31;">
+      <line x1="&CU_TG_LX31;" y1="470" x2="&CU_TG_LX31;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX31;" y1="470" x2="&CU_TG_RX31;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID31;" y="&CU_TG_TY31;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX31;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW32;">
+      <line x1="&CU_TG_LX32;" y1="470" x2="&CU_TG_LX32;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX32;" y1="470" x2="&CU_TG_RX32;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID32;" y="&CU_TG_TY32;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX32;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW33;">
+      <line x1="&CU_TG_LX33;" y1="470" x2="&CU_TG_LX33;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX33;" y1="470" x2="&CU_TG_RX33;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID33;" y="&CU_TG_TY33;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX33;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW34;">
+      <line x1="&CU_TG_LX34;" y1="470" x2="&CU_TG_LX34;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX34;" y1="470" x2="&CU_TG_RX34;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID34;" y="&CU_TG_TY34;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX34;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW35;">
+      <line x1="&CU_TG_LX35;" y1="470" x2="&CU_TG_LX35;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX35;" y1="470" x2="&CU_TG_RX35;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID35;" y="&CU_TG_TY35;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX35;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW36;">
+      <line x1="&CU_TG_LX36;" y1="470" x2="&CU_TG_LX36;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX36;" y1="470" x2="&CU_TG_RX36;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID36;" y="&CU_TG_TY36;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX36;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW37;">
+      <line x1="&CU_TG_LX37;" y1="470" x2="&CU_TG_LX37;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX37;" y1="470" x2="&CU_TG_RX37;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID37;" y="&CU_TG_TY37;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX37;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW38;">
+      <line x1="&CU_TG_LX38;" y1="470" x2="&CU_TG_LX38;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX38;" y1="470" x2="&CU_TG_RX38;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID38;" y="&CU_TG_TY38;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX38;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW39;">
+      <line x1="&CU_TG_LX39;" y1="470" x2="&CU_TG_LX39;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX39;" y1="470" x2="&CU_TG_RX39;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID39;" y="&CU_TG_TY39;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX39;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW40;">
+      <line x1="&CU_TG_LX40;" y1="470" x2="&CU_TG_LX40;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX40;" y1="470" x2="&CU_TG_RX40;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID40;" y="&CU_TG_TY40;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX40;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW41;">
+      <line x1="&CU_TG_LX41;" y1="470" x2="&CU_TG_LX41;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX41;" y1="470" x2="&CU_TG_RX41;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID41;" y="&CU_TG_TY41;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX41;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW42;">
+      <line x1="&CU_TG_LX42;" y1="470" x2="&CU_TG_LX42;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX42;" y1="470" x2="&CU_TG_RX42;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID42;" y="&CU_TG_TY42;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX42;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW43;">
+      <line x1="&CU_TG_LX43;" y1="470" x2="&CU_TG_LX43;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX43;" y1="470" x2="&CU_TG_RX43;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID43;" y="&CU_TG_TY43;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX43;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW44;">
+      <line x1="&CU_TG_LX44;" y1="470" x2="&CU_TG_LX44;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX44;" y1="470" x2="&CU_TG_RX44;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID44;" y="&CU_TG_TY44;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX44;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW45;">
+      <line x1="&CU_TG_LX45;" y1="470" x2="&CU_TG_LX45;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX45;" y1="470" x2="&CU_TG_RX45;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID45;" y="&CU_TG_TY45;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX45;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW46;">
+      <line x1="&CU_TG_LX46;" y1="470" x2="&CU_TG_LX46;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX46;" y1="470" x2="&CU_TG_RX46;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID46;" y="&CU_TG_TY46;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX46;</text>
+    </g>
+    <g opacity="&CU_TG_SHOW47;">
+      <line x1="&CU_TG_LX47;" y1="470" x2="&CU_TG_LX47;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TG_RX47;" y1="470" x2="&CU_TG_RX47;" y2="480" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TG_MID47;" y="&CU_TG_TY47;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TG_IDX47;</text>
+    </g>
+  </g>
+
+  <g opacity="&SHOW_TIMINGS;">
+    <text x="76" y="520" font-family="Arial" font-size="10" fill="black" text-anchor="end">Time</text>
+    <text x="76" y="531" font-family="Arial" font-size="10" fill="black" text-anchor="end">L_CMPL_OUT</text>
+    <line x1="80" y1="523" x2="800" y2="523" stroke="#7A1FA2" stroke-width="2" />
+
+    <g opacity="&CU_TC_GAP_SHOW;">
+      <line x1="80" y1="518" x2="80" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_LX0;" y1="518" x2="&CU_TC_LX0;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_GAP_MID;" y="517" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T0</text>
+    </g>
+    <g opacity="&CU_TC_SHOW0;">
+      <line x1="&CU_TC_LX0;" y1="518" x2="&CU_TC_LX0;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX0;" y1="518" x2="&CU_TC_RX0;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID0;" y="&CU_TC_TY0;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX0;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW1;">
+      <line x1="&CU_TC_LX1;" y1="518" x2="&CU_TC_LX1;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX1;" y1="518" x2="&CU_TC_RX1;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID1;" y="&CU_TC_TY1;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX1;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW2;">
+      <line x1="&CU_TC_LX2;" y1="518" x2="&CU_TC_LX2;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX2;" y1="518" x2="&CU_TC_RX2;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID2;" y="&CU_TC_TY2;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX2;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW3;">
+      <line x1="&CU_TC_LX3;" y1="518" x2="&CU_TC_LX3;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX3;" y1="518" x2="&CU_TC_RX3;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID3;" y="&CU_TC_TY3;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX3;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW4;">
+      <line x1="&CU_TC_LX4;" y1="518" x2="&CU_TC_LX4;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX4;" y1="518" x2="&CU_TC_RX4;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID4;" y="&CU_TC_TY4;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX4;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW5;">
+      <line x1="&CU_TC_LX5;" y1="518" x2="&CU_TC_LX5;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX5;" y1="518" x2="&CU_TC_RX5;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID5;" y="&CU_TC_TY5;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX5;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW6;">
+      <line x1="&CU_TC_LX6;" y1="518" x2="&CU_TC_LX6;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX6;" y1="518" x2="&CU_TC_RX6;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID6;" y="&CU_TC_TY6;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX6;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW7;">
+      <line x1="&CU_TC_LX7;" y1="518" x2="&CU_TC_LX7;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX7;" y1="518" x2="&CU_TC_RX7;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID7;" y="&CU_TC_TY7;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX7;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW8;">
+      <line x1="&CU_TC_LX8;" y1="518" x2="&CU_TC_LX8;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX8;" y1="518" x2="&CU_TC_RX8;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID8;" y="&CU_TC_TY8;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX8;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW9;">
+      <line x1="&CU_TC_LX9;" y1="518" x2="&CU_TC_LX9;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX9;" y1="518" x2="&CU_TC_RX9;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID9;" y="&CU_TC_TY9;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX9;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW10;">
+      <line x1="&CU_TC_LX10;" y1="518" x2="&CU_TC_LX10;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX10;" y1="518" x2="&CU_TC_RX10;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID10;" y="&CU_TC_TY10;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX10;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW11;">
+      <line x1="&CU_TC_LX11;" y1="518" x2="&CU_TC_LX11;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX11;" y1="518" x2="&CU_TC_RX11;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID11;" y="&CU_TC_TY11;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX11;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW12;">
+      <line x1="&CU_TC_LX12;" y1="518" x2="&CU_TC_LX12;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX12;" y1="518" x2="&CU_TC_RX12;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID12;" y="&CU_TC_TY12;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX12;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW13;">
+      <line x1="&CU_TC_LX13;" y1="518" x2="&CU_TC_LX13;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX13;" y1="518" x2="&CU_TC_RX13;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID13;" y="&CU_TC_TY13;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX13;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW14;">
+      <line x1="&CU_TC_LX14;" y1="518" x2="&CU_TC_LX14;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX14;" y1="518" x2="&CU_TC_RX14;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID14;" y="&CU_TC_TY14;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX14;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW15;">
+      <line x1="&CU_TC_LX15;" y1="518" x2="&CU_TC_LX15;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX15;" y1="518" x2="&CU_TC_RX15;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID15;" y="&CU_TC_TY15;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX15;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW16;">
+      <line x1="&CU_TC_LX16;" y1="518" x2="&CU_TC_LX16;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX16;" y1="518" x2="&CU_TC_RX16;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID16;" y="&CU_TC_TY16;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX16;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW17;">
+      <line x1="&CU_TC_LX17;" y1="518" x2="&CU_TC_LX17;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX17;" y1="518" x2="&CU_TC_RX17;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID17;" y="&CU_TC_TY17;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX17;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW18;">
+      <line x1="&CU_TC_LX18;" y1="518" x2="&CU_TC_LX18;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX18;" y1="518" x2="&CU_TC_RX18;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID18;" y="&CU_TC_TY18;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX18;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW19;">
+      <line x1="&CU_TC_LX19;" y1="518" x2="&CU_TC_LX19;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX19;" y1="518" x2="&CU_TC_RX19;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID19;" y="&CU_TC_TY19;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX19;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW20;">
+      <line x1="&CU_TC_LX20;" y1="518" x2="&CU_TC_LX20;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX20;" y1="518" x2="&CU_TC_RX20;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID20;" y="&CU_TC_TY20;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX20;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW21;">
+      <line x1="&CU_TC_LX21;" y1="518" x2="&CU_TC_LX21;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX21;" y1="518" x2="&CU_TC_RX21;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID21;" y="&CU_TC_TY21;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX21;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW22;">
+      <line x1="&CU_TC_LX22;" y1="518" x2="&CU_TC_LX22;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX22;" y1="518" x2="&CU_TC_RX22;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID22;" y="&CU_TC_TY22;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX22;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW23;">
+      <line x1="&CU_TC_LX23;" y1="518" x2="&CU_TC_LX23;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX23;" y1="518" x2="&CU_TC_RX23;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID23;" y="&CU_TC_TY23;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX23;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW24;">
+      <line x1="&CU_TC_LX24;" y1="518" x2="&CU_TC_LX24;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX24;" y1="518" x2="&CU_TC_RX24;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID24;" y="&CU_TC_TY24;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX24;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW25;">
+      <line x1="&CU_TC_LX25;" y1="518" x2="&CU_TC_LX25;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX25;" y1="518" x2="&CU_TC_RX25;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID25;" y="&CU_TC_TY25;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX25;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW26;">
+      <line x1="&CU_TC_LX26;" y1="518" x2="&CU_TC_LX26;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX26;" y1="518" x2="&CU_TC_RX26;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID26;" y="&CU_TC_TY26;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX26;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW27;">
+      <line x1="&CU_TC_LX27;" y1="518" x2="&CU_TC_LX27;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX27;" y1="518" x2="&CU_TC_RX27;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID27;" y="&CU_TC_TY27;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX27;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW28;">
+      <line x1="&CU_TC_LX28;" y1="518" x2="&CU_TC_LX28;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX28;" y1="518" x2="&CU_TC_RX28;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID28;" y="&CU_TC_TY28;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX28;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW29;">
+      <line x1="&CU_TC_LX29;" y1="518" x2="&CU_TC_LX29;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX29;" y1="518" x2="&CU_TC_RX29;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID29;" y="&CU_TC_TY29;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX29;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW30;">
+      <line x1="&CU_TC_LX30;" y1="518" x2="&CU_TC_LX30;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX30;" y1="518" x2="&CU_TC_RX30;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID30;" y="&CU_TC_TY30;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX30;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW31;">
+      <line x1="&CU_TC_LX31;" y1="518" x2="&CU_TC_LX31;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX31;" y1="518" x2="&CU_TC_RX31;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID31;" y="&CU_TC_TY31;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX31;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW32;">
+      <line x1="&CU_TC_LX32;" y1="518" x2="&CU_TC_LX32;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX32;" y1="518" x2="&CU_TC_RX32;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID32;" y="&CU_TC_TY32;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX32;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW33;">
+      <line x1="&CU_TC_LX33;" y1="518" x2="&CU_TC_LX33;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX33;" y1="518" x2="&CU_TC_RX33;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID33;" y="&CU_TC_TY33;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX33;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW34;">
+      <line x1="&CU_TC_LX34;" y1="518" x2="&CU_TC_LX34;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX34;" y1="518" x2="&CU_TC_RX34;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID34;" y="&CU_TC_TY34;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX34;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW35;">
+      <line x1="&CU_TC_LX35;" y1="518" x2="&CU_TC_LX35;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX35;" y1="518" x2="&CU_TC_RX35;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID35;" y="&CU_TC_TY35;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX35;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW36;">
+      <line x1="&CU_TC_LX36;" y1="518" x2="&CU_TC_LX36;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX36;" y1="518" x2="&CU_TC_RX36;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID36;" y="&CU_TC_TY36;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX36;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW37;">
+      <line x1="&CU_TC_LX37;" y1="518" x2="&CU_TC_LX37;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX37;" y1="518" x2="&CU_TC_RX37;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID37;" y="&CU_TC_TY37;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX37;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW38;">
+      <line x1="&CU_TC_LX38;" y1="518" x2="&CU_TC_LX38;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX38;" y1="518" x2="&CU_TC_RX38;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID38;" y="&CU_TC_TY38;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX38;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW39;">
+      <line x1="&CU_TC_LX39;" y1="518" x2="&CU_TC_LX39;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX39;" y1="518" x2="&CU_TC_RX39;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID39;" y="&CU_TC_TY39;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX39;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW40;">
+      <line x1="&CU_TC_LX40;" y1="518" x2="&CU_TC_LX40;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX40;" y1="518" x2="&CU_TC_RX40;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID40;" y="&CU_TC_TY40;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX40;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW41;">
+      <line x1="&CU_TC_LX41;" y1="518" x2="&CU_TC_LX41;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX41;" y1="518" x2="&CU_TC_RX41;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID41;" y="&CU_TC_TY41;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX41;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW42;">
+      <line x1="&CU_TC_LX42;" y1="518" x2="&CU_TC_LX42;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX42;" y1="518" x2="&CU_TC_RX42;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID42;" y="&CU_TC_TY42;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX42;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW43;">
+      <line x1="&CU_TC_LX43;" y1="518" x2="&CU_TC_LX43;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX43;" y1="518" x2="&CU_TC_RX43;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID43;" y="&CU_TC_TY43;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX43;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW44;">
+      <line x1="&CU_TC_LX44;" y1="518" x2="&CU_TC_LX44;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX44;" y1="518" x2="&CU_TC_RX44;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID44;" y="&CU_TC_TY44;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX44;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW45;">
+      <line x1="&CU_TC_LX45;" y1="518" x2="&CU_TC_LX45;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX45;" y1="518" x2="&CU_TC_RX45;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID45;" y="&CU_TC_TY45;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX45;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW46;">
+      <line x1="&CU_TC_LX46;" y1="518" x2="&CU_TC_LX46;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX46;" y1="518" x2="&CU_TC_RX46;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID46;" y="&CU_TC_TY46;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX46;</text>
+    </g>
+    <g opacity="&CU_TC_SHOW47;">
+      <line x1="&CU_TC_LX47;" y1="518" x2="&CU_TC_LX47;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <line x1="&CU_TC_RX47;" y1="518" x2="&CU_TC_RX47;" y2="528" stroke="#7A1FA2" stroke-width="1" />
+      <text x="&CU_TC_MID47;" y="&CU_TC_TY47;" font-family="Arial" font-size="10" fill="#7A1FA2" text-anchor="middle">T&CU_TC_IDX47;</text>
+    </g>
+  </g>
+
+</svg>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_pwm.c
-* \version 1.90
+* \version 1.100
 *
 * \brief
 *  The source file of the tcpwm driver.
@@ -244,6 +244,29 @@ cy_en_tcpwm_status_t Cy_TCPWM_PWM_Init(TCPWM_Type *base, uint32_t cntNum,  cy_st
                     TCPWM_GRP_CNT_COUNTER(base, grp, cntNum) = CY_TCPWM_CNT_UP_DOWN_INIT_VAL;
                     TCPWM_GRP_CNT_TR_PWM_CTRL(base, grp, cntNum) = CY_TCPWM_PWM_MODE_CNTR_ASYMM_CC0_CC1;
                 }
+#if defined (CY_IP_MXS40TCPWM)
+                else if (CY_TCPWM_PWM_CUSTOM_ALIGN == config->pwmAlignment)
+                {
+                    /* Custom configuration: apply the counter direction, initial value and per-event
+                       line actions explicitly instead of using an alignment preset. */
+
+                    /* Counter direction/mode (Count Up, Count Down or Count Up/Down). */
+                    TCPWM_GRP_CNT_CTRL(base, grp, cntNum) |=
+                            _VAL2FLD(TCPWM_GRP_CNT_V2_CTRL_UP_DOWN_MODE, config->countDirectionMode);
+
+                    /* Initial counter value loaded at start. */
+                    TCPWM_GRP_CNT_COUNTER(base, grp, cntNum) = config->initialCountVal;
+
+                    /* Per-event output line actions (Set/Clear/Invert/No Change). The CC1 action is
+                       applied only when the counter supports CC1, otherwise it is left unchanged. */
+                    TCPWM_GRP_CNT_TR_PWM_CTRL(base, grp, cntNum) =
+                            (_VAL2FLD(TCPWM_GRP_CNT_V2_TR_PWM_CTRL_CC0_MATCH_MODE, config->cc0MatchMode) |
+                             _VAL2FLD(TCPWM_GRP_CNT_V2_TR_PWM_CTRL_OVERFLOW_MODE, config->overflowMode) |
+                             _VAL2FLD(TCPWM_GRP_CNT_V2_TR_PWM_CTRL_UNDERFLOW_MODE, config->underflowMode) |
+                             _VAL2FLD(TCPWM_GRP_CNT_V2_TR_PWM_CTRL_CC1_MATCH_MODE,
+                                      (TCPWM_GRP_CC1(base, grp) ? config->cc1MatchMode : CY_TCPWM_PWM_ACTION_NO_CHANGE)));
+                }
+#endif /* defined (CY_IP_MXS40TCPWM) */
                 else
                 {
                     /* Invalid mode for specified counter group */

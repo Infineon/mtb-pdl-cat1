@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_motif.h
-* \version 1.90
+* \version 1.100
 *
 * The header file of the TCPWM  MOTIF driver.
 *

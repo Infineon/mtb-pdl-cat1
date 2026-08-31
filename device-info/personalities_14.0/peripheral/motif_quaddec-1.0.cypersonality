@@ -314,11 +314,6 @@
     <ParamBool id="pclkOk" name="PCLK Valid" group="Internal" default="`${hasVisibleOption(&quot;clock_motif_en[0]&quot;) ? hasConnection(&quot;clock_motif_en&quot;, 0) &amp;&amp; isBlockUsed(pclk) : hasConnection(&quot;clock&quot;, 0) &amp;&amp; isBlockUsed(pclk)}`" visible="false" editable="false" desc="Checks whether there is a PCLK connected and enabled" />
     <ParamString id="pclkDst" name="PCLK Destination" group="Internal" default="`${hasVisibleOption(&quot;clock_motif_en[0]&quot;) ? &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCK_MOTIF_EN&quot; . motif_inst : &quot;PCLK_TCPWM&quot; . tcpwmInst . &quot;_CLOCKS&quot; . motif_inst}`" visible="false" editable="false" desc="" />
 
-    <ParamBool id="timer_cnt0_has_hal_block" name="timer_cnt0_has_hal" group="Internal" default="`${hasExposedMember(getBlockFromSignal(&quot;tr_motif_out[1]&quot;), &quot;hal_block&quot;)}`" visible="false" editable="false" desc="Checks whether there is a hal_block member" />
-    <ParamString id="timer_cnt0" name="timer_cnt0" group="Internal" default="&amp;`${getExposedMember(getBlockFromSignal(&quot;tr_motif_out[1]&quot;), &quot;hal_block&quot;)}`" visible="false" editable="false" desc="" />
-    <ParamBool id="timer_cnt1_has_hal_block" name="timer_cnt1_has_hal" group="Internal" default="`${hasExposedMember(getBlockFromSignal(&quot;tr_motif_out[4]&quot;), &quot;hal_block&quot;)}`" visible="false" editable="false" desc="Checks whether there is a hal_block member" />
-    <ParamString id="timer_cnt1" name="timer_cnt1" group="Internal" default="&amp;`${getExposedMember(getBlockFromSignal(&quot;tr_motif_out[4]&quot;), &quot;hal_block&quot;)}`" visible="false" editable="false" desc="" />
-
     <!-- Clock Frequency -->
     <ParamString id="sourceClock" name="sourceClock" group="General" default="`${(hasVisibleOption(&quot;clock[0]&quot;)) ? (getBlockFromSignal(&quot;clock[0]&quot;)) : (getBlockFromSignal(&quot;clock_motif_en[0]&quot;))}`" visible="false" editable="false" desc="Source Clock Resource" />
     <ParamRange  id="tcpwmClkHz" name="tcpwmClkHz" group="General" default="`${getExposedMember(sourceClock, &quot;frequency&quot;)}`" min="0" max="400000000" resolution="1" visible="false" editable="false" desc="TCPWM clock frequency in Hz" />
@@ -336,8 +331,6 @@
     <ConfigInclude value="cy_tcpwm_motif.h" include="true" />
     <ConfigInclude value="cy_sysclk.h" include="`${pclkOk}`" />
     <ConfigInclude value="cycfg_routing.h" include="true" />
-    <ConfigInclude value="cyhal_hwmgr.h" include="true" guard="defined (CY_USING_HAL)" />
-    <ConfigInclude value="cyhal.h" include="true" guard="defined (CY_USING_HAL_LITE) || defined (CY_USING_HAL)" />
 
     <ConfigDefine name="`${INST_NAME}`_HW" value="TCPWM`${tcpwmInst}`_MOTIF_GRP`${pCntGroup}`_MOTIF`${motif_inst_per_group}`" public="true" include="true" />
     <ConfigDefine name="`${INST_NAME}`_NUM" value="`${motif_inst_per_group}`UL" public="true" include="true" />
@@ -367,32 +360,10 @@
       <Member name="output_config" value="&amp;`${INST_NAME . &quot;_quaddec_output_config&quot;}`" />
     </ConfigStruct>
 
-    <ConfigStruct name="`${INST_NAME}`_obj" type="cyhal_resource_inst_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
-      <Member name="type" value="CYHAL_RSC_MOTIF" />
-      <Member name="block_num" value="`${(getInstNumber(&quot;tcpwm&quot;) * pMaxGroupCount) + pCntGroup}`U" />
-      <Member name="channel_num" value="`${getInstNumber(&quot;motif&quot;)}`U" />
-    </ConfigStruct>
-
-    <ConfigStruct name="`${INST_NAME}`_clock" type="cyhal_clock_t" const="`${inFlash}`" public="true" include="true" guard="defined(CY_USING_HAL_LITE) || defined (CY_USING_HAL)">
-      <Member name="block" value="`${getExposedMember(pclk, &quot;hal_block&quot;)}`" />
-      <Member name="channel" value="`${getExposedMember(pclk, &quot;number&quot;)}`" />
-      <Member name="reserved" value="false" guard="defined (CY_USING_HAL)" />
-      <Member name="funcs" value="NULL" guard="defined (CY_USING_HAL)" />
-    </ConfigStruct>
-
-    <ConfigStruct name="`${INST_NAME}`_hal_config" type="cyhal_quaddec_configurator_t" const="true" public="true" include="true" guard="defined (CY_USING_HAL) || defined(CY_USING_HAL_LITE)">
-      <Member name="motif_resource" value="&amp;`${INST_NAME}`_obj" />
-      <Member name="clock" value="&amp;`${INST_NAME}`_clock" />
-      <Member name="motif_config" value="&amp;`${INST_NAME . &quot;_quaddec_config&quot;}`" />
-      <Member name="tcpwm_cnt0_hal_config" value="`${((direction_event ne CY_IGNORE_QUADDEC_EVENT) &amp;&amp; timer_cnt0_has_hal_block) ? (&quot;(cyhal_timer_configurator_t*)&quot; . timer_cnt0) : (&quot;NULL&quot;)}`" />
-      <Member name="tcpwm_cnt1_hal_config" value="`${((index_event ne CY_IGNORE_QUADDEC_EVENT) &amp;&amp; timer_cnt1_has_hal_block) ? (&quot;(cyhal_timer_configurator_t*)&quot; . timer_cnt1) : (&quot;NULL&quot;)}`" />
-    </ConfigStruct>
-
     <ConfigInstruction value="#ifdef CY_DEVICE_CONFIG_IP_ENABLE" include="true"  />
     <ConfigInstruction value="Cy_SysClk_PeriGroupSlaveInit(CY_MMIO_TCPWM`${tcpwmInst}`_PERI_NR, CY_MMIO_TCPWM`${tcpwmInst}`_GROUP_NR, CY_MMIO_TCPWM`${tcpwmInst}`_SLAVE_NR, CY_MMIO_TCPWM`${tcpwmInst}`_CLK_HF_NR);" include="true"  />
     <ConfigInstruction value="#endif" include="true"  />
     <ConfigInstruction value="Cy_SysClk_PeriphAssignDivider(`${pclkDst}`, `${getExposedMember(pclk, &quot;clockSel&quot;)}`);" include="`${pclkOk}`"  />
-    <ConfigInstruction value="cyhal_hwmgr_reserve(&amp;`${INST_NAME}`_obj);" include="true" guard="defined (CY_USING_HAL)" />
   </ConfigFirmware>
 
 </Personality>

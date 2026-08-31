@@ -144,7 +144,27 @@ proc solve_auto {srcFreqMHz targetFreqMHz wcoIsSource srcAccuracy} {
     # 4. Compute the FLL reference divider value. refDiv is a constant if the WCO is the FLL source.
     set configRefDiv [expr {$wcoIsSource ? 19 : int(ceil(($srcFreqMHz / $targetFreqMHz) * 250.0))}]
     # 5. Compute the FLL multiplier value.
-    set configFllMult [expr {int(ceil($ccoFreqMHz / ($srcFreqMHz / $configRefDiv)))}]
+    #    The ideal multiplier is generally fractional. Rounding it up (ceil) guarantees the
+    #    output frequency is >= the target, which can push it slightly above MAX_OUTPUT_FREQ
+    #    due to integer quantization (e.g. 9 MHz source, 100 MHz target -> 100.2 MHz).
+    #    Conversely, rounding down (floor) can push the output slightly below MIN_OUTPUT_FREQ
+    #    (e.g. 9 MHz source, 24 MHz target -> 23.98 MHz).
+    #    Evaluate both the floor and ceil candidates and select the multiplier whose actual
+    #    output frequency stays within [MIN_OUTPUT_FREQ, MAX_OUTPUT_FREQ] and is closest to
+    #    the target. When only one candidate is in range, that candidate is selected.
+    set outputDiv [expr {$configEnableOutputDiv ? 2 : 1}]
+    set idealMult [expr {$ccoFreqMHz / ($srcFreqMHz / $configRefDiv)}]
+    set multFloor [expr {int(floor($idealMult))}]
+    set multCeil  [expr {int(ceil($idealMult))}]
+    set freqFloor [expr {($srcFreqMHz * $multFloor / $configRefDiv) / $outputDiv}]
+    set freqCeil  [expr {($srcFreqMHz * $multCeil  / $configRefDiv) / $outputDiv}]
+    set floorInRange [expr {$freqFloor >= $::MIN_OUTPUT_FREQ}]
+    set ceilInRange  [expr {$freqCeil  <= $::MAX_OUTPUT_FREQ}]
+    if {$ceilInRange && (!$floorInRange || (abs($freqCeil - $targetFreqMHz) <= abs($targetFreqMHz - $freqFloor)))} {
+        set configFllMult $multCeil
+    } else {
+        set configFllMult $multFloor
+    }
     # 6. Compute the lock tolerance.  We assume CCO accuracy is 0.25%.
     set CCO_ACCURACY 0.0025
     set configLockTolerance [expr {int(ceil($configFllMult * (1.5 * ((1.0 + $CCO_ACCURACY) / (1.0 - $srcAccuracy) - 1.0))))}]

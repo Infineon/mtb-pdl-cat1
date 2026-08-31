@@ -5,5 +5,6 @@ var group__group__tcpwm__pwm__alignment =
     [ "CY_TCPWM_PWM_CENTER_ALIGN", "group__group__tcpwm__pwm__alignment.html#gab1094e41e0202ed16b4ca5d2bbc26578", null ],
     [ "CY_TCPWM_PWM_ASYMMETRIC_ALIGN", "group__group__tcpwm__pwm__alignment.html#ga12990254691acf4cee5508739afd663c", null ],
     [ "CY_TCPWM_PWM_ASYMMETRIC_CC0_CC1_ALIGN", "group__group__tcpwm__pwm__alignment.html#ga87a99aee75877fc343dfcece58f94749", null ],
-    [ "CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN", "group__group__tcpwm__pwm__alignment.html#gaac1c42fa2d81919d5807c7b4e9c9e16b", null ]
+    [ "CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN", "group__group__tcpwm__pwm__alignment.html#gaac1c42fa2d81919d5807c7b4e9c9e16b", null ],
+    [ "CY_TCPWM_PWM_CUSTOM_ALIGN", "group__group__tcpwm__pwm__alignment.html#ga8c2177241fb8aaf46e4481a02d7f00fa", null ]
 ];

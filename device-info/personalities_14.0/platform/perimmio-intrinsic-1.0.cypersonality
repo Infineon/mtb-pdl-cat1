@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--****************************************************************************
+* \file perimmio-intrinsic.cypersonality
+* \version 1.0
+*
+* \brief
+* This personality is allocated on the peri[N] MMIO block (peri[N].mmio) and
+* controls the peripheral slave-control (SL_CTL) bus-clock gating at start-up.
+* A peripheral ("slave") gets its bus clock ungated when it is always-on
+* infrastructure (force="true") or when any of its target resources is used in
+* the design.
+*
+* The peripheral -> {SL_CTL bit, force, targets} map is NOT hard coded here: it
+* is read from the device database custom data file mmio_groups.cydata (schema
+* http://cypress.com/xsd/cymmiogroups_v1), which the Device Configurator loads
+* automatically for the selected die:
+*
+*   &lt;MmioGroups&gt;
+*     &lt;MmioGroup key="PERI0_GR1" peri="0" group="1"&gt;
+*       &lt;Slave key="HSIOM"   name="HSIOM"   bit="0" force="true"/&gt;
+*       &lt;Slave key="SMARTIO" name="SMARTIO" bit="2" targets="ioss[0].port[0].smartio[0];..."/&gt;
+*     &lt;/MmioGroup&gt;
+*   &lt;/MmioGroups&gt;
+*
+* Custom data is addressed by KEY, not by position, so every element carries a
+* 'key' attribute (see cymmiogroups_v1.xsd). The personality walks the data with
+* the documented custom data API (requires cyhwpersonality_v14 / MTB 3.6+):
+*   getCustomDataCount("/MmioGroup")            - number of groups
+*   getCustomDataKeys("/MmioGroup", i)          - key of the i-th group
+*   getCustomData("/MmioGroup[@key=\"K\"]/@group")
+*   getCustomDataCount("/MmioGroup[@key=\"K\"]/Slave")
+*   getCustomDataKeys("/MmioGroup[@key=\"K\"]/Slave", j)
+*   getCustomData("/MmioGroup[@key=\"K\"]/Slave[@key=\"S\"]/@bit")
+*
+*
+********************************************************************************
+* \copyright
+* (c) 2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
+* SPDX-License-Identifier: Apache-2.0
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*****************************************************************************-->
+
+<PersonalityTemplate id="perimmio-intrinsic" name="Peri MMIO Intrinsic" intrinsic="true" version="1.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v14">
+  <Constants>
+    <!-- MAX_GROUPS and MAX_SLAVES are IP block specific. No need to update for
+         new device if the IP block version is not changed.
+         MAX_TARGETS is the maximum number of targets available among all devices -->
+    <Const id="MAX_GROUPS"  value="16" />
+    <Const id="MAX_SLAVES"  value="16" />
+    <Const id="MAX_TARGETS" value="24" />
+  </Constants>
+  <FittingRules>
+    <MappingRules>
+      <IpBlock name="mxsperi">
+        <Version major="2" />
+      </IpBlock>
+      <!-- Allocated on the peri[N] MMIO block (peri[N].mmio) -->
+      <Resource name="peri\.mmio" />
+    </MappingRules>
+  </FittingRules>
+
+  <Parameters>
+    <!-- PERI IP instance number this MMIO block belongs to. -->
+    <ParamString id='periInst' default='`${getInstNumber("peri")}`' />
+
+    <!-- ================= MMIO groups =================
+         Custom data is addressed by key, never by position: the group in slot G
+         is found by asking for the G-th key and building the path
+         "/MmioGroup[@key=...]" from it. 'mine' drops the groups that belong to
+         another PERI instance on multi-PERI devices. -->
+    <ParamRange id='groupCount' default='`${getOrDefault(getCustomDataCount("/MmioGroup"), 0)}`' min='0' max='256' resolution='1' />
+
+    <Repeat count="$MAX_GROUPS">
+      <ParamString id='g$idx_key'  default='`${$idx &lt; groupCount ? getOrDefault(getCustomDataKeys("/MmioGroup", $idx), "") : ""}`' />
+      <ParamString id='g$idx_path' default='`${g$idx_key ne "" ? "/MmioGroup[@key=\"" . g$idx_key . "\"]" : ""}`' />
+      <ParamString id='g$idx_peri' default='`${g$idx_key ne "" ? getOrDefault(getCustomData(g$idx_path . "/@peri"), "") : ""}`' />
+      <ParamBool   id='g$idx_mine' default='`${(g$idx_key ne "") &amp;&amp; ((g$idx_peri eq "") || (g$idx_peri eq periInst))}`' />
+      <ParamRange  id='g$idx_slaveCount' default='`${g$idx_mine ? getOrDefault(getCustomDataCount(g$idx_path . "/Slave"), 0) : 0}`' min='0' max='256' resolution='1' />
+
+      <!-- ===== Slaves of this group =====
+           The slave in slot S is found by its key, exactly like the group:
+             @bit     - SL_CTL bit position.
+             @force   - "true" for always-on infrastructure (carries no targets).
+             @targets - ';' separated design resource paths; the slave is used
+                        when ANY of them is used in the design. -->
+      <Repeat count="$MAX_SLAVES">
+        <ParamString id='g$idx{1}_s$idx{0}_key'  default='`${$idx{0} &lt; g$idx{1}_slaveCount ? getOrDefault(getCustomDataKeys(g$idx{1}_path . "/Slave", $idx{0}), "") : ""}`' />
+        <ParamBool   id='g$idx{1}_s$idx{0}_present' default='`${g$idx{1}_s$idx{0}_key ne ""}`' />
+        <ParamString id='g$idx{1}_s$idx{0}_path' default='`${g$idx{1}_s$idx{0}_present ? g$idx{1}_path . "/Slave[@key=\"" . g$idx{1}_s$idx{0}_key . "\"]" : ""}`' />
+        <ParamRange  id='g$idx{1}_s$idx{0}_bit' default='`${g$idx{1}_s$idx{0}_present ? getOrDefault(getCustomData(g$idx{1}_s$idx{0}_path . "/@bit"), 0) : 0}`' min='0' max='31' resolution='1' />
+        <ParamBool   id='g$idx{1}_s$idx{0}_force' default='`${g$idx{1}_s$idx{0}_present &amp;&amp; (getOrDefault(getCustomData(g$idx{1}_s$idx{0}_path . "/@force"), "false") eq "true")}`' />
+        <ParamString id='g$idx{1}_s$idx{0}_targets' default='`${g$idx{1}_s$idx{0}_present ? getOrDefault(getCustomData(g$idx{1}_s$idx{0}_path . "/@targets"), "") : ""}`' />
+        <!-- The slave is used when it is always-on infrastructure, or when ANY
+             of its targets is used in the design. splitCount() / splitAt() work
+             on the ';' separated target list (';' is the default split
+             separator) and the index guard keeps splitAt() inside the list.
+             Keep the number of terms in sync with MAX_TARGETS. -->
+        <ParamRange id='g$idx{1}_s$idx{0}_targetCount' default='`${splitCount(g$idx{1}_s$idx{0}_targets)}`' min='0' max='256' resolution='1' />
+        <ParamBool  id='g$idx{1}_s$idx{0}_used' default='`${g$idx{1}_s$idx{0}_force || (0 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 0)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 0))) || (1 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 1)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 1))) || (2 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 2)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 2))) || (3 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 3)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 3))) || (4 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 4)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 4))) || (5 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 5)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 5))) || (6 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 6)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 6))) || (7 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 7)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 7))) || (8 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 8)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 8))) || (9 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 9)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 9))) || (10 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 10)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 10))) || (11 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 11)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 11))) || (12 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 12)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 12))) || (13 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 13)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 13))) || (14 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 14)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 14))) || (15 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 15)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 15))) || (16 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 16)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 16))) || (17 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 17)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 17))) || (18 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 18)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 18))) || (19 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 19)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 19))) || (20 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 20)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 20))) || (21 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 21)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 21))) || (22 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 22)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 22))) || (23 &lt; g$idx{1}_s$idx{0}_targetCount &amp;&amp; hasBlock(splitAt(g$idx{1}_s$idx{0}_targets, 23)) &amp;&amp; isBlockUsed(splitAt(g$idx{1}_s$idx{0}_targets, 23)))}`' />
+        <!-- Absent slots report bit 0, so they must never contribute to the mask. -->
+        <ParamRange id='g$idx{1}_s$idx{0}_val' default='`${g$idx{1}_s$idx{0}_used ? (1 &lt;&lt; g$idx{1}_s$idx{0}_bit) : 0}`' min='0' max='4294967295' resolution='1' />
+      </Repeat>
+    </Repeat>
+
+    <!-- CLK_HF that sources each group, resolved from the fixed clock routing
+         (like mmio-1.0/pclk_v2), indexed by PERI group number $idx. -->
+    <Repeat count="$MAX_GROUPS">
+      <ParamSignal port='clk_pclk_root[$idx]' name='' group='' visible='false' canBeEmpty='true' desc='' />
+      <ParamString id='hfRscByNum$idx' default='`${findConnectedBlock("clk_pclk_root[$idx]", "srss.clock.hfclk")}`' visible='false' editable='false' name='' group='' desc='' />
+      <ParamBool   id='hfEnByNum$idx' default='`${(hfRscByNum$idx ne "") &amp;&amp; isBlockUsed(hfRscByNum$idx)}`' visible='false' editable='false' name='' group='' desc='' />
+    </Repeat>
+  </Parameters>
+
+  <Variables>
+    <!-- Values that are only needed by the DRCs and by the generated code are
+         kept out of the Parameters section, as recommended for personalities. -->
+    <Repeat count="$MAX_GROUPS">
+      <!-- PERI group number passed to Cy_SysClk_PeriGroupSetSlaveCtl(). It comes
+           from the data and is never assumed to equal the slot index. -->
+      <Variable id='g$idx_num' value='`${g$idx_mine ? getOrDefault(getCustomData(g$idx_path . "/@group"), "") : ""}`' />
+      <Variable id='g$idx_populated' value='`${g$idx_mine &amp;&amp; (g$idx_slaveCount &gt; 0)}`' />
+      <!-- True when the group's CLK_HF is on; skips the write to avoid a bus stall. -->
+      <Variable id='g$idx_hfEnabled' value='`${g$idx_populated &amp;&amp; getParamValue("hfEnByNum" . g$idx_num)}`' />
+      <Variable id='g$idx_mask' value='`${g$idx_s0_val | g$idx_s1_val | g$idx_s2_val | g$idx_s3_val | g$idx_s4_val | g$idx_s5_val | g$idx_s6_val | g$idx_s7_val | g$idx_s8_val | g$idx_s9_val | g$idx_s10_val | g$idx_s11_val | g$idx_s12_val | g$idx_s13_val | g$idx_s14_val | g$idx_s15_val}`' />
+      <Variable id='g$idx_slaveOverflow' value='`${g$idx_slaveCount &gt; $MAX_SLAVES}`' />
+      <Variable id='g$idx_targetOverflow' value='`${(g$idx_s0_targetCount &gt; $MAX_TARGETS) || (g$idx_s1_targetCount &gt; $MAX_TARGETS) || (g$idx_s2_targetCount &gt; $MAX_TARGETS) || (g$idx_s3_targetCount &gt; $MAX_TARGETS) || (g$idx_s4_targetCount &gt; $MAX_TARGETS) || (g$idx_s5_targetCount &gt; $MAX_TARGETS) || (g$idx_s6_targetCount &gt; $MAX_TARGETS) || (g$idx_s7_targetCount &gt; $MAX_TARGETS) || (g$idx_s8_targetCount &gt; $MAX_TARGETS) || (g$idx_s9_targetCount &gt; $MAX_TARGETS) || (g$idx_s10_targetCount &gt; $MAX_TARGETS) || (g$idx_s11_targetCount &gt; $MAX_TARGETS) || (g$idx_s12_targetCount &gt; $MAX_TARGETS) || (g$idx_s13_targetCount &gt; $MAX_TARGETS) || (g$idx_s14_targetCount &gt; $MAX_TARGETS) || (g$idx_s15_targetCount &gt; $MAX_TARGETS)}`' />
+    </Repeat>
+
+    <Variable id='mmioInfo'       value='`${"peri[" . periInst . "].mmio"}`' />
+    <Variable id='isSupported'    value='`${g0_populated || g1_populated || g2_populated || g3_populated || g4_populated || g5_populated || g6_populated || g7_populated || g8_populated || g9_populated || g10_populated || g11_populated || g12_populated || g13_populated || g14_populated || g15_populated}`' />
+    <Variable id='targetOverflow' value='`${g0_targetOverflow || g1_targetOverflow || g2_targetOverflow || g3_targetOverflow || g4_targetOverflow || g5_targetOverflow || g6_targetOverflow || g7_targetOverflow || g8_targetOverflow || g9_targetOverflow || g10_targetOverflow || g11_targetOverflow || g12_targetOverflow || g13_targetOverflow || g14_targetOverflow || g15_targetOverflow}`' />
+  </Variables>
+
+  <DRCs>
+    <!-- No mmio_groups.cydata for this die (or none of its groups belongs to this
+         PERI instance): no peripheral slave-control code can be generated. -->
+    <DRC type="WARNING" text='The device database provides no peripheral MMIO group data for `${mmioInfo}`. No peripheral slave-control code is generated and the peripheral bus clocks keep their reset state.' condition='`${!isSupported}`' />
+    <!-- The device data does not fit into the fixed number of probed slots. The
+         extra entries would be silently ignored, leaving a peripheral gated while
+         it is used in the design, so this is reported as an error. -->
+    <DRC type="ERROR" text='The device MMIO group data has a slave with more than $MAX_TARGETS targets. Increase MAX_TARGETS in the perimmio-intrinsic personality.' condition='`${targetOverflow}`' />
+  </DRCs>
+
+  <ConfigFirmware>
+    <ConfigInclude value="cy_sysclk.h" />
+
+    <!-- Clear SL_CTL2 (reset control) for populated non-core groups. The core
+         group (group number 0) reset control is left untouched. -->
+    <ConfigInstruction purpose="INITIALIZE" repeatCount="$MAX_GROUPS"
+                       value='(void)Cy_SysClk_PeriGroupSetSlaveCtl(`${g$idx_num}`UL, CY_SYSCLK_PERI_GROUP_SL_CTL2, 0x0UL);'
+                       include='`${g$idx_populated &amp;&amp; (g$idx_num ne "0") &amp;&amp; g$idx_hfEnabled}`' />
+    <!-- Write the usage driven SL_CTL (bus clock enable) mask for every group that
+         has slaves, including the core group whose always-on infrastructure bits
+         are always set. Peripherals that are not used stay gated. -->
+    <ConfigInstruction purpose="INITIALIZE" repeatCount="$MAX_GROUPS"
+                       value='(void)Cy_SysClk_PeriGroupSetSlaveCtl(`${g$idx_num}`UL, CY_SYSCLK_PERI_GROUP_SL_CTL, `${toHex(g$idx_mask)}`UL);'
+                       include='`${g$idx_populated &amp;&amp; (g$idx_num ne "0") &amp;&amp; g$idx_hfEnabled}`' />
+  </ConfigFirmware>
+</PersonalityTemplate>

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_pra_cfg.c
-* \version 2.40.1
+* \version 2.50
 *
 * \brief The source code file for the PRA driver.  The API is not intended to
 * be used directly by user application.
@@ -412,8 +412,11 @@ __STATIC_INLINE cy_en_pra_status_t Cy_PRA_EcoInit(const cy_stc_pra_system_config
 *******************************************************************************/
 __STATIC_INLINE void Cy_PRA_PiloInit(void)
 {
+#if (defined (CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     Cy_SysClk_PiloEnable();
+#endif
 }
+
 
 
 #if defined(CY_IP_MXBLESS)

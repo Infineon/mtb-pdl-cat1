@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Woundings xml_version="1" xmlns="http://cypress.com/xsd/cychipresourcewoundings_v1">
+<?xml version="1.0" encoding="UTF-8"?>
+<Woundings xmlns="http://cypress.com/xsd/cychipresourcewoundings_v1" xml_version="1">
   <NaWounding name="BLUETOOTH">
-    <Block name="bt" />
-    <Block name="coex" />
+    <Block name="bt"/>
+    <Block name="coex"/>
   </NaWounding>
   <NaWounding name="WIFI">
-    <Block name="wifi" />
+    <Block name="wifi"/>
   </NaWounding>
 </Woundings>

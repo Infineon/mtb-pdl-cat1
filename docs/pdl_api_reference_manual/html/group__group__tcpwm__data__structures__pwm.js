@@ -1,5 +1,7 @@
 var group__group__tcpwm__data__structures__pwm =
 [
+    [ "PWM Count Direction Mode", "group__group__tcpwm__pwm__count__direction__mode.html", "group__group__tcpwm__pwm__count__direction__mode" ],
+    [ "PWM CC Match / Overflow / Underflow Actions", "group__group__tcpwm__pwm__output__action.html", "group__group__tcpwm__pwm__output__action" ],
     [ "cy_stc_tcpwm_pwm_config_t", "structcy__stc__tcpwm__pwm__config__t.html", [
       [ "pwmMode", "structcy__stc__tcpwm__pwm__config__t.html#a4d95b8b2e7841f999f6994fa0a90bd2f", null ],
       [ "clockPrescaler", "structcy__stc__tcpwm__pwm__config__t.html#a877ff8bc42b17e292f6ae99e1b872cbc", null ],
@@ -42,7 +44,13 @@ var group__group__tcpwm__data__structures__pwm =
       [ "pwm_tc_sync_kill_dt", "structcy__stc__tcpwm__pwm__config__t.html#aec22a72f237c8ad78eb7fa85818a4af0", null ],
       [ "pwm_sync_kill_dt", "structcy__stc__tcpwm__pwm__config__t.html#a8703da1aecb3538a8e98eed27063d894", null ],
       [ "debug_freeze_enable", "structcy__stc__tcpwm__pwm__config__t.html#a65f9a164620363fa75eac28a87aee5ea", null ],
-      [ "debug_suspend_enable", "structcy__stc__tcpwm__pwm__config__t.html#a9d7d000bc686c74cc6df5df5705c0868", null ]
+      [ "debug_suspend_enable", "structcy__stc__tcpwm__pwm__config__t.html#a9d7d000bc686c74cc6df5df5705c0868", null ],
+      [ "initialCountVal", "structcy__stc__tcpwm__pwm__config__t.html#a78d4fcef965acbb67821fd2d3ccb3dcf", null ],
+      [ "countDirectionMode", "structcy__stc__tcpwm__pwm__config__t.html#a3d4a328487598d0af6e800a41f459990", null ],
+      [ "cc0MatchMode", "structcy__stc__tcpwm__pwm__config__t.html#a8d23f1b827b1560f3e690f9e63f0dd2c", null ],
+      [ "cc1MatchMode", "structcy__stc__tcpwm__pwm__config__t.html#a447abb3b520a5b437348a50f0d340b03", null ],
+      [ "overflowMode", "structcy__stc__tcpwm__pwm__config__t.html#adfe607a0385fcf5bdfc701d8844b6c98", null ],
+      [ "underflowMode", "structcy__stc__tcpwm__pwm__config__t.html#a024d76f66c3f2a44e5a999f81b7081a5", null ]
     ] ],
     [ "cy_en_tcpwm_dithering_t", "group__group__tcpwm__data__structures__pwm.html#ga5ba36f547c6817ce1f2a5ed6e89283ff", [
       [ "CY_TCPWM_DITHERING_DISABLE", "group__group__tcpwm__data__structures__pwm.html#gga5ba36f547c6817ce1f2a5ed6e89283ffa184ba01f25b8da6efec3a883e558ae61", null ],

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm.h
-* \version 5.220
+* \version 5.230
 *
 * Provides the function definitions for the power management API.
 *
@@ -859,6 +859,21 @@
 * \section group_syspm_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">5.230</td>
+*     <td>Enabled CY_PD_PDCM_BTSS related code for CYW20829 platform only (with BTSS).</td>
+*     <td>Code improvements and bug fixes.</td>
+*   </tr>
+*   <tr>
+*     <td>Made the following APIs static inline:
+*         \ref Cy_SysPm_SystemIsMinRegulatorCurrentSet,
+*         \ref Cy_SysPm_GetBootMode,
+*         \ref Cy_SysPm_SetDeepSleepMode,
+*         \ref Cy_SysPm_GetDeepSleepMode,
+*         \ref Cy_SysPm_DeepSleepIoIsFrozen, and
+*         \ref Cy_SysPm_DeepSleepIoUnfreeze.</td>
+*     <td>Code size optimization.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">5.220</td>
 *     <td>Added CY_DISABLE_WARM_BOOT, CY_DISABLE_DEEP_SLEEP_RAM and CY_DISABLE_DEEP_SLEEP_OFF
@@ -1784,6 +1799,10 @@
 #include "cy_device_headers.h"
 #include "cy_syslib.h"
 
+#if defined (CY_IP_MXS40SSRSS)
+    #include "ppu_v1.h"
+#endif /* defined (CY_IP_MXS40SSRSS) */
+
 #if ((CY_CPU_CORTEX_M4) && (defined (CY_DEVICE_SECURE)))
     #include "cy_pra.h"
 #endif /* #if ((CY_CPU_CORTEX_M4) && (defined (CY_DEVICE_SECURE))) */
@@ -1805,7 +1824,7 @@ extern "C" {
 #define CY_SYSPM_DRV_VERSION_MAJOR       5
 
 /** Driver minor version */
-#define CY_SYSPM_DRV_VERSION_MINOR       220
+#define CY_SYSPM_DRV_VERSION_MINOR       230
 
 /** SysPm driver identifier */
 #define CY_SYSPM_ID                      (CY_PDL_DRV_ID(0x10U))
@@ -4629,7 +4648,53 @@ void Cy_SysPm_StoreDSContext_Wfi(void);
 * This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
+#if defined (CY_IP_MXS40SSRSS)
+__STATIC_INLINE cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode)
+{
+    cy_en_syspm_status_t retVal = CY_SYSPM_FAIL;
+
+    switch(deepSleepMode)
+    {
+        case CY_SYSPM_MODE_DEEPSLEEP:
+        {
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_MAIN_BASE, (enum ppu_v1_mode)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_MODE);
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_CPUSS_BASE, (enum ppu_v1_mode)CY_SYSTEM_CPUSS_PPU_DEEPSLEEP_MODE);
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_SRAM_BASE, (enum ppu_v1_mode)CY_SYSTEM_SRAM_PPU_DEEPSLEEP_MODE);
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
+        case CY_SYSPM_MODE_DEEPSLEEP_RAM:
+        {
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_MAIN_BASE, (enum ppu_v1_mode)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_RAM_MODE);
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_CPUSS_BASE, (enum ppu_v1_mode)CY_SYSTEM_CPUSS_PPU_DEEPSLEEP_RAM_MODE);
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_SRAM_BASE, (enum ppu_v1_mode)CY_SYSTEM_SRAM_PPU_DEEPSLEEP_RAM_MODE);
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
+
+#if !defined(CY_DISABLE_DEEP_SLEEP_OFF)
+        case CY_SYSPM_MODE_DEEPSLEEP_OFF:
+        {
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_MAIN_BASE, (enum ppu_v1_mode)CY_SYSTEM_MAIN_PPU_DEEPSLEEP_OFF_MODE);
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_CPUSS_BASE, (enum ppu_v1_mode)CY_SYSTEM_CPUSS_PPU_DEEPSLEEP_OFF_MODE);
+            ppu_v1_dynamic_enable((struct ppu_v1_reg *)CY_PPU_SRAM_BASE, (enum ppu_v1_mode)CY_SYSTEM_SRAM_PPU_DEEPSLEEP_OFF_MODE);
+            retVal = CY_SYSPM_SUCCESS;
+        }
+        break;
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_OFF) */
+
+        default:
+            retVal = CY_SYSPM_BAD_PARAM;
+        break;
+    }
+    return retVal;
+}
+#else
 cy_en_syspm_status_t Cy_SysPm_SetDeepSleepMode(cy_en_syspm_deep_sleep_mode_t deepSleepMode);
+#endif /* defined (CY_IP_MXS40SSRSS) */
 
 #if defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN)
 
@@ -4864,7 +4929,50 @@ cy_en_syspm_status_t Cy_SysPm_SetPPUDeepSleepMode(uint32_t ppu, uint32_t mode);
 * the mode that is set by Cy_SysPm_SetDeepSleepMode.
 *
 *******************************************************************************/
+#if defined (CY_IP_MXS40SSRSS)
+__STATIC_INLINE cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void)
+{
+    uint32_t mode;
+    cy_en_syspm_deep_sleep_mode_t deepSleepMode;
+
+    mode = (uint32_t)ppu_v1_get_programmed_power_mode((struct ppu_v1_reg *)CY_PPU_MAIN_BASE);
+
+    switch(mode)
+    {
+        case CY_SYSTEM_DEEPSLEEP_PPU_MODES:
+        {
+            deepSleepMode = CY_SYSPM_MODE_DEEPSLEEP;
+        }
+        break;
+
+#if !defined(CY_DISABLE_DEEP_SLEEP_RAM)
+        case CY_SYSTEM_DEEPSLEEP_RAM_PPU_MODES:
+        {
+            deepSleepMode = CY_SYSPM_MODE_DEEPSLEEP_RAM;
+        }
+        break;
+#endif /* #if !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
+
+#if !defined(CY_DISABLE_DEEP_SLEEP_OFF)
+        case CY_SYSTEM_DEEPSLEEP_OFF_PPU_MODES:
+        {
+            deepSleepMode = CY_SYSPM_MODE_DEEPSLEEP_OFF;
+        }
+        break;
+#endif /* !defined(CY_DISABLE_DEEP_SLEEP_OFF) */
+
+        default:
+        {
+            deepSleepMode = CY_SYSPM_MODE_DEEPSLEEP_NONE;
+        }
+        break;
+    }
+
+    return deepSleepMode;
+}
+#else
 cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void);
+#endif /* defined (CY_IP_MXS40SSRSS) */
 
 
 /*******************************************************************************
@@ -4889,7 +4997,43 @@ cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void);
 * This API is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
+#if defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
+__STATIC_INLINE cy_en_syspm_boot_mode_t Cy_SysPm_GetBootMode(void)
+{
+    uint32_t resCause;
+    uint32_t resCause2;
+    cy_en_syspm_boot_mode_t deepSleepWakeMode = CY_SYSPM_POR_BOOT_MODE;
+
+    resCause = SRSS_RES_CAUSE;
+    resCause2 = SRSS_RES_CAUSE2;
+
+    if ((resCause == 0UL) || (resCause2 == 0UL))
+    {
+        switch (Cy_SysPm_GetDeepSleepMode())
+        {
+#if !defined(CY_IP_MXS40SSRSS) || !defined(CY_DISABLE_DEEP_SLEEP_RAM)
+            case CY_SYSPM_MODE_DEEPSLEEP_RAM:
+                deepSleepWakeMode = CY_SYSPM_WARM_BOOT_MODE;
+            break;
+#endif /* !defined(CY_IP_MXS40SSRSS) || !defined(CY_DISABLE_DEEP_SLEEP_RAM) */
+
+#if !defined(CY_IP_MXS40SSRSS) || !defined(CY_DISABLE_DEEP_SLEEP_OFF)
+            case CY_SYSPM_MODE_DEEPSLEEP_OFF:
+                deepSleepWakeMode = CY_SYSPM_COLD_BOOT_MODE;
+            break;
+#endif /* !defined(CY_IP_MXS40SSRSS) || !defined(CY_DISABLE_DEEP_SLEEP_OFF) */
+
+            default:
+                deepSleepWakeMode = CY_SYSPM_POR_BOOT_MODE;
+            break;
+        }
+    }
+
+    return ((cy_en_syspm_boot_mode_t)deepSleepWakeMode);
+}
+#elif defined (CY_DOXYGEN)
 cy_en_syspm_boot_mode_t Cy_SysPm_GetBootMode(void);
+#endif /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) */
 
 /*******************************************************************************
 * Function Name: Cy_SysPm_TriggerSoftReset
@@ -5896,7 +6040,11 @@ void Cy_SysPm_CpuSleepOnExit(bool enable);
 * \snippet syspm/snippet/main.c snippet_Cy_SysPm_VoltageRegulator
 *
 *******************************************************************************/
+#if defined (CY_IP_MXS40SSRSS) && (CY_MXS40SSRSS_VER_1_2 > 0UL)
+__STATIC_INLINE cy_en_syspm_status_t Cy_SysPm_LdoSetVoltage(cy_en_syspm_ldo_voltage_t voltage);
+#else
 cy_en_syspm_status_t Cy_SysPm_LdoSetVoltage(cy_en_syspm_ldo_voltage_t voltage);
+#endif
 #endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2)) */
 
 /*******************************************************************************
@@ -7612,8 +7760,9 @@ void Cy_SysPm_CpuSendWakeupEvent(void);
 * \snippet syspm/snippet/main.c snippet_Cy_SysPm_SystemSetNormalRegulatorCurrent
 *
 *******************************************************************************/
-bool Cy_SysPm_SystemIsMinRegulatorCurrentSet(void);
-#endif /* defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_DOXYGEN) */
+__STATIC_INLINE bool Cy_SysPm_SystemIsMinRegulatorCurrentSet(void);
+#endif /* defined(CY_IP_MXS40SRSS) || defined(CY_IP_MXS40SSRSS) || \
+          defined(CY_IP_MXS22SRSS) || defined(CY_DOXYGEN) */
 /** \} group_syspm_functions_power */
 
 
@@ -8571,7 +8720,20 @@ void Cy_SysPm_IoFreeze(void);
 * This function is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
+#if defined (CY_IP_MXS40SSRSS)
+__STATIC_INLINE bool Cy_SysPm_DeepSleepIoIsFrozen(void)
+{
+    return (0U != _FLD2VAL(SRSS_PWR_CTL2_FREEZE_DPSLP, SRSS_PWR_CTL2));
+}
+#elif defined (CY_IP_MXS22SRSS)
+__STATIC_INLINE bool Cy_SysPm_DeepSleepIoIsFrozen(void)
+{
+    return ((0U != _FLD2VAL(SRSS_PWR_CTL2_FREEZE_DPSLP, SRSS_PWR_CTL2)) ||
+            (0U != _FLD2VAL(SRSS_PWR_CTL2_FREEZE_DPSLP_PD1, SRSS_PWR_CTL2)));
+}
+#else
 bool Cy_SysPm_DeepSleepIoIsFrozen(void);
+#endif
 
 /*******************************************************************************
 * Function Name: Cy_SysPm_DeepSleepIoUnfreeze
@@ -8596,7 +8758,34 @@ bool Cy_SysPm_DeepSleepIoIsFrozen(void);
 * This function is available for CAT1B and CAT1D devices.
 *
 *******************************************************************************/
+#if defined (CY_IP_MXS40SSRSS)
+__STATIC_INLINE void Cy_SysPm_DeepSleepIoUnfreeze(void)
+{
+    /* Use CMSIS PRIMASK intrinsics instead of Cy_SysLib_Enter/ExitCriticalSection()
+     * so this inline function stays ramfunc-safe when inlined into __ramfunc
+     * warmboot code (avoids IAR Ta023). Semantics are identical: save PRIMASK,
+     * disable IRQs, then restore PRIMASK. */
+    uint32_t interruptState = __get_PRIMASK();
+    __disable_irq();
+    SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_FREEZE_DPSLP_Msk;
+    __set_PRIMASK(interruptState);
+}
+#elif defined (CY_IP_MXS22SRSS)
+__STATIC_INLINE void Cy_SysPm_DeepSleepIoUnfreeze(void)
+{
+    /* Use CMSIS PRIMASK intrinsics instead of Cy_SysLib_Enter/ExitCriticalSection()
+     * so this inline function stays ramfunc-safe when inlined into __ramfunc
+     * warmboot code (avoids IAR Ta023). Semantics are identical: save PRIMASK,
+     * disable IRQs, then restore PRIMASK. */
+    uint32_t interruptState = __get_PRIMASK();
+    __disable_irq();
+    SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_FREEZE_DPSLP_Msk;
+    SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_FREEZE_DPSLP_PD1_Msk;
+    __set_PRIMASK(interruptState);
+}
+#else
 void Cy_SysPm_DeepSleepIoUnfreeze(void);
+#endif
 
 #endif  /* defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) || defined (CY_DOXYGEN) */
 
@@ -9197,6 +9386,314 @@ typedef cy_en_syspm_hibernate_wakeup_source_t  cy_en_syspm_hib_wakeup_source_t;
 #define Cy_SysPm_EnterLpMode                 Cy_SysPm_EnterLowPowerMode
 #define Cy_SysPm_ExitLpMode                  Cy_SysPm_ExitLowPowerMode
 #define Cy_SysPm_IsLowPower                  Cy_SysPm_IsSystemUlp
+
+#if defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
+
+__STATIC_INLINE bool Cy_SysPm_SystemIsMinRegulatorCurrentSet(void)
+{
+#if defined (CY_IP_MXS40SRSS)
+    uint32_t regMask = Cy_SysPm_LdoIsEnabled() ? CY_SYSPM_PWR_CIRCUITS_LPMODE_ACTIVE_LDO_MASK :
+                                                CY_SYSPM_PWR_CIRCUITS_LPMODE_ACTIVE_BUCK_MASK;
+
+    return ((SRSS_PWR_CTL & regMask) == regMask);
+#elif defined (CY_IP_MXS22SRSS)
+    return ((0U == _FLD2VAL(SRSS_PWR_CTL2_REFSYS_VBUF_DIS, SRSS_PWR_CTL2)) ? false : true);
+#else
+#if defined (SRSS_S40S_REGSETB_PRESENT)
+#if (SRSS_S40S_REGSETB_PRESENT == 1UL)
+    uint32_t regMask = Cy_SysPm_LdoIsEnabled() ? CY_SYSPM_PWR_CIRCUITS_LPMODE_ACTIVE_LDO_MASK :
+                                                CY_SYSPM_PWR_CIRCUITS_LPMODE_ACTIVE_BUCK_MASK;
+
+    return ((SRSS_PWR_CTL & regMask) == regMask);
+#else
+    return ((0U == _FLD2VAL(SRSS_PWR_CTL2_REFV_DIS, SRSS_PWR_CTL2)) ? false : true);
+#endif
+#else
+    return ((0U == _FLD2VAL(SRSS_PWR_CTL2_REFV_DIS, SRSS_PWR_CTL2)) ? false : true);
+#endif
+#endif
+}
+
+#endif /* defined (CY_IP_MXS40SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS) */
+
+#if defined (CY_IP_MXS40SSRSS)
+
+#define CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK     (0x3UL << 10U)
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_IsVoltageChangePossible
+****************************************************************************//**
+*
+* The internal function that checks wherever it is possible to change the core
+* voltage. Voltage change is possible only when the specific device revision
+* support registers modification.
+*
+*******************************************************************************/
+__STATIC_INLINE bool Cy_SysPm_IsVoltageChangePossible(void)
+{
+    bool retVal = false;
+
+#if (CY_MXS40SSRSS_VER_1_2 > 0UL)
+    uint32_t trimRamCheckVal = (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK);
+
+    SRSS_TRIM_RAM_CTL &= ~CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK;
+    SRSS_TRIM_RAM_CTL |= ((~trimRamCheckVal) & CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK);
+
+    retVal = (trimRamCheckVal != (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK));
+#elif (CY_SYSLIB_GET_SILICON_REV_ID != CY_SYSLIB_20829A0_SILICON_REV)
+    uint32_t trimRamCheckVal = (CPUSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK);
+
+    CPUSS_TRIM_RAM_CTL &= ~CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK;
+    CPUSS_TRIM_RAM_CTL |= ((~trimRamCheckVal) & CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK);
+
+    retVal = (trimRamCheckVal != (CPUSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_WC_MASK));
+#endif
+
+    return retVal;
+}
+
+#endif /* defined (CY_IP_MXS40SSRSS) */
+
+#if defined (CY_IP_MXS40SSRSS) && (CY_MXS40SSRSS_VER_1_2 > 0UL)
+
+#define CY_SYSPM_INLINE_LDO_TO_1_0V_DELAY_US    (3U)
+#define CY_SYSPM_INLINE_LDO_TO_1_1V_DELAY_US    (3U)
+#define CY_SYSPM_INLINE_LDO_TO_1_2V_DELAY_US    (3U)
+#define CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK     ((uint32_t) 0x3U << 8U)
+#define CY_SYSPM_INLINE_PWR_TRIM_WAKE_LP         (0x50U)
+#define CY_SYSPM_INLINE_PWR_TRIM_WAKE_MF         (0x50U)
+#define CY_SYSPM_INLINE_PWR_TRIM_WAKE_OD         (0x50U)
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetReadMarginTrimUlp
+****************************************************************************//**
+*
+* The internal function that updates the RAM and ROM read-margin trim values
+* before decreasing the regulator voltage to the ULP voltage.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysPm_SetReadMarginTrimUlp(void)
+{
+    SRSS_TRIM_RAM_CTL = (CY_SRSS_TRIM_RAM_CTL_ULP & ((uint32_t) ~CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK)) |
+                        (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK);
+    SRSS_TRIM_ROM_CTL = CY_SRSS_TRIM_ROM_CTL_ULP;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetReadMarginTrimLp
+****************************************************************************//**
+*
+* The internal function that updates the RAM and ROM read-margin trim values
+* during a regulator voltage transition from a lower voltage to the LP voltage.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysPm_SetReadMarginTrimLp(void)
+{
+    SRSS_TRIM_RAM_CTL = (CY_SRSS_TRIM_RAM_CTL_LP & ((uint32_t) ~CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK)) |
+                        (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK);
+    SRSS_TRIM_ROM_CTL = CY_SRSS_TRIM_ROM_CTL_LP;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetReadMarginTrimMf
+****************************************************************************//**
+*
+* The internal function that updates the RAM and ROM read-margin trim values
+* before decreasing or after increasing the regulator voltage to the MF voltage.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysPm_SetReadMarginTrimMf(void)
+{
+    SRSS_TRIM_RAM_CTL = (CY_SRSS_TRIM_RAM_CTL_MF & ((uint32_t) ~CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK)) |
+                        (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK);
+    SRSS_TRIM_ROM_CTL = CY_SRSS_TRIM_ROM_CTL_MF;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetReadMarginTrimOd
+****************************************************************************//**
+*
+* The internal function that updates the RAM and ROM read-margin trim values
+* after increasing the regulator voltage to the OD voltage.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysPm_SetReadMarginTrimOd(void)
+{
+    SRSS_TRIM_RAM_CTL = (CY_SRSS_TRIM_RAM_CTL_OD & ((uint32_t) ~CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK)) |
+                        (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK);
+    SRSS_TRIM_ROM_CTL = CY_SRSS_TRIM_ROM_CTL_OD;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetWriteAssistTrimUlp
+****************************************************************************//**
+*
+* The internal function that updates the RAM write-assist trim value after
+* decreasing the regulator voltage to the ULP voltage.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysPm_SetWriteAssistTrimUlp(void)
+{
+    SRSS_TRIM_RAM_CTL = (CY_SRSS_TRIM_RAM_CTL_HALF_ULP & ((uint32_t) ~CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK)) |
+                        (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK);
+}
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetWriteAssistTrimLp
+****************************************************************************//**
+*
+* The internal function that updates the RAM and ROM write-assist trim values
+* during a regulator voltage transition from a higher voltage to the LP voltage.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysPm_SetWriteAssistTrimLp(void)
+{
+    SRSS_TRIM_RAM_CTL = (CY_SRSS_TRIM_RAM_CTL_HALF_LP & ((uint32_t) ~CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK)) |
+                        (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK);
+    SRSS_TRIM_ROM_CTL = CY_SRSS_TRIM_ROM_CTL_HALF_LP;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetWriteAssistTrimMf
+****************************************************************************//**
+*
+* The internal function that updates the RAM and ROM write-assist trim values
+* before increasing or after decreasing the regulator voltage to the MF voltage.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysPm_SetWriteAssistTrimMf(void)
+{
+    SRSS_TRIM_RAM_CTL = (CY_SRSS_TRIM_RAM_CTL_HALF_MF & ((uint32_t) ~CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK)) |
+                        (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK);
+    SRSS_TRIM_ROM_CTL = CY_SRSS_TRIM_ROM_CTL_HALF_MF;
+}
+
+/*******************************************************************************
+* Function Name: Cy_SysPm_SetWriteAssistTrimOd
+****************************************************************************//**
+*
+* The internal function that updates the RAM and ROM write-assist trim values
+* before increasing the regulator voltage to the OD voltage.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_SysPm_SetWriteAssistTrimOd(void)
+{
+    SRSS_TRIM_RAM_CTL = (CY_SRSS_TRIM_RAM_CTL_HALF_OD & ((uint32_t) ~CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK)) |
+                        (SRSS_TRIM_RAM_CTL & CY_SYSPM_INLINE_TRIM_RAM_CTL_RA_MASK);
+    SRSS_TRIM_ROM_CTL = CY_SRSS_TRIM_ROM_CTL_HALF_OD;
+}
+
+__STATIC_INLINE cy_en_syspm_status_t Cy_SysPm_LdoSetVoltage(cy_en_syspm_ldo_voltage_t voltage)
+{
+    CY_ASSERT_L1(CY_SYSPM_IS_LDO_VOLTAGE_VALID(voltage));
+
+    cy_en_syspm_status_t retVal = CY_SYSPM_INVALID_STATE;
+
+    if (Cy_SysPm_IsVoltageChangePossible())
+    {
+        uint32_t interruptState;
+        uint32_t trimVoltage;
+        cy_en_syspm_ldo_voltage_t currVoltage = Cy_SysPm_LdoGetVoltage();
+
+        interruptState = Cy_SysLib_EnterCriticalSection();
+
+        if (CY_SYSPM_LDO_VOLTAGE_0_9V == voltage)
+        {
+            SRSS_PWR_TRIM_WAKE_CTL = _FLD2VAL(SFLASH_PWR_TRIM_WAKE_CTL_WAKE_DELAY_0P9V, SFLASH_PWR_TRIM_WAKE_CTL);
+            trimVoltage = SFLASH_LDO_0P9V_TRIM;
+            Cy_SysPm_SetReadMarginTrimUlp();
+        }
+        else if (CY_SYSPM_LDO_VOLTAGE_1_0V == voltage)
+        {
+            SRSS_PWR_TRIM_WAKE_CTL = Cy_SysPm_SystemIsMinRegulatorCurrentSet() ?
+                                     CY_SYSPM_INLINE_PWR_TRIM_WAKE_MF :
+                                     _FLD2VAL(SFLASH_PWR_TRIM_WAKE_CTL_WAKE_DELAY_1P0V, SFLASH_PWR_TRIM_WAKE_CTL);
+            trimVoltage = SFLASH_LDO_1P0V_TRIM;
+            Cy_SysLib_DelayUs(CY_SYSPM_INLINE_LDO_TO_1_0V_DELAY_US);
+
+            if (currVoltage > CY_SYSPM_LDO_VOLTAGE_1_0V)
+            {
+                Cy_SysPm_SetReadMarginTrimMf();
+            }
+            else
+            {
+                Cy_SysPm_SetWriteAssistTrimMf();
+            }
+        }
+        else if (CY_SYSPM_LDO_VOLTAGE_1_1V == voltage)
+        {
+            SRSS_PWR_TRIM_WAKE_CTL = Cy_SysPm_SystemIsMinRegulatorCurrentSet() ?
+                                     CY_SYSPM_INLINE_PWR_TRIM_WAKE_LP :
+                                     _FLD2VAL(SFLASH_PWR_TRIM_WAKE_CTL_WAKE_DELAY_1P1V, SFLASH_PWR_TRIM_WAKE_CTL);
+            trimVoltage = SFLASH_LDO_1P1V_TRIM;
+            Cy_SysLib_DelayUs(CY_SYSPM_INLINE_LDO_TO_1_1V_DELAY_US);
+
+            if (currVoltage < CY_SYSPM_LDO_VOLTAGE_1_1V)
+            {
+                Cy_SysPm_SetReadMarginTrimLp();
+            }
+            else
+            {
+                Cy_SysPm_SetWriteAssistTrimLp();
+            }
+        }
+        else
+        {
+            SRSS_PWR_TRIM_WAKE_CTL = Cy_SysPm_SystemIsMinRegulatorCurrentSet() ?
+                                     CY_SYSPM_INLINE_PWR_TRIM_WAKE_OD :
+                                     _FLD2VAL(SFLASH_PWR_TRIM_WAKE_CTL_WAKE_DELAY_1P2V, SFLASH_PWR_TRIM_WAKE_CTL);
+            trimVoltage = SFLASH_LDO_1P2V_TRIM;
+            Cy_SysLib_DelayUs(CY_SYSPM_INLINE_LDO_TO_1_2V_DELAY_US);
+            Cy_SysPm_SetWriteAssistTrimOd();
+        }
+
+        SRSS_PWR_TRIM_PWRSYS_CTL =
+        _CLR_SET_FLD32U(SRSS_PWR_TRIM_PWRSYS_CTL, SRSS_PWR_TRIM_PWRSYS_CTL_ACT_REG_TRIM, trimVoltage);
+
+        if (CY_SYSPM_LDO_VOLTAGE_0_9V == voltage)
+        {
+            Cy_SysPm_SetWriteAssistTrimUlp();
+        }
+        else if (CY_SYSPM_LDO_VOLTAGE_1_0V == voltage)
+        {
+            Cy_SysLib_DelayUs(CY_SYSPM_INLINE_LDO_TO_1_0V_DELAY_US);
+
+            if (currVoltage > CY_SYSPM_LDO_VOLTAGE_1_1V)
+            {
+                Cy_SysPm_SetWriteAssistTrimMf();
+            }
+            else
+            {
+                Cy_SysPm_SetReadMarginTrimMf();
+            }
+        }
+        else if (CY_SYSPM_LDO_VOLTAGE_1_1V == voltage)
+        {
+            Cy_SysLib_DelayUs(CY_SYSPM_INLINE_LDO_TO_1_1V_DELAY_US);
+
+            if (currVoltage > CY_SYSPM_LDO_VOLTAGE_1_1V)
+            {
+                Cy_SysPm_SetWriteAssistTrimLp();
+            }
+            else
+            {
+                Cy_SysPm_SetReadMarginTrimLp();
+            }
+        }
+        else
+        {
+            Cy_SysLib_DelayUs(CY_SYSPM_INLINE_LDO_TO_1_2V_DELAY_US);
+            Cy_SysPm_SetReadMarginTrimOd();
+        }
+
+        Cy_SysLib_ExitCriticalSection(interruptState);
+        retVal = CY_SYSPM_SUCCESS;
+    }
+
+    return retVal;
+}
+
+#endif /* defined (CY_IP_MXS40SSRSS) && (CY_MXS40SSRSS_VER_1_2 > 0UL) */
 
 #define Cy_SysPm_EnterLowPowerMode           Cy_SysPm_SystemSetMinRegulatorCurrent
 #define Cy_SysPm_ExitLowPowerMode            Cy_SysPm_SystemSetNormalRegulatorCurrent

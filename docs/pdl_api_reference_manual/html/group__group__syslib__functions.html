@@ -1019,7 +1019,7 @@ The CY_ARM_FAULT_DEBUG macro defines if the Fault Handler is enabled. By default
 </div><div class="memdoc">
 
 <p>This function will set Warm boot entry point address to a location read by BootROM. </p>
-<p>This function is used only before entering DeepSleep-RAM and not effective in any other sleep mode. Before entering CY_SYSPM_MODE_DEEPSLEEP_RAM, user needs to set entry point to a function located in RAM Image using <a class="el" href="group__group__syslib__functions.html#gabc2fac2da2d735bedac2a57d45d53fac" title="This function will set Warm boot entry point address to a location read by BootROM. ">Cy_Syslib_SetWarmBootEntryPoint()</a>, refer <a class="el" href="group__group__syspm__functions__power.html#gaaff87adb57f74191a344e996517bd74b" title="Set the deepsleep mode - deepsleep or deepsleep-ram or deepsleep-off. ">Cy_SysPm_SetDeepSleepMode()</a>.</p>
+<p>This function is used only before entering DeepSleep-RAM and not effective in any other sleep mode. Before entering CY_SYSPM_MODE_DEEPSLEEP_RAM, user needs to set entry point to a function located in RAM Image using <a class="el" href="group__group__syslib__functions.html#gabc2fac2da2d735bedac2a57d45d53fac" title="This function will set Warm boot entry point address to a location read by BootROM. ">Cy_Syslib_SetWarmBootEntryPoint()</a>, refer <a class="el" href="group__group__syspm__functions__power.html#ga87e7600e6d72281e8e3c246792da91d7" title="Set the deepsleep mode - deepsleep or deepsleep-ram or deepsleep-off. ">Cy_SysPm_SetDeepSleepMode()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entryPoint</td><td>Address of the function that needs to be entered after WARM boot.</td></tr>

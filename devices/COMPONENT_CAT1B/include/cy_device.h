@@ -126,6 +126,11 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 *               Register Access Helper Macros
 *******************************************************************************/
 #define CY_DEVICE_CAT1B                /* Device Category */
+
+/* Remapping the CBUS to SAHB address & Vice versa*/
+#define CY_REMAP_ADDRESS_CBUS_TO_SAHB(addr)               (Cy_Platform_RemapAddr(addr))
+#define CY_REMAP_ADDRESS_SAHB_TO_CBUS(addr)               (Cy_Platform_InternalRemapAddr(addr))
+
 /*******************************************************************************
 *               SDHC
 *******************************************************************************/
@@ -477,6 +482,76 @@ static inline void * Cy_Platform_RemapAddr(const void *addr)
 
   #if defined(COMPONENT_SECURE_DEVICE)
   /* FLASH Address Secure */
+  if (((uint32_t)addr >= CY_FLASH_S_CBUS_BASE) &&
+      ((uint32_t)addr < (CY_FLASH_S_CBUS_BASE + CY_FLASH_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_FLASH_S_CBUS_BASE;
+    remapAddr = CY_FLASH_S_SBUS_BASE + offset;
+  }
+  /* DUAL FLASH Address Secure */
+  else if (((uint32_t)addr >= CY_DUAL_FLASH_S_CBUS_BASE) &&
+      ((uint32_t)addr < (CY_DUAL_FLASH_S_CBUS_BASE + CY_DUAL_FLASH_S_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_DUAL_FLASH_S_CBUS_BASE;
+    remapAddr = CY_DUAL_FLASH_S_SBUS_BASE + offset;
+  }
+  /* SFLASH Address Secure */
+  else if (((uint32_t)addr >= CY_SFLASH_S_CBUS_BASE) &&
+      ((uint32_t)addr < (CY_SFLASH_S_CBUS_BASE + CY_SFLASH_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_SFLASH_S_CBUS_BASE;
+    remapAddr = CY_SFLASH_S_SBUS_BASE + offset;
+  }
+  /* SRAM Address Secure */
+  else if (((uint32_t)addr >= CY_SRAM_S_CBUS_BASE) &&
+      ((uint32_t)addr < (CY_SRAM_S_CBUS_BASE + CY_SRAM_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_SRAM_S_CBUS_BASE;
+    remapAddr = CY_SRAM_S_SBUS_BASE + offset;
+  }
+  #else
+  /* FLASH Address Non-Secure */
+  if (((uint32_t)addr >= CY_FLASH_NS_CBUS_BASE) &&
+      ((uint32_t)addr < (CY_FLASH_NS_CBUS_BASE + CY_FLASH_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_FLASH_NS_CBUS_BASE;
+    remapAddr = CY_FLASH_NS_SBUS_BASE + offset;
+  }
+  /* DUAL FLASH Address Non-Secure */
+  else if (((uint32_t)addr >= CY_DUAL_FLASH_NS_CBUS_BASE) &&
+      ((uint32_t)addr < (CY_DUAL_FLASH_NS_CBUS_BASE + CY_DUAL_FLASH_NS_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_DUAL_FLASH_NS_CBUS_BASE;
+    remapAddr = CY_DUAL_FLASH_NS_SBUS_BASE + offset;
+  }
+  /* SFLASH Address Non-Secure */
+  else if (((uint32_t)addr >= CY_SFLASH_NS_CBUS_BASE) &&
+      ((uint32_t)addr < (CY_SFLASH_NS_CBUS_BASE + CY_SFLASH_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_SFLASH_NS_CBUS_BASE;
+    remapAddr = CY_SFLASH_NS_SBUS_BASE + offset;
+  }
+  /* SRAM Address Non-Secure */
+  else if (((uint32_t)addr >= CY_SRAM_NS_CBUS_BASE) &&
+      ((uint32_t)addr < (CY_SRAM_NS_CBUS_BASE + CY_SRAM_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_SRAM_NS_CBUS_BASE;
+    remapAddr = CY_SRAM_NS_SBUS_BASE + offset;
+  }
+  #endif
+  else
+  {
+    remapAddr = (uint32_t)addr;
+  }
+  return (void *)remapAddr;
+}
+
+static inline void * Cy_Platform_InternalRemapAddr(const void *addr)
+{
+  uint32_t remapAddr, offset;
+
+  #if defined(COMPONENT_SECURE_DEVICE)
+  /* FLASH Address Secure */
   if (((uint32_t)addr >= CY_FLASH_S_SBUS_BASE) &&
       ((uint32_t)addr < (CY_FLASH_S_SBUS_BASE + CY_FLASH_SIZE)))
   {
@@ -498,11 +573,11 @@ static inline void * Cy_Platform_RemapAddr(const void *addr)
     remapAddr = CY_SFLASH_S_CBUS_BASE + offset;
   }
   /* SRAM Address Secure */
-  else if (((uint32_t)addr >= CY_SRAM_S_CBUS_BASE) &&
-      ((uint32_t)addr < (CY_SRAM_S_CBUS_BASE + CY_SRAM_SIZE)))
+  else if (((uint32_t)addr >= CY_SRAM_S_SBUS_BASE) &&
+      ((uint32_t)addr < (CY_SRAM_S_SBUS_BASE + CY_SRAM_SIZE)))
   {
-    offset = (uint32_t)addr - CY_SRAM_S_CBUS_BASE;
-    remapAddr = CY_SRAM_S_SBUS_BASE + offset;
+    offset = (uint32_t)addr - CY_SRAM_S_SBUS_BASE;
+    remapAddr = CY_SRAM_S_CBUS_BASE + offset;
   }
   #else
   /* FLASH Address Non-Secure */
@@ -527,11 +602,11 @@ static inline void * Cy_Platform_RemapAddr(const void *addr)
     remapAddr = CY_SFLASH_NS_CBUS_BASE + offset;
   }
   /* SRAM Address Non-Secure */
-  else if (((uint32_t)addr >= CY_SRAM_NS_CBUS_BASE) &&
-      ((uint32_t)addr < (CY_SRAM_NS_CBUS_BASE + CY_SRAM_SIZE)))
+  else if (((uint32_t)addr >= CY_SRAM_NS_SBUS_BASE) &&
+      ((uint32_t)addr < (CY_SRAM_NS_SBUS_BASE + CY_SRAM_SIZE)))
   {
-    offset = (uint32_t)addr - CY_SRAM_NS_CBUS_BASE;
-    remapAddr = CY_SRAM_NS_SBUS_BASE + offset;
+    offset = (uint32_t)addr - CY_SRAM_NS_SBUS_BASE;
+    remapAddr = CY_SRAM_NS_CBUS_BASE + offset;
   }
   #endif
   else
@@ -558,6 +633,32 @@ static inline void * Cy_Platform_RemapAddr(const void *addr)
   {
     offset = (uint32_t)addr - CY_SRAM_NS_CBUS_BASE;
     remapAddr = CY_SRAM_NS_SBUS_BASE + offset;
+  }
+  else
+  {
+    remapAddr = (uint32_t)addr;
+  }
+  return (void *)remapAddr;
+
+}
+
+static inline void * Cy_Platform_InternalRemapAddr(const void *addr)
+{
+  uint32_t remapAddr, offset;
+
+ /* XIP Address*/
+  if (((uint32_t)addr >= CY_XIP_NS_SBUS_BASE) &&
+      ((uint32_t)addr < (CY_XIP_NS_SBUS_BASE + CY_XIP_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_XIP_NS_SBUS_BASE;
+    remapAddr = CY_XIP_NS_CBUS_BASE + offset;
+  }
+  /* SRAM Address*/
+  else if (((uint32_t)addr >= CY_SRAM_NS_SBUS_BASE) &&
+      ((uint32_t)addr < (CY_SRAM_NS_SBUS_BASE + CY_SRAM_SIZE)))
+  {
+    offset = (uint32_t)addr - CY_SRAM_NS_SBUS_BASE;
+    remapAddr = CY_SRAM_NS_CBUS_BASE + offset;
   }
   else
   {

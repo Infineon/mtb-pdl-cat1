@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.c
-* \version 3.170
+* \version 3.180
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -893,6 +893,7 @@ void Cy_SysClk_WcoBypass(cy_en_wco_bypass_modes_t bypass)
 
 void Cy_SysClk_PiloEnable(void)
 {
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
 #if defined (CY_DEVICE_SECURE)
     cy_en_pra_status_t retStatus;
     retStatus = CY_PRA_FUNCTION_CALL_RETURN_PARAM(CY_PRA_MSG_TYPE_FUNC_POLICY, CY_PRA_CLK_FUNC_PILO_ENABLE, 1UL);
@@ -909,17 +910,25 @@ void Cy_SysClk_PiloEnable(void)
     SRSS_CLK_PILO_CONFIG |= SRSS_CLK_PILO_CONFIG_PILO_RESET_N_Msk |
                             SRSS_CLK_PILO_CONFIG_PILO_CLK_EN_Msk;
 #endif /* ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE))) */
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 
 bool Cy_SysClk_PiloIsEnabled(void)
 {
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     return (_FLD2BOOL(SRSS_CLK_PILO_CONFIG_PILO_CLK_EN, SRSS_CLK_PILO_CONFIG));
+#else
+    return (false);
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 
 void Cy_SysClk_PiloDisable(void)
 {
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
 #if defined (CY_DEVICE_SECURE)
     cy_en_pra_status_t retStatus;
     retStatus = CY_PRA_FUNCTION_CALL_RETURN_PARAM(CY_PRA_MSG_TYPE_FUNC_POLICY, CY_PRA_CLK_FUNC_PILO_DISABLE, 0UL);
@@ -936,22 +945,33 @@ void Cy_SysClk_PiloDisable(void)
                                         SRSS_CLK_PILO_CONFIG_PILO_RESET_N_Msk |
                                         SRSS_CLK_PILO_CONFIG_PILO_CLK_EN_Msk);
 #endif /* ((CY_CPU_CORTEX_M0P) || (!defined(CY_DEVICE_SECURE))) */
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 
 void Cy_SysClk_PiloSetTrim(uint32_t trimVal)
 {
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
 #if ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
     CY_PRA_FUNCTION_CALL_VOID_PARAM(CY_PRA_MSG_TYPE_SECURE_ONLY, CY_PRA_CLK_FUNC_SET_PILO_TRIM, trimVal);
 #else
     CY_REG32_CLR_SET(SRSS_CLK_PILO_CONFIG, SRSS_CLK_PILO_CONFIG_PILO_FFREQ, trimVal);
 #endif /* ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
+#else
+    (void)trimVal;
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 
 uint32_t Cy_SysClk_PiloGetTrim(void)
 {
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     return (_FLD2VAL(SRSS_CLK_PILO_CONFIG_PILO_FFREQ, SRSS_CLK_PILO_CONFIG));
+#else
+    return (0UL);
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 
@@ -2342,6 +2362,7 @@ int32_t Cy_SysClk_IloTrim(uint32_t iloFreq)
 
 int32_t Cy_SysClk_PiloTrim(uint32_t piloFreq)
 {
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     int32_t changeInTrim;
     uint32_t diff;
     bool sign = false;
@@ -2390,7 +2411,12 @@ int32_t Cy_SysClk_PiloTrim(uint32_t piloFreq)
     }
 
     changeInTrim = ((int32_t)(sign ? (int32_t)diff : (0L - (int32_t)diff)));
-return changeInTrim;
+    return changeInTrim;
+#else
+    (void)stepSize;
+    (void)piloFreq;
+    return 0;
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 /** \cond INTERNAL */
 #define LF_COUNT          (64u)
@@ -2404,6 +2430,7 @@ return changeInTrim;
 
 void Cy_SysClk_PiloInitialTrim(void)
 {
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
 #if ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
     CY_PRA_FUNCTION_CALL_VOID_VOID(CY_PRA_MSG_TYPE_SECURE_ONLY, CY_PRA_CLK_FUNC_PILO_INITIAL_TRIM);
 #else
@@ -2440,12 +2467,16 @@ void Cy_SysClk_PiloInitialTrim(void)
     } while (bitPos >= 0);
     SRSS_CLK_PILO_CONFIG &= ~(SRSS_CLK_PILO_CONFIG_PILO_FFREQ_Msk);
     SRSS_CLK_PILO_CONFIG |= (trimVal);
-#endif
+#endif /* ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 
 void Cy_SysClk_PiloUpdateTrimStep(void)
 {
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
 #if ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE)))
     (void)stepSize;
     CY_PRA_FUNCTION_CALL_VOID_VOID(CY_PRA_MSG_TYPE_SECURE_ONLY, CY_PRA_CLK_FUNC_UPDATE_PILO_TRIM_STEP);
@@ -2489,7 +2520,10 @@ void Cy_SysClk_PiloUpdateTrimStep(void)
     CY_REG32_CLR_SET(SRSS_CLK_PILO_CONFIG, SRSS_CLK_PILO_CONFIG_PILO_FFREQ, initialFtrim);
     /* Wait for 2 ms after setting FTRIM */
     Cy_SysLib_DelayUs(TRIM_DELAY);
-#endif
+#endif /* ((CY_CPU_CORTEX_M4) && (defined(CY_DEVICE_SECURE))) */
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 

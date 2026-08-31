@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"group__group__scb__i2c__macros__slave__status.html#ga0e917e7b1f8b297bb97716a0a742a14a":[4,40,2,0,0,5],
 "group__group__scb__i2c__macros__slave__status.html#ga1cdebdd1275e23a1e08030fad09672a7":[4,40,2,0,0,1],
 "group__group__scb__i2c__macros__slave__status.html#ga2e400c423f7250710ddda059ff554c10":[4,40,2,0,0,0],
 "group__group__scb__i2c__macros__slave__status.html#ga53cab9166005ca6c89ed24a4871bb5bd":[4,40,2,0,0,4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX21 =
 "group__group__scb__uart__macros__receive__status.html#ga5ddb60f6cf8432fb0e2bc15b1a353902":[4,40,4,0,3,0],
 "group__group__scb__uart__macros__receive__status.html#gabab74988473020abe0dae2cc861cdf26":[4,40,4,0,3,4],
 "group__group__scb__uart__macros__receive__status.html#gad7b10851c71b52b4a17b018f52d3154d":[4,40,4,0,3,3],
-"group__group__scb__uart__macros__receive__status.html#gaf9abe86a752ec938ab197bd512bf6d22":[4,40,4,0,3,2],
-"group__group__scb__uart__macros__rx__fifo__status.html":[4,40,4,0,1]
+"group__group__scb__uart__macros__receive__status.html#gaf9abe86a752ec938ab197bd512bf6d22":[4,40,4,0,3,2]
 };

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--****************************************************************************
+* \file port_intrinsic-2.0.cypersonality
+*
+* \brief
+* Intrinsic port personality description file.
+*
+********************************************************************************
+* \copyright
+* (c) 2024-2026, Infineon Technologies AG or an affiliate of
+* Infineon Technologies AG.
+* SPDX-License-Identifier: Apache-2.0
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*****************************************************************************-->
+
+<PersonalityTemplate id="port_intrinsic" name="Port-Intrinsic" intrinsic="true" version="2.0" xmlns="http://cypress.com/xsd/cyhwpersonality_v9">
+  <FittingRules>
+    <MappingRules>
+      <IpBlock name="mxs40ioss,mxs40sioss,mxs22ioss" />
+      <Resource name="ioss\.port" />
+    </MappingRules>
+  </FittingRules>
+  <ExposedMembers/>
+  <Parameters>
+    <ParamRange id="ioss" name="" group="" default="`${getInstNumber(&quot;ioss&quot;)}`" min="0" max="9999" resolution="1" visible="false" editable="false" desc="The ioss number this personality is instantiated on." />
+    <ParamRange id="port" name="" group="" default="`${getInstNumber(&quot;port&quot;)}`" min="0" max="127" resolution="1" visible="false" editable="false" desc="The port number this personality is instantiated on." />
+
+    <Repeat count="8">
+      <ParamString id="pinRsc$idx" name="pinRsc$idx" group="Internal" default="ioss[`${ioss}`].port[`${port}`].pin[$idx]" visible="false" editable="false" desc="" />
+      <ParamBool id="pinUsed$idx" name="pinUsed$idx" group="Internal" default="`${hasBlock(pinRsc$idx) &amp;&amp; isBlockUsed(pinRsc$idx)}`" visible="false" editable="false" desc="" />
+    </Repeat>
+    <ParamBool id="hasUsedPins" name="Has Used Pins" group="Internal" default="`${pinUsed0 || pinUsed1 || pinUsed2 || pinUsed3 || pinUsed4 || pinUsed5 || pinUsed6 || pinUsed7}`" visible="false" editable="false" desc="Whether this physical port has at least one used pin." />
+    <ParamBool id="portAggregationPossible" name="Port Aggregation Possible" group="Internal" default="`${(getIpBlockName() eq &quot;mxs40sioss&quot;) &amp;&amp; hasUsedPins}`" visible="false" editable="false" desc="Whether this physical port belongs to the verified MXS40SIOSS GPIO implementation and has at least one used pin." />
+
+  </Parameters>
+  <ConfigFirmware>
+    <ConfigExternVariable name="`${(pinUsed0 ? getOrDefault(getExposedMember(pinRsc0, &quot;intr&quot;), false) : false) ? getExposedMember(pinRsc0, &quot;cb&quot;) . &quot;(void)&quot; : &quot;&quot;}`" type="void" const="false" include="`${pinUsed0 ? getOrDefault(getExposedMember(pinRsc0, &quot;intr&quot;), false) : false}`" />
+    <ConfigExternVariable name="`${(pinUsed1 ? getOrDefault(getExposedMember(pinRsc1, &quot;intr&quot;), false) : false) ? getExposedMember(pinRsc1, &quot;cb&quot;) . &quot;(void)&quot; : &quot;&quot;}`" type="void" const="false" include="`${pinUsed1 ? getOrDefault(getExposedMember(pinRsc1, &quot;intr&quot;), false) : false}`" />
+    <ConfigExternVariable name="`${(pinUsed2 ? getOrDefault(getExposedMember(pinRsc2, &quot;intr&quot;), false) : false) ? getExposedMember(pinRsc2, &quot;cb&quot;) . &quot;(void)&quot; : &quot;&quot;}`" type="void" const="false" include="`${pinUsed2 ? getOrDefault(getExposedMember(pinRsc2, &quot;intr&quot;), false) : false}`" />
+    <ConfigExternVariable name="`${(pinUsed3 ? getOrDefault(getExposedMember(pinRsc3, &quot;intr&quot;), false) : false) ? getExposedMember(pinRsc3, &quot;cb&quot;) . &quot;(void)&quot; : &quot;&quot;}`" type="void" const="false" include="`${pinUsed3 ? getOrDefault(getExposedMember(pinRsc3, &quot;intr&quot;), false) : false}`" />
+    <ConfigExternVariable name="`${(pinUsed4 ? getOrDefault(getExposedMember(pinRsc4, &quot;intr&quot;), false) : false) ? getExposedMember(pinRsc4, &quot;cb&quot;) . &quot;(void)&quot; : &quot;&quot;}`" type="void" const="false" include="`${pinUsed4 ? getOrDefault(getExposedMember(pinRsc4, &quot;intr&quot;), false) : false}`" />
+    <ConfigExternVariable name="`${(pinUsed5 ? getOrDefault(getExposedMember(pinRsc5, &quot;intr&quot;), false) : false) ? getExposedMember(pinRsc5, &quot;cb&quot;) . &quot;(void)&quot; : &quot;&quot;}`" type="void" const="false" include="`${pinUsed5 ? getOrDefault(getExposedMember(pinRsc5, &quot;intr&quot;), false) : false}`" />
+    <ConfigExternVariable name="`${(pinUsed6 ? getOrDefault(getExposedMember(pinRsc6, &quot;intr&quot;), false) : false) ? getExposedMember(pinRsc6, &quot;cb&quot;) . &quot;(void)&quot; : &quot;&quot;}`" type="void" const="false" include="`${pinUsed6 ? getOrDefault(getExposedMember(pinRsc6, &quot;intr&quot;), false) : false}`" />
+    <ConfigExternVariable name="`${(pinUsed7 ? getOrDefault(getExposedMember(pinRsc7, &quot;intr&quot;), false) : false) ? getExposedMember(pinRsc7, &quot;cb&quot;) . &quot;(void)&quot; : &quot;&quot;}`" type="void" const="false" include="`${pinUsed7 ? getOrDefault(getExposedMember(pinRsc7, &quot;intr&quot;), false) : false}`" />
+
+    <ConfigStruct name="ioss_`${ioss}`_port_`${port}`_config" type="cy_stc_gpio_prt_config_t" const="true" public="false"
+                  include="`${portAggregationPossible &amp;&amp;
+                              (!pinUsed0 || getOrDefault(getExposedMember(pinRsc0, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                              (!pinUsed1 || getOrDefault(getExposedMember(pinRsc1, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                              (!pinUsed2 || getOrDefault(getExposedMember(pinRsc2, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                              (!pinUsed3 || getOrDefault(getExposedMember(pinRsc3, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                              (!pinUsed4 || getOrDefault(getExposedMember(pinRsc4, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                              (!pinUsed5 || getOrDefault(getExposedMember(pinRsc5, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                              (!pinUsed6 || getOrDefault(getExposedMember(pinRsc6, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                              (!pinUsed7 || getOrDefault(getExposedMember(pinRsc7, &quot;portInitEligible&quot;), false))}`">
+                      <Member name="out" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_OUT_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_OUT_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_OUT_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_OUT_MASK&quot; : &quot;&quot;}` `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_OUT_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_OUT_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_OUT_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_OUT_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="intrMask" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_INTR_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_INTR_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_INTR_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_INTR_MASK&quot; : &quot;&quot;}` `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_INTR_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_INTR_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_INTR_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_INTR_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="intrCfg" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_INTR_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_INTR_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_INTR_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_INTR_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_INTR_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_INTR_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_INTR_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_INTR_CFG_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="cfg" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_CFG_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_CFG_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="cfgIn" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_CFG_IN_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_CFG_IN_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_CFG_IN_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_CFG_IN_MASK&quot; : &quot;&quot;}` `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_CFG_IN_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_CFG_IN_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_CFG_IN_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_CFG_IN_MASK&quot; : &quot;&quot;}`" />
+      <Member name="cfgOut" value="0UL" />
+                      <Member name="cfgSIO" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_CFG_SIO_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_CFG_SIO_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_CFG_SIO_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_CFG_SIO_MASK&quot; : &quot;&quot;}` `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_CFG_SIO_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_CFG_SIO_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_CFG_SIO_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_CFG_SIO_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="sel0Active" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_SEL0_ACTIVE_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_SEL0_ACTIVE_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_SEL0_ACTIVE_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_SEL0_ACTIVE_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="sel1Active" value="0UL `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_SEL1_ACTIVE_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_SEL1_ACTIVE_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_SEL1_ACTIVE_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_SEL1_ACTIVE_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="cfgSlew" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_CFG_SLEW_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_CFG_SLEW_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_CFG_SLEW_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_CFG_SLEW_MASK&quot; : &quot;&quot;}` `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_CFG_SLEW_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_CFG_SLEW_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_CFG_SLEW_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_CFG_SLEW_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="cfgDriveSel0" value="0UL `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_CFG_DRIVE_SEL0_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_CFG_DRIVE_SEL0_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_CFG_DRIVE_SEL0_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_CFG_DRIVE_SEL0_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="cfgDriveSel1" value="0UL `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_CFG_DRIVE_SEL1_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_CFG_DRIVE_SEL1_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_CFG_DRIVE_SEL1_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_CFG_DRIVE_SEL1_MASK&quot; : &quot;&quot;}`" />
+                      <Member name="nonSecMask" value="(0xFFUL &amp; ~((`${pinUsed0 ? 1 : 0}`UL) | (`${pinUsed1 ? 1 : 0}`UL &lt;&lt; 1U) | (`${pinUsed2 ? 1 : 0}`UL &lt;&lt; 2U) | (`${pinUsed3 ? 1 : 0}`UL &lt;&lt; 3U) | (`${pinUsed4 ? 1 : 0}`UL &lt;&lt; 4U) | (`${pinUsed5 ? 1 : 0}`UL &lt;&lt; 5U) | (`${pinUsed6 ? 1 : 0}`UL &lt;&lt; 6U) | (`${pinUsed7 ? 1 : 0}`UL &lt;&lt; 7U))) `${pinUsed0 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN0_NON_SEC_MASK&quot; : &quot;&quot;}` `${pinUsed1 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN1_NON_SEC_MASK&quot; : &quot;&quot;}` `${pinUsed2 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN2_NON_SEC_MASK&quot; : &quot;&quot;}` `${pinUsed3 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN3_NON_SEC_MASK&quot; : &quot;&quot;}` `${pinUsed4 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN4_NON_SEC_MASK&quot; : &quot;&quot;}` `${pinUsed5 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN5_NON_SEC_MASK&quot; : &quot;&quot;}` `${pinUsed6 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN6_NON_SEC_MASK&quot; : &quot;&quot;}` `${pinUsed7 ? &quot;| CY_CFG_PORT&quot; . port . &quot;_PIN7_NON_SEC_MASK&quot; : &quot;&quot;}`" />
+    </ConfigStruct>
+
+    <ConfigStruct name="ioss_`${ioss}`_port_`${port}`_interrupt" type="cy_stc_sysint_t" const="false" public="true"
+                  include="`${(pinUsed0 ? getOrDefault(getExposedMember(pinRsc0, &quot;intr&quot;), false) : false) |
+                              (pinUsed1 ? getOrDefault(getExposedMember(pinRsc1, &quot;intr&quot;), false) : false) |
+                              (pinUsed2 ? getOrDefault(getExposedMember(pinRsc2, &quot;intr&quot;), false) : false) |
+                              (pinUsed3 ? getOrDefault(getExposedMember(pinRsc3, &quot;intr&quot;), false) : false) |
+                              (pinUsed4 ? getOrDefault(getExposedMember(pinRsc4, &quot;intr&quot;), false) : false) |
+                              (pinUsed5 ? getOrDefault(getExposedMember(pinRsc5, &quot;intr&quot;), false) : false) |
+                              (pinUsed6 ? getOrDefault(getExposedMember(pinRsc6, &quot;intr&quot;), false) : false) |
+                              (pinUsed7 ? getOrDefault(getExposedMember(pinRsc7, &quot;intr&quot;), false) : false)}`" >
+      <Member name="intrSrc" value="ioss_interrupts_sec_gpio_`${port}`_IRQn" />
+      <Member name="intrPriority" value="1UL" />
+    </ConfigStruct>
+
+    <ConfigFunction signature="void ioss_`${ioss}`_port_`${port}`_ISR(void)"  public="false"
+                    include="`${(pinUsed0 ? getOrDefault(getExposedMember(pinRsc0, &quot;intr&quot;), false) : false) |
+                                (pinUsed1 ? getOrDefault(getExposedMember(pinRsc1, &quot;intr&quot;), false) : false) |
+                                (pinUsed2 ? getOrDefault(getExposedMember(pinRsc2, &quot;intr&quot;), false) : false) |
+                                (pinUsed3 ? getOrDefault(getExposedMember(pinRsc3, &quot;intr&quot;), false) : false) |
+                                (pinUsed4 ? getOrDefault(getExposedMember(pinRsc4, &quot;intr&quot;), false) : false) |
+                                (pinUsed5 ? getOrDefault(getExposedMember(pinRsc5, &quot;intr&quot;), false) : false) |
+                                (pinUsed6 ? getOrDefault(getExposedMember(pinRsc6, &quot;intr&quot;), false) : false) |
+                                (pinUsed7 ? getOrDefault(getExposedMember(pinRsc7, &quot;intr&quot;), false) : false)}`"
+                    body="    `${(pinUsed0 ? getOrDefault(getExposedMember(pinRsc0, &quot;intr&quot;), false) : false) ? &quot;if (0UL != Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT&quot; . port . &quot;, 0UL))&#13;    {&#13;        &quot; . getExposedMember(pinRsc0, &quot;cb&quot;) . &quot;();&#13;        Cy_GPIO_ClearInterrupt(GPIO_PRT&quot; . port . &quot;, 0UL);&#13;    }&#13;    &quot;  :
+                &quot;&quot;}``${(pinUsed1 ? getOrDefault(getExposedMember(pinRsc1, &quot;intr&quot;), false) : false) ? &quot;if (0UL != Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT&quot; . port . &quot;, 1UL))&#13;    {&#13;        &quot; . getExposedMember(pinRsc1, &quot;cb&quot;) . &quot;();&#13;        Cy_GPIO_ClearInterrupt(GPIO_PRT&quot; . port . &quot;, 1UL);&#13;    }&#13;    &quot;  :
+                &quot;&quot;}``${(pinUsed2 ? getOrDefault(getExposedMember(pinRsc2, &quot;intr&quot;), false) : false) ? &quot;if (0UL != Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT&quot; . port . &quot;, 2UL))&#13;    {&#13;        &quot; . getExposedMember(pinRsc2, &quot;cb&quot;) . &quot;();&#13;        Cy_GPIO_ClearInterrupt(GPIO_PRT&quot; . port . &quot;, 2UL);&#13;    }&#13;    &quot;  :
+                &quot;&quot;}``${(pinUsed3 ? getOrDefault(getExposedMember(pinRsc3, &quot;intr&quot;), false) : false) ? &quot;if (0UL != Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT&quot; . port . &quot;, 3UL))&#13;    {&#13;        &quot; . getExposedMember(pinRsc3, &quot;cb&quot;) . &quot;();&#13;        Cy_GPIO_ClearInterrupt(GPIO_PRT&quot; . port . &quot;, 3UL);&#13;    }&#13;    &quot;  :
+                &quot;&quot;}``${(pinUsed4 ? getOrDefault(getExposedMember(pinRsc4, &quot;intr&quot;), false) : false) ? &quot;if (0UL != Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT&quot; . port . &quot;, 4UL))&#13;    {&#13;        &quot; . getExposedMember(pinRsc4, &quot;cb&quot;) . &quot;();&#13;        Cy_GPIO_ClearInterrupt(GPIO_PRT&quot; . port . &quot;, 4UL);&#13;    }&#13;    &quot;  :
+                &quot;&quot;}``${(pinUsed5 ? getOrDefault(getExposedMember(pinRsc5, &quot;intr&quot;), false) : false) ? &quot;if (0UL != Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT&quot; . port . &quot;, 5UL))&#13;    {&#13;        &quot; . getExposedMember(pinRsc5, &quot;cb&quot;) . &quot;();&#13;        Cy_GPIO_ClearInterrupt(GPIO_PRT&quot; . port . &quot;, 5UL);&#13;    }&#13;    &quot;  :
+                &quot;&quot;}``${(pinUsed6 ? getOrDefault(getExposedMember(pinRsc6, &quot;intr&quot;), false) : false) ? &quot;if (0UL != Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT&quot; . port . &quot;, 6UL))&#13;    {&#13;        &quot; . getExposedMember(pinRsc6, &quot;cb&quot;) . &quot;();&#13;        Cy_GPIO_ClearInterrupt(GPIO_PRT&quot; . port . &quot;, 6UL);&#13;    }&#13;    &quot;  :
+                &quot;&quot;}``${(pinUsed7 ? getOrDefault(getExposedMember(pinRsc7, &quot;intr&quot;), false) : false) ? &quot;if (0UL != Cy_GPIO_GetInterruptStatusMasked(GPIO_PRT&quot; . port . &quot;, 7UL))&#13;    {&#13;        &quot; . getExposedMember(pinRsc7, &quot;cb&quot;) . &quot;();&#13;        Cy_GPIO_ClearInterrupt(GPIO_PRT&quot; . port . &quot;, 7UL);&#13;    }&#13;    &quot;  :
+                &quot;&quot;}`" />
+
+    <ConfigInstruction purpose="INITIALIZE" value="(void)Cy_GPIO_Port_Init(GPIO_PRT`${port}`, &amp;ioss_`${ioss}`_port_`${port}`_config);"
+                       include="`${portAggregationPossible &amp;&amp;
+                                   (!pinUsed0 || getOrDefault(getExposedMember(pinRsc0, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                                   (!pinUsed1 || getOrDefault(getExposedMember(pinRsc1, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                                   (!pinUsed2 || getOrDefault(getExposedMember(pinRsc2, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                                   (!pinUsed3 || getOrDefault(getExposedMember(pinRsc3, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                                   (!pinUsed4 || getOrDefault(getExposedMember(pinRsc4, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                                   (!pinUsed5 || getOrDefault(getExposedMember(pinRsc5, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                                   (!pinUsed6 || getOrDefault(getExposedMember(pinRsc6, &quot;portInitEligible&quot;), false)) &amp;&amp;
+                                   (!pinUsed7 || getOrDefault(getExposedMember(pinRsc7, &quot;portInitEligible&quot;), false))}`" />
+
+    <ConfigInstruction purpose="INITIALIZE" repeatCount="8" value="Cy_GPIO_SetDriveSelTrim(CY_CFG_PORT`${port}`_PIN$idx_PORT, $idx, CY_CFG_PORT`${port}`_PIN$idx_DRIVE_STRENGTH_TRIM);" include="`${pinUsed$idx &amp;&amp; getOrDefault(getExposedMember(pinRsc$idx, &quot;postInitEnabled&quot;), false)}`" />
+
+    <ConfigInstruction purpose="INITIALIZE" value="Cy_SysInt_Init(&amp;ioss_`${ioss}`_port_`${port}`_interrupt, ioss_`${ioss}`_port_`${port}`_ISR);"
+                       include="`${(pinUsed0 ? getOrDefault(getExposedMember(pinRsc0, &quot;intr&quot;), false) : false) |
+                                   (pinUsed1 ? getOrDefault(getExposedMember(pinRsc1, &quot;intr&quot;), false) : false) |
+                                   (pinUsed2 ? getOrDefault(getExposedMember(pinRsc2, &quot;intr&quot;), false) : false) |
+                                   (pinUsed3 ? getOrDefault(getExposedMember(pinRsc3, &quot;intr&quot;), false) : false) |
+                                   (pinUsed4 ? getOrDefault(getExposedMember(pinRsc4, &quot;intr&quot;), false) : false) |
+                                   (pinUsed5 ? getOrDefault(getExposedMember(pinRsc5, &quot;intr&quot;), false) : false) |
+                                   (pinUsed6 ? getOrDefault(getExposedMember(pinRsc6, &quot;intr&quot;), false) : false) |
+                                   (pinUsed7 ? getOrDefault(getExposedMember(pinRsc7, &quot;intr&quot;), false) : false)}`" />
+    <ConfigInstruction purpose="INITIALIZE" value="NVIC_ClearPendingIRQ(ioss_interrupts_sec_gpio_`${port}`_IRQn);"
+                       include="`${(pinUsed0 ? getOrDefault(getExposedMember(pinRsc0, &quot;intr&quot;), false) : false) |
+                                   (pinUsed1 ? getOrDefault(getExposedMember(pinRsc1, &quot;intr&quot;), false) : false) |
+                                   (pinUsed2 ? getOrDefault(getExposedMember(pinRsc2, &quot;intr&quot;), false) : false) |
+                                   (pinUsed3 ? getOrDefault(getExposedMember(pinRsc3, &quot;intr&quot;), false) : false) |
+                                   (pinUsed4 ? getOrDefault(getExposedMember(pinRsc4, &quot;intr&quot;), false) : false) |
+                                   (pinUsed5 ? getOrDefault(getExposedMember(pinRsc5, &quot;intr&quot;), false) : false) |
+                                   (pinUsed6 ? getOrDefault(getExposedMember(pinRsc6, &quot;intr&quot;), false) : false) |
+                                   (pinUsed7 ? getOrDefault(getExposedMember(pinRsc7, &quot;intr&quot;), false) : false)}`" />
+    <ConfigInstruction purpose="INITIALIZE" value="NVIC_EnableIRQ(ioss_interrupts_sec_gpio_`${port}`_IRQn);"
+                       include="`${(pinUsed0 ? getOrDefault(getExposedMember(pinRsc0, &quot;intr&quot;), false) : false) |
+                                   (pinUsed1 ? getOrDefault(getExposedMember(pinRsc1, &quot;intr&quot;), false) : false) |
+                                   (pinUsed2 ? getOrDefault(getExposedMember(pinRsc2, &quot;intr&quot;), false) : false) |
+                                   (pinUsed3 ? getOrDefault(getExposedMember(pinRsc3, &quot;intr&quot;), false) : false) |
+                                   (pinUsed4 ? getOrDefault(getExposedMember(pinRsc4, &quot;intr&quot;), false) : false) |
+                                   (pinUsed5 ? getOrDefault(getExposedMember(pinRsc5, &quot;intr&quot;), false) : false) |
+                                   (pinUsed6 ? getOrDefault(getExposedMember(pinRsc6, &quot;intr&quot;), false) : false) |
+                                   (pinUsed7 ? getOrDefault(getExposedMember(pinRsc7, &quot;intr&quot;), false) : false)}`" />
+  </ConfigFirmware>
+</PersonalityTemplate>

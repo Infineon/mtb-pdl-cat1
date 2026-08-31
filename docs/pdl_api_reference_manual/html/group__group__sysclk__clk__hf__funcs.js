@@ -1,12 +1,12 @@
 var group__group__sysclk__clk__hf__funcs =
 [
-    [ "Cy_SysClk_ClkHfEnable", "group__group__sysclk__clk__hf__funcs.html#gaf3041fc8333478cc7c8d869d2a535d71", null ],
+    [ "Cy_SysClk_ClkHfEnable", "group__group__sysclk__clk__hf__funcs.html#gaaa461cfa69f6d1b94536d4fbdc73fae9", null ],
     [ "Cy_SysClk_ClkHfEnableSafe", "group__group__sysclk__clk__hf__funcs.html#ga55bd17f63a0466c358765b6d06e47449", null ],
     [ "Cy_SysClk_ClkHfIsEnabled", "group__group__sysclk__clk__hf__funcs.html#ga47252e1861afb4664f43c2e0a5e38055", null ],
     [ "Cy_SysClk_ClkHfDisable", "group__group__sysclk__clk__hf__funcs.html#gaaa60ae6f69c8a594756a219ac8891358", null ],
-    [ "Cy_SysClk_ClkHfSetSource", "group__group__sysclk__clk__hf__funcs.html#ga2d39c7e5111f9ba0738f032a98b4593e", null ],
+    [ "Cy_SysClk_ClkHfSetSource", "group__group__sysclk__clk__hf__funcs.html#ga4d090b2e9716939fe4689fac77b05679", null ],
     [ "Cy_SysClk_ClkHfGetSource", "group__group__sysclk__clk__hf__funcs.html#ga464acde9f381963929fae73189e80f5c", null ],
-    [ "Cy_SysClk_ClkHfSetDivider", "group__group__sysclk__clk__hf__funcs.html#ga66c6e94768403ab318f2aa321b4c1e50", null ],
+    [ "Cy_SysClk_ClkHfSetDivider", "group__group__sysclk__clk__hf__funcs.html#gaade248ee5bfe97dbc0ae1629e7e46ed9", null ],
     [ "Cy_SysClk_ClkHfGetDivider", "group__group__sysclk__clk__hf__funcs.html#ga4d8e4a7091e32319bc2c79f3e2809912", null ],
     [ "Cy_SysClk_ClkHfGetFrequency", "group__group__sysclk__clk__hf__funcs.html#gafa8c21271b8cb1b1fd9f7fb489a8d2b3", null ],
     [ "Cy_SysClk_ClkHfDirectSel", "group__group__sysclk__clk__hf__funcs.html#gace8a5255f8579c17f4062dccb3ff3694", null ],

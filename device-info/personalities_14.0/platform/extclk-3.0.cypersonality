@@ -47,7 +47,7 @@
 	<ParamBool id="is40srssAvailable" name="is40srssAvailable" group="" default="`${(&quot;mxs40srss&quot; eq getIpBlockName())}`" visible="false" editable="false" desc="" />
 
     <ParamBool id="usingUlp" name="usingUlp" group="Internal" default="`${isBlockUsed(&quot;srss[0].power[0]&quot;) &amp;&amp; getExposedMember(&quot;srss[0].power[0]&quot;, &quot;usingUlp&quot;)}`" visible="false" editable="false" desc="" />
-    <ParamString id="maxFrequency" name="Max Frequency (MHz)" group="Internal" default="`${getDeviceAttr(&quot;CPU_MAX_MHZ&quot;) &gt; 100 ? 100 : getDeviceAttr(&quot;CPU_MAX_MHZ&quot;)}`" visible="false" editable="false" desc="The maximum EXTCLK frequency" />
+    <ParamRange id="maxFrequency" name="Max Frequency (MHz)" group="Internal" default="`${getDeviceAttr(&quot;CPU_MAX_MHZ&quot;) &gt; 100 ? 100.000 : getDeviceAttr(&quot;CPU_MAX_MHZ&quot;)}`" min="0.001" max="100.000" resolution="0.001" visible="false" editable="false" desc="The maximum EXTCLK frequency" />
 
     <ParamRange id="extFrequencyMin" name="Min Ext Frequency" group="General" default="0.001" min="0.001" max="1" resolution="0.001" visible="false" editable="false" desc="Max FLL Frequency based on platform." />
     <ParamRange id="frequencyMin" name="Min Frequency" group="General" default="1000" min="1000" max="1000000" resolution="1" visible="false" editable="false" desc="Max FLL Frequency based on platform." />

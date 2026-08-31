@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_quaddec.c
-* \version 1.90
+* \version 1.100
 *
 * \brief
 *  The source file of the tcpwm driver.

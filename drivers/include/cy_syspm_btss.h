@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_btss.h
-* \version 5.210
+* \version 5.230
 *
 * Provides the API declarations of the BTSS driver.
 *
@@ -70,7 +70,7 @@ extern "C" {
 /** Driver major version */
 #define CY_BTSS_DRV_VERSION_MAJOR       5
 /** Driver minor version */
-#define CY_BTSS_DRV_VERSION_MINOR       150
+#define CY_BTSS_DRV_VERSION_MINOR       230
 /** Timeout for SL CTL3 register wait in micro seconds */
 #define CY_BTSS_SL_CTL3_WAIT_DELAY_US   500000UL
 /** \} group_syspm_btss_macros */

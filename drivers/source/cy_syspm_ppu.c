@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_ppu.c
-* \version 5.220
+* \version 5.230
 *
 * This file provides the source code for ARM PPU Platform PD specific driver,
 * where the API's are used by Syspm driver for Power Management.

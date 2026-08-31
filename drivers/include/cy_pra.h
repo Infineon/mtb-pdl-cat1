@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_pra.h
-* \version 2.40.1
+* \version 2.50
 *
 * \brief The header file of the PRA driver. The API is not intended to
 * be used directly by the user application.
@@ -228,6 +228,11 @@
 * \section group_pra_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.50</td>
+*     <td>Guarded PILO code for supported devices.</td>
+*     <td>Bug fixes.</td>
+*   </tr>
 *   <tr>
 *     <td>2.40.1</td>
 *     <td>Coverity errors fixed.</td>
@@ -746,7 +751,7 @@ extern cy_stc_pra_extclk_pin_t secExtclkPinList[CY_PRA_EXTCLK_PIN_NR];
 #if defined(CY_DEVICE_PSOC6ABLE2)
 
 extern cy_stc_pra_extclk_hsiom_t secExtClkAdjHsiomList[CY_PRA_EXTCLK_PIN_NR];
-#endif  /* defined(CY_DEVICE_PSOC6ABLE2) */ 
+#endif  /* defined(CY_DEVICE_PSOC6ABLE2) */
 #endif /* (CY_CPU_CORTEX_M4) */
 /** \endcond */
 

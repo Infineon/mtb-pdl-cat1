@@ -32,6 +32,7 @@ var group__group__cordic__functions =
     [ "Cy_CORDIC_Tanh", "group__group__cordic__functions.html#ga978d704274d7426c7411af849ea95863", null ],
     [ "Cy_CORDIC_ArcTanh", "group__group__cordic__functions.html#ga42e574214dbbdef332b9b23e3005927c", null ],
     [ "Cy_CORDIC_Sqrt", "group__group__cordic__functions.html#gaa1fa3426aa583f4f6a3d60f6c5e94380", null ],
+    [ "Cy_CORDIC_Sqrt_Circular", "group__group__cordic__functions.html#ga4d454715944a2afea97f0bd6e0d75419", null ],
     [ "Cy_CORDIC_GetInterruptStatus", "group__group__cordic__functions.html#gaf671b334e6f361629e6768fbb16c8089", null ],
     [ "Cy_CORDIC_ClearInterrupt", "group__group__cordic__functions.html#gab089ee67fbfc4fde9ea67a08e01e5ade", null ],
     [ "Cy_CORDIC_SetInterrupt", "group__group__cordic__functions.html#ga5a39c79b3fb18e4947347e3aaaf5eeeb", null ],

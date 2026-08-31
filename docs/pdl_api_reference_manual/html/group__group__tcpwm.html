@@ -275,6 +275,23 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.100 </td><td><p class="starttd">Added support for the PWM custom alignment mode. Newly added enums:</p><ul>
+<li><a class="el" href="group__group__tcpwm__pwm__count__direction__mode.html#ga30a6c6c8e90b2f6b9cc729de8dc56bba">cy_en_pwm_count_direction_t</a></li>
+<li><a class="el" href="group__group__tcpwm__pwm__output__action.html#ga565e7bb57bb6726e95414663849629bc">cy_en_pwm_output_action_t</a></li>
+</ul>
+<p>Newly added APIs:</p><ul>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#gaf781b777cb8cb156def3684b05de44ae">Cy_TCPWM_PWM_CNT_SetCountDirectionMode</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#gabe70ac9b72ab0dc77e0cf1b0de757d35">Cy_TCPWM_PWM_CNT_SetCC0MatchAction</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#gab4a3195f70515aab40052e6464b782b3">Cy_TCPWM_PWM_CNT_SetCC1MatchAction</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga483fcdd0d496073a7643f047af4bdeb6">Cy_TCPWM_PWM_CNT_SetOverflowAction</a></li>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#gaae546cb316c2f1506367e3cb7671d45f">Cy_TCPWM_PWM_CNT_SetUnderflowAction</a></li>
+</ul>
+<p class="endtd">Updated the following API and structure:</p><ul>
+<li><a class="el" href="group__group__tcpwm__functions__pwm.html#ga6440d2a9dc8d85056abd62556bee7f82">Cy_TCPWM_PWM_Init</a></li>
+<li><a class="el" href="structcy__stc__tcpwm__pwm__config__t.html">cy_stc_tcpwm_pwm_config_t</a> </li>
+</ul>
+</td><td>New feature support.  </td></tr>
+<tr>
 <td>1.90 </td><td>Added new parameters to <a class="el" href="structcy__stc__tcpwm__pwm__config__t.html">cy_stc_tcpwm_pwm_config_t</a> structure. </td><td>Enhancements for Debug Freeze feature configuration.  </td></tr>
 <tr>
 <td rowspan="2">1.80 </td><td>Newly added Motion Interface (MOTIF) functionality. </td><td>Added the new Motion Interface for the PSOC C3 (CAT1B) device.  </td></tr>

@@ -271,7 +271,7 @@
 
     <ParamBool id="pCnthrpwm" name="pCnthrpwm" desc="hrpwm present or not" group="Internal" default="`${hasBlock(hrpwm_Ex)}`" visible="false" editable="false" />
 
-    <ParamBool id="enable_hrpwm" name="Enable HRPWM" group="HRPWM" default="false" visible="`${pCnthrpwm}`" editable="true" desc="If checked enables High resolution PWM." />
+    <ParamBool id="enable_hrpwm" name="Enable HRPWM" group="HRPWM" default="false" visible="`${pCnthrpwm}`" editable="true" desc="Enables High-Resolution PWM mode. In this mode, the low 6 bits of the Period, Compare and Dead Time registers are fractional counts, and the upper 26 bits are integer counts. For example 0x1020 is 64 1/2 clocks in HRPWM mode." />
 
     <ParamChoice id="hrpwm_input_clock" name="HRPWM Operating Frequency" group="HRPWM" default="CY_TCPWM_HRPWM_FREQ_80MHZ_OR_100MHZ" visible="`${pCnthrpwm}`" editable="true" desc="Operating Frequency for HRPWM. It should be same as CLK_OUT = CLK_PERI = CLK_HF" >
       <Entry name="80MHz or 100MHz" value="CY_TCPWM_HRPWM_FREQ_80MHZ_OR_100MHZ" visible="true" />
@@ -3276,6 +3276,17 @@
 
     <DRC type="ERROR" paramId="clock_en[0]" text="Maximum input clock signal frequency supported is 240 Mhz. Please fix input clock setting." condition="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName()) &amp;&amp; (hasVisibleOption(&quot;clock[0]&quot;)) &amp;&amp; (tcpwmClkHz &gt; 240000000)}`" />
     <DRC type="ERROR" paramId="clock_counter_en[0]" text="Maximum input clock signal frequency supported is 240 Mhz. Please fix input clock setting." condition="`${(&quot;mxs40tcpwm&quot; eq getIpBlockName()) &amp;&amp; (hasVisibleOption(&quot;clock_counter_en[0]&quot;)) &amp;&amp; (tcpwmClkHz &gt; 240000000)}`" />
+
+    <DRC type="ERROR" paramId="hrpwm_input_clock" text="HRPWM requires input clock in range 80 MHz to 240 MHz. Please fix input clock setting." condition="`${enable_hrpwm &amp;&amp; pCnthrpwm &amp;&amp; ((tcpwmClkHz &lt; 80000000) || (tcpwmClkHz &gt; 240000000))}`" />
+    <DRC type="ERROR" paramId="hrpwm_input_clock" text="HRPWM Operating Frequency does not match input clock. Select the value that matches tcpwm input clock (80/100, 160/180, or 200/240 MHz)."
+         condition="`${enable_hrpwm &amp;&amp; pCnthrpwm &amp;&amp; (
+           ((hrpwm_input_clock eq CY_TCPWM_HRPWM_FREQ_80MHZ_OR_100MHZ) &amp;&amp; !((tcpwmClkHz eq 80000000) || (tcpwmClkHz eq 100000000))) ||
+           ((hrpwm_input_clock eq CY_TCPWM_HRPWM_FREQ_160MHZ_OR_180MHZ) &amp;&amp; !((tcpwmClkHz eq 160000000) || (tcpwmClkHz eq 180000000))) ||
+           ((hrpwm_input_clock eq CY_TCPWM_HRPWM_FREQ_200MHZ_OR_240MHZ) &amp;&amp; !((tcpwmClkHz eq 200000000) || (tcpwmClkHz eq 240000000)))
+         )}`" />
+    <DRC type="ERROR" paramId="ClockPrescaler" text="HRPWM requires Clock Prescaler set to Divide by 1." condition="`${enable_hrpwm &amp;&amp; pCnthrpwm &amp;&amp; (ClockPrescaler ne CY_TCPWM_PWM_PRESCALER_DIVBY_1)}`">
+      <FixIt action="SET_PARAM" target="ClockPrescaler" value="CY_TCPWM_PWM_PRESCALER_DIVBY_1" valid="true" />
+    </DRC>
     <!--Compare0 DRCs-->
     <DRC type="INFO" text="Compare 0 > Period 0: Left align = 100% duty, Right align = 0% duty. Center/Asymmetric behavior defined by output polarity." condition="`${pPwmNePrsAndC0GtP0}`" />
     <DRC type="INFO" text="Compare 0 > Period 1: Left align = 100% duty, Right align = 0% duty. Center/Asymmetric behavior defined by output polarity." condition="`${pPwmNePrs &amp;&amp; EnablePeriodSwap &amp;&amp; (!EnableCompare0Swap) &amp;&amp; pNEnCOrAssymAndC0GtP1}`" />

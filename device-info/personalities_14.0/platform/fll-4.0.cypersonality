@@ -80,7 +80,7 @@
     <ParamBool id="enableOutputDivider" name="Enable FLL output Divider" group="General" default="false" visible="`${manConfig ? &quot;true&quot; : &quot;false&quot;}`" editable="true" desc="Enable FLL output Divider" />
     <ParamString id="callSolver" name="callSolver" group="Internal" default="`${manConfig ? runTcl(&quot;fll_solver-2.0.tcl&quot; , &quot;manual&quot;, sourceFrequency / 1000000.0, multiplier, reference, tolerance, enableOutputDivider, path0ClkSource eq &quot;wco&quot;, sourceAccuracy) : callSolverAuto}`" visible="false" editable="false" desc="FLL clock solver" />
 
-    <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFrequency * multiplier / (srcNotUsed ? 1 : reference) / (getTclVar(&quot;enableOutputDiv&quot;, callSolver) ? 2 : 1)}`" min="`${srcNotUsed ? 0 : 24000000}`" max="`${maxFreqHz}`" resolution="200000" visible="false" editable="false" desc="" />
+    <ParamRange id="frequency" name="Frequency" group="Internal" default="`${sourceFrequency * multiplier / (srcNotUsed ? 1 : reference) / (getTclVar(&quot;enableOutputDiv&quot;, callSolver) ? 2 : 1)}`" min="`${srcNotUsed ? 0 : 24000000}`" max="`${maxFreqHz}`" resolution="10000" visible="false" editable="false" desc="" />
     <ParamString id="solvedAccuracy" name="accuracy" group="Internal" default="`${getTclVar(&quot;accuracy&quot;, callSolver)}`" visible="false" editable="false" desc="" />
     <ParamString id="frequencyInfo" name="Actual Frequency" group="General" default="`${srcError ? formatFrequency(0,0) : formatFrequency(frequency,solvedAccuracy)}`" visible="true" editable="false" desc="The calculated resulting FLL output frequency" />
   </Parameters>

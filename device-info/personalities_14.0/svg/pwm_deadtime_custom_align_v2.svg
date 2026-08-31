@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg [
+<!-- =====================================================================
+     Dead Time PWM visualization - CUSTOM MODE ONLY (Not for scale)
+
+     Layout: the FIRST TWO periods are drawn STACKED (Period 0 on top,
+     Period 1 below) and each is UPSCALED so a single period fills the whole
+     graph width. This gives room to show every event and every dead-time gap.
+
+     Waveform + events: this view mirrors the SAME event model as the main
+     custom-align waveform (pwm_custom_align.svg) for displayed periods 1 & 2.
+     Each configured event that changes a line level (CC0 / CC1 on the up- and
+     down-legs, the apex overflow in up/down mode, and the terminal-count at the
+     period boundary) is drawn as a marker, and the resulting line_out /
+     line_compl edges are placed at the DEAD-TIME-SHIFTED positions (_O / _C),
+     so dead time is visualised on EVERY switching (activating) edge:
+       - an activating (rising) edge is delayed by that output's dead time;
+       - a de-activating (falling) edge is immediate;
+       - during each dead-time window BOTH outputs are low.
+
+     AMC + shadow copy are inherited from the main model: line_compl uses its
+     own dead time only when AMC is present, and Period 1 uses the buffered dead
+     time only when Enable Swapping is disabled.
+     ===================================================================== -->
+
+<!-- Header labels -->
+<!ENTITY DT_TITLE "Dead Time PWM (the first 2 counter periods)">
+<!ENTITY SHOW_P1 "1.0">
+<!ENTITY P1_PERIOD_VAL "65535">
+<!ENTITY P2_NAME "Period Buffered">
+<!ENTITY P2_PERIOD_VAL "65535">
+<!ENTITY AMC_NOTE "line_out dead time applies to both outputs">
+<!ENTITY DT_P0_OUT "10">
+<!ENTITY DT_P0_CMPL "10">
+<!ENTITY DT_P1_OUT "10">
+<!ENTITY DT_P1_CMPL "10">
+
+<!-- ==== Period 0 (top) line_out vertex X (dead-time shifted, _O) ==== -->
+<!ENTITY R0_OA "120"><!ENTITY R0_OB "300"><!ENTITY R0_OR "400"><!ENTITY R0_OC "400"><!ENTITY R0_OD "400"><!ENTITY R0_OE "770">
+<!-- Period 0 line_out level Y (115=active/high, 140=low) -->
+<!ENTITY R0_YL0 "140"><!ENTITY R0_YL1 "115"><!ENTITY R0_YL2 "115"><!ENTITY R0_YA "115"><!ENTITY R0_YL3 "115"><!ENTITY R0_YL4 "140"><!ENTITY R0_YEND "140">
+<!-- Period 0 line_compl vertex X (dead-time shifted, _C) -->
+<!ENTITY R0_CA "120"><!ENTITY R0_CB "300"><!ENTITY R0_CR "400"><!ENTITY R0_CC "400"><!ENTITY R0_CD "400"><!ENTITY R0_CE "770">
+<!-- Period 0 line_compl level Y (165=active/high, 190=low; inverted vs line_out) -->
+<!ENTITY R0_NYL0 "165"><!ENTITY R0_NYL1 "190"><!ENTITY R0_NYL2 "190"><!ENTITY R0_NYA "190"><!ENTITY R0_NYL3 "190"><!ENTITY R0_NYL4 "165"><!ENTITY R0_NYEND "165">
+<!-- Period 0 event marker X + visibility -->
+<!ENTITY R0_EC0U "300"><!ENTITY R0_SC0U "1.0">
+<!ENTITY R0_EC0D "300"><!ENTITY R0_SC0D "0.0">
+<!ENTITY R0_EC1U "500"><!ENTITY R0_SC1U "0.0">
+<!ENTITY R0_EC1D "500"><!ENTITY R0_SC1D "0.0">
+<!ENTITY R0_EAPEX "400"><!ENTITY R0_SAPEX "0.0">
+<!-- Period 0 raw (undelayed) vertex X = start of each dead-time gap -->
+<!ENTITY R0_RA "120"><!ENTITY R0_RB "300"><!ENTITY R0_RR "400"><!ENTITY R0_RC "400"><!ENTITY R0_RD "400"><!ENTITY R0_RE "770">
+<!-- Period 0 dead-time gap show-flags (1 when this vertex has a non-zero DT gap) -->
+<!ENTITY R0_GOA "0.0"><!ENTITY R0_GOB "0.0"><!ENTITY R0_GOR "0.0"><!ENTITY R0_GOC "0.0"><!ENTITY R0_GOD "0.0"><!ENTITY R0_GOE "0.0">
+<!ENTITY R0_GCA "0.0"><!ENTITY R0_GCB "0.0"><!ENTITY R0_GCR "0.0"><!ENTITY R0_GCC "0.0"><!ENTITY R0_GCD "0.0"><!ENTITY R0_GCE "0.0">
+<!-- Period 0 count-start activation dead time (start-hold width X, held pre-activation level Y, show-flag) -->
+<!ENTITY R0_ODTW "70"><!ENTITY R0_CDTW "70">
+<!ENTITY R0_ODTY "140"><!ENTITY R0_CDTY "165">
+<!ENTITY R0_GODT "0.0"><!ENTITY R0_GCDT "0.0">
+
+<!-- ==== Period 1 (bottom) line_out vertex X (_O) ==== -->
+<!ENTITY R1_OA "120"><!ENTITY R1_OB "300"><!ENTITY R1_OR "400"><!ENTITY R1_OC "400"><!ENTITY R1_OD "400"><!ENTITY R1_OE "770">
+<!ENTITY R1_YL0 "310"><!ENTITY R1_YL1 "285"><!ENTITY R1_YL2 "285"><!ENTITY R1_YA "285"><!ENTITY R1_YL3 "285"><!ENTITY R1_YL4 "310"><!ENTITY R1_YEND "310">
+<!ENTITY R1_CA "120"><!ENTITY R1_CB "300"><!ENTITY R1_CR "400"><!ENTITY R1_CC "400"><!ENTITY R1_CD "400"><!ENTITY R1_CE "770">
+<!ENTITY R1_NYL0 "335"><!ENTITY R1_NYL1 "360"><!ENTITY R1_NYL2 "360"><!ENTITY R1_NYA "360"><!ENTITY R1_NYL3 "360"><!ENTITY R1_NYL4 "335"><!ENTITY R1_NYEND "335">
+<!ENTITY R1_EC0U "300"><!ENTITY R1_SC0U "1.0">
+<!ENTITY R1_EC0D "300"><!ENTITY R1_SC0D "0.0">
+<!ENTITY R1_EC1U "500"><!ENTITY R1_SC1U "0.0">
+<!ENTITY R1_EC1D "500"><!ENTITY R1_SC1D "0.0">
+<!ENTITY R1_EAPEX "400"><!ENTITY R1_SAPEX "0.0">
+<!-- Period 1 raw (undelayed) vertex X = start of each dead-time gap -->
+<!ENTITY R1_RA "120"><!ENTITY R1_RB "300"><!ENTITY R1_RR "400"><!ENTITY R1_RC "400"><!ENTITY R1_RD "400"><!ENTITY R1_RE "770">
+<!-- Period 1 dead-time gap show-flags -->
+<!ENTITY R1_GOA "0.0"><!ENTITY R1_GOB "0.0"><!ENTITY R1_GOR "0.0"><!ENTITY R1_GOC "0.0"><!ENTITY R1_GOD "0.0"><!ENTITY R1_GOE "0.0">
+<!ENTITY R1_GCA "0.0"><!ENTITY R1_GCB "0.0"><!ENTITY R1_GCR "0.0"><!ENTITY R1_GCC "0.0"><!ENTITY R1_GCD "0.0"><!ENTITY R1_GCE "0.0">
+<!-- Period 1 start-of-period activation dead time (entering first TC): low-hold window end X, the inactive
+     level Y held during the window, and the bracket show-flags. Defaults collapse to no hold (window = 70). -->
+<!ENTITY R1_ODTW "70"><!ENTITY R1_CDTW "70">
+<!ENTITY R1_ODTY "310"><!ENTITY R1_CDTY "335">
+<!ENTITY R1_GODT "0.0"><!ENTITY R1_GCDT "0.0">
+
+
+<!-- Colors -->
+<!ENTITY IFX_COLOR_BERRY400 "#BE3283">
+<!ENTITY IFX_COLOR_LAWN500 "#9BBA43">
+<!ENTITY IFX_COLOR_ORANGE "#FF8C00">
+<!ENTITY IFX_COLOR_CC0 "#005EB8">
+<!ENTITY IFX_COLOR_OCEAN500 "#0A8276">
+<!ENTITY IFX_COLOR_BLACK "#1D1D1D">
+<!ENTITY IFX_COLOR_GRAY "#808080">
+<!ENTITY IFX_COLOR_DT_OUT "#D32F2F">
+<!ENTITY IFX_COLOR_DT_COMPL "#2E7D32">
+
+<!-- Period 1 dead-time labels: "DT_BUFF"/"DT_BUFF_N" only when the buffered dead
+     time actually applies (Swapping Enable OFF); otherwise plain "DT"/"DT_N". -->
+<!ENTITY R1_LBL_OUT "DT_BUFF">
+<!ENTITY R1_LBL_CMPL "DT_BUFF_N">
+]
+>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" style="background: white;">
+
+  <!-- Title -->
+  <text x="400" y="20" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="&IFX_COLOR_BLACK;">&DT_TITLE;</text>
+  <text x="400" y="36" font-family="Arial" font-size="10" text-anchor="middle" fill="&IFX_COLOR_GRAY;">&AMC_NOTE;</text>
+  <text x="400" y="48" font-family="Arial" font-size="9" text-anchor="middle" fill="&IFX_COLOR_GRAY;">Dead time (clks) line_out/line_compl - Period: &DT_P0_OUT;/&DT_P0_CMPL;   Period Buffered: &DT_P1_OUT;/&DT_P1_CMPL;</text>
+
+  <!-- ============================ PERIOD 0 (top) ============================ -->
+  <line x1="70"  y1="58" x2="70"  y2="196" stroke="&IFX_COLOR_GRAY;" stroke-width="1" stroke-dasharray="2,2" opacity="0.5" />
+  <line x1="770" y1="58" x2="770" y2="196" stroke="&IFX_COLOR_GRAY;" stroke-width="1" stroke-dasharray="2,2" opacity="0.5" />
+  <text x="420" y="66" font-family="Arial" font-size="11" font-weight="bold" text-anchor="middle" fill="&IFX_COLOR_GRAY;">Period (&P1_PERIOD_VAL;)</text>
+  <text x="762" y="66" font-family="Arial" font-size="8" text-anchor="end" fill="&IFX_COLOR_GRAY;">TC</text>
+
+  <!-- Event markers (Period 0) -->
+  <g stroke-width="1.5" stroke-dasharray="5,4">
+    <line x1="&R0_EC0U;" y1="86" x2="&R0_EC0U;" y2="196" stroke="&IFX_COLOR_CC0;" opacity="&R0_SC0U;" />
+    <line x1="&R0_EC0D;" y1="86" x2="&R0_EC0D;" y2="196" stroke="&IFX_COLOR_CC0;" opacity="&R0_SC0D;" />
+    <line x1="&R0_EC1U;" y1="86" x2="&R0_EC1U;" y2="196" stroke="&IFX_COLOR_ORANGE;"   opacity="&R0_SC1U;" />
+    <line x1="&R0_EC1D;" y1="86" x2="&R0_EC1D;" y2="196" stroke="&IFX_COLOR_ORANGE;"   opacity="&R0_SC1D;" />
+    <line x1="&R0_EAPEX;" y1="86" x2="&R0_EAPEX;" y2="196" stroke="&IFX_COLOR_OCEAN500;" opacity="&R0_SAPEX;" />
+  </g>
+  <line x1="770" y1="86" x2="770" y2="196" stroke="&IFX_COLOR_GRAY;" stroke-width="1.5" stroke-dasharray="5,4" />
+  <text x="&R0_EC0U;" y="84" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_CC0;" opacity="&R0_SC0U;">CC0</text>
+  <text x="&R0_EC0D;" y="84" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_CC0;" opacity="&R0_SC0D;">CC0</text>
+  <text x="&R0_EC1U;" y="84" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_ORANGE;"   opacity="&R0_SC1U;">CC1</text>
+  <text x="&R0_EC1D;" y="84" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_ORANGE;"   opacity="&R0_SC1D;">CC1</text>
+  <text x="&R0_EAPEX;" y="84" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_OCEAN500;" opacity="&R0_SAPEX;">OVF</text>
+
+  <!-- line_out (Period 0) -->
+  <text x="8" y="131" font-family="Arial" font-size="9" font-weight="bold" fill="&IFX_COLOR_BERRY400;">line_out</text>
+  <polyline fill="none" stroke="&IFX_COLOR_BERRY400;" stroke-width="3"
+    points="70,&R0_ODTY; &R0_ODTW;,&R0_ODTY; &R0_ODTW;,&R0_YL0; &R0_OA;,&R0_YL0; &R0_OA;,&R0_YL1; &R0_OB;,&R0_YL1; &R0_OB;,&R0_YL2; &R0_OR;,&R0_YL2; &R0_OR;,&R0_YA; &R0_OC;,&R0_YA; &R0_OC;,&R0_YL3; &R0_OD;,&R0_YL3; &R0_OD;,&R0_YL4; &R0_OE;,&R0_YL4; &R0_OE;,&R0_YEND; 770,&R0_YEND;" />
+
+  <!-- line_compl (Period 0) -->
+  <text x="8" y="181" font-family="Arial" font-size="9" font-weight="bold" fill="&IFX_COLOR_LAWN500;">line_compl</text>
+  <polyline fill="none" stroke="&IFX_COLOR_LAWN500;" stroke-width="3"
+    points="70,&R0_CDTY; &R0_CDTW;,&R0_CDTY; &R0_CDTW;,&R0_NYL0; &R0_CA;,&R0_NYL0; &R0_CA;,&R0_NYL1; &R0_CB;,&R0_NYL1; &R0_CB;,&R0_NYL2; &R0_CR;,&R0_NYL2; &R0_CR;,&R0_NYA; &R0_CC;,&R0_NYA; &R0_CC;,&R0_NYL3; &R0_CD;,&R0_NYL3; &R0_CD;,&R0_NYL4; &R0_CE;,&R0_NYL4; &R0_CE;,&R0_NYEND; 770,&R0_NYEND;" />
+
+  <!-- Dead-time gap annotations (Period 0): a labelled bracket over each
+       activating (rising) edge showing the dead-time delay between the event
+       and the actual signal change. Drawn on TOP of the waveform (counter-phase
+       to the 0->1 edge). line_out = "DT" (red), line_compl = "DT_N" (green).
+       Each bracket appears only when that vertex has a non-zero dead-time gap. -->
+  <g fill="&IFX_COLOR_DT_OUT;" stroke="&IFX_COLOR_DT_OUT;" stroke-width="2">
+    <g opacity="&R0_GODT;"><line x1="70" y1="108" x2="&R0_ODTW;" y2="108"/><line x1="70" y1="105" x2="70" y2="111"/><line x1="&R0_ODTW;" y1="105" x2="&R0_ODTW;" y2="111"/><text x="&R0_ODTW;" y="102" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT</text></g>
+    <g opacity="&R0_GOA;"><line x1="&R0_RA;" y1="108" x2="&R0_OA;" y2="108"/><line x1="&R0_RA;" y1="105" x2="&R0_RA;" y2="111"/><line x1="&R0_OA;" y1="105" x2="&R0_OA;" y2="111"/><text x="&R0_OA;" y="102" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT</text></g>
+    <g opacity="&R0_GOB;"><line x1="&R0_RB;" y1="108" x2="&R0_OB;" y2="108"/><line x1="&R0_RB;" y1="105" x2="&R0_RB;" y2="111"/><line x1="&R0_OB;" y1="105" x2="&R0_OB;" y2="111"/><text x="&R0_OB;" y="102" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT</text></g>
+    <g opacity="&R0_GOR;"><line x1="&R0_RR;" y1="108" x2="&R0_OR;" y2="108"/><line x1="&R0_RR;" y1="105" x2="&R0_RR;" y2="111"/><line x1="&R0_OR;" y1="105" x2="&R0_OR;" y2="111"/><text x="&R0_OR;" y="102" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT</text></g>
+    <g opacity="&R0_GOC;"><line x1="&R0_RC;" y1="108" x2="&R0_OC;" y2="108"/><line x1="&R0_RC;" y1="105" x2="&R0_RC;" y2="111"/><line x1="&R0_OC;" y1="105" x2="&R0_OC;" y2="111"/><text x="&R0_OC;" y="102" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT</text></g>
+    <g opacity="&R0_GOD;"><line x1="&R0_RD;" y1="108" x2="&R0_OD;" y2="108"/><line x1="&R0_RD;" y1="105" x2="&R0_RD;" y2="111"/><line x1="&R0_OD;" y1="105" x2="&R0_OD;" y2="111"/><text x="&R0_OD;" y="102" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT</text></g>
+    <g opacity="&R0_GOE;"><line x1="&R0_RE;" y1="108" x2="&R0_OE;" y2="108"/><line x1="&R0_RE;" y1="105" x2="&R0_RE;" y2="111"/><line x1="&R0_OE;" y1="105" x2="&R0_OE;" y2="111"/><text x="&R0_OE;" y="102" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT</text></g>
+  </g>
+  <g fill="&IFX_COLOR_DT_COMPL;" stroke="&IFX_COLOR_DT_COMPL;" stroke-width="2">
+    <g opacity="&R0_GCDT;"><line x1="70" y1="158" x2="&R0_CDTW;" y2="158"/><line x1="70" y1="155" x2="70" y2="161"/><line x1="&R0_CDTW;" y1="155" x2="&R0_CDTW;" y2="161"/><text x="&R0_CDTW;" y="152" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT_N</text></g>
+    <g opacity="&R0_GCA;"><line x1="&R0_RA;" y1="158" x2="&R0_CA;" y2="158"/><line x1="&R0_RA;" y1="155" x2="&R0_RA;" y2="161"/><line x1="&R0_CA;" y1="155" x2="&R0_CA;" y2="161"/><text x="&R0_CA;" y="152" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT_N</text></g>
+    <g opacity="&R0_GCB;"><line x1="&R0_RB;" y1="158" x2="&R0_CB;" y2="158"/><line x1="&R0_RB;" y1="155" x2="&R0_RB;" y2="161"/><line x1="&R0_CB;" y1="155" x2="&R0_CB;" y2="161"/><text x="&R0_CB;" y="152" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT_N</text></g>
+    <g opacity="&R0_GCR;"><line x1="&R0_RR;" y1="158" x2="&R0_CR;" y2="158"/><line x1="&R0_RR;" y1="155" x2="&R0_RR;" y2="161"/><line x1="&R0_CR;" y1="155" x2="&R0_CR;" y2="161"/><text x="&R0_CR;" y="152" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT_N</text></g>
+    <g opacity="&R0_GCC;"><line x1="&R0_RC;" y1="158" x2="&R0_CC;" y2="158"/><line x1="&R0_RC;" y1="155" x2="&R0_RC;" y2="161"/><line x1="&R0_CC;" y1="155" x2="&R0_CC;" y2="161"/><text x="&R0_CC;" y="152" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT_N</text></g>
+    <g opacity="&R0_GCD;"><line x1="&R0_RD;" y1="158" x2="&R0_CD;" y2="158"/><line x1="&R0_RD;" y1="155" x2="&R0_RD;" y2="161"/><line x1="&R0_CD;" y1="155" x2="&R0_CD;" y2="161"/><text x="&R0_CD;" y="152" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT_N</text></g>
+    <g opacity="&R0_GCE;"><line x1="&R0_RE;" y1="158" x2="&R0_CE;" y2="158"/><line x1="&R0_RE;" y1="155" x2="&R0_RE;" y2="161"/><line x1="&R0_CE;" y1="155" x2="&R0_CE;" y2="161"/><text x="&R0_CE;" y="152" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">DT_N</text></g>
+  </g>
+
+  <!-- ============================ PERIOD 1 (bottom) ============================ -->
+  <!-- Hidden (opacity 0) in One Shot Running mode, where only the first counter period runs. -->
+  <g opacity="&SHOW_P1;">
+  <line x1="70"  y1="228" x2="70"  y2="366" stroke="&IFX_COLOR_GRAY;" stroke-width="1" stroke-dasharray="2,2" opacity="0.5" />
+  <line x1="770" y1="228" x2="770" y2="366" stroke="&IFX_COLOR_GRAY;" stroke-width="1" stroke-dasharray="2,2" opacity="0.5" />
+  <text x="420" y="236" font-family="Arial" font-size="11" font-weight="bold" text-anchor="middle" fill="&IFX_COLOR_GRAY;">&P2_NAME; (&P2_PERIOD_VAL;)</text>
+  <text x="762" y="236" font-family="Arial" font-size="8" text-anchor="end" fill="&IFX_COLOR_GRAY;">TC</text>
+
+  <!-- Event markers (Period 1) -->
+  <g stroke-width="1.5" stroke-dasharray="5,4">
+    <line x1="&R1_EC0U;" y1="256" x2="&R1_EC0U;" y2="366" stroke="&IFX_COLOR_CC0;" opacity="&R1_SC0U;" />
+    <line x1="&R1_EC0D;" y1="256" x2="&R1_EC0D;" y2="366" stroke="&IFX_COLOR_CC0;" opacity="&R1_SC0D;" />
+    <line x1="&R1_EC1U;" y1="256" x2="&R1_EC1U;" y2="366" stroke="&IFX_COLOR_ORANGE;"   opacity="&R1_SC1U;" />
+    <line x1="&R1_EC1D;" y1="256" x2="&R1_EC1D;" y2="366" stroke="&IFX_COLOR_ORANGE;"   opacity="&R1_SC1D;" />
+    <line x1="&R1_EAPEX;" y1="256" x2="&R1_EAPEX;" y2="366" stroke="&IFX_COLOR_OCEAN500;" opacity="&R1_SAPEX;" />
+  </g>
+  <line x1="770" y1="256" x2="770" y2="366" stroke="&IFX_COLOR_GRAY;" stroke-width="1.5" stroke-dasharray="5,4" />
+  <text x="&R1_EC0U;" y="254" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_CC0;" opacity="&R1_SC0U;">CC0</text>
+  <text x="&R1_EC0D;" y="254" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_CC0;" opacity="&R1_SC0D;">CC0</text>
+  <text x="&R1_EC1U;" y="254" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_ORANGE;"   opacity="&R1_SC1U;">CC1</text>
+  <text x="&R1_EC1D;" y="254" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_ORANGE;"   opacity="&R1_SC1D;">CC1</text>
+  <text x="&R1_EAPEX;" y="254" font-family="Arial" font-size="8" text-anchor="middle" fill="&IFX_COLOR_OCEAN500;" opacity="&R1_SAPEX;">OVF</text>
+
+  <!-- line_out (Period 1) -->
+  <text x="8" y="301" font-family="Arial" font-size="9" font-weight="bold" fill="&IFX_COLOR_BERRY400;">line_out</text>
+  <polyline fill="none" stroke="&IFX_COLOR_BERRY400;" stroke-width="3"
+    points="70,&R1_ODTY; &R1_ODTW;,&R1_ODTY; &R1_ODTW;,&R1_YL0; &R1_OA;,&R1_YL0; &R1_OA;,&R1_YL1; &R1_OB;,&R1_YL1; &R1_OB;,&R1_YL2; &R1_OR;,&R1_YL2; &R1_OR;,&R1_YA; &R1_OC;,&R1_YA; &R1_OC;,&R1_YL3; &R1_OD;,&R1_YL3; &R1_OD;,&R1_YL4; &R1_OE;,&R1_YL4; &R1_OE;,&R1_YEND; 770,&R1_YEND;" />
+
+  <!-- line_compl (Period 1) -->
+  <text x="8" y="351" font-family="Arial" font-size="9" font-weight="bold" fill="&IFX_COLOR_LAWN500;">line_compl</text>
+  <polyline fill="none" stroke="&IFX_COLOR_LAWN500;" stroke-width="3"
+    points="70,&R1_CDTY; &R1_CDTW;,&R1_CDTY; &R1_CDTW;,&R1_NYL0; &R1_CA;,&R1_NYL0; &R1_CA;,&R1_NYL1; &R1_CB;,&R1_NYL1; &R1_CB;,&R1_NYL2; &R1_CR;,&R1_NYL2; &R1_CR;,&R1_NYA; &R1_CC;,&R1_NYA; &R1_CC;,&R1_NYL3; &R1_CD;,&R1_NYL3; &R1_CD;,&R1_NYL4; &R1_CE;,&R1_NYL4; &R1_CE;,&R1_NYEND; 770,&R1_NYEND;" />
+
+  <!-- Dead-time gap annotations (Period 1): buffered dead time. line_out =
+       "DT_BUFF" (red), line_compl = "DT_BUFF_N" (green). Drawn on TOP of the
+       waveform (counter-phase to the 0->1 edge); shown only where a gap exists. -->
+  <g fill="&IFX_COLOR_DT_OUT;" stroke="&IFX_COLOR_DT_OUT;" stroke-width="2">
+    <g opacity="&R1_GODT;"><line x1="70" y1="278" x2="&R1_ODTW;" y2="278"/><line x1="70" y1="275" x2="70" y2="281"/><line x1="&R1_ODTW;" y1="275" x2="&R1_ODTW;" y2="281"/><text x="&R1_ODTW;" y="272" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_OUT;</text></g>
+    <g opacity="&R1_GOA;"><line x1="&R1_RA;" y1="278" x2="&R1_OA;" y2="278"/><line x1="&R1_RA;" y1="275" x2="&R1_RA;" y2="281"/><line x1="&R1_OA;" y1="275" x2="&R1_OA;" y2="281"/><text x="&R1_OA;" y="272" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_OUT;</text></g>
+    <g opacity="&R1_GOB;"><line x1="&R1_RB;" y1="278" x2="&R1_OB;" y2="278"/><line x1="&R1_RB;" y1="275" x2="&R1_RB;" y2="281"/><line x1="&R1_OB;" y1="275" x2="&R1_OB;" y2="281"/><text x="&R1_OB;" y="272" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_OUT;</text></g>
+    <g opacity="&R1_GOR;"><line x1="&R1_RR;" y1="278" x2="&R1_OR;" y2="278"/><line x1="&R1_RR;" y1="275" x2="&R1_RR;" y2="281"/><line x1="&R1_OR;" y1="275" x2="&R1_OR;" y2="281"/><text x="&R1_OR;" y="272" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_OUT;</text></g>
+    <g opacity="&R1_GOC;"><line x1="&R1_RC;" y1="278" x2="&R1_OC;" y2="278"/><line x1="&R1_RC;" y1="275" x2="&R1_RC;" y2="281"/><line x1="&R1_OC;" y1="275" x2="&R1_OC;" y2="281"/><text x="&R1_OC;" y="272" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_OUT;</text></g>
+    <g opacity="&R1_GOD;"><line x1="&R1_RD;" y1="278" x2="&R1_OD;" y2="278"/><line x1="&R1_RD;" y1="275" x2="&R1_RD;" y2="281"/><line x1="&R1_OD;" y1="275" x2="&R1_OD;" y2="281"/><text x="&R1_OD;" y="272" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_OUT;</text></g>
+    <g opacity="&R1_GOE;"><line x1="&R1_RE;" y1="278" x2="&R1_OE;" y2="278"/><line x1="&R1_RE;" y1="275" x2="&R1_RE;" y2="281"/><line x1="&R1_OE;" y1="275" x2="&R1_OE;" y2="281"/><text x="&R1_OE;" y="272" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_OUT;</text></g>
+  </g>
+  <g fill="&IFX_COLOR_DT_COMPL;" stroke="&IFX_COLOR_DT_COMPL;" stroke-width="2">
+    <g opacity="&R1_GCDT;"><line x1="70" y1="328" x2="&R1_CDTW;" y2="328"/><line x1="70" y1="325" x2="70" y2="331"/><line x1="&R1_CDTW;" y1="325" x2="&R1_CDTW;" y2="331"/><text x="&R1_CDTW;" y="322" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_CMPL;</text></g>
+    <g opacity="&R1_GCA;"><line x1="&R1_RA;" y1="328" x2="&R1_CA;" y2="328"/><line x1="&R1_RA;" y1="325" x2="&R1_RA;" y2="331"/><line x1="&R1_CA;" y1="325" x2="&R1_CA;" y2="331"/><text x="&R1_CA;" y="322" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_CMPL;</text></g>
+    <g opacity="&R1_GCB;"><line x1="&R1_RB;" y1="328" x2="&R1_CB;" y2="328"/><line x1="&R1_RB;" y1="325" x2="&R1_RB;" y2="331"/><line x1="&R1_CB;" y1="325" x2="&R1_CB;" y2="331"/><text x="&R1_CB;" y="322" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_CMPL;</text></g>
+    <g opacity="&R1_GCR;"><line x1="&R1_RR;" y1="328" x2="&R1_CR;" y2="328"/><line x1="&R1_RR;" y1="325" x2="&R1_RR;" y2="331"/><line x1="&R1_CR;" y1="325" x2="&R1_CR;" y2="331"/><text x="&R1_CR;" y="322" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_CMPL;</text></g>
+    <g opacity="&R1_GCC;"><line x1="&R1_RC;" y1="328" x2="&R1_CC;" y2="328"/><line x1="&R1_RC;" y1="325" x2="&R1_RC;" y2="331"/><line x1="&R1_CC;" y1="325" x2="&R1_CC;" y2="331"/><text x="&R1_CC;" y="322" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_CMPL;</text></g>
+    <g opacity="&R1_GCD;"><line x1="&R1_RD;" y1="328" x2="&R1_CD;" y2="328"/><line x1="&R1_RD;" y1="325" x2="&R1_RD;" y2="331"/><line x1="&R1_CD;" y1="325" x2="&R1_CD;" y2="331"/><text x="&R1_CD;" y="322" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_CMPL;</text></g>
+    <g opacity="&R1_GCE;"><line x1="&R1_RE;" y1="328" x2="&R1_CE;" y2="328"/><line x1="&R1_RE;" y1="325" x2="&R1_RE;" y2="331"/><line x1="&R1_CE;" y1="325" x2="&R1_CE;" y2="331"/><text x="&R1_CE;" y="322" font-family="Arial" font-size="8" text-anchor="middle" stroke="none">&R1_LBL_CMPL;</text></g>
+  </g>
+  </g>
+
+</svg>

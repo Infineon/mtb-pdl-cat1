@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm.h
-* \version 1.90
+* \version 1.100
 *
 * The header file of the TCPWM driver.
 *
@@ -231,6 +231,25 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.100</td>
+*     <td>Added support for the PWM custom alignment mode.
+*          Newly added enums:
+*          - \ref cy_en_pwm_count_direction_t
+*          - \ref cy_en_pwm_output_action_t
+*
+*          Newly added APIs:
+*          - \ref Cy_TCPWM_PWM_CNT_SetCountDirectionMode
+*          - \ref Cy_TCPWM_PWM_CNT_SetCC0MatchAction
+*          - \ref Cy_TCPWM_PWM_CNT_SetCC1MatchAction
+*          - \ref Cy_TCPWM_PWM_CNT_SetOverflowAction
+*          - \ref Cy_TCPWM_PWM_CNT_SetUnderflowAction
+*
+*          Updated the following API and structure:
+*          - \ref Cy_TCPWM_PWM_Init
+*          - \ref cy_stc_tcpwm_pwm_config_t</td>
+*     <td>New feature support.</td>
+*   </tr>
+*   <tr>
 *     <td>1.90</td>
 *     <td>Added new parameters to \ref cy_stc_tcpwm_pwm_config_t structure.</td>
 *     <td>Enhancements for Debug Freeze feature configuration.</td>
@@ -402,7 +421,7 @@ extern "C" {
 #define CY_TCPWM_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_TCPWM_DRV_VERSION_MINOR       90
+#define CY_TCPWM_DRV_VERSION_MINOR       100
 
 /******************************************************************************
 * API Constants
@@ -482,7 +501,7 @@ extern "C" {
 /** Output trigger generates signal on overflow event */
 #define CY_TCPWM_CNT_TRIGGER_ON_OVERFLOW    (0U)
 /** Output trigger generates signal on underflow event */
-#define CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW    (1U)
+#define CY_TCPWM_CNT_TRIGGER_ON_UNDERFLOW   (1U)
 /** Output trigger generates signal on terminal count event */
 #define CY_TCPWM_CNT_TRIGGER_ON_TC          (2U)
 /** Output trigger generates signal on compare/capture 0 event */
@@ -1823,6 +1842,8 @@ __STATIC_INLINE void Cy_TCPWM_InputTriggerSetupWithGF (TCPWM_Type *base, uint32 
 *******************************************************************************/
 #define CY_TCPWM_INT_ON_CC              CY_TCPWM_INT_ON_CC0
 #define CY_TCPWM_INT_ON_CC_OR_TC        CY_TCPWM_INT_ON_CC0_OR_TC
+
+#define CY_TCPWM_CNT_TRIGGER_ON_UNDEFLOW   CY_TCPWM_CNT_TRIGGER_ON_UNDERFLOW
 
 #if defined(__cplusplus)
 }

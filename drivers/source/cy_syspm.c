@@ -2416,14 +2416,6 @@ void Cy_SysPm_CpuSendWakeupEvent(void)
 }
 
 
-bool Cy_SysPm_SystemIsMinRegulatorCurrentSet(void)
-{
-    uint32_t regMask = Cy_SysPm_LdoIsEnabled() ? CY_SYSPM_PWR_CIRCUITS_LPMODE_ACTIVE_LDO_MASK : CY_SYSPM_PWR_CIRCUITS_LPMODE_ACTIVE_BUCK_MASK;
-
-    return ((SRSS_PWR_CTL & regMask) == regMask);
-}
-
-
 bool Cy_SysPm_BuckIsEnabled(void)
 {
     return (0U != _FLD2VAL(SRSS_PWR_BUCK_CTL_BUCK_EN, SRSS_PWR_BUCK_CTL));

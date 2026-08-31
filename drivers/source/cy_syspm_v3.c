@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v3.c
-* \version 5.220
+* \version 5.230
 *
 * This driver provides the source code for API power management.
 *
@@ -2130,13 +2130,6 @@ bool Cy_SysPm_SupplySupervisionStatus(cy_en_syspm_supply_entity_select_t supplyE
     }
 
     return (returnStatus);
-}
-
-bool Cy_SysPm_SystemIsMinRegulatorCurrentSet(void)
-{
-    uint32_t regMask = Cy_SysPm_LdoIsEnabled() ? CY_SYSPM_PWR_CIRCUITS_LPMODE_ACTIVE_LDO_MASK : CY_SYSPM_PWR_CIRCUITS_LPMODE_ACTIVE_BUCK_MASK;
-
-    return ((SRSS_PWR_CTL & regMask) == regMask);
 }
 
 void Cy_SysPm_LinearRegDisable(void)

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_tcpwm_pwm.h
-* \version 1.90
+* \version 1.100
 *
 * \brief
 * The header file of the TCPWM PWM driver.
@@ -76,6 +76,7 @@ extern "C" {
 * The PWM configuration can be divided to number of sequential
 * steps listed below:
 * * \ref group_tcpwm_pwm_config
+* * \ref group_tcpwm_pwm_custom_align
 * * \ref group_tcpwm_pwm_clock
 * * \ref group_tcpwm_pwm_enable
 * * \ref group_tcpwm_pwm_start
@@ -93,6 +94,83 @@ extern "C" {
 *
 * For TCPWM V2 Configuration
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_V2_PWM_Init
+*
+* \subsection group_tcpwm_pwm_custom_align Configure Custom Aligned PWM
+* Set \ref cy_stc_tcpwm_pwm_config_t::pwmAlignment to \ref CY_TCPWM_PWM_CUSTOM_ALIGN to
+* build a non-standard waveform. The predefined alignments (Left, Right, Center,
+* Asymmetric, ...) preset the counter direction, the initial counter value and the
+* per-event line actions for you. The custom alignment instead lets you program those
+* CTRL, COUNTER and TR_PWM_CTRL register fields explicitly. It is available only on the
+* MXS40 TCPWM IP.
+*
+* The following members of \ref cy_stc_tcpwm_pwm_config_t are consumed only when
+* \ref cy_stc_tcpwm_pwm_config_t::pwmAlignment is \ref CY_TCPWM_PWM_CUSTOM_ALIGN, as listed below:
+* * \ref cy_stc_tcpwm_pwm_config_t::countDirectionMode - counter direction (Count Up,
+*   Count Down or Count Up/Down). See \ref group_tcpwm_pwm_count_direction_mode.
+* * \ref cy_stc_tcpwm_pwm_config_t::initialCountVal - value loaded into the counter when it
+*   starts. Typically 0 for up-counting, the Period value for down-counting, or 1 for
+*   up/down-counting.
+* * \ref cy_stc_tcpwm_pwm_config_t::cc0MatchMode - line action on a Compare 0 (CC0) match.
+* * \ref cy_stc_tcpwm_pwm_config_t::cc1MatchMode - line action on a Compare 1 (CC1) match.
+*   Applied only on counters that support CC1.
+* * \ref cy_stc_tcpwm_pwm_config_t::overflowMode - line action on a counter overflow
+*   (COUNTER reaches PERIOD).
+* * \ref cy_stc_tcpwm_pwm_config_t::underflowMode - line action on a counter underflow
+*   (COUNTER reaches 0).
+*
+* Each of the four action members takes a \ref group_tcpwm_pwm_output_action value
+* (Set, Clear, Invert or No Change) applied to line_out (and inverted onto line_compl_out)
+* when the corresponding event occurs. Together, the counter direction, the initial value
+* and the four event actions fully define the output waveform.
+*
+* The same fields can also be changed at run time (after \ref Cy_TCPWM_PWM_Init) with the
+* dedicated setters, each performing a single read-modify-write of its CTRL / TR_PWM_CTRL
+* field:
+* * \ref Cy_TCPWM_PWM_CNT_SetCountDirectionMode
+* * \ref Cy_TCPWM_PWM_CNT_SetCC0MatchAction
+* * \ref Cy_TCPWM_PWM_CNT_SetCC1MatchAction
+* * \ref Cy_TCPWM_PWM_CNT_SetOverflowAction
+* * \ref Cy_TCPWM_PWM_CNT_SetUnderflowAction
+*
+* \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_Custom_Align
+*
+* In the ModusToolbox Device Configurator, select <b>Custom</b> in the
+* <b>PWM Configurations</b> drop-down of the <b>PWM signal behavior</b> group to unlock the
+* <b>Count Direction</b>, <b>Initial Counter Value</b> and the
+* <b>CC0 / CC1 Match Action</b> and <b>Overflow / Underflow Action</b> fields.
+* \image html tcpwm_pwm_custom_align_config.png "Custom PWM signal behavior configuration"
+*
+* How each custom parameter shapes the output waveform:
+* * <b>Count Direction</b> (\ref cy_stc_tcpwm_pwm_config_t::countDirectionMode) - defines
+*   the counting scheme and therefore which events fire and where the compare matches land
+*   on the ramp. Count Up ramps 0 -> PERIOD and generates only overflow; Count Down ramps
+*   PERIOD -> 0 and generates only underflow; the Up/Down modes ramp up then down, producing
+*   both an overflow (at PERIOD) and an underflow (at 0) and hitting each compare value twice
+*   per period. It also selects when the terminal count (TC) is issued (on underflow only, or
+*   on both overflow and underflow).
+* * <b>Initial Counter Value</b> (\ref cy_stc_tcpwm_pwm_config_t::initialCountVal) - the value
+*   loaded into the counter at start. It sets the phase/starting point of the very first
+*   period (for example, starting at 0 for up-counting, at PERIOD for down-counting, or at 1
+*   for up/down-counting) and thus the initial output level before the first match occurs.
+* * <b>CC0 Match Action</b> (\ref cy_stc_tcpwm_pwm_config_t::cc0MatchMode) - the action applied
+*   to line_out (and inverted onto line_compl_out) when COUNTER equals Compare 0. This is
+*   normally the edge that starts or ends the pulse (one of the two duty-cycle edges).
+* * <b>CC1 Match Action</b> (\ref cy_stc_tcpwm_pwm_config_t::cc1MatchMode) - the action applied
+*   when COUNTER equals Compare 1, giving an independent second edge so the pulse can be bounded
+*   by two arbitrary compare values (CC0 and CC1) rather than by a compare and a period boundary.
+*   Effective only on counters that provide a CC1 register; ignored otherwise.
+* * <b>Overflow Action</b> (\ref cy_stc_tcpwm_pwm_config_t::overflowMode) - the action taken when
+*   the counter reaches PERIOD (overflow). Use it to force a known output level at the top of the
+*   ramp / period boundary (for example, re-arming the line high or low at the start of each period).
+* * <b>Underflow Action</b> (\ref cy_stc_tcpwm_pwm_config_t::underflowMode) - the action taken when
+*   the counter reaches 0 (underflow). Use it to force a known output level at the bottom of the
+*   ramp, which is what shapes the waveform in Count Down and Up/Down modes.
+*
+* Each action is one of \ref group_tcpwm_pwm_output_action - <b>Set</b> drives line_out to 1,
+* <b>Clear</b> drives it to 0, <b>Invert</b> toggles it (useful for center-style waveforms), and
+* <b>No Change</b> leaves it untouched so that event has no effect on the output. Choosing
+* conflicting or overlapping actions (for example a match and an overflow on the same tick) lets
+* you build non-standard waveforms that the predefined alignments cannot express.
 *
 * \subsection group_tcpwm_pwm_clock Assign Clock Divider
 * The clock source must be connected to proper working.
@@ -176,6 +254,36 @@ typedef enum
 } cy_en_line_select_config_t;
 #endif /* (CY_IP_MXTCPWM_VERSION >= 2U) || defined (CY_DOXYGEN) */
 
+/**
+* \defgroup group_tcpwm_pwm_count_direction_mode PWM Count Direction Mode
+* \{
+* Selects the PWM counter direction/mode.
+*/
+/** PWM counter direction/mode */
+typedef enum
+{
+    CY_TCPWM_PWM_COUNT_UP           = 0U,   /**< Counter counts up */
+    CY_TCPWM_PWM_COUNT_DOWN         = 1U,   /**< Counter counts down */
+    CY_TCPWM_PWM_COUNT_UP_DOWN_1    = 2U,   /**< Counter counts up and down, terminal count only occurs on underflow. */
+    CY_TCPWM_PWM_COUNT_UP_DOWN_2    = 3U,   /**< Counter counts up and down, terminal count occurs on both overflow and underflow. */
+} cy_en_pwm_count_direction_t;
+/** \} group_tcpwm_pwm_count_direction_mode */
+
+/**
+* \defgroup group_tcpwm_pwm_output_action PWM CC Match / Overflow / Underflow Actions
+* \{
+* Selects the PWM output line action performed on a CC0/CC1 match, overflow or underflow event.
+*/
+/** PWM output line action performed on a CC0/CC1 match, overflow or underflow event */
+typedef enum
+{
+    CY_TCPWM_PWM_ACTION_SET         = 0U,   /**< Set the output line on the event */
+    CY_TCPWM_PWM_ACTION_CLEAR       = 1U,   /**< Clear the output line on the event */
+    CY_TCPWM_PWM_ACTION_INVERT      = 2U,   /**< Invert (toggle) the output line on the event */
+    CY_TCPWM_PWM_ACTION_NO_CHANGE   = 3U,   /**< Leave the output line unchanged on the event */
+} cy_en_pwm_output_action_t;
+/** \} group_tcpwm_pwm_output_action */
+
 /** PWM configuration structure */
 typedef struct cy_stc_tcpwm_pwm_config
 {
@@ -254,8 +362,20 @@ typedef struct cy_stc_tcpwm_pwm_config
     bool        pwm_sync_kill_dt;       /**< PWM output line_out get suppressed immediately whereas line_compl_out get suppressed after dead time when kill input is active. */
     bool        debug_freeze_enable;    /**< Specifies the counter behavior in debug mode. */
     bool        debug_suspend_enable;   /**< Specifies the counter behavior in debug mode when suspend is enabled. */
+    /** Initial counter value loaded when the counter starts. Applied only when \ref cy_stc_tcpwm_pwm_config_t::pwmAlignment is \ref CY_TCPWM_PWM_CUSTOM_ALIGN. */
+    uint32_t    initialCountVal;
+    /** Counter direction mode. Applied only when \ref cy_stc_tcpwm_pwm_config_t::pwmAlignment is \ref CY_TCPWM_PWM_CUSTOM_ALIGN. */
+    cy_en_pwm_count_direction_t countDirectionMode;
+    /** Output line action on a Compare 0 (CC0) match. Applied only when \ref cy_stc_tcpwm_pwm_config_t::pwmAlignment is \ref CY_TCPWM_PWM_CUSTOM_ALIGN. */
+    cy_en_pwm_output_action_t cc0MatchMode;
+    /** Output line action on a Compare 1 (CC1) match. Applied only when \ref cy_stc_tcpwm_pwm_config_t::pwmAlignment is \ref CY_TCPWM_PWM_CUSTOM_ALIGN. */
+    cy_en_pwm_output_action_t cc1MatchMode;
+    /** Output line action on a counter overflow. Applied only when \ref cy_stc_tcpwm_pwm_config_t::pwmAlignment is \ref CY_TCPWM_PWM_CUSTOM_ALIGN. */
+    cy_en_pwm_output_action_t overflowMode;
+    /** Output line action on a counter underflow. Applied only when \ref cy_stc_tcpwm_pwm_config_t::pwmAlignment is \ref CY_TCPWM_PWM_CUSTOM_ALIGN. */
+    cy_en_pwm_output_action_t underflowMode;
 #endif /* defined (CY_IP_MXS40TCPWM) || defined (CY_DOXYGEN) */
-}cy_stc_tcpwm_pwm_config_t;
+} cy_stc_tcpwm_pwm_config_t;
 /** \} group_tcpwm_data_structures_pwm */
 
 /**
@@ -289,7 +409,8 @@ typedef struct cy_stc_tcpwm_pwm_config
 /** PWM is asymmetrically aligned, terminal count occurs on overflow and underflow */
 #define CY_TCPWM_PWM_ASYMMETRIC_ALIGN                   (3U)
 #define CY_TCPWM_PWM_ASYMMETRIC_CC0_CC1_ALIGN           (4U) /**< PWM is asymmetrically aligned, line pulse period is equal to CC1-CC0 */
-#define CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN    (5U) /**< PWM is asymmetrically aligned, TBD */
+#define CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN    (5U) /**< PWM is center asymmetrically aligned, line pulse period is equal to 2 x PERIOD - CC0 - CC1 */
+#define CY_TCPWM_PWM_CUSTOM_ALIGN                       (8U) /**< PWM is custom aligned. The count direction, counter init value and per-event line actions (CC0/overflow/underflow/CC1 match) are programmed explicitly. See \ref cy_stc_tcpwm_pwm_config_t */
 /** \} group_tcpwm_pwm_alignment */
 
 /** \defgroup group_tcpwm_pwm_kill_modes PWM kill modes
@@ -500,6 +621,11 @@ cy_en_tcpwm_status_t Cy_TCPWM_PWM_Configure_Dithering(TCPWM_Type *base, uint32_t
 __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeBuff (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime);
 __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeBuffN (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime);
 __STATIC_INLINE void Cy_TCPWM_PWM_SetDTBuff (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime);
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetCountDirectionMode(TCPWM_GRP_CNT_Type *base, cy_en_pwm_count_direction_t countDirectionMode);
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetCC0MatchAction(TCPWM_GRP_CNT_Type *base, cy_en_pwm_output_action_t cc0MatchMode);
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetCC1MatchAction(TCPWM_GRP_CNT_Type *base, cy_en_pwm_output_action_t cc1MatchMode);
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetOverflowAction(TCPWM_GRP_CNT_Type *base, cy_en_pwm_output_action_t overflowMode);
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetUnderflowAction(TCPWM_GRP_CNT_Type *base, cy_en_pwm_output_action_t underflowMode);
 #endif /* defined (CY_IP_MXS40TCPWM) || defined (CY_DOXYGEN) */
 /*******************************************************************************
 * Function Name: Cy_TCPWM_PWM_Enable
@@ -632,6 +758,14 @@ __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetStatus(TCPWM_Type const *base, uint32_t
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_SetCompare0Val
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the CC0 register hold the HRPWM micro-tick (sub-counter-clock) value and
+* the upper bits hold the integer Compare 0 value. In that case the value used by
+* this function is the combined register content:
+* (integer Compare 0 << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer Compare 0 value.
+*
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_SetCompare0Val(TCPWM_Type *base, uint32_t cntNum,  uint32_t compare0)
 {
@@ -656,6 +790,14 @@ __STATIC_INLINE void Cy_TCPWM_PWM_SetCompare0Val(TCPWM_Type *base, uint32_t cntN
 *
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_SetCompare0Val
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the CC0 register hold the HRPWM micro-tick (sub-counter-clock) value and
+* the upper bits hold the integer Compare 0 value. In that case the value returned
+* by this function is the combined register content:
+* (integer Compare 0 << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer Compare 0 value.
 *
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetCompare0Val(TCPWM_Type const *base, uint32_t cntNum)
@@ -682,6 +824,14 @@ __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetCompare0Val(TCPWM_Type const *base, uin
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_SetCompare0BufVal
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the CC0_BUFF register hold the HRPWM micro-tick (sub-counter-clock)
+* value and the upper bits hold the integer buffered Compare 0 value. In that case
+* the value used by this function is the combined register content:
+* (integer buffered Compare 0 << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer buffered Compare 0 value.
+*
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_SetCompare0BufVal(TCPWM_Type *base, uint32_t cntNum,  uint32_t compareBuf0)
 {
@@ -707,6 +857,14 @@ __STATIC_INLINE void Cy_TCPWM_PWM_SetCompare0BufVal(TCPWM_Type *base, uint32_t c
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_SetCompare0BufVal
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the CC0_BUFF register hold the HRPWM micro-tick (sub-counter-clock)
+* value and the upper bits hold the integer buffered Compare 0 value. In that case
+* the value returned by this function is the combined register content:
+* (integer buffered Compare 0 << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer buffered Compare 0 value.
+*
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetCompare0BufVal(TCPWM_Type const *base, uint32_t cntNum)
 {
@@ -729,6 +887,14 @@ __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetCompare0BufVal(TCPWM_Type const *base, 
 * \param compare1
 * The Compare1 value.
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the CC1 register hold the HRPWM micro-tick (sub-counter-clock) value and
+* the upper bits hold the integer Compare 1 value. In that case the value used by
+* this function is the combined register content:
+* (integer Compare 1 << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer Compare 1 value.
+*
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_SetCompare1Val(TCPWM_Type *base, uint32_t cntNum,  uint32_t compare1)
 {
@@ -750,6 +916,14 @@ __STATIC_INLINE void Cy_TCPWM_PWM_SetCompare1Val(TCPWM_Type *base, uint32_t cntN
 *
 * \return
 * Compare 1 value.
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the CC1 register hold the HRPWM micro-tick (sub-counter-clock) value and
+* the upper bits hold the integer Compare 1 value. In that case the value returned
+* by this function is the combined register content:
+* (integer Compare 1 << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer Compare 1 value.
 *
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetCompare1Val(TCPWM_Type const *base, uint32_t cntNum)
@@ -774,6 +948,13 @@ __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetCompare1Val(TCPWM_Type const *base, uin
 * The buffered Compare 1 value.
 *
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the CC1_BUFF register hold the HRPWM micro-tick (sub-counter-clock)
+* value and the upper bits hold the integer buffered Compare 1 value. In that case
+* the value used by this function is the combined register content:
+* (integer buffered Compare 1 << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer buffered Compare 1 value.
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_SetCompare1BufVal(TCPWM_Type *base, uint32_t cntNum,  uint32_t compareBuf1)
 {
@@ -795,6 +976,14 @@ __STATIC_INLINE void Cy_TCPWM_PWM_SetCompare1BufVal(TCPWM_Type *base, uint32_t c
 *
 * \return
 * Buffered compare 1 value.
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the CC1_BUFF register hold the HRPWM micro-tick (sub-counter-clock)
+* value and the upper bits hold the integer buffered Compare 1 value. In that case
+* the value returned by this function is the combined register content:
+* (integer buffered Compare 1 << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer buffered Compare 1 value.
 *
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetCompare1BufVal(TCPWM_Type const *base, uint32_t cntNum)
@@ -929,6 +1118,14 @@ __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetCounter(TCPWM_Type const *base, uint32_
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_SetPeriod0
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the PERIOD register hold the HRPWM micro-tick (sub-counter-clock) value
+* and the upper bits hold the integer period. In that case the value used by this
+* function is the combined register content:
+* (integer period << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer period.
+*
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_SetPeriod0(TCPWM_Type *base, uint32_t cntNum,  uint32_t period0)
 {
@@ -953,6 +1150,14 @@ __STATIC_INLINE void Cy_TCPWM_PWM_SetPeriod0(TCPWM_Type *base, uint32_t cntNum, 
 *
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_SetPeriod0
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the PERIOD register hold the HRPWM micro-tick (sub-counter-clock) value
+* and the upper bits hold the integer period. In that case the value returned by
+* this function is the combined register content:
+* (integer period << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer period.
 *
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetPeriod0(TCPWM_Type const *base, uint32_t cntNum)
@@ -979,6 +1184,14 @@ __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetPeriod0(TCPWM_Type const *base, uint32_
 *
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_SetPeriod1
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the PERIOD_BUFF register hold the HRPWM micro-tick (sub-counter-clock)
+* value and the upper bits hold the integer buffered period. In that case the
+* value used by this function is the combined register content:
+* (integer buffered period << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer buffered period.
 *
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_SetPeriod1(TCPWM_Type *base, uint32_t cntNum,  uint32_t period1)
@@ -1009,6 +1222,14 @@ __STATIC_INLINE void Cy_TCPWM_PWM_SetPeriod1(TCPWM_Type *base, uint32_t cntNum, 
 *
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_SetPeriod1
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM
+* (High-Resolution PWM) feature is enabled the least-significant GRP_HRPWM_WIDTH
+* bits of the PERIOD_BUFF register hold the HRPWM micro-tick (sub-counter-clock)
+* value and the upper bits hold the integer buffered period. In that case the
+* value returned by this function is the combined register content:
+* (integer buffered period << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the whole register represents the integer buffered period.
 *
 *******************************************************************************/
 __STATIC_INLINE uint32_t Cy_TCPWM_PWM_GetPeriod1(TCPWM_Type const *base, uint32_t cntNum)
@@ -1175,6 +1396,15 @@ __STATIC_INLINE uint32_t Cy_TCPWM_PWM_LineOutStatus (TCPWM_Type const *base, uin
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_PWMDeadTime
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM (High-Resolution PWM)
+* feature is enabled on blocks with advanced motor control (AMC) support, the
+* least-significant GRP_HRPWM_WIDTH bits of the DT_LINE_OUT field hold the HRPWM
+* micro-tick (sub-counter-clock) value and the upper bits hold the integer
+* dead-time clocks. In that case the value used by this function is the combined
+* field content:
+* (integer dead-time clocks << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the field represents the integer dead-time clocks.
+*
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTime (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime)
 {
@@ -1218,6 +1448,15 @@ __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTime (TCPWM_Type const *base, uint32_t 
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_PWMDeadTime
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM (High-Resolution PWM)
+* feature is enabled on blocks with advanced motor control (AMC) support, the
+* least-significant GRP_HRPWM_WIDTH bits of the DT_LINE_COMPL_OUT field hold the
+* HRPWM micro-tick (sub-counter-clock) value and the upper bits hold the integer
+* dead-time clocks. In that case the value used by this function is the combined
+* field content:
+* (integer dead-time clocks << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the field represents the integer dead-time clocks.
+*
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeN (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime)
 {
@@ -1248,6 +1487,15 @@ __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeN (TCPWM_Type const *base, uint32_t
 * The dead time value for both Line Out and Line Compliment Out.
 *
 * \note 32 bit value with 0-15 bits to set Line out Dead Time value and 16-31 bits to set Line Compliment Out Dead Time Value.
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM (High-Resolution PWM)
+* feature is enabled on blocks with advanced motor control (AMC) support, the
+* least-significant GRP_HRPWM_WIDTH bits of each of the DT_LINE_OUT and
+* DT_LINE_COMPL_OUT fields hold the HRPWM micro-tick (sub-counter-clock) value and
+* the upper bits hold the integer dead-time clocks. In that case each dead-time
+* field is the combined content:
+* (integer dead-time clocks << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled each field represents the integer dead-time clocks.
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_SetDT (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime)
 {
@@ -1413,6 +1661,15 @@ __STATIC_INLINE void Cy_TCPWM_PWM_Set_KillLinePolarity(TCPWM_Type *base, uint32_
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_PWMDeadTime
 *
+* \note On a TCPWM block with HRPWM support, when the HRPWM (High-Resolution PWM)
+* feature is enabled on blocks with advanced motor control (AMC) support, the
+* least-significant GRP_HRPWM_WIDTH bits of the DT_BUFF_LINE_OUT field hold the
+* HRPWM micro-tick (sub-counter-clock) value and the upper bits hold the integer
+* dead-time clocks. In that case the value used by this function is the combined
+* field content:
+* (integer dead-time clocks << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the field represents the integer dead-time clocks.
+*
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeBuff (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime)
 {
@@ -1444,6 +1701,15 @@ __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeBuff (TCPWM_Type const *base, uint3
 *
 * \funcusage
 * \snippet tcpwm/pwm/snippet/main.c snippet_Cy_TCPWM_PWM_PWMDeadTime
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM (High-Resolution PWM)
+* feature is enabled on blocks with advanced motor control (AMC) support, the
+* least-significant GRP_HRPWM_WIDTH bits of the DT_BUFF_LINE_COMPL_OUT field hold
+* the HRPWM micro-tick (sub-counter-clock) value and the upper bits hold the
+* integer dead-time clocks. In that case the value used by this function is the
+* combined field content:
+* (integer dead-time clocks << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled the field represents the integer dead-time clocks.
 *
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeBuffN (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime)
@@ -1477,12 +1743,132 @@ __STATIC_INLINE void Cy_TCPWM_PWM_PWMDeadTimeBuffN (TCPWM_Type const *base, uint
 * The dead time value for both Line Out and Line Compliment Out.
 *
 * \note 32 bit value with 0-15 bits to set Line out Dead Time value and 16-31 bits to set Line Compliment Out Dead Time Value.
+*
+* \note On a TCPWM block with HRPWM support, when the HRPWM (High-Resolution PWM)
+* feature is enabled on blocks with advanced motor control (AMC) support, the
+* least-significant GRP_HRPWM_WIDTH bits of each of the DT_BUFF_LINE_OUT and
+* DT_BUFF_LINE_COMPL_OUT fields hold the HRPWM micro-tick (sub-counter-clock)
+* value and the upper bits hold the integer dead-time clocks. In that case each
+* dead-time field is the combined content:
+* (integer dead-time clocks << GRP_HRPWM_WIDTH) + HRPWM micro-ticks.
+* When HRPWM is disabled each field represents the integer dead-time clocks.
 *******************************************************************************/
 __STATIC_INLINE void Cy_TCPWM_PWM_SetDTBuff (TCPWM_Type const *base, uint32_t cntNum, uint32_t deadTime)
 {
     uint32_t grp = TCPWM_GRP_CNT_GET_GRP(cntNum);
     TCPWM_GRP_CNT_DT_BUFF(base, grp, cntNum) = deadTime;
 }
+
+
+/*******************************************************************************
+* Function Name: Cy_TCPWM_PWM_CNT_SetCountDirectionMode
+****************************************************************************//**
+*
+* Sets the counter direction/mode (Count Up, Count Down or Count Up/Down).
+*
+* \param base
+* The pointer to a TCPWM instance.
+*
+* \param countDirectionMode
+* The counter direction mode. See \ref group_tcpwm_pwm_count_direction_mode.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetCountDirectionMode(TCPWM_GRP_CNT_Type *base, cy_en_pwm_count_direction_t countDirectionMode)
+{
+    CY_ASSERT_L1(NULL!=base);
+
+    base->CTRL = (base->CTRL & ~TCPWM_GRP_CNT_V2_CTRL_UP_DOWN_MODE_Msk) |
+                 _VAL2FLD(TCPWM_GRP_CNT_V2_CTRL_UP_DOWN_MODE, countDirectionMode);
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_TCPWM_PWM_CNT_SetCC0MatchAction
+****************************************************************************//**
+*
+* Sets the output line action taken on a Compare 0 (CC0) match.
+*
+* \param base
+* The pointer to a TCPWM instance.
+*
+* \param cc0MatchMode
+* Output line action on a Compare 0 (CC0) match. See \ref group_tcpwm_pwm_output_action.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetCC0MatchAction(TCPWM_GRP_CNT_Type *base, cy_en_pwm_output_action_t cc0MatchMode)
+{
+    CY_ASSERT_L1(NULL!=base);
+
+    base->TR_PWM_CTRL = (base->TR_PWM_CTRL & ~TCPWM_GRP_CNT_V2_TR_PWM_CTRL_CC0_MATCH_MODE_Msk) |
+                        _VAL2FLD(TCPWM_GRP_CNT_V2_TR_PWM_CTRL_CC0_MATCH_MODE, cc0MatchMode);
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_TCPWM_PWM_CNT_SetCC1MatchAction
+****************************************************************************//**
+*
+* Sets the output line action taken on a Compare 1 (CC1) match.
+*
+* \param base
+* The pointer to a TCPWM instance.
+*
+* \param cc1MatchMode
+* Output line action on a Compare 1 (CC1) match. See \ref group_tcpwm_pwm_output_action.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetCC1MatchAction(TCPWM_GRP_CNT_Type *base, cy_en_pwm_output_action_t cc1MatchMode)
+{
+    CY_ASSERT_L1(NULL!=base);
+
+    base->TR_PWM_CTRL = (base->TR_PWM_CTRL & ~TCPWM_GRP_CNT_V2_TR_PWM_CTRL_CC1_MATCH_MODE_Msk) |
+                        _VAL2FLD(TCPWM_GRP_CNT_V2_TR_PWM_CTRL_CC1_MATCH_MODE, cc1MatchMode);
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_TCPWM_PWM_CNT_SetOverflowAction
+****************************************************************************//**
+*
+* Sets the output line action taken on a counter overflow.
+*
+* \param base
+* The pointer to a TCPWM instance.
+*
+* \param overflowMode
+* Output line action on a counter overflow. See \ref group_tcpwm_pwm_output_action.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetOverflowAction(TCPWM_GRP_CNT_Type *base, cy_en_pwm_output_action_t overflowMode)
+{
+    CY_ASSERT_L1(NULL!=base);
+
+    base->TR_PWM_CTRL = (base->TR_PWM_CTRL & ~TCPWM_GRP_CNT_V2_TR_PWM_CTRL_OVERFLOW_MODE_Msk) |
+                        _VAL2FLD(TCPWM_GRP_CNT_V2_TR_PWM_CTRL_OVERFLOW_MODE, overflowMode);
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_TCPWM_PWM_CNT_SetUnderflowAction
+****************************************************************************//**
+*
+* Sets the output line action taken on a counter underflow.
+*
+* \param base
+* The pointer to a TCPWM instance.
+*
+* \param underflowMode
+* Output line action on a counter underflow. See \ref group_tcpwm_pwm_output_action.
+*
+*******************************************************************************/
+__STATIC_INLINE void Cy_TCPWM_PWM_CNT_SetUnderflowAction(TCPWM_GRP_CNT_Type *base, cy_en_pwm_output_action_t underflowMode)
+{
+    CY_ASSERT_L1(NULL!=base);
+
+    base->TR_PWM_CTRL = (base->TR_PWM_CTRL & ~TCPWM_GRP_CNT_V2_TR_PWM_CTRL_UNDERFLOW_MODE_Msk) |
+                        _VAL2FLD(TCPWM_GRP_CNT_V2_TR_PWM_CTRL_UNDERFLOW_MODE, underflowMode);
+}
+
 
 #endif /* defined (CY_IP_MXS40TCPWM) */
 

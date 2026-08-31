@@ -51,6 +51,11 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td >2.20</td>
+*     <td>Added \ref Cy_CORDIC_Sqrt_Circular API.</td>
+*     <td>Improvement.</td>
+*   </tr>
+*   <tr>
 *     <td >2.10</td>
 *     <td>Macro definition of CY_CORDIC_ID changed.</td>
 *     <td>Bug Fixes.</td>
@@ -99,7 +104,7 @@ CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 10.1', 10, \
 #define CY_CORDIC_DRV_VERSION_MAJOR       2U
 
 /** The driver minor version */
-#define CY_CORDIC_DRV_VERSION_MINOR       10U
+#define CY_CORDIC_DRV_VERSION_MINOR       20U
 
 /** The CORDIC driver ID */
 #define CY_CORDIC_ID               CY_PDL_DRV_ID(0x63U)
@@ -1002,6 +1007,36 @@ __STATIC_INLINE CY_CORDIC_Q31_t Cy_CORDIC_ArcTanh(MXCORDIC_Type *base, CY_CORDIC
 *
 *******************************************************************************/
 uint32_t Cy_CORDIC_Sqrt(MXCORDIC_Type *base, uint32_t x);
+
+
+/*******************************************************************************
+* Function Name: Cy_CORDIC_Sqrt_Circular
+****************************************************************************//**
+*
+* Computes the square root of the sum of squares sqrt(x^2 + y^2).
+*
+* \param base
+* The pointer to the CORDIC instance.
+*
+* \param x
+* The X component of the input vector in Q31 format. Must be positive.
+*
+* \param y
+* The Y component of the input vector in Q31 format. May be negative.
+*
+* \return
+* sqrt(x^2 + y^2) in Q31 format.
+*
+* \note
+*  - This is a blocking function.
+*  - x must be positive: (CY_CORDIC_Q31_t)(x_float * 0x80000000)
+*  - y may be negative: (CY_CORDIC_Q31_t)(y_float * 0x80000000)
+*  - sqrt(x^2 + y^2) must be less than 1/K (~0.607) to avoid output overflow,
+*    where K is the inherent CORDIC circular gain (~1.6468).
+*  - The result should be scaled from Q31 to float: (result / 0x80000000)
+*
+*******************************************************************************/
+uint32_t Cy_CORDIC_Sqrt_Circular(MXCORDIC_Type *base, CY_CORDIC_Q31_t x, CY_CORDIC_Q31_t y);
 
 
 /*******************************************************************************

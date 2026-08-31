@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_cordic.c
-* \version 2.10
+* \version 2.20
 *
 * \brief
 * Provides API implementation of the CORDIC driver.
@@ -99,6 +99,30 @@ uint32_t Cy_CORDIC_Sqrt(MXCORDIC_Type *base, uint32_t x)
     return ((MXCORDIC_CORRX(base) >> 13UL) * CY_CORDIC_Q15_SCALING_FACTOR); /* Q16 * Q15 yields Q31*/
 }
 
+/** Inputs x and y should be Q31 numbers with x > 0 and sqrt(x^2+y^2) < 1/K (~0.607).
+* K is the inherent CORDIC circular gain constant (~1.6468).
+* The CORDIC circular vectoring mode rotates the input vector until Y = 0;
+* the raw CORRX output equals K * sqrt(x^2 + y^2).
+* The result is multiplied by CY_CORDIC_CIRCULAR_GAIN / 2^23 (= 1/K)
+* to cancel the gain and return the result in Q31 format.
+*/
+uint32_t Cy_CORDIC_Sqrt_Circular(MXCORDIC_Type *base, CY_CORDIC_Q31_t x, CY_CORDIC_Q31_t y)
+{
+    /* Input parameters verification */
+    CY_ASSERT_L1(CY_IS_BASE_VALID(base));
+    CY_ASSERT_L2(0 < x); /* x must be positive for circular vectoring convergence */
+
+    MXCORDIC_CON(base) = _VAL2FLD(MXCORDIC_CON_MODE,   CY_CORDIC_OPERATING_MODE_CIRCULAR) |
+                         _VAL2FLD(MXCORDIC_CON_ROTVEC,  CY_CORDIC_ROTVEC_MODE_VECTORING)  |
+                         _VAL2FLD(MXCORDIC_CON_N_ITER,  CY_CORDIC_NUMBER_OF_ITERATIONS);
+
+    /* Q31 inputs: bits[31:8] carry Q23 precision into the register data field */
+    MXCORDIC_CORDX(base) = (uint32_t)x;
+    MXCORDIC_CORDY(base) = (uint32_t)y;
+    MXCORDIC_CORDZ(base) = 0UL;
+
+    return (uint32_t)(((uint64_t)MXCORDIC_CORRX(base) * (uint64_t)CY_CORDIC_CIRCULAR_GAIN) >> 23U);
+}
 
 void Cy_CORDIC_Interrupt(MXCORDIC_Type *base, cy_stc_cordic_context_t *context)
 {

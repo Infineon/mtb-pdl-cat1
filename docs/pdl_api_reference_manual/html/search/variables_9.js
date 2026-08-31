@@ -15,6 +15,7 @@ var searchData=
   ['index_5fsignal_5flevel_5fselector',['index_signal_level_selector',['../structcy__stc__tcpwm__motif__quaddec__config__t.html#a50ae3a552c3e9c67a5246b99a2ec3b70',1,'cy_stc_tcpwm_motif_quaddec_config_t']]],
   ['indexinput',['indexInput',['../structcy__stc__tcpwm__quaddec__config__t.html#aed2032743d6da4c15fe418b2ee17d399',1,'cy_stc_tcpwm_quaddec_config_t']]],
   ['indexinputmode',['indexInputMode',['../structcy__stc__tcpwm__quaddec__config__t.html#a139114c65e2c3dd6ba549319ba21c3d2',1,'cy_stc_tcpwm_quaddec_config_t']]],
+  ['initialcountval',['initialCountVal',['../structcy__stc__tcpwm__pwm__config__t.html#a78d4fcef965acbb67821fd2d3ccb3dcf',1,'cy_stc_tcpwm_pwm_config_t']]],
   ['inputfreq',['inputFreq',['../structcy__stc__pll__config__t.html#a59a07c9da77be2b4b82a5448c5198e23',1,'cy_stc_pll_config_t']]],
   ['inrushlimitsel',['inRushLimitSel',['../structcy__stc__syspm__core__buck__params__t.html#a2a891f6788a30fc82117f0bf0343a928',1,'cy_stc_syspm_core_buck_params_t']]],
   ['intedge',['intEdge',['../structcy__stc__gpio__pin__config__t.html#a224590619198ad520a196319b618deda',1,'cy_stc_gpio_pin_config_t']]],

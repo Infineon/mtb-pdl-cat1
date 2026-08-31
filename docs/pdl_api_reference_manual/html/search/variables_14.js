@@ -20,6 +20,7 @@ var searchData=
   ['ulpenable',['ulpEnable',['../structcy__stc__pra__system__config__t.html#afb72378080a3385a917c9644a4e26e3e',1,'cy_stc_pra_system_config_t']]],
   ['ulreleasecallbackptr',['ulReleaseCallbackPtr',['../structcy__stc__ipc__bt__context__t.html#a7c8011a9221dfd1ee0a7a27b3f4de7dc',1,'cy_stc_ipc_bt_context_t::ulReleaseCallbackPtr()'],['../structcy__stc__ipc__bt__config__t.html#a6881b04afe7d759d5fa7761eb50aaa77',1,'cy_stc_ipc_bt_config_t::ulReleaseCallbackPtr()']]],
   ['ulreleasemask',['ulReleaseMask',['../structcy__stc__ipc__bt__context__t.html#a8c88cad2a74dc9fed3aaf3cef642d1f3',1,'cy_stc_ipc_bt_context_t']]],
+  ['underflowmode',['underflowMode',['../structcy__stc__tcpwm__pwm__config__t.html#a024d76f66c3f2a44e5a999f81b7081a5',1,'cy_stc_tcpwm_pwm_config_t']]],
   ['unlock',['unlock',['../structcy__stc__hppass__stt__mux__t.html#a18cebfa22912043d83ee43c2295ee624',1,'cy_stc_hppass_stt_mux_t']]],
   ['update',['update',['../structcy__stc__hppass__dac__t.html#a1192918c65df8c3f38d9d0f90b3f8e2d',1,'cy_stc_hppass_dac_t']]],
   ['update_5fsync_5fevent_5fconfig',['update_sync_event_config',['../structcy__stc__multi__channel__output__config__t.html#ab547415314c935e39441a2896a504d41',1,'cy_stc_multi_channel_output_config_t']]],

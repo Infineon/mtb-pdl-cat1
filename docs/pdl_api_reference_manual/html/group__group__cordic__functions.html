@@ -186,6 +186,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa1fa3426aa583f4f6a3d60f6c5e94380"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cordic__functions.html#gaa1fa3426aa583f4f6a3d60f6c5e94380">Cy_CORDIC_Sqrt</a> (MXCORDIC_Type *base, uint32_t x)</td></tr>
 <tr class="memdesc:gaa1fa3426aa583f4f6a3d60f6c5e94380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the Square root of the given value.  <a href="#gaa1fa3426aa583f4f6a3d60f6c5e94380">More...</a><br /></td></tr>
 <tr class="separator:gaa1fa3426aa583f4f6a3d60f6c5e94380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d454715944a2afea97f0bd6e0d75419"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cordic__functions.html#ga4d454715944a2afea97f0bd6e0d75419">Cy_CORDIC_Sqrt_Circular</a> (MXCORDIC_Type *base, <a class="el" href="group__group__cordic__data__structures.html#gaeeb13163359361a1a1bc36c6372d6531">CY_CORDIC_Q31_t</a> x, <a class="el" href="group__group__cordic__data__structures.html#gaeeb13163359361a1a1bc36c6372d6531">CY_CORDIC_Q31_t</a> y)</td></tr>
+<tr class="memdesc:ga4d454715944a2afea97f0bd6e0d75419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the square root of the sum of squares sqrt(x^2 + y^2).  <a href="#ga4d454715944a2afea97f0bd6e0d75419">More...</a><br /></td></tr>
+<tr class="separator:ga4d454715944a2afea97f0bd6e0d75419"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf671b334e6f361629e6768fbb16c8089"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__cordic__functions.html#gaf671b334e6f361629e6768fbb16c8089">Cy_CORDIC_GetInterruptStatus</a> (MXCORDIC_Type *base)</td></tr>
 <tr class="memdesc:gaf671b334e6f361629e6768fbb16c8089"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the interrupt cause register.  <a href="#gaf671b334e6f361629e6768fbb16c8089">More...</a><br /></td></tr>
 <tr class="separator:gaf671b334e6f361629e6768fbb16c8089"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1453,6 +1456,61 @@ This is a non-blocking function. <a class="el" href="group__group__cordic__funct
 </ul>
 </dd></dl>
 <p>Computes the Square root of the given value. </p>
+
+</div>
+</div>
+<a id="ga4d454715944a2afea97f0bd6e0d75419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4d454715944a2afea97f0bd6e0d75419">&#9670;&nbsp;</a></span>Cy_CORDIC_Sqrt_Circular()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Cy_CORDIC_Sqrt_Circular </td>
+          <td>(</td>
+          <td class="paramtype">MXCORDIC_Type *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__cordic__data__structures.html#gaeeb13163359361a1a1bc36c6372d6531">CY_CORDIC_Q31_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__cordic__data__structures.html#gaeeb13163359361a1a1bc36c6372d6531">CY_CORDIC_Q31_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the square root of the sum of squares sqrt(x^2 + y^2). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the CORDIC instance.</td></tr>
+    <tr><td class="paramname">x</td><td>The X component of the input vector in Q31 format. Must be positive.</td></tr>
+    <tr><td class="paramname">y</td><td>The Y component of the input vector in Q31 format. May be negative.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>sqrt(x^2 + y^2) in Q31 format.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd><ul>
+<li>This is a blocking function.</li>
+<li>x must be positive: (CY_CORDIC_Q31_t)(x_float * 0x80000000)</li>
+<li>y may be negative: (CY_CORDIC_Q31_t)(y_float * 0x80000000)</li>
+<li>sqrt(x^2 + y^2) must be less than 1/K (~0.607) to avoid output overflow, where K is the inherent CORDIC circular gain (~1.6468).</li>
+<li>The result should be scaled from Q31 to float: (result / 0x80000000)</li>
+</ul>
+</dd></dl>
+<p>Computes the square root of the sum of squares sqrt(x^2 + y^2).</p>
+<p>K is the inherent CORDIC circular gain constant (~1.6468). The CORDIC circular vectoring mode rotates the input vector until Y = 0; the raw CORRX output equals K * sqrt(x^2 + y^2). The result is multiplied by CY_CORDIC_CIRCULAR_GAIN / 2^23 (= 1/K) to cancel the gain and return the result in Q31 format. </p>
 
 </div>
 </div>

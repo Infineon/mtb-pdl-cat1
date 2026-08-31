@@ -113,9 +113,30 @@ Macros</h2></td></tr>
 <tr class="separator:ga87a99aee75877fc343dfcece58f94749"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaac1c42fa2d81919d5807c7b4e9c9e16b"><td class="memItemLeft" align="right" valign="top"><a id="gaac1c42fa2d81919d5807c7b4e9c9e16b"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__pwm__alignment.html#gaac1c42fa2d81919d5807c7b4e9c9e16b">CY_TCPWM_PWM_CENTER_ASYMMETRIC_CC0_CC1_ALIGN</a>&#160;&#160;&#160;(5U)</td></tr>
-<tr class="memdesc:gaac1c42fa2d81919d5807c7b4e9c9e16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM is asymmetrically aligned, TBD. <br /></td></tr>
+<tr class="memdesc:gaac1c42fa2d81919d5807c7b4e9c9e16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM is center asymmetrically aligned, line pulse period is equal to 2 x PERIOD - CC0 - CC1. <br /></td></tr>
 <tr class="separator:gaac1c42fa2d81919d5807c7b4e9c9e16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c2177241fb8aaf46e4481a02d7f00fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__tcpwm__pwm__alignment.html#ga8c2177241fb8aaf46e4481a02d7f00fa">CY_TCPWM_PWM_CUSTOM_ALIGN</a>&#160;&#160;&#160;(8U)</td></tr>
+<tr class="memdesc:ga8c2177241fb8aaf46e4481a02d7f00fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM is custom aligned.  <a href="#ga8c2177241fb8aaf46e4481a02d7f00fa">More...</a><br /></td></tr>
+<tr class="separator:ga8c2177241fb8aaf46e4481a02d7f00fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga8c2177241fb8aaf46e4481a02d7f00fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8c2177241fb8aaf46e4481a02d7f00fa">&#9670;&nbsp;</a></span>CY_TCPWM_PWM_CUSTOM_ALIGN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_TCPWM_PWM_CUSTOM_ALIGN&#160;&#160;&#160;(8U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PWM is custom aligned. </p>
+<p>The count direction, counter init value and per-event line actions (CC0/overflow/underflow/CC1 match) are programmed explicitly. See <a class="el" href="structcy__stc__tcpwm__pwm__config__t.html">cy_stc_tcpwm_pwm_config_t</a> </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

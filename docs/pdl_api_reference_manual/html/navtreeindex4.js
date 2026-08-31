@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"group__group__cryptolite__lld__asymmetric__functions.html#ga9e98470af0fe0cd1150107725e79faff":[4,7,4,0,20],
 "group__group__cryptolite__lld__asymmetric__functions.html#gaa4679df6ed15d5d6f1f465124bee09cc":[4,7,4,0,1],
 "group__group__cryptolite__lld__asymmetric__functions.html#gabb3cb1f3c4cc065655d752e833a10211":[4,7,4,0,22],
 "group__group__cryptolite__lld__asymmetric__functions.html#gac4780ed621723923232888685a8389a9":[4,7,4,0,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "group__group__ctb__enums.html#gga8430fbb8a80a0e6423f91062071dc018a3db7156e7ea8ee0aea0ab8b8c06d103d":[4,9,4,18,1],
 "group__group__ctb__enums.html#gga8517634c935bde4de8ccce97aa1e21f4aad97b2c096dea3320c4167a4989626ee":[4,9,4,4,0],
 "group__group__ctb__enums.html#gga8517634c935bde4de8ccce97aa1e21f4ab9ecbb1c3a529cdeb938ecc3dc6add6f":[4,9,4,4,1],
-"group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a05afe81fc659387c6bc8353aff8eb5d0":[4,9,4,2,3],
-"group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a29ea09aec9a63a04cc3d40b9cb482d0d":[4,9,4,2,4]
+"group__group__ctb__enums.html#gga9cbeea246fe4162a2d4d7be689e807c7a05afe81fc659387c6bc8353aff8eb5d0":[4,9,4,2,3]
 };

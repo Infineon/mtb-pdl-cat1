@@ -1,5 +1,6 @@
 var NAVTREEINDEX20 =
 {
+"group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa51a7182a3b7486d9e05eb4b34ab80b86":[4,38,3,1,3,3],
 "group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa73a53b80105c99cdf5bb81cb4754612b":[4,38,3,1,3,0],
 "group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfaaa70184ca2980c495bc5d2cab45b3067":[4,38,3,1,3,4],
 "group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfabc474cf397abf63d7d69b9f5e5a65f58":[4,38,3,1,3,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX20 =
 "group__group__scb__i2c__macros__master__status.html#gaa1bd4bdd1345d842eafe3df3d0ada328":[4,40,2,0,1,3],
 "group__group__scb__i2c__macros__master__status.html#gadcc535a3bcb0f43774492651f562a4d4":[4,40,2,0,1,2],
 "group__group__scb__i2c__macros__master__status.html#gaebe0539afe94d57233a96d9e0b81ab83":[4,40,2,0,1,1],
-"group__group__scb__i2c__macros__slave__status.html":[4,40,2,0,0],
-"group__group__scb__i2c__macros__slave__status.html#ga0e917e7b1f8b297bb97716a0a742a14a":[4,40,2,0,0,5]
+"group__group__scb__i2c__macros__slave__status.html":[4,40,2,0,0]
 };

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_v4.c
-* \version 5.220
+* \version 5.230
 *
 * This driver provides the source code for API power management.
 *
@@ -619,42 +619,6 @@ cy_en_syspm_deep_sleep_mode_t Cy_SysPm_GetDeepSleepMode(void)
     return deepSleepMode;
 }
 
-cy_en_syspm_boot_mode_t Cy_SysPm_GetBootMode(void)
-{
-    uint32_t resCause, resCause2;
-    cy_en_syspm_boot_mode_t deepSleepWakeMode = CY_SYSPM_POR_BOOT_MODE;
-
-    resCause = SRSS_RES_CAUSE;
-    resCause2 = SRSS_RES_CAUSE2;
-
-    if((resCause == 0UL) || (resCause2 == 0UL))
-    {
-        switch(Cy_SysPm_GetDeepSleepMode())
-        {
-            case CY_SYSPM_MODE_DEEPSLEEP_RAM:
-            {
-                deepSleepWakeMode = CY_SYSPM_WARM_BOOT_MODE;
-            }
-            break;
-
-            case CY_SYSPM_MODE_DEEPSLEEP_OFF:
-            {
-                deepSleepWakeMode = CY_SYSPM_COLD_BOOT_MODE;
-            }
-            break;
-
-            default:
-            {
-                deepSleepWakeMode = CY_SYSPM_POR_BOOT_MODE;
-            }
-            break;
-        }
-
-    }
-
-    return ((cy_en_syspm_boot_mode_t)deepSleepWakeMode);
-}
-
 cy_en_syspm_status_t Cy_SysPm_CpuEnterDeepSleep(cy_en_syspm_waitfor_t waitFor)
 {
     uint32_t interruptState;
@@ -886,12 +850,6 @@ cy_en_syspm_status_t Cy_SysPm_SystemSetNormalRegulatorCurrent(void)
 
     return retVal;
 
-}
-
-
-bool Cy_SysPm_SystemIsMinRegulatorCurrentSet(void)
-{
-    return ((0U == _FLD2VAL(SRSS_PWR_CTL2_REFSYS_VBUF_DIS, SRSS_PWR_CTL2)) ? false : true);
 }
 
 
@@ -1662,28 +1620,6 @@ void Cy_SysPm_IoUnfreeze(void)
 bool Cy_SysPm_IoIsFrozen(void)
 {
     return (0U != _FLD2VAL(SRSS_PWR_HIBERNATE_FREEZE, SRSS_PWR_HIBERNATE));
-}
-
-void Cy_SysPm_DeepSleepIoUnfreeze(void)
-{
-    uint32_t interruptState;
-    interruptState = Cy_SysLib_EnterCriticalSection();
-
-    /* Unfreeze IO's which are frozen during DEEPSLEEP-RAM/OFF
-    * Entry
-    */
-    /* For PD0 */
-    SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_FREEZE_DPSLP_Msk;
-
-    /* For PD1 */
-    SRSS_PWR_CTL2 |= SRSS_PWR_CTL2_FREEZE_DPSLP_PD1_Msk;
-
-    Cy_SysLib_ExitCriticalSection(interruptState);
-}
-
-bool Cy_SysPm_DeepSleepIoIsFrozen(void)
-{
-    return ((0U != _FLD2VAL(SRSS_PWR_CTL2_FREEZE_DPSLP, SRSS_PWR_CTL2)) || (0U != _FLD2VAL(SRSS_PWR_CTL2_FREEZE_DPSLP_PD1, SRSS_PWR_CTL2)));
 }
 
 void Cy_SysPm_CpuSendWakeupEvent(void)

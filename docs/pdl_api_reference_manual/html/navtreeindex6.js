@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"group__group__dma__descriptor__functions.html#gaf68ae7c4a5e87162e9a05af17d5fb1d2":[4,11,1,2,12],
 "group__group__dma__enums.html":[4,11,3],
 "group__group__dma__enums.html#ga167a5222a0d666c6ce9e8382e56ac192":[4,11,3,3],
 "group__group__dma__enums.html#ga2e6a1fad6945ca581ebd0fdbb8748314":[4,11,3,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "group__group__ethif.html":[4,14],
 "group__group__ethif__data__structures.html":[4,14,2],
 "group__group__ethif__data__structures.html#ga041ddb84284675252866f018183d623a":[4,14,2,13],
-"group__group__ethif__data__structures.html#ga5fd803e52b06f17344a9f5eba0851adb":[4,14,2,18],
-"group__group__ethif__data__structures.html#ga6d1510622190e983c6d1a8af79b4dcfd":[4,14,2,16]
+"group__group__ethif__data__structures.html#ga5fd803e52b06f17344a9f5eba0851adb":[4,14,2,18]
 };

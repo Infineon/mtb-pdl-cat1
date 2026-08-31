@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk_v2.c
-* \version 3.170
+* \version 3.180
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -865,11 +865,6 @@ uint8_t Cy_SysClk_ClkPeriGetDivider(void)
 /* TVII B-E Parts are part of CAT1A where this API is not defined */
 #if !(defined (CY_IP_MXPERI) && (CY_IP_MXPERI_VERSION < 3))
 
-/** \cond INTERNAL */
-/* Mask to evaluate group number value */
-#define CY_SYSCLK_PERI_GR_NUM_Msk (0x000000FFUL)
-/** \endcond */
-
 cy_en_sysclk_status_t Cy_SysClk_PeriGroupSetDivider(uint32_t groupNum, uint32_t divider)
 {
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
@@ -900,116 +895,6 @@ uint32_t Cy_SysClk_PeriGroupGetDivider(uint32_t groupNum)
     CY_ASSERT_L1(groupNum < CY_PERI_GROUP_NR);
 
     return(_FLD2VAL(PERI_GR_CLOCK_CTL_INT8_DIV, PERI_GR_CLOCK_CTL(instNum, groupNum)));
-}
-
-cy_en_sysclk_status_t Cy_SysClk_PeriGroupSetSlaveCtl(uint32_t groupNum, cy_en_peri_grp_sl_ctl_num_t slaveCtl, uint32_t value)
-{
-    cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    uint8_t instNum = (uint8_t)(((uint32_t)groupNum & PERI_GR_INST_NUM_Msk )>>PERI_GR_INST_NUM_Pos);
-
-    groupNum = (uint8_t)(groupNum & CY_SYSCLK_PERI_GR_NUM_Msk);
-
-    CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
-    CY_ASSERT_L1(groupNum  < CY_PERI_GROUP_NR);
-    CY_ASSERT_L1(CY_SYSCLK_IS_SL_CTL_NUM_VALID(slaveCtl));
-
-    switch(slaveCtl)
-    {
-        case CY_SYSCLK_PERI_GROUP_SL_CTL:
-            PERI_GR_SL_CTL(instNum, groupNum) = value;
-            retVal = CY_SYSCLK_SUCCESS;
-            break;
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
-        case CY_SYSCLK_PERI_GROUP_SL_CTL2:
-            PERI_GR_SL_CTL2(instNum, groupNum) = value;
-            retVal = CY_SYSCLK_SUCCESS;
-            break;
-        case CY_SYSCLK_PERI_GROUP_SL_CTL3:
-            /* Writes not allowed on SL_CTL3 */
-            retVal = CY_SYSCLK_BAD_PARAM;
-            break;
-#endif
-        default:
-            retVal = CY_SYSCLK_BAD_PARAM;
-            break;
-    }
-
-    return retVal;
-}
-
-
-uint32_t Cy_SysClk_PeriGroupGetSlaveCtl(uint32_t groupNum, cy_en_peri_grp_sl_ctl_num_t slaveCtl)
-{
-    uint32_t retVal = 0;
-    uint8_t instNum = (uint8_t)(((uint32_t)groupNum & PERI_GR_INST_NUM_Msk )>>PERI_GR_INST_NUM_Pos);
-
-    groupNum = (uint8_t)(groupNum & CY_SYSCLK_PERI_GR_NUM_Msk);
-
-    CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
-    CY_ASSERT_L1(groupNum < CY_PERI_GROUP_NR);
-    CY_ASSERT_L1(CY_SYSCLK_IS_SL_CTL_NUM_VALID(slaveCtl));
-
-    switch(slaveCtl)
-    {
-        case CY_SYSCLK_PERI_GROUP_SL_CTL:
-            retVal = PERI_GR_SL_CTL(instNum, groupNum);
-            break;
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
-        case CY_SYSCLK_PERI_GROUP_SL_CTL2:
-            retVal = PERI_GR_SL_CTL2(instNum, groupNum);
-            break;
-        case CY_SYSCLK_PERI_GROUP_SL_CTL3:
-            retVal = PERI_GR_SL_CTL3(instNum, groupNum);
-            break;
-#endif
-        default:
-            retVal = (uint32_t)CY_SYSCLK_BAD_PARAM;
-            break;
-    }
-
-    return retVal;
-}
-
-bool Cy_SysClk_IsPeriGroupSlaveCtlSet(uint32_t groupNum,cy_en_peri_grp_sl_ctl_num_t slaveCtl, uint32_t slaveMsk)
-{
-    bool retVal = false;
-    uint8_t instNum = (uint8_t)(((uint32_t)groupNum & PERI_GR_INST_NUM_Msk )>>PERI_GR_INST_NUM_Pos);
-
-    groupNum = (uint8_t)(groupNum & CY_SYSCLK_PERI_GR_NUM_Msk);
-
-
-    CY_ASSERT_L1(instNum < PERI_INSTANCE_COUNT);
-    CY_ASSERT_L1(groupNum < CY_PERI_GROUP_NR);
-    CY_ASSERT_L1(CY_SYSCLK_IS_SL_CTL_NUM_VALID(slaveCtl));
-
-    switch(slaveCtl)
-    {
-        case CY_SYSCLK_PERI_GROUP_SL_CTL:
-            if ((PERI_GR_SL_CTL(instNum, groupNum) & slaveMsk) != 0UL)
-            {
-                retVal = true;
-            }
-            break;
-#if defined (CY_IP_MXS28SRSS) || defined (CY_IP_MXS40SSRSS) || defined (CY_IP_MXS22SRSS)
-        case CY_SYSCLK_PERI_GROUP_SL_CTL2:
-            if ((PERI_GR_SL_CTL2(instNum, groupNum) & slaveMsk) != 0UL)
-            {
-                retVal = true;
-            }
-            break;
-        case CY_SYSCLK_PERI_GROUP_SL_CTL3:
-            if ((PERI_GR_SL_CTL3(instNum, groupNum) & slaveMsk) != 0UL)
-            {
-                retVal = true;
-            }
-            break;
-#endif
-        default:
-            CY_ASSERT_L2(false);
-            break;
-    }
-
-    return retVal;
 }
 
 #if  defined (CY_IP_MXS22SRSS)
@@ -1170,20 +1055,6 @@ uint8_t Cy_SysClk_ClkFastGetDivider(void)
 /* =========================    clkHf[n] SECTION    ========================= */
 /* ========================================================================== */
 
-cy_en_sysclk_status_t Cy_SysClk_ClkHfEnable(uint32_t clkHf)
-{
-    cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-
-    if(clkHf < CY_SRSS_NUM_HFROOT)
-    {
-        SRSS_CLK_ROOT_SELECT[clkHf] |= SRSS_CLK_ROOT_SELECT_ENABLE_Msk;
-        retVal = CY_SYSCLK_SUCCESS;
-    }
-
-    return (retVal);
-}
-
-
 cy_en_sysclk_status_t Cy_SysClk_ClkHfEnableSafe(uint32_t clkHf)
 {
     cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
@@ -1229,34 +1100,10 @@ cy_en_sysclk_status_t Cy_SysClk_ClkHfDisable(uint32_t clkHf)
 }
 
 
-cy_en_sysclk_status_t Cy_SysClk_ClkHfSetSource(uint32_t clkHf, cy_en_clkhf_in_sources_t source)
-{
-    cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    if ((clkHf < CY_SRSS_NUM_HFROOT) && (source <= CY_SYSCLK_CLKHF_IN_CLKPATH15))
-    {
-        CY_REG32_CLR_SET(SRSS_CLK_ROOT_SELECT[clkHf], SRSS_CLK_ROOT_SELECT_ROOT_MUX, source);
-        retVal = CY_SYSCLK_SUCCESS;
-    }
-    return (retVal);
-}
-
-
 cy_en_clkhf_in_sources_t Cy_SysClk_ClkHfGetSource(uint32_t clkHf)
 {
     CY_ASSERT_L1(clkHf < CY_SRSS_NUM_HFROOT);
     return ((cy_en_clkhf_in_sources_t)((uint32_t)(_FLD2VAL(SRSS_CLK_ROOT_SELECT_ROOT_MUX, SRSS_CLK_ROOT_SELECT[clkHf]))));
-}
-
-
-cy_en_sysclk_status_t Cy_SysClk_ClkHfSetDivider(uint32_t clkHf, cy_en_clkhf_dividers_t divider)
-{
-    cy_en_sysclk_status_t retVal = CY_SYSCLK_BAD_PARAM;
-    if ((clkHf < CY_SRSS_NUM_HFROOT) && (divider < CY_SYSCLK_CLKHF_MAX_DIVIDER))
-    {
-        CY_REG32_CLR_SET(SRSS_CLK_ROOT_SELECT[clkHf], SRSS_CLK_ROOT_SELECT_ROOT_DIV, divider);
-        retVal = CY_SYSCLK_SUCCESS;
-    }
-    return (retVal);
 }
 
 
@@ -1780,49 +1627,58 @@ void Cy_SysClk_WcoBypass(cy_en_wco_bypass_modes_t bypass)
 
 void Cy_SysClk_PiloEnable(void)
 {
-#if (defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT))
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     SRSS_CLK_PILO_CONFIG |= SRSS_CLK_PILO_CONFIG_PILO_EN_Msk; /* 1 = enable */
-#endif
-
     /* Max 150us is needed for PILO Startup */
     Cy_SysLib_DelayUs(CY_SYSCLK_PILO_STARTUP_DELAY);
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 #if defined (CY_IP_MXS40SSRSS)
 void Cy_SysClk_PiloBackupEnable(void)
 {
-#if defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT)
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     SRSS_CLK_PILO_CONFIG |= SRSS_CLK_PILO_CONFIG_PILO_BACKUP_Msk; /* 1 = enable */
-#endif
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 void Cy_SysClk_PiloBackupDisable(void)
 {
-#if defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT)
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     /* Clear PILO_BACKUP bitfields. */
     SRSS_CLK_PILO_CONFIG &= (uint32_t)~(SRSS_CLK_PILO_CONFIG_PILO_BACKUP_Msk);
-#endif
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 #endif
 
 #if defined (CY_IP_MXS40SSRSS)
 void Cy_SysClk_PiloTcscEnable(void)
 {
-#if (CY_SRSS_PILO_PRESENT)
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     SRSS_CLK_PILO_CONFIG |= SRSS_CLK_PILO_CONFIG_PILO_TCSC_EN_Msk; /* 1 = enable */
-#endif
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 void Cy_SysClk_PiloTcscDisable(void)
 {
-#if (CY_SRSS_PILO_PRESENT)
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     /* Clear PILO_TCSC_EN( Second order temperature curvature correction.) bitfields. */
     SRSS_CLK_PILO_CONFIG &= (uint32_t)~(SRSS_CLK_PILO_CONFIG_PILO_TCSC_EN_Msk);
-#endif
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 bool Cy_SysClk_PiloOkay(void)
 {
-#if (CY_SRSS_PILO_PRESENT)
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     SRSS_CLK_OUTPUT_FAST = SLOW_SEL_OUTPUT_INDEX;
     SRSS_CLK_OUTPUT_SLOW = (uint32_t)CY_SYSCLK_MEAS_CLK_PILO;
     SRSS_CLK_CAL_CNT1 = CY_SYSCLK_PILO_TEST_COUNT;
@@ -1832,26 +1688,28 @@ bool Cy_SysClk_PiloOkay(void)
 
     return (_FLD2BOOL(SRSS_CLK_CAL_CNT1_CAL_CLK1_PRESENT, SRSS_CLK_CAL_CNT1));
 #else
-    return false;
-#endif
+    return (false);
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 #endif /* defined (CY_IP_MXS40SSRSS) */
 
 bool Cy_SysClk_PiloIsEnabled(void)
 {
-#if (defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT))
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     return (_FLD2BOOL(SRSS_CLK_PILO_CONFIG_PILO_EN, SRSS_CLK_PILO_CONFIG));
 #else
-    return false;
-#endif
+    return (false);
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 void Cy_SysClk_PiloDisable(void)
 {
-#if (defined (CY_SRSS_PILO_PRESENT) && (0U != CY_SRSS_PILO_PRESENT))
+#if (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT))
     /* Clear PILO_EN */
     SRSS_CLK_PILO_CONFIG &= (uint32_t)~(SRSS_CLK_PILO_CONFIG_PILO_EN_Msk);
-#endif
+#else
+    /* Empty implementation for devices without PILO */
+#endif /* (defined(CY_SRSS_PILO_PRESENT) && (CY_SRSS_PILO_PRESENT)) */
 }
 
 /* ========================================================================== */
@@ -3210,11 +3068,6 @@ uint32_t Cy_SysClk_ClkPathGetFrequency(uint32_t clkPath)
 #define  CY_SYSCLK_FLL_MIN_CCO_OUTPUT_FREQ (48000000UL)
 #define  CY_SYSCLK_FLL_MIN_OUTPUT_FREQ     (CY_SYSCLK_FLL_MIN_CCO_OUTPUT_FREQ / 2U)
 
-#define  CY_SYSCLK_FLL_IS_CCO_RANGE_VALID(range) (((range) == CY_SYSCLK_FLL_CCO_RANGE0) || \
-                                                  ((range) == CY_SYSCLK_FLL_CCO_RANGE1) || \
-                                                  ((range) == CY_SYSCLK_FLL_CCO_RANGE2) || \
-                                                  ((range) == CY_SYSCLK_FLL_CCO_RANGE3) || \
-                                                  ((range) == CY_SYSCLK_FLL_CCO_RANGE4))
 /** \cond INTERNAL */
 #define  CY_SYSCLK_FLL_INT_COEF (327680000UL)
 #define  CY_SYSCLK_FLL_GAIN_IDX (11U)
@@ -3224,24 +3077,6 @@ uint32_t Cy_SysClk_ClkPathGetFrequency(uint32_t clkPath)
 #define MARGIN_SCALE            (100000ULL) /* 10 ^ 5 */
 /** \endcond */
 
-bool Cy_SysClk_FllIsEnabled(void)
-{
-#if ((defined CY_SRSS_FLL_PRESENT) && (CY_SRSS_FLL_PRESENT == 1U))
-    return (_FLD2BOOL(SRSS_CLK_FLL_CONFIG_FLL_ENABLE, SRSS_CLK_FLL_CONFIG));
-#else
-    return false;
-#endif
-}
-
-
-bool Cy_SysClk_FllLocked(void)
-{
-#if ((defined CY_SRSS_FLL_PRESENT) && (CY_SRSS_FLL_PRESENT == 1U))
-    return (_FLD2BOOL(SRSS_CLK_FLL_STATUS_LOCKED, SRSS_CLK_FLL_STATUS));
-#else
-    return false;
-#endif
-}
 
 cy_en_sysclk_status_t Cy_SysClk_FllDisable(void)
 {
@@ -3423,61 +3258,6 @@ cy_en_sysclk_status_t Cy_SysClk_FllConfigure(uint32_t inputFreq, uint32_t output
     CY_UNUSED_PARAMETER(inputFreq); /* Suppress a compiler warning about unused variables */
     CY_UNUSED_PARAMETER(outputFreq); /* Suppress a compiler warning about unused variables */
     CY_UNUSED_PARAMETER(outputMode); /* Suppress a compiler warning about unused variables */
-    return CY_SYSCLK_UNSUPPORTED_STATE;
-#endif
-}
-
-
-cy_en_sysclk_status_t Cy_SysClk_FllManualConfigure(const cy_stc_fll_manual_config_t *config)
-{
-#if ((defined CY_SRSS_FLL_PRESENT) && (CY_SRSS_FLL_PRESENT == 1U))
-    cy_en_sysclk_status_t retVal = CY_SYSCLK_INVALID_STATE;
-
-    /* Check for errors */
-    CY_ASSERT_L1(config != NULL);
-
-    if (!Cy_SysClk_FllIsEnabled()) /* If disabled */
-    {
-        /* update CLK_FLL_CONFIG register with 2 parameters; FLL_ENABLE is already 0 */
-        /* asserts just check for bitfield overflow */
-        CY_ASSERT_L1(config->fllMult <= (SRSS_CLK_FLL_CONFIG_FLL_MULT_Msk >> SRSS_CLK_FLL_CONFIG_FLL_MULT_Pos));
-
-        SRSS_CLK_FLL_CONFIG = _VAL2FLD(SRSS_CLK_FLL_CONFIG_FLL_MULT, config->fllMult) |
-                             _BOOL2FLD(SRSS_CLK_FLL_CONFIG_FLL_OUTPUT_DIV, config->enableOutputDiv);
-
-        /* update CLK_FLL_CONFIG2 register with 2 parameters */
-        /* asserts just check for bitfield overflow */
-        CY_ASSERT_L1(config->refDiv <= (SRSS_CLK_FLL_CONFIG2_FLL_REF_DIV_Msk >> SRSS_CLK_FLL_CONFIG2_FLL_REF_DIV_Pos));
-        CY_ASSERT_L1(config->lockTolerance <= (SRSS_CLK_FLL_CONFIG2_LOCK_TOL_Msk >> SRSS_CLK_FLL_CONFIG2_LOCK_TOL_Pos));
-
-        SRSS_CLK_FLL_CONFIG2 = _VAL2FLD(SRSS_CLK_FLL_CONFIG2_FLL_REF_DIV, config->refDiv) |
-                               _VAL2FLD(SRSS_CLK_FLL_CONFIG2_LOCK_TOL, config->lockTolerance);
-
-        /* update CLK_FLL_CONFIG3 register with 4 parameters */
-        /* asserts just check for bitfield overflow */
-        CY_ASSERT_L1(config->igain <= (SRSS_CLK_FLL_CONFIG3_FLL_LF_IGAIN_Msk >> SRSS_CLK_FLL_CONFIG3_FLL_LF_IGAIN_Pos));
-        CY_ASSERT_L1(config->pgain <= (SRSS_CLK_FLL_CONFIG3_FLL_LF_PGAIN_Msk >> SRSS_CLK_FLL_CONFIG3_FLL_LF_PGAIN_Pos));
-        CY_ASSERT_L1(config->settlingCount <= (SRSS_CLK_FLL_CONFIG3_SETTLING_COUNT_Msk >> SRSS_CLK_FLL_CONFIG3_SETTLING_COUNT_Pos));
-
-        SRSS_CLK_FLL_CONFIG3 = _VAL2FLD(SRSS_CLK_FLL_CONFIG3_FLL_LF_IGAIN, config->igain) |
-                               _VAL2FLD(SRSS_CLK_FLL_CONFIG3_FLL_LF_PGAIN, config->pgain) |
-                               _VAL2FLD(SRSS_CLK_FLL_CONFIG3_SETTLING_COUNT, config->settlingCount) |
-                               _VAL2FLD(SRSS_CLK_FLL_CONFIG3_BYPASS_SEL, config->outputMode);
-
-        /* update CLK_FLL_CONFIG4 register with 1 parameter; preserve other bits */
-        /* asserts just check for bitfield overflow */
-        CY_ASSERT_L1(CY_SYSCLK_FLL_IS_CCO_RANGE_VALID(config->ccoRange));
-        CY_ASSERT_L1(config->cco_Freq <= (SRSS_CLK_FLL_CONFIG4_CCO_FREQ_Msk >> SRSS_CLK_FLL_CONFIG4_CCO_FREQ_Pos));
-
-        CY_REG32_CLR_SET(SRSS_CLK_FLL_CONFIG4, SRSS_CLK_FLL_CONFIG4_CCO_RANGE, (uint32_t)(config->ccoRange));
-        CY_REG32_CLR_SET(SRSS_CLK_FLL_CONFIG4, SRSS_CLK_FLL_CONFIG4_CCO_FREQ, (uint32_t)(config->cco_Freq));
-
-        retVal = CY_SYSCLK_SUCCESS;
-    }
-
-    return (retVal);
-#else
-    CY_UNUSED_PARAMETER(config); /* Suppress a compiler warning about unused variables */
     return CY_SYSCLK_UNSUPPORTED_STATE;
 #endif
 }
@@ -3693,22 +3473,7 @@ uint32_t Cy_SysClk_FllGetFrequency(void)
 #define CY_SYSCLK_PLL400M_MAX_OUT_FREQ (400000000UL)
 #endif
 
-
-
 /* DPLL-LP */
-
-/* DPLL-LP OUTPUT_DIV bitfield allowable range */
-#define CY_SYSCLK_DPLL_LP_MIN_OUTPUT_DIV   (1UL)
-#define CY_SYSCLK_DPLL_LP_MAX_OUTPUT_DIV   (16UL)
-
-/* DPLL-LP REFERENCE_DIV bitfield allowable range */
-#define CY_SYSCLK_DPLL_LP_MIN_REF_DIV      (1UL)
-#define CY_SYSCLK_DPLL_LP_MAX_REF_DIV      (16UL)
-
-/* DPLL-LP FEEDBACK_DIV bitfield allowable range selection */
-#define CY_SYSCLK_DPLL_LP_MIN_FB_DIV       (16UL)
-#define CY_SYSCLK_DPLL_LP_MAX_FB_DIV       (200UL)
-
 /* DPLL-LP Fdco range selection */
 #define CY_SYSCLK_DPLL_LP_MIN_FDCO         (160000000UL)
 #define CY_SYSCLK_DPLL_LP_MAX_FDCO         (480000000UL)
@@ -3724,59 +3489,6 @@ uint32_t Cy_SysClk_FllGetFrequency(void)
 #define CY_SYSCLK_DPLL_LP_MIN_OUT_FREQ (10000000UL)
 #define CY_SYSCLK_DPLL_LP_MAX_OUT_FREQ (400000000UL)
 
-/* DPLL-LP default config values */
-#if defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (0u)
-#define CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE  (0xFUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT    (0xAUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_FRACT  (0xBUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_SSCG   (0x7UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT    (0x8UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_FRACT  (0x9UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_SSCG   (0x7UL)
-#elif defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (1u)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DEPTH         (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_RATE          (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DITHER_EN     (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_MODE          (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_EN            (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE           (0x0FUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG4_PLL_TG             (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT             (0x28UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT             (0x20UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_ACC_INT         (0x27UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_ACC_INT         (0x23UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG6_KI_FRAC            (0x2CUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG6_KP_FRAC            (0x24UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG6_KI_ACC_FRAC        (0x27UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG6_KP_ACC_FRAC        (0x1CUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG7_KI_SSCG            (0x1CUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG7_KP_SSCG            (0x1CUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG7_KI_ACC_SSCG        (0x27UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG7_KP_ACC_SSCG        (0x23UL)
-#else
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DEPTH         (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_RATE          (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DITHER_EN     (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_MODE          (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_EN            (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE           (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG4_ACC_MODE           (0x01UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG4_TDC_MODE           (0x01UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG4_PLL_TG             (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG4_ACC_CNT_LOCK       (0x00UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT             (0x24UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT             (0x1CUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KI_ACC_INT         (0x23UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG5_KP_ACC_INT         (0x1AUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG6_KI_FRAC            (0x24UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG6_KP_FRAC            (0x20UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG6_KI_ACC_FRAC        (0x23UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG6_KP_ACC_FRAC        (0x1AUL)
-#define CY_SYSCLK_DPLL_LP_CONFIG7_KI_SSCG            (0x18UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG7_KP_SSCG            (0x18UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG7_KI_ACC_SSCG        (0x16UL)
-#define CY_SYSCLK_DPLL_LP_CONFIG7_KP_ACC_SSCG        (0x14UL)
-#endif
 /* DPLL-HP */
 
 /* DPLL-HP NDIV bitfield allowable range */
@@ -4422,17 +4134,6 @@ uint32_t Cy_SysClk_Pll200MGetFrequency(uint32_t pllNum)
 
 #if defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
 /* DPLL-LP */
-bool Cy_SysClk_DpllLpIsEnabled(uint32_t pllNum)
-{
-    CY_UNUSED_PARAMETER(pllNum);
-#if (CY_SRSS_DPLL_LP_PRESENT != 0U )
-    CY_ASSERT_L1(pllNum < SRSS_NUM_DPLL_LP);
-    return (_FLD2BOOL(CLK_DPLL_LP_CONFIG_ENABLE, SRSS_CLK_DPLL_LP_CONFIG(pllNum)));
-#else
-    return false;
-#endif
-}
-
 
 bool Cy_SysClk_DpllLpLocked(uint32_t pllNum)
 {
@@ -4519,11 +4220,13 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpConfigure(uint32_t pllNum, const cy_stc_pl
                as close as possible to the desired output frequency. */
             uint32_t p, q, out;
             uint32_t foutBest = 0UL; /* to ensure at least one pass through the for loops below */
+            uint32_t maxOutputDivSearch = CY_SYSCLK_DPLL_LP_MAX_OUTPUT_DIV;
 
         #if (defined (CY_IP_MXS40SSRSS) && (CY_MXS40SSRSS_VER_1_2 > 0UL))
             /* Modify automatic DPLL settings to generate 2x target clock internally and use 2x
                output divider to provide a 50/50 duty cycle clock. */
             uint32_t outputFrequency = config->outputFreq * 2UL;
+            maxOutputDivSearch /= 2UL;
         #else
             uint32_t outputFrequency = config->outputFreq;
         #endif /* (defined (CY_IP_MXS40SSRSS) && (CY_MXS40SSRSS_VER_1_2 > 0UL)) */
@@ -4541,7 +4244,7 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpConfigure(uint32_t pllNum, const cy_stc_pl
                     if (((CY_SYSCLK_DPLL_LP_MIN_FDCO <= fdco) && (fdco <= CY_SYSCLK_DPLL_LP_MAX_FDCO)) && ((CY_SYSCLK_DPLL_LP_MIN_PDF <= pdf) && (pdf <= CY_SYSCLK_DPLL_LP_MAX_PDF)))
                     {
                         /* OUTPUT_DIV selection */
-                        for (out = CY_SYSCLK_DPLL_LP_MIN_OUTPUT_DIV; out <= CY_SYSCLK_DPLL_LP_MAX_OUTPUT_DIV; out++)
+                        for (out = CY_SYSCLK_DPLL_LP_MIN_OUTPUT_DIV; out <= maxOutputDivSearch; out++)
                         {
                             uint64_t tempVco = ((uint64_t)outputFrequency) * ((uint64_t)out);
                             uint64_t tempFeedBackDivLeftShifted = ((tempVco << (uint64_t)SRSS_DPLL_LP_FRAC_BIT_COUNT) * (uint64_t)q) / (uint64_t)config->inputFreq;
@@ -4647,156 +4350,6 @@ cy_en_sysclk_status_t Cy_SysClk_DpllLpConfigure(uint32_t pllNum, const cy_stc_pl
         retVal = Cy_SysClk_DpllLpManualConfigure(pllNum, &manualConfig);
 
     } /* if no error */
-
-    return (retVal);
-#else
-    return CY_SYSCLK_UNSUPPORTED_STATE;
-#endif
-}
-
-
-cy_en_sysclk_status_t Cy_SysClk_DpllLpManualConfigure(uint32_t pllNum, const cy_stc_pll_manual_config_t *config)
-{
-    CY_UNUSED_PARAMETER(pllNum);
-    CY_UNUSED_PARAMETER(config);
-
-    #if defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (1u)
-    /* Overwrite with default values as personality generated config structure not updated */
-    config->lpPllCfg->sscgDepth    = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DEPTH;
-    config->lpPllCfg->sscgRate     = (uint8_t)CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_RATE;
-    config->lpPllCfg->sscgDitherEn = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_DITHER_EN;
-    config->lpPllCfg->sscgMode     = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_MODE;
-    config->lpPllCfg->sscgEn       = CY_SYSCLK_DPLL_LP_CONFIG3_SSCG_EN;
-    config->lpPllCfg->dcoCode      = CY_SYSCLK_DPLL_LP_CONFIG4_DCO_CODE;
-    config->lpPllCfg->pllTg        = CY_SYSCLK_DPLL_LP_CONFIG4_PLL_TG;
-    config->lpPllCfg->kiInt        = CY_SYSCLK_DPLL_LP_CONFIG5_KI_INT;
-    config->lpPllCfg->kpInt        = CY_SYSCLK_DPLL_LP_CONFIG5_KP_INT;
-    config->lpPllCfg->kiAccInt     = CY_SYSCLK_DPLL_LP_CONFIG5_KI_ACC_INT;
-    config->lpPllCfg->kpAccInt     = CY_SYSCLK_DPLL_LP_CONFIG5_KP_ACC_INT;
-    config->lpPllCfg->kiFrac       = CY_SYSCLK_DPLL_LP_CONFIG6_KI_FRAC;
-    config->lpPllCfg->kpFrac       = CY_SYSCLK_DPLL_LP_CONFIG6_KP_FRAC;
-    config->lpPllCfg->kiAccFrac    = CY_SYSCLK_DPLL_LP_CONFIG6_KI_ACC_FRAC;
-    config->lpPllCfg->kpAccFrac    = CY_SYSCLK_DPLL_LP_CONFIG6_KP_ACC_FRAC;
-    config->lpPllCfg->kiSscg       = CY_SYSCLK_DPLL_LP_CONFIG7_KI_SSCG;
-    config->lpPllCfg->kpSscg       = CY_SYSCLK_DPLL_LP_CONFIG7_KP_SSCG;
-    config->lpPllCfg->kiAccSscg    = CY_SYSCLK_DPLL_LP_CONFIG7_KI_ACC_SSCG;
-    config->lpPllCfg->kpAccSscg    = CY_SYSCLK_DPLL_LP_CONFIG7_KP_ACC_SSCG;
-    #endif
-
-#if (CY_SRSS_DPLL_LP_PRESENT != 0U )
-
-    cy_en_sysclk_status_t retVal = CY_SYSCLK_SUCCESS;
-
-    CY_ASSERT_L1(pllNum < SRSS_NUM_DPLL_LP);
-
-    if (Cy_SysClk_DpllLpIsEnabled(pllNum))
-    {
-        retVal = CY_SYSCLK_INVALID_STATE;
-    }
-    /* valid divider bitfield values */
-    else if ((config->lpPllCfg->outputDiv    < CY_SYSCLK_DPLL_LP_MIN_OUTPUT_DIV) || (CY_SYSCLK_DPLL_LP_MAX_OUTPUT_DIV < config->lpPllCfg->outputDiv)    ||
-             (config->lpPllCfg->referenceDiv < CY_SYSCLK_DPLL_LP_MIN_REF_DIV)    || (CY_SYSCLK_DPLL_LP_MAX_REF_DIV    < config->lpPllCfg->referenceDiv) ||
-             (config->lpPllCfg->feedbackDiv  < CY_SYSCLK_DPLL_LP_MIN_FB_DIV)     || (CY_SYSCLK_DPLL_LP_MAX_FB_DIV     < config->lpPllCfg->feedbackDiv))
-    {
-         retVal = CY_SYSCLK_BAD_PARAM;
-    }
-    else /* no errors */
-    {
-        /* If output mode is bypass (input routed directly to output), then done.
-           The output frequency equals the input frequency regardless of the frequency parameters. */
-        if (config->lpPllCfg->outputMode != CY_SYSCLK_FLLPLL_OUTPUT_INPUT)
-        {
-                SRSS_CLK_DPLL_LP_CONFIG(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG_FEEDBACK_DIV,  config->lpPllCfg->feedbackDiv)  |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG_REFERENCE_DIV, config->lpPllCfg->referenceDiv) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG_OUTPUT_DIV,    config->lpPllCfg->outputDiv)    |
-        #if defined (CY_IP_MXS22SRSS)
-                _VAL2FLD(CLK_DPLL_LP_CONFIG_PLL_DCO_MODE,    config->lpPllCfg->pllDcoMode);
-        #else
-                _VAL2FLD(CLK_DPLL_LP_CONFIG_PLL_DCO_CODE_MULT,    config->lpPllCfg->pllDcoMode);
-        #endif
-
-                SRSS_CLK_DPLL_LP_CONFIG2(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG2_FRAC_DIV, config->lpPllCfg->fracDiv)  |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG2_FRAC_DITHER_EN, config->lpPllCfg->fracDitherEn) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG2_FRAC_EN, config->lpPllCfg->fracEn);
-
-                SRSS_CLK_DPLL_LP_CONFIG3(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG3_SSCG_DEPTH, config->lpPllCfg->sscgDepth)  |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG3_SSCG_RATE, config->lpPllCfg->sscgRate) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG3_SSCG_DITHER_EN, config->lpPllCfg->sscgDitherEn) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG3_SSCG_MODE, config->lpPllCfg->sscgMode) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG3_SSCG_EN, config->lpPllCfg->sscgEn);
-         #if defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (0u)
-                SRSS_CLK_DPLL_LP_CONFIG4(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_DCO_CODE, config->lpPllCfg->dcoCode)  |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_PLL_CS_PB2_DIS, config->lpPllCfg->disableBias) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_DCO_SD_EN, config->lpPllCfg->enableDcoSd);
-
-                SRSS_CLK_DPLL_LP_CONFIG5(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KI_INT, config->lpPllCfg->kiInt)  |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KI_FRACT, config->lpPllCfg->kiFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KI_SSCG, config->lpPllCfg->kiSscg)  |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KP_INT, config->lpPllCfg->kpInt)  |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KP_FRACT, config->lpPllCfg->kpFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KP_SSCG, config->lpPllCfg->kpSscg);
-         #elif defined (CY_IP_MXS22SRSS) && CY_IP_MXS22SRSS_VERSION_MINOR == (1u)
-                SRSS_CLK_DPLL_LP_CONFIG4(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_DCO_CODE, config->lpPllCfg->dcoCode)  |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_PLL_CS_PB2_DIS, config->lpPllCfg->disableBias) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_PLL_TG, config->lpPllCfg->pllTg);
-
-                SRSS_CLK_DPLL_LP_CONFIG5(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KI_INT, config->lpPllCfg->kiInt) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KP_INT, config->lpPllCfg->kpInt) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KI_ACC_INT, config->lpPllCfg->kiAccInt) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KP_ACC_INT, config->lpPllCfg->kpAccInt) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KP_ACC_INT, config->lpPllCfg->pwrupAccInt);
-
-                 SRSS_CLK_DPLL_LP_CONFIG6(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KI_FRACT, config->lpPllCfg->kiFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KP_FRACT, config->lpPllCfg->kpFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KI_ACC_FRACT, config->lpPllCfg->kiAccFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KP_ACC_FRACT, config->lpPllCfg->kpAccFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KP_ACC_FRACT, config->lpPllCfg->pwrupAccFrac);
-
-                 SRSS_CLK_DPLL_LP_CONFIG7(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KI_SSCG, config->lpPllCfg->kiSscg) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KP_SSCG, config->lpPllCfg->kpSscg) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KI_ACC_SSCG, config->lpPllCfg->kiAccSscg) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KP_ACC_SSCG, config->lpPllCfg->kpAccSscg) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KP_ACC_SSCG, config->lpPllCfg->pwrupAccSscg);
-
-         #else
-                 SRSS_CLK_DPLL_LP_CONFIG4(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_DCO_CODE, config->lpPllCfg->dcoCode) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_ACC_MODE, config->lpPllCfg->accMode) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_TDC_MODE, config->lpPllCfg->tdcMode) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_PLL_TG, config->lpPllCfg->pllTg) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG4_ACC_CNT_LOCK, config->lpPllCfg->accCntLock);
-
-                 SRSS_CLK_DPLL_LP_CONFIG5(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KI_INT, config->lpPllCfg->kiInt) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KP_INT, config->lpPllCfg->kpInt) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KI_ACC_INT, config->lpPllCfg->kiAccInt) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG5_KP_ACC_INT, config->lpPllCfg->kpAccInt);
-
-                 SRSS_CLK_DPLL_LP_CONFIG6(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KI_FRACT, config->lpPllCfg->kiFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KP_FRACT, config->lpPllCfg->kpFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KI_ACC_FRACT, config->lpPllCfg->kiAccFrac) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG6_KP_ACC_FRACT, config->lpPllCfg->kpAccFrac);
-
-                 SRSS_CLK_DPLL_LP_CONFIG7(pllNum) =
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KI_SSCG, config->lpPllCfg->kiSscg) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KP_SSCG, config->lpPllCfg->kpSscg) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KI_ACC_SSCG, config->lpPllCfg->kiAccSscg) |
-                _VAL2FLD(CLK_DPLL_LP_CONFIG7_KP_ACC_SSCG, config->lpPllCfg->kpAccSscg);
-         #endif
-        }
-
-        CY_REG32_CLR_SET(SRSS_CLK_DPLL_LP_CONFIG(pllNum), CLK_DPLL_LP_CONFIG_BYPASS_SEL, (uint32_t)config->lpPllCfg->outputMode);
-    }
 
     return (retVal);
 #else
@@ -5653,139 +5206,6 @@ bool Cy_SysClk_PllLostLock(uint32_t clkPath)
 #endif
 }
 
-cy_en_sysclk_status_t Cy_SysClk_PllDisable(uint32_t clkPath)
-{
-#if defined(CY_IP_MXS22SRSS)
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-    if(clkPath < SRSS_NUM_DPLL_LP)
-    {
-        return Cy_SysClk_DpllLpDisable(clkPath);
-    }
-    else
-    {
-        return Cy_SysClk_DpllHpDisable(clkPath - SRSS_NUM_DPLL_LP);
-    }
-#elif (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
-    clkPath--; /* to correctly access PLL config and status registers structures */
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-    if(clkPath < SRSS_NUM_DPLL_LP)
-    {
-        return Cy_SysClk_DpllLpDisable(clkPath);
-    }
-    else
-    {
-        return CY_SYSCLK_BAD_PARAM;
-    }
-#else
-    clkPath--; /* to correctly access PLL config and status registers structures */
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
-    if(clkPath < CY_SRSS_NUM_PLL400M)
-    {
-        return Cy_SysClk_Pll400MDisable(clkPath);
-    }
-    else
-    {
-        return Cy_SysClk_Pll200MDisable(clkPath - CY_SRSS_NUM_PLL400M);
-    }
-#else
-    return Cy_SysClk_Pll200MDisable(clkPath);
-#endif
-#endif
-}
-
-
-cy_en_sysclk_status_t Cy_SysClk_PllConfigure(uint32_t clkPath, const cy_stc_pll_config_t *config)
-{
-#if defined(CY_IP_MXS22SRSS)
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-    if(clkPath < SRSS_NUM_DPLL_LP)
-    {
-        return Cy_SysClk_DpllLpConfigure(clkPath, config);
-    }
-    else
-    {
-        return Cy_SysClk_DpllHpConfigure(clkPath - SRSS_NUM_DPLL_LP, config);
-    }
-#elif (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
-    clkPath--; /* to correctly access PLL config and status registers structures */
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-    if(clkPath < SRSS_NUM_DPLL_LP)
-    {
-        return Cy_SysClk_DpllLpConfigure(clkPath, config);
-    }
-    else
-    {
-        return CY_SYSCLK_BAD_PARAM;
-    }
-#else
-    clkPath--; /* to correctly access PLL config and status registers structures */
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
-    if(clkPath < CY_SRSS_NUM_PLL400M)
-    {
-        return Cy_SysClk_Pll400MConfigure(clkPath, config);
-    }
-    else
-    {
-        return Cy_SysClk_Pll200MConfigure((clkPath - CY_SRSS_NUM_PLL400M), config);
-    }
-#else
-    return Cy_SysClk_Pll200MConfigure(clkPath, config);
-#endif
-#endif
-}
-
-cy_en_sysclk_status_t Cy_SysClk_PllManualConfigure(uint32_t clkPath, const cy_stc_pll_manual_config_t *config)
-{
-#if defined(CY_IP_MXS22SRSS)
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-    if(clkPath < SRSS_NUM_DPLL_LP)
-    {
-        return Cy_SysClk_DpllLpManualConfigure(clkPath, config);
-    }
-    else
-    {
-        return Cy_SysClk_DpllHpManualConfigure(clkPath - SRSS_NUM_DPLL_LP, config);
-    }
-#elif (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
-    clkPath--; /* to correctly access PLL config and status registers structures */
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-    if(clkPath < SRSS_NUM_DPLL_LP)
-    {
-        return Cy_SysClk_DpllLpManualConfigure(clkPath, config);
-    }
-    else
-    {
-        return CY_SYSCLK_BAD_PARAM;
-    }
-#else
-    clkPath--; /* to correctly access PLL config and status registers structures */
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
-    if(clkPath < CY_SRSS_NUM_PLL400M)
-    {
-        return Cy_SysClk_Pll400MManualConfigure(clkPath, config);
-    }
-    else
-    {
-        return Cy_SysClk_Pll200MManualConfigure((clkPath - CY_SRSS_NUM_PLL400M), config);
-    }
-#else
-    return Cy_SysClk_Pll200MManualConfigure(clkPath, config);
-#endif
-#endif
-}
-
 cy_en_sysclk_status_t Cy_SysClk_PllGetConfiguration(uint32_t clkPath, cy_stc_pll_manual_config_t *config)
 {
 #if defined(CY_IP_MXS22SRSS)
@@ -5827,50 +5247,6 @@ cy_en_sysclk_status_t Cy_SysClk_PllGetConfiguration(uint32_t clkPath, cy_stc_pll
 #else
     return Cy_SysClk_Pll200MGetConfiguration(clkPath, config);
 #endif
-#endif
-}
-
-cy_en_sysclk_status_t Cy_SysClk_PllEnable(uint32_t clkPath, uint32_t timeoutus)
-{
-#if defined(CY_IP_MXS22SRSS)
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-    if(clkPath < SRSS_NUM_DPLL_LP)
-    {
-        return Cy_SysClk_DpllLpEnable(clkPath, timeoutus);
-    }
-    else
-    {
-        return Cy_SysClk_DpllHpEnable(clkPath - SRSS_NUM_DPLL_LP, timeoutus);
-    }
-#elif (defined (CY_IP_MXS40SSRSS) && (SRSS_NUM_TOTAL_PLL > 0UL))
-    clkPath--; /* to correctly access PLL config and status registers structures */
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-    if(clkPath < SRSS_NUM_DPLL_LP)
-    {
-        return Cy_SysClk_DpllLpEnable(clkPath, timeoutus);
-    }
-    else
-    {
-        return CY_SYSCLK_BAD_PARAM;
-    }
-#else
-    clkPath--; /* to correctly access PLL config and status registers structures */
-    CY_ASSERT_L1(clkPath < (CY_SRSS_NUM_PLL));
-
-#if defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0)
-    if(clkPath < CY_SRSS_NUM_PLL400M)
-    {
-        return Cy_SysClk_Pll400MEnable(clkPath, timeoutus);
-    }
-    else
-    {
-        return Cy_SysClk_Pll200MEnable((clkPath - CY_SRSS_NUM_PLL400M), timeoutus);
-    }
-#else
-    return Cy_SysClk_Pll200MEnable(clkPath, timeoutus);
-#endif  /* defined (CY_SRSS_NUM_PLL400M) && (CY_SRSS_NUM_PLL400M > 0) */
 #endif
 }
 

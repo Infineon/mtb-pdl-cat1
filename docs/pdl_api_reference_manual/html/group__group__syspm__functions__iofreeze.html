@@ -99,12 +99,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8f0ee97d39dbc001ce07b5d306ffbddc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga8f0ee97d39dbc001ce07b5d306ffbddc">Cy_SysPm_IoFreeze</a> (void)</td></tr>
 <tr class="memdesc:ga8f0ee97d39dbc001ce07b5d306ffbddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Freezes IOs.  <a href="#ga8f0ee97d39dbc001ce07b5d306ffbddc">More...</a><br /></td></tr>
 <tr class="separator:ga8f0ee97d39dbc001ce07b5d306ffbddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga09d3a037917bd2e02d9e9e500ae700ab">Cy_SysPm_DeepSleepIoIsFrozen</a> (void)</td></tr>
-<tr class="memdesc:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether IOs are frozen during DEEPSLEEP-RAM/OFF.  <a href="#ga09d3a037917bd2e02d9e9e500ae700ab">More...</a><br /></td></tr>
-<tr class="separator:ga09d3a037917bd2e02d9e9e500ae700ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab725010772eda4fcfc2412fef03ef3d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#gab725010772eda4fcfc2412fef03ef3d0">Cy_SysPm_DeepSleepIoUnfreeze</a> (void)</td></tr>
-<tr class="memdesc:gab725010772eda4fcfc2412fef03ef3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function unfreezes the I/O cells that are automatically frozen when DEEPSLEEP-RAM/OFF is entered.  <a href="#gab725010772eda4fcfc2412fef03ef3d0">More...</a><br /></td></tr>
-<tr class="separator:gab725010772eda4fcfc2412fef03ef3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28025c798d1591d525ebbd926616e26c"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga28025c798d1591d525ebbd926616e26c">Cy_SysPm_DeepSleepIoIsFrozen</a> (void)</td></tr>
+<tr class="memdesc:ga28025c798d1591d525ebbd926616e26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether IOs are frozen during DEEPSLEEP-RAM/OFF.  <a href="#ga28025c798d1591d525ebbd926616e26c">More...</a><br /></td></tr>
+<tr class="separator:ga28025c798d1591d525ebbd926616e26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga806498cf1505712d5c07b2c39271261f"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__syspm__functions__iofreeze.html#ga806498cf1505712d5c07b2c39271261f">Cy_SysPm_DeepSleepIoUnfreeze</a> (void)</td></tr>
+<tr class="memdesc:ga806498cf1505712d5c07b2c39271261f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function unfreezes the I/O cells that are automatically frozen when DEEPSLEEP-RAM/OFF is entered.  <a href="#ga806498cf1505712d5c07b2c39271261f">More...</a><br /></td></tr>
+<tr class="separator:ga806498cf1505712d5c07b2c39271261f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaf741ea459227eeb4528221653b5fde4a"></a>
@@ -180,14 +180,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga09d3a037917bd2e02d9e9e500ae700ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga09d3a037917bd2e02d9e9e500ae700ab">&#9670;&nbsp;</a></span>Cy_SysPm_DeepSleepIoIsFrozen()</h2>
+<a id="ga28025c798d1591d525ebbd926616e26c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28025c798d1591d525ebbd926616e26c">&#9670;&nbsp;</a></span>Cy_SysPm_DeepSleepIoIsFrozen()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Cy_SysPm_DeepSleepIoIsFrozen </td>
+          <td class="memname">__STATIC_INLINE bool Cy_SysPm_DeepSleepIoIsFrozen </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -206,14 +206,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gab725010772eda4fcfc2412fef03ef3d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab725010772eda4fcfc2412fef03ef3d0">&#9670;&nbsp;</a></span>Cy_SysPm_DeepSleepIoUnfreeze()</h2>
+<a id="ga806498cf1505712d5c07b2c39271261f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga806498cf1505712d5c07b2c39271261f">&#9670;&nbsp;</a></span>Cy_SysPm_DeepSleepIoUnfreeze()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Cy_SysPm_DeepSleepIoUnfreeze </td>
+          <td class="memname">__STATIC_INLINE void Cy_SysPm_DeepSleepIoUnfreeze </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>

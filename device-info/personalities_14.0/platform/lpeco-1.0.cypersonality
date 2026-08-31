@@ -36,6 +36,8 @@
   <ExposedMembers>
     <ExposedMember key="frequency" paramId="frequency" />
     <ExposedMember key="accuracy"  paramId="accuracyPct" />
+    <ExposedMember key="suppressCodeGen" paramId="suppressLpecoCodeGen" />
+    <ExposedMember key="pinStartupKind" paramId="pinStartupKind" />
   </ExposedMembers>
   <Parameters>
     <!-- PDL documentation -->
@@ -46,6 +48,7 @@
 
     <ParamRange id="accuracyPpm" name="Accuracy (&#177;ppm)" group="General" default="0" min="0" max="1000000" resolution="1" visible="true" editable="true" desc="Clock accuracy in ppm" />
     <ParamString id="accuracyPct" name="Accuracy (&#177;%)" group="General" default="`${accuracyPpm/10000.0}`" visible="true" editable="false" desc="Clock accuracy in %" />
+    <ParamBool id="suppressLpecoCodeGen" name="Suppress LPECO Pin Configuration Code Generation" group="Internal" default="true" visible="false" editable="false" desc="Prevents pins connected to this personality from generating duplicate GPIO initialization code." />
 
     <!-- LPECO Crystal Characteristics -->
     <ParamRange id="cLoad" name="Load Capacitance Cload (pF)" group="General" default="18" min="5" max="25" resolution="1" visible="true" editable="true" desc="" />
@@ -65,16 +68,25 @@
 
     <!-- Restrict ECO connections to pins -->
     <ParamSignal port="lpeco_in[0]" name="Input" group="Connections" visible="true" desc="The input/passive terminal of the internal LPECO circuitry" canBeEmpty="false" requirePreferred="true" isDependency="true">
-      <Constraint type="REQUIRE" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" />
+      <Constraint type="REQUIRE" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true">
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match the LPECO requirement."><Fixed value="CY_GPIO_DM_ANALOG" /></Parameter>
+        <Parameter id="initialState" severity="INFO" reason="The pin Initial Drive State parameter does not match the LPECO requirement."><Fixed value="0" /></Parameter>
+      </Constraint>
     </ParamSignal>
     <ParamSignal port="lpeco_out[0]" name="Output" group="Connections" visible="true" desc="The output/active terminal of the internal LPECO circuitry" canBeEmpty="false" requirePreferred="true" isDependency="true">
-      <Constraint type="REQUIRE" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" />
+      <Constraint type="REQUIRE" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true">
+        <Parameter id="DriveModes" severity="INFO" reason="The pin Drive Mode parameter does not match the LPECO requirement."><Fixed value="CY_GPIO_DM_ANALOG" /></Parameter>
+        <Parameter id="initialState" severity="INFO" reason="The pin Initial Drive State parameter does not match the LPECO requirement."><Fixed value="0" /></Parameter>
+      </Constraint>
     </ParamSignal>
 
     <ParamString id="gpio_in_port" name="gpio_in_port" group="General" default="`${getInstFromLocation(getParamValue(&quot;lpeco_in[0]&quot;), &quot;port&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="gpio_in_pin" name="gpio_in_pin" group="General" default="`${getInstFromLocation(getParamValue(&quot;lpeco_in[0]&quot;), &quot;pin&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="gpio_out_port" name="gpio_out_port" group="General" default="`${getInstFromLocation(getParamValue(&quot;lpeco_out[0]&quot;), &quot;port&quot;)}`" visible="false" editable="false" desc="" />
     <ParamString id="gpio_out_pin" name="gpio_out_pin" group="General" default="`${getInstFromLocation(getParamValue(&quot;lpeco_out[0]&quot;), &quot;pin&quot;)}`" visible="false" editable="false" desc="" />
+    <ParamString id="pinStartupKind" name="Pin Startup Kind" group="Internal"
+           default="ANALOG_CRYSTAL" visible="false" editable="false"
+           desc="Startup profile required by this clock connection." />
   </Parameters>
   <ConfigFirmware>
     <ConfigInclude value="cy_gpio.h" include="true" />

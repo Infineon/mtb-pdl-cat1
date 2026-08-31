@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_syspm_pdcm.h
-* \version 5.210
+* \version 5.230
 *
 * This file provides the header for PDCM driver, where the APIs are used
 * by Syspm driver and BTSS driver.
@@ -87,7 +87,9 @@ typedef enum
     CY_PD_PDCM_MAIN      = 0x00UL, /**< For MAIN Power domain */
     CY_PD_PDCM_CPUSS     = 0x01UL, /**< For CPUSS Power domain */
     CY_PD_PDCM_SRAM      = 0x02UL, /**< For SRAM Power domain */
+    #if defined (CY_IP_MXS40BLE52SS)
     CY_PD_PDCM_BTSS      = 0x03UL, /**< For BTSS Power domain */
+    #endif /* defined (CY_IP_MXS40BLE52SS) */
 } cy_pd_pdcm_id_t;
 #endif
 /** Defines Dependency Matrix for PD's */
@@ -108,7 +110,7 @@ typedef enum
 /** Driver major version */
 #define CY_PD_PDCM_DRV_VERSION_MAJOR       5
 /** Driver minor version */
-#define CY_PD_PDCM_DRV_VERSION_MINOR       150
+#define CY_PD_PDCM_DRV_VERSION_MINOR       230
 
 /** Macro to validate the PDCM PPU ID in API's : /ref cy_pd_pdcm_get_dependency, /ref cy_pd_pdcm_set_dependency() and /ref cy_pd_pdcm_clear_dependency */
 #if defined (CY_IP_MXS22SRSS)
@@ -121,11 +123,15 @@ typedef enum
                                            ((id) == CY_PD_PDCM_APPCPU)   || \
                                            ((id) == CY_PD_PDCM_SOCMEM)   || \
                                            ((id) == CY_PD_PDCM_U55))
-#else
+#elif defined (CY_IP_MXS40BLE52SS)
 #define CY_SYSPM_IS_PDCM_ID_VALID(id)    (((id) == CY_PD_PDCM_MAIN)      || \
                                            ((id) == CY_PD_PDCM_SRAM)     || \
                                            ((id) == CY_PD_PDCM_CPUSS)    || \
                                            ((id) == CY_PD_PDCM_BTSS))
+#else
+#define CY_SYSPM_IS_PDCM_ID_VALID(id)    (((id) == CY_PD_PDCM_MAIN)      || \
+                                           ((id) == CY_PD_PDCM_SRAM)     || \
+                                           ((id) == CY_PD_PDCM_CPUSS))
 
 #endif
 /** \} group_syspm_pdcm_macros */

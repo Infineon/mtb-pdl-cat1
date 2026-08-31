@@ -117,7 +117,7 @@ proc solve_pll_internal {srcFreqMHz targetFreqMHz lfMode minPower} {
                 set dcoMode false
 			}
 
-            for {set o $::OUT_MIN} {$o <= $::OUT_MAX} {incr o} {
+            for {set o $::OUT_MIN} {$o <= ($::OUT_MAX / 2)} {incr o} {
                 set tempVco [expr { $targetFreqMHz * $o}]
                 set tempFeedBackDivLeftShifted [expr { ((($tempVco) * pow (2, 24)) * $q) / $srcFreqMHz }]
                 set feedBackFracDiv [expr { (int($tempFeedBackDivLeftShifted) & (( 1 << 24 ) - 1)) }]

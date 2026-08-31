@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<View xmlns="http://cypress.com/xsd/cystudioview_v1">
+  <Profiles>
+    <Profile displayName="Software" fileName="software" evalPriority="0" displayPriority="10" description="Software configuration" resources="features\[\d+\].*"/>
+    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" evalPriority="1" displayPriority="8" description="Memory configuration" resources="vres\[\d+\]\.memory_region_data\[\d+\].*"/>
+    <Profile diagramType="CLOCKS" displayName="Clocks" fileName="peripherals" evalPriority="7" displayPriority="6" description="Clock configuration" resources="srss\[\d+\]\.rtc\[\d+\].*"/>
+    <Profile diagramType="CLOCKS" displayName="Clocks" fileName="system" evalPriority="2" displayPriority="6" description="Clock configuration" resources="srss\[\d+\]\.(clock|rtc)\[\d+\].*|wco\[\d+\].*|exco\[\d+\].*|(cpuss|m33syscpuss|m55appcpuss|m0seccpuss)\[\d+\]\.systick.*"/>
+    <Profile diagramType="CLOCKS" displayName="Clocks" fileName="clocks" evalPriority="3" displayPriority="6" description="Peripheral clock divider configuration" resources="peri\[\d+\].+"/>
+    <Profile displayName="System" fileName="peripherals" evalPriority="7" displayPriority="7" description="System configuration" resources="debug600\[\d+\].*"/>
+    <Profile displayName="System" fileName="system" evalPriority="1" displayPriority="7" description="System configuration" resources="srss\[\d+\]\.power\[\d+\].*"/>
+    <Profile displayName="System" fileName="system" evalPriority="4" displayPriority="7" description="System configuration" resources="power\[\d+\].*|srss\[\d+\]\.(power|pd|eeprom)\[\d+\].*|(cpuss|m33syscpuss)\[\d+\]\.dap\[\d+\].*|debug600\[\d+\].*"/>
+    <Profile displayName="System" fileName="system" evalPriority="9" displayPriority="7" description="System configuration" resources="vres\[\d+\]\.(security|protection)\[\d+\].*"/>
+    <Profile displayName="System" fileName="system" evalPriority="13" displayPriority="7" description="System configuration" resources=".*\.(cm33|cm55|sau|mpu_s|mpu_ns)\[\d+\]|.*\.mpc\[\d+\]|peri\[\d+\]"/>
+    <Profile displayName="DMA" fileName="dmas" evalPriority="5" displayPriority="9" description="DMA configuration" resources=".*(dw|dmac|axidmac|axi_dmac|mxdw|mxahbdmac)\d?\[\d+\].*"/>
+    <Profile purpose="ANALOG" diagramType="ANALOG" displayName="Analog" fileName="peripherals" evalPriority="6" displayPriority="3" description="Analog configuration" resources="(pass|lppass|msc|msclp|csd|lpcomp|pmu|vadc|dac)\[\d+\].*"/>
+    <Profile diagramType="PACKAGE" displayName="Pins" fileName="pins" evalPriority="8" displayPriority="4" description="Pin configuration" resources="(ioss|iocl)\[\d+\].*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_wifi" evalPriority="11" displayPriority="5" description="Connectivity Wi-Fi configuration" resources="wifi(\[\d+\]).*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_bt" evalPriority="11" displayPriority="5" description="Connectivity BT configuration" resources="bt(\[\d+\]).*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_coex" evalPriority="11" displayPriority="5" description="Connectivity Coex configuration" resources="coex(\[\d+\]).*"/>
+    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" evalPriority="12" displayPriority="8" description="Memory configuration" resources="vres\[\d+\]\.(reserved_memory_region|memory)\[\d+\].*"/>
+    <Profile displayName="Solutions" fileName="solutions" evalPriority="10" displayPriority="1" description="Solution configuration" resources="vres\[\d+\].*"/>
+    <Profile displayName="Peripherals" fileName="peripherals" evalPriority="7" displayPriority="2" description="Peripheral Hardware Block configuration" resources=".*"/>
+    <Profile purpose="ROUTING" diagramType="ANALOG" displayName="Analog-Routing" fileName="routing" evalPriority="6" displayPriority="3" description="Establishes all necessary connections between hardware elements." resources="NONE">
+      <Includes>
+        <Include value="cy_trigmux.h" public="false"/>
+        <Include value="stdbool.h" public="false"/>
+        <Include value="cy_device_headers.h" public="false"/>
+      </Includes>
+    </Profile>
+  </Profiles>
+</View>

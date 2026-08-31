@@ -33,6 +33,22 @@
 #include "cy_utils.h"
 #include "cmsis_compiler.h"
 
+/* Force GCC to emit each syscall stub as a real ELF symbol even when LTO is
+ * enabled. Without ((used)), the bodies survive only as weak undefined LTO-IR
+ * symbols, which cannot satisfy the strong references coming from newlib-nano
+ * archives (libg_nano.a / libc_nano.a) such as
+ *     _fstat_r  -> _fstat
+ *     _isatty_r -> _isatty
+ *     _read_r   -> _read
+ *     _write_r  -> _write
+ *     ...
+ * causing 'undefined reference' link failures with -flto. */
+#if defined(__GNUC__)
+    #define MTB_STDLIB_STUB_KEEP __attribute__((used))
+#else
+    #define MTB_STDLIB_STUB_KEEP
+#endif
+
 CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Directive 4.6', 20, \
                              'Directive requires use of typedef input instead of int but signature for following APIs needs to match stlib one')
 
@@ -45,7 +61,7 @@ __WEAK int _read(int file, char* ptr, int len);
 //--------------------------------------------------------------------------------------------------
 // _read
 //--------------------------------------------------------------------------------------------------
-__WEAK int _read(int file, char* ptr, int len)
+__WEAK MTB_STDLIB_STUB_KEEP int _read(int file, char* ptr, int len)
 {
     CY_UNUSED_PARAMETER(file);
     CY_UNUSED_PARAMETER(ptr);
@@ -64,7 +80,7 @@ __WEAK int _write(int file, char* ptr, int len);
 //--------------------------------------------------------------------------------------------------
 // _write
 //--------------------------------------------------------------------------------------------------
-__WEAK int _write(int file, char* ptr, int len)
+__WEAK MTB_STDLIB_STUB_KEEP int _write(int file, char* ptr, int len)
 {
     CY_UNUSED_PARAMETER(file);
     CY_UNUSED_PARAMETER(ptr);
@@ -84,7 +100,7 @@ __WEAK int _fstat(int fildes, struct stat* st);
 //--------------------------------------------------------------------------------------------------
 // _fstat
 //--------------------------------------------------------------------------------------------------
-__WEAK int _fstat(int fildes, struct stat* st)
+__WEAK MTB_STDLIB_STUB_KEEP int _fstat(int fildes, struct stat* st)
 {
     CY_UNUSED_PARAMETER(fildes);
     CY_UNUSED_PARAMETER(st);
@@ -102,7 +118,7 @@ __WEAK int _open(char* file, int flags, int mode);
 //--------------------------------------------------------------------------------------------------
 // _open
 //--------------------------------------------------------------------------------------------------
-__WEAK int _open(char* file, int flags, int mode)
+__WEAK MTB_STDLIB_STUB_KEEP int _open(char* file, int flags, int mode)
 {
     CY_UNUSED_PARAMETER(file);
     CY_UNUSED_PARAMETER(flags);
@@ -121,7 +137,7 @@ __WEAK int _close(int fildes);
 //--------------------------------------------------------------------------------------------------
 // _close
 //--------------------------------------------------------------------------------------------------
-__WEAK int _close(int fildes)
+__WEAK MTB_STDLIB_STUB_KEEP int _close(int fildes)
 {
     CY_UNUSED_PARAMETER(fildes);
     errno = ENOSYS;
@@ -138,7 +154,7 @@ __WEAK int _lseek(int file, int ptr, int dir);
 //--------------------------------------------------------------------------------------------------
 // _lseek
 //--------------------------------------------------------------------------------------------------
-__WEAK int _lseek(int file, int ptr, int dir)
+__WEAK MTB_STDLIB_STUB_KEEP int _lseek(int file, int ptr, int dir)
 {
     CY_UNUSED_PARAMETER(file);
     CY_UNUSED_PARAMETER(ptr);
@@ -157,7 +173,7 @@ __WEAK int _getpid(void);
 //--------------------------------------------------------------------------------------------------
 // _getpid
 //--------------------------------------------------------------------------------------------------
-__WEAK int _getpid(void)
+__WEAK MTB_STDLIB_STUB_KEEP int _getpid(void)
 {
     errno = ENOSYS;
     // If we reach this point, something went wrong
@@ -173,7 +189,7 @@ __WEAK int _isatty(int file);
 //--------------------------------------------------------------------------------------------------
 // _isatty
 //--------------------------------------------------------------------------------------------------
-__WEAK int _isatty(int file)
+__WEAK MTB_STDLIB_STUB_KEEP int _isatty(int file)
 {
     CY_UNUSED_PARAMETER(file);
     errno = ENOSYS;
@@ -190,7 +206,7 @@ __WEAK int _kill(int pid, int sig);
 //--------------------------------------------------------------------------------------------------
 // _kill
 //--------------------------------------------------------------------------------------------------
-__WEAK int _kill(int pid, int sig)
+__WEAK MTB_STDLIB_STUB_KEEP int _kill(int pid, int sig)
 {
     CY_UNUSED_PARAMETER(pid);
     CY_UNUSED_PARAMETER(sig);
@@ -208,7 +224,7 @@ __WEAK int _chown(const char* path, uid_t owner, gid_t group);
 //--------------------------------------------------------------------------------------------------
 // _chown
 //--------------------------------------------------------------------------------------------------
-__WEAK int _chown(const char* path, uid_t owner, gid_t group)
+__WEAK MTB_STDLIB_STUB_KEEP int _chown(const char* path, uid_t owner, gid_t group)
 {
     CY_UNUSED_PARAMETER(path);
     CY_UNUSED_PARAMETER(owner);
@@ -227,7 +243,7 @@ __WEAK int _execve(char* name, char** argv, char** env);
 //--------------------------------------------------------------------------------------------------
 // _execve
 //--------------------------------------------------------------------------------------------------
-__WEAK int _execve(char* name, char** argv, char** env)
+__WEAK MTB_STDLIB_STUB_KEEP int _execve(char* name, char** argv, char** env)
 {
     CY_UNUSED_PARAMETER(name);
     CY_UNUSED_PARAMETER(argv);
@@ -246,7 +262,7 @@ __WEAK int _fork(void);
 //--------------------------------------------------------------------------------------------------
 // _fork
 //--------------------------------------------------------------------------------------------------
-__WEAK int _fork(void)
+__WEAK MTB_STDLIB_STUB_KEEP int _fork(void)
 {
     errno = ENOSYS;
     // If we reach this point, something went wrong
@@ -262,7 +278,7 @@ __WEAK int _getentropy(void* buf, size_t buflen);
 //--------------------------------------------------------------------------------------------------
 // _getentropy
 //--------------------------------------------------------------------------------------------------
-__WEAK int _getentropy(void* buf, size_t buflen)
+__WEAK MTB_STDLIB_STUB_KEEP int _getentropy(void* buf, size_t buflen)
 {
     CY_UNUSED_PARAMETER(buf);
     CY_UNUSED_PARAMETER(buflen);
@@ -280,7 +296,7 @@ __WEAK int _gettimeofday(struct timeval* ptimeval, void* ptimezone);
 //--------------------------------------------------------------------------------------------------
 // _gettimeofday
 //--------------------------------------------------------------------------------------------------
-__WEAK int _gettimeofday(struct timeval* ptimeval, void* ptimezone)
+__WEAK MTB_STDLIB_STUB_KEEP int _gettimeofday(struct timeval* ptimeval, void* ptimezone)
 {
     CY_UNUSED_PARAMETER(ptimeval);
     CY_UNUSED_PARAMETER(ptimezone);
@@ -298,7 +314,7 @@ __WEAK int _link(char* existing, char* new);
 //--------------------------------------------------------------------------------------------------
 // _link
 //--------------------------------------------------------------------------------------------------
-__WEAK int _link(char* existing, char* new)
+__WEAK MTB_STDLIB_STUB_KEEP int _link(char* existing, char* new)
 {
     CY_UNUSED_PARAMETER(existing);
     CY_UNUSED_PARAMETER(new);
@@ -316,7 +332,7 @@ __WEAK int _readlink(const char* path, char* buf, size_t bufsize);
 //--------------------------------------------------------------------------------------------------
 // _readlink
 //--------------------------------------------------------------------------------------------------
-__WEAK int _readlink(const char* path, char* buf, size_t bufsize)
+__WEAK MTB_STDLIB_STUB_KEEP int _readlink(const char* path, char* buf, size_t bufsize)
 {
     CY_UNUSED_PARAMETER(path);
     CY_UNUSED_PARAMETER(buf);
@@ -335,7 +351,7 @@ __WEAK int _stat(const char* file, struct stat* st);
 //--------------------------------------------------------------------------------------------------
 // _stat
 //--------------------------------------------------------------------------------------------------
-__WEAK int _stat(const char* file, struct stat* st)
+__WEAK MTB_STDLIB_STUB_KEEP int _stat(const char* file, struct stat* st)
 {
     CY_UNUSED_PARAMETER(file);
     CY_UNUSED_PARAMETER(st);
@@ -353,7 +369,7 @@ __WEAK int _symlink(const char* path1, const char* path2);
 //--------------------------------------------------------------------------------------------------
 // _symlink
 //--------------------------------------------------------------------------------------------------
-__WEAK int _symlink(const char* path1, const char* path2)
+__WEAK MTB_STDLIB_STUB_KEEP int _symlink(const char* path1, const char* path2)
 {
     CY_UNUSED_PARAMETER(path1);
     CY_UNUSED_PARAMETER(path2);
@@ -371,7 +387,7 @@ __WEAK int _times(struct tms* buf);
 //--------------------------------------------------------------------------------------------------
 // _times
 //--------------------------------------------------------------------------------------------------
-__WEAK int _times(struct tms* buf)
+__WEAK MTB_STDLIB_STUB_KEEP int _times(struct tms* buf)
 {
     CY_UNUSED_PARAMETER(buf);
     errno = ENOSYS;
@@ -388,7 +404,7 @@ __WEAK int _unlink(char* name);
 //--------------------------------------------------------------------------------------------------
 // _unlink
 //--------------------------------------------------------------------------------------------------
-__WEAK int _unlink(char* name)
+__WEAK MTB_STDLIB_STUB_KEEP int _unlink(char* name)
 {
     CY_UNUSED_PARAMETER(name);
     errno = ENOSYS;
@@ -405,7 +421,7 @@ __WEAK int _wait(int* status);
 //--------------------------------------------------------------------------------------------------
 // _wait
 //--------------------------------------------------------------------------------------------------
-__WEAK int _wait(int* status)
+__WEAK MTB_STDLIB_STUB_KEEP int _wait(int* status)
 {
     CY_UNUSED_PARAMETER(status);
     errno = ENOSYS;

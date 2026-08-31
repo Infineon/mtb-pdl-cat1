@@ -93,6 +93,38 @@
     #include "psc3m3edabq1_s.h"
 #elif defined (PSC3M3FDS2ABQ1)
     #include "psc3m3fds2abq1_s.h"
+#elif defined (PSC3P2EDLEQ1)
+    #include "psc3p2edleq1_s.h"
+#elif defined (PSC3P2FDS2LEQ1)
+    #include "psc3p2fds2leq1_s.h"
+#elif defined (PSC3M3EDLEQ1)
+    #include "psc3m3edleq1_s.h"
+#elif defined (PSC3M3FDS2LEQ1)
+    #include "psc3m3fds2leq1_s.h"
+#elif defined (PSC3P5EDLEQ1)
+    #include "psc3p5edleq1_s.h"
+#elif defined (PSC3P5FDS2LEQ1)
+    #include "psc3p5fds2leq1_s.h"
+#elif defined (PSC3M5EDLEQ1)
+    #include "psc3m5edleq1_s.h"
+#elif defined (PSC3M5FDS2LEQ1)
+    #include "psc3m5fds2leq1_s.h"
+#elif defined (PSC3P2EDYLGQ1)
+    #include "psc3p2edylgq1_s.h"
+#elif defined (PSC3P2FDS2YLGQ1)
+    #include "psc3p2fds2ylgq1_s.h"
+#elif defined (PSC3M3EDYLGQ1)
+    #include "psc3m3edylgq1_s.h"
+#elif defined (PSC3M3FDS2YLGQ1)
+    #include "psc3m3fds2ylgq1_s.h"
+#elif defined (PSC3P5EDYLGQ1)
+    #include "psc3p5edylgq1_s.h"
+#elif defined (PSC3P5FDS2YLGQ1)
+    #include "psc3p5fds2ylgq1_s.h"
+#elif defined (PSC3M5EDYLGQ1)
+    #include "psc3m5edylgq1_s.h"
+#elif defined (PSC3M5FDS2YLGQ1)
+    #include "psc3m5fds2ylgq1_s.h"
 #else
     #error Undefined part number. Consider updating PDL via ModusToolbox Library Manager to resolve the issue.
 #endif
@@ -188,6 +220,38 @@
     #include "psc3m3edabq1.h"
 #elif defined (PSC3M3FDS2ABQ1)
     #include "psc3m3fds2abq1.h"
+#elif defined (PSC3P2EDLEQ1)
+    #include "psc3p2edleq1.h"
+#elif defined (PSC3P2FDS2LEQ1)
+    #include "psc3p2fds2leq1.h"
+#elif defined (PSC3M3EDLEQ1)
+    #include "psc3m3edleq1.h"
+#elif defined (PSC3M3FDS2LEQ1)
+    #include "psc3m3fds2leq1.h"
+#elif defined (PSC3P5EDLEQ1)
+    #include "psc3p5edleq1.h"
+#elif defined (PSC3P5FDS2LEQ1)
+    #include "psc3p5fds2leq1.h"
+#elif defined (PSC3M5EDLEQ1)
+    #include "psc3m5edleq1.h"
+#elif defined (PSC3M5FDS2LEQ1)
+    #include "psc3m5fds2leq1.h"
+#elif defined (PSC3P2EDYLGQ1)
+    #include "psc3p2edylgq1.h"
+#elif defined (PSC3P2FDS2YLGQ1)
+    #include "psc3p2fds2ylgq1.h"
+#elif defined (PSC3M3EDYLGQ1)
+    #include "psc3m3edylgq1.h"
+#elif defined (PSC3M3FDS2YLGQ1)
+    #include "psc3m3fds2ylgq1.h"
+#elif defined (PSC3P5EDYLGQ1)
+    #include "psc3p5edylgq1.h"
+#elif defined (PSC3P5FDS2YLGQ1)
+    #include "psc3p5fds2ylgq1.h"
+#elif defined (PSC3M5EDYLGQ1)
+    #include "psc3m5edylgq1.h"
+#elif defined (PSC3M5FDS2YLGQ1)
+    #include "psc3m5fds2ylgq1.h"
 #else
     #error Undefined part number. Consider updating PDL via ModusToolbox Library Manager to resolve the issue.
 #endif

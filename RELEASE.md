@@ -1,36 +1,44 @@
-# MTB CAT1 Peripheral Driver Library v3.23.0
+# MTB CAT1 Peripheral Driver Library v3.24.0
 
 Please refer to the [README.md](./README.md) and the
 [PDL API Reference Manual](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/index.html)
 for a complete description of the Peripheral Driver Library.
 
 ## Implementation Details
-* Reduced memory footprint for PSOC C3 and CYW20829 devices
+* CAT1B: Added new 48QFN_ECO and VQFN40 MPNs for PSC3 device family.
 
 ## Personality Changes
 
+* New Personalities:
+  * platform:
+    * pin-4.0.cypersonality (Updated GPIO pin handling for the GPIO port initialization optimization.)
+    * port_intrinsic-2.0.cypersonality (Added GPIO port initialization memory optimization for PSOC Control devices.)
+    * eco-5.0.cypersonality (Updated ECO-connected GPIO pin handling for the GPIO port initialization optimization.)
+    * wco-4.0.cypersonality (Updated WCO-connected GPIO pin handling for the GPIO port initialization optimization.)
+    * extclk-4.0.cypersonality (Updated EXTCLK-connected GPIO pin handling for the GPIO port initialization optimization.)
+    * perimmio-intrinsic-1.0.cypersonality (Added a new personality that generates peripheral slave-control (SL_CTL) bus-clock gating code for the PERI MMIO block. The generated code now replaces the default enabling of all PERI MMIO groups in startup and all CLK_HF clocks related to them.)
+  * peripheral:
+    * uart-4.0.cypersonality (Added a new UART personality version that computes the clock divider precisely and adds baud-rate accuracy notices.)
+    * pwm_v2-2.0.cypersonality (Added PWM custom alignment mode support and HRPWM improvements.)
+
 * Updated Personalities:
   * platform:
-    * hfclk-3.0.cypersonality and hfclk-4.0.cypersonality (Made CY_CFG_SYSCLK_CLKHFX_FREQ_MHZ parameter public (where X is the CLKHF number), enabling access in user code)
-    * pathmux-3.0.cypersonality (Added support for loop-based clock initialization to reduce code size. Applicable for PSOC C3 and CYW20829 devices.)
-    * sysclock-3.0.cypersonality (Optimized clock initialization using loops instead of repetitive function calls, reducing memory consumption. Applicable for PSOC C3 and CYW20829 devices.)
-    * power_v2-1.0.cypersonality (Refactored to use low-level functions for Power profile configuration, improving efficiency. Applicable for PSOC C3 and CYW20829 devices.)
-    * imo-3.0.cypersonality (Updated IMO accuracy handling for PSOC C3 to deterministically report 2%, hid non-applicable trim controls, and excluded PSOC C3 from USB-trim guidance DRC.)
+    * fll-4.0.cypersonality and fll_solver-2.0.tcl (Fixed an issue where the FLL could not auto-tune when the ECO was set to 9 MHz in the Device Configurator.)
+    * pll_solver-5.1.tcl (Updated auto-configuration search  to keep the selected output divider within the valid programmed range.)
+    * extclk-3.0.cypersonality (Fixed EXTCLK Frequency (MHz) range formatting.)
+    * lpeco-1.0.cypersonality (Fixed duplicate GPIO pin initialization code generation for pins connected to LPECO.)
+  * peripheral:
+    * mcwdt-3.0.cypersonality (Added missing personality parameters and struct member for PSC3 family)
+    * pwm_v2-1.0.cypersonality (Updated Enable HRPWM tooltip text and added HRPWM-specific DRCs for input clock range, operating-frequency match, and Clock Prescaler=Divide by 1 with FixIt support.)
+    * motif_quaddec-1.0.cypersonality (Remove obsolete HAL-specific code)
 
 ## Updated Drivers
-* [SYSCLK 3.170](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
-* [SYSPM 5.220](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
-* [SYSLIB 3.110](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syslib.html)
-* [ADCMIC 1.10.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__adcmic.html)
-* [EFUSE 2.40.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__efuse.html)
-* [FLASH 3.150.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__flash.html)
-* [IPC 1.160.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ipc.html)
-* [MCWDT 1.100.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__mcwdt.html)
-* [MS_CTL 1.2.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__ms__ctl.html)
-* [MXSDIODEV 2.0.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sdiodev.html)
-* [SMIF 2.140.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__smif.html)
-* [USBFS 2.30.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__usbfs__dev__drv.html)
-* [CRYPTO 2.150.1](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__crypto.html)
+
+* [SYSPM 5.230](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__syspm.html)
+* [SYSCLK 3.180](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__sysclk.html)
+* [PRA 2.50](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__pra.html)
+* [TCPWM 1.100](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__tcpwm.html) (Added support for the PWM custom alignment mode.)
+* [CORDIC 2.20](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/group__group__cordic.html)
 
 ## Known Issues
 
@@ -58,15 +66,14 @@ for a complete description of the Peripheral Driver Library.
 
 ## Defect Fixes
 
-* SYSLIB: Fixed CAT1B LCS decoding by masking the source register to 16 bits in `Cy_SysLib_GetDeviceLCS()`.
+* Fixed the imprecise UART clock-divider Fix-It calculation that caused the divider Fix-It to oscillate between adjacent settings. Applies to all CAT1 devices.
+* Fixed EXTCLK Frequency (MHz) validation range formatting in device-configurator.
+* SYSPM: Enabled CY_PD_PDCM_BTSS related code for CYW20829 platform only (with BTSS).
+* SYSCLK: Fixed the DPLL-LP auto-configuration search on PSOC Control C3 devices to keep the selected output divider within the hardware-supported programmed range.
+* Fixed an LTO linker issue in the standard library stubs (mtb_stdlib_stubs.c) where weak syscall symbols could be dropped, causing newlib-nano reentrant wrappers to fail resolution. Added a keep attribute for the syscall stubs so GCC/LTO preserves the symbols and allows proper linking without requiring extra linker workarounds.
 
-* Fixed IMO clock accuracy display for PSOC C3 devices by aligning effective IMO accuracy to +/-2% in Device Configurator and removing inconsistent trim-dependent behavior.
-* Fixed CAT1B PSC3 FLL max output frequency limit in device headers from 96 MHz to 100 MHz, aligning with TRM and avoiding incorrect `BAD_PARAM` results in SYSCLK FLL configuration for valid frequencies.
-* Documentation update: removed Cypress mentions from driver documentation.
-* Fixed Cy_SysClk_FllOutputDividerEnable() corrupting CLK_FLL_CONFIG fields.
 
 See the Changelog section of each Driver in the [PDL API Reference](https://infineon.github.io/mtb-pdl-cat1/pdl_api_reference_manual/html/modules.html) for all fixes and updates.
-
 
 ## Supported Software and Tools
 
@@ -74,9 +81,9 @@ This version of PDL was validated for compatibility with the following Software 
 
 | Software and Tools                                                            | Version      |
 | :---                                                                          | :----        |
-| ModusToolbox&trade;                                                           | 3.7.0        |
-| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.7.0        |
-| [Device Database](https://github.com/Infineon/device-db)                      | 4.37.0       |
+| ModusToolbox&trade;                                                           | 3.8.0        |
+| [Infineon Core Library](https://github.com/Infineon/core-lib)                 | 1.8.0        |
+| [Device Database](https://github.com/Infineon/device-db)                      | 4.40.0       |
 | CMSIS                                                                         | 6.1.0        |
 | GCC Compiler                                                                  | 14.2.1       |
 | IAR Compiler                                                                  | 9.50.2       |

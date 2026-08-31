@@ -332,6 +332,8 @@ var searchData=
   ['cy_5fen_5fprot_5fsize_5ft',['cy_en_prot_size_t',['../group__group__prot__enums.html#gaad39ed0d259460f717edfe9d08fc005f',1,'cy_prot.h']]],
   ['cy_5fen_5fprot_5fstatus_5ft',['cy_en_prot_status_t',['../group__group__prot__enums.html#ga13ede85383a4afaf5ed3a14b470e38bd',1,'cy_prot.h']]],
   ['cy_5fen_5fprot_5fsubreg_5ft',['cy_en_prot_subreg_t',['../group__group__prot__enums.html#ga618195213f866568fb71ed14af59cf6c',1,'cy_prot.h']]],
+  ['cy_5fen_5fpwm_5fcount_5fdirection_5ft',['cy_en_pwm_count_direction_t',['../group__group__tcpwm__pwm__count__direction__mode.html#ga30a6c6c8e90b2f6b9cc729de8dc56bba',1,'cy_tcpwm_pwm.h']]],
+  ['cy_5fen_5fpwm_5foutput_5faction_5ft',['cy_en_pwm_output_action_t',['../group__group__tcpwm__pwm__output__action.html#ga565e7bb57bb6726e95414663849629bc',1,'cy_tcpwm_pwm.h']]],
   ['cy_5fen_5fquaddec_5fevent_5foutput_5fnode_5ft',['cy_en_quaddec_event_output_node_t',['../group__group__tcpwm__data__structures__motif.html#ga697ac6c81334959f9062b91f1b65acd3',1,'cy_tcpwm_motif.h']]],
   ['cy_5fen_5fquaddec_5findex_5foccurrence_5ft',['cy_en_quaddec_index_occurrence_t',['../group__group__tcpwm__data__structures__motif.html#ga3356b8fbe3ecf4db37de0da6c9c8a0f0',1,'cy_tcpwm_motif.h']]],
   ['cy_5fen_5fquaddec_5fsignal_5fselector_5ft',['cy_en_quaddec_signal_selector_t',['../group__group__tcpwm__data__structures__motif.html#ga0d24ff0aba3c1467d25d773b0ca9e651',1,'cy_tcpwm_motif.h']]],
