@@ -162,6 +162,8 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>2.150 </td><td>Changed the type of the memSize member of cy_stc_smif_hbmem_device_config_t from cy_en_device_size_t to uint32_t. Use values from cy_en_device_size_t to initialize this member. </td><td>Fixed the "enumerated type mixed with another type" warning reported by the IAR compiler for the generated HyperBus memory configuration code.  </td></tr>
+<tr>
 <td>2.140.1 </td><td>Updated driver documentation text. </td><td>Documentation update.  </td></tr>
 <tr>
 <td>2.140 </td><td>New device support added for TRAVEO T2G CYT3DL. </td><td>New Device support added.  </td></tr>

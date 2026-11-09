@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ethif.h
-* \version 1.50
+* \version 1.60
 *
 * Provides an API declaration of the Ethernet Interface driver
 *
@@ -81,6 +81,14 @@
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
 *   <tr>
+*     <td>1.60</td>
+*     <td>Fixed RX buffer exhaustion handling to avoid invalid buffer access.
+*         Added \ref cy_ethif_rx_error_cb_t, RX error event flags, and
+*         \ref Cy_ETHIF_RxErrorResetAndRecover for RX queue recovery after
+*         buffer exhaustion or overrun.</td>
+*     <td>Defect fix and code enhancement.</td>
+*   </tr>
+*   <tr>
 *     <td>1.50</td>
 *     <td>Added new \ref Cy_ETHIF_GetPrivateData API getter.</td>
 *     <td>Code enhancement.</td>
@@ -147,7 +155,7 @@ extern "C" {
 #define CY_ETHIF_DRV_VERSION_MAJOR        1
 
 /** Driver minor version */
-#define CY_ETHIF_DRV_VERSION_MINOR        50
+#define CY_ETHIF_DRV_VERSION_MINOR        60
 
 /** Eth driver ID */
 #define CY_ETHIF_ID                     CY_PDL_DRV_ID(0x71U)
@@ -278,6 +286,14 @@ extern "C" {
 #define CY_ETHIF_CFG_DMA_DISC_RXP           (0x01U) /**< The DMA will automatically discard receive packets from the receiver packet buffer memory when no AMBA (AXI) resource is available. */
 #define CY_ETHIF_CFG_DMA_FRCE_RX_BRST       (0x02U) /**< Force the RX DMA to always issue max length bursts on EOP(end of packet) or EOB(end of buffer) transfers. */
 #define CY_ETHIF_CFG_DMA_FRCE_TX_BRST       (0x04U) /**< Force the TX DMA to always issue max length bursts on EOP(end of packet) or EOB(end of buffer) transfers. */
+
+/** \defgroup group_ethif_rx_error_events RX Error Event Flags
+ *  Bitmask values passed in the \c a_event parameter of
+ *  \ref cy_ethif_rx_error_cb_t.
+ *  \{ */
+#define CY_ETHIF_EVENT_RX_USED_READ   (0x00000040UL)  /**< Used bit read in RX descriptor (buffer exhaustion) */
+#define CY_ETHIF_EVENT_RX_OVERRUN     (0x00000080UL)  /**< DMA RX buffer overrun */
+/** \} */
 
 /** \} group_ethif_macros */
 
@@ -563,6 +579,28 @@ typedef struct
  typedef void (*cy_ethif_tx_error_cb_t)(ETH_Type *base, uint8_t u8QueueIndex);
 
 
+/**
+ *****************************************************************************
+ ** \brief Receive error callback function. Called when RX buffer exhaustion
+ **        or overrun is detected by the Cadence MAC.
+ **
+ ** The application must check the event type before deciding on recovery
+ ** action. Typical events are:
+ **   - \ref CY_ETHIF_EVENT_RX_USED_READ : A used bit was read in an RX
+ **     descriptor, indicating buffer exhaustion.
+ **   - \ref CY_ETHIF_EVENT_RX_OVERRUN : The DMA RX buffer overflowed.
+ **
+ ** For both of the above events, the recommended recovery is to call
+ ** \ref Cy_ETHIF_RxErrorResetAndRecover to reset the RX queue and
+ ** re-enable reception.
+ **
+ ** \param base[IN] Pointer to register area of Ethernet MAC
+ ** \param u8QueueIndex[IN] Queue number on which the error occurred
+ ** \param a_event[IN] Bitmask of CEDI_EV_RX_* events that triggered the error
+ *****************************************************************************/
+ typedef void (*cy_ethif_rx_error_cb_t)(ETH_Type *base, uint8_t u8QueueIndex, uint32_t a_event);
+
+
  /**
  *****************************************************************************
  ** \brief Frame received callback function. Signals a successful reception
@@ -613,6 +651,7 @@ typedef struct
     cy_ethif_rx_frame_cb_t      rxframecb;        /**< Frame Received */
     cy_ethif_tsu_inc_cb_t       tsuSecondInccb;   /**< TSU timer Second counter incremented */
     cy_ethif_rx_getbuffer_cb_t  rxgetbuff;        /**< Get buffer for Receive Frame */
+    cy_ethif_rx_error_cb_t      rxerrorcb;        /**< Rx Error (buffer exhaustion/overrun) */
  } cy_stc_ethif_cb_t;
 
 
@@ -765,6 +804,7 @@ void Cy_ETHIF_SetPromiscuousMode(ETH_Type *base, bool toBeEnabled);
 void Cy_ETHIF_SetNoBroadCast(ETH_Type *base, bool rejectBC);
 void Cy_ETHIF_DiscardNonVLANFrames(ETH_Type *base, bool enable);
 void * Cy_ETHIF_GetPrivateData(ETH_Type *base);
+void Cy_ETHIF_RxErrorResetAndRecover(ETH_Type *base, uint8_t u8QueueIndex);
 
 /** \} group_ethif_functions */
 

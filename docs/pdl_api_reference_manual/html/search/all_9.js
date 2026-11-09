@@ -99,6 +99,7 @@ var searchData=
   ['invertshiftregout',['invertShiftRegOut',['../structcy__stc__tcpwm__shiftreg__config__t.html#a5006be6167088f58835b71e81e053ec0',1,'cy_stc_tcpwm_shiftreg_config_t']]],
   ['invertshiftregoutn',['invertShiftRegOutN',['../structcy__stc__tcpwm__shiftreg__config__t.html#ac90567d8cdd6553d9ff3d53d492cfce4',1,'cy_stc_tcpwm_shiftreg_config_t']]],
   ['iosel',['ioSel',['../structcy__stc__csd__config__t.html#a8886f31c0cdab0b78d6739c04c70f0ae',1,'cy_stc_csd_config_t']]],
+  ['iosyncen',['ioSyncEn',['../structcy__stc__smartio__config__t.html#a9281b4458eb13d8e8e0f57ff028b5d6c',1,'cy_stc_smartio_config_t']]],
   ['ipc_5fhci_5fcmd_5fcount',['ipc_hci_cmd_count',['../structcy__stc__ipc__bt__context__t.html#a60c348820ce4ec5aeca0a85f40d790a9',1,'cy_stc_ipc_bt_context_t']]],
   ['ipc_5fhci_5fcmd_5fself_5finbuf_5fcount',['ipc_hci_cmd_self_inbuf_count',['../structcy__stc__ipc__bt__context__t.html#ab2ba4699f56b68f28a9db6da7caa8bc9',1,'cy_stc_ipc_bt_context_t']]],
   ['ipc_5fhci_5fcmd_5fself_5foutbuf_5fcount',['ipc_hci_cmd_self_outbuf_count',['../structcy__stc__ipc__bt__context__t.html#ac648e264fb5268e62c8546b6f6527231',1,'cy_stc_ipc_bt_context_t']]],

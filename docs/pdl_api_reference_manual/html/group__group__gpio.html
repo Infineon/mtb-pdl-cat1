@@ -125,6 +125,10 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.150 </td><td>Updated API <a class="el" href="group__group__gpio__functions__init.html#gaece2166923613cf7abb536d8a05bfd45">Cy_GPIO_Port_Init</a>. </td><td>Fixed port initialization order: HSIOM routing was applied after GPIO_PRT_CFG, <br />
+ so a pin with an output driver was briefly driven low as a GPIO before being routed to its peripheral, <br />
+ which produced a glitch on the line. The HSIOM writes now come first, as in Cy_GPIO_Pin_Init.  </td></tr>
+<tr>
 <td>1.140 </td><td>Updated APIs <a class="el" href="group__group__gpio__functions__init.html#gaece2166923613cf7abb536d8a05bfd45">Cy_GPIO_Port_Init</a>, <a class="el" href="group__group__gpio__functions__gpio.html#gaaac989df7f0158c5b6549c86e5034479">Cy_GPIO_WritePort</a>. </td><td>Defect fix.  </td></tr>
 <tr>
 <td>1.130 </td><td>Added new APIs to support new devices (particularly Traveo II Cluster) with Drive Trim features: <a class="el" href="group__group__gpio__functions__gpio.html#gae7942739fe1e69b5d38f7e2437d135bc">Cy_GPIO_SetDriveSelTrim</a>, <a class="el" href="group__group__gpio__functions__gpio.html#gad1af3b2d1ec5b218d30c355be3a42ed4">Cy_GPIO_GetDriveSelTrim</a>. </td><td>New functionality.  </td></tr>

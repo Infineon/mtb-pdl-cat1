@@ -186,7 +186,7 @@ typedef struct {
 } HPPASS_ACTRLR_TTCFG_Type;                     /*!< Size = 16 (0x10) */
 
 /**
-  * \brief Autonomnous Controller (HPPASS_ACTRLR)
+  * \brief Autonomous Controller (HPPASS_ACTRLR)
   */
 typedef struct {
   __IOM uint32_t CTRL;                          /*!< 0x00000000 Control register */
@@ -295,7 +295,7 @@ typedef struct {
    __IM uint32_t RESERVED1[32768];
         HPPASS_CSG_Type CSG;                    /*!< 0x000B0000 Comparator Slope Generator */
    __IM uint32_t RESERVED2[16384];
-        HPPASS_ACTRLR_Type ACTRLR;              /*!< 0x000D0000 Autonomnous Controller */
+        HPPASS_ACTRLR_Type ACTRLR;              /*!< 0x000D0000 Autonomous Controller */
         HPPASS_INFRA_Type INFRA;                /*!< 0x000E0000 MCPASS infrastructure */
         HPPASS_MMIO_Type MMIO;                  /*!< 0x000F0000 MCPASS top-level MMIO */
 } HPPASS_Type;                                  /*!< Size = 1048576 (0x100000) */

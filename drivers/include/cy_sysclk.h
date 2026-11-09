@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk.h
-* \version 3.180
+* \version 3.190
 *
 * Provides an API declaration of the sysclk driver.
 *
@@ -78,6 +78,18 @@
 * \section group_sysclk_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">3.190</td>
+*     <td>Updated Cy_SysClk_Pll400MGetFrequency() for CAT1C devices to apply the fractional
+*         divider only when the fractional mode (FRAC_EN) is enabled.</td>
+*     <td>Defect fix: the PLL400M output frequency was calculated incorrectly when the
+*         fractional divider value was non-zero but the fractional mode was disabled.</td>
+*   </tr>
+*   <tr>
+*     <td>Cy_SysClk_EcoSetFrequency() is no longer compiled for TRAVEO&trade; T2G Body Entry devices
+*         (MXS40SRSS ver2), where it has no public declaration.</td>
+*     <td>MISRA C-2012 compliance.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="4">3.180</td>
 *     <td>Converted \ref Cy_SysClk_PllEnable() (CAT1B, CAT1C devices),
@@ -1067,7 +1079,7 @@ extern "C" {
 /** Driver major version */
 #define  CY_SYSCLK_DRV_VERSION_MAJOR   3
 /** Driver minor version */
-#define  CY_SYSCLK_DRV_VERSION_MINOR   180
+#define  CY_SYSCLK_DRV_VERSION_MINOR   190
 /** Sysclk driver identifier */
 #define CY_SYSCLK_ID   CY_PDL_DRV_ID(0x12U)
 

@@ -32365,7 +32365,7 @@ CLK_CSG @120MHz, use 8 cycles</description>
         </cluster>
         <cluster>
           <name>ACTRLR</name>
-          <description>Autonomnous Controller</description>
+          <description>Autonomous Controller</description>
           <addressOffset>0xD0000</addressOffset>
           <register>
             <name>CTRL</name>
@@ -33293,13 +33293,13 @@ For CLK_HF = 240MHz (CLK_INFRA = 120MHz) set DIV_VAL to 23 (24 cycles * 8.33ns =
               <field>
                 <name>CSG_READY</name>
                 <description>CSG Auto Zero/Comparator gate startup
-When this bit is set, the associated COUNT_VAL must be calculated relative to the CLK_CSG divide and the resulting period must be 33 CLK_CSG periods
+When this bit is set, the associated COUNT_VAL must be calculated relative to the CLK_CSG divide and the resulting period must be 32 CLK_CSG periods
 Examples: 
 Assuming we have 200ns prescale value programmed into CLOCK_STARTUP_DIV.DIV_VAL.
 With the examples of CLK_CSG as configured by MXPERI at the following frequencies:
-For CSG at 40 MHz, 25ns x 33 cycles = 825ns.  roundup(825/200) = 5 (COUNT_VAL = 4)
-For CSG at 80 Mhz,  12.5ns x 33 cycles = 412ns  roundup(412/200) = 3 (COUNT_VAL = 2)
-For CSG at 120 MHz, 8.33 ns x 33 cycles = 275ns roundup(275/200) = 2 (COUNT_VAL = 1)</description>
+For CSG at 40 MHz, 25ns x 32 cycles = 800ns.  roundup(800/200) = 4 (COUNT_VAL = 4)
+For CSG at 80 Mhz,  12.5ns x 32 cycles = 400ns  roundup(400/200) = 2 (COUNT_VAL = 2)
+For CSG at 120 MHz, 8.33 ns x 32 cycles = 267ns roundup(267/200) = 2 (COUNT_VAL = 1)</description>
                 <bitRange>[11:11]</bitRange>
               </field>
             </fields>

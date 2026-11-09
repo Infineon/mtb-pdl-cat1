@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_ethif.c
-* \version 1.50
+* \version 1.60
 *
 * Provides an API implementation of the ETHIF driver
 *
@@ -80,7 +80,7 @@ CY_ALIGN(32) static uint8_t cy_ethif_rx_desc_list[CY_ETH_DEFINE_NUM_IP][CY_ETH_D
 /** Statistics registers    */
 static uint8_t cy_ethif_statistic[CY_ETH_DEFINE_NUM_IP][160] = {{0,},};
 
-static cy_stc_ethif_cb_t stccallbackfunctions[CY_ETH_DEFINE_NUM_IP] = {{NULL, NULL, NULL, NULL, NULL},};
+static cy_stc_ethif_cb_t stccallbackfunctions[CY_ETH_DEFINE_NUM_IP] = {{NULL, NULL, NULL, NULL, NULL, NULL},};
 static cy_stc_ethif_queue_disablestatus_t stcQueueDisStatus[CY_ETH_DEFINE_NUM_IP] = {{{0,},{0,}},};
 CY_SECTION_SHAREDMEM
 CY_ALIGN(32) static volatile uint8_t g_tx_bdcount[CY_ETH_DEFINE_NUM_IP] = {0,};
@@ -329,6 +329,7 @@ cy_en_ethif_status_t Cy_ETHIF_Init(ETH_Type *base, cy_stc_ethif_mac_config_t * p
         stccallbackfunctions[u8EthIfInstance].txcompletecb    = NULL;
         stccallbackfunctions[u8EthIfInstance].tsuSecondInccb  = NULL;
         stccallbackfunctions[u8EthIfInstance].rxgetbuff  = NULL;
+        stccallbackfunctions[u8EthIfInstance].rxerrorcb  = NULL;
     }
 
     /* Initialize ENET MAC Wrapper */
@@ -469,6 +470,7 @@ void Cy_ETHIF_RegisterCallbacks(ETH_Type *base, cy_stc_ethif_cb_t *cbFuncsList)
     stccallbackfunctions[u8EthIfInstance].txcompletecb    = cbFuncsList->txcompletecb;
     stccallbackfunctions[u8EthIfInstance].tsuSecondInccb  = cbFuncsList->tsuSecondInccb;
     stccallbackfunctions[u8EthIfInstance].rxgetbuff       = cbFuncsList->rxgetbuff;
+    stccallbackfunctions[u8EthIfInstance].rxerrorcb       = cbFuncsList->rxerrorcb;
 }
 
 /*******************************************************************************
@@ -1021,6 +1023,66 @@ void * Cy_ETHIF_GetPrivateData(ETH_Type *base)
     u8EthIfInstance = CY_ETHIF_IP_INSTANCE(base);
 
     return (void *)cy_ethif_privatedata[u8EthIfInstance];
+}
+
+/*******************************************************************************
+* Function Name: Cy_ETHIF_RxErrorResetAndRecover
+****************************************************************************//**
+*
+* \brief Performs RX queue reset and recovery after a buffer-not-available or
+*        overrun condition. This function is intended to be called from the
+*        user-registered rxerrorcb callback.
+*
+* \param base Pointer to register area of Ethernet MAC
+* \param u8QueueIndex Queue number on which the error occurred
+*
+*******************************************************************************/
+void Cy_ETHIF_RxErrorResetAndRecover(ETH_Type *base, uint8_t u8QueueIndex)
+{
+    uint8_t u8EthIfInstance;
+
+    /* check for arguments */
+    if (!CY_ETHIF_IS_IP_INSTANCE_VALID(base))
+    {
+        return;
+    }
+
+    u8EthIfInstance = CY_ETHIF_IP_INSTANCE(base);
+
+    /* Reset Rx queue pointers and clear USED bits (ptrsOnly=1).
+     * This recycles existing buffer addresses in the BDs so the MAC
+     * can receive again without needing fresh buffers from the pool.
+     * resetRxQ disables RX internally, so re-enable afterwards. */
+    (void)cyp_ethif_gemgxlobj->resetRxQ((void *)cyp_ethif_pd[u8EthIfInstance], u8QueueIndex, 1U);
+
+     /* resetRxQ with ptrsOnly=1 does NOT rewrite the hardware DMA queue
+     * base address register. The DMA engine requires receive_q_ptr to be
+     * rewritten after a buffer-not-available condition before it restarts. */
+    {
+        uint32_t rxQBaseAddr = (uint32_t)(uintptr_t)cy_ethif_rx_desc_list[u8EthIfInstance][u8QueueIndex];
+        switch (u8QueueIndex) {
+        case 0:
+            ETH_RX_Q_PTR(base) = rxQBaseAddr;
+            break;
+        case 1:
+            ETH_RX_Q1_PTR(base) = rxQBaseAddr;
+            break;
+        case 2:
+            ETH_RX_Q2_PTR(base) = rxQBaseAddr;
+            break;
+        default:
+            /* No RX queue pointer register is available for other queue indices. */
+            break;
+        }
+    }
+
+    /* Clear the receive_status register sticky bits (buffer not available
+     * and overrun). Without this the MAC remains halted even after the
+     * BD USED bits are cleared. */
+    cyp_ethif_gemgxlobj->clearRxStatus((void *)cyp_ethif_pd[u8EthIfInstance],
+                                       (uint32_t)CEDI_RXS_NO_BUFF | (uint32_t)CEDI_RXS_OVERRUN);
+
+    cyp_ethif_gemgxlobj->enableRx((void *)cyp_ethif_pd[u8EthIfInstance]);
 }
 
 
@@ -1707,7 +1769,7 @@ static void Cy_ETHIF_EventRxFrame(void *pcy_privatedata, uint8_t u8qnum)
     ETH_Type *base;
     uint32_t bufLen;
     bool noData = false;
-    uint8_t *rxBufAddr;
+    uint8_t *rxBufAddr = NULL;
 
     /* derive the instance */
     u8EthIfInstance = Cy_ETHIF_GetEthIfInstance(pcy_privatedata);
@@ -1719,21 +1781,49 @@ static void Cy_ETHIF_EventRxFrame(void *pcy_privatedata, uint8_t u8qnum)
     /** read receive queue */
     while (0UL != u32RxNum)
     {
-        tmpBufAddr.pAddr = 0;
-        tmpBufAddr.vAddr = tmpBufAddr.pAddr;
+        rxBufAddr = NULL;
         bufLen = 0;
         if (stccallbackfunctions[u8EthIfInstance].rxgetbuff != NULL)
         {
             stccallbackfunctions[u8EthIfInstance].rxgetbuff(base, (uint8_t**)&rxBufAddr, &bufLen);
-            tmpBufAddr.pAddr = (uintptr_t)rxBufAddr;
-            tmpBufAddr.vAddr = tmpBufAddr.pAddr;
         }
 
-        (void)cyp_ethif_gemgxlobj->readRxBuf((void *)cyp_ethif_pd[u8EthIfInstance],
+        /* Application is out of free RX buffers.
+         * Leave the USED descriptor untouched so the MAC observes
+         * rx_resource_error and (when CY_ETHIF_CFG_DMA_DISC_RXP is
+         * set) silently drops further frames at the wire. The
+         * descriptor is recycled on the next RX interrupt once the
+         * application has freed a buffer and rxgetbuff returns
+         * non-NULL. Calling readRxBuf with a NULL address would
+         * either be rejected by CEDI (leaving Rx_DescData
+         * uninitialised) or pass NULL up to rxframecb which then
+         * dereferences (rx_buffer - sizeof(cy_rx_buffer_info_t))
+         * and hard-faults. */
+        if (rxBufAddr == NULL)
+        {
+            break;
+        }
+
+        tmpBufAddr.pAddr = (uintptr_t)rxBufAddr;
+        tmpBufAddr.vAddr = tmpBufAddr.pAddr;
+
+        /* Initialise to a known-safe state so an early-out from
+         * readRxBuf (queue invalid, alignment, etc.) cannot cause
+         * the switch below to operate on stack garbage. */
+        Rx_DescData.status     = (uint8_t)CEDI_RXDATA_NODATA;
+        Rx_DescData.rxDescStat = 0U;
+
+        if (cyp_ethif_gemgxlobj->readRxBuf((void *)cyp_ethif_pd[u8EthIfInstance],
                                           u8qnum,
                                           &tmpBufAddr,
                                           CY_ETHIF_BUFFER_CLEARED_0,
-                                          &Rx_DescData);
+                                          &Rx_DescData) != 0U)
+        {
+            /* CEDI rejected the call; abort the drain loop. The
+             * application buffer obtained from rxgetbuff was not
+             * consumed by the MAC so the caller's pool is intact. */
+            break;
+        }
 
         switch ((CEDI_RxRdStat)Rx_DescData.status)
         {
@@ -1791,10 +1881,27 @@ static void Cy_ETHIF_EventRxFrame(void *pcy_privatedata, uint8_t u8qnum)
 *******************************************************************************/
 static void Cy_ETHIF_EventRxError(void *pcy_privatedata, uint32_t a_event, uint8_t a_qnum)
 {
-    //printf("[ETH] (Event) RxError received.\r\n");
-    CY_UNUSED_PARAMETER(pcy_privatedata); /* Suppress a compiler warning about unused variables */
-    CY_UNUSED_PARAMETER(a_event); /* Suppress a compiler warning about unused variables */
-    CY_UNUSED_PARAMETER(a_qnum); /* Suppress a compiler warning about unused variables */
+    uint8_t u8EthIfInstance;
+    ETH_Type *base;
+
+    /* Derive the instance */
+    u8EthIfInstance = Cy_ETHIF_GetEthIfInstance(pcy_privatedata);
+    base = CY_ETHIF_IP_ADDR_REGBASE(u8EthIfInstance);
+
+    /* Invoke application callback for reset & recovery */
+    if (stccallbackfunctions[u8EthIfInstance].rxerrorcb != NULL)
+    {
+        stccallbackfunctions[u8EthIfInstance].rxerrorcb(base, a_qnum, a_event);
+    }
+    else
+    {
+        /* Fallback: perform inline recovery only for buffer-exhaustion or
+         * overrun events.  Other event types are informational. */
+        if ((a_event & ((uint32_t)CEDI_EV_RX_USED_READ | (uint32_t)CEDI_EV_RX_OVERRUN)) != 0U)
+        {
+            Cy_ETHIF_RxErrorResetAndRecover(base, a_qnum);
+        }
+    }
 
     return;
 }

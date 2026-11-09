@@ -101,7 +101,32 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__macros.html#gaf46cb96031d98174d9154de0d0932f8c">CY_SCB_EZI2C_DEFAULT_TX</a>&#160;&#160;&#160;(0xFFUL)</td></tr>
 <tr class="memdesc:gaf46cb96031d98174d9154de0d0932f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This value is returned by the slave when the buffer is not configured or the master requests more bytes than are available in the buffer. <br /></td></tr>
 <tr class="separator:gaf46cb96031d98174d9154de0d0932f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3cdc9f6060f8183ce0631fdd5f23927b"><td class="memItemLeft" align="right" valign="top"><a id="ga3cdc9f6060f8183ce0631fdd5f23927b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__macros.html#ga3cdc9f6060f8183ce0631fdd5f23927b">CY_SCB_EZI2C_EZ_MAX_DATA_SIZE</a>&#160;&#160;&#160;(256UL)</td></tr>
+<tr class="memdesc:ga3cdc9f6060f8183ce0631fdd5f23927b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum number of EZ_DATA registers addressable with an 8-bit sub-address in hardware EZ mode. <br /></td></tr>
+<tr class="separator:ga3cdc9f6060f8183ce0631fdd5f23927b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga888cdc94992007bb82d0e363f416b211"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__macros.html#ga888cdc94992007bb82d0e363f416b211">CY_SCB_EZI2C_EZ_DATA_SIZE</a>&#160;&#160;&#160;(CY_SCB_FIFO_SIZE * 2UL)</td></tr>
+<tr class="memdesc:ga888cdc94992007bb82d0e363f416b211"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of EZ_DATA registers available in hardware EZ mode, derived from the SCB FIFO size (the EZ_DATA memory is two bytes per FIFO entry) and capped at <a class="el" href="group__group__scb__ezi2c__macros.html#ga3cdc9f6060f8183ce0631fdd5f23927b">CY_SCB_EZI2C_EZ_MAX_DATA_SIZE</a>.  <a href="#ga888cdc94992007bb82d0e363f416b211">More...</a><br /></td></tr>
+<tr class="separator:ga888cdc94992007bb82d0e363f416b211"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga888cdc94992007bb82d0e363f416b211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga888cdc94992007bb82d0e363f416b211">&#9670;&nbsp;</a></span>CY_SCB_EZI2C_EZ_DATA_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_SCB_EZI2C_EZ_DATA_SIZE&#160;&#160;&#160;(CY_SCB_FIFO_SIZE * 2UL)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The number of EZ_DATA registers available in hardware EZ mode, derived from the SCB FIFO size (the EZ_DATA memory is two bytes per FIFO entry) and capped at <a class="el" href="group__group__scb__ezi2c__macros.html#ga3cdc9f6060f8183ce0631fdd5f23927b">CY_SCB_EZI2C_EZ_MAX_DATA_SIZE</a>. </p>
+<p>Each register holds one byte of data (bits [7:0] are used). </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part

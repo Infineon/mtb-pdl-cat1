@@ -1,5 +1,10 @@
 var NAVTREEINDEX19 =
 {
+"group__group__sar__ctrl__register__enums.html#gga0f2ec6b75df20cba7016f35ef164c181a761d40317aba2b978450ca924fc59604":[4,38,3,0,5,2],
+"group__group__sar__ctrl__register__enums.html#gga0f2ec6b75df20cba7016f35ef164c181ac08aabced2b8681e52655c13b9670537":[4,38,3,0,5,1],
+"group__group__sar__ctrl__register__enums.html#gga0f2ec6b75df20cba7016f35ef164c181ad149b365524975b9de7f601c1453b444":[4,38,3,0,5,0],
+"group__group__sar__ctrl__register__enums.html#gga0f744ea4e07091484f5587e5466a4a57a81471e07bac4eb63b5aaca6c99654115":[4,38,3,0,8,1],
+"group__group__sar__ctrl__register__enums.html#gga0f744ea4e07091484f5587e5466a4a57ae0fe1fa48ba84e1a1d0fc9e3d4e0dcd5":[4,38,3,0,8,0],
 "group__group__sar__ctrl__register__enums.html#gga35b1b11fbe44b764ba6b6346116e177fa398a660d1a98069b474713c4a26e383a":[4,38,3,0,0,1],
 "group__group__sar__ctrl__register__enums.html#gga35b1b11fbe44b764ba6b6346116e177fa5ef29f130c7268e294ac9b07a767c3b1":[4,38,3,0,0,6],
 "group__group__sar__ctrl__register__enums.html#gga35b1b11fbe44b764ba6b6346116e177fa8d0919fee4adb8921b7d0bc686295d1f":[4,38,3,0,0,3],
@@ -244,10 +249,5 @@ var NAVTREEINDEX19 =
 "group__group__sar__sample__ctrl__register__enums.html#gga8919e435c53bfc20a8f26530e3ba7270ad125b75e6802479d6a5d819b39e78223":[4,38,3,1,1,1],
 "group__group__sar__sample__ctrl__register__enums.html#gga9632ebe875d036e34a15d7c8df57e331a89d83498d39e5e049cb2b33c18145095":[4,38,3,1,4,2],
 "group__group__sar__sample__ctrl__register__enums.html#gga9632ebe875d036e34a15d7c8df57e331a91a5fad5906a200940bbfbf15ef08868":[4,38,3,1,4,0],
-"group__group__sar__sample__ctrl__register__enums.html#gga9632ebe875d036e34a15d7c8df57e331ade22974fa0104308e9484cc606842b2d":[4,38,3,1,4,1],
-"group__group__sar__sample__ctrl__register__enums.html#ggaa4ffb0ad77de3d0bdf85bfbc713218f6a0dd014f3232484624080ff52d418c91e":[4,38,3,1,0,0],
-"group__group__sar__sample__ctrl__register__enums.html#ggaa4ffb0ad77de3d0bdf85bfbc713218f6a8c732f0a5a942878a82fcdbadcea7045":[4,38,3,1,0,1],
-"group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa0f4902d7434267911198f50aa41847d9":[4,38,3,1,3,2],
-"group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa3f789fdae0b0f4e48d67a5089baeace4":[4,38,3,1,3,5],
-"group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa48e1e031e90721d806c21744c44a4790":[4,38,3,1,3,1]
+"group__group__sar__sample__ctrl__register__enums.html#gga9632ebe875d036e34a15d7c8df57e331ade22974fa0104308e9484cc606842b2d":[4,38,3,1,4,1]
 };

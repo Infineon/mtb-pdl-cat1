@@ -233,7 +233,17 @@
     <DRC type="WARNING" paramId="driveStrength" text="To limit noise, full drive strength is not recommended " condition="`${(driveStrength eq CY_GPIO_DRIVE_FULL)}`" >
         <FixIt action="SET_PARAM" target="driveStrength" value="CY_GPIO_DRIVE_1_2" valid="true" />
     </DRC>
+
+    <!-- A port whose pins mix this port-init-capable personality with an older, per-pin-only personality (e.g. Pin v3.0) 
+         can be silently dropped from GPIO initialization: the code generator neither batches this pin into Cy_GPIO_Port_Init() 
+         (the port is not fully port-init-eligible) nor falls back to an individual Cy_GPIO_Pin_Init() call. -->
+    <DRC type="ERROR"
+         text="`${&quot;This pin shares port &quot; . port . &quot; with &quot; . getBlockDisplayName(&quot;ioss[0].port[&quot; . port . &quot;].pin[$idx]&quot;, false) . &quot;, which uses an older Pin personality version without port-level initialization support. Mixing Pin personality versions on the same GPIO port can leave one of the pins uninitialized. Use the same Pin personality version for every pin on this port.&quot;}`"
+         condition="`${portInitEligible &amp;&amp; (pin ne $idx) &amp;&amp; hasBlock(&quot;ioss[0].port[&quot; . port . &quot;].pin[$idx]&quot;) &amp;&amp; isBlockUsed(&quot;ioss[0].port[&quot; . port . &quot;].pin[$idx]&quot;) &amp;&amp; !hasExposedMember(&quot;ioss[0].port[&quot; . port . &quot;].pin[$idx]&quot;, &quot;portInitEligible&quot;)}`"
+         repeatCount="8" />    
+
   </DRCs>
+
 
   <ConfigFirmware>
     <ConfigInclude value="cy_gpio.h" include="true" />

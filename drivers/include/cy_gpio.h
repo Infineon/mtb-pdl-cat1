@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.h
-* \version 1.140
+* \version 1.150
 *
 * Provides an API declaration of the GPIO driver
 *
@@ -103,6 +103,13 @@
 * \section group_gpio_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>1.150</td>
+*     <td>Updated API \ref Cy_GPIO_Port_Init.</td>
+*     <td>Fixed port initialization order: HSIOM routing was applied after GPIO_PRT_CFG, <br>
+        so a pin with an output driver was briefly driven low as a GPIO before being routed to its peripheral, <br>
+        which produced a glitch on the line. The HSIOM writes now come first, as in Cy_GPIO_Pin_Init.</td>
+*   </tr>
 *   <tr>
 *     <td>1.140</td>
 *     <td>Updated APIs \ref Cy_GPIO_Port_Init, \ref Cy_GPIO_WritePort.</td>
@@ -266,7 +273,7 @@ extern "C" {
 #define CY_GPIO_DRV_VERSION_MAJOR       1
 
 /** Driver minor version */
-#define CY_GPIO_DRV_VERSION_MINOR      140
+#define CY_GPIO_DRV_VERSION_MINOR      150
 
 /** GPIO driver ID */
 #define CY_GPIO_ID CY_PDL_DRV_ID(0x16U)

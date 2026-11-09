@@ -27,9 +27,9 @@
     <Profile displayName="System" fileName="system" evalPriority="13" displayPriority="7" description="System configuration" resources=".*\.(cm33|cm55|sau|mpu_s|mpu_ns)\[\d+\]|.*\.mpc\[\d+\]|peri\[\d+\]"/>
     <Profile displayName="DMA" fileName="dmas" evalPriority="5" displayPriority="9" description="DMA configuration" resources=".*(dw|dmac|axidmac|axi_dmac|mxdw|mxahbdmac)\d?\[\d+\].*"/>
     <Profile diagramType="PACKAGE" displayName="Pins" fileName="pins" evalPriority="8" displayPriority="4" description="Pin configuration" resources="(ioss|iocl)\[\d+\].*"/>
-    <Profile displayName="Connectivity" fileName="connectivity_wifi" evalPriority="11" displayPriority="5" description="Connectivity Wi-Fi configuration" resources="wifi(\[\d+\]).*"/>
-    <Profile displayName="Connectivity" fileName="connectivity_bt" evalPriority="11" displayPriority="5" description="Connectivity BT configuration" resources="bt(\[\d+\]).*"/>
-    <Profile displayName="Connectivity" fileName="connectivity_coex" evalPriority="11" displayPriority="5" description="Connectivity Coex configuration" resources="coex(\[\d+\]).*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_coex" evalPriority="11" displayPriority="5" description="Connectivity Coex configuration" resources="(btss\[\d+\]\.)?coex\[\d+\].*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_wifi" evalPriority="11" displayPriority="5" description="Connectivity Wi-Fi configuration" resources="(wifi|wifiss)(\[\d+\]).*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_bt" evalPriority="11" displayPriority="5" description="Connectivity BT configuration" resources="(bt|btss)(\[\d+\]).*"/>
     <Profile purpose="MEMORY" displayName="Memory" fileName="memory" evalPriority="12" displayPriority="8" description="Memory configuration" resources="vres\[\d+\]\.(reserved_memory_region|memory)\[\d+\].*"/>
     <Profile displayName="Solutions" fileName="solutions" evalPriority="10" displayPriority="1" description="Solution configuration" resources="vres\[\d+\].*"/>
     <Profile displayName="Peripherals" fileName="peripherals" evalPriority="7" displayPriority="2" description="Peripheral Hardware Block configuration" resources=".*"/>

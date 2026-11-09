@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif_memslot.h
-* \version 2.140
+* \version 2.150
 *
 * \brief
 *  This file provides the constants and parameter values for the memory-level
@@ -761,11 +761,12 @@ typedef struct
     cy_en_smif_hb_rd_cmd_t         xipReadCmd;         /**< read command value \ref cy_en_smif_hb_rd_cmd_t */
     cy_en_smif_hb_wt_cmd_t         xipWriteCmd;        /**< write command value \ref cy_en_smif_hb_rd_cmd_t */
     cy_en_smif_hb_dev_type_t       hbDevType;          /**< hyper bus device type \ref cy_en_smif_hb_dev_type_t */
-    cy_en_device_size_t            memSize;            /**< The memory size: For densities of 2 gigabits or less - the size in bytes;
+    uint32_t                       memSize;            /**< The memory size: For densities of 2 gigabits or less - the size in bytes;
                                                           * For densities 4 gigabits and above - bit-31 is set to 1b to define that
                                                           * this memory is 4 gigabits and above; and other 30:0 bits define N where
                                                           * the density is computed as 2^N bytes.
                                                           * For example, 0x80000021 corresponds to 2^30 = 1 gigabyte.
+                                                          * Use values from \ref cy_en_device_size_t.
                                                           */
     uint32_t                       dummyCycles;        /**< dummy Cycles based on Frequency of operation */
 } cy_stc_smif_hbmem_device_config_t;

@@ -4099,6 +4099,7 @@ typedef PASS_V1_Type PASS_Type;
 /* Protection regions */
 typedef enum
 {
+    PROT_START                      =   0,
     PROT_PERI_MAIN                  =   0,      /* Address 0x40000000, size 0x00002000 */
     PROT_PERI_SECURE                =   1,      /* Address 0x40002000, size 0x00000004 */
     PROT_PERI_GR0_GROUP             =   2,      /* Address 0x40004010, size 0x00000004 */
@@ -4585,7 +4586,8 @@ typedef enum
     PROT_PASS0_SAR2_CH5_CH          = 483,      /* Address 0x40902940, size 0x00000040 */
     PROT_PASS0_SAR2_CH6_CH          = 484,      /* Address 0x40902980, size 0x00000040 */
     PROT_PASS0_SAR2_CH7_CH          = 485,      /* Address 0x409029c0, size 0x00000040 */
-    PROT_PASS0_TOP                  = 486       /* Address 0x409f0000, size 0x00001000 */
+    PROT_PASS0_TOP                  = 486,      /* Address 0x409f0000, size 0x00001000 */
+    PROT_END                        = 486
 } cy_en_prot_region_t;
 
 #endif /* _TVIIBE4M_CONFIG_H_ */

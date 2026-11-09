@@ -87,7 +87,7 @@
 
 
     <!-- Connections -->
-    <ParamSignal port="lin_en[0]" name="LIN EN0" group="Outputs" visible="true" desc="LIN output signal to signal the transceiver." canBeEmpty="true" >
+    <ParamSignal port="lin_en[0]" name="LIN EN0" group="Outputs" visible="`${hasVisibleOption(&quot;lin_en[0]&quot;)}`" desc="LIN output signal to signal the transceiver." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />
@@ -153,7 +153,7 @@
       </Constraint>
       <Constraint type="ACCEPT" targetLocation=".*" valid="true" />
     </ParamSignal>
-    <ParamSignal port="lin_en[1]" name="LIN EN1" group="Outputs" visible="`${Nodes eq 2}`" desc="LIN output signal to signal the transceiver." canBeEmpty="true" >
+    <ParamSignal port="lin_en[1]" name="LIN EN1" group="Outputs" visible="`${Nodes eq 2 &amp;&amp; hasVisibleOption(&quot;lin_en[1]&quot;)}`" desc="LIN output signal to signal the transceiver." canBeEmpty="true" >
       <Constraint type="ACCEPT" targetLocation="ioss\[\d+\]\.port\[\d+\]\.pin.*" valid="true" >
         <Parameter id="DriveModes" severity="DEFAULT" reason="">
           <Fixed value="CY_GPIO_DM_STRONG_IN_OFF" />

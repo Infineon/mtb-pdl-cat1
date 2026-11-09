@@ -46,6 +46,7 @@ var searchData=
   ['scr_20register_20masks',['SCR Register Masks',['../group__group__sd__host__macros__scr.html',1,'']]],
   ['seglcd_20_20_20_20_20_20_20_28segment_20lcd_29',['SegLCD       (Segment LCD)',['../group__group__seglcd.html',1,'']]],
   ['smartio_20_20_20_20_20_20_28smart_20i_2fo_29',['SmartIO      (Smart I/O)',['../group__group__smartio.html',1,'']]],
+  ['smart_20i_2fo_20channel_20selection',['Smart I/O channel selection',['../group__group__smartio__channels.html',1,'']]],
   ['smif_20_20_20_20_20_20_20_20_20_28serial_20memory_20interface_29',['SMIF         (Serial Memory Interface)',['../group__group__smif.html',1,'']]],
   ['smif_20memory_20description_20structures',['SMIF Memory Description Structures',['../group__group__smif__data__structures__memslot.html',1,'']]],
   ['sfdp_20macros',['SFDP Macros',['../group__group__smif__macros__sfdp.html',1,'']]],

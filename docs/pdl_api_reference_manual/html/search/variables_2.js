@@ -105,5 +105,6 @@ var searchData=
   ['busy',['busy',['../structcy__stc__hppass__state__tc__t.html#a73f9065e8195ec7bc51d856b0ac59d68',1,'cy_stc_hppass_state_tc_t::busy()'],['../structcy__stc__ipc__pipe__ep__t.html#a40fd72621315edcdf6808c12e1df91d9',1,'cy_stc_ipc_pipe_ep_t::busy()']]],
   ['bwol_5frx',['bwol_rx',['../structcy__stc__ethif__intr__config__t.html#a7c5428672302d11af16ca26f0db55e41',1,'cy_stc_ethif_intr_config_t']]],
   ['bypassenable',['bypassEnable',['../structcy__stc__pra__system__config__t.html#a2f3c8b87509eec88a8d1ff107b04b0af',1,'cy_stc_pra_system_config_t']]],
+  ['bypassmask',['bypassMask',['../structcy__stc__smartio__config__t.html#a4b9c0b1f5a84c0e4e078235901cf982d',1,'cy_stc_smartio_config_t']]],
   ['byte',['byte',['../structcy__stc__ethif__mac__address__t.html#affb3384680793250b6d586c394a1899b',1,'cy_stc_ethif_mac_address_t']]]
 ];

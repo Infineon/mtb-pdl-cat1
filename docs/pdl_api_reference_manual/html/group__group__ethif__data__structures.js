@@ -43,7 +43,8 @@ var group__group__ethif__data__structures =
       [ "txerrorcb", "structcy__stc__ethif__cb__t.html#ad66352cf5cf6bc1ed3bce7a15503a714", null ],
       [ "rxframecb", "structcy__stc__ethif__cb__t.html#a8b7a91153ce6cabe82d7bd31d677ed2e", null ],
       [ "tsuSecondInccb", "structcy__stc__ethif__cb__t.html#ae95964ed0d2fff216675f7c257e8f24e", null ],
-      [ "rxgetbuff", "structcy__stc__ethif__cb__t.html#a55870eab53c82318f0b1e123c79ea1ac", null ]
+      [ "rxgetbuff", "structcy__stc__ethif__cb__t.html#a55870eab53c82318f0b1e123c79ea1ac", null ],
+      [ "rxerrorcb", "structcy__stc__ethif__cb__t.html#a67bcec59e7773515e5e86f68f9a8305b", null ]
     ] ],
     [ "cy_stc_ethif_mac_config_t", "structcy__stc__ethif__mac__config__t.html", [
       [ "bintrEnable", "structcy__stc__ethif__mac__config__t.html#a638e0ac00c462a4260b07768b49a7631", null ],
@@ -110,6 +111,7 @@ var group__group__ethif__data__structures =
     ] ],
     [ "cy_ethif_tx_msg_cb_t", "group__group__ethif__data__structures.html#ga041ddb84284675252866f018183d623a", null ],
     [ "cy_ethif_tx_error_cb_t", "group__group__ethif__data__structures.html#gaee761feb8fa6cd9d2fe73a0dbc8893aa", null ],
+    [ "cy_ethif_rx_error_cb_t", "group__group__ethif__data__structures.html#ga90be72328606b5553ca44e5a080da781", null ],
     [ "cy_ethif_rx_frame_cb_t", "group__group__ethif__data__structures.html#gaf0b90b877885fca13809d7715d78d631", null ],
     [ "cy_ethif_tsu_inc_cb_t", "group__group__ethif__data__structures.html#ga6d1510622190e983c6d1a8af79b4dcfd", null ],
     [ "cy_ethif_rx_getbuffer_cb_t", "group__group__ethif__data__structures.html#gaa3b6e9c653dd7d4993d48ed3f91cd56a", null ],

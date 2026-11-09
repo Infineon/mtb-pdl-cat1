@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_ezi2c.c
-* \version 3.60
+* \version 3.70
 *
 * Provides EZI2C API implementation of the SCB driver.
 *
@@ -87,9 +87,13 @@ cy_en_scb_ezi2c_status_t Cy_SCB_EZI2C_Init(CySCB_Type *base, cy_stc_scb_ezi2c_co
     CY_ASSERT_L3(CY_SCB_EZI2C_IS_NUM_OF_ADDR_VALID  (config->numberOfAddresses));
     CY_ASSERT_L3(CY_SCB_EZI2C_IS_SUB_ADDR_SIZE_VALID(config->subAddressSize));
 
-    /* Configure the EZI2C interface */
+    /* Configure the EZI2C interface. In Active and Sleep modes the block is
+    * internally clocked. The externally clocked EZ operation (EC_OP) required
+    * for Deep Sleep is enabled only while entering Deep Sleep in
+    * Cy_SCB_EZI2C_DeepSleepCallback and reverted on wake-up. */
     SCB_CTRL(base) = _BOOL2FLD(SCB_CTRL_ADDR_ACCEPT, (config->numberOfAddresses == CY_SCB_EZI2C_TWO_ADDRESSES)) |
                  _BOOL2FLD(SCB_CTRL_EC_AM_MODE, config->enableWakeFromSleep);
+
 #if ((defined (CY_IP_MXSCB_VERSION) && CY_IP_MXSCB_VERSION==1))
     SCB_CTRL(base) |= SCB_CTRL_BYTE_MODE_Msk;
 #endif /* CY_IP_MXSCB_VERSION */
@@ -136,6 +140,8 @@ cy_en_scb_ezi2c_status_t Cy_SCB_EZI2C_Init(CySCB_Type *base, cy_stc_scb_ezi2c_co
     context->buf2Size      = 0UL;
     context->buf2rwBondary = 0UL;
     context->baseAddr2     = 0UL;
+
+    context->hwEzMode = false;
 
     return CY_SCB_EZI2C_SUCCESS;
 }
@@ -339,6 +345,13 @@ cy_en_syspm_status_t Cy_SCB_EZI2C_DeepSleepCallback(cy_stc_syspm_callback_params
 
             if (_FLD2BOOL(SCB_CTRL_EC_AM_MODE, SCB_CTRL(locBase)))
             {
+                /* Switch the block to externally clocked EZ operation for Deep
+                * Sleep: the SCB hardware services the external master EZ_DATA
+                * accesses on the external clock (EC_OP) using hardware EZ
+                * addressing (EZ_MODE), and wait-states a conflicting CPU EZ_DATA
+                * access (BLOCK) instead of returning 0xFF. */
+                SCB_CTRL(locBase) |= (SCB_CTRL_EC_OP_MODE_Msk | SCB_CTRL_EZ_MODE_Msk | SCB_CTRL_BLOCK_Msk);
+
                 /* The SCB is wakeup-capable: enable the I2C wakeup interrupt
                 * source. If any transaction was paused the the EZI2C interrupt
                 * becomes pending and prevents entering Deep Sleep mode.
@@ -365,6 +378,18 @@ cy_en_syspm_status_t Cy_SCB_EZI2C_DeepSleepCallback(cy_stc_syspm_callback_params
         {
             if (_FLD2BOOL(SCB_CTRL_EC_AM_MODE, SCB_CTRL(locBase)))
             {
+                /* Restore internally clocked operation for Active and Sleep
+                * modes. The externally clocked EZ operation (EC_OP) and CPU
+                * access blocking (BLOCK) are cleared. The hardware EZ addressing
+                * (EZ_MODE) is kept enabled only if the user explicitly placed
+                * the instance into hardware EZ mode. */
+                uint32_t clearMask = (SCB_CTRL_EC_OP_MODE_Msk | SCB_CTRL_BLOCK_Msk);
+
+                if (!locContext->hwEzMode)
+                {
+                    clearMask |= SCB_CTRL_EZ_MODE_Msk;
+                }
+
                 /* Enable SCB clock */
                 SCB_I2C_CFG(locBase) |= CY_SCB_I2C_CFG_CLK_ENABLE_Msk;
 
@@ -373,6 +398,8 @@ cy_en_syspm_status_t Cy_SCB_EZI2C_DeepSleepCallback(cy_stc_syspm_callback_params
                 * This code must be inserted by the user because the driver
                 * does not have access to the clock.
                 */
+
+                SCB_CTRL(locBase) &= ~clearMask;
 
                 /* The SCB is wakeup-capable: disable the I2C wakeup interrupt
                 * source and restore slave interrupt sources.
@@ -779,87 +806,246 @@ void Cy_SCB_EZI2C_SetBuffer2(CySCB_Type const *base, uint8_t *buffer, uint32_t s
 *******************************************************************************/
 void Cy_SCB_EZI2C_Interrupt(CySCB_Type *base, cy_stc_scb_ezi2c_context_t *context)
 {
-    uint32_t slaveIntrStatus;
-
-    /* Handle an I2C wake-up event */
-    if (0UL != (CY_SCB_I2C_INTR_WAKEUP & Cy_SCB_GetI2CInterruptStatusMasked(base)))
+    /* In hardware EZ mode, the SCB hardware transfers data using the EZ_DATA
+    * dual-port memory. Only the write-completion and error events need to be
+    * reflected into the driver status. */
+    if (context->hwEzMode)
     {
-        /* Move from IDLE state, the slave was addressed. Following address match
-        * interrupt continue transfer.
-        */
-        context->state = CY_SCB_EZI2C_STATE_ADDR;
+        uint32_t slaveIntrStatus = Cy_SCB_GetSlaveInterruptStatusMasked(base);
 
-        Cy_SCB_ClearI2CInterrupt(base, CY_SCB_I2C_INTR_WAKEUP);
-    }
+        if (0UL != (CY_SCB_EZI2C_SLAVE_INTR_ERROR & slaveIntrStatus))
+        {
+            context->status |= CY_SCB_EZI2C_STATUS_ERR;
+            Cy_SCB_ClearSlaveInterrupt(base, CY_SCB_EZI2C_SLAVE_INTR_ERROR);
+        }
 
-    /* Get the slave interrupt sources */
-    slaveIntrStatus = Cy_SCB_GetSlaveInterruptStatusMasked(base);
-
-    /* Handle the error conditions */
-    if (0UL != (CY_SCB_EZI2C_SLAVE_INTR_ERROR & slaveIntrStatus))
-    {
-        HandleErrors(base, context);
-
-        Cy_SCB_ClearSlaveInterrupt(base, CY_SCB_EZI2C_SLAVE_INTR_ERROR);
-
-        /* Trigger the stop handling to complete the transaction */
-        slaveIntrStatus |= CY_SCB_SLAVE_INTR_I2C_STOP;
+        if (0UL != (CY_SCB_SLAVE_INTR_I2C_WRITE_STOP & slaveIntrStatus))
+        {
+            context->status |= CY_SCB_EZI2C_STATUS_WRITE1;
+            Cy_SCB_ClearSlaveInterrupt(base, CY_SCB_SLAVE_INTR_I2C_WRITE_STOP);
+        }
     }
     else
     {
-        if ((CY_SCB_EZI2C_STATE_RX_DATA1 == context->state) &&
-            (0UL != (CY_SCB_SLAVE_INTR_I2C_STOP & slaveIntrStatus)))
+        uint32_t slaveIntrStatus;
+
+        /* Handle an I2C wake-up event */
+        if (0UL != (CY_SCB_I2C_INTR_WAKEUP & Cy_SCB_GetI2CInterruptStatusMasked(base)))
         {
-            /* Get data from the RX FIFO after Stop is generated */
-            Cy_SCB_SetRxInterrupt    (base, CY_SCB_RX_INTR_LEVEL);
-            Cy_SCB_SetRxInterruptMask(base, CY_SCB_RX_INTR_LEVEL);
+            /* Move from IDLE state, the slave was addressed. Following address match
+            * interrupt continue transfer.
+            */
+            context->state = CY_SCB_EZI2C_STATE_ADDR;
+
+            Cy_SCB_ClearI2CInterrupt(base, CY_SCB_I2C_INTR_WAKEUP);
         }
-    }
 
-    /* Handle the receive direction (master writes data) */
-    if (0UL != (CY_SCB_RX_INTR_LEVEL & Cy_SCB_GetRxInterruptStatusMasked(base)))
-    {
-        /* Check if the byte in RX FIFO is a new address or data byte. If the
-         * I2C interrupt is not handled in time, it is possible that RX INTR LEVEL,
-         * STOP and Address Match conditions are triggered before execution
-         * of this interrupt handler
-         */
-        if (!((0UL != context->address2) && (0UL != (CY_SCB_SLAVE_INTR_I2C_ADDR_MATCH & slaveIntrStatus)) &&
-              (Cy_SCB_GetNumInRxFifo(base) == 1UL)))
-        {
-            HandleDataReceive(base, context);
-
-            Cy_SCB_ClearRxInterrupt(base, CY_SCB_RX_INTR_LEVEL);
-        }
-    }
-
-    /* Handle the transaction completion */
-    if (0UL != (CY_SCB_SLAVE_INTR_I2C_STOP & slaveIntrStatus))
-    {
-        HandleStop(base, context);
-
-        Cy_SCB_ClearSlaveInterrupt(base, CY_SCB_SLAVE_INTR_I2C_STOP);
-
-        /* Update the slave interrupt status */
+        /* Get the slave interrupt sources */
         slaveIntrStatus = Cy_SCB_GetSlaveInterruptStatusMasked(base);
-    }
 
-    /* Handle the address byte */
-    if (0UL != (CY_SCB_SLAVE_INTR_I2C_ADDR_MATCH & slaveIntrStatus))
+        /* Handle the error conditions */
+        if (0UL != (CY_SCB_EZI2C_SLAVE_INTR_ERROR & slaveIntrStatus))
+        {
+            HandleErrors(base, context);
+
+            Cy_SCB_ClearSlaveInterrupt(base, CY_SCB_EZI2C_SLAVE_INTR_ERROR);
+
+            /* Trigger the stop handling to complete the transaction */
+            slaveIntrStatus |= CY_SCB_SLAVE_INTR_I2C_STOP;
+        }
+        else
+        {
+            if ((CY_SCB_EZI2C_STATE_RX_DATA1 == context->state) &&
+                (0UL != (CY_SCB_SLAVE_INTR_I2C_STOP & slaveIntrStatus)))
+            {
+                /* Get data from the RX FIFO after Stop is generated */
+                Cy_SCB_SetRxInterrupt    (base, CY_SCB_RX_INTR_LEVEL);
+                Cy_SCB_SetRxInterruptMask(base, CY_SCB_RX_INTR_LEVEL);
+            }
+        }
+
+        /* Handle the receive direction (master writes data) */
+        if (0UL != (CY_SCB_RX_INTR_LEVEL & Cy_SCB_GetRxInterruptStatusMasked(base)))
+        {
+            /* Check if the byte in RX FIFO is a new address or data byte. If the
+             * I2C interrupt is not handled in time, it is possible that RX INTR LEVEL,
+             * STOP and Address Match conditions are triggered before execution
+             * of this interrupt handler
+             */
+            if (!((0UL != context->address2) && (0UL != (CY_SCB_SLAVE_INTR_I2C_ADDR_MATCH & slaveIntrStatus)) &&
+                  (Cy_SCB_GetNumInRxFifo(base) == 1UL)))
+            {
+                HandleDataReceive(base, context);
+
+                Cy_SCB_ClearRxInterrupt(base, CY_SCB_RX_INTR_LEVEL);
+            }
+        }
+
+        /* Handle the transaction completion */
+        if (0UL != (CY_SCB_SLAVE_INTR_I2C_STOP & slaveIntrStatus))
+        {
+            HandleStop(base, context);
+
+            Cy_SCB_ClearSlaveInterrupt(base, CY_SCB_SLAVE_INTR_I2C_STOP);
+
+            /* Update the slave interrupt status */
+            slaveIntrStatus = Cy_SCB_GetSlaveInterruptStatusMasked(base);
+        }
+
+        /* Handle the address byte */
+        if (0UL != (CY_SCB_SLAVE_INTR_I2C_ADDR_MATCH & slaveIntrStatus))
+        {
+            HandleAddress(base, context);
+
+            Cy_SCB_ClearI2CInterrupt  (base, CY_SCB_I2C_INTR_WAKEUP);
+            Cy_SCB_ClearSlaveInterrupt(base, CY_SCB_SLAVE_INTR_I2C_ADDR_MATCH);
+        }
+
+        /* Handle the transmit direction (master reads data) */
+        if (0UL != (CY_SCB_TX_INTR_LEVEL & Cy_SCB_GetTxInterruptStatusMasked(base)))
+        {
+            HandleDataTransmit(base, context);
+
+            Cy_SCB_ClearTxInterrupt(base, CY_SCB_TX_INTR_LEVEL);
+        }
+    }
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_SCB_EZI2C_EnableHwEzMode
+****************************************************************************//**
+*
+* Switches the EZI2C slave instance into the SCB hardware EZ mode. In this mode
+* the SCB hardware services the external master accesses to the EZ_DATA
+* dual-port memory without any firmware intervention or I2C clock stretching,
+* and only the write-completion and error events are reported to the driver.
+*
+* This function must be called after \ref Cy_SCB_EZI2C_Init and before
+* \ref Cy_SCB_EZI2C_Enable. It is only applicable on devices whose SCB provides
+* the EZ_DATA dual-port memory.
+*
+* \param base
+* The pointer to the EZI2C SCB instance.
+*
+* \param context
+* The pointer to the context structure \ref cy_stc_scb_ezi2c_context_t allocated
+* by the user. The structure is used during the EZI2C operation for internal
+* configuration and data retention. The user must not modify anything
+* in this structure.
+*
+* \return
+* \ref cy_en_scb_ezi2c_status_t
+*
+* \note
+* If the SCB instance does not support hardware EZ mode, this function returns
+* \ref CY_SCB_EZI2C_BAD_PARAM and the instance stays in the firmware transfer
+* mode.
+*
+*******************************************************************************/
+cy_en_scb_ezi2c_status_t Cy_SCB_EZI2C_EnableHwEzMode(CySCB_Type *base, cy_stc_scb_ezi2c_context_t *context)
+{
+    cy_en_scb_ezi2c_status_t status = CY_SCB_EZI2C_SUCCESS;
+
+    /* Enable the SCB hardware EZ mode. */
+    Cy_SCB_SetEzI2CMode(base, true);
+
+    /* Confirm the SCB instance actually provides the EZ_DATA memory: on a
+    * block without hardware EZ support the EZ_MODE control bit reads back
+    * cleared, so hardware EZ mode cannot be used. */
+    if (0UL == (_FLD2VAL(SCB_CTRL_EZ_MODE, SCB_CTRL(base))))
     {
-        HandleAddress(base, context);
-
-        Cy_SCB_ClearI2CInterrupt  (base, CY_SCB_I2C_INTR_WAKEUP);
-        Cy_SCB_ClearSlaveInterrupt(base, CY_SCB_SLAVE_INTR_I2C_ADDR_MATCH);
+        status = CY_SCB_EZI2C_BAD_PARAM;
     }
-
-    /* Handle the transmit direction (master reads data) */
-    if (0UL != (CY_SCB_TX_INTR_LEVEL & Cy_SCB_GetTxInterruptStatusMasked(base)))
+    else
     {
-        HandleDataTransmit(base, context);
-
-        Cy_SCB_ClearTxInterrupt(base, CY_SCB_TX_INTR_LEVEL);
+        SCB_INTR_S_MASK(base) = CY_SCB_EZI2C_SLAVE_INTR_HW_EZ;
+        context->hwEzMode = true;
     }
+
+    return status;
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_SCB_EZI2C_HwEzReadData
+****************************************************************************//**
+*
+* Reads a block of data from the SCB hardware EZ mode EZ_DATA dual-port memory.
+* This function is only applicable when hardware EZ mode is enabled through
+* \ref Cy_SCB_EZI2C_EnableHwEzMode.
+*
+* \param base
+* The pointer to the EZI2C SCB instance.
+*
+* \param offset
+* The byte offset within the EZ_DATA memory to start reading from.
+*
+* \param data
+* The pointer to the buffer that receives the read data.
+*
+* \param size
+* The number of bytes to read.
+*
+* \return
+* \ref cy_en_scb_ezi2c_status_t
+*
+*******************************************************************************/
+cy_en_scb_ezi2c_status_t Cy_SCB_EZI2C_HwEzReadData(CySCB_Type const *base, uint32_t offset,
+                                                   uint8_t *data, uint32_t size)
+{
+    if ((NULL == base) || (NULL == data) || ((offset + size) > CY_SCB_EZI2C_EZ_DATA_SIZE))
+    {
+        return CY_SCB_EZI2C_BAD_PARAM;
+    }
+
+    for (uint32_t i = 0UL; i < size; i++)
+    {
+        data[i] = (uint8_t)(base->EZ_DATA[offset + i] & SCB_EZ_DATA_EZ_DATA_Msk);
+    }
+
+    return CY_SCB_EZI2C_SUCCESS;
+}
+
+
+/*******************************************************************************
+* Function Name: Cy_SCB_EZI2C_HwEzWriteData
+****************************************************************************//**
+*
+* Writes a block of data to the SCB hardware EZ mode EZ_DATA dual-port memory.
+* This function is only applicable when hardware EZ mode is enabled through
+* \ref Cy_SCB_EZI2C_EnableHwEzMode.
+*
+* \param base
+* The pointer to the EZI2C SCB instance.
+*
+* \param offset
+* The byte offset within the EZ_DATA memory to start writing to.
+*
+* \param data
+* The pointer to the buffer that holds the data to write.
+*
+* \param size
+* The number of bytes to write.
+*
+* \return
+* \ref cy_en_scb_ezi2c_status_t
+*
+*******************************************************************************/
+cy_en_scb_ezi2c_status_t Cy_SCB_EZI2C_HwEzWriteData(CySCB_Type *base, uint32_t offset,
+                                                    const uint8_t *data, uint32_t size)
+{
+    if ((NULL == base) || (NULL == data) || ((offset + size) > CY_SCB_EZI2C_EZ_DATA_SIZE))
+    {
+        return CY_SCB_EZI2C_BAD_PARAM;
+    }
+
+    for (uint32_t i = 0UL; i < size; i++)
+    {
+        base->EZ_DATA[offset + i] = (uint32_t)data[i];
+    }
+
+    return CY_SCB_EZI2C_SUCCESS;
 }
 
 

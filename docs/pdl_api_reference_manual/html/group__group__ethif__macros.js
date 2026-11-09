@@ -1,5 +1,6 @@
 var group__group__ethif__macros =
 [
+    [ "RX Error Event Flags", "group__group__ethif__rx__error__events.html", "group__group__ethif__rx__error__events" ],
     [ "CY_ETHIF_DRV_VERSION_MAJOR", "group__group__ethif__macros.html#gad033b17a6739bd1d41d9f4b503efcdec", null ],
     [ "CY_ETHIF_DRV_VERSION_MINOR", "group__group__ethif__macros.html#ga61fef2c907934405965f53f825a8fe0f", null ],
     [ "CY_ETHIF_ID", "group__group__ethif__macros.html#ga9f73739af1b12072d2c6583d506c5f63", null ],

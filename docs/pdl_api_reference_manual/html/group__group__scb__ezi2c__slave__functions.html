@@ -102,6 +102,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5e811e428ecb264dddb284066d6ff956"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__slave__functions.html#ga5e811e428ecb264dddb284066d6ff956">Cy_SCB_EZI2C_Interrupt</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base, <a class="el" href="structcy__stc__scb__ezi2c__context__t.html">cy_stc_scb_ezi2c_context_t</a> *context)</td></tr>
 <tr class="memdesc:ga5e811e428ecb264dddb284066d6ff956"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the interrupt function for the SCB configured in the EZI2C mode.  <a href="#ga5e811e428ecb264dddb284066d6ff956">More...</a><br /></td></tr>
 <tr class="separator:ga5e811e428ecb264dddb284066d6ff956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf41b8352536476850a1444519c8e02a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__slave__functions.html#gaf41b8352536476850a1444519c8e02a9">Cy_SCB_EZI2C_EnableHwEzMode</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base, <a class="el" href="structcy__stc__scb__ezi2c__context__t.html">cy_stc_scb_ezi2c_context_t</a> *context)</td></tr>
+<tr class="memdesc:gaf41b8352536476850a1444519c8e02a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches the EZI2C slave instance into the SCB hardware EZ mode.  <a href="#gaf41b8352536476850a1444519c8e02a9">More...</a><br /></td></tr>
+<tr class="separator:gaf41b8352536476850a1444519c8e02a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77bdf70c7df688fdc3dc388f3b3dbf2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__slave__functions.html#ga77bdf70c7df688fdc3dc388f3b3dbf2a">Cy_SCB_EZI2C_HwEzReadData</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *base, uint32_t offset, uint8_t *data, uint32_t size)</td></tr>
+<tr class="memdesc:ga77bdf70c7df688fdc3dc388f3b3dbf2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a block of data from the SCB hardware EZ mode EZ_DATA dual-port memory.  <a href="#ga77bdf70c7df688fdc3dc388f3b3dbf2a">More...</a><br /></td></tr>
+<tr class="separator:ga77bdf70c7df688fdc3dc388f3b3dbf2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77a4873a00dcf4ee8930d39995c8e14f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__scb__ezi2c__slave__functions.html#ga77a4873a00dcf4ee8930d39995c8e14f">Cy_SCB_EZI2C_HwEzWriteData</a> (<a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *base, uint32_t offset, const uint8_t *data, uint32_t size)</td></tr>
+<tr class="memdesc:ga77a4873a00dcf4ee8930d39995c8e14f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a block of data to the SCB hardware EZ mode EZ_DATA dual-port memory.  <a href="#ga77a4873a00dcf4ee8930d39995c8e14f">More...</a><br /></td></tr>
+<tr class="separator:ga77a4873a00dcf4ee8930d39995c8e14f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga37de7020a41bff6ee0ad54af0a8be36e"></a>
@@ -304,6 +313,153 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="gaf41b8352536476850a1444519c8e02a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf41b8352536476850a1444519c8e02a9">&#9670;&nbsp;</a></span>Cy_SCB_EZI2C_EnableHwEzMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a> Cy_SCB_EZI2C_EnableHwEzMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcy__stc__scb__ezi2c__context__t.html">cy_stc_scb_ezi2c_context_t</a> *&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Switches the EZI2C slave instance into the SCB hardware EZ mode. </p>
+<p>In this mode the SCB hardware services the external master accesses to the EZ_DATA dual-port memory without any firmware intervention or I2C clock stretching, and only the write-completion and error events are reported to the driver.</p>
+<p>This function must be called after <a class="el" href="group__group__scb__ezi2c__general__functions.html#gaafe61aa4c2931975a8698afa46717b97">Cy_SCB_EZI2C_Init</a> and before <a class="el" href="group__group__scb__ezi2c__general__functions.html#gae5c13ff7a89e0a75fbe83bd5dfc4fc95">Cy_SCB_EZI2C_Enable</a>. It is only applicable on devices whose SCB provides the EZ_DATA dual-port memory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the EZI2C SCB instance.</td></tr>
+    <tr><td class="paramname">context</td><td>The pointer to the context structure <a class="el" href="structcy__stc__scb__ezi2c__context__t.html">cy_stc_scb_ezi2c_context_t</a> allocated by the user. The structure is used during the EZI2C operation for internal configuration and data retention. The user must not modify anything in this structure.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the SCB instance does not support hardware EZ mode, this function returns <a class="el" href="group__group__scb__ezi2c__enums.html#ggae75ed91d83e89dd9a13c9a832a138ffbaad50b06788424e406903935ae09ce63c">CY_SCB_EZI2C_BAD_PARAM</a> and the instance stays in the firmware transfer mode. </dd></dl>
+
+</div>
+</div>
+<a id="ga77bdf70c7df688fdc3dc388f3b3dbf2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga77bdf70c7df688fdc3dc388f3b3dbf2a">&#9670;&nbsp;</a></span>Cy_SCB_EZI2C_HwEzReadData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a> Cy_SCB_EZI2C_HwEzReadData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> const *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads a block of data from the SCB hardware EZ mode EZ_DATA dual-port memory. </p>
+<p>This function is only applicable when hardware EZ mode is enabled through <a class="el" href="group__group__scb__ezi2c__slave__functions.html#gaf41b8352536476850a1444519c8e02a9">Cy_SCB_EZI2C_EnableHwEzMode</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the EZI2C SCB instance.</td></tr>
+    <tr><td class="paramname">offset</td><td>The byte offset within the EZ_DATA memory to start reading from.</td></tr>
+    <tr><td class="paramname">data</td><td>The pointer to the buffer that receives the read data.</td></tr>
+    <tr><td class="paramname">size</td><td>The number of bytes to read.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga77a4873a00dcf4ee8930d39995c8e14f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga77a4873a00dcf4ee8930d39995c8e14f">&#9670;&nbsp;</a></span>Cy_SCB_EZI2C_HwEzWriteData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a> Cy_SCB_EZI2C_HwEzWriteData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cy_s_c_b___type.html">CySCB_Type</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes a block of data to the SCB hardware EZ mode EZ_DATA dual-port memory. </p>
+<p>This function is only applicable when hardware EZ mode is enabled through <a class="el" href="group__group__scb__ezi2c__slave__functions.html#gaf41b8352536476850a1444519c8e02a9">Cy_SCB_EZI2C_EnableHwEzMode</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base</td><td>The pointer to the EZI2C SCB instance.</td></tr>
+    <tr><td class="paramname">offset</td><td>The byte offset within the EZ_DATA memory to start writing to.</td></tr>
+    <tr><td class="paramname">data</td><td>The pointer to the buffer that holds the data to write.</td></tr>
+    <tr><td class="paramname">size</td><td>The number of bytes to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__group__scb__ezi2c__enums.html#gae75ed91d83e89dd9a13c9a832a138ffb">cy_en_scb_ezi2c_status_t</a> </dd></dl>
 
 </div>
 </div>

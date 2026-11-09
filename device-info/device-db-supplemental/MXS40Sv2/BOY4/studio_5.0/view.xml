@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<View xmlns="http://cypress.com/xsd/cystudioview_v2">
+  <Parameters>
+    <Param name="PERI0_MMIO0_TARGETS" value="cpuss[0];mxsramc[0];mxsramc[1];mxpromc[0];flashc[0];mxcm33[0];mxipc[0];mxfault[0];srss[0];crypto[0];mxwound[0];debug600[0];svgs[0];mxaes[0]"/>
+    <Param name="PERI0_MMIO1_TARGETS" value="ioss[0];lpcomp[0].comp[0];lpcomp[0].comp[1];tcpwm[0]"/>
+    <Param name="PERI0_MMIO2_TARGETS" value="dft[0];efuse[0]"/>
+    <Param name="PERI0_MMIO3_TARGETS" value="canfd[0].chan[0];canfd[0].chan[1];scb[0];scb[1];scb[2];scb[3];scb[4]"/>
+    <Param name="PERI0_MMIO4_TARGETS" value="ppca[0]"/>
+    <Param name="PERI0_MMIO5_TARGETS" value="scb[5];scb[6]"/>
+  </Parameters>
+  <ExposedParameterKeys>
+    <ExposedParamKey id="PERI0_MMIO0_TARGETS" param_name="PERI0_MMIO0_TARGETS"/>
+    <ExposedParamKey id="PERI0_MMIO1_TARGETS" param_name="PERI0_MMIO1_TARGETS"/>
+    <ExposedParamKey id="PERI0_MMIO2_TARGETS" param_name="PERI0_MMIO2_TARGETS"/>
+    <ExposedParamKey id="PERI0_MMIO3_TARGETS" param_name="PERI0_MMIO3_TARGETS"/>
+    <ExposedParamKey id="PERI0_MMIO4_TARGETS" param_name="PERI0_MMIO4_TARGETS"/>
+    <ExposedParamKey id="PERI0_MMIO5_TARGETS" param_name="PERI0_MMIO5_TARGETS"/>
+  </ExposedParameterKeys>
+  <MpcLocations location="mpc_locations.cydata"/>
+  <Profiles>
+    <Profile displayName="Software" fileName="software" evalPriority="0" displayPriority="10" description="Software configuration" resources="features\[\d+\].*"/>
+    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" evalPriority="1" displayPriority="8" description="Memory configuration" resources="vres\[\d+\]\.memory_region_data\[\d+\].*"/>
+    <Profile diagramType="CLOCKS" displayName="Clocks" fileName="clocks" evalPriority="2" displayPriority="6" description="Clock configuration" resources="srss\[\d+\]\.(clock|rtc)\[\d+\].*|wco\[\d+\].*|exco\[\d+\].*|(cpuss|m33syscpuss|m55appcpuss|m0seccpuss)\[\d+\]\.systick.*"/>
+    <Profile diagramType="CLOCKS" displayName="Clocks" fileName="peripheral_clocks" evalPriority="3" displayPriority="6" description="Peripheral clock divider configuration" resources="peri\[\d+\].+"/>
+    <Profile displayName="System" fileName="system" evalPriority="4" displayPriority="7" description="System configuration" resources="power\[\d+\].*|srss\[\d+\]\.(power|pd|eeprom)\[\d+\].*|(cpuss|m33syscpuss)\[\d+\]\.dap\[\d+\].*|debug600\[\d+\].*"/>
+    <Profile displayName="System" fileName="system" evalPriority="9" displayPriority="7" description="System configuration" resources="vres\[\d+\]\.(security|protection)\[\d+\].*"/>
+    <Profile displayName="System" fileName="system" evalPriority="13" displayPriority="7" description="System configuration" resources=".*\.(cm33|cm55|sau|mpu_s|mpu_ns)\[\d+\]|.*\.mpc\[\d+\]|peri\[\d+\]"/>
+    <Profile displayName="DMA" fileName="dmas" evalPriority="5" displayPriority="9" description="DMA configuration" resources=".*(dw|dmac|axidmac|axi_dmac|mxdw|mxahbdmac)\d?\[\d+\].*"/>
+    <Profile diagramType="PACKAGE" displayName="Pins" fileName="pins" evalPriority="8" displayPriority="4" description="Pin configuration" resources="(ioss|iocl)\[\d+\].*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_wifi" evalPriority="11" displayPriority="5" description="Connectivity Wi-Fi configuration" resources="wifi(\[\d+\]).*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_bt" evalPriority="11" displayPriority="5" description="Connectivity BT configuration" resources="bt(\[\d+\]).*"/>
+    <Profile displayName="Connectivity" fileName="connectivity_coex" evalPriority="11" displayPriority="5" description="Connectivity Coex configuration" resources="coex(\[\d+\]).*"/>
+    <Profile purpose="MEMORY" displayName="Memory" fileName="memory" evalPriority="12" displayPriority="8" description="Memory configuration" resources="vres\[\d+\]\.(reserved_memory_region|memory)\[\d+\].*"/>
+    <Profile displayName="Solutions" fileName="solutions" evalPriority="10" displayPriority="1" description="Solution configuration" resources="vres\[\d+\].*"/>
+    <Profile displayName="Peripherals" fileName="peripherals" evalPriority="7" displayPriority="2" description="Peripheral Hardware Block configuration" resources=".*"/>
+    <Profile purpose="ROUTING" diagramType="ANALOG" displayName="Analog-Routing" fileName="routing" evalPriority="6" displayPriority="3" description="Establishes all necessary connections between hardware elements." resources="NONE">
+      <Includes>
+        <Include value="cy_trigmux.h" public="false"/>
+        <Include value="stdbool.h" public="false"/>
+        <Include value="cy_device_headers.h" public="false"/>
+      </Includes>
+    </Profile>
+  </Profiles>
+  <CustomData location="protection.cydata"/>
+  <CustomData location="protection_regions.cydata"/>
+  <CustomData location="tfm_data.cydata"/>
+</View>

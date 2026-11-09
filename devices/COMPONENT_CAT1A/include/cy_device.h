@@ -334,14 +334,16 @@ void Cy_PDL_Init(const cy_stc_device_t * device);
 #define CY_SRSS_NUM_PLL200M                 (CY_SRSS_NUM_PLL)
 #if defined(SRSS_NUM_PLL400M)
 #define CY_SRSS_NUM_PLL400M                 (SRSS_NUM_PLL400M)
+#define CY_SRSS_PLL400M_PRESENT             (SRSS_NUM_PLL400M)
 #else
-#define CY_SRSS_NUM_PLL400M                 (0)
+/* Some TVIIBE device configurations (for example TVIIBE1M) do not define SRSS_NUM_PLL400M */
+#define CY_SRSS_NUM_PLL400M                 (0UL)
+#define CY_SRSS_PLL400M_PRESENT             (0UL)
 #endif
 #define CY_SRSS_NUM_HFROOT                  (SRSS_NUM_HFROOT)
 #define CY_SRSS_ECO_PRESENT                 (SRSS_ECO_PRESENT)
 #define CY_SRSS_FLL_PRESENT                 (1)
 #define CY_SRSS_PLL_PRESENT                 (SRSS_NUM_PLL)
-#define CY_SRSS_PLL400M_PRESENT             (SRSS_NUM_PLL400M)
 #define CY_SRSS_ALTHF_PRESENT               (SRSS_ALTHF_PRESENT)
 
 #define CY_SRSS_ILO_COUNT                   2

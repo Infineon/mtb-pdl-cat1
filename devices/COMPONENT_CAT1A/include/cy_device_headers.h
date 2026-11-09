@@ -537,6 +537,22 @@
     #include "cyt2b65cas.h"
 #elif defined (CYT2B65CAE)
     #include "cyt2b65cae.h"
+#elif defined (CYT2B62BAS)
+    #include "cyt2b62bas.h"
+#elif defined (CYT2B62BAE)
+    #include "cyt2b62bae.h"
+#elif defined (CYT2B62DAS)
+    #include "cyt2b62das.h"
+#elif defined (CYT2B62DAE)
+    #include "cyt2b62dae.h"
+#elif defined (CYT2B72BAS)
+    #include "cyt2b72bas.h"
+#elif defined (CYT2B72BAE)
+    #include "cyt2b72bae.h"
+#elif defined (CYT2B72DAS)
+    #include "cyt2b72das.h"
+#elif defined (CYT2B72DAE)
+    #include "cyt2b72dae.h"
 #elif defined (XMC5100_F64K576AA)
     #include "xmc5100_f64k576aa.h"
 #elif defined (XMC5100_F100K576AA)

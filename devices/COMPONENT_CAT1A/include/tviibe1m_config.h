@@ -1792,8 +1792,6 @@ typedef PASS_V1_Type PASS_Type;
 /* Number of macros used to implement system ROM. Example: 4 if 512 KB system ROM
    is implemented with 4 128KB macros. */
 #define CPUSS_ROMC_MACRO_NR             1u
-/* Flash memory present or not ('0': no, '1': yes) */
-#define CPUSS_FLASHC_PRESENT            1u
 /* Flash memory type ('0' : SONOS, '1': ECT) */
 #define CPUSS_FLASHC_ECT                1u
 /* Flash main region size in KB */
@@ -3705,8 +3703,6 @@ typedef PASS_V1_Type PASS_Type;
 #define SRSS_NUM_CLKPATH                4u
 /* Number of PLLs present. Must be <= NUM_CLKPATH */
 #define SRSS_NUM_PLL                    1u
-/* Total number of PLLs present. */
-#define SRSS_NUM_TOTAL_PLL              1u
 /* Number of HFCLK roots present. Must be > 0 */
 #define SRSS_NUM_HFROOT                 3u
 /* Number of DSI inputs into clock muxes. This is used for logic optimization. */
@@ -3888,6 +3884,7 @@ typedef PASS_V1_Type PASS_Type;
 /* Protection regions */
 typedef enum
 {
+    PROT_START                      =   0,
     PROT_PERI_MAIN                  =   0,      /* Address 0x40000000, size 0x00002000 */
     PROT_PERI_SECURE                =   1,      /* Address 0x40002000, size 0x00000004 */
     PROT_PERI_GR0_GROUP             =   2,      /* Address 0x40004010, size 0x00000004 */
@@ -4345,7 +4342,8 @@ typedef enum
     PROT_PASS0_SAR2_CH5_CH          = 454,      /* Address 0x40902940, size 0x00000040 */
     PROT_PASS0_SAR2_CH6_CH          = 455,      /* Address 0x40902980, size 0x00000040 */
     PROT_PASS0_SAR2_CH7_CH          = 456,      /* Address 0x409029c0, size 0x00000040 */
-    PROT_PASS0_TOP                  = 457       /* Address 0x409f0000, size 0x00001000 */
+    PROT_PASS0_TOP                  = 457,      /* Address 0x409f0000, size 0x00001000 */
+    PROT_END                        = 457
 } cy_en_prot_region_t;
 
 #endif /* _TVIIBE1M_CONFIG_H_ */

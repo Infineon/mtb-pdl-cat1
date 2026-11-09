@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_gpio.c
-* \version 1.140
+* \version 1.150
 *
 * Provides an API implementation of the GPIO driver
 *
@@ -312,24 +312,18 @@ cy_en_gpio_status_t Cy_GPIO_Port_Init(GPIO_PRT_Type* base, const cy_stc_gpio_prt
         secPort = CY_PRA_IS_PORT_SECURE(base);
         if (secPort)
         {
+            CY_PRA_REG32_SET(CY_PRA_GET_HSIOM_REG_INDEX(base, CY_PRA_SUB_INDEX_HSIOM_PORT0), config->sel0Active);
+            CY_PRA_REG32_SET(CY_PRA_GET_HSIOM_REG_INDEX(base, CY_PRA_SUB_INDEX_HSIOM_PORT1), config->sel1Active);
             CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG), config->cfg);
             CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG_IN), config->cfgIn);
             CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG_OUT), config->cfgOut);
             CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_INTR_CFG), config->intrCfg);
             CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_INTR_MASK), config->intrMask);
             CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_CFG_SIO), config->cfgSIO);
-            CY_PRA_REG32_SET(CY_PRA_GET_HSIOM_REG_INDEX(base, CY_PRA_SUB_INDEX_HSIOM_PORT0), config->sel0Active);
-            CY_PRA_REG32_SET(CY_PRA_GET_HSIOM_REG_INDEX(base, CY_PRA_SUB_INDEX_HSIOM_PORT1), config->sel1Active);
             CY_PRA_REG32_SET(CY_PRA_GET_PORT_REG_INDEX(base, CY_PRA_SUB_INDEX_PORT_OUT), config->out);
         }
         else
         {
-            GPIO_PRT_CFG(base)             = config->cfg;
-            GPIO_PRT_CFG_IN(base)          = config->cfgIn;
-            GPIO_PRT_CFG_OUT(base)         = config->cfgOut;
-            GPIO_PRT_INTR_CFG(base)        = config->intrCfg;
-            GPIO_PRT_INTR_MASK(base)       = config->intrMask;
-            GPIO_PRT_CFG_SIO(base)         = config->cfgSIO;
             /* For 1M device check for secure HSIOM */
 #if defined(CY_DEVICE_PSOC6ABLE2)
             if (CY_PRA_IS_HSIOM_SECURE(base))
@@ -346,17 +340,23 @@ cy_en_gpio_status_t Cy_GPIO_Port_Init(GPIO_PRT_Type* base, const cy_stc_gpio_prt
             HSIOM_PRT_PORT_SEL0(baseHSIOM) = config->sel0Active;
             HSIOM_PRT_PORT_SEL1(baseHSIOM) = config->sel1Active;
 #endif /* defined(CY_DEVICE_PSOC6ABLE2) */
+            GPIO_PRT_CFG(base)             = config->cfg;
+            GPIO_PRT_CFG_IN(base)          = config->cfgIn;
+            GPIO_PRT_CFG_OUT(base)         = config->cfgOut;
+            GPIO_PRT_INTR_CFG(base)        = config->intrCfg;
+            GPIO_PRT_INTR_MASK(base)       = config->intrMask;
+            GPIO_PRT_CFG_SIO(base)         = config->cfgSIO;
             GPIO_PRT_OUT(base)             = config->out;
         }
 #else
+        HSIOM_PRT_PORT_SEL0(baseHSIOM) = config->sel0Active;
+        HSIOM_PRT_PORT_SEL1(baseHSIOM) = config->sel1Active;
         GPIO_PRT_CFG(base)             = config->cfg;
         GPIO_PRT_CFG_IN(base)          = config->cfgIn;
         GPIO_PRT_CFG_OUT(base)         = config->cfgOut;
         GPIO_PRT_INTR_CFG(base)        = config->intrCfg;
         GPIO_PRT_INTR_MASK(base)       = config->intrMask;
         GPIO_PRT_CFG_SIO(base)         = config->cfgSIO;
-        HSIOM_PRT_PORT_SEL0(baseHSIOM) = config->sel0Active;
-        HSIOM_PRT_PORT_SEL1(baseHSIOM) = config->sel1Active;
         GPIO_PRT_OUT(base)             = config->out;
 #if defined (CY_IP_MXS22IOSS)
         GPIO_PRT_CFG_OUT3(base)    = config->cfgOut3;

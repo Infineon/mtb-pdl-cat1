@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_sysclk_v2.c
-* \version 3.180
+* \version 3.190
 *
 * Provides an API implementation of the sysclk driver.
 *
@@ -585,6 +585,8 @@ cy_en_clklf_in_sources_t Cy_SysClk_ClkLfGetSource(void)
 
 #if ((defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 2)) && \
     (defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u)))
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 1, \
+'Separate definitions for different SRSS versions, selected by mutually exclusive conditions. Only one is compiled per device.')
 uint32_t Cy_SysClk_ClkLfGetFrequency(void)
 {
     uint32_t freq = 0UL;
@@ -626,11 +628,14 @@ uint32_t Cy_SysClk_ClkLfGetFrequency(void)
      }
     return (freq);
  }
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
  #endif /* ((defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION == 2)) && \
     (defined (SRSS_HT_VARIANT) && (SRSS_HT_VARIANT == 1u))) */
 
 #if defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (CY_MXS40SSRSS_VER_1_2 > 0UL)) || \
     (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3))
+CY_MISRA_DEVIATE_BLOCK_START('MISRA C-2012 Rule 8.6', 1, \
+'Separate definitions for different SRSS versions, selected by mutually exclusive conditions. Only one is compiled per device.')
 uint32_t Cy_SysClk_ClkLfGetFrequency(void)
 {
     uint32_t freq = 0UL;
@@ -670,6 +675,7 @@ uint32_t Cy_SysClk_ClkLfGetFrequency(void)
      }
     return (freq);
  }
+CY_MISRA_BLOCK_END('MISRA C-2012 Rule 8.6')
 
 
 #if defined (CY_IP_MXS22SRSS) || (defined (CY_IP_MXS40SSRSS) && (CY_MXS40SSRSS_VER_1_2 > 0UL)) || \
@@ -2494,6 +2500,10 @@ uint32_t Cy_SysClk_EcoGetFrequency(void)
 #endif
 }
 
+/* Same availability as the Cy_SysClk_EcoSetFrequency() prototype in cy_sysclk.h: not provided for MXS40SRSS ver2 (TVIIBE) */
+#if (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION < 2)) || \
+    (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) || \
+    (defined (CY_IP_MXS40SSRSS) && (SRSS_ECO_PRESENT == 1UL))
 void Cy_SysClk_EcoSetFrequency(uint32_t freq)
 {
 #if (CY_SRSS_ECO_PRESENT)
@@ -2502,6 +2512,7 @@ void Cy_SysClk_EcoSetFrequency(uint32_t freq)
     ecoFrequency = 0;
 #endif
 }
+#endif /* (defined (CY_IP_MXS40SRSS) && (CY_IP_MXS40SRSS_VERSION >= 3)) || defined (CY_IP_MXS22SRSS) || ... */
 
 cy_en_sysclk_status_t Cy_SysClk_EcoPrescaleConfigure(uint32_t enable, uint32_t int_div, uint32_t frac_div)
 {
@@ -3861,7 +3872,7 @@ uint32_t Cy_SysClk_Pll400MGetFrequency(uint32_t pllNum)
     fDiv    = pllcfg.feedbackDiv;
     rDiv    = pllcfg.referenceDiv;
     oDiv    = pllcfg.outputDiv;
-    fracDiv = pllcfg.fracDiv;
+    fracDiv = (pllcfg.fracEn) ? pllcfg.fracDiv : 0UL;
 
     if (enabled && /* If PLL is enabled and not bypassed */
     (0UL != rDiv) && (0UL != oDiv)) /* to avoid division by zero */

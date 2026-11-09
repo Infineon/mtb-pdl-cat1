@@ -6,6 +6,7 @@ var searchData=
   ['random_20number_20generation_28trng_29',['Random Number Generation(TRNG)',['../group__group__cryptolite__lld__random__number.html',1,'']]],
   ['registers_20constants',['Registers Constants',['../group__group__csd__reg__const.html',1,'']]],
   ['reference_20current_20mode_20functions',['Reference Current Mode Functions',['../group__group__ctb__functions__aref.html',1,'']]],
+  ['rx_20error_20event_20flags',['RX Error Event Flags',['../group__group__ethif__rx__error__events.html',1,'']]],
   ['regulated_20output_20voltage_20level_20_28voh_29_20and_20input_20buffer_20trip_2dpoint_20of_20an_20sio_20pair',['Regulated output voltage level (Voh) and input buffer trip-point of an SIO pair',['../group__group__gpio__sio_voh.html',1,'']]],
   ['runtime_20operations_20functions',['Runtime operations functions',['../group__group__hppass__rt__functions.html',1,'']]],
   ['result_20interrupt_20masks',['Result Interrupt Masks',['../group__group__hppass__sar__result__interrupts.html',1,'']]],

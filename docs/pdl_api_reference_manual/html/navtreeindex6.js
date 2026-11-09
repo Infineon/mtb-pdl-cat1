@@ -249,5 +249,5 @@ var NAVTREEINDEX6 =
 "group__group__ethif.html":[4,14],
 "group__group__ethif__data__structures.html":[4,14,2],
 "group__group__ethif__data__structures.html#ga041ddb84284675252866f018183d623a":[4,14,2,13],
-"group__group__ethif__data__structures.html#ga5fd803e52b06f17344a9f5eba0851adb":[4,14,2,18]
+"group__group__ethif__data__structures.html#ga5fd803e52b06f17344a9f5eba0851adb":[4,14,2,19]
 };

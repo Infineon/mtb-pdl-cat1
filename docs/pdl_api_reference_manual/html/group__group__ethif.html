@@ -121,6 +121,8 @@ Changelog</h1>
 <tr>
 <th>Version</th><th>Changes</th><th>Reason for Change </th></tr>
 <tr>
+<td>1.60 </td><td>Fixed RX buffer exhaustion handling to avoid invalid buffer access. Added <a class="el" href="group__group__ethif__data__structures.html#ga90be72328606b5553ca44e5a080da781">cy_ethif_rx_error_cb_t</a>, RX error event flags, and <a class="el" href="group__group__ethif__functions.html#gaa7fce2182bc978d372c9b7826717aacf">Cy_ETHIF_RxErrorResetAndRecover</a> for RX queue recovery after buffer exhaustion or overrun. </td><td>Defect fix and code enhancement.  </td></tr>
+<tr>
 <td>1.50 </td><td>Added new <a class="el" href="group__group__ethif__functions.html#ga6a622e35658a67697cac053c4d3d4c88">Cy_ETHIF_GetPrivateData</a> API getter. </td><td>Code enhancement.  </td></tr>
 <tr>
 <td>1.40 </td><td>Added initialization checks for <a class="el" href="group__group__ethif__functions.html#gaaabde0080659e71ba9d7e1243e2f74ba">Cy_ETHIF_Get1588TimerValue</a> and <a class="el" href="group__group__ethif__functions.html#gaf9f1633420ffa0945dd20e6a941d1ba2">Cy_ETHIF_Set1588TimerValue</a> functions, added new <a class="el" href="group__group__ethif__enums.html#ga1e715f2408078d1b19a977a3f93d6c23">cy_en_ethif_status_t</a> <a class="el" href="group__group__ethif__enums.html#gga1e715f2408078d1b19a977a3f93d6c23a02d8925dc63d189a9c24427819b235fc">CY_ETHIF_NOT_INITIALIZED</a> return status. </td><td>Defect fix.  </td></tr>

@@ -604,6 +604,7 @@ typedef enum {
 #define CY_IP_MXTCPWM_VERSION_MINOR     0u
 
 #define CY_DEVICE_TVIIBE1M
+#define CY_DEVICE_TVIIBE512K
 #define CY_DEVICE_SERIES_CYT2B6
 #define CY_SILICON_ID                   0xE3522301UL
 #define CY_HF_CLK_MAX_FREQ              80000000UL
@@ -612,7 +613,7 @@ typedef enum {
 
 #include "system_psoc6.h"
 
-#include "tviibe1m_config.h"
+#include "tviibe512k_config.h"
 #include "gpio_tviibe1m_80_lqfp.h"
 
 /*******************************************************************************

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_smif.h
-* \version 2.140.1
+* \version 2.150
 *
 * Provides an API declaration of the Infineon SMIF driver.
 *
@@ -233,6 +233,14 @@
 * \section group_smif_changelog Changelog
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td>2.150</td>
+*     <td>Changed the type of the memSize member of cy_stc_smif_hbmem_device_config_t
+*         from cy_en_device_size_t to uint32_t. Use values from cy_en_device_size_t
+*         to initialize this member.</td>
+*     <td>Fixed the "enumerated type mixed with another type" warning reported by the IAR compiler
+*         for the generated HyperBus memory configuration code.</td>
+*   </tr>
 *   <tr>
 *     <td>2.140.1</td>
 *     <td>Updated driver documentation text.</td>
@@ -667,7 +675,7 @@ extern "C" {
 #define CY_SMIF_DRV_VERSION_MAJOR       2
 
 /** The driver minor version */
-#define CY_SMIF_DRV_VERSION_MINOR       130
+#define CY_SMIF_DRV_VERSION_MINOR       150
 
 /** One microsecond timeout for Cy_SMIF_TimeoutRun() */
 #define CY_SMIF_WAIT_1_UNIT             (1U)

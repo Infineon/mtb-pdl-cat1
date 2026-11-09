@@ -1,5 +1,10 @@
 var NAVTREEINDEX20 =
 {
+"group__group__sar__sample__ctrl__register__enums.html#ggaa4ffb0ad77de3d0bdf85bfbc713218f6a0dd014f3232484624080ff52d418c91e":[4,38,3,1,0,0],
+"group__group__sar__sample__ctrl__register__enums.html#ggaa4ffb0ad77de3d0bdf85bfbc713218f6a8c732f0a5a942878a82fcdbadcea7045":[4,38,3,1,0,1],
+"group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa0f4902d7434267911198f50aa41847d9":[4,38,3,1,3,2],
+"group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa3f789fdae0b0f4e48d67a5089baeace4":[4,38,3,1,3,5],
+"group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa48e1e031e90721d806c21744c44a4790":[4,38,3,1,3,1],
 "group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa51a7182a3b7486d9e05eb4b34ab80b86":[4,38,3,1,3,3],
 "group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfa73a53b80105c99cdf5bb81cb4754612b":[4,38,3,1,3,0],
 "group__group__sar__sample__ctrl__register__enums.html#ggaed912a3edfab12b4ebea94fedf289ecfaaa70184ca2980c495bc5d2cab45b3067":[4,38,3,1,3,4],
@@ -150,6 +155,8 @@ var NAVTREEINDEX20 =
 "group__group__scb__ezi2c__low__power__functions.html#ga0c0f0f4191ec10d04b0b3a8363e7caf4":[4,40,1,1,2,1],
 "group__group__scb__ezi2c__low__power__functions.html#ga5875cdcf148b37407ee8360b79580426":[4,40,1,1,2,0],
 "group__group__scb__ezi2c__macros.html":[4,40,1,0],
+"group__group__scb__ezi2c__macros.html#ga3cdc9f6060f8183ce0631fdd5f23927b":[4,40,1,0,2],
+"group__group__scb__ezi2c__macros.html#ga888cdc94992007bb82d0e363f416b211":[4,40,1,0,3],
 "group__group__scb__ezi2c__macros.html#gaf46cb96031d98174d9154de0d0932f8c":[4,40,1,0,1],
 "group__group__scb__ezi2c__macros__get__activity.html":[4,40,1,0,0],
 "group__group__scb__ezi2c__macros__get__activity.html#ga3f22409e7776d9d7dea6d88f6424020a":[4,40,1,0,0,1],
@@ -162,7 +169,10 @@ var NAVTREEINDEX20 =
 "group__group__scb__ezi2c__slave__functions.html#ga2435d7a2b8e0d069e6ae1f2686e64be8":[4,40,1,1,1,1],
 "group__group__scb__ezi2c__slave__functions.html#ga37de7020a41bff6ee0ad54af0a8be36e":[4,40,1,1,1,0],
 "group__group__scb__ezi2c__slave__functions.html#ga5e811e428ecb264dddb284066d6ff956":[4,40,1,1,1,3],
+"group__group__scb__ezi2c__slave__functions.html#ga77a4873a00dcf4ee8930d39995c8e14f":[4,40,1,1,1,6],
+"group__group__scb__ezi2c__slave__functions.html#ga77bdf70c7df688fdc3dc388f3b3dbf2a":[4,40,1,1,1,5],
 "group__group__scb__ezi2c__slave__functions.html#ga8cd24e8c6c0bb996f6266443e1353f39":[4,40,1,1,1,2],
+"group__group__scb__ezi2c__slave__functions.html#gaf41b8352536476850a1444519c8e02a9":[4,40,1,1,1,4],
 "group__group__scb__i2c.html":[4,40,2],
 "group__group__scb__i2c__data__structures.html":[4,40,2,2],
 "group__group__scb__i2c__data__structures.html#ga5d6df20d77d2690048aaef8fe9e57e2e":[4,40,2,2,3],
@@ -239,15 +249,5 @@ var NAVTREEINDEX20 =
 "group__group__scb__i2c__macros__callback__events.html#gada6c481df3423c3c0d7db05fd626534a":[4,40,2,0,2,3],
 "group__group__scb__i2c__macros__callback__events.html#gae44345d38014821cc5d5c918dd074324":[4,40,2,0,2,4],
 "group__group__scb__i2c__macros__callback__events.html#gae8910e21e4b8d63c7fda07e9ea07cbf4":[4,40,2,0,2,7],
-"group__group__scb__i2c__macros__callback__events.html#gaea716088b093bc6decbdbcb775462466":[4,40,2,0,2,10],
-"group__group__scb__i2c__macros__callback__events.html#gaf02c69c9cef5ecd87100df9d8ec9ea0f":[4,40,2,0,2,11],
-"group__group__scb__i2c__macros__master__status.html":[4,40,2,0,1],
-"group__group__scb__i2c__macros__master__status.html#ga1ce9a39fdccdb63d47aea3cc048ffb90":[4,40,2,0,1,4],
-"group__group__scb__i2c__macros__master__status.html#ga39e4ddb9e5a4b11b74f10ea893bf44c2":[4,40,2,0,1,6],
-"group__group__scb__i2c__macros__master__status.html#ga412fef33336fb22c95f342ccf2485a0a":[4,40,2,0,1,0],
-"group__group__scb__i2c__macros__master__status.html#ga8eeded717a61477c8f06c59c00ef3f59":[4,40,2,0,1,5],
-"group__group__scb__i2c__macros__master__status.html#gaa1bd4bdd1345d842eafe3df3d0ada328":[4,40,2,0,1,3],
-"group__group__scb__i2c__macros__master__status.html#gadcc535a3bcb0f43774492651f562a4d4":[4,40,2,0,1,2],
-"group__group__scb__i2c__macros__master__status.html#gaebe0539afe94d57233a96d9e0b81ab83":[4,40,2,0,1,1],
-"group__group__scb__i2c__macros__slave__status.html":[4,40,2,0,0]
+"group__group__scb__i2c__macros__callback__events.html#gaea716088b093bc6decbdbcb775462466":[4,40,2,0,2,10]
 };

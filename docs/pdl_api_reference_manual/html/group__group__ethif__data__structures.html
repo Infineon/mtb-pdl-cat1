@@ -142,6 +142,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gaee761feb8fa6cd9d2fe73a0dbc8893aa"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ethif__data__structures.html#gaee761feb8fa6cd9d2fe73a0dbc8893aa">cy_ethif_tx_error_cb_t</a>) (<a class="el" href="struct_e_t_h___type.html">ETH_Type</a> *base, uint8_t u8QueueIndex)</td></tr>
 <tr class="memdesc:gaee761feb8fa6cd9d2fe73a0dbc8893aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame transmission Error callback function.  <a href="#gaee761feb8fa6cd9d2fe73a0dbc8893aa">More...</a><br /></td></tr>
 <tr class="separator:gaee761feb8fa6cd9d2fe73a0dbc8893aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90be72328606b5553ca44e5a080da781"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ethif__data__structures.html#ga90be72328606b5553ca44e5a080da781">cy_ethif_rx_error_cb_t</a>) (<a class="el" href="struct_e_t_h___type.html">ETH_Type</a> *base, uint8_t u8QueueIndex, uint32_t a_event)</td></tr>
+<tr class="memdesc:ga90be72328606b5553ca44e5a080da781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive error callback function.  <a href="#ga90be72328606b5553ca44e5a080da781">More...</a><br /></td></tr>
+<tr class="separator:ga90be72328606b5553ca44e5a080da781"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf0b90b877885fca13809d7715d78d631"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__ethif__data__structures.html#gaf0b90b877885fca13809d7715d78d631">cy_ethif_rx_frame_cb_t</a>) (<a class="el" href="struct_e_t_h___type.html">ETH_Type</a> *base, uint8_t *u8RxBuffer, uint32_t u32Length)</td></tr>
 <tr class="memdesc:gaf0b90b877885fca13809d7715d78d631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame received callback function.  <a href="#gaf0b90b877885fca13809d7715d78d631">More...</a><br /></td></tr>
 <tr class="separator:gaf0b90b877885fca13809d7715d78d631"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,6 +202,36 @@ typedef uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
   <table class="params">
     <tr><td class="paramname">base[IN]</td><td>Pointer to register area of Ethernet MAC </td></tr>
     <tr><td class="paramname">u8Queue[IN]</td><td>Queue used for transmitting the frame </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga90be72328606b5553ca44e5a080da781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga90be72328606b5553ca44e5a080da781">&#9670;&nbsp;</a></span>cy_ethif_rx_error_cb_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* cy_ethif_rx_error_cb_t) (<a class="el" href="struct_e_t_h___type.html">ETH_Type</a> *base, uint8_t u8QueueIndex, uint32_t a_event)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receive error callback function. </p>
+<p>Called when RX buffer exhaustion or overrun is detected by the Cadence MAC.</p>
+<p>The application must check the event type before deciding on recovery action. Typical events are:</p><ul>
+<li><a class="el" href="group__group__ethif__rx__error__events.html#ga39bd89f09526e5f04f2ae3a449067d2a">CY_ETHIF_EVENT_RX_USED_READ</a> : A used bit was read in an RX descriptor, indicating buffer exhaustion.</li>
+<li><a class="el" href="group__group__ethif__rx__error__events.html#ga724926abb712368013abba6f7b0b2a6c">CY_ETHIF_EVENT_RX_OVERRUN</a> : The DMA RX buffer overflowed.</li>
+</ul>
+<p>For both of the above events, the recommended recovery is to call <a class="el" href="group__group__ethif__functions.html#gaa7fce2182bc978d372c9b7826717aacf">Cy_ETHIF_RxErrorResetAndRecover</a> to reset the RX queue and re-enable reception.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">base[IN]</td><td>Pointer to register area of Ethernet MAC </td></tr>
+    <tr><td class="paramname">u8QueueIndex[IN]</td><td>Queue number on which the error occurred </td></tr>
+    <tr><td class="paramname">a_event[IN]</td><td>Bitmask of CEDI_EV_RX_* events that triggered the error </td></tr>
   </table>
   </dd>
 </dl>

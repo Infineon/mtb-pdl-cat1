@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file cy_scb_common.h
-* \version 3.60
+* \version 3.70
 *
 * Provides common API declarations of the SCB driver.
 *
@@ -57,6 +57,27 @@
 *******************************************************************************
 * <table class="doxtable">
 *   <tr><th>Version</th><th>Changes</th><th>Reason for Change</th></tr>
+*   <tr>
+*     <td rowspan="2">3.70</td>
+*     <td>Added \ref Cy_SCB_EZI2C_EnableHwEzMode to switch an EZI2C instance into
+*         hardware EZ mode, allowing buffer-less externally-clocked operation
+*         (for example, during Deep Sleep). Added \ref Cy_SCB_EZI2C_HwEzReadData and
+*         \ref Cy_SCB_EZI2C_HwEzWriteData to access the hardware EZ_DATA memory, and
+*         the \ref CY_SCB_EZI2C_EZ_DATA_SIZE and \ref CY_SCB_EZI2C_EZ_MAX_DATA_SIZE
+*         macros.</td>
+*     <td>New feature.</td>
+*   </tr>
+*   <tr>
+*     <td>Fixed an EZI2C Deep Sleep wake-from-sleep defect where a slave configured
+*         with enableWakeFromSleep only enabled EC_AM_MODE, so the data phase was
+*         serviced by CPU-clocked EZ logic and a CPU EZ_DATA read returned 0xFF
+*         (INTR_RX.BLOCKED). The EZI2C block now stays internally clocked in
+*         Active/Sleep, and \ref Cy_SCB_EZI2C_DeepSleepCallback enables EC_OP_MODE,
+*         EZ_MODE, and BLOCK before the Deep Sleep transition and clears them after
+*         wake, so the whole EZ transfer is serviced on the external clock during
+*         Deep Sleep.</td>
+*     <td>Bug fix.</td>
+*   </tr>
 *   <tr>
 *     <td rowspan="2">3.60</td>
 *     <td>Fixed \ref Cy_SCB_I2C_MasterWrite and \ref Cy_SCB_I2C_MasterRead to not enable
@@ -521,7 +542,7 @@ __STATIC_INLINE uint32_t Cy_SCB_Get_TxDataWidth(CySCB_Type const *base);
 #define CY_SCB_DRV_VERSION_MAJOR    (3)
 
 /** Driver minor version */
-#define CY_SCB_DRV_VERSION_MINOR    (60)
+#define CY_SCB_DRV_VERSION_MINOR    (70)
 
 /** SCB driver identifier */
 #define CY_SCB_ID           CY_PDL_DRV_ID(0x2AU)

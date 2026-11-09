@@ -26,6 +26,7 @@ var searchData=
   ['cy_5fephy_5fread_5fhandle',['cy_ephy_read_handle',['../group__group__ephy__data__structures.html#ga9026ac03446eb19032e3d3eaf4cc10a5',1,'cy_ephy.h']]],
   ['cy_5fephy_5fwrite_5fhandle',['cy_ephy_write_handle',['../group__group__ephy__data__structures.html#gae065ec9f5d7028762e4e8fa9660840e5',1,'cy_ephy.h']]],
   ['cy_5fethif_5fbuffpool_5ft',['cy_ethif_buffpool_t',['../group__group__ethif__data__structures.html#ga5fd803e52b06f17344a9f5eba0851adb',1,'cy_ethif.h']]],
+  ['cy_5fethif_5frx_5ferror_5fcb_5ft',['cy_ethif_rx_error_cb_t',['../group__group__ethif__data__structures.html#ga90be72328606b5553ca44e5a080da781',1,'cy_ethif.h']]],
   ['cy_5fethif_5frx_5fframe_5fcb_5ft',['cy_ethif_rx_frame_cb_t',['../group__group__ethif__data__structures.html#gaf0b90b877885fca13809d7715d78d631',1,'cy_ethif.h']]],
   ['cy_5fethif_5frx_5fgetbuffer_5fcb_5ft',['cy_ethif_rx_getbuffer_cb_t',['../group__group__ethif__data__structures.html#gaa3b6e9c653dd7d4993d48ed3f91cd56a',1,'cy_ethif.h']]],
   ['cy_5fethif_5ftsu_5finc_5fcb_5ft',['cy_ethif_tsu_inc_cb_t',['../group__group__ethif__data__structures.html#ga6d1510622190e983c6d1a8af79b4dcfd',1,'cy_ethif.h']]],
